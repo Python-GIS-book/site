@@ -29,7 +29,7 @@ author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 # ones.
 extensions = [
     'sphinx.ext.githubpages',
-    'nbsphinx',
+    'jupyter_sphinx.execute',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -62,4 +62,14 @@ html_static_path = ['_static']
 
 # -- Options for nbsphinx --
 nbsphinx_allow_errors = True
+
+
+# -- Options for Jupyter-Sphinx --
+jupyter_sphinx_thebelab_config = {
+    'requestKernel': True,
+    'binderOptions': {
+        'repo': "binder-examples/requirements",
+    },
+}
+
 
