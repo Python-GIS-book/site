@@ -9,12 +9,12 @@ Welcome to Introduction to Python for Geographic Data Analysis's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :titlesonly:
 
+   front-matter/index
+   part-1/index
+   part-2/index
+   part-3/index
+   appendices/index
+   authors
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
