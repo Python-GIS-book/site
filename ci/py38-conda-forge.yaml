@@ -1,0 +1,22 @@
+name: python-gis
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.8
+  - sphinx
+  - nbsphinx
+  - jupyter_sphinx
+  - jupytext
+  - pandas
+  - geopandas
+  - rtree
+  - matplotlib
+  - SQLalchemy
+  - psycopg2
+  - pip
+  - pip:
+      - git+https://github.com/pandas-dev/pandas-sphinx-theme.git@master
+
+
