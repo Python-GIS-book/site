@@ -50,7 +50,7 @@ html_theme = 'pandas_sphinx_theme'
 
 html_theme_options = {
     "external_links": [],
-    "github_url": "https://github.com/Python-GIS-book",
+    "github_url": "https://github.com/Python-GIS-book/site/",
     "twitter_url": "https://twitter.com/pythongis",
     "google_analytics_id": "UA-159257488-1",
 }
