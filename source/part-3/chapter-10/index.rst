@@ -1,11 +1,12 @@
-Chapter 10: Spatial network analysis
-====================================
+Chapter 10: Change analysis
+===========================
 
-General text about this part.
+This section is under construction.
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Sections:
+..
+    .. toctree::
+        :maxdepth: 1
+        :caption: Sections:
 
-   a-taste-of-python.ipynb
+        a-taste-of-python.ipynb
 

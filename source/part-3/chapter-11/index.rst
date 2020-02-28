@@ -1,11 +1,12 @@
-Chapter 11: Urban planning
-==========================
+Chapter 11: Digital terrain analysis
+====================================
 
-General text about this part.
+This section is under construction.
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Sections:
+..
+    .. toctree::
+        :maxdepth: 1
+        :caption: Sections:
 
-   a-taste-of-python.ipynb
+        a-taste-of-python.ipynb
 

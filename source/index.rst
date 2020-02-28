@@ -3,15 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Introduction to Python for Geographic Data Analysis's documentation!
-===============================================================================
+Introduction to Python for Geographic Data Analysis
+===================================================
+
+Welcome!
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
    :titlesonly:
+   :hidden:
 
-..
    front-matter/index
    part-1/index
    part-2/index

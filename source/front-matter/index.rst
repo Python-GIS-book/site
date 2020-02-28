@@ -1,12 +1,15 @@
 Front matter
 ============
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+This section is under construction.
 
-   preface
-   introduction
-   getting-started
-   using-this-book
+..
+    .. toctree::
+        :maxdepth: 2
+        :caption: Contents:
+
+        preface
+        introduction
+        getting-started
+        using-this-book
 
