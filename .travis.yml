@@ -4,6 +4,23 @@ matrix:
   include:
     - env: ENV_FILE="ci/py38-conda-forge.yaml"
 
+install:
+  # Install conda
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update conda
+  - conda info
+
+  # free channel needed for older envs (< py37), see
+  # https://github.com/conda/conda/issues/8849
+  - conda config --set restore_free_channel true
+
+  # Install dependencies
+  - conda env create --file="${ENV_FILE}"
+  - source activate python-gis
+
 script: make pages
 
 after_success: ./push.sh
