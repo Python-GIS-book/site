@@ -14,6 +14,15 @@ help:
 
 .PHONY: help Makefile
 
+.PHONY: pages
+pages:
+	@echo
+	@echo "Building pages with Jupyter-Sphinx."
+	@echo "-----------------------------------"
+	python ./$(SOURCEDIR)/page_builder.py
+	make html
+
+
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
