@@ -8,8 +8,6 @@ _dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def get_notebooks():
     notebooks = [f for f in glob.glob(os.path.join(_dir_path, "**", "*.ipynb",), recursive=True)]
-    if len(notebooks) == 0:
-        raise ValueError("Could not find any notebooks.")
     return notebooks
 
 
@@ -25,7 +23,7 @@ def convert_notebooks_to_jupyter_sphinx_rst(notebook_list):
     for nb in notebook_list:
         cmd = ["jupyter", "nbconvert", "--ClearOutputPreprocessor.enabled=True",
                nb, "--to", "rst"]
-        print(cmd)
+        print(f"Processing {os.path.basename(nb)} ..")
         subprocess.run(cmd)
 
         # Read rst file and convert (allow Exceptions)
@@ -45,7 +43,10 @@ def convert_notebooks_to_jupyter_sphinx_rst(notebook_list):
             for line in converted_lines:
                 rst.write(line)
 
-notebooks = get_notebooks()
-convert_notebooks_to_jupyter_sphinx_rst(notebooks)
+if __name__ == "__main__":
+
+    notebooks = get_notebooks()
+    if len(notebooks) > 0:
+        convert_notebooks_to_jupyter_sphinx_rst(notebooks)
 
 
