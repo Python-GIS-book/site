@@ -11,6 +11,7 @@ Welcome to Introduction to Python for Geographic Data Analysis's documentation!
    :caption: Contents:
    :titlesonly:
 
+..
    front-matter/index
    part-1/index
    part-2/index
