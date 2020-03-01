@@ -48,5 +48,3 @@ if __name__ == "__main__":
     notebooks = get_notebooks()
     if len(notebooks) > 0:
         convert_notebooks_to_jupyter_sphinx_rst(notebooks)
-
-
