@@ -1,14 +1,88 @@
-.. Introduction to Python for Geographic Data Analysis documentation master file, created by
-   sphinx-quickstart on Thu Feb 27 10:47:31 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Introduction to Python for Geographic Data Analysis
 ===================================================
+**Henrikki Tenkanen, Vuokko Heikinheimo & David Whipp**
 
-In this book, we introduce the basics of Python programming and geographic data analysis for all "geo-minded" people (geographers, geologists and others using spatial data). We introduce topics assuming readers may not have any past programming experience.
+.. image:: https://travis-ci.org/Python-GIS-book/site.svg?branch=develop
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.org/Python-GIS-book/site
 
-Introduction to Python for Geographic Data Analysis will be available openly online at `pythongis.net <https://pythongis.net>`_. Physical copies of the book will be available later from CRC press.
+|
+This is an online version of a book *"Introduction to Python for Geographic Data Analysis"*, in which we introduce the basics of Python programming and geographic data analysis for all "geo-minded" people (geographers, geologists and others using spatial data). A physical copy of the book will be published later by CRC Press (Taylor & Francis Group). The contents of the book will be developed and shared freely online at `pythongis.org <https://pythongis.org>`_ licensed under Creative Commons 4.0.
+
+The book consists of 4 parts:
+
+.. raw:: html
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 d-flex">
+                <div class="card text-center intro-card shadow">
+                <img src="_static/python-essentials.svg" class="card-img-top" alt="getting started with pandas action icon" height="80">
+                <div class="card-body flex-fill">
+                    <h5 class="card-title">Python essentials</h5>
+                    <p class="card-text">New to <str>Python</str>? The Python essentials part will teach
+                    you the fundamental concepts of programming using Python. No previous experience required!</p>
+
+.. container:: custom-button
+
+    `To Part I - Python essentials <part1/index.html>`_
+
+.. raw:: html
+
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 d-flex">
+                <div class="card text-center intro-card shadow">
+                <img src="_static/gis-intro.svg" class="card-img-top" alt="pandas user guide action icon" height="80">
+                <div class="card-body flex-fill">
+                    <h5 class="card-title">Introduction to GIS with Python</h5>
+                    <p class="card-text">This part provides essential building blocks for processing, analyzing and visualizing geographic data using open source Python packages.</p>
+
+.. container:: custom-button
+
+    `To Part II - Introduction to GIS <part2/index.html>`__
+
+.. raw:: html
+
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 d-flex">
+                <div class="card text-center intro-card shadow">
+                <img src="_static/gis-applications.svg" class="card-img-top" alt="api of pandas action icon" height="80">
+                <div class="card-body flex-fill">
+                    <h5 class="card-title">Geographic data analysis applications</h5>
+                    <p class="card-text">This part of the book will introduce several real-world examples of how to apply geographic data analysis in Python. It assumes that you understand the key concepts presented in previous parts.</p>
+
+.. container:: custom-button
+
+    `To Part III - Geographic data analysis applications <part3/index.html>`__
+
+.. raw:: html
+
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 d-flex">
+                <div class="card text-center intro-card shadow">
+                <img src="_static/appendices.svg" class="card-img-top" alt="contribute to pandas action icon" height="80">
+                <div class="card-body flex-fill">
+                    <h5 class="card-title">Appendices: Working efficiently with Python</h5>
+                    <p class="card-text">The appendices include information for working efficiently with Python: how to develop software with git, how to write and use Python script files, and tips for testing and debugging code.</p>
+
+.. container:: custom-button
+
+    `To Appendices - Working efficiently with Python <appendices/index.html>`__
+
+.. raw:: html
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 .. toctree::
    :maxdepth: 2
@@ -16,10 +90,5 @@ Introduction to Python for Geographic Data Analysis will be available openly onl
    :titlesonly:
    :hidden:
 
-   front-matter/index
-   part-1/index
-   part-2/index
-   part-3/index
-   appendices/index
    authors
 
