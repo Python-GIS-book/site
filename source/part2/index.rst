@@ -1,5 +1,5 @@
-Part 2: Interacting with geographic data
-========================================
+Part 2: Introduction to GIS in Python
+=====================================
 
 This part of the book will introduce procedures for interacting with geographic data using Python.
 

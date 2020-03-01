@@ -1,5 +1,5 @@
-Part 3: Applications of geographic data analysis
-================================================
+Part 3: Geographic data analysis applications
+=============================================
 
 This part of the book will introduce several real-world examples of how to apply geographic data analysis in Python.
 

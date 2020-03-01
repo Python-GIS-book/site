@@ -1,7 +1,7 @@
 Appendices
 ==========
 
-The appendices will include information about how to develop software with git, how to write and use Python script files, and tips for testing and debugging code.
+The appendices include information for working efficiently with Python: how to develop software with git, how to write and use Python script files, and tips for testing and debugging code.
 
 Tentative appendix titles
 -------------------------
