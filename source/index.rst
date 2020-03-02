@@ -20,8 +20,7 @@ The book consists of 4 parts:
                 <img src="_static/python-essentials.svg" class="card-img-top" alt="getting started with pandas action icon" height="80">
                 <div class="card-body flex-fill">
                     <h5 class="card-title">Part 1: Python essentials</h5>
-                    <p class="card-text">New to <str>Python</str>? The Python essentials part will teach
-                    you the fundamental concepts of programming using Python. No previous experience required!</p>
+                    <p class="card-text">New to <str>Python</str>? This part will teach you the fundamental concepts of programming using Python. No previous experience required!</p>
 
 .. container:: custom-button
 
