@@ -28,6 +28,8 @@ author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.githubpages',
+    'jupyter_sphinx.execute',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -44,9 +46,41 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'pandas_sphinx_theme'
+
+html_theme_options = {
+    "external_links": [],
+    "github_url": "https://github.com/Python-GIS-book/site/",
+    "twitter_url": "https://twitter.com/pythongis",
+    "google_analytics_id": "UA-159257488-1",
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# -- Options for nbsphinx --
+nbsphinx_allow_errors = True
+
+
+# -- Options for Jupyter-Sphinx --
+jupyter_sphinx_thebelab_config = {
+    'requestKernel': True,
+    'binderOptions': {
+        'repo': "binder-examples/requirements",
+    },
+}
+
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
+html_static_path = ["_static"]
+
+html_css_files = [
+    "css/pythongis.css",
+]
+
+# The name of an image file (relative to this directory) to place at the top
+# of the sidebar.
+html_logo = "_static/pythongis-logo.png"
