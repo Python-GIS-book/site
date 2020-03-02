@@ -83,4 +83,4 @@ html_css_files = [
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = "_static\python-gis-test-icon.svg"
+html_logo = "_static/pythongis-logo.png"
