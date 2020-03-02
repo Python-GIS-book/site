@@ -19,13 +19,13 @@ The book consists of 4 parts:
                 <div class="card text-center intro-card shadow">
                 <img src="_static/python-essentials.svg" class="card-img-top" alt="getting started with pandas action icon" height="80">
                 <div class="card-body flex-fill">
-                    <h5 class="card-title">Python essentials</h5>
+                    <h5 class="card-title">Part 1: Python essentials</h5>
                     <p class="card-text">New to <str>Python</str>? The Python essentials part will teach
                     you the fundamental concepts of programming using Python. No previous experience required!</p>
 
 .. container:: custom-button
 
-    `To Part I - Python essentials <part1/index.html>`_
+    `Explore Part I <part1/index.html>`_
 
 .. raw:: html
 
@@ -36,12 +36,12 @@ The book consists of 4 parts:
                 <div class="card text-center intro-card shadow">
                 <img src="_static/gis-intro.svg" class="card-img-top" alt="pandas user guide action icon" height="80">
                 <div class="card-body flex-fill">
-                    <h5 class="card-title">Introduction to GIS with Python</h5>
+                    <h5 class="card-title">Part 2: Introduction to GIS with Python</h5>
                     <p class="card-text">This part provides essential building blocks for processing, analyzing and visualizing geographic data using open source Python packages.</p>
 
 .. container:: custom-button
 
-    `To Part II - Introduction to GIS <part2/index.html>`__
+    `Explore Part 2 <part2/index.html>`__
 
 .. raw:: html
 
@@ -52,12 +52,12 @@ The book consists of 4 parts:
                 <div class="card text-center intro-card shadow">
                 <img src="_static/gis-applications.svg" class="card-img-top" alt="api of pandas action icon" height="80">
                 <div class="card-body flex-fill">
-                    <h5 class="card-title">Geographic data analysis applications</h5>
+                    <h5 class="card-title">Part 3: Geographic data analysis applications</h5>
                     <p class="card-text">This part of the book will introduce several real-world examples of how to apply geographic data analysis in Python. It assumes that you understand the key concepts presented in previous parts.</p>
 
 .. container:: custom-button
 
-    `To Part III - Geographic data analysis applications <part3/index.html>`__
+    `Explore Part 3 <part3/index.html>`__
 
 .. raw:: html
 
@@ -73,7 +73,7 @@ The book consists of 4 parts:
 
 .. container:: custom-button
 
-    `To Appendices - Working efficiently with Python <appendices/index.html>`__
+    `Explore the Appendices <appendices/index.html>`__
 
 .. raw:: html
 
