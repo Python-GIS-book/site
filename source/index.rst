@@ -6,6 +6,10 @@ Introduction to Python for Geographic Data Analysis
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/Python-GIS-book/site
 
+.. image:: https://badges.gitter.im/Python-for-Geographic-Data-Analysis/book/community.svg
+    :alt: Chat on Gitter
+    :target: https://gitter.im/Python-for-Geographic-Data-Analysis/book
+
 |
 This is an online version of the book *"Introduction to Python for Geographic Data Analysis"*, in which we introduce the basics of Python programming and geographic data analysis for all "geo-minded" people (geographers, geologists and others using spatial data). A physical copy of the book will be published later by CRC Press (Taylor & Francis Group). The contents of the book will be developed and shared freely online at `pythongis.org <https://pythongis.org>`_ licensed under Creative Commons 4.0.
 
