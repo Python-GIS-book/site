@@ -15,7 +15,6 @@ dependencies:
   - matplotlib
   - SQLalchemy
   - psycopg2
-  - pip
   - pydata-sphinx-theme
 
 
