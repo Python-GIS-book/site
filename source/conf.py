@@ -29,7 +29,7 @@ author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 # ones.
 extensions = [
     'sphinx.ext.githubpages',
-    'jupyter_sphinx.execute',
+    #'jupyter_sphinx.execute',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -46,13 +46,19 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'pydata_sphinx_theme'
+html_theme = 'sphinx_book_theme'
 
 html_theme_options = {
-    "external_links": [],
-    "github_url": "https://github.com/Python-GIS-book/site/",
-    "twitter_url": "https://twitter.com/pythongis",
-    "google_analytics_id": "UA-159257488-1",
+    #"external_links": [],
+    "repository_url": "https://github.com/Python-GIS-book/site/",
+    #"twitter_url": "https://twitter.com/pythongis",
+    #"google_analytics_id": "UA-159257488-1",
+    "use_edit_page_button": True,
+    "launch_buttons": {
+        "binderhub_url": "https://mybinder.org/v2/gh/Python-GIS-book/site/master",
+        "thebelab": True,
+        "notebook_interface": "jupyterlab",
+    },
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -65,12 +71,12 @@ nbsphinx_allow_errors = True
 
 
 # -- Options for Jupyter-Sphinx --
-jupyter_sphinx_thebelab_config = {
-    'requestKernel': True,
-    'binderOptions': {
-        'repo': "binder-examples/requirements",
-    },
-}
+# jupyter_sphinx_thebelab_config = {
+#     'requestKernel': True,
+#     'binderOptions': {
+#         'repo': "binder-examples/requirements",
+#     },
+# }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
