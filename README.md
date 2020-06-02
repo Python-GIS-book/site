@@ -1,3 +1,2 @@
-# Introduction to Spatial Analytics
-
-Demo site for Introduction to Spatial Analytics -course.
+# site
+Website for the Introduction to Python for Geographic Data Analysis textbook
