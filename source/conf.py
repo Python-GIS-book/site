@@ -84,3 +84,7 @@ html_css_files = [
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
 html_logo = "_static/pythongis-logo.png"
+
+# Add specification for master-doc
+# Relates to RTD issue: https://github.com/readthedocs/readthedocs.org/issues/2569
+master_doc = 'index'
