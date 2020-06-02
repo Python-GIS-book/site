@@ -1,0 +1,7 @@
+jupyter-book>=0.7.0b
+sphinx
+matplotlib
+ipython
+jupyter-sphinx
+nbsphinx
+git+https://github.com/pandas-dev/pydata-sphinx-theme.git@master
