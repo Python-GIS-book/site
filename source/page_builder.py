@@ -19,6 +19,24 @@ def convert_notebooks_to_rst(notebook_list):
         subprocess.run(cmd)
 
 
+def add_hypothesis_block(writer):
+    codes = ['\n\n.. raw:: html\n',
+             '    <script src="https://hypothes.is/embed.js" async> </script>',
+             '\n'
+             ]
+    for line in codes:
+        writer.write(line)
+
+
+def add_binder_block(writer, notebook_relative_path):
+    codes = ["\n.. image:: https://mybinder.org/badge_logo.svg\n",
+             f"    :target: https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/{notebook_relative_path}",
+             "\n\n"
+             ]
+    for line in codes:
+        writer.write(line)
+
+
 def convert_notebooks_to_jupyter_sphinx_rst(notebook_list):
     for nb in notebook_list:
         cmd = ["jupyter", "nbconvert", "--ClearOutputPreprocessor.enabled=True",
