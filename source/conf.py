@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'online'
+project = 'Introduction to Python for Geographic Data Analysis'
 copyright = '2020, Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 
@@ -65,6 +65,9 @@ html_theme_options = {
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# Hide title in left navbar
+html_title = ''
 
 # -- Options for nbsphinx --
 nbsphinx_allow_errors = True
