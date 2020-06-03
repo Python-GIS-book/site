@@ -39,7 +39,7 @@ Once you have written materials, and you want to see the results **live**, you c
 
 ### To upload the contents to GitHub:
 
-Once you are happy with the contents, you can upload the contents to GitHub into the `develop` branch (or any other branch you have created).
+Once you are happy with the contents, you can upload the contents to GitHub into the `<chapter>` branch (see docs about our [branching workflow below](#ask-for-a-review-by-making-a-pull-request)).
 The materials should be uploaded in **markdown format**. We use Jupytext to convert the notebooks to markdown (and back). 
 For making this process as easy as possible, we have a custom command that does all this work for us:
 
