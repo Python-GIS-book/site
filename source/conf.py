@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = ''
+project = 'online'
 copyright = '2020, Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 
