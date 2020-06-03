@@ -2,7 +2,7 @@
 
 ## Objectives
 
-By using the approaches described in this document we aim that the producing the materials would:
+By using the approaches described in this document we aim that producing the materials would:
 
  1. **be easy**
  2. allow us to benefit from all the latest developments in online education (e.g. the features developed by `executablebooks` -project)
