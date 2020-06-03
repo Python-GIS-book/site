@@ -2,9 +2,9 @@ Introduction to Python for Geographic Data Analysis
 ===================================================
 **Henrikki Tenkanen, Vuokko Heikinheimo & David Whipp**
 
-.. image:: https://travis-ci.org/Python-GIS-book/site.svg?branch=develop
-    :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/Python-GIS-book/site
+.. image:: https://readthedocs.org/projects/python-gis-book/badge/?version=latest
+    :target: https://python-gis-book.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 .. image:: https://badges.gitter.im/Python-for-Geographic-Data-Analysis/book/community.svg
     :alt: Chat on Gitter
