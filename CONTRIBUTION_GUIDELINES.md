@@ -16,7 +16,7 @@ To achieve the goals specified above, we will use following technologies:
  1. Jupyter Book / sphinx-book-theme: allows us to make the learning experience better e.g. with interactive functionalities
  2. Jupyter Notebooks using [MyST markdown syntax](https://jupyterbook.org/content/myst.html) allowing us to use Sphinx directives and control the page layout 
  3. [Jupytext](https://github.com/mwouts/jupytext) - Converts the notebooks into markdown and **allows us to better use GitHub diff functionalities**
-    - *We should always commit the files into GitHub in Markdown/Jupytext format!* : There is a custom `make upload` command for this.
+    - *We should always commit the files into GitHub in Markdown/Jupytext format!* : There is a custom `make upload <target_branch>` command for this.
 
 ## Pipeline - How to create content?
 
