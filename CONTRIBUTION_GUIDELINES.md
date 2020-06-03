@@ -72,3 +72,23 @@ Once everything seems to be okay, some of the maintainers will accept the review
 The master branch is facing the "outside" world. Hence, it is reserved for contents that are in a "publishable state". Once we
 think that we want to publish the materials (e.g. for asking comments from "public"), we certainly can do that. But by default,
 master is to be used only when we want to publish something, and send materials to "production".  
+
+## How to?
+
+### Add a citation
+
+For adding citations, we take advantage of [sphinx-bibtex](https://sphinxcontrib-bibtex.readthedocs.io/en/latest/usage.html) extension for Sphinx.
+There is a specific syntax for adding these using MyST markdown syntax ([see full docs here](https://jupyterbook.org/content/citations.html)).
+
+The basic workflow:
+
+ 1. Add references to `references.bib` file that should be located on the same directory where you Notebook is located.
+    - Hint: to add a reference to this file from Mendeley is easy by right clicking the document in Mendeley list and choosing 
+    `Copy As --> BibTex Entry`. This is then copied to clipboard, and you can paste it into the `references.bib`.  
+    
+ 2. Add a reference to the markdown cell with ```{cite}`myReference2020` ```
+    - This name should match with the entry name that you added to `references.bib`
+
+ 3. When you want to add the bibliography, you should add ```{bibliography} path/to/references.bib ``` 
+ to the location where you want to add the reference list (e.g. at the end of each Chapter). 
+ 
