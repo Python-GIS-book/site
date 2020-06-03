@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Introduction to Python for Geographic Data Analysis'
+project = ''
 copyright = '2020, Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 
