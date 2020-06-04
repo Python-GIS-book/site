@@ -28,8 +28,7 @@ author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.githubpages',
-    #'jupyter_sphinx.execute',
+    "myst_nb",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
