@@ -15,8 +15,9 @@ To achieve the goals specified above, we will use following technologies:
 
  1. Jupyter Book / sphinx-book-theme: allows us to make the learning experience better e.g. with interactive functionalities
  2. Jupyter Notebooks using [MyST markdown syntax](https://jupyterbook.org/content/myst.html) allowing us to use Sphinx directives and control the page layout 
- 3. [Jupytext](https://github.com/mwouts/jupytext) - Converts the notebooks into markdown and **allows us to better use GitHub diff functionalities**
-    - *We should always commit the files into GitHub in Markdown/Jupytext format!* : There is a custom `make upload <target_branch>` command for this.
+ 3. [Jupytext](https://github.com/mwouts/jupytext) - Syncs the notebooks with markdown version of the same file **allowing us to better use GitHub diff functionalities**
+ 4. [MyST_NB](https://myst-nb.readthedocs.io/en/latest/) - Converts the notebooks into RST files that are rendered by Sphinx. 
+ 
 
 ## Pipeline - How to create content?
 
@@ -26,29 +27,22 @@ The materials for the book are organized under different chapters.
  
  1. Add your Jupyter notebook under the folder where your content belongs
  2. Name your file in an intuitive manner, and include chapter numbering, e.g. `2-1_intro-to-data-analysis-with-pandas.ipynb`
- 3. Write contents into this notebook as you would do normally. Remember to use [MyST markdown syntax](https://jupyterbook.org/content/myst.html) for enriching the contents with Jupyter Book functionalities.
+ 3. Sync / pair your notebook with MyST Markdown (see [details and how to do it here](#sync-jupyter-notebook-with-myst_markdown)) 
+ 4. Write contents into this notebook as you would do normally. Remember to use [MyST markdown syntax](https://jupyterbook.org/content/myst.html) for enriching the contents with Jupyter Book functionalities.
+ 5. Push the files / changes to the branch you are working on (e.g. `chapter_1` branch)
+    - Remember to push both the Jupyter Notebook and the paired Markdown version of the file
 
 ### To build local version of the docs:
 
 Once you have written materials, and you want to see the results **live**, you can build and see the local version of the documentation by:
 
- 1. Build the docs with `$ make html` (with sphinx-book-theme) or `$ jb build /source`
- 2. You can see the docs under `_build/html` directory
-    - with `sphinx-book-theme` this directory is located in the root of the project
-    -  with `Jupyter Book` this directory is located in the `source` directory. 
-
+ 1. Build the docs with `$ make html` (with sphinx-book-theme) 
+ 2. You can see the docs under `_build/html` directory located in the root of the project
+    
 ### To upload the contents to GitHub:
 
-Once you are happy with the contents, you can upload the contents to GitHub into the `<chapter>` branch (see docs about our [branching workflow below](#ask-for-a-review-by-making-a-pull-request)).
-The materials should be uploaded in **markdown format**. We use Jupytext to convert the notebooks to markdown (and back). 
-For making this process as easy as possible, we have a custom command that does all this work for us:
-
-To push your changes to branch `chapter2`, execute: 
-
- - `$ make upload chapter2`
- 
-The `chapter` branch can be also any other name. If a branch with given name does not exist, 
-it will be created before uploading the materials.
+Once you are happy with the contents, you can upload the contents (both Notebook and Markdown version) to GitHub into the `<chapter>` branch 
+(see docs about our [branching workflow below](#ask-for-a-review-by-making-a-pull-request)).
  
 **NOTE**: Pushing to `master` branch directly is not allowed (it is restricted), hence when you want to add something to master, you need to do it
  via Pull Request (PR).  
@@ -75,6 +69,22 @@ master is to be used only when we want to publish something, and send materials 
 
 ## How to?
 
+### Sync Jupyter Notebook with MyST_Markdown
+
+To be able to use GitHub's `diff` functionalities e.g. when doing a review of the materials that some of us has developed, 
+it is "necessary" to have a Markdown version of the notebook. *Showing differences between notebooks in GitHub is a mess because 
+the notebooks are essentially JSON files containing lots of metadata etc. which makes it hard to see the differences in the 
+actual contents that we are interested in.*
+
+To make a ST_Markdown **paired version** of the notebook in Jupyterlab, choose the `Commands` tab from the left panel, and 
+write `Jupytext` to the search box which will show you an option to `Pair Notebook with MyST Markdown`:
+![Pairing notebook with MyST Markdown](img/Jupytext_pairing_in_JupyterLab.PNG)  
+
+After you have activated the *pairing*, you will always have an identical copy of the Notebook in the same directory 
+as a Markdown file. **NOTE**: The files are **really** synced, hence if you make a change to the Markdown version of the notebook
+and save it, those changes will be automatically reflected to the Notebook as well (and vice versa). If you don't see the changes
+in the Notebook in Jupyterlab, you might need to refresh the page (F5).  
+
 ### Add a citation
 
 For adding citations, we take advantage of [sphinx-bibtex](https://sphinxcontrib-bibtex.readthedocs.io/en/latest/usage.html) extension for Sphinx.
@@ -92,3 +102,12 @@ The basic workflow:
  3. When you want to add the bibliography, you should add ```{bibliography} path/to/references.bib ``` 
  to the location where you want to add the reference list (e.g. at the end of each Chapter). 
  
+### Allow an error to happen in code blocks?
+
+Introducing errors in the code is quite typical when teaching. Writing contents that raise errors is straightforward, **however**,
+when you want to **build** the website having errors you most probably end up having a build error when executing `make html`. 
+To avoid this, it is necessary to add **a cell tag** `raises-exception` to those cells with errors that you want to include into the final documentation. 
+
+To get information how to add a cell-tag, follow [these instructions](https://github.com/jupyterlab/jupyterlab-toc/issues/87).
+
+
