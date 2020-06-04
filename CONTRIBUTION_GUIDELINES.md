@@ -1,5 +1,18 @@
 # How to develop contents to this book project? - Guidelines
 
+**Contents**
+
+ - [Objectives](#objectives)
+ - [Technologies used](#technologies-used)
+ - [How to create content?](##pipeline---how-to-create-content)
+ - [Build local version of the docs](#to-build-local-version-of-the-docs)
+ - [Upload contents to Github](#to-upload-the-contents-to-github)
+ - [Ask for a review by making PR](#ask-for-a-review-by-making-a-pull-request)
+ - **How to?**
+    - [Sync Notebook with MyST Markdown](#sync-jupyter-notebook-with-myst_markdown)
+    - [Add a citation](#add-a-citation)
+    - [Allow errors to be included in the docs](#allow-an-error-to-happen-in-code-blocks)
+
 ## Objectives
 
 By using the approaches described in this document we aim that producing the materials would:
