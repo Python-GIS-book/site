@@ -14,7 +14,13 @@ Text formatting conventions (commands/code in `monospace`, etc.)
 ### Glossary term
 
 Important terms should be included in italics using the glossary.
-Glossary terms can be added with the format `*{term}`Glossary term`*`, where "Glossary term" is the item listed in the glossary at `back-matter/glossary.md`.
+Glossary terms can be added with the format
+
+```
+*{term}`Glossary term`*
+```
+
+, where "Glossary term" is the item listed in the glossary at `back-matter/glossary.md`.
 
 References
 
