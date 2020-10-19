@@ -1,4 +1,4 @@
-name: python-gis
+name: python-gis-book
 
 channels:
   - conda-forge
@@ -6,13 +6,16 @@ channels:
 dependencies:
   - python=3.8
   - sphinx=3.2.1
-  - jupyter-book>=0.7.0b
-  - sphinx-book-theme
   - matplotlib
   - ipython
   - jupyter-sphinx
   - nbsphinx
   - myst-nb
-  - git+https://github.com/pandas-dev/pydata-sphinx-theme.git@master
+  - sphinx-book-theme
+  - pip
+  - pip:
+    - git+https://github.com/pandas-dev/pydata-sphinx-theme.git@master
+    - jupyter-book
+
 
 
