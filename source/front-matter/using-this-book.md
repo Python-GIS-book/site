@@ -20,18 +20,16 @@ URLs use footnotes[^url1]
 - Code blocks
 - Admonitions (let's not use more than 2-3, if possible)
 
-```{hint}
+```{note}
 This is a hint. It expands on the main text or indicates additional information not included in the main text. Additional reference material or differences from past topics, for example.
+```
 
-Hints can also be used as reminders.
+```{tip}
+This is a tip. Tips should be used for helpful reminders or suggested use cases.
 ```
 
 ```{warning}
 This is a warning. This is text that warns of potential for problems if it is ignored. This could be used to indicate unexpected behavior, such as needing to create copies of dataframes to avoid modifying source dataframes.
-```
-
-```{admonition} Check your understanding
-This is a block intended for questions/examples to ensure readers understand the main topic in the chapter(s).
 ```
 
 ## Footnotes
