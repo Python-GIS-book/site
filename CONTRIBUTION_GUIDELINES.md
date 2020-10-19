@@ -157,4 +157,6 @@ $ makeindex introductiontopythonforgeographicdataanalysis.idx
 # Update the pdf accordingly
 $ pdflatex introductiontopythonforgeographicdataanalysis.tex
 ```
- 
+
+After these steps, you can check the resulting PDF named `introductiontopythonforgeographicdataanalysis.pdf` 
+that should be in the `latex` -directory.
