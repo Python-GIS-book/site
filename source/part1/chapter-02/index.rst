@@ -8,5 +8,7 @@ This section is under construction.
         :maxdepth: 1
         :caption: Sections:
 
-        a-taste-of-python.ipynb
+        pandas-introduction.rst
+        exploring-data-using-pandas.ipynb
+        processing-data-with-pandas.ipynb
 
