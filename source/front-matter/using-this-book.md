@@ -11,11 +11,21 @@ Heading level 4 should be used for "Check your understanding" sub-sections.
 
 Text formatting conventions (commands/code in `monospace`, etc.)
 
-Terms (with glossary links) in *italics*?
+### Glossary term
+
+Important terms should be included in italics using the glossary.
+Glossary terms can be added with the format `*{term}`Glossary term`*`, where "Glossary term" is the item listed in the glossary at `back-matter/glossary.md`.
 
 References
 
-URLs use footnotes[^url1]
+URLs should use footnotes such as[^url1].
+Footnotes are formatted as `[^footnote]` when placed in the text.
+They are enclosed in square brackets and start with the `^` character.
+At the end of the document, the footnote definitions can be given in the form
+
+```
+[^footnote]: Footnote text and or URL with the form <https://jupyter.org>. Note the angled brackets `<` and `>` enclose the URL to autolink them.
+```
 
 ## Special text formatting blocks
 
