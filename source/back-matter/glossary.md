@@ -1,6 +1,9 @@
 # Glossary
 
 ```{glossary}
+function
+  A reusable piece of code that performs a single action.
+
 Jupyter Notebook
   A web application that allows users to combine rich-formtted text with code cells in an interactive document.
   Jupyter Notebooks can contain nicely formatted text, equations, images, interactive visualizations, and more.
