@@ -3,12 +3,11 @@ Chapter 2: Introduction to data analysis with Python
 
 This section is under construction.
 
-..
-    .. toctree::
-        :maxdepth: 1
-        :caption: Sections:
+.. toctree::
+    :maxdepth: 1
+    :caption: Sections:
 
-        pandas-introduction.rst
-        exploring-data-using-pandas.ipynb
-        processing-data-with-pandas.ipynb
+    00-pandas-motivation
+    01-exploring-data.ipynb
+    02-processing-data.ipynb
 
