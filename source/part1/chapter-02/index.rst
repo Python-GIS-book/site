@@ -18,7 +18,7 @@ After going through this chapter your should be able to:
 - ADD OTHER LEARNING GOALS FOR THIS CHAPTER HERE
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
     :caption: Sections:
 
     00-pandas-motivation
