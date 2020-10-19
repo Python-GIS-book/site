@@ -2,7 +2,7 @@ Introduction to data analysis using Pandas
 ==========================================
 
 What is Pandas?
---------------
+---------------
 
 .. figure:: img/pandas_logo.png
    :width: 300px
@@ -21,22 +21,15 @@ In Pandas the data is typically stored into a DataFrame that looks like a typica
 Thus, it reminds of how the data is stored e.g. in Excel or in R that also uses a concept of a dataframe. In fact,
 Wes McKinney first `developed Pandas as an alternative for R <https://blog.quantopian.com/meet-quantopians-newest-advisor-wes-mckinney/>`_ to deal with different complex data structures.
 
-Combines functionalities from many Python modules
--------------------------------------------------
+Combines the power of many Python modules
+------------------------------------------
 
-Pandas takes advantage of `numpy <http://www.numpy.org/>`__ -module which runs under the hood and is mostly written in C,
-which makes it fast and powerful library that can handle efficiently even large datasets.
-Pandas offers easier and more intuitive syntax to do data analysis and manipulation using either `numpy`
-functionalities in the background or dedicated functionalities written explicitly for Pandas.
-However, Pandas is much more than easier-to-use `numpy` as it also combines many functionalities from other Python
-libraries such as `matplotlib (plotting) <https://matplotlib.org/>`__ and
-`scipy (mathematics, science, engineering) <https://www.scipy.org/>`__. Thus, you can use many of the features
-included in those packages even without importing them at all.
+Pandas is a "high-level" package, which means that it makes use of several other packages in the background. This book focuses primarily on Pandas because it is easy-to-use, efficient and intuitive. Pandas combines the performance of powerful Python libraries such as `NumPy <http://www.numpy.org/>`__, `matplotlib <https://matplotlib.org/>`__ and `scipy <https://www.scipy.org/>`__. Thus, you can use many of the features included in those packages even without importing them separately.
 
-Supports data read/write from multiple formats
-----------------------------------------------
+Supports multiple data formats
+-------------------------------
 
-One of the most useful features of Pandas is its ability to read data from numerous different data formats directly.
+One of the most useful features of Pandas is its ability to write and read data to and from numerous data formats.
 Pandas supports reading and writing data e.g. from/to:
 
 - CSV
