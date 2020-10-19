@@ -20,7 +20,7 @@ Glossary terms can be added with the format
 *{term}`Glossary term`*
 ```
 
-, where "Glossary term" is the item listed in the glossary at `back-matter/glossary.md`.
+where "Glossary term" is the item listed in the glossary at `back-matter/glossary.md`.
 
 References
 
