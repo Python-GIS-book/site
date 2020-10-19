@@ -1,6 +1,10 @@
 # Glossary
 
 ```{glossary}
+data type
+  An attribute defining the characteristics of a value in a program.
+  For example, type `int` is an integer (whole number).
+
 function
   A reusable piece of code that performs a single action.
 
