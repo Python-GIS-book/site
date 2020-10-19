@@ -1,4 +1,4 @@
-# Acknowlegements
+# Acknowledgements
 
 The following people (listed by name or GitHub username) assisted with proofreading and suggesting edits the the book materials:
 
