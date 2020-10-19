@@ -123,4 +123,38 @@ To avoid this, it is necessary to add **a cell tag** `raises-exception` to those
 
 To get information how to add a cell-tag, follow [these instructions](https://github.com/jupyterlab/jupyterlab-toc/issues/87).
 
+## Build PDF of the book
 
+### Installations
+
+TexLive installation on Ubuntu (and Windows WSL):
+```
+$ sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra latexmk
+```
+
+Python environment for the book is in `ci/py38-book-building.yaml`
+
+### Build commands
+
+After you have installed the packages, you can build the pdf by:
+
+First generate the latex files:
+```
+# At the project root --> will create directory latex
+$ sphinx-build -b latex source latex
+```
+
+Then build the pdf (with default settings):
+```
+# At the latex directory
+
+# Create first version of the pdf
+$ pdflatex introductiontopythonforgeographicdataanalysis.tex
+
+# Generate the table of contents
+$ makeindex introductiontopythonforgeographicdataanalysis.idx
+
+# Update the pdf accordingly
+$ pdflatex introductiontopythonforgeographicdataanalysis.tex
+```
+ 
