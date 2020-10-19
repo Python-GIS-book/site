@@ -1,23 +1,8 @@
 Introduction to data analysis using Pandas
 ==========================================
 
-In this lesson we will learn the basics of reading and writing data from/to a file, and to do some basic data manipulation and analysis.
-We will start using `Pandas <http://pandas.pydata.org/>`__ which is a modern and feature rich data analysis framework for
-Python that is designed to make data analysis and manipulation straightforward and powerful using easy-to-use data structures and operations.
-The main components of today's lesson can be found in the navigation bar to the left.
-
-Learning goals
---------------
-
-After this weeks lesson your should be able to:
-
-- Read and explore tabular data in Python (using the Pandas library)
-- Do simple data analysis using pandas data structures and functions
-- Write data to a .csv text file
-
-
 What is Pandas?
-===============
+--------------
 
 .. figure:: img/pandas_logo.png
    :width: 300px
