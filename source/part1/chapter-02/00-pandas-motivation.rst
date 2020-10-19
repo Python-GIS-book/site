@@ -24,7 +24,11 @@ Wes McKinney first `developed Pandas as an alternative for R <https://blog.quant
 Combines the power of many Python modules
 ------------------------------------------
 
-Pandas is a "high-level" package, which means that it makes use of several other packages in the background. This book focuses primarily on Pandas because it is easy-to-use, efficient and intuitive. Pandas combines the performance of powerful Python libraries such as `NumPy <http://www.numpy.org/>`__, `matplotlib <https://matplotlib.org/>`__ and `scipy <https://www.scipy.org/>`__. Thus, you can use many of the features included in those packages even without importing them separately.
+Pandas is a "high-level" package, which means that it makes use of several other packages in the background.
+This book focuses primarily on Pandas because it is easy-to-use, efficient and intuitive.
+Pandas combines the performance of powerful Python libraries such as `NumPy <http://www.numpy.org/>`__,
+`matplotlib <https://matplotlib.org/>`__ and `scipy <https://www.scipy.org/>`__.
+Thus, you can use many of the features included in those packages even without importing them separately.
 
 Supports multiple data formats
 -------------------------------

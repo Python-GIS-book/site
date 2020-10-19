@@ -3,9 +3,9 @@ Introduction to data analysis with Python
 
 **This chapter is under construction.**
 
-In this lesson we will learn the basics of reading and writing data from/to a file, and to do some basic data manipulation and analysis.
-We will start using `Pandas <http://pandas.pydata.org/>`__ which is a modern and feature rich data analysis framework for
-Python that is designed to make data analysis and manipulation straightforward and powerful using easy-to-use data structures and operations.
+In this chapter you will learn the basics of data analysis in Python using the Pandas library.
+`Pandas <http://pandas.pydata.org/>`__ is an open source Python library designed for easy-to-use but powerful data analysis and manipulation.
+You will learn how to read and write data from/to a file, explore the data and conduct common data manipulation and analysis steps.
 
 Learning goals
 --------------
