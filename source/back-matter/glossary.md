@@ -19,4 +19,7 @@ Markdown
 
 module
   A file containing Python definitions and statements. Module files have the ``.py`` file extension.
+
+variable
+  A way of storing values in the memory of the computer using specific names that you define.
 ```
