@@ -5,7 +5,9 @@ Here we describe the typographical and formatting conventions used in this book.
 ## General text formatting
 
 Normal text is divided into sections and subsections using headings.
-The top-level heading is reserved for page titles, while heading levels 2, 3, and 4 are used for sections, sub-sections, and sub-sub-sections, respectively.
+The top-level heading is reserved for page titles.
+Heading levels 2 and 3 are used for sections and sub-sections.
+Heading level 4 should be used for "Check your understanding" sub-sections.
 
 Text formatting conventions (commands/code in `monospace`, etc.)
 
