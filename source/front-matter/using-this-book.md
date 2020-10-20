@@ -21,7 +21,6 @@ Glossary terms can be added with the format
 ```
 
 where "Glossary term" is the item listed in the glossary at `back-matter/glossary.md`.
-I believe this is case sensitive.
 It is also possible to have different text listed when linking to a glossary item, such as 
 
 ```
