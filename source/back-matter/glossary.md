@@ -5,7 +5,7 @@ data type
   An attribute defining the characteristics of a value in a program.
   For example, type `int` is an integer (whole number).
 
-function
+Function
   A reusable piece of code that performs a single action.
 
 Jupyter Notebook
