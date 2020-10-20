@@ -24,4 +24,5 @@ After going through this chapter your should be able to:
     00-pandas-motivation
     01-exploring-data.ipynb
     02-processing-data.ipynb
+    03-analyzing-data.ipynb
 
