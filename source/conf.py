@@ -29,6 +29,7 @@ author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
 # ones.
 extensions = [
     "myst_nb",
+    "sphinxcontrib.bibtex",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
