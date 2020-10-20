@@ -15,7 +15,7 @@ After going through this chapter your should be able to:
 - Read and explore tabular data in Python (using the Pandas library)
 - Do simple data analysis using pandas data structures and functions
 - Write tabular data to a .csv text file
-- ADD OTHER LEARNING GOALS FOR THIS CHAPTER HERE
+- ADD OTHER LEARNING GOALS FOR THIS CHAPTER HERE?
 
 .. toctree::
     :maxdepth: 2
