@@ -93,5 +93,6 @@ The book consists of 4 parts:
    :titlesonly:
    :hidden:
 
+   part1
    authors
 
