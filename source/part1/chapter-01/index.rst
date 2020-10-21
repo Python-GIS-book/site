@@ -15,4 +15,5 @@ This section is under construction.
     05-functions.ipynb
     06-modules.ipynb
     07-writing-scripts.ipynb
-    08-exercises.ipynb
+    08-exercises
+    09-references
