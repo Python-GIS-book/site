@@ -1,3 +1,4 @@
 # Ignore PyCharm logs
 .idea
 latex
+.ipynb_checkpoints
