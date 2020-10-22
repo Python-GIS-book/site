@@ -12,6 +12,8 @@ dependencies:
   - nbsphinx
   - myst-nb
   - sphinx-book-theme
+  # Writing environment
+  - jupyterlab
   - pip
   - pip:
     - git+https://github.com/pandas-dev/pydata-sphinx-theme.git@master
