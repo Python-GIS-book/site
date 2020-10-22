@@ -29,7 +29,7 @@ After going through this chapter your should be able to:
     :maxdepth: 2
     :caption: Sections:
 
-    00-getting-started-with-pandas.ipynb
-    01-processing-data.ipynb
-    02-analyzing-data.ipynb
+    00-pandas-basics.ipynb
+    01-data-manipulation.ipynb
+    02-data-analysis.ipynb
 
