@@ -32,4 +32,6 @@ After going through this chapter your should be able to:
     00-pandas-basics.ipynb
     01-data-manipulation.ipynb
     02-data-analysis.ipynb
+    03-temporal-data.ipynb
+    04-references.md
 
