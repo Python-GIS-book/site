@@ -112,8 +112,14 @@ The basic workflow:
  2. Add a reference to the markdown cell with ```{cite}`myReference2020` ```
     - This name should match with the entry name that you added to `references.bib`
 
- 3. When you want to add the bibliography, you should add ```{bibliography} path/to/references.bib ``` 
- to the location where you want to add the reference list (e.g. at the end of each Chapter). 
+ 3. When you want to add the bibliography (see also note below), you should add ```{bibliography} path/to/references.bib ``` 
+ to the location where you want to add the reference list (e.g. at the end of each Chapter).
+ 
+**NOTE**: If you want to use a custom APA style (defined in conf.py), you should add the bibliography as follows:
+```
+{bibliography} path/to/references.bib
+:style: apa
+```  
  
 ### Allow an error to happen in code blocks?
 
