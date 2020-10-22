@@ -103,6 +103,21 @@ html_logo = "_static/pythongis-logo.png"
 # Relates to RTD issue: https://github.com/readthedocs/readthedocs.org/issues/2569
 master_doc = 'index'
 
+# LaTex conf
+# Grouping the document tree into LaTeX files. List of tuples# (source start file, target name, title, author, documentclass [howto/manual]).
+latex_documents = [
+ ('index',
+  'introductiontopythonforgeographicdataanalysis.tex',
+  'Introduction to Python for Geographic Data Analysis',
+  'Henrikki Tenkanen, Vuokko Heikinheimo & David Whipp',
+  'krantz'),
+]
+latex_additional_files = ["krantz/krantz.cls"]
+
+#latex_elements = {
+#'preamble': r'\usepackage{hyperref}',
+#}
+
 # -----------------------------
 # Customizing citation styling
 # -----------------------------
