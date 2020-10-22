@@ -5,24 +5,31 @@ Introduction to data analysis with Python
 
 In this chapter you will learn the basics of data analysis in Python using the Pandas library.
 `Pandas <http://pandas.pydata.org/>`__ is an open source Python library designed for easy-to-use but powerful data analysis and manipulation.
-You will learn how to read and write data from/to a file, explore the data and conduct common data manipulation and analysis steps.
+
+This chapter introduces you how to read and write data from/to a file, and to manipulate and analyse the data.
 
 Learning goals
 --------------
 
 After going through this chapter your should be able to:
 
-- Read and explore tabular data in Python (using the Pandas library)
-- Do simple data analysis using pandas data structures and functions
-- Write tabular data to a .csv text file
-- ADD OTHER LEARNING GOALS FOR THIS CHAPTER HERE?
+- Understand pandas data structures
+- Read and write tabular from/to a file
+- Manipulate and analyze data, including
+    - Basic calculations
+    - Data type conversions
+    - Selecting and updating data
+    - Grouping and aggregating data
+    - Table joins
+    - Handling temporal data
+- Repeat an analysis workflow using multiple input files
+
 
 .. toctree::
     :maxdepth: 2
     :caption: Sections:
 
-    00-pandas-motivation
-    01-exploring-data.ipynb
-    02-processing-data.ipynb
-    03-analyzing-data.ipynb
+    00-getting-started-with-pandas.ipynb
+    01-processing-data.ipynb
+    02-analyzing-data.ipynb
 
