@@ -13,7 +13,7 @@ Here we introduce some basic concepts of programming in the Python language.
     nb/03-for-loops.ipynb
     nb/04-conditional-statements.ipynb
     nb/05-functions.ipynb
-    nb/06-modules.ipynb
-    nb/07-writing-scripts.ipynb
+    nb/06-writing-scripts.ipynb
+    nb/07-modules.ipynb
     nb/08-exercises.ipynb
     nb/09-references.ipynb
