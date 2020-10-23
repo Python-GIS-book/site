@@ -96,7 +96,7 @@ This animated "pill packet" plot of temperature anomalies conveys a huge amount 
 
 Another example shows similar data in a different format, including a peek into the future.
 
-```python
+```python tags=["hide-input"]
 Video('../../../_static/Temp-anomalies-2019.mp4', width=800)
 ```
 
