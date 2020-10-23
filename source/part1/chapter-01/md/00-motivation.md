@@ -72,7 +72,7 @@ One option is to use an *x*-*y* plot of temperature anomalies versus time.
 
 ![Global mean temperature anomalies](https://www.ncdc.noaa.gov/sotc/service/global/global-land-ocean-mntp-anom/201101-201112.png)
 
-*Global mean temperature anomalies from 1880-2011. Source: https://www.ncdc.noaa.gov/sotc/global/201113*.
+*Global mean temperature anomalies from 1880-2011. Source: <https://www.ncdc.noaa.gov/sotc/global/201113>*.
 
 This is obviously much better, showing clearly how temperatures have changed with time and how global temperatures have increased significantly since 1970. Now we see a clear step toward making the data easier to understand. However, this is global data and we are missing something important about the data, its connection to geographical locations.
 
@@ -80,7 +80,7 @@ Let's consider another option, plotting temperature anomalies on a map.
 
 ![Global mean temperature anomaly map](https://www.ncdc.noaa.gov/sotc/service/global/map-blended-mntp/202001.png)
 
-*Global temperature anomalies for January 2020. Source: https://www.ncdc.noaa.gov/sotc/global/201603*.
+*Global temperature anomalies for January 2020. Source: <https://www.ncdc.noaa.gov/sotc/global/201603>*.
 
 And yet again, this helps us understand the data further. Not only do we see the changed in temperature, but now we see how temperatures vary across the globe. The drawback here is that we only see a single time snapshot, rather than a time series. To see both will require a truly remarkable visualization.
 
@@ -90,7 +90,7 @@ So, let's look now at some excellent examples of data visualization with Python.
 Video('../../../_static/Temp-anomalies-2018.mp4', width=800)
 ```
 
-*Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). Source: https://flic.kr/p/293M1oa*.
+*Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). Source: <https://flic.kr/p/293M1oa>*.
 
 This animated "pill packet" plot of temperature anomalies conveys a huge amount of information in a simple form. People can immediately understand what is plotted, and the combination of the plot format, colors and animation are very effective. What even better is the fact that this animation was made using Python!
 
@@ -100,7 +100,7 @@ Another example shows similar data in a different format, including a peek into 
 Video('../../../_static/Temp-anomalies-2019.mp4', width=800)
 ```
 
-*Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). Source: https://flic.kr/p/QYnKre*.
+*Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). Source: <https://flic.kr/p/QYnKre>*.
 
 This plot nicely conveys the warming of different regions on Earth, again in an intuitive format.
 
