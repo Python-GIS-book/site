@@ -20,8 +20,8 @@ Pandas [^urlpandas]  is a modern, powerful and feature rich library that is desi
 data analysis in Python. It is a mature data analytics framework that is widely used among different fields of science, thus there exists a lot of good examples and documentation that can help you get going with your data analysis tasks. Pandas development started in 2008 and it is now maintained by an active developer community. The book Python for Data Analysis (First published in 2012 and updated in 2017) by  Wes McKinney (main developer of Pandas) provides a comprehensive overview of wrangling data using Pandas.
 
 Pandas is a "high-level" package, which means that it makes use of several other packages in the background.
-Pandas combines the performance of powerful Python libraries such as [NumP](http://www.numpy.org/),
-(matplotlib)[https://matplotlib.org/] and (scipy)[https://www.scipy.org/]. Thus, you can use many of the features included in those packages even without importing them separately. This book focuses primarily on Pandas because it is easy-to-use, efficient and intuitive.
+Pandas combines the performance of powerful Python libraries such as NumPy [^urlnumpy],
+matplotlib [^urlmatplotlib][https://matplotlib.org/] and (scipy)[https://www.scipy.org/]. Thus, you can use many of the features included in those packages even without importing them separately. This book focuses primarily on Pandas because it is easy-to-use, efficient and intuitive.
 
 One of the most useful features of Pandas is its ability to write and read data to and from numerous data formats.
 Pandas supports reading and writing data e.g. from/to:
@@ -441,10 +441,15 @@ Check more details about available paramenters and methods from [the pandas.Data
 
 ### Footnotes
 [^urlpandas] http://pandas.pydata.org/
-[^urlpandas]: https://pandas.pydata.org/pandas-docs/stable/
+[^urlnumpy]: http://www.numpy.org/
+[^urlpandasdocs]: https://pandas.pydata.org/pandas-docs/stable/
 [^urlds]: https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html
 [^urlnoaa1]: US National Oceanographic and Atmospheric Administration's National Centers for Environmental Information: https://www.ncdc.noaa.gov/
 [^urnlnoaa2]: https://www.ncdc.noaa.gov/cdo-web/
 [^urlreadcsv]: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
 [^urlpandasiotools]: https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5
 [^urlpandasattributes]: https://pandas.pydata.org/pandas-docs/stable/reference/frame.html#attributes-and-underlying-data
+
+```python
+
+```
