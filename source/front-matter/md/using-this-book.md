@@ -1,3 +1,17 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .md
+      format_name: markdown
+      format_version: '1.2'
+      jupytext_version: 1.6.0
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+---
+
 # How to use this book
 
 Here we describe the typographical and formatting conventions used in this book.
@@ -46,7 +60,7 @@ At the end of the document, the footnote definitions can be given in the form
 - Admonitions (let's not use more than 2-3, if possible)
 
 ```{note}
-This is a hint. It expands on the main text or indicates additional information not included in the main text. Additional reference material or differences from past topics, for example.
+This is a note. It expands on the main text or indicates additional information not included in the main text. Additional reference material or differences from past topics, for example.
 ```
 
 ```{tip}
