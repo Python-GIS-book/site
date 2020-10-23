@@ -352,7 +352,7 @@ print("Temperature", temp_kelvin, "in Kelvins is", temperature_c, "in Celsius")
 [^swc]: <http://software-carpentry.org>
 
 
-# Good coding practices - Writing our scripts the "right" way
+## Good coding practices - Writing our scripts the "right" way
 
 The script example for functions we have seen so far works, but one of the big advantages of using scripts is including features that make the code easier to read and understand.
 These include comments in the code, which explain what the code does, but are not executed when the code is run.
