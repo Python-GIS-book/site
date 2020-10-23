@@ -6,7 +6,6 @@ channels:
 dependencies:
   - python=3.8
   - sphinx=3.2.1
-  - matplotlib
   - ipython
   - jupyter-sphinx
   - nbsphinx
@@ -15,6 +14,17 @@ dependencies:
   # Writing environment
   - jupyterlab
   - jupytext
+  # GIS environment
+  - matplotlib
+  - geopandas
+  - pysal
+  - osmnx
+  - pyrosm
+  - geopy
+  - geojson
+  - bokeh
+  - folium
+  - mplleaflet
   - pip
   - pip:
     - git+https://github.com/pandas-dev/pydata-sphinx-theme.git@master
