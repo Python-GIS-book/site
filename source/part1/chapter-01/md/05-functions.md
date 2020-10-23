@@ -144,83 +144,50 @@ print('Absolute zero in Fahrenheit is:', absolute_zero_fahr)
 ```
 
 <!-- #region -->
-## Use a docstring
+## Documenting functions with docstrings
 
-
-A documentation string, or a *docstring* a block of text that describes what a spesific method or module does and how to use it. Surprise surprise, PEP 8 contains more guidance about [documentation strings](https://www.python.org/dev/peps/pep-0008/#documentation-strings), and docstrings even have their own guide page: [PEP 257](https://www.python.org/dev/peps/pep-0257/).
-
-A docstring is always the first statement in a module or a function. Docstrings are written using `"""triple double quotation marks"""`. We already discussed docstrings when defining functions earlier in lesson 4, and here is an example of using a **multi-line docstring** at the start of a script file.
-
-When adding docstrings at the start of a script file, you can also include your name, and also licensing information.
-
-
+A documentation string, or a *{term}`docstring`* is a block of text that describes what a specific function, library, or script does and how to use it. Surprise surprise, PEP 8 contains more guidance about documentation strings [^pep8_docstring], and docstrings even have their own guide page [^pep257]. Let's look an an example from our of our functions above.
 
 ```python
-"""Prints information about an FMI observation station to the screen.
-
-Usage:
-    ./stationinfo.py
-
-Author:
-    David Whipp - 26.9.2018
-"""
-
-# Finnish Meterological Institute observation station name and location data
-
-# Station name for the station in Kaivopuisto, Helsinki, Finland
-stationName = 'Helsinki Kaivopuisto'
-
-# Station latitude and longitude - Latitude is north, longitude is east
-stationLat = 60.15
-stationLong = 24.96
-
-# Print station name and location to the screen
-print("The", stationName, "station is located at", stationLat, "N,", stationLong, "E")
+def kelvins_to_celsius(temp_kelvins):
+    """Converts temperature in Kelvins to degrees Celsius."""
+    return temp_kelvins - 273.15
 ```
 
-In this example the script is simple, but many Python programs have optional values that can be used by the code when it is run, making the **usage** statement crucial.
+Here you can see a short bit of text explaining in simple language what this function does. In this case our function is quite simple, but the docstring still helps remove uncertainty about what it can be used to do. So, what can we see in this example?
 
-Note that the closing quotes are on a line by themselves. It is also possible to write [one-line docstrings](https://www.python.org/dev/peps/pep-0257/#one-line-docstrings), for example with very simple functions, in which case the starting and closing quotation marks are on the same line.
-<!-- #endregion -->
+- A docstring is always the first statement in a module or a function.
+- Docstrings are written using `"""triple double quotation marks"""`.
+- Short docstrings can be written on a single line [^pep257_one_line].
 
-<!-- #region -->
-### Adding a docstring
+Seems simple enough, right?
 
-Finally, since we want to be good programmers, we should add a short docstring at the beginning of our function that tells what the function does and how the parameters work.
+We can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let's expand the docstring above to provide more information about this function.
 
 ```python
-def temp_calculator(temp_k, convert_to):
+def kelvins_to_celsius(temp_kelvins):
     """
-    Function for converting temperature in Kelvins to Celsius or Fahrenheit.
+    Converts temperature in Kelvins to degrees Celsius.
 
     Parameters
     ----------
-    temp_k: <numerical>
+    temp_kelvins: <numerical>
         Temperature in Kelvins
-    convert_to: <str>
-        Target temperature that can be either Celsius ('C') or Fahrenheit ('F'). Supported values: 'C' | 'F'
 
     Returns
     -------
     <float>
         Converted temperature.
     """
-
-    # Check if user wants the temperature in Celsius
-    if convert_to == "C":
-        # Convert the value to Celsius using the dedicated function for the task that we imported from another script
-        converted_temp = kelvins_to_celsius(temp_kelvins=temp_k)
-    elif convert_to == "F":
-        # Convert the value to Fahrenheit using the dedicated function for the task that we imported from another script
-        converted_temp = kelvins_to_fahr(temp_kelvins=temp_k)
-    # Return the result
-    return converted_temp
+    return temp_kelvins - 273.15
 ```
+
+Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format is to have the quotation marks on their own separate lines.
 <!-- #endregion -->
-
-
-
 
 ## Footnotes
 
+[^pep8_docstring]: <https://www.python.org/dev/peps/pep-0008/#documentation-strings>
+[^pep257]: <https://www.python.org/dev/peps/pep-0257/>
+[^pep257_one_line]: <https://www.python.org/dev/peps/pep-0257/#one-line-docstrings>
 [^swc]: <http://software-carpentry.org>
