@@ -143,6 +143,84 @@ absolute_zero_fahr = kelvins_to_fahr(temp_kelvins=0)
 print('Absolute zero in Fahrenheit is:', absolute_zero_fahr)
 ```
 
+<!-- #region -->
+## Use a docstring
+
+
+A documentation string, or a *docstring* a block of text that describes what a spesific method or module does and how to use it. Surprise surprise, PEP 8 contains more guidance about [documentation strings](https://www.python.org/dev/peps/pep-0008/#documentation-strings), and docstrings even have their own guide page: [PEP 257](https://www.python.org/dev/peps/pep-0257/).
+
+A docstring is always the first statement in a module or a function. Docstrings are written using `"""triple double quotation marks"""`. We already discussed docstrings when defining functions earlier in lesson 4, and here is an example of using a **multi-line docstring** at the start of a script file.
+
+When adding docstrings at the start of a script file, you can also include your name, and also licensing information.
+
+
+
+```python
+"""Prints information about an FMI observation station to the screen.
+
+Usage:
+    ./stationinfo.py
+
+Author:
+    David Whipp - 26.9.2018
+"""
+
+# Finnish Meterological Institute observation station name and location data
+
+# Station name for the station in Kaivopuisto, Helsinki, Finland
+stationName = 'Helsinki Kaivopuisto'
+
+# Station latitude and longitude - Latitude is north, longitude is east
+stationLat = 60.15
+stationLong = 24.96
+
+# Print station name and location to the screen
+print("The", stationName, "station is located at", stationLat, "N,", stationLong, "E")
+```
+
+In this example the script is simple, but many Python programs have optional values that can be used by the code when it is run, making the **usage** statement crucial.
+
+Note that the closing quotes are on a line by themselves. It is also possible to write [one-line docstrings](https://www.python.org/dev/peps/pep-0257/#one-line-docstrings), for example with very simple functions, in which case the starting and closing quotation marks are on the same line.
+<!-- #endregion -->
+
+<!-- #region -->
+### Adding a docstring
+
+Finally, since we want to be good programmers, we should add a short docstring at the beginning of our function that tells what the function does and how the parameters work.
+
+```python
+def temp_calculator(temp_k, convert_to):
+    """
+    Function for converting temperature in Kelvins to Celsius or Fahrenheit.
+
+    Parameters
+    ----------
+    temp_k: <numerical>
+        Temperature in Kelvins
+    convert_to: <str>
+        Target temperature that can be either Celsius ('C') or Fahrenheit ('F'). Supported values: 'C' | 'F'
+
+    Returns
+    -------
+    <float>
+        Converted temperature.
+    """
+
+    # Check if user wants the temperature in Celsius
+    if convert_to == "C":
+        # Convert the value to Celsius using the dedicated function for the task that we imported from another script
+        converted_temp = kelvins_to_celsius(temp_kelvins=temp_k)
+    elif convert_to == "F":
+        # Convert the value to Fahrenheit using the dedicated function for the task that we imported from another script
+        converted_temp = kelvins_to_fahr(temp_kelvins=temp_k)
+    # Return the result
+    return converted_temp
+```
+<!-- #endregion -->
+
+
+
+
 ## Footnotes
 
 [^swc]: <http://software-carpentry.org>

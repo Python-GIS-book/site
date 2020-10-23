@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region -->
-## An introduction to script files
+# Writing script files
 
 Up to this point we have been keeping our Python code and Markdown comments in a single Jupyter notebook document.
 This is great, but there are some cases, like when you have long Python code blocks or a set of functions used in many notebooks, in which you may want to have Python code in a separate document to make sure your Jupyter notebook is easy to read (and use).
@@ -21,7 +21,7 @@ An alternative to typing in all of the commands you would like to run is the lis
 A Python script file is simply a file containing a list of the commands you would like to run, normally with one command per line, and formatted in the same way as if you were to type them in.
 Python script files traditionally use the `.py` file extension in their names.
 
-### The general concept of a .py script file
+## The general concept of a script file
 
 Because a Python script file is simply a list of commands that you might otherwise type into a Python cell in a Jupyter notebook or a Python console, we can quite easily create a basic script file and test things out.
 
@@ -29,11 +29,11 @@ Because a Python script file is simply a list of commands that you might otherwi
 
 First, we need to create a new text file by clicking on **File** -> **New** -> **Text File** in the JupyterLab menu bar.
 
-![Creating a new text file in JupyterLab.](img/new-text-file-400.png)
+![Creating a new text file in JupyterLab.](../img/new-text-file-400.png)
 
 This will create a new tab in your JupyterLab window that should look something like that below, a blank slate.
 
-![Our new text file in JupyterLab.](img/new-text-tab-800.png)
+![Our new text file in JupyterLab.](../img/new-text-tab-800.png)
 
 Start by copying and pasting the text below into your new text file editor panel.
 
@@ -53,9 +53,9 @@ You can rename the file by right clicking on the tab titled `untitled.txt` and r
 Be sure you change the `.txt` file extension to `.py`.
 ```
 
-![Renaming a text file in JupyterLab.](img/rename-file-part-1-600.png)
+![Renaming a text file in JupyterLab.](../img/rename-file-part-1-600.png)
 
-![Changing the file name in JupyterLab.](img/rename-file-part-2-300.png)
+![Changing the file name in JupyterLab.](../img/rename-file-part-2-300.png)
 
 If all goes well, you should now see the Python syntax is highlighted in different colors in the JupyterLab editor panel.
 

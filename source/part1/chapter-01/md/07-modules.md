@@ -132,7 +132,7 @@ print(dir(math))
 
 You can also browse the available modules by typing in modulename. and then pressing the tab-key:
 
-![view module keys img](img/view_module_functions.png)
+![view module keys img](../img/view_module_functions.png)
 
 
 So that's helpful, but what about when you don't know what a given function does?
