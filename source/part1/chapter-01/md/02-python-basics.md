@@ -21,9 +21,11 @@ This section was inspired by the Programming in Python lessons {cite}`Bostroem20
 <!-- #endregion -->
 
 <!-- #region -->
-## About this document
+```{note}
+Materials in this book are built from *{term}`Jupyter Notebooks <Jupyter notebook>`* [^jupyter]. Jupyter notebooks are documents that are divided into cells that can contain *{term}`Markdown`* [^markdown] text, Python code, or raw text. You can execute a snippet of code in a notebook cell by pressing **Shift-Enter**. This particular notebook is designed to introduce you to a few of the basic concepts of programming in Python.
 
-This is a *{term}`Jupyter Notebook`* [^jupyter]. This particular notebook is designed to introduce you to a few of the basic concepts of programming in Python. The contents of this document are divided into cells, which can contain *{term}`Markdown`* [^markdown] text, Python code, or raw text. You can execute a snippet of code in a cell by pressing **Shift-Enter**. Try this out with the examples below.
+If you would like to interact with the contents of this notebook, you can find the notebooks online at <https://pythongis.org>.
+```
 
 ## Getting started - UPDATE!!!
 
