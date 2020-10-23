@@ -1,9 +1,28 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .md
+      format_name: markdown
+      format_version: '1.2'
+      jupytext_version: 1.6.0
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+---
+
 # Glossary
 
 ```{glossary}
 Data type
   An attribute defining the characteristics of a value in a program.
   For example, type `int` is an integer (whole number).
+
+Docstring
+  A text string used to document a section of code.
+  Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs.
+  You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.
 
 Function
   A reusable piece of code that performs a single action.
@@ -32,4 +51,9 @@ Module
 
 Variable
   A way of storing values in the memory of the computer using specific names that you define.
+```
+
+
+```python
+
 ```
