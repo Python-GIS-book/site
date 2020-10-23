@@ -21,7 +21,7 @@ data analysis in Python. It is a mature data analytics framework that is widely 
 
 Pandas is a "high-level" package, which means that it makes use of several other packages in the background.
 Pandas combines the performance of powerful Python libraries such as NumPy [^urlnumpy],
-matplotlib [^urlmatplotlib][https://matplotlib.org/] and (scipy)[https://www.scipy.org/]. Thus, you can use many of the features included in those packages even without importing them separately. This book focuses primarily on Pandas because it is easy-to-use, efficient and intuitive.
+matplotlib [^urlmatplotlib] and scipy [^urlscipy]. Thus, you can use many of the features included in those packages even without importing them separately. This book focuses primarily on Pandas because it is easy-to-use, efficient and intuitive.
 
 One of the most useful features of Pandas is its ability to write and read data to and from numerous data formats.
 Pandas supports reading and writing data e.g. from/to:
@@ -36,20 +36,21 @@ Pandas supports reading and writing data e.g. from/to:
 - Python Pickle format
 - SQL (Postgresql, MySQL, Oracle, MariaDB, etc.)
 
-See full list from (Pandas docs)[http://pandas.pydata.org/pandas-docs/version/0.20/io.html].
+See full list from the latest Pandas documentation [^urlpandasdocs].
 
 <!-- #region deletable=true editable=true -->
 ## Pandas data structures
 
-In Pandas, table-like data are stored in two-dimensional DataFrames with labeled rows and columns. You can think of the pandas DataFrame as a programmable spreadsheet. The Pandas DataFrame was originally inspired by dataframes that are in-built in the R programming language. One-dimensional sequences of values are stored in pandas Series. One row or one column in a Pandas DataFrame is actually a Pandas Series. You can think of a pandas Series as a clever list. 
+In Pandas, table-like data are stored in two-dimensional DataFrames with labeled rows and columns. You can think of the pandas DataFrame as a programmable spreadsheet. The Pandas DataFrame was originally inspired by dataframes that are in-built in the R programming language. One-dimensional sequences of values are stored in pandas Series. One row or one column in a Pandas DataFrame is actually a Pandas Series. You can think of a pandas Series as a clever list. These Pandas structures incorporate a number of things we've already encountered, such as indices, data stored in a collection, and data types.
 
 ![Pandas data structures](./../img/pandas-structures.png)
 
-*Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.*
-
-These Pandas structures incorporate a number of things we've already encountered, such as indices, data stored in a collection, and data types. Let's have another look at the Pandas data structures below with some additional annotation.
 
 ![Pandas data structures annotated](./../img/pandas-structures-annotated.png)
+
+*Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.*
+
+
 
 As you can see, both DataFrames and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the lesson this week we'll use many of these features to explore real-world data and learn some useful data analysis procedures.
 
@@ -442,6 +443,8 @@ Check more details about available paramenters and methods from [the pandas.Data
 ### Footnotes
 [^urlpandas] http://pandas.pydata.org/
 [^urlnumpy]: http://www.numpy.org/
+[^urlmatplotlib]: https://matplotlib.org/
+[^urlscipy]: https://www.scipy.org/
 [^urlpandasdocs]: https://pandas.pydata.org/pandas-docs/stable/
 [^urlds]: https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html
 [^urlnoaa1]: US National Oceanographic and Atmospheric Administration's National Centers for Environmental Information: https://www.ncdc.noaa.gov/
