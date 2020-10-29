@@ -18,7 +18,7 @@ The goal of the first part of this book is to learn to program in Python. Howeve
 
 1. Writing programs that are easy to understand and share
 2. Keeping a log of the changes you make to your programs
-3. Using programs that ensure your science is reproducible
+3. Creating programs that ensure your science is reproducible
 4. Producing simple, effective data visualizations that make your results accessible and easy to understand
 
 To help clarify our goals, consider the example below.
@@ -30,7 +30,7 @@ from IPython.display import Video
 
 ## Effective data visualization
 
-One of the things we will learn in this part of the book is how to use Python to plot data. As you well know, raw data itself is often not particularly useful in helping you understand what the data shows. Let's look at an example that might be familiar to you, global temperature data.
+One of the things we will learn in this part of the book is how to use Python to plot data. As you well know, the raw data alone are often not particularly useful in helping you understand what the data show. Let's look at an example that might be familiar to you, global temperature data.
 
 ```
 USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW AW AW AW W TEMP DEWP    SLP   ALT    STP MAX MIN PCP01 PCP06 PCP24 PCPXX SD
@@ -74,7 +74,7 @@ One option is to use an *x*-*y* plot of temperature anomalies versus time.
 
 *Global mean temperature anomalies from 1880-2011. Source: <https://www.ncdc.noaa.gov/sotc/global/201113>*.
 
-This is obviously much better, showing clearly how temperatures have changed with time and how global temperatures have increased significantly since 1970. Now we see a clear step toward making the data easier to understand. However, this is global data and we are missing something important about the data, its connection to geographical locations.
+This is obviously much better, nicely showing how temperatures have changed with time and how global temperatures have increased significantly since 1970. Now we have taken a clear step toward making the data easier to understand. However, these are global data and we are missing something important about them, their connection to geographical locations.
 
 Let's consider another option, plotting temperature anomalies on a map.
 
@@ -82,7 +82,7 @@ Let's consider another option, plotting temperature anomalies on a map.
 
 *Global temperature anomalies for January 2020. Source: <https://www.ncdc.noaa.gov/sotc/global/201603>*.
 
-And yet again, this helps us understand the data further. Not only do we see the changed in temperature, but now we see how temperatures vary across the globe. The drawback here is that we only see a single time snapshot, rather than a time series. To see both will require a truly remarkable visualization.
+And yet again, this helps us understand the data further. Not only do we see the changes in temperature, but now we see how temperatures vary in space across the globe. The drawback here is that we only see a single time snapshot, rather than a time series. Seeing both will require a truly remarkable visualization.
 
 So, let's look now at some excellent examples of data visualization with Python. We have essentially the same data plotted above, but now we can see how temperatures vary in space and time.
 
@@ -104,7 +104,7 @@ Video('../../../_static/Temp-anomalies-2019.mp4', width=800)
 
 This plot nicely conveys the warming of different regions on Earth, again in an intuitive format.
 
-For the rest of the first part of this course, plots like that above can be our inspiration. In fact, we will be working with similar data throughout this part of the course and may even end up producing similar plots in by the end of this teaching period.
+For the rest of the first part of this book, plots like those above can be our inspiration. In fact, we will be working with similar data throughout this part of the book and may even end up producing similar plots in by the end Part 1.
 
 
 ## Footnotes
