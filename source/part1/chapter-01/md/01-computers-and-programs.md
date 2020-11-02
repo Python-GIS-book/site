@@ -32,7 +32,7 @@ Moreover, programming can help make us better scientists. The scientific method 
 
 Before we move into introducing programming concepts and the Python language, we will spend the remainder of this chapter with some basic terminology related to computing.
 
-<!-- #region -->
+
 ## What is a computer?
 
 ![Simple diagram of a computer](../img/computer-diagram.png)
@@ -43,13 +43,46 @@ In its simplest form, a *{term}`computer`* takes input from an input device such
 
 ### What are computers good at?
 
-Given the definition above, it may be clear that computers are in some ways quite simple, and as a result there are certain tasks where computers excel. Tasks computers are good at include well-defined tasks, data storage and manipulation, repetitive calculations, and processing data or instructions. For example, given the instructions to add 2 plus 2 and return the answer in a language the computer understands, it will readily perform that calulation and return the expected value, 4.
+Given the definition above, it may be clear that computers are in some ways quite simple, and as a result there are certain tasks where computers excel. Tasks computers are good at include:
+
+- well-defined tasks
+- data storage and manipulation
+- repetitive calculations
+- processing data or instructions
+
+For example, given the instructions to add 2 plus 2 and return the answer in a language the computer understands, it will readily perform that calulation and return the expected value, 4.
 
 ### What are computers bad at?
 
+Of course, while computers can be immensely powerful and perform staggering calculations, there are some kinds of problems that computers struggle with. These include:
 
+- Abstract or poorly defined tasks
+- Tasks requiring impossible computing power (intractable tasks)
 
+For example, let's consider asking the computer to calculate pi. In these terms, the computer is not likely to be successful because we have not provided clear instructions about the task. How should it do the calculation? To how many decimal places? We have given only abstract instructions that the computer cannot understand. Of course, if given clear instructions, calculating pi to 1000 digits is something the computer can easily do, as shown below.
+
+```
+3.1415926535 8979323846 2643383279 5028841971 6939937510 5820974944 5923078164 0628620899
+  8628034825 3421170679 8214808651 3282306647 0938446095 5058223172 5359408128 4811174502
+  8410270193 8521105559 6446229489 5493038196 4428810975 6659334461 2847564823 3786783165
+  2712019091 4564856692 3460348610 4543266482 1339360726 0249141273 7245870066 0631558817
+  4881520920 9628292540 9171536436 7892590360 0113305305 4882046652 1384146951 9415116094
+  3305727036 5759591953 0921861173 8193261179 3105118548 0744623799 6274956735 1885752724
+  8912279381 8301194912 9833673362 4406566430 8602139494 6395224737 1907021798 6094370277
+  0539217176 2931767523 8467481846 7669405132 0005681271 4526356082 7785771342 7577896091
+  7363717872 1468440901 2249534301 4654958537 1050792279 6892589235 4201995611 2129021960
+  8640344181 5981362977 4771309960 5187072113 4999999837 2978049951 0597317328 1609631859
+  5024459455 3469083026 4252230825 3344685035 2619311881 7101000313 7838752886 5875332083
+  8142061717 7669147303 5982534904 2875546873 1159562863 8823537875 9375195778 1857780532
+  1712268066 1300192787 6611195909 2164201989
+```
+
+But there are practical limitations as well for tasks computers can do well. If problem sizes are simply too large to calculate, the computer will be unable to complete them. The most powerful supercomputers in the world today [^top500] have several million processor cores and the ability to calculate more than 100,000 trillion floating point operations per second [^flops]. Yet even those massive systems have limitiations. Imagine we have a digital elevation model of the Earth (including seafloor bathymetry) with a resolution of 1 micrometer ($1 \times 10^{-6}$ meters). Now let's assume we want to calculate the slope from all points in that model. The total number of surface elevation points we would have would be approximately $5 \times 10^{26}$, and if each slope calculations requires three floating point operations, we have a total of $1.5 \times 10^{27}$ operations. Even on one of the fastest supercomputers in the world, this calculation would take nearly 500,000 years! Of course, this is a bit of a silly example, but it is clear there are computational limits.
+
+<!-- #region -->
 ## What is a program?
+
+
 
 ## What is a programming language?
 
@@ -57,6 +90,8 @@ Given the definition above, it may be clear that computers are in some ways quit
 
 ## Footnotes
 
+[^flops]: <https://en.wikipedia.org/wiki/FLOPS>
 [^open_sci]: <https://en.wikipedia.org/wiki/Open_science>
 [^qgis]: <https://www.qgis.org/>
 [^sci_method]: <https://en.wikipedia.org/wiki/Scientific_method>
+[^top500]: <https://www.top500.org/lists/top500/>
