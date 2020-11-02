@@ -30,7 +30,7 @@ from IPython.display import Video
 
 ## Effective data visualization
 
-One of the things we will learn in this part of the book is how to use Python to plot data. As you well know, the raw data alone are often not particularly useful in helping you understand what the data show. Let's look at an example that might be familiar to you, global temperature data.
+One of the things we will learn in this part of the book is how to use Python to plot data. As you well know, the raw data alone are often not particularly useful in helping you understand what the data show. Let's look at an example that might be familiar to you, global temperature data. The first ten lines of a climate data file can be found below.
 
 ```
 USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW AW AW AW W TEMP DEWP    SLP   ALT    STP MAX MIN PCP01 PCP06 PCP24 PCPXX SD
@@ -44,25 +44,6 @@ USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW AW AW AW W
 029740 99999 195201021800 160  14 ***   8 OVC 7 * *  1.2 73 ** ** ** ** ** ** ** 7   34   32  985.9 ***** ******  37 *** ***** ***** ***** ***** **
 029740 99999 195201030000 180  18 ***  15 OVC 5 * *  3.8 26 ** ** ** ** ** ** ** 7   36   28  985.4 ***** ****** *** *** ***** ***** ***** ***** **
 029740 99999 195201030600 200  14 ***  15 BKN 5 * *  5.0 02 ** ** ** ** ** ** ** 7   36   32  985.2 ***** ****** ***  32 ***** ***** ***** ***** **
-029740 99999 195201031200 250  11 ***  15 OVC 5 1 *  9.4 02 ** ** ** ** ** ** ** 7   34   30  986.8 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201031800 340   9 ***   5 BKN 5 7 *  5.6 03 ** ** ** ** ** ** ** 2   28   27  988.8 ***** ******  36 *** ***** ***** ***** ***** **
-029740 99999 195201040000 230   7 *** 722 SCT 0 0 5  9.4 02 ** ** ** ** ** ** ** 1   28   27  994.4 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201040600 270  11 ***  15 OVC 7 * *  5.0 70 ** ** ** ** ** ** ** 2   30   27  998.6 ***** ****** ***  25 ***** ***** ***** ***** **
-029740 99999 195201041200 250  15 ***  15 OVC 5 * *  5.0 71 ** ** ** ** ** ** ** 7   30   27 1002.8 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201041800 260   7 ***  40 OVC 5 * * 12.5 02 ** ** ** ** ** ** ** 7   30   27 1006.6 ***** ******  30 *** ***** ***** ***** ***** **
-029740 99999 195201050000 ***   0 *** *** BKN 5 * * 12.5 01 ** ** ** ** ** ** ** 2   28   27 1009.8 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201050600 ***   0 ***  98 OVC 7 2 *  1.9 71 ** ** ** ** ** ** ** 7   27   27 1012.2 ***** ****** ***  25 ***** ***** ***** ***** **
-029740 99999 195201051200 360   2 *** *** OVC 0 7 *  1.5 71 ** ** ** ** ** ** ** 7   27   27 1015.2 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201051800 360   7 ***  98 OVC 7 1 *  2.5 71 ** ** ** ** ** ** ** 7   25   23 1018.5 ***** ******  30 *** ***** ***** ***** ***** **
-029740 99999 195201060000 360  11 ***   8 OVC 5 7 *  9.4 02 ** ** ** ** ** ** ** 7   23   23 1021.5 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201060600 ***   0 ***   8 OVC 6 * *  7.5 02 ** ** ** ** ** ** ** 7   23   21 1023.4 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201061200 ***   0 ***  98 OVC 5 7 *  3.8 01 ** ** ** ** ** ** ** 2   23   21 1022.6 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201061800 130  18 ***  26 BKN 5 * * 12.5 02 ** ** ** ** ** ** ** 7   34   27 1017.8 ***** ******  36 *** ***** ***** ***** ***** **
-029740 99999 195201070000 200  14 ***   8 OVC 7 * *  1.9 51 ** ** ** ** ** ** ** 5   37   36 1014.1 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201070600 250   2 ***   2 OVC 7 * *  1.5 51 ** ** ** ** ** ** ** 5   39   37 1008.9 ***** ****** ***  32 ***** ***** ***** ***** **
-029740 99999 195201071200 250  18 ***   5 OVC 5 * *  6.2 02 ** ** ** ** ** ** ** 2   39   37 1003.5 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201071800 270  17 ***  15 OVC 7 * *  3.8 59 ** ** ** ** ** ** ** 2   41   39 1002.4 ***** ******  43 *** ***** ***** ***** ***** **
-029740 99999 195201080000 290  16 *** 722 CLR 0 0 0 12.5 00 ** ** ** ** ** ** ** 0   34   30 1009.5 ***** ****** *** *** ***** ***** ***** ***** **
 ...
 ```
 
@@ -72,7 +53,7 @@ One option is to use an *x*-*y* plot of temperature anomalies versus time.
 
 ![Global mean temperature anomalies](https://www.ncdc.noaa.gov/sotc/service/global/global-land-ocean-mntp-anom/201101-201112.png)
 
-*Global mean temperature anomalies from 1880-2011. Source: <https://www.ncdc.noaa.gov/sotc/global/201113>*.
+**Figure 1**. Global mean temperature anomalies from 1880-2011. Source: <https://www.ncdc.noaa.gov/sotc/global/201113>.
 
 This is obviously much better, nicely showing how temperatures have changed with time and how global temperatures have increased significantly since 1970. Now we have taken a clear step toward making the data easier to understand. However, these are global data and we are missing something important about them, their connection to geographical locations.
 
@@ -80,7 +61,7 @@ Let's consider another option, plotting temperature anomalies on a map.
 
 ![Global mean temperature anomaly map](https://www.ncdc.noaa.gov/sotc/service/global/map-blended-mntp/202001.png)
 
-*Global temperature anomalies for January 2020. Source: <https://www.ncdc.noaa.gov/sotc/global/201603>*.
+**Figure 2**. Global temperature anomalies for January 2020. Source: <https://www.ncdc.noaa.gov/sotc/global/201603>.
 
 And yet again, this helps us understand the data further. Not only do we see the changes in temperature, but now we see how temperatures vary in space across the globe. The drawback here is that we only see a single time snapshot, rather than a time series. Seeing both will require a truly remarkable visualization.
 
@@ -90,7 +71,7 @@ So, let's look now at some excellent examples of data visualization with Python.
 Video('../../../_static/Temp-anomalies-2018.mp4', width=800)
 ```
 
-*Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). Source: <https://flic.kr/p/293M1oa>*.
+**Figure 3**. Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). The animation can be found online at <https://flic.kr/p/293M1oa>.
 
 This animated "pill packet" plot of temperature anomalies conveys a huge amount of information in a simple form. People can immediately understand what is plotted, and the combination of the plot format, colors and animation are very effective. What even better is the fact that this animation was made using Python!
 
@@ -100,7 +81,7 @@ Another example shows similar data in a different format, including a peek into 
 Video('../../../_static/Temp-anomalies-2019.mp4', width=800)
 ```
 
-*Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). Source: <https://flic.kr/p/QYnKre>*.
+**Figure 4**. Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). The Animation can be found online at <https://flic.kr/p/QYnKre>.
 
 This plot nicely conveys the warming of different regions on Earth, again in an intuitive format.
 
