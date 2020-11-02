@@ -15,6 +15,9 @@ jupyter:
 # Glossary
 
 ```{glossary}
+Computer
+  We use the definition of a computer given by {cite}`Zelle2017`: "A machine that stores and manipulates information under the control of a changeable program."
+
 Data type
   An attribute defining the characteristics of a value in a program.
   For example, type `int` is an integer (whole number).
