@@ -24,7 +24,7 @@ So, why bother? Well, the fields of geoscience and geography are becoming increa
 
 ![Python prompt in the QGIS program](../img/QGIS-Python.png)
 
-**Figure 5**. Using the Python console to interact with GIS data in the QGIS program [^qgis].
+**Figure 1.5**. Using the Python console to interact with GIS data in the QGIS program [^qgis].
 
 Programming can also be fun! Once you learn the basic syntax you may enjoy finding ways to break complex problems down into simpler pieces, developing strategies for solving programming problems, and texting your solutions. This is part of the reason that children are being introduced to programming ideas in books such as the Hello Ruby series {cite}`Liukas2015`. Coming up with solutions with simple programs can be exiting and rewarding, and you can test your solutions right away to see whether or not your solution works!
 
