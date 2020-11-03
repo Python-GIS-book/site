@@ -52,6 +52,21 @@ Markdown
 Module
   A file containing Python definitions and statements. Module files have the ``.py`` file extension.
 
+Program
+  A detailed list of step-by-step instructions that tell the computer exactly what to do.
+  
+Programming language
+  A set of exact and unambiguous instructions that can be understood by the computer.
+
+Semantics
+  The meaning of an element in a programming language. For example, the `len()` function in Python is used to determine the length of a data structure that is defined in memory.
+
+Software
+  Another name for a {term}`program`.
+
+Syntax
+  The form of an element in a programming language. For example, the print function in Python expects the syntax `print('hello')` in order to have the word hello displayed on the screen.
+
 Variable
   A way of storing values in the memory of the computer using specific names that you define.
 ```
