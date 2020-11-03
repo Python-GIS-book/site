@@ -117,15 +117,15 @@ If you do not see the `temp_converter.py` file in the list of files from `%ls`, 
 - If you do not see the list of notebooks above, you may need to change directories to be in the Chapter 1 notebooks directory. For example, if you see
 
     ```bash
-_static/          back-matter/      index.rst         part2/
-appendices/       conf.py           page_builder.py   part3/
-authors.rst       front-matter/     part1/            requirements.txt
+    _static/          back-matter/      index.rst         part2/
+    appendices/       conf.py           page_builder.py   part3/
+    authors.rst       front-matter/     part1/            requirements.txt
     ```
 
     you are working in the base `source` directory. You can change directories to the notebooks directory for Chapter 1 by typing
 
     ```ipython
-%cd part1/chapter-01/nb
+    %cd part1/chapter-01/nb
     ```
 
 
