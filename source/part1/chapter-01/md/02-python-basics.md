@@ -20,23 +20,11 @@ In this section we will introduce some basic programming concepts in Python.
 This section was inspired by the Programming in Python lessons {cite}`Bostroem2016` from the Software Carpentry organization [^swc].
 <!-- #endregion -->
 
-<!-- #region -->
 ```{note}
 Materials in this book are built from *{term}`Jupyter Notebooks <Jupyter notebook>`* [^jupyter]. Jupyter notebooks are documents that are divided into cells that can contain *{term}`Markdown`* [^markdown] text, Python code, or raw text. You can execute a snippet of code in a notebook cell by pressing **Shift-Enter**. This particular notebook is designed to introduce you to a few of the basic concepts of programming in Python.
 
-If you would like to interact with the contents of this notebook, you can find the notebooks online at <https://pythongis.org>.
+If you would like to interact with the contents of this notebook, you can find the notebooks online at <https://pythongis.org>. Once you navigate to the page for this lesson, you can use the rocket ship icon at the top of the page to open an interactive version of this notebook using Binder. This will open Jupyter Lab [^jupyterlab] using a cloud computer and allow you to use the notebook interactively to follow the lesson.
 ```
-
-## Getting started - UPDATE!!!
-
-Presumably if you have made it this far, you have already opened this Jupyter Notebook using Binder, the CSC notebooks server, or on your own computer. If not, you can launch [Jupyter Lab](http://jupyterlab.readthedocs.io/en/stable/) by clicking on the launch button at the top of this document, using the launch Binder icon at the top of the page, or by typing the following in a terminal window.
-
-```bash
-$ jupyter lab
-```
-
-This should open a new Jupyter Lab session from which you can open this document by navigating its location in the **Files** tab and double clicking on it. After that you should be ready to go.
-<!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
 ## Simple Python math
@@ -90,6 +78,8 @@ The list of basic arithmetic operations that can be done by default in Python is
 | Multiplication | `*`    | `2 * 3`        | `6`            | 
 | Division       | `/`    | `4 / 2`        | `2`            |
 | Exponentiation | `**`   | `2**3`         | `8`            |
+
+**Table 1.1**. Basic math operations in Python.
 
 For anything more advanced, we need to load a *{term}`module`* or *{term}`library`*. For math operations, this module is called *math* and it can be loaded by typing `import math`. Try that below.
 <!-- #endregion -->
@@ -260,6 +250,8 @@ There are 4 basic data types in Python as shown in the table below.
 | `float`        | Decimal values       | `3.1415`   |
 | `str`          | Character strings    | `'Hot'`    |
 | `bool`         | True/false values    | `True`     |
+
+**Table 1.2**. Basic data types in Python.
 
 The data type can be found using the `type()` function.
 As you will see, the data types are important because some are not compatible with one another.
@@ -504,7 +496,8 @@ OK, that makes sense, but it may take some getting used to...
 As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill.
 
 ![Bill the vending machine](../img/bill-the-vending-machine.png)
-*Bill, the vending machine.*
+
+**Figure 1.8**. Bill, the vending machine.
 
 As you can see, Bill is a vending machine that contains 6 items. Like Python lists, the list of items available from Bill starts at 0 and increases in increments of 1.
 
@@ -726,4 +719,5 @@ As you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighth
 
 [^swc]: <http://software-carpentry.org>
 [^jupyter]: <https://jupyter.org/>
+[^jupyterlab]: <http://jupyterlab.readthedocs.io/en/stable/>
 [^markdown]: <https://en.wikipedia.org/wiki/Markdown>

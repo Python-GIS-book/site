@@ -122,7 +122,8 @@ Let's break down the code above to see some essential aspect of `for` loops:
 ### Your daily for loop
 
 ![cat's daily routine](../img/2009-11-03-Cats-Eye.gif)
-Source: [https://www.bugmartini.com/comic/cats-eye/](https://www.bugmartini.com/comic/cats-eye/)
+
+**Figure 1.9**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>.
 
 Like many other programming concepts, the idea of looping through actions is something that is already perhaps more familiar to you than you think.
 Consider your actions during a given day.

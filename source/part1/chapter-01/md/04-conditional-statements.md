@@ -141,6 +141,8 @@ Comparison operators such as `>` and `==` compare the values on each side of the
 | >        | Greater than             |
 | !=       | Not equal to             |
 
+**Table 1.3**. Comparison operators in Python.
+
 
 ### Boolean values
 Comparison operations yield boolean values (`True` or `False`). In Python, the words `True` and `False` are reserved for these Boolean values, and can't be used for anything else. 

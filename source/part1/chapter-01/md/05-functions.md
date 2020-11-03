@@ -41,6 +41,8 @@ def celsius_to_fahr(temp):
 
 ![Anatomy of a function.](../img/Function_anatomy-400.png)
 
+**Figure 1.10**. An example function with annotation of its important elements.
+
 The function definition opens with the keyword `def` followed by the name of the function and a list of parameter names in parentheses.
 The body of the function — the statements that are executed when it runs — is indented below the definition line.
 
