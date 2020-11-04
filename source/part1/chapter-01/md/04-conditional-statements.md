@@ -107,6 +107,10 @@ Note here that we use the `==` operator to test if a value is exactly equal to a
 Similarly as with for loops, Python uses colons (`:`) and whitespace (indentations; often four spaces) to structure conditional statements. If the condition is `True`, the indented code block after the colon (`:`) is executed. The code block may contain several lines of code, but they all must be indented identically You will receive an `IndentationError`, a `SyntaxError`, or unwanted behavior if you haven't indented your code correctly.
 ```
 
+```{admonition} Be careful with cases
+Note that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = Rain`, the comparsion `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
+```
+
 
 #### Check your understanding 
 
