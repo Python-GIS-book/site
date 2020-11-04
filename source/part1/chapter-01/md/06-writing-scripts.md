@@ -320,7 +320,3 @@ temperature_c = tc.temp_calculator(temp_k=temp_kelvin, convert_to="C")
 ```python tags=["raises-exception"]
 print("The temperature", temp_kelvin, "Kelvins is", temperature_c, "degrees Celsius.")
 ```
-
-## Footnotes
-
-[^swc]: <http://software-carpentry.org>

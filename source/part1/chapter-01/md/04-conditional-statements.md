@@ -16,7 +16,7 @@ jupyter:
 
 In this lesson we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
 
-This section was inspired by the Programming in Python lessons {cite}`Bostroem2016` from the Software Carpentry organization [^swc] and the Python for Data Analysis book {cite}`McKinney2017`.
+This section was inspired by the Programming in Python lessons {cite}`Bostroem2016` from the [Software Carpentry organization](http://software-carpentry.org) [^swc] and the Python for Data Analysis book {cite}`McKinney2017`.
 
 ## Basics of conditional statements
 

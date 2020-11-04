@@ -18,7 +18,7 @@ In this section we provide some additional background on loading and using *{ter
 
 ## Modules, packages and libraries?
 
-A Python *{term}`module`* [^module] refers to a piece of Python code that is designed to execute a specific task. Technically, modules are simply Python script files (with the file extension `.py`) that contain function definitions and other statements. Python packages [^package] are a way of organizing modules into larger entities. 
+A Python *{term}`module`* [^module] refers to a piece of Python code that is designed to execute a specific task. Technically, modules are simply Python script files (with the file extension `.py`) that contain function definitions and other statements. [Python packages](https://docs.python.org/3/tutorial/modules.html#packages) [^package] are a way of organizing modules into larger entities. 
 
 Modules and packages are similar to what are more generally called libraries in programming languages, which again contain code related to specific tasks such as mathematical operations. There are a *HUGE* number of Python modules/packages, and many of them greatly extend what can be done in a normal Python program. In fact, the abundance of free Python modules is one of the best reasons to learn and start using Python.
 
@@ -43,7 +43,7 @@ Here we have loaded the math module by typing `import math`, which tells Python 
 
 ### Built-in functions
 
-Built-in functions [^builtin] such as `print()` are always available without importing anything.
+[Built-in functions](https://docs.python.org/3/library/functions.html) [^builtin] such as `print()` are always available without importing anything.
 
 ```python
 print("Hello world!")
@@ -90,7 +90,7 @@ Though this can be useful, it has the drawback that **the imported function coul
 
 ### Importing a submodule
 
-Some modules have submodules that can also be imported without importing the entire module. We may see examples of this later when making data plots using the pyplot sub-module from the Matplotlib module [^matplotlib]. In case you're curious, here is an example.
+Some modules have submodules that can also be imported without importing the entire module. We may see examples of this later when making data plots using the pyplot sub-module from the [Matplotlib module](http://matplotlib.org/) [^matplotlib]. In case you're curious, here is an example.
 
 ```python
 import matplotlib.pyplot as plt
@@ -103,7 +103,7 @@ plt.plot([1,2,3,4,5], [5,2,3,4,1])
 
 **Figure 1.15**. Example plot using the Matplotlib module.
 
-You can read more about the `plot` plotting function in the matplotlib pyplot documentation [^matplotdocs]. We will introduce matplotlib in detail in Chapter 3.
+You can read more about the `plot` plotting function in the [matplotlib pyplot documentation](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html) [^matplotdocs]. We will introduce matplotlib in detail in Chapter 3.
 
 
 ## Using module functions
@@ -142,15 +142,15 @@ Don't use confusing names when renaming on import. Be smart when you import modu
 
 
 ```{admonition} What does PEP 8 say about imports?
-According to the good coding practices described in PEP 8 [^pep8], we should always import modules at the top of the file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import requried modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.
+According to the good coding practices described in [PEP 8](https://www.python.org/dev/peps/pep-0008/#imports) [^pep8], we should always import modules at the top of the file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import requried modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.
 ```
 
 
 ## Installing packages
 
-If you have installed Python on your own computer, we recommend using the Conda [^conda] package management system that comes with the Anaconda and Miniconda Python installers. Using Conda, you can list package names and versions using the `conda list` command in a terminal.
+If you have installed Python on your own computer, we recommend using the [Conda package management system](https://docs.conda.io/projects/conda/en/latest/) [^conda] that comes with the Anaconda and Miniconda Python installers. Using Conda, you can list package names and versions using the `conda list` command in a terminal.
     
-It's also good to be aware of pip [^pip], the package installer for python. Pip and conda are often used for similar purposes, but the key difference is that pip is used for installing packages written in Python, while conda handles packages that might also contain code written in other languages. Generally, we encourage you to use conda when installing packages (and within conda, it is preferable to use the same channel for installations). However, sometimes you might need a package that is not available via conda, but can be installed with pip. You can read more about differences and similarities of conda an pip at <https://www.anaconda.com/understanding-conda-and-pip/>.
+It's also good to be aware of [pip, the package installer for python](https://pypi.org/project/pip/)  [^pip]. Pip and conda are often used for similar purposes, but the key difference is that pip is used for installing packages written in Python, while conda handles packages that might also contain code written in other languages. Generally, we encourage you to use conda when installing packages (and within conda, it is preferable to use the same channel for installations). However, sometimes you might need a package that is not available via conda, but can be installed with pip. You can read more about differences and similarities of conda an pip at <https://www.anaconda.com/understanding-conda-and-pip/>.
 
 
 ```{admonition}Checking all available modules in a Jupyter Notebook**

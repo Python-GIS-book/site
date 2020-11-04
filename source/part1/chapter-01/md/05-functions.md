@@ -16,7 +16,7 @@ jupyter:
 
 In this lesson we introduce functions as a way of making blocks of code for a specific task that are easy to use and re-use in your programs.
 
-This section was partly based on the Programming in Python lessons {cite}`Bostroem2016` from the Software Carpentry organization [^swc].
+This section was partly based on the Programming in Python lessons {cite}`Bostroem2016` from the [Software Carpentry organization](http://software-carpentry.org) [^swc].
 
 
 ## What is a function?
@@ -148,7 +148,7 @@ print('Absolute zero in Fahrenheit is:', absolute_zero_fahr)
 <!-- #region -->
 ## Documenting functions with docstrings
 
-A documentation string, or a *{term}`docstring`* is a block of text that describes what a specific function, library, or script does and how to use it. Surprise surprise, PEP 8 contains more guidance about documentation strings [^pep8_docstring], and docstrings even have their own guide page [^pep257]. Let's look an an example from our of our functions above.
+A documentation string, or a *{term}`docstring`* is a block of text that describes what a specific function, library, or script does and how to use it. Surprise surprise, PEP 8 contains [more guidance about documentation strings](https://www.python.org/dev/peps/pep-0008/#documentation-strings) [^pep8_docstring], and docstrings even have [their own guide page](https://www.python.org/dev/peps/pep-0257/) [^pep257]. Let's look an an example from our of our functions above.
 
 ```python
 def kelvins_to_celsius(temp_kelvins):
@@ -160,7 +160,7 @@ Here you can see a short bit of text explaining in simple language what this fun
 
 - A docstring is always the first statement in a module or a function.
 - Docstrings are written using `"""triple double quotation marks"""`.
-- Short docstrings can be written on a single line [^pep257_one_line].
+- Short docstrings [can be written on a single line](https://www.python.org/dev/peps/pep-0257/#one-line-docstrings) [^pep257_one_line].
 
 Seems simple enough, right?
 
