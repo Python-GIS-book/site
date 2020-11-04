@@ -153,7 +153,7 @@ If you have installed Python on your own computer, we recommend using the [Conda
 It's also good to be aware of [pip, the package installer for python](https://pypi.org/project/pip/)  [^pip]. Pip and conda are often used for similar purposes, but the key difference is that pip is used for installing packages written in Python, while conda handles packages that might also contain code written in other languages. Generally, we encourage you to use conda when installing packages (and within conda, it is preferable to use the same channel for installations). However, sometimes you might need a package that is not available via conda, but can be installed with pip. You can read more about differences and similarities of conda an pip at <https://www.anaconda.com/understanding-conda-and-pip/>.
 
 
-```{admonition}Checking all available modules in a Jupyter Notebook**
+```{admonition} Checking all available modules in a Jupyter Notebook
 In a Jupyter Notebook, you can type in `help("modules")` to see the complete list of installed packages in Python. However, the output is a bit clumsy and hard to read...
 ```
 
