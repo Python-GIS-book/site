@@ -80,14 +80,12 @@ For example, let's consider asking the computer to calculate pi. In these terms,
 But there are practical limitations as well for tasks computers can do well. If problem sizes are simply too large to calculate, the computer will be unable to complete them. The [most powerful supercomputers in the world today](https://www.top500.org/lists/top500/) [^top500] have several million processor cores and the ability to calculate more than 100,000 trillion [floating point operations per second](https://en.wikipedia.org/wiki/FLOPS) [^flops]. Yet even those massive systems have limitiations. Imagine we have a digital elevation model of the Earth (including seafloor bathymetry) with a resolution of 1 micrometer ($1 \times 10^{-6}$ meters). Now let's assume we want to calculate the slope from all points in that model. The total number of surface elevation points we would have would be approximately $5 \times 10^{26}$, and if each slope calculations requires three floating point operations, we have a total of $1.5 \times 10^{27}$ operations. Even on one of the fastest supercomputers in the world, this calculation would take nearly 500,000 years! Of course, this is a bit of a silly example, but it is clear there are computational limits.
 
 
-## What is a program?
+## What are programs and programming languages?
 
 The instructions we provide that tell the computer what to do come in the form of a *{term}`program`*.
 A program is simply a detailed list of step-by-step instructions that tell the computer exactly what to do.
 As noted above, this program is something that can be modified and alter what the computer does when the program is executed.
 Software is another name for a program.
-
-## What is a programming language?
 
 ![Example programs in different programming languages](../img/programming-languages.png)
 
