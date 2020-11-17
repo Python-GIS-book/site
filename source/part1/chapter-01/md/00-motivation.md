@@ -71,7 +71,9 @@ So, let's look now at some excellent examples of data visualization with Python.
 Video('../../../_static/Temp-anomalies-2018.mp4', width=800)
 ```
 
-**Figure 1.3**. Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). The animation can be found online at <https://flic.kr/p/293M1oa>.
+[![Global temperature anomalies video](../img/lipponen-video-1.jpg)](https://flic.kr/p/293M1oa)
+
+**Figure 1.3**. Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). The animation can be viewed by clicking on the image or online at <https://flic.kr/p/293M1oa>.
 
 This animated "pill packet" plot of temperature anomalies conveys a huge amount of information in a simple form. People can immediately understand what is plotted, and the combination of the plot format, colors and animation are very effective. What even better is the fact that this animation was made using Python!
 
