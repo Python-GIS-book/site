@@ -77,7 +77,7 @@ Another example shows similar data in a different format, including a peek into 
 
 [![Global temperature anomalies video 2](../img/lipponen-video-2.jpg)](https://flic.kr/p/QYnKre)
 
-**Figure 1.4**. Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). The Animation can be viewed by clicking on the image or online at <https://flic.kr/p/QYnKre>.
+**Figure 1.4**. Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen ([@anttilip](https://twitter.com/anttilip) [^antti_twitter]). The animation can be viewed by clicking on the image or online at <https://flic.kr/p/QYnKre>.
 
 This plot nicely conveys the warming of different regions on Earth, again in an intuitive format.
 
