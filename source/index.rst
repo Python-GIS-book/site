@@ -86,13 +86,43 @@ The book consists of 4 parts:
         </div>
     </div>
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Front matter
+   :titlesonly:
+   :hidden:
+
+   front-matter/index
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Part I - Basic programming concepts
    :titlesonly:
    :hidden:
 
    part1/index
-   authors
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Part II - Interacting with geographic data
+   :titlesonly:
+   :hidden:
+
+   part2/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Part III - Geographic data analysis case studies
+   :titlesonly:
+   :hidden:
+
+   part3/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Back matter
+   :titlesonly:
+   :hidden:
+
+   back-matter/index
+   authors
