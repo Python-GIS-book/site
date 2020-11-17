@@ -96,15 +96,18 @@ The book consists of 4 parts:
 
 .. toctree::
    :maxdepth: 2
-   :caption: Part I - Basic programming concepts
+   :caption: Part I - Python essentials
    :titlesonly:
    :hidden:
 
    part1/index
+   part1/chapter-01/index
+   part1/chapter-02/index
+   part1/chapter-03/index
 
 .. toctree::
    :maxdepth: 2
-   :caption: Part II - Interacting with geographic data
+   :caption: Part II - Using Python with GIS
    :titlesonly:
    :hidden:
 
@@ -112,7 +115,7 @@ The book consists of 4 parts:
 
 .. toctree::
    :maxdepth: 2
-   :caption: Part III - Geographic data analysis case studies
+   :caption: Part III - Case studies
    :titlesonly:
    :hidden:
 
