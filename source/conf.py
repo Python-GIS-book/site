@@ -238,3 +238,10 @@ class APAStyle(UnsrtStyle):
     default_label_style = APALabelStyle
 
 register_plugin('pybtex.style.formatting', 'apa', APAStyle)
+
+
+# ======================
+# Bibtex configuration
+# ======================
+
+bibtex_bibfiles = ['source/part1/chapter-01/chapter-01-references.bib']
