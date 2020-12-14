@@ -1,5 +1,5 @@
-Chapter 2: Introduction to data analysis with Python
-====================================================
+Introduction to data analysis with Python
+=========================================
 
 This section is under construction.
 

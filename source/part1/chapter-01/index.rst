@@ -1,5 +1,5 @@
-Chapter 1: Basic programming concepts
-=====================================
+Basic programming concepts
+==========================
 
 Here we introduce some basic concepts of programming in the Python language.
 
