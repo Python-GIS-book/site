@@ -244,5 +244,5 @@ register_plugin('pybtex.style.formatting', 'apa', APAStyle)
 # Bibtex configuration
 # ======================
 
-bibtex_bibfiles = ['source/part1/chapter-01/chapter-01-references.bib',
-                   'source/back-matter/back-matter-references.bib']
+bibtex_bibfiles = ['part1/chapter-01/chapter-01-references.bib',
+                   'back-matter/back-matter-references.bib']
