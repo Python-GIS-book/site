@@ -14,10 +14,6 @@ jupyter:
 
 # References
 
-```{bibliography} chapter-02-references.bib
-```
-
-
-```python
-
+```{bibliography} ../chapter-02-references.bib
+:style: apa
 ```

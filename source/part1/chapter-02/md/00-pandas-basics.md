@@ -17,7 +17,7 @@ jupyter:
 ## What is Pandas?
 
 Pandas [^urlpandas]  is a modern, powerful and feature rich library that is designed for doing
-data analysis in Python. It is a mature data analytics framework that is widely used among different fields of science, thus there exists a lot of good examples and documentation that can help you get going with your data analysis tasks. Pandas development started in 2008 and it is now maintained by an active developer community. The book Python for Data Analysis (First published in 2012 and updated in 2017) by  Wes McKinney (main developer of Pandas) provides a comprehensive overview of wrangling data using Pandas.
+data analysis in Python. It is a mature data analytics framework that is widely used among different fields of science, thus there exists a lot of good examples and documentation that can help you get going with your data analysis tasks. Pandas development started in 2008 and it is now maintained by an active developer community. The book Python for Data Analysis (First published in 2012 and updated in 2017) {cite}`McKinney2017` provides a comprehensive overview of wrangling data using Pandas.
 
 Pandas is a "high-level" package, which means that it makes use of several other packages in the background.
 Pandas combines the performance of powerful Python libraries such as NumPy [^urlnumpy],
