@@ -347,17 +347,19 @@ print("There were", data['TEMP'].nunique(), "days with unique mean temperatures 
 ### Descriptive statistics
 
 <!-- #region deletable=true editable=true -->
-Pandas DataFrames and Series contain useful methods for getting summary statistics. Available methods include `mean()`, `median()`, `min()`, `max()`, and `std()` (the standard deviation).
-<!-- #endregion -->
+pandas DataFrame and Series contain useful methods for getting summary statistics. Available methods include `mean()`, `median()`, `min()`, `max()`, and `std()` (the standard deviation). The statistics can be calculated on a Series level (a single column) or getting the statistics for all columns at once for the whole DataFrame.
 
-We could, for example, check the mean temperature in our input data. We check the mean for a single column (*Series*): 
+To check e.g. the mean temperature in out input data, i.e. focusing on a single column (*Series*), we can do following: 
+<!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Check mean value of a column
 data['TEMP'].mean()
 ```
 
-and for all columns (in the *DataFrame*):
+The output in this case will be a single floating point number presenting the mean temperature, 59.73 Fahrenheits.  
+
+To get the mean statistics for all columns in the DataFrame, we can call the `mean()` in a similar manner, but without specifying the column name.
 
 ```python
 # Check mean value for all columns
@@ -365,13 +367,22 @@ data.mean()
 ```
 
 <!-- #region deletable=true editable=true -->
-For an overview of the basic statistics for all attributes in the data, we can use the `describe()` method:
+Notice that in this case, the result is Series showing the mean values for each column. 
 
+For an overview of the basic statistics for all attributes in the data, we can use the `describe()` method:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Get descriptive statistics
 data.describe()
+```
+
+As a result, we get the number of values that are not None for each column (count) as well as the basic statistics and quartiles (min, 25%, 50%, 75% and max). 
+
+It is also possible to get other DataFrame specific information, such as the index dtype and columns, non-null values and memory usage by calling `info()`: 
+
+```python
+data.info()
 ```
 
 <!-- #region deletable=true editable=true -->
