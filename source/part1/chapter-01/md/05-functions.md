@@ -16,8 +16,6 @@ jupyter:
 
 In this lesson we introduce functions as a way of making blocks of code for a specific task that are easy to use and re-use in your programs.
 
-This section was partly based on the Programming in Python lessons {cite}`Bostroem2016` from the [Software Carpentry organization](http://software-carpentry.org) [^swc].
-
 
 ## What is a function?
 
@@ -192,4 +190,3 @@ Here you can now see more information about the expected values for the paramete
 [^pep8_docstring]: <https://www.python.org/dev/peps/pep-0008/#documentation-strings>
 [^pep257]: <https://www.python.org/dev/peps/pep-0257/>
 [^pep257_one_line]: <https://www.python.org/dev/peps/pep-0257/#one-line-docstrings>
-[^swc]: <http://software-carpentry.org>
