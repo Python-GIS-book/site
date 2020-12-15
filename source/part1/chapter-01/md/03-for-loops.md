@@ -16,8 +16,6 @@ jupyter:
 
 In the previous section we introduced *{term}`lists <list>`* in Python, one form of a collection of values that can be represented by a single variable. In this lesson we will learn how to use *{term}`loops <loop>`*. Loops allow parts of code to be repeated some number of times, such as iterating over all of the items in a Python list and performing a calculation on each item.
 
-This section was inspired by the Programming in Python lessons {cite}`Bostroem2016` from the [Software Carpentry organization](http://software-carpentry.org) [^swc].
-
 
 ## A (bad) example
 
@@ -292,7 +290,3 @@ even_numbers = [10, 4, 6, 8, 2]
 for i in range(len(odd_numbers)):
     print(odd_numbers[i] + even_numbers[i])
 ```
-
-## Footnotes
-
-[^swc]: <http://software-carpentry.org>
