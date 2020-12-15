@@ -74,9 +74,11 @@ html_static_path = ['_static']
 # Hide title in left navbar
 html_title = ''
 
+# Do not execute cells
+jupyter_execute_notebooks = "off"
+
 # -- Options for nbsphinx --
 nbsphinx_allow_errors = True
-
 
 # -- Options for Jupyter-Sphinx --
 # jupyter_sphinx_thebelab_config = {
@@ -114,15 +116,10 @@ latex_documents = [
 ]
 latex_additional_files = ["krantz/krantz.cls"]
 
-#latex_elements = {
-#'preamble': r'\usepackage{hyperref}',
-#}
-
 # -----------------------------
 # Customizing citation styling
 # -----------------------------
 # Ref: https://github.com/mcmtroffaes/sphinxcontrib-bibtex/issues/201
-
 
 class APALabelStyle(BaseLabelStyle):
 
