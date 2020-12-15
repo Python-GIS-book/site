@@ -12,19 +12,19 @@ jupyter:
     name: python3
 ---
 
-# Pandas basics
+# Getting started with pandas
 
-## What is Pandas?
+## What is pandas?
 
-Pandas [^urlpandas]  is a modern, powerful and feature rich library that is designed for doing
-data analysis in Python. It is a mature data analytics framework that is widely used among different fields of science, thus there exists a lot of good examples and documentation that can help you get going with your data analysis tasks. Pandas development started in 2008 and it is now maintained by an active developer community. The book Python for Data Analysis (First published in 2012 and updated in 2017) {cite}`McKinney2017` provides a comprehensive overview of wrangling data using Pandas.
+``pandas`` [^urlpandas] is a modern, powerful and feature rich library that is designed for doing
+data analysis in Python. It is a mature data analytics framework that is widely used among different fields of science, thus there exists a lot of good examples and documentation that can help you get going with your data analysis tasks. The development of pandas started in 2008 and it is now maintained by an active developer community ({cite}`McKinney2017`).
 
-Pandas is a "high-level" package, which means that it makes use of several other packages in the background.
-Pandas combines the performance of powerful Python libraries such as NumPy [^urlnumpy],
-matplotlib [^urlmatplotlib] and scipy [^urlscipy]. Thus, you can use many of the features included in those packages even without importing them separately. This book focuses primarily on Pandas because it is easy-to-use, efficient and intuitive.
+pandas is a "high-level" package, which means that it makes use of several other packages in the background.
+Pandas combines the performance of powerful Python libraries such as ``numpy`` [^urlnumpy],
+``matplotlib`` [^urlmatplotlib] and ``scipy`` [^urlscipy]. Thus, you can use many of the features included in those packages even without importing them separately. This book focuses primarily on pandas because it is easy-to-use, efficient and intuitive.
 
-One of the most useful features of Pandas is its ability to write and read data to and from numerous data formats.
-Pandas supports reading and writing data e.g. from/to:
+One of the most useful features of pandas is its ability to write and read data to and from numerous data formats.
+It supports reading and writing data e.g. from/to:
 
 - CSV
 - JSON
@@ -36,41 +36,53 @@ Pandas supports reading and writing data e.g. from/to:
 - Python Pickle format
 - SQL (Postgresql, MySQL, Oracle, MariaDB, etc.)
 
-See full list from the latest Pandas documentation [^urlpandasdocs].
+See full list from the latest pandas documentation [^urlpandasdocs].
 
 <!-- #region deletable=true editable=true -->
 ## Pandas data structures
 
-In Pandas, table-like data are stored in two-dimensional DataFrames with labeled rows and columns. You can think of the pandas DataFrame as a programmable spreadsheet. The Pandas DataFrame was originally inspired by dataframes that are in-built in the R programming language. One-dimensional sequences of values are stored in pandas Series. One row or one column in a Pandas DataFrame is actually a Pandas Series. You can think of a pandas Series as a clever list. These Pandas structures incorporate a number of things we've already encountered, such as indices, data stored in a collection, and data types.
+In pandas, table-like data are stored in two-dimensional DataFrames with labeled rows and columns. You can think of the pandas DataFrame as a programmable spreadsheet. The pandas DataFrame was originally inspired by dataframes that are in-built in the R programming language. One-dimensional sequences of values are stored in pandas Series. One row or one column in a pandas DataFrame is actually a pandas Series. You can think of a pandas Series as a clever list. These pandas structures incorporate a number of things we've already encountered, such as indices, data stored in a collection, and data types.
 
 ![Pandas data structures](./../img/pandas-structures.png)
 
 
 ![Pandas data structures annotated](./../img/pandas-structures-annotated.png)
 
-*Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.*
+*pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.*
 
 
 
-As you can see, both DataFrames and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the lesson this week we'll use many of these features to explore real-world data and learn some useful data analysis procedures.
+As you can see, both DataFrames and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the next sections, we will use many of these features to explore real-world data and learn some useful data analysis procedures.
 
-For a comprehensive overview of Pandas data structures you can have a look at Chapter 5 in {cite}`MacKinney2017` and Pandas online documentation about data structures [^urlds].
+For a comprehensive overview of pandas data structures, we recommend you to have a look at pandas online documentation about data structures [^urlds] as well as Chapter 5 in {cite}`McKinney2017`.
 <!-- #endregion -->
 
+<!-- #region -->
 ## Reading tabular data 
 
-### Input data: weather statistics
+In the following sections, we will learn how to read data from a text file (*Kumpula-June-2016-w-metadata.txt*) which contains weather observations from Kumpula, Helsinki (Finland). The data was retrieved from NOAA [^urlnoaa1] climate database and it contains observed daily mean, minimum, and maximum temperatures from June 2016, recorded by a weather observation station in Kumpula. The file includes altogether 30 rows of observations (one per day). The first fifteen rows in the file look like following:
 
-Our input data is a text file containing weather observations from Kumpula, Helsinki, Finland retrieved from NOAA [^noaa] climate database:
+```
+# Data file contents: Daily temperatures (mean, min, max) for Kumpula, Helsinki
+#                     for June 1-30, 2016
+# Data source: https://www.ncdc.noaa.gov/cdo-web/search?datasetid=GHCND
+# Data processing: Extracted temperatures from raw data file, converted to
+#                  comma-separated format
+#
+# David Whipp - 02.10.2017
 
-- File name: [Kumpula-June-2016-w-metadata.txt](Kumpula-June-2016-w-metadata.txt) (have a look at the file before reading it in using pandas!)
-- The data file contains observed daily mean, minimum, and maximum temperatures from June 2016 recorded from the Kumpula weather observation station in Helsinki.
-- There are 30 rows of data in this sample data set.
-- The data has been derived from a data file of daily temperature measurments downloaded from NOAA [^urlnoaa1]
+YEARMODA,TEMP,MAX,MIN
+20160601,65.5,73.6,54.7
+20160602,65.8,80.8,55.0
+20160603,68.4,,55.6
+20160604,57.5,70.9,47.3
+20160605,51.4,58.3,43.2
+20160606,52.2,59.7,42.8
+```
 
-### Reading a csv file
 
-Now we're ready to read in our temperature data file. First, we need to import the Pandas module. It is customary to import pandas as `pd`:
+Now as we have familiarized ourselves with the data, we can continue and see how to read the CSV with pandas. Let's start by importing the ``pandas`` module. It is customary to import pandas as `pd`:
+<!-- #endregion -->
 
 ```python deletable=true editable=true
 import pandas as pd
@@ -81,25 +93,15 @@ Next, we will read the input data file and store the contents of that file into 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data = pd.read_csv('../../data/NOAA/Kumpula-June-2016-w-metadata.txt')
+data = pd.read_csv('../../../data/NOAA/daily/Kumpula-June-2016-w-metadata.txt')
 ```
 
 
-Our input file is a comma-delimited file; columns in the data are separted by commas (`,`) on each row. The `read_csv()` function has the comma as the default delimiter so we don't need to specify it separately. 
+Our input file is a comma-delimited file, meaning that the columns in the data are separted by commas (`,`) on each row. The `read_csv()` function uses comma as the default delimiter, hence we did not need to specify it separately in the command above. If all went as planned, you should now have a new variable `data` in memory that contains the input data. 
 
-The `sep` parameter can be used to specify whether the input data uses some other character, such as semicolon (`;`) as a delimiter. For a full list of available parameters, please refer to the pandas documentation for pandas.read_csv [^urlreadcsv], or run `help(pd.read_csv)`.
-
-
-
-```{note}
-
-**Reading different file formats:**`read_csv()` in pandas is a general function for reading data files separated by commas, spaces, or other common separators. 
-
-Pandas has several functions for parsing input data from different formats. There is, for example, a separate function for reading Excel files .read_excel()`. Another useful function is `read_pickle()` for reading data stored in the Python pickle format.. Check out the pandas documentation about input and output functions [^urlpandasiotools] and Chapter 6 in {cite}`MacKinney2017` for more details about reading data.
-```
+It is quite common to have some other character instead of comma separating the columns from each other. The `read_csv()` is a generic function for reading text-based data files, supporting files separated by commas, spaces, or other common separators. The `sep` parameter can be used to specify which character is used as a delimiter. For instance `sep=';'`, would assume that the columns in the data file are delimited with semicolon (`;`). For a full list of available parameters, please refer to the pandas documentation for pandas.read_csv [^urlreadcsv], or run `help(pd.read_csv)`. Pandas has also several functions for parsing input data from different formats. For example, reading Excel files can be easily done by using a function `read_excel()`. Another useful function is `read_pickle()` that reads data stored in the Python pickle format. Check out the pandas documentation about input and output functions [^urlpandasiotools] for more details about reading data.
 
 
-If all goes as planned, you should now have a new variable `data` in memory that contains the input data. 
 
 Let's check the the contents of this variable by calling `data` or `print(data)`:
 
@@ -139,7 +141,7 @@ Let's try reading the datafile again, and this time defining the `skiprows` para
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data = pd.read_csv('../../data/NOAA/Kumpula-June-2016-w-metadata.txt', skiprows=8)
+data = pd.read_csv('../../../data/NOAA/daily/Kumpula-June-2016-w-metadata.txt', skiprows=8)
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -167,7 +169,7 @@ data.tail()
 ```
 
 <!-- #region deletable=true editable=true -->
-Note that Pandas that DataFrames have **labelled axes (rows and columns)**.  In our sample data, the rows labeled with an index value (`0` to `29`), and columns labelled `YEARMODA`, `TEMP`, `MAX`, and `MIN`. Later on, we will learn how to use these labels for selecting and updating subsets of the data.
+Note that pandas DataFrames have **labelled axes (rows and columns)**.  In our sample data, the rows labeled with an index value (`0` to `29`), and columns labelled `YEARMODA`, `TEMP`, `MAX`, and `MIN`. Later on, we will learn how to use these labels for selecting and updating subsets of the data.
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
@@ -179,20 +181,23 @@ type(data)
 ```
 
 <!-- #region deletable=true editable=true -->
-No surprises here, our data variable is a Pandas DataFrame.
+No surprises here, our data variable is a pandas DataFrame.
 <!-- #endregion -->
 
-**Check your understanding**
+It is also possible to read only specific columns from the data when using the `read_csv` function. You can achieve this using the `usecols` parameter when reading the file which accepts a list of column names that will be included in the resulting DataFrame. Also positional indices (e.g. `[0, 1]`) corresponding the position of the column in the file can be used to specify which columns should be read. For additional details, see the pandas documention [^readcsv].
 
-Read the file `Kumpula-June-2016-w-metadata.txt` in again and store its contents in a new variable called `temp_data`. In this case you should only read in the columns `YEARMODA` and `TEMP`, so the new variable `temp_data` should have 30 rows and 2 columns. You can achieve this using the `usecols` parameter when reading in the file. Feel free to check for more help in the [pandas.read_csv documentation](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html).
+Next, we will read the file `Kumpula-June-2016-w-metadata.txt` again and store its contents into a new variable called `temp_data`. In this case, we will only read the columns `YEARMODA` and `TEMP`, meaning that the new variable `temp_data` should have 30 rows and 2 columns. 
 
 ```python
-temp_data = pd.read_csv('../../data/NOAA/Kumpula-June-2016-w-metadata.txt', skiprows=8, usecols=["YEARMODA", "TEMP"])
+temp_data = pd.read_csv('../../../data/NOAA/daily/Kumpula-June-2016-w-metadata.txt', 
+                        skiprows=8, usecols=["YEARMODA", "TEMP"])
 ```
 
 ```python
 temp_data.head()
 ```
+
+As a result, we now have only two columns instead of the original four. Using the `usecols` function to limit the number of columns can be useful when having datafiles with possibly tens or even hundreds of columns. Typically you are not interested in all of them, but you want focus on only a few important ones which you can select already when reading the data.  
 
 <!-- #region deletable=true editable=true -->
 ## Basic data exploration
@@ -220,18 +225,14 @@ data.shape
 ```
 
 <!-- #region deletable=true editable=true -->
-Here we see that our dataset has 30 rows and 4 columns, just as we saw above when printing out the entire DataFrame.
+Here we see that our dataset has 30 rows and 4 columns, just as we saw above when printing out the entire DataFrame. Pay attention that we do not use parentheses after the word `shape` when accessing attributes. The `shape` in here is one of the several ``attributes`` related to a pandas DataFrame object. Attributes are typically used to store useful information (or *metadata*) about the object at hand. We will see many more examples of these throughout the book. 
+
 <!-- #endregion -->
 
-```{note}
-`shape` is one of the several attributes related to a pandas DataFrame object [^urlpandasattributes]. Pay attention that do not use parentheses in the syntax when accessing attributes.
-```
-
-
-Let's also check the column names we have in our DataFrame. We already saw the column names when we checked the 5 first rows using `data.head()`, but often it is useful to access the column names directly. You can check the column names by calling `data.columns` (returns an index object that contains the column labels) or `data.columns.values`:
+Let's also check the column names we have in our DataFrame (yes, it is an attribute as well!). We already saw the column names when we checked the 5 first rows using `data.head()`, but often it is useful to access the column names directly. You can check the column names by calling `data.columns` (returns an index object that contains the column labels) or `data.columns.values`:
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-#Print column names
+# Print column names
 data.columns.values
 ```
 
@@ -240,7 +241,7 @@ We can also find information about the row identifiers using the `index` attribu
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-#Print index
+# Print index
 data.index
 ```
 
@@ -265,14 +266,11 @@ Here we see that `YEARMODA` is an integer value (with 64-bit precision; ``int64`
 
 See if you can find a way to print out the number of columns in our DataFrame.
 
-```python
-len(data.columns)
-```
 
 ### Selecting columns
 
 
-We can select specific columns based on the column values. The basic syntax is `dataframe[value]`, where value can be a single column name, or a list of column names. Let's start by selecting two columns, `'YEARMODA'` and `'TEMP'`:
+When conducting data analysis, it is very common that you want to choose certain columns from the data for further processing. We can select specific columns based on the column values. The basic syntax is `dataframe[value]`, where value can be a single column name, or a list of column names. Let's start by selecting two columns, `'YEARMODA'` and `'TEMP'`:
 
 ```python
 selection = data[['YEARMODA','TEMP']]
@@ -377,13 +375,15 @@ data.describe()
 ```
 
 <!-- #region deletable=true editable=true -->
-## From lists to Pandas objects (DEL OR MOVE?)
+## Different ways of constructing pandas objects
 
-Most often we create pandas objects by reading in data from an external source, such as a text file. Here, we will briefly see how you can create pandas objects from Python lists. If you have long lists of numbers, for instance, creating a Pandas Series will allow you to interact with these values more efficiently in terms of computing time.
+Most often we create pandas objects by reading in data from an external source, such as a text file. Here, we will briefly show different ways how you can create pandas objects from Python objects (lists and dictionaries). 
+
+If you have a very long lists of numbers, creating a pandas Series (or numpy.array) will allow you to interact with these values more efficiently in terms of computing time that using and working with a pure Python list.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# Create Pandas Series from a list
+# Create pandas Series from a list
 number_series = pd.Series([ 4, 5, 6, 7.0])
 print(number_series)
 ```
@@ -403,7 +403,7 @@ print(number_series)
 type(number_series)
 ```
 
-How about combining several lists as a DataFrame? Let's take a subset of the lists we used in Exercise 3, problem 3 and see how we could combine those as a pandas DataFrame:
+How about combining several lists and construct a DataFrame from them? Certainly. Let's see how we can convert lists into a pandas DataFrame. Let's first create a few lists having the same number of items each.
 
 ```python
 # Station names
@@ -416,43 +416,58 @@ lats = [59.77, 61.2, 60.18, 60.25]
 lons = [22.95, 26.05, 24.94, 25.05]
 ```
 
-Often we indeed create pandas DataFrames by reading in data (e.g. using `pd.read_csv(filename.csv)`), but sometimes your might also combine lists into a DataFrame inside the script using the `pandas.DataFrame` constructor. Here, we are using a *Python dictionary* `{"column_1": list_1, "column_2": list_2, ...}` to indicate the structure of our data. 
+Now we can create a pandas DataFrames by using the `pandas.DataFrame` constructor and passing a *Python dictionary* `{"column_1": list_1, "column_2": list_2, ...}` to it, indicating the structure of our data. 
 
 ```python
+# Create DataFrame from a dictionary of lists
 new_data = pd.DataFrame(data = {"station_name" : stations, "lat" : lats, "lon" : lons})
 new_data
 ```
 
+It is also possible to create pandas DataFrame from a list of dictionaries. Hence, this approach is quite similar as the previous example, but we organize the data a bit differently. Having a list of dictionaries is common if you happen to work with ``JSON`` files, which are commonly used when reading data from the web (e.g. via ``Application Programming Interface``). 
+
 ```python
-type(new_data)
+# Create a list of dictionaries
+dictionaries = [{'station_name': 'Hanko Russarö', 'lat': 59.77, 'lon': 22.95},
+                {'station_name': 'Heinola Asemantaus', 'lat': 61.2, 'lon': 26.05},
+                {'station_name': 'Helsinki Kaisaniemi', 'lat': 60.18, 'lon': 24.94},
+                {'station_name': 'Helsinki Malmi airfield', 'lat': 60.25, 'lon': 25.05}]
+
+# Pass the list into the DataFrame constructor
+new_data_2 = pd.DataFrame(dictionaries)
+new_data_2
 ```
 
-Often, you might start working with an empty data frame in stead of existing lists:
+As a result, we got an identical DataFrame as in our first example above. Notice, that sometimes you might start working with an empty DataFrame and only later "populate" it with new columns:
 
 ```python
+# Create an empty DataFrame
 df = pd.DataFrame()
-```
-
-```python
 print(df)
 ```
 
-Check more details about available paramenters and methods from [the pandas.DataFrame documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas-dataframe).
-
-
-### Footnotes
-[^urlpandas] http://pandas.pydata.org/
-[^urlnumpy]: http://www.numpy.org/
-[^urlmatplotlib]: https://matplotlib.org/
-[^urlscipy]: https://www.scipy.org/
-[^urlpandasdocs]: https://pandas.pydata.org/pandas-docs/stable/
-[^urlds]: https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html
-[^urlnoaa1]: US National Oceanographic and Atmospheric Administration's National Centers for Environmental Information: https://www.ncdc.noaa.gov/
-[^urnlnoaa2]: https://www.ncdc.noaa.gov/cdo-web/
-[^urlreadcsv]: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
-[^urlpandasiotools]: https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5
-[^urlpandasattributes]: https://pandas.pydata.org/pandas-docs/stable/reference/frame.html#attributes-and-underlying-data
+Now we have an empty DataFrame, and we can add new columns to it based on the lists we created earlier. Notice that this approach requires that the length of all the lists that you want to add are equal:  
 
 ```python
+# Add columns to the empty DataFrame 
+# based on lists that have same number of items
+df["lon"] = lons
+df["lat"] = lats
 
+df
 ```
+
+## Footnotes
+
+[^urlpandas]: <http://pandas.pydata.org/>
+[^urlnumpy]: <http://www.numpy.org/>
+[^urlmatplotlib]: <https://matplotlib.org/>
+[^urlscipy]: <https://www.scipy.org/>
+[^urlpandasdocs]: <https://pandas.pydata.org/pandas-docs/stable/>
+[^urlds]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html>
+[^urnlnoaa2]: <https://www.ncdc.noaa.gov/cdo-web/>
+[^urlreadcsv]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html>
+[^urlpandasiotools]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5>
+[^urlpandasattributes]: <https://pandas.pydata.org/pandas-docs/stable/reference/frame.html#attributes-and-underlying-data>
+[^urlnoaa1]: <https://www.ncdc.noaa.gov/>
+[^readcsv]: <https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html>

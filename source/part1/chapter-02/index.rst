@@ -27,11 +27,10 @@ After going through this chapter your should be able to:
 
 .. toctree::
     :maxdepth: 2
-    :caption: Sections:
 
-    00-pandas-basics.ipynb
-    01-data-manipulation.ipynb
-    02-data-analysis.ipynb
-    03-temporal-data.ipynb
-    04-references.md
+    nb/00-pandas-basics.ipynb
+    nb/01-data-manipulation.ipynb
+    nb/02-data-analysis.ipynb
+    nb/03-temporal-data.ipynb
+    nb/04-references.ipynb
 

@@ -723,3 +723,7 @@ As you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighth
 [^jupyter]: <https://jupyter.org/>
 [^jupyterlab]: <http://jupyterlab.readthedocs.io/en/stable/>
 [^markdown]: <https://en.wikipedia.org/wiki/Markdown>
+
+```python
+
+```

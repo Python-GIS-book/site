@@ -21,6 +21,12 @@
         "part1/chapter-01/nb/04-conditional-statements": [
             "Bostroem2016",
             "McKinney2017"
+        ],
+        "part1/chapter-02/md/00-pandas-basics": [
+            "McKinney2017"
+        ],
+        "part1/chapter-02/nb/00-pandas-basics": [
+            "McKinney2017"
         ]
     }
 }
