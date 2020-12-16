@@ -137,7 +137,11 @@ selection
 
 Notice that in this case, we get six rows of data (index 0-5)! This happens because we are now doing the selection based on axis labels instead of normal Python-kind of indexing. It is important to notice the difference between these two approaches, as mixing the two may cause confusion,  incorrect analysis results or bugs in your code, if you do not pay attention. We recommend to use `loc` always when possible (there are specific cases when you want to use other approaches, more about this soon). 
 
-Hence, the basic syntax for `loc` is `.loc[first_included_label:last_included_label, columns]`. By looking at the syntax, you might guess that it is also possible to select multiple columns when using `loc`. Next, we will test this by selecting the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list.
+Hence, the basic syntax for `loc` is:
+ 
+ - `.loc[first_included_label:last_included_label, columns]`
+
+By looking at the syntax, you might guess that it is also possible to select multiple columns when using `loc`. Next, we will test this by selecting the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Select columns temp and temp_celsius on rows 0-5
@@ -231,7 +235,9 @@ print()
 print("Value at position (0,0) is", data.iloc[0,0])
 ```
 
-Hence, the syntax for `iloc` is `iloc[start_row_position:stop_row_position, start_column_position:stop_column_position]`.
+Hence, the syntax for `iloc` is:
+
+ - `iloc[start_row_position:stop_row_position, start_column_position:stop_column_position]`
 
 By following this syntax, we can access the value on the first row and second column (`TEMP`) by calling:
 
@@ -244,8 +250,7 @@ It is also possible to get ranges of rows and columns with `iloc`. For example, 
 ```python
 # Select rows from positions 0 to 5
 # and columns from positions 0 to 2 
-#selection = data.iloc[0:5:,0:2]
-selection = data.iloc[0:5,]
+selection = data.iloc[0:5:,0:2]
 selection
 ```
 
@@ -357,7 +362,7 @@ As we can see, the ``MIN`` and ``DIFF`` columns are missing values at index 26. 
 warm_temps["MIN"].hasnans
 ```
 
-As a result, you get either True or False, depending on whether the Series contained any NaN values.
+As a result, you get either True or False, depending on whether the Series contained any NaN values, or not.
 
 
 Let's now see how we can remove the NoData values (i.e. clean the data) using the `.dropna()` function. Inside the function you can pass a list of column(s) from which the `NaN` values should found using the `subset` parameter.
@@ -375,7 +380,6 @@ Hence, pandas also provides an option to fill the NoData with some value using `
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# Fill na values
 warm_temps.fillna(-9999)
 ```
 
@@ -384,53 +388,48 @@ As a result we now have a DataFrame where all NoData values in the whole DataFra
 <!-- #endregion -->
 
 ```python
-# Fill NaN of specific columns
+# Fill NaN of specific column
 warm_temps["MIN"] = warm_temps["MIN"].fillna(-9999)
 ```
 
 Notice that because we already filled every NaN in the whole DataFrame in the previous step, the command above does not change anything.  
 
-In many cases filling the data with a specific value is dangerous because you end up modifying the actual data, which might affect the results of your analysis. For example, in the case above we would have dramatically changed the temperature difference columns because the -9999 values not an actual temperature difference! Hence, use caution when filling missing values. 
+It is important to be aware, that in many cases filling the data with a specific value is dangerous because you end up modifying the actual data, which might affect the results of your analysis. For example, in the case above we would have dramatically changed the temperature difference columns because the -9999 values not an actual temperature difference! Hence, use caution when filling missing values. 
     
-You might have to fill in no data values for the purposes of saving the data to file in a spesific format. For example, some GIS software don't accept missing values. Always pay attention to potential no data values when reading in data files and doing further analysis!
-
+In some cases, you might have to fill in no data values for the purposes of saving the data to file in a spesific format. For example, some GIS software don't accept missing values. Always pay attention to potential no data values when reading in data files and doing further analysis.
 
 
 ## Data type conversions
 
 <!-- #region editable=true -->
-There are occasions where you'll need to convert data stored within a Series to another data type, for example, from floating point to integer.
-<!-- #endregion -->
+When doing data analysis, one quite typical operation that needs to be done is to convert values in a column from one datatype to another, such as from floating point to integer. Remember, that we already did data type conversions in Chapter 1 using the built-in Python functions such as `int()` or `str()`.
 
-Remember, that we already did data type conversions using the [built-in Python functions](https://docs.python.org/3/library/functions.html#built-in-functions) such as `int()` or `str()`.
+For values stored in pandas Series, we can use `astype()` method. Next we will continue using the same data as previously, and convert all the temperature values (floats) in column ``TEMP`` to integers.
 
-
-For values in pandas DataFrames and Series, we can use the `astype()` method.
-
-<!-- #region editable=true -->
-```{admonition} Truncating versus rounding up
-**Be careful with type conversions from floating point values to integers.** The conversion simply drops the stuff to the right of the decimal point, so all values are rounded down to the nearest whole number. For example, 99.99 will be truncated to 99 as an integer, when it should be rounded up to 100.
-
-Chaining the round and type conversion functions solves this issue as the `.round(0).astype(int)` command first rounds the values with zero decimals and then converts those values into integers.
-```
+Let's start by looking our original data:
 <!-- #endregion -->
 
 ```python
-print("Original values:")
 data['TEMP'].head()
 ```
 
+Now we can easily convert those decimal numbers to integers by calling `astype(int)`:
+
 ```python
-print("Truncated integer values:")
 data['TEMP'].astype(int).head()
 ```
 
+As we can see the values were converted to integers. However, it is important to be careful with type conversions from floating point values to integers. The conversion simply drops the stuff to the right of the decimal point, so all values are rounded down to the nearest whole number. For example, the second value in our Series (65.8) was truncated to 65 as an integer, when it clearly should be rounded up to 66.
+
+Chaining the round and type conversion functions solves this issue as the `.round(0).astype(int)` command first rounds the values with zero decimals and then converts those values into integers.
+
 ```python editable=true jupyter={"outputs_hidden": false}
-print("Rounded integer values:")
 data['TEMP'].round(0).astype(int).head()
 ```
 
-Looks correct now.
+As we can see, now the integer values are correctly rounded. 
+
+The `astype` method supports converting between all basic Python data types (`int`, `float`, `str`), but it also knows how to convert between more specific numpy data types, such as `int64`, `int32`, `float64`, `float32` to mention a few (see [^numpydtypes] for a full list). Using the numpy data type can useful if you need to be more specific e.g. how many bits should be reserved for storing the values. For instance, `int64` (i.e. *64-bit integer*) can store integer values ranging between -9223372036854775808 and 9223372036854775807, whereas `int16` can only store values from -32768 to 32767. If passing the "normal" `int` or `float` to the `astype` function, pandas will automatically store 64-bit numeric values. The larger bits you use, the more physical memory is required to store the data. Hence, in some specific cases e.g. when dealing with extremely large datasets, it might be useful to be able to determine that the values in specific columns are stored with lower bits (to save memory). 
 
 
 ## Sorting data
@@ -455,13 +454,35 @@ Of course, it is also possible to sort them in descending order with ``ascending
 data.sort_values(by='TEMP', ascending=False).head()
 ```
 
+In some situations, you might need to sort values based on multiple columns simultaneously, which is sometimes called as multi-level sorting. This can be done by passing a list of column names to the `by` parameter. When you sort the data based on multiple columns, sometimes you also might want to sort your data in a way that the first-level sorting happens in ascending order, and the second-level sorting happens in descending order. A typical situation for this kind of sorting could be e.g. when sorting the temperatures first by weekday (Monday, Tuesday, etc.) and then under each weekday ordering the values in descending order that would always show the warmest temperature of specific week first.
+
+Let's modify our data a bit to demonstrate this. We will add a new column that has information about the weekday. The 1st of June 2016 was Wednesday, so we start from that.
+
+```python
+# Create a list of weekdays that matches with our data
+# The data covers 4 weeks + 2 days (i.e. altogether 30 days)
+week_days = ["Wed", "Thu", "Fri", "Sat", "Sun", "Mon", "Tue"]
+day_list = week_days*4 + week_days[:2]
+
+# Add the weekdays to our DataFrame
+data["WEEKDAY"] = day_list
+data.head(10)
+```
+
+Now we have a new column with information about the weekday of each row. Next, we can test how to sort the values, so that we order the data by weekday and within each weekday the temperatures are in descending order. You can adjust how the ordering works by passing a list of boolean values to `ascending` parameter.
+
+```python
+data.sort_values(by=["WEEKDAY", "TEMP_CELSIUS"], ascending=[True, False]).head(10)
+```
+
+As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data. 
+
 <!-- #region deletable=true editable=true -->
 ## Writing data to a file
 
-Lastly, it is of course important to be able to write the data that you have analyzed into your computer. This is really handy in Pandas as it [supports many different data formats
-by default](https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html).
+Lastly, it is of course important to be able to write the data that you have analyzed into your computer. This is really handy in Pandas as it supports many different data formats by default [^pandasio], such as CSV, Excel, JSON, HDF5, Pickle etc.
 
-**The most typical output format by far is CSV file.** Function `to_csv()` can be used to easily save your data in CSV format.
+One of the most typical output formats is CSV file. Function `to_csv()` can be used to easily save your data in CSV format.
 Let's first save the data from our `data` DataFrame into a file called `Kumpula_temp_results_June_2016.csv`.
 <!-- #endregion -->
 
@@ -474,11 +495,13 @@ data.to_csv(output_fp, sep=',')
 ```
 
 <!-- #region deletable=true editable=true -->
-Now we have the data from our DataFrame saved to a file:
-![Text file output1](img/pandas-save-file-1.png)
+Now we have the data from our DataFrame saved to a file and this is how it looks using a JupyterLab viewer:
+![Text file output](../img/pandas-save-file-1.png)
 
-As you can see, the first value in the datafile contains now the index value of the rows. There are also quite many decimals present in the new columns
-that we created. Let's deal with these and save the temperature values from `warm_temps` DataFrame without the index and with only 1 decimal in the floating point numbers.
+As we can see, the first column in the datafile contains now the index value of the rows. There are also quite many decimals present in the new columns
+that we created. We can deal with these and save the temperature values from `warm_temps` DataFrame without the index and with only 1 decimal in the floating point numbers.
+
+Omitting the index can be with `index=False` parameter. Specifying how many decimals should be written can be done with `float_format` parameter where text `%.1f` defines pandas to use 1 decimals in all columns when writing the data to a file (changing the value 1 to 2 would write 2 decimals etc.)
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -490,10 +513,18 @@ warm_temps.to_csv(output_fp2, sep=',', index=False, float_format="%.1f")
 ```
 
 <!-- #region deletable=true editable=true -->
-Omitting the index can be with `index=False` parameter. Specifying how many decimals should be written can be done with `float_format` parameter where text `%.1f` defines Pandas to use 1 decimals
-in all columns when writing the data to a file (changing the value 1 to 2 would write 2 decimals etc.)
+And this is how the temperature data looks now after the modifications:
 
-![Output after float fomatting](img/pandas-save-file-2.png)
+![Output after float fomatting](../img/pandas-save-file-2.png)
 
-As a results you have a "cleaner" output file without the index column, and with only 1 decimal for floating point numbers.
+As a results we have a "cleaner" output file without the index column, and with only 1 decimal for floating point numbers.
 <!-- #endregion -->
+
+### Footnotes
+
+[^numpydtypes]: <https://numpy.org/doc/stable/user/basics.types.html>
+[^pandasio]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html>
+
+```python
+
+```
