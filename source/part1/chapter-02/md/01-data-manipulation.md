@@ -15,40 +15,32 @@ jupyter:
 <!-- #region deletable=true editable=true -->
 # Data manipulation and analysis
 
-During the first part of this lesson you learned the basics of pandas data structures (*Series* and *DataFrame*) and got familiar with basic methods loading and exploring data.
-Here, we will continue with basic data manipulation and analysis methods such calculations and selections.
+Now you have learned the basics of pandas data structures (i.e. *Series* and *DataFrame*) and you should be familiar with basic methods for loading and exploring data. Next, we will continue exploring the pandas functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.
 
-We are now working in a new notebook file and we need to import pandas again. 
+## Basic calculations
+
+One of the most common things to do in pandas is to create new columns based on calculations between different variables (columns). Next, we will learn how to do that using the same input data (`'Kumpula-June-2016-w-metadata.txt'`) as in the previous section. We will first load it using the `pd.read_csv()` method. Remember, that the first 8 lines contains the metadata which we will skip. This time, let's store the filepath into a separate variable in order to make the code more readable and easier to change afterwards (a good practice).
 <!-- #endregion -->
 
-```python
-import pandas as pd
-```
-
-Let's work with the same input data `'Kumpula-June-2016-w-metadata.txt'` and load it using the `pd.read_csv()` method. Remember, that the first 8 lines contain metadata so we can skip those. This time, let's store the filepath into a separate variable in order to make the code more readable and easier to change afterwards: 
-
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# Define file path:
-fp = '../../data/NOAA/Kumpula-June-2016-w-metadata.txt'
+import pandas as pd
 
+# Define file path:
+fp = 'data/Kumpula-June-2016-w-metadata.txt'
 
 # Read in the data from the file (starting at row 9):
 data = pd.read_csv(fp, skiprows=8)
 ```
 
-Remember to always check the data after reading it in:
+As a first step, it is always good to remember to check the data after reading it. This way we can be sure that everything looks as it should.
 
 ```python
 data.head()
 ```
 
-<!-- #region deletable=true editable=true -->
-## Basic calculations
+All good.
 
-One of the most common things to do in pandas is to create new columns based on calculations between different variables (columns).
-
-We can create a new column `DIFF` in our DataFrame by specifying the name of the column and giving it some default value (in this case the decimal number `0.0`).
-<!-- #endregion -->
+Now we can start by creating a new column `DIFF` in our DataFrame. This can be done by specifying the name of the column and giving it some default value (in this case the decimal number `0.0`).
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Define a new column "DIFF"
@@ -59,7 +51,9 @@ data
 ```
 
 <!-- #region deletable=true editable=true -->
-Let's check the datatype of our new column:
+As we can see, now we have a new column (`DIFF`) in our DataFrame that has value 0.0 for all rows. When creating a new column, you can *initialize* it with any value you want. Typically, the value could be a number 0 as in here, but it could also be `None` (i.e. nothing), some text (e.g. `"test text"`), or more or less any other value or object that can be represented as a single item. You could even initiliaze the column by storing a function inside the cells if you like.   
+
+Let's continue by checking the datatype of our new column.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -67,14 +61,13 @@ data['DIFF'].dtypes
 ```
 
 <!-- #region deletable=true editable=true -->
-Okey, so we see that Pandas created a new column and recognized automatically that the data type is float as we passed a 0.0 value to it.
+As we can see, pandas created a new column and automatically recognized that the data type is float as we passed a 0.0 value to it.
 
-Let's update the column `DIFF` by calculating the difference between `MAX` and `MIN` columns to get an idea how much the temperatures have
-been varying during different days:
+Okay great, but whatabout making those calculations with pandas as promised in the beginning? Next, we will learn to do that. We will update the column `DIFF` by calculating the difference between `MAX` and `MIN` columns to get an idea how much the temperatures have been varying during different days. A typical way of conducting calculations such as this, is to access the specific Series that interests us from the DataFrame, conduct the mathematical calculations (between two or more series), and store the result into a column in the DataFrame, like following:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-#Calculate max min difference
+# Calculate max min difference
 data['DIFF'] = data['MAX'] - data['MIN']
 
 # Check the result
@@ -82,13 +75,10 @@ data.head()
 ```
 
 <!-- #region deletable=true editable=true -->
-The calculations were stored into the ``DIFF`` column as planned. 
+The calculations were stored into the ``DIFF`` column as planned. Conducting calculation like this is extremely fast in pandas because the math operations happen in *vectorized* manner. This means that instead of looping over individual values of the DataFrame and comparing them to each other, calculating the difference happens simultaneously at all rows.
 
-You can also create new columns on-the-fly at the same time when doing the calculation (the column does not have to exist before). Furthermore, it is possible to use any kind of math
-algebra (e.g. subtracttion, addition, multiplication, division, exponentiation, etc.) when creating new columns.
-<!-- #endregion -->
+You can also create new columns on-the-fly when doing the calculation (i.e. the column does not have to exist before). Furthermore, it is possible to use any kind of math algebra (e.g. subtracttion, addition, multiplication, division, exponentiation, etc.) when creating new columns.
 
-<!-- #region deletable=true editable=true -->
 We can for example convert the Fahrenheit temperatures in the `TEMP` column into Celsius using the formula that we have seen already many times. Let's do that and store it in a new column called `TEMP_CELSIUS`.
 <!-- #endregion -->
 
@@ -96,15 +86,14 @@ We can for example convert the Fahrenheit temperatures in the `TEMP` column into
 # Create a new column and convert temp fahrenheit to celsius:
 data['TEMP_CELSIUS'] = (data['TEMP'] - 32) / (9/5)
 
-#Check output
+# Check output
 data.head()
 ```
 
-#### Check your understanding
+**Check your understanding**
 
-Calculate the temperatures in Kelvins using the Celsius values **and store the result a new column** calle `TEMP_KELVIN` in our dataframe.
-    
-0 Kelvins is is -273.15 degrees Celsius as we learned during [Lesson 4](https://geo-python-site.readthedocs.io/en/latest/notebooks/L4/functions.html#let-s-make-another-function).
+**NOTE: THIS IS QUITE COMPLICATED TASK. MAKE AN EASIER ONE THAT DOES NOT REQUIRED GOING BACK TO OTHER MATERIALS.** Calculate the temperatures in Kelvins using the Celsius values **and store the result a new column** calle `TEMP_KELVIN` in our dataframe.
+0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 1.
 
 ```python
 # Add column "TEMP_KELVIN" and populate it with Kelvin values
@@ -114,15 +103,14 @@ Calculate the temperatures in Kelvins using the Celsius values **and store the r
 <!-- #region deletable=true editable=true -->
 ## Selecting and updating data
 
-We often want to select only specific rows from a DataFrame for further analysis. There are multiple ways of selecting subsets of a pandas DataFrame. In this section we will go through most useful tricks for selecting specific rows, columns and individual values.
+We often want to make selections from our data and only use specific rows from a DataFrame in the analysis. There are multiple ways of selecting subsets of a pandas DataFrame than can be based on e.g. specific index values or using some predefined criteria to make the selection, such as "give me all rows where values in column X are larger than zero". Next, we will go through the most useful tricks for selecting specific rows, columns and individual values.
 
-### Accessing rows and columns
 
-#### Selecting rows
+### Selecting rows and columns
 
-One common way of selecting only specific rows from your DataFrame is done via **index slicing** to extract part of the DataFrame. Slicing in pandas can be done in a similar manner as with normal Python lists, i.e. you specify index range you want to select inside the square brackets: ``dataframe[start_index:stop_index]``.
+One common way of selecting only specific rows from your DataFrame is done via a concept of **slicing**. Slicing in pandas can be done in a similar manner as with normal Python lists, i.e. you specify index range you want to select inside the square brackets: ``dataframe[start_index:stop_index]``.
 
-Let's select the first five rows and assign them to a variable called `selection`:
+Let's select the first five rows and assign them to a variable called `selection`. Here, we will first see how selecting the data works like you would do using normal Python list.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -132,17 +120,13 @@ selection
 ```
 
 <!-- #region deletable=true editable=true -->
-```{note}
-Here we have selected the first five rows (index 0-4) using the integer index.
-```
+Here we have selected the first five rows (index 0-4) using the integer index. Notice that the logic here follows how Python's list slicing (or `range` function) works, i.e. the value on the right side of the colon (here number `5`) tells when to stop, but that value is not taken into the final selection. Hence, the syntax is `start_index:stop_index` (also additional parameter `:step` could be added here to the end). 
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
-#### Selecting several rows and columns
+Doing selections like in the previous example can be done, but there is also a better and more flexible way of selecting data using so called `.loc` label-indexing. As the name implies, `loc` selects data based on axis labels (row and column labels). This does not necesssarily tell much to you at this point, but `loc` makes it possible to conduct more specific selections, such as allowing you to choose which columns are chosen when selecting a subset of rows. It also makes possible to benefit from row labels that are not necessarily sequantial numbers (as with all our examples thus far), but they can represent other objects as well, such as dates or timestamps. Hence, `loc` can become very handy when working with timeseries data (we will learn more about this later). 
 
-It is also possible to control which columns are chosen when selecting a subset of rows. In this case we will use [pandas.DataFrame.loc](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html) which selects data based on axis labels (row labels and column labels). 
-
-Let's select temperature values (column `TEMP`) from rows 0-5:
+Let's test the `loc` label-indexing by selecting temperature values from column `TEMP` using rows 0-5:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -151,13 +135,9 @@ selection = data.loc[0:5, 'TEMP']
 selection
 ```
 
-```{note}
-In this case, we get six rows of data (index 0-5)! We are now doing the selection based on axis labels instead of the integer index.
-```
+Notice that in this case, we get six rows of data (index 0-5)! This happens because we are now doing the selection based on axis labels instead of normal Python-kind of indexing. It is important to notice the difference between these two approaches, as mixing the two may cause confusion,  incorrect analysis results or bugs in your code, if you do not pay attention. We recommend to use `loc` always when possible (there are specific cases when you want to use other approaches, more about this soon). 
 
-<!-- #region deletable=true editable=true -->
-It is also possible to select multiple columns when using `loc`. Here, we select the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list (`.loc[start_index:stop_index, list_of_columns]`):
-<!-- #endregion -->
+Hence, the basic syntax for `loc` is `.loc[first_included_label:last_included_label, columns]`. By looking at the syntax, you might guess that it is also possible to select multiple columns when using `loc`. Next, we will test this by selecting the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Select columns temp and temp_celsius on rows 0-5
@@ -165,16 +145,24 @@ selection = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']]
 selection
 ```
 
-#### Check your understanding
-
-Find the mean temperatures (in Celsius) for the last seven days of June. Do the selection using the row index values.
+As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5). A good thing to understand when doing selections, is that the end result after the selection is often something called a ``view``. This means that our selection and the original data may still linked to each other. If you change a value in our ``selection`` DataFrame (i.e. the view from the original DataFrame), this change will also be reflected in the original DataFrame (in this case ``data``). Without going into details why and when this happens, this behavior can nevertheless be confusing having unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. *unlink* the two DataFrames). You can make a copy easily while doing the selection by adding a `.copy()` at the end of the command:   
 
 ```python
-# Mean temperature for the last seven days of June (use loc indexing to select the correct rows):
-data.loc[23:29, 'TEMP_CELSIUS'].mean()
+# Select columns temp and temp_celsius on rows 0-5 and 
+# make a copy out of it to ensure they are not linked to each other
+selection_copy = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']].copy()
+selection_copy
 ```
 
-#### Selecting a single row
+Now we have the exact same data in our end result, but we have ensured that the selection is not linked to the original data anymore. We will see more examples about this later, when the difference becomes more evident. 
+
+
+**Test your understanding**
+
+Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
+
+
+### Selecting a single row or value
 
 You can also select an individual row from specific position using the `.loc[]` indexing. Here we select all the data values using index 4 (the 5th row):
 
@@ -185,51 +173,62 @@ row
 ```
 
 <!-- #region deletable=true editable=true -->
-``.loc[]`` indexing returns the values from that position as a ``pd.Series`` where the indices are actually the column names of those variables. Hence, you can access the value of an individual column by referring to its index using following format (both should work):
-
+``.loc[]`` indexing returns the values from that position as a ``Series`` where the indices are actually the column names of those variables. Hence, you can access the value of an individual column by referring to its index using following format (both should work):
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-#Print one attribute from the selected row
+# Print one attribute from the selected row
 row['TEMP']
 ```
 
-#### Selecting a single value
-
-Sometimes it is enough to access a single value in a DataFrame. In this case, we can use [DataFrame.at](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.at.html#pandas-dataframe-at) instead of `Data.Frame.loc`.
-
+Sometimes it is enough to access a single value in a DataFrame directly. In this case, we can use ``.at`` instead of `loc`.
 Let's select the temperature (column `TEMP`) on the first row (index `0`) of our DataFrame.
 
 ```python
 selection.at[0, "TEMP"]
 ```
 
-<!-- #region -->
-### EXTRA: Selections by integer position
-
-
-`.loc` and `.at` are based on the *axis labels* - the names of columns and rows. Axis labels can be also something else than "traditional" index values. For example, datetime is commonly used as the row index. `.iloc` is another indexing operator which is based on *integer value* indices. Using `.iloc`, it is possible to refer also to the columns based on their index value. For example,  `data.iloc[0,0]` would return `20160601` in our example data frame.
-    
-See the pandas documentation for more information about [indexing and selecting data](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#indexing-and-selecting-data).
-
-For example, we could select select `TEMP` and the `TEMP_CELSIUS` columns from a set of rows based on their index.
-<!-- #endregion -->
+As an output, we got the individual value 65.5. `at` works only when accessing a single value, whereas the `loc` can be used to access both a single or multiple values at the same time. The end result when fetching a single value with `loc` is exactly the same. The difference between the two approaches is minimal, hence we recommend using `loc` in all cases because it is more flexible (`at` is slightly faster but in most cases it does not make a difference). 
 
 ```python
-data.iloc[0:5:,0:2]
+selection.loc[0, "TEMP"]
 ```
 
-To access the value on the first row and second column (`TEMP`), the syntax for `iloc` would be:
+### Selecting values based on index positions
+
+As we have learned thus far, `.loc` and `.at` are based on the *axis labels* - the names of columns and rows. For positional based indexing, pandas has an `.iloc` which is based on *integer value* indices. With `.iloc`, it is also possible to refer to the columns based on their index value (i.e. to a positional number of a column in the DataFrame). For example,  `data.iloc[0,0]` would return `20160601` in our example DataFrame which is the value on the first row and first column in the data.
     
+
+```python
+# Check the first rows
+print(data.head())
+print()
+print("Value at position (0,0) is", data.iloc[0,0])
+```
+
+Hence, the syntax for `iloc` is `iloc[start_row_position:stop_row_position, start_column_position:stop_column_position]`.
+
+By following this syntax, we can access the value on the first row and second column (`TEMP`) by calling:
 
 ```python
 data.iloc[0,1]
 ```
 
-We can also access individual rows using `iloc`. Let's check out the last row of data:
+It is also possible to get ranges of rows and columns with `iloc`. For example, we could select `YEARMODA` and `TEMP` columns from the first five rows based on their indices (positions) in the data:
 
 ```python
-data.iloc[-1]
+# Select rows from positions 0 to 5
+# and columns from positions 0 to 2 
+data.iloc[0:5:,0:2]
+```
+
+A good thing to notice, is that with `iloc`, the behavior in terms of how many rows are returned differs from `loc`. Here, the `0:5` returns 5 rows (following the Python list slicing behavarior), whereas using `loc` would return 6 rows (i.e. also including the row at index 5). 
+    
+One handy functionality with `iloc` is the ability to fetch data starting from the end of the DataFrame. Hence, it is possible to retrieve the last row in the DataFrame by passing a negative number to the `iloc`, where value -1 corresponds to the last row (or column), -2 corresponds to the second last, and so on. Following this, it is easy to see e.g. what is the ``TEMP_CELSIUS`` value (the last column) of the last row of data.
+
+```python
+# Check the value on the last row and last column in the data
+data.iloc[-1, -1]
 ```
 
 <!-- #region deletable=true editable=true -->
