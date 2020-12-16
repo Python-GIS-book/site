@@ -12,24 +12,20 @@ jupyter:
     name: python3
 ---
 
-# Basic plotting with Pandas and Matplotlib
+# Basic plotting with pandas and matplotlib
 
-As we're now familiar with some of the features of pandas, we will wade into visualizing our data in Python using the built-in plotting options available directly in pandas.
-Much like the case of Pandas being built upon [NumPy](https://numpy.org/), plotting in Pandas takes advantage of plotting features from the [Matplotlib](https://matplotlib.org/) plotting library.
-Plotting in Pandas provides a basic framework for visualizing our data, but as you'll see we will sometimes need to also use features from Matplotlib to enhance our plots. In particular, we will use features from the the `pyplot` module in Matplotlib, which provides [MATLAB](https://www.mathworks.com/products/matlab.html)-like plotting.
+As we're now familiar with some of the features of pandas, we will wade into visualizing our data in Python using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the [matplotlib](https://matplotlib.org/) [^matplotlib] plotting library.
+Plotting in pandas provides a basic framework for visualizing our data, but as you'll see we will sometimes need to also use features from matplotlib to enhance our plots. In particular, we will use features from the the [pyplot](https://matplotlib.org/api/pyplot_api.html) [^pyplot] module in matplotlib, which provides [MATLAB](https://www.mathworks.com/products/matlab.html) [^matlab]-like plotting.
 
-Toward the end of the lesson we will also briefly explore creating interactive plots using the [Pandas-Bokeh](https://github.com/PatrikHlobil/Pandas-Bokeh) plotting backend, which allows us to produce plots similar to those available in the [Bokeh plotting library](https://docs.bokeh.org/en/latest/index.html) using plotting syntax similar to that used normally in Pandas. This is an optional part of the lesson, but will allow you to see an example for further exploration of interactive plotting using Pandas-Bokeh.
+We will also briefly explore creating interactive plots using the [pandas-bokeh](https://github.com/PatrikHlobil/Pandas-Bokeh) [^pandas_bokeh] plotting backend, which allows us to produce plots similar to those available in the [bokeh plotting library](https://docs.bokeh.org/en/latest/index.html) [^bokeh] using plotting syntax similar to that used normally in pandas.
 
 <!-- #region -->
 ## Input data
 
-In the lesson this week we are using some of the same weather observation data from Finland [downloaded from NOAA](https://www7.ncdc.noaa.gov/CDO/cdopoemain.cmd?datasetabbv=DS3505&countryabbv=&georegionabbv=&resolution=40) that we used in Lesson 6. In this case we'll focus on weather observation station data from the Helsinki-Vantaa airport.
+We will plot graph using using weather observation station data from the Helsinki-Vantaa airport, Finland [downloaded from NOAA](https://www7.ncdc.noaa.gov/CDO/cdopoemain.cmd?datasetabbv=DS3505&countryabbv=&georegionabbv=&resolution=40). **TODO CHECK THE LINK! THERE IS SOME END-OF-LIVE ANNOUNCEMENT**
 
 ## Downloading the data
 
-```{attention}
-It is recommended to use the Geo-Python Lite blueprint for this lesson.
-```
 
 Just like last week, the first step for today's lesson is to get the data. Unlike last week, we'll all download and use the same data.
 
@@ -82,19 +78,15 @@ You should see something like the following:
 
 Now you should be all set to proceed with the lesson!
 
-### Binder users
-
-It is not recommended to complete this lesson using Binder.
-
 ## About the data
 
-As part of the download there are a number of files that describe the weather data. These *metadata* files include:
+The input data comes with several files that describe the weather data. These *metadata* files include:
 
 - A list of stations: [data/6367598020644stn.txt](metadata/6367598020644stn.txt)
 - Details about weather observations at each station: [data/6367598020644inv.txt](metadata/6367598020644inv.txt)
 - A data description (i.e., column names): [data/3505doc.txt](metadata/3505doc.txt)
 
-The input data for this week are separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:
+The input data are separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:
 
 ``` 
   USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW AW AW AW W TEMP DEWP    SLP   ALT    STP MAX MIN PCP01 PCP06 PCP24 PCPXX SD
@@ -107,7 +99,7 @@ The input data for this week are separated with varying number of spaces (i.e., 
 
 ## Getting started
 
-Let's start by importing Pandas and reading our data file.
+Let's start by importing pandas and reading our data file.
 
 ```python
 import pandas as pd
@@ -118,7 +110,7 @@ For the lesson this week we will be using a datetime index for our weather obser
 We skipped over the datetime data type in Lesson 6, but you can find [a brief introduction to datetime in Lesson 6](https://geo-python-site.readthedocs.io/en/latest/notebooks/L6/advanced-data-processing-with-pandas.html#datetime-optional-for-lesson-6).
 ```
 
-Just as we did last week, we'll read our data file by passing a few parameters to the Pandas `read_csv()` function. In this case, however, we'll include a few additional parameters in order to read the data with a *datetime index*. Let's read the data first, then see what happened.
+Just as we did last week, we'll read our data file by passing a few parameters to the pandas `read_csv()` function. In this case, however, we'll include a few additional parameters in order to read the data with a *datetime index*. Let's read the data first, then see what happened.
 
 ```python
 fp = r'data/029740.txt'
@@ -131,8 +123,8 @@ data = pd.read_csv(fp, delim_whitespace=True,
 
 So what's different here? Well, we have added two new parameters: `parse_dates` and `index_col`.
 
-- `parse_dates` takes a Python list of column name(s) containing date data that Pandas will parse and convert to the *datetime* data type. For many common date formats this parameter will automatically recognize and convert the date data.
-- `index_col` is used to state a column that should be used to index the data in the DataFrame. In this case, we end up with our date data as the DataFrame index. This is a very useful feature in Pandas as we'll see below.
+- `parse_dates` takes a Python list of column name(s) containing date data that pandas will parse and convert to the *datetime* data type. For many common date formats this parameter will automatically recognize and convert the date data.
+- `index_col` is used to state a column that should be used to index the data in the DataFrame. In this case, we end up with our date data as the DataFrame index. This is a very useful feature in pandas as we'll see below.
 
 Having read in the data, let's have a quick look at what we have using `data.head()`.
 
@@ -145,13 +137,10 @@ As mentioned above, you can now see that the index column for our DataFrame (the
 
 ## Basic x-y plot
 
-Now we're ready for our first plot. We can run one command first to configure the plots to display nicely in our Jupyter notebooks.
+Now we're ready for our first plot!
 
-```python
-%matplotlib inline
-```
 
-OK, so let’s get to plotting! We can start by using the basic line plot in Pandas to look at our temperature data.
+We can start by using the basic line plot in pandas to look at our temperature data.
 
 ```python
 ax = data.plot()
@@ -170,7 +159,7 @@ In fact, let's check the type of the `ax` variable...
 type(ax)
 ```
 
-OK, so it looks like we have some kind of plot data type that is part of Matplotlib. Clearly, Pandas is using Matplotlib for generating our plots.
+OK, so it looks like we have some kind of plot data type that is part of matplotlib. Clearly, pandas is using matplotlib for generating our plots.
 
 ### Selecting our plotted data
 
@@ -190,7 +179,7 @@ So, what did we change?
 
 ## Basic plot formatting
 
-We can make our plot look a bit nicer and provide more information by using a few additional plotting options to Pandas/Matplotlib.
+We can make our plot look a bit nicer and provide more information by using a few additional plotting options to pandas/matplotlib.
 
 ```python
 ax = oct1_temps.plot(style='ro--', title='Helsinki-Vantaa temperatures')
@@ -201,7 +190,7 @@ ax.set_ylabel('Temperature [°F]')
 Now we see our temperature data as a red dashed line with circles showing the data points.
 This comes from the additional `style='ro--'` used with `oct1_temps.plot()`.
 In this case, `r` tells the `oct1_temps.plot()` function to use red color for the lines and symbols, `o` tells it to show circles at the points, and `--` says to use a dashed line.
-You can use `help(oct1_temps.plot)` to find out more about formatting plots or have a look at the [documentation on the Pandas website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.line.html#pandas.DataFrame.plot.line).
+You can use `help(oct1_temps.plot)` to find out more about formatting plots or have a look at the [documentation on the pandas website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.line.html#pandas.DataFrame.plot.line).
 We have also added a title using the `title` parameter, but note that axis labels are assigned using the `set_xlabel()` and `set_ylabel()` methods.
 As you can see in this case, by assigning the plot axes to the variable `ax`
 
@@ -213,7 +202,7 @@ help(oct1_temps.plot)
 
 While the plot sizes we're working with are OK, it would be nice to have them displayed a bit larger.
 Fortunately, there is an easy way to make the plots larger in Jupyter notebooks.
-First, we need to import the [Matplotlib pyplot library](https://matplotlib.org/api/pyplot_api.html), then we can make the default plot size larger by running the Python cell below.
+First, we need to import the [matplotlib pyplot library](https://matplotlib.org/api/pyplot_api.html) [^pyplot], then we can make the default plot size larger by running the Python cell below.
 
 ```python
 import matplotlib.pyplot as plt
@@ -255,7 +244,7 @@ where `xmin` should be the minimum bound of the x-axis, `xmax` should be the max
 
 #### Dealing with datetime axes
 
-One issue we will encounter with both placing text on the plot and changing the axis ranges is our datetime index for our DataFrame. In order to do either thing, we need to define x-values using a datetime object. The easiest way to do this is to use the Pandas `pd.to_datetime()` function, which converts a character string date to a datetime object. For example, we can convert 13:00 on October 1, 2019 from the character string `'201910011300'` to a datetime equivalent by typing
+One issue we will encounter with both placing text on the plot and changing the axis ranges is our datetime index for our DataFrame. In order to do either thing, we need to define x-values using a datetime object. The easiest way to do this is to use the pandas `pd.to_datetime()` function, which converts a character string date to a datetime object. For example, we can convert 13:00 on October 1, 2019 from the character string `'201910011300'` to a datetime equivalent by typing
 <!-- #endregion -->
 
 ```python
@@ -305,9 +294,9 @@ ax.set_ylabel('Temperature [°F]')
 ax.text(warm_time, 43.0, 'Warmest time of the evening ->')
 ```
 
-## Bar plots in Pandas
+## Bar plots in pandas
 
-In addition to line plots, there are many other options for plotting in Pandas.
+In addition to line plots, there are many other options for plotting in pandas.
 Bar plots are one option, which can be used quite similarly to line plots with the addition of the `kind=bar` parameter.
 Note that it is easiest to plot our selected time range for a bar plot by selecting the dates in our data series first, rather than adjusting the plot limits. Pandas sees bar plot data as categorical, so the date range is more difficult to define for x-axis limits. For the y-axis, we can still define its range using the `ylim=[ymin, ymax]` parameter. Similarly, text placement on a bar plot is more difficult, and most easily done using the index value of the bar where the text should be placed.
 
@@ -320,12 +309,12 @@ ax.set_ylabel('Temperature [°F]')
 ax.text(0, 42.1, 'Coldest \ntemp \nv')
 ```
 
-You can find more about how to format bar charts on the [Pandas documentation website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html).
+You can find more about how to format bar charts on the [pandas documentation website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html).
 
 
 ## Saving your plots as image files
 
-Saving plots created using Pandas can be done in several ways.
+Saving plots created using pandas can be done in several ways.
 The recommendation for use outside of Jupyter notebooks is to use Matplotlib's `plt.savefig()` function.
 When using `plt.savefig()`, you simply give a list of commands to generate a plot and include `plt.savefig()` with some parameters as the last command in the Python cell.
 The file name is required, and the image format will be determined based on the listed file extension.
@@ -357,11 +346,14 @@ ax.text(0, 42.1, 'Coldest \ntemp \nv')
 plt.savefig('bar-plot-hi-res.pdf', dpi=600)
 ```
 
-## Interactive plotting with Pandas-Bokeh (optional)
+## Interactive plotting with pandas-bokeh
 
-One of the cool things in Jupyter notebooks is that our plots need not be static. We can easily create plots that are interactive, allowing us to view data values by mousing over them, or click to enable/disable plotting of some data. There are several ways we can do this, but we'll utilize the [Pandas-Bokeh plotting backend](https://github.com/PatrikHlobil/Pandas-Bokeh), which allows us to create interactive plots with little additional effort.
+When using Jupyter Notebooks, we don't need to stick to static visualizations. We can easily create plots that are interactive, allowing us to view data values by mousing over them, or click to enable/disable plotting of some data. There are several ways we can do this, but we'll utilize the [pandas-bokeh plotting backend](https://github.com/PatrikHlobil/Pandas-Bokeh) [^pandas_bokeh], which allows us to create interactive plots with little additional effort.
 
-To get started, we need to import Pandas-Bokeh and configure our notebook to use it for plotting out Pandas data.
+To get started, we need to import pandas-bokeh and make some configurations:
+
+1. We want to change the settings so that output will be displayed on this page rather than in a separate window
+2. we set pandas plotting backend to use pandas-bokeh rather than matplotlib for plotting
 
 ```python
 import pandas_bokeh
@@ -370,9 +362,7 @@ pandas_bokeh.output_notebook()
 pd.set_option('plotting.backend', 'pandas_bokeh')
 ```
 
-In the cell above, we import Pandas-Bokeh, and the configure two options: (1) Setting the output to be displayed in a notebook rather than in a separate window, and (2) setting the plotting backend software to use Pandas-Bokeh rather than Matplotlib.
-
-Now, we can consider an example plot similar to the one we started with, but with data for three days (September 29-October 1, 2019). Pandas-Bokeh expects a DataFrame as the source for the plot data, so we'll need to create a time slice of the `data` DataFrame containing the desired date range before making the plot. Let's generate the Pandas-Bokeh plot and the see what is different.
+Now, we can consider an example plot similar to the one we started with, but with data for three days (September 29-October 1, 2019). Pandas-bokeh expects a DataFrame as the source for the plot data, so we'll need to create a time slice of the `data` DataFrame containing the desired date range before making the plot. Let's generate the pandas-bokeh plot and the see what is different.
 
 ```python
 sept29_oct1_df = data.loc[data.index >= '201909290000']
@@ -389,10 +379,10 @@ So now we have a similar plot to those generated previously, but when you move t
 
 But we did also have to make a few small changes to generate this plot:
 
-1. We need to use a DataFrame as the data source for the plot, rather than a Pandas Series. Thus, `data['TEMP'].plot()` will not work with Pandas-Bokeh.
+1. We need to use a DataFrame as the data source for the plot, rather than a pandas Series. Thus, `data['TEMP'].plot()` will not work with pandas-bokeh.
 2. The x- and y-axis labels are specified using the `xlabel` and `ylabel` parameters, rather than using `ax.set_xlabel()` or `ax.set_ylabel()`.
-3. The line color and plotting of points are not specified using the `style` keyword. Instead, the line colors could be specified using the `color` or `colormap` parameters. Plotting of the points is enabled using the `plot_data_points` parameter (see below). More information about formatting the lines can be found on the [Pandas-Bokeh website](https://github.com/PatrikHlobil/Pandas-Bokeh).
-4. We have not included a text label on the plot, as it may not be possible to do so with Pandas-Bokeh.
+3. The line color and plotting of points are not specified using the `style` keyword. Instead, the line colors could be specified using the `color` or `colormap` parameters. Plotting of the points is enabled using the `plot_data_points` parameter (see below). More information about formatting the lines can be found on the [pandas-bokeh website](https://github.com/PatrikHlobil/Pandas-Bokeh) [^pandas-bokeh].
+4. We have not included a text label on the plot, as it may not be possible to do so with pandas-bokeh.
 
 But otherwise, we are able to produce these cool interactive plots with minimal effort, and directly within our notebooks!
 
@@ -402,3 +392,11 @@ ax = sept29_oct1_df.plot(title='Helsinki-Vantaa temperatures',
                          xlim=[start_time, end_time], ylim=[35.0, 60.0],
                          plot_data_points=True)
 ```
+
+## Footnotes
+
+[^matplotlib]: <https://matplotlib.org/>
+[^pyplot]: <https://matplotlib.org/api/pyplot_api.html>
+[^matlab]: <https://www.mathworks.com/products/matlab.html>
+[^pandas_bokeh]: <https://github.com/PatrikHlobil/Pandas-Bokeh>
+[^bokeh]: <https://docs.bokeh.org/en/latest/index.html>
