@@ -92,8 +92,9 @@ data.head()
 
 **Check your understanding**
 
-**NOTE: THIS IS QUITE COMPLICATED TASK. MAKE AN EASIER ONE THAT DOES NOT REQUIRED GOING BACK TO OTHER MATERIALS.** Calculate the temperatures in Kelvins using the Celsius values **and store the result a new column** calle `TEMP_KELVIN` in our dataframe.
-0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 1.
+Calculate the temperatures in Kelvins using the Celsius values and store the result a new column called `TEMP_KELVIN` in our dataframe.
+0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 1, and the formula for converting Celsius degrees (C) to Kelvins (K) is: 
+ - `K = C + 273.15`
 
 ```python
 # Add column "TEMP_KELVIN" and populate it with Kelvin values
@@ -150,41 +151,6 @@ selection
 ```
 
 As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5). 
-
-A good thing to know when doing selections, is that the end result after the selection can be something called a ``view``. In such cases, the selection and the original data may still linked to each other. This happens e.g. if you make a selection like above but return only a single column from the original data. In some situations a change in the original *data* for that specific column can also change the value in the *selection*. Without going into details why and when this happens, this behavior can nevertheless be confusing having unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. *unlink* the two DataFrames). You can make a copy easily while doing the selection by adding a `.copy()` at the end of the command.    
-
-```python
-# Select columns temp and temp_celsius on rows 0-5 and 
-# make a copy out of it to ensure they are not linked to each other
-selection = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']].copy()
-selection
-```
-
-Now we have the exact same data in our end result, but we have ensured that the selection is not linked to the original data anymore. 
-
-To demonstrate what can happen with the view, let's make a selection of a single column from our data, and modify the data a bit to see what consequences might happen if we are not careful.
-
-```python
-# Select a column that will be end up being a "view"
-temp = selection["TEMP"]
-temp
-```
-
-Now if we make a change to our original data, i.e. *selection*, it will also influence our values in *temp*:
-
-```python
-# Update the first value of the TEMP column
-selection.iloc[0,0] = 30.0
-selection.head()
-```
-
-```python
-# Check the values in temp (which we did not touch)
-temp
-```
-
-As we can see, now the value in our *temp* Series changed from 65.5 to 30.0 although we did not make any change to it directly. The change happened nevertheless because the data objects were still linked to each other. 
-
 
 **Test your understanding**
 
@@ -309,7 +275,7 @@ warm_temps
 As can be seen, now the index values goes from 0 to 12. Resetting the index has now also *unlinked* the ``warm_temps`` DataFrame from the ``data``, meaning that it is not a view anymore but an independent Pandas object. 
 
 
-When making selections, it is quite typical that pandas might give you warnings if you continue to work with the selected data without resetting the index or taking a copy when you make the selection. To demonstrate this, make the selection again and do a small change for the first value of the ``TEMP_CELSIUS`` column. Here, we can take advantage of the `iloc` which makes it easy to access the first row based based on position 0. 
+When making selections, it is quite typical that pandas might give you warnings if you modify the selected data without first resetting the index or taking a copy of the selected data. To demonstrate this, we will make the selection again and do a small change for the first value of the ``TEMP_CELSIUS`` column. Here, we can take advantage of the `iloc` which makes it easy to access the first row based based on position 0. 
 
 ```python
 # Make the selection
@@ -319,7 +285,7 @@ warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 2016061
 warm_temps.iloc[0, -1] = 17.5
 ```
 
-Because we modified the selection which is a slice from the original data, pandas gives us a warning about a possibly invalid value assignment. In most cases, the warning can be ignored but it is a good practice to always take a copy when doing selections, especially if you continue working with the selection:
+Because we modified the selection which is a slice from the original data, pandas gives us a warning about a possibly invalid value assignment. In most cases, the warning can be ignored but it is a good practice to always take a copy when doing selections, especially if you continue working with the selected data and possibly modify it further:
 
 ```python
 # Make the selection and take a copy
@@ -329,7 +295,7 @@ warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 2016061
 warm_temps.iloc[0, -1] = 17.5
 ```
 
-As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection. 
+As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection without needing to worry that there are some "hidden linkages" between our DataFrames that could cause issues. 
 
 
 #### Check your understanding
@@ -340,6 +306,42 @@ Find the mean temperatures (in Celsius) for the last seven days of June again. T
 # Mean temperature for the last seven days of June (use a conditional statement to select the correct rows):
 data['TEMP_CELSIUS'].loc[data['YEARMODA'] >= 20160624].mean()
 ```
+
+### View vs a copy
+
+A good thing to know when doing selections, is that the end result after making the selection can sometimes result to something called a ``view``. In such cases, the selection and the original data may still linked to each other. This happens e.g. if you make a selection like above but return only a single column from the original data. In a situation where you have a view, a change in the original *data* for that specific column can also change the value in the *selection*. Without going into details why and when this happens, this behavior can nevertheless be confusing and have unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. *unlink* the two DataFrames). You can make a copy easily while doing the selection by adding a `.copy()` at the end of the command.    
+
+```python
+# Select columns temp and temp_celsius on rows 0-5 and 
+# make a copy out of it to ensure they are not linked to each other
+selection = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']].copy()
+selection
+```
+
+Now we have the exact same data in our end result, but we have ensured that the selection is not linked to the original data anymore. 
+
+To demonstrate what can happen with the view, let's make a selection of a single column from our data, and modify the data a bit to see what consequences might happen if we are not careful.
+
+```python
+# Select a column that will be end up being a "view"
+temp = selection["TEMP"]
+temp
+```
+
+Now if we make a change to our original data, i.e. *selection*, it will also influence our values in *temp*:
+
+```python
+# Update the first value of the TEMP column
+selection.iloc[0,0] = 30.0
+selection.head()
+```
+
+```python
+# Check the values in temp (which we did not touch)
+temp
+```
+
+As we can see, now the value in our *temp* Series changed from 65.5 to 30.0 although we did not make any change to it directly. The change happened nevertheless because the data objects were still linked to each other. 
 
 <!-- #region deletable=true editable=true -->
 ## Dealing with missing data
