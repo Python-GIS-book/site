@@ -47,7 +47,7 @@ Now we can start by creating a new column `DIFF` in our DataFrame. This can be d
 data['DIFF'] = 0.0
 
 # Check how the dataframe looks like:
-data
+data.head()
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -63,7 +63,7 @@ data['DIFF'].dtypes
 <!-- #region deletable=true editable=true -->
 As we can see, pandas created a new column and automatically recognized that the data type is float as we passed a 0.0 value to it.
 
-Okay great, but whatabout making those calculations with pandas as promised in the beginning? Next, we will learn to do that. We will update the column `DIFF` by calculating the difference between `MAX` and `MIN` columns to get an idea how much the temperatures have been varying during different days. A typical way of conducting calculations such as this, is to access the specific Series that interests us from the DataFrame, conduct the mathematical calculations (between two or more series), and store the result into a column in the DataFrame, like following:
+Okay great, but whatabout making those calculations with pandas as promised in the beginning? Next, we will calculate the difference between `MAX` and `MIN` columns to get an idea how much the temperatures have been varying during different days. The result will be updated into the column `DIFF` that we created earlier. A typical way of conducting calculations such as this, is to access the Series (columns) that interests us from the DataFrame and conduct the mathematical calculation using the selected columns. Typically you store the result directly into a column in the DataFrame, like following:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -145,16 +145,41 @@ selection = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']]
 selection
 ```
 
-As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5). A good thing to understand when doing selections, is that the end result after the selection is often something called a ``view``. This means that our selection and the original data may still linked to each other. If you change a value in our ``selection`` DataFrame (i.e. the view from the original DataFrame), this change will also be reflected in the original DataFrame (in this case ``data``). Without going into details why and when this happens, this behavior can nevertheless be confusing having unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. *unlink* the two DataFrames). You can make a copy easily while doing the selection by adding a `.copy()` at the end of the command:   
+As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5). 
+
+A good thing to know when doing selections, is that the end result after the selection can be something called a ``view``. In such cases, the selection and the original data may still linked to each other. This happens e.g. if you make a selection like above but return only a single column from the original data. In some situations a change in the original *data* for that specific column can also change the value in the *selection*. Without going into details why and when this happens, this behavior can nevertheless be confusing having unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. *unlink* the two DataFrames). You can make a copy easily while doing the selection by adding a `.copy()` at the end of the command.    
 
 ```python
 # Select columns temp and temp_celsius on rows 0-5 and 
 # make a copy out of it to ensure they are not linked to each other
-selection_copy = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']].copy()
-selection_copy
+selection = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']].copy()
+selection
 ```
 
-Now we have the exact same data in our end result, but we have ensured that the selection is not linked to the original data anymore. We will see more examples about this later, when the difference becomes more evident. 
+Now we have the exact same data in our end result, but we have ensured that the selection is not linked to the original data anymore. 
+
+To demonstrate what can happen with the view, let's make a selection of a single column from our data, and modify the data a bit to see what consequences might happen if we are not careful.
+
+```python
+# Select a column that will be end up being a "view"
+temp = selection["TEMP"]
+temp
+```
+
+Now if we make a change to our original data, i.e. *selection*, it will also influence our values in *temp*:
+
+```python
+# Update the first value of the TEMP column
+selection.iloc[0,0] = 30.0
+selection.head()
+```
+
+```python
+# Check the values in temp (which we did not touch)
+temp
+```
+
+As we can see, now the value in our *temp* Series changed from 65.5 to 30.0 although we did not make any change to it directly. The change happened nevertheless because the data objects were still linked to each other. 
 
 
 **Test your understanding**
@@ -219,7 +244,9 @@ It is also possible to get ranges of rows and columns with `iloc`. For example, 
 ```python
 # Select rows from positions 0 to 5
 # and columns from positions 0 to 2 
-data.iloc[0:5:,0:2]
+#selection = data.iloc[0:5:,0:2]
+selection = data.iloc[0:5,]
+selection
 ```
 
 A good thing to notice, is that with `iloc`, the behavior in terms of how many rows are returned differs from `loc`. Here, the `0:5` returns 5 rows (following the Python list slicing behavarior), whereas using `loc` would return 6 rows (i.e. also including the row at index 5). 
@@ -235,13 +262,15 @@ data.iloc[-1, -1]
 ### Conditional selections
 
 One really useful feature in pandas is the ability to easily filter and select rows based on a conditional statement.
-The following example shows how to select rows when the Celsius temperature has been higher than 15 degrees into variable `warm_temps` (warm temperatures). Pandas checks if the condition is `True` or `False` for each row, and returns those rows where the condition is `True`:
+The following example shows how we check if the Celsius temperature at each row on the `TEMP_CELSIUS`column is higher than 15 degrees.
 <!-- #endregion -->
 
 ```python
 # Check the condition
 data['TEMP_CELSIUS'] > 15
 ```
+
+As a result, we get a Series of booleans, where the value `True` or `False` at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a ``mask``. We can take advantage of this mask when doing selections with `loc` based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable `warm_temps` (warm temperatures). We can specify the criteria directly inside the `loc` square brackets:
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Select rows with temp celsius higher than 15 degrees
@@ -261,12 +290,10 @@ warm_temps
 ```
 
 <!-- #region deletable=true editable=true -->
-Now we have a subset of our DataFrame with only rows where the `TEMP_CELSIUS` is above 15 and the dates in `YEARMODA` column start from 15th of June.
-
-Notice, that the index values (numbers on the left) are still showing the positions from the original DataFrame. It is possible to **reset** the index using `reset_index()` function that
-might be useful in some cases to be able to slice the data in a similar manner as above. By default the `reset_index()` would make a new column called `index` to keep track on the previous
-index which might be useful in some cases but here not, so we can omit that by passing parameter `drop=True`.
+Now we have a subset of our DataFrame with only rows where the `TEMP_CELSIUS` is above 15 and the dates in `YEARMODA` column start from 15th of June. Notice, that the index values (numbers on the left) are still showing the index labels from the original DataFrame. This indicates that our result is really a slice from the original data. 
 <!-- #endregion -->
+
+It is possible to **reset** the index using `reset_index()` function which makes the index numbering to start from 0 and increase the index values in a sequantal manner. This is often a useful operation to do, because it makes it easier then to slice the data with `loc` or `iloc`. By default the `reset_index()` would make a new column called `index` to keep track on the previous index which might be useful in some cases but here not, so we can omit that by passing parameter `drop=True`. 
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Reset index
@@ -274,7 +301,30 @@ warm_temps = warm_temps.reset_index(drop=True)
 warm_temps
 ```
 
-As can be seen, now the index values goes from 0 to 12.
+As can be seen, now the index values goes from 0 to 12. Resetting the index has now also *unlinked* the ``warm_temps`` DataFrame from the ``data``, meaning that it is not a view anymore but an independent Pandas object. 
+
+
+When making selections, it is quite typical that pandas might give you warnings if you continue to work with the selected data without resetting the index or taking a copy when you make the selection. To demonstrate this, make the selection again and do a small change for the first value of the ``TEMP_CELSIUS`` column. Here, we can take advantage of the `iloc` which makes it easy to access the first row based based on position 0. 
+
+```python
+# Make the selection
+warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 20160615)]
+
+# Now update the first value of the last column (i.e. column position -1) in our selection
+warm_temps.iloc[0, -1] = 17.5
+```
+
+Because we modified the selection which is a slice from the original data, pandas gives us a warning about a possibly invalid value assignment. In most cases, the warning can be ignored but it is a good practice to always take a copy when doing selections, especially if you continue working with the selection:
+
+```python
+# Make the selection and take a copy
+warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 20160615)].copy()
+
+# Now update the first value of the last column (i.e. column position -1) in our selection
+warm_temps.iloc[0, -1] = 17.5
+```
+
+As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection. 
 
 
 #### Check your understanding
@@ -286,20 +336,31 @@ Find the mean temperatures (in Celsius) for the last seven days of June again. T
 data['TEMP_CELSIUS'].loc[data['YEARMODA'] >= 20160624].mean()
 ```
 
-```{admonition} Deep copy
-In this lesson, we have stored subsets of a DataFrame as a new variable. In some cases, we are still referring to the original data and any modifications made to the new variable might influence the original DataFrame.
-    
-If you want to be extra careful to not modify the original DataFrame, then you should take a proper copy of the data before proceeding using the `.copy()` method. You can read more about indexing, selecting data and deep and shallow copies in [pandas documentation](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html) and in [this excellent blog post](https://medium.com/dunder-data/selecting-subsets-of-data-in-pandas-part-4-c4216f84d388).
-```
-
 <!-- #region deletable=true editable=true -->
 ## Dealing with missing data
 
 As you may have noticed by now, we have several missing values for the temperature minimum, maximum, and difference columns (`MIN`, `MAX`, `DIFF`, and `DIFF_MIN`). These missing values are indicated as `NaN` (not-a-number). Having missing data in your datafile is really common situation and typically you want to deal with it somehow. Common procedures to deal with `NaN` values are to either **remove** them from
 the DataFrame or **fill** them with some value. In Pandas both of these options are really easy to do.
 
-Let's first see how we can remove the NoData values (i.e. clean the data) using the [.dropna()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html) function. Inside the function you can pass a list of column(s) from which the `NaN` values should found using the `subset` parameter.
+Let's first start by checking whether our data has NaN values.
 <!-- #endregion -->
+
+```python
+# Check the data
+warm_temps
+```
+
+As we can see, the ``MIN`` and ``DIFF`` columns are missing values at index 26. It is also possible to confirm this with pandas by accessing a specific Series attribute called `.hasnans` which can be a handy tool especially when automating some data analysis pipelines. Each Series (i.e. column) in the DataFrame has this attribute and you can use it as follows:
+
+```python
+# Check with pandas if MIN column contains NaNs
+warm_temps["MIN"].hasnans
+```
+
+As a result, you get either True or False, depending on whether the Series contained any NaN values.
+
+
+Let's now see how we can remove the NoData values (i.e. clean the data) using the `.dropna()` function. Inside the function you can pass a list of column(s) from which the `NaN` values should found using the `subset` parameter.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Drop no data values based on the MIN column
@@ -308,17 +369,9 @@ warm_temps_clean
 ```
 
 <!-- #region deletable=true editable=true -->
-As you can see by looking at the table above (and the change in index values), we now have a DataFrame without the NoData values.
+As you can see by looking at the table above (and the change in index values), we now have a DataFrame without the NoData values. By doing this, you naturally loose data (rows) which might not be an optimal solution in some cases.
 
-````{note}
-Note that we replaced the original `warm_temps` variable with version where no data are removed. The `.dropna()` function, among other pandas functions can also be applied "inplace" which means that the function updates the DataFrame object and returns `None`:
-    
-```python
-warm_temps.dropna(subset=['MIN'], inplace=True)
-```
-````
-
-Another option is to fill the NoData with some value using the `fillna()` function. Here we can fill the missing values in the with value -9999. Note that we are not giving the `subset` parameter this time.
+Hence, pandas also provides an option to fill the NoData with some value using `fillna()` function. Here, we can fill the missing values in the with value -9999. Note that we are not giving the `subset` parameter this time.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -327,16 +380,21 @@ warm_temps.fillna(-9999)
 ```
 
 <!-- #region deletable=true editable=true -->
-As a result we now have a DataFrame where NoData values are filled with the value -9999.
+As a result we now have a DataFrame where all NoData values in the whole DataFrame are filled with the value -9999. If you want to fill NaN values values of only a specific column, you can do that by targeting the `fillna` function to only a specific column (or columns): 
 <!-- #endregion -->
 
-<!-- #region deletable=true editable=true -->
-```{warning}
+```python
+# Fill NaN of specific columns
+warm_temps["MIN"] = warm_temps["MIN"].fillna(-9999)
+```
+
+Notice that because we already filled every NaN in the whole DataFrame in the previous step, the command above does not change anything.  
+
 In many cases filling the data with a specific value is dangerous because you end up modifying the actual data, which might affect the results of your analysis. For example, in the case above we would have dramatically changed the temperature difference columns because the -9999 values not an actual temperature difference! Hence, use caution when filling missing values. 
     
-You might have to fill in no data values for the purposes of saving the data to file in a spesific format. For example, some GIS software don't accept missing values.  Always pay attention to potential no data values when reading in data files and doing further analysis!
-```
-<!-- #endregion -->
+You might have to fill in no data values for the purposes of saving the data to file in a spesific format. For example, some GIS software don't accept missing values. Always pay attention to potential no data values when reading in data files and doing further analysis!
+
+
 
 ## Data type conversions
 
