@@ -14,7 +14,7 @@ jupyter:
 
 # Basic plotting with Pandas and Matplotlib
 
-As we're now familiar with some of the features of [Pandas](https://pandas.pydata.org/), we will wade into visualizing our data in Python using the built-in plotting options available directly in Pandas.
+As we're now familiar with some of the features of pandas, we will wade into visualizing our data in Python using the built-in plotting options available directly in pandas.
 Much like the case of Pandas being built upon [NumPy](https://numpy.org/), plotting in Pandas takes advantage of plotting features from the [Matplotlib](https://matplotlib.org/) plotting library.
 Plotting in Pandas provides a basic framework for visualizing our data, but as you'll see we will sometimes need to also use features from Matplotlib to enhance our plots. In particular, we will use features from the the `pyplot` module in Matplotlib, which provides [MATLAB](https://www.mathworks.com/products/matlab.html)-like plotting.
 
