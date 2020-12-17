@@ -102,7 +102,11 @@ data.columns
 
 Perfect, now our column names are easier to understand and use. 
 
-As we have learned, it is always a good idea to check some basic properties of the input data before proceeding with data analysis. Let's take a quick look of our data first.
+## Apply: How to use functions with Series
+
+Now it's time to convert those temperatures from Fahrenheit to Celsius. We have done this many times before, but this time we will learn how to apply our own functions to data in a pandas DataFrame. We will define a function for the temperature conversion, and apply this function for each Celsius value on each row of the DataFrame. Output celsius values should be stored in a new column called `TEMP_C`.
+
+But first, it is a good idea to check some basic properties of our new input data before proceeding with data analysis.
 
 ```python
 # First rows
@@ -119,7 +123,7 @@ data.tail(2)
 data.info()
 ```
 
-Here we can see that there are varying number of observations per column due to missing values in some columns (see the varying `Non-Null Count` information).
+Nothing suspicous for the first and last rows, but here with `info()` we can see that the number of observations per column seem to be varying if you compare the `Non-Null Count` information to the number of entries in the data (N=198334). Only station number and time seem to have data on each row. All other columns seem to have some missing values. This is not necessarily anything dangerous, but good to keep in mind. 
 
 ```python
 # Descriptive stats
@@ -129,17 +133,9 @@ data.describe()
 By looking at the `TEMP_F` values (Fahrenheit temperatures), we can confirm that our measurements seems more or less valid because the value range of the temperatures makes sense, i.e. there are no outliers such as extremely high `MAX` values or low `MIN` values. It is always a good practice to critically check your data before doing any analysis, as it is possible that your data may include incorrect values, e.g. due to a sensor malfunction or human error. 
 
 
-## Applying a function
+### Defining function for pandas
 
-Now it's again time to convert temperatures from Fahrenheit to Celsius! Yes, we have already done this many times before, but this time we will learn how to apply our own functions to data in a pandas DataFrame.
-
-**We will define a function for the temperature conversion, and apply this function for each Celsius value on each row of the DataFrame. Output celsius values should be stored in a new column called** `TEMP_C`.
-
-We will first see how we can apply the function row-by-row using a `for` loop and then we will learn how to apply the method to all rows more efficiently all at once.
-
-### Defining the function
-
-For both of these approaches, we first need to define our temperature conversion function from Fahrenheit to Celsius:
+Now we are sure that our data looks okay, and we can start our temperature conversion process by first defining our temperature conversion function from Fahrenheit to Celsius. When using functions with pandas, you can define them exactly in a similar manner as you would do normally. Hence, let's define a function that converts Fahrenheits to Celsius: 
 
 ```python
 def fahr_to_celsius(temp_fahrenheit):
@@ -163,25 +159,22 @@ def fahr_to_celsius(temp_fahrenheit):
     return converted_temp
 ```
 
-Let's test the function with some known value:
+Now we have the function defined and stored in memory. At this point it is good to test the function with some known value.
 
 ```python
 fahr_to_celsius(32)
 ```
 
-Let's also print out the first rows of our data frame to see our input data before further processing: 
+32 Fahrenheits is indeed 0 Celsius, so our function seem to be working correctly.
 
-```python
-data.head()
-```
 
-### Iterating over rows
+### Using the function by iterating over rows
 
-We can apply the function one row at a time using a `for` loop and the [iterrows()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iterrows.html) method. In other words, we can use the `iterrows()` method and a `for` loop to repeat a process *for each row in a Pandas DataFrame* . Please note that iterating over rows is a rather inefficient approach, but it is still useful to understand the logic behind the iteration.
+Next we will learn how to use our function with data stored in pandas DataFrame. We will first apply the function row-by-row using a `for` loop and then we will learn a more efficient way of applying the function to all rows at once.
 
-When using the `iterrows()` method it is important to understand that `iterrows()` accesses not only the values of one row, but also the `index` of the row as well. 
+Looping over rows in a DataFrame can be done in a couple of different ways. A common approach is to use a `iterrows()` method which loops over the rows as a index-Series pairs. In other words, we can use the `iterrows()` method together with a `for` loop to repeat a process *for each row in a Pandas DataFrame*. Please note that iterating over rows this way is a rather inefficient approach, but it is still useful to understand the logic behind the iteration. Other commonly used and faster way to iterate over rows is to use `itertuples()` method. Next, we will see examples from both of them.
 
-Let's start with a simple for loop that goes through each row in our DataFrame:
+When using the `iterrows()` method it is important to understand that `iterrows()` accesses not only the values of one row, but also the `index` of the row as we mentioned. Let's start with a simple for loop that goes through each row in our DataFrame:
 
 ```python jupyter={"outputs_hidden": false}
 # Iterate over the rows
@@ -190,97 +183,83 @@ for idx, row in data.iterrows():
     # Print the index value
     print('Index:', idx)
     
-    # Print the row
+    # Print the temperature from the row
     print('Temp F:', row['TEMP_F'], "\n")
     
     break
 ```
 
-```{admonition} Breaking a loop
-When developing a for loop, you don't always need to go through the entire loop if you just want to test things out. 
-The [break](https://www.tutorialspoint.com/python/python_break_statement.htm) statement in Python terminates the current loop whereever it is placed and we used it here just to test check out the values on the first row.
-With a large data, you might not want to print out thousands of values to the screen!
-```
+We can see that the `idx` variable indeed contains the index value at position 0 (the first row) and the `row` variable contains all the data from that given row stored as a pandas `Series`. Notice, that when developing a for loop, you don't always need to go through the entire loop if you just want to test things out. Using the `break` statement in Python terminates a loop whenever it is placed inside a loop. We used it here just to test check out the values on the first row. With a large data, you might not want to print out thousands of values to the screen!
 
-
-We can see that the `idx` variable indeed contains the index value at position 0 (the first row) and the `row` variable contains all the data from that given row stored as a pandas `Series`.
-
-- Let's now create an empty column `TEMP_C` for the Celsius temperatures and update the values in that column using the `fahr_to_celsius` function we defined earlier:
+Let's now create an empty column `TEMP_C` for the Celsius temperatures and update the values in that column using the `fahr_to_celsius` function that we defined earlier. For updating the value, we can use `at` which we already used earlier in this chapter. This time, we will use the `itertuples()` method which works in a similar manner, except it only return the row values without the `index`. When using `itertuples` accessing the row values needs to be done a bit differently, because the row is not a Series, but a `named tuple` (hence the name). A tuple is like a list (but immutable, i.e. you cannot change it) and "named tuple" is a special kind of tuple object that adds the ability to access the values by name instead of position index. Hence, below we will access the `TEMP_F` value by using `row.TEMP_F` (compare to how we accessed the value in the prevous code block). 
 
 ```python
-# Create an empty float column for the output values
+# Create an empty column for the output values
 data['TEMP_C'] = 0.0
 
 # Iterate over the rows 
-for idx, row in data.iterrows():
+for row in data.itertuples():
     
     # Convert the Fahrenheit to Celsius
-    celsius = fahr_to_celsius(row['TEMP_F'])
+    # Notice how we access the row value
+    celsius = fahr_to_celsius(row.TEMP_F)
     
-    # Update the value of 'Celsius' column with the converted value
-    data.at[idx, 'TEMP_C'] = celsius
+    # Update the value for 'Celsius' column with the converted value
+    # Notice how we can access the Index value
+    data.at[row.Index, 'TEMP_C'] = celsius
+
+# Print the last row to show how it looks like
+row
 ```
 
-```{admonition} Reminder: .at or .loc?
-Here, you could also use `data.loc[idx, new_column] = celsius` to achieve the same result. 
-    
-If you only need to access a single value in a DataFrame, [DataFrame.at](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.at.html) is faster compared to [DataFrame.loc](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html), which is designed for accessing groups of rows and columns. 
-```
-
-
-Finally, let's see how our dataframe looks like now:
+Here we can see how our row (i.e. named tuple) looks like. It is like a weird looking dictionary with values assigned to the names of our columns. Before explaining more, let's see how our DataFrame looks like now.
 
 ```python
 data.head()
 ```
 
-### Applying the function
+Okay, now we have iterated over our data and updated the temperatures in Celsius to `TEMP_C` column by using our `fahr_to_celsius` function. The values look correct as 32 Fahrenheits indeed is 0 Celsius degrees, as can be seen on the second row. 
 
-Pandas DataFrames and Series have a dedicated method `.apply()` for applying functions on columns (or rows!). When using `.apply()`, we pass the function name (without parenthesis!) as an argument to the `apply()` method. Let's start by applying the function to the `TEMP_F` column that contains the temperature values in Fahrenheit:
+A couple of notes about our appoaches. We used `itertuples()` method for looping over the values because it is significantly faster compared to `iterrows()` (can be ~100x faster). We used `at` to assign the value to the DataFrame because it is designed to access single values more efficiently compared to `.loc`, which can access also groups of rows and columns. That said, you could have used `data.loc[idx, new_column] = celsius` to achieve the same result (it's just slightly slower). 
+
+
+### Using the function with `apply`
+
+Although using for loop with `itertuples` can be fairly efficient, pandas DataFrames and Series have a dedicated method called `apply` for applying functions on columns (or rows). `apply` can be even faster than `itertuples` especially if you have large number of rows, such as in our case. When using `apply`, we pass the function as an argument to the `apply` method. Let's start by applying the function to the `TEMP_F` column that contains the temperature values in Fahrenheit:
 
 ```python
 data['TEMP_F'].apply(fahr_to_celsius)
 ```
 
-The results look logical and we can store them permanently into a new column (overwriting the old values): 
+The results look logical. Notice how we passed the `fahr_to_celsius` function without using the typical parentheses `()` after the name of the function. When using `apply`, you should always leave out the parentheses from the function that you use. Meaning that you should use `apply(fahr_to_celsius)` instead of `apply(fahr_to_celsius())`. 
+
+Our command above only returns the Series of temperatures to the screen, but naturally we can also store them permanently into a new column (overwriting the old values). 
 
 ```python
 data['TEMP_C'] = data['TEMP_F'].apply(fahr_to_celsius)
 ```
 
-We can also apply the function on several columns at once. We can re-order the dataframe at the same time in order to see something else than `NaN` from the `MIN` and `MAX` columns
+A nice thing with `apply` is that we can also apply the function on several columns at once. Below, we also sort the values in descending order based on values in `MIN` column to see that applying our function really works.  
 
 ```python
-data[['TEMP_F', 'MIN', 'MAX']].apply(fahr_to_celsius)
+multiple_columns_at_once = data[['TEMP_F', 'MIN', 'MAX']].apply(fahr_to_celsius)
+multiple_columns_at_once.sort_values(by="MIN", ascending=False).head()
 ```
 
-#### Check your understanding
-
-Convert `'TEMP_F'`, `'MIN'`, `'MAX'` to Celsius by applying the function like we did above and store the outputs to  new columns `'TEMP_C'`, `'MIN_C'`, `'MAX_C'`.
+You can also directly store the outputs to new columns `'TEMP_C'`, `'MIN_C'`, `'MAX_C'`.
 
 ```python
 data[['TEMP_C', 'MIN_C', 'MAX_C']]  = data[['TEMP_F', 'MIN', 'MAX']].apply(fahr_to_celsius)
+data.head()
 ```
 
-Applying the function on all columns `data.apply(fahr_to_celsius)` would not give an error in our case, but the results also don't make much sense for columns where input data was other than Fahrenheit temperatures.
+<!-- #region -->
 
 
-You might also notice that our conversion function would also allow us to 
-pass one column or the entire dataframe as a parameter. For example, like this: `fahr_to_celsius(data["TEMP_F"])`. However, the code is perhaps easier to follow when using the apply method.
-
-
-Let's check the output:
-
-```python jupyter={"outputs_hidden": false}
-data.head(10)
-```
-
-```{admonition} Should I use .iterrows() or .apply()?
 We are teaching the `.iterrows()` method because it helps to understand the structure of a DataFrame and the process of looping through DataFrame rows. However, using `.apply()` is often more efficient in terms of execution time. 
 
-At this point, the most important thing is that you understand what happens when you are modifying the values in a pandas DataFrame. When doing the course exercises, either of these approaches is ok!
-```
-
+At this point, you have seen a couple of different ways to apply functions over rows of data. The most important thing is that you understand the logic of how loops work and how you can use your own functions to modify the values in a pandas DataFrame. 
+<!-- #endregion -->
 
 ## String slicing
 
