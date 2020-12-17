@@ -12,45 +12,14 @@ jupyter:
     name: python3
 ---
 
-# Creating a repeatable analysis workflow
+# Data wrangling, grouping and aggregation
 
-In this section, we will create a data analysis workflow that we can repeat with multiple input files with a similar structure. 
-
-![Finland April 2019](./../img/Finland-April-2019.png)
-*Source: [https://weather.com/news/climate/news/2019-05-20-april-2019-global-temperatures-nasa-noaa](https://weather.com/news/climate/news/2019-05-20-april-2019-global-temperatures-nasa-noaa)*
-
-April 2019 was the [second warmest April on record globally](https://weather.com/news/climate/news/2019-05-20-april-2019-global-temperatures-nasa-noaa), and the warmest on record at 13 weather stations in Finland. 
-In this lesson, we will use our data manipulation and analysis skills to analyze weather data from Finland, and investigate the claim that April 2019 was the warmest on record across Finland.
-
-Along the way we will cover a number of useful techniques in pandas including:
-
-- renaming columns
-- iterating data frame rows and applying functions
-- data aggregation
-- repeating the analysis task for several input files
+Next, we will continue working with weather data, but expand our analysis to cover longer periods of data from Finland. In the following, you will learn various useful techniques in pandas to manipulate, group and aggregate the data in different ways that are useful when extracting insights from your data. In the end, you will learn how to create an automated data analysis workflow that can be repeated with multiple input files having a similar structure. As a case study, we will investigate whether January 2020 was the warmest month on record also in Finland, as the month was the warmest one on record globally [^noaanews]. 
 
 
-## Preparations
+## Cleaning data while reading
 
-### Input data
-
-In this section we are using weather observation data from Finland [downloaded from NOAA](https://www7.ncdc.noaa.gov/CDO/cdopoemain.cmd?datasetabbv=DS3505&countryabbv=&georegionabbv=&resolution=40).
-
-### Downloading the data
-
-INSERT DATA DOWNLOAD INSTRUCTIONS IF NEEDED (OR PROVIDE SMALL ENOUGH FILE THAT CAN BE HOSTED WITH THE BOOK)
-
-
-
-As part of the download there are a number of files that describe the weather data. These *metadata* files include:
-
-- A list of stations\*: [data/6367598020644stn.txt](metadata/6367598020644stn.txt)
-- Details about weather observations at each station: [data/6367598020644inv.txt](metadata/6367598020644inv.txt)
-- A data description (i.e., column names): [data/3505doc.txt](metadata/3505doc.txt)
-
-\*Note that the list of stations is for all 15 stations, even if you're working with only the 4 stations on the CSC Notebooks platform.
-
-The input data for this week are separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:
+In this section we are using weather observation data from Finland that was downloaded from NOAA (see `Datasets` chapter for further details). The input data is separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:
 
 ``` 
   USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW AW AW AW W TEMP DEWP    SLP   ALT    STP MAX MIN PCP01 PCP06 PCP24 PCPXX SD
@@ -60,161 +29,104 @@ The input data for this week are separated with varying number of spaces (i.e., 
 029440 99999 190601020600 ***   0 *** *** CLR * * *  0.0 ** ** ** ** ** ** ** ** *   26 **** 1016.2 ***** ****** *** *** ***** ***** ***** ***** **
 ```
 
-We will develop our analysis workflow using data for a single station. Then, we will repeat the same process for all the stations.
+By looking at the data, we can notice a few things that we need to consider when reading the data:
 
+1. **Delimiter:** The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas `read_csv`
+2. **NoData values:** NaN values in the NOAA data are coded with varying number of `*` characters, hence, we need to be able to instruct pandas to interpret those as NaNs. 
+3. **Many columns**: The input data contains altogether 33 columns. Many of those do not contain any meaningful data for our needs. Hence, we should probably ignore the unnecessary columns already at this stage. 
 
-### Reading the data
+Handling and cleaning heterogeneous input data (such as our example here) could naturally be done after the data has been imported to a DataFrame. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter `delim_whitespace=True` (alternatively, specifying `sep='\s+'` would work). For handling the NoData values (2), we can tell pandas to consider the `*` characters as NaNs by using a paramater `na_values` and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify `na_values=['*', '**', '***', '****', '*****', '******']` which will then convert the varying number of `*` characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the `usecols` parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis (or at least meaningful to us), including e.g. the station name, timestamp, and data about the wind and temperature: `'USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'`
 
-In order to get started, let's import pandas: 
+Achieving all these things is pretty straightforward using the `read_csv` function as we can see: 
 
 ```python
 import pandas as pd
-```
 
-At this point, you can already have a quick look at the input file `029440.txt` for Tampere Pirkkala and how it is structured. We can notice at least two things we need to consider when reading in the data:
-
-```{admonition} Input data structure
-- **Delimiter:** The data are **separated with a varying amount of spaces**. If you check out the documentation for the [read_csv() method](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html), you can see that there are two different ways of doing this. We can use either `sep='\s+'` or `delim_whitespace=True` (but not both at the same time). In this case, we prefer to use `delim_whitespace` parameter.
-
-- **No Data values:** No data values in the NOAA data are coded with varying number of `*`. We can tell pandas to consider those characters as NaNs by specifying `na_values=['*', '**', '***', '****', '*****', '******']`.
-```
-
-```python
 # Define relative path to the file
-fp = r'./../../data/NOAA/hourly/statistics/029440.txt'
+fp = 'data/029820.txt'
 
-# Read data using varying amount of spaces as separator and specifying * characters as NoData values
-data = pd.read_csv(fp, delim_whitespace=True, na_values=['*', '**', '***', '****', '*****', '******'])
-```
-
-Let's see how the data looks by printing the first five rows with the `head()` function:
-
-```python jupyter={"outputs_hidden": false}
-data.head()
-```
-
-All seems ok. However, we won't be needing all of the 33 columns for detecting warm temperatures in April. We can check all column names by running `data.columns`:
-
-```python jupyter={"outputs_hidden": false}
-data.columns
-```
-
-A description for all these columns is available in the metadata file [data/3505doc.txt](metadata/3505doc.txt). 
-
-**Let's read in the data one more time.** This time, we will read in only some of the columns using the `usecols` parameter. Let's read in columns that might be somehow useful to our analysis, or at least that contain some values that are meaningful to us, including the station name, timestamp, and data about wind and temperature: `'USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'`
-
-```python
-# Read in only selected columns
+# Read data using varying amount of spaces as separator, 
+# specifying '*' characters as NoData values, 
+# and selecting only specific columns from the data
 data = pd.read_csv(fp, delim_whitespace=True, 
-                   usecols=['USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'], 
-                   na_values=['*', '**', '***', '****', '*****', '******'])
+                   na_values=['*', '**', '***', '****', '*****', '******'],
+                   usecols=['USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN']
+                  )
+```
 
-# Check the dataframe
+Let's see now how the data looks by printing the first five rows with the `head()` function:
+
+```python jupyter={"outputs_hidden": false}
 data.head()
 ```
 
-Okay so we can see that the data was successfully read to the DataFrame and we also seemed to be able to convert the asterisk (\*) characters into `NaN` values. 
+Perfect, looks good. We have skipped a bunch of unnecessary columns and also the asterisk (\*) characters have been correctly converted to NaN values.  
 
 
 ### Renaming columns
 
-As we saw above some of the column names are a bit awkward and difficult to interpret. Luckily, it is easy to alter labels in a pandas DataFrame using the [rename](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html)-function. In order to change the column names, we need to tell pandas how we want to rename the columns using a dictionary that lists old and new column names
+Let's take a closer look at the column names of our DataFrame. A description for all these columns is available in the metadata file [data/3505doc.txt](data/3505doc.txt). 
 
-Let's first check again the current column names in our DataFrame:
-
-```python
+```python jupyter={"outputs_hidden": false}
 data.columns
 ```
 
-```{admonition} Dictionaries
-A [dictionary](https://docs.python.org/3/tutorial/datastructures.html#dictionaries) is a specific data structure in Python for storing key-value pairs. During this course, we will use dictionaries mainly when renaming columns in a pandas series, but dictionaries are useful for many different purposes! For more information about Python dictionaries, check out [this tutorial](https://realpython.com/python-dicts/).
-```
+As we see, some of the column names are a bit awkward and difficult to interpret. Luckily, it is easy to alter labels in a pandas DataFrame using the `rename` function. In order to change the column names, we need to tell pandas how we want to rename the columns using a dictionary that converts the old names to new ones. As you probably remember from Chapter 1, a `dictionary` is a specific data structure in Python for storing key-value pairs.
 
-
-We can define the new column names using a [dictionary](https://www.tutorialspoint.com/python/python_dictionary.htm) where we list "`key: value`" pairs, in which the original column name (the one which will be replaced) is the key and the new column name is the value.
-
-- Let's change the following:
+We can define the new column names using a dictionary where we list "`key: value`" pairs in following manner:
    
-   - `YR--MODAHRMN` to `TIME`
-   - `SPD` to `SPEED`
-   - `GUS` to `GUST`
+- `USAF`: `STATION_NUMBER`
+- `YR--MODAHRMN`: `TIME`
+- `SPD`: `SPEED`
+- `GUS`: `GUST`
+- `TEMP`: `TEMP_F`
+
+Hence, the original column name (e.g. `YR--MODAHRMN`) is the dictionary `key` which will be converted to a new column name `TIME` (which is the `value`). The temperature values in our data file is again represented in Fahrenheit. We will soon convert these temperatures to Celsius. Hence, in order to avoid confusion with the columns, let's rename the column `TEMP` to `TEMP_F`. Also the station number `USAF` is much more intuitive if we call it `STATION_NUMBER`.
 
 ```python jupyter={"outputs_hidden": false}
 # Create the dictionary with old and new names
-new_names = {'YR--MODAHRMN': 'TIME', 'SPD': 'SPEED', 'GUS': 'GUST'}
-
-# Let's see what the variable new_names look like
+new_names = {'USAF':'STATION_NUMBER', 'YR--MODAHRMN': 'TIME', 
+             'SPD': 'SPEED', 'GUS': 'GUST', 
+             'TEMP': 'TEMP_F'
+            }
 new_names
 ```
 
-```python
-# Check the data type of the new_names variable
-type(new_names)
-```
-
-From above we can see that we have successfully created a new dictionary. 
-
-Now we can change the column names by passing that dictionary using the parameter `columns` in the `rename()` function:
+Our dictionary looks correct, so now we can change the column names by passing that dictionary using the parameter `columns` in the `rename()` function:
 
 ```python jupyter={"outputs_hidden": false}
 # Rename the columns
 data = data.rename(columns=new_names)
-
-# Print the new columns
-print(data.columns)
+data.columns
 ```
 
 Perfect, now our column names are easier to understand and use. 
 
-
-### Check your understanding
-
-The temperature values in our data files are again in Fahrenheit. As you might guess, we will soon convert these temperatures in to Celsius. In order to avoid confusion with the columns, let's rename the column `TEMP` to `TEMP_F`. Let's also rename `USAF` to `STATION_NUMBER`.
+As we have learned, it is always a good idea to check some basic properties of the input data before proceeding with data analysis. Let's take a quick look of our data first.
 
 ```python
-# Create the dictionary with old and new names
-new_names = {'USAF':'STATION_NUMBER', 'TEMP': 'TEMP_F'}
-
-# Rename the columns
-data = data.rename(columns=new_names)
-
-# Check the output
-data.head()
-```
-
-### Data properties
-
-As we learned last week, it's always a good idea to check basic properties of the input data before proceeding with data analysis. Let's check the:
-
-- Number of rows and columns:
-
-```python
-data.shape
-```
-
-- Top and bottom rows: 
-
-```python
-data.head()
+# First rows
+data.head(2)
 ```
 
 ```python
-data.tail()
+# Last rows
+data.tail(2)
 ```
-
-- Data types of the columns: 
 
 ```python
-data.dtypes
+# Data types
+data.info()
 ```
 
-- Descriptive statistics:
+Here we can see that there are varying number of observations per column due to missing values in some columns (see the varying `Non-Null Count` information).
 
-```python jupyter={"outputs_hidden": false}
+```python
+# Descriptive stats
 data.describe()
 ```
 
-Here we can see that there are varying number of observations per column (see the `count` information), because some of the columns have missing values.
+By looking at the `TEMP_F` values (Fahrenheit temperatures), we can confirm that our measurements seems more or less valid because the value range of the temperatures makes sense, i.e. there are no outliers such as extremely high `MAX` values or low `MIN` values. It is always a good practice to critically check your data before doing any analysis, as it is possible that your data may include incorrect values, e.g. due to a sensor malfunction or human error. 
 
 
 ## Applying a function
@@ -781,3 +693,8 @@ for fp in file_list:
 ```
 
 How about now, how did April 2019 rank across different stations?
+
+
+## Footnotes
+
+[^noaanews]: <https://www.noaa.gov/news/january-2020-was-earth-s-hottest-january-on-record>

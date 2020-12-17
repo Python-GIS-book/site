@@ -129,3 +129,13 @@ The book consists of 4 parts:
 
    back-matter/index
    authors
+   
+   
+.. toctree::
+   :maxdepth: 2
+   :caption: Datasets
+   :titlesonly:
+   :hidden:
+   
+   data/index
+   data/noaa-data.ipynb

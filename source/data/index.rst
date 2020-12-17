@@ -1,5 +1,5 @@
-Data
-=====
+Overview
+========
 
 Examples in this book are based on real data from different data providers.
 This section contains data files, download instructions and relevant metadata (add "metadata" to glossary!)
@@ -19,7 +19,4 @@ Preliminary list of data sets used in this book (data set name / Source):
     - Finland / Statistics Finland
 - OpenStreetMap
 - Landsat / U.S. Geological Survey
-
-
-
 

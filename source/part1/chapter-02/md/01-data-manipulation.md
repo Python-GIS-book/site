@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region deletable=true editable=true -->
-# Data manipulation and analysis
+# Common tabular operations in pandas
 
 Now you have learned the basics of pandas data structures (i.e. *Series* and *DataFrame*) and you should be familiar with basic methods for loading and exploring data. Next, we will continue exploring the pandas functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.
 
@@ -479,54 +479,8 @@ data.sort_values(by=["WEEKDAY", "TEMP_CELSIUS"], ascending=[True, False]).head(1
 
 As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data. 
 
-<!-- #region deletable=true editable=true -->
-## Writing data to a file
-
-Lastly, it is of course important to be able to write the data that you have analyzed into your computer. This is really handy in Pandas as it supports many different data formats by default [^pandasio], such as CSV, Excel, JSON, HDF5, Pickle etc.
-
-One of the most typical output formats is CSV file. Function `to_csv()` can be used to easily save your data in CSV format.
-Let's first save the data from our `data` DataFrame into a file called `Kumpula_temp_results_June_2016.csv`.
-<!-- #endregion -->
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# define output filename
-output_fp = "Kumpula_temps_June_2016.csv"
-
-# Save dataframe to csv
-data.to_csv(output_fp, sep=',')
-```
-
-<!-- #region deletable=true editable=true -->
-Now we have the data from our DataFrame saved to a file and this is how it looks using a JupyterLab viewer:
-![Text file output](../img/pandas-save-file-1.png)
-
-As we can see, the first column in the datafile contains now the index value of the rows. There are also quite many decimals present in the new columns
-that we created. We can deal with these and save the temperature values from `warm_temps` DataFrame without the index and with only 1 decimal in the floating point numbers.
-
-Omitting the index can be with `index=False` parameter. Specifying how many decimals should be written can be done with `float_format` parameter where text `%.1f` defines pandas to use 1 decimals in all columns when writing the data to a file (changing the value 1 to 2 would write 2 decimals etc.)
-<!-- #endregion -->
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# define output filename
-output_fp2 = "Kumpula_temps_above15_June_2016.csv"
-
-# Save dataframe to csv
-warm_temps.to_csv(output_fp2, sep=',', index=False, float_format="%.1f")
-```
-
-<!-- #region deletable=true editable=true -->
-And this is how the temperature data looks now after the modifications:
-
-![Output after float fomatting](../img/pandas-save-file-2.png)
-
-As a results we have a "cleaner" output file without the index column, and with only 1 decimal for floating point numbers.
-<!-- #endregion -->
 
 ### Footnotes
 
 [^numpydtypes]: <https://numpy.org/doc/stable/user/basics.types.html>
 [^pandasio]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html>
-
-```python
-
-```
