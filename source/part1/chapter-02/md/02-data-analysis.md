@@ -429,14 +429,16 @@ monthly_data
 
 Awesome! As a result, we have now aggregated our data and filled the new DataFrame `monthly_data` with mean values for each month in the data set.
 
-Alternatively, we can also achieve the same result by computing the mean of the groups all at once as follows:
+Alternatively, we can also achieve the same result by `chaining` the `groupby()` function with the aggregation step (such as taking the mean, median etc.). This can be a bit harder to understand, but this is how you could shorten the whole grouping, loop and aggregation process into a single command:
 
 ```python
 mean_cols = ['DIR', 'SPEED', 'GUST', 'TEMP_F', 'TEMP_C']
-grouped[mean_cols].mean().reset_index()
+data.groupby('YEAR_MONTH')[mean_cols].mean().reset_index()
 ```
 
-As we can see, doing the aggregation without a loop requires much less code, and in fact, it is also faster. Hence, when aggregating data in this manner, we recommend using the latter approach. Sometimes, you might want to have additional processing steps inside the for loop, hence, it is useful to know both of these approaches for aggregating the data. 
+As we can see, doing the aggregation without a loop requires much less code, and in fact, it is also faster. So what did we do here? We 1) grouped the data, 2) selected specific columns from the result (`mean_cols`), 3) calculated the mean for all of the selected columns, and finally 4) reset the index. Resetting the index at the end is not necessary, but by doing it, we turn the `YEAR_MONTH` values (that would be otherwise store in `index`) into a dedicated column in our data.
+
+So which approach should you use? From the performance point of view, we recommend using the latter approach (i.e. chaining) which does not require a loop and is highly performant. However, this approach might be a bit difficult to read and comprehend (the loop might be easier), and sometimes you want to include additional processing steps inside the loop which can be hard accomplish by chaining everything into a single command. Hence, it is useful to know both of these approaches for doing aggregations with the data.  
 
 
 ### Detecting warm months
@@ -465,99 +467,54 @@ january_data.sort_values(by='TEMP_C', ascending=False).head(10)
 Now by looking at the order of `YEAR_MONTH` column, we can see that January 2020 indeed was on average the warmest month on record based on weather observations from Finland. (**UPDATE**)
 
 
-## Automating the analysis (**UPDATE**)
+## Automating the analysis
 
-Now we know how to calculate average temperatures for each month based on weather observations. We were able to do that by processing and aggregating the hourly weather observations using few highly useful techniques in pandas. One of the most useful aspects of using programming to do these steps, is the ability to automate the process and repeat the analyses for any number of weather stations (assuming the data structure is the same). 
+Now we have learned how to aggregate data using pandas. average temperatures for each month based on hourly weather observations. One of the most useful aspects of programming, is the ability to automate processes and repeat analyses such as these for any number of weather stations (assuming the data structure is the same). 
 
-Hence, let's finally repeat the data analysis steps for all the available data we have (**from X weather stations**). The idea is that we will repeat the analysis process for each input file using a (rather long) for loop. We have all the analysis steps (using the most efficient alternatives of the represented approaches) in one long loop, and we will store the results in a single DataFrame for all stations. 
+Hence, let's now see how we can repeat the previous data analysis steps for all the available data we have from 15 weather stations located in different parts of Finland. The idea is that we will repeat the process for each input file using a (rather long) for loop. We will use the most efficient alternatives of the previously represented approaches, and finally will store the results in a single DataFrame for all stations. 
 
-We will use the `glob()` function from the Python module `glob` to list our input files in the data directory `weather_data`.  
-
-```python
-# Read selected columns of  data using varying amount of spaces as separator and specifying * characters as NoData values
-data = pd.read_csv(fp, delim_whitespace=True, 
-                   usecols=['USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'], 
-                   na_values=['*', '**', '***', '****', '*****', '******'])
-
-# Rename the columns
-new_names = {'USAF':'STATION_NUMBER','YR--MODAHRMN': 'TIME', 'SPD': 'SPEED', 'GUS': 'GUST', 'TEMP':'TEMP_F'}
-data = data.rename(columns=new_names)
-
-#Print info about the current input file:
-print("STATION NUMBER:", data.at[0,"STATION_NUMBER"])
-print("NUMBER OF OBSERVATIONS:", len(data))
-
-# Create column
-col_name = 'TEMP_C'
-data[col_name] = None
-
-# Convert tempetarues from Fahrenheits to Celsius
-data['TEMP_C'] = data['TEMP_F'].apply(fahr_to_celsius)
-
-# Convert TIME to string 
-data['TIME_STR'] = data['TIME'].astype(str)
-
-# Parse year and month
-data['MONTH'] = data['TIME_STR'].str.slice(start=5, stop=6).astype(int)
-data['YEAR'] = data['TIME_STR'].str.slice(start=0, stop=4).astype(int)
-
-# Extract observations for the months of April 
-aprils = data[data['MONTH']==4]
-
-# Take a subset of columns
-aprils = aprils[['STATION_NUMBER','TEMP_F', 'TEMP_C', 'YEAR', 'MONTH']]
-
-# Group by year and month
-grouped = aprils.groupby(by=['YEAR', 'MONTH'])
-
-# Get mean values for each group
-monthly_mean = grouped.mean()
-
-# Print info
-print(monthly_mean.sort_values(by='TEMP_C', ascending=False).head(5))
-print("\n")
-```
-
-
+We will use the `glob()` function from the Python module `glob` to list our input files in the data directory `data`. We will store those paths to a variable `file_list`, so that we can use the file paths easily in the later steps.
 
 ```python
-import glob
+from glob import glob
+file_list = glob('data/0*txt')
 ```
+
+Note that we're using the \* character as a wildcard, so any file that starts with `data/0` and ends with `txt` will be added to the list of files. We specifically use `data/0` as the starting part of the file names to avoid having our metadata files included in the list.
 
 ```python
-file_list = glob.glob(r'data/0*txt')
+print("Number of files in the list:", len(file_list))
+file_list
 ```
 
-```{note}
-Note that we're using the \* character as a wildcard, so any file that starts with `data/0` and ends with `txt` will be added to the list of files we will iterate over. We specifically use `data/0` as the starting part of the file names to avoid having our metadata files included in the list!
-```
-
-```python
-print("Number of files in the list", len(file_list))
-print(file_list)
-```
-
-Now, you should have all the relevant file names in a list, and we can loop over the list using a for-loop:
+Now, you should have all the relevant file paths in the `file_list`, and we can loop over the list using a for loop (again we break the loop after first iteration):
 
 ```python
 for fp in file_list:
     print(fp)
+    break
 ```
 
+Now we have all the file paths to our weather observation datasets in a list, and we can start iterating over them and repeat the analysis steps for each file separately. We keep all the analytical steps inside a loop so that all of them are repeated to different stations. Finally, we will store the warmest January for each station in a new DataFrame called `results` using an `append()` method which works quite in a similar manner as appending values to a regular list:
+
 ```python jupyter={"outputs_hidden": false}
+# DataFrame for the end results
+results = pd.DataFrame()
+
 # Repeat the analysis steps for each input file:
 for fp in file_list:
 
     # Read selected columns of  data using varying amount of spaces as separator and specifying * characters as NoData values
-    data = pd.read_csv(fp, delim_whitespace=True, usecols=['USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'], na_values=['*', '**', '***', '****', '*****', '******'])
+    data = pd.read_csv(fp, delim_whitespace=True, 
+                       usecols=['USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'], 
+                       na_values=['*', '**', '***', '****', '*****', '******'])
 
     # Rename the columns
     new_names = {'USAF':'STATION_NUMBER','YR--MODAHRMN': 'TIME', 'SPD': 'SPEED', 'GUS': 'GUST', 'TEMP':'TEMP_F'}
     data = data.rename(columns=new_names)
 
-    #Print info about the current input file:
-    print("STATION NUMBER:", data.at[0,"STATION_NUMBER"])
-    print("NUMBER OF OBSERVATIONS:", len(data))
+    # Print info about the current input file (useful to understand how the process advances):
+    print(f"STATION NUMBER: {data.at[0,'STATION_NUMBER']}\tNUMBER OF OBSERVATIONS: {len(data)}")
 
     # Create column
     col_name = 'TEMP_C'
@@ -569,28 +526,39 @@ for fp in file_list:
     # Convert TIME to string 
     data['TIME_STR'] = data['TIME'].astype(str)
 
-    # Parse year and month
+    # Parse year and month and convert them to numbers
     data['MONTH'] = data['TIME_STR'].str.slice(start=5, stop=6).astype(int)
     data['YEAR'] = data['TIME_STR'].str.slice(start=0, stop=4).astype(int)
 
-    # Extract observations for the months of April 
-    aprils = data[data['MONTH']==4]
+    # Extract observations for the months of January 
+    january = data[data['MONTH']==1]
 
-    # Take a subset of columns
-    aprils = aprils[['STATION_NUMBER','TEMP_F', 'TEMP_C', 'YEAR', 'MONTH']]
-
-    # Group by year and month
-    grouped = aprils.groupby(by=['YEAR', 'MONTH'])
-
-    # Get mean values for each group
-    monthly_mean = grouped.mean()
-
-    # Print info
-    print(monthly_mean.sort_values(by='TEMP_C', ascending=False).head(5))
-    print("\n")
+    # Aggregate the data and get mean values
+    columns = ['TEMP_F', 'TEMP_C', 'STATION_NUMBER']
+    monthly_mean = january.groupby(by=["YEAR", "MONTH"])[columns].mean().reset_index()
+    
+    # Sort the values and take the warmest January
+    warmest = monthly_mean.sort_values(by='TEMP_C', ascending=False).head(1)
+    
+    # Add to results  
+    results = results.append(warmest, ignore_index=True)
 ```
 
-How about now, how did April 2019 rank across different stations?
+Awesome! Now we have conducted the same analysis for 15 weather stations in Finland and it did not took too many lines of code! We were able to follow how the process advances with the printed lines of information, i.e. we did some simple `logging` of the operations. Notice that when using the `append()` function, we used `ignore_index=True` which means that the original index value of the row in `warmest` DataFrame is not kept when storing the row to the `results` DataFrame (which might cause conflicts if two rows would happen to have identical index labels).   
+
+Let's finally investigate our results:
+
+```python
+results
+```
+
+Each row in the results represents the warmest January at given `STATION_NUMBER` throughout the recorded years (1906 onwards). Based on the `YEAR` column, the warmest January in most of Finland's weather stations has been during the past 15 years. We can confirm this by checking the value counts of the `YEAR` column:
+
+```python
+results["YEAR"].value_counts()
+```
+
+As we can see, the January in 2005 was exceptionally warm in most of Finland. (**UPDATE**)
 
 
 ## Footnotes
