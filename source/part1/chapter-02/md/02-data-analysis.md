@@ -31,13 +31,13 @@ In this section we are using weather observation data from Finland that was down
 
 By looking at the data, we can notice a few things that we need to consider when reading the data:
 
-1. **Delimiter:** The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas `read_csv`
+1. **Delimiter:** The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas `read_csv()` function
 2. **NoData values:** NaN values in the NOAA data are coded with varying number of `*` characters, hence, we need to be able to instruct pandas to interpret those as NaNs. 
 3. **Many columns**: The input data contains altogether 33 columns. Many of those do not contain any meaningful data for our needs. Hence, we should probably ignore the unnecessary columns already at this stage. 
 
 Handling and cleaning heterogeneous input data (such as our example here) could naturally be done after the data has been imported to a DataFrame. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter `delim_whitespace=True` (alternatively, specifying `sep='\s+'` would work). For handling the NoData values (2), we can tell pandas to consider the `*` characters as NaNs by using a paramater `na_values` and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify `na_values=['*', '**', '***', '****', '*****', '******']` which will then convert the varying number of `*` characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the `usecols` parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis (or at least meaningful to us), including e.g. the station name, timestamp, and data about the wind and temperature: `'USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'`
 
-Achieving all these things is pretty straightforward using the `read_csv` function as we can see: 
+Achieving all these things is pretty straightforward using the `read_csv()` function: 
 
 ```python
 import pandas as pd
@@ -71,7 +71,7 @@ Let's take a closer look at the column names of our DataFrame. A description for
 data.columns
 ```
 
-As we see, some of the column names are a bit awkward and difficult to interpret. Luckily, it is easy to alter labels in a pandas DataFrame using the `rename` function. In order to change the column names, we need to tell pandas how we want to rename the columns using a dictionary that converts the old names to new ones. As you probably remember from Chapter 1, a `dictionary` is a specific data structure in Python for storing key-value pairs.
+As we see, some of the column names are a bit awkward and difficult to interpret. Luckily, it is easy to alter labels in a pandas DataFrame using the `rename()` function. In order to change the column names, we need to tell pandas how we want to rename the columns using a dictionary that converts the old names to new ones. As you probably remember from Chapter 1, a `dictionary` is a specific data structure in Python for storing key-value pairs.
 
 We can define the new column names using a dictionary where we list "`key: value`" pairs in following manner:
    
@@ -102,7 +102,7 @@ data.columns
 
 Perfect, now our column names are easier to understand and use. 
 
-## Apply: How to use functions with Series
+## Apply: How to use functions with pandas
 
 Now it's time to convert those temperatures from Fahrenheit to Celsius. We have done this many times before, but this time we will learn how to apply our own functions to data in a pandas DataFrame. We will define a function for the temperature conversion, and apply this function for each Celsius value on each row of the DataFrame. Output celsius values should be stored in a new column called `TEMP_C`.
 
@@ -135,7 +135,7 @@ By looking at the `TEMP_F` values (Fahrenheit temperatures), we can confirm that
 
 ### Defining function for pandas
 
-Now we are sure that our data looks okay, and we can start our temperature conversion process by first defining our temperature conversion function from Fahrenheit to Celsius. When using functions with pandas, you can define them exactly in a similar manner as you would do normally. Hence, let's define a function that converts Fahrenheits to Celsius: 
+Now we are sure that our data looks okay, and we can start our temperature conversion process by first defining our temperature conversion function from Fahrenheit to Celsius. Pandas can use regular functions, hence you can define functions for pandas exactly in the same way as you would do normally (as we learned in Chapter 1). Hence, let's define a function that converts Fahrenheits to Celsius: 
 
 ```python
 def fahr_to_celsius(temp_fahrenheit):
@@ -191,7 +191,7 @@ for idx, row in data.iterrows():
 
 We can see that the `idx` variable indeed contains the index value at position 0 (the first row) and the `row` variable contains all the data from that given row stored as a pandas `Series`. Notice, that when developing a for loop, you don't always need to go through the entire loop if you just want to test things out. Using the `break` statement in Python terminates a loop whenever it is placed inside a loop. We used it here just to test check out the values on the first row. With a large data, you might not want to print out thousands of values to the screen!
 
-Let's now create an empty column `TEMP_C` for the Celsius temperatures and update the values in that column using the `fahr_to_celsius` function that we defined earlier. For updating the value, we can use `at` which we already used earlier in this chapter. This time, we will use the `itertuples()` method which works in a similar manner, except it only return the row values without the `index`. When using `itertuples` accessing the row values needs to be done a bit differently, because the row is not a Series, but a `named tuple` (hence the name). A tuple is like a list (but immutable, i.e. you cannot change it) and "named tuple" is a special kind of tuple object that adds the ability to access the values by name instead of position index. Hence, below we will access the `TEMP_F` value by using `row.TEMP_F` (compare to how we accessed the value in the prevous code block). 
+Let's now create an empty column `TEMP_C` for the Celsius temperatures and update the values in that column using the `fahr_to_celsius()` function that we defined earlier. For updating the value, we can use `at` which we already used earlier in this chapter. This time, we will use the `itertuples()` method which works in a similar manner, except it only return the row values without the `index`. When using `itertuples()` accessing the row values needs to be done a bit differently, because the row is not a Series, but a `named tuple` (hence the name). A tuple is like a list (but immutable, i.e. you cannot change it) and "named tuple" is a special kind of tuple object that adds the ability to access the values by name instead of position index. Hence, below we will access the `TEMP_F` value by using `row.TEMP_F` (compare to how we accessed the value in the prevous code block). 
 
 ```python
 # Create an empty column for the output values
@@ -207,31 +207,32 @@ for row in data.itertuples():
     # Update the value for 'Celsius' column with the converted value
     # Notice how we can access the Index value
     data.at[row.Index, 'TEMP_C'] = celsius
-
-# Print the last row to show how it looks like
-row
 ```
 
-Here we can see how our row (i.e. named tuple) looks like. It is like a weird looking dictionary with values assigned to the names of our columns. Before explaining more, let's see how our DataFrame looks like now.
-
 ```python
+# Check the result
 data.head()
 ```
 
-Okay, now we have iterated over our data and updated the temperatures in Celsius to `TEMP_C` column by using our `fahr_to_celsius` function. The values look correct as 32 Fahrenheits indeed is 0 Celsius degrees, as can be seen on the second row. 
+```python
+# How does our row look like?
+row
+```
 
-A couple of notes about our appoaches. We used `itertuples()` method for looping over the values because it is significantly faster compared to `iterrows()` (can be ~100x faster). We used `at` to assign the value to the DataFrame because it is designed to access single values more efficiently compared to `.loc`, which can access also groups of rows and columns. That said, you could have used `data.loc[idx, new_column] = celsius` to achieve the same result (it's just slightly slower). 
+Okay, now we have iterated over our data and updated the temperatures in Celsius to `TEMP_C` column by using our `fahr_to_celsius()` function. The values look correct as 32 Fahrenheits indeed is 0 Celsius degrees, as can be seen on the second row. We also have here the last row of our DataFrame which is a named tuple. As you can see, it is a bit like a weird looking dictionary with values assigned to the names of our columns. Basically, it is an object with attributes that we can access in a similar manner as we have used to access some of the pandas DataFrame attributes, such as `data.shape`. 
+
+A couple of notes about our appoaches. We used `itertuples()` method for looping over the values because it is significantly faster compared to `iterrows()` (can be ~100x faster). We used `.at` to assign the value to the DataFrame because it is designed to access single values more efficiently compared to `.loc`, which can access also groups of rows and columns. That said, you could have used `data.loc[idx, new_column] = celsius` to achieve the same result (it is just slower). 
 
 
-### Using the function with `apply`
+### Using functions with `apply`
 
-Although using for loop with `itertuples` can be fairly efficient, pandas DataFrames and Series have a dedicated method called `apply` for applying functions on columns (or rows). `apply` can be even faster than `itertuples` especially if you have large number of rows, such as in our case. When using `apply`, we pass the function as an argument to the `apply` method. Let's start by applying the function to the `TEMP_F` column that contains the temperature values in Fahrenheit:
+Although using for loop with `itertuples()` can be fairly efficient, pandas DataFrames and Series have a dedicated method called `apply()` for applying functions on columns (or rows). `apply()` is typically faster than `itertuples()`, especially if you have large number of rows, such as in our case. When using `apply()`, we pass the function that we want to use as an argument. Let's start by applying the function to the `TEMP_F` column that contains the temperature values in Fahrenheit:
 
 ```python
 data['TEMP_F'].apply(fahr_to_celsius)
 ```
 
-The results look logical. Notice how we passed the `fahr_to_celsius` function without using the typical parentheses `()` after the name of the function. When using `apply`, you should always leave out the parentheses from the function that you use. Meaning that you should use `apply(fahr_to_celsius)` instead of `apply(fahr_to_celsius())`. 
+The results look logical. Notice how we passed the `fahr_to_celsius()` function without using the parentheses `()` after the name of the function. When using `apply`, you should always leave out the parentheses from the function that you use. Meaning that you should use `apply(fahr_to_celsius)` instead of `apply(fahr_to_celsius())`. Why? Because the `apply()` method will execute and use the function itself in the background when it operates with the data. If we would pass our function with the parentheses, the `fahr_to_celsius()` function would actually be executed once before the loop with `apply()` starts (hence becoming unusable), and that is not what we want.   
 
 Our command above only returns the Series of temperatures to the screen, but naturally we can also store them permanently into a new column (overwriting the old values). 
 
@@ -239,7 +240,7 @@ Our command above only returns the Series of temperatures to the screen, but nat
 data['TEMP_C'] = data['TEMP_F'].apply(fahr_to_celsius)
 ```
 
-A nice thing with `apply` is that we can also apply the function on several columns at once. Below, we also sort the values in descending order based on values in `MIN` column to see that applying our function really works.  
+A nice thing with `apply()` is that we can also apply the function on several columns at once. Below, we also sort the values in descending order based on values in `MIN` column to see that applying our function really works.  
 
 ```python
 multiple_columns_at_once = data[['TEMP_F', 'MIN', 'MAX']].apply(fahr_to_celsius)
@@ -253,66 +254,48 @@ data[['TEMP_C', 'MIN_C', 'MAX_C']]  = data[['TEMP_F', 'MIN', 'MAX']].apply(fahr_
 data.head()
 ```
 
-<!-- #region -->
+We showed you a few different ways to iterate over rows in pandas and apply functions. The most important thing is that you understand the logic of how loops work and how you can use your own functions to modify the values in a pandas DataFrame. Whenever you need to loop over your data, we recommend using `.apply()` as it is typically the most efficient one in terms of execution time. However, remember that in most cases you do not actually need to use loops, but you can do calculations in a "vectorized manner" (which is the fastest way) as we learned previously when doing basic calculations in pandas. 
 
-
-We are teaching the `.iterrows()` method because it helps to understand the structure of a DataFrame and the process of looping through DataFrame rows. However, using `.apply()` is often more efficient in terms of execution time. 
-
-At this point, you have seen a couple of different ways to apply functions over rows of data. The most important thing is that you understand the logic of how loops work and how you can use your own functions to modify the values in a pandas DataFrame. 
-<!-- #endregion -->
 
 ## String slicing
 
-We will eventually want to group our data based on month in order to see if April temperatures in 2019 were higher than average. Currently, the date and time information is stored in the column `TIME` (which was originally titled `YR--MODAHRMN`:
+We will eventually want to group our data based on month in order to see if the January temperatures in 2020 were higher than on average (which is the goal in our analysis as you might recall). Currently, the date and time information is stored in the column `TIME` (which was originally titled `YR--MODAHRMN`:
 
 `YR--MODAHRMN = YEAR-MONTH-DAY-HOUR-MINUTE IN GREENWICH MEAN TIME (GMT)`
 
 
-Let's have a closer look at the date and time information we have by checking the values in that column, and their data type:
+Let's have a closer look at the date and time information we have by checking the values in that column, and their data type.
 
 ```python
-data['TIME'].head(10)
+data['TIME'].head()
 ```
 
 ```python
-data['TIME'].tail(10)
+data['TIME'].tail()
 ```
 
-The `TIME` column contains several observations per day (and even several observations per hour). The timestamp for the first observation is `190601010600`, i.e. from 1st of January 1906 (way back!), and the timestamp for the latest observation is `201910012350`.
-
-```python
-data['TIME'].dtypes
-```
-
-The information is stored as integer values.
+The `TIME` column contains several observations per day (and even several observations per hour). The timestamp for the first observation is `190601010600`, i.e. from 1st of January 1906 (way back!), and the timestamp for the latest observation is `201910012350`. (**TODO: UPDATE THESE WITH NEW DATA**). As we can see, the data type (`dtype`) of our column seems to be `int64`, i.e. the information is stored as integer values. 
 
 
-We would want to **aggregate the data on a monthly level**, and in order to do so we need to "label" each row of data based on the month when the record was observed. In order to do this, we need to somehow separate information about the year and month for each row.
+We want to aggregate this data on a monthly level. In order to do so, we need to "label" each row of data based on the month when the record was observed. Hence, we need to somehow separate information about the year and month for each row. In practice, we can create a new column (or an index) containing information about the month (including the year, but excluding days, hours and minutes). There are different ways of achieving this, but here we will take advantage of `string slicing` which means that we convert the date and time information into character strings and "cut" the needed information from the string objects. The other option would be to convert the timestamp values into something called `datetime` objects, but we will learn about those a bit later. 
 
-In practice, we can create a new column (or an index) containing information about the month (including the year, but excluding days, hours and minutes).
-
-Before further processing, we want to convert the `TIME` column as character strings for convenience:
+Before further processing, we first want to convert the `TIME` column as character strings for convenience, stored into a new column `TIME_STR`.
 
 ```python jupyter={"outputs_hidden": false}
-# Convert to string
 data['TIME_STR'] = data['TIME'].astype(str)
 ```
 
-It is possible to convert the date and time information into character strings and "cut" the needed information from the [string objects](https://docs.python.org/3/tutorial/introduction.html#strings). If we look at the latest time stamp in the data (`201910012350`), you can see that there is a systematic pattern `YEAR-MONTH-DAY-HOUR-MINUTE`. Four first characters represent the year, and six first characters are year + month!
+If we look at the latest time stamp in the data (`201910012350`) (**UPDATE!**), you can see that there is a systematic pattern `YEAR-MONTH-DAY-HOUR-MINUTE`. Four first characters represent the year, and the following two characters represent month. Because we are interested in understanding monthly averages for different years, we want to slice the year and month values from the timestamp (i.e. the first 6 characters). 
 
 ```python
 date = "201910012350"
 date[0:6]
 ```
 
-Based on this information, we can slice the correct range of characters from the `TIME_STR` column using [pandas.Series.str.slice()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.slice.html)
-
+Based on this information, we can slice the correct range of characters from the `TIME_STR` column using a specific pandas function designed for Series, called `.str.slice()`. As parameters the function has `start` and `stop` which you can use to specify the positions where the slicing should start and end.
 
 ```python
-# SLice the string
 data['YEAR_MONTH'] = data['TIME_STR'].str.slice(start=0, stop=6)
-
-# Let's see what we have
 data.head()
 ```
 
@@ -325,12 +308,7 @@ Create a new column `'MONTH'` with information about the month without the year.
 
 ```python
 # Extract information about month from the TIME_STR column into a new column 'MONTH':
-data['MONTH'] = data['TIME_STR'].str.slice(start=4, stop=6)
-```
 
-```python
-# Check the result:
-data[['YEAR_MONTH', 'MONTH']]
 ```
 
 ## Grouping and aggregating data

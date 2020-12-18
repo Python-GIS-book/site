@@ -125,9 +125,9 @@ Here we have selected the first five rows (index 0-4) using the integer index. N
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
-Doing selections like in the previous example can be done, but there is also a better and more flexible way of selecting data using so called `.loc` label-indexing. As the name implies, `loc` selects data based on axis labels (row and column labels). This does not necesssarily tell much to you at this point, but `loc` makes it possible to conduct more specific selections, such as allowing you to choose which columns are chosen when selecting a subset of rows. It also makes possible to benefit from row labels that are not necessarily sequantial numbers (as with all our examples thus far), but they can represent other objects as well, such as dates or timestamps. Hence, `loc` can become very handy when working with timeseries data (we will learn more about this later). 
+Doing selections like in the previous example can be done, but there is also a better and more flexible way of selecting data using so called `.loc` label-indexing. As the name implies, `.loc` selects data based on axis labels (row and column labels). This does not necesssarily tell much to you at this point, but `.loc` makes it possible to conduct more specific selections, such as allowing you to choose which columns are chosen when selecting a subset of rows. It also makes possible to benefit from row labels that are not necessarily sequantial numbers (as with all our examples thus far), but they can represent other objects as well, such as dates or timestamps. Hence, `.loc` can become very handy when working with timeseries data (we will learn more about this later). 
 
-Let's test the `loc` label-indexing by selecting temperature values from column `TEMP` using rows 0-5:
+Let's test the `.loc` label-indexing by selecting temperature values from column `TEMP` using rows 0-5:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -136,13 +136,13 @@ selection = data.loc[0:5, 'TEMP']
 selection
 ```
 
-Notice that in this case, we get six rows of data (index 0-5)! This happens because we are now doing the selection based on axis labels instead of normal Python-kind of indexing. It is important to notice the difference between these two approaches, as mixing the two may cause confusion,  incorrect analysis results or bugs in your code, if you do not pay attention. We recommend to use `loc` always when possible (there are specific cases when you want to use other approaches, more about this soon). 
+Notice that in this case, we get six rows of data (index 0-5)! This happens because we are now doing the selection based on axis labels instead of normal Python-kind of indexing. It is important to notice the difference between these two approaches, as mixing the two may cause confusion,  incorrect analysis results or bugs in your code, if you do not pay attention. We recommend to use `.loc` always when possible (there are specific cases when you want to use other approaches, more about this soon). 
 
-Hence, the basic syntax for `loc` is:
+Hence, the basic syntax for `.loc` is:
  
  - `.loc[first_included_label:last_included_label, columns]`
 
-By looking at the syntax, you might guess that it is also possible to select multiple columns when using `loc`. Next, we will test this by selecting the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list.
+By looking at the syntax, you might guess that it is also possible to select multiple columns when using `.loc`. Next, we will test this by selecting the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Select columns temp and temp_celsius on rows 0-5
@@ -159,7 +159,7 @@ Calculate the mean temperature (in Celsius) for the last seven days of June. Do 
 
 ### Selecting a single row or value
 
-You can also select an individual row from specific position using the `.loc[]` indexing. Here we select all the data values using index 4 (the 5th row):
+You can also select an individual row from specific position using the `.loc` indexing. Here we select all the data values using index 4 (the 5th row):
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Select one row using index
@@ -168,7 +168,7 @@ row
 ```
 
 <!-- #region deletable=true editable=true -->
-``.loc[]`` indexing returns the values from that position as a ``Series`` where the indices are actually the column names of those variables. Hence, you can access the value of an individual column by referring to its index using following format (both should work):
+``.loc`` indexing returns the values from that position as a ``Series`` where the indices are actually the column names of those variables. Hence, you can access the value of an individual column by referring to its index using following format (both should work):
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -176,14 +176,14 @@ row
 row['TEMP']
 ```
 
-Sometimes it is enough to access a single value in a DataFrame directly. In this case, we can use ``.at`` instead of `loc`.
+Sometimes it is enough to access a single value in a DataFrame directly. In this case, we can use ``.at`` instead of `.loc`.
 Let's select the temperature (column `TEMP`) on the first row (index `0`) of our DataFrame.
 
 ```python
 selection.at[0, "TEMP"]
 ```
 
-As an output, we got the individual value 65.5. `at` works only when accessing a single value, whereas the `loc` can be used to access both a single or multiple values at the same time. The end result when fetching a single value with `loc` is exactly the same. The difference between the two approaches is minimal, hence we recommend using `loc` in all cases because it is more flexible (`at` is slightly faster but in most cases it does not make a difference). 
+As an output, we got the individual value 65.5. `.at` works only when accessing a single value, whereas the `.loc` can be used to access both a single or multiple values at the same time. The end result when fetching a single value with `.loc` is exactly the same. The difference between the two approaches is minimal, hence we recommend using `.loc` in all cases because it is more flexible (`.at` is slightly faster but in most cases it does not make a difference). 
 
 ```python
 selection.loc[0, "TEMP"]
@@ -201,9 +201,9 @@ print()
 print("Value at position (0,0) is", data.iloc[0,0])
 ```
 
-Hence, the syntax for `iloc` is:
+Hence, the syntax for `.iloc` is:
 
- - `iloc[start_row_position:stop_row_position, start_column_position:stop_column_position]`
+ - `.iloc[start_row_position:stop_row_position, start_column_position:stop_column_position]`
 
 By following this syntax, we can access the value on the first row and second column (`TEMP`) by calling:
 
@@ -211,7 +211,7 @@ By following this syntax, we can access the value on the first row and second co
 data.iloc[0,1]
 ```
 
-It is also possible to get ranges of rows and columns with `iloc`. For example, we could select `YEARMODA` and `TEMP` columns from the first five rows based on their indices (positions) in the data:
+It is also possible to get ranges of rows and columns with `.iloc`. For example, we could select `YEARMODA` and `TEMP` columns from the first five rows based on their indices (positions) in the data:
 
 ```python
 # Select rows from positions 0 to 5
@@ -220,9 +220,9 @@ selection = data.iloc[0:5:,0:2]
 selection
 ```
 
-A good thing to notice, is that with `iloc`, the behavior in terms of how many rows are returned differs from `loc`. Here, the `0:5` returns 5 rows (following the Python list slicing behavarior), whereas using `loc` would return 6 rows (i.e. also including the row at index 5). 
+A good thing to notice, is that with `.iloc`, the behavior in terms of how many rows are returned differs from `.loc`. Here, the `0:5` returns 5 rows (following the Python list slicing behavarior), whereas using `.loc` would return 6 rows (i.e. also including the row at index 5). 
     
-One handy functionality with `iloc` is the ability to fetch data starting from the end of the DataFrame. Hence, it is possible to retrieve the last row in the DataFrame by passing a negative number to the `iloc`, where value -1 corresponds to the last row (or column), -2 corresponds to the second last, and so on. Following this, it is easy to see e.g. what is the ``TEMP_CELSIUS`` value (the last column) of the last row of data.
+One handy functionality with `.iloc` is the ability to fetch data starting from the end of the DataFrame. Hence, it is possible to retrieve the last row in the DataFrame by passing a negative number to the `.iloc`, where value -1 corresponds to the last row (or column), -2 corresponds to the second last, and so on. Following this, it is easy to see e.g. what is the ``TEMP_CELSIUS`` value (the last column) of the last row of data.
 
 ```python
 # Check the value on the last row and last column in the data
@@ -241,7 +241,7 @@ The following example shows how we check if the Celsius temperature at each row 
 data['TEMP_CELSIUS'] > 15
 ```
 
-As a result, we get a Series of booleans, where the value `True` or `False` at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a ``mask``. We can take advantage of this mask when doing selections with `loc` based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable `warm_temps` (warm temperatures). We can specify the criteria directly inside the `loc` square brackets:
+As a result, we get a Series of booleans, where the value `True` or `False` at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a ``mask``. We can take advantage of this mask when doing selections with `.loc` based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable `warm_temps` (warm temperatures). We can specify the criteria directly inside the `.loc` square brackets:
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Select rows with temp celsius higher than 15 degrees
@@ -264,7 +264,7 @@ warm_temps
 Now we have a subset of our DataFrame with only rows where the `TEMP_CELSIUS` is above 15 and the dates in `YEARMODA` column start from 15th of June. Notice, that the index values (numbers on the left) are still showing the index labels from the original DataFrame. This indicates that our result is really a slice from the original data. 
 <!-- #endregion -->
 
-It is possible to **reset** the index using `reset_index()` function which makes the index numbering to start from 0 and increase the index values in a sequantal manner. This is often a useful operation to do, because it makes it easier then to slice the data with `loc` or `iloc`. By default the `reset_index()` would make a new column called `index` to keep track on the previous index which might be useful in some cases but here not, so we can omit that by passing parameter `drop=True`. 
+It is possible to **reset** the index using `reset_index()` function which makes the index numbering to start from 0 and increase the index values in a sequantal manner. This is often a useful operation to do, because it makes it easier then to slice the data with `.loc` or `.iloc`. By default the `reset_index()` would make a new column called `index` to keep track on the previous index which might be useful in some cases but here not, so we can omit that by passing parameter `drop=True`. 
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Reset index
@@ -275,7 +275,7 @@ warm_temps
 As can be seen, now the index values goes from 0 to 12. Resetting the index has now also *unlinked* the ``warm_temps`` DataFrame from the ``data``, meaning that it is not a view anymore but an independent Pandas object. 
 
 
-When making selections, it is quite typical that pandas might give you warnings if you modify the selected data without first resetting the index or taking a copy of the selected data. To demonstrate this, we will make the selection again and do a small change for the first value of the ``TEMP_CELSIUS`` column. Here, we can take advantage of the `iloc` which makes it easy to access the first row based based on position 0. 
+When making selections, it is quite typical that pandas might give you warnings if you modify the selected data without first resetting the index or taking a copy of the selected data. To demonstrate this, we will make the selection again and do a small change for the first value of the ``TEMP_CELSIUS`` column. Here, we can take advantage of the `.iloc` which makes it easy to access the first row based based on position 0. 
 
 ```python
 # Make the selection
@@ -295,7 +295,7 @@ warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 2016061
 warm_temps.iloc[0, -1] = 17.5
 ```
 
-As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection without needing to worry that there are some "hidden linkages" between our DataFrames that could cause issues. 
+As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection without needing to worry that there are some "hidden linkages" between our DataFrames that could cause issues (we discuss more about this in the next section). 
 
 
 #### Check your understanding
@@ -431,7 +431,7 @@ data['TEMP'].round(0).astype(int).head()
 
 As we can see, now the integer values are correctly rounded. 
 
-The `astype` method supports converting between all basic Python data types (`int`, `float`, `str`), but it also knows how to convert between more specific numpy data types, such as `int64`, `int32`, `float64`, `float32` to mention a few (see [^numpydtypes] for a full list). Using the numpy data type can useful if you need to be more specific e.g. how many bits should be reserved for storing the values. For instance, `int64` (i.e. *64-bit integer*) can store integer values ranging between -9223372036854775808 and 9223372036854775807, whereas `int16` can only store values from -32768 to 32767. If passing the "normal" `int` or `float` to the `astype` function, pandas will automatically store 64-bit numeric values. The larger bits you use, the more physical memory is required to store the data. Hence, in some specific cases e.g. when dealing with extremely large datasets, it might be useful to be able to determine that the values in specific columns are stored with lower bits (to save memory). 
+The `astype()` method supports converting between all basic Python data types (`int`, `float`, `str`), but it also knows how to convert between more specific numpy data types, such as `int64`, `int32`, `float64`, `float32` to mention a few (see [^numpydtypes] for a full list). Using the numpy data type can useful if you need to be more specific e.g. how many bits should be reserved for storing the values. For instance, `int64` (i.e. *64-bit integer*) can store integer values ranging between -9223372036854775808 and 9223372036854775807, whereas `int16` can only store values from -32768 to 32767. If passing the "normal" `int` or `float` to the `astype()` function, pandas will automatically store 64-bit numeric values. The larger bits you use, the more physical memory is required to store the data. Hence, in some specific cases e.g. when dealing with extremely large datasets, it might be useful to be able to determine that the values in specific columns are stored with lower bits (to save memory). 
 
 
 ## Sorting data
