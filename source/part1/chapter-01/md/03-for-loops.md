@@ -119,7 +119,7 @@ Let's break down the code above to see some essential aspect of `for` loops:
 <!-- #region -->
 ### Your daily for loop
 
-![cat's daily routine](../img/2009-11-03-Cats-Eye.gif)
+![cat's daily routine](../img/2009-11-03-Cats-Eye.jpg)
 
 **Figure 1.9**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>.
 
