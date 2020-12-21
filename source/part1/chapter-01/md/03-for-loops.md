@@ -111,9 +111,9 @@ Let's break down the code above to see some essential aspect of `for` loops:
 
 - There is no additional special word needed to end the loop, you simply change the indentation back to normal.
 
-```{hint}
-`for` loops are useful to repeat some part of the code a *definite* number of times.
-```
+
+In sum, `for` loops are useful to repeat some part of the code a *definite* number of times.
+
 <!-- #endregion -->
 
 <!-- #region -->
@@ -143,7 +143,7 @@ Furthermore, by following this kind of list of repeating actions we're able to s
 
 ### for loop variables
 
-Note that the variable used in a `for` loop is just a normal variable and still exists after the loop has completed with the final value given to letter. Let's loop over the list of weather conditions below and print them to the screen. If you use `weather` for the loop variable, what is its value after the `for` loop has completed?
+Note that the variable used in a `for` loop is just a normal variable and still exists after the loop has completed with the final value given to letter. Let's loop over a list of weather conditions and print them to the screen. 
 
 ```python
 weather_conditions = ['rain', 'sleet', 'snow', 'freezing fog', 'sunny', 'cloudy', 'ice pellets']
@@ -154,6 +154,8 @@ for weather in weather_conditions:
     print(weather)
 ```
 
+What is its value of `weather` after the `for` loop has completed?
+
 ```python
 print('After the loop, weather is', weather)
 ```
@@ -161,7 +163,7 @@ print('After the loop, weather is', weather)
 ## For loops using the range function
 
 A loop can be used to iterate over any list of values in Python.
-So far we have considered only lists, but we could also write a loop that performs a calculation a specified number of times by using the `range()` function. Let's consider an example where we use a for loop with `value` as the loop variable and `range(5)` as the collection. What happens when you print `value` at each iteration?
+So far we have considered only lists, but we could also write a loop that performs a calculation a specified number of times by using the `range()` function. Let's consider an example where we use a for loop with `value` as the loop variable and `range(5)` as the collection. Let's see what happens if we print `value` at each iteration.
 
 ```python
 for value in range(5):
@@ -194,23 +196,19 @@ Using the documentation that is produced when you run `help(range)`, what values
 5
 8
 ```
-
-You can test your solution in the cell below and select your answer from the poll options at [https://geo-python.github.io/poll/](https://geo-python.github.io/poll/).
 <!-- #endregion -->
 
 ```python
-# Here's one possible solution
+# Example solution
 for i in range(2,9,3):
     print(i)
 ```
 
 ## Looping over lists using index values
 
-Since we already know how to find the length of a list using the `len()` function, we can now take advantage of this knowledge to make our `for` loops more flexible. Starting with the list of numbers below, let's use the `range()` function to loop over the list of numbers and add the value of the loop variable `i` to each value. In addition, we can add a few print statements to display the values of `i` and `numbers[i]` within the loop. In the cell below the for loop, you can print the list of numbers again to see the updated values.
+Since we already know how to find the length of a list using the `len()` function, we can now take advantage of this knowledge to make our `for` loops more flexible. Let's use the `range()` function to loop over a list of numbers and add the value of the loop variable `i` to each value. 
 
-```{tip}
-You may want to print `numbers[i]` before and after the addition in the `for` loop to see how the values change.
-```
+In addition, we can add a few print statements to display the values of `i` and `numbers[i]` within the loop.
 
 ```python
 numbers = [5, 6, 7, 8]
@@ -225,17 +223,19 @@ for i in range(len(numbers)):
     print('')
 ```
 
+Let's check the updated values in the list.
+
 ```python
 print(numbers)
 ```
 
 <!-- #region -->
-Let's see what we can observe:
+There are several important things to observe in this `for` loop:
 
-1. You can see that because we are using the `range()` function, the value assigned to the loop variable `i` starts with `0` and increases by `1` each time through the loop. 
-2. We can see the value in the list `numbers` at index `i` each time through the loop, and how that value changes when it is increased by adding `i`.
+1. Because we are using the `range()` function, the value assigned to the loop variable `i` starts with `0` and increases by `1` each time through the loop. 
+2. Value in the list `numbers` at index `i` increases at each iteration. 
 3. The value that changes in the list `numbers` in each iteration through this for loop is the value at index `i`, while the other values are not updated. This occurs because we're assigning a new value at `numbers[i]`.
-4. Note that the values for `numbers[i]` on the right side of the equation is the "old" value. That "old" value is increased by `i` first, and then stored as the updated value `numbers[i]`.
+4. Value of `numbers[i]` on the right side of the equation is the "old" value. That "old" value is increased by `i` first, and then stored as the updated value `numbers[i]`.
 
 
 ```{note}
@@ -245,7 +245,7 @@ The variable `i` is commonly used to denote the index variable in loops. Loops c
 
 ### Why use index value to loop over a list?
 
-Good question. First off, if you want to update individual values in a list you're likely going to need to loop that includes the index values. There are functions such as `enumerate()` that can help, but their use can be somewhat confusing for new programmers. Second, in cases where you have multiple lists that are related to one another, it can be handy to use a loop with the index values to be able to access corresponding locations in each list. For this, let's consider an example with the two lists below.
+Good question. First off, if you want to update individual values in a list you're likely going to need to loop that includes the index values. There are functions such as `enumerate()` that can help, but their use can be somewhat confusing for new programmers. Second, in cases where you have multiple lists that are related to one another, it can be handy to use a loop with the index values to be able to access corresponding locations in each list. For this, let's consider an example with two lists.
 
 ```python
 cities = ['Helsinki', 'Stockholm', 'Oslo', 'Reykjavik', 'Copenhagen']
@@ -255,7 +255,7 @@ cities = ['Helsinki', 'Stockholm', 'Oslo', 'Reykjavik', 'Copenhagen']
 countries = ['Finland', 'Sweden', 'Norway', 'Iceland', 'Denmark']
 ```
 
-As you can see we have 5 cities and 5 corresponding counties. Can you print out each pair using a single for loop?
+As you can see we have 5 cities and 5 corresponding counties. Let's print out each pair using a single for loop.
 
 ```python
 for i in range(len(cities)):
@@ -271,7 +271,7 @@ In the example above, we used the length of the list `cities` in the `range()` f
 <!-- #region -->
 #### Check your understanding
 
-What output would the following program produce?
+What output would the following program produce? Try to think about the loop without running any code.
 
 ```python
 odd_numbers = [1, 3, 5, 7, 9]
@@ -280,7 +280,6 @@ for i in range(len(odd_numbers)):
     print(odd_numbers[i] + even_numbers[i])
 ```
 
-Try to think about the loop without running the code and then select your answer from the poll options at [https://geo-python.github.io/poll/](https://geo-python.github.io/poll/).
 <!-- #endregion -->
 
 ```python
