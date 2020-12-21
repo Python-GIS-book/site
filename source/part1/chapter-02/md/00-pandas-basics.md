@@ -14,6 +14,7 @@ jupyter:
 
 # Getting started with pandas
 
+
 ## What is pandas?
 
 ``pandas`` [^urlpandas] is a modern, powerful and feature rich library that is designed for doing
@@ -103,10 +104,10 @@ It is quite common to have some other character instead of comma separating the 
 
 
 
-Let's check the the contents of this variable by calling `data` or `print(data)`:
+Let's check the the contents of this variable. You can print the contents of your DataFrame (or a snippet of it) simply by calling `data`. However, quite often you want to check only n-number of first (or last) rows in your data. For doing that, we can use the `head()` method of the pandas DataFrame object that will, by default, return the first 5 rows of the DataFrame. You can return any number of rows by adding a number inside the parentheses, such as 10 which will return the first ten rows of data:
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-print(data)
+print(data.head(10))
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -149,20 +150,12 @@ Let's now print the dataframe and see what changed:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-print(data)
-```
-
-<!-- #region deletable=true editable=true -->
-After reading in the data, it is always good to check that everything went well by printing out the data as we did here. However, often it is enough to have a look at the top few rows of the data. 
-
-We can use the `head()` function of the pandas DataFrame object to quickly check the top rows. By default, the `head()` function returns the first 5 rows of the DataFrame:
-<!-- #endregion -->
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
 data.head()
 ```
 
-We can also check the last rows of the data using `data.tail()`:
+<!-- #region deletable=true editable=true -->
+After reading in the data, it is always good to check that everything went well by printing out the data as we did here. We can also check the last rows of the data using `data.tail()`:
+<!-- #endregion -->
 
 ```python
 data.tail()
@@ -218,6 +211,7 @@ data.to_csv(output_fp, sep=',')
 
 <!-- #region editable=true -->
 Now we have the data from our DataFrame saved to a file and this is how it looks using a JupyterLab viewer:
+
 ![Text file output ](../img/pandas-save-file-1.png)
 
 As we can see, the first column in the datafile contains now the index value of the rows which can be a bit annoying. Also the temperature values are represented with decimals (1 decimal in this case). Sometimes you might want to store the data without any decimals (i.e. round them to a full integer) or to have a smaller number of decimals. 
@@ -242,8 +236,7 @@ As a results we have a "cleaner" output file without the index column, and tempe
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
-## Basic data exploration
-### DataFrame properties
+## DataFrame properties
 
 Let's continue with the full data set that we have stored in the variable `data` and explore it's contents further. 
 A normal first step when you load new data is to explore the dataset a bit to understand how the data is structured, and what kind of values are stored in there.
@@ -309,7 +302,7 @@ Here we see that `YEARMODA` is an integer value (with 64-bit precision; ``int64`
 See if you can find a way to print out the number of columns in our DataFrame.
 
 
-### Selecting columns
+## Selecting columns
 
 
 When conducting data analysis, it is very common that you want to choose certain columns from the data for further processing. We can select specific columns based on the column values. The basic syntax is `dataframe[value]`, where value can be a single column name, or a list of column names. Let's start by selecting two columns, `'YEARMODA'` and `'TEMP'`:
@@ -364,7 +357,13 @@ This syntax works only if the column name is a valid name for a Python variable 
 ````
 
 <!-- #region editable=true -->
-### Unique values
+
+<!-- #region editable=true -->
+As a result we get an array of unique values in that column. We can also directly access the number of unique values using the `nunique()` method:
+<!-- #endregion -->
+
+<!-- #region -->
+## Unique values
 <!-- #endregion -->
 
 <!-- #region editable=true -->
@@ -376,9 +375,6 @@ We can do that by using `unique()` method:
 # Get unique celsius values
 data['TEMP'].unique()
 ```
-
-<!-- #region editable=true -->
-As a result we get an array of unique values in that column. We can also directly access the number of unique values using the `nunique()` method:
 <!-- #endregion -->
 
 ```python editable=true jupyter={"outputs_hidden": false}
@@ -386,7 +382,7 @@ As a result we get an array of unique values in that column. We can also directl
 print("There were", data['TEMP'].nunique(), "days with unique mean temperatures in June 2016.")
 ```
 
-### Descriptive statistics
+## Descriptive statistics
 
 <!-- #region deletable=true editable=true -->
 pandas DataFrame and Series contain useful methods for getting summary statistics. Available methods include `mean()`, `median()`, `min()`, `max()`, and `std()` (the standard deviation). The statistics can be calculated on a Series level (a single column) or getting the statistics for all columns at once for the whole DataFrame.

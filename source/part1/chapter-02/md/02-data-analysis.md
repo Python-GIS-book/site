@@ -63,7 +63,7 @@ data.head()
 Perfect, looks good. We have skipped a bunch of unnecessary columns and also the asterisk (\*) characters have been correctly converted to NaN values.  
 
 
-### Renaming columns
+## Renaming columns
 
 Let's take a closer look at the column names of our DataFrame: 
 
@@ -102,7 +102,8 @@ data.columns
 
 Perfect, now our column names are easier to understand and use. 
 
-## Apply: How to use functions with pandas
+
+## Using functions with pandas
 
 Now it's time to convert those temperatures from Fahrenheit to Celsius. We have done this many times before, but this time we will learn how to apply our own functions to data in a pandas DataFrame. We will define a function for the temperature conversion, and apply this function for each Celsius value on each row of the DataFrame. Output celsius values should be stored in a new column called `TEMP_C`.
 
@@ -135,7 +136,7 @@ data.describe()
 By looking at the `TEMP_F` values (Fahrenheit temperatures), we can confirm that our measurements seems more or less valid because the value range of the temperatures makes sense, i.e. there are no outliers such as extremely high `MAX` values or low `MIN` values. It is always a good practice to critically check your data before doing any analysis, as it is possible that your data may include incorrect values, e.g. due to a sensor malfunction or human error. 
 
 
-### Defining function for pandas
+### Defining a function
 
 Now we are sure that our data looks okay, and we can start our temperature conversion process by first defining our temperature conversion function from Fahrenheit to Celsius. Pandas can use regular functions, hence you can define functions for pandas exactly in the same way as you would do normally (as we learned in Chapter 1). Hence, let's define a function that converts Fahrenheits to Celsius: 
 
@@ -170,7 +171,7 @@ fahr_to_celsius(32)
 32 Fahrenheits is indeed 0 Celsius, so our function seem to be working correctly.
 
 
-### Using the function by iterating over rows
+### Using a function by iterating over rows
 
 Next we will learn how to use our function with data stored in pandas DataFrame. We will first apply the function row-by-row using a `for` loop and then we will learn a more efficient way of applying the function to all rows at once.
 
@@ -226,7 +227,7 @@ Okay, now we have iterated over our data and updated the temperatures in Celsius
 A couple of notes about our appoaches. We used `itertuples()` method for looping over the values because it is significantly faster compared to `iterrows()` (can be ~100x faster). We used `.at` to assign the value to the DataFrame because it is designed to access single values more efficiently compared to `.loc`, which can access also groups of rows and columns. That said, you could have used `data.loc[idx, new_column] = celsius` to achieve the same result (it is just slower). 
 
 
-### Using functions with `apply`
+### Using a function with apply
 
 Although using for loop with `itertuples()` can be fairly efficient, pandas DataFrames and Series have a dedicated method called `apply()` for applying functions on columns (or rows). `apply()` is typically faster than `itertuples()`, especially if you have large number of rows, such as in our case. When using `apply()`, we pass the function that we want to use as an argument. Let's start by applying the function to the `TEMP_F` column that contains the temperature values in Fahrenheit:
 
@@ -441,7 +442,7 @@ As we can see, doing the aggregation without a loop requires much less code, and
 So which approach should you use? From the performance point of view, we recommend using the latter approach (i.e. chaining) which does not require a loop and is highly performant. However, this approach might be a bit difficult to read and comprehend (the loop might be easier), and sometimes you want to include additional processing steps inside the loop which can be hard accomplish by chaining everything into a single command. Hence, it is useful to know both of these approaches for doing aggregations with the data.  
 
 
-### Detecting warm months
+## Case study: Detecting warm months
 
 Now, we have aggregated our data on monthly level and all we need to do is to check which years had the warmest January temperatures. A simple approach is to select all January values from the data and check which group(s) have the highest mean value.
 

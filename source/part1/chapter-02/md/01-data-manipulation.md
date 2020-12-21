@@ -16,11 +16,11 @@ jupyter:
 # Common tabular operations in pandas
 
 Now you have learned the basics of pandas data structures (i.e. *Series* and *DataFrame*) and you should be familiar with basic methods for loading and exploring data. Next, we will continue exploring the pandas functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.
+<!-- #endregion -->
 
 ## Basic calculations
 
 One of the most common things to do in pandas is to create new columns based on calculations between different variables (columns). Next, we will learn how to do that using the same input data (`'Kumpula-June-2016-w-metadata.txt'`) as in the previous section. We will first load it using the `pd.read_csv()` method. Remember, that the first 8 lines contains the metadata which we will skip. This time, let's store the filepath into a separate variable in order to make the code more readable and easier to change afterwards (a good practice).
-<!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 import pandas as pd
@@ -480,7 +480,7 @@ data.sort_values(by=["WEEKDAY", "TEMP_CELSIUS"], ascending=[True, False]).head(1
 As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data. 
 
 
-### Footnotes
+## Footnotes
 
 [^numpydtypes]: <https://numpy.org/doc/stable/user/basics.types.html>
 [^pandasio]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html>
