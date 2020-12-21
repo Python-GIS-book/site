@@ -424,14 +424,6 @@ Similar to using `str()` to convert numbers to character strings, `int()` can be
 ```
 
 
-```{attention}
-
-**Poll pause - Questions 2.2, 2.3**
-
-Please visit the [class polling page](https://geo-python.github.io/poll) to participate (*only for those present during the lecture time*).
-```
-
-
 ### Combining text and numbers
 
 Although most mathematical operations operate on numerical values, a common way to combine character strings is using the addition operator `+`. Let's create a text string in the variable `station_name_and_id` that is the combination of the `station_name` and `station_id` variables. Once we define `station_name_and_id`, we can print it to the screen to see the result.
@@ -548,14 +540,6 @@ Yes, in Python you can go backwards through lists by using negative index values
 ```python tags=["raises-exception"]
 print(station_names[-5])
 ```
-
-```{attention}
-
-**Poll pause - Question 2.4**
-
-Please visit the [class polling page](https://geo-python.github.io/poll) to participate (*only for those present during the lecture time*).
-```
-
 
 ### Modifying list values
 
