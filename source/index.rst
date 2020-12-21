@@ -88,11 +88,11 @@ The book consists of 4 parts:
 
 .. toctree::
    :maxdepth: 2
-   :caption: Front matter
+   :caption: Contents
    :titlesonly:
    :hidden:
 
-   front-matter/index
+   .. front-matter/index
 
 .. toctree::
    :maxdepth: 2
@@ -100,10 +100,12 @@ The book consists of 4 parts:
    :titlesonly:
    :hidden:
 
-   part1/index
    part1/chapter-01/index
    part1/chapter-02/index
    part1/chapter-03/index
+
+   .. part1/index
+
 
 .. toctree::
    :maxdepth: 2
