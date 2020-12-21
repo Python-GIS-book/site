@@ -67,7 +67,7 @@ Wait, what? Python can’t calculate square roots or do basic trigonometry? Of c
 <!-- #region deletable=true editable=true -->
 ### Math operations
 
-The list of basic arithmetic operations that can be done by default in Python is in the table below.
+The list of basic arithmetic operations that can be done by default in Python are listed in table 1.1.
 
 | Operation      | Symbol | Example syntax | Returned value |
 | -------------- | ------ | -------------- | -------------- |
@@ -238,7 +238,7 @@ print('temperature in Celsius is now:', temp_celsius, 'and temperature in Fahren
 ## Data types
 
 A *{term}`data type`* determines the characteristics of data in a program.
-There are 4 basic data types in Python as shown in the table below.
+There are 4 basic data types in Python as shown in table 1.2.
 
 | Data type name | Data type            | Example    |
 | -------------- | -------------------- | ---------- |
@@ -437,7 +437,7 @@ OK, that makes sense, but it may take some getting used to...
 <!-- #region -->
 ### A useful analog - Bill the vending machine
 
-As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill.
+As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill (Figure 1.8).
 
 
 ![_**Figure 1.8**. Bill, the vending machine.](../img/bill-the-vending-machine.png)
