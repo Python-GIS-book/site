@@ -23,8 +23,8 @@ from collections import Counter
 # -- Project information -----------------------------------------------------
 
 project = 'Introduction to Python for Geographic Data Analysis'
-copyright = '2020, Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
-author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
+copyright = '2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp'
+author = 'Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp'
 
 
 # -- General configuration ---------------------------------------------------
@@ -111,10 +111,16 @@ latex_documents = [
  ('index',
   'introductiontopythonforgeographicdataanalysis.tex',
   'Introduction to Python for Geographic Data Analysis',
-  'Henrikki Tenkanen, Vuokko Heikinheimo & David Whipp',
+  'Henrikki Tenkanen, Vuokko Heikinheimo and David Whipp',
   'krantz'),
 ]
+
 latex_additional_files = ["krantz/krantz.cls"]
+
+# Latex elements
+latex_elements = {
+    'preamble': r'\usepackage{svg}'
+}
 
 # -----------------------------
 # Customizing citation styling
