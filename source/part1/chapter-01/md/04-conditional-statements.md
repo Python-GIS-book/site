@@ -108,7 +108,7 @@ else:
 
 ### Comparison operators
 
-Comparison operators such as `>` and `==` compare the values on each side of the operator. Here is the full list of operators used for value comparisons in Python: 
+Comparison operators such as `>` and `==` compare the values on each side of the operator. Table 1.3 lists operators used for value comparisons in Python: 
 
 | Operator | Description              |
 | -------- | ------------------------ |

@@ -30,7 +30,7 @@ Thus we might need to repeat such calculations quite often when analysing or com
 
 ### Our first function
 
-Let's define our first function called `celsius_to_fahr`.
+Let's define our first function called `celsius_to_fahr`. Figure 1.10 explains the main elements of a function.
 
 ```python
 def celsius_to_fahr(temp):
