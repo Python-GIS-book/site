@@ -22,18 +22,18 @@ Next, we will continue working with weather data, but expand our analysis to cov
 In this section we are using weather observation data from Finland that was downloaded from NOAA (see `Datasets` chapter for further details). The input data is separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:
 
 ``` 
-  USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW AW AW AW W TEMP DEWP    SLP   ALT    STP MAX MIN PCP01 PCP06 PCP24 PCPXX SD
-029440 99999 190601010600 090   7 *** *** OVC * * *  0.0 ** ** ** ** ** ** ** ** *   27 **** 1011.0 ***** ****** *** *** ***** ***** ***** ***** ** 
-029440 99999 190601011300 ***   0 *** *** OVC * * *  0.0 ** ** ** ** ** ** ** ** *   27 **** 1015.5 ***** ****** *** *** ***** ***** ***** ***** ** 
-029440 99999 190601012000 ***   0 *** *** OVC * * *  0.0 ** ** ** ** ** ** ** ** *   25 **** 1016.2 ***** ****** *** *** ***** ***** ***** ***** ** 
-029440 99999 190601020600 ***   0 *** *** CLR * * *  0.0 ** ** ** ** ** ** ** ** *   26 **** 1016.2 ***** ****** *** *** ***** ***** ***** ***** **
+  USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW  ...
+029440 99999 190601010600 090   7 *** *** OVC * * *  0.0 ** ** ** ** **  ...
+029440 99999 190601011300 ***   0 *** *** OVC * * *  0.0 ** ** ** ** **  ...
+029440 99999 190601012000 ***   0 *** *** OVC * * *  0.0 ** ** ** ** **  ...
+029440 99999 190601020600 ***   0 *** *** CLR * * *  0.0 ** ** ** ** **  ...
 ```
 
 By looking at the data, we can notice a few things that we need to consider when reading the data:
 
 1. **Delimiter:** The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas `read_csv()` function
 2. **NoData values:** NaN values in the NOAA data are coded with varying number of `*` characters, hence, we need to be able to instruct pandas to interpret those as NaNs. 
-3. **Many columns**: The input data contains altogether 33 columns. Many of those do not contain any meaningful data for our needs. Hence, we should probably ignore the unnecessary columns already at this stage. 
+3. **Many columns**: The input data contains many columns (altogether 33). Many of those do not contain any meaningful data for our needs. Hence, we should probably ignore the unnecessary columns already at this stage. 
 
 Handling and cleaning heterogeneous input data (such as our example here) could naturally be done after the data has been imported to a DataFrame. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter `delim_whitespace=True` (alternatively, specifying `sep='\s+'` would work). For handling the NoData values (2), we can tell pandas to consider the `*` characters as NaNs by using a paramater `na_values` and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify `na_values=['*', '**', '***', '****', '*****', '******']` which will then convert the varying number of `*` characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the `usecols` parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis (or at least meaningful to us), including e.g. the station name, timestamp, and data about the wind and temperature: `'USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'`
 
@@ -50,7 +50,8 @@ fp = 'data/029820.txt'
 # and selecting only specific columns from the data
 data = pd.read_csv(fp, delim_whitespace=True, 
                    na_values=['*', '**', '***', '****', '*****', '******'],
-                   usecols=['USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN']
+                   usecols=['USAF','YR--MODAHRMN', 'DIR', 'SPD', 
+                            'GUS','TEMP', 'MAX', 'MIN']
                   )
 ```
 
@@ -246,14 +247,16 @@ data['TEMP_C'] = data['TEMP_F'].apply(fahr_to_celsius)
 A nice thing with `apply()` is that we can also apply the function on several columns at once. Below, we also sort the values in descending order based on values in `MIN` column to see that applying our function really works:
 
 ```python
-multiple_columns_at_once = data[['TEMP_F', 'MIN', 'MAX']].apply(fahr_to_celsius)
-multiple_columns_at_once.sort_values(by="MIN", ascending=False).head()
+cols = ['TEMP_F', 'MIN', 'MAX']
+result = data[cols].apply(fahr_to_celsius)
+result.sort_values(by="MIN", ascending=False).head()
 ```
 
 You can also directly store the outputs to new columns `'TEMP_C'`, `'MIN_C'`, `'MAX_C'`:
 
 ```python
-data[['TEMP_C', 'MIN_C', 'MAX_C']]  = data[['TEMP_F', 'MIN', 'MAX']].apply(fahr_to_celsius)
+cols = ['TEMP_F', 'MIN', 'MAX']
+data[cols] = data[cols].apply(fahr_to_celsius)
 data.head()
 ```
 
