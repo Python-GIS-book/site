@@ -12,13 +12,6 @@ jupyter:
     name: python3
 ---
 
-It would be better to use direct citations along the text instead of "inspired by" kind of sentence in the beginning:
-
-This section was inspired by the Programming in Python lessons {cite}`Bostroem2016` from the [Software Carpentry organization](http://software-carpentry.org) [^swc] and the Python for Data Analysis book {cite}`McKinney2017`.
-
-TODO: Add citations to appropriate places.  
-
-
 # Conditional statements
 
 In this lesson we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
