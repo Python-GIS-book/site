@@ -439,9 +439,9 @@ OK, that makes sense, but it may take some getting used to...
 
 As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill.
 
-![Bill the vending machine](../img/bill-the-vending-machine.png)
 
-**Figure 1.8**. Bill, the vending machine.
+![_**Figure 1.8**. Bill, the vending machine.](../img/bill-the-vending-machine.png)
+
 
 As you can see, Bill is a vending machine that contains 6 items. Like Python lists, the list of items available from Bill starts at 0 and increases in increments of 1.
 
