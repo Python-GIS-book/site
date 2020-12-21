@@ -70,7 +70,7 @@ Makes sense, right? Conditional statements always check if the conditional expre
 
 
 Let's look at another example from our daily lives. As it turns out, we all use logic similar to `if` and `else` conditional statements daily. Imagine you’re getting ready to leave your home for the day and want to decide what to wear. You might look outside to check the weather conditions. If it is raining, you will wear a rain jacket.
-Otherwise, you will not. Note here that we use the `==` operator to test if a value is exactly equal to another.
+Otherwise, you will not. Remember that Python uses the `==` operator to test if a value is exactly equal to another.
 
 ```python
 weather = 'rain'
@@ -81,15 +81,10 @@ else:
     print('No raincoat needed.')
 ```
 
-<!-- #region -->
-
 Similarly as with for loops, Python uses colons (`:`) and whitespace (indentations; often four spaces) to structure conditional statements. If the condition is `True`, the indented code block after the colon (`:`) is executed. The code block may contain several lines of code, but they all must be indented identically You will receive an `IndentationError`, a `SyntaxError`, or unwanted behavior if you haven't indented your code correctly.
 
+Note also that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = 'Rain'`, the comparsion `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
 
-```{admonition} Be careful with cases
-Note that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = Rain`, the comparsion `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
-```
-<!-- #endregion -->
 
 #### Check your understanding 
 
