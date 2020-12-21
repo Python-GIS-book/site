@@ -289,53 +289,6 @@ print(5 * first_variable)
 print(first_variable - second_variable)
 ```
 
-<!-- #region deletable=true editable=true -->
-## Character input
-
-Python and Jupyter notebooks also let us interact in another way with our code! The built-in `input()` function reads a line from input and returns it as a string.
-
-Let's try it out. To start, we can define a varaible ``place`` and assign its value using the ``input()`` function to prompt the user for the location where they are from. When the cell is run in a Jupyter Notebook, the user can type in their response.
-<!-- #endregion -->
-
-```{warning}
-Jupyter Notebooks might sometimes get stuck when using the `input()` function. If this happens, restart the kernel and run the cell again (**Kernel** -> **Restart Kernel...**).
-```
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["raises-exception"]
-place = input('Where are you from? ')
-```
-
-Once `place` is defined, we can say something good about where the user is from.
-
-```python
-print(place, 'is a nice place!')
-```
-
-Let's try another example and ask the user for a temperature in Celsius using the ``input()`` function and print the input value to the screen.
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["raises-exception"]
-temp_celsius = input('How cold can it be in Vantaa (in degrees Celsius)? ')
-print(temp_celsius, 'degrees Celsius is quite cold!')
-```
-
-<!-- #region deletable=true editable=true -->
-What is the data type of variable `place`? What about `temp_celsius`?
-<!-- #endregion -->
-
-```python deletable=true editable=true tags=["raises-exception"]
-print(type(place))
-print(type(temp_celsius))
-```
-
-Let's try to convert `temp_celsius` to Fahrenheit. 
-
-```python tags=["raises-exception"]
-tempFahrenheit = 9/5 * temp_celsius + 32
-```
-
-This didn't work, because `temp_celsius` is a character srting.
-
-
 ## Data types revisited
 
 ### Let's start with some data
