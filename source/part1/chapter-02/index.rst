@@ -8,8 +8,7 @@ In this chapter you will learn the basics of data analysis in Python using the P
 
 This chapter introduces you how to read and write data from/to a file, and to manipulate and analyse the data.
 
-Learning goals
---------------
+**Learning goals**
 
 After going through this chapter your should be able to:
 
