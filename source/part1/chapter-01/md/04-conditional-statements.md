@@ -33,14 +33,7 @@ else:
     print('it is not hot!')
 ```
 
-What did we do here?
-First, we used the `if` and `else` statements to determine what parts of the code to execute.
-
-What do these tests do?
-The `if` statement checks to see whether the variable value for `temperature` is greater than 25.
-If this condition is met, `'it is hot'` would be written to the screen. 
-Since 17 is smaller than 25, the code beneath `else` is executed.
-Code under the `else` statement will run whenever the `if` test is `False`.
+What did we do here? First, we used the `if` and `else` statements to determine what parts of the code to execute. The `if` statement checks to see whether the variable value for `temperature` is greater than 25. If this condition is met, `'it is hot'` would be written to the screen. Since 17 is smaller than 25, the code beneath `else` is executed. Code under the `else` statement will run whenever the `if` test is `False`.
 
 
 Let's update `temperature` to a "hot" temperature and repeat the same process:
@@ -214,9 +207,7 @@ if (1 < 0) or (-1 < 0):
     print('At least one test is true')
 ```
 
-```{admonition} Note the syntax
 Later on we will also need the bitwise operators `&` for `and`, and `|` for `or`.
-```
 
 
 #### Check your understanding 
