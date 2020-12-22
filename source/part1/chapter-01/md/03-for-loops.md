@@ -201,9 +201,7 @@ for i in range(2,9,3):
 
 ## Looping over lists using index values
 
-Since we already know how to find the length of a list using the `len()` function, we can now take advantage of this knowledge to make our `for` loops more flexible. Let's use the `range()` function to loop over a list of numbers and add the value of the loop variable `i` to each value. 
-
-In addition, we can add a few print statements to display the values of `i` and `numbers[i]` within the loop.
+Since we already know how to find the length of a list using the `len()` function, we can now take advantage of this knowledge to make our `for` loops more flexible. Let's use the `range()` function to loop over a list of numbers and add the value of the loop variable `i` to each value. In addition, we can add a few print statements to display the values of `i` and `numbers[i]` within the loop. Let's also check the updated values in the list after the loop.
 
 ```python
 numbers = [5, 6, 7, 8]
@@ -218,13 +216,10 @@ for i in range(len(numbers)):
     print('')
 ```
 
-Let's check the updated values in the list.
-
 ```python
 print(numbers)
 ```
 
-<!-- #region -->
 There are several important things to observe in this `for` loop:
 
 1. Because we are using the `range()` function, the value assigned to the loop variable `i` starts with `0` and increases by `1` each time through the loop. 
@@ -232,11 +227,8 @@ There are several important things to observe in this `for` loop:
 3. The value that changes in the list `numbers` in each iteration through this for loop is the value at index `i`, while the other values are not updated. This occurs because we're assigning a new value at `numbers[i]`.
 4. Value of `numbers[i]` on the right side of the equation is the "old" value. That "old" value is increased by `i` first, and then stored as the updated value `numbers[i]`.
 
-
-```{note}
 The variable `i` is commonly used to denote the index variable in loops. Loops can sometimes occur with another loop (referred to as nested loops), in which case other index variables such as `j` or `k` may be used.
-```
-<!-- #endregion -->
+
 
 ### Why use index value to loop over a list?
 
