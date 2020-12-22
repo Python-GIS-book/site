@@ -141,9 +141,7 @@ Don't use `from X import *`. This may be easier to understand by way of an examp
 Don't use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (`import pandas as pd` is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, `import matplotlib as m` could be confusing, especially if we used `import math as m` above, and might do so in other Jupyter notebooks or script files. Similarly, `import matplotlib as math` is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.
 
 
-```{admonition} What does PEP 8 say about imports?
 According to the good coding practices described in [PEP 8](https://www.python.org/dev/peps/pep-0008/#imports) [^pep8], we should always import modules at the top of the file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import requried modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.
-```
 
 
 ## Installing packages
@@ -153,9 +151,7 @@ If you have installed Python on your own computer, we recommend using the [Conda
 It's also good to be aware of [pip, the package installer for python](https://pypi.org/project/pip/)  [^pip]. Pip and conda are often used for similar purposes, but the key difference is that pip is used for installing packages written in Python, while conda handles packages that might also contain code written in other languages. Generally, we encourage you to use conda when installing packages (and within conda, it is preferable to use the same channel for installations). However, sometimes you might need a package that is not available via conda, but can be installed with pip. You can read more about differences and similarities of conda an pip at <https://www.anaconda.com/understanding-conda-and-pip/>.
 
 
-```{admonition} Checking all available modules in a Jupyter Notebook
 In a Jupyter Notebook, you can type in `help("modules")` to see the complete list of installed packages in Python. However, the output is a bit clumsy and hard to read...
-```
 
 ```python
 # List all available modules. Note: when running this command, you might first get several
