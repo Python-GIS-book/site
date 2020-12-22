@@ -103,17 +103,12 @@ for variable in collection:
 
 Let's break down the code above to see some essential aspect of `for` loops:
 
-- The `variable` can be any name you like
+- The `variable` can be any name you like.
 - The statement of the `for` loop must end with a `:`
-- The code that should be executed as part of the loop must be indented beneath the `for` loop statement
-
-    - The typical indentation is 4 spaces
-
+- The code that should be executed as part of the loop must be indented beneath the `for` loop statement. The typical indentation is 4 spaces.
 - There is no additional special word needed to end the loop, you simply change the indentation back to normal.
 
-
 In sum, `for` loops are useful to repeat some part of the code a *definite* number of times.
-
 <!-- #endregion -->
 
 <!-- #region -->
@@ -206,9 +201,7 @@ for i in range(2,9,3):
 
 ## Looping over lists using index values
 
-Since we already know how to find the length of a list using the `len()` function, we can now take advantage of this knowledge to make our `for` loops more flexible. Let's use the `range()` function to loop over a list of numbers and add the value of the loop variable `i` to each value. 
-
-In addition, we can add a few print statements to display the values of `i` and `numbers[i]` within the loop.
+Since we already know how to find the length of a list using the `len()` function, we can now take advantage of this knowledge to make our `for` loops more flexible. Let's use the `range()` function to loop over a list of numbers and add the value of the loop variable `i` to each value. In addition, we can add a few print statements to display the values of `i` and `numbers[i]` within the loop. Let's also check the updated values in the list after the loop.
 
 ```python
 numbers = [5, 6, 7, 8]
@@ -223,13 +216,10 @@ for i in range(len(numbers)):
     print('')
 ```
 
-Let's check the updated values in the list.
-
 ```python
 print(numbers)
 ```
 
-<!-- #region -->
 There are several important things to observe in this `for` loop:
 
 1. Because we are using the `range()` function, the value assigned to the loop variable `i` starts with `0` and increases by `1` each time through the loop. 
@@ -237,11 +227,8 @@ There are several important things to observe in this `for` loop:
 3. The value that changes in the list `numbers` in each iteration through this for loop is the value at index `i`, while the other values are not updated. This occurs because we're assigning a new value at `numbers[i]`.
 4. Value of `numbers[i]` on the right side of the equation is the "old" value. That "old" value is increased by `i` first, and then stored as the updated value `numbers[i]`.
 
-
-```{note}
 The variable `i` is commonly used to denote the index variable in loops. Loops can sometimes occur with another loop (referred to as nested loops), in which case other index variables such as `j` or `k` may be used.
-```
-<!-- #endregion -->
+
 
 ### Why use index value to loop over a list?
 
@@ -262,11 +249,7 @@ for i in range(len(cities)):
     print(cities[i], 'is the capital of', countries[i])
 ```
 
-Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week.
-
-```{note}
-In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
-```
+Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week. In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
 
 <!-- #region -->
 #### Check your understanding

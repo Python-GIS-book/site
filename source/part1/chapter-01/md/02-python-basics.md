@@ -12,14 +12,6 @@ jupyter:
     name: python3
 ---
 
-This should go to a separate section where we guide how to use this book / online resource:
-
-```{note}
-Materials in this book are built from *{term}`Jupyter Notebooks <Jupyter notebook>`* [^jupyter]. Jupyter notebooks are documents that are divided into cells that can contain *{term}`Markdown`* [^markdown] text, Python code, or raw text. You can execute a snippet of code in a notebook cell by pressing **Shift-Enter**. This particular notebook is designed to introduce you to a few of the basic concepts of programming in Python.
-
-If you would like to interact with the contents of this notebook, you can find the notebooks online at <https://pythongis.org>. Once you navigate to the page for this lesson, you can use the rocket ship icon at the top of the page to open an interactive version of this notebook using Binder. This will open [Jupyter Lab](http://jupyterlab.readthedocs.io/en/stable/) [^jupyterlab] using a cloud computer and allow you to use the notebook interactively to follow the lesson.
-```
-
 <!-- #region deletable=true editable=true -->
 # Basic elements of Python
 
@@ -196,9 +188,7 @@ print('temperature in Celsius is now:', temp_celsius)
 ```
 
 <!-- #region deletable=true editable=true -->
-```{warning}
-If you try to run some code that accesses a variable that has not yet been defined you will get a `NameError` message.
-```
+Please note that if you try to run some code that accesses a variable that has not yet been defined you will get a `NameError` message.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["raises-exception"]
@@ -206,22 +196,20 @@ print('Temperature in Celsius:', 5/9 * (tempFahrenheit - 32))
 ```
 
 <!-- #region deletable=true editable=true -->
-```{note}
-One of the interesting things here is that if we define the undefined variable in a cell lower down in the notebook and execute that cell, we can return to the earlier cell and the code should now work. That was a bit of a complicated sentence, so let's test this all out. First, let's define a variable called `tempFahrenheit` and assign it to be equal to `9/5 * temp_celsius + 32`, the conversion factor from temperatures in Celsius to Fahrenheit. Then, return to the cell above this text and run that cell again. See how the error message has gone away? `tempFahrenheit` has now been defined and thus the cell above no longer generates a `NameError` when the code is executed.
-
-Also, the number beside the cell, for example `In [2]`, tells you the order in which the Python cells have been executed. This way you can see a history of the order in which you have run the cells.
-```
+When running the code in a Jupyter Notebook variables get stored in memory only after executing the code cell where the variable is defined. 
 <!-- #endregion -->
 
 ```python deletable=true editable=true
 tempFahrenheit = 9/5 * temp_celsius + 32
 ```
 
-Let's print out the values of ``temp_celsius`` and ``tempFahrenheit`` to check their current values.
+Now that we have defined `tempFahrenheit`, we can run again the print statement without getting a `NameError`. Let's print out the values of `temp_celsius` and `tempFahrenheit` to check their current values.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 print('temperature in Celsius:', temp_celsius, 'and in Fahrenheit:', tempFahrenheit)
 ```
+
+The number beside the cell, for example `In [2]`, tells you the order in which the Python cells have been executed. This way you can see a history of the order in which you have run the cells.
 
 <!-- #region deletable=true editable=true -->
 ### Variable values
@@ -291,9 +279,7 @@ print(first_variable - second_variable)
 
 ## Data types revisited
 
-### Let's start with some data
-
-We learned a bit about variables and their values earlier in this section. We continue today with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:
+We learned a bit about variables and their values earlier in this section. We now continue with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:
 
 ```python
 station_name = 'Helsinki Kaivopuisto'
@@ -335,14 +321,7 @@ type(station_id)
 type(station_lat)
 ```
 
-As expected, we see that the `station_name` is a character string, the `station_id` is an integer, and the `station_lat` is a floating point number.
-
-
-```{hint}
-Remember, the data types are important because some are not compatible with one another.
-```
-
-Let's see what happens if we try to sum up the variables `station_name` and `station_id`.
+As expected, we see that the `station_name` is a character string, the `station_id` is an integer, and the `station_lat` is a floating point number. Being aware of the data type of variables is important because some are not compatible with one another. Let's see what happens if we try to sum up the variables `station_name` and `station_id`.
 
 ```python tags=["raises-exception"]
 station_name + station_id
@@ -369,12 +348,7 @@ type(station_id_str)
 station_id_str
 ```
 
-As you can see, `str()` converts a numerical value into a character string with the same numbers as before.
-
-
-```{note}
-Similar to using `str()` to convert numbers to character strings, `int()` can be used to convert strings or floating point numbers to integers and `float()` can be used to convert strings or integers to floating point numbers.
-```
+As you can see, `str()` converts a numerical value into a character string with the same numbers as before. Similar to using `str()` to convert numbers to character strings, `int()` can be used to convert strings or floating point numbers to integers and `float()` can be used to convert strings or integers to floating point numbers.
 
 
 ### Combining text and numbers
@@ -440,7 +414,7 @@ OK, that makes sense, but it may take some getting used to...
 As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill (Figure 1.8).
 
 
-![_**Figure 1.8**. Bill, the vending machine.](../img/bill-the-vending-machine.png)
+![**Figure 1.8**. Bill, the vending machine.](../img/bill-the-vending-machine.png)
 
 
 As you can see, Bill is a vending machine that contains 6 items. Like Python lists, the list of items available from Bill starts at 0 and increases in increments of 1.
@@ -627,12 +601,7 @@ station_names.reverse()
 print(station_names)
 ```
 
-Yay, it works!
-
-
-```{caution}
-A common mistake when reversing lists is to do something like `station_names = station_names.reverse()`. **Do not do this!** When reversing lists with `.reverse()` the `None` value is returned (this is why there is no screen ouput when running `station_names.reverse()`). If you then assign the output of `station_names.reverse()` to `station_names` you will reverse the list, but then overwrite its contents with the returned value `None`. This means you’ve deleted the contents of your list (!).
-```
+Yay, it works! A common mistake when reversing lists is to do something like `station_names = station_names.reverse()`. **Do not do this!** When reversing lists with `.reverse()` the `None` value is returned (this is why there is no screen ouput when running `station_names.reverse()`). If you then assign the output of `station_names.reverse()` to `station_names` you will reverse the list, but then overwrite its contents with the returned value `None`. This means you’ve deleted the contents of your list.
 
 
 ### Sorting a list
@@ -647,12 +616,7 @@ station_names.sort()   # Notice no output here...
 print(station_names)
 ```
 
-As you can see, the list has been sorted alphabetically using the `list.sort()` method, but there is no screen output when this occurs. Again, if you were to assign that output to `station_names` the list would get sorted, but the contents would then be assigned `None`.
-
-
-```{note}
-As you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighthouse` in the sorted list. This is because alphabetical sorting in Python places capital letters before lowercase letters.
-```
+As you can see, the list has been sorted alphabetically using the `list.sort()` method, but there is no screen output when this occurs. Again, if you were to assign that output to `station_names` the list would get sorted, but the contents would then be assigned `None`. As you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighthouse` in the sorted list. This is because alphabetical sorting in Python places capital letters before lowercase letters.
 
 
 ## Footnotes

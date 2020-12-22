@@ -29,15 +29,13 @@ Because a Python script file is simply a list of commands that you might otherwi
 
 First, we need to create a new text file by clicking on **File** -> **New** -> **Text File** in the JupyterLab menu bar.
 
-![Creating a new text file in JupyterLab.](../img/new-text-file-400.png)
 
-**Figure 1.11**. Creating a new text file in Jupyter Lab.
+![**Figure 1.11**. Creating a new text file in Jupyter Lab._](../img/new-text-file-400.png)
 
 This will create a new tab in your JupyterLab window that should look something like that below, a blank slate.
 
-![Our new text file in JupyterLab.](../img/new-text-tab-800.png)
+![**Figure 1.12**. The new, empty text file in Jupyter Lab._](../img/new-text-tab-800.png)
 
-**Figure 1.12**. The new, empty text file in Jupyter Lab.
 
 Start by copying and pasting the text below into your new text file editor panel.
 
@@ -47,29 +45,18 @@ def celsius_to_fahr(temp_celsius):
 ```
 <!-- #endregion -->
 
+<!-- #region -->
 ### Saving a text file as a Python file
 
-As it turns out, Python scripts are just regular text files with the `.py` file extension to identify them as source code for Python. In order for our new text file to be detected as a Python source file in JupyterLab we thus need to rename it to have a `.py` file extension. You can rename the file by right clicking on the tab titled `untitled.txt` and renaming it as `temp_converter.py`.
+As it turns out, Python scripts are just regular text files with the `.py` file extension to identify them as source code for Python. In order for our new text file to be detected as a Python source file in JupyterLab we thus need to rename it to have a `.py` file extension. You can rename the file by right clicking on the tab titled `untitled.txt` and renaming it as `temp_converter.py`. Be sure you change the `.txt` file extension to `.py`.
 
-```{note}
-Be sure you change the `.txt` file extension to `.py`.
-```
+![**Figure 1.13**. Renaming a file in Jupyter Lab._](../img/rename-file-part-1-600.png)
 
-![Renaming a text file in JupyterLab.](../img/rename-file-part-1-600.png)
+![**Figure 1.14**. File renaming dialog in Jupyter Lab._](../img/rename-file-part-2-300.png)
 
-**Figure 1.13**. Renaming a file in Jupyter Lab.
 
-![Changing the file name in JupyterLab.](../img/rename-file-part-2-300.png)
-
-**Figure 1.14**. File renaming dialog in Jupyter Lab.
-
-If all goes well, you should now see the Python syntax is highlighted in different colors in the JupyterLab editor panel.
-
-```{note}
-Be sure to save your `temp_converter.py` file after making your changes.
-```
-
-We'll return later to some best practices for writing script files, but for now let's continue with how to use our functions saved in the Python file we just created.
+Be sure to save your `temp_converter.py` file after making your changes. If all goes well, you should now see the Python syntax is highlighted in different colors in the JupyterLab editor panel. We'll return later to some best practices for writing script files, but for now let's continue with how to use our functions saved in the Python file we just created.
+<!-- #endregion -->
 
 <!-- #region -->
 ## Saving and loading functions
@@ -203,10 +190,6 @@ print('Absolute zero in Fahrenheit is:', tc.kelvins_to_fahr(temp_kelvins=0))
 <!-- #region -->
 ## Creating a temperature calculator
 
-```{note}
-This is an optional and slightly more advanced topic.
-```
-
 So far our functions have had only one parameter, but it is also possible to define a function with multiple parameters. Let's now make a simple `temp_calculator` function that accepts temperatures in Kelvins and returns either Celsius or Fahrenheit. The new function will have two parameters:
 
 - `temp_k` = The parameter for passing temperature in Kelvins
@@ -297,9 +280,7 @@ def temp_calculator(temp_k, convert_to):
 That's it!
 Now we have a temperature calculator that has a simple option for the user where they can change the output using the `convert_to` parameter. As we also added the short docstring at the beginning of the function, we can use the `help()` function in Python to see how our function should be used. You could now run the Python cell below and then try running `help(temp_calculator)` to see the docstring.
 
-```{attention}
-Reloading modules from within a Jupyter notebook is a bit of a pain. The easiest option is to restart the IPython kernel by going to **Kernel** -> **Restart kernel...**. Note that this will delete all variables currently stored in memory in the Jupyter notebook you're using, so you may need to re-run some cells.
-```
+When working in a Jupyter Notebook, reloading modules can be a bit challenging. The easiest option is to restart the IPython kernel by going to **Kernel** -> **Restart kernel...**. Note that this will delete all variables currently stored in memory in the Jupyter notebook you're using, so you may need to re-run some cells.
 
 ```python tags=["raises-exception"]
 help(tc.temp_calculator)
