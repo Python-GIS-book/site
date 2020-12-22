@@ -116,13 +116,14 @@ However, there are times that you may not know the names of all of the functions
 print(dir(math))
 ```
 
+<!-- #region -->
 In Jupyter notebooks you can also browse the available modules by typing in `modulename.` and then pressing the tab key:
 
-![view module keys img](../img/view_module_functions.png)
+![**Figure 1.16**.  Listing functions in the math module in Jupyter Lab._](../img/view_module_functions.png)
 
-**Figure 1.16**. Listing functions in the math module in Jupyter Lab.
 
 So that's helpful, but what about when you don't know what a given function does? The easiest solution is to use the `help()` function (after importing the module). Let's have a look at the help for the `math.sin` function.
+<!-- #endregion -->
 
 ```python
 help(math.sin)
