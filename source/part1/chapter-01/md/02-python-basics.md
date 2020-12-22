@@ -288,9 +288,7 @@ print(first_variable - second_variable)
 
 ## Data types revisited
 
-### Let's start with some data
-
-We learned a bit about variables and their values earlier in this section. We continue today with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:
+We learned a bit about variables and their values earlier in this section. We now continue with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:
 
 ```python
 station_name = 'Helsinki Kaivopuisto'

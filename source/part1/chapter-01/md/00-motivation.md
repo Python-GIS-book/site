@@ -62,14 +62,14 @@ And yet again, this helps us understand the data further. Not only do we see the
 So, let's look now at some excellent examples of data visualization with Python. We have essentially the same data plotted above, but now we can see how temperatures vary in space and time.
 
 
-![_**Figure 1.3**. Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen <https://twitter.com/anttilip>. The animation can be viewed by clicking on the image or online at <https://flic.kr/p/293M1oa>._](../img/lipponen-video-1.jpg)
+![_**Figure 1.3**. Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen (<https://twitter.com/anttilip>). The animation can be viewed by clicking on the image or online at <https://flic.kr/p/293M1oa>._](../img/lipponen-video-1.jpg)
 
 This [animated "pill packet" plot]((https://flic.kr/p/293M1oa)) of temperature anomalies conveys a huge amount of information in a simple form. People can immediately understand what is plotted, and the combination of the plot format, colors and animation are very effective. What even better is the fact that this animation was made using Python!
 
 Another example shows similar data in a different format, including a peek into the future.
 
 
-![_**Figure 1.4**. Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen <https://twitter.com/anttilip>). The animation can be viewed by clicking on the image or online at <https://flic.kr/p/QYnKre>._](../img/lipponen-video-2.jpg)
+![_**Figure 1.4**. Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen (<https://twitter.com/anttilip>). The animation can be viewed by clicking on the image or online at <https://flic.kr/p/QYnKre>._](../img/lipponen-video-2.jpg)
 
 This [animated "temperature spoke" plot](https://flic.kr/p/QYnKre) nicely conveys the warming of different regions on Earth, again in an intuitive format.
 
