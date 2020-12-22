@@ -103,17 +103,12 @@ for variable in collection:
 
 Let's break down the code above to see some essential aspect of `for` loops:
 
-- The `variable` can be any name you like
+- The `variable` can be any name you like.
 - The statement of the `for` loop must end with a `:`
-- The code that should be executed as part of the loop must be indented beneath the `for` loop statement
-
-    - The typical indentation is 4 spaces
-
+- The code that should be executed as part of the loop must be indented beneath the `for` loop statement. The typical indentation is 4 spaces.
 - There is no additional special word needed to end the loop, you simply change the indentation back to normal.
 
-
 In sum, `for` loops are useful to repeat some part of the code a *definite* number of times.
-
 <!-- #endregion -->
 
 <!-- #region -->
@@ -262,11 +257,7 @@ for i in range(len(cities)):
     print(cities[i], 'is the capital of', countries[i])
 ```
 
-Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week.
-
-```{note}
-In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
-```
+Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week. In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
 
 <!-- #region -->
 #### Check your understanding
