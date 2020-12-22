@@ -4,7 +4,7 @@
 
  - [Objectives](#objectives)
  - [Technologies used](#technologies-used)
- - [How to create content?](##pipeline---how-to-create-content)
+ - [How to create content?](#pipeline---how-to-create-content)
  - [Build local version of the docs](#to-build-local-version-of-the-docs)
  - [Upload contents to Github](#to-upload-the-contents-to-github)
  - [Ask for a review by making PR](#ask-for-a-review-by-making-a-pull-request)
@@ -38,11 +38,12 @@ The materials for the book are organized under different chapters.
 
 ### To produce the content:
  
- 1. Add your Jupyter notebook under the folder where your content belongs
- 2. Name your file in an intuitive manner, and include chapter numbering, e.g. `2-1_intro-to-data-analysis-with-pandas.ipynb`
- 3. Sync / pair your notebook with MyST Markdown (see [details and how to do it here](#sync-jupyter-notebook-with-myst_markdown)) 
- 4. Write contents into this notebook as you would do normally. Remember to use [MyST markdown syntax](https://jupyterbook.org/content/myst.html) for enriching the contents with Jupyter Book functionalities.
- 5. Push the files / changes to the branch you are working on (e.g. `chapter_1` branch)
+ 1. Add your Jupyter notebook under the `nb` -subfolder (*notebooks*) where your content belongs, such as:
+    - `part1/chapter-01/nb/02-python-basics.ipynb`
+ 2. Remember to name your file in an intuitive manner, and include chapter numbering, e.g. `2-1_intro-to-data-analysis-with-pandas.ipynb`
+ 3. Write contents into this notebook as you would do normally. Remember to use [MyST markdown syntax](https://jupyterbook.org/content/myst.html) for enriching the contents with Jupyter Book functionalities.
+    - Note: after you have saved your notebook, a paired Markdown version of the file will be created automatically inside `md` -directory. See [more info from here](#sync-jupyter-notebook-with-myst_markdown).
+ 4. Push the files / changes to the branch you are working on (e.g. `chapter_1` branch)
     - Remember to push both the Jupyter Notebook and the paired Markdown version of the file
 
 ### To build local version of the docs:
@@ -89,7 +90,20 @@ it is "necessary" to have a Markdown version of the notebook. *Showing differenc
 the notebooks are essentially JSON files containing lots of metadata etc. which makes it hard to see the differences in the 
 actual contents that we are interested in.*
 
-To make a ST_Markdown **paired version** of the notebook in Jupyterlab, choose the `Commands` tab from the left panel, and 
+In our project, all the notebooks that are stored under a folder named `nb` will be automatically synced and paired
+as markdown files. The result looks something like:
+
+![Paired notebook](img/jupytext-pairing-org.PNG)
+
+where the `nb` directory contains the "original" notebook. The `md` directory with paired markdown file is automatically created after the notebook is saved for the first time. 
+It is recommended to store all the external files such as images in a separate folder (`img` here) and place that on the same
+directory level as `nb` and `md`. In such way, the relative paths work correctly always in both versions of the documentation.
+
+The automation of this pairing process is controlled from the `.jupytext.toml` configuration file. 
+
+#### Manual pairing
+
+It is also possible to manually pair a single notebook. To make a ST_Markdown **paired version** of the notebook in Jupyterlab, choose the `Commands` tab from the left panel, and 
 write `Jupytext` to the search box which will show you an option to `Pair Notebook with MyST Markdown`:
 ![Pairing notebook with MyST Markdown](img/Jupytext_pairing_in_JupyterLab.PNG)  
 
@@ -112,8 +126,14 @@ The basic workflow:
  2. Add a reference to the markdown cell with ```{cite}`myReference2020` ```
     - This name should match with the entry name that you added to `references.bib`
 
- 3. When you want to add the bibliography, you should add ```{bibliography} path/to/references.bib ``` 
- to the location where you want to add the reference list (e.g. at the end of each Chapter). 
+ 3. When you want to add the bibliography (see also note below), you should add ```{bibliography} path/to/references.bib ``` 
+ to the location where you want to add the reference list (e.g. at the end of each Chapter).
+ 
+**NOTE**: If you want to use a custom APA style (defined in conf.py), you should add the bibliography as follows:
+```
+{bibliography} path/to/references.bib
+:style: apa
+```  
  
 ### Allow an error to happen in code blocks?
 
@@ -123,4 +143,40 @@ To avoid this, it is necessary to add **a cell tag** `raises-exception` to those
 
 To get information how to add a cell-tag, follow [these instructions](https://github.com/jupyterlab/jupyterlab-toc/issues/87).
 
+## Build PDF of the book
 
+### Installations
+
+TexLive installation on Ubuntu (and Windows WSL):
+```
+$ sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra latexmk
+```
+
+Python environment for the book is in `ci/py38-book-building.yaml`
+
+### Build commands
+
+After you have installed the packages, you can build the pdf by:
+
+First generate the latex files:
+```
+# At the project root --> will create directory latex
+$ sphinx-build -b latex source latex
+```
+
+Then build the pdf (with default settings):
+```
+# At the latex directory
+
+# Create first version of the pdf
+$ pdflatex introductiontopythonforgeographicdataanalysis.tex
+
+# Generate the table of contents
+$ makeindex introductiontopythonforgeographicdataanalysis.idx
+
+# Update the pdf accordingly
+$ pdflatex introductiontopythonforgeographicdataanalysis.tex
+```
+
+After these steps, you can check the resulting PDF named `introductiontopythonforgeographicdataanalysis.pdf` 
+that should be in the `latex` -directory.

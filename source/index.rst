@@ -86,13 +86,46 @@ The book consists of 4 parts:
         </div>
     </div>
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Front matter
+   :titlesonly:
+   :hidden:
+
+   front-matter/index
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Part I - Python essentials
    :titlesonly:
    :hidden:
 
    part1/index
-   authors
+   part1/chapter-01/index
+   part1/chapter-02/index
+   part1/chapter-03/index
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Part II - Using Python with GIS
+   :titlesonly:
+   :hidden:
+
+   part2/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Part III - Case studies
+   :titlesonly:
+   :hidden:
+
+   part3/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Back matter
+   :titlesonly:
+   :hidden:
+
+   back-matter/index
+   authors

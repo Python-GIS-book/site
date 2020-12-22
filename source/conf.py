@@ -237,3 +237,14 @@ class APAStyle(UnsrtStyle):
     default_label_style = APALabelStyle
 
 register_plugin('pybtex.style.formatting', 'apa', APAStyle)
+
+# ======================
+# Bibtex configuration
+# ======================
+
+bibtex_bibfiles = ['part1/chapter-01/chapter-01-references.bib',
+                   'back-matter/back-matter-references.bib']
+
+# Do not use parentheses automatically with citations (you need to add them yourself!)
+bibtex_cite_bracket_left = ''
+bibtex_cite_bracket_right = ''

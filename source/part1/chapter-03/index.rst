@@ -1,5 +1,5 @@
-Chapter 3: Introduction to data visualization
-=============================================
+Introduction to data visualization
+==================================
 
 This section is under construction.
 

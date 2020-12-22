@@ -8,4 +8,4 @@ This section is under construction.
     :caption: Sections:
 
     acknowledgements.md
-    glossary.md
+    nb/glossary.ipynb
