@@ -55,22 +55,22 @@ This is obviously much better, nicely showing how temperatures have changed with
 
 Let's consider another option, plotting temperature anomalies on a map.
 
-![_**Figure 1.2**. Global temperature anomalies for January 2020. Source: <https://www.ncdc.noaa.gov/sotc/global/201603>._](https://www.ncdc.noaa.gov/sotc/service/global/map-blended-mntp/202001.png)
+![_**Figure 1.2**. Global temperature anomalies for January 2020. Source: <https://www.ncdc.noaa.gov/sotc/global/201603>._](../img/global-temperature-anomalies.png)
 
 And yet again, this helps us understand the data further. Not only do we see the changes in temperature, but now we see how temperatures vary in space across the globe. The drawback here is that we only see a single time snapshot, rather than a time series. Seeing both will require a truly remarkable visualization.
 
 So, let's look now at some excellent examples of data visualization with Python. We have essentially the same data plotted above, but now we can see how temperatures vary in space and time.
 
 
-[![_**Figure 1.3**. Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen <https://twitter.com/anttilip>. The animation can be viewed by clicking on the image or online at <https://flic.kr/p/293M1oa>._](../img/lipponen-video-1.jpg)](https://flic.kr/p/293M1oa)
+![_**Figure 1.3**. Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen <https://twitter.com/anttilip>. The animation can be viewed by clicking on the image or online at <https://flic.kr/p/293M1oa>._](../img/lipponen-video-1.jpg)
 
-This animated "pill packet" plot of temperature anomalies conveys a huge amount of information in a simple form. People can immediately understand what is plotted, and the combination of the plot format, colors and animation are very effective. What even better is the fact that this animation was made using Python!
+This [animated "pill packet" plot]((https://flic.kr/p/293M1oa)) of temperature anomalies conveys a huge amount of information in a simple form. People can immediately understand what is plotted, and the combination of the plot format, colors and animation are very effective. What even better is the fact that this animation was made using Python!
 
 Another example shows similar data in a different format, including a peek into the future.
 
 
-[![_**Figure 1.4**. Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen <https://twitter.com/anttilip>). The animation can be viewed by clicking on the image or online at <https://flic.kr/p/QYnKre>._](../img/lipponen-video-2.jpg)](https://flic.kr/p/QYnKre)
+![_**Figure 1.4**. Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen <https://twitter.com/anttilip>). The animation can be viewed by clicking on the image or online at <https://flic.kr/p/QYnKre>._](../img/lipponen-video-2.jpg)
 
-This plot nicely conveys the warming of different regions on Earth, again in an intuitive format.
+This [animated "temperature spoke" plot](https://flic.kr/p/QYnKre) nicely conveys the warming of different regions on Earth, again in an intuitive format.
 
 For the rest of the first part of this book, plots like those above can be our inspiration. In fact, we will be working with similar data throughout this part of the book and may even end up producing similar plots in by the end Part 1.
