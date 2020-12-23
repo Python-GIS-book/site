@@ -21,31 +21,14 @@ In this part, we will show how to visualize data using Pandas/Matplotlib and cre
 ![Subplot example in Matplotlib](./../img/subplots.png)
 
 
-## The data
+## Preparing the data for plotting 
 
-In this part of the lesson we'll continue working with our weather observation data from the Helsinki-Vantaa airport [downloaded from NOAA](https://www7.ncdc.noaa.gov/CDO/cdopoemain.cmd?datasetabbv=DS3505&countryabbv=&georegionabbv=&resolution=40).
-
-
-## Getting started
-
-Let's start again by importing the libraries we'll need.
+Let's start again by reading the data.
 
 ```python
 import pandas as pd
 import matplotlib.pyplot as plt
-```
 
-### Loading the data
-
-Now we'll load the data just as we did in the first part of the lesson: 
-- Set whitespace as delimiter
-- Specify no data values
-- Specify a subset of columns
-- Parse `'YR--MODAHRMN'` column as a datetime index
-
-Reading in the data might take a few moments.
-
-```python
 fp = "data/029740.txt"
 
 data = pd.read_csv(fp, delim_whitespace=True, 
@@ -66,8 +49,6 @@ Check again the first rows of data to confirm successful renaming:
 ```python
 data.head()
 ```
-
-## Preparing the data
 
 First, we have to deal with no data values. Let's check how many no data values we have:
 
@@ -94,8 +75,6 @@ What would happen if we removed all rows with any no data values from our data (
 len(data.dropna())
 ```
 
-### Converting temperatures to Celsius
-
 Now that we have loaded our data, we can convert the values of temperature in Fahrenheit to Celsius, like we have in earlier lessons.
 
 ```python
@@ -108,12 +87,10 @@ Let's check how our dataframe looks like at this point:
 data.head()
 ```
 
-## Using subplots
+## Subplots
 
-Let's continue working with the weather data and learn how to use *subplots*. Subplots are figures where you have multiple plots in different panels of the same figure, as was shown at the start of the lesson.
+Let's continue working with the weather data and learn how to use *subplots*. Subplots are figures where you have multiple plots in different panels of the same figure, as was shown at the start of this section.
 
-
-### Extracting seasonal temperatures
 
 Let's now select data from different seasons of the year in 2012/2013:
 
@@ -177,7 +154,7 @@ print("Min:", min_temp, "Max:", max_temp)
 
 We can now use this temperature range to standardize the y-axis scale of our plot.
 
-### Creating our first set of subplots
+### Visualizing multiple subplots in a single figure
 
 Let's now continue and see how we can plot all these different plots into the same figure.
 We can create a 2x2 panel for our visualization using Matplotlib’s `subplots()` function where we specify how many rows and columns we want to have in our figure.

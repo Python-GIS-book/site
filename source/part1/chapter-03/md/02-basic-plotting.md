@@ -40,21 +40,21 @@ Thus, it is useful to know at least the basic terminology since it makes it easi
 
 There are quite a few common terms and words that are used when discussing about different aspects of a plot. Table X represents a few common terms and their explanations. These common terms may vary a bit depending on the plotting library that you use, but these are some typical terms used when plotting in Matplotlib, for example.
 
-| Term       | Description                                                                                                         |
-|------------|---------------------------------------------------------------------------------------------------------------------|
-| axis       | Axis of the graph that are typically x, y and z (for 3D plots).                                                     |
-| title      | Title of the whole plot.                                                                                            |
-| label      | Name for the whole axis (e.g. xlabel or ylabel).                                                                    |
-| legend     | Legend for the plot.                                                                                                |
-| tick label | Text or values that are represented on the axis.                                                                    |
-| symbol     | Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes/colors.             |
-| size       | Size of, for example, a point on a scatter plot. Also used for referring to the text sizes on a plot.               |
-| linestyle  | The style how the line should be drawn. Can be solid or dashed, for example.                                        |
-| linewidth  | The width of a line in a plot.                                                                                      |
-| alpha      | Transparency level of a filled element in a plot (values between 0.0 (fully transparent) to 1.0 (no trasnparency)). |
-| tick(s)    | Refers to the tick marks on a plot.                                                                                 |
-| annotation | Refers to the text added to a plot.                                                                                 |
-| padding    | The distance between a (axis/tick) label and the axis.                                                              | 
+| Term         | Description                                                                                                         |
+|--------------|---------------------------------------------------------------------------------------------------------------------|
+| *axis*       | Axis of the graph that are typically x, y and z (for 3D plots).                                                     |
+| *title*      | Title of the whole plot.                                                                                            |
+| *label*      | Name for the whole axis (e.g. xlabel or ylabel).                                                                    |
+| *legend*     | Legend for the plot.                                                                                                |
+| *tick label* | Text or values that are represented on the axis.                                                                    |
+| *symbol*     | Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes/colors.             |
+| *size*       | Size of, for example, a point on a scatter plot. Also used for referring to the text sizes on a plot.               |
+| *linestyle*  | The style how the line should be drawn. Can be solid or dashed, for example.                                        |
+| *linewidth*  | The width of a line in a plot.                                                                                      |
+| *alpha*      | Transparency level of a filled element in a plot (values between 0.0 (fully transparent) to 1.0 (no trasnparency)). |
+| *tick(s)*    | Refers to the tick marks on a plot.                                                                                 |
+| *annotation* | Refers to the text added to a plot.                                                                                 |
+| *padding*    | The distance between a (axis/tick) label and the axis.                                                              | 
 <!-- #endregion -->
 
 # Basic plotting with pandas and matplotlib
@@ -184,7 +184,7 @@ ax.set_ylabel('Temperature [°F]')
 ax.text(cold_time, 42.0, '<- Coldest temperature in early afternoon')
 ```
 
-### Check your understanding
+**Check your understanding (online)**
 
 Create a line plot similar to our examples above with the following attributes:
     
@@ -195,18 +195,7 @@ Create a line plot similar to our examples above with the following attributes:
 
 ```python
 # Define start, end, and cold times
-start_time = pd.to_datetime('201910011800')
-end_time = pd.to_datetime('201910020000')
-warm_time = pd.to_datetime('201910012120')
 
-# Plot data (add x, y limits)
-ax = oct1_temps.plot(style='k:', title='Evening temperatures on October 1, Helsinki-Vantaa',
-                     xlim=[start_time, end_time], ylim=[35.0, 44.0])
-ax.set_xlabel('Date')
-ax.set_ylabel('Temperature [°F]')
-
-# Display text on plot
-ax.text(warm_time, 43.0, 'Warmest time of the evening ->')
 ```
 
 ## Bar plots in pandas
