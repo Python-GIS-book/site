@@ -12,108 +12,63 @@ jupyter:
     name: python3
 ---
 
-# Basic plotting with pandas and matplotlib
-
-As we're now familiar with some of the features of pandas, we will wade into visualizing our data in Python using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the [matplotlib](https://matplotlib.org/) [^matplotlib] plotting library.
-Plotting in pandas provides a basic framework for visualizing our data, but as you'll see we will sometimes need to also use features from matplotlib to enhance our plots. In particular, we will use features from the the [pyplot](https://matplotlib.org/api/pyplot_api.html) [^pyplot] module in matplotlib, which provides [MATLAB](https://www.mathworks.com/products/matlab.html) [^matlab]-like plotting.
-
-We will also briefly explore creating interactive plots using the [pandas-bokeh](https://github.com/PatrikHlobil/Pandas-Bokeh) [^pandas_bokeh] plotting backend, which allows us to produce plots similar to those available in the [bokeh plotting library](https://docs.bokeh.org/en/latest/index.html) [^bokeh] using plotting syntax similar to that used normally in pandas.
-
 <!-- #region -->
-## Input data
+# Anatomy of a plot
 
-We will plot graph using using weather observation station data from the Helsinki-Vantaa airport, Finland [downloaded from NOAA](https://www7.ncdc.noaa.gov/CDO/cdopoemain.cmd?datasetabbv=DS3505&countryabbv=&georegionabbv=&resolution=40). **TODO CHECK THE LINK! THERE IS SOME END-OF-LIVE ANNOUNCEMENT**
+Before starting to plot our data we need to start with an obvious question: What actually is a plot?
+We won't go too deep into the details of different plots, but rather we will give a short introduction to different plots that can be created with Python, and the (typical) elements of a plot.
 
-## Downloading the data
+There are a variety of different kinds of plots (also known as graphs, charts, diagrams, etc. - Our dear child has many names) available that have been designed to visually represent the characteristics of a dataset. Here is a list of several different types of plots that can be used to visualize different kinds of datasets:
+
+- Bar chart 
+- Histogram 
+- Scatter plot 
+- Line chart 
+- Pie chart 
+- Box plot 
+- Violin plot 
+- Dendrogram 
+- Chord diagram 
+- Treemap 
+- Network chart 
+
+In spite of the large variety of plots, there are certain elements that are common for most of the plots (not all).
+Thus, it is useful to know at least the basic terminology since it makes it easier to find help and information from the internet when you start creating or modifying your own plots. The Figure X illustrates different elements of a basic line plot.
+
+![_**Figure X.** Basic elements of a plot. Image source: Tenkanen (2017)._](../img/basic-elements-of-plot.png)
 
 
-Just like last week, the first step for today's lesson is to get the data. Unlike last week, we'll all download and use the same data.
+There are quite a few common terms and words that are used when discussing about different aspects of a plot. Table X represents a few common terms and their explanations. These common terms may vary a bit depending on the plotting library that you use, but these are some typical terms used when plotting in Matplotlib, for example.
 
-You can download the data by opening a new terminal window in Jupyter Lab by going to **File** -> **New** -> **Terminal** in the Jupyter Lab menu bar. Once the terminal is open, you will need to navigate to the directory for Lesson 7 by typing
-
-```bash
-cd notebooks/L7/
-```
-
-or the equivalent command to navigate to the location of the Lesson 7 files on your computer (for those running Jupyter on their own computers).
-
-
-You can now confirm you're in the correct directory by typing
-
-```bash
-ls
-```
-
-You should see something like the following output:
-
-```bash
-advanced-plotting.ipynb matplotlib.ipynb
-img                     metadata
-```
-
-If so, you're in the correct directory and you can download the data files by typing
-
-```bash
-wget https://davewhipp.github.io/data/Finland-weather-data-L7.tar.gz
-```
-
-After the download completes, you can extract the data files by typing
-
-```bash
-tar zxvf Finland-weather-data-L7.tar.gz
-```
-
-At this stage you should have a new directory called `data` that contains the data for this week's lesson. You can confirm this by typing
-
-```bash
-ls data
-```
-
-You should see something like the following:
-
-```bash
-029740.txt           6367598020644inv.txt
-3505doc.txt          6367598020644stn.txt
-```
-
-Now you should be all set to proceed with the lesson!
-
-## About the data
-
-The input data comes with several files that describe the weather data. These *metadata* files include:
-
-- A list of stations: [data/6367598020644stn.txt](metadata/6367598020644stn.txt)
-- Details about weather observations at each station: [data/6367598020644inv.txt](metadata/6367598020644inv.txt)
-- A data description (i.e., column names): [data/3505doc.txt](metadata/3505doc.txt)
-
-The input data are separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:
-
-``` 
-  USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW AW AW AW W TEMP DEWP    SLP   ALT    STP MAX MIN PCP01 PCP06 PCP24 PCPXX SD
-029740 99999 195201010000 200  23 ***  15 OVC 7 2 *  5.0 63 ** ** ** ** ** ** ** 6   36   32  989.2 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201010600 220  18 ***   8 OVC 7 2 *  2.2 63 ** ** ** ** ** ** ** 6   37   37  985.9 ***** ****** ***  34 ***** ***** ***** ***** **
-029740 99999 195201011200 220  21 ***   5 OVC 7 * *  3.8 59 ** ** ** ** ** ** ** 5   39   36  988.1 ***** ****** *** *** ***** ***** ***** ***** **
-029740 99999 195201011800 250  16 *** 722 CLR 0 0 0 12.5 02 ** ** ** ** ** ** ** 5   36   27  991.9 ***** ******  39 *** ***** ***** ***** ***** **
-```
+| Term       | Description                                                                                                         |
+|------------|---------------------------------------------------------------------------------------------------------------------|
+| axis       | Axis of the graph that are typically x, y and z (for 3D plots).                                                     |
+| title      | Title of the whole plot.                                                                                            |
+| label      | Name for the whole axis (e.g. xlabel or ylabel).                                                                    |
+| legend     | Legend for the plot.                                                                                                |
+| tick label | Text or values that are represented on the axis.                                                                    |
+| symbol     | Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes/colors.             |
+| size       | Size of, for example, a point on a scatter plot. Also used for referring to the text sizes on a plot.               |
+| linestyle  | The style how the line should be drawn. Can be solid or dashed, for example.                                        |
+| linewidth  | The width of a line in a plot.                                                                                      |
+| alpha      | Transparency level of a filled element in a plot (values between 0.0 (fully transparent) to 1.0 (no trasnparency)). |
+| tick(s)    | Refers to the tick marks on a plot.                                                                                 |
+| annotation | Refers to the text added to a plot.                                                                                 |
+| padding    | The distance between a (axis/tick) label and the axis.                                                              | 
 <!-- #endregion -->
 
-## Getting started
+# Basic plotting with pandas and matplotlib
 
-Let's start by importing pandas and reading our data file.
+As we're now familiar with some of the features of pandas, we will wade into visualizing our data in Python using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for visualizing our data, but as you'll see we will sometimes need to also use features from matplotlib to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like plotting. We will also briefly explore creating interactive plots using the `pandas-bokeh` [^pandas_bokeh] plotting backend, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax similar to that used normally in pandas.
+
+
+## Basic x-y plot
+
+Let's start by importing pandas and reading our data file. We will be using a datetime index for our weather observations as we learned in the previous chapter. In this case, however, we'll include a few additional parameters in order to read the data with a *datetime index*. Let's read the data first, then see what happened:
 
 ```python
 import pandas as pd
-```
-
-```{admonition} Datetime in Python
-For the lesson this week we will be using a datetime index for our weather observations.
-We skipped over the datetime data type in Lesson 6, but you can find [a brief introduction to datetime in Lesson 6](https://geo-python-site.readthedocs.io/en/latest/notebooks/L6/advanced-data-processing-with-pandas.html#datetime-optional-for-lesson-6).
-```
-
-Just as we did last week, we'll read our data file by passing a few parameters to the pandas `read_csv()` function. In this case, however, we'll include a few additional parameters in order to read the data with a *datetime index*. Let's read the data first, then see what happened.
-
-```python
-fp = r'data/029740.txt'
+fp = 'data/029740.txt'
 
 data = pd.read_csv(fp, delim_whitespace=True, 
                    na_values=['*', '**', '***', '****', '*****', '******'],
@@ -132,28 +87,13 @@ Having read in the data, let's have a quick look at what we have using `data.hea
 data.head()
 ```
 
-As mentioned above, you can now see that the index column for our DataFrame (the first column) contains date values related to each row in the DataFrame.
-
-
-## Basic x-y plot
-
-Now we're ready for our first plot!
-
-
-We can start by using the basic line plot in pandas to look at our temperature data.
+As mentioned above, you can now see that the index column for our DataFrame (the first column) contains date values related to each row in the DataFrame. Now we're ready for our first plot. We can start by using the basic line plot in pandas to look at our temperature data.
 
 ```python
 ax = data.plot()
 ```
 
-If all goes well, you should see the plot above.
-
-OK, so what happened here?
-
-1. We first created the plot object using the `plot()` method of the `data` DataFrame. Without any parameters given, this makes the plot of all columns in the DataFrame as lines of different color on the y-axis with the index, time in this case, on the x-axis.
-2. In case we want to be able to modify the plot or add anything, we assign the plot object to the variable `ax`. We can check its type below.
-
-In fact, let's check the type of the `ax` variable...
+OK, so what happened here? 1) We first created the plot object using the `plot()` method of the `data` DataFrame. Without any parameters given, this makes the plot of all columns in the DataFrame as lines of different color on the y-axis with the index, time in this case, on the x-axis. 2) In case we want to be able to modify the plot or add anything, we assign the plot object to the variable `ax`. We can check its type below. In fact, let's check the type of the `ax` variable:
 
 ```python
 type(ax)
@@ -161,7 +101,7 @@ type(ax)
 
 OK, so it looks like we have some kind of plot data type that is part of matplotlib. Clearly, pandas is using matplotlib for generating our plots.
 
-### Selecting our plotted data
+### Selecting data for plotting based on date
 
 Now, let's make a few small changes to our plot and plot the data again. First, let's only plot the observed temperatures in the `data['TEMP']` column, and let's restrict ourselves to observations from the afternoon of October 1, 2019 (the last day in our dataset). We can do this by selecting the desired data column and date range first, then plotting our selection.
 
@@ -170,16 +110,12 @@ oct1_temps = data['TEMP'].loc[data.index >= '201910011200']
 ax = oct1_temps.plot()
 ```
 
-So, what did we change?
-
-1. Well, we selected only the `'TEMP'` column now by using `data['TEMP']` instead of `data`.
-2. We've added a restriction to the date range using `loc[]` to select only rows where the index value `data.index` is greater than `'201910011200'`. In that case, the number in the string is in the format `'YYYYMMDDHHMM'`, where `YYYY` is the year, `MM` is the month, `DD` is the day, `HH` is the hour, and `MM` is the minute. Now we have all observations from noon onward on October 1, 2019.
-3. By saving this selection to the DataFrame `oct1_temps` we're able to now use `oct1_temps.plot()` to plot only our selection. This is cool, but we can do even better...
+So, what did we change? 1) We selected only the `'TEMP'` column now by using `data['TEMP']` instead of `data`. 2) We've added a restriction to the date range using `loc[]` to select only rows where the index value `data.index` is greater than `'201910011200'`. In that case, the number in the string is in the format `'YYYYMMDDHHMM'`, where `YYYY` is the year, `MM` is the month, `DD` is the day, `HH` is the hour, and `MM` is the minute. Now we have all observations from noon onward on October 1, 2019. 3) By saving this selection to the DataFrame `oct1_temps` we're able to now use `oct1_temps.plot()` to plot only our selection. This is cool, but we can do even better.
 
 
 ## Basic plot formatting
 
-We can make our plot look a bit nicer and provide more information by using a few additional plotting options to pandas/matplotlib.
+We can make our plot look a bit nicer and provide more information by using a few additional plotting options to pandas/matplotlib:
 
 ```python
 ax = oct1_temps.plot(style='ro--', title='Helsinki-Vantaa temperatures')
@@ -187,22 +123,12 @@ ax.set_xlabel('Date')
 ax.set_ylabel('Temperature [°F]')
 ```
 
-Now we see our temperature data as a red dashed line with circles showing the data points.
-This comes from the additional `style='ro--'` used with `oct1_temps.plot()`.
-In this case, `r` tells the `oct1_temps.plot()` function to use red color for the lines and symbols, `o` tells it to show circles at the points, and `--` says to use a dashed line.
-You can use `help(oct1_temps.plot)` to find out more about formatting plots or have a look at the [documentation on the pandas website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.line.html#pandas.DataFrame.plot.line).
-We have also added a title using the `title` parameter, but note that axis labels are assigned using the `set_xlabel()` and `set_ylabel()` methods.
-As you can see in this case, by assigning the plot axes to the variable `ax`
+Now we see our temperature data as a red dashed line with circles showing the data points. This comes from the additional `style='ro--'` used with `oct1_temps.plot()`. In this case, `r` tells the `oct1_temps.plot()` function to use red color for the lines and symbols, `o` tells it to show circles at the points, and `--` says to use a dashed line. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, but note that axis labels are assigned using the `set_xlabel()` and `set_ylabel()` methods. 
 
-```python
-help(oct1_temps.plot)
-```
 
-### Embiggening\* the plot
+## Formatting the appearance of the figure
 
-While the plot sizes we're working with are OK, it would be nice to have them displayed a bit larger.
-Fortunately, there is an easy way to make the plots larger in Jupyter notebooks.
-First, we need to import the [matplotlib pyplot library](https://matplotlib.org/api/pyplot_api.html) [^pyplot], then we can make the default plot size larger by running the Python cell below.
+While the plot sizes we're working with are OK, it would be nice to have them displayed a bit larger. Fortunately, there is an easy way to make the plots larger in Jupyter notebooks. First, we need to import the `matplotlib pyplot library` [^pyplot], then we can make the default plot size larger by running the Python cell below.
 
 ```python
 import matplotlib.pyplot as plt
@@ -210,42 +136,31 @@ import matplotlib.pyplot as plt
 plt.rcParams['figure.figsize'] = [12, 6]
 ```
 
-The cell above sets the default plot size to be 12 inches wide by 6 inches tall.
-Feel free to change these values if you prefer.
-
-To test whether this is working as expected, simply re-run one of the earlier cells that generated a plot.
-
-\* To [embiggen](https://www.lexico.com/definition/embiggen) means to enlarge.
-It's a perfectly [cromulent](https://www.lexico.com/definition/cromulent) word.
-
-<!-- #region -->
-### Other common plot formatting operations
-
-#### Adding text to the plot
-
-Adding text to plots can be done using `ax.text()`.
+The cell above sets the default plot size to be 12 inches wide by 6 inches tall. Adding text to plots can be done using `ax.text()`:
 
 ```python
-ax.text(x, y, 'Text to display')
+import datetime
+ax = oct1_temps.plot(style='ro--', title='Helsinki-Vantaa temperatures')
+x, y = '201910011400', 38
+ax.text(x, y, 'This is my text.')
 ```
 
-This would display "Text to display" at the location *x*, *y* on the plot.
-We'll see how to do this in a live example in just a second.
-
-#### Changing the axis ranges
-
-Changing the plot axes can be done using the `xlim` and `ylim` parameters of the `plot()` function
+No we added "This is my text" at the location of *x*, *y* on the plot. Notice that we passed the `x` coordinate as a text following the formatting in the original data. It is also possible to to change the axis ranges. Changing the plot axes can be done using the `xlim` and `ylim` parameters of the `plot()` function, where the `xmin` should be the minimum bound of the x-axis, and the `xmax` should be the maximum bound, and the same goes for the y-axis with `ymin` and `ymax`. Next, we will take advantage of the `datetime` library to determine the time range for the x-axis, as it is easier to read and understand than having a long text:
 
 ```python
-df.plot(xlim=[xmin, xmax], ylim=[ymin, ymax])
+from datetime import datetime
+
+xmin, xmax = datetime(2019, 10, 1, 15), datetime(2019, 10, 1, 22) 
+ymin, ymax = 38, 44
+oct1_temps.plot(xlim=[xmin, xmax], ylim=[ymin, ymax])
 ```
 
-where `xmin` should be the minimum bound of the x-axis, `xmax` should be the maximum bound, and the same goes for the y-axis with `ymin` and `ymax`.
+As we can see, now we "zoomed" our plot based on the x and y axis-ranges that we defined. Notice that the underlying data did not disappear anywhere, we just specified which parts of the plot we want to show in the figure. 
 
-#### Dealing with datetime axes
+
+## Dealing with datetime axes
 
 One issue we will encounter with both placing text on the plot and changing the axis ranges is our datetime index for our DataFrame. In order to do either thing, we need to define x-values using a datetime object. The easiest way to do this is to use the pandas `pd.to_datetime()` function, which converts a character string date to a datetime object. For example, we can convert 13:00 on October 1, 2019 from the character string `'201910011300'` to a datetime equivalent by typing
-<!-- #endregion -->
 
 ```python
 pd.to_datetime('201910011300')

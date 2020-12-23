@@ -46,7 +46,7 @@ Now we'll load the data just as we did in the first part of the lesson:
 Reading in the data might take a few moments.
 
 ```python
-fp = r"data/029740.txt"
+fp = "data/029740.txt"
 
 data = pd.read_csv(fp, delim_whitespace=True, 
                    na_values=['*', '**', '***', '****', '*****', '******'],
@@ -54,19 +54,7 @@ data = pd.read_csv(fp, delim_whitespace=True,
                    parse_dates=['YR--MODAHRMN'], index_col='YR--MODAHRMN')
 ```
 
-```python
-print("Number of rows:", len(data))
-```
-
-We are dealing with a relatively large data set.
-
-Let's have a closer look at the time first rows of data: 
-
-```python
-data.head()
-```
-
-Let's rename the `'TEMP'` column as `TEMP_F`, since we'll later convert our temperatures from Fahrenheit to Celsius.
+Let's rename the `'TEMP'` column as `TEMP_F`, since we'll later convert our temperatures from Fahrenheit to Celsius:
 
 ```python
 new_names = {'TEMP':'TEMP_F'}
@@ -88,22 +76,14 @@ print('Number of no data values per column: ')
 print(data.isna().sum())
 ```
 
-So, we have 3579 missing values in the TEMP_F column. Let's get rid of those. We need not worry about the no data values in `'MAX'` and `'MIN'` columns since we won't be using them for plotting. 
-
-We can remove rows from our DataFrame where `'TEMP_F'` is missing values using the `dropna()` method: 
+So, we have 3579 missing values in the TEMP_F column. Let's get rid of those. We need not worry about the no data values in `'MAX'` and `'MIN'` columns since we won't be using them for plotting. We can remove rows from our DataFrame where `'TEMP_F'` is missing values using the `dropna()` method: 
 
 ```python
 data.dropna(subset=['TEMP_F'], inplace=True)
-```
-
-```python
 print("Number of rows after removing no data values:", len(data))
 ```
 
-That's better.
-
-
-### Check your understanding
+**Check your understanding (online)**
 
 What would happen if we removed all rows with any no data values from our data (also considering no data values in the `MAX` and `MIN` columns)?
 
@@ -112,11 +92,6 @@ What would happen if we removed all rows with any no data values from our data (
 # Note! Here we are not applying .dropna() "inplace" 
 #       so we are not making any permanent changes to our dataframe.
 len(data.dropna())
-```
-
-```python
-# We continue with the dataframe where rows with missing TEMP_F values have been removed
-len(data)
 ```
 
 ### Converting temperatures to Celsius
@@ -302,41 +277,10 @@ fig
 Not bad.
 
 
-### Check your understading
+**Check your understading (online)**
 
-
-Visualize winter and summer temperatures in a 1x2 panel figure.
-Save the figure as a .png file.
+Visualize winter and summer temperatures in a 1x2 panel figure. Save the figure as a .png file.
 
 ```python
-# Two subplots side-by-side
-fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12,4))
-
-# Set plot line width
-line_width = 1.5
-
-# Plot data
-winter_temps.plot(ax=axs[0], c='blue', lw=line_width, 
-                  ylim=[min_temp, max_temp], grid=True)
-summer_temps.plot(ax=axs[1], c='green', lw=line_width,
-                  ylim=[min_temp, max_temp], grid=True)
-
-# Set figure title
-fig.suptitle('2012-2013 Winter and summer temperature observations - Helsinki-Vantaa airport')
-
-# Rotate the x-axis labels so they don't overlap
-plt.setp(axs[0].xaxis.get_majorticklabels(), rotation=20)
-plt.setp(axs[1].xaxis.get_majorticklabels(), rotation=20)
-
-# Axis labels
-axs[0].set_xlabel('Date')
-axs[1].set_xlabel('Date')
-axs[0].set_ylabel('Temperature [°C]')
-axs[1].set_ylabel('Temperature [°C]')
-
-# Season label text
-axs[0].text(pd.to_datetime('20130215'), -25, 'Winter')
-axs[1].text(pd.to_datetime('20130815'), -25, 'Summer')
-
-plt.savefig("HelsinkiVantaa_WinterSummer_2012-2013.png")
+# Two subplots side-by-side:
 ```
