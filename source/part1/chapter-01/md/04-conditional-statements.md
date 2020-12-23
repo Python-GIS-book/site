@@ -14,11 +14,14 @@ jupyter:
 
 # Conditional statements
 
-In this lesson we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
+Next, we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
+
+
 
 ## Basics of conditional statements
 
 Conditional statements can change the code behaviour based on certain conditions. The idea is simple: **IF** a condition is met, **THEN** a set of actions is performed. 
+
 
 ### A simple conditional statement
 
@@ -79,13 +82,17 @@ Similarly as with for loops, Python uses colons (`:`) and whitespace (indentatio
 Note also that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = 'Rain'`, the comparsion `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
 
 
-#### Check your understanding 
+**Check your understanding (online)** 
 
 We might also need some other rainwear on a rainy day. Think about how you could add another instruction after the `weather == rain` condition so that the code would tell us to:
 
 ``` 
 Wear a raincoat
 Wear rain boots
+```
+
+```python
+# Add your solution here
 ```
 
 ```python
@@ -146,7 +153,7 @@ else:
 ```
 
 <!-- #region -->
-### Check your understanding
+**Check your understanding (online)**
 
 Let's assume that yesterday it was 14°C, it is 10°C outside today, and tomorrow it will be 13°C.
 The following code compares these temperatures and prints something to the screen based on the comparison.
@@ -170,19 +177,8 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 <!-- #endregion -->
 
 ```python
-# Here is the solution
-yesterday = 14
-today = 10
-tomorrow = 13
+# Add your solution here
 
-if yesterday <= today:
-    print('A')
-elif today != tomorrow:
-    print('B')
-elif yesterday > tomorrow:
-    print('C')
-elif today == today:
-    print('D')
 ```
 
 ### Combining conditions
@@ -210,14 +206,14 @@ if (1 < 0) or (-1 < 0):
 Later on we will also need the bitwise operators `&` for `and`, and `|` for `or`.
 
 
-#### Check your understanding 
+**Check your understanding (online)**
 
 Let's return to our example about making decisions on a rainy day. Imagine that we consider not only the rain, but also the wind speed (in meters per second). If it is windy or raining, we’ll just stay at home. If it's not windy or raining, we can go out and enjoy the weather! 
 
 Let' set 18 m/s as our comfort limit in the conditional statement and see what our Python program tells us to do in these conditions:
 
 ```python
-# Example solution
+# Add your solution here
 weather = 'rain'
 wind_speed = 20
 comfort_limit = 18

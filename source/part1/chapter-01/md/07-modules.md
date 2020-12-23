@@ -16,6 +16,7 @@ jupyter:
 
 In this section we provide some additional background on loading and using *{term}`modules <module>`* in Python. Modules are not much different from the Python script files produced in the previous section, but there are many Python modules that are freely available and this is one of the best things about using Python. You can find modules to do *many* common programming tasks in Python!
 
+
 ## Modules, packages and libraries?
 
 A Python *{term}`module`* [^module] refers to a piece of Python code that is designed to execute a specific task. Technically, modules are simply Python script files (with the file extension `.py`) that contain function definitions and other statements. [Python packages](https://docs.python.org/3/tutorial/modules.html#packages) [^package] are a way of organizing modules into larger entities. 
@@ -23,6 +24,7 @@ A Python *{term}`module`* [^module] refers to a piece of Python code that is des
 Modules and packages are similar to what are more generally called libraries in programming languages, which again contain code related to specific tasks such as mathematical operations. There are a *HUGE* number of Python modules/packages, and many of them greatly extend what can be done in a normal Python program. In fact, the abundance of free Python modules is one of the best reasons to learn and start using Python.
 
 The words "module", "package" and "*{term}`library`*" are often used interchangeably.
+
 
 ## Loading modules
 
@@ -88,6 +90,7 @@ sqrt(121)
 
 Though this can be useful, it has the drawback that **the imported function could conflict with other built-in or imported function names**, and you lose the information about which module contains the imported function. You should only do this when you truly need to.
 
+
 ### Importing a submodule
 
 Some modules have submodules that can also be imported without importing the entire module. We may see examples of this later when making data plots using the pyplot sub-module from the [Matplotlib module](http://matplotlib.org/) [^matplotlib]. In case you're curious, here is an example.
@@ -133,9 +136,11 @@ help(math.sin)
 
 Modules are very useful in Python, but there are a few things to avoid.
 
+
 ### from X import *
 
 Don't use `from X import *`. This may be easier to understand by way of an example, but assuming `X` above is a Python module, `from X import *` will import all of the functions in module X. Though you might think this is helpful, it is much better to simply `import X` or `import X as Y` to keep the connection between the functions and their module. It is also much more likely you will encounter conflicting names when using `from X import *`.
+
 
 ### Poor names when renaming on import
 
