@@ -297,6 +297,11 @@ ax = sept29_oct1_df.plot(title='Helsinki-Vantaa temperatures',
                          plot_data_points=True)
 ```
 
+## Exercises
+
+Add exercises.
+
+
 ## Footnotes
 
 [^matplotlib]: <https://matplotlib.org/>

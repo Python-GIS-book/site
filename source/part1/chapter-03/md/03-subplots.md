@@ -261,3 +261,10 @@ Visualize winter and summer temperatures in a 1x2 panel figure. Save the figure 
 ```python
 # Two subplots side-by-side:
 ```
+
+## Exercises
+
+Add exercises.
+
+
+## Footnotes
