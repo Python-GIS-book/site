@@ -529,6 +529,57 @@ results["YEAR"].value_counts()
 As we can see, the January in 2005 was exceptionally warm in most of Finland. (**UPDATE**)
 
 
+## Exercises
+
+In this Exercise, we will explore our temperature data by comparing spring temperatures between Kumpula and Rovaniemi. To do this we'll use some conditions to extract subsets of our data and then analyse these subsets using basic pandas functions. Notice that in this exercise, we will use data saved from the previous Exercise (2.2.6), hence you should finish that Exercise before this one. An overview of the tasks in this exercise:
+
+- Calculate the median temperatures for Kumpula and Rovaniemi for the summer of 2017
+- Select temperatures for May and June 2017 in separate DataFrames for each location
+- Calculate descriptive statistics for each month (May, June) and location (Kumpula, Rovaniemi)
+
+
+### Problem 1 - Read the data and calculate basic statistics
+
+Read in the CSV files generated in Exercise 2.2.6 to the variables `kumpula` and `rovaniemi` and answer to following questions:
+
+- What was the median Celsius temperature during the observed period in Helsinki Kumpula? Store the answer in a variable `kumpula_median`.
+- What was the median Celsius temperature during the observed period in Rovaniemi? Store the answer in a variable `rovaniemi_median`.
+
+<!-- #region -->
+### Problem 2 - Select data and compare temperatures between months
+
+The median temperatures above consider data from the entire summer (May-Aug), hence the differences might not be so clear. Let's now find out the mean temperatures from May and June 2017 in Kumpula and Rovaniemi:
+
+
+- From the `kumpula` and `rovaniemi` DataFrames, select the rows where values of the `YR--MODAHRMN` column are from May 2017. Assign these selected rows into the variables `kumpula_may` and `rovaniemi_may` 
+- Repeat the procedure for the month of June and assign those values into variables to `kumpula_june` and `rovaniemi_june`
+- Calculate and print the mean, min and max Celsius temperatures for both places in May and June using the new subset dataframes (kumpula_may, rovaniemi_may, kumpula_june, and rovaniemi_june). Answer to following questions:
+  - Does there seem to be a large difference in temperatures between the months?
+  - Is Rovaniemi a much colder place than Kumpula?
+
+<!-- #endregion -->
+
+### Problem 3 - Parse daily temperatures by aggregating data 
+
+In this problem, the aim is to aggregate the hourly temperature data for Kumpula and Rovaniemi weather stations to a daily level. Currently, there are at most three measurements per hour in the data, as you can see from the YR--MODAHRMN column:
+
+```
+    USAF  YR--MODAHRMN  TEMP  MAX  MIN  Celsius
+0  28450  201705010000  31.0  NaN  NaN       -1
+1  28450  201705010020  30.0  NaN  NaN       -1
+2  28450  201705010050  30.0  NaN  NaN       -1
+3  28450  201705010100  31.0  NaN  NaN       -1
+4  28450  201705010120  30.0  NaN  NaN       -1
+```
+
+In this exercise you should:
+
+- Summarize the information for each day by aggregating (grouping) the DataFrame using the `groupby()` function.
+- The output should be a new DataFrame where you have calculated mean, max and min Celsius temperatures for each day separately based on hourly values.
+- Repeat the task for the two data sets you created in Problem 2 (May-August temperatures from Rovaniemi and Kumpula).
+
+
+
 ## Footnotes
 
 [^noaanews]: <https://www.noaa.gov/news/january-2020-was-earth-s-hottest-january-on-record>
