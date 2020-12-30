@@ -30,16 +30,14 @@ Thus we might need to repeat such calculations quite often when analysing or com
 
 ### Our first function
 
-Let's define our first function called `celsius_to_fahr`.
+Let's define our first function called `celsius_to_fahr`. Figure 1.10 explains the main elements of a function.
 
 ```python
 def celsius_to_fahr(temp):
     return 9/5 * temp + 32
 ```
 
-![Anatomy of a function.](../img/Function_anatomy-400.png)
-
-**Figure 1.10**. An example function with annotation of its important elements.
+![**Figure 1.10** An example function with annotation of its important elements.](../img/Function_anatomy-400.png)
 
 The function definition opens with the keyword `def` followed by the name of the function and a list of parameter names in parentheses.
 The body of the function — the statements that are executed when it runs — is indented below the definition line.
@@ -95,7 +93,7 @@ print('Absolute zero in Celsius is:', absolute_zero)
 <!-- #region -->
 #### Check your understanding
 
-Let's see how things are going so far with functions. In the Python cell below, please:
+Let's see how things are going so far with functions. Think about how you could:
 
 - Create a new function called `hello` with 2 parameters
     - Parameter 1 should be called `name` and you should assign some text to this parameter this when using the function
@@ -111,6 +109,8 @@ print(output)
 <!-- #endregion -->
 
 ```python
+# Example solution
+
 def hello(name, age):
     return 'Hello, my name is ' + name + '. I am ' + str(age) + ' years old.'
 
@@ -160,9 +160,7 @@ Here you can see a short bit of text explaining in simple language what this fun
 - Docstrings are written using `"""triple double quotation marks"""`.
 - Short docstrings [can be written on a single line](https://www.python.org/dev/peps/pep-0257/#one-line-docstrings) [^pep257_one_line].
 
-Seems simple enough, right?
-
-We can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let's expand the docstring above to provide more information about this function.
+Seems simple enough, right? We can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let's expand the docstring above to provide more information about this function.
 
 ```python
 def kelvins_to_celsius(temp_kelvins):

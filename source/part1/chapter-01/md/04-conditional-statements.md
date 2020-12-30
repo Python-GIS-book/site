@@ -12,24 +12,20 @@ jupyter:
     name: python3
 ---
 
-It would be better to use direct citations along the text instead of "inspired by" kind of sentence in the beginning:
-
-This section was inspired by the Programming in Python lessons {cite}`Bostroem2016` from the [Software Carpentry organization](http://software-carpentry.org) [^swc] and the Python for Data Analysis book {cite}`McKinney2017`.
-
-TODO: Add citations to appropriate places.  
-
-
 # Conditional statements
 
-In this lesson we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
+Next, we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
+
+
 
 ## Basics of conditional statements
 
 Conditional statements can change the code behaviour based on certain conditions. The idea is simple: **IF** a condition is met, **THEN** a set of actions is performed. 
 
+
 ### A simple conditional statement
 
-**Let’s look at a simple example with temperatures**, and check if temperature 17 (celsius degrees) is hot or not:
+Let’s look at a simple example with temperatures, and check if temperature 17 (celsius degrees) is hot or not:
 
 ```python
 temperature = 17
@@ -40,22 +36,12 @@ else:
     print('it is not hot!')
 ```
 
-What did we do here?
-First, we used the `if` and `else` statements to determine what parts of the code to execute.
-
-What do these tests do?
-The `if` statement checks to see whether the variable value for `temperature` is greater than 25.
-If this condition is met, `'it is hot'` would be written to the screen. 
-Since 17 is smaller than 25, the code beneath `else` is executed.
-Code under the `else` statement will run whenever the `if` test is `False`.
+What did we do here? First, we used the `if` and `else` statements to determine what parts of the code to execute. The `if` statement checks to see whether the variable value for `temperature` is greater than 25. If this condition is met, `'it is hot'` would be written to the screen. Since 17 is smaller than 25, the code beneath `else` is executed. Code under the `else` statement will run whenever the `if` test is `False`.
 
 
-#### Check your understanding 
-
-Update the value of `temperature` to a "hot" temperature:
+Let's update `temperature` to a "hot" temperature and repeat the same process:
 
 ```python
-# Here's one possible solution
 temperature = 30
 
 if temperature > 25:
@@ -67,12 +53,7 @@ else:
 The code indented under the if-statement is not executed if the condition is not True. Instead, code under the else-statement gets executed.
 
 
-```{admonition} if without else?
-The combination of `if` and `else` is very common, but the `else` statement is not strictly required. Python simply does nothing if the `if` statement is False and there is no `else` statement. 
-```
-
-
-Try it out yourself by typing in the previous example without the else-statement:
+How about `if` without `else`? The combination of `if` and `else` is very common, but the `else` statement is not strictly required. Python simply does nothing if the `if` statement is False and there is no `else` statement. 
 
 ```python
 temperature = 17
@@ -81,20 +62,11 @@ if temperature > 25:
     print(temperature,'is greater than 25')
 ```
 
-Makes sense, right? Conditional statements always check if the conditional expression is **True** or **False**. If True, the codeblock under the conditional statement gets executed.
+Makes sense, right? Conditional statements always check if the conditional expression is **True** or **False**. If True, the codeblock under the conditional statement gets executed. Nothing is printed to the screen if temperature is smaller than 25.
 
 
-Nothing is printed to the screen if temperature is smaller than 25.
-
-
-**Let's look at another example from our daily lives**
-
-As it turns out, we all use logic similar to `if` and `else` conditional statements daily.
-Imagine you’re getting ready to leave your home for the day and want to decide what to wear.
-You might look outside to check the weather conditions.
-If it is raining, you will wear a rain jacket.
-Otherwise, you will not.
-In Python we could say:
+Let's look at another example from our daily lives. As it turns out, we all use logic similar to `if` and `else` conditional statements daily. Imagine you’re getting ready to leave your home for the day and want to decide what to wear. You might look outside to check the weather conditions. If it is raining, you will wear a rain jacket.
+Otherwise, you will not. Remember that Python uses the `==` operator to test if a value is exactly equal to another.
 
 ```python
 weather = 'rain'
@@ -105,25 +77,22 @@ else:
     print('No raincoat needed.')
 ```
 
-Note here that we use the `==` operator to test if a value is exactly equal to another.
-
-
-```{admonition} Note the syntax
 Similarly as with for loops, Python uses colons (`:`) and whitespace (indentations; often four spaces) to structure conditional statements. If the condition is `True`, the indented code block after the colon (`:`) is executed. The code block may contain several lines of code, but they all must be indented identically You will receive an `IndentationError`, a `SyntaxError`, or unwanted behavior if you haven't indented your code correctly.
-```
 
-```{admonition} Be careful with cases
-Note that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = Rain`, the comparsion `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
-```
+Note also that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = 'Rain'`, the comparsion `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
 
 
-#### Check your understanding 
+**Check your understanding (online)** 
 
-We might also need some other rainwear on a rainy day. Let's add another instruction after the `weather == rain` condition so that the code would tell us to:
+We might also need some other rainwear on a rainy day. Think about how you could add another instruction after the `weather == rain` condition so that the code would tell us to:
 
 ``` 
 Wear a raincoat
 Wear rain boots
+```
+
+```python
+# Add your solution here
 ```
 
 ```python
@@ -139,7 +108,7 @@ else:
 
 ### Comparison operators
 
-Comparison operators such as `>` and `==` compare the values on each side of the operator. Here is the full list of operators used for value comparisons in Python: 
+Comparison operators such as `>` and `==` compare the values on each side of the operator. Table 1.3 lists operators used for value comparisons in Python: 
 
 | Operator | Description              |
 | -------- | ------------------------ |
@@ -168,10 +137,7 @@ weather == 'rain'
 
 ### if, elif and else
 
-We can link several conditions together using the "else if" -statement `elif`. Python checks the `elif` and `else` statements only if previous conditions were `False`. You can have multiple `elif` statements to check for additional conditions.
-
-
-Let's create a chain of `if` `elif` and `else` -statements that are able to tell us if the temperature is above freezing, exactly at freezing point or below freezing:
+We can link several conditions together using the "else if" -statement `elif`. Python checks the `elif` and `else` statements only if previous conditions were `False`. You can have multiple `elif` statements to check for additional conditions. Let's create a chain of `if` `elif` and `else` -statements that are able to tell us if the temperature is above freezing, exactly at freezing point or below freezing:
 
 ```python
 temperature = -3
@@ -187,7 +153,7 @@ else:
 ```
 
 <!-- #region -->
-### Check your understanding
+**Check your understanding (online)**
 
 Let's assume that yesterday it was 14°C, it is 10°C outside today, and tomorrow it will be 13°C.
 The following code compares these temperatures and prints something to the screen based on the comparison.
@@ -207,24 +173,12 @@ elif today == today:
     print('D')
 ```
 
-Which of the letters `A`, `B`, `C`, and `D` would be printed to the screen?
-Select your answer from the poll options at https://geo-python.github.io/poll/.
+Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 <!-- #endregion -->
 
 ```python
-# Here is the solution
-yesterday = 14
-today = 10
-tomorrow = 13
+# Add your solution here
 
-if yesterday <= today:
-    print('A')
-elif today != tomorrow:
-    print('B')
-elif yesterday > tomorrow:
-    print('C')
-elif today == today:
-    print('D')
 ```
 
 ### Combining conditions
@@ -249,23 +203,23 @@ if (1 < 0) or (-1 < 0):
     print('At least one test is true')
 ```
 
-```{admonition} Note the syntax
 Later on we will also need the bitwise operators `&` for `and`, and `|` for `or`.
-```
 
 
-#### Check your understanding 
+**Check your understanding (online)**
 
-**Let's return to our example about making decisions on a rainy day.** Imagine that we consider not only the rain, but also the wind speed. If it is windy or raining, we’ll just stay at home. If it's not windy or raining, we can go out and enjoy the weather! 
+Let's return to our example about making decisions on a rainy day. Imagine that we consider not only the rain, but also the wind speed (in meters per second). If it is windy or raining, we’ll just stay at home. If it's not windy or raining, we can go out and enjoy the weather! 
 
-8 m/s is the limit for a "fresh breeze" (*navakka tuuli* in Finnish) and we can set that as our comfort limit in the conditional statement. The Finnish Meteorological Institute forecasts strong winds in Helsinki on the day of giving this lesson (https://en.ilmatieteenlaitos.fi/local-weather/helsinki), so let's see what our Python program tells us to do these days:
+Let' set 18 m/s as our comfort limit in the conditional statement and see what our Python program tells us to do in these conditions:
 
 ```python
+# Add your solution here
 weather = 'rain'
-wind_speed = 9
+wind_speed = 20
+comfort_limit = 18
 
 # If it is windy or raining, print "stay at home", else print "go out and enjoy the weather!"
-if (weather == 'rain') or (wind_speed >= 8):
+if (weather == 'rain') or (wind_speed >= comfort_limit):
     print('Just stay at home')
 else:
     print('Go out and enjoy the weather! :)')

@@ -242,7 +242,6 @@ class APAStyle(UnsrtStyle):
 
 register_plugin('pybtex.style.formatting', 'apa', APAStyle)
 
-
 # ======================
 # Bibtex configuration
 # ======================
