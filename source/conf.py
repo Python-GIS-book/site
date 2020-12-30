@@ -123,7 +123,6 @@ latex_additional_files = ["krantz/krantz.cls"]
 # -----------------------------
 # Ref: https://github.com/mcmtroffaes/sphinxcontrib-bibtex/issues/201
 
-
 class APALabelStyle(BaseLabelStyle):
 
     def format_labels(self, sorted_entries):
@@ -238,7 +237,6 @@ class APAStyle(UnsrtStyle):
     default_label_style = APALabelStyle
 
 register_plugin('pybtex.style.formatting', 'apa', APAStyle)
-
 
 # ======================
 # Bibtex configuration

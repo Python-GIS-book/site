@@ -22,9 +22,7 @@ You might be wondering about why you should even bother learning to program at a
 
 So, why bother? Well, the fields of geoscience and geography are becoming increasingly quantitative. In both fields we are now processing larger datasets, using numerical models, and performing other quantitative tasks that benefit from having some basic programming skills. Even these basic skills ca allow you to do more in exploring, manipulating, and analyzing your data. For example, many software packages used for data visualization or GIS now include the possibility to include your own Python scripts within the programs to extend what they can do.
 
-![Python prompt in the QGIS program](../img/QGIS-Python.png)
-
-**Figure 1.5**. Using the Python console to interact with GIS data in the [QGIS program](https://www.qgis.org/) [^qgis].
+![_**Figure 1.5**. Using the Python console to interact with GIS data in the QGIS program (<https://www.qgis.org/>)_](../img/QGIS-Python.png)
 
 Programming can also be fun! Once you learn the basic syntax you may enjoy finding ways to break complex problems down into simpler pieces, developing strategies for solving programming problems, and texting your solutions. This is part of the reason that children are being introduced to programming ideas in books such as the Hello Ruby series ({cite}`Liukas2015`). Coming up with solutions with simple programs can be exiting and rewarding, and you can test your solutions right away to see whether or not your solution works!
 
@@ -35,9 +33,7 @@ Before we move into introducing programming concepts and the Python language, we
 
 ## What is a computer?
 
-![Simple diagram of a computer](../img/computer-diagram.png)
-
-**Figure 1.6**. Diagram of the essential elements of a computer. Simplified from {cite}`Zelle2017`.
+![_**Figure 1.6**. Diagram of the essential elements of a computer. Simplified from {cite}`Zelle2017`._](../img/computer-diagram.png)
 
 In its simplest form, a *{term}`computer`* takes input from an input device such as a mouse or keyboard, processes that input using the central processing unit (CPU) and memory, and provides output to a device such as the screen. The processing that is done is by the CPU manipulates data, modifying the input prior to being output. The steps for processing could be given in a computer program, which we will define below. An essential aspect of the programs used by a computer is that they are changable, so the instructions used by the computer can be modified to alter the output that is produced. Overall, the computer allows us to take input, modify it into a new/useful form, and output it for our interpretation.
 
@@ -62,19 +58,21 @@ Of course, while computers can be immensely powerful and perform staggering calc
 For example, let's consider asking the computer to calculate pi. In these terms, the computer is not likely to be successful because we have not provided clear instructions about the task. How should it do the calculation? To how many decimal places? We have given only abstract instructions that the computer cannot understand. Of course, if given clear instructions, calculating pi to 1000 digits is something the computer can easily do, as shown below.
 
 ```
-3.1415926535 8979323846 2643383279 5028841971 6939937510 5820974944 5923078164 0628620899
-  8628034825 3421170679 8214808651 3282306647 0938446095 5058223172 5359408128 4811174502
-  8410270193 8521105559 6446229489 5493038196 4428810975 6659334461 2847564823 3786783165
-  2712019091 4564856692 3460348610 4543266482 1339360726 0249141273 7245870066 0631558817
-  4881520920 9628292540 9171536436 7892590360 0113305305 4882046652 1384146951 9415116094
-  3305727036 5759591953 0921861173 8193261179 3105118548 0744623799 6274956735 1885752724
-  8912279381 8301194912 9833673362 4406566430 8602139494 6395224737 1907021798 6094370277
-  0539217176 2931767523 8467481846 7669405132 0005681271 4526356082 7785771342 7577896091
-  7363717872 1468440901 2249534301 4654958537 1050792279 6892589235 4201995611 2129021960
-  8640344181 5981362977 4771309960 5187072113 4999999837 2978049951 0597317328 1609631859
-  5024459455 3469083026 4252230825 3344685035 2619311881 7101000313 7838752886 5875332083
-  8142061717 7669147303 5982534904 2875546873 1159562863 8823537875 9375195778 1857780532
-  1712268066 1300192787 6611195909 2164201989
+3.1415926535 8979323846 2643383279 5028841971 6939937510 5820974944 5923078164
+  0628620899 8628034825 3421170679 8214808651 3282306647 0938446095 5058223172
+  5359408128 4811174502 8410270193 8521105559 6446229489 5493038196 4428810975
+  6659334461 2847564823 3786783165 2712019091 4564856692 3460348610 4543266482
+  1339360726 0249141273 7245870066 0631558817 4881520920 9628292540 9171536436
+  7892590360 0113305305 4882046652 1384146951 9415116094 3305727036 5759591953
+  0921861173 8193261179 3105118548 0744623799 6274956735 1885752724 8912279381
+  8301194912 9833673362 4406566430 8602139494 6395224737 1907021798 6094370277
+  0539217176 2931767523 8467481846 7669405132 0005681271 4526356082 7785771342
+  7577896091 7363717872 1468440901 2249534301 4654958537 1050792279 6892589235
+  4201995611 2129021960 8640344181 5981362977 4771309960 5187072113 4999999837
+  2978049951 0597317328 1609631859 5024459455 3469083026 4252230825 3344685035
+  2619311881 7101000313 7838752886 5875332083 8142061717 7669147303 5982534904
+  2875546873 1159562863 8823537875 9375195778 1857780532 1712268066 1300192787
+  6611195909 2164201989
 ```
 
 But there are practical limitations as well for tasks computers can do well. If problem sizes are simply too large to calculate, the computer will be unable to complete them. The [most powerful supercomputers in the world today](https://www.top500.org/lists/top500/) [^top500] have several million processor cores and the ability to calculate more than 100,000 trillion [floating point operations per second](https://en.wikipedia.org/wiki/FLOPS) [^flops]. Yet even those massive systems have limitiations. Imagine we have a digital elevation model of the Earth (including seafloor bathymetry) with a resolution of 1 micrometer ($1 \times 10^{-6}$ meters). Now let's assume we want to calculate the slope from all points in that model. The total number of surface elevation points we would have would be approximately $5 \times 10^{26}$, and if each slope calculations requires three floating point operations, we have a total of $1.5 \times 10^{27}$ operations. Even on one of the fastest supercomputers in the world, this calculation would take nearly 500,000 years! Of course, this is a bit of a silly example, but it is clear there are computational limits.
@@ -89,9 +87,7 @@ Software is another name for a program.
 
 ## What is a programming language?
 
-![Example programs in different programming languages](../img/programming-languages.png)
-
-**Figure 1.7**. Examples of printing "Hello, world!" in different programming languages.
+![_**Figure 1.7**. Examples of printing "Hello, world!" in different programming languages._](../img/programming-languages.png)
 
 A *{term}`programming language`* is what we use to "talk" to the computer.
 Programming languages comprise a set of exact and unambiguous instructions that the computer understands.
@@ -103,6 +99,5 @@ Python is just one of many programming languages.
 
 [^flops]: <https://en.wikipedia.org/wiki/FLOPS>
 [^open_sci]: <https://en.wikipedia.org/wiki/Open_science>
-[^qgis]: <https://www.qgis.org/>
 [^sci_method]: <https://en.wikipedia.org/wiki/Scientific_method>
 [^top500]: <https://www.top500.org/lists/top500/>

@@ -103,25 +103,18 @@ for variable in collection:
 
 Let's break down the code above to see some essential aspect of `for` loops:
 
-- The `variable` can be any name you like
+- The `variable` can be any name you like.
 - The statement of the `for` loop must end with a `:`
-- The code that should be executed as part of the loop must be indented beneath the `for` loop statement
-
-    - The typical indentation is 4 spaces
-
+- The code that should be executed as part of the loop must be indented beneath the `for` loop statement. The typical indentation is 4 spaces.
 - There is no additional special word needed to end the loop, you simply change the indentation back to normal.
 
-```{hint}
-`for` loops are useful to repeat some part of the code a *definite* number of times.
-```
+In sum, `for` loops are useful to repeat some part of the code a *definite* number of times.
 <!-- #endregion -->
 
 <!-- #region -->
 ### Your daily for loop
 
-![cat's daily routine](../img/2009-11-03-Cats-Eye.gif)
-
-**Figure 1.9**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>.
+![**Figure 1.9**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>.](../img/2009-11-03-Cats-Eye.jpg)
 
 Like many other programming concepts, the idea of looping through actions is something that is already perhaps more familiar to you than you think.
 Consider your actions during a given day.
@@ -143,7 +136,7 @@ Furthermore, by following this kind of list of repeating actions we're able to s
 
 ### for loop variables
 
-Note that the variable used in a `for` loop is just a normal variable and still exists after the loop has completed with the final value given to letter. Let's loop over the list of weather conditions below and print them to the screen. If you use `weather` for the loop variable, what is its value after the `for` loop has completed?
+Note that the variable used in a `for` loop is just a normal variable and still exists after the loop has completed with the final value given to letter. Let's loop over a list of weather conditions and print them to the screen. 
 
 ```python
 weather_conditions = ['rain', 'sleet', 'snow', 'freezing fog', 'sunny', 'cloudy', 'ice pellets']
@@ -154,6 +147,8 @@ for weather in weather_conditions:
     print(weather)
 ```
 
+What is its value of `weather` after the `for` loop has completed?
+
 ```python
 print('After the loop, weather is', weather)
 ```
@@ -161,7 +156,7 @@ print('After the loop, weather is', weather)
 ## For loops using the range function
 
 A loop can be used to iterate over any list of values in Python.
-So far we have considered only lists, but we could also write a loop that performs a calculation a specified number of times by using the `range()` function. Let's consider an example where we use a for loop with `value` as the loop variable and `range(5)` as the collection. What happens when you print `value` at each iteration?
+So far we have considered only lists, but we could also write a loop that performs a calculation a specified number of times by using the `range()` function. Let's consider an example where we use a for loop with `value` as the loop variable and `range(5)` as the collection. Let's see what happens if we print `value` at each iteration.
 
 ```python
 for value in range(5):
@@ -178,7 +173,7 @@ help(range)
 ```
 
 <!-- #region -->
-#### Check your understanding
+**Check your understanding (online)**
 
 The program below will print numbers to the screen using the `range()` function.
 
@@ -194,23 +189,16 @@ Using the documentation that is produced when you run `help(range)`, what values
 5
 8
 ```
-
-You can test your solution in the cell below and select your answer from the poll options at [https://geo-python.github.io/poll/](https://geo-python.github.io/poll/).
 <!-- #endregion -->
 
 ```python
-# Here's one possible solution
-for i in range(2,9,3):
-    print(i)
+# Add your solution here
+
 ```
 
 ## Looping over lists using index values
 
-Since we already know how to find the length of a list using the `len()` function, we can now take advantage of this knowledge to make our `for` loops more flexible. Starting with the list of numbers below, let's use the `range()` function to loop over the list of numbers and add the value of the loop variable `i` to each value. In addition, we can add a few print statements to display the values of `i` and `numbers[i]` within the loop. In the cell below the for loop, you can print the list of numbers again to see the updated values.
-
-```{tip}
-You may want to print `numbers[i]` before and after the addition in the `for` loop to see how the values change.
-```
+Since we already know how to find the length of a list using the `len()` function, we can now take advantage of this knowledge to make our `for` loops more flexible. Let's use the `range()` function to loop over a list of numbers and add the value of the loop variable `i` to each value. In addition, we can add a few print statements to display the values of `i` and `numbers[i]` within the loop. Let's also check the updated values in the list after the loop.
 
 ```python
 numbers = [5, 6, 7, 8]
@@ -229,23 +217,19 @@ for i in range(len(numbers)):
 print(numbers)
 ```
 
-<!-- #region -->
-Let's see what we can observe:
+There are several important things to observe in this `for` loop:
 
-1. You can see that because we are using the `range()` function, the value assigned to the loop variable `i` starts with `0` and increases by `1` each time through the loop. 
-2. We can see the value in the list `numbers` at index `i` each time through the loop, and how that value changes when it is increased by adding `i`.
+1. Because we are using the `range()` function, the value assigned to the loop variable `i` starts with `0` and increases by `1` each time through the loop. 
+2. Value in the list `numbers` at index `i` increases at each iteration. 
 3. The value that changes in the list `numbers` in each iteration through this for loop is the value at index `i`, while the other values are not updated. This occurs because we're assigning a new value at `numbers[i]`.
-4. Note that the values for `numbers[i]` on the right side of the equation is the "old" value. That "old" value is increased by `i` first, and then stored as the updated value `numbers[i]`.
+4. Value of `numbers[i]` on the right side of the equation is the "old" value. That "old" value is increased by `i` first, and then stored as the updated value `numbers[i]`.
 
-
-```{note}
 The variable `i` is commonly used to denote the index variable in loops. Loops can sometimes occur with another loop (referred to as nested loops), in which case other index variables such as `j` or `k` may be used.
-```
-<!-- #endregion -->
 
-### Why use index value to loop over a list?
 
-Good question. First off, if you want to update individual values in a list you're likely going to need to loop that includes the index values. There are functions such as `enumerate()` that can help, but their use can be somewhat confusing for new programmers. Second, in cases where you have multiple lists that are related to one another, it can be handy to use a loop with the index values to be able to access corresponding locations in each list. For this, let's consider an example with the two lists below.
+## Why use index value to loop over a list?
+
+Good question. First off, if you want to update individual values in a list you're likely going to need to loop that includes the index values. There are functions such as `enumerate()` that can help, but their use can be somewhat confusing for new programmers. Second, in cases where you have multiple lists that are related to one another, it can be handy to use a loop with the index values to be able to access corresponding locations in each list. For this, let's consider an example with two lists.
 
 ```python
 cities = ['Helsinki', 'Stockholm', 'Oslo', 'Reykjavik', 'Copenhagen']
@@ -255,23 +239,19 @@ cities = ['Helsinki', 'Stockholm', 'Oslo', 'Reykjavik', 'Copenhagen']
 countries = ['Finland', 'Sweden', 'Norway', 'Iceland', 'Denmark']
 ```
 
-As you can see we have 5 cities and 5 corresponding counties. Can you print out each pair using a single for loop?
+As you can see we have 5 cities and 5 corresponding counties. Let's print out each pair using a single for loop.
 
 ```python
 for i in range(len(cities)):
     print(cities[i], 'is the capital of', countries[i])
 ```
 
-Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week.
-
-```{note}
-In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
-```
+Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week. In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
 
 <!-- #region -->
-#### Check your understanding
+**Check your understanding (online)**
 
-What output would the following program produce?
+What output would the following program produce? Try to think about the loop without running any code.
 
 ```python
 odd_numbers = [1, 3, 5, 7, 9]
@@ -279,14 +259,9 @@ even_numbers = [10, 4, 6, 8, 2]
 for i in range(len(odd_numbers)):
     print(odd_numbers[i] + even_numbers[i])
 ```
-
-Try to think about the loop without running the code and then select your answer from the poll options at [https://geo-python.github.io/poll/](https://geo-python.github.io/poll/).
 <!-- #endregion -->
 
 ```python
-# Here's the solution
-odd_numbers = [1, 3, 5, 7, 9]
-even_numbers = [10, 4, 6, 8, 2]
-for i in range(len(odd_numbers)):
-    print(odd_numbers[i] + even_numbers[i])
+# Add your solution here
+
 ```
