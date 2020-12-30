@@ -3,8 +3,8 @@ Overview of Part I
 
 This part of the book will cover basic programming skills in Python, introduce data analysis with Python, and basic data visualization.
 
-Tentative chapter titles
-------------------------
+**Tentative chapter titles**
+
 
 ..
     .. toctree::

@@ -10,35 +10,23 @@
             "Liukas2015",
             "Zelle2017"
         ],
-        "part1/chapter-01/md/02-python-basics": [
-            "Bostroem2016"
-        ],
-        "part1/chapter-01/md/03-for-loops": [
-            "Bostroem2016"
-        ],
         "part1/chapter-01/md/04-conditional-statements": [
             "Bostroem2016",
             "McKinney2017"
-        ],
-        "part1/chapter-01/md/05-functions": [
-            "Bostroem2016"
         ],
         "part1/chapter-01/nb/01-computers-and-programs": [
             "Liukas2015",
             "Zelle2017"
         ],
-        "part1/chapter-01/nb/02-python-basics": [
-            "Bostroem2016"
-        ],
-        "part1/chapter-01/nb/03-for-loops": [
-            "Bostroem2016"
-        ],
         "part1/chapter-01/nb/04-conditional-statements": [
             "Bostroem2016",
             "McKinney2017"
         ],
-        "part1/chapter-01/nb/05-functions": [
-            "Bostroem2016"
+        "part1/chapter-02/md/00-pandas-basics": [
+            "McKinney2017"
+        ],
+        "part1/chapter-02/nb/00-pandas-basics": [
+            "McKinney2017"
         ]
     }
 }

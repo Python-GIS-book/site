@@ -23,8 +23,8 @@ from collections import Counter
 # -- Project information -----------------------------------------------------
 
 project = 'Introduction to Python for Geographic Data Analysis'
-copyright = '2020, Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
-author = 'Henrikki Tenkanen, Vuokko Heikinheimo, and David Whipp'
+copyright = '2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp'
+author = 'Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp'
 
 
 # -- General configuration ---------------------------------------------------
@@ -74,9 +74,11 @@ html_static_path = ['_static']
 # Hide title in left navbar
 html_title = ''
 
+# Do not execute cells
+jupyter_execute_notebooks = "off"
+
 # -- Options for nbsphinx --
 nbsphinx_allow_errors = True
-
 
 # -- Options for Jupyter-Sphinx --
 # jupyter_sphinx_thebelab_config = {
@@ -109,14 +111,16 @@ latex_documents = [
  ('index',
   'introductiontopythonforgeographicdataanalysis.tex',
   'Introduction to Python for Geographic Data Analysis',
-  'Henrikki Tenkanen, Vuokko Heikinheimo & David Whipp',
+  'Henrikki Tenkanen, Vuokko Heikinheimo and David Whipp',
   'krantz'),
 ]
+
 latex_additional_files = ["krantz/krantz.cls"]
 
-#latex_elements = {
-#'preamble': r'\usepackage{hyperref}',
-#}
+# Latex elements
+latex_elements = {
+    'preamble': r'\usepackage{svg}'
+}
 
 # -----------------------------
 # Customizing citation styling
@@ -243,7 +247,8 @@ register_plugin('pybtex.style.formatting', 'apa', APAStyle)
 # ======================
 
 bibtex_bibfiles = ['part1/chapter-01/chapter-01-references.bib',
-                   'back-matter/back-matter-references.bib']
+                   'back-matter/back-matter-references.bib',
+                   'part1/chapter-02/chapter-02-references.bib']
 
 # Do not use parentheses automatically with citations (you need to add them yourself!)
 bibtex_cite_bracket_left = ''
