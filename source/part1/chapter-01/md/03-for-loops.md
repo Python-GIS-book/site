@@ -262,6 +262,12 @@ for i in range(len(odd_numbers)):
 <!-- #endregion -->
 
 ```python
-# Add your solution here
 
 ```
+
+## Exercises
+
+Add exercises.
+
+
+## Footnotes

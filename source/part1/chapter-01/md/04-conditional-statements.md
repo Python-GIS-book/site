@@ -243,6 +243,11 @@ for temperature in temperatures:
         print(temperature, 'is not hot')
 ```
 
+## Exercises
+
+Add exercises.
+
+
 ## Footnotes
 
 [^swc]: <http://software-carpentry.org>

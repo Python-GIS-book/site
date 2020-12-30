@@ -183,6 +183,11 @@ def kelvins_to_celsius(temp_kelvins):
 Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format is to have the quotation marks on their own separate lines.
 <!-- #endregion -->
 
+## Exercises
+
+Add exercises.
+
+
 ## Footnotes
 
 [^pep8_docstring]: <https://www.python.org/dev/peps/pep-0008/#documentation-strings>

@@ -619,6 +619,11 @@ print(station_names)
 As you can see, the list has been sorted alphabetically using the `list.sort()` method, but there is no screen output when this occurs. Again, if you were to assign that output to `station_names` the list would get sorted, but the contents would then be assigned `None`. As you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighthouse` in the sorted list. This is because alphabetical sorting in Python places capital letters before lowercase letters.
 
 
+## Exercises
+
+Add exercises.
+
+
 ## Footnotes
 
 [^swc]: <http://software-carpentry.org>
