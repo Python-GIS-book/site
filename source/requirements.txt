@@ -5,5 +5,5 @@ matplotlib
 ipython
 jupyter-sphinx
 nbsphinx
-git+https://github.com/pandas-dev/pydata-sphinx-theme.git@master
+pydata-sphinx-theme
 git+https://github.com/mcmtroffaes/sphinxcontrib-bibtex.git@feature/custom-label-brackets
