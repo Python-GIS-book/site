@@ -46,7 +46,8 @@ One of the things we will learn in this part of the book is how to use Python to
 Not that exciting, right? There is an interesting story here, but we need some way to illustrate the power of this data.
 
 
-![_**Figure 1.1**. Global mean temperature anomalies from 1880-2011. Source: <https://www.ncdc.noaa.gov/sotc/global/201113>._](../img/temperature-anomalies-over-time.png)
+![](../img/temperature-anomalies-over-time.png)<br/>
+_**Figure 1.1**. Global mean temperature anomalies from 1880-2011. Source: <https://www.ncdc.noaa.gov/sotc/global/201113>._
 
 One option is to use an *x*-*y* plot of temperature anomalies versus time (Figure 1.1). This example is obviously much better than the raw text data, nicely showing how temperatures have changed with time and how global temperatures have increased significantly since 1970. Now we have taken a clear step toward making the data easier to understand. However, these are global data and we are missing something important about them, their connection to geographical locations.
 
