@@ -14,9 +14,6 @@ dependencies:
   # Writing environment
   - jupyterlab
   - jupytext
-  # Pdf building
-  - nbconvert
-  - nbmerge
   # GIS environment
   - matplotlib
   - geopandas
@@ -32,6 +29,9 @@ dependencies:
   - pip:
     - pydata-sphinx-theme
     - jupyter-book
+    # Pdf building
+    - nbconvert
+    - nbmerge
 
 
 
