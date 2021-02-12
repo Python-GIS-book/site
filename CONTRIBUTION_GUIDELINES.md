@@ -5,6 +5,7 @@
  - [Objectives](#objectives)
  - [Technologies used](#technologies-used)
  - [How to create content?](#pipeline---how-to-create-content)
+ - [Formatting conventions](#formatting-conventions)
  - [Build local version of the docs](#to-build-local-version-of-the-docs)
  - [Upload contents to Github](#to-upload-the-contents-to-github)
  - [Ask for a review by making PR](#ask-for-a-review-by-making-a-pull-request)
@@ -92,6 +93,10 @@ The top-level heading (H1) is reserved for page titles (major section titles).
 Heading levels 2 and 3 are used for internal sections and sub-sections.
 Heading level 4 should be used for "Check your understanding" sub-sections.
 
+**Important**: Make sure that whenever you start a new section (starting with # character), the section
+will be placed inside a new Markdown cell. This is needed because in the book building process, the heading
+levels need to be modified, and the headings are always searched from the first line of a Markdown cell. 
+
 ### Text conventions
 
 Normal text is written without any special formatting.
@@ -104,6 +109,22 @@ print('Yay!')
 ```
 
 More conventions here???
+
+### Figure captions
+
+When you add an image to the notebook, the caption should be inserted as follows:
+
+1. Add the full caption with styling inside the square brackets (as alt-text) - Latex will use this information, such as:
+   - `![_**Figure 1.1**._ pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.](./../img/pandas-structures-annotated.png)`
+
+2. Add the same full caption (with same styling) also as a regular text after the image so that it is visible also in the website.
+
+  - When the book PDF is built, the duplicate caption will be removed.
+  
+In the text, refer to the Figures using their figure numbers (e.g. Figure 1.1). 
+The first part of the figure number refers to the chapter, 
+and the second part to the sequential number (order) of the figure within the given chapter. 
+  
 
 ### Glossary terms
 
@@ -224,32 +245,11 @@ $ sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texli
 
 Python environment for the book is in `ci/py38-book-building.yaml`
 
-### Build commands
+### Building the PDF from the contents
 
-After you have installed the packages, you can build the pdf by:
-
-First generate the latex files:
-```
-# At the project root --> will create directory latex
-$ sphinx-build -b latex source latex
-```
-
-Then build the pdf (with default settings):
-```
-# At the latex directory
-
-# Create first version of the pdf
-$ pdflatex introductiontopythonforgeographicdataanalysis.tex
-
-# Generate the table of contents
-$ makeindex introductiontopythonforgeographicdataanalysis.idx
-
-# Update the pdf accordingly
-$ pdflatex introductiontopythonforgeographicdataanalysis.tex
-```
-
-After these steps, you can check the resulting PDF named `introductiontopythonforgeographicdataanalysis.pdf` 
-that should be in the `latex` -directory.
+There is a [separate project (private)](https://github.com/Python-GIS-book/book-building) that is used to automate the book building using CRC Latex template.
+This repo is only available for authors due to contract with the publisher. If you have a similar book project with CRC,
+you can contact the authors to get help with building the formatted book based on Jupyter notebooks.   
 
 ## Footnotes
 
