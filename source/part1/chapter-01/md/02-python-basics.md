@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.2'
-      jupytext_version: 1.6.0
+      jupytext_version: 1.8.2
   kernelspec:
     display_name: Python 3
     language: python
@@ -414,8 +414,9 @@ OK, that makes sense, but it may take some getting used to...
 As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill (Figure 1.8).
 
 
-![**Figure 1.8**. Bill, the vending machine.](../img/bill-the-vending-machine.png)
+![_**Figure 1.8**. Bill, the vending machine._](../img/bill-the-vending-machine.png)
 
+_**Figure 1.8**. Bill, the vending machine._
 
 As you can see, Bill is a vending machine that contains 6 items. Like Python lists, the list of items available from Bill starts at 0 and increases in increments of 1.
 
