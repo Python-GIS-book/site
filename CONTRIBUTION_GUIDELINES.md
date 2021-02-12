@@ -111,10 +111,10 @@ More conventions here???
 
 ### Figure captions
 
-When you add an image to the notebook, the caption should be placed as follows:
+When you add an image to the notebook, the caption should be inserted as follows:
 
-1. Add the full caption with styling inside the square brackets (as alt-text) - Latex will read this:
-   - `![_**Figure X**._ pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.](./../img/pandas-structures-annotated.png)`
+1. Add the full caption with styling inside the square brackets (as alt-text) - Latex will use this information, such as:
+   - `![_**Figure 1.1**._ pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.](./../img/pandas-structures-annotated.png)`
 
 2. Add the same full caption (with same styling) also as a regular text after the image so that it is visible also in the website.
 
