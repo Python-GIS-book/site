@@ -245,32 +245,11 @@ $ sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texli
 
 Python environment for the book is in `ci/py38-book-building.yaml`
 
-### Build commands
+### Building the PDF from the contents
 
-After you have installed the packages, you can build the pdf by:
-
-First generate the latex files:
-```
-# At the project root --> will create directory latex
-$ sphinx-build -b latex source latex
-```
-
-Then build the pdf (with default settings):
-```
-# At the latex directory
-
-# Create first version of the pdf
-$ pdflatex introductiontopythonforgeographicdataanalysis.tex
-
-# Generate the table of contents
-$ makeindex introductiontopythonforgeographicdataanalysis.idx
-
-# Update the pdf accordingly
-$ pdflatex introductiontopythonforgeographicdataanalysis.tex
-```
-
-After these steps, you can check the resulting PDF named `introductiontopythonforgeographicdataanalysis.pdf` 
-that should be in the `latex` -directory.
+There is a [separate project (private)](https://github.com/Python-GIS-book/book-building) that is used to automate the book building using CRC Latex template.
+This repo is only available for authors due to contract with the publisher. If you have a similar book project with CRC,
+you can contact the authors to get help with building the formatted book based on Jupyter notebooks.   
 
 ## Footnotes
 
