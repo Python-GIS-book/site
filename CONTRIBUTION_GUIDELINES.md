@@ -5,6 +5,7 @@
  - [Objectives](#objectives)
  - [Technologies used](#technologies-used)
  - [How to create content?](#pipeline---how-to-create-content)
+ - [Formatting conventions](#formatting-conventions)
  - [Build local version of the docs](#to-build-local-version-of-the-docs)
  - [Upload contents to Github](#to-upload-the-contents-to-github)
  - [Ask for a review by making PR](#ask-for-a-review-by-making-a-pull-request)
