@@ -92,6 +92,10 @@ The top-level heading (H1) is reserved for page titles (major section titles).
 Heading levels 2 and 3 are used for internal sections and sub-sections.
 Heading level 4 should be used for "Check your understanding" sub-sections.
 
+**Important**: Make sure that whenever you start a new section (starting with # character), the section
+will be placed inside a new Markdown cell. This is needed because in the book building process, the heading
+levels need to be modified, and the headings are always searched from the first line of a Markdown cell. 
+
 ### Text conventions
 
 Normal text is written without any special formatting.
@@ -104,6 +108,22 @@ print('Yay!')
 ```
 
 More conventions here???
+
+### Figure captions
+
+When you add an image to the notebook, the caption should be placed as follows:
+
+1. Add the full caption with styling inside the square brackets (as alt-text) - Latex will read this:
+   - `![_**Figure X**._ pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.](./../img/pandas-structures-annotated.png)`
+
+2. Add the same full caption (with same styling) also as a regular text after the image so that it is visible also in the website.
+
+  - When the book PDF is built, the duplicate caption will be removed.
+  
+In the text, refer to the Figures using their figure numbers (e.g. Figure 1.1). 
+The first part of the figure number refers to the chapter, 
+and the second part to the sequential number (order) of the figure within the given chapter. 
+  
 
 ### Glossary terms
 
