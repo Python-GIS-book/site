@@ -144,7 +144,7 @@ It is also possible to have different text listed when linking to a glossary ite
 
 where the link to the glossary entry "item" has the displayed text "My glossary item".
 
-### References
+### Footnotes
 
 URLs should use footnotes such as[^url1].
 Footnotes are formatted as `[^footnote]` when placed in the text.
@@ -216,6 +216,8 @@ The basic workflow:
     
  2. Add a reference to the markdown cell with ```{cite}`myReference2020` ```
     - This name should match with the entry name that you added to `references.bib`
+    - **Note**: You need to add parentheses for references that should be in parentheses in the text. For example, (```{cite}`McKinney2017` ```) to produce (McKinney, 2017) as the formatted citation in the text.
+    - Similarly, references that would normally be in the format McKinney (2017) or McKinney, 2017 should be cited without parentheses.
 
  3. When you want to add the bibliography (see also note below), you should add ```{bibliography} path/to/references.bib ``` 
  to the location where you want to add the reference list (e.g. at the end of each Chapter).
