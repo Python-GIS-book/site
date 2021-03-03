@@ -1,7 +1,7 @@
 Getting started
 ===============
 
-Here we introduce some essential background information needed to get started programming in Python.
+Here we introduce the essential background information needed to get started programming in Python.
 
 .. toctree::
     :maxdepth: 1
