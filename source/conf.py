@@ -247,8 +247,9 @@ register_plugin('pybtex.style.formatting', 'apa', APAStyle)
 # ======================
 
 bibtex_bibfiles = ['part1/chapter-01/chapter-01-references.bib',
-                   'back-matter/back-matter-references.bib',
-                   'part1/chapter-02/chapter-02-references.bib']
+                   'part1/chapter-02/chapter-02-references.bib',
+                   'part1/chapter-03/chapter-03-references.bib',
+                   'back-matter/back-matter-references.bib']
 
 # Do not use parentheses automatically with citations (you need to add them yourself!)
 bibtex_cite_bracket_left = ''
