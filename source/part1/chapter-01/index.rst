@@ -9,4 +9,8 @@ Here we introduce the essential background information needed to get started pro
     
     nb/00-motivation.ipynb
     nb/01-computers-and-programs.ipynb
-    nb/07-references.ipynb
+    nb/02-why-python.ipynb
+    nb/03-jupyter.ipynb
+    nb/04-coding-with-an-ide.ipynb
+    nb/05-installation.ipynb
+    nb/06-references.ipynb
