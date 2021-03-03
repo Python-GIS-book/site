@@ -14,6 +14,6 @@ jupyter:
 
 # References
 
-```{bibliography} ../chapter-02-references.bib
+```{bibliography} ../chapter-03-references.bib
 :style: apa
 ```
