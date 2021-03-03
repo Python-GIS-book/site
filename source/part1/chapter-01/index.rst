@@ -9,3 +9,4 @@ Here we introduce the essential background information needed to get started pro
     
     nb/00-motivation.ipynb
     nb/01-computers-and-programs.ipynb
+    nb/07-references.ipynb
