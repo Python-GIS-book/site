@@ -103,6 +103,7 @@ The book consists of 4 parts:
    part1/chapter-01/index
    part1/chapter-02/index
    part1/chapter-03/index
+   part1/chapter-04/index
 
    .. part1/index
 
