@@ -1,5 +1,5 @@
 # References
 
-```{bibliography} chapter-01-references.bib
+```{bibliography} chapter-02-references.bib
 :style: apa
 ```
