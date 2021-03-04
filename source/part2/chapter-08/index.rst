@@ -1,5 +1,5 @@
-Chapter 8: Using online geographic data sources
-===============================================
+Chapter 7: Geographic data visualization
+========================================
 
 This section is under construction.
 

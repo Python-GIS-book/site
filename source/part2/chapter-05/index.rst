@@ -1,5 +1,5 @@
-Chapter 5: Processing vector data
-=================================
+Chapter 4: Essentials of geographic data
+========================================
 
 This section is under construction.
 

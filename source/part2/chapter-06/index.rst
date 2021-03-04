@@ -1,4 +1,4 @@
-Chapter 6: Processing raster data
+Chapter 5: Processing vector data
 =================================
 
 This section is under construction.

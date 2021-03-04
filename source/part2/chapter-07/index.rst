@@ -1,5 +1,5 @@
-Chapter 7: Geographic data visualization
-========================================
+Chapter 6: Processing raster data
+=================================
 
 This section is under construction.
 
