@@ -1,5 +1,5 @@
-Chapter 4: Essentials of geographic data
-========================================
+Chapter 8: Using online geographic data sources
+===============================================
 
 This section is under construction.
 
