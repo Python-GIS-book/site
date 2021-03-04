@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.2'
-      jupytext_version: 1.6.0
+      jupytext_version: 1.8.2
   kernelspec:
     display_name: Python 3
     language: python
@@ -285,7 +285,7 @@ But we did also have to make a few small changes to generate this plot:
 
 1. We need to use a DataFrame as the data source for the plot, rather than a pandas Series. Thus, `data['TEMP'].plot()` will not work with pandas-bokeh.
 2. The x- and y-axis labels are specified using the `xlabel` and `ylabel` parameters, rather than using `ax.set_xlabel()` or `ax.set_ylabel()`.
-3. The line color and plotting of points are not specified using the `style` keyword. Instead, the line colors could be specified using the `color` or `colormap` parameters. Plotting of the points is enabled using the `plot_data_points` parameter (see below). More information about formatting the lines can be found on the [pandas-bokeh website](https://github.com/PatrikHlobil/Pandas-Bokeh) [^pandas-bokeh].
+3. The line color and plotting of points are not specified using the `style` keyword. Instead, the line colors could be specified using the `color` or `colormap` parameters. Plotting of the points is enabled using the `plot_data_points` parameter (see below). More information about formatting the lines can be found on the [pandas-bokeh website](https://github.com/PatrikHlobil/Pandas-Bokeh) [^pandas_bokeh].
 4. We have not included a text label on the plot, as it may not be possible to do so with pandas-bokeh.
 
 But otherwise, we are able to produce these cool interactive plots with minimal effort, and directly within our notebooks!
