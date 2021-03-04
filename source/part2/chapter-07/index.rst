@@ -1,4 +1,4 @@
-Chapter 6: Processing raster data
+Chapter 6: Raster data processing
 =================================
 
 This section is under construction.
@@ -8,5 +8,5 @@ This section is under construction.
         :maxdepth: 1
         :caption: Sections:
 
-        a-taste-of-python.ipynb
+        nb/01-reading-raster.ipynb
 
