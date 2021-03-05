@@ -14,4 +14,16 @@ jupyter:
 
 # IDEs and other coding environments
 
-Content to be added.
+
+## The Python interpreter
+
+![_**Figure 1.X**. The IPython console, an enhanced Python interpreter._](../img/python-console.png)
+
+_**Figure 1.X**. The IPython console, an enhanced Python interpreter._
+
+
+## Integrated development environments (IDEs)
+
+![_**Figure 1.X**. The PyCharm IDE._](../img/pycharm-ide.png)
+
+_**Figure 1.X**. The PyCharm IDE._
