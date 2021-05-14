@@ -21,18 +21,19 @@ In the sections that follow, we provide instructions for the installation of the
 
 ## Which Python version to install?
 
-This book assumes you are using **Python 3**, so for all operating systems we recommend you install Miniconda based on Python 3. At the time of writing of this book, Python 3.8 is the Python version that is recommended (e.g., Figure 1.X), however future versions of Python 3.X should also be suitable. Importantly, the coding examples we present will not work with Python 2.X, so be careful to install the correct version of Miniconda!
+This book assumes you are using **Python 3**, so for all operating systems we recommend you install Miniconda based on Python 3. At the time of writing of this book, Python 3.8 is the Python version that is recommended (e.g., Figure 1.12), however future versions of Python 3.X should also be suitable. Importantly, the coding examples we present will not work with Python 2.X, so be careful to install the correct version of Miniconda!
 
 
 ## Windows
+
 
 ### Installing Miniconda
 
 To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.
 
-![_**Figure 1.X**. Miniconda versions available for Windows.](../img/miniconda-windows.png)
+![_**Figure 1.12**. Miniconda versions available for Windows.](../img/miniconda-windows.png)
 
-_**Figure 1.X**. Miniconda versions available for Windows._
+_**Figure 1.12**. Miniconda versions available for Windows._
 
 Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.
 
@@ -42,6 +43,7 @@ Once you have downloaded the installer, double click on the installer file to in
 After the installation has completed you can test that the `conda` package manager works by opening the Anaconda Prompt from the Start menu and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.9.0`) then everything is working correctly.
 
 You can find some additional tips on installing Miniconda for Windows on the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html).
+
 
 ### Setting up your Python environment
 
@@ -68,13 +70,14 @@ There are three steps to install the software libraries needed in this book.
 
 ## macOS
 
+
 ### Installing Miniconda
 
-We recommend downloading the version of Miniconda that offers installation using a graphical installer (e.g., `Miniconda MacOSX 64-bit pkg`), and make sure you download the Python 3 package.
+We recommend downloading the version of Miniconda that offers installation using a graphical installer (e.g., `Miniconda MacOSX 64-bit pkg`), and make sure you download the Python 3 package (Figure 1.13).
 
-![_**Figure 1.X**. Miniconda versions available for macOS.](../img/miniconda-macos.png)
+![_**Figure 1.13**. Miniconda versions available for macOS.](../img/miniconda-macos.png)
 
-_**Figure 1.X**. Miniconda versions available for macOS._
+_**Figure 1.13**. Miniconda versions available for macOS._
 
 Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.
 
@@ -84,6 +87,7 @@ Once you have downloaded the installer, double click on the installer file to in
 After the installation has completed you can test that the `conda` package manager works by opening Terminal or the Anaconda Prompt and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.9.0`) then everything is working correctly.
 
 In case you have any problems with the Miniconda installation, you can find some installation tips on the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html).
+
 
 ### Setting up your Python environment
 
@@ -110,13 +114,14 @@ There are three steps to install the software libraries needed in this book.
 
 ## Linux
 
+
 ### Installing Miniconda
 
-Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html). Be sure you download the Python 3 package.
+Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html) (Figure 1.14). Be sure you download the Python 3 package.
 
-![_**Figure 1.X**. Miniconda versions available for Linux.](../img/miniconda-linux.png)
+![_**Figure 1.14**. Miniconda versions available for Linux.](../img/miniconda-linux.png)
 
-_**Figure 1.X**. Miniconda versions available for Linux._
+_**Figure 1.14**. Miniconda versions available for Linux._
 
 Once you have downloaded the installer, you can open a terminal window and type a command to start the installation. You should use the default installer options, but be aware that the command you run will differ depending on the installation type.
 
@@ -139,6 +144,7 @@ Once you have downloaded the installer, you can open a terminal window and type 
 After the installation has completed you can test that the `conda` package manager works by opening a terminal and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.9.0`) then everything is working correctly.
 
 In case you have any problems with the Miniconda installation, you can find some installation tips on the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html).
+
 
 ### Setting up your Python environment
 
