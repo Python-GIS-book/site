@@ -1,27 +1,22 @@
-Chapter 5: Vector data processing
+Chapter 6: Raster data processing
 =================================
 
 **This chapter is under construction.**
 
 Sub-sections:
-- Intro Geographic objects in Python
-- Introduction to spatial data analysis with geopandas
-- Reading and writing vector data (Data I/O)
-- Coordinate reference systems
-- Analyzing spatial relationships
-- Spatial queries and selections
-- Neighborhood analysis - Spatial weights (linkage to Rey et al. 2020)
-- Improving performance - Spatial index
-- Geometric data conversions – from form to another
-- Dissolving and merging geometries
-- Geocoding (addresses <-> points)
-- Interpolation (e.g. IDW)
-- Tesselation
-- Overlay analysis
+- Introduction to raster processing 
+- Reading and writing raster data (Data I/O) 
+- Reprojecting raster data 
+- Mosaicing 
+- Raster resampling 
+- Map algebra – Doing calculations with raster data 
+- Raster to Polygon - Polygon to raster 
+- Masking / clipping 
+
 ..
     .. toctree::
         :maxdepth: 1
         :caption: Sections:
 
-        nb/*.ipynb
+        nb/01-reading-raster.ipynb
 

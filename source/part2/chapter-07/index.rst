@@ -1,12 +1,18 @@
-Chapter 6: Raster data processing
-=================================
+Chapter 7: Geographic data visualization
+========================================
 
-This section is under construction.
+**This chapter is under construction.**
+
+- Introduction to geographic visualization 
+- Static visualizations 
+- Interactive visualizations 
+- Dashboards (probably out of scope) 
+- Selecting colors and color maps 
 
 ..
     .. toctree::
         :maxdepth: 1
         :caption: Sections:
 
-        nb/01-reading-raster.ipynb
+        nb/*.ipynb
 
