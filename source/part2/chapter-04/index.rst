@@ -12,6 +12,7 @@ How do we represent geographic features such as roads and buildings or lakes and
 This chapter introduces you to the basic concepts and approaches related to Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book. 
 
 *Topics to cover*:
+
 - Spatial data model
 - Coordinate reference systems
 - Geometric operations
