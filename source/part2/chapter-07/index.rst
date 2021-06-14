@@ -14,5 +14,6 @@ Chapter 7: Geographic data visualization
         :maxdepth: 1
         :caption: Sections:
 
-        nb/*.ipynb
+        nb/01-static-maps.ipynb
+        nb/02-interactive-maps.ipynb
 
