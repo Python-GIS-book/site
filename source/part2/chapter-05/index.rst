@@ -1,6 +1,8 @@
 Chapter 5: Vector data processing
 =================================
 
+Here we introduce basics of vector data processing.
+
 **This chapter is under construction.**
 
 Sub-sections:
@@ -23,5 +25,8 @@ Sub-sections:
         :maxdepth: 1
         :caption: Sections:
 
-        nb/*.ipynb
+        nb/00-geometric-objects.ipynb
+        nb/01-geopandas-basics.ipynb
+        nb/02-data-io.ipynb
+        nb/03-projections.ipynb
 

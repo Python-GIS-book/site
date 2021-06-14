@@ -15,7 +15,7 @@ jupyter:
 <!-- #region -->
 # Introduction to Geopandas
 
-In this lesson, we will cover basics steps needed for interacting with spatial data in Python using geopandas:
+Here we cover basics steps needed for interacting with spatial data in Python using the geopandas (http://geopandas.org/) library:
 
 - Managing filepaths
 - Reading spatial data from file 
@@ -23,8 +23,7 @@ In this lesson, we will cover basics steps needed for interacting with spatial d
 - Writing spatial data to file
 - Grouping and splitting spatial data into multiple layers
 
-
-Geopandas (http://geopandas.org/) makes it possible to work with geospatial data in Python in a relatively easy way. Geopandas combines the capabilities of the data analysis library [pandas](https://pandas.pydata.org/pandas-docs/stable/) with other packages like [shapely](https://shapely.readthedocs.io/en/stable/manual.html) and [fiona](https://fiona.readthedocs.io/en/latest/manual.html) for managing spatial data. 
+Geopandas makes it possible to work with geospatial data in Python in a relatively easy way. Geopandas combines the capabilities of the data analysis library [pandas](https://pandas.pydata.org/pandas-docs/stable/) with other packages like [shapely](https://shapely.readthedocs.io/en/stable/manual.html) and [fiona](https://fiona.readthedocs.io/en/latest/manual.html) for managing spatial data. 
 
 The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas!  If you need to refresh your memory about pandas, check out week 5 and 6 lesson materials from the [Geo-Python website](geo-python.github.io). 
 
