@@ -256,7 +256,7 @@ my_bracket_style = BracketStyle(
 #class MyReferenceStyle(AuthorYearReferenceStyle):
 
 @dataclasses.dataclass
-class MyReferenceStyle(APAStyle):
+class MyReferenceStyle(AuthorYearReferenceStyle):
     bracket_parenthetical: BracketStyle = my_bracket_style
     bracket_textual: BracketStyle = my_bracket_style
     bracket_author: BracketStyle = my_bracket_style
@@ -279,7 +279,4 @@ bibtex_bibfiles = ['part1/chapter-01/chapter-01-references.bib',
                    'part1/chapter-03/chapter-03-references.bib',
                    'back-matter/back-matter-references.bib']
 
-# Do not use parentheses automatically with citations (you need to add them yourself!)
-#bibtex_cite_bracket_left = ''
-#bibtex_cite_bracket_right = ''
 bibtex_reference_style = "author_year_round"
