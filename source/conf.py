@@ -259,8 +259,8 @@ pybtex.plugin.register_plugin('pybtex.style.formatting', 'apa', APAStyle)
 # -----------------------------------
 
 my_bracket_style = BracketStyle(
-    left='(',
-    right=')',
+    left='',
+    right='',
 )
 
 @dataclasses.dataclass
@@ -273,10 +273,10 @@ class MyReferenceStyle(AuthorYearReferenceStyle):
 
 # Register the changes
 sphinxcontrib.bibtex.plugin.register_plugin(
-    'sphinxcontrib.bibtex.style.referencing', 'author_year_round', MyReferenceStyle)
+    'sphinxcontrib.bibtex.style.referencing', 'author_year_no_brackets', MyReferenceStyle)
 
 # Style which will be applied when citing (as part of the text)
-bibtex_reference_style = "author_year_round"
+bibtex_reference_style = "author_year_no_brackets"
 
 # Files containing the bibliography info
 bibtex_bibfiles = ['part1/chapter-01/chapter-01-references.bib',
