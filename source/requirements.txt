@@ -6,4 +6,4 @@ ipython
 jupyter-sphinx
 nbsphinx
 pydata-sphinx-theme
-git+https://github.com/mcmtroffaes/sphinxcontrib-bibtex.git@feature/custom-label-brackets
+sphinxcontrib-bibtex
