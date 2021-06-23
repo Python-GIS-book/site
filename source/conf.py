@@ -20,6 +20,13 @@ from pybtex.style.labels import BaseLabelStyle
 from pybtex.plugin import register_plugin
 from collections import Counter
 
+import dataclasses
+import sphinxcontrib.bibtex.plugin
+
+from sphinxcontrib.bibtex.style.referencing import BracketStyle
+from sphinxcontrib.bibtex.style.referencing.author_year \
+    import AuthorYearReferenceStyle
+
 # -- Project information -----------------------------------------------------
 
 project = 'Introduction to Python for Geographic Data Analysis'
@@ -240,7 +247,28 @@ class APAStyle(UnsrtStyle):
 
     default_label_style = APALabelStyle
 
-register_plugin('pybtex.style.formatting', 'apa', APAStyle)
+my_bracket_style = BracketStyle(
+    left='(',
+    right=')',
+)
+
+
+@dataclasses.dataclass
+#class MyReferenceStyle(AuthorYearReferenceStyle):
+class MyReferenceStyle(APAStyle):
+    bracket_parenthetical: BracketStyle = my_bracket_style
+    bracket_textual: BracketStyle = my_bracket_style
+    bracket_author: BracketStyle = my_bracket_style
+    bracket_label: BracketStyle = my_bracket_style
+    bracket_year: BracketStyle = my_bracket_style
+
+
+sphinxcontrib.bibtex.plugin.register_plugin(
+    'sphinxcontrib.bibtex.style.referencing',
+    'author_year_round', MyReferenceStyle)
+
+
+#register_plugin('pybtex.style.formatting', 'apa', APAStyle)
 
 # ======================
 # Bibtex configuration
