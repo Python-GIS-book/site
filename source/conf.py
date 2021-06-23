@@ -253,15 +253,15 @@ my_bracket_style = BracketStyle(
 )
 
 
-@dataclasses.dataclass
 #class MyReferenceStyle(AuthorYearReferenceStyle):
+
+@dataclasses.dataclass
 class MyReferenceStyle(APAStyle):
     bracket_parenthetical: BracketStyle = my_bracket_style
     bracket_textual: BracketStyle = my_bracket_style
     bracket_author: BracketStyle = my_bracket_style
     bracket_label: BracketStyle = my_bracket_style
     bracket_year: BracketStyle = my_bracket_style
-
 
 sphinxcontrib.bibtex.plugin.register_plugin(
     'sphinxcontrib.bibtex.style.referencing',
