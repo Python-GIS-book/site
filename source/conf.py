@@ -129,9 +129,13 @@ latex_elements = {
     'preamble': r'\usepackage{svg}'
 }
 
-# -----------------------------
-# Customizing citation styling
-# -----------------------------
+# ======================
+# Bibtex configuration
+# ======================
+
+# ---------------------------------------
+# Customizing reference list style (APA)
+# ---------------------------------------
 # Ref: https://github.com/mcmtroffaes/sphinxcontrib-bibtex/issues/201
 
 class APALabelStyle(BaseLabelStyle):
@@ -244,16 +248,20 @@ class APALabelStyle(BaseLabelStyle):
 
 
 class APAStyle(UnsrtStyle):
-
     default_label_style = APALabelStyle
+
+# Register the plugin that controls how the Reference list will look like
+pybtex.plugin.register_plugin('pybtex.style.formatting', 'apa', APAStyle)
+
+# -----------------------------------
+# Customize the citation formatting:
+# Use parentheses when citing
+# -----------------------------------
 
 my_bracket_style = BracketStyle(
     left='(',
     right=')',
 )
-
-
-#class MyReferenceStyle(AuthorYearReferenceStyle):
 
 @dataclasses.dataclass
 class MyReferenceStyle(AuthorYearReferenceStyle):
@@ -263,17 +271,16 @@ class MyReferenceStyle(AuthorYearReferenceStyle):
     bracket_label: BracketStyle = my_bracket_style
     bracket_year: BracketStyle = my_bracket_style
 
+# Register the changes
 sphinxcontrib.bibtex.plugin.register_plugin(
     'sphinxcontrib.bibtex.style.referencing', 'author_year_round', MyReferenceStyle)
-pybtex.plugin.register_plugin('pybtex.style.formatting', 'apa', APAStyle)
 
-# ======================
-# Bibtex configuration
-# ======================
+# Style which will be applied when citing (as part of the text)
+bibtex_reference_style = "author_year_round"
 
+# Files containing the bibliography info
 bibtex_bibfiles = ['part1/chapter-01/chapter-01-references.bib',
                    'part1/chapter-02/chapter-02-references.bib',
                    'part1/chapter-03/chapter-03-references.bib',
                    'back-matter/back-matter-references.bib']
 
-bibtex_reference_style = "author_year_round"
