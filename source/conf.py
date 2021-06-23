@@ -17,7 +17,7 @@
 # Pybtex related imports for handling the reference styles
 from pybtex.style.formatting.unsrt import Style as UnsrtStyle
 from pybtex.style.labels import BaseLabelStyle
-from pybtex.plugin import register_plugin
+import pybtex
 from collections import Counter
 
 import dataclasses
@@ -265,9 +265,7 @@ class MyReferenceStyle(AuthorYearReferenceStyle):
 
 sphinxcontrib.bibtex.plugin.register_plugin(
     'sphinxcontrib.bibtex.style.referencing', 'author_year_round', MyReferenceStyle)
-
-
-#register_plugin('pybtex.style.formatting', 'apa', APAStyle)
+pybtex.plugin.register_plugin('pybtex.style.formatting', 'apa', APAStyle)
 
 # ======================
 # Bibtex configuration
