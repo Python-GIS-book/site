@@ -254,4 +254,4 @@ bibtex_bibfiles = ['part1/chapter-01/chapter-01-references.bib',
 # Do not use parentheses automatically with citations (you need to add them yourself!)
 #bibtex_cite_bracket_left = ''
 #bibtex_cite_bracket_right = ''
-bibtex_reference_style = "author_year"
+bibtex_reference_style = "author_year_round"
