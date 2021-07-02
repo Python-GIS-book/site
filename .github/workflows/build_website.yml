@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - GA_building
 jobs:
   build-html-and-deploy:
     runs-on: ubuntu-latest
@@ -20,14 +21,14 @@ jobs:
           auto-activate-base: false
           miniconda-version: "latest"
           python-version: 3.8
-          environment-file: ci/py38-book-building.yaml
-          activate-environment: python-gis-book
+          environment-file: ci/py38-build-website.yaml
+          activate-environment: build-web-book
 
       - name: Build HTML
         shell: bash -l {0}
         continue-on-error: false
         run: |
-          make html
+          make book
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
