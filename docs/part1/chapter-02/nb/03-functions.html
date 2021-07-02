@@ -1,0 +1,740 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Functions</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Writing script files" href="04-writing-scripts.html" />
+    <link rel="prev" title="Conditional statements" href="02-conditional-statements.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Part I - Python essentials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-01/index.html">
+   Getting started
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/00-motivation.html">
+     Motivation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">
+     Computers and programs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/02-why-python.html">
+     Why Python?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/03-jupyter.html">
+     Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/04-coding-with-an-ide.html">
+     Other coding environments
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+     Installation and setup
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../index.html">
+   Basic programming concepts
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="00-python-basics.html">
+     Basic elements of Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01-for-loops.html">
+     for loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02-conditional-statements.html">
+     Conditional statements
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04-writing-scripts.html">
+     Writing script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05-modules.html">
+     Loading and using modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06-exercises.html">
+     Exercises
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-03/index.html">
+   Introduction to data analysis with Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">
+     Getting started with pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/01-data-manipulation.html">
+     Common tabular operations in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/02-data-analysis.html">
+     Data wrangling, grouping and aggregation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html">
+     Working with temporal data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/04-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapter-04/index.html">
+   Introduction to data visualization
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Part II - Using Python with GIS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part2/index.html">
+   Introduction to GIS in Python
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Part III - Case studies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part3/index.html">
+   Geographic data analysis applications
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Back matter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../back-matter/index.html">
+   Back matter
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/acknowledgements.html">
+     Acknowledgements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+     Glossary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../authors.html">
+   About the authors
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/index.html">
+   Overview
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-02/nb/03-functions.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        
+        
+        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-02/nb/03-functions.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Python-GIS-book/site/master/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-02/nb/03-functions.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-function">
+   What is a function?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#anatomy-of-a-function">
+   Anatomy of a function
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#our-first-function">
+     Our first function
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calling-functions">
+   Calling functions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-our-new-function">
+     Using our new function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#let-s-make-another-function">
+     Let’s make another function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-our-second-function">
+     Using our second function
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-your-understanding">
+       Check your understanding
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions-within-a-function">
+     Functions within a function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-our-combined-functions">
+     Using our combined functions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#documenting-functions-with-docstrings">
+   Documenting functions with docstrings
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
+<p>In this lesson we introduce functions as a way of making blocks of code for a specific task that are easy to use and re-use in your programs.</p>
+<div class="section" id="what-is-a-function">
+<h2>What is a function?<a class="headerlink" href="#what-is-a-function" title="Permalink to this headline">¶</a></h2>
+<p>A <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Function"><span class="xref std std-term">function</span></a></em> is a block of organized, reusable code that can make your programs more effective, easier to read, and simple to manage. You can think functions as little self-contained programs that can perform a specific task that you can use repeatedly in your code. One of the basic principles in good programming is “do not to repeat yourself”. In other words, you should avoid having duplicate lines of code in your scripts. Functions are a good way to avoid such situations and they can save you a lot of time and effort as you don’t need to tell the computer repeatedly what to do every time it does a common task, such as converting temperatures from Fahrenheit to Celsius. During the course we have already used some functions such as the <code class="docutils literal notranslate"><span class="pre">print()</span></code> command which is actually a built-in function in Python.</p>
+</div>
+<div class="section" id="anatomy-of-a-function">
+<h2>Anatomy of a function<a class="headerlink" href="#anatomy-of-a-function" title="Permalink to this headline">¶</a></h2>
+<p>Let’s consider the task from the first lesson when we converted temperatures from Celsius to Fahrenheit.
+Such an operation is a fairly common task when dealing with temperature data.
+Thus we might need to repeat such calculations quite often when analysing or comparing weather or climate data between the US and Europe, for example.</p>
+<div class="section" id="our-first-function">
+<h3>Our first function<a class="headerlink" href="#our-first-function" title="Permalink to this headline">¶</a></h3>
+<p>Let’s define our first function called <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr</span></code>. Figure 1.10 explains the main elements of a function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">celsius_to_fahr</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">9</span><span class="o">/</span><span class="mi">5</span> <span class="o">*</span> <span class="n">temp</span> <span class="o">+</span> <span class="mi">32</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><img alt="Figure 1.10 An example function with annotation of its important elements." src="../../../_images/Function_anatomy-400.png" /></p>
+<p>The function definition opens with the keyword <code class="docutils literal notranslate"><span class="pre">def</span></code> followed by the name of the function and a list of parameter names in parentheses.
+The body of the function — the statements that are executed when it runs — is indented below the definition line.</p>
+<p>When we call the function, the values we pass to it are assigned to the corresponding parameter variables so that we can use them inside the function (e.g., the variable <code class="docutils literal notranslate"><span class="pre">temp</span></code> in this function example).
+Inside the function, we use a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement to define the value that should be given back when the function is used, or called.</p>
+</div>
+</div>
+<div class="section" id="calling-functions">
+<h2>Calling functions<a class="headerlink" href="#calling-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-our-new-function">
+<h3>Using our new function<a class="headerlink" href="#using-our-new-function" title="Permalink to this headline">¶</a></h3>
+<p>Now let’s try using our function.
+Calling our self-defined function is no different from calling any other function such as <code class="docutils literal notranslate"><span class="pre">print()</span></code>.
+You need to call it with its name and provide your value(s) as the required parameter(s) inside the parentheses.
+Here, we can define a variable <code class="docutils literal notranslate"><span class="pre">freezing_point</span></code> that is the temperature in degrees Fahrenheit we get when using our function with the temperature 0°C (the temperature at which water freezes). We can then print that value to confirm. We should get a temperature of 32°F.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">freezing_point</span> <span class="o">=</span>  <span class="n">celsius_to_fahr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The freezing point of water in Fahrenheit is:&#39;</span><span class="p">,</span> <span class="n">freezing_point</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The freezing point of water in Fahrenheit is: 32.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can do the same thing with the boiling point of water in degrees Celsius (100°C). Just like with other functions, we can use our new function directly within something like the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function to print out the boiling point of water in degrees Fahrenheit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The boiling point of water in Fahrenheit is:&#39;</span><span class="p">,</span> <span class="n">celsius_to_fahr</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The boiling point of water in Fahrenheit is: 212.0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="let-s-make-another-function">
+<h3>Let’s make another function<a class="headerlink" href="#let-s-make-another-function" title="Permalink to this headline">¶</a></h3>
+<p>Now that we know how to create a function to convert Celsius to Fahrenheit, let’s create another function called <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius</span></code>. We can define this just like we did with our <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> function, noting that the Celsius temperature is just the temperature in Kelvins minus 273.15. Just to avoid confusion this time, let’s call the temperature variable used in the function <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="using-our-second-function">
+<h3>Using our second function<a class="headerlink" href="#using-our-second-function" title="Permalink to this headline">¶</a></h3>
+<p>Let’s use it in the same way as the earlier one by defining a new variable <code class="docutils literal notranslate"><span class="pre">absolute_zero</span></code> that is the Celsius temperature of 0 Kelvins. Note that we can also use the parameter name <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code> when calling the function to explicitly state which variable values is being used. Again, let’s print the result to confirm everything works.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">absolute_zero</span> <span class="o">=</span> <span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Absolute zero in Celsius is:&#39;</span><span class="p">,</span> <span class="n">absolute_zero</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Absolute zero in Celsius is: -273.15
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="check-your-understanding">
+<h4>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Permalink to this headline">¶</a></h4>
+<p>Let’s see how things are going so far with functions. Think about how you could:</p>
+<ul class="simple">
+<li><p>Create a new function called <code class="docutils literal notranslate"><span class="pre">hello</span></code> with 2 parameters</p>
+<ul>
+<li><p>Parameter 1 should be called <code class="docutils literal notranslate"><span class="pre">name</span></code> and you should assign some text to this parameter this when using the function</p></li>
+<li><p>Parameter 2 should be called <code class="docutils literal notranslate"><span class="pre">age</span></code> and you should provide a number value for this parameter when using the function</p></li>
+</ul>
+</li>
+</ul>
+<p>When using your function, the value that is returned should be a character string stating the <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">age</span></code> that were provided, which you can assign to a variable called <code class="docutils literal notranslate"><span class="pre">output</span></code>.
+Printing out <code class="docutils literal notranslate"><span class="pre">output</span></code> should produce something like the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<span class="s1">&#39;Hello, my name is Dave. I am 39 years old.&#39;</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example solution</span>
+
+<span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;Hello, my name is &#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;. I am &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">age</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; years old.&#39;</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dave&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">39</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, my name is Dave. I am 39 years old.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="functions-within-a-function">
+<h3>Functions within a function<a class="headerlink" href="#functions-within-a-function" title="Permalink to this headline">¶</a></h3>
+<p>What about converting Kelvins to Fahrenheit?
+We could write out a new formula for it, but we don’t need to.
+Instead, we can do the conversion using the two functions we have already created and calling those from the function we are now creating. Let’s create a new function <code class="docutils literal notranslate"><span class="pre">kelvins_to_fahr</span></code> that takes the temperature in Kelvins as the parameter value <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code> and uses our <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius</span></code> and <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr</span></code> functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+    <span class="n">temp_celsius</span> <span class="o">=</span> <span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">)</span>
+    <span class="n">temp_fahr</span> <span class="o">=</span> <span class="n">celsius_to_fahr</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">temp_fahr</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="using-our-combined-functions">
+<h3>Using our combined functions<a class="headerlink" href="#using-our-combined-functions" title="Permalink to this headline">¶</a></h3>
+<p>Now let’s use the function to calculate the temperature of absolute zero in degrees Fahrenheit. We can then print that value to the screen again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">absolute_zero_fahr</span> <span class="o">=</span> <span class="n">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Absolute zero in Fahrenheit is:&#39;</span><span class="p">,</span> <span class="n">absolute_zero_fahr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Absolute zero in Fahrenheit is: -459.66999999999996
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="documenting-functions-with-docstrings">
+<h2>Documenting functions with docstrings<a class="headerlink" href="#documenting-functions-with-docstrings" title="Permalink to this headline">¶</a></h2>
+<p>A documentation string, or a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Docstring"><span class="xref std std-term">docstring</span></a></em> is a block of text that describes what a specific function, library, or script does and how to use it. Surprise surprise, PEP 8 contains <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#documentation-strings">more guidance about documentation strings</a> <a class="footnote-reference brackets" href="#pep8-docstring" id="id1">1</a>, and docstrings even have <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">their own guide page</a> <a class="footnote-reference brackets" href="#pep257" id="id2">2</a>. Let’s look an an example from our of our functions above.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Converts temperature in Kelvins to degrees Celsius.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
+</pre></div>
+</div>
+<p>Here you can see a short bit of text explaining in simple language what this function does. In this case our function is quite simple, but the docstring still helps remove uncertainty about what it can be used to do. So, what can we see in this example?</p>
+<ul class="simple">
+<li><p>A docstring is always the first statement in a module or a function.</p></li>
+<li><p>Docstrings are written using <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;triple</span> <span class="pre">double</span> <span class="pre">quotation</span> <span class="pre">marks&quot;&quot;&quot;</span></code>.</p></li>
+<li><p>Short docstrings <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/#one-line-docstrings">can be written on a single line</a> <a class="footnote-reference brackets" href="#pep257-one-line" id="id3">3</a>.</p></li>
+</ul>
+<p>Seems simple enough, right? We can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let’s expand the docstring above to provide more information about this function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts temperature in Kelvins to degrees Celsius.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    temp_kelvins: &lt;numerical&gt;</span>
+<span class="sd">        Temperature in Kelvins</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    &lt;float&gt;</span>
+<span class="sd">        Converted temperature.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
+</pre></div>
+</div>
+<p>Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format is to have the quotation marks on their own separate lines.</p>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p>Add exercises.</p>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="pep8-docstring"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#documentation-strings">https://www.python.org/dev/peps/pep-0008/#documentation-strings</a></p>
+</dd>
+<dt class="label" id="pep257"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">https://www.python.org/dev/peps/pep-0257/</a></p>
+</dd>
+<dt class="label" id="pep257-one-line"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0257/#one-line-docstrings">https://www.python.org/dev/peps/pep-0257/#one-line-docstrings</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="02-conditional-statements.html" title="previous page">Conditional statements</a>
+    <a class='right-next' id="next-link" href="04-writing-scripts.html" title="next page">Writing script files</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+        
+            &copy; Copyright 2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

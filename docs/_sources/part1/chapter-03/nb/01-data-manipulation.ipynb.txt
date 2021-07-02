@@ -1,0 +1,3647 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "# Common tabular operations in pandas\n",
+    "\n",
+    "Now you have learned the basics of pandas data structures (i.e. *Series* and *DataFrame*) and you should be familiar with basic methods for loading and exploring data. Next, we will continue exploring the pandas functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Basic calculations\n",
+    "\n",
+    "One of the most common things to do in pandas is to create new columns based on calculations between different variables (columns). Next, we will learn how to do that using the same input data (`'Kumpula-June-2016-w-metadata.txt'`) as in the previous section. We will first load it using the `pd.read_csv()` method. Remember, that the first 8 lines contains the metadata which we will skip. This time, let's store the filepath into a separate variable in order to make the code more readable and easier to change afterwards (a good practice)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Define file path:\n",
+    "fp = 'data/Kumpula-June-2016-w-metadata.txt'\n",
+    "\n",
+    "# Read in the data from the file (starting at row 9):\n",
+    "data = pd.read_csv(fp, skiprows=8)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As a first step, it is always good to remember to check the data after reading it. This way we can be sure that everything looks as it should."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>20160601</td>\n",
+       "      <td>65.5</td>\n",
+       "      <td>73.6</td>\n",
+       "      <td>54.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160602</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>80.8</td>\n",
+       "      <td>55.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>55.6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>20160604</td>\n",
+       "      <td>57.5</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>47.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>20160605</td>\n",
+       "      <td>51.4</td>\n",
+       "      <td>58.3</td>\n",
+       "      <td>43.2</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   YEARMODA  TEMP   MAX   MIN\n",
+       "0  20160601  65.5  73.6  54.7\n",
+       "1  20160602  65.8  80.8  55.0\n",
+       "2  20160603  68.4   NaN  55.6\n",
+       "3  20160604  57.5  70.9  47.3\n",
+       "4  20160605  51.4  58.3  43.2"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "All good. Now we can start by creating a new column `DIFF` in our DataFrame. This can be done by specifying the name of the column and giving it some default value (in this case the decimal number `0.0`):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>20160601</td>\n",
+       "      <td>65.5</td>\n",
+       "      <td>73.6</td>\n",
+       "      <td>54.7</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160602</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>80.8</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>55.6</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>20160604</td>\n",
+       "      <td>57.5</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>47.3</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>20160605</td>\n",
+       "      <td>51.4</td>\n",
+       "      <td>58.3</td>\n",
+       "      <td>43.2</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   YEARMODA  TEMP   MAX   MIN  DIFF\n",
+       "0  20160601  65.5  73.6  54.7   0.0\n",
+       "1  20160602  65.8  80.8  55.0   0.0\n",
+       "2  20160603  68.4   NaN  55.6   0.0\n",
+       "3  20160604  57.5  70.9  47.3   0.0\n",
+       "4  20160605  51.4  58.3  43.2   0.0"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data['DIFF'] = 0.0\n",
+    "data.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "As we can see, now we have a new column (`DIFF`) in our DataFrame that has value 0.0 for all rows. When creating a new column, you can *initialize* it with any value you want. Typically, the value could be a number 0 as in here, but it could also be `None` (i.e. nothing), some text (e.g. `\"test text\"`), or more or less any other value or object that can be represented as a single item. You could even initiliaze the column by storing a function inside the cells if you like. Let's continue by checking the datatype of our new column:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "dtype('float64')"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data['DIFF'].dtypes"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "As we can see, pandas created a new column and automatically recognized that the data type is float as we passed a 0.0 value to it. Great, but whatabout making those calculations with pandas as promised in the beginning? Next, we will calculate the difference between `MAX` and `MIN` columns to get an idea how much the temperatures have been varying during different days. The result will be updated into the column `DIFF` that we created earlier. A typical way of conducting calculations such as this, is to access the Series (columns) that interests us from the DataFrame and conduct the mathematical calculation using the selected columns. Typically you store the result directly into a column in the DataFrame, like following:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>20160601</td>\n",
+       "      <td>65.5</td>\n",
+       "      <td>73.6</td>\n",
+       "      <td>54.7</td>\n",
+       "      <td>18.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160602</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>80.8</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>25.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>55.6</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>20160604</td>\n",
+       "      <td>57.5</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>47.3</td>\n",
+       "      <td>23.6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>20160605</td>\n",
+       "      <td>51.4</td>\n",
+       "      <td>58.3</td>\n",
+       "      <td>43.2</td>\n",
+       "      <td>15.1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   YEARMODA  TEMP   MAX   MIN  DIFF\n",
+       "0  20160601  65.5  73.6  54.7  18.9\n",
+       "1  20160602  65.8  80.8  55.0  25.8\n",
+       "2  20160603  68.4   NaN  55.6   NaN\n",
+       "3  20160604  57.5  70.9  47.3  23.6\n",
+       "4  20160605  51.4  58.3  43.2  15.1"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data['DIFF'] = data['MAX'] - data['MIN']\n",
+    "data.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "The calculations were stored into the ``DIFF`` column as planned. Conducting calculation like this is extremely fast in pandas because the math operations happen in *vectorized* manner. This means that instead of looping over individual values of the DataFrame and comparing them to each other, calculating the difference happens simultaneously at all rows. You can also create new columns on-the-fly when doing the calculation (i.e. the column does not have to exist before). Furthermore, it is possible to use any kind of math algebra (e.g. subtracttion, addition, multiplication, division, exponentiation, etc.) when creating new columns. We can for example convert the Fahrenheit temperatures in the `TEMP` column into Celsius using the formula that we have seen already many times. Let's do that and store it in a new column called `TEMP_CELSIUS`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    },
+    "lines_to_next_cell": 2
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>20160601</td>\n",
+       "      <td>65.5</td>\n",
+       "      <td>73.6</td>\n",
+       "      <td>54.7</td>\n",
+       "      <td>18.9</td>\n",
+       "      <td>18.611111</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160602</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>80.8</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>25.8</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>55.6</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>20.222222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>20160604</td>\n",
+       "      <td>57.5</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>47.3</td>\n",
+       "      <td>23.6</td>\n",
+       "      <td>14.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>20160605</td>\n",
+       "      <td>51.4</td>\n",
+       "      <td>58.3</td>\n",
+       "      <td>43.2</td>\n",
+       "      <td>15.1</td>\n",
+       "      <td>10.777778</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS\n",
+       "0  20160601  65.5  73.6  54.7  18.9     18.611111\n",
+       "1  20160602  65.8  80.8  55.0  25.8     18.777778\n",
+       "2  20160603  68.4   NaN  55.6   NaN     20.222222\n",
+       "3  20160604  57.5  70.9  47.3  23.6     14.166667\n",
+       "4  20160605  51.4  58.3  43.2  15.1     10.777778"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data['TEMP_CELSIUS'] = (data['TEMP'] - 32) / (9/5)\n",
+    "data.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "_**Check your understanding (online)**_\n",
+    "\n",
+    "Using the interactive online version of this book, calculate the temperatures in Kelvins using the Celsius values and store the result a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 1, and the formula for converting Celsius degrees (C) to Kelvins (K) is: `K = C + 273.15`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Add your solution here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Selecting and updating data\n",
+    "\n",
+    "We often want to make selections from our data and only use specific rows from a DataFrame in the analysis. There are multiple ways of selecting subsets of a pandas DataFrame than can be based on e.g. specific index values or using some predefined criteria to make the selection, such as \"give me all rows where values in column X are larger than zero\". Next, we will go through the most useful tricks for selecting specific rows, columns and individual values."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Selecting rows and columns\n",
+    "\n",
+    "One common way of selecting only specific rows from your DataFrame is done via a concept of **slicing**. Slicing in pandas can be done in a similar manner as with normal Python lists, i.e. you specify index range you want to select inside the square brackets: ``dataframe[start_index:stop_index]``. Let's select the first five rows and assign them to a variable called `selection`. Here, we will first see how selecting the data works like you would do with \"normal\" Python lists, based on index values:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>20160601</td>\n",
+       "      <td>65.5</td>\n",
+       "      <td>73.6</td>\n",
+       "      <td>54.7</td>\n",
+       "      <td>18.9</td>\n",
+       "      <td>18.611111</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160602</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>80.8</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>25.8</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>55.6</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>20.222222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>20160604</td>\n",
+       "      <td>57.5</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>47.3</td>\n",
+       "      <td>23.6</td>\n",
+       "      <td>14.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>20160605</td>\n",
+       "      <td>51.4</td>\n",
+       "      <td>58.3</td>\n",
+       "      <td>43.2</td>\n",
+       "      <td>15.1</td>\n",
+       "      <td>10.777778</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS\n",
+       "0  20160601  65.5  73.6  54.7  18.9     18.611111\n",
+       "1  20160602  65.8  80.8  55.0  25.8     18.777778\n",
+       "2  20160603  68.4   NaN  55.6   NaN     20.222222\n",
+       "3  20160604  57.5  70.9  47.3  23.6     14.166667\n",
+       "4  20160605  51.4  58.3  43.2  15.1     10.777778"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "selection = data[0:5]\n",
+    "selection"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Here we have selected the first five rows (index 0-4) using the integer index. Notice that the logic here follows how Python's list slicing (or `range` function) works, i.e. the value on the right side of the colon (here number `5`) tells when to stop, but that value is not taken into the final selection. Hence, the syntax is `start_index:stop_index` (also additional parameter `:step` could be added here to the end). "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Doing selections like in the previous example can be done, but there is also a better and more flexible way of selecting data using so called `.loc` label-indexing. As the name implies, `.loc` selects data based on axis labels (row and column labels). This does not necesssarily tell much to you at this point, but `.loc` makes it possible to conduct more specific selections, such as allowing you to choose which columns are chosen when selecting a subset of rows. It also makes possible to benefit from row labels that are not necessarily sequantial numbers (as with all our examples thus far), but they can represent other objects as well, such as dates or timestamps. Hence, `.loc` can become very handy when working with timeseries data (we will learn more about this later). Let's test the `.loc` label-indexing by selecting temperature values from column `TEMP` using rows 0-5:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0    65.5\n",
+       "1    65.8\n",
+       "2    68.4\n",
+       "3    57.5\n",
+       "4    51.4\n",
+       "5    52.2\n",
+       "Name: TEMP, dtype: float64"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Select temp column values on rows 0-5\n",
+    "selection = data.loc[0:5, 'TEMP']\n",
+    "selection"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Notice that in this case, we get six rows of data (index 0-5)! This happens because we are now doing the selection based on axis labels instead of normal Python-kind of indexing. It is important to notice the difference between these two approaches, as mixing the two may cause confusion,  incorrect analysis results or bugs in your code, if you do not pay attention. We recommend to use `.loc` always when possible (there are specific cases when you want to use other approaches, more about this soon). Hence, the basic syntax for `.loc` is:\n",
+    " \n",
+    " - `.loc[first_included_label:last_included_label, columns]`\n",
+    "\n",
+    "By looking at the syntax, you might guess that it is also possible to select multiple columns when using `.loc`. Next, we will test this by selecting the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>65.5</td>\n",
+       "      <td>18.611111</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>65.8</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>68.4</td>\n",
+       "      <td>20.222222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>57.5</td>\n",
+       "      <td>14.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>51.4</td>\n",
+       "      <td>10.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>52.2</td>\n",
+       "      <td>11.222222</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   TEMP  TEMP_CELSIUS\n",
+       "0  65.5     18.611111\n",
+       "1  65.8     18.777778\n",
+       "2  68.4     20.222222\n",
+       "3  57.5     14.166667\n",
+       "4  51.4     10.777778\n",
+       "5  52.2     11.222222"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "selection = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']]\n",
+    "selection"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5). \n",
+    "\n",
+    "\n",
+    "_**Check your understanding (online)**_\n",
+    "\n",
+    "Using the interactive online version of this book, calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Add your solution here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Selecting a single row or value\n",
+    "\n",
+    "You can also select an individual row from specific position using the `.loc` indexing. Here we select all the data values using index 4 (the 5th row):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "YEARMODA        2.016060e+07\n",
+       "TEMP            5.140000e+01\n",
+       "MAX             5.830000e+01\n",
+       "MIN             4.320000e+01\n",
+       "DIFF            1.510000e+01\n",
+       "TEMP_CELSIUS    1.077778e+01\n",
+       "Name: 4, dtype: float64"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "row = data.loc[4]\n",
+    "row"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "``.loc`` indexing returns the values from that position as a ``Series`` where the indices are actually the column names of those variables. Hence, you can access the value of an individual column by referring to its index using following format (both should work):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "51.4"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Print one attribute from the selected row\n",
+    "row['TEMP']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Sometimes it is enough to access a single value in a DataFrame directly. In this case, we can use ``.at`` instead of `.loc`.\n",
+    "Let's select the temperature (column `TEMP`) on the first row (index `0`) of our DataFrame:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "65.5"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "selection.at[0, \"TEMP\"]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As an output, we got the individual value 65.5. `.at` works only when accessing a single value, whereas the `.loc` can be used to access both a single or multiple values at the same time. The end result when fetching a single value with `.loc` is exactly the same. The difference between the two approaches is minimal, hence we recommend using `.loc` in all cases because it is more flexible (`.at` is slightly faster but in most cases it does not make a difference): "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "65.5"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "selection.loc[0, \"TEMP\"]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Selecting values based on index positions\n",
+    "\n",
+    "As we have learned thus far, `.loc` and `.at` are based on the *axis labels* - the names of columns and rows. For positional based indexing, pandas has an `.iloc` which is based on *integer value* indices. With `.iloc`, it is also possible to refer to the columns based on their index value (i.e. to a positional number of a column in the DataFrame). For example,  `data.iloc[0,0]` would return `20160601` in our example DataFrame which is the value on the first row and first column in the data:    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "   YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS\n",
+      "0  20160601  65.5  73.6  54.7  18.9     18.611111\n",
+      "1  20160602  65.8  80.8  55.0  25.8     18.777778\n",
+      "2  20160603  68.4   NaN  55.6   NaN     20.222222\n",
+      "3  20160604  57.5  70.9  47.3  23.6     14.166667\n",
+      "4  20160605  51.4  58.3  43.2  15.1     10.777778\n",
+      "\n",
+      "Value at position (0,0) is 20160601\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Check the first rows\n",
+    "print(data.head())\n",
+    "print()\n",
+    "print(\"Value at position (0,0) is\", data.iloc[0,0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Hence, the syntax for `.iloc` is: \n",
+    "\n",
+    " - `.iloc[start_row_position:stop_row_position, start_column_position:stop_column_position]`\n",
+    "\n",
+    "By following this syntax, we can access the value on the first row and second column (`TEMP`) by calling:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "65.5"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.iloc[0,1]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "It is also possible to get ranges of rows and columns with `.iloc`. For example, we could select `YEARMODA` and `TEMP` columns from the first five rows based on their indices (positions) in the data. Here, we will select rows from positions 0 to 5 and columns from positions 0 to 2:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>20160601</td>\n",
+       "      <td>65.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160602</td>\n",
+       "      <td>65.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>20160604</td>\n",
+       "      <td>57.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>20160605</td>\n",
+       "      <td>51.4</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   YEARMODA  TEMP\n",
+       "0  20160601  65.5\n",
+       "1  20160602  65.8\n",
+       "2  20160603  68.4\n",
+       "3  20160604  57.5\n",
+       "4  20160605  51.4"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "selection = data.iloc[0:5:,0:2]\n",
+    "selection"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As a result we indeed get only two columns and the first five rows. A good thing to notice, is that with `.iloc`, the behavior in terms of how many rows are returned differs from `.loc`. Here, the `0:5` returns 5 rows (following the Python list slicing behavarior), whereas using `.loc` would return 6 rows (i.e. also including the row at index 5). \n",
+    "    \n",
+    "One handy functionality with `.iloc` is the ability to fetch data starting from the end of the DataFrame. Hence, it is possible to retrieve the last row in the DataFrame by passing a negative number to the `.iloc`, where value -1 corresponds to the last row (or column), -2 corresponds to the second last, and so on. Following this, it is easy to see e.g. what is the ``TEMP_CELSIUS`` value (the last column) of the last row of data:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "18.722222222222225"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.iloc[-1, -1]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "### Conditional selections\n",
+    "\n",
+    "One really useful feature in pandas is the ability to easily filter and select rows based on a conditional statement.\n",
+    "The following example shows how we check if the Celsius temperature at each row on the `TEMP_CELSIUS`column is higher than 15 degrees:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0      True\n",
+       "1      True\n",
+       "2      True\n",
+       "3     False\n",
+       "4     False\n",
+       "5     False\n",
+       "6     False\n",
+       "7     False\n",
+       "8     False\n",
+       "9     False\n",
+       "10    False\n",
+       "11    False\n",
+       "12    False\n",
+       "13     True\n",
+       "14     True\n",
+       "15    False\n",
+       "16     True\n",
+       "17    False\n",
+       "18    False\n",
+       "19     True\n",
+       "20     True\n",
+       "21     True\n",
+       "22     True\n",
+       "23     True\n",
+       "24     True\n",
+       "25     True\n",
+       "26     True\n",
+       "27     True\n",
+       "28     True\n",
+       "29     True\n",
+       "Name: TEMP_CELSIUS, dtype: bool"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data['TEMP_CELSIUS'] > 15"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As a result, we get a Series of booleans, where the value `True` or `False` at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a ``mask``. We can take advantage of this mask when doing selections with `.loc` based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable `warm_temps` (warm temperatures). We can specify the criteria directly inside the `.loc` square brackets. Next, we will select rows which have higher temperature (in Celsius) than 15 degrees:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>20160601</td>\n",
+       "      <td>65.5</td>\n",
+       "      <td>73.6</td>\n",
+       "      <td>54.7</td>\n",
+       "      <td>18.9</td>\n",
+       "      <td>18.611111</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160602</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>80.8</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>25.8</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>55.6</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>20.222222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>13</th>\n",
+       "      <td>20160614</td>\n",
+       "      <td>59.7</td>\n",
+       "      <td>67.8</td>\n",
+       "      <td>47.8</td>\n",
+       "      <td>20.0</td>\n",
+       "      <td>15.388889</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>14</th>\n",
+       "      <td>20160615</td>\n",
+       "      <td>63.4</td>\n",
+       "      <td>70.3</td>\n",
+       "      <td>49.3</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.444444</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>16</th>\n",
+       "      <td>20160617</td>\n",
+       "      <td>60.4</td>\n",
+       "      <td>70.7</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>15.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>19</th>\n",
+       "      <td>20160620</td>\n",
+       "      <td>59.3</td>\n",
+       "      <td>69.1</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>15.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>20</th>\n",
+       "      <td>20160621</td>\n",
+       "      <td>62.6</td>\n",
+       "      <td>71.4</td>\n",
+       "      <td>50.4</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>21</th>\n",
+       "      <td>20160622</td>\n",
+       "      <td>61.7</td>\n",
+       "      <td>70.2</td>\n",
+       "      <td>55.4</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>16.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22</th>\n",
+       "      <td>20160623</td>\n",
+       "      <td>60.9</td>\n",
+       "      <td>67.1</td>\n",
+       "      <td>54.9</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.055556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23</th>\n",
+       "      <td>20160624</td>\n",
+       "      <td>61.1</td>\n",
+       "      <td>68.9</td>\n",
+       "      <td>56.7</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>24</th>\n",
+       "      <td>20160625</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>57.9</td>\n",
+       "      <td>17.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25</th>\n",
+       "      <td>20160626</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>77.7</td>\n",
+       "      <td>60.3</td>\n",
+       "      <td>17.4</td>\n",
+       "      <td>20.888889</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>26</th>\n",
+       "      <td>20160627</td>\n",
+       "      <td>60.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>15.944444</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>27</th>\n",
+       "      <td>20160628</td>\n",
+       "      <td>65.4</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>55.8</td>\n",
+       "      <td>17.2</td>\n",
+       "      <td>18.555556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>28</th>\n",
+       "      <td>20160629</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>29</th>\n",
+       "      <td>20160630</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>59.2</td>\n",
+       "      <td>13.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS\n",
+       "0   20160601  65.5  73.6  54.7  18.9     18.611111\n",
+       "1   20160602  65.8  80.8  55.0  25.8     18.777778\n",
+       "2   20160603  68.4   NaN  55.6   NaN     20.222222\n",
+       "13  20160614  59.7  67.8  47.8  20.0     15.388889\n",
+       "14  20160615  63.4  70.3  49.3  21.0     17.444444\n",
+       "16  20160617  60.4  70.7  55.9  14.8     15.777778\n",
+       "19  20160620  59.3  69.1  52.2  16.9     15.166667\n",
+       "20  20160621  62.6  71.4  50.4  21.0     17.000000\n",
+       "21  20160622  61.7  70.2  55.4  14.8     16.500000\n",
+       "22  20160623  60.9  67.1  54.9  12.2     16.055556\n",
+       "23  20160624  61.1  68.9  56.7  12.2     16.166667\n",
+       "24  20160625  65.7  75.4  57.9  17.5     18.722222\n",
+       "25  20160626  69.6  77.7  60.3  17.4     20.888889\n",
+       "26  20160627  60.7  70.0   NaN   NaN     15.944444\n",
+       "27  20160628  65.4  73.0  55.8  17.2     18.555556\n",
+       "28  20160629  65.8  73.2   NaN   NaN     18.777778\n",
+       "29  20160630  65.7  72.7  59.2  13.5     18.722222"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "warm_temps = data.loc[data['TEMP_CELSIUS'] > 15]\n",
+    "warm_temps"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "It is also possible to combine multiple criteria at the same time. Here, we select temperatures above 15 degrees that were recorded on the second half of June in 2016 (i.e. `YEARMODA >= 20160615`).\n",
+    "Combining multiple criteria can be done with the `&` operator (AND) or the `|` operator (OR). Notice, that it is often useful to separate the different clauses inside the parentheses `()`. Let's select rows having higher temperature than 15 degrees from late June 2016 (from 15th day onwards):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>14</th>\n",
+       "      <td>20160615</td>\n",
+       "      <td>63.4</td>\n",
+       "      <td>70.3</td>\n",
+       "      <td>49.3</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.444444</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>16</th>\n",
+       "      <td>20160617</td>\n",
+       "      <td>60.4</td>\n",
+       "      <td>70.7</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>15.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>19</th>\n",
+       "      <td>20160620</td>\n",
+       "      <td>59.3</td>\n",
+       "      <td>69.1</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>15.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>20</th>\n",
+       "      <td>20160621</td>\n",
+       "      <td>62.6</td>\n",
+       "      <td>71.4</td>\n",
+       "      <td>50.4</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>21</th>\n",
+       "      <td>20160622</td>\n",
+       "      <td>61.7</td>\n",
+       "      <td>70.2</td>\n",
+       "      <td>55.4</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>16.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22</th>\n",
+       "      <td>20160623</td>\n",
+       "      <td>60.9</td>\n",
+       "      <td>67.1</td>\n",
+       "      <td>54.9</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.055556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23</th>\n",
+       "      <td>20160624</td>\n",
+       "      <td>61.1</td>\n",
+       "      <td>68.9</td>\n",
+       "      <td>56.7</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>24</th>\n",
+       "      <td>20160625</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>57.9</td>\n",
+       "      <td>17.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25</th>\n",
+       "      <td>20160626</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>77.7</td>\n",
+       "      <td>60.3</td>\n",
+       "      <td>17.4</td>\n",
+       "      <td>20.888889</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>26</th>\n",
+       "      <td>20160627</td>\n",
+       "      <td>60.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>15.944444</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>27</th>\n",
+       "      <td>20160628</td>\n",
+       "      <td>65.4</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>55.8</td>\n",
+       "      <td>17.2</td>\n",
+       "      <td>18.555556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>28</th>\n",
+       "      <td>20160629</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>29</th>\n",
+       "      <td>20160630</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>59.2</td>\n",
+       "      <td>13.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS\n",
+       "14  20160615  63.4  70.3  49.3  21.0     17.444444\n",
+       "16  20160617  60.4  70.7  55.9  14.8     15.777778\n",
+       "19  20160620  59.3  69.1  52.2  16.9     15.166667\n",
+       "20  20160621  62.6  71.4  50.4  21.0     17.000000\n",
+       "21  20160622  61.7  70.2  55.4  14.8     16.500000\n",
+       "22  20160623  60.9  67.1  54.9  12.2     16.055556\n",
+       "23  20160624  61.1  68.9  56.7  12.2     16.166667\n",
+       "24  20160625  65.7  75.4  57.9  17.5     18.722222\n",
+       "25  20160626  69.6  77.7  60.3  17.4     20.888889\n",
+       "26  20160627  60.7  70.0   NaN   NaN     15.944444\n",
+       "27  20160628  65.4  73.0  55.8  17.2     18.555556\n",
+       "28  20160629  65.8  73.2   NaN   NaN     18.777778\n",
+       "29  20160630  65.7  72.7  59.2  13.5     18.722222"
+      ]
+     },
+     "execution_count": 21,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 20160615)]\n",
+    "warm_temps"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Now we have a subset of our DataFrame with only rows where the `TEMP_CELSIUS` is above 15 and the dates in `YEARMODA` column start from 15th of June. Notice, that the index values (numbers on the left) are still showing the index labels from the original DataFrame. This indicates that our result is really a slice from the original data. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "It is possible to reset the index using `reset_index()` function which makes the index numbering to start from 0 and increase the index values in a sequantal manner. This is often a useful operation to do, because it makes it easier then to slice the data with `.loc` or `.iloc`. By default the `reset_index()` would make a new column called `index` to keep track on the previous index which might be useful in some cases but here not, so we can omit that by passing parameter `drop=True`: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>20160615</td>\n",
+       "      <td>63.4</td>\n",
+       "      <td>70.3</td>\n",
+       "      <td>49.3</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.444444</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160617</td>\n",
+       "      <td>60.4</td>\n",
+       "      <td>70.7</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>15.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160620</td>\n",
+       "      <td>59.3</td>\n",
+       "      <td>69.1</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>15.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>20160621</td>\n",
+       "      <td>62.6</td>\n",
+       "      <td>71.4</td>\n",
+       "      <td>50.4</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>20160622</td>\n",
+       "      <td>61.7</td>\n",
+       "      <td>70.2</td>\n",
+       "      <td>55.4</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>16.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>20160623</td>\n",
+       "      <td>60.9</td>\n",
+       "      <td>67.1</td>\n",
+       "      <td>54.9</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.055556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>20160624</td>\n",
+       "      <td>61.1</td>\n",
+       "      <td>68.9</td>\n",
+       "      <td>56.7</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>20160625</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>57.9</td>\n",
+       "      <td>17.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>20160626</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>77.7</td>\n",
+       "      <td>60.3</td>\n",
+       "      <td>17.4</td>\n",
+       "      <td>20.888889</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>20160627</td>\n",
+       "      <td>60.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>15.944444</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>20160628</td>\n",
+       "      <td>65.4</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>55.8</td>\n",
+       "      <td>17.2</td>\n",
+       "      <td>18.555556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>11</th>\n",
+       "      <td>20160629</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>12</th>\n",
+       "      <td>20160630</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>59.2</td>\n",
+       "      <td>13.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS\n",
+       "0   20160615  63.4  70.3  49.3  21.0     17.444444\n",
+       "1   20160617  60.4  70.7  55.9  14.8     15.777778\n",
+       "2   20160620  59.3  69.1  52.2  16.9     15.166667\n",
+       "3   20160621  62.6  71.4  50.4  21.0     17.000000\n",
+       "4   20160622  61.7  70.2  55.4  14.8     16.500000\n",
+       "5   20160623  60.9  67.1  54.9  12.2     16.055556\n",
+       "6   20160624  61.1  68.9  56.7  12.2     16.166667\n",
+       "7   20160625  65.7  75.4  57.9  17.5     18.722222\n",
+       "8   20160626  69.6  77.7  60.3  17.4     20.888889\n",
+       "9   20160627  60.7  70.0   NaN   NaN     15.944444\n",
+       "10  20160628  65.4  73.0  55.8  17.2     18.555556\n",
+       "11  20160629  65.8  73.2   NaN   NaN     18.777778\n",
+       "12  20160630  65.7  72.7  59.2  13.5     18.722222"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "warm_temps = warm_temps.reset_index(drop=True)\n",
+    "warm_temps"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As can be seen, now the index values goes from 0 to 12. Resetting the index has now also *unlinked* the ``warm_temps`` DataFrame from the ``data``, meaning that it is not a view anymore but an independent Pandas object. When making selections, it is quite typical that pandas might give you warnings if you modify the selected data without first resetting the index or taking a copy of the selected data. To demonstrate this, we will make the selection again and do a small change for the first value of the ``TEMP_CELSIUS`` column by updating it to 17.5. Here, we can take advantage of the `.iloc` which makes it easy to access the first row based based on position 0:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/home/hentenka/miniconda3/envs/python-gis-book/lib/python3.8/site-packages/pandas/core/indexing.py:1765: SettingWithCopyWarning: \n",
+      "A value is trying to be set on a copy of a slice from a DataFrame.\n",
+      "Try using .loc[row_indexer,col_indexer] = value instead\n",
+      "\n",
+      "See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy\n",
+      "  isetter(loc, value)\n"
+     ]
+    }
+   ],
+   "source": [
+    "warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 20160615)]\n",
+    "warm_temps.iloc[0, -1] = 17.5"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Because we modified the selection which is a slice from the original data, pandas gives us a warning about a possibly invalid value assignment. In most cases, the warning can be ignored but it is a good practice to always take a copy when doing selections, especially if you continue working with the selected data and possibly modify it further:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Make the selection and take a copy\n",
+    "warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 20160615)].copy()\n",
+    "\n",
+    "# Now update the first value of the last column\n",
+    "warm_temps.iloc[0, -1] = 17.5"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection without needing to worry that there are some \"hidden linkages\" between our DataFrames that could cause issues (we discuss more about this in the next section). \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "_**Check your understanding (online)**_\n",
+    "\n",
+    "Using the interactive online version of this book, find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the `YEARMODA` column."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Add your solution here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### View vs a copy\n",
+    "\n",
+    "A good thing to know when doing selections, is that the end result after making the selection can sometimes result to something called a ``view``. In such cases, the selection and the original data may still linked to each other. This happens e.g. if you make a selection like above but return only a single column from the original data. In a situation where you have a view, a change in the original *data* for that specific column can also change the value in the *selection*. Without going into details why and when this happens, this behavior can nevertheless be confusing and have unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. *unlink* the two DataFrames). You can make a copy easily while doing the selection by adding a `.copy()` at the end of the command:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>65.5</td>\n",
+       "      <td>18.611111</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>65.8</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>68.4</td>\n",
+       "      <td>20.222222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>57.5</td>\n",
+       "      <td>14.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>51.4</td>\n",
+       "      <td>10.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>52.2</td>\n",
+       "      <td>11.222222</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   TEMP  TEMP_CELSIUS\n",
+       "0  65.5     18.611111\n",
+       "1  65.8     18.777778\n",
+       "2  68.4     20.222222\n",
+       "3  57.5     14.166667\n",
+       "4  51.4     10.777778\n",
+       "5  52.2     11.222222"
+      ]
+     },
+     "execution_count": 45,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "selection = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']].copy()\n",
+    "selection"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we have the exact same data in our end result, but we have ensured that the selection is not linked to the original data anymore. To demonstrate what can happen with the view, let's make a selection of a single column from our data (which will be a view), and modify the data a bit to see what consequences might happen if we are not careful:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0    65.5\n",
+       "1    65.8\n",
+       "2    68.4\n",
+       "3    57.5\n",
+       "4    51.4\n",
+       "5    52.2\n",
+       "Name: TEMP, dtype: float64"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "temp = selection[\"TEMP\"]\n",
+    "temp"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now if we make a change to our original data, i.e. *selection*, it will also influence our values in *temp*:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>30.0</td>\n",
+       "      <td>18.611111</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>65.8</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>68.4</td>\n",
+       "      <td>20.222222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>57.5</td>\n",
+       "      <td>14.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>51.4</td>\n",
+       "      <td>10.777778</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   TEMP  TEMP_CELSIUS\n",
+       "0  30.0     18.611111\n",
+       "1  65.8     18.777778\n",
+       "2  68.4     20.222222\n",
+       "3  57.5     14.166667\n",
+       "4  51.4     10.777778"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "selection.iloc[0,0] = 30.0\n",
+    "selection.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0    30.0\n",
+       "1    65.8\n",
+       "2    68.4\n",
+       "3    57.5\n",
+       "4    51.4\n",
+       "5    52.2\n",
+       "Name: TEMP, dtype: float64"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Check the values in temp (which we did not touch)\n",
+    "temp"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we can see, now the value in our *temp* Series changed from 65.5 to 30.0 although we did not make any change to it directly. The change happened nevertheless because the data objects were still linked to each other. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Dealing with missing data\n",
+    "\n",
+    "As you may have noticed by now, we have several missing values for the temperature minimum, maximum, and difference columns (`MIN`, `MAX`, `DIFF`, and `DIFF_MIN`). These missing values are indicated as `NaN` (not-a-number). Having missing data in your datafile is really common situation and typically you want to deal with it somehow. Common procedures to deal with `NaN` values are to either remove them from the DataFrame or fill them with some value. In Pandas both of these options are really easy to do. Let's first start by checking whether our data has NaN values:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>14</th>\n",
+       "      <td>20160615</td>\n",
+       "      <td>63.4</td>\n",
+       "      <td>70.3</td>\n",
+       "      <td>49.3</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>16</th>\n",
+       "      <td>20160617</td>\n",
+       "      <td>60.4</td>\n",
+       "      <td>70.7</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>15.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>19</th>\n",
+       "      <td>20160620</td>\n",
+       "      <td>59.3</td>\n",
+       "      <td>69.1</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>15.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>20</th>\n",
+       "      <td>20160621</td>\n",
+       "      <td>62.6</td>\n",
+       "      <td>71.4</td>\n",
+       "      <td>50.4</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>21</th>\n",
+       "      <td>20160622</td>\n",
+       "      <td>61.7</td>\n",
+       "      <td>70.2</td>\n",
+       "      <td>55.4</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>16.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22</th>\n",
+       "      <td>20160623</td>\n",
+       "      <td>60.9</td>\n",
+       "      <td>67.1</td>\n",
+       "      <td>54.9</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.055556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23</th>\n",
+       "      <td>20160624</td>\n",
+       "      <td>61.1</td>\n",
+       "      <td>68.9</td>\n",
+       "      <td>56.7</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>24</th>\n",
+       "      <td>20160625</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>57.9</td>\n",
+       "      <td>17.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25</th>\n",
+       "      <td>20160626</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>77.7</td>\n",
+       "      <td>60.3</td>\n",
+       "      <td>17.4</td>\n",
+       "      <td>20.888889</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>26</th>\n",
+       "      <td>20160627</td>\n",
+       "      <td>60.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>15.944444</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>27</th>\n",
+       "      <td>20160628</td>\n",
+       "      <td>65.4</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>55.8</td>\n",
+       "      <td>17.2</td>\n",
+       "      <td>18.555556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>28</th>\n",
+       "      <td>20160629</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>29</th>\n",
+       "      <td>20160630</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>59.2</td>\n",
+       "      <td>13.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS\n",
+       "14  20160615  63.4  70.3  49.3  21.0     17.500000\n",
+       "16  20160617  60.4  70.7  55.9  14.8     15.777778\n",
+       "19  20160620  59.3  69.1  52.2  16.9     15.166667\n",
+       "20  20160621  62.6  71.4  50.4  21.0     17.000000\n",
+       "21  20160622  61.7  70.2  55.4  14.8     16.500000\n",
+       "22  20160623  60.9  67.1  54.9  12.2     16.055556\n",
+       "23  20160624  61.1  68.9  56.7  12.2     16.166667\n",
+       "24  20160625  65.7  75.4  57.9  17.5     18.722222\n",
+       "25  20160626  69.6  77.7  60.3  17.4     20.888889\n",
+       "26  20160627  60.7  70.0   NaN   NaN     15.944444\n",
+       "27  20160628  65.4  73.0  55.8  17.2     18.555556\n",
+       "28  20160629  65.8  73.2   NaN   NaN     18.777778\n",
+       "29  20160630  65.7  72.7  59.2  13.5     18.722222"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "warm_temps"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we can see, the ``MIN`` and ``DIFF`` columns are missing values at index 26. It is also possible to confirm this with pandas by accessing a specific Series attribute called `.hasnans` which can be a handy tool especially when automating some data analysis pipelines. Each Series (i.e. column) in the DataFrame has this attribute. Let's check if `MIN` column contains any NaNs:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 46,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "warm_temps[\"MIN\"].hasnans"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As a result, you get either True or False (here True), depending on whether the Series contained any NaN values, or not. Let's now see how we can remove the NoData values (i.e. clean the data) using the `.dropna()` function. Inside the function you can pass a list of column(s) from which the `NaN` values should found using the `subset` parameter:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "      <th>WEEKDAY</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>14</th>\n",
+       "      <td>20160615</td>\n",
+       "      <td>63.4</td>\n",
+       "      <td>70.3</td>\n",
+       "      <td>49.3</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.444444</td>\n",
+       "      <td>17.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>16</th>\n",
+       "      <td>20160617</td>\n",
+       "      <td>60.4</td>\n",
+       "      <td>70.7</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>15.777778</td>\n",
+       "      <td>Fri</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>19</th>\n",
+       "      <td>20160620</td>\n",
+       "      <td>59.3</td>\n",
+       "      <td>69.1</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>15.166667</td>\n",
+       "      <td>Mon</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>20</th>\n",
+       "      <td>20160621</td>\n",
+       "      <td>62.6</td>\n",
+       "      <td>71.4</td>\n",
+       "      <td>50.4</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.000000</td>\n",
+       "      <td>Tue</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>21</th>\n",
+       "      <td>20160622</td>\n",
+       "      <td>61.7</td>\n",
+       "      <td>70.2</td>\n",
+       "      <td>55.4</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>16.500000</td>\n",
+       "      <td>Wed</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22</th>\n",
+       "      <td>20160623</td>\n",
+       "      <td>60.9</td>\n",
+       "      <td>67.1</td>\n",
+       "      <td>54.9</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.055556</td>\n",
+       "      <td>Thu</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23</th>\n",
+       "      <td>20160624</td>\n",
+       "      <td>61.1</td>\n",
+       "      <td>68.9</td>\n",
+       "      <td>56.7</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.166667</td>\n",
+       "      <td>Fri</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>24</th>\n",
+       "      <td>20160625</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>57.9</td>\n",
+       "      <td>17.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "      <td>Sat</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25</th>\n",
+       "      <td>20160626</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>77.7</td>\n",
+       "      <td>60.3</td>\n",
+       "      <td>17.4</td>\n",
+       "      <td>20.888889</td>\n",
+       "      <td>Sun</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>27</th>\n",
+       "      <td>20160628</td>\n",
+       "      <td>65.4</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>55.8</td>\n",
+       "      <td>17.2</td>\n",
+       "      <td>18.555556</td>\n",
+       "      <td>Tue</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>29</th>\n",
+       "      <td>20160630</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>59.2</td>\n",
+       "      <td>13.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "      <td>Thu</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS WEEKDAY\n",
+       "14  20160615  63.4  70.3  49.3  21.0     17.444444    17.5\n",
+       "16  20160617  60.4  70.7  55.9  14.8     15.777778     Fri\n",
+       "19  20160620  59.3  69.1  52.2  16.9     15.166667     Mon\n",
+       "20  20160621  62.6  71.4  50.4  21.0     17.000000     Tue\n",
+       "21  20160622  61.7  70.2  55.4  14.8     16.500000     Wed\n",
+       "22  20160623  60.9  67.1  54.9  12.2     16.055556     Thu\n",
+       "23  20160624  61.1  68.9  56.7  12.2     16.166667     Fri\n",
+       "24  20160625  65.7  75.4  57.9  17.5     18.722222     Sat\n",
+       "25  20160626  69.6  77.7  60.3  17.4     20.888889     Sun\n",
+       "27  20160628  65.4  73.0  55.8  17.2     18.555556     Tue\n",
+       "29  20160630  65.7  72.7  59.2  13.5     18.722222     Thu"
+      ]
+     },
+     "execution_count": 47,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "cols_to_check = ['MIN']\n",
+    "warm_temps_clean = warm_temps.dropna(subset=cols_to_check)\n",
+    "warm_temps_clean"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "As you can see by looking at the table above (and the change in index values), we now have a DataFrame without the NoData values. By doing this, you naturally loose data (rows) which might not be an optimal solution in some cases. Due to this, pandas also provides an option to fill the NoData with some value using `fillna()` function. Here, we can fill the missing values in the with value -9999. Note that we are not giving the `subset` parameter this time:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>14</th>\n",
+       "      <td>20160615</td>\n",
+       "      <td>63.4</td>\n",
+       "      <td>70.3</td>\n",
+       "      <td>49.3</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>16</th>\n",
+       "      <td>20160617</td>\n",
+       "      <td>60.4</td>\n",
+       "      <td>70.7</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>15.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>19</th>\n",
+       "      <td>20160620</td>\n",
+       "      <td>59.3</td>\n",
+       "      <td>69.1</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>15.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>20</th>\n",
+       "      <td>20160621</td>\n",
+       "      <td>62.6</td>\n",
+       "      <td>71.4</td>\n",
+       "      <td>50.4</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>17.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>21</th>\n",
+       "      <td>20160622</td>\n",
+       "      <td>61.7</td>\n",
+       "      <td>70.2</td>\n",
+       "      <td>55.4</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>16.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22</th>\n",
+       "      <td>20160623</td>\n",
+       "      <td>60.9</td>\n",
+       "      <td>67.1</td>\n",
+       "      <td>54.9</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.055556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23</th>\n",
+       "      <td>20160624</td>\n",
+       "      <td>61.1</td>\n",
+       "      <td>68.9</td>\n",
+       "      <td>56.7</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.166667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>24</th>\n",
+       "      <td>20160625</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>57.9</td>\n",
+       "      <td>17.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25</th>\n",
+       "      <td>20160626</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>77.7</td>\n",
+       "      <td>60.3</td>\n",
+       "      <td>17.4</td>\n",
+       "      <td>20.888889</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>26</th>\n",
+       "      <td>20160627</td>\n",
+       "      <td>60.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>-9999.0</td>\n",
+       "      <td>-9999.0</td>\n",
+       "      <td>15.944444</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>27</th>\n",
+       "      <td>20160628</td>\n",
+       "      <td>65.4</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>55.8</td>\n",
+       "      <td>17.2</td>\n",
+       "      <td>18.555556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>28</th>\n",
+       "      <td>20160629</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>-9999.0</td>\n",
+       "      <td>-9999.0</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>29</th>\n",
+       "      <td>20160630</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>59.2</td>\n",
+       "      <td>13.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    YEARMODA  TEMP   MAX     MIN    DIFF  TEMP_CELSIUS\n",
+       "14  20160615  63.4  70.3    49.3    21.0     17.500000\n",
+       "16  20160617  60.4  70.7    55.9    14.8     15.777778\n",
+       "19  20160620  59.3  69.1    52.2    16.9     15.166667\n",
+       "20  20160621  62.6  71.4    50.4    21.0     17.000000\n",
+       "21  20160622  61.7  70.2    55.4    14.8     16.500000\n",
+       "22  20160623  60.9  67.1    54.9    12.2     16.055556\n",
+       "23  20160624  61.1  68.9    56.7    12.2     16.166667\n",
+       "24  20160625  65.7  75.4    57.9    17.5     18.722222\n",
+       "25  20160626  69.6  77.7    60.3    17.4     20.888889\n",
+       "26  20160627  60.7  70.0 -9999.0 -9999.0     15.944444\n",
+       "27  20160628  65.4  73.0    55.8    17.2     18.555556\n",
+       "28  20160629  65.8  73.2 -9999.0 -9999.0     18.777778\n",
+       "29  20160630  65.7  72.7    59.2    13.5     18.722222"
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "warm_temps.fillna(-9999)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "As a result we now have a DataFrame where all NoData values in the whole DataFrame are filled with the value -9999. If you want to fill NaN values values of only a specific column, you can do that by targeting the `fillna` function to only a specific column (or columns): "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "warm_temps[\"MIN\"] = warm_temps[\"MIN\"].fillna(-9999)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Notice that because we already filled every NaN in the whole DataFrame in the previous step, the command above does not change anything.  \n",
+    "\n",
+    "It is important to be aware, that in many cases filling the data with a specific value is dangerous because you end up modifying the actual data, which might affect the results of your analysis. For example, in the case above we would have dramatically changed the temperature difference columns because the -9999 values not an actual temperature difference! Hence, use caution when filling missing values. In some cases, you might have to fill in no data values for the purposes of saving the data to file in a spesific format. For example, some GIS software don't accept missing values. Always pay attention to potential no data values when reading in data files and doing further analysis."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Data type conversions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "editable": true
+   },
+   "source": [
+    "When doing data analysis, one quite typical operation that needs to be done is to convert values in a column from one datatype to another, such as from floating point to integer. Remember, that we already did data type conversions in Chapter 1 using the built-in Python functions such as `int()` or `str()`. For values stored in pandas Series, we can use `astype()` method. Next we will continue using the same data as previously, and convert all the temperature values (floats) in column ``TEMP`` to integers. Let's start by looking our original data:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0    65.5\n",
+       "1    65.8\n",
+       "2    68.4\n",
+       "3    57.5\n",
+       "4    51.4\n",
+       "Name: TEMP, dtype: float64"
+      ]
+     },
+     "execution_count": 35,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data['TEMP'].head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we can easily convert those decimal numbers to integers by calling `astype(int)`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0    65\n",
+       "1    65\n",
+       "2    68\n",
+       "3    57\n",
+       "4    51\n",
+       "Name: TEMP, dtype: int64"
+      ]
+     },
+     "execution_count": 36,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data['TEMP'].astype(int).head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we can see the values were converted to integers. However, it is important to be careful with type conversions from floating point values to integers. The conversion simply drops the stuff to the right of the decimal point, so all values are rounded down to the nearest whole number. For example, the second value in our Series (65.8) was truncated to 65 as an integer, when it clearly should be rounded up to 66. Chaining the round and type conversion functions solves this issue as the `.round(0).astype(int)` command first rounds the values with zero decimals and then converts those values into integers:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {
+    "collapsed": false,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0    66\n",
+       "1    66\n",
+       "2    68\n",
+       "3    58\n",
+       "4    51\n",
+       "Name: TEMP, dtype: int64"
+      ]
+     },
+     "execution_count": 37,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data['TEMP'].round(0).astype(int).head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we can see, now the integer values are correctly rounded. \n",
+    "\n",
+    "The `astype()` method supports converting between all basic Python data types (`int`, `float`, `str`), but it also knows how to convert between more specific numpy data types, such as `int64`, `int32`, `float64`, `float32` to mention a few (see [^numpydtypes] for a full list). Using the numpy data type can useful if you need to be more specific e.g. how many bits should be reserved for storing the values. For instance, `int64` (i.e. *64-bit integer*) can store integer values ranging between -9223372036854775808 and 9223372036854775807, whereas `int16` can only store values from -32768 to 32767. If passing the \"normal\" `int` or `float` to the `astype()` function, pandas will automatically store 64-bit numeric values. The larger bits you use, the more physical memory is required to store the data. Hence, in some specific cases e.g. when dealing with extremely large datasets, it might be useful to be able to determine that the values in specific columns are stored with lower bits (to save memory). "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Sorting data\n",
+    "\n",
+    "Quite often it is useful to be able to sort your data (descending/ascending) based on values in some column\n",
+    "This can be easily done with Pandas using `sort_values(by='YourColumnName')` -function. Let's first sort the values on ascending order based on the `TEMP` column:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>20160609</td>\n",
+       "      <td>49.4</td>\n",
+       "      <td>54.1</td>\n",
+       "      <td>45.7</td>\n",
+       "      <td>8.4</td>\n",
+       "      <td>9.666667</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>20160610</td>\n",
+       "      <td>49.5</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>43.0</td>\n",
+       "      <td>12.9</td>\n",
+       "      <td>9.722222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>20160605</td>\n",
+       "      <td>51.4</td>\n",
+       "      <td>58.3</td>\n",
+       "      <td>43.2</td>\n",
+       "      <td>15.1</td>\n",
+       "      <td>10.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>20160606</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>59.7</td>\n",
+       "      <td>42.8</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>11.222222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>20160611</td>\n",
+       "      <td>54.0</td>\n",
+       "      <td>62.1</td>\n",
+       "      <td>41.7</td>\n",
+       "      <td>20.4</td>\n",
+       "      <td>12.222222</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS\n",
+       "8   20160609  49.4  54.1  45.7   8.4      9.666667\n",
+       "9   20160610  49.5  55.9  43.0  12.9      9.722222\n",
+       "4   20160605  51.4  58.3  43.2  15.1     10.777778\n",
+       "5   20160606  52.2  59.7  42.8  16.9     11.222222\n",
+       "10  20160611  54.0  62.1  41.7  20.4     12.222222"
+      ]
+     },
+     "execution_count": 38,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Sort dataframe, ascending\n",
+    "data.sort_values(by='TEMP').head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Of course, it is also possible to sort them in descending order with ``ascending=False`` parameter:\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>25</th>\n",
+       "      <td>20160626</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>77.7</td>\n",
+       "      <td>60.3</td>\n",
+       "      <td>17.4</td>\n",
+       "      <td>20.888889</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>55.6</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>20.222222</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160602</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>80.8</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>25.8</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>28</th>\n",
+       "      <td>20160629</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>18.777778</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>29</th>\n",
+       "      <td>20160630</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>59.2</td>\n",
+       "      <td>13.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS\n",
+       "25  20160626  69.6  77.7  60.3  17.4     20.888889\n",
+       "2   20160603  68.4   NaN  55.6   NaN     20.222222\n",
+       "1   20160602  65.8  80.8  55.0  25.8     18.777778\n",
+       "28  20160629  65.8  73.2   NaN   NaN     18.777778\n",
+       "29  20160630  65.7  72.7  59.2  13.5     18.722222"
+      ]
+     },
+     "execution_count": 39,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Sort dataframe, descending\n",
+    "data.sort_values(by='TEMP', ascending=False).head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In some situations, you might need to sort values based on multiple columns simultaneously, which is sometimes called as multi-level sorting. This can be done by passing a list of column names to the `by` parameter. When you sort the data based on multiple columns, sometimes you also might want to sort your data in a way that the first-level sorting happens in ascending order, and the second-level sorting happens in descending order. A typical situation for this kind of sorting could be e.g. when sorting the temperatures first by weekday (Monday, Tuesday, etc.) and then under each weekday ordering the values in descending order that would always show the warmest temperature of specific week first. Let's modify our data a bit to demonstrate this. We will add a new column that has information about the weekday. The 1st of June 2016 was Wednesday, so we start from that:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "      <th>WEEKDAY</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>20160601</td>\n",
+       "      <td>65.5</td>\n",
+       "      <td>73.6</td>\n",
+       "      <td>54.7</td>\n",
+       "      <td>18.9</td>\n",
+       "      <td>18.611111</td>\n",
+       "      <td>Wed</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>20160602</td>\n",
+       "      <td>65.8</td>\n",
+       "      <td>80.8</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>25.8</td>\n",
+       "      <td>18.777778</td>\n",
+       "      <td>Thu</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>55.6</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>20.222222</td>\n",
+       "      <td>Fri</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>20160604</td>\n",
+       "      <td>57.5</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>47.3</td>\n",
+       "      <td>23.6</td>\n",
+       "      <td>14.166667</td>\n",
+       "      <td>Sat</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>20160605</td>\n",
+       "      <td>51.4</td>\n",
+       "      <td>58.3</td>\n",
+       "      <td>43.2</td>\n",
+       "      <td>15.1</td>\n",
+       "      <td>10.777778</td>\n",
+       "      <td>Sun</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>20160606</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>59.7</td>\n",
+       "      <td>42.8</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>11.222222</td>\n",
+       "      <td>Mon</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>20160607</td>\n",
+       "      <td>56.9</td>\n",
+       "      <td>65.1</td>\n",
+       "      <td>45.9</td>\n",
+       "      <td>19.2</td>\n",
+       "      <td>13.833333</td>\n",
+       "      <td>Tue</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>20160608</td>\n",
+       "      <td>54.2</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>47.5</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>12.333333</td>\n",
+       "      <td>Wed</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>20160609</td>\n",
+       "      <td>49.4</td>\n",
+       "      <td>54.1</td>\n",
+       "      <td>45.7</td>\n",
+       "      <td>8.4</td>\n",
+       "      <td>9.666667</td>\n",
+       "      <td>Thu</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>20160610</td>\n",
+       "      <td>49.5</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>43.0</td>\n",
+       "      <td>12.9</td>\n",
+       "      <td>9.722222</td>\n",
+       "      <td>Fri</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS WEEKDAY\n",
+       "0  20160601  65.5  73.6  54.7  18.9     18.611111     Wed\n",
+       "1  20160602  65.8  80.8  55.0  25.8     18.777778     Thu\n",
+       "2  20160603  68.4   NaN  55.6   NaN     20.222222     Fri\n",
+       "3  20160604  57.5  70.9  47.3  23.6     14.166667     Sat\n",
+       "4  20160605  51.4  58.3  43.2  15.1     10.777778     Sun\n",
+       "5  20160606  52.2  59.7  42.8  16.9     11.222222     Mon\n",
+       "6  20160607  56.9  65.1  45.9  19.2     13.833333     Tue\n",
+       "7  20160608  54.2   NaN  47.5   NaN     12.333333     Wed\n",
+       "8  20160609  49.4  54.1  45.7   8.4      9.666667     Thu\n",
+       "9  20160610  49.5  55.9  43.0  12.9      9.722222     Fri"
+      ]
+     },
+     "execution_count": 40,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Create a list of weekdays that matches with our data\n",
+    "# The data covers 4 weeks + 2 days (i.e. altogether 30 days)\n",
+    "week_days = [\"Wed\", \"Thu\", \"Fri\", \"Sat\", \"Sun\", \"Mon\", \"Tue\"]\n",
+    "day_list = week_days*4 + week_days[:2]\n",
+    "\n",
+    "# Add the weekdays to our DataFrame\n",
+    "data[\"WEEKDAY\"] = day_list\n",
+    "data.head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we have a new column with information about the weekday of each row. Next, we can test how to sort the values, so that we order the data by weekday and within each weekday the temperatures are in descending order. You can adjust how the ordering works by passing a list of boolean values to `ascending` parameter:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>YEARMODA</th>\n",
+       "      <th>TEMP</th>\n",
+       "      <th>MAX</th>\n",
+       "      <th>MIN</th>\n",
+       "      <th>DIFF</th>\n",
+       "      <th>TEMP_CELSIUS</th>\n",
+       "      <th>WEEKDAY</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>20160603</td>\n",
+       "      <td>68.4</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>55.6</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>20.222222</td>\n",
+       "      <td>Fri</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>23</th>\n",
+       "      <td>20160624</td>\n",
+       "      <td>61.1</td>\n",
+       "      <td>68.9</td>\n",
+       "      <td>56.7</td>\n",
+       "      <td>12.2</td>\n",
+       "      <td>16.166667</td>\n",
+       "      <td>Fri</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>16</th>\n",
+       "      <td>20160617</td>\n",
+       "      <td>60.4</td>\n",
+       "      <td>70.7</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>14.8</td>\n",
+       "      <td>15.777778</td>\n",
+       "      <td>Fri</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>20160610</td>\n",
+       "      <td>49.5</td>\n",
+       "      <td>55.9</td>\n",
+       "      <td>43.0</td>\n",
+       "      <td>12.9</td>\n",
+       "      <td>9.722222</td>\n",
+       "      <td>Fri</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>26</th>\n",
+       "      <td>20160627</td>\n",
+       "      <td>60.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>15.944444</td>\n",
+       "      <td>Mon</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>19</th>\n",
+       "      <td>20160620</td>\n",
+       "      <td>59.3</td>\n",
+       "      <td>69.1</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>15.166667</td>\n",
+       "      <td>Mon</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>12</th>\n",
+       "      <td>20160613</td>\n",
+       "      <td>58.3</td>\n",
+       "      <td>68.2</td>\n",
+       "      <td>47.3</td>\n",
+       "      <td>20.9</td>\n",
+       "      <td>14.611111</td>\n",
+       "      <td>Mon</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>20160606</td>\n",
+       "      <td>52.2</td>\n",
+       "      <td>59.7</td>\n",
+       "      <td>42.8</td>\n",
+       "      <td>16.9</td>\n",
+       "      <td>11.222222</td>\n",
+       "      <td>Mon</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>24</th>\n",
+       "      <td>20160625</td>\n",
+       "      <td>65.7</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>57.9</td>\n",
+       "      <td>17.5</td>\n",
+       "      <td>18.722222</td>\n",
+       "      <td>Sat</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>20160604</td>\n",
+       "      <td>57.5</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>47.3</td>\n",
+       "      <td>23.6</td>\n",
+       "      <td>14.166667</td>\n",
+       "      <td>Sat</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS WEEKDAY\n",
+       "2   20160603  68.4   NaN  55.6   NaN     20.222222     Fri\n",
+       "23  20160624  61.1  68.9  56.7  12.2     16.166667     Fri\n",
+       "16  20160617  60.4  70.7  55.9  14.8     15.777778     Fri\n",
+       "9   20160610  49.5  55.9  43.0  12.9      9.722222     Fri\n",
+       "26  20160627  60.7  70.0   NaN   NaN     15.944444     Mon\n",
+       "19  20160620  59.3  69.1  52.2  16.9     15.166667     Mon\n",
+       "12  20160613  58.3  68.2  47.3  20.9     14.611111     Mon\n",
+       "5   20160606  52.2  59.7  42.8  16.9     11.222222     Mon\n",
+       "24  20160625  65.7  75.4  57.9  17.5     18.722222     Sat\n",
+       "3   20160604  57.5  70.9  47.3  23.6     14.166667     Sat"
+      ]
+     },
+     "execution_count": 41,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.sort_values(by=[\"WEEKDAY\", \"TEMP_CELSIUS\"], ascending=[True, False]).head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Exercises\n",
+    "\n",
+    "In this exercise, you will clean the data from our data file by removing no-data values, convert temperature values in Fahrenheit to Celsius, and split the data into separate datasets using the weather station identification code. We will start this problem by cleaning and converting our temperature data. An overview of the tasks in this exercise:\n",
+    "\n",
+    "- Create a new dataframe called `selected` that contains selected columns from the data file\n",
+    "- Clean the new DataFrame by removing no-data values\n",
+    "- Create a new column for temperatures converted from Fahrenheit to Celsius\n",
+    "- Divide the data into separate DataFrames for the Helsinki Kumpula and Rovaniemi stations\n",
+    "- Save the new DataFrames to CSV files"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Problem 1 - Read the data and remove NaN values\n",
+    "\n",
+    "The first step for this problem is to read the data file 6153237444115dat.csv into a variable `data` using pandas and cleaning it a bit:\n",
+    "\n",
+    "- Select the columns `USAF, YR--MODAHRMN, TEMP, MAX, MIN` from the `data` DataFrame and assign them to a variable `selected`\n",
+    "- Remove all rows from `selected` that have NoData in the column `TEMP` using the `dropna()` function\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Problem 2 - Convert temperatures to Celsius\n",
+    "\n",
+    "Convert the temperature values from Fahrenheits to Celsius:\n",
+    "\n",
+    "- Create a new column to `selected` called `Celsius`.\n",
+    "- Convert the Fahrenheit temperatures from `TEMP` using the conversion formula below and store the results in the new `Celsius` column:\n",
+    "   - TempCelsius = (TempFahrenheit - 32) / 1.8\n",
+    "- Round the values in the `Celsius` column to have 0 decimals (do not create a new column, update the current one)\n",
+    "- Convert the `Celsius` values into integers (do not create a new column, update the current one)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Problem 3 - Select data and save to disk\n",
+    "\n",
+    "Divide the data in `selected` into two separate DataFrames:\n",
+    "\n",
+    "- Select all rows from the selected DataFrame with the `USAF` code `29980` into a variable called `kumpula`.\n",
+    "- Select all rows from the selected DataFrame with the `USAF` code `28450` into a variable called `rovaniemi`.\n",
+    "- Save the `kumpula` DataFrame into a file `Kumpula_temps_May_Aug_2017.csv` in CSV format:\n",
+    "  - Separate the columns with commas (,)\n",
+    "  - Use only 2 decimals for the floating point numbers\n",
+    "- Repeat the same procedures and save the `rovaniemi` DataFrame into a file `Rovaniemi_temps_May_Aug_2017.csv`.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Footnotes\n",
+    "\n",
+    "[^numpydtypes]: <https://numpy.org/doc/stable/user/basics.types.html>\n",
+    "[^pandasio]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html>"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.8"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
