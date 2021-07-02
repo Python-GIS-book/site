@@ -6,7 +6,7 @@
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
-BUILDDIR      = build
+BUILDDIR      = docs
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -22,6 +22,21 @@ pages:
 	python ./$(SOURCEDIR)/page_builder.py
 	make html
 
+
+.PHONY: book
+book:
+	@echo
+	@echo "Building pages with Sphinx."
+	@echo "-----------------------------------"
+	make html
+	make html
+	# Remove unnecessary directories
+	rm -rf docs/doctrees docs/jupyter_execute
+	# Move files level up from html directory
+	mv docs/html/* docs/
+	rm -r docs/html
+	# Create NoJekyll
+	touch docs/.nojekyll
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
