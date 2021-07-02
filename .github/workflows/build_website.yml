@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - GA_building
 jobs:
   build-html-and-deploy:
     runs-on: ubuntu-latest
