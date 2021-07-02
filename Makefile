@@ -28,6 +28,7 @@ book:
 	@echo
 	@echo "Building pages with Sphinx."
 	@echo "-----------------------------------"
+	make clean
 	make html
 	make html
 	# Remove unnecessary directories
