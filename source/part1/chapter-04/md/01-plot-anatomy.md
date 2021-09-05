@@ -34,7 +34,7 @@ There are a variety of different kinds of plots (also known as graphs, charts, d
 
 In spite of the large variety of types of plots, there are certain elements that are common for most of them (not all). Thus, it is useful to know at least the basic terminology since it makes it easier to find help and information from the internet when you start creating or modifying your own plots.
 
-The following figure illustrates different elements of a basic line plot.
+Figure 4.2 illustrates different elements of a basic line plot.
 
 ![_**Figure 4.2**. The basic elements of a plot._](../img/basic-elements-of-plot.png)
 
@@ -42,7 +42,7 @@ _**Figure 4.2**. The basic elements of a plot._
 
 ## Common plotting terminology
 
-These common terms may vary a bit depending on the plotting library that you use. For the list provided here we are using the typical terms for plotting in Matplotlib.
+These common terms may vary a bit depending on the plotting library that you use. For the list provided here we are using the typical terms for plotting in Matplotlib (see also Figure 4.2).
 
 - **axis** - Axis of the graph that are typically x, y and z (for 3D plots).
 - **title** - Title of the whole plot.
