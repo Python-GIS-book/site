@@ -36,24 +36,30 @@ In spite of the large variety of types of plots, there are certain elements that
 
 Figure 4.2 illustrates different elements of a basic line plot.
 
-![_**Figure 4.2**. The basic elements of a plot._](../img/basic-elements-of-plot.png)
+![_**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)_](../img/basic-elements-of-plot.png)
 
-_**Figure 4.2**. The basic elements of a plot._
+_**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)_
 
 ## Common plotting terminology
 
 These common terms may vary a bit depending on the plotting library that you use. For the list provided here we are using the typical terms for plotting in Matplotlib (see also Figure 4.2).
 
-- **axis** - Axis of the graph that are typically x, y and z (for 3D plots).
-- **title** - Title of the whole plot.
-- **label** - Name for the whole axis.
-- **legend** - Legend for the plot.
-- **tick label** - Text or values that are represented on the axis.
-- **symbol** - Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes/colors.
-- **size** - Size of, for example, a point on a scatter plot. Also used for referring to the text sizes on a plot.
-- **linestyle** - The style how the line should be drawn. Can be solid or dashed, for example.
-- **linewidth** - The width of a line in a plot.
-- **alpha** - Transparency level of a filled element in a plot (values between 0.0 (fully transparent) to 1.0 (no trasnparency)).
-- **tick(s)** - Refers to the tick marks on a plot.
-- **annotation** - Refers to the text added to a plot.
-- **padding** - The distance between a (axis/tick) label and the axis.
+| Term         | Description                                                                                                         |
+|--------------|---------------------------------------------------------------------------------------------------------------------|
+| *axis*       | Axis of the graph that are typically x, y and z (for 3D plots).                                                     |
+| *title*      | Title of the whole plot.                                                                                            |
+| *label*      | Name for the whole axis (e.g. xlabel or ylabel).                                                                    |
+| *legend*     | Legend for the plot.                                                                                                |
+| *tick label* | Text or values that are represented on the axis.                                                                    |
+| *symbol*     | Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes/colors.             |
+| *size*       | Size of, for example, a point on a scatter plot. Also used for referring to the text sizes on a plot.               |
+| *linestyle*  | The style how the line should be drawn. Can be solid or dashed, for example.                                        |
+| *linewidth*  | The width of a line in a plot.                                                                                      |
+| *alpha*      | Transparency level of a filled element in a plot (values between 0.0 (fully transparent) to 1.0 (no trasnparency)). |
+| *tick(s)*    | Refers to the tick marks on a plot.                                                                                 |
+| *annotation* | Refers to the text added to a plot.                                                                                 |
+| *padding*    | The distance between a (axis/tick) label and the axis.                                                              | 
+
+```python
+
+```
