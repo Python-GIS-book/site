@@ -628,7 +628,7 @@ The previous example showed a simple example how it is possible to combine chara
 There are three approaches that can be used to manipulate strings in Python, namely 1) f-strings, 2) using the`.format()` -function and 3) using the %-operator. We recommed using the f-string approach, but we also give examples of the two other approaches because there are plenty of examples and code snippets on the web, where these string formatting approaches are still used. Hence, it is good to be aware of them all. In addition, we show a few useful methods that make working with text in different ways possible.
 
 
-### String formatting
+### F-String formatting
 
 In the following we show three different ways of combining the `station_name` text and `station_id` number together using Python's string formatting approaches. Let's start working with f-strings which is easy once you know the basics: The text that you want to create is enclosed within the quotes preceded with lower case character f:`f""`. You can pass any existing variable inside the text template by placing the name of the variable within curly-brackets `{}`, like this: 
 
@@ -638,7 +638,15 @@ my_text = f"This is my text template with numeric value {station_id} and text: {
 print(my_text)
 ```
 
-As you can see, using string formatting it is possible to insert a number within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does that operation for us in the background without us needing to worry about it (handy!). F-strings are intuitive to use, hence, it is the most recommended approach for doing string manipulation nowadays in Python. Just remember add the letter `f` before your string template! 
+As you can see, using string formatting it is possible to insert a number within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does that operation for us in the background without us needing to worry about it (handy!). F-strings are intuitive to use, hence, it is the most recommended approach for doing string manipulation nowadays in Python. Just remember to add the letter `f` before your string template! 
+
+
+- ADD AN ILLUSTRATION ABOUT HOW THIS WORKS?
+- ADD HERE A SHORT EXAMPLE OF HOW TO FORMAT DECIMALS. ADD E.G. A TEMPERATURE TO THE TEMPLATE.
+
+
+
+### Older approaches for string formatting
 
 There are also a couple of other approaches that can be used to achieve the same result as above. These older approaches preceded the f-string which was introduced in Python version 3.6. The first one is `.format()` method that is placed after the quotes, like this:
 

@@ -14,7 +14,7 @@ After going through this chapter your should be able to:
     :maxdepth: 1
     :caption: Sections:
 
-    00-introduction.rst
-    01-plot-anatomy.rst
-    02-basic-plotting.ipynb
-    03-subplots.ipynb
+    nb/00-introduction.ipynb
+    nb/01-plot-anatomy.ipynb
+    nb/02-basic-plotting.ipynb
+    nb/03-subplots.ipynb
