@@ -621,9 +621,64 @@ print(station_name_and_id)
 Note that here we are converting `station_id` to a character string using the `str()` function within the assignment to the variable `station_name_and_id`. Alternatively, we could have simply added `station_name` and `station_id_str`.
 
 
-## Working with text - String manipulation
+## Working with text (and numbers)
 
-Add content about F-string etc.
+The previous example showed a simple example how it is possible to combine character strings and numbers together using the `+` operator between the different text components. Although this approach works, it can become quite laborous and error-prone if having more complicated set of textual and/or numerical components that you should work with. Hence, next we show a few useful techniques that make manipulating strings easier and more efficient.
+
+There are three approaches that can be used to manipulate strings in Python, namely 1) f-strings, 2) using the`.format()` -function and 3) using the %-operator. We recommed using the f-string approach, but we also give examples of the two other approaches because there are plenty of examples and code snippets on the web, where these string formatting approaches are still used. Hence, it is good to be aware of them all. In addition, we show a few useful methods that make working with text in different ways possible.
+
+
+### String formatting
+
+In the following we show three different ways of combining the `station_name` text and `station_id` number together using Python's string formatting approaches. Let's start working with f-strings which is easy once you know the basics: The text that you want to create is enclosed within the quotes preceded with lower case character f:`f""`. You can pass any existing variable inside the text template by placing the name of the variable within curly-brackets `{}`, like this: 
+
+```python
+# 1. F-string approach (recommended way)
+my_text = f"This is my text template with numeric value {station_id} and text: {station_name}." 
+print(my_text)
+```
+
+As you can see, using string formatting it is possible to insert a number within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does that operation for us in the background without us needing to worry about it (handy!). F-strings are intuitive to use, hence, it is the most recommended approach for doing string manipulation nowadays in Python. Just remember add the letter `f` before your string template! 
+
+There are also a couple of other approaches that can be used to achieve the same result as above. These older approaches preceded the f-string which was introduced in Python version 3.6. The first one is `.format()` method that is placed after the quotes, like this:
+
+```python
+# 2. .format() approach (not recommended anymore)
+my_text2 = "This is my text template with numeric value {station_id} and text: {my_text_variable}".format(
+    station_id=station_id, 
+    my_text_variable=station_name)
+
+print(my_text2)
+```
+
+As you can see, here we got the same result as with f-strings, but used the `.format()` which was placed after the quotes. The variables were inserted within the text template by using curly brackets and giving them a name (placeholder) which should have a matching counterpart within the parentheses that link to the actual variable which will be inserted to the body of text. As you see, the placeholder does not necessarily need to have the same name as the actual variable that contains the inserted value, but it can be anything, like the name `my_text_variable` as in the example above. 
+
+The last (historical) string formatting approach is to use `%s` -operator. In this approach, the placeholder `%s` is added within the quotes, and the variables that are inserted into the body of text are placed inside parentheses after the `%` operator, like this:
+
+```python
+# 3. %-operator approach (not recommended anymore)
+my_text3 = "This is my text template with numeric value %s and text: %s" % (station_id, station_name)
+print(my_text3)
+```
+
+The order of the variables within the parentheses specify which `%s` placeholder will receive what information. The order of the variables inside parentheses needs to be corrected always if making changes to the placing of the placeholders, and there should be exactly the same number of variables within the parentheses as there are `%s` placeholders within the text template. Hence, this approach is prone to errors and causing confusion, which is why we do not recommend using it.  
+
+To conclude, using the f-string approach is the easiest and most intuitive way to construct and format text. Hence, we highly recommend learning that approach and sticking with it.
+
+
+### Splitting strings
+
+
+### Accessing / slicing
+
+
+### Startswith / endswith
+
+
+### Replace
+
+
+### Upper case / lower case
 
 
 ## Exercises
