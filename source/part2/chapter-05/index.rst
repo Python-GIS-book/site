@@ -1,4 +1,4 @@
-Chapter 4: Essentials What is special about geographic data?
+Chapter 5: Essentials What is special about geographic data?
 =================================================
 
 Here we introduce basic GIS concepts for beginners.

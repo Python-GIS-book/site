@@ -1,4 +1,4 @@
-Chapter 8: Using online geographic data sources
+Chapter 9: Using online geographic data sources
 ===============================================
 
 **This chapter is under construction.**

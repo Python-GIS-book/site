@@ -1,4 +1,4 @@
-Chapter 7: Geographic data visualization
+Chapter 8: Geographic data visualization
 ========================================
 
 **This chapter is under construction.**

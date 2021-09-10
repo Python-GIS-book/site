@@ -1,4 +1,4 @@
-Chapter 5: Vector data processing
+Chapter 6: Vector data processing
 =================================
 
 Here we introduce basics of vector data processing.

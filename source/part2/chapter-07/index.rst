@@ -1,4 +1,4 @@
-Chapter 6: Raster data processing
+Chapter 7: Raster data processing
 =================================
 
 **This chapter is under construction.**
