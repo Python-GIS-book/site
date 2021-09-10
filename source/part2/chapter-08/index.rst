@@ -1,20 +1,19 @@
-Chapter 8: Using online geographic data sources
-===============================================
+Chapter 7: Geographic data visualization
+========================================
 
 **This chapter is under construction.**
 
-
-This chapter introduces you how to retrieve spatial data automatically via Application Programming Interfaces (APIs).
-
-- Retrieving OpenStreetMap data 
-- Retrieving vector data from Web Feature Services (WFS) 
-- Retrieving raster data from Cloud Optimized GeoTiffs (COG) 
-- Retrieving data from spatial databases 
+- Introduction to geographic visualization 
+- Static visualizations 
+- Interactive visualizations 
+- Dashboards (probably out of scope) 
+- Selecting colors and color maps 
 
 ..
     .. toctree::
         :maxdepth: 1
         :caption: Sections:
 
-        nb/*.ipynb
+        nb/01-static-maps.ipynb
+        nb/02-interactive-maps.ipynb
 

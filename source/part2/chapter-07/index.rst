@@ -1,19 +1,22 @@
-Chapter 7: Geographic data visualization
-========================================
+Chapter 6: Raster data processing
+=================================
 
 **This chapter is under construction.**
 
-- Introduction to geographic visualization 
-- Static visualizations 
-- Interactive visualizations 
-- Dashboards (probably out of scope) 
-- Selecting colors and color maps 
+Sub-sections:
+- Introduction to raster processing 
+- Reading and writing raster data (Data I/O) 
+- Reprojecting raster data 
+- Mosaicing 
+- Raster resampling 
+- Map algebra – Doing calculations with raster data 
+- Raster to Polygon - Polygon to raster 
+- Masking / clipping 
 
 ..
     .. toctree::
         :maxdepth: 1
         :caption: Sections:
 
-        nb/01-static-maps.ipynb
-        nb/02-interactive-maps.ipynb
+        nb/01-reading-raster.ipynb
 

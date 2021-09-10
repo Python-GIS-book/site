@@ -1,32 +1,29 @@
-Chapter 5: Vector data processing
-=================================
+Chapter 4: Essentials What is special about geographic data?
+=================================================
 
-Here we introduce basics of vector data processing.
+Here we introduce basic GIS concepts for beginners.
 
-**This chapter is under construction.**
+**This section is under construction.**
 
-Sub-sections:
-- Intro Geographic objects in Python
-- Introduction to spatial data analysis with geopandas
-- Reading and writing vector data (Data I/O)
+*Draft Intro text*:
+
+How do we represent geographic features such as roads and buildings or lakes and mountains on a computer? How can we analyze spatial relations between these features? How can we link abstract geometric objects to actual locations on the Earth? What is the difference between geographic and projected coordinate reference systems? How can we automate all this using Python?
+
+This chapter introduces you to the basic concepts and approaches related to Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book. 
+
+*Topics to cover*:
+
+- Spatial data model
 - Coordinate reference systems
-- Analyzing spatial relationships
-    - Spatial queries and selections
-    - Neighborhood analysis - Spatial weights (linkage to Rey et al. 2020)
-    - Improving performance - Spatial index
-- Geometric data conversions – from form to another
-    - Dissolving and merging geometries
-    - Geocoding (addresses <-> points)
-    - Interpolation (e.g. IDW)
-    - Tesselation
-    - Overlay analysis
+- Geometric operations
+- Spatial relationships (map algebra, overlay analysis, etc.)
+- Distance operations
+- Directional operations
+
 ..
     .. toctree::
         :maxdepth: 1
         :caption: Sections:
 
-        nb/00-geometric-objects.ipynb
-        nb/01-geopandas-basics.ipynb
-        nb/02-data-io.ipynb
-        nb/03-projections.ipynb
+
 
