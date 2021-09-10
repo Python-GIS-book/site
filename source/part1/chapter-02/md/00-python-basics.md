@@ -660,7 +660,7 @@ As mentioned previously, there are also a couple of other approaches that can be
 
 ```python
 # 2. .format() approach (not recommended anymore)
-text2 = "The temperature at {my_text_variable} (ID: {station_id}) is {temp:.2f}: ".format(
+text2 = "The temperature at {my_text_variable} (ID: {station_id}) is {temp:.2f}.".format(
     my_text_variable=station_name,
     station_id=station_id, 
     temp=temp
@@ -683,20 +683,61 @@ The order of the variables within the parentheses specify which `%s` placeholder
 To conclude, using the f-string approach is the easiest and most intuitive way to construct and format text. Hence, we highly recommend learning that approach and sticking with it.
 
 
-### Splitting strings
+### Common string manipulation techniques
+
+In the following, we will demonstrate some of the most useful string manipulation techniques, such as splitting strings based on given character, replacing characters with new ones, slicing the strings etc. 
+Here, our final target is to get a list of weather station locations within Helsinki represented in UPPER case (i.e. KUMPULA, KAISANIEMI, HARMAJA). The text that we will be working on is following:
+
+```python
+text = "Stations: Helsinki Kumpula, Helsinki Kaisaniemi, Helsinki Harmaja"
+```
+
+Let's start by demonstrating how we can **split** a string into different components based on specific character(s). we split the given text based on the colon (`:`) by passing the character into a method called `.split()`:
+
+```python
+splitted = text.split(":")
+print(splitted)
+```
+
+```python
+type(splitted)
+```
+
+As a result, the body of text was splitted into two components inside a list where the first item (at index 0) now has the text `Stations` (i.e. the text preceeding the colon) and the second item (at index 1) contains the body of text listing the stations that are separated with comma. Now we can continue working towards our target by selecting the stations text from the `splitted` list at index 1:
+
+```python
+stations_text = splitted[1]
+stations_text
+```
+
+As can be seen, the first character in our string is actually an empty space (' ') before the word Helsinki. We can get rid off that character easily by **slicing** the text. Each character on a body of text can be accessed based on its position index similarly as with lists that were introduced earlier. Thus, we can slice our word by specifying that we want to keep all characters after the first position (i.e. removing the empty space). We can do this by adding the position inside square brackets (`[]`) where we want to start accessing the text and by adding a `colon` after this number, we can specify that we want to keep all the rest of the characters in our text (i.e. we take a slice of it):
+
+```python
+stations_text = stations_text[1:]
+stations_text
+```
+
+Now we have accessed and stored all the characters starting from position 1, and hence dropped the first empty space. Alternative approach for achieving this would be to use a method called `.strip()`. You could also specify a specific range of characters that you want to slice from the word by adding the index position after the colon (e.g. `[1:9]` would have separated the word `Helsinki` from the text).
 
 
-### Accessing / slicing
+Now the word `Helsinki` is repeated multiple times in our text before the station names. We can easily get rid off this word by **replacing** the word `Helsinki` with an empty string (`""`) which will basically remove those words from the text. We can accomplish this by using a method called `.replace()` which takes the `old` word as the first argument and the `new` word (or character(s)) as the seconds argument:
 
+```python
+stations_text = stations_text.replace("Helsinki ", "")
+stations_text
+```
 
-### Startswith / endswith
+Now we have replaced the word `"Helsinki "` basically with nothing, and as a result we got a text where the station names are listed. Finally, we can easily **change the case to upper** by using a method called `.upper()` (and in a similar manner to lower or capitalize the text):
 
+```python
+stations_upper = stations_text.upper()
+stations_lower = stations_text.lower()
+stations_capitalize = stations_lower.capitalize()
 
-### Replace
-
-
-### Upper case / lower case
-
+print(stations_upper)
+print(stations_lower)
+print(stations_capitalize)
+```
 
 ## Exercises
 
