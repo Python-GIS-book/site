@@ -10,13 +10,11 @@ After going through this chapter your should be able to:
  - Manipulate plot formatting
  - Save plots as image files
 
-..
-    .. toctree::
-        :maxdepth: 1
-        :caption: Sections:
+.. toctree::
+    :maxdepth: 1
+    :caption: Sections:
 
-        00-introduction.rst
-        01-plot-anatomy.rst
-        02-basic-plotting.ipynb
-        03-subplots.ipynb
-
+    00-introduction.rst
+    01-plot-anatomy.rst
+    02-basic-plotting.ipynb
+    03-subplots.ipynb
