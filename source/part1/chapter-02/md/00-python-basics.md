@@ -630,43 +630,52 @@ There are three approaches that can be used to manipulate strings in Python, nam
 
 ### F-String formatting
 
-In the following we show three different ways of combining the `station_name` text and `station_id` number together using Python's string formatting approaches. Let's start working with f-strings which is easy once you know the basics: The text that you want to create is enclosed within the quotes preceded with lower case character f:`f""`. You can pass any existing variable inside the text template by placing the name of the variable within curly-brackets `{}`, like this: 
+In the following, we show how we can combine the `station_name` text, `station_id` integer number and `temp` floating point number together using Python's f-string formatting approach. In addition, we will round the decimal number (on the fly) into two decimal points:
 
 ```python
+# Temperature with many decimals
+temp = 18.56789876
+
 # 1. F-string approach (recommended way)
-my_text = f"This is my text template with numeric value {station_id} and text: {station_name}." 
-print(my_text)
+info_text = f"The temperature at {station_name} station (ID: {station_id}) is {temp:.2f} Celsius."
+
+print(info_text)
 ```
 
-As you can see, using string formatting it is possible to insert a number within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does that operation for us in the background without us needing to worry about it (handy!). F-strings are intuitive to use, hence, it is the most recommended approach for doing string manipulation nowadays in Python. Just remember to add the letter `f` before your string template! 
+![_**Figure 1.X**. F-string formatting explained. _](../img/F-string-formatting.png)
+
+_**Figure 1.X**. F-string formatting explained._
 
 
-- ADD AN ILLUSTRATION ABOUT HOW THIS WORKS?
-- ADD HERE A SHORT EXAMPLE OF HOW TO FORMAT DECIMALS. ADD E.G. A TEMPERATURE TO THE TEMPLATE.
+As you can see, using string formatting it is possible to easily modify a body of text "interactively" based on values stored in given variables. **Figure X** breaks down the different parts of the string. The text that you want to create and/or modify is enclosed within the quotes preceded with letter `f`. You can pass any existing variable inside the text template by placing the name of the variable within the curly braces `{}`. Using string formatting, it is also possible to insert numbers (such as `station_id` and `temp` here) within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does the data type conversion for us in the background without us needing to worry about it (handy!). 
 
+It is also possible to round these numbers on-the-fly to specific precision, such as two decimal points as in our example by adding format specifier (`:.2f`) after the variable that we want to round. The format specifier works by first adding a colon (`:`) after the variable name, and then specifying with dot (`.`) that we want to round our value to 2 decimal places (can be any digits). The final character `f` in the format specifier defines the type of the conversion that will be conducted: character `f` will convert the value to decimal number, whereas character `e` would make the number to appear as exponential number while character `%` would convert the value to percentage representation. 
+
+As we have hopefully demonstrated, f-string formatting is easy to use, yet powerful with its capability to e.g. do data conversions on the fly. Hence, it is the recommended approach for doing string manipulation nowadays in Python. Just remember to add the letter `f` before your string template! 
 
 
 ### Older approaches for string formatting
 
-There are also a couple of other approaches that can be used to achieve the same result as above. These older approaches preceded the f-string which was introduced in Python version 3.6. The first one is `.format()` method that is placed after the quotes, like this:
+As mentioned previously, there are also a couple of other approaches that can be used to achieve the same result as above. These older approaches preceded the f-string which was introduced in Python version 3.6. The first one is `.format()` method that is placed after the quotes, like this:
 
 ```python
 # 2. .format() approach (not recommended anymore)
-my_text2 = "This is my text template with numeric value {station_id} and text: {my_text_variable}".format(
+text2 = "The temperature at {my_text_variable} (ID: {station_id}) is {temp:.2f}: ".format(
+    my_text_variable=station_name,
     station_id=station_id, 
-    my_text_variable=station_name)
-
-print(my_text2)
+    temp=temp
+    )
+print(text2)
 ```
 
-As you can see, here we got the same result as with f-strings, but used the `.format()` which was placed after the quotes. The variables were inserted within the text template by using curly brackets and giving them a name (placeholder) which should have a matching counterpart within the parentheses that link to the actual variable which will be inserted to the body of text. As you see, the placeholder does not necessarily need to have the same name as the actual variable that contains the inserted value, but it can be anything, like the name `my_text_variable` as in the example above. 
+As you can see, here we got the same result as with f-strings, but used the `.format()` which was placed after the quotes. The variables were inserted within the text template by using curly braces and giving them a name (placeholder) which should have a matching counterpart within the parentheses that link to the actual variable which will be inserted to the body of text. As you see, the placeholder does not necessarily need to have the same name as the actual variable that contains the inserted value, but it can be anything, like the name `my_text_variable` as in the example above. 
 
 The last (historical) string formatting approach is to use `%s` -operator. In this approach, the placeholder `%s` is added within the quotes, and the variables that are inserted into the body of text are placed inside parentheses after the `%` operator, like this:
 
 ```python
 # 3. %-operator approach (not recommended anymore)
-my_text3 = "This is my text template with numeric value %s and text: %s" % (station_id, station_name)
-print(my_text3)
+text3 = "The temperature at %s (ID: %s) is %.2f" % (station_name, station_id, temp)
+print(text3)
 ```
 
 The order of the variables within the parentheses specify which `%s` placeholder will receive what information. The order of the variables inside parentheses needs to be corrected always if making changes to the placing of the placeholders, and there should be exactly the same number of variables within the parentheses as there are `%s` placeholders within the text template. Hence, this approach is prone to errors and causing confusion, which is why we do not recommend using it.  
