@@ -4,60 +4,16 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.8.2
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
-<!-- #region -->
-# Anatomy of a plot
-
-Before starting to plot our data we need to start with an obvious question: What actually is a plot?
-We won't go too deep into the details of different plots, but rather we will give a short introduction to different plots that can be created with Python, and the (typical) elements of a plot.
-
-There are a variety of different kinds of plots (also known as graphs, charts, diagrams, etc. - Our dear child has many names) available that have been designed to visually represent the characteristics of a dataset. Here is a list of several different types of plots that can be used to visualize different kinds of datasets:
-
-- Bar chart 
-- Histogram 
-- Scatter plot 
-- Line chart 
-- Pie chart 
-- Box plot 
-- Violin plot 
-- Dendrogram 
-- Chord diagram 
-- Treemap 
-- Network chart 
-
-In spite of the large variety of plots, there are certain elements that are common for most of the plots (not all).
-Thus, it is useful to know at least the basic terminology since it makes it easier to find help and information from the internet when you start creating or modifying your own plots. The Figure X illustrates different elements of a basic line plot.
-
-![_**Figure X.** Basic elements of a plot. Image source: Tenkanen (2017)._](../img/basic-elements-of-plot.png)
-
-
-There are quite a few common terms and words that are used when discussing about different aspects of a plot. Table X represents a few common terms and their explanations. These common terms may vary a bit depending on the plotting library that you use, but these are some typical terms used when plotting in Matplotlib, for example.
-
-| Term         | Description                                                                                                         |
-|--------------|---------------------------------------------------------------------------------------------------------------------|
-| *axis*       | Axis of the graph that are typically x, y and z (for 3D plots).                                                     |
-| *title*      | Title of the whole plot.                                                                                            |
-| *label*      | Name for the whole axis (e.g. xlabel or ylabel).                                                                    |
-| *legend*     | Legend for the plot.                                                                                                |
-| *tick label* | Text or values that are represented on the axis.                                                                    |
-| *symbol*     | Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes/colors.             |
-| *size*       | Size of, for example, a point on a scatter plot. Also used for referring to the text sizes on a plot.               |
-| *linestyle*  | The style how the line should be drawn. Can be solid or dashed, for example.                                        |
-| *linewidth*  | The width of a line in a plot.                                                                                      |
-| *alpha*      | Transparency level of a filled element in a plot (values between 0.0 (fully transparent) to 1.0 (no trasnparency)). |
-| *tick(s)*    | Refers to the tick marks on a plot.                                                                                 |
-| *annotation* | Refers to the text added to a plot.                                                                                 |
-| *padding*    | The distance between a (axis/tick) label and the axis.                                                              | 
-<!-- #endregion -->
-
 # Basic plotting with pandas and matplotlib
+
 
 As we're now familiar with some of the features of pandas, we will wade into visualizing our data in Python using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for visualizing our data, but as you'll see we will sometimes need to also use features from matplotlib to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like plotting. We will also briefly explore creating interactive plots using the `pandas-bokeh` [^pandas_bokeh] plotting backend, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax similar to that used normally in pandas.
 

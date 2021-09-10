@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.8.2
+      format_version: '1.3'
+      jupytext_version: 1.10.3
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -277,95 +277,6 @@ print(5 * first_variable)
 print(first_variable - second_variable)
 ```
 
-## Data types revisited
-
-We learned a bit about variables and their values earlier in this section. We now continue with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:
-
-```python
-station_name = 'Helsinki Kaivopuisto'
-```
-
-```python
-station_id = 132310
-```
-
-```python
-station_lat = 60.15
-```
-
-```python
-station_lon = 24.96
-```
-
-```python
-station_type = 'Mareographs'
-```
-
-Here we have 5 values assigned to variables related to a single observation station. Each variable has a unique name and they can store different types of data.
-
-
-### Reminder: Data types and their compatibility
-
-We can explore the different types of data stored in variables using the `type()` function.
-Let's check the data types of the variables `station_name`, `station_id`, and `station_lat`.
-
-```python
-type(station_name)
-```
-
-```python
-type(station_id)
-```
-
-```python
-type(station_lat)
-```
-
-As expected, we see that the `station_name` is a character string, the `station_id` is an integer, and the `station_lat` is a floating point number. Being aware of the data type of variables is important because some are not compatible with one another. Let's see what happens if we try to sum up the variables `station_name` and `station_id`.
-
-```python tags=["raises-exception"]
-station_name + station_id
-```
-
-Here we get a `TypeError` because Python does not know to combine a string of characters (`station_name`) with an integer value (`station_id`).
-
-
-### Converting data from one type to another
-
-It is not the case that things like the `station_name` and `station_id` cannot be combined at all, but in order to combine a character string with a number we need to perform a *data type conversion* to make them compatible. Let's convert `station_id` to a character string using the `str()` function. We can store the converted variable as `station_id_str`.
-
-```python
-station_id_str = str(station_id)
-```
-
-We can confirm the type has changed by checking the type of `station_id_str`, or by checking the output of a code cell with the variable.
-
-```python
-type(station_id_str)
-```
-
-```python
-station_id_str
-```
-
-As you can see, `str()` converts a numerical value into a character string with the same numbers as before. Similar to using `str()` to convert numbers to character strings, `int()` can be used to convert strings or floating point numbers to integers and `float()` can be used to convert strings or integers to floating point numbers.
-
-
-### Combining text and numbers
-
-Although most mathematical operations operate on numerical values, a common way to combine character strings is using the addition operator `+`. Let's create a text string in the variable `station_name_and_id` that is the combination of the `station_name` and `station_id` variables. Once we define `station_name_and_id`, we can print it to the screen to see the result.
-
-```python
-station_name_and_id = station_name + ": " + str(station_id)
-```
-
-```python
-print(station_name_and_id)
-```
-
-Note that here we are converting `station_id` to a character string using the `str()` function within the assignment to the variable `station_name_and_id`. Alternatively, we could have simply added `station_name` and `station_id_str`.
-
-
 ## Lists and indices
 
 Above we have seen a bit of data related to one of several FMI observation stations in the Helsinki area. Rather than having individual variables for each of those stations, we can store many related values in a *collection*. The simplest type of collection in Python is a *{term}`list`*.
@@ -618,6 +529,164 @@ print(station_names)
 ```
 
 As you can see, the list has been sorted alphabetically using the `list.sort()` method, but there is no screen output when this occurs. Again, if you were to assign that output to `station_names` the list would get sorted, but the contents would then be assigned `None`. As you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighthouse` in the sorted list. This is because alphabetical sorting in Python places capital letters before lowercase letters.
+
+
+## Making different data types work together
+
+
+We learned a bit about variables and their values earlier in this section. We now continue with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:
+
+```python
+station_name = 'Helsinki Kaivopuisto'
+```
+
+```python
+station_id = 132310
+```
+
+```python
+station_lat = 60.15
+```
+
+```python
+station_lon = 24.96
+```
+
+```python
+station_type = 'Mareographs'
+```
+
+Here we have 5 values assigned to variables related to a single observation station. Each variable has a unique name and they can store different types of data.
+
+
+### Data types and their compatibility
+
+We can explore the different types of data stored in variables using the `type()` function.
+Let's check the data types of the variables `station_name`, `station_id`, and `station_lat`.
+
+```python
+type(station_name)
+```
+
+```python
+type(station_id)
+```
+
+```python
+type(station_lat)
+```
+
+As expected, we see that the `station_name` is a character string, the `station_id` is an integer, and the `station_lat` is a floating point number. Being aware of the data type of variables is important because some are not compatible with one another. Let's see what happens if we try to sum up the variables `station_name` and `station_id`.
+
+```python tags=["raises-exception"]
+station_name + station_id
+```
+
+Here we get a `TypeError` because Python does not know to combine a string of characters (`station_name`) with an integer value (`station_id`).
+
+
+### Converting data from one type to another
+
+It is not the case that things like the `station_name` and `station_id` cannot be combined at all, but in order to combine a character string with a number we need to perform a *data type conversion* to make them compatible. Let's convert `station_id` to a character string using the `str()` function. We can store the converted variable as `station_id_str`.
+
+```python
+station_id_str = str(station_id)
+```
+
+We can confirm the type has changed by checking the type of `station_id_str`, or by checking the output of a code cell with the variable.
+
+```python
+type(station_id_str)
+```
+
+```python
+station_id_str
+```
+
+As you can see, `str()` converts a numerical value into a character string with the same numbers as before. Similar to using `str()` to convert numbers to character strings, `int()` can be used to convert strings or floating point numbers to integers and `float()` can be used to convert strings or integers to floating point numbers.
+
+
+### Combining text and numbers
+
+Although most mathematical operations operate on numerical values, a common way to combine character strings is using the addition operator `+`. Let's create a text string in the variable `station_name_and_id` that is the combination of the `station_name` and `station_id` variables. Once we define `station_name_and_id`, we can print it to the screen to see the result.
+
+```python
+station_name_and_id = station_name + ": " + str(station_id)
+```
+
+```python
+print(station_name_and_id)
+```
+
+Note that here we are converting `station_id` to a character string using the `str()` function within the assignment to the variable `station_name_and_id`. Alternatively, we could have simply added `station_name` and `station_id_str`.
+
+
+## Working with text (and numbers)
+
+The previous example showed a simple example how it is possible to combine character strings and numbers together using the `+` operator between the different text components. Although this approach works, it can become quite laborous and error-prone if having more complicated set of textual and/or numerical components that you should work with. Hence, next we show a few useful techniques that make manipulating strings easier and more efficient.
+
+There are three approaches that can be used to manipulate strings in Python, namely 1) f-strings, 2) using the`.format()` -function and 3) using the %-operator. We recommed using the f-string approach, but we also give examples of the two other approaches because there are plenty of examples and code snippets on the web, where these string formatting approaches are still used. Hence, it is good to be aware of them all. In addition, we show a few useful methods that make working with text in different ways possible.
+
+
+### F-String formatting
+
+In the following we show three different ways of combining the `station_name` text and `station_id` number together using Python's string formatting approaches. Let's start working with f-strings which is easy once you know the basics: The text that you want to create is enclosed within the quotes preceded with lower case character f:`f""`. You can pass any existing variable inside the text template by placing the name of the variable within curly-brackets `{}`, like this: 
+
+```python
+# 1. F-string approach (recommended way)
+my_text = f"This is my text template with numeric value {station_id} and text: {station_name}." 
+print(my_text)
+```
+
+As you can see, using string formatting it is possible to insert a number within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does that operation for us in the background without us needing to worry about it (handy!). F-strings are intuitive to use, hence, it is the most recommended approach for doing string manipulation nowadays in Python. Just remember to add the letter `f` before your string template! 
+
+
+- ADD AN ILLUSTRATION ABOUT HOW THIS WORKS?
+- ADD HERE A SHORT EXAMPLE OF HOW TO FORMAT DECIMALS. ADD E.G. A TEMPERATURE TO THE TEMPLATE.
+
+
+
+### Older approaches for string formatting
+
+There are also a couple of other approaches that can be used to achieve the same result as above. These older approaches preceded the f-string which was introduced in Python version 3.6. The first one is `.format()` method that is placed after the quotes, like this:
+
+```python
+# 2. .format() approach (not recommended anymore)
+my_text2 = "This is my text template with numeric value {station_id} and text: {my_text_variable}".format(
+    station_id=station_id, 
+    my_text_variable=station_name)
+
+print(my_text2)
+```
+
+As you can see, here we got the same result as with f-strings, but used the `.format()` which was placed after the quotes. The variables were inserted within the text template by using curly brackets and giving them a name (placeholder) which should have a matching counterpart within the parentheses that link to the actual variable which will be inserted to the body of text. As you see, the placeholder does not necessarily need to have the same name as the actual variable that contains the inserted value, but it can be anything, like the name `my_text_variable` as in the example above. 
+
+The last (historical) string formatting approach is to use `%s` -operator. In this approach, the placeholder `%s` is added within the quotes, and the variables that are inserted into the body of text are placed inside parentheses after the `%` operator, like this:
+
+```python
+# 3. %-operator approach (not recommended anymore)
+my_text3 = "This is my text template with numeric value %s and text: %s" % (station_id, station_name)
+print(my_text3)
+```
+
+The order of the variables within the parentheses specify which `%s` placeholder will receive what information. The order of the variables inside parentheses needs to be corrected always if making changes to the placing of the placeholders, and there should be exactly the same number of variables within the parentheses as there are `%s` placeholders within the text template. Hence, this approach is prone to errors and causing confusion, which is why we do not recommend using it.  
+
+To conclude, using the f-string approach is the easiest and most intuitive way to construct and format text. Hence, we highly recommend learning that approach and sticking with it.
+
+
+### Splitting strings
+
+
+### Accessing / slicing
+
+
+### Startswith / endswith
+
+
+### Replace
+
+
+### Upper case / lower case
 
 
 ## Exercises
