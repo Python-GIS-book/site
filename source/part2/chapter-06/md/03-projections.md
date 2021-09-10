@@ -30,7 +30,7 @@ _**Figure X.X**. Map projections via XKCD https://xkcd.com/977/._
 For those of you who want a bit more analytical approach for choosing the projection, you can get a good overview from [georeference.org](http://www.georeference.org/doc/guide_to_selecting_map_projections.htm), or from this blog post introducing [the strengths and weaknesses of a few commonly used projections](http://usersguidetotheuniverse.com/index.php/2011/03/03/whats-the-best-map-projection/).
 <!-- #endregion -->
 
-## Coordinate reference system (CRS) in Geopandas
+## Coordinate reference system (CRS) in pyproj and geopandas
 
 Luckily, defining and changing projections is easy using Geopandas and a library called [pyproj](https://pyproj4.github.io/pyproj/stable/). In this tutorial we will see **how to retrieve the
 coordinate reference system information from the data, and how to re-project the data into another crs**. We will re-project a data file from

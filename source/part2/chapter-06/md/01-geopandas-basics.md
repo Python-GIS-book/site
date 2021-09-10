@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region -->
-# Introduction to Geopandas
+# Introduction to spatial data analysis with Geopandas
 
 Here we cover basics steps needed for interacting with spatial data in Python using the geopandas (http://geopandas.org/) library:
 
@@ -150,7 +150,9 @@ Esri Shapefile is the default file format when reading in data usign geopandas, 
 
 ```python
 import geopandas as gpd
+```
 
+```python
 # Read file using gpd.read_file()
 data = gpd.read_file(fp)
 ```
@@ -520,7 +522,7 @@ for key, group in grouped:
 Excellent! Now we have saved those individual classes into separate Shapefiles and named the file according to the class name. These kind of grouping operations can be really handy when dealing with layers of spatial data. Doing similar process manually would be really laborious and error-prone.
 
 
-### Extra: save data to csv
+### Save attributes to a text file
 
 
 We can also extract basic statistics from our geodataframe, and save this information as a text file. 
@@ -542,9 +544,142 @@ area_info
 area_info.to_csv(os.path.join(result_folder, "terrain_class_areas.csv"), header=True)
 ```
 
+
+## Creating a new GeoDataFrame
+
+Since geopandas takes advantage of Shapely geometric objects, it is possible to create spatial data from scratch by passing Shapely's geometric objects into the GeoDataFrame. This is useful as it makes it easy to convert e.g. a text file that contains coordinates into spatial data layers. Next we will see how to create a new GeoDataFrame from scratch and save it into a Shapefile. Our goal is to define a geometry that represents the outlines of the [Senate square in Helsinki, Finland](https://fi.wikipedia.org/wiki/Senaatintori).
+
+
+
+Let's create an empty `GeoDataFrame`
+
+```python
+newdata = gpd.GeoDataFrame()
+```
+
+```python
+print(newdata)
+```
+
+We have an empty GeoDataFrame! A geodataframe is basically a pandas DataFrame that should have one column dedicated for geometries. By default, the geometry-column should be named `geometry` (geopandas looks for geometries from this column).  
+
+Let's create the `geometry` column:
+
+```python jupyter={"outputs_hidden": false}
+# Create a new column called 'geometry' to the GeoDataFrame
+newdata['geometry'] = None
+```
+
+```python
+print(newdata)
+```
+
+Now we have a `geometry` column in our GeoDataFrame but we still don't have any data.
+
+Let's create a Shapely `Polygon` repsenting the Helsinki Senate square that we can later insert to our GeoDataFrame:
+
+```python
+from shapely.geometry import Polygon
+```
+
+```python jupyter={"outputs_hidden": false}
+# Coordinates of the Helsinki Senate square in decimal degrees
+coordinates = [(24.950899, 60.169158), (24.953492, 60.169158), (24.953510, 60.170104), (24.950958, 60.169990)]
+```
+
+```python
+# Create a Shapely polygon from the coordinate-tuple list
+poly = Polygon(coordinates)
+```
+
+```python
+# Check the polyogon
+print(poly)
+```
+
+Okay, now we have an appropriate `Polygon` -object.
+
+Let's insert the polygon into our 'geometry' column of our GeoDataFrame on the first row:
+
+```python jupyter={"outputs_hidden": false}
+# Insert the polygon into 'geometry' -column at row 0
+newdata.at[0, 'geometry'] = poly
+```
+
+```python
+# Let's see what we have now
+print(newdata)
+```
+
+Great, now we have a GeoDataFrame with a Polygon that we could already now export to a Shapefile. However, typically you might want to include some attribute information with the geometry. 
+
+Let's add another column to our GeoDataFrame called `location` with text `Senaatintori` that describes the location of the feature.
+
+```python jupyter={"outputs_hidden": false}
+# Add a new column and insert data 
+newdata.at[0, 'location'] = 'Senaatintori'
+
+# Let's check the data
+print(newdata)
+```
+
+Okay, now we have additional information that is useful for recognicing what the feature represents. 
+
+The next step would be to **determine the coordinate reference system (projection) for the GeoDataFrame.** GeoDataFrame has an attribute called `.crs` that shows the coordinate system of the data. In our case, the layer doesn't yet have any crs definition:
+
+```python jupyter={"outputs_hidden": false}
+print(newdata.crs)
+```
+
+We passed the coordinates as latitude and longitude decimal degrees, so the correct CRS is WGS84 (epsg code: 4326). In this case, we can simply re-build the geodataframe and pass the correct crs information to the GeoDataFrame constructor. You will learn more about how to handle coordinate reference systems using pyproj CRS objects later in this chapter.  
+
+Re-create the GeoDataFrame with correct crs definition: 
+
+```python
+newdata = gpd.GeoDataFrame(newdata, crs="EPSG:4326")
+```
+
+```python
+newdata.crs.name
+```
+
+As we can see, now we have added coordinate reference system information into our `GeoDataFrame`. The CRS information is necessary for creating a valid projection information for the output file. 
+
+Finally, we can export the GeoDataFrame using `.to_file()` -function. The function works quite similarly as the export functions in pandas, but here we only need to provide the output path for the Shapefile. Easy isn't it!:
+
+```python
+# Determine the output path for the Shapefile
+outfp = "L2_data/Senaatintori.shp"
+
+# Write the data into that Shapefile
+newdata.to_file(outfp)
+```
+
+<!-- #region -->
+Now we have successfully created a Shapefile from scratch using geopandas. Similar approach can be used to for example to read coordinates from a text file (e.g. points) and turn that information into a spatial layer.
+
+
+#### Check your understanding
+
+
+<div class="alert alert-info">
+
+    
+Check the output Shapefile by reading it with geopandas and make sure that the attribute table and geometry seems correct.
+
+</div>
+
+<div class="alert alert-info">
+    
+Re-project the data to ETRS-TM35FIN (EPSG:3067) and save into a new file!
+
+</div>
+
+<!-- #endregion -->
+
 ## Summary
 
-In this tutorial we introduced the first steps of using geopandas. More specifically you should know how to:
+In this section we introduced the first steps of using geopandas. More specifically you should know how to:
 
 1. Read data from Shapefile using geopandas
 
@@ -558,3 +693,7 @@ In this tutorial we introduced the first steps of using geopandas. More specific
 
 
  
+
+```python
+
+```

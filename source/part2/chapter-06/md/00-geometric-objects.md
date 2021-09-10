@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region -->
-# Shapely and geometric objects
+# Geographic objects in Python/Shapely
 
 In this lesson, you will learn how to create and manipulate geometries in Python using the [Shapely Python Package](https://shapely.readthedocs.io/en/stable/manual.html).
 
@@ -436,7 +436,7 @@ point.buffer(1)
 ```
 
 <!-- #region -->
-## Geometry collections (optional)
+## Geometry collections
 
 
 In some occassions it is useful to store multiple geometries (for example, several points or several polygons) in a single feature. A practical example would be a country that is composed of several islands. In such case, all these polygons share the same attributes on the country-level and it might be reasonable to store that country as geometry collection that contains all the polygons. The attribute table would then contain one row of information with country-level attributes, and the geometry related to those attributes would represent several polygon. 
