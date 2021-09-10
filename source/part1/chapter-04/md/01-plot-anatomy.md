@@ -59,7 +59,3 @@ These common terms may vary a bit depending on the plotting library that you use
 | *tick(s)*    | Refers to the tick marks on a plot.                                                                                 |
 | *annotation* | Refers to the text added to a plot.                                                                                 |
 | *padding*    | The distance between a (axis/tick) label and the axis.                                                              | 
-
-```python
-
-```
