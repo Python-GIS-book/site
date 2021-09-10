@@ -36,5 +36,5 @@ Sub-sections:
         nb/07-spatial_index.ipynb
         nb/08-nearest-neighbor-faster.ipynb
         nb/09-geometric-operations.ipynb
-        nb/09-geocoding_in_geopandas.ipynb
+        nb/10-geocoding_in_geopandas.ipynb
 
