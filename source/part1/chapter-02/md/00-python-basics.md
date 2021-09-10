@@ -630,7 +630,7 @@ There are three approaches that can be used to manipulate strings in Python, nam
 
 ### F-String formatting
 
-In the following, we show how we can combine the `station_name` text, `station_id` integer number and `temp` floating point number together using Python's f-string formatting approach. In addition, we will round the decimal number (on the fly) into two decimal points:
+In the following, we show how we can combine the `station_name` text, `station_id` integer number and `temp` floating point number together using Python's f-string formatting approach. In addition, we will round the decimal number (temperature) into two decimal points on-the-fly:
 
 ```python
 # Temperature with many decimals
