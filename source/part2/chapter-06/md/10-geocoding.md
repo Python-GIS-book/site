@@ -20,45 +20,14 @@ Geocoding is the process of transforming place names or addresses into coordinat
 In this lesson we will learn how to geocode addresses using Geopandas and
 [geopy](https://geopy.readthedocs.io/en/stable/).
 
-Geopy and other geocoding libaries (such as [geocoder](http://geocoder.readthedocs.io/)
+Geopy and other geocoding libaries (such as [geocoder](http://geocoder.readthedocs.io/))
 make it easy to locate the coordinates of addresses, cities, countries, and landmarks
 across the globe using web services ("geocoders"). In practice, geocoders are often
-Application Programming Interfaces (APIs) where you can send requests, and receive responses in the form of place names,
-addresses and coordinates.
+Application Programming Interfaces (APIs) where you can send requests, and receive responses in the form of place names, addresses and coordinates.
 
-Geopy offers access to several geocoding services, including:
+Geopy offers access to several geocoding services. Check the geopy documentation for more details about how to use each service via Python.
 
--  `ESRI ArcGIS <https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm>`__
--  `Baidu Maps <http://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding>`__
--  `Bing <https://msdn.microsoft.com/en-us/library/ff701715.aspx>`__
--  `GeocodeFarm <https://www.geocode.farm/geocoding/free-api-documentation/>`__
--  `GeoNames <http://www.geonames.org/export/geonames-search.html>`__
--  `Google Geocoding API (V3) <https://developers.google.com/maps/documentation/geocoding/>`__
--  `HERE <https://developer.here.com/documentation/geocoder/>`__
--  `IGN France <https://geoservices.ign.fr/documentation/geoservices/index.html>`__
--  `Mapquest <https://developer.mapquest.com/documentation/open/>`__
--  `OpenCage <https://opencagedata.com/api>`__
--  `OpenMapQuest <http://developer.mapquest.com/web/products/open/geocoding-service>`__
--  `Open Street Map Nominatim <https://wiki.openstreetmap.org/wiki/Nominatim>`__
--  `What3words <https://developer.what3words.com/public-api/docsv2#overview>`__
--  `Yandex <https://tech.yandex.com/maps/doc/geocoder/desc/concepts/input_params-docpage/>`__
-
-Check the `geopy documentation <https://geopy.readthedocs.io/en/stable/>`__ for more details
-about how to use each service via Python.
-
-
-
-
-
-
-
-
-
-
-
-
-It is possible to do [geocoding in Geopandas](http://geopandas.org/geocoding.html) through [geopy](
-). Geopandas has a function called `geocode()` that can geocode a list of addresses (strings) and return a GeoDataFrame containing the resulting point objects in ``geometry`` column. 
+Geopandas has a function called `geocode()` that can geocode a list of addresses (strings) and return a GeoDataFrame containing the resulting point objects in ``geometry`` column. 
 
 Let's try this out.
 
