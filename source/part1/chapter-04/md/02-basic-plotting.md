@@ -12,13 +12,13 @@ jupyter:
     name: python3
 ---
 
-# Basic plotting with pandas and matplotlib
+# Getting started plotting with pandas and matplotlib
 
 
 At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the [end of Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you'll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like [^matlab] plotting. We will also briefly explore creating interactive plots using the `pandas-bokeh` [^pandas_bokeh] plotting backend, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax similar to in pandas.
 
 <!-- #region tags=[] -->
-## Basic x-y plot
+## Creating a basic x-y plot
 
 The first step for creating a basic x-y plot is to import pandas and read in the data we want to plot from a file. We will be using a datetime index for our weather observation data as we [learned in Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). In this case, however, we'll include a few additional parameters in order to *read the data* with a datetime index. We will read in the data first, and then discuss what happened.
 <!-- #endregion -->
@@ -33,54 +33,53 @@ data = pd.read_csv(fp, delim_whitespace=True,
                    parse_dates=['YR--MODAHRMN'], index_col='YR--MODAHRMN')
 ```
 
-So, what is different here compared to files read in Chapter 3? Well, we have added two new parameters: `parse_dates` and `index_col`.
+So, let us now examing what is different here compared to files read in Chapter 3. There are two significant changes in the form of two new parameters: `parse_dates` and `index_col`.
 
-- `parse_dates` takes a Python list of column name(s) containing date data that pandas will parse and convert to the *datetime* data type. For many common date formats this parameter will automatically recognize and convert the date data.
-- `index_col` is used to state a column that should be used to index the data in the DataFrame. In this case, we end up with our date data as the DataFrame index. This is a very useful feature in pandas as we'll see below.
+- `parse_dates` takes a Python list of column name(s) for data file columns that contain date data and pandas will parse and convert data in these column(s) to the *datetime* data type. For many common date formats pandas will automatically recognize and convert the date data.
+- `index_col` is used to state a column that should be used to index the data in the DataFrame. In this case, we end up with our date data as the DataFrame index. This is a very useful feature in pandas as we will see below.
 
-Having read in the data, let's have a quick look at what we have using `data.head()`.
+Having read in the data file, we can now have a quick look at what we have using `data.head()`.
 
 ```python
 data.head()
 ```
 
-As mentioned above, you can now see that the index column for our DataFrame (the first column) contains date values related to each row in the DataFrame. Now we're ready for our first plot. We can start by using the basic line plot in pandas to look at our temperature data.
+As mentioned above, you can now see that the index column for our DataFrame (the first column) contains date values related to each row in the DataFrame. With this we are already able to create our first plot using pandas. We will start by using the basic line plot in pandas to visualize at our temperature data.
 
 ```python
 ax = data.plot()
 ```
 
-OK, so what happened here? 1) We first created the plot object using the `plot()` method of the `data` DataFrame. Without any parameters given, this makes the plot of all columns in the DataFrame as lines of different color on the y-axis with the index, time in this case, on the x-axis. 2) In case we want to be able to modify the plot or add anything, we assign the plot object to the variable `ax`. We can check its type below. In fact, let's check the type of the `ax` variable:
+Now, let's break down what just happened. First, we first created the plot object using the `plot()` method of the `data` DataFrame. Without any parameters given, this makes the plot of all columns in the DataFrame as lines of different color on the y-axis with the index, time in this case, on the x-axis. Second, in case we want to be able to modify the plot or add anything to it after the basic plot has been created, we assign the plot object to the variable `ax`. Why don't we check its data type below using the `type()` function.
 
 ```python
 type(ax)
 ```
 
-OK, so it looks like we have some kind of plot data type that is part of matplotlib. Clearly, pandas is using matplotlib for generating our plots.
+OK, so this is a data type we have not seen previously, but clearly it is part of matplotlib. In case you were skeptical before, we now have evidence that pandas is using matplotlib for generating plots.
 
-### Selecting data for plotting based on date
+### Selecting plot data based on date
 
-Now, let's make a few small changes to our plot and plot the data again. First, let's only plot the observed temperatures in the `data['TEMP']` column, and let's restrict ourselves to observations from the afternoon of October 1, 2019 (the last day in our dataset). We can do this by selecting the desired data column and date range first, then plotting our selection.
+Now we can make a few small changes to our plot to further explore plotting with pandas. We can begin by plotting only the observed temperatures in the `data['TEMP']` column. In addition, we can restrict ourselves to observations from only the afternoon of October 1, 2019 (the last day in this dataset). We will do this by first creating a pandas series for only the desired data column and restricting the dateof interest. Once we have created the new pandas series we can plot the results.
 
 ```python
 oct1_temps = data['TEMP'].loc[data.index >= '201910011200']
 ax = oct1_temps.plot()
 ```
 
-So, what did we change? 1) We selected only the `'TEMP'` column now by using `data['TEMP']` instead of `data`. 2) We've added a restriction to the date range using `loc[]` to select only rows where the index value `data.index` is greater than `'201910011200'`. In that case, the number in the string is in the format `'YYYYMMDDHHMM'`, where `YYYY` is the year, `MM` is the month, `DD` is the day, `HH` is the hour, and `MM` is the minute. Now we have all observations from noon onward on October 1, 2019. 3) By saving this selection to the DataFrame `oct1_temps` we're able to now use `oct1_temps.plot()` to plot only our selection. This is cool, but we can do even better.
+So, what did we change this time? First, we selected only the `'TEMP'` column from the `data` DataFrame by using `data['TEMP']` instead of `data`. Second, we added a restriction to the date range using `loc[]` to select only rows where the index value `data.index` is greater than `'201910011200'`. In that case, the number in the string is in the format `'YYYYMMDDHHMM'`, where `YYYY` is the year, `MM` is the month, `DD` is the day, `HH` is the hour, and `MM` is the minute. This will result in temperatures only from noon onwards on October 1, 2019. Finally, by saving this selection to the variable `oct1_temps` we're able to now use `oct1_temps.plot()` to plot only our selection. As you can see, we are able to easily control the values plotted in pandas, but we can do even better.
 
 
 ## Basic plot formatting
 
-We can make our plot look a bit nicer and provide more information by using a few additional plotting options to pandas/matplotlib:
+We can control the appearance of our plots, making them look nicer and provide more information by using a few additional plotting options available in pandas and/or matplotlib. Let's start by changing the line format, adding some axis labels, and adding a title.
 
 ```python
-ax = oct1_temps.plot(style='ro--', title='Helsinki-Vantaa temperatures')
-ax.set_xlabel('Date')
-ax.set_ylabel('Temperature [°F]')
+ax = oct1_temps.plot(style='ro--', title='Helsinki-Vantaa temperatures',
+                     xlabel='Date', ylabel='Temperature [°F]')
 ```
 
-Now we see our temperature data as a red dashed line with circles showing the data points. This comes from the additional `style='ro--'` used with `oct1_temps.plot()`. In this case, `r` tells the `oct1_temps.plot()` function to use red color for the lines and symbols, `o` tells it to show circles at the points, and `--` says to use a dashed line. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, but note that axis labels are assigned using the `set_xlabel()` and `set_ylabel()` methods. 
+Now we see that our temperature data as a red dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter `style='ro--'`. In this case, `r` tells the `oct1_temps.plot()` function to use red color for the lines and symbols, `o` tells it to show circles at the data points, and `--` says to use a dashed line between points. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, and axis labels using the `xlabel` and `ylabel` parameters [^axis_labels]. 
 
 
 ## Formatting the appearance of the figure
@@ -266,3 +265,4 @@ Add exercises.
 [^matlab]: <https://www.mathworks.com/products/matlab.html>
 [^pandas_bokeh]: <https://github.com/PatrikHlobil/Pandas-Bokeh>
 [^bokeh]: <https://docs.bokeh.org/en/latest/index.html>
+[^axis_labels]: Axis labels are a relatively new feature in pandas plotting, added in version 1.1.0. If you are using an older version of pandas and do not want upgrade then you will need to use a separate command such as `ax.set_xlabel('Date')` to set the axis labels.
