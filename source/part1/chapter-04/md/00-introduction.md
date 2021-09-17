@@ -5,14 +5,14 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.10.3
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
-# Plotting in Python
+# Python plotting libraries
 
 
 ![_**Figure 4.1**. Plotting libraries available in Python. Interactive version online at <https://pyviz.org/overviews/index.html>._](../img/python-plotting.png)
