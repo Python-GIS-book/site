@@ -14,6 +14,6 @@ Geographic data visualization
     :maxdepth: 1
     :caption: Sections:
 
-    nb/01-static-maps.ipynb
-    nb/02-interactive-maps.ipynb
+    nb/00-static-maps.ipynb
+    nb/01-interactive-maps.ipynb
 

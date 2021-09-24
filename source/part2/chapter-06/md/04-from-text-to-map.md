@@ -17,21 +17,48 @@ jupyter:
 
 <!-- #endregion -->
 
-### Creating new geometries from scratch (CAN BE SHORTER / REMOVED?)
+## Creating geometries from text
 
-Since geopandas takes advantage of Shapely geometric objects, it is possible to create spatial data from scratch by passing Shapely's geometric objects into the GeoDataFrame. This is useful as it makes it easy to convert e.g. a text file that contains coordinates into spatial data layers. 
 
-Next we will see how to create a new GeoDataFrame from scratch and save it into a file. We will try this out by defining a geometry that represents the outlines of the [Senate square in Helsinki, Finland](https://fi.wikipedia.org/wiki/Senaatintori). The bounding box (min Longitude , min Latitude , max Longitude , max Latitude) for the Helsinki Senate square is `(24.950899, 60.169158, 24.953492, 60.170104)` .
+### Creating new geometries from scratch
 
-Let's start by creating  a Shapely `Polygon` repsenting the Helsinki Senate square that we can later insert to our GeoDataFrame.
+Since geopandas takes advantage of Shapely geometric objects, it is possible to create spatial data from scratch by passing Shapely's geometric objects into the GeoDataFrame. This is useful as it makes it easy to convert e.g. a text file that contains coordinates into spatial data layers. Next we will see how to create a new GeoDataFrame from scratch and save it into a file. Our goal is to define a geometry that represents the outlines of the [Senate square in Helsinki, Finland](https://fi.wikipedia.org/wiki/Senaatintori).
+
+
+
+Let's start by creating a new empty `GeoDataFrame` object.
+
+```python
+newdata = gpd.GeoDataFrame()
+```
+
+```python
+type(newdata)
+```
+
+We have an empty GeoDataFrame! A geodataframe is basically a pandas DataFrame that should have one column dedicated for geometries. By default, the geometry-column should be named `geometry` (geopandas looks for geometries from this column).  
+
+Let's create the `geometry` column:
+
+```python jupyter={"outputs_hidden": false}
+# Create a new column called 'geometry' to the GeoDataFrame
+newdata['geometry'] = None
+```
+
+```python
+print(newdata)
+```
+
+Now we have a `geometry` column in our GeoDataFrame but we still don't have any data.
+
+Let's create a Shapely `Polygon` repsenting the Helsinki Senate square that we can later insert to our GeoDataFrame:
 
 ```python
 from shapely.geometry import Polygon
-import geopandas as gpd
 ```
 
 ```python jupyter={"outputs_hidden": false}
-# Corner coordinates of the Helsinki Senate square in decimal degrees
+# Coordinates of the Helsinki Senate square in decimal degrees
 coordinates = [(24.950899, 60.169158), (24.953492, 60.169158), (24.953510, 60.170104), (24.950958, 60.169990)]
 ```
 
@@ -42,28 +69,10 @@ poly = Polygon(coordinates)
 
 ```python
 # Check the polyogon
-poly
+print(poly)
 ```
 
-Let's then create a new empty `GeoDataFrame` object. A geodataframe is basically a pandas DataFrame that should have one column dedicated for geometries. By default, the geometry-column should be named `geometry`. The [GeoDataFrame constructor](https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame) accepts same arguments as the [pandas DataFrame constructor](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) and a couple of additional ones.  We will want to have a column called `"geometry"` and we can already set the crs of this geodataframe at this stage. The `crs` accepts Coordinate Reference System information in various formats accepted by [pyproj CRS](https://pyproj4.github.io/pyproj/stable/api/crs/crs.html#pyproj.crs.CRS.from_user_input), for example, EPSG codes. We passed the coordinates as latitude and longitude decimal degrees, so the correct CRS is WGS84 (EPSG:4326).
-
-```python
-newdata = gpd.GeoDataFrame(columns=["geometry"], crs=4326)
-```
-
-```python
-print(newdata)
-```
-
-Now we have an empty GeoDataFrame with a column called `geometry`.
-We can also check the crs definition of our data. The CRS information is necessary for creating a valid projection information for the output file. 
-
-```python jupyter={"outputs_hidden": false}
-print(newdata.crs)
-```
-
-Next, we need to insert the actual geometries. 
-
+Okay, now we have an appropriate `Polygon` -object.
 
 Let's insert the polygon into our 'geometry' column of our GeoDataFrame on the first row:
 
@@ -77,7 +86,7 @@ newdata.at[0, 'geometry'] = poly
 print(newdata)
 ```
 
-Great, now we have a GeoDataFrame with a Polygon geometry! This is already a valid spatial layer, but we can still add some attribute information in there. 
+Great, now we have a GeoDataFrame with a Polygon that we could already now export to a Shapefile. However, typically you might want to include some attribute information with the geometry. 
 
 Let's add another column to our GeoDataFrame called `location` with text `Senaatintori` that describes the location of the feature.
 
@@ -91,15 +100,56 @@ print(newdata)
 
 Okay, now we have additional information that is useful for recognicing what the feature represents. 
 
+The next step would be to **determine the coordinate reference system (projection) for the GeoDataFrame.** GeoDataFrame has an attribute called `.crs` that shows the coordinate system of the data. In our case, the layer doesn't yet have any crs definition:
+
+```python jupyter={"outputs_hidden": false}
+print(newdata.crs)
+```
+
+We passed the coordinates as latitude and longitude decimal degrees, so the correct CRS is WGS84 (epsg code: 4326). In this case, we can simply re-build the geodataframe and pass the correct crs information to the GeoDataFrame constructor. You will learn more about how to handle coordinate reference systems using pyproj CRS objects later in this chapter.  
+
+Re-create the GeoDataFrame with correct crs definition: 
+
 ```python
-# Save to file?
+newdata = gpd.GeoDataFrame(newdata, crs="EPSG:4326")
+```
+
+```python
+newdata.crs.name
+```
+
+As we can see, now we have added coordinate reference system information into our `GeoDataFrame`. The CRS information is necessary for creating a valid projection information for the output file. 
+
+Finally, we can export the GeoDataFrame using `.to_file()` -function. The function works quite similarly as the export functions in pandas, but here we only need to provide the output path for the Shapefile. Easy isn't it!:
+
+```python
+# Determine the output path for the Shapefile
+outfp = "L2_data/Senaatintori.shp"
+
+# Write the data into that Shapefile
+newdata.to_file(outfp)
 ```
 
 <!-- #region -->
-## Creating geometries from text
+Now we have successfully created a Shapefile from scratch using geopandas. Similar approach can be used to for example to read coordinates from a text file (e.g. points) and turn that information into a spatial layer.
 
 
-(INSERT EXAMPLE OF READIN TEXT COORDINATES FROM CSV USING PANDAS AND TURNING IT INTO A GEODATAFRAME)
+#### Check your understanding
+
+
+<div class="alert alert-info">
+
+    
+Check the output Shapefile by reading it with geopandas and make sure that the attribute table and geometry seems correct.
+
+</div>
+
+<div class="alert alert-info">
+    
+Re-project the data to ETRS-TM35FIN (EPSG:3067) and save into a new file!
+
+</div>
+
 <!-- #endregion -->
 
 ## Geocoding
