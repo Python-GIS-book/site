@@ -1,5 +1,5 @@
-Chapter 8: Geographic data visualization
-========================================
+Geographic data visualization
+=============================
 
 **This chapter is under construction.**
 
@@ -9,11 +9,11 @@ Chapter 8: Geographic data visualization
 - Dashboards (probably out of scope) 
 - Selecting colors and color maps 
 
-..
-    .. toctree::
-        :maxdepth: 1
-        :caption: Sections:
 
-        nb/01-static-maps.ipynb
-        nb/02-interactive-maps.ipynb
+.. toctree::
+    :maxdepth: 1
+    :caption: Sections:
+
+    nb/01-static-maps.ipynb
+    nb/02-interactive-maps.ipynb
 
