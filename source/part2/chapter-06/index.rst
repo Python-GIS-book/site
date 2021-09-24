@@ -30,11 +30,12 @@ Sub-sections:
         nb/01-geopandas-basics.ipynb
         nb/02-data-io.ipynb
         nb/03-projections.ipynb
-        nb/04-spatial-queries.ipynb
-        nb/05-spatial-join.ipynb
-        nb/06-nearest-neighbour.ipynb
-        nb/07-spatial_index.ipynb
-        nb/08-nearest-neighbor-faster.ipynb
-        nb/09-geometric-operations.ipynb
-        nb/10-geocoding_in_geopandas.ipynb
+        nb/04-from-text-to-map.ipynb
+        nb/05-spatial-queries.ipynb
+        nb/06-spatial-join.ipynb
+        nb/07-nearest-neighbour.ipynb
+        nb/08-spatial_index.ipynb
+        nb/09-nearest-neighbor-faster.ipynb
+        nb/10-geometric-operations.ipynb
+
 
