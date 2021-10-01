@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-# Getting started plotting with pandas and matplotlib
+# Plotting with pandas and matplotlib
 
 
 At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the [end of Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you'll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like [^matlab] plotting. We will also briefly explore creating interactive plots using the `pandas-bokeh` [^pandas_bokeh] plotting backend, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax similar to in pandas.
