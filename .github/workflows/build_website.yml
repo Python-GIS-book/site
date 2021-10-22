@@ -19,8 +19,8 @@ jobs:
           auto-update-conda: true
           auto-activate-base: false
           miniconda-version: "latest"
-          python-version: 3.8
-          environment-file: ci/py38-book-building.yaml
+          python-version: 3.9
+          environment-file: ci/py39-book-building.yaml
           activate-environment: python-gis-book
 
       - name: Build HTML
