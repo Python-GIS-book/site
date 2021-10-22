@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.10.3
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -117,6 +117,105 @@ def hello(name, age):
 output = hello(name='Dave', age=39)
 print(output)
 ```
+
+### Variable names and functions
+
+A common point of confusion for new programmers is understanding how variable names in functions relate to those defined elsewhere in your notebooks.
+When defining a function, the variable names given in the function definition exist and will only be used when the function is called.
+That might seem confusing, but as it turns out, this is an excellent feature in Python that can save you from much suffering.
+Let's try to understand this by way of an example.
+
+Let us define a new function called `times2` that accepts a single value `number` and returns that number multiplied by 2.
+
+```python
+def times2(number):
+    new_number = number * 2
+    return new_number
+```
+
+So here we have defined our function to accept `number` as its only parameter, calculate `new_number`, and return that value.
+As you can see below, the variables defined in the function exist only in its *namespace*.
+Let's confirm that.
+
+```python
+print(number)
+```
+
+```python
+print(new_number)
+```
+
+Here, in the *global namespace* we get a `NameError` when trying to access the variables `number` or `new_number` because they have only been defined within the `times2()` function.
+
+Perhaps, however, you are thinking we have not yet called the function, and maybe then these values will be defined.
+Let's try that.
+
+```python
+times2(number=5)
+```
+
+```python
+print(number)
+```
+
+As you can see `number` is still not defined in the global namespace, where values such as `freezing_point` have been defined.
+
+Why does Python work this way?
+Well, as it turns out, the benefit of having a separate namespace for functions is that we can define a variable in the global namespace, such as `number` and not need to worry about its name within a function, or the use of a function changing its value.
+Inside the function, the value that is passed will be known as `number`, but modifying that value will not alter a variable of the same name in the global namespace.
+Let's have a look at another example using a modified `times2()` function we can call `times2v2()`.
+
+```python
+def times2v2(number):
+    number = number * 2
+    return number
+```
+
+Here, we pass in a value as `number` and modify the value that is passed in before returning it.
+This might not be a good idea in some cases because it could cause confusion, but it is perfectly valid code.
+
+Let's now define a variable `number` in the global namespace and use our function to multiply it by 2.
+
+```python
+number = 15
+```
+
+```python
+times2v2(number=number)
+```
+
+```python
+number
+```
+
+As you can see, the value of the variable `number` in the global namespace was set to 15 and remains 15 after using the `times2v2()` function.
+Although there is a variable inside that function with the same name as the value in the global namespace, using the function assigns the value of `number` inside the function and manipulates that value only inside the function.
+
+```{caution}
+Be aware that it is possible to access variable values in functions that have been defined in the global namespace, even if the value is not passed to the function.
+This is because Python will search for variables defined with a given name first inside the function, and then outside the function (the search domain is known as the variable's *scope*).
+If such a value is found, it can be used by the function, which could be dangerous.
+```
+
+Let's look at an example of behavior in a function that may be unexpected.
+
+```python
+def my_function(value):
+    value = number + 20
+    return value
+```
+
+```python
+print(my_function(11))
+```
+
+You were perhaps expecting to see a value of 31 returned by `my_function()`, but that does not occur because `value` is assigned `number + 20` in the function.
+Although `number` was not passed to `my_function()` it is defined in the global namespace and thus can be used by our example function.
+Since `number = 15` we get a value of 35 returned when using `my_function()`.
+Conclusion: Be careful!
+
+For those who are interested, more information about namespaces and variables scopes can be found on the [Real Python website](https://realpython.com/python-namespaces-scope/).
+
 
 ### Functions within a function
 
