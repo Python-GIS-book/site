@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -41,16 +41,17 @@ Handling and cleaning heterogeneous input data (such as our example here) could 
 import pandas as pd
 
 # Define relative path to the file
-fp = 'data/029820.txt'
+fp = "data/029820.txt"
 
-# Read data using varying amount of spaces as separator, 
-# specifying '*' characters as NoData values, 
+# Read data using varying amount of spaces as separator,
+# specifying '*' characters as NoData values,
 # and selecting only specific columns from the data
-data = pd.read_csv(fp, delim_whitespace=True, 
-                   na_values=['*', '**', '***', '****', '*****', '******'],
-                   usecols=['USAF','YR--MODAHRMN', 'DIR', 'SPD', 
-                            'GUS','TEMP', 'MAX', 'MIN']
-                  )
+data = pd.read_csv(
+    fp,
+    delim_whitespace=True,
+    na_values=["*", "**", "***", "****", "*****", "******"],
+    usecols=["USAF", "YR--MODAHRMN", "DIR", "SPD", "GUS", "TEMP", "MAX", "MIN"],
+)
 ```
 
 Let's see now how the data looks by printing the first five rows with the `head()` function:
@@ -81,10 +82,13 @@ As we see, some of the column names are a bit awkward and difficult to interpret
 Hence, the original column name (e.g. `YR--MODAHRMN`) is the dictionary `key` which will be converted to a new column name `TIME` (which is the `value`). The temperature values in our data file is again represented in Fahrenheit. We will soon convert these temperatures to Celsius. Hence, in order to avoid confusion with the columns, let's rename the column `TEMP` to `TEMP_F`. Also the station number `USAF` is much more intuitive if we call it `STATION_NUMBER`. Let's create a dictionary for the new column names:
 
 ```python jupyter={"outputs_hidden": false}
-new_names = {'USAF':'STATION_NUMBER', 'YR--MODAHRMN': 'TIME', 
-             'SPD': 'SPEED', 'GUS': 'GUST', 
-             'TEMP': 'TEMP_F'
-            }
+new_names = {
+    "USAF": "STATION_NUMBER",
+    "YR--MODAHRMN": "TIME",
+    "SPD": "SPEED",
+    "GUS": "GUST",
+    "TEMP": "TEMP_F",
+}
 new_names
 ```
 
@@ -140,16 +144,16 @@ def fahr_to_celsius(temp_fahrenheit):
 
     temp_fahrenheit: int | float
         Input temperature in Fahrenheit (should be a number)
-        
+
     Returns
     -------
-    
+
     Temperature in Celsius (float)
     """
 
     # Convert the Fahrenheit into Celsius
     converted_temp = (temp_fahrenheit - 32) / 1.8
-    
+
     return converted_temp
 ```
 
@@ -171,13 +175,13 @@ Looping over rows in a DataFrame can be done in a couple of different ways. A co
 ```python jupyter={"outputs_hidden": false}
 # Iterate over the rows
 for idx, row in data.iterrows():
-    
+
     # Print the index value
-    print('Index:', idx)
-    
+    print("Index:", idx)
+
     # Print the temperature from the row
-    print('Temp F:', row['TEMP_F'], "\n")
-    
+    print("Temp F:", row["TEMP_F"], "\n")
+
     break
 ```
 
@@ -187,18 +191,18 @@ Let's now create an empty column `TEMP_C` for the Celsius temperatures and updat
 
 ```python
 # Create an empty column for the output values
-data['TEMP_C'] = 0.0
+data["TEMP_C"] = 0.0
 
-# Iterate over the rows 
+# Iterate over the rows
 for row in data.itertuples():
-    
+
     # Convert the Fahrenheit to Celsius
     # Notice how we access the row value
     celsius = fahr_to_celsius(row.TEMP_F)
-    
+
     # Update the value for 'Celsius' column with the converted value
     # Notice how we can access the Index value
-    data.at[row.Index, 'TEMP_C'] = celsius
+    data.at[row.Index, "TEMP_C"] = celsius
 ```
 
 ```python
@@ -221,19 +225,19 @@ A couple of notes about our appoaches. We used `itertuples()` method for looping
 Although using for loop with `itertuples()` can be fairly efficient, pandas DataFrames and Series have a dedicated method called `apply()` for applying functions on columns (or rows). `apply()` is typically faster than `itertuples()`, especially if you have large number of rows, such as in our case. When using `apply()`, we pass the function that we want to use as an argument. Let's start by applying the function to the `TEMP_F` column that contains the temperature values in Fahrenheit:
 
 ```python
-data['TEMP_F'].apply(fahr_to_celsius)
+data["TEMP_F"].apply(fahr_to_celsius)
 ```
 
 The results look logical. Notice how we passed the `fahr_to_celsius()` function without using the parentheses `()` after the name of the function. When using `apply`, you should always leave out the parentheses from the function that you use. Meaning that you should use `apply(fahr_to_celsius)` instead of `apply(fahr_to_celsius())`. Why? Because the `apply()` method will execute and use the function itself in the background when it operates with the data. If we would pass our function with the parentheses, the `fahr_to_celsius()` function would actually be executed once before the loop with `apply()` starts (hence becoming unusable), and that is not what we want. Our previous command only returned the Series of temperatures to the screen, but naturally we can also store them permanently into a new column (overwriting the old values):
 
 ```python
-data['TEMP_C'] = data['TEMP_F'].apply(fahr_to_celsius)
+data["TEMP_C"] = data["TEMP_F"].apply(fahr_to_celsius)
 ```
 
 A nice thing with `apply()` is that we can also apply the function on several columns at once. Below, we also sort the values in descending order based on values in `MIN` column to see that applying our function really works:
 
 ```python
-cols = ['TEMP_F', 'MIN', 'MAX']
+cols = ["TEMP_F", "MIN", "MAX"]
 result = data[cols].apply(fahr_to_celsius)
 result.sort_values(by="MIN", ascending=False).head()
 ```
@@ -241,7 +245,7 @@ result.sort_values(by="MIN", ascending=False).head()
 You can also directly store the outputs to new columns `'TEMP_C'`, `'MIN_C'`, `'MAX_C'`:
 
 ```python
-cols = ['TEMP_F', 'MIN', 'MAX']
+cols = ["TEMP_F", "MIN", "MAX"]
 data[cols] = data[cols].apply(fahr_to_celsius)
 data.head()
 ```
@@ -254,11 +258,11 @@ In this section, we showed you a few different ways to iterate over rows in pand
 We will eventually want to group our data based on month in order to see if the January temperatures in 2020 were higher than on average (which is the goal in our analysis as you might recall). Currently, the date and time information is stored in the column `TIME` that has a structure `yyyyMMddhhmm`. This is a typical timestamp format in which `yyyy` equals to year in four digit format, `MM` to month (two digits), `dd` days, `hh` hours and `mm` minutes. Let's have a closer look at the date and time information we have by checking the values in that column, and their data type:
 
 ```python
-data['TIME'].head()
+data["TIME"].head()
 ```
 
 ```python
-data['TIME'].tail()
+data["TIME"].tail()
 ```
 
 The `TIME` column contains several observations per day (and even several observations per hour). The timestamp for the first observation is `190601010600`, i.e. from 1st of January 1906 (way back!), and the timestamp for the latest observation is `201910012350`. (**TODO: UPDATE THESE WITH NEW DATA**). As we can see, the data type (`dtype`) of our column seems to be `int64`, i.e. the information is stored as integer values. 
@@ -267,7 +271,7 @@ The `TIME` column contains several observations per day (and even several observ
 We want to aggregate this data on a monthly level. In order to do so, we need to "label" each row of data based on the month when the record was observed. Hence, we need to somehow separate information about the year and month for each row. In practice, we can create a new column (or an index) containing information about the month (including the year, but excluding days, hours and minutes). There are different ways of achieving this, but here we will take advantage of `string slicing` which means that we convert the date and time information into character strings and "cut" the needed information from the string objects. The other option would be to convert the timestamp values into something called `datetime` objects, but we will learn about those a bit later. Before further processing, we first want to convert the `TIME` column as character strings for convenience, stored into a new column `TIME_STR`:
 
 ```python jupyter={"outputs_hidden": false}
-data['TIME_STR'] = data['TIME'].astype(str)
+data["TIME_STR"] = data["TIME"].astype(str)
 ```
 
 If we look at the latest time stamp in the data (`201910012350`) (**UPDATE!**), you can see that there is a systematic pattern `YEAR-MONTH-DAY-HOUR-MINUTE`. Four first characters represent the year, and the following two characters represent month. Because we are interested in understanding monthly averages for different years, we want to slice the year and month values from the timestamp (the first 6 characters), like this:
@@ -280,7 +284,7 @@ date[0:6]
 Based on this information, we can slice the correct range of characters from the `TIME_STR` column using a specific pandas function designed for Series, called `.str.slice()`. As parameters, the function has `start` and `stop` which you can use to specify the positions where the slicing should start and end:
 
 ```python
-data['YEAR_MONTH'] = data['TIME_STR'].str.slice(start=0, stop=6)
+data["YEAR_MONTH"] = data["TIME_STR"].str.slice(start=0, stop=6)
 data.head()
 ```
 
@@ -294,7 +298,6 @@ By using the interactive online version of this book, create a new column `'MONT
 
 ```python
 # Add your solution here
-
 ```
 
 ## Grouping and aggregating data
@@ -310,7 +313,7 @@ We will use the groupby method to calculate the average temperatures for each mo
 We have quite a few rows of weather data (N=198334) (**UPDATE**), and several observations per day. Our goal is to create an aggreated DataFrame that would have only one row per month. The `groupby()` takes as a parameter the name of the column (or a list of columns) that you want to use as basis for doing the grouping.  Let's start by grouping our data based on unique year and month combination:
 
 ```python
-grouped = data.groupby('YEAR_MONTH')
+grouped = data.groupby("YEAR_MONTH")
 ```
 
 Notice, thas it would also be possible to create combinations of years and months "on-the-fly" if you have them in separate columns. In such case, grouping the data could be done as `grouped = data.groupby(['YEAR', 'MONTH'])`. Let's explore the new variable `grouped`:
@@ -323,7 +326,7 @@ print(len(grouped))
 We have a new object with type `DataFrameGroupBy` with 826 groups (**UPDATE**). In order to understand what just happened, let's also check the number of unique year and month combinations in our data:
 
 ```python
-data['YEAR_MONTH'].nunique()
+data["YEAR_MONTH"].nunique()
 ```
 
 Length of the grouped object should be the same as the number of unique values in the column we used for grouping (`YEAR_MONTH`). For each unique value, there is a group of data. Let's explore our grouped data further by check the "names" of the groups (five first ones). Here, we access the `keys` of the groups and convert them to a `list` so that we can slice and print only a few of those to the sceen:
@@ -353,7 +356,7 @@ So, one group is a pandas DataFrame which is really useful, because it allows us
 
 ```python jupyter={"outputs_hidden": false}
 # Specify the columns that will be part of the calculation
-mean_cols = ['DIR', 'SPEED', 'GUST', 'TEMP_F', 'TEMP_C']
+mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
 
 # Calculate the mean values all at one go
 mean_values = group1[mean_cols].mean()
@@ -370,7 +373,7 @@ for key, group in grouped:
     # Print key and group
     print("Key:\n", key)
     print("\nFirst rows of data in this group:\n", group.head())
-    
+
     # Stop iteration with break command
     break
 ```
@@ -382,19 +385,19 @@ From here we can see that the `key` contains the name of the group (i.e. the uni
 monthly_data = pd.DataFrame()
 
 # The columns that we want to aggregate
-mean_cols = ['DIR', 'SPEED', 'GUST', 'TEMP_F', 'TEMP_C']
+mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
 
 # Iterate over the groups
 for key, group in grouped:
-    
-   # Calculate mean
-   mean_values = group[mean_cols].mean()
 
-   # Add the ´key´ (i.e. the date+time information) into the aggregated values
-   mean_values['YEAR_MONTH'] = key
+    # Calculate mean
+    mean_values = group[mean_cols].mean()
 
-   # Append the aggregated values into the DataFrame
-   monthly_data = monthly_data.append(mean_values, ignore_index=True)
+    # Add the ´key´ (i.e. the date+time information) into the aggregated values
+    mean_values["YEAR_MONTH"] = key
+
+    # Append the aggregated values into the DataFrame
+    monthly_data = monthly_data.append(mean_values, ignore_index=True)
 ```
 
 Let's see what we have now:
@@ -406,8 +409,8 @@ monthly_data
 Awesome! As a result, we have now aggregated our data and filled the new DataFrame `monthly_data` with mean values for each month in the data set. Alternatively, we can also achieve the same result by `chaining` the `groupby()` function with the aggregation step (such as taking the mean, median etc.). This can be a bit harder to understand, but this is how you could shorten the whole grouping, loop and aggregation process into a single command:
 
 ```python
-mean_cols = ['DIR', 'SPEED', 'GUST', 'TEMP_F', 'TEMP_C']
-data.groupby('YEAR_MONTH')[mean_cols].mean().reset_index()
+mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
+data.groupby("YEAR_MONTH")[mean_cols].mean().reset_index()
 ```
 
 As we can see, doing the aggregation without a loop requires much less code, and in fact, it is also faster. So what did we do here? We 1) grouped the data, 2) selected specific columns from the result (`mean_cols`), 3) calculated the mean for all of the selected columns, and finally 4) reset the index. Resetting the index at the end is not necessary, but by doing it, we turn the `YEAR_MONTH` values (that would be otherwise store in `index`) into a dedicated column in our data.
@@ -427,13 +430,13 @@ monthly_data.head()
 Now we can select the values for January from our data and store it into a new variable `january_data`:
 
 ```python
-january_data = monthly_data.loc[monthly_data["MONTH"]=="01"]
+january_data = monthly_data.loc[monthly_data["MONTH"] == "01"]
 ```
 
 Now, we can check the highest temperature values by sorting the DataFrame in a descending order:
 
 ```python
-january_data.sort_values(by='TEMP_C', ascending=False).head(10)
+january_data.sort_values(by="TEMP_C", ascending=False).head(10)
 ```
 
 Now by looking at the order of `YEAR_MONTH` column, we can see that January 2020 indeed was on average the warmest month on record based on weather observations from Finland. (**UPDATE**)
@@ -447,7 +450,8 @@ Hence, let's now see how we can repeat the previous data analysis steps for all 
 
 ```python
 from glob import glob
-file_list = glob('data/0*txt')
+
+file_list = glob("data/0*txt")
 ```
 
 Note that we're using the \* character as a wildcard, so any file that starts with `data/0` and ends with `txt` will be added to the list of files. We specifically use `data/0` as the starting part of the file names to avoid having our metadata files included in the list.
@@ -475,42 +479,53 @@ results = pd.DataFrame()
 for fp in file_list:
 
     # Read selected columns of  data using varying amount of spaces as separator and specifying * characters as NoData values
-    data = pd.read_csv(fp, delim_whitespace=True, 
-                       usecols=['USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'], 
-                       na_values=['*', '**', '***', '****', '*****', '******'])
+    data = pd.read_csv(
+        fp,
+        delim_whitespace=True,
+        usecols=["USAF", "YR--MODAHRMN", "DIR", "SPD", "GUS", "TEMP", "MAX", "MIN"],
+        na_values=["*", "**", "***", "****", "*****", "******"],
+    )
 
     # Rename the columns
-    new_names = {'USAF':'STATION_NUMBER','YR--MODAHRMN': 'TIME', 'SPD': 'SPEED', 'GUS': 'GUST', 'TEMP':'TEMP_F'}
+    new_names = {
+        "USAF": "STATION_NUMBER",
+        "YR--MODAHRMN": "TIME",
+        "SPD": "SPEED",
+        "GUS": "GUST",
+        "TEMP": "TEMP_F",
+    }
     data = data.rename(columns=new_names)
 
     # Print info about the current input file (useful to understand how the process advances):
-    print(f"STATION NUMBER: {data.at[0,'STATION_NUMBER']}\tNUMBER OF OBSERVATIONS: {len(data)}")
+    print(
+        f"STATION NUMBER: {data.at[0,'STATION_NUMBER']}\tNUMBER OF OBSERVATIONS: {len(data)}"
+    )
 
     # Create column
-    col_name = 'TEMP_C'
+    col_name = "TEMP_C"
     data[col_name] = None
 
     # Convert tempetarues from Fahrenheits to Celsius
-    data['TEMP_C'] = data['TEMP_F'].apply(fahr_to_celsius)
+    data["TEMP_C"] = data["TEMP_F"].apply(fahr_to_celsius)
 
-    # Convert TIME to string 
-    data['TIME_STR'] = data['TIME'].astype(str)
+    # Convert TIME to string
+    data["TIME_STR"] = data["TIME"].astype(str)
 
     # Parse year and month and convert them to numbers
-    data['MONTH'] = data['TIME_STR'].str.slice(start=5, stop=6).astype(int)
-    data['YEAR'] = data['TIME_STR'].str.slice(start=0, stop=4).astype(int)
+    data["MONTH"] = data["TIME_STR"].str.slice(start=5, stop=6).astype(int)
+    data["YEAR"] = data["TIME_STR"].str.slice(start=0, stop=4).astype(int)
 
-    # Extract observations for the months of January 
-    january = data[data['MONTH']==1]
+    # Extract observations for the months of January
+    january = data[data["MONTH"] == 1]
 
     # Aggregate the data and get mean values
-    columns = ['TEMP_F', 'TEMP_C', 'STATION_NUMBER']
+    columns = ["TEMP_F", "TEMP_C", "STATION_NUMBER"]
     monthly_mean = january.groupby(by=["YEAR", "MONTH"])[columns].mean().reset_index()
-    
+
     # Sort the values and take the warmest January
-    warmest = monthly_mean.sort_values(by='TEMP_C', ascending=False).head(1)
-    
-    # Add to results  
+    warmest = monthly_mean.sort_values(by="TEMP_C", ascending=False).head(1)
+
+    # Add to results
     results = results.append(warmest, ignore_index=True)
 ```
 

@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -22,3 +22,7 @@ When it comes to programming languages there are hundreds of options, so perhaps
 4. **Python is connected**. As you may recall from the previous section about computers and programs, Python is one of the programming languages that is often available as an extension to many pieces of scientific software. Geographic Information Systems (GIS) software such as QGIS or ArcGIS now include a Python interpreter built in to the software, where you're able to use Python to interact with your GIS objects. This kind of connection to other software allows you to extend the ways the software packages work, and customize solutions for your specific data analyis needs.
 
 An of course we could continue this list beyond this point, but perhaps you already have a good sense of why we have chosen Python. Our view is that leaning to program in Python will give you the greatest likelihood of being able to interact with the data of your choice with the lowest threshold for moving from completely new programmer to beginner data scientist!
+
+```python
+
+```

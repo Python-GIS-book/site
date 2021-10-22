@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -180,11 +180,11 @@ print("The freezing point of water in Fahrenheit is:", tc.celsius_to_fahr(0))
 ```
 
 ```python tags=["raises-exception"]
-print('Absolute zero in Celsius is:', tc.kelvins_to_celsius(temp_kelvins=0))
+print("Absolute zero in Celsius is:", tc.kelvins_to_celsius(temp_kelvins=0))
 ```
 
 ```python tags=["raises-exception"]
-print('Absolute zero in Fahrenheit is:', tc.kelvins_to_fahr(temp_kelvins=0))
+print("Absolute zero in Fahrenheit is:", tc.kelvins_to_fahr(temp_kelvins=0))
 ```
 
 <!-- #region -->

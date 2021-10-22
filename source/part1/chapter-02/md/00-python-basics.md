@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.3
+      jupytext_version: 1.11.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -15,7 +15,7 @@ jupyter:
 <!-- #region deletable=true editable=true -->
 # Basic elements of Python
 
-In this section we will introduce some basic programming concepts in Python.
+In this section, we will introduce some basic programming concepts in Python.
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
@@ -132,7 +132,7 @@ print(math.sqrt(4))
 You can also combine text with other calculated values using the ``print()`` function. For example, ``print('Two plus two is', 2+2)`` would generate text reading 'Two plus two is 4'. Let's combine the ``print()`` function with the ``math.sqrt()`` function in to produce text that reads `The square root of 4 is 2.0`.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-print('The square root of 4 is', math.sqrt(4))
+print("The square root of 4 is", math.sqrt(4))
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -153,7 +153,7 @@ print(temp_celsius)
 It is also possible to combine text and numbers and even use some math when printing out variable values. The idea is similar to the examples of adding 2+2 or calculating the square root of four from the previous section. Next, we will print out the value of ``temp_celsius`` in degrees Fahrenheit by multiplying ``temp_celsius`` by 9/5 and adding 32. This should be done within the ``print()`` function to produce output that reads 'Temperature in Fahrenheit: 50.0'.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-print('Temperature in Fahrenheit:', 9/5 * temp_celsius + 32)
+print("Temperature in Fahrenheit:", 9 / 5 * temp_celsius + 32)
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -184,7 +184,7 @@ temp_celsius = 15.0
 ```
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-print('temperature in Celsius is now:', temp_celsius)
+print("temperature in Celsius is now:", temp_celsius)
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -192,7 +192,7 @@ Please note that if you try to run some code that accesses a variable that has n
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["raises-exception"]
-print('Temperature in Celsius:', 5/9 * (tempFahrenheit - 32))
+print("Temperature in Celsius:", 5 / 9 * (tempFahrenheit - 32))
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -200,13 +200,13 @@ When running the code in a Jupyter Notebook variables get stored in memory only 
 <!-- #endregion -->
 
 ```python deletable=true editable=true
-tempFahrenheit = 9/5 * temp_celsius + 32
+tempFahrenheit = 9 / 5 * temp_celsius + 32
 ```
 
 Now that we have defined `tempFahrenheit`, we can run again the print statement without getting a `NameError`. Let's print out the values of `temp_celsius` and `tempFahrenheit` to check their current values.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-print('temperature in Celsius:', temp_celsius, 'and in Fahrenheit:', tempFahrenheit)
+print("temperature in Celsius:", temp_celsius, "and in Fahrenheit:", tempFahrenheit)
 ```
 
 The number beside the cell, for example `In [2]`, tells you the order in which the Python cells have been executed. This way you can see a history of the order in which you have run the cells.
@@ -219,7 +219,12 @@ Changing the value of a variable does not affect other variable values. Let's re
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 temp_celsius = 20.0
-print('temperature in Celsius is now:', temp_celsius, 'and temperature in Fahrenheit is still:', tempFahrenheit)
+print(
+    "temperature in Celsius is now:",
+    temp_celsius,
+    "and temperature in Fahrenheit is still:",
+    tempFahrenheit,
+)
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -241,7 +246,7 @@ The data type can be found using the `type()` function. As you will see, the dat
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-weatherForecast = 'Hot'
+weatherForecast = "Hot"
 type(weatherForecast)
 ```
 
@@ -287,7 +292,12 @@ Above we have seen a bit of data related to one of several FMI observation stati
 Let’s first create a list of selected `station_name` values and print it to the screen.
 
 ```python
-station_names = ['Helsinki Harmaja', 'Helsinki Kaisaniemi', 'Helsinki Kaivopuisto', 'Helsinki Kumpula']
+station_names = [
+    "Helsinki Harmaja",
+    "Helsinki Kaisaniemi",
+    "Helsinki Kaivopuisto",
+    "Helsinki Kumpula",
+]
 ```
 
 ```python
@@ -385,14 +395,19 @@ print(station_names[-5])
 Another nice feature of lists is that they are *mutable*, meaning that the values in a list that has been defined can be modified. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
 
 ```python
-station_types = ['Weather stations', 'Weather stations', 'Weather stations', 'Weather stations']
+station_types = [
+    "Weather stations",
+    "Weather stations",
+    "Weather stations",
+    "Weather stations",
+]
 print(station_types)
 ```
 
 Let's change the value for `station_types[2]` to be `'Mareographs'` and print out the `station_types` list again.
 
 ```python
-station_types[2] = 'Mareographs'
+station_types[2] = "Mareographs"
 print(station_types)
 ```
 
@@ -412,15 +427,15 @@ type(station_hel_kaivo)
 ```
 
 ```python
-type(station_hel_kaivo[0])    # The station name
+type(station_hel_kaivo[0])  # The station name
 ```
 
 ```python
-type(station_hel_kaivo[1])    # The FMISID
+type(station_hel_kaivo[1])  # The FMISID
 ```
 
 ```python
-type(station_hel_kaivo[2])    # The station latitude
+type(station_hel_kaivo[2])  # The station latitude
 ```
 
 ### Adding and removing values from lists
@@ -444,8 +459,8 @@ print(station_names)
 If we would instead like to add a few samples to the `station_names` list, we can type `station_names.append('List item to add')`, where `'List item to add'` would be the text that would be added to the list in this example. Let's add two values to our list: `'Helsinki lighthouse'` and `'Helsinki Malmi airfield'` and check the list contents after this.
 
 ```python
-station_names.append('Helsinki lighthouse')
-station_names.append('Helsinki Malmi airfield')
+station_names.append("Helsinki lighthouse")
+station_names.append("Helsinki Malmi airfield")
 ```
 
 ```python
@@ -487,13 +502,13 @@ Here we get an `AttributeError` because there is no method built in to the `int`
 With lists we can do a number of useful things, such as count the number of times a value occurs in a list or where it occurs. The `list.count()` method can be used to find the number of instances of an item in a list. For instance, we can check to see how many times `'Helsinki Kumpula'` occurs in our list `station_names` by typing `station_names.count('Helsinki Kumpula')`. 
 
 ```python
-station_names.count('Helsinki Kumpula')    
+station_names.count("Helsinki Kumpula")
 ```
 
 Similarly, we can use the `list.index()` method to find the index value of a given item in a list. Let's find the index of `'Helsinki Kumpula'` in the `station_names` list.
 
 ```python
-station_names.index('Helsinki Kumpula')    
+station_names.index("Helsinki Kumpula")
 ```
 
 The good news here is that our selected station name is only in the list once. Should we need to modify it for some reason, we also now know where it is in the list (index `2`).
@@ -521,7 +536,7 @@ Yay, it works! A common mistake when reversing lists is to do something like `st
 The `list.sort()` method works in a similary way as reversing a list. Let's sort our `station_names` list and print its contents.
 
 ```python
-station_names.sort()   # Notice no output here...
+station_names.sort()  # Notice no output here...
 ```
 
 ```python
@@ -537,7 +552,7 @@ As you can see, the list has been sorted alphabetically using the `list.sort()` 
 We learned a bit about variables and their values earlier in this section. We now continue with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:
 
 ```python
-station_name = 'Helsinki Kaivopuisto'
+station_name = "Helsinki Kaivopuisto"
 ```
 
 ```python
@@ -553,7 +568,7 @@ station_lon = 24.96
 ```
 
 ```python
-station_type = 'Mareographs'
+station_type = "Mareographs"
 ```
 
 Here we have 5 values assigned to variables related to a single observation station. Each variable has a unique name and they can store different types of data.
@@ -660,11 +675,11 @@ As mentioned previously, there are also a couple of other approaches that can be
 
 ```python
 # 2. .format() approach (not recommended anymore)
-text2 = "The temperature at {my_text_variable} (ID: {station_id}) is {temp:.2f}.".format(
-    my_text_variable=station_name,
-    station_id=station_id, 
-    temp=temp
+text2 = (
+    "The temperature at {my_text_variable} (ID: {station_id}) is {temp:.2f}.".format(
+        my_text_variable=station_name, station_id=station_id, temp=temp
     )
+)
 print(text2)
 ```
 

@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.3
+      jupytext_version: 1.11.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -31,16 +31,20 @@ import matplotlib.pyplot as plt
 
 fp = "data/029740.txt"
 
-data = pd.read_csv(fp, delim_whitespace=True, 
-                   na_values=['*', '**', '***', '****', '*****', '******'],
-                   usecols=['YR--MODAHRMN', 'TEMP', 'MAX', 'MIN'],
-                   parse_dates=['YR--MODAHRMN'], index_col='YR--MODAHRMN')
+data = pd.read_csv(
+    fp,
+    delim_whitespace=True,
+    na_values=["*", "**", "***", "****", "*****", "******"],
+    usecols=["YR--MODAHRMN", "TEMP", "MAX", "MIN"],
+    parse_dates=["YR--MODAHRMN"],
+    index_col="YR--MODAHRMN",
+)
 ```
 
 Let's rename the `'TEMP'` column as `TEMP_F`, since we'll later convert our temperatures from Fahrenheit to Celsius:
 
 ```python
-new_names = {'TEMP':'TEMP_F'}
+new_names = {"TEMP": "TEMP_F"}
 data = data.rename(columns=new_names)
 ```
 
@@ -53,14 +57,14 @@ data.head()
 First, we have to deal with no data values. Let's check how many no data values we have:
 
 ```python
-print('Number of no data values per column: ')
+print("Number of no data values per column: ")
 print(data.isna().sum())
 ```
 
 So, we have 3579 missing values in the TEMP_F column. Let's get rid of those. We need not worry about the no data values in `'MAX'` and `'MIN'` columns since we won't be using them for plotting. We can remove rows from our DataFrame where `'TEMP_F'` is missing values using the `dropna()` method: 
 
 ```python
-data.dropna(subset=['TEMP_F'], inplace=True)
+data.dropna(subset=["TEMP_F"], inplace=True)
 print("Number of rows after removing no data values:", len(data))
 ```
 
@@ -70,7 +74,7 @@ What would happen if we removed all rows with any no data values from our data (
 
 ```python
 # After removing all no data values we are left with only a fraction of the original data.
-# Note! Here we are not applying .dropna() "inplace" 
+# Note! Here we are not applying .dropna() "inplace"
 #       so we are not making any permanent changes to our dataframe.
 len(data.dropna())
 ```
@@ -100,17 +104,17 @@ Let's now select data from different seasons of the year in 2012/2013:
 - Autumn (Septempber 2013 - November 2013)
 
 ```python
-winter = data.loc[(data.index >= '201212010000') & (data.index < '201303010000')]
-winter_temps = winter['TEMP_C']
+winter = data.loc[(data.index >= "201212010000") & (data.index < "201303010000")]
+winter_temps = winter["TEMP_C"]
 
-spring = data.loc[(data.index >= '201303010000') & (data.index < '201306010000')]
-spring_temps = spring['TEMP_C']
+spring = data.loc[(data.index >= "201303010000") & (data.index < "201306010000")]
+spring_temps = spring["TEMP_C"]
 
-summer = data.loc[(data.index >= '201306010000') & (data.index < '201309010000')]
-summer_temps = summer['TEMP_C']
+summer = data.loc[(data.index >= "201306010000") & (data.index < "201309010000")]
+summer_temps = summer["TEMP_C"]
 
-autumn = data.loc[(data.index >= '201309010000') & (data.index < '201312010000')]
-autumn_temps = autumn['TEMP_C']
+autumn = data.loc[(data.index >= "201309010000") & (data.index < "201312010000")]
+autumn_temps = autumn["TEMP_C"]
 ```
 
 Now we can plot our data to see how the different seasons look separately.
@@ -141,11 +145,15 @@ Let's set our *y*-axis limits so that the upper limit is the maximum temperature
 
 ```python
 # Find lower limit for y-axis
-min_temp = min(winter_temps.min(), spring_temps.min(), summer_temps.min(), autumn_temps.min())
+min_temp = min(
+    winter_temps.min(), spring_temps.min(), summer_temps.min(), autumn_temps.min()
+)
 min_temp = min_temp - 5.0
 
 # Find upper limit for y-axis
-max_temp = max(winter_temps.max(), spring_temps.max(), summer_temps.max(), autumn_temps.max())
+max_temp = max(
+    winter_temps.max(), spring_temps.max(), summer_temps.max(), autumn_temps.max()
+)
 max_temp = max_temp + 5.0
 
 # Print y-axis min, max
@@ -161,7 +169,7 @@ We can create a 2x2 panel for our visualization using Matplotlib’s `subplots()
 We can also specify the size of our figure with `figsize()` parameter that takes the `width` and `height` values (in inches) as input.
 
 ```python
-fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12,8));
+fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
 axs
 ```
 
@@ -188,10 +196,10 @@ Let's first plot the seasons and give different colors for the lines, and specif
 line_width = 1.5
 
 # Plot data
-winter_temps.plot(ax=ax11, c='blue', lw=line_width, ylim=[min_temp, max_temp])
-spring_temps.plot(ax=ax12, c='orange', lw=line_width, ylim=[min_temp, max_temp])
-summer_temps.plot(ax=ax21, c='green', lw=line_width, ylim=[min_temp, max_temp])
-autumn_temps.plot(ax=ax22, c='brown', lw=line_width, ylim=[min_temp, max_temp])
+winter_temps.plot(ax=ax11, c="blue", lw=line_width, ylim=[min_temp, max_temp])
+spring_temps.plot(ax=ax12, c="orange", lw=line_width, ylim=[min_temp, max_temp])
+summer_temps.plot(ax=ax21, c="green", lw=line_width, ylim=[min_temp, max_temp])
+autumn_temps.plot(ax=ax22, c="brown", lw=line_width, ylim=[min_temp, max_temp])
 
 # Display figure
 fig
@@ -201,7 +209,7 @@ Great, now we have all the plots in same figure! However, we can see that there 
 
 ```python
 # Create the new figure and subplots
-fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12,8))
+fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
 
 # Rename the axes for ease of use
 ax11 = axs[0][0]
@@ -217,17 +225,21 @@ Now, we'll add our seasonal temperatures to the plot commands for each time peri
 line_width = 1.5
 
 # Plot data
-winter_temps.plot(ax=ax11, c='blue', lw=line_width, 
-                  ylim=[min_temp, max_temp], grid=True)
-spring_temps.plot(ax=ax12, c='orange', lw=line_width,
-                  ylim=[min_temp, max_temp], grid=True)
-summer_temps.plot(ax=ax21, c='green', lw=line_width,
-                  ylim=[min_temp, max_temp], grid=True)
-autumn_temps.plot(ax=ax22, c='brown', lw=line_width,
-                  ylim=[min_temp, max_temp], grid=True)
+winter_temps.plot(
+    ax=ax11, c="blue", lw=line_width, ylim=[min_temp, max_temp], grid=True
+)
+spring_temps.plot(
+    ax=ax12, c="orange", lw=line_width, ylim=[min_temp, max_temp], grid=True
+)
+summer_temps.plot(
+    ax=ax21, c="green", lw=line_width, ylim=[min_temp, max_temp], grid=True
+)
+autumn_temps.plot(
+    ax=ax22, c="brown", lw=line_width, ylim=[min_temp, max_temp], grid=True
+)
 
 # Set figure title
-fig.suptitle('2012-2013 Seasonal temperature observations - Helsinki-Vantaa airport')
+fig.suptitle("2012-2013 Seasonal temperature observations - Helsinki-Vantaa airport")
 
 # Rotate the x-axis labels so they don't overlap
 plt.setp(ax11.xaxis.get_majorticklabels(), rotation=20)
@@ -236,16 +248,16 @@ plt.setp(ax21.xaxis.get_majorticklabels(), rotation=20)
 plt.setp(ax22.xaxis.get_majorticklabels(), rotation=20)
 
 # Axis labels
-ax21.set_xlabel('Date')
-ax22.set_xlabel('Date')
-ax11.set_ylabel('Temperature [°C]')
-ax21.set_ylabel('Temperature [°C]')
+ax21.set_xlabel("Date")
+ax22.set_xlabel("Date")
+ax11.set_ylabel("Temperature [°C]")
+ax21.set_ylabel("Temperature [°C]")
 
 # Season label text
-ax11.text(pd.to_datetime('20130215'), -25, 'Winter')
-ax12.text(pd.to_datetime('20130515'), -25, 'Spring')
-ax21.text(pd.to_datetime('20130815'), -25, 'Summer')
-ax22.text(pd.to_datetime('20131115'), -25, 'Autumn')
+ax11.text(pd.to_datetime("20130215"), -25, "Winter")
+ax12.text(pd.to_datetime("20130515"), -25, "Spring")
+ax21.text(pd.to_datetime("20130815"), -25, "Summer")
+ax22.text(pd.to_datetime("20131115"), -25, "Autumn")
 
 # Display plot
 fig

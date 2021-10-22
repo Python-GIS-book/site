@@ -1,5 +1,5 @@
 def celsius_to_fahr(temp_celsius):
-    return 9/5 * temp_celsius + 32
+    return 9 / 5 * temp_celsius + 32
 
 
 def kelvins_to_celsius(temp_kelvins):

@@ -5,9 +5,9 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.3
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -85,7 +85,7 @@ Next, we will read the input data file and store the contents of that file into 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data = pd.read_csv('data/Kumpula-June-2016-w-metadata.txt')
+data = pd.read_csv("data/Kumpula-June-2016-w-metadata.txt")
 ```
 
 
@@ -127,7 +127,7 @@ Fortunately, skipping over rows is easy to do when reading data with pandas. We 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data = pd.read_csv('data/Kumpula-June-2016-w-metadata.txt', skiprows=8)
+data = pd.read_csv("data/Kumpula-June-2016-w-metadata.txt", skiprows=8)
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -155,8 +155,9 @@ It is also possible to read only specific columns from the data when using the `
 <!-- #endregion -->
 
 ```python
-temp_data = pd.read_csv('data/Kumpula-June-2016-w-metadata.txt', 
-                        skiprows=8, usecols=["YEARMODA", "TEMP"])
+temp_data = pd.read_csv(
+    "data/Kumpula-June-2016-w-metadata.txt", skiprows=8, usecols=["YEARMODA", "TEMP"]
+)
 temp_data.head()
 ```
 
@@ -174,7 +175,7 @@ Let's first save the data from our `data` DataFrame into a file called `Kumpula_
 output_fp = "Kumpula_temps_June_2016.csv"
 
 # Save dataframe to csv
-data.to_csv(output_fp, sep=',')
+data.to_csv(output_fp, sep=",")
 ```
 
 <!-- #region editable=true -->
@@ -189,7 +190,7 @@ As we can see, the first column in the datafile contains now the index value of 
 output_fp2 = "Kumpula_temperatures_integers_June_2016.csv"
 
 # Save dataframe to csv
-data.to_csv(output_fp2, sep=',', index=False, float_format="%.0f")
+data.to_csv(output_fp2, sep=",", index=False, float_format="%.0f")
 ```
 
 <!-- #region editable=true -->
@@ -263,7 +264,7 @@ Using the interactive online version of this book, see if you can find a way to 
 When conducting data analysis, it is very common that you want to choose certain columns from the data for further processing. We can select specific columns based on the column values. The basic syntax is `dataframe[value]`, where value can be a single column name, or a list of column names. Let's start by selecting two columns, `'YEARMODA'` and `'TEMP'`:
 
 ```python
-selection = data[['YEARMODA','TEMP']]
+selection = data[["YEARMODA", "TEMP"]]
 selection.head()
 ```
 
@@ -284,13 +285,13 @@ We can also access a single column of the data based on the column name:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data['TEMP'].head()
+data["TEMP"].head()
 ```
 
 What about the type of the column itself?
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-type(data['TEMP'])
+type(data["TEMP"])
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -302,13 +303,17 @@ Each column (and each row) in a pandas data frame is indeed a pandas Series. Not
 Sometimes it is useful to extract the unique values that you have in your column. We can do that by using `unique()` method:
 
 ```python
-data['TEMP'].unique()
+data["TEMP"].unique()
 ```
 
 As a result we get an array of unique values in that column. We can also directly access the number of unique values using the `nunique()` method:
 
 ```python editable=true jupyter={"outputs_hidden": false}
-print("There were", data['TEMP'].nunique(), "days with unique mean temperatures in June 2016.")
+print(
+    "There were",
+    data["TEMP"].nunique(),
+    "days with unique mean temperatures in June 2016.",
+)
 ```
 
 ## Descriptive statistics
@@ -318,7 +323,7 @@ pandas DataFrame and Series contain useful methods for getting summary statistic
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data['TEMP'].mean()
+data["TEMP"].mean()
 ```
 
 The output in this case will be a single floating point number presenting the mean temperature, 59.73 Fahrenheits. To get the mean statistics for all columns in the DataFrame, we can call the `mean()` in a similar manner, but without specifying the column name:
@@ -348,7 +353,7 @@ Most often we create pandas objects by reading in data from an external source, 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-number_series = pd.Series([ 4, 5, 6, 7.0])
+number_series = pd.Series([4, 5, 6, 7.0])
 print(number_series)
 ```
 
@@ -357,7 +362,7 @@ Note that Pandas is smart about the conversion, detecting a single floating poin
 <!-- #endregion -->
 
 ```python
-number_series = pd.Series([ 4, 5, 6, 7.0], index=['a','b','c','d'])
+number_series = pd.Series([4, 5, 6, 7.0], index=["a", "b", "c", "d"])
 print(number_series)
 ```
 
@@ -368,7 +373,7 @@ type(number_series)
 How about combining several lists and construct a DataFrame from them? Certainly. Let's see how we can convert lists into a pandas DataFrame. Let's first create a few lists having the same number of items each:
 
 ```python
-stations = ['Hanko', 'Heinola', 'Kaisaniemi', 'Malmi']
+stations = ["Hanko", "Heinola", "Kaisaniemi", "Malmi"]
 latitudes = [59.77, 61.2, 60.18, 60.25]
 longitudes = [22.95, 26.05, 24.94, 25.05]
 ```
@@ -376,18 +381,19 @@ longitudes = [22.95, 26.05, 24.94, 25.05]
 Now we can create a pandas DataFrames by using the `pandas.DataFrame` constructor and passing a *Python dictionary* `{"column_1": list_1, "column_2": list_2, ...}` to it, indicating the structure of our data:
 
 ```python
-new_data = pd.DataFrame(data = {"station" : stations, 
-                                "lat" : latitudes, "lon" : longitudes})
+new_data = pd.DataFrame(data={"station": stations, "lat": latitudes, "lon": longitudes})
 new_data
 ```
 
 It is also possible to create pandas DataFrame from a list of dictionaries. Hence, this approach is quite similar as the previous example, but we organize the data a bit differently. Having a list of dictionaries is common if you happen to work with ``JSON`` files, which are commonly used when reading data from the web (e.g. via ``Application Programming Interface``):
 
 ```python
-dictionaries = [{'station': 'Hanko', 'lat': 59.77, 'lon': 22.95},
-                {'station': 'Heinola', 'lat': 61.2, 'lon': 26.05},
-                {'station': 'Kaisaniemi', 'lat': 60.18, 'lon': 24.94},
-                {'station': 'Malmi', 'lat': 60.25, 'lon': 25.05}]
+dictionaries = [
+    {"station": "Hanko", "lat": 59.77, "lon": 22.95},
+    {"station": "Heinola", "lat": 61.2, "lon": 26.05},
+    {"station": "Kaisaniemi", "lat": 60.18, "lon": 24.94},
+    {"station": "Malmi", "lat": 60.25, "lon": 25.05},
+]
 
 # Pass the list into the DataFrame constructor
 new_data_2 = pd.DataFrame(dictionaries)

@@ -4,17 +4,17 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
 # for loops
 
-In the previous section we introduced *{term}`lists <list>`* in Python, one form of a collection of values that can be represented by a single variable. In this lesson we will learn how to use *{term}`loops <loop>`*. Loops allow parts of code to be repeated some number of times, such as iterating over all of the items in a Python list and performing a calculation on each item.
+In the previous section we introduced *{term}`lists <list>`* in Python, one form of a collection of values that can be represented by a single variable. In this lesson we will learn how to use *{term}`loops <loop>`*. Loops allow parts of code to be repeated some number of times, such as iterating over all of the items in a Python list and performing a calculation on each item. 
 
 
 ## A (bad) example
@@ -22,7 +22,7 @@ In the previous section we introduced *{term}`lists <list>`* in Python, one form
 Let’s consider an example using the list below:
 
 ```python
-european_cities = ['Helsinki', 'Paris', 'Barcelona', 'Uppsala']
+european_cities = ["Helsinki", "Paris", "Barcelona", "Uppsala"]
 ```
 
 Suppose we want to print out the name of each city in our list. We could use the index value for each city and do the following:
@@ -49,7 +49,7 @@ Second, it won’t work if the length of the list has fewer than 4 cities.
 Let's see an example with a new list.
 
 ```python
-european_cities = ['Riga', 'Rome', 'Athens']
+european_cities = ["Riga", "Rome", "Athens"]
 ```
 
 ```python
@@ -73,7 +73,7 @@ print(european_cities[3])
 We could do a much better job by using a `for` loop.
 
 ```python
-european_cities = ['Amsterdam', 'Brussels', 'Lisbon', 'Reykjavik']
+european_cities = ["Amsterdam", "Brussels", "Lisbon", "Reykjavik"]
 ```
 
 ```python
@@ -86,7 +86,16 @@ Try printing out a different list of cities such as `['Detroit', 'Chicago', 'Den
 Still works, right?
 
 ```python
-us_cities = ['Detroit', 'Chicago', 'Denver', 'Boston', 'Portland', 'San Francisco', 'Houston', 'Orlando']
+us_cities = [
+    "Detroit",
+    "Chicago",
+    "Denver",
+    "Boston",
+    "Portland",
+    "San Francisco",
+    "Houston",
+    "Orlando",
+]
 for city in us_cities:
     print(city)
 ```
@@ -139,7 +148,15 @@ Furthermore, by following this kind of list of repeating actions we're able to s
 Note that the variable used in a `for` loop is just a normal variable and still exists after the loop has completed with the final value given to letter. Let's loop over a list of weather conditions and print them to the screen. 
 
 ```python
-weather_conditions = ['rain', 'sleet', 'snow', 'freezing fog', 'sunny', 'cloudy', 'ice pellets']
+weather_conditions = [
+    "rain",
+    "sleet",
+    "snow",
+    "freezing fog",
+    "sunny",
+    "cloudy",
+    "ice pellets",
+]
 ```
 
 ```python
@@ -150,7 +167,7 @@ for weather in weather_conditions:
 What is its value of `weather` after the `for` loop has completed?
 
 ```python
-print('After the loop, weather is', weather)
+print("After the loop, weather is", weather)
 ```
 
 ## For loops using the range function
@@ -193,7 +210,6 @@ Using the documentation that is produced when you run `help(range)`, what values
 
 ```python
 # Add your solution here
-
 ```
 
 ## Looping over lists using index values
@@ -206,11 +222,11 @@ numbers = [5, 6, 7, 8]
 
 ```python
 for i in range(len(numbers)):
-    print('Value of i:', i)
-    print('Value of numbers[i] before addition:', numbers[i])
+    print("Value of i:", i)
+    print("Value of numbers[i] before addition:", numbers[i])
     numbers[i] = numbers[i] + i
-    print('Value of numbers[i] after addition:', numbers[i])
-    print('')
+    print("Value of numbers[i] after addition:", numbers[i])
+    print("")
 ```
 
 ```python
@@ -232,18 +248,18 @@ The variable `i` is commonly used to denote the index variable in loops. Loops c
 Good question. First off, if you want to update individual values in a list you're likely going to need to loop that includes the index values. There are functions such as `enumerate()` that can help, but their use can be somewhat confusing for new programmers. Second, in cases where you have multiple lists that are related to one another, it can be handy to use a loop with the index values to be able to access corresponding locations in each list. For this, let's consider an example with two lists.
 
 ```python
-cities = ['Helsinki', 'Stockholm', 'Oslo', 'Reykjavik', 'Copenhagen']
+cities = ["Helsinki", "Stockholm", "Oslo", "Reykjavik", "Copenhagen"]
 ```
 
 ```python
-countries = ['Finland', 'Sweden', 'Norway', 'Iceland', 'Denmark']
+countries = ["Finland", "Sweden", "Norway", "Iceland", "Denmark"]
 ```
 
 As you can see we have 5 cities and 5 corresponding counties. Let's print out each pair using a single for loop.
 
 ```python
 for i in range(len(cities)):
-    print(cities[i], 'is the capital of', countries[i])
+    print(cities[i], "is the capital of", countries[i])
 ```
 
 Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week. In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.

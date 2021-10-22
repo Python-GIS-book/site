@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -31,9 +31,9 @@ Let’s look at a simple example with temperatures, and check if temperature 17 
 temperature = 17
 
 if temperature > 25:
-    print('it is hot!')
+    print("it is hot!")
 else:
-    print('it is not hot!')
+    print("it is not hot!")
 ```
 
 What did we do here? First, we used the `if` and `else` statements to determine what parts of the code to execute. The `if` statement checks to see whether the variable value for `temperature` is greater than 25. If this condition is met, `'it is hot'` would be written to the screen. Since 17 is smaller than 25, the code beneath `else` is executed. Code under the `else` statement will run whenever the `if` test is `False`.
@@ -45,9 +45,9 @@ Let's update `temperature` to a "hot" temperature and repeat the same process:
 temperature = 30
 
 if temperature > 25:
-    print('it is hot!')
+    print("it is hot!")
 else:
-    print('it is not hot!')
+    print("it is not hot!")
 ```
 
 The code indented under the if-statement is not executed if the condition is not True. Instead, code under the else-statement gets executed.
@@ -59,7 +59,7 @@ How about `if` without `else`? The combination of `if` and `else` is very common
 temperature = 17
 
 if temperature > 25:
-    print(temperature,'is greater than 25')
+    print(temperature, "is greater than 25")
 ```
 
 Makes sense, right? Conditional statements always check if the conditional expression is **True** or **False**. If True, the codeblock under the conditional statement gets executed. Nothing is printed to the screen if temperature is smaller than 25.
@@ -69,12 +69,12 @@ Let's look at another example from our daily lives. As it turns out, we all use 
 Otherwise, you will not. Remember that Python uses the `==` operator to test if a value is exactly equal to another.
 
 ```python
-weather = 'rain'
+weather = "rain"
 
-if weather == 'rain':
-    print('Wear a raincoat!')
+if weather == "rain":
+    print("Wear a raincoat!")
 else:
-    print('No raincoat needed.')
+    print("No raincoat needed.")
 ```
 
 Similarly as with for loops, Python uses colons (`:`) and whitespace (indentations; often four spaces) to structure conditional statements. If the condition is `True`, the indented code block after the colon (`:`) is executed. The code block may contain several lines of code, but they all must be indented identically You will receive an `IndentationError`, a `SyntaxError`, or unwanted behavior if you haven't indented your code correctly.
@@ -97,13 +97,13 @@ Wear rain boots
 
 ```python
 # Here's one possible solution
-weather = 'rain'
+weather = "rain"
 
-if weather == 'rain':
-    print('Wear a raincoat')
-    print('Wear rain boots')
+if weather == "rain":
+    print("Wear a raincoat")
+    print("Wear rain boots")
 else:
-    print('No rainwear needed')
+    print("No rainwear needed")
 ```
 
 ### Comparison operators
@@ -132,7 +132,7 @@ temperature > 25
 ```
 
 ```python
-weather == 'rain'
+weather == "rain"
 ```
 
 ### if, elif and else
@@ -145,11 +145,11 @@ temperature = -3
 
 ```python
 if temperature > 0:
-     print(temperature, 'degrees celsius is above freezing')
+    print(temperature, "degrees celsius is above freezing")
 elif temperature == 0:
-     print(temperature, 'degrees celsius is at the freezing point')
+    print(temperature, "degrees celsius is at the freezing point")
 else:
-     print(temperature, 'degrees celsius is below freezing')
+    print(temperature, "degrees celsius is below freezing")
 ```
 
 <!-- #region -->
@@ -178,7 +178,6 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 
 ```python
 # Add your solution here
-
 ```
 
 ### Combining conditions
@@ -193,14 +192,14 @@ We can also use `and` and `or` to combine multiple conditions on boolean values.
 
 ```python
 if (1 > 0) and (-1 > 0):
-     print('Both parts are true')
+    print("Both parts are true")
 else:
-     print('At least one part is not true')
+    print("At least one part is not true")
 ```
 
 ```python
 if (1 < 0) or (-1 < 0):
-    print('At least one test is true')
+    print("At least one test is true")
 ```
 
 Later on we will also need the bitwise operators `&` for `and`, and `|` for `or`.
@@ -214,15 +213,15 @@ Let' set 18 m/s as our comfort limit in the conditional statement and see what o
 
 ```python
 # Add your solution here
-weather = 'rain'
+weather = "rain"
 wind_speed = 20
 comfort_limit = 18
 
 # If it is windy or raining, print "stay at home", else print "go out and enjoy the weather!"
-if (weather == 'rain') or (wind_speed >= comfort_limit):
-    print('Just stay at home')
+if (weather == "rain") or (wind_speed >= comfort_limit):
+    print("Just stay at home")
 else:
-    print('Go out and enjoy the weather! :)')
+    print("Go out and enjoy the weather! :)")
 ```
 
 As you can see, we better just stay home if it is windy or raining! If you don't agree, you can modify the conditions and print statements accordingly.
@@ -238,9 +237,9 @@ temperatures = [0, 12, 17, 28, 30]
 # For each temperature, if the temperature is greater than 25, print "..is hot"
 for temperature in temperatures:
     if temperature > 25:
-        print(temperature, 'is hot')
+        print(temperature, "is hot")
     else:
-        print(temperature, 'is not hot')
+        print(temperature, "is not hot")
 ```
 
 ## Exercises

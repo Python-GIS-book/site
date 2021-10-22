@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.8.2
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -36,7 +36,7 @@ Before we move into introducing programming concepts and the Python language, we
 
 ## What is a computer?
 
-![_**Figure 1.6**. Diagram of the essential elements of a computer. Simplified from {cite}`Zelle2017`._](../img/computer-diagram.png)
+![_**Figure 1.6**. Diagram of the essential elements of a computer. Simplified from Zelle {cite}`Zelle2017`._](../img/computer-diagram.png)
 
 _**Figure 1.6**. Diagram of the essential elements of a computer. Simplified from {cite}`Zelle2017`._
 

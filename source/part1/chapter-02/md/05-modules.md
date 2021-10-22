@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -101,7 +101,7 @@ import matplotlib.pyplot as plt
 
 ```python
 # Plot a simple x y line graph with the default settings
-plt.plot([1,2,3,4,5], [5,2,3,4,1])
+plt.plot([1, 2, 3, 4, 5], [5, 2, 3, 4, 1])
 ```
 
 **Figure 1.15**. Example plot using the Matplotlib module.
@@ -163,7 +163,7 @@ In a Jupyter Notebook, you can type in `help("modules")` to see the complete lis
 # List all available modules. Note: when running this command, you might first get several
 # warnings related to deprecated packages etc.
 # We have commented the command out here to limit output in the book text
-#help("modules")
+# help("modules")
 ```
 
 ## Footnotes

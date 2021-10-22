@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -26,7 +26,7 @@ One of the most common things to do in pandas is to create new columns based on 
 import pandas as pd
 
 # Define file path:
-fp = 'data/Kumpula-June-2016-w-metadata.txt'
+fp = "data/Kumpula-June-2016-w-metadata.txt"
 
 # Read in the data from the file (starting at row 9):
 data = pd.read_csv(fp, skiprows=8)
@@ -41,7 +41,7 @@ data.head()
 All good. Now we can start by creating a new column `DIFF` in our DataFrame. This can be done by specifying the name of the column and giving it some default value (in this case the decimal number `0.0`):
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data['DIFF'] = 0.0
+data["DIFF"] = 0.0
 data.head()
 ```
 
@@ -50,7 +50,7 @@ As we can see, now we have a new column (`DIFF`) in our DataFrame that has value
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data['DIFF'].dtypes
+data["DIFF"].dtypes
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -58,7 +58,7 @@ As we can see, pandas created a new column and automatically recognized that the
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data['DIFF'] = data['MAX'] - data['MIN']
+data["DIFF"] = data["MAX"] - data["MIN"]
 data.head()
 ```
 
@@ -67,7 +67,7 @@ The calculations were stored into the ``DIFF`` column as planned. Conducting cal
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-data['TEMP_CELSIUS'] = (data['TEMP'] - 32) / (9/5)
+data["TEMP_CELSIUS"] = (data["TEMP"] - 32) / (9 / 5)
 data.head()
 ```
 
@@ -105,7 +105,7 @@ Doing selections like in the previous example can be done, but there is also a b
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Select temp column values on rows 0-5
-selection = data.loc[0:5, 'TEMP']
+selection = data.loc[0:5, "TEMP"]
 selection
 ```
 
@@ -116,7 +116,7 @@ Notice that in this case, we get six rows of data (index 0-5)! This happens beca
 By looking at the syntax, you might guess that it is also possible to select multiple columns when using `.loc`. Next, we will test this by selecting the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list:
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-selection = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']]
+selection = data.loc[0:5, ["TEMP", "TEMP_CELSIUS"]]
 selection
 ```
 
@@ -148,7 +148,7 @@ row
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Print one attribute from the selected row
-row['TEMP']
+row["TEMP"]
 ```
 
 Sometimes it is enough to access a single value in a DataFrame directly. In this case, we can use ``.at`` instead of `.loc`.
@@ -172,7 +172,7 @@ As we have learned thus far, `.loc` and `.at` are based on the *axis labels* - t
 # Check the first rows
 print(data.head())
 print()
-print("Value at position (0,0) is", data.iloc[0,0])
+print("Value at position (0,0) is", data.iloc[0, 0])
 ```
 
 Hence, the syntax for `.iloc` is: 
@@ -182,13 +182,13 @@ Hence, the syntax for `.iloc` is:
 By following this syntax, we can access the value on the first row and second column (`TEMP`) by calling:
 
 ```python
-data.iloc[0,1]
+data.iloc[0, 1]
 ```
 
 It is also possible to get ranges of rows and columns with `.iloc`. For example, we could select `YEARMODA` and `TEMP` columns from the first five rows based on their indices (positions) in the data. Here, we will select rows from positions 0 to 5 and columns from positions 0 to 2:
 
 ```python
-selection = data.iloc[0:5:,0:2]
+selection = data.iloc[0:5:, 0:2]
 selection
 ```
 
@@ -208,13 +208,13 @@ The following example shows how we check if the Celsius temperature at each row 
 <!-- #endregion -->
 
 ```python
-data['TEMP_CELSIUS'] > 15
+data["TEMP_CELSIUS"] > 15
 ```
 
 As a result, we get a Series of booleans, where the value `True` or `False` at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a ``mask``. We can take advantage of this mask when doing selections with `.loc` based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable `warm_temps` (warm temperatures). We can specify the criteria directly inside the `.loc` square brackets. Next, we will select rows which have higher temperature (in Celsius) than 15 degrees:
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-warm_temps = data.loc[data['TEMP_CELSIUS'] > 15]
+warm_temps = data.loc[data["TEMP_CELSIUS"] > 15]
 warm_temps
 ```
 
@@ -224,7 +224,7 @@ Combining multiple criteria can be done with the `&` operator (AND) or the `|` o
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 20160615)]
+warm_temps = data.loc[(data["TEMP_CELSIUS"] > 15) & (data["YEARMODA"] >= 20160615)]
 warm_temps
 ```
 
@@ -242,7 +242,7 @@ warm_temps
 As can be seen, now the index values goes from 0 to 12. Resetting the index has now also *unlinked* the ``warm_temps`` DataFrame from the ``data``, meaning that it is not a view anymore but an independent Pandas object. When making selections, it is quite typical that pandas might give you warnings if you modify the selected data without first resetting the index or taking a copy of the selected data. To demonstrate this, we will make the selection again and do a small change for the first value of the ``TEMP_CELSIUS`` column by updating it to 17.5. Here, we can take advantage of the `.iloc` which makes it easy to access the first row based based on position 0:
 
 ```python
-warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 20160615)]
+warm_temps = data.loc[(data["TEMP_CELSIUS"] > 15) & (data["YEARMODA"] >= 20160615)]
 warm_temps.iloc[0, -1] = 17.5
 ```
 
@@ -250,7 +250,9 @@ Because we modified the selection which is a slice from the original data, panda
 
 ```python
 # Make the selection and take a copy
-warm_temps = data.loc[(data['TEMP_CELSIUS'] > 15) & (data['YEARMODA'] >= 20160615)].copy()
+warm_temps = data.loc[
+    (data["TEMP_CELSIUS"] > 15) & (data["YEARMODA"] >= 20160615)
+].copy()
 
 # Now update the first value of the last column
 warm_temps.iloc[0, -1] = 17.5
@@ -273,7 +275,7 @@ Using the interactive online version of this book, find the mean temperatures (i
 A good thing to know when doing selections, is that the end result after making the selection can sometimes result to something called a ``view``. In such cases, the selection and the original data may still linked to each other. This happens e.g. if you make a selection like above but return only a single column from the original data. In a situation where you have a view, a change in the original *data* for that specific column can also change the value in the *selection*. Without going into details why and when this happens, this behavior can nevertheless be confusing and have unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. *unlink* the two DataFrames). You can make a copy easily while doing the selection by adding a `.copy()` at the end of the command:
 
 ```python
-selection = data.loc[0:5, ['TEMP', 'TEMP_CELSIUS']].copy()
+selection = data.loc[0:5, ["TEMP", "TEMP_CELSIUS"]].copy()
 selection
 ```
 
@@ -287,7 +289,7 @@ temp
 Now if we make a change to our original data, i.e. *selection*, it will also influence our values in *temp*:
 
 ```python
-selection.iloc[0,0] = 30.0
+selection.iloc[0, 0] = 30.0
 selection.head()
 ```
 
@@ -317,7 +319,7 @@ warm_temps["MIN"].hasnans
 As a result, you get either True or False (here True), depending on whether the Series contained any NaN values, or not. Let's now see how we can remove the NoData values (i.e. clean the data) using the `.dropna()` function. Inside the function you can pass a list of column(s) from which the `NaN` values should found using the `subset` parameter:
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-cols_to_check = ['MIN']
+cols_to_check = ["MIN"]
 warm_temps_clean = warm_temps.dropna(subset=cols_to_check)
 warm_temps_clean
 ```
@@ -350,19 +352,19 @@ When doing data analysis, one quite typical operation that needs to be done is t
 <!-- #endregion -->
 
 ```python
-data['TEMP'].head()
+data["TEMP"].head()
 ```
 
 Now we can easily convert those decimal numbers to integers by calling `astype(int)`:
 
 ```python
-data['TEMP'].astype(int).head()
+data["TEMP"].astype(int).head()
 ```
 
 As we can see the values were converted to integers. However, it is important to be careful with type conversions from floating point values to integers. The conversion simply drops the stuff to the right of the decimal point, so all values are rounded down to the nearest whole number. For example, the second value in our Series (65.8) was truncated to 65 as an integer, when it clearly should be rounded up to 66. Chaining the round and type conversion functions solves this issue as the `.round(0).astype(int)` command first rounds the values with zero decimals and then converts those values into integers:
 
 ```python editable=true jupyter={"outputs_hidden": false}
-data['TEMP'].round(0).astype(int).head()
+data["TEMP"].round(0).astype(int).head()
 ```
 
 As we can see, now the integer values are correctly rounded. 
@@ -377,7 +379,7 @@ This can be easily done with Pandas using `sort_values(by='YourColumnName')` -fu
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Sort dataframe, ascending
-data.sort_values(by='TEMP').head()
+data.sort_values(by="TEMP").head()
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -387,7 +389,7 @@ Of course, it is also possible to sort them in descending order with ``ascending
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Sort dataframe, descending
-data.sort_values(by='TEMP', ascending=False).head()
+data.sort_values(by="TEMP", ascending=False).head()
 ```
 
 In some situations, you might need to sort values based on multiple columns simultaneously, which is sometimes called as multi-level sorting. This can be done by passing a list of column names to the `by` parameter. When you sort the data based on multiple columns, sometimes you also might want to sort your data in a way that the first-level sorting happens in ascending order, and the second-level sorting happens in descending order. A typical situation for this kind of sorting could be e.g. when sorting the temperatures first by weekday (Monday, Tuesday, etc.) and then under each weekday ordering the values in descending order that would always show the warmest temperature of specific week first. Let's modify our data a bit to demonstrate this. We will add a new column that has information about the weekday. The 1st of June 2016 was Wednesday, so we start from that:
@@ -396,7 +398,7 @@ In some situations, you might need to sort values based on multiple columns simu
 # Create a list of weekdays that matches with our data
 # The data covers 4 weeks + 2 days (i.e. altogether 30 days)
 week_days = ["Wed", "Thu", "Fri", "Sat", "Sun", "Mon", "Tue"]
-day_list = week_days*4 + week_days[:2]
+day_list = week_days * 4 + week_days[:2]
 
 # Add the weekdays to our DataFrame
 data["WEEKDAY"] = day_list

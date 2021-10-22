@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.3
+      jupytext_version: 1.11.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -34,7 +34,7 @@ Let's define our first function called `celsius_to_fahr`. Figure 1.10 explains t
 
 ```python
 def celsius_to_fahr(temp):
-    return 9/5 * temp + 32
+    return 9 / 5 * temp + 32
 ```
 
 ![**Figure 1.10** An example function with annotation of its important elements.](../img/Function_anatomy-400.png)
@@ -56,17 +56,17 @@ You need to call it with its name and provide your value(s) as the required para
 Here, we can define a variable `freezing_point` that is the temperature in degrees Fahrenheit we get when using our function with the temperature 0°C (the temperature at which water freezes). We can then print that value to confirm. We should get a temperature of 32°F.
 
 ```python
-freezing_point =  celsius_to_fahr(0)
+freezing_point = celsius_to_fahr(0)
 ```
 
 ```python
-print('The freezing point of water in Fahrenheit is:', freezing_point)
+print("The freezing point of water in Fahrenheit is:", freezing_point)
 ```
 
 We can do the same thing with the boiling point of water in degrees Celsius (100°C). Just like with other functions, we can use our new function directly within something like the `print()` function to print out the boiling point of water in degrees Fahrenheit.
 
 ```python
-print('The boiling point of water in Fahrenheit is:', celsius_to_fahr(100))
+print("The boiling point of water in Fahrenheit is:", celsius_to_fahr(100))
 ```
 
 ### Let's make another function
@@ -87,7 +87,7 @@ absolute_zero = kelvins_to_celsius(temp_kelvins=0)
 ```
 
 ```python
-print('Absolute zero in Celsius is:', absolute_zero)
+print("Absolute zero in Celsius is:", absolute_zero)
 ```
 
 <!-- #region -->
@@ -111,10 +111,12 @@ print(output)
 ```python
 # Example solution
 
-def hello(name, age):
-    return 'Hello, my name is ' + name + '. I am ' + str(age) + ' years old.'
 
-output = hello(name='Dave', age=39)
+def hello(name, age):
+    return "Hello, my name is " + name + ". I am " + str(age) + " years old."
+
+
+output = hello(name="Dave", age=39)
 print(output)
 ```
 
@@ -239,7 +241,7 @@ absolute_zero_fahr = kelvins_to_fahr(temp_kelvins=0)
 ```
 
 ```python
-print('Absolute zero in Fahrenheit is:', absolute_zero_fahr)
+print("Absolute zero in Fahrenheit is:", absolute_zero_fahr)
 ```
 
 <!-- #region -->
