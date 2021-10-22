@@ -24,14 +24,13 @@ import dataclasses
 import sphinxcontrib.bibtex.plugin
 
 from sphinxcontrib.bibtex.style.referencing import BracketStyle
-from sphinxcontrib.bibtex.style.referencing.author_year \
-    import AuthorYearReferenceStyle
+from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
 
 # -- Project information -----------------------------------------------------
 
-project = 'Introduction to Python for Geographic Data Analysis'
-copyright = '2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp'
-author = 'Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp'
+project = "Introduction to Python for Geographic Data Analysis"
+copyright = "2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
+author = "Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
 
 
 # -- General configuration ---------------------------------------------------
@@ -45,7 +44,7 @@ extensions = [
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -58,13 +57,13 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_book_theme'
+html_theme = "sphinx_book_theme"
 
 html_theme_options = {
-    #"external_links": [],
+    # "external_links": [],
     "repository_url": "https://github.com/Python-GIS-book/site/",
-    #"twitter_url": "https://twitter.com/pythongis",
-    #"google_analytics_id": "UA-159257488-1",
+    # "twitter_url": "https://twitter.com/pythongis",
+    # "google_analytics_id": "UA-159257488-1",
     "use_edit_page_button": True,
     "launch_buttons": {
         "binderhub_url": "https://mybinder.org/v2/gh/Python-GIS-book/site/master",
@@ -76,10 +75,10 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # Hide title in left navbar
-html_title = ''
+html_title = ""
 
 # Do not execute cells
 jupyter_execute_notebooks = "off"
@@ -110,24 +109,24 @@ html_logo = "_static/pythongis-logo.png"
 
 # Add specification for master-doc
 # Relates to RTD issue: https://github.com/readthedocs/readthedocs.org/issues/2569
-master_doc = 'index'
+master_doc = "index"
 
 # LaTex conf
 # Grouping the document tree into LaTeX files. List of tuples# (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
- ('index',
-  'introductiontopythonforgeographicdataanalysis.tex',
-  'Introduction to Python for Geographic Data Analysis',
-  'Henrikki Tenkanen, Vuokko Heikinheimo and David Whipp',
-  'krantz'),
+    (
+        "index",
+        "introductiontopythonforgeographicdataanalysis.tex",
+        "Introduction to Python for Geographic Data Analysis",
+        "Henrikki Tenkanen, Vuokko Heikinheimo and David Whipp",
+        "krantz",
+    ),
 ]
 
 latex_additional_files = ["krantz/krantz.cls"]
 
 # Latex elements
-latex_elements = {
-    'preamble': r'\usepackage{svg}'
-}
+latex_elements = {"preamble": r"\usepackage{svg}"}
 
 # ======================
 # Bibtex configuration
@@ -138,8 +137,8 @@ latex_elements = {
 # ---------------------------------------
 # Ref: https://github.com/mcmtroffaes/sphinxcontrib-bibtex/issues/201
 
-class APALabelStyle(BaseLabelStyle):
 
+class APALabelStyle(BaseLabelStyle):
     def format_labels(self, sorted_entries):
         labels = [self.format_label(entry) for entry in sorted_entries]
         count = Counter(labels)
@@ -148,7 +147,7 @@ class APALabelStyle(BaseLabelStyle):
             if count[label] == 1:
                 yield label
             else:
-                yield label + chr(ord('a') + counted[label])
+                yield label + chr(ord("a") + counted[label])
                 counted.update([label])
 
     def format_label(self, entry):
@@ -250,8 +249,9 @@ class APALabelStyle(BaseLabelStyle):
 class APAStyle(UnsrtStyle):
     default_label_style = APALabelStyle
 
+
 # Register the plugin that controls how the Reference list will look like
-pybtex.plugin.register_plugin('pybtex.style.formatting', 'apa', APAStyle)
+pybtex.plugin.register_plugin("pybtex.style.formatting", "apa", APAStyle)
 
 # -----------------------------------
 # Customize the citation formatting:
@@ -259,9 +259,10 @@ pybtex.plugin.register_plugin('pybtex.style.formatting', 'apa', APAStyle)
 # -----------------------------------
 
 my_bracket_style = BracketStyle(
-    left='',
-    right='',
+    left="",
+    right="",
 )
+
 
 @dataclasses.dataclass
 class MyReferenceStyle(AuthorYearReferenceStyle):
@@ -271,16 +272,21 @@ class MyReferenceStyle(AuthorYearReferenceStyle):
     bracket_label: BracketStyle = my_bracket_style
     bracket_year: BracketStyle = my_bracket_style
 
+
 # Register the changes
 sphinxcontrib.bibtex.plugin.register_plugin(
-    'sphinxcontrib.bibtex.style.referencing', 'author_year_no_brackets', MyReferenceStyle)
+    "sphinxcontrib.bibtex.style.referencing",
+    "author_year_no_brackets",
+    MyReferenceStyle,
+)
 
 # Style which will be applied when citing (as part of the text)
 bibtex_reference_style = "author_year_no_brackets"
 
 # Files containing the bibliography info
-bibtex_bibfiles = ['part1/chapter-01/chapter-01-references.bib',
-                   'part1/chapter-02/chapter-02-references.bib',
-                   'part1/chapter-03/chapter-03-references.bib',
-                   'back-matter/back-matter-references.bib']
-
+bibtex_bibfiles = [
+    "part1/chapter-01/chapter-01-references.bib",
+    "part1/chapter-02/chapter-02-references.bib",
+    "part1/chapter-03/chapter-03-references.bib",
+    "back-matter/back-matter-references.bib",
+]
