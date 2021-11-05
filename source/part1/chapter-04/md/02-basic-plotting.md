@@ -15,7 +15,7 @@ jupyter:
 # Plotting with pandas and matplotlib
 
 
-At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the [end of Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you'll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like [^matlab] plotting. We will also briefly explore creating interactive plots using the `pandas-bokeh` [^pandas_bokeh] plotting backend, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax similar to in pandas.
+At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the [end of Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you'll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like [^matlab] plotting. We will also briefly explore creating interactive plots using the `hvplot` [^hvplot] plotting library, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax very similar to that in pandas.
 
 <!-- #region tags=[] -->
 ## Creating a basic x-y plot
@@ -58,6 +58,8 @@ As mentioned above, you can now see that the index column for our DataFrame (the
 ax = data.plot()
 ```
 
+_**Figure 4.3**. A basic plot of the example temperature data using Matplotlib._
+
 Now, let's break down what just happened. First, we first created the plot object using the `plot()` method of the `data` DataFrame. Without any parameters given, this makes the plot of all columns in the DataFrame as lines of different color on the y-axis with the index, time in this case, on the x-axis. Second, in case we want to be able to modify the plot or add anything to it after the basic plot has been created, we assign the plot object to the variable `ax`. Why don't we check its data type below using the `type()` function.
 
 ```python
@@ -76,6 +78,8 @@ oct1_temps = data["TEMP"].loc[data.index >= "201910011200"]
 ax = oct1_temps.plot()
 ```
 
+_**Figure 4.4**. A plot of the example temperature data for the afternoon of October 1, 2019._
+
 So, what did we change this time? First, we selected only the `'TEMP'` column from the `data` DataFrame by using `data['TEMP']` instead of `data`. Second, we added a restriction to the date range using `loc[]` to select only rows where the index value `data.index` is greater than `'201910011200'`. In that case, the number in the string is in the format `'YYYYMMDDHHMM'`, where `YYYY` is the year, `MM` is the month, `DD` is the day, `HH` is the hour, and `MM` is the minute. This will result in temperatures only from noon onwards on October 1, 2019. Finally, by saving this selection to the variable `oct1_temps` we're able to now use `oct1_temps.plot()` to plot only our selection. As you can see, we are able to easily control the values plotted in pandas, but we can do even better.
 
 
@@ -93,77 +97,101 @@ ax = oct1_temps.plot(
 )
 ```
 
+_**Figure 4.5**. A plot of the example temperature data with additional formatting, a title, and axis labels._
+
 Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter `style='ko--'`. In this case, `k` tells the `oct1_temps.plot()` function to use black color for the lines and symbols, `o` tells it to show circles at the data points, and `--` says to use a dashed line between points. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, and axis labels using the `xlabel` and `ylabel` parameters [^axis_labels]. 
 
-
+<!-- #region -->
 ## Formatting and annotating the figure
 
-In addition to labeling the plot axes and adding a title, there are several other common plot attributes one might like to utilize. We briefly present some of the most common plot features and how to use them here.
+In addition to labeling the plot axes and adding a title, there are several other common plot attributes one might like to utilize. We briefly present some of the most common plot features here and then demonstrate how they work in a modified example plot below.
 
-### Changing the figure size
+**Changing the figure size**
 
 While the default plot sizes we're working with are fine, it is often helpful to be able to control the figure size. Fortunately, there is an easy way to change the figure size in pandas and matplotlib. In order to define the figure size, we simply include the `figsize` parameter with a tuple (set of values in normal parentheses) that lists the width and height of the figure (in inches!).
 
+For example, adding the parameter
+
 ```python
-# Change figure size using the figsize parameter
-ax = oct1_temps.plot(
-    style="ko--",
-    title="Helsinki-Vantaa temperatures",
-    xlabel="Date",
-    ylabel="Temperature [°F]",
-    figsize=(12, 6),
-)
+figsize=(12, 6)
 ```
+to the `ax.plot()` function will increase the figure size to be 12 inches wide and 6 inches tall.
 
 Note that it is also possible to change the default figure size for all figures in a Jupyter Notebook by importing the pyplot module from matplotlib (i.e., `import matplotlib.pyplot as plt`)and then defining the default figure size using `plt.rcParams['figure.figsize'] = [12, 6]`. In this case the figure size should be given as a Python list.
+<!-- #endregion -->
 
+<!-- #region -->
+**Adding text to the figure**
 
-### Adding text on the figure
-
-It is also possible to add text that can be displayed on a plot using `ax.text()`.
+It is also possible to add text that can be displayed on a plot using `ax.text()`. For example, 
 
 ```python
-# Add text to the plot
-ax = oct1_temps.plot(
-    style="ko--",
-    title="Helsinki-Vantaa temperatures",
-    xlabel="Date",
-    ylabel="Temperature [°F]",
-    figsize=(12, 6),
-)
-x, y = "201910011400", 38
+ax.plot(...)
+x, y = "201910011800", 42
 ax.text(x, y, "This is my text.")
 ```
 
-Here, we added "This is my text" at the location of *x*, *y* on the plot. Notice that we passed the `x` coordinate as a text following the formatting in the original data.
+would add the text "This is my text." aligned to the left starting from the date and time 6:00 pm on October 1, 2019 (`x="201910011800"`) and at temperature `y=42`. Notice that the `x` coordinate is passed as a text following the formatting in the original data.
+<!-- #endregion -->
 
-### Changing the axis ranges
+<!-- #region -->
+**Changing the axis ranges**
 
-In some cases you may want to plot only a subset of the data you are working with. You can modify the range of values that are plotted by definiing the axis ranges. Changing the plot axes can be done using the `xlim` and `ylim` parameters of the `plot()` function, where `xmin` is the minimum bound of the x-axis, `xmax` is the maximum bound, and the same goes for the y-axis with `ymin` and `ymax`. In the example below, we take advantage of the `datetime` library to define the time range for the x-axis, as it is easier to read and understand than having a long text string for the date. We can first import the datetime library, and then make the plot.
+In some cases you may want to plot only a subset of the data you are working with. You can modify the range of values that are plotted by definiing the axis ranges. Changing the plot axes can be done using the `xlim` and `ylim` parameters of the `plot()` function, where `xmin` is the minimum bound of the x-axis, `xmax` is the maximum bound, and the same goes for the y-axis with `ymin` and `ymax`. For example, adding
+
+```python
+ax.plot(
+    ...
+    xlim=["201910011500", "201910012200"],
+    ylim=[38, 44]
+)
+```
+
+to the parameter list for `ax.plot()` would change the x-axis range to 3:00 pm to 10:00 pm on October 1, 2019 and the y-axis range to 38 to 44 degrees.
+
+It is also possible to use the `datetime` library to make it somewhat easier to format ranges when defining axis limits. The benefit is that it can be more clear to define dates in the `datetime` format as opposed to a long text string. As an example, we could define the same date ranges as above using the format below. Note that we must first import the `datetime` library before using it.
 
 ```python
 from datetime import datetime
 
-# Use xlim and ylim to define the axis ranges
-xmin, xmax = datetime(2019, 10, 1, 15), datetime(2019, 10, 1, 22)
-ymin, ymax = 38, 44
+# Use datetime to define axis limits
+xmin = datetime(2019, 10, 1, 15)
+xmax = datetime(2019, 10, 1, 22)
 
-ax = oct1_temps.plot(
-    style="ko--",
-    title="Helsinki-Vantaa temperatures",
-    xlabel="Date",
-    ylabel="Temperature [°F]",
-    xlim=[xmin, xmax],
-    ylim=[ymin, ymax],
-    figsize=(12, 6),
+...
+ax.plot(
+    ...
+    xlim=[xmin, xmax]
 )
 ```
 
-As you can see, now we have "zoomed in" on our plot based on the x and y axis-ranges that we defined. Notice that the data in the plot has not been modified, we have simply specified which parts of the plot we want to show in the figure. In addition, we have defined the minimum date for the plot using `datetime(2019, 10, 1, 15)` for 3:00 pm on October 1, 2019. This format is often easier to read and understand quickly.
+In this case, 3:00 pm on October 1, 2019 is defined by `datetime(2019, 10, 1, 15)` using the datetime library. In this format we are able to specify a set of comma-separated values for the year, month, day, hour, minute, seconds, and microseconds to define a date. If only year, month, and day are given, datetime assumes the time on that day is midnight at the start of the day.
 
-### Adding a legend
 
-The final example of a common plot feature we can add is a legend. The legend allows you to provide some additional information about the lines, points, or other features of a plot, and adding a legend is quite simple. To do so, we need to add two things: a `label` parameter in the plot function that lists the text that should be displayed in the legend, and a call to the `legend()` function to display the plot legend. Adding a plot legend is demonstrated below.
+Defining axis ranges this way is handy becaues it will adjust the range of values shown on the plot, but not alter the source data in any way. This can be quite nice when exploring your datasets.
+<!-- #endregion -->
+
+<!-- #region -->
+**Adding a legend**
+
+The final example of a common plot feature we can add is a legend. The legend allows you to provide some additional information about the lines, points, or other features of a plot, and adding a legend is quite simple. To do so, we need to add two things: a `label` parameter in the plot function that lists the text that should be displayed in the legend, and a call to the `legend()` function to display the plot legend. For example, adding the following to the plot will add and display a legend.
+
+```python
+ax.plot(
+    ...
+    label="Observed temperature"
+)
+ax.legend()
+```
+
+This would add the label "Observed temperature" to the legend for the line formatted using the `ax.plot()` function. The legend can be displayed by adding `ax.legend()` to the code.
+
+Note that by default the legend will automatically be positioned in the top right corner of a plot, or in a location where it minimizes interference with other plot elements. The location of the legend can be controlled using the `loc` parameter in the call to the `legend()` function. The [matplotlib documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html) [^matplotlib-legend] contains more information about how to control the location of the plot legend.
+<!-- #endregion -->
+
+**The modified example plot**
+
+Based on the additions above (changing the figure size, adding text to the plot, etc.), the modified plot can be generated using the code below.
 
 ```python
 from datetime import datetime
@@ -183,11 +211,17 @@ ax = oct1_temps.plot(
     figsize=(12, 6),
 )
 
+# Add text to plot
+x, y = "201910011800", 42
+ax.text(x, y, "This is my text.")
+
 # Display plot legend
 ax.legend()
 ```
 
-Note that by default the legend will automatically be positioned in the top right corner of a plot, or in a location where it minimizes interference with other plot elements. The location of the legend can be controlled using the `loc` parameter in the call to the `legend()` function. The [matplotlib documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html) [^matplotlib-legend] contains more information about how to control the location of the plot legend.
+_**Figure 4.6**. A plot of the example temperature data further modified with additional formatting and reduced axis ranges._
+
+As you can see, we now have a more informative plot with only a few changes in the plotting code.
 
 
 ## Dealing with datetime axes
@@ -227,6 +261,8 @@ ax.text(cold_time, 42.0, "<- Coldest temperature in early afternoon")
 ax.legend()
 ```
 
+_**Figure 4.7**. A plot of the example temperature data further modified with additional formatting and reduced axis ranges._
+
 **Check your understanding (online)**
 
 Create a line plot similar to the examples above with the following attributes:
@@ -236,7 +272,7 @@ Create a line plot similar to the examples above with the following attributes:
 - A title that reads "Evening temperatures at Helsinki-Vantaa on October 1, 2019"
 - A text label indicating the warmest temperature in the evening
 
-```python
+```python tags=["hide-cell"]
 # Example solution
 
 # Define dates
@@ -262,6 +298,8 @@ ax.legend(loc=4)
 ```
 
 <!-- #region tags=[] -->
+_**Figure 4.8**. The solution plot for this 'Check your understandind' example._
+
 ## Bar plots in pandas
 
 In addition to line plots, there are many other options for plotting in pandas.
@@ -287,9 +325,11 @@ ax.text(0, 42.1, "Coldest \ntemp \nv")
 ax.legend()
 ```
 
+_**Figure 4.9**. A bar plot using pandas with the example temperature data._
+
 You can find more about how to format bar charts on the [pandas documentation website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html) [^pandas-docs].
 
-
+<!-- #region -->
 ## Saving your plots as image files
 
 Saving plots created using pandas can be done in several ways.
@@ -299,7 +339,7 @@ The file name is required, and the image format will be determined based on the 
 
 Matplotlib plots can be saved in a number of useful file formats, including PNG, PDF, and EPS.
 PNG is a nice format for raster images, and EPS is probably easiest to use for vector graphics.
-Let's check out an example and save our lovely bar plot.
+Let's check out an example of how to save our lovely bar plot.
 
 ```python
 oct1_afternoon = oct1_temps.loc[oct1_temps.index <= "201910011500"]
@@ -321,7 +361,7 @@ ax.legend()
 plt.savefig("bar-plot.png")
 ```
 
-The commands above will both plot the figure and save a copy in a raster image titled `bar-plot.png`. If working in the JupyterLab environment, you would see the new plot file in the file browser on the left side of the notebook window.
+The commands above would both plot the figure and save a copy in a raster image titled `bar-plot.png`. If working in the JupyterLab environment, you would see the new plot file in the file browser on the left side of the notebook window.
 
 Just to demonstrate once again, we can save another version of the plot at a higher resolution with a minor change to the plot commands above.
 
@@ -344,6 +384,9 @@ ax.legend()
 # Write figure to PDF file with 600 dpi resolution
 plt.savefig("bar-plot-hi-res.pdf", dpi=600)
 ```
+
+This would save the output plot as a PDF file with a resolution of 600 dots per inch.
+<!-- #endregion -->
 
 ## Interactive plotting, a teaser
 
@@ -370,6 +413,8 @@ july2014_df.hvplot(
 )
 ```
 
+_**Figure 4.10**. An interactive plot example using hvPlot._
+
 Now we have an interactive line plot where the users can place their mouse cursor above the line to see the plotted values at a given location, zoom in and/or pan the plot to areas of interest, and click on the legend items to hide or display them. And as you can see, hvPlot makes it very easy to start creating your own interactive plots from pandas DataFrames.
 
 That is all we will explore for the moment, but you are welcome to have a look at the [hvPlot User Guide](https://hvplot.holoviz.org/user_guide/index.html) [^hvplot_guide] to learn more about the types of visualizations available in hvPlot and how to use them.
@@ -387,9 +432,7 @@ Add exercises.
 [^matlab]: <https://www.mathworks.com/products/matlab.html>
 [^matplotlib-legend]: <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html>
 [^pandas-docs]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html>
-[^pandas_bokeh]: <https://github.com/PatrikHlobil/Pandas-Bokeh>
 [^hvplot]: <https://hvplot.holoviz.org/>
 [^bokeh]: <https://docs.bokeh.org/en/latest/index.html>
 [^axis_labels]: Axis labels are a relatively new feature in pandas plotting, added in version 1.1.0. If you are using an older version of pandas and do not want upgrade then you will need to use a separate command such as `ax.set_xlabel('Date')` to set the axis labels.
 [^hvplot_guide]: https://hvplot.holoviz.org/user_guide/index.html
-
