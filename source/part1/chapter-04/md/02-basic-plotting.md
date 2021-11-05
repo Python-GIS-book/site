@@ -298,7 +298,7 @@ ax.legend(loc=4)
 ```
 
 <!-- #region tags=[] -->
-_**Figure 4.8**. The solution plot for this 'Check your understandind' example._
+_**Figure 4.8**. The solution plot for this 'Check your understanding' example._
 
 ## Bar plots in pandas
 
