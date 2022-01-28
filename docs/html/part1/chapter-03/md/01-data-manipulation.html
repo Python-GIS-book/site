@@ -1,0 +1,1011 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Common tabular operations in pandas</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part I - Python essentials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-01/index.html">
+   Getting started
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/00-motivation.html">
+     Motivation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">
+     Computers and programs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/02-why-python.html">
+     Why Python?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/03-jupyter.html">
+     Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/04-coding-with-an-ide.html">
+     Other coding environments
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+     Installation and setup
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-02/index.html">
+   Basic programming concepts
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">
+     Basic elements of Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">
+     for loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">
+     Conditional statements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/03-functions.html">
+     Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">
+     Writing script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/05-modules.html">
+     Loading and using modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/06-exercises.html">
+     Exercises
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/07-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../index.html">
+   Introduction to data analysis with Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/00-pandas-basics.html">
+     Getting started with pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/01-data-manipulation.html">
+     Common tabular operations in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/02-data-analysis.html">
+     Data wrangling, grouping and aggregation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/03-temporal-data.html">
+     Working with temporal data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/04-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-04/index.html">
+   Introduction to data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/00-introduction.html">
+     Python plotting libraries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/01-plot-anatomy.html">
+     Anatomy of a plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/02-basic-plotting.html">
+     Plotting with pandas and matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/03-subplots.html">
+     Creating subplots
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part II - Using Python with GIS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part2/index.html">
+   Introduction to GIS in Python
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part III - Case studies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part3/index.html">
+   Geographic data analysis applications
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Back matter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../back-matter/appendices.html">
+   Appendices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-1.html">
+     Version control with git
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-2.html">
+     Collaborative coding with GitHub
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-3.html">
+     Using Python script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-4.html">
+     Testing and debugging your code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-5.html">
+     Solutions to lesson questions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-6.html">
+     Solutions to exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../authors.html">
+   About the authors
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/index.html">
+   Overview
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-03/md/01-data-manipulation.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        
+        
+        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-03/md/01-data-manipulation.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-calculations">
+   Basic calculations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#selecting-and-updating-data">
+   Selecting and updating data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-rows-and-columns">
+     Selecting rows and columns
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-a-single-row-or-value">
+     Selecting a single row or value
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-values-based-on-index-positions">
+     Selecting values based on index positions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-selections">
+     Conditional selections
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#view-vs-a-copy">
+     View vs a copy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dealing-with-missing-data">
+   Dealing with missing data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-type-conversions">
+   Data type conversions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sorting-data">
+   Sorting data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-data-and-remove-nan-values">
+     Problem 1 - Read the data and remove NaN values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-convert-temperatures-to-celsius">
+     Problem 2 - Convert temperatures to Celsius
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-select-data-and-save-to-disk">
+     Problem 3 - Select data and save to disk
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Common tabular operations in pandas</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-calculations">
+   Basic calculations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#selecting-and-updating-data">
+   Selecting and updating data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-rows-and-columns">
+     Selecting rows and columns
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-a-single-row-or-value">
+     Selecting a single row or value
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-values-based-on-index-positions">
+     Selecting values based on index positions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-selections">
+     Conditional selections
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#view-vs-a-copy">
+     View vs a copy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dealing-with-missing-data">
+   Dealing with missing data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-type-conversions">
+   Data type conversions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sorting-data">
+   Sorting data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-data-and-remove-nan-values">
+     Problem 1 - Read the data and remove NaN values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-convert-temperatures-to-celsius">
+     Problem 2 - Convert temperatures to Celsius
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-select-data-and-save-to-disk">
+     Problem 3 - Select data and save to disk
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <!-- #region deletable=true editable=true -->
+<div class="tex2jax_ignore mathjax_ignore section" id="common-tabular-operations-in-pandas">
+<h1>Common tabular operations in pandas<a class="headerlink" href="#common-tabular-operations-in-pandas" title="Permalink to this headline">¶</a></h1>
+<p>Now you have learned the basics of pandas data structures (i.e. <em>Series</em> and <em>DataFrame</em>) and you should be familiar with basic methods for loading and exploring data. Next, we will continue exploring the pandas functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.</p>
+<!-- #endregion -->
+<div class="section" id="basic-calculations">
+<h2>Basic calculations<a class="headerlink" href="#basic-calculations" title="Permalink to this headline">¶</a></h2>
+<p>One of the most common things to do in pandas is to create new columns based on calculations between different variables (columns). Next, we will learn how to do that using the same input data (<code class="docutils literal notranslate"><span class="pre">'Kumpula-June-2016-w-metadata.txt'</span></code>) as in the previous section. We will first load it using the <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> method. Remember, that the first 8 lines contains the metadata which we will skip. This time, let’s store the filepath into a separate variable in order to make the code more readable and easier to change afterwards (a good practice).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Define file path:</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span>
+
+<span class="c1"># Read in the data from the file (starting at row 9):</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As a first step, it is always good to remember to check the data after reading it. This way we can be sure that everything looks as it should.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>All good. Now we can start by creating a new column <code class="docutils literal notranslate"><span class="pre">DIFF</span></code> in our DataFrame. This can be done by specifying the name of the column and giving it some default value (in this case the decimal number <code class="docutils literal notranslate"><span class="pre">0.0</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;DIFF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>As we can see, now we have a new column (<code class="docutils literal notranslate"><span class="pre">DIFF</span></code>) in our DataFrame that has value 0.0 for all rows. When creating a new column, you can <em>initialize</em> it with any value you want. Typically, the value could be a number 0 as in here, but it could also be <code class="docutils literal notranslate"><span class="pre">None</span></code> (i.e. nothing), some text (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;test</span> <span class="pre">text&quot;</span></code>), or more or less any other value or object that can be represented as a single item. You could even initiliaze the column by storing a function inside the cells if you like. Let’s continue by checking the datatype of our new column:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;DIFF&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>As we can see, pandas created a new column and automatically recognized that the data type is float as we passed a 0.0 value to it. Great, but whatabout making those calculations with pandas as promised in the beginning? Next, we will calculate the difference between <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">MIN</span></code> columns to get an idea how much the temperatures have been varying during different days. The result will be updated into the column <code class="docutils literal notranslate"><span class="pre">DIFF</span></code> that we created earlier. A typical way of conducting calculations such as this, is to access the Series (columns) that interests us from the DataFrame and conduct the mathematical calculation using the selected columns. Typically you store the result directly into a column in the DataFrame, like following:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;DIFF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;MAX&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>The calculations were stored into the <code class="docutils literal notranslate"><span class="pre">DIFF</span></code> column as planned. Conducting calculation like this is extremely fast in pandas because the math operations happen in <em>vectorized</em> manner. This means that instead of looping over individual values of the DataFrame and comparing them to each other, calculating the difference happens simultaneously at all rows. You can also create new columns on-the-fly when doing the calculation (i.e. the column does not have to exist before). Furthermore, it is possible to use any kind of math algebra (e.g. subtracttion, addition, multiplication, division, exponentiation, etc.) when creating new columns. We can for example convert the Fahrenheit temperatures in the <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> column into Celsius using the formula that we have seen already many times. Let’s do that and store it in a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">9</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><em><strong>Check your understanding (online)</strong></em></p>
+<p>Using the interactive online version of this book, calculate the temperatures in Kelvins using the Celsius values and store the result a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_KELVIN</span></code> in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 1, and the formula for converting Celsius degrees (C) to Kelvins (K) is: <code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">=</span> <span class="pre">C</span> <span class="pre">+</span> <span class="pre">273.15</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add your solution here</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+</div>
+<div class="section" id="selecting-and-updating-data">
+<h2>Selecting and updating data<a class="headerlink" href="#selecting-and-updating-data" title="Permalink to this headline">¶</a></h2>
+<p>We often want to make selections from our data and only use specific rows from a DataFrame in the analysis. There are multiple ways of selecting subsets of a pandas DataFrame than can be based on e.g. specific index values or using some predefined criteria to make the selection, such as “give me all rows where values in column X are larger than zero”. Next, we will go through the most useful tricks for selecting specific rows, columns and individual values.</p>
+<!-- #endregion -->
+<div class="section" id="selecting-rows-and-columns">
+<h3>Selecting rows and columns<a class="headerlink" href="#selecting-rows-and-columns" title="Permalink to this headline">¶</a></h3>
+<p>One common way of selecting only specific rows from your DataFrame is done via a concept of <strong>slicing</strong>. Slicing in pandas can be done in a similar manner as with normal Python lists, i.e. you specify index range you want to select inside the square brackets: <code class="docutils literal notranslate"><span class="pre">dataframe[start_index:stop_index]</span></code>. Let’s select the first five rows and assign them to a variable called <code class="docutils literal notranslate"><span class="pre">selection</span></code>. Here, we will first see how selecting the data works like you would do with “normal” Python lists, based on index values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Here we have selected the first five rows (index 0-4) using the integer index. Notice that the logic here follows how Python’s list slicing (or <code class="docutils literal notranslate"><span class="pre">range</span></code> function) works, i.e. the value on the right side of the colon (here number <code class="docutils literal notranslate"><span class="pre">5</span></code>) tells when to stop, but that value is not taken into the final selection. Hence, the syntax is <code class="docutils literal notranslate"><span class="pre">start_index:stop_index</span></code> (also additional parameter <code class="docutils literal notranslate"><span class="pre">:step</span></code> could be added here to the end).</p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+<p>Doing selections like in the previous example can be done, but there is also a better and more flexible way of selecting data using so called <code class="docutils literal notranslate"><span class="pre">.loc</span></code> label-indexing. As the name implies, <code class="docutils literal notranslate"><span class="pre">.loc</span></code> selects data based on axis labels (row and column labels). This does not necesssarily tell much to you at this point, but <code class="docutils literal notranslate"><span class="pre">.loc</span></code> makes it possible to conduct more specific selections, such as allowing you to choose which columns are chosen when selecting a subset of rows. It also makes possible to benefit from row labels that are not necessarily sequantial numbers (as with all our examples thus far), but they can represent other objects as well, such as dates or timestamps. Hence, <code class="docutils literal notranslate"><span class="pre">.loc</span></code> can become very handy when working with timeseries data (we will learn more about this later). Let’s test the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> label-indexing by selecting temperature values from column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> using rows 0-5:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select temp column values on rows 0-5</span>
+<span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+<p>Notice that in this case, we get six rows of data (index 0-5)! This happens because we are now doing the selection based on axis labels instead of normal Python-kind of indexing. It is important to notice the difference between these two approaches, as mixing the two may cause confusion,  incorrect analysis results or bugs in your code, if you do not pay attention. We recommend to use <code class="docutils literal notranslate"><span class="pre">.loc</span></code> always when possible (there are specific cases when you want to use other approaches, more about this soon). Hence, the basic syntax for <code class="docutils literal notranslate"><span class="pre">.loc</span></code> is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.loc[first_included_label:last_included_label,</span> <span class="pre">columns]</span></code></p></li>
+</ul>
+<p>By looking at the syntax, you might guess that it is also possible to select multiple columns when using <code class="docutils literal notranslate"><span class="pre">.loc</span></code>. Next, we will test this by selecting the <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> and <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code> columns from a set of rows by passing them inside a list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]]</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+<!-- #region -->
+<p>As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5).</p>
+<p><em><strong>Check your understanding (online)</strong></em></p>
+<p>Using the interactive online version of this book, calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add your solution here</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selecting-a-single-row-or-value">
+<h3>Selecting a single row or value<a class="headerlink" href="#selecting-a-single-row-or-value" title="Permalink to this headline">¶</a></h3>
+<p>You can also select an individual row from specific position using the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> indexing. Here we select all the data values using index 4 (the 5th row):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">row</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">row</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p><code class="docutils literal notranslate"><span class="pre">.loc</span></code> indexing returns the values from that position as a <code class="docutils literal notranslate"><span class="pre">Series</span></code> where the indices are actually the column names of those variables. Hence, you can access the value of an individual column by referring to its index using following format (both should work):</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print one attribute from the selected row</span>
+<span class="n">row</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Sometimes it is enough to access a single value in a DataFrame directly. In this case, we can use <code class="docutils literal notranslate"><span class="pre">.at</span></code> instead of <code class="docutils literal notranslate"><span class="pre">.loc</span></code>.
+Let’s select the temperature (column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>) on the first row (index <code class="docutils literal notranslate"><span class="pre">0</span></code>) of our DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>As an output, we got the individual value 65.5. <code class="docutils literal notranslate"><span class="pre">.at</span></code> works only when accessing a single value, whereas the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> can be used to access both a single or multiple values at the same time. The end result when fetching a single value with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> is exactly the same. The difference between the two approaches is minimal, hence we recommend using <code class="docutils literal notranslate"><span class="pre">.loc</span></code> in all cases because it is more flexible (<code class="docutils literal notranslate"><span class="pre">.at</span></code> is slightly faster but in most cases it does not make a difference):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selecting-values-based-on-index-positions">
+<h3>Selecting values based on index positions<a class="headerlink" href="#selecting-values-based-on-index-positions" title="Permalink to this headline">¶</a></h3>
+<p>As we have learned thus far, <code class="docutils literal notranslate"><span class="pre">.loc</span></code> and <code class="docutils literal notranslate"><span class="pre">.at</span></code> are based on the <em>axis labels</em> - the names of columns and rows. For positional based indexing, pandas has an <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> which is based on <em>integer value</em> indices. With <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>, it is also possible to refer to the columns based on their index value (i.e. to a positional number of a column in the DataFrame). For example,  <code class="docutils literal notranslate"><span class="pre">data.iloc[0,0]</span></code> would return <code class="docutils literal notranslate"><span class="pre">20160601</span></code> in our example DataFrame which is the value on the first row and first column in the data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the first rows</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Value at position (0,0) is&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Hence, the syntax for <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.iloc[start_row_position:stop_row_position,</span> <span class="pre">start_column_position:stop_column_position]</span></code></p></li>
+</ul>
+<p>By following this syntax, we can access the value on the first row and second column (<code class="docutils literal notranslate"><span class="pre">TEMP</span></code>) by calling:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>It is also possible to get ranges of rows and columns with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>. For example, we could select <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> and <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> columns from the first five rows based on their indices (positions) in the data. Here, we will select rows from positions 0 to 5 and columns from positions 0 to 2:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+<p>As a result we indeed get only two columns and the first five rows. A good thing to notice, is that with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>, the behavior in terms of how many rows are returned differs from <code class="docutils literal notranslate"><span class="pre">.loc</span></code>. Here, the <code class="docutils literal notranslate"><span class="pre">0:5</span></code> returns 5 rows (following the Python list slicing behavarior), whereas using <code class="docutils literal notranslate"><span class="pre">.loc</span></code> would return 6 rows (i.e. also including the row at index 5).</p>
+<p>One handy functionality with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> is the ability to fetch data starting from the end of the DataFrame. Hence, it is possible to retrieve the last row in the DataFrame by passing a negative number to the <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>, where value -1 corresponds to the last row (or column), -2 corresponds to the second last, and so on. Following this, it is easy to see e.g. what is the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code> value (the last column) of the last row of data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+</div>
+<div class="section" id="conditional-selections">
+<h3>Conditional selections<a class="headerlink" href="#conditional-selections" title="Permalink to this headline">¶</a></h3>
+<p>One really useful feature in pandas is the ability to easily filter and select rows based on a conditional statement.
+The following example shows how we check if the Celsius temperature at each row on the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code>column is higher than 15 degrees:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span>
+</pre></div>
+</div>
+<p>As a result, we get a Series of booleans, where the value <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a <code class="docutils literal notranslate"><span class="pre">mask</span></code>. We can take advantage of this mask when doing selections with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable <code class="docutils literal notranslate"><span class="pre">warm_temps</span></code> (warm temperatures). We can specify the criteria directly inside the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> square brackets. Next, we will select rows which have higher temperature (in Celsius) than 15 degrees:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">]</span>
+<span class="n">warm_temps</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>It is also possible to combine multiple criteria at the same time. Here, we select temperatures above 15 degrees that were recorded on the second half of June in 2016 (i.e. <code class="docutils literal notranslate"><span class="pre">YEARMODA</span> <span class="pre">&gt;=</span> <span class="pre">20160615</span></code>).
+Combining multiple criteria can be done with the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator (AND) or the <code class="docutils literal notranslate"><span class="pre">|</span></code> operator (OR). Notice, that it is often useful to separate the different clauses inside the parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code>. Let’s select rows having higher temperature than 15 degrees from late June 2016 (from 15th day onwards):</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20160615</span><span class="p">)]</span>
+<span class="n">warm_temps</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Now we have a subset of our DataFrame with only rows where the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code> is above 15 and the dates in <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column start from 15th of June. Notice, that the index values (numbers on the left) are still showing the index labels from the original DataFrame. This indicates that our result is really a slice from the original data.</p>
+<!-- #endregion -->
+<p>It is possible to reset the index using <code class="docutils literal notranslate"><span class="pre">reset_index()</span></code> function which makes the index numbering to start from 0 and increase the index values in a sequantal manner. This is often a useful operation to do, because it makes it easier then to slice the data with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> or <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>. By default the <code class="docutils literal notranslate"><span class="pre">reset_index()</span></code> would make a new column called <code class="docutils literal notranslate"><span class="pre">index</span></code> to keep track on the previous index which might be useful in some cases but here not, so we can omit that by passing parameter <code class="docutils literal notranslate"><span class="pre">drop=True</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">warm_temps</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">warm_temps</span>
+</pre></div>
+</div>
+<p>As can be seen, now the index values goes from 0 to 12. Resetting the index has now also <em>unlinked</em> the <code class="docutils literal notranslate"><span class="pre">warm_temps</span></code> DataFrame from the <code class="docutils literal notranslate"><span class="pre">data</span></code>, meaning that it is not a view anymore but an independent Pandas object. When making selections, it is quite typical that pandas might give you warnings if you modify the selected data without first resetting the index or taking a copy of the selected data. To demonstrate this, we will make the selection again and do a small change for the first value of the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code> column by updating it to 17.5. Here, we can take advantage of the <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> which makes it easy to access the first row based based on position 0:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20160615</span><span class="p">)]</span>
+<span class="n">warm_temps</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">17.5</span>
+</pre></div>
+</div>
+<p>Because we modified the selection which is a slice from the original data, pandas gives us a warning about a possibly invalid value assignment. In most cases, the warning can be ignored but it is a good practice to always take a copy when doing selections, especially if you continue working with the selected data and possibly modify it further:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make the selection and take a copy</span>
+<span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20160615</span><span class="p">)</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Now update the first value of the last column</span>
+<span class="n">warm_temps</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">17.5</span>
+</pre></div>
+</div>
+<p>As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection without needing to worry that there are some “hidden linkages” between our DataFrames that could cause issues (we discuss more about this in the next section).</p>
+<p><em><strong>Check your understanding (online)</strong></em></p>
+<p>Using the interactive online version of this book, find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add your solution here</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="view-vs-a-copy">
+<h3>View vs a copy<a class="headerlink" href="#view-vs-a-copy" title="Permalink to this headline">¶</a></h3>
+<p>A good thing to know when doing selections, is that the end result after making the selection can sometimes result to something called a <code class="docutils literal notranslate"><span class="pre">view</span></code>. In such cases, the selection and the original data may still linked to each other. This happens e.g. if you make a selection like above but return only a single column from the original data. In a situation where you have a view, a change in the original <em>data</em> for that specific column can also change the value in the <em>selection</em>. Without going into details why and when this happens, this behavior can nevertheless be confusing and have unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. <em>unlink</em> the two DataFrames). You can make a copy easily while doing the selection by adding a <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> at the end of the command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+<p>Now we have the exact same data in our end result, but we have ensured that the selection is not linked to the original data anymore. To demonstrate what can happen with the view, let’s make a selection of a single column from our data (which will be a view), and modify the data a bit to see what consequences might happen if we are not careful:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp</span> <span class="o">=</span> <span class="n">selection</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+<span class="n">temp</span>
+</pre></div>
+</div>
+<p>Now if we make a change to our original data, i.e. <em>selection</em>, it will also influence our values in <em>temp</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">30.0</span>
+<span class="n">selection</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the values in temp (which we did not touch)</span>
+<span class="n">temp</span>
+</pre></div>
+</div>
+<p>As we can see, now the value in our <em>temp</em> Series changed from 65.5 to 30.0 although we did not make any change to it directly. The change happened nevertheless because the data objects were still linked to each other.</p>
+<!-- #region deletable=true editable=true -->
+</div>
+</div>
+<div class="section" id="dealing-with-missing-data">
+<h2>Dealing with missing data<a class="headerlink" href="#dealing-with-missing-data" title="Permalink to this headline">¶</a></h2>
+<p>As you may have noticed by now, we have several missing values for the temperature minimum, maximum, and difference columns (<code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, <code class="docutils literal notranslate"><span class="pre">DIFF</span></code>, and <code class="docutils literal notranslate"><span class="pre">DIFF_MIN</span></code>). These missing values are indicated as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (not-a-number). Having missing data in your datafile is really common situation and typically you want to deal with it somehow. Common procedures to deal with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values are to either remove them from the DataFrame or fill them with some value. In Pandas both of these options are really easy to do. Let’s first start by checking whether our data has NaN values:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span>
+</pre></div>
+</div>
+<p>As we can see, the <code class="docutils literal notranslate"><span class="pre">MIN</span></code> and <code class="docutils literal notranslate"><span class="pre">DIFF</span></code> columns are missing values at index 26. It is also possible to confirm this with pandas by accessing a specific Series attribute called <code class="docutils literal notranslate"><span class="pre">.hasnans</span></code> which can be a handy tool especially when automating some data analysis pipelines. Each Series (i.e. column) in the DataFrame has this attribute. Let’s check if <code class="docutils literal notranslate"><span class="pre">MIN</span></code> column contains any NaNs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span><span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hasnans</span>
+</pre></div>
+</div>
+<p>As a result, you get either True or False (here True), depending on whether the Series contained any NaN values, or not. Let’s now see how we can remove the NoData values (i.e. clean the data) using the <code class="docutils literal notranslate"><span class="pre">.dropna()</span></code> function. Inside the function you can pass a list of column(s) from which the <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values should found using the <code class="docutils literal notranslate"><span class="pre">subset</span></code> parameter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cols_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span>
+<span class="n">warm_temps_clean</span> <span class="o">=</span> <span class="n">warm_temps</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">cols_to_check</span><span class="p">)</span>
+<span class="n">warm_temps_clean</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>As you can see by looking at the table above (and the change in index values), we now have a DataFrame without the NoData values. By doing this, you naturally loose data (rows) which might not be an optimal solution in some cases. Due to this, pandas also provides an option to fill the NoData with some value using <code class="docutils literal notranslate"><span class="pre">fillna()</span></code> function. Here, we can fill the missing values in the with value -9999. Note that we are not giving the <code class="docutils literal notranslate"><span class="pre">subset</span></code> parameter this time:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>As a result we now have a DataFrame where all NoData values in the whole DataFrame are filled with the value -9999. If you want to fill NaN values values of only a specific column, you can do that by targeting the <code class="docutils literal notranslate"><span class="pre">fillna</span></code> function to only a specific column (or columns):</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span><span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">warm_temps</span><span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice that because we already filled every NaN in the whole DataFrame in the previous step, the command above does not change anything.</p>
+<p>It is important to be aware, that in many cases filling the data with a specific value is dangerous because you end up modifying the actual data, which might affect the results of your analysis. For example, in the case above we would have dramatically changed the temperature difference columns because the -9999 values not an actual temperature difference! Hence, use caution when filling missing values. In some cases, you might have to fill in no data values for the purposes of saving the data to file in a spesific format. For example, some GIS software don’t accept missing values. Always pay attention to potential no data values when reading in data files and doing further analysis.</p>
+</div>
+<div class="section" id="data-type-conversions">
+<h2>Data type conversions<a class="headerlink" href="#data-type-conversions" title="Permalink to this headline">¶</a></h2>
+<!-- #region editable=true -->
+<p>When doing data analysis, one quite typical operation that needs to be done is to convert values in a column from one datatype to another, such as from floating point to integer. Remember, that we already did data type conversions in Chapter 1 using the built-in Python functions such as <code class="docutils literal notranslate"><span class="pre">int()</span></code> or <code class="docutils literal notranslate"><span class="pre">str()</span></code>. For values stored in pandas Series, we can use <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method. Next we will continue using the same data as previously, and convert all the temperature values (floats) in column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> to integers. Let’s start by looking our original data:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now we can easily convert those decimal numbers to integers by calling <code class="docutils literal notranslate"><span class="pre">astype(int)</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As we can see the values were converted to integers. However, it is important to be careful with type conversions from floating point values to integers. The conversion simply drops the stuff to the right of the decimal point, so all values are rounded down to the nearest whole number. For example, the second value in our Series (65.8) was truncated to 65 as an integer, when it clearly should be rounded up to 66. Chaining the round and type conversion functions solves this issue as the <code class="docutils literal notranslate"><span class="pre">.round(0).astype(int)</span></code> command first rounds the values with zero decimals and then converts those values into integers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As we can see, now the integer values are correctly rounded.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method supports converting between all basic Python data types (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>), but it also knows how to convert between more specific numpy data types, such as <code class="docutils literal notranslate"><span class="pre">int64</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, <code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code> to mention a few (see <a class="footnote-reference brackets" href="#numpydtypes" id="id1">1</a> for a full list). Using the numpy data type can useful if you need to be more specific e.g. how many bits should be reserved for storing the values. For instance, <code class="docutils literal notranslate"><span class="pre">int64</span></code> (i.e. <em>64-bit integer</em>) can store integer values ranging between -9223372036854775808 and 9223372036854775807, whereas <code class="docutils literal notranslate"><span class="pre">int16</span></code> can only store values from -32768 to 32767. If passing the “normal” <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">float</span></code> to the <code class="docutils literal notranslate"><span class="pre">astype()</span></code> function, pandas will automatically store 64-bit numeric values. The larger bits you use, the more physical memory is required to store the data. Hence, in some specific cases e.g. when dealing with extremely large datasets, it might be useful to be able to determine that the values in specific columns are stored with lower bits (to save memory).</p>
+</div>
+<div class="section" id="sorting-data">
+<h2>Sorting data<a class="headerlink" href="#sorting-data" title="Permalink to this headline">¶</a></h2>
+<p>Quite often it is useful to be able to sort your data (descending/ascending) based on values in some column
+This can be easily done with Pandas using <code class="docutils literal notranslate"><span class="pre">sort_values(by='YourColumnName')</span></code> -function. Let’s first sort the values on ascending order based on the <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort dataframe, ascending</span>
+<span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;TEMP&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Of course, it is also possible to sort them in descending order with <code class="docutils literal notranslate"><span class="pre">ascending=False</span></code> parameter:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort dataframe, descending</span>
+<span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;TEMP&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In some situations, you might need to sort values based on multiple columns simultaneously, which is sometimes called as multi-level sorting. This can be done by passing a list of column names to the <code class="docutils literal notranslate"><span class="pre">by</span></code> parameter. When you sort the data based on multiple columns, sometimes you also might want to sort your data in a way that the first-level sorting happens in ascending order, and the second-level sorting happens in descending order. A typical situation for this kind of sorting could be e.g. when sorting the temperatures first by weekday (Monday, Tuesday, etc.) and then under each weekday ordering the values in descending order that would always show the warmest temperature of specific week first. Let’s modify our data a bit to demonstrate this. We will add a new column that has information about the weekday. The 1st of June 2016 was Wednesday, so we start from that:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a list of weekdays that matches with our data</span>
+<span class="c1"># The data covers 4 weeks + 2 days (i.e. altogether 30 days)</span>
+<span class="n">week_days</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Sat&quot;</span><span class="p">,</span> <span class="s2">&quot;Sun&quot;</span><span class="p">,</span> <span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tue&quot;</span><span class="p">]</span>
+<span class="n">day_list</span> <span class="o">=</span> <span class="n">week_days</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">week_days</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># Add the weekdays to our DataFrame</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;WEEKDAY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">day_list</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we have a new column with information about the weekday of each row. Next, we can test how to sort the values, so that we order the data by weekday and within each weekday the temperatures are in descending order. You can adjust how the ordering works by passing a list of boolean values to <code class="docutils literal notranslate"><span class="pre">ascending</span></code> parameter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WEEKDAY&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data.</p>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p>In this exercise, you will clean the data from our data file by removing no-data values, convert temperature values in Fahrenheit to Celsius, and split the data into separate datasets using the weather station identification code. We will start this problem by cleaning and converting our temperature data. An overview of the tasks in this exercise:</p>
+<ul class="simple">
+<li><p>Create a new dataframe called <code class="docutils literal notranslate"><span class="pre">selected</span></code> that contains selected columns from the data file</p></li>
+<li><p>Clean the new DataFrame by removing no-data values</p></li>
+<li><p>Create a new column for temperatures converted from Fahrenheit to Celsius</p></li>
+<li><p>Divide the data into separate DataFrames for the Helsinki Kumpula and Rovaniemi stations</p></li>
+<li><p>Save the new DataFrames to CSV files</p></li>
+</ul>
+<div class="section" id="problem-1-read-the-data-and-remove-nan-values">
+<h3>Problem 1 - Read the data and remove NaN values<a class="headerlink" href="#problem-1-read-the-data-and-remove-nan-values" title="Permalink to this headline">¶</a></h3>
+<p>The first step for this problem is to read the data file 6153237444115dat.csv into a variable <code class="docutils literal notranslate"><span class="pre">data</span></code> using pandas and cleaning it a bit:</p>
+<ul class="simple">
+<li><p>Select the columns <code class="docutils literal notranslate"><span class="pre">USAF,</span> <span class="pre">YR--MODAHRMN,</span> <span class="pre">TEMP,</span> <span class="pre">MAX,</span> <span class="pre">MIN</span></code> from the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame and assign them to a variable <code class="docutils literal notranslate"><span class="pre">selected</span></code></p></li>
+<li><p>Remove all rows from <code class="docutils literal notranslate"><span class="pre">selected</span></code> that have NoData in the column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> using the <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> function</p></li>
+</ul>
+</div>
+<div class="section" id="problem-2-convert-temperatures-to-celsius">
+<h3>Problem 2 - Convert temperatures to Celsius<a class="headerlink" href="#problem-2-convert-temperatures-to-celsius" title="Permalink to this headline">¶</a></h3>
+<p>Convert the temperature values from Fahrenheits to Celsius:</p>
+<ul class="simple">
+<li><p>Create a new column to <code class="docutils literal notranslate"><span class="pre">selected</span></code> called <code class="docutils literal notranslate"><span class="pre">Celsius</span></code>.</p></li>
+<li><p>Convert the Fahrenheit temperatures from <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> using the conversion formula below and store the results in the new <code class="docutils literal notranslate"><span class="pre">Celsius</span></code> column:</p>
+<ul>
+<li><p>TempCelsius = (TempFahrenheit - 32) / 1.8</p></li>
+</ul>
+</li>
+<li><p>Round the values in the <code class="docutils literal notranslate"><span class="pre">Celsius</span></code> column to have 0 decimals (do not create a new column, update the current one)</p></li>
+<li><p>Convert the <code class="docutils literal notranslate"><span class="pre">Celsius</span></code> values into integers (do not create a new column, update the current one)</p></li>
+</ul>
+</div>
+<div class="section" id="problem-3-select-data-and-save-to-disk">
+<h3>Problem 3 - Select data and save to disk<a class="headerlink" href="#problem-3-select-data-and-save-to-disk" title="Permalink to this headline">¶</a></h3>
+<p>Divide the data in <code class="docutils literal notranslate"><span class="pre">selected</span></code> into two separate DataFrames:</p>
+<ul class="simple">
+<li><p>Select all rows from the selected DataFrame with the <code class="docutils literal notranslate"><span class="pre">USAF</span></code> code <code class="docutils literal notranslate"><span class="pre">29980</span></code> into a variable called <code class="docutils literal notranslate"><span class="pre">kumpula</span></code>.</p></li>
+<li><p>Select all rows from the selected DataFrame with the <code class="docutils literal notranslate"><span class="pre">USAF</span></code> code <code class="docutils literal notranslate"><span class="pre">28450</span></code> into a variable called <code class="docutils literal notranslate"><span class="pre">rovaniemi</span></code>.</p></li>
+<li><p>Save the <code class="docutils literal notranslate"><span class="pre">kumpula</span></code> DataFrame into a file <code class="docutils literal notranslate"><span class="pre">Kumpula_temps_May_Aug_2017.csv</span></code> in CSV format:</p>
+<ul>
+<li><p>Separate the columns with commas (,)</p></li>
+<li><p>Use only 2 decimals for the floating point numbers</p></li>
+</ul>
+</li>
+<li><p>Repeat the same procedures and save the <code class="docutils literal notranslate"><span class="pre">rovaniemi</span></code> DataFrame into a file <code class="docutils literal notranslate"><span class="pre">Rovaniemi_temps_May_Aug_2017.csv</span></code>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="numpydtypes"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://numpy.org/doc/stable/user/basics.types.html">https://numpy.org/doc/stable/user/basics.types.html</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+    
+        &copy; Copyright 2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

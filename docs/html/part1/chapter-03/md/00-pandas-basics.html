@@ -1,0 +1,1019 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Getting started with pandas</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part I - Python essentials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-01/index.html">
+   Getting started
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/00-motivation.html">
+     Motivation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">
+     Computers and programs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/02-why-python.html">
+     Why Python?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/03-jupyter.html">
+     Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/04-coding-with-an-ide.html">
+     Other coding environments
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+     Installation and setup
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-02/index.html">
+   Basic programming concepts
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">
+     Basic elements of Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">
+     for loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">
+     Conditional statements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/03-functions.html">
+     Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">
+     Writing script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/05-modules.html">
+     Loading and using modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/06-exercises.html">
+     Exercises
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/07-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../index.html">
+   Introduction to data analysis with Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/00-pandas-basics.html">
+     Getting started with pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/01-data-manipulation.html">
+     Common tabular operations in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/02-data-analysis.html">
+     Data wrangling, grouping and aggregation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/03-temporal-data.html">
+     Working with temporal data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/04-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-04/index.html">
+   Introduction to data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/00-introduction.html">
+     Python plotting libraries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/01-plot-anatomy.html">
+     Anatomy of a plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/02-basic-plotting.html">
+     Plotting with pandas and matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/03-subplots.html">
+     Creating subplots
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part II - Using Python with GIS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part2/index.html">
+   Introduction to GIS in Python
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part III - Case studies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part3/index.html">
+   Geographic data analysis applications
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Back matter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../back-matter/appendices.html">
+   Appendices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-1.html">
+     Version control with git
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-2.html">
+     Collaborative coding with GitHub
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-3.html">
+     Using Python script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-4.html">
+     Testing and debugging your code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-5.html">
+     Solutions to lesson questions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-6.html">
+     Solutions to exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../authors.html">
+   About the authors
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/index.html">
+   Overview
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-03/md/00-pandas-basics.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        
+        
+        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-03/md/00-pandas-basics.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-pandas">
+   What is pandas?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pandas-data-structures">
+   Pandas data structures
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reading-tabular-data">
+   Reading tabular data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#writing-data-to-a-file">
+   Writing data to a file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataframe-properties">
+   DataFrame properties
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#selecting-columns">
+   Selecting columns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#unique-values">
+   Unique values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#descriptive-statistics">
+   Descriptive statistics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#different-ways-of-constructing-pandas-objects">
+   Different ways of constructing pandas objects
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-file-and-clean-it">
+     Problem 1 - Read the file and clean it
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-basic-characteristics-of-the-data">
+     Problem 2 - Basic characteristics of the data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-descriptive-statistics">
+     Problem 3 - Descriptive statistics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Getting started with pandas</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-pandas">
+   What is pandas?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pandas-data-structures">
+   Pandas data structures
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reading-tabular-data">
+   Reading tabular data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#writing-data-to-a-file">
+   Writing data to a file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataframe-properties">
+   DataFrame properties
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#selecting-columns">
+   Selecting columns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#unique-values">
+   Unique values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#descriptive-statistics">
+   Descriptive statistics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#different-ways-of-constructing-pandas-objects">
+   Different ways of constructing pandas objects
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-file-and-clean-it">
+     Problem 1 - Read the file and clean it
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-basic-characteristics-of-the-data">
+     Problem 2 - Basic characteristics of the data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-descriptive-statistics">
+     Problem 3 - Descriptive statistics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="getting-started-with-pandas">
+<h1>Getting started with pandas<a class="headerlink" href="#getting-started-with-pandas" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-pandas">
+<h2>What is pandas?<a class="headerlink" href="#what-is-pandas" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> <a class="footnote-reference brackets" href="#urlpandas" id="id1">1</a> is a modern, powerful and feature rich library that is designed for doing
+data analysis in Python. It is a mature data analytics framework that is widely used among different fields of science, thus there exists a lot of good examples and documentation that can help you get going with your data analysis tasks. The development of pandas started in 2008 and it is now maintained by an active developer community (<span id="id2"><a class="reference internal" href="../nb/04-references.html#id2">McKinney, 2017</a></span>).</p>
+<p>pandas is a “high-level” package, which means that it makes use of several other packages in the background.
+Pandas combines the performance of powerful Python libraries such as <code class="docutils literal notranslate"><span class="pre">numpy</span></code> <a class="footnote-reference brackets" href="#urlnumpy" id="id3">2</a>,
+<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <a class="footnote-reference brackets" href="#urlmatplotlib" id="id4">3</a> and <code class="docutils literal notranslate"><span class="pre">scipy</span></code> <a class="footnote-reference brackets" href="#urlscipy" id="id5">4</a>. Thus, you can use many of the features included in those packages even without importing them separately. This book focuses primarily on pandas because it is easy-to-use, efficient and intuitive.</p>
+<p>One of the most useful features of pandas is its ability to write and read data to and from numerous data formats.
+It supports reading and writing data e.g. from/to:</p>
+<ul class="simple">
+<li><p>CSV</p></li>
+<li><p>JSON</p></li>
+<li><p>HTML</p></li>
+<li><p>MS Excel</p></li>
+<li><p>HDF5</p></li>
+<li><p>Stata</p></li>
+<li><p>SAS</p></li>
+<li><p>Python Pickle format</p></li>
+<li><p>SQL (Postgresql, MySQL, Oracle, MariaDB, etc.)</p></li>
+</ul>
+<p>See full list from the latest pandas documentation <a class="footnote-reference brackets" href="#urlpandasdocs" id="id6">5</a>.</p>
+<!-- #region deletable=true editable=true -->
+</div>
+<div class="section" id="pandas-data-structures">
+<h2>Pandas data structures<a class="headerlink" href="#pandas-data-structures" title="Permalink to this headline">¶</a></h2>
+<p>In pandas, table-like data are stored in two-dimensional <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with labeled rows and columns. You can think of the pandas DataFrame as a programmable spreadsheet. The pandas DataFrame was originally inspired by dataframes that are in-built in the R programming language. One-dimensional sequences of values are stored in pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code>. One row or one column in a pandas DataFrame is actually a pandas Series. You can think of a pandas Series as a clever list. These pandas structures incorporate a number of things we’ve already encountered, such as indices, data stored in a collection, and data types.</p>
+<p><img alt="Figure X. pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values." src="../../../_images/pandas-structures-annotated.png" /></p>
+<p>As you can see from Figure X, both the DataFrame and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the next sections, we will use many of these features to explore real-world data and learn some useful data analysis procedures. For a comprehensive overview of pandas data structures, we recommend you to have a look at pandas online documentation about data structures <a class="footnote-reference brackets" href="#urlds" id="id7">6</a> as well as Chapter 5 in <span id="id8"><a class="reference internal" href="../nb/04-references.html#id2">McKinney, 2017</a></span>.</p>
+<!-- #endregion -->
+<!-- #region -->
+</div>
+<div class="section" id="reading-tabular-data">
+<h2>Reading tabular data<a class="headerlink" href="#reading-tabular-data" title="Permalink to this headline">¶</a></h2>
+<p>In the following sections, we will learn how to read data from a text file (“Kumpula-June-2016-w-metadata.txt”) which contains weather observations from Kumpula, Helsinki (Finland). The data was retrieved from NOAA <a class="footnote-reference brackets" href="#urlnoaa1" id="id9">7</a> climate database and it contains observed daily mean, minimum, and maximum temperatures from June 2016, recorded by a weather observation station in Kumpula. The file includes altogether 30 rows of observations (one per day). You can read further details from the <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">section</span></code> at the end of the book. The first fifteen rows in the file look like following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data file contents: Daily temperatures (mean, min, max) for Kumpula, Helsinki</span>
+<span class="c1">#                     for June 1-30, 2016</span>
+<span class="c1"># Data source: https://www.ncdc.noaa.gov/cdo-web/search?datasetid=GHCND</span>
+<span class="c1"># Data processing: Extracted temperatures from raw data file, converted to</span>
+<span class="c1">#                  comma-separated format</span>
+<span class="c1">#</span>
+<span class="c1"># David Whipp - 02.10.2017</span>
+
+<span class="n">YEARMODA</span><span class="p">,</span><span class="n">TEMP</span><span class="p">,</span><span class="n">MAX</span><span class="p">,</span><span class="n">MIN</span>
+<span class="mi">20160601</span><span class="p">,</span><span class="mf">65.5</span><span class="p">,</span><span class="mf">73.6</span><span class="p">,</span><span class="mf">54.7</span>
+<span class="mi">20160602</span><span class="p">,</span><span class="mf">65.8</span><span class="p">,</span><span class="mf">80.8</span><span class="p">,</span><span class="mf">55.0</span>
+<span class="mi">20160603</span><span class="p">,</span><span class="mf">68.4</span><span class="p">,,</span><span class="mf">55.6</span>
+<span class="mi">20160604</span><span class="p">,</span><span class="mf">57.5</span><span class="p">,</span><span class="mf">70.9</span><span class="p">,</span><span class="mf">47.3</span>
+<span class="mi">20160605</span><span class="p">,</span><span class="mf">51.4</span><span class="p">,</span><span class="mf">58.3</span><span class="p">,</span><span class="mf">43.2</span>
+<span class="mi">20160606</span><span class="p">,</span><span class="mf">52.2</span><span class="p">,</span><span class="mf">59.7</span><span class="p">,</span><span class="mf">42.8</span>
+</pre></div>
+</div>
+<p>Now as we have familiarized ourselves with the data, we can continue and see how to read the CSV with pandas. Let’s start by importing the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> module. It is customary to import pandas as <code class="docutils literal notranslate"><span class="pre">pd</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Next, we will read the input data file and store the contents of that file into a variable called <code class="docutils literal notranslate"><span class="pre">data</span></code> Using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our input file is a comma-delimited file, meaning that the columns in the data are separted by commas (<code class="docutils literal notranslate"><span class="pre">,</span></code>) on each row. The <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function uses comma as the default delimiter, hence we did not need to specify it separately in the command above. If all went as planned, you should now have a new variable <code class="docutils literal notranslate"><span class="pre">data</span></code> in memory that contains the input data.</p>
+<p>It is quite common to have some other character instead of comma separating the columns from each other. The <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> is a generic function for reading text-based data files, supporting files separated by commas, spaces, or other common separators. The <code class="docutils literal notranslate"><span class="pre">sep</span></code> parameter can be used to specify which character is used as a delimiter. For instance <code class="docutils literal notranslate"><span class="pre">sep=';'</span></code>, would assume that the columns in the data file are delimited with semicolon (<code class="docutils literal notranslate"><span class="pre">;</span></code>). For a full list of available parameters, please refer to the pandas documentation for pandas.read_csv <a class="footnote-reference brackets" href="#urlreadcsv" id="id10">8</a>, or run <code class="docutils literal notranslate"><span class="pre">help(pd.read_csv)</span></code>. Pandas has also several functions for parsing input data from different formats. For example, reading Excel files can be easily done by using a function <code class="docutils literal notranslate"><span class="pre">read_excel()</span></code>. Another useful function is <code class="docutils literal notranslate"><span class="pre">read_pickle()</span></code> that reads data stored in the Python pickle format. Check out the pandas documentation about input and output functions <a class="footnote-reference brackets" href="#urlpandasiotools" id="id11">9</a> for more details about reading data.</p>
+<p>Let’s check the the contents of this variable. You can print the contents of your DataFrame (or a snippet of it) simply by calling <code class="docutils literal notranslate"><span class="pre">data</span></code>. However, quite often you want to check only n-number of first (or last) rows in your data. For doing that, we can use the <code class="docutils literal notranslate"><span class="pre">head()</span></code> method of the pandas DataFrame object that will, by default, return the first 5 rows of the DataFrame. You can return any number of rows by adding a number inside the parentheses, such as 10 which will return the first ten rows of data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>This looks OK, but there are some strange values present such as <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, and the first lines of the dataframe look a bit weird. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> stands for “not a number”, and might indicate some problem with reading in the contents of the file. Plus, we expected about 30 lines of data, but the index values go up to 36 when we print the contents of the <code class="docutils literal notranslate"><span class="pre">data</span></code> variable. Looks like we need to investigate this further.</p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+<p>As we can observe, there are some metadata at the top of the file giving basic information about its contents and source. This isn’t data we want to process, so we need to skip over that part of the file when we load it. Here are the 8 first rows of data in the text file (note that the 8th row is blank):</p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data file contents: Daily temperatures (mean, min, max) for Kumpula, Helsinki</span>
+<span class="c1">#                     for June 1-30, 2016</span>
+<span class="c1"># Data source: https://www.ncdc.noaa.gov/cdo-web/search?datasetid=GHCND</span>
+<span class="c1"># Data processing: Extracted temperatures from raw data file, converted to</span>
+<span class="c1">#                  comma-separated format</span>
+<span class="c1">#</span>
+<span class="c1"># David Whipp - 02.10.2017</span>
+
+</pre></div>
+</div>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+<p>Fortunately, skipping over rows is easy to do when reading data with pandas. We just need to add the <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> parameter when we read the file, listing the number of rows to skip (8 in this case). Let’s try reading the datafile again, and this time defining the <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> parameter.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Let’s now print the dataframe and see what changed:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>After reading the data, it is always good to check that everything went well by printing out the data as we did here. We can also check the last rows of the data using <code class="docutils literal notranslate"><span class="pre">data.tail()</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Note that pandas DataFrames have <strong>labelled axes (rows and columns)</strong>.  In our sample data, the rows labeled with an index value (<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">29</span></code>), and columns labelled <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code>, <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">MIN</span></code>. Later on, we will learn how to use these labels for selecting and updating subsets of the data.</p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+<p>It is also possible to read only specific columns from the data when using the <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> function. You can achieve this using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter when reading the file which accepts a list of column names that will be included in the resulting DataFrame. Also positional indices (e.g. <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>) corresponding the position of the column in the file can be used to specify which columns should be read. For additional details, see the pandas documention <a class="footnote-reference brackets" href="#readcsv" id="id12">10</a>. Next, we will read the file <code class="docutils literal notranslate"><span class="pre">Kumpula-June-2016-w-metadata.txt</span></code> again and store its contents into a new variable called <code class="docutils literal notranslate"><span class="pre">temp_data</span></code>. In this case, we will only read the columns <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> and <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>, meaning that the new variable <code class="docutils literal notranslate"><span class="pre">temp_data</span></code> should have 30 rows and 2 columns:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">temp_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As a result, we now have only two columns instead of the original four. Using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> function to limit the number of columns can be useful when having datafiles with possibly tens or even hundreds of columns. Typically you are not interested in all of them, but you want focus on only a few important ones which you can select already when reading the data.</p>
+<!-- #region editable=true -->
+</div>
+<div class="section" id="writing-data-to-a-file">
+<h2>Writing data to a file<a class="headerlink" href="#writing-data-to-a-file" title="Permalink to this headline">¶</a></h2>
+<p>Naturally, it is also possible to write the data from pandas to a file. Pandas is an excellent tool for reading and writing data, as it supports all common data formats by default [^pandasio], such as CSV, Excel, JSON, HDF5, Pickle etc. In addition, reading and writing from/to various databases is supported. One of the most typical output formats is CSV file. Function <code class="docutils literal notranslate"><span class="pre">to_csv()</span></code> can be used to easily save your data in CSV format.
+Let’s first save the data from our <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame into a file called <code class="docutils literal notranslate"><span class="pre">Kumpula_temp_results_June_2016.csv</span></code>.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># define output filename</span>
+<span class="n">output_fp</span> <span class="o">=</span> <span class="s2">&quot;Kumpula_temps_June_2016.csv&quot;</span>
+
+<span class="c1"># Save dataframe to csv</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_fp</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true -->
+<p><img alt="Figure X. Textfile output opened in JupyterLab after saving it." src="../../../_images/pandas-save-file-1.png" /></p>
+<p>Now we have the data from our DataFrame saved to a file. Figure X shows how it looks using a JupyterLab viewer.
+As we can see, the first column in the datafile contains now the index value of the rows which can be a bit annoying. Also the temperature values are represented with decimals (1 decimal in this case). Sometimes you might want to store the data without any decimals (i.e. round them to a full integer) or to have a smaller number of decimals. Luckily, it is easy to deal with such cases in pandas when saving the files. Next, we will save the temperature values from out <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame without the index, and with zero decimals converting the decimal numbers to integers. Omitting the index can be with <code class="docutils literal notranslate"><span class="pre">index=False</span></code> parameter. Specifying how many decimals should be written can be done with <code class="docutils literal notranslate"><span class="pre">float_format</span></code> parameter where text <code class="docutils literal notranslate"><span class="pre">%.0f</span></code> defines pandas to use 0 decimals in all columns when writing the data to a file (changing the value from 0 to 1 would write 1 decimal etc.):</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># define output filename</span>
+<span class="n">output_fp2</span> <span class="o">=</span> <span class="s2">&quot;Kumpula_temperatures_integers_June_2016.csv&quot;</span>
+
+<span class="c1"># Save dataframe to csv</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_fp2</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.0f</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true -->
+<p>As a result (Figure X), we have a “cleaner” output file without the index column, and temperatures are rounded to integers. This approach can be a useful “trick” to quickly clean and round your numerical data with many decimals.</p>
+<p><img alt="Figure X. Output CSV-file opened in JupyterLab after formatting the floats." src="../../../_images/pandas-save-file-2.png" /></p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+</div>
+<div class="section" id="dataframe-properties">
+<h2>DataFrame properties<a class="headerlink" href="#dataframe-properties" title="Permalink to this headline">¶</a></h2>
+<p>Now we will continue exploring the full dataset that we have stored in the variable <code class="docutils literal notranslate"><span class="pre">data</span></code>. A normal first step when you load new data is to explore the dataset a bit to understand how the data is structured, and what kind of values are stored in there. Let’s start by checking the size of our DataFrame. We can use the <code class="docutils literal notranslate"><span class="pre">len()</span></code> function similar to the use with lists to check how many rows we have:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>We can also get a quick sense of the size of the dataset using the <code class="docutils literal notranslate"><span class="pre">shape</span></code>. It returns a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> with the number of rows as the first element and the number of columns as the second element:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Here we see that our dataset has 30 rows and 4 columns, just as we saw above when printing out the entire DataFrame. Pay attention that we do not use parentheses after the word <code class="docutils literal notranslate"><span class="pre">shape</span></code> when accessing attributes. The <code class="docutils literal notranslate"><span class="pre">shape</span></code> in here is one of the several <code class="docutils literal notranslate"><span class="pre">attributes</span></code> related to a pandas DataFrame object. Attributes are typically used to store useful information (or <em>metadata</em>) about the object at hand. We will see many more examples of these throughout the book.</p>
+<!-- #endregion -->
+<p>Let’s also check the column names we have in our DataFrame (yes, it is an attribute as well!). We already saw the column names when we checked the 5 first rows using <code class="docutils literal notranslate"><span class="pre">data.head()</span></code>, but often it is useful to access the column names directly. You can check the column names by calling <code class="docutils literal notranslate"><span class="pre">data.columns</span></code> (returns an index object that contains the column labels) or <code class="docutils literal notranslate"><span class="pre">data.columns.values</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>We can also find information about the row identifiers using the <code class="docutils literal notranslate"><span class="pre">index</span></code> attribute:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Here we see how the data is indexed, starting at 0, ending at 30, and with an increment of 1 between each value. This is basically the same way in which Python lists are indexed, however, pandas allows also other ways of identifying the rows. DataFrame indices could, for example, be character strings, or date objects. We will learn more about resetting the index later. What about the data types of each column in our dataFrame? We can check the data type of all columns at once using <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.dtypes</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print data types</span>
+<span class="n">data</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Here we see that <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> is an integer value (with 64-bit precision; <code class="docutils literal notranslate"><span class="pre">int64</span></code>), while the other values are all decimal values with 64-bit precision (float64).</p>
+<!-- #endregion -->
+<p><em><strong>Check your understanding (online)</strong></em></p>
+<p>Using the interactive online version of this book, see if you can find a way to print out the number of columns in our DataFrame.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add your solution here</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selecting-columns">
+<h2>Selecting columns<a class="headerlink" href="#selecting-columns" title="Permalink to this headline">¶</a></h2>
+<p>When conducting data analysis, it is very common that you want to choose certain columns from the data for further processing. We can select specific columns based on the column values. The basic syntax is <code class="docutils literal notranslate"><span class="pre">dataframe[value]</span></code>, where value can be a single column name, or a list of column names. Let’s start by selecting two columns, <code class="docutils literal notranslate"><span class="pre">'YEARMODA'</span></code> and <code class="docutils literal notranslate"><span class="pre">'TEMP'</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]]</span>
+<span class="n">selection</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Let’s also check the data type of this selection:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see, the subset is still a pandas DataFrame, and we are able to use all the methods and attributes related to a pandas DataFrame also with this subset. For example, we can check the shape:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>We can also access a single column of the data based on the column name:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>What about the type of the column itself?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Each column (and each row) in a pandas data frame is indeed a pandas Series. Notice that you can also retreive a column using a different syntax <code class="docutils literal notranslate"><span class="pre">data.TEMP</span></code>. This syntax works only if the column name is a valid name for a Python variable (e.g. the column name should not contain whitespace). The syntax <code class="docutils literal notranslate"><span class="pre">data[&quot;column&quot;]</span></code> works for all kinds of column names, so we recommend using this approach.</p>
+<!-- #endregion -->
+</div>
+<div class="section" id="unique-values">
+<h2>Unique values<a class="headerlink" href="#unique-values" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes it is useful to extract the unique values that you have in your column. We can do that by using <code class="docutils literal notranslate"><span class="pre">unique()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As a result we get an array of unique values in that column. We can also directly access the number of unique values using the <code class="docutils literal notranslate"><span class="pre">nunique()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;There were&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span>
+    <span class="s2">&quot;days with unique mean temperatures in June 2016.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="descriptive-statistics">
+<h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h2>
+<!-- #region deletable=true editable=true -->
+<p>pandas DataFrame and Series contain useful methods for getting summary statistics. Available methods include <code class="docutils literal notranslate"><span class="pre">mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">median()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, <code class="docutils literal notranslate"><span class="pre">max()</span></code>, and <code class="docutils literal notranslate"><span class="pre">std()</span></code> (the standard deviation). The statistics can be calculated on a Series level (a single column) or getting the statistics for all columns at once for the whole DataFrame. To check e.g. the mean temperature in out input data, i.e. focusing on a single column (<em>Series</em>), we can do following:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The output in this case will be a single floating point number presenting the mean temperature, 59.73 Fahrenheits. To get the mean statistics for all columns in the DataFrame, we can call the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> in a similar manner, but without specifying the column name:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Notice that in this case, the result is Series showing the mean values for each column. For an overview of the basic statistics for all attributes in the data, we can use the <code class="docutils literal notranslate"><span class="pre">describe()</span></code> method:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As a result, we get the number of values that are not None for each column (count) as well as the basic statistics and quartiles (min, 25%, 50%, 75% and max). It is also possible to get other DataFrame specific information, such as the index dtype and columns, non-null values and memory usage by calling <code class="docutils literal notranslate"><span class="pre">info()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+</div>
+<div class="section" id="different-ways-of-constructing-pandas-objects">
+<h2>Different ways of constructing pandas objects<a class="headerlink" href="#different-ways-of-constructing-pandas-objects" title="Permalink to this headline">¶</a></h2>
+<p>Most often we create pandas objects by reading in data from an external source, such as a text file. Here, we will briefly show different ways how you can create pandas objects from Python objects (lists and dictionaries). If you have a very long lists of numbers, creating a pandas Series (or numpy.array) will allow you to interact with these values more efficiently in terms of computing time that using and working with a pure Python list. This is how you can create a pandas Series from a list:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">number_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">number_series</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Note that Pandas is smart about the conversion, detecting a single floating point value (<code class="docutils literal notranslate"><span class="pre">7.0</span></code>) and assigning all values in the Series the data type float64. If needed, you can also set a custom index when creating the object:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">number_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">number_series</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">number_series</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>How about combining several lists and construct a DataFrame from them? Certainly. Let’s see how we can convert lists into a pandas DataFrame. Let’s first create a few lists having the same number of items each:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Hanko&quot;</span><span class="p">,</span> <span class="s2">&quot;Heinola&quot;</span><span class="p">,</span> <span class="s2">&quot;Kaisaniemi&quot;</span><span class="p">,</span> <span class="s2">&quot;Malmi&quot;</span><span class="p">]</span>
+<span class="n">latitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">59.77</span><span class="p">,</span> <span class="mf">61.2</span><span class="p">,</span> <span class="mf">60.18</span><span class="p">,</span> <span class="mf">60.25</span><span class="p">]</span>
+<span class="n">longitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">22.95</span><span class="p">,</span> <span class="mf">26.05</span><span class="p">,</span> <span class="mf">24.94</span><span class="p">,</span> <span class="mf">25.05</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Now we can create a pandas DataFrames by using the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> constructor and passing a <em>Python dictionary</em> <code class="docutils literal notranslate"><span class="pre">{&quot;column_1&quot;:</span> <span class="pre">list_1,</span> <span class="pre">&quot;column_2&quot;:</span> <span class="pre">list_2,</span> <span class="pre">...}</span></code> to it, indicating the structure of our data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="n">stations</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="n">latitudes</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="n">longitudes</span><span class="p">})</span>
+<span class="n">new_data</span>
+</pre></div>
+</div>
+<p>It is also possible to create pandas DataFrame from a list of dictionaries. Hence, this approach is quite similar as the previous example, but we organize the data a bit differently. Having a list of dictionaries is common if you happen to work with <code class="docutils literal notranslate"><span class="pre">JSON</span></code> files, which are commonly used when reading data from the web (e.g. via <code class="docutils literal notranslate"><span class="pre">Application</span> <span class="pre">Programming</span> <span class="pre">Interface</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dictionaries</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="s2">&quot;Hanko&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="mf">59.77</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="mf">22.95</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="s2">&quot;Heinola&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="mf">61.2</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="mf">26.05</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="s2">&quot;Kaisaniemi&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="mf">60.18</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="mf">24.94</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="s2">&quot;Malmi&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="mf">60.25</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="mf">25.05</span><span class="p">},</span>
+<span class="p">]</span>
+
+<span class="c1"># Pass the list into the DataFrame constructor</span>
+<span class="n">new_data_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dictionaries</span><span class="p">)</span>
+<span class="n">new_data_2</span>
+</pre></div>
+</div>
+<p>As a result, we got an identical DataFrame as in our first example above. Notice, that sometimes you might start working with an empty DataFrame and only later “populate” it with new columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we have an empty DataFrame, and we can add new columns to it based on the lists we created earlier. Notice that the following approach requires that the length of all the lists that you want to add are equal:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;lon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">longitudes</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;lat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latitudes</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p>In this exercise your task is to open and explore a NOAA weather data file using Pandas. The data file name is 6153237444115dat.csv and it is located in the data folder (<em>add link</em>). An overview of the tasks in this exercise:</p>
+<ul class="simple">
+<li><p>Import the Pandas module</p></li>
+<li><p>Read the data using Pandas into a variable called data</p></li>
+<li><p>Calculate a number of basic statistics from the data</p></li>
+</ul>
+<div class="section" id="problem-1-read-the-file-and-clean-it">
+<h3>Problem 1 - Read the file and clean it<a class="headerlink" href="#problem-1-read-the-file-and-clean-it" title="Permalink to this headline">¶</a></h3>
+<p>Import the pandas module and read the weather data into a variable called <code class="docutils literal notranslate"><span class="pre">data</span></code>. Print the first five rows of the data file.</p>
+</div>
+<div class="section" id="problem-2-basic-characteristics-of-the-data">
+<h3>Problem 2 - Basic characteristics of the data<a class="headerlink" href="#problem-2-basic-characteristics-of-the-data" title="Permalink to this headline">¶</a></h3>
+<p>Based on the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame from Problem 1, answer to following questions:</p>
+<ol class="simple">
+<li><p>How many rows is there in the data?</p></li>
+<li><p>What are the column names?</p></li>
+<li><p>What are the datatypes of the columns?</p></li>
+</ol>
+<!-- #region -->
+</div>
+<div class="section" id="problem-3-descriptive-statistics">
+<h3>Problem 3 - Descriptive statistics<a class="headerlink" href="#problem-3-descriptive-statistics" title="Permalink to this headline">¶</a></h3>
+<p>Based on the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame from Problem 1, answer to following questions:</p>
+<ul class="simple">
+<li><p>What is the mean Fahrenheit temperature in the data (use the <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> column)?</p></li>
+<li><p>What is the standard deviation of the Maximum temperature (use the <code class="docutils literal notranslate"><span class="pre">MAX</span></code> column)?</p></li>
+<li><p>How many unique stations exists in the data (use the <code class="docutils literal notranslate"><span class="pre">USAF</span></code> column)?</p></li>
+</ul>
+<!-- #endregion -->
+</div>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="urlpandas"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="http://pandas.pydata.org/">http://pandas.pydata.org/</a></p>
+</dd>
+<dt class="label" id="urlnumpy"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p><a class="reference external" href="http://www.numpy.org/">http://www.numpy.org/</a></p>
+</dd>
+<dt class="label" id="urlmatplotlib"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p><a class="reference external" href="https://matplotlib.org/">https://matplotlib.org/</a></p>
+</dd>
+<dt class="label" id="urlscipy"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p><a class="reference external" href="https://www.scipy.org/">https://www.scipy.org/</a></p>
+</dd>
+<dt class="label" id="urlpandasdocs"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/">https://pandas.pydata.org/pandas-docs/stable/</a></p>
+</dd>
+<dt class="label" id="urlds"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html</a></p>
+</dd>
+<dt class="label" id="urlnoaa1"><span class="brackets"><a class="fn-backref" href="#id9">7</a></span></dt>
+<dd><p><a class="reference external" href="https://www.ncdc.noaa.gov/">https://www.ncdc.noaa.gov/</a></p>
+</dd>
+<dt class="label" id="urlreadcsv"><span class="brackets"><a class="fn-backref" href="#id10">8</a></span></dt>
+<dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
+</dd>
+<dt class="label" id="urlpandasiotools"><span class="brackets"><a class="fn-backref" href="#id11">9</a></span></dt>
+<dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5">https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5</a></p>
+</dd>
+<dt class="label" id="readcsv"><span class="brackets"><a class="fn-backref" href="#id12">10</a></span></dt>
+<dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+    
+        &copy; Copyright 2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

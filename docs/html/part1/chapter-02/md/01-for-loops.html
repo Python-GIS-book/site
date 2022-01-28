@@ -1,0 +1,821 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>for loops</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part I - Python essentials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-01/index.html">
+   Getting started
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/00-motivation.html">
+     Motivation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">
+     Computers and programs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/02-why-python.html">
+     Why Python?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/03-jupyter.html">
+     Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/04-coding-with-an-ide.html">
+     Other coding environments
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+     Installation and setup
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../index.html">
+   Basic programming concepts
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/00-python-basics.html">
+     Basic elements of Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/01-for-loops.html">
+     for loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/02-conditional-statements.html">
+     Conditional statements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/03-functions.html">
+     Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/04-writing-scripts.html">
+     Writing script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/05-modules.html">
+     Loading and using modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/06-exercises.html">
+     Exercises
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/07-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-03/index.html">
+   Introduction to data analysis with Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">
+     Getting started with pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/01-data-manipulation.html">
+     Common tabular operations in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/02-data-analysis.html">
+     Data wrangling, grouping and aggregation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html">
+     Working with temporal data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/04-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-04/index.html">
+   Introduction to data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/00-introduction.html">
+     Python plotting libraries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/01-plot-anatomy.html">
+     Anatomy of a plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/02-basic-plotting.html">
+     Plotting with pandas and matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/03-subplots.html">
+     Creating subplots
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part II - Using Python with GIS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part2/index.html">
+   Introduction to GIS in Python
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part III - Case studies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part3/index.html">
+   Geographic data analysis applications
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Back matter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../back-matter/appendices.html">
+   Appendices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-1.html">
+     Version control with git
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-2.html">
+     Collaborative coding with GitHub
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-3.html">
+     Using Python script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-4.html">
+     Testing and debugging your code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-5.html">
+     Solutions to lesson questions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-6.html">
+     Solutions to exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../authors.html">
+   About the authors
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/index.html">
+   Overview
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-02/md/01-for-loops.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        
+        
+        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-02/md/01-for-loops.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-bad-example">
+   A (bad) example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introducing-the-for-loop">
+   Introducing the for loop
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for-loop-format">
+     for loop format
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#your-daily-for-loop">
+     Your daily for loop
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for-loop-variables">
+     for loop variables
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#for-loops-using-the-range-function">
+   For loops using the range function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#looping-over-lists-using-index-values">
+   Looping over lists using index values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-use-index-value-to-loop-over-a-list">
+   Why use index value to loop over a list?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>for loops</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-bad-example">
+   A (bad) example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introducing-the-for-loop">
+   Introducing the for loop
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for-loop-format">
+     for loop format
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#your-daily-for-loop">
+     Your daily for loop
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for-loop-variables">
+     for loop variables
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#for-loops-using-the-range-function">
+   For loops using the range function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#looping-over-lists-using-index-values">
+   Looping over lists using index values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-use-index-value-to-loop-over-a-list">
+   Why use index value to loop over a list?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="for-loops">
+<h1>for loops<a class="headerlink" href="#for-loops" title="Permalink to this headline">¶</a></h1>
+<p>In the previous section we introduced <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-List"><span class="xref std std-term">lists</span></a></em> in Python, one form of a collection of values that can be represented by a single variable. In this lesson we will learn how to use <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Loop"><span class="xref std std-term">loops</span></a></em>. Loops allow parts of code to be repeated some number of times, such as iterating over all of the items in a Python list and performing a calculation on each item.</p>
+<div class="section" id="a-bad-example">
+<h2>A (bad) example<a class="headerlink" href="#a-bad-example" title="Permalink to this headline">¶</a></h2>
+<p>Let’s consider an example using the list below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">european_cities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span> <span class="s2">&quot;Paris&quot;</span><span class="p">,</span> <span class="s2">&quot;Barcelona&quot;</span><span class="p">,</span> <span class="s2">&quot;Uppsala&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Suppose we want to print out the name of each city in our list. We could use the index value for each city and do the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">european_cities</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">european_cities</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">european_cities</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">european_cities</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>But this is a bad idea. Why? Well there are two reasons.
+First, it does not scale nicely for long lists, and will take forever to type in.
+Second, it won’t work if the length of the list has fewer than 4 cities.
+Let’s see an example with a new list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">european_cities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Riga&quot;</span><span class="p">,</span> <span class="s2">&quot;Rome&quot;</span><span class="p">,</span> <span class="s2">&quot;Athens&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">european_cities</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">european_cities</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">european_cities</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">european_cities</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="introducing-the-for-loop">
+<h2>Introducing the for loop<a class="headerlink" href="#introducing-the-for-loop" title="Permalink to this headline">¶</a></h2>
+<p>We could do a much better job by using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">european_cities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Amsterdam&quot;</span><span class="p">,</span> <span class="s2">&quot;Brussels&quot;</span><span class="p">,</span> <span class="s2">&quot;Lisbon&quot;</span><span class="p">,</span> <span class="s2">&quot;Reykjavik&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">city</span> <span class="ow">in</span> <span class="n">european_cities</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Not only is this shorter, but it is also more flexible.
+Try printing out a different list of cities such as <code class="docutils literal notranslate"><span class="pre">['Detroit',</span> <span class="pre">'Chicago',</span> <span class="pre">'Denver',</span> <span class="pre">'Boston',</span> <span class="pre">'Portland',</span> <span class="pre">'San</span> <span class="pre">Francisco',</span> <span class="pre">'Houston',</span> <span class="pre">'Orlando']</span></code>.
+Still works, right?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">us_cities</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Detroit&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Chicago&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Denver&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Boston&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Portland&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;San Francisco&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Houston&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Orlando&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">city</span> <span class="ow">in</span> <span class="n">us_cities</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region -->
+<div class="section" id="for-loop-format">
+<h3>for loop format<a class="headerlink" href="#for-loop-format" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code> loops in Python have the general form below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="n">collection</span><span class="p">:</span>
+        <span class="n">do</span> <span class="n">things</span> <span class="k">with</span> <span class="n">variable</span>
+</pre></div>
+</div>
+<p>Let’s break down the code above to see some essential aspect of <code class="docutils literal notranslate"><span class="pre">for</span></code> loops:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">variable</span></code> can be any name you like.</p></li>
+<li><p>The statement of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop must end with a <code class="docutils literal notranslate"><span class="pre">:</span></code></p></li>
+<li><p>The code that should be executed as part of the loop must be indented beneath the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop statement. The typical indentation is 4 spaces.</p></li>
+<li><p>There is no additional special word needed to end the loop, you simply change the indentation back to normal.</p></li>
+</ul>
+<p>In sum, <code class="docutils literal notranslate"><span class="pre">for</span></code> loops are useful to repeat some part of the code a <em>definite</em> number of times.</p>
+<!-- #endregion -->
+<!-- #region -->
+</div>
+<div class="section" id="your-daily-for-loop">
+<h3>Your daily for loop<a class="headerlink" href="#your-daily-for-loop" title="Permalink to this headline">¶</a></h3>
+<p><img alt="Figure 1.9. A cat's daily routine as an example loop. Original comic from https://www.bugmartini.com/comic/cats-eye/." src="../../../_images/2009-11-03-Cats-Eye.jpg" /></p>
+<p>Like many other programming concepts, the idea of looping through actions is something that is already perhaps more familiar to you than you think.
+Consider your actions during a given day.
+Many people have certain routines they follow each day, such as waking up, taking a shower, eating breakfast and brushing their teeth.
+In Python code, we might represent such actions as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="n">my_life</span><span class="p">:</span>
+    <span class="n">wake_up</span><span class="p">()</span>
+    <span class="n">take_shower</span><span class="p">()</span>
+    <span class="n">eat_breakfast</span><span class="p">()</span>
+    <span class="n">brush_teeth</span><span class="p">()</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">my_life</span></code> would be a list of the days of your life, and the actions you take are represented as functions, such as <code class="docutils literal notranslate"><span class="pre">wake_up()</span></code>.
+Furthermore, by following this kind of list of repeating actions we’re able to start the day effectively even before the first cup of coffee :).</p>
+<!-- #endregion -->
+</div>
+<div class="section" id="for-loop-variables">
+<h3>for loop variables<a class="headerlink" href="#for-loop-variables" title="Permalink to this headline">¶</a></h3>
+<p>Note that the variable used in a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is just a normal variable and still exists after the loop has completed with the final value given to letter. Let’s loop over a list of weather conditions and print them to the screen.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather_conditions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;rain&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sleet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;snow&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;freezing fog&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sunny&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cloudy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ice pellets&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">weather</span> <span class="ow">in</span> <span class="n">weather_conditions</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>What is its value of <code class="docutils literal notranslate"><span class="pre">weather</span></code> after the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop has completed?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After the loop, weather is&quot;</span><span class="p">,</span> <span class="n">weather</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="for-loops-using-the-range-function">
+<h2>For loops using the range function<a class="headerlink" href="#for-loops-using-the-range-function" title="Permalink to this headline">¶</a></h2>
+<p>A loop can be used to iterate over any list of values in Python.
+So far we have considered only lists, but we could also write a loop that performs a calculation a specified number of times by using the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function. Let’s consider an example where we use a for loop with <code class="docutils literal notranslate"><span class="pre">value</span></code> as the loop variable and <code class="docutils literal notranslate"><span class="pre">range(5)</span></code> as the collection. Let’s see what happens if we print <code class="docutils literal notranslate"><span class="pre">value</span></code> at each iteration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case, we use a special function called <code class="docutils literal notranslate"><span class="pre">range()</span></code> to give us a list of 5 numbers <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4]</span></code> and then we print each number in the list to the screen.
+When given an integer (whole number) as an argument, <code class="docutils literal notranslate"><span class="pre">range()</span></code> will produce a list of numbers with a length equal to the specified <code class="docutils literal notranslate"><span class="pre">number</span></code>.
+The list starts at <code class="docutils literal notranslate"><span class="pre">0</span></code> and ends with <code class="docutils literal notranslate"><span class="pre">number</span> <span class="pre">-</span> <span class="pre">1</span></code>.
+You can learn a bit more about range by typing <code class="docutils literal notranslate"><span class="pre">help(range)</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="nb">range</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region -->
+<p><strong>Check your understanding (online)</strong></p>
+<p>The program below will print numbers to the screen using the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using the documentation that is produced when you run <code class="docutils literal notranslate"><span class="pre">help(range)</span></code>, what values would you replace the <code class="docutils literal notranslate"><span class="pre">...</span></code> in the parentheses of the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function with to have the following output printed to the screen?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span>
+<span class="mi">5</span>
+<span class="mi">8</span>
+</pre></div>
+</div>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add your solution here</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="looping-over-lists-using-index-values">
+<h2>Looping over lists using index values<a class="headerlink" href="#looping-over-lists-using-index-values" title="Permalink to this headline">¶</a></h2>
+<p>Since we already know how to find the length of a list using the <code class="docutils literal notranslate"><span class="pre">len()</span></code> function, we can now take advantage of this knowledge to make our <code class="docutils literal notranslate"><span class="pre">for</span></code> loops more flexible. Let’s use the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function to loop over a list of numbers and add the value of the loop variable <code class="docutils literal notranslate"><span class="pre">i</span></code> to each value. In addition, we can add a few print statements to display the values of <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">numbers[i]</span></code> within the loop. Let’s also check the updated values in the list after the loop.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Value of i:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Value of numbers[i] before addition:&quot;</span><span class="p">,</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">i</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Value of numbers[i] after addition:&quot;</span><span class="p">,</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There are several important things to observe in this <code class="docutils literal notranslate"><span class="pre">for</span></code> loop:</p>
+<ol class="simple">
+<li><p>Because we are using the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function, the value assigned to the loop variable <code class="docutils literal notranslate"><span class="pre">i</span></code> starts with <code class="docutils literal notranslate"><span class="pre">0</span></code> and increases by <code class="docutils literal notranslate"><span class="pre">1</span></code> each time through the loop.</p></li>
+<li><p>Value in the list <code class="docutils literal notranslate"><span class="pre">numbers</span></code> at index <code class="docutils literal notranslate"><span class="pre">i</span></code> increases at each iteration.</p></li>
+<li><p>The value that changes in the list <code class="docutils literal notranslate"><span class="pre">numbers</span></code> in each iteration through this for loop is the value at index <code class="docutils literal notranslate"><span class="pre">i</span></code>, while the other values are not updated. This occurs because we’re assigning a new value at <code class="docutils literal notranslate"><span class="pre">numbers[i]</span></code>.</p></li>
+<li><p>Value of <code class="docutils literal notranslate"><span class="pre">numbers[i]</span></code> on the right side of the equation is the “old” value. That “old” value is increased by <code class="docutils literal notranslate"><span class="pre">i</span></code> first, and then stored as the updated value <code class="docutils literal notranslate"><span class="pre">numbers[i]</span></code>.</p></li>
+</ol>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">i</span></code> is commonly used to denote the index variable in loops. Loops can sometimes occur with another loop (referred to as nested loops), in which case other index variables such as <code class="docutils literal notranslate"><span class="pre">j</span></code> or <code class="docutils literal notranslate"><span class="pre">k</span></code> may be used.</p>
+</div>
+<div class="section" id="why-use-index-value-to-loop-over-a-list">
+<h2>Why use index value to loop over a list?<a class="headerlink" href="#why-use-index-value-to-loop-over-a-list" title="Permalink to this headline">¶</a></h2>
+<p>Good question. First off, if you want to update individual values in a list you’re likely going to need to loop that includes the index values. There are functions such as <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> that can help, but their use can be somewhat confusing for new programmers. Second, in cases where you have multiple lists that are related to one another, it can be handy to use a loop with the index values to be able to access corresponding locations in each list. For this, let’s consider an example with two lists.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span> <span class="s2">&quot;Stockholm&quot;</span><span class="p">,</span> <span class="s2">&quot;Oslo&quot;</span><span class="p">,</span> <span class="s2">&quot;Reykjavik&quot;</span><span class="p">,</span> <span class="s2">&quot;Copenhagen&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">countries</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Finland&quot;</span><span class="p">,</span> <span class="s2">&quot;Sweden&quot;</span><span class="p">,</span> <span class="s2">&quot;Norway&quot;</span><span class="p">,</span> <span class="s2">&quot;Iceland&quot;</span><span class="p">,</span> <span class="s2">&quot;Denmark&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>As you can see we have 5 cities and 5 corresponding counties. Let’s print out each pair using a single for loop.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cities</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cities</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;is the capital of&quot;</span><span class="p">,</span> <span class="n">countries</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Cool. So as you can see, the index <code class="docutils literal notranslate"><span class="pre">i</span></code> is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We’ll get more practice with this kind of thing in the exercises for this week. In the example above, we used the length of the list <code class="docutils literal notranslate"><span class="pre">cities</span></code> in the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function. We could just as easily used the list <code class="docutils literal notranslate"><span class="pre">countries</span></code> to define the values of <code class="docutils literal notranslate"><span class="pre">i</span></code> since both lists are the same length.</p>
+<!-- #region -->
+<p><strong>Check your understanding (online)</strong></p>
+<p>What output would the following program produce? Try to think about the loop without running any code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">odd_numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">even_numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">odd_numbers</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">odd_numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">even_numbers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p>Add exercises.</p>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+    
+        &copy; Copyright 2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

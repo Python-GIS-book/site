@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Computers and programs</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part I - Python essentials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../index.html">
+   Getting started
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/00-motivation.html">
+     Motivation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/01-computers-and-programs.html">
+     Computers and programs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/02-why-python.html">
+     Why Python?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/03-jupyter.html">
+     Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/04-coding-with-an-ide.html">
+     Other coding environments
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/05-installation.html">
+     Installation and setup
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/06-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-02/index.html">
+   Basic programming concepts
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">
+     Basic elements of Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">
+     for loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">
+     Conditional statements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/03-functions.html">
+     Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">
+     Writing script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/05-modules.html">
+     Loading and using modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/06-exercises.html">
+     Exercises
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/07-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-03/index.html">
+   Introduction to data analysis with Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">
+     Getting started with pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/01-data-manipulation.html">
+     Common tabular operations in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/02-data-analysis.html">
+     Data wrangling, grouping and aggregation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html">
+     Working with temporal data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/04-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-04/index.html">
+   Introduction to data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/00-introduction.html">
+     Python plotting libraries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/01-plot-anatomy.html">
+     Anatomy of a plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/02-basic-plotting.html">
+     Plotting with pandas and matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/03-subplots.html">
+     Creating subplots
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part II - Using Python with GIS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part2/index.html">
+   Introduction to GIS in Python
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part III - Case studies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part3/index.html">
+   Geographic data analysis applications
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Back matter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../back-matter/appendices.html">
+   Appendices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-1.html">
+     Version control with git
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-2.html">
+     Collaborative coding with GitHub
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-3.html">
+     Using Python script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-4.html">
+     Testing and debugging your code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-5.html">
+     Solutions to lesson questions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-6.html">
+     Solutions to exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../authors.html">
+   About the authors
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/index.html">
+   Overview
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-01/md/01-computers-and-programs.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        
+        
+        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-01/md/01-computers-and-programs.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-learn-to-program">
+   Why learn to program?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-computer">
+   What is a computer?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-are-computers-good-at">
+     What are computers good at?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-are-computers-bad-at">
+     What are computers bad at?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-program">
+   What is a program?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-programming-language">
+   What is a programming language?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Computers and programs</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-learn-to-program">
+   Why learn to program?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-computer">
+   What is a computer?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-are-computers-good-at">
+     What are computers good at?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-are-computers-bad-at">
+     What are computers bad at?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-program">
+   What is a program?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-programming-language">
+   What is a programming language?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="computers-and-programs">
+<h1>Computers and programs<a class="headerlink" href="#computers-and-programs" title="Permalink to this headline">¶</a></h1>
+<p>We start this first chapter with a short introduction to computers and programs. If you have previous experience programming, or would prefer to jump ahead to the first section on Python programming. Otherwise, the goal here is to ensure you have a good foundation and understanding of essential general topics before introducing computer programming using the Python programming language.</p>
+<div class="section" id="why-learn-to-program">
+<h2>Why learn to program?<a class="headerlink" href="#why-learn-to-program" title="Permalink to this headline">¶</a></h2>
+<p>You might be wondering about why you should even bother learning to program at all. Most likely you are not a computer scientist after all, but <strong>neither are we</strong>. Yet all of the authors of this book have developed their basic computer programming skills to be able to write and use simple programs. Even very short computer programs can be very useful!</p>
+<p>So, why bother? Well, the fields of geoscience and geography are becoming increasingly quantitative. In both fields we are now processing larger datasets, using numerical models, and performing other quantitative tasks that benefit from having some basic programming skills. Even these basic skills ca allow you to do more in exploring, manipulating, and analyzing your data. For example, many software packages used for data visualization or GIS now include the possibility to include your own Python scripts within the programs to extend what they can do.</p>
+<p><img alt="Figure 1.5. Using the Python console to interact with GIS data in the QGIS program (https://www.qgis.org/)." src="../../../_images/QGIS-Python.png" /></p>
+<p><em><strong>Figure 1.5</strong>. Using the Python console to interact with GIS data in the QGIS program (<a class="reference external" href="https://www.qgis.org/">https://www.qgis.org/</a>).</em></p>
+<p>Programming can also be fun! Once you learn the basic syntax you may enjoy finding ways to break complex problems down into simpler pieces, developing strategies for solving programming problems, and texting your solutions. This is part of the reason that children are being introduced to programming ideas in books such as the Hello Ruby series (<span id="id1"><a class="reference internal" href="../../chapter-02/nb/07-references.html#id3">Liukas, 2015</a></span>). Coming up with solutions with simple programs can be exiting and rewarding, and you can test your solutions right away to see whether or not your solution works!</p>
+<p>Moreover, programming can help make us better scientists. The <a class="reference external" href="https://en.wikipedia.org/wiki/Scientific_method">scientific method</a> <a class="footnote-reference brackets" href="#sci-method" id="id2">1</a> is fundamental to how scientists conduct their research. It includes defining questions, gathering information, formulating and testing a hypothesis, analyzing experimental data, interpreting data and drawing conclusions, publishing results, and retesting. Learning basic programming skills can help us with many of these steps. Collecting data, performing experiments, and analyzing data can all be made more efficient using simple programs. For example, we will see how to take take multiple daily temperature observations and use them to calculate monthly average temperatures to investigate wamring trends in the monthly data as part of Chapter 2 in this text. In addition, we will introduce several good programming practices in the first part of this book that will help ensure our experiments and analyses are reproducible, which is a key aspect of <a class="reference external" href="https://en.wikipedia.org/wiki/Open_science">open science</a> <a class="footnote-reference brackets" href="#open-sci" id="id3">2</a>.</p>
+<p>Before we move into introducing programming concepts and the Python language, we will spend the remainder of this chapter with some basic terminology related to computing.</p>
+</div>
+<div class="section" id="what-is-a-computer">
+<h2>What is a computer?<a class="headerlink" href="#what-is-a-computer" title="Permalink to this headline">¶</a></h2>
+<p><img alt="Figure 1.6. Diagram of the essential elements of a computer. Simplified from Zelle ." src="../../../_images/computer-diagram.png" /></p>
+<p><em><strong>Figure 1.6</strong>. Diagram of the essential elements of a computer. Simplified from <span id="id4"><a class="reference internal" href="../../chapter-02/nb/07-references.html#id5">Zelle, 2017</a></span>.</em></p>
+<p>In its simplest form, a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Computer"><span class="xref std std-term">computer</span></a></em> takes input from an input device such as a mouse or keyboard, processes that input using the central processing unit (CPU) and memory, and provides output to a device such as the screen. The processing that is done is by the CPU manipulates data, modifying the input prior to being output. The steps for processing could be given in a computer program, which we will define below. An essential aspect of the programs used by a computer is that they are changable, so the instructions used by the computer can be modified to alter the output that is produced. Overall, the computer allows us to take input, modify it into a new/useful form, and output it for our interpretation.</p>
+<div class="section" id="what-are-computers-good-at">
+<h3>What are computers good at?<a class="headerlink" href="#what-are-computers-good-at" title="Permalink to this headline">¶</a></h3>
+<p>Given the definition above, it may be clear that computers are in some ways quite simple, and as a result there are certain tasks where computers excel. Tasks computers are good at include:</p>
+<ul class="simple">
+<li><p>well-defined tasks</p></li>
+<li><p>data storage and manipulation</p></li>
+<li><p>repetitive calculations</p></li>
+<li><p>processing data or instructions</p></li>
+</ul>
+<p>For example, given the instructions to add 2 plus 2 and return the answer in a language the computer understands, it will readily perform that calulation and return the expected value, 4.</p>
+</div>
+<div class="section" id="what-are-computers-bad-at">
+<h3>What are computers bad at?<a class="headerlink" href="#what-are-computers-bad-at" title="Permalink to this headline">¶</a></h3>
+<p>Of course, while computers can be immensely powerful and perform staggering calculations, there are some kinds of problems that computers struggle with. These include:</p>
+<ul class="simple">
+<li><p>Abstract or poorly defined tasks</p></li>
+<li><p>Tasks requiring impossible computing power (intractable tasks)</p></li>
+</ul>
+<p>For example, let’s consider asking the computer to calculate pi. In these terms, the computer is not likely to be successful because we have not provided clear instructions about the task. How should it do the calculation? To how many decimal places? We have given only abstract instructions that the computer cannot understand. Of course, if given clear instructions, calculating pi to 1000 digits is something the computer can easily do, as shown below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">3.1415926535</span> <span class="mi">8979323846</span> <span class="mi">2643383279</span> <span class="mi">5028841971</span> <span class="mi">6939937510</span> <span class="mi">5820974944</span> <span class="mi">5923078164</span>
+  <span class="mi">0628620899</span> <span class="mi">8628034825</span> <span class="mi">3421170679</span> <span class="mi">8214808651</span> <span class="mi">3282306647</span> <span class="mi">0938446095</span> <span class="mi">5058223172</span>
+  <span class="mi">5359408128</span> <span class="mi">4811174502</span> <span class="mi">8410270193</span> <span class="mi">8521105559</span> <span class="mi">6446229489</span> <span class="mi">5493038196</span> <span class="mi">4428810975</span>
+  <span class="mi">6659334461</span> <span class="mi">2847564823</span> <span class="mi">3786783165</span> <span class="mi">2712019091</span> <span class="mi">4564856692</span> <span class="mi">3460348610</span> <span class="mi">4543266482</span>
+  <span class="mi">1339360726</span> <span class="mi">0249141273</span> <span class="mi">7245870066</span> <span class="mi">0631558817</span> <span class="mi">4881520920</span> <span class="mi">9628292540</span> <span class="mi">9171536436</span>
+  <span class="mi">7892590360</span> <span class="mi">0113305305</span> <span class="mi">4882046652</span> <span class="mi">1384146951</span> <span class="mi">9415116094</span> <span class="mi">3305727036</span> <span class="mi">5759591953</span>
+  <span class="mi">0921861173</span> <span class="mi">8193261179</span> <span class="mi">3105118548</span> <span class="mi">0744623799</span> <span class="mi">6274956735</span> <span class="mi">1885752724</span> <span class="mi">8912279381</span>
+  <span class="mi">8301194912</span> <span class="mi">9833673362</span> <span class="mi">4406566430</span> <span class="mi">8602139494</span> <span class="mi">6395224737</span> <span class="mi">1907021798</span> <span class="mi">6094370277</span>
+  <span class="mi">0539217176</span> <span class="mi">2931767523</span> <span class="mi">8467481846</span> <span class="mi">7669405132</span> <span class="mi">0005681271</span> <span class="mi">4526356082</span> <span class="mi">7785771342</span>
+  <span class="mi">7577896091</span> <span class="mi">7363717872</span> <span class="mi">1468440901</span> <span class="mi">2249534301</span> <span class="mi">4654958537</span> <span class="mi">1050792279</span> <span class="mi">6892589235</span>
+  <span class="mi">4201995611</span> <span class="mi">2129021960</span> <span class="mi">8640344181</span> <span class="mi">5981362977</span> <span class="mi">4771309960</span> <span class="mi">5187072113</span> <span class="mi">4999999837</span>
+  <span class="mi">2978049951</span> <span class="mi">0597317328</span> <span class="mi">1609631859</span> <span class="mi">5024459455</span> <span class="mi">3469083026</span> <span class="mi">4252230825</span> <span class="mi">3344685035</span>
+  <span class="mi">2619311881</span> <span class="mi">7101000313</span> <span class="mi">7838752886</span> <span class="mi">5875332083</span> <span class="mi">8142061717</span> <span class="mi">7669147303</span> <span class="mi">5982534904</span>
+  <span class="mi">2875546873</span> <span class="mi">1159562863</span> <span class="mi">8823537875</span> <span class="mi">9375195778</span> <span class="mi">1857780532</span> <span class="mi">1712268066</span> <span class="mi">1300192787</span>
+  <span class="mi">6611195909</span> <span class="mi">2164201989</span>
+</pre></div>
+</div>
+<p>But there are practical limitations as well for tasks computers can do well. If problem sizes are simply too large to calculate, the computer will be unable to complete them. The <a class="reference external" href="https://www.top500.org/lists/top500/">most powerful supercomputers in the world today</a> <a class="footnote-reference brackets" href="#top500" id="id5">3</a> have several million processor cores and the ability to calculate more than 100,000 trillion <a class="reference external" href="https://en.wikipedia.org/wiki/FLOPS">floating point operations per second</a> <a class="footnote-reference brackets" href="#flops" id="id6">4</a>. Yet even those massive systems have limitiations. Imagine we have a digital elevation model of the Earth (including seafloor bathymetry) with a resolution of 1 micrometer (<span class="math notranslate nohighlight">\(1 \times 10^{-6}\)</span> meters). Now let’s assume we want to calculate the slope from all points in that model. The total number of surface elevation points we would have would be approximately <span class="math notranslate nohighlight">\(5 \times 10^{26}\)</span>, and if each slope calculations requires three floating point operations, we have a total of <span class="math notranslate nohighlight">\(1.5 \times 10^{27}\)</span> operations. Even on one of the fastest supercomputers in the world, this calculation would take nearly 500,000 years! Of course, this is a bit of a silly example, but it is clear there are computational limits.</p>
+</div>
+</div>
+<div class="section" id="what-is-a-program">
+<h2>What is a program?<a class="headerlink" href="#what-is-a-program" title="Permalink to this headline">¶</a></h2>
+<p>The instructions we provide that tell the computer what to do come in the form of a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Program"><span class="xref std std-term">program</span></a></em>.
+A program is simply a detailed list of step-by-step instructions that tell the computer exactly what to do.
+As noted above, this program is something that can be modified and alter what the computer does when the program is executed.
+Software is another name for a program.</p>
+</div>
+<div class="section" id="what-is-a-programming-language">
+<h2>What is a programming language?<a class="headerlink" href="#what-is-a-programming-language" title="Permalink to this headline">¶</a></h2>
+<p><img alt="Figure 1.7. Examples of printing &quot;Hello, world!&quot; in different programming languages." src="../../../_images/programming-languages.png" /></p>
+<p><em><strong>Figure 1.7</strong>. Examples of printing “Hello, world!” in different programming languages.</em></p>
+<p>A <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Programming-language"><span class="xref std std-term">programming language</span></a></em> is what we use to “talk” to the computer.
+Programming languages comprise a set of exact and unambiguous instructions that the computer understands.
+As such, every element of the programming language has a precise form called its <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Syntax"><span class="xref std std-term">syntax</span></a></em> and an exact meaning called its <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Semantics"><span class="xref std std-term">semantics</span></a></em>.
+Python is just one of many programming languages.</p>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="sci-method"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Scientific_method">https://en.wikipedia.org/wiki/Scientific_method</a></p>
+</dd>
+<dt class="label" id="open-sci"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Open_science">https://en.wikipedia.org/wiki/Open_science</a></p>
+</dd>
+<dt class="label" id="top500"><span class="brackets"><a class="fn-backref" href="#id5">3</a></span></dt>
+<dd><p><a class="reference external" href="https://www.top500.org/lists/top500/">https://www.top500.org/lists/top500/</a></p>
+</dd>
+<dt class="label" id="flops"><span class="brackets"><a class="fn-backref" href="#id6">4</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/FLOPS">https://en.wikipedia.org/wiki/FLOPS</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+    
+        &copy; Copyright 2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
