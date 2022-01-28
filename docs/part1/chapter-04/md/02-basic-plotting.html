@@ -1,0 +1,772 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anatomy of a plot</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Part I - Python essentials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-01/index.html">
+   Getting started
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/00-motivation.html">
+     Motivation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">
+     Computers and programs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/02-why-python.html">
+     Why Python?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/03-jupyter.html">
+     Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/04-coding-with-an-ide.html">
+     Other coding environments
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+     Installation and setup
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-02/index.html">
+   Basic programming concepts
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">
+     Basic elements of Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">
+     for loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">
+     Conditional statements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/03-functions.html">
+     Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">
+     Writing script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/05-modules.html">
+     Loading and using modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/06-exercises.html">
+     Exercises
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/07-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-03/index.html">
+   Introduction to data analysis with Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">
+     Getting started with pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/01-data-manipulation.html">
+     Common tabular operations in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/02-data-analysis.html">
+     Data wrangling, grouping and aggregation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html">
+     Working with temporal data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-03/nb/04-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   Introduction to data visualization
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Part II - Using Python with GIS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part2/index.html">
+   Introduction to GIS in Python
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Part III - Case studies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part3/index.html">
+   Geographic data analysis applications
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Back matter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../back-matter/index.html">
+   Back matter
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/acknowledgements.html">
+     Acknowledgements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+     Glossary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../authors.html">
+   About the authors
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/index.html">
+   Overview
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-04/md/02-basic-plotting.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        
+        
+        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-04/md/02-basic-plotting.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Anatomy of a plot
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-plotting-with-pandas-and-matplotlib">
+   Basic plotting with pandas and matplotlib
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#basic-x-y-plot">
+     Basic x-y plot
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#selecting-data-for-plotting-based-on-date">
+       Selecting data for plotting based on date
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#basic-plot-formatting">
+     Basic plot formatting
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#formatting-the-appearance-of-the-figure">
+     Formatting the appearance of the figure
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dealing-with-datetime-axes">
+     Dealing with datetime axes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bar-plots-in-pandas">
+     Bar plots in pandas
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#saving-your-plots-as-image-files">
+     Saving your plots as image files
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interactive-plotting-with-pandas-bokeh">
+     Interactive plotting with pandas-bokeh
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercises">
+     Exercises
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#footnotes">
+     Footnotes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <!-- #region -->
+<div class="section" id="anatomy-of-a-plot">
+<h1>Anatomy of a plot<a class="headerlink" href="#anatomy-of-a-plot" title="Permalink to this headline">¶</a></h1>
+<p>Before starting to plot our data we need to start with an obvious question: What actually is a plot?
+We won’t go too deep into the details of different plots, but rather we will give a short introduction to different plots that can be created with Python, and the (typical) elements of a plot.</p>
+<p>There are a variety of different kinds of plots (also known as graphs, charts, diagrams, etc. - Our dear child has many names) available that have been designed to visually represent the characteristics of a dataset. Here is a list of several different types of plots that can be used to visualize different kinds of datasets:</p>
+<ul class="simple">
+<li><p>Bar chart</p></li>
+<li><p>Histogram</p></li>
+<li><p>Scatter plot</p></li>
+<li><p>Line chart</p></li>
+<li><p>Pie chart</p></li>
+<li><p>Box plot</p></li>
+<li><p>Violin plot</p></li>
+<li><p>Dendrogram</p></li>
+<li><p>Chord diagram</p></li>
+<li><p>Treemap</p></li>
+<li><p>Network chart</p></li>
+</ul>
+<p>In spite of the large variety of plots, there are certain elements that are common for most of the plots (not all).
+Thus, it is useful to know at least the basic terminology since it makes it easier to find help and information from the internet when you start creating or modifying your own plots. The Figure X illustrates different elements of a basic line plot.</p>
+<p><img alt="Figure X. Basic elements of a plot. Image source: Tenkanen (2017)." src="../../../_images/basic-elements-of-plot.png" /></p>
+<p>There are quite a few common terms and words that are used when discussing about different aspects of a plot. Table X represents a few common terms and their explanations. These common terms may vary a bit depending on the plotting library that you use, but these are some typical terms used when plotting in Matplotlib, for example.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>axis</em></p></td>
+<td><p>Axis of the graph that are typically x, y and z (for 3D plots).</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>title</em></p></td>
+<td><p>Title of the whole plot.</p></td>
+</tr>
+<tr class="row-even"><td><p><em>label</em></p></td>
+<td><p>Name for the whole axis (e.g. xlabel or ylabel).</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>legend</em></p></td>
+<td><p>Legend for the plot.</p></td>
+</tr>
+<tr class="row-even"><td><p><em>tick label</em></p></td>
+<td><p>Text or values that are represented on the axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>symbol</em></p></td>
+<td><p>Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes/colors.</p></td>
+</tr>
+<tr class="row-even"><td><p><em>size</em></p></td>
+<td><p>Size of, for example, a point on a scatter plot. Also used for referring to the text sizes on a plot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>linestyle</em></p></td>
+<td><p>The style how the line should be drawn. Can be solid or dashed, for example.</p></td>
+</tr>
+<tr class="row-even"><td><p><em>linewidth</em></p></td>
+<td><p>The width of a line in a plot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>alpha</em></p></td>
+<td><p>Transparency level of a filled element in a plot (values between 0.0 (fully transparent) to 1.0 (no trasnparency)).</p></td>
+</tr>
+<tr class="row-even"><td><p><em>tick(s)</em></p></td>
+<td><p>Refers to the tick marks on a plot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>annotation</em></p></td>
+<td><p>Refers to the text added to a plot.</p></td>
+</tr>
+<tr class="row-even"><td><p><em>padding</em></p></td>
+<td><p>The distance between a (axis/tick) label and the axis.</p></td>
+</tr>
+</tbody>
+</table>
+<!-- #endregion -->
+</div>
+<div class="section" id="basic-plotting-with-pandas-and-matplotlib">
+<h1>Basic plotting with pandas and matplotlib<a class="headerlink" href="#basic-plotting-with-pandas-and-matplotlib" title="Permalink to this headline">¶</a></h1>
+<p>As we’re now familiar with some of the features of pandas, we will wade into visualizing our data in Python using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <a class="footnote-reference brackets" href="#matplotlib" id="id1">1</a> plotting library. Plotting in pandas provides a basic framework for visualizing our data, but as you’ll see we will sometimes need to also use features from matplotlib to enhance our plots. In particular, we will use features from the the <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> <a class="footnote-reference brackets" href="#pyplot" id="id2">2</a> module in matplotlib, which provides MATLAB-like plotting. We will also briefly explore creating interactive plots using the <code class="docutils literal notranslate"><span class="pre">pandas-bokeh</span></code> <a class="footnote-reference brackets" href="#pandas-bokeh" id="id3">3</a> plotting backend, which allows us to produce plots similar to those available in the <code class="docutils literal notranslate"><span class="pre">bokeh</span></code> plotting library <a class="footnote-reference brackets" href="#bokeh" id="id4">4</a> using plotting syntax similar to that used normally in pandas.</p>
+<div class="section" id="basic-x-y-plot">
+<h2>Basic x-y plot<a class="headerlink" href="#basic-x-y-plot" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start by importing pandas and reading our data file. We will be using a datetime index for our weather observations as we learned in the previous chapter. In this case, however, we’ll include a few additional parameters in order to read the data with a <em>datetime index</em>. Let’s read the data first, then see what happened:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s1">&#39;data/029740.txt&#39;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                   <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;**&#39;</span><span class="p">,</span> <span class="s1">&#39;***&#39;</span><span class="p">,</span> <span class="s1">&#39;****&#39;</span><span class="p">,</span> <span class="s1">&#39;*****&#39;</span><span class="p">,</span> <span class="s1">&#39;******&#39;</span><span class="p">],</span>
+                   <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;YR--MODAHRMN&#39;</span><span class="p">,</span> <span class="s1">&#39;TEMP&#39;</span><span class="p">,</span> <span class="s1">&#39;MAX&#39;</span><span class="p">,</span> <span class="s1">&#39;MIN&#39;</span><span class="p">],</span>
+                   <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;YR--MODAHRMN&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;YR--MODAHRMN&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So what’s different here? Well, we have added two new parameters: <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> and <code class="docutils literal notranslate"><span class="pre">index_col</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> takes a Python list of column name(s) containing date data that pandas will parse and convert to the <em>datetime</em> data type. For many common date formats this parameter will automatically recognize and convert the date data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index_col</span></code> is used to state a column that should be used to index the data in the DataFrame. In this case, we end up with our date data as the DataFrame index. This is a very useful feature in pandas as we’ll see below.</p></li>
+</ul>
+<p>Having read in the data, let’s have a quick look at what we have using <code class="docutils literal notranslate"><span class="pre">data.head()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As mentioned above, you can now see that the index column for our DataFrame (the first column) contains date values related to each row in the DataFrame. Now we’re ready for our first plot. We can start by using the basic line plot in pandas to look at our temperature data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>OK, so what happened here? 1) We first created the plot object using the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> method of the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame. Without any parameters given, this makes the plot of all columns in the DataFrame as lines of different color on the y-axis with the index, time in this case, on the x-axis. 2) In case we want to be able to modify the plot or add anything, we assign the plot object to the variable <code class="docutils literal notranslate"><span class="pre">ax</span></code>. We can check its type below. In fact, let’s check the type of the <code class="docutils literal notranslate"><span class="pre">ax</span></code> variable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>OK, so it looks like we have some kind of plot data type that is part of matplotlib. Clearly, pandas is using matplotlib for generating our plots.</p>
+<div class="section" id="selecting-data-for-plotting-based-on-date">
+<h3>Selecting data for plotting based on date<a class="headerlink" href="#selecting-data-for-plotting-based-on-date" title="Permalink to this headline">¶</a></h3>
+<p>Now, let’s make a few small changes to our plot and plot the data again. First, let’s only plot the observed temperatures in the <code class="docutils literal notranslate"><span class="pre">data['TEMP']</span></code> column, and let’s restrict ourselves to observations from the afternoon of October 1, 2019 (the last day in our dataset). We can do this by selecting the desired data column and date range first, then plotting our selection.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">oct1_temps</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;TEMP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="s1">&#39;201910011200&#39;</span><span class="p">]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">oct1_temps</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>So, what did we change? 1) We selected only the <code class="docutils literal notranslate"><span class="pre">'TEMP'</span></code> column now by using <code class="docutils literal notranslate"><span class="pre">data['TEMP']</span></code> instead of <code class="docutils literal notranslate"><span class="pre">data</span></code>. 2) We’ve added a restriction to the date range using <code class="docutils literal notranslate"><span class="pre">loc[]</span></code> to select only rows where the index value <code class="docutils literal notranslate"><span class="pre">data.index</span></code> is greater than <code class="docutils literal notranslate"><span class="pre">'201910011200'</span></code>. In that case, the number in the string is in the format <code class="docutils literal notranslate"><span class="pre">'YYYYMMDDHHMM'</span></code>, where <code class="docutils literal notranslate"><span class="pre">YYYY</span></code> is the year, <code class="docutils literal notranslate"><span class="pre">MM</span></code> is the month, <code class="docutils literal notranslate"><span class="pre">DD</span></code> is the day, <code class="docutils literal notranslate"><span class="pre">HH</span></code> is the hour, and <code class="docutils literal notranslate"><span class="pre">MM</span></code> is the minute. Now we have all observations from noon onward on October 1, 2019. 3) By saving this selection to the DataFrame <code class="docutils literal notranslate"><span class="pre">oct1_temps</span></code> we’re able to now use <code class="docutils literal notranslate"><span class="pre">oct1_temps.plot()</span></code> to plot only our selection. This is cool, but we can do even better.</p>
+</div>
+</div>
+<div class="section" id="basic-plot-formatting">
+<h2>Basic plot formatting<a class="headerlink" href="#basic-plot-formatting" title="Permalink to this headline">¶</a></h2>
+<p>We can make our plot look a bit nicer and provide more information by using a few additional plotting options to pandas/matplotlib:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">oct1_temps</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;ro--&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Helsinki-Vantaa temperatures&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature [°F]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we see our temperature data as a red dashed line with circles showing the data points. This comes from the additional <code class="docutils literal notranslate"><span class="pre">style='ro--'</span></code> used with <code class="docutils literal notranslate"><span class="pre">oct1_temps.plot()</span></code>. In this case, <code class="docutils literal notranslate"><span class="pre">r</span></code> tells the <code class="docutils literal notranslate"><span class="pre">oct1_temps.plot()</span></code> function to use red color for the lines and symbols, <code class="docutils literal notranslate"><span class="pre">o</span></code> tells it to show circles at the points, and <code class="docutils literal notranslate"><span class="pre">--</span></code> says to use a dashed line. You can use <code class="docutils literal notranslate"><span class="pre">help(oct1_temps.plot)</span></code> to find out more about formatting plots. We have also added a title using the <code class="docutils literal notranslate"><span class="pre">title</span></code> parameter, but note that axis labels are assigned using the <code class="docutils literal notranslate"><span class="pre">set_xlabel()</span></code> and <code class="docutils literal notranslate"><span class="pre">set_ylabel()</span></code> methods.</p>
+</div>
+<div class="section" id="formatting-the-appearance-of-the-figure">
+<h2>Formatting the appearance of the figure<a class="headerlink" href="#formatting-the-appearance-of-the-figure" title="Permalink to this headline">¶</a></h2>
+<p>While the plot sizes we’re working with are OK, it would be nice to have them displayed a bit larger. Fortunately, there is an easy way to make the plots larger in Jupyter notebooks. First, we need to import the <code class="docutils literal notranslate"><span class="pre">matplotlib</span> <span class="pre">pyplot</span> <span class="pre">library</span></code> <a class="footnote-reference brackets" href="#pyplot" id="id5">2</a>, then we can make the default plot size larger by running the Python cell below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The cell above sets the default plot size to be 12 inches wide by 6 inches tall. Adding text to plots can be done using <code class="docutils literal notranslate"><span class="pre">ax.text()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">oct1_temps</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;ro--&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Helsinki-Vantaa temperatures&#39;</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;201910011400&#39;</span><span class="p">,</span> <span class="mi">38</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;This is my text.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>No we added “This is my text” at the location of <em>x</em>, <em>y</em> on the plot. Notice that we passed the <code class="docutils literal notranslate"><span class="pre">x</span></code> coordinate as a text following the formatting in the original data. It is also possible to to change the axis ranges. Changing the plot axes can be done using the <code class="docutils literal notranslate"><span class="pre">xlim</span></code> and <code class="docutils literal notranslate"><span class="pre">ylim</span></code> parameters of the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function, where the <code class="docutils literal notranslate"><span class="pre">xmin</span></code> should be the minimum bound of the x-axis, and the <code class="docutils literal notranslate"><span class="pre">xmax</span></code> should be the maximum bound, and the same goes for the y-axis with <code class="docutils literal notranslate"><span class="pre">ymin</span></code> and <code class="docutils literal notranslate"><span class="pre">ymax</span></code>. Next, we will take advantage of the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library to determine the time range for the x-axis, as it is easier to read and understand than having a long text:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span> 
+<span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">44</span>
+<span class="n">oct1_temps</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>As we can see, now we “zoomed” our plot based on the x and y axis-ranges that we defined. Notice that the underlying data did not disappear anywhere, we just specified which parts of the plot we want to show in the figure.</p>
+</div>
+<div class="section" id="dealing-with-datetime-axes">
+<h2>Dealing with datetime axes<a class="headerlink" href="#dealing-with-datetime-axes" title="Permalink to this headline">¶</a></h2>
+<p>One issue we will encounter with both placing text on the plot and changing the axis ranges is our datetime index for our DataFrame. In order to do either thing, we need to define x-values using a datetime object. The easiest way to do this is to use the pandas <code class="docutils literal notranslate"><span class="pre">pd.to_datetime()</span></code> function, which converts a character string date to a datetime object. For example, we can convert 13:00 on October 1, 2019 from the character string <code class="docutils literal notranslate"><span class="pre">'201910011300'</span></code> to a datetime equivalent by typing</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;201910011300&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With this datetime issue in mind, let’s now consider a modified version of the plot above, we can</p>
+<ol class="simple">
+<li><p>Limit our time range to 12:00 to 15:00 on October 1, 2019</p></li>
+<li><p>Only look at temperatures between 40-46° Fahrenheit</p></li>
+<li><p>Add text to note the coldest part of the early afternoon.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;201910011200&#39;</span><span class="p">)</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;201910011500&#39;</span><span class="p">)</span>
+<span class="n">cold_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;201910011205&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">oct1_temps</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;ro--&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Helsinki-Vantaa temperatures&#39;</span><span class="p">,</span>
+                     <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature [°F]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">cold_time</span><span class="p">,</span> <span class="mf">42.0</span><span class="p">,</span> <span class="s1">&#39;&lt;- Coldest temperature in early afternoon&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Check your understanding (online)</strong></p>
+<p>Create a line plot similar to our examples above with the following attributes:</p>
+<ul class="simple">
+<li><p>Temperature data from 18:00-24:00 on October 1, 2019</p></li>
+<li><p>A dotted black line connecting the observations (do not show the data points)</p></li>
+<li><p>A title that reads “Evening temperatures on October 1, Helsinki-Vantaa”</p></li>
+<li><p>A text label indicating the warmest temperature in the evening</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define start, end, and cold times</span>
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="bar-plots-in-pandas">
+<h2>Bar plots in pandas<a class="headerlink" href="#bar-plots-in-pandas" title="Permalink to this headline">¶</a></h2>
+<p>In addition to line plots, there are many other options for plotting in pandas.
+Bar plots are one option, which can be used quite similarly to line plots with the addition of the <code class="docutils literal notranslate"><span class="pre">kind=bar</span></code> parameter.
+Note that it is easiest to plot our selected time range for a bar plot by selecting the dates in our data series first, rather than adjusting the plot limits. Pandas sees bar plot data as categorical, so the date range is more difficult to define for x-axis limits. For the y-axis, we can still define its range using the <code class="docutils literal notranslate"><span class="pre">ylim=[ymin,</span> <span class="pre">ymax]</span></code> parameter. Similarly, text placement on a bar plot is more difficult, and most easily done using the index value of the bar where the text should be placed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">oct1_afternoon</span> <span class="o">=</span> <span class="n">oct1_temps</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">oct1_temps</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;=</span> <span class="s1">&#39;201910011500&#39;</span><span class="p">]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">oct1_afternoon</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Helsinki-Vantaa temperatures&#39;</span><span class="p">,</span>
+                         <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">46</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature [°F]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">42.1</span><span class="p">,</span> <span class="s1">&#39;Coldest </span><span class="se">\n</span><span class="s1">temp </span><span class="se">\n</span><span class="s1">v&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can find more about how to format bar charts on the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html">pandas documentation website</a>.</p>
+</div>
+<div class="section" id="saving-your-plots-as-image-files">
+<h2>Saving your plots as image files<a class="headerlink" href="#saving-your-plots-as-image-files" title="Permalink to this headline">¶</a></h2>
+<p>Saving plots created using pandas can be done in several ways.
+The recommendation for use outside of Jupyter notebooks is to use Matplotlib’s <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> function.
+When using <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code>, you simply give a list of commands to generate a plot and include <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> with some parameters as the last command in the Python cell.
+The file name is required, and the image format will be determined based on the listed file extension.</p>
+<p>Matplotlib plots can be saved in a number of useful file formats, including PNG, PDF, and EPS.
+PNG is a nice format for raster images, and EPS is probably easiest to use for vector graphics.
+Let’s check out an example and save our lovely bar plot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">oct1_afternoon</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Helsinki-Vantaa temperatures&#39;</span><span class="p">,</span>
+                         <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">46</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature [°F]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">42.1</span><span class="p">,</span> <span class="s1">&#39;Coldest </span><span class="se">\n</span><span class="s1">temp </span><span class="se">\n</span><span class="s1">v&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;bar-plot.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you refresh your <strong>Files</strong> tab on the left side of the JupyterLab window you should now see <code class="docutils literal notranslate"><span class="pre">bar-plot.png</span></code> listed.
+We could try to save another version in higher resolution with a minor change to our plot commands above.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">oct1_afternoon</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Helsinki-Vantaa temperatures&#39;</span><span class="p">,</span>
+                         <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">46</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature [°F]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">42.1</span><span class="p">,</span> <span class="s1">&#39;Coldest </span><span class="se">\n</span><span class="s1">temp </span><span class="se">\n</span><span class="s1">v&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;bar-plot-hi-res.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="interactive-plotting-with-pandas-bokeh">
+<h2>Interactive plotting with pandas-bokeh<a class="headerlink" href="#interactive-plotting-with-pandas-bokeh" title="Permalink to this headline">¶</a></h2>
+<p>When using Jupyter Notebooks, we don’t need to stick to static visualizations. We can easily create plots that are interactive, allowing us to view data values by mousing over them, or click to enable/disable plotting of some data. There are several ways we can do this, but we’ll utilize the <a class="reference external" href="https://github.com/PatrikHlobil/Pandas-Bokeh">pandas-bokeh plotting backend</a> <a class="footnote-reference brackets" href="#pandas-bokeh" id="id6">3</a>, which allows us to create interactive plots with little additional effort.</p>
+<p>To get started, we need to import pandas-bokeh and make some configurations:</p>
+<ol class="simple">
+<li><p>We want to change the settings so that output will be displayed on this page rather than in a separate window</p></li>
+<li><p>we set pandas plotting backend to use pandas-bokeh rather than matplotlib for plotting</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas_bokeh</span>
+
+<span class="n">pandas_bokeh</span><span class="o">.</span><span class="n">output_notebook</span><span class="p">()</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;plotting.backend&#39;</span><span class="p">,</span> <span class="s1">&#39;pandas_bokeh&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we can consider an example plot similar to the one we started with, but with data for three days (September 29-October 1, 2019). Pandas-bokeh expects a DataFrame as the source for the plot data, so we’ll need to create a time slice of the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame containing the desired date range before making the plot. Let’s generate the pandas-bokeh plot and the see what is different.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sept29_oct1_df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="s1">&#39;201909290000&#39;</span><span class="p">]</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;201909290000&#39;</span><span class="p">)</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;201910020000&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sept29_oct1_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Helsinki-Vantaa temperatures&#39;</span><span class="p">,</span>
+                         <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Temperature [°F]&#39;</span><span class="p">,</span>
+                         <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>So now we have a similar plot to those generated previously, but when you move the mouse along the curve you can see the temperature values at each time. We can also hide any of the lines by clicking on them in the legend, as well as use the scroll wheel/trackpad to zoom.</p>
+<p>But we did also have to make a few small changes to generate this plot:</p>
+<ol class="simple">
+<li><p>We need to use a DataFrame as the data source for the plot, rather than a pandas Series. Thus, <code class="docutils literal notranslate"><span class="pre">data['TEMP'].plot()</span></code> will not work with pandas-bokeh.</p></li>
+<li><p>The x- and y-axis labels are specified using the <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> parameters, rather than using <code class="docutils literal notranslate"><span class="pre">ax.set_xlabel()</span></code> or <code class="docutils literal notranslate"><span class="pre">ax.set_ylabel()</span></code>.</p></li>
+<li><p>The line color and plotting of points are not specified using the <code class="docutils literal notranslate"><span class="pre">style</span></code> keyword. Instead, the line colors could be specified using the <code class="docutils literal notranslate"><span class="pre">color</span></code> or <code class="docutils literal notranslate"><span class="pre">colormap</span></code> parameters. Plotting of the points is enabled using the <code class="docutils literal notranslate"><span class="pre">plot_data_points</span></code> parameter (see below). More information about formatting the lines can be found on the <a class="reference external" href="https://github.com/PatrikHlobil/Pandas-Bokeh">pandas-bokeh website</a> <a class="footnote-reference brackets" href="#pandas-bokeh" id="id7">3</a>.</p></li>
+<li><p>We have not included a text label on the plot, as it may not be possible to do so with pandas-bokeh.</p></li>
+</ol>
+<p>But otherwise, we are able to produce these cool interactive plots with minimal effort, and directly within our notebooks!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">sept29_oct1_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Helsinki-Vantaa temperatures&#39;</span><span class="p">,</span>
+                         <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Temperature [°F]&#39;</span><span class="p">,</span>
+                         <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">],</span>
+                         <span class="n">plot_data_points</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p>Add exercises.</p>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="matplotlib"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://matplotlib.org/">https://matplotlib.org/</a></p>
+</dd>
+<dt class="label" id="pyplot"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id5">2</a>)</span></dt>
+<dd><p><a class="reference external" href="https://matplotlib.org/api/pyplot_api.html">https://matplotlib.org/api/pyplot_api.html</a></p>
+</dd>
+<dt class="label" id="pandas-bokeh"><span class="brackets">3</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id6">2</a>,<a href="#id7">3</a>)</span></dt>
+<dd><p><a class="reference external" href="https://github.com/PatrikHlobil/Pandas-Bokeh">https://github.com/PatrikHlobil/Pandas-Bokeh</a></p>
+</dd>
+<dt class="label" id="bokeh"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p><a class="reference external" href="https://docs.bokeh.org/en/latest/index.html">https://docs.bokeh.org/en/latest/index.html</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+        
+            &copy; Copyright 2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
