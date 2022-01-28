@@ -7,5 +7,6 @@ This section is under construction.
     :maxdepth: 1
     :caption: Sections:
 
+    appendices
     acknowledgements.md
     nb/glossary.ipynb
