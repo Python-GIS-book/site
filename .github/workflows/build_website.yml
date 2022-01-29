@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - develop
 jobs:
   Linting:
     runs-on: ubuntu-latest
@@ -37,7 +36,7 @@ jobs:
         shell: bash -l {0}
         continue-on-error: false
         run: |
-          make html
+          make book
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
