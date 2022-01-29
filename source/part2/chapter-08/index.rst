@@ -3,12 +3,11 @@ Geographic data visualization
 
 **This chapter is under construction.**
 
-- Introduction to geographic visualization 
-- Static visualizations 
-- Interactive visualizations 
-- Dashboards (probably out of scope) 
-- Selecting colors and color maps 
-
+- Introduction to geographic visualization
+- Static visualizations
+- Interactive visualizations
+- Dashboards (probably out of scope)
+- Selecting colors and color maps
 
 .. toctree::
     :maxdepth: 1
@@ -16,4 +15,3 @@ Geographic data visualization
 
     nb/00-static-maps.ipynb
     nb/01-interactive-maps.ipynb
-
