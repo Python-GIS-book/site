@@ -6,20 +6,20 @@ This part of the book will introduce procedures for interacting with geographic 
 Tentative chapter titles
 ------------------------
 
-- Chapter 4: Essentials of geographic data
-- Chapter 5: Processing vector data
-- Chapter 6: Processing raster data
-- Chapter 7: Geographic data visualization
-- Chapter 8: Using online geographic data sources
+- Chapter 5: Essentials of geographic data
+- Chapter 6: Vector data processing
+- Chapter 7: Raster data processing
+- Chapter 8: Geographic data visualization
+- Chapter 9: Using online geographic data sources
 
 ..
     .. toctree::
         :maxdepth: 1
         :caption: Chapters in this part:
 
-        chapter-04/index
         chapter-05/index
         chapter-06/index
         chapter-07/index
         chapter-08/index
+        chapter-09/index
 

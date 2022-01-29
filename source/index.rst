@@ -113,8 +113,14 @@ The book consists of 4 parts:
    :caption: Part II - Using Python with GIS
    :titlesonly:
    :hidden:
+   
+   part2/chapter-05/index
+   part2/chapter-06/index
+   part2/chapter-07/index
+   part2/chapter-08/index
+   part2/chapter-09/index
 
-   part2/index
+   ..part2/index
 
 .. toctree::
    :maxdepth: 2

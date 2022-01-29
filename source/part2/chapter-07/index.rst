@@ -1,12 +1,22 @@
-Chapter 7: Geographic data visualization
-========================================
+Raster data processing
+=======================
 
-This section is under construction.
+**This chapter is under construction.**
+
+Sub-sections:
+- Introduction to raster processing 
+- Reading and writing raster data (Data I/O) 
+- Reprojecting raster data 
+- Mosaicing 
+- Raster resampling 
+- Map algebra – Doing calculations with raster data 
+- Raster to Polygon - Polygon to raster 
+- Masking / clipping 
 
 ..
     .. toctree::
         :maxdepth: 1
         :caption: Sections:
 
-        a-taste-of-python.ipynb
+        nb/01-reading-raster.ipynb
 

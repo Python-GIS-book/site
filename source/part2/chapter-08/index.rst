@@ -1,12 +1,19 @@
-Chapter 8: Using online geographic data sources
-===============================================
+Geographic data visualization
+=============================
 
-This section is under construction.
+**This chapter is under construction.**
 
-..
-    .. toctree::
-        :maxdepth: 1
-        :caption: Sections:
+- Introduction to geographic visualization 
+- Static visualizations 
+- Interactive visualizations 
+- Dashboards (probably out of scope) 
+- Selecting colors and color maps 
 
-        a-taste-of-python.ipynb
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Sections:
+
+    nb/00-static-maps.ipynb
+    nb/01-interactive-maps.ipynb
 
