@@ -12,14 +12,14 @@ Tentative chapter titles
 - Chapter 8: Geographic data visualization
 - Chapter 9: Using online geographic data sources
 
-..
-    .. toctree::
-        :maxdepth: 1
-        :caption: Chapters in this part:
 
-        chapter-05/index
-        chapter-06/index
-        chapter-07/index
-        chapter-08/index
-        chapter-09/index
+.. toctree::
+    :maxdepth: 1
+    :caption: Chapters in this part:
+
+    chapter-05/index
+    chapter-06/index
+    chapter-07/index
+    chapter-08/index
+    chapter-09/index
 
