@@ -20,7 +20,7 @@ Sub-sections:
     - Interpolation (e.g. IDW)
     - Tesselation
     - Overlay analysis
-    
+
 
 .. toctree::
     :maxdepth: 1
@@ -37,5 +37,4 @@ Sub-sections:
     nb/08-spatial_index.ipynb
     nb/09-nearest-neighbor-faster.ipynb
     nb/10-geometric-operations.ipynb
-
 
