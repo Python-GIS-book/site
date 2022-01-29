@@ -4,6 +4,7 @@ Raster data processing
 **This chapter is under construction.**
 
 Sub-sections:
+
 - Introduction to raster processing
 - Reading and writing raster data (Data I/O)
 - Reprojecting raster data
