@@ -13,10 +13,16 @@ This chapter introduces you to the basic concepts and approaches related to Geog
 
 *Topics to cover, but not extensively! Theory to appropriate sub-sections*:
 
-- Spatial data model
+- Spatial data structures - How can we represent spatial data?
+
+  - Intro: Point/Place, Surface/Field, Attribute/Geographic-Table, Network
+  - Vector data model - Points, LineStrings, Polygons
+  - Surfaces/Fields - Raster surfaces - Vector Surfaces
+  - Spatial Networks
+
 - Coordinate reference systems
 - Geometric operations
-- Spatial relationships (map algebra, overlay analysis, etc.)
+- Spatial relationships (map algebra, overlay analysis, distance, direction, spatial weights)
 - Distance operations
 - Directional operations
 
