@@ -110,7 +110,7 @@ The book consists of 4 parts:
 
 .. toctree::
    :maxdepth: 2
-   :caption: Part II - Using Python with GIS
+   :caption: Part II - Introduction to GIS with Python
    :titlesonly:
    :hidden:
    

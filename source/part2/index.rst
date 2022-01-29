@@ -1,5 +1,5 @@
-Introduction to GIS in Python
-=============================
+Introduction to GIS with Python
+===============================
 
 This part of the book will introduce procedures for interacting with geographic data using Python.
 
