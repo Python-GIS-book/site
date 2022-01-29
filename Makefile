@@ -38,6 +38,8 @@ book:
 	rm -r docs/html
 	# Create NoJekyll
 	touch docs/.nojekyll
+    # Create CNAME for pythongis.org (points Github Pages to that domain)
+	echo 'pythongis.org' > docs/CNAME
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
