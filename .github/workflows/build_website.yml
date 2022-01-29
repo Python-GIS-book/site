@@ -30,8 +30,8 @@ jobs:
           use-mamba: true
           auto-activate-base: false
           python-version: 3.9
-          environment-file: ci/py39-book-building.yaml
-          activate-environment: python-gis-book
+          environment-file: ci/build-website.yaml
+          activate-environment: build-web-book
 
       - name: Build HTML
         shell: bash -l {0}

@@ -1,0 +1,20 @@
+name: build-web-book
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.9.7
+  - sphinx
+  - ipython
+  - jupyter-sphinx
+  - nbsphinx
+  - myst-nb
+  - sphinx-book-theme
+  - jupytext
+  - pip
+  - pip:
+    - pydata-sphinx-theme
+    - jupyter-book
+    - sphinxcontrib-bibtex
+
