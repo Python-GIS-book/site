@@ -11,10 +11,10 @@ This chapter introduces you how to retrieve spatial data automatically via Appli
 - Retrieving raster data from Cloud Optimized GeoTiffs (COG) 
 - Retrieving data from spatial databases 
 
-..
-    .. toctree::
-        :maxdepth: 1
-        :caption: Sections:
 
-        nb/*.ipynb
+.. toctree::
+    :maxdepth: 1
+    :caption: Sections:
+
+    nb/00-retrieve_osm_data.ipynb
 
