@@ -2,7 +2,6 @@ name: Linting Notebooks
 on:
   push:
     branches:
-      - master
       - develop
 jobs:
   Linting:
