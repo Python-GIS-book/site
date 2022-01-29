@@ -91,7 +91,7 @@ print("Absolute zero in Celsius is:", absolute_zero)
 ```
 
 <!-- #region -->
-#### Check your understanding
+#### Question 1.9
 
 Let's see how things are going so far with functions. Think about how you could:
 
@@ -109,14 +109,16 @@ print(output)
 <!-- #endregion -->
 
 ```python
-# Example solution
+# Use this cell to enter your solution.
+```
 
+```python
+# Solution
 
 def hello(name, age):
     return "Hello, my name is " + name + ". I am " + str(age) + " years old."
 
-
-output = hello(name="Dave", age=39)
+output = hello(name="Dave", age=41)
 print(output)
 ```
 
@@ -283,11 +285,6 @@ def kelvins_to_celsius(temp_kelvins):
 
 Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format is to have the quotation marks on their own separate lines.
 <!-- #endregion -->
-
-## Exercises
-
-Add exercises.
-
 
 ## Footnotes
 

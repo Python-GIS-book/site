@@ -104,13 +104,13 @@ Note that modules may also contain constants such as ``math.pi``. Parentheses ar
 math.pi
 ```
 
-#### Check your understanding
+#### Question 1.1
 
 Use your Python skills to calculate the sine of pi. What value do you expect for this calculation? Did you get the expected result?
 
 ```python
 # Note that lines starting with "#" are ignored in Python.
-# An example solution can be found below.
+# Use this cell to enter your solution.
 ```
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["hide_cell"]
@@ -157,17 +157,17 @@ print("Temperature in Fahrenheit:", 9 / 5 * temp_celsius + 32)
 ```
 
 <!-- #region deletable=true editable=true -->
-#### Check your understanding
+#### Question 1.2
 
 Define a variable and print its value to the screen using the `print()` function. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name.
 <!-- #endregion -->
 
 ```python
-# An example solution can be found below.
+# Use this cell to enter your solution.
 ```
 
 ```python deletable=true editable=true tags=["hide_cell"]
-# Example solution
+# Solution
 
 my_variable = "Python is cool!"
 print(my_variable)
@@ -262,13 +262,13 @@ In this case we get at ``TypeError`` because we are trying to execute a math ope
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
-#### Check your understanding
+#### Question 1.3
 
 As it turns out, it is possible some math with character strings in Python. Define two variables and assign them character string values. What happens if you try to add two character strings together? Can you subtract them? Which other math operations work for character strings?
 <!-- #endregion -->
 
 ```python
-# An example solution can be found in the cell below.
+# Use this cell to enter your solution.
 ```
 
 ```python deletable=true editable=true tags=["hide_cell"]
@@ -753,11 +753,6 @@ print(stations_upper)
 print(stations_lower)
 print(stations_capitalize)
 ```
-
-## Exercises
-
-Add exercises.
-
 
 ## Footnotes
 
