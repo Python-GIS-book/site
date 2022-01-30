@@ -95,7 +95,7 @@ Wear rain boots
 # Use this cell to enter your solution.
 ```
 
-```python
+```python tags=["hide-cell"]
 # Solution
 
 weather = "rain"
