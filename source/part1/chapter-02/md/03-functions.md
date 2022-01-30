@@ -91,7 +91,7 @@ print("Absolute zero in Celsius is:", absolute_zero)
 ```
 
 <!-- #region -->
-#### Question 1.9
+#### Question 2.9
 
 Let's see how things are going so far with functions. Think about how you could:
 
@@ -115,8 +115,10 @@ print(output)
 ```python tags=["hide-cell"]
 # Solution
 
+
 def hello(name, age):
     return "Hello, my name is " + name + ". I am " + str(age) + " years old."
+
 
 output = hello(name="Dave", age=41)
 print(output)

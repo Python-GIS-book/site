@@ -190,7 +190,7 @@ help(range)
 ```
 
 <!-- #region -->
-#### Question 1.4
+#### Question 2.4
 
 The program below will print numbers to the screen using the `range()` function.
 
@@ -272,7 +272,7 @@ for i in range(len(cities)):
 Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week. In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
 
 <!-- #region -->
-#### Question 1.5
+#### Question 2.5
 
 What output would the following program produce? Try to first think about the loop without running any code.
 

@@ -82,7 +82,7 @@ Similarly as with for loops, Python uses colons (`:`) and whitespace (indentatio
 Note also that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = 'Rain'`, the comparsion `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
 
 
-#### Question 1.6
+#### Question 2.6
 
 We might also need some other rainwear on a rainy day. Think about how you could add another instruction after the `weather == rain` condition so that the code would tell us to:
 
@@ -154,7 +154,7 @@ else:
 ```
 
 <!-- #region -->
-#### Question 1.7
+#### Question 2.7
 
 Let's assume that yesterday it was 14°C, it is 10°C outside today, and tomorrow it will be 13°C.
 The following code compares these temperatures and prints something to the screen based on the comparison.
@@ -184,7 +184,7 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 ```python tags=["hide-cell"]
 # Solution
 
-'B'
+"B"
 ```
 
 ### Combining conditions
@@ -212,7 +212,7 @@ if (1 < 0) or (-1 < 0):
 Later on we will also need the bitwise operators `&` for `and`, and `|` for `or`.
 
 
-#### Question 1.8
+#### Question 2.8
 
 Let's return to our example about making decisions on a rainy day. Imagine that we consider not only the rain, but also the wind speed (in meters per second). If it is windy or raining, we’ll just stay at home. If it's not windy or raining, we can go out and enjoy the weather! 
 

@@ -15,20 +15,20 @@ jupyter:
 <!-- #region -->
 # Solutions to lesson questions
 
-## Chapter 1
+## Chapter 2
 
-1.1
+2.1
 ```python
 math.sin(math.pi)
 ```
 
-1.2 
+2.2 
 ```python
 my_variable = "Python is cool!"
 print(my_variable)
 ```
 
-1.3 
+2.3 
 ```python
 # Solutions may vary
 first_variable = "Python"
@@ -39,13 +39,13 @@ print(5 * first_variable)                # Works
 print(first_variable - second_variable)  # Fails
 ```
 
-1.4 
+2.4 
 ```python
 for i in range(2, 9, 3):
     print(i)
 ```
 
-1.5
+2.5
 ```bash
 11
 7
@@ -54,7 +54,7 @@ for i in range(2, 9, 3):
 11
 ```
 
-1.6
+2.6
 ```python
 weather = "rain"
 
@@ -65,12 +65,12 @@ else:
     print("No rainwear needed")
 ```
 
-1.7
+2.7
 ```python
 'B'
 ```
 
-1.8
+2.8
 ```python
 weather = "rain"
 wind_speed = 20
@@ -83,7 +83,7 @@ else:
     print("Go out and enjoy the weather! :)")
 ```
 
-1.9
+2.9
 ```python
 def hello(name, age):
     return "Hello, my name is " + name + ". I am " + str(age) + " years old."
