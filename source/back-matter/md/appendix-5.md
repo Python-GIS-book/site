@@ -94,29 +94,29 @@ print(output)
 <!-- #endregion -->
 
 <!-- #region -->
-## Chapter 2
+## Chapter 3
 
-2.1
+3.1
 ```python
 len(data.columns)
 ```
 
-2.2
+3.2
 ```python
 data["TEMP_KELVIN"] = data["TEMP_CELSIUS"] + 273.15
 ```
 
-2.3
+3.3
 ```python
 data.loc[23:29, "TEMP_CELSIUS"].mean()
 ```
 
-2.4
+3.4
 ```python
 data["TEMP_CELSIUS"].loc[data["YEARMODA"] >= 20160624].mean()
 ```
 
-2.5
+3.5
 ```python
 data["MONTH"] = data["TIME_STR"].str.slice(start=4, stop=6)
 ```

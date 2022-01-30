@@ -250,7 +250,7 @@ Here we see that `YEARMODA` is an integer value (with 64-bit precision; ``int64`
 <!-- #endregion -->
 
 
-#### Question 2.1
+#### Question 3.1
 
 How would you print out the number of columns in our DataFrame?
 

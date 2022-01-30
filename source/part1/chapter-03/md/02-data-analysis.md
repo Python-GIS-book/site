@@ -292,7 +292,7 @@ Nice! Now we have "labeled" the rows based on information about day of the year 
 
 
 
-#### Question 2.5
+#### Question 3.5
 
 Create a new column `'MONTH'` with information about the month without the year.
 
