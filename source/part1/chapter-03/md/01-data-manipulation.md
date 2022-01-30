@@ -429,51 +429,6 @@ data.sort_values(by=["WEEKDAY", "TEMP_CELSIUS"], ascending=[True, False]).head(1
 As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data. 
 
 
-## Exercises
-
-In this exercise, you will clean the data from our data file by removing no-data values, convert temperature values in Fahrenheit to Celsius, and split the data into separate datasets using the weather station identification code. We will start this problem by cleaning and converting our temperature data. An overview of the tasks in this exercise:
-
-- Create a new dataframe called `selected` that contains selected columns from the data file
-- Clean the new DataFrame by removing no-data values
-- Create a new column for temperatures converted from Fahrenheit to Celsius
-- Divide the data into separate DataFrames for the Helsinki Kumpula and Rovaniemi stations
-- Save the new DataFrames to CSV files
-
-
-### Problem 1 - Read the data and remove NaN values
-
-The first step for this problem is to read the data file 6153237444115dat.csv into a variable `data` using pandas and cleaning it a bit:
-
-- Select the columns `USAF, YR--MODAHRMN, TEMP, MAX, MIN` from the `data` DataFrame and assign them to a variable `selected`
-- Remove all rows from `selected` that have NoData in the column `TEMP` using the `dropna()` function
-
-
-
-### Problem 2 - Convert temperatures to Celsius
-
-Convert the temperature values from Fahrenheits to Celsius:
-
-- Create a new column to `selected` called `Celsius`.
-- Convert the Fahrenheit temperatures from `TEMP` using the conversion formula below and store the results in the new `Celsius` column:
-   - TempCelsius = (TempFahrenheit - 32) / 1.8
-- Round the values in the `Celsius` column to have 0 decimals (do not create a new column, update the current one)
-- Convert the `Celsius` values into integers (do not create a new column, update the current one)
-
-
-### Problem 3 - Select data and save to disk
-
-Divide the data in `selected` into two separate DataFrames:
-
-- Select all rows from the selected DataFrame with the `USAF` code `29980` into a variable called `kumpula`.
-- Select all rows from the selected DataFrame with the `USAF` code `28450` into a variable called `rovaniemi`.
-- Save the `kumpula` DataFrame into a file `Kumpula_temps_May_Aug_2017.csv` in CSV format:
-  - Separate the columns with commas (,)
-  - Use only 2 decimals for the floating point numbers
-- Repeat the same procedures and save the `rovaniemi` DataFrame into a file `Rovaniemi_temps_May_Aug_2017.csv`.
-
-
-
-
 ## Footnotes
 
 [^numpydtypes]: <https://numpy.org/doc/stable/user/basics.types.html>

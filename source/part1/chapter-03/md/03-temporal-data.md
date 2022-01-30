@@ -467,11 +467,6 @@ sample["TEMP_F"].ewm(com=200).mean().plot();
 In addition to these moving window functions, pandas provides a method `.expanding()` which increases the size of the window on each observation until it encompasses the whole series. This method basically cumulates the information on each observation and can be useful e.g. in some predictive applications where cumulative information about the given phenomena can provide more accurate results after more observations have been observed. It is also possible to apply and chain your own functions together with `.rolling()` and `.expanding()`, such as `.rolling(20).apply(myOwnFunction)`. 
 
 
-## Exercises
-
-Add exercises.
-
-
 ## Footnotes
 
 [^isostandard]: <https://en.wikipedia.org/wiki/ISO_8601>
