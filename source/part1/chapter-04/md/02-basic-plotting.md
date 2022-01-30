@@ -263,7 +263,7 @@ ax.legend()
 
 _**Figure 4.7**. A plot of the example temperature data further modified with additional formatting and reduced axis ranges._
 
-**Check your understanding (online)**
+#### Question 4.1
 
 Create a line plot similar to the examples above with the following attributes:
     
@@ -272,8 +272,12 @@ Create a line plot similar to the examples above with the following attributes:
 - A title that reads "Evening temperatures at Helsinki-Vantaa on October 1, 2019"
 - A text label indicating the warmest temperature in the evening
 
+```python
+# Use this cell to enter your solution.
+```
+
 ```python tags=["hide-cell"]
-# Example solution
+# Solution
 
 # Define dates
 start_time = pd.to_datetime("201910011800")
@@ -298,7 +302,7 @@ ax.legend(loc=4)
 ```
 
 <!-- #region tags=[] -->
-_**Figure 4.8**. The solution plot for this 'Check your understanding' example._
+_**Figure 4.8**. The solution plot for Question 4.1._
 
 ## Bar plots in pandas
 

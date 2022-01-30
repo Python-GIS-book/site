@@ -121,3 +121,36 @@ data["TEMP_CELSIUS"].loc[data["YEARMODA"] >= 20160624].mean()
 data["MONTH"] = data["TIME_STR"].str.slice(start=4, stop=6)
 ```
 <!-- #endregion -->
+
+<!-- #region -->
+## Chapter 4
+
+4.1
+```python
+# Define dates
+start_time = pd.to_datetime("201910011800")
+end_time = pd.to_datetime("201910020000")
+warm_time = pd.to_datetime("201910012055")
+
+# Adjust axis limits
+ax = oct1_temps.plot(
+    style="k--",
+    title="Helsinki-Vantaa temperatures",
+    xlabel="Date",
+    ylabel="Temperature [°F]",
+    xlim=[start_time, end_time],
+    ylim=[35.0, 44.0],
+    label="Observed temperature",
+    figsize=(12, 6),
+)
+
+# Add plot text
+ax.text(warm_time, 43.0, "Warmest temperature in the evening ->")
+ax.legend(loc=4)
+```
+
+4.2
+```python
+len(data.dropna())
+```
+<!-- #endregion -->
