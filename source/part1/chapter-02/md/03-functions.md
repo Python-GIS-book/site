@@ -104,7 +104,7 @@ Printing out `output` should produce something like the following:
 
 ```python
 print(output)
-'Hello, my name is Dave. I am 39 years old.'
+'Hello, my name is Dave. I am 41 years old.'
 ```
 <!-- #endregion -->
 
@@ -112,7 +112,7 @@ print(output)
 # Use this cell to enter your solution.
 ```
 
-```python
+```python tags=["hide-cell"]
 # Solution
 
 def hello(name, age):
@@ -129,71 +129,71 @@ When defining a function, the variable names given in the function definition ex
 That might seem confusing, but as it turns out, this is an excellent feature in Python that can save you from much suffering.
 Let's try to understand this by way of an example.
 
-Let us define a new function called `times2` that accepts a single value `number` and returns that number multiplied by 2.
+Let us define modified version of our `kelvins_to_celsius` function where the parameter value is still called `temp_kelvins`, but we now store the converted temperature as temp_celsius first and return that value.
 
 ```python
-def times2(number):
-    new_number = number * 2
-    return new_number
+def kelvins_to_celsius(temp_kelvins):
+    temp_celsius = temp_kelvins - 273.15
+    return temp_celsius
 ```
 
-So here we have defined our function to accept `number` as its only parameter, calculate `new_number`, and return that value.
-As you can see below, the variables defined in the function exist only in its *namespace*.
+So, we have defined our function to accept `temp_kelvins` as its only parameter, calculate `temp_celsius`, and return that value.
+As you will see below, the variables defined in the function exist only in its *namespace*.
 Let's confirm that.
 
-```python
-print(number)
+```python tags=["raises-exception"]
+print(temp_kelvins)
 ```
 
-```python
-print(new_number)
+```python tags=["raises-exception"]
+print(temp_celsius)
 ```
 
-Here, in the *global namespace* we get a `NameError` when trying to access the variables `number` or `new_number` because they have only been defined within the `times2()` function.
+Here, in the *global namespace* we get a `NameError` when trying to access the variables `temp_kelvins` or `temp_celsius` because they have only been defined within the `kelvins_to_celsius()` function.
 
-Perhaps, however, you are thinking we have not yet called the function, and maybe then these values will be defined.
+Perhaps, however, you are thinking that we have not yet called the function, so that is why we get a `NameError`. Maybe if we use the function, then these variable values will be defined.
 Let's try that.
 
 ```python
-times2(number=5)
+kelvins_to_celsius(temp_kelvins=293.15)
 ```
 
-```python
-print(number)
+```python tags=["raises-exception"]
+print(temp_kelvins)
 ```
 
-As you can see `number` is still not defined in the global namespace, where values such as `freezing_point` have been defined.
+As you can see `temp_kelvins` is still not defined in the global namespace, where values such as `freezing_point` have been defined.
 
 Why does Python work this way?
-Well, as it turns out, the benefit of having a separate namespace for functions is that we can define a variable in the global namespace, such as `number` and not need to worry about its name within a function, or the use of a function changing its value.
-Inside the function, the value that is passed will be known as `number`, but modifying that value will not alter a variable of the same name in the global namespace.
-Let's have a look at another example using a modified `times2()` function we can call `times2v2()`.
+Well, as it turns out, the benefit of having a separate namespace for functions is that we can define a variable in the global namespace, such as `temp_kelvins` and not need to worry about its name within a function, or the use of a function changing its value.
+Inside the function, the value that is passed will be known as `temp_kelvins`, but modifying that value will not alter a variable of the same name in the global namespace.
+Let's have a look at another example using a modified `kelvins_to_celsius()` function we can call `kelvins_to_celsius2()`.
 
 ```python
-def times2v2(number):
-    number = number * 2
-    return number
+def kelvins_to_celsius2(temperature):
+    temperature = temperature - 273.15
+    return temperature
 ```
 
-Here, we pass in a value as `number` and modify the value that is passed in before returning it.
-This might not be a good idea in some cases because it could cause confusion, but it is perfectly valid code.
+Here, we pass in a value as `temperature` and modify the value that is passed in before returning it.
+This is probably not a good idea in most cases because it could cause confusion, but it is perfectly valid code.
 
-Let's now define a variable `number` in the global namespace and use our function to multiply it by 2.
-
-```python
-number = 15
-```
+Let's now define a variable `temperature` in the global namespace and use our function to modify it.
 
 ```python
-times2v2(number=number)
+temperature = 303.15
 ```
 
 ```python
-number
+kelvins_to_celsius2(temperature=temperature)
 ```
 
-As you can see, the value of the variable `number` in the global namespace was set to 15 and remains 15 after using the `times2v2()` function.
-Although there is a variable inside that function with the same name as the value in the global namespace, using the function assigns the value of `number` inside the function and manipulates that value only inside the function.
+```python
+temperature
+```
+
+As you can see, the value of the variable `temperature` in the global namespace was set to 303.15 and remains 303.15 after using the `kelvins_to_celsius2()` function.
+Although there is a variable inside that function with the same name as the value in the global namespace, using the function assigns the value of `temperature` inside the function and manipulates that value only inside the function.
 
 ```{caution}
 Be aware that it is possible to access variable values in functions that have been defined in the global namespace, even if the value is not passed to the function.
@@ -201,21 +201,21 @@ This is because Python will search for variables defined with a given name first
 If such a value is found, it can be used by the function, which could be dangerous.
 ```
 
-Let's look at an example of behavior in a function that may be unexpected.
+Let's look at an example of behavior in a function that may be unexpected. Here we can define a third version of the `kelvins_to_celsius()` function that we can call `kelvins_to_celsius3()`.
 
 ```python
-def my_function(value):
-    value = number + 20
-    return value
+def kelvins_to_celsius3(temp):
+    temp = temperature - 273.15
+    return temp
 ```
 
 ```python
-print(my_function(11))
+print(kelvins_to_celsius3(273.15))
 ```
 
-You were perhaps expecting to see a value of 31 returned by `my_function()`, but that does not occur because `value` is assigned `number + 20` in the function.
-Although `number` was not passed to `my_function()` it is defined in the global namespace and thus can be used by our example function.
-Since `number = 15` we get a value of 35 returned when using `my_function()`.
+You were perhaps expecting to see a value of `0` returned by `kelvins_to_celsius3()`, but that does not occur because `temp` is assigned `temperature - 273.15` in the function.
+Although `temperature` was not passed to `kelvins_to_celsius3()` it is defined in the global namespace and thus can be used by our example function.
+Since `temperature = 303.15` we get a value of 30.0 returned when using `kelvins_to_celsius3()`.
 Conclusion: Be careful!
 
 For those who are interested, more information about namespaces and variables scopes can be found on the [Real Python website](https://realpython.com/python-namespaces-scope/).
