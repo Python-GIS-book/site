@@ -292,12 +292,18 @@ Nice! Now we have "labeled" the rows based on information about day of the year 
 
 
 
-_**Check your understanding (online)**_
+#### Question 2.5
 
-By using the interactive online version of this book, create a new column `'MONTH'` with information about the month without the year.
+Create a new column `'MONTH'` with information about the month without the year.
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+data["MONTH"] = data["TIME_STR"].str.slice(start=4, stop=6)
 ```
 
 ## Grouping and aggregating data

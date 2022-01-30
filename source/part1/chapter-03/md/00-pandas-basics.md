@@ -250,12 +250,18 @@ Here we see that `YEARMODA` is an integer value (with 64-bit precision; ``int64`
 <!-- #endregion -->
 
 
-_**Check your understanding (online)**_
+#### Question 2.1
 
-Using the interactive online version of this book, see if you can find a way to print out the number of columns in our DataFrame. 
+How would you print out the number of columns in our DataFrame?
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+len(data.columns)
 ```
 
 ## Selecting columns
