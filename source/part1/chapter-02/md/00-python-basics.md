@@ -271,7 +271,7 @@ As it turns out, it is possible some math with character strings in Python. Defi
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true tags=["hide_cell"]
+```python deletable=true editable=true tags=["hide_cell", "raises-exception"]
 # Solution
 
 first_variable = "Python"
@@ -284,7 +284,9 @@ print(first_variable - second_variable)
 
 ## Lists and indices
 
-Above we have seen a bit of data related to one of several FMI observation stations in the Helsinki area. Rather than having individual variables for each of those stations, we can store many related values in a *collection*. The simplest type of collection in Python is a *{term}`list`*.
+So far, we have learned a bit about variables, their values, and data types in this section. We will now continue with a new data type called a *{term}`list`*. Using a list, we can store many related values together with a single variable. In Python, there are several different types of data that can be used to store values together in a *collection*, and a list is the simplest type.
+
+To explore lists, we will be using data related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type.
 
 
 ### Creating a list
@@ -413,9 +415,31 @@ print(station_types)
 
 ### Data types in lists
 
-Lists can also store more than one type of data. Let’s consider that in addition to having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for station ‘Helsinki Kaivopuisto’.
+One of the benefits of a list is that they can be used to store more than one type of data. Let’s consider that instead of having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for a single station. In this case we will create a list of values for the ‘Helsinki Kaivopuisto’ station.
 
 ```python
+station_name = "Helsinki Kaivopuisto"
+```
+
+```python
+station_id = 132310
+```
+
+```python
+station_lat = 60.15
+```
+
+```python
+station_lon = 24.96
+```
+
+```python
+station_type = "Mareographs"
+```
+
+Now that we have defined five variables related to the Helsinki Kaivopuisto station, we can combine them in a list similar to how we have done previously.
+
+```python tags=[]
 station_hel_kaivo = [station_name, station_id, station_lat, station_lon, station_type]
 print(station_hel_kaivo)
 ```
@@ -549,35 +573,21 @@ As you can see, the list has been sorted alphabetically using the `list.sort()` 
 ## Making different data types work together
 
 
-We learned a bit about variables and their values earlier in this section. We now continue with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:
+Earlier in this section we defined five variables related to the Helsinki Kaviopuisto observation station:
 
-```python
-station_name = "Helsinki Kaivopuisto"
-```
+- `station_name`
+- `station_id`
+- `station_lat`
+- `station_lon`
+- `station_type`
 
-```python
-station_id = 132310
-```
-
-```python
-station_lat = 60.15
-```
-
-```python
-station_lon = 24.96
-```
-
-```python
-station_type = "Mareographs"
-```
-
-Here we have 5 values assigned to variables related to a single observation station. Each variable has a unique name and they can store different types of data.
+which refer to the the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. Each variable has a unique name and they store different types of data.
 
 
 ### Data types and their compatibility
 
-We can explore the different types of data stored in variables using the `type()` function.
-Let's check the data types of the variables `station_name`, `station_id`, and `station_lat`.
+As you likely recall, we can explore the different types of data stored in variables using the `type()` function.
+Let's now check the data types of the variables `station_name`, `station_id`, and `station_lat`.
 
 ```python
 type(station_name)
