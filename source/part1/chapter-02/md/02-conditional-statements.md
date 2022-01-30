@@ -181,10 +181,10 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 # Use this cell to enter your solution.
 ```
 
-```python
+```python tags=["hide-cell"]
 # Solution
 
-B
+'B'
 ```
 
 ### Combining conditions
@@ -222,7 +222,7 @@ Let' set 18 m/s as our comfort limit in the conditional statement and see what o
 # Use this cell to enter your solution.
 ```
 
-```python
+```python tags=["hide-cell"]
 # Solution
 
 weather = "rain"
@@ -254,6 +254,8 @@ for temperature in temperatures:
         print(temperature, "is not hot")
 ```
 
+<!-- #region tags=[] -->
 ## Footnotes
 
 [^swc]: <http://software-carpentry.org>
+<!-- #endregion -->

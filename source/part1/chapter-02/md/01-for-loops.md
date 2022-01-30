@@ -288,7 +288,7 @@ for i in range(len(odd_numbers)):
 # Use this cell to enter your solution.
 ```
 
-```python
+```python tags=["hide-cell"]
 # Solution
 
 11
