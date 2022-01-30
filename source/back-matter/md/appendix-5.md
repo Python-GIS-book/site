@@ -30,12 +30,13 @@ print(my_variable)
 
 1.3 
 ```python
+# Solutions may vary
 first_variable = "Python"
 second_variable = " is cool!"
 
-print(first_variable + second_variable)
-print(5 * first_variable)
-print(first_variable - second_variable)
+print(first_variable + second_variable)  # Works
+print(5 * first_variable)                # Works
+print(first_variable - second_variable)  # Fails
 ```
 
 1.4 
@@ -65,8 +66,8 @@ else:
 ```
 
 1.7
-```bash
-B
+```python
+'B'
 ```
 
 1.8
@@ -91,7 +92,3 @@ output = hello(name="Dave", age=41)
 print(output)
 ```
 <!-- #endregion -->
-
-```python
-
-```
