@@ -14,16 +14,16 @@ jupyter:
 
 # Creating subplots
 
-At this point you should know the basics of making plots with Matplotlib module.
-Now we will expand on our basic plotting skills to learn how to create more advanced plots.
-In this part, we will show how to visualize data using Pandas/Matplotlib and create plots such as the one below.
+At this point you should know the basics of making plots with Matplotlib. Now we will expand on our basic plotting skills to learn how to create more advanced plots. In this section, we will show how to visualize data using pandas/Matplotlib and create plots such as the one below.
 
-![Subplot example in Matplotlib](./../img/subplots.png)
+![_**Figure 4.11**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._](../img/subplots.png)
+
+_**Figure 4.11**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._
 
 
 ## Preparing the data for plotting 
 
-Let's start again by reading the data.
+We can start again by reading in the data file.
 
 ```python
 import pandas as pd
@@ -41,51 +41,54 @@ data = pd.read_csv(
 )
 ```
 
-Let's rename the `'TEMP'` column as `TEMP_F`, since we'll later convert our temperatures from Fahrenheit to Celsius:
+After reading the file, we can rename the `TEMP` column as `TEMP_F`, since we will later convert our temperatures from Fahrenheit to Celsius.
 
 ```python
 new_names = {"TEMP": "TEMP_F"}
 data = data.rename(columns=new_names)
 ```
 
-Check again the first rows of data to confirm successful renaming:
+At this point we can quickly check the first rows of data to see whether the expected changes have occurred.
 
 ```python
 data.head()
 ```
 
-First, we have to deal with no data values. Let's check how many no data values we have:
+Next, we have to deal with no-data values. Let's start by checking how many no-data values we have.
 
 ```python
-print("Number of no data values per column: ")
+print("Number of no-data values per column: ")
 print(data.isna().sum())
 ```
 
-So, we have 3579 missing values in the TEMP_F column. Let's get rid of those. We need not worry about the no data values in `'MAX'` and `'MIN'` columns since we won't be using them for plotting. We can remove rows from our DataFrame where `'TEMP_F'` is missing values using the `dropna()` method: 
+So, there are 1644 missing values in the TEMP_F column and we should remove those. We need not worry about the no-data values in `'MAX'` and `'MIN'` columns since we will not use them for the plots produced below. We can remove rows from our DataFrame where `'TEMP_F'` is missing values using the `dropna()` method.
 
 ```python
 data.dropna(subset=["TEMP_F"], inplace=True)
 print("Number of rows after removing no data values:", len(data))
 ```
 
-**Check your understanding (online)**
+#### Question 4.2
 
-What would happen if we removed all rows with any no data values from our data (also considering no data values in the `MAX` and `MIN` columns)?
+How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified DataFrame as another variable name or not use the `inplace` parameter.
 
 ```python
-# After removing all no data values we are left with only a fraction of the original data.
-# Note! Here we are not applying .dropna() "inplace"
-#       so we are not making any permanent changes to our dataframe.
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
 len(data.dropna())
 ```
 
-Now that we have loaded our data, we can convert the values of temperature in Fahrenheit to Celsius, like we have in earlier lessons.
+Now that we have loaded the data, we can convert the temperature values from Fahrenheit to Celsius, like we have in earlier chapters.
 
 ```python
 data["TEMP_C"] = (data["TEMP_F"] - 32.0) / 1.8
 ```
 
-Let's check how our dataframe looks like at this point:
+We can once again now check the contents of our DataFrame.
 
 ```python
 data.head()
@@ -93,10 +96,9 @@ data.head()
 
 ## Subplots
 
-Let's continue working with the weather data and learn how to use *subplots*. Subplots are figures where you have multiple plots in different panels of the same figure, as was shown at the start of this section.
+Having processed and cleaned the data we can now continue working with it and learn how to create figures that contain {term}`subplots`. Subplots used to display multiple plots in different panels of the same figure, as shown at the start of this section (Figure 4.11).
 
-
-Let's now select data from different seasons of the year in 2012/2013:
+We can start with creating the subplots by dividing the data in the data file into different groups. In this case we can divide the temperature data into temperatures for the four different seasons of the year. We can make the following selections:
 
 - Winter (December 2012 - February 2013)
 - Spring (March 2013 - May 2013)
@@ -117,31 +119,22 @@ autumn = data.loc[(data.index >= "201309010000") & (data.index < "201312010000")
 autumn_temps = autumn["TEMP_C"]
 ```
 
-Now we can plot our data to see how the different seasons look separately.
+Let's have a look at the data from two different seasons to see whether the preceding step worked as expected.
 
 ```python
 ax1 = winter_temps.plot()
 ```
 
 ```python
-ax2 = spring_temps.plot()
+ax2 = summer_temps.plot()
 ```
 
-```python
-ax3 = summer_temps.plot()
-```
+Based on the plots above it looks that the correct seasons have been plotted and the temperatures between winter and summer are quite different, as we would expect. One thing we might need to consider with this is that the y-axis range currently varies between the two plots and we may want to define axis ranges that ensure the data are plotted with the same y-axis ranges in all subplots. This will help make it easier to visually compare the temperatures between seasons.
 
-```python
-ax4 = autumn_temps.plot()
-```
+**Finding the data bounds**
 
-OK, so from these plots we can already see that the temperatures in different seasons are quite different, which is rather obvious of course.
-It is important to also notice that the scale of the *y*-axis changes in these different plots.
-If we would like to compare different seasons to each other we need to make sure that the temperature scale is similar in the plots of the different seasons.
-
-### Finding data bounds
-
-Let's set our *y*-axis limits so that the upper limit is the maximum temperature + 5 degrees in our data (full year), and the lowest is the minimum temperature - 5 degrees.
+In order to define y-axis limits that will include the data from all of the seasons and be consistent between subplots we first need to find the minimum and maximum temperatures from all of the seasons.
+In addition, we can consider that it would be beneficial to have some extra space (padding) between the y-axis limits and those values, such that the maximum y-axis limit is five degrees higher than the maximum temperature, and the minimum y-axis limit is five degrees lower than the minimum temperature. We can do that below by calculating the minumum of each seasons minumum temperature and subtracting five degrees, for example.
 
 ```python
 # Find lower limit for y-axis
@@ -157,15 +150,15 @@ max_temp = max(
 max_temp = max_temp + 5.0
 
 # Print y-axis min, max
-print("Min:", min_temp, "Max:", max_temp)
+print(f"Minimum temperature: {min_temp}")
+print(f"Maximum temperature: {max_temp}")
 ```
 
-We can now use this temperature range to standardize the y-axis scale of our plot.
+We can now use this temperature range to standardize the y-axis ranges of our plots.
 
-### Visualizing multiple subplots in a single figure
+**Displaying multiple subplots in a single figure**
 
-Let's now continue and see how we can plot all these different plots into the same figure.
-We can create a 2x2 panel for our visualization using Matplotlib’s `subplots()` function where we specify how many rows and columns we want to have in our figure.
+With the data split into seasons and y-axis range defined we can now continue to plot data from all four seasons the same figure. We will start by creating a figure containing four subplits in a 2x2 panel using Matplotlib’s `subplots()` function. In the `subplots()` function the user can specify how many rows and columns of plots they want to have in their figure.
 We can also specify the size of our figure with `figsize()` parameter that takes the `width` and `height` values (in inches) as input.
 
 ```python
