@@ -15,7 +15,7 @@ jupyter:
 # Exercises
 
 
-## Exercise 2.1
+## Exercise 3.1
 
 In this exercise your task is to open and explore a NOAA weather data file using Pandas. The data file name is 6153237444115dat.csv and it is located in the data folder (*add link*). An overview of the tasks in this exercise:
 
@@ -44,7 +44,7 @@ Based on the `data` DataFrame from Problem 1, answer to following questions:
 - How many unique stations exists in the data (use the `USAF` column)?
 
 
-## Exercise 2.2
+## Exercise 3.2
 
 In this exercise, you will clean the data from our data file by removing no-data values, convert temperature values in Fahrenheit to Celsius, and split the data into separate datasets using the weather station identification code. We will start this problem by cleaning and converting our temperature data. An overview of the tasks in this exercise:
 
@@ -83,7 +83,7 @@ Divide the data in `selected` into two separate DataFrames:
 - Repeat the same procedures and save the `rovaniemi` DataFrame into a file `Rovaniemi_temps_May_Aug_2017.csv`.
 
 
-## Exercise 2.3
+## Exercise 3.3
 
 In this Exercise, we will explore our temperature data by comparing spring temperatures between Kumpula and Rovaniemi. To do this we'll use some conditions to extract subsets of our data and then analyse these subsets using basic pandas functions. Notice that in this exercise, we will use data saved from the previous Exercise (2.2.6), hence you should finish that Exercise before this one. An overview of the tasks in this exercise:
 
