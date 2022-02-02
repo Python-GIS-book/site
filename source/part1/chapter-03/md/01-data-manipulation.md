@@ -72,12 +72,18 @@ data.head()
 ```
 
 
-_**Check your understanding (online)**_
+#### Question 3.2
 
-Using the interactive online version of this book, calculate the temperatures in Kelvins using the Celsius values and store the result a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 1, and the formula for converting Celsius degrees (C) to Kelvins (K) is: `K = C + 273.15`
+Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is: `K = C + 273.15`
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+data["TEMP_KELVIN"] = data["TEMP_CELSIUS"] + 273.15
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -120,17 +126,20 @@ selection = data.loc[0:5, ["TEMP", "TEMP_CELSIUS"]]
 selection
 ```
 
-<!-- #region -->
 As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5). 
+    
+#### Question 3.3
 
-
-_**Check your understanding (online)**_
-
-Using the interactive online version of this book, calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
-<!-- #endregion -->
+Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+data.loc[23:29, "TEMP_CELSIUS"].mean()
 ```
 
 ### Selecting a single row or value
@@ -262,12 +271,18 @@ As we can see, now we did not receive any warnings, and it would be safe to cont
 
 
 
-_**Check your understanding (online)**_
+#### Question 3.4
 
-Using the interactive online version of this book, find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the `YEARMODA` column.
+Find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the `YEARMODA` column.
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+data["TEMP_CELSIUS"].loc[data["YEARMODA"] >= 20160624].mean()
 ```
 
 ### View vs a copy
@@ -412,51 +427,6 @@ data.sort_values(by=["WEEKDAY", "TEMP_CELSIUS"], ascending=[True, False]).head(1
 ```
 
 As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data. 
-
-
-## Exercises
-
-In this exercise, you will clean the data from our data file by removing no-data values, convert temperature values in Fahrenheit to Celsius, and split the data into separate datasets using the weather station identification code. We will start this problem by cleaning and converting our temperature data. An overview of the tasks in this exercise:
-
-- Create a new dataframe called `selected` that contains selected columns from the data file
-- Clean the new DataFrame by removing no-data values
-- Create a new column for temperatures converted from Fahrenheit to Celsius
-- Divide the data into separate DataFrames for the Helsinki Kumpula and Rovaniemi stations
-- Save the new DataFrames to CSV files
-
-
-### Problem 1 - Read the data and remove NaN values
-
-The first step for this problem is to read the data file 6153237444115dat.csv into a variable `data` using pandas and cleaning it a bit:
-
-- Select the columns `USAF, YR--MODAHRMN, TEMP, MAX, MIN` from the `data` DataFrame and assign them to a variable `selected`
-- Remove all rows from `selected` that have NoData in the column `TEMP` using the `dropna()` function
-
-
-
-### Problem 2 - Convert temperatures to Celsius
-
-Convert the temperature values from Fahrenheits to Celsius:
-
-- Create a new column to `selected` called `Celsius`.
-- Convert the Fahrenheit temperatures from `TEMP` using the conversion formula below and store the results in the new `Celsius` column:
-   - TempCelsius = (TempFahrenheit - 32) / 1.8
-- Round the values in the `Celsius` column to have 0 decimals (do not create a new column, update the current one)
-- Convert the `Celsius` values into integers (do not create a new column, update the current one)
-
-
-### Problem 3 - Select data and save to disk
-
-Divide the data in `selected` into two separate DataFrames:
-
-- Select all rows from the selected DataFrame with the `USAF` code `29980` into a variable called `kumpula`.
-- Select all rows from the selected DataFrame with the `USAF` code `28450` into a variable called `rovaniemi`.
-- Save the `kumpula` DataFrame into a file `Kumpula_temps_May_Aug_2017.csv` in CSV format:
-  - Separate the columns with commas (,)
-  - Use only 2 decimals for the floating point numbers
-- Repeat the same procedures and save the `rovaniemi` DataFrame into a file `Rovaniemi_temps_May_Aug_2017.csv`.
-
-
 
 
 ## Footnotes

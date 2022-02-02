@@ -4,10 +4,10 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -21,6 +21,12 @@ Computer
 Data type
   An attribute defining the characteristics of a value in a program.
   For example, type `int` is an integer (whole number).
+  
+DateOffsets
+  A specific pandas object that represents a duration of time following calendar duration rules, such as a week ("W"). 
+  
+DatetimeIndex
+  An immutable array of datetime64 data that is specified as the index of the DataFrame. Can be used for indexing and grouping data based on time.
 
 Docstring
   A text string used to document a section of code.
@@ -64,9 +70,13 @@ Semantics
 Software
   Another name for a {term}`program`.
 
+Subplots
+  The term used in Matplotlib to refer to individual plots when more than one plot is part of a single figure.
+
 Syntax
   The form of an element in a programming language. For example, the print function in Python expects the syntax `print('hello')` in order to have the word hello displayed on the screen.
 
 Variable
   A way of storing values in the memory of the computer using specific names that you define.
 ```
+

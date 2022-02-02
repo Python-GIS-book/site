@@ -250,12 +250,18 @@ Here we see that `YEARMODA` is an integer value (with 64-bit precision; ``int64`
 <!-- #endregion -->
 
 
-_**Check your understanding (online)**_
+#### Question 3.1
 
-Using the interactive online version of this book, see if you can find a way to print out the number of columns in our DataFrame. 
+How would you print out the number of columns in our DataFrame?
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+len(data.columns)
 ```
 
 ## Selecting columns
@@ -414,39 +420,6 @@ df["lon"] = longitudes
 df["lat"] = latitudes
 df
 ```
-
-## Exercises
-
-In this exercise your task is to open and explore a NOAA weather data file using Pandas. The data file name is 6153237444115dat.csv and it is located in the data folder (*add link*). An overview of the tasks in this exercise:
-
- - Import the Pandas module
- - Read the data using Pandas into a variable called data
- - Calculate a number of basic statistics from the data
-
-
-### Problem 1 - Read the file and clean it
-
-Import the pandas module and read the weather data into a variable called `data`. Print the first five rows of the data file. 
-
-
-### Problem 2 - Basic characteristics of the data
-
-Based on the `data` DataFrame from Problem 1, answer to following questions:
-
-1. How many rows is there in the data?
-2. What are the column names?
-3. What are the datatypes of the columns?
-
-<!-- #region -->
-### Problem 3 - Descriptive statistics
-
-Based on the `data` DataFrame from Problem 1, answer to following questions:
-
-
- - What is the mean Fahrenheit temperature in the data (use the `TEMP` column)?
- - What is the standard deviation of the Maximum temperature (use the `MAX` column)?
- - How many unique stations exists in the data (use the `USAF` column)?
-<!-- #endregion -->
 
 ## Footnotes
 
