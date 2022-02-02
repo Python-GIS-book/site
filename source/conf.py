@@ -101,6 +101,7 @@ html_static_path = ["_static"]
 
 html_css_files = [
     "css/pythongis.css",
+    "css/custom-toggle-button.css",
 ]
 
 # The name of an image file (relative to this directory) to place at the top
@@ -290,3 +291,6 @@ bibtex_bibfiles = [
     "part1/chapter-03/chapter-03-references.bib",
     "back-matter/back-matter-references.bib",
 ]
+
+# Specify what text is used with toggle-buttons
+togglebutton_hint = "Show the solution"
