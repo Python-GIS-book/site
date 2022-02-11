@@ -462,6 +462,9 @@ type(station_hel_kaivo[1])  # The FMISID
 type(station_hel_kaivo[2])  # The station latitude
 ```
 
+Note that although it is possible to have different types of data in a Python list, you are encouraged to create lists containing the same data types. Data science workflows are often built around handling collections of data of the same type and having multiple data types in a list may cause problems for software you are trying to use.
+
+
 ### Adding and removing values from lists
 
 Finally, we can add and remove values from lists to change their lengths. Let’s consider that we no longer want to include the first value in the `station_names` list. Since we haven't see that list in a bit, let's first print it to the screen.
