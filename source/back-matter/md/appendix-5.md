@@ -153,4 +153,41 @@ ax.legend(loc=4)
 ```python
 len(data.dropna())
 ```
+
+4.3
+```python
+# Create the new figure and subplots
+fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
+
+# Rename the axes for ease of use
+ax1 = axs[0]
+ax2 = axs[1]
+
+# Set plot line width
+line_width = 1.5
+
+# Plot data
+winter_temps.plot(
+    ax=ax1, c="blue", lw=line_width, ylim=[min_temp, max_temp], grid=True
+)
+summer_temps.plot(
+    ax=ax2, c="green", lw=line_width, ylim=[min_temp, max_temp], grid=True
+)
+
+# Set figure title
+fig.suptitle("2012-2013 Winter and summer temperature observations - Helsinki-Vantaa airport")
+
+# Rotate the x-axis labels so they don't overlap
+plt.setp(ax1.xaxis.get_majorticklabels(), rotation=20)
+plt.setp(ax2.xaxis.get_majorticklabels(), rotation=20)
+
+# Axis labels
+ax1.set_xlabel("Date")
+ax2.set_xlabel("Date")
+ax1.set_ylabel("Temperature [°C]")
+
+# Season label text
+ax1.text(pd.to_datetime("20130215"), -25, "Winter")
+ax2.text(pd.to_datetime("20130815"), -25, "Summer")
+```
 <!-- #endregion -->
