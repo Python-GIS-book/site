@@ -212,10 +212,10 @@ ax22 = axs[1][1]
 ```
 
 Now, we'll add our seasonal temperatures to the plot commands for each time period. In addition, in this version of the plot we will also:
+- Modify the x- and y-axis labels using the `xlabel` and `ylabel` parameters in the `plot()` function.
 - Enable grid lines on the plot using the `grid=True` parameter for the `plot()` function.
 - Add a figure title using the `fig.suptitle()` function.
 - Rotate the x-axis labels using the `plt.setp()` function.
-- Modify the x- and y-axis labels using the `set_xlabel()` and `set_ylabel()` functions.
 - Add a text label for each plot panel using the `text()` function.
 
 ```python
@@ -224,16 +224,32 @@ line_width = 1.5
 
 # Plot data
 winter_temps.plot(
-    ax=ax11, c="blue", lw=line_width, ylim=[min_temp, max_temp], grid=True
+    ax=ax11,
+    c="blue",
+    lw=line_width,
+    ylim=[min_temp, max_temp],
+    ylabel="Temperature [°C]",
+    grid=True,
 )
 spring_temps.plot(
     ax=ax12, c="orange", lw=line_width, ylim=[min_temp, max_temp], grid=True
 )
 summer_temps.plot(
-    ax=ax21, c="green", lw=line_width, ylim=[min_temp, max_temp], grid=True
+    ax=ax21,
+    c="green",
+    lw=line_width,
+    ylim=[min_temp, max_temp],
+    xlabel="Date",
+    ylabel="Temperature [°C]",
+    grid=True,
 )
 autumn_temps.plot(
-    ax=ax22, c="brown", lw=line_width, ylim=[min_temp, max_temp], grid=True
+    ax=ax22,
+    c="brown",
+    lw=line_width,
+    ylim=[min_temp, max_temp],
+    xlabel="Date",
+    grid=True,
 )
 
 # Set figure title
@@ -245,12 +261,6 @@ plt.setp(ax12.xaxis.get_majorticklabels(), rotation=20)
 plt.setp(ax21.xaxis.get_majorticklabels(), rotation=20)
 plt.setp(ax22.xaxis.get_majorticklabels(), rotation=20)
 
-# Axis labels
-ax21.set_xlabel("Date")
-ax22.set_xlabel("Date")
-ax11.set_ylabel("Temperature [°C]")
-ax21.set_ylabel("Temperature [°C]")
-
 # Season label text
 ax11.text(pd.to_datetime("20130215"), -25, "Winter")
 ax12.text(pd.to_datetime("20130515"), -25, "Spring")
@@ -261,7 +271,7 @@ ax22.text(pd.to_datetime("20131115"), -25, "Autumn")
 fig
 ```
 
-Not bad.
+The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.
 
 
 #### Question 4.3
@@ -287,23 +297,31 @@ line_width = 1.5
 
 # Plot data
 winter_temps.plot(
-    ax=ax1, c="blue", lw=line_width, ylim=[min_temp, max_temp], grid=True
+    ax=ax1,
+    c="blue",
+    lw=line_width,
+    ylim=[min_temp, max_temp],
+    xlabel="Date",
+    ylabel="Temperature [°C]",
+    grid=True,
 )
 summer_temps.plot(
-    ax=ax2, c="green", lw=line_width, ylim=[min_temp, max_temp], grid=True
+    ax=ax2,
+    c="green",
+    lw=line_width,
+    ylim=[min_temp, max_temp],
+    xlabel="Date",
+    grid=True,
 )
 
 # Set figure title
-fig.suptitle("2012-2013 Winter and summer temperature observations - Helsinki-Vantaa airport")
+fig.suptitle(
+    "2012-2013 Winter and summer temperature observations - Helsinki-Vantaa airport"
+)
 
 # Rotate the x-axis labels so they don't overlap
 plt.setp(ax1.xaxis.get_majorticklabels(), rotation=20)
 plt.setp(ax2.xaxis.get_majorticklabels(), rotation=20)
-
-# Axis labels
-ax1.set_xlabel("Date")
-ax2.set_xlabel("Date")
-ax1.set_ylabel("Temperature [°C]")
 
 # Season label text
 ax1.text(pd.to_datetime("20130215"), -25, "Winter")
