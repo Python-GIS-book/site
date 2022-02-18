@@ -16,4 +16,4 @@ After going through this chapter your should be able to:
     nb/02-basic-plotting.ipynb
     nb/03-subplots.ipynb
     nb/04-plot-formatting.ipynb
-    nb/05-exerciess.ipynb
+    nb/05-exercises.ipynb
