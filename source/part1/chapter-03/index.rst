@@ -31,5 +31,5 @@ After going through this chapter your should be able to:
     nb/01-data-manipulation.ipynb
     nb/02-data-analysis.ipynb
     nb/03-temporal-data.ipynb
-    nb/04-references.ipynb
-
+    nb/04-exercises.ipynb
+    nb/05-references.ipynb
