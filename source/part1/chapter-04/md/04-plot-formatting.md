@@ -56,13 +56,13 @@ Now we have a set of x-axis values in the variable `x` and four sets of y-axis v
 
 ```python
 # Create figure
-fig, ax = plt.subplots(1, 1, figsize=(10,5))
+fig, ax = plt.subplots(1, 1, figsize=(10, 5))
 
 # Plot lines
-ax.plot(x, y1, label='line 1')
-ax.plot(x, y2, label='line 2')
-ax.plot(x, y3, label='line 3')
-ax.plot(x, y4, label='line 4')
+ax.plot(x, y1, label="line 1")
+ax.plot(x, y2, label="line 2")
+ax.plot(x, y3, label="line 3")
+ax.plot(x, y4, label="line 4")
 
 # Turn on legend and set x-axis limits
 ax.legend()
@@ -81,13 +81,13 @@ A better option would be to change the line pattern for each line so they can be
 
 ```python
 # Create figure
-fig, ax = plt.subplots(1, 1, figsize=(10,5))
+fig, ax = plt.subplots(1, 1, figsize=(10, 5))
 
 # Plot lines
-ax.plot(x, y1, linestyle='solid', label='line 1')
-ax.plot(x, y2, linestyle='dotted', label='line 2')
-ax.plot(x, y3, linestyle='dashed', label='line 3')
-ax.plot(x, y4, linestyle='dashdot', label='line 4')
+ax.plot(x, y1, linestyle="solid", label="line 1")
+ax.plot(x, y2, linestyle="dotted", label="line 2")
+ax.plot(x, y3, linestyle="dashed", label="line 3")
+ax.plot(x, y4, linestyle="dashdot", label="line 4")
 
 # Turn on legend and set x-axis limits
 ax.set_xlim([x.min(), x.max()])
