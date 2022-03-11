@@ -49,22 +49,14 @@ For this exercise you should:
 
 ## Exercise 2.3 - Lists and index values
 
-The table below presents [monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate).
+| Month     | Temperature [°C] | Month     | Temperature [°C] | Month     | Temperature [°C] |
+| --------- | :--------------: | --------- | :--------------: | --------- | :--------------: |
+| January   | -3.5             | May       | 10.0             | September | 11.5             |
+| February  | -4.5             | June      | 15.0             | October   | 6.0              |
+| March     | -1.0             | July      | 18.0             | November  | 2.0              |
+| April     | 4.0              | August    | 16.0             | December  | -1.5             |
 
-| Month     | Temperature [°C] |
-| --------- | :--------------: |
-| January   | -3.5             |
-| February  | -4.5             |
-| March     | -1.0             |
-| April     | 4.0              |
-| May       | 10.0             |
-| June      | 15.0             |
-| July      | 18.0             |
-| August    | 16.0             |
-| September | 11.5             |
-| October   | 6.0              |
-| November  | 2.0              |
-| December  | -1.5             |
+_**Table 2.X**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)._
 
 For this exercise you should:
 
