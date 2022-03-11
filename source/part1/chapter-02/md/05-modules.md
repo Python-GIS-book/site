@@ -104,8 +104,6 @@ import matplotlib.pyplot as plt
 plt.plot([1, 2, 3, 4, 5], [5, 2, 3, 4, 1])
 ```
 
-![_**Figure 2.9**. Example plot using the Matplotlib module._]()
-
 _**Figure 2.9**. Example plot using the Matplotlib module._
 
 You can read more about the `plot` plotting function in the [matplotlib pyplot documentation](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html) [^matplotdocs]. We will introduce matplotlib in detail in Chapter 3.
