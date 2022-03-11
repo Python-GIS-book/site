@@ -34,9 +34,9 @@ For this exercise you should:
 
 ## Exercise 2.2 - Creating and changing lists
 
-Below are two tables of [FMI observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) and the years in which they began operating.
+![_**Tables 2.5 and 2.6**. [FMI observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) and the years in which they began operating_.](../img/exercise-2.2-tables.png)
 
-![](../img/exercise-2.2-tables.png)
+_**Tables 2.5 and 2.6**. [FMI observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) and the years in which they began operating_.
 
 For this exercise you should:
 
@@ -49,14 +49,9 @@ For this exercise you should:
 
 ## Exercise 2.3 - Lists and index values
 
-| Month     | Temperature [°C] | Month     | Temperature [°C] | Month     | Temperature [°C] |
-| --------- | :--------------: | --------- | :--------------: | --------- | :--------------: |
-| January   | -3.5             | May       | 10.0             | September | 11.5             |
-| February  | -4.5             | June      | 15.0             | October   | 6.0              |
-| March     | -1.0             | July      | 18.0             | November  | 2.0              |
-| April     | 4.0              | August    | 16.0             | December  | -1.5             |
+![_**Table 2.7**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)_.](../img/exercise-2.3-table.png)
 
-_**Table 2.X**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)._
+_**Table 2.7**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)._
 
 For this exercise you should:
 
