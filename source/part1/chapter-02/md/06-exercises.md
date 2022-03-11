@@ -38,10 +38,10 @@ For this exercise you should:
 
 _**Tables 2.5 and 2.6**. [FMI observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) and the years in which they began operating_.
 
-For this exercise you should:
+For this exercise you should use the data in Tables 2.5 and 2.6 to:
 
-- Create two lists for the station names and first years of operation for the values in the table on the left only. Be sure to list the values in the order they appear in the table.
-- Modify the lists you just created to add the values from the table on the right, again keeping them in the same order.
+- Create two lists for the station names and first years of operation for the values in Table 2.5 (on the left) only. Be sure to list the values in the order they appear in the table.
+- Modify the lists you just created to add the values from Table 2.6 (on the right), again keeping them in the same order.
 - Sort the two lists, sorting the first in alphabetical order and the second so that the most recent starting year is first
     - Do you see any problems with how the lists have been sorted?
     - Python has a function called `zip()` that might be helpful in solving the sorting issue. Search online to see whether you can find a way to use `zip()` to solve the problem with the two lists.
@@ -53,7 +53,7 @@ For this exercise you should:
 
 _**Table 2.7**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)._
 
-For this exercise you should:
+For this exercise you should use the data in Table 2.7 to:
 
 - Create two lists with the months and their average temperatures.
 - Use a print statement to produce output like that below, where the months and temperatures are selected using index values in the corresponding lists.
