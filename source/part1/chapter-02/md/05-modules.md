@@ -104,7 +104,9 @@ import matplotlib.pyplot as plt
 plt.plot([1, 2, 3, 4, 5], [5, 2, 3, 4, 1])
 ```
 
-**Figure 1.15**. Example plot using the Matplotlib module.
+![_**Figure 2.9**. Example plot using the Matplotlib module._]()
+
+_**Figure 2.9**. Example plot using the Matplotlib module._
 
 You can read more about the `plot` plotting function in the [matplotlib pyplot documentation](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html) [^matplotdocs]. We will introduce matplotlib in detail in Chapter 3.
 
@@ -119,14 +121,13 @@ However, there are times that you may not know the names of all of the functions
 print(dir(math))
 ```
 
-<!-- #region -->
 In Jupyter notebooks you can also browse the available modules by typing in `modulename.` and then pressing the tab key:
 
-![**Figure 1.16**.  Listing functions in the math module in Jupyter Lab._](../img/view_module_functions.png)
+![_**Figure 2.10**. Listing functions in the math module in JupyterLab._](../img/view_module_functions.png)
 
+_**Figure 2.10**. Listing functions in the math module in JupyterLab._
 
 So that's helpful, but what about when you don't know what a given function does? The easiest solution is to use the `help()` function (after importing the module). Let's have a look at the help for the `math.sin` function.
-<!-- #endregion -->
 
 ```python
 help(math.sin)

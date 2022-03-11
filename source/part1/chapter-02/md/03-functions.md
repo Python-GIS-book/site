@@ -30,14 +30,16 @@ Thus we might need to repeat such calculations quite often when analysing or com
 
 ### Our first function
 
-Let's define our first function called `celsius_to_fahr`. Figure 1.10 explains the main elements of a function.
+Let's define our first function called `celsius_to_fahr`. Figure 2.4 explains the main elements of a function.
 
 ```python
 def celsius_to_fahr(temp):
     return 9 / 5 * temp + 32
 ```
 
-![**Figure 1.10** An example function with annotation of its important elements.](../img/Function_anatomy-400.png)
+![_**Figure 2.4** An example function with annotation of its important elements._](../img/Function_anatomy-400.png)
+
+_**Figure 2.4** An example function with annotation of its important elements._
 
 The function definition opens with the keyword `def` followed by the name of the function and a list of parameter names in parentheses.
 The body of the function — the statements that are executed when it runs — is indented below the definition line.

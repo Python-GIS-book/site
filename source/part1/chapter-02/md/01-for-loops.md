@@ -123,7 +123,9 @@ In sum, `for` loops are useful to repeat some part of the code a *definite* numb
 <!-- #region -->
 ### Your daily for loop
 
-![**Figure 1.9**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>.](../img/2009-11-03-Cats-Eye.jpg)
+![_**Figure 2.3**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>_.](../img/2009-11-03-Cats-Eye.jpg)
+
+_**Figure 2.3**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>_.
 
 Like many other programming concepts, the idea of looping through actions is something that is already perhaps more familiar to you than you think.
 Consider your actions during a given day.

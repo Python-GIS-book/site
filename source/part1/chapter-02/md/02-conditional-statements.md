@@ -120,7 +120,7 @@ Comparison operators such as `>` and `==` compare the values on each side of the
 | >        | Greater than             |
 | !=       | Not equal to             |
 
-**Table 1.3**. Comparison operators in Python.
+_**Table 2.3**. Comparison operators in Python._
 
 
 ### Boolean values
@@ -192,10 +192,12 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 We can also use `and` and `or` to combine multiple conditions on boolean values.
 
 
-| Keyword   |example   | Description                          |
+| Keyword   | Example  | Description                          |
 | --------- |--------- |------------------------------------- |
 |  and      | a and b  | True if both a and b are True        |
 |  or       | a or b   | True if either a or b is True        |
+
+_**Table 2.4**. Logic for the `and` and `or` keywords in Python._
 
 ```python
 if (1 > 0) and (-1 > 0):

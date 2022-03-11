@@ -29,13 +29,15 @@ Because a Python script file is simply a list of commands that you might otherwi
 
 First, we need to create a new text file by clicking on **File** -> **New** -> **Text File** in the JupyterLab menu bar.
 
+![_**Figure 2.5**. Creating a new text file in JupyterLab._](../img/new-text-file-400.png)
 
-![**Figure 1.11**. Creating a new text file in Jupyter Lab._](../img/new-text-file-400.png)
+_**Figure 2.5**. Creating a new text file in JupyterLab._
 
 This will create a new tab in your JupyterLab window that should look something like that below, a blank slate.
 
-![**Figure 1.12**. The new, empty text file in Jupyter Lab._](../img/new-text-tab-800.png)
+![_**Figure 2.6**. The new, empty text file in JupyterLab._](../img/new-text-tab-800.png)
 
+_**Figure 2.6**. Creating a new text file in JupyterLab._
 
 Start by copying and pasting the text below into your new text file editor panel.
 
@@ -45,18 +47,19 @@ def celsius_to_fahr(temp_celsius):
 ```
 <!-- #endregion -->
 
-<!-- #region -->
 ## Saving a text file as a Python file
 
 As it turns out, Python scripts are just regular text files with the `.py` file extension to identify them as source code for Python. In order for our new text file to be detected as a Python source file in JupyterLab we thus need to rename it to have a `.py` file extension. You can rename the file by right clicking on the tab titled `untitled.txt` and renaming it as `temp_converter.py`. Be sure you change the `.txt` file extension to `.py`.
 
-![**Figure 1.13**. Renaming a file in Jupyter Lab._](../img/rename-file-part-1-600.png)
+![_**Figure 2.7**. Renaming a file in JupyterLab._](../img/rename-file-part-1-600.png)
 
-![**Figure 1.14**. File renaming dialog in Jupyter Lab._](../img/rename-file-part-2-300.png)
+_**Figure 2.7**. Renaming a file in JupyterLab._
 
+![_**Figure 2.8**. File renaming dialog in JupyterLab._](../img/rename-file-part-2-300.png)
+
+_**Figure 2.8**. File renaming dialog in JupyterLab._
 
 Be sure to save your `temp_converter.py` file after making your changes. If all goes well, you should now see the Python syntax is highlighted in different colors in the JupyterLab editor panel. We'll return later to some best practices for writing script files, but for now let's continue with how to use our functions saved in the Python file we just created.
-<!-- #endregion -->
 
 <!-- #region -->
 ## Saving and loading functions
