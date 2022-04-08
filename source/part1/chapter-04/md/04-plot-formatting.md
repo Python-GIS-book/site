@@ -12,9 +12,9 @@ jupyter:
     name: python3
 ---
 
-# Basic plot formatting
+# Designing effective line plots
 
-Typically you should be aiming to produce plots that include all of the elements that help make it intuitive to understand the plotted data. As you have seen, this might include:
+As we have seen, you should be aiming to produce plots that include all of the elements that help make understanding the plotted data intuitive. Typically, this might include:
 
 - Axis labels, including units if needed
 - A legend
@@ -22,13 +22,11 @@ Typically you should be aiming to produce plots that include all of the elements
 - Plot and/or figure titles
 - Annotation on the plot, such as text
 
-All of these elements will help viewers understand your data more easily, which is most of the reason for creating visualizations in the first place!
+In addition, there are several factors that can help improve the communication of the plotted information. When plotting line data, for example, the color of the lines might be an important consideration to tell different lines apart. This is especially true when plotting several lines on the same axes, as readers will need to be able to differentiate the lines and know which line refers to a given set of data. But there is more to plotting lines than simply choosing nice colors. 
 
-## A simple tip for plotting lines
+Not all people viewing your plots will see them the same way. Some viewers may have color blindness, while others may have printed out a copy of your plot in grayscale from a printer. Thus, while choosing nice colors can help make your plots look visually pleasing to you, it is worthwhile to consider other viewers and formats in which your plots may be viewed. In this way your visualizations can be as inclusive to different viewers as possible.
 
-As we have already seen with our earlier examples, there are several factors that can help when plotting line data, such as the color of the lines. This is especially true when plotting several lines on the same axes, as readers will need to be able to differentiate the lines and know which line refers to a given set of data. But there is more to plotting lines than simply choosing nice colors. 
-
-Not all people viewing your plots will see them the same way. Some viewers may have color blindness, while others may have printed out a copy of your plot in grayscale from a printer. Thus, while choosing nice colors can help make your plots look visually pleasing to you, it is worthwhile to consider other viewers and formats in which your plots may be viewed. In this way your visualizations can be as inclusive as possible.
+## Tips for plotting lines
 
 Let's consider an illustrative example. In this case we have four lines and we will use some random values just to provide a sense of the the issue. We can start by importing the Matplotlib and NumPy libraries. NumPy is a numerical Python library that we will use to generate arrays of random numbers.
 
