@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-# Designing effective line plots
+# Effective plot design: line plots
 
 As we have seen, you should be aiming to produce plots that include all of the elements that help make understanding the plotted data intuitive. Typically, this might include:
 
