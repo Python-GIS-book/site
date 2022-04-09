@@ -115,6 +115,16 @@ For this exercise you should:
     - Was it ever warm?
 <!-- #endregion -->
 
-## Problem set 4 - Functions
+## Exercise 2.6 - A temperature conversion function
 
-Problems to be added later.
+Functions are commonly used for small calculations that occur frequently within a program, such as converting between units.
+
+For this problem you should:
+
+- Create a function to converts temperature in degrees Fahrenheit to degrees Celsius.
+    - Be sure to include a docstring in the function definition.
+- Use the new function to convert the temperatures below to Celsius:
+    - 32 °F
+    - 68 °F
+    - 91 °F
+    - -17 °F

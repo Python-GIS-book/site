@@ -141,4 +141,20 @@ print(f"It was cold {len(cold)} times in Helsinki in April 2013.")
 print(f"It was cold {len(comfortable)} times in Helsinki in April 2013.")
 print(f"It was cold {len(warm)} times in Helsinki in April 2013.")
 ```
+
+### Exercise 2.6
+
+```python
+# Create temperature conversion function
+def fahr_to_celsius(temp_fahrenheit):
+    """Converts Fahrenheit temperature into Celsius."""
+    converted_temp = (temp_fahrenheit - 32) / 1.8
+    
+    return converted_temp
+
+# Make a list of temperatures to convert and loop over them to convert
+fahr_temps = [32, 68, 91, -17]
+for fahr_temp in fahr_temps:
+    print(f"{fahr_temp} °F is equal to {fahr_to_celsius(fahr_temp):.1f} °C.")
+```
 <!-- #endregion -->
