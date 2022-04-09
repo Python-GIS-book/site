@@ -286,7 +286,7 @@ print(first_variable - second_variable)
 
 So far, we have learned a bit about variables, their values, and data types in this section. We will now continue with a new data type called a *{term}`list`*. Using a list, we can store many related values together with a single variable. In Python, there are several different types of data that can be used to store values together in a *collection*, and a list is the simplest type.
 
-To explore lists, we will be using data related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type.
+To explore lists, we will be using data related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) [^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type.
 
 
 ### Creating a list
@@ -769,8 +769,4 @@ print(stations_capitalize)
 
 ## Footnotes
 
-[^swc]: <http://software-carpentry.org>
-[^jupyter]: <https://jupyter.org/>
-[^jupyterlab]: <http://jupyterlab.readthedocs.io/en/stable/>
-[^markdown]: <https://en.wikipedia.org/wiki/Markdown>
 [^FMI_stations]: <http://en.ilmatieteenlaitos.fi/observation-stations>
