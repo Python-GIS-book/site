@@ -72,12 +72,18 @@ data.head()
 ```
 
 
-_**Check your understanding (online)**_
+#### Question 3.2
 
-Using the interactive online version of this book, calculate the temperatures in Kelvins using the Celsius values and store the result a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 1, and the formula for converting Celsius degrees (C) to Kelvins (K) is: `K = C + 273.15`
+Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is: `K = C + 273.15`
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+data["TEMP_KELVIN"] = data["TEMP_CELSIUS"] + 273.15
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -88,7 +94,7 @@ We often want to make selections from our data and only use specific rows from a
 
 ### Selecting rows and columns
 
-One common way of selecting only specific rows from your DataFrame is done via a concept of **slicing**. Slicing in pandas can be done in a similar manner as with normal Python lists, i.e. you specify index range you want to select inside the square brackets: ``dataframe[start_index:stop_index]``. Let's select the first five rows and assign them to a variable called `selection`. Here, we will first see how selecting the data works like you would do with "normal" Python lists, based on index values:
+One common way of selecting only specific rows from your DataFrame is done via a concept of slicing. Getting a slice of data in pandas can be done in a similar manner as with normal Python lists by specifying an index range inside square brackets: ``dataframe[start_index:stop_index]``. Let's select the first five rows and assign them to a variable called `selection`. Here, we will first see how selecting the data works like you would do with "normal" Python lists, based on index values:
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 selection = data[0:5]
@@ -111,7 +117,7 @@ selection
 
 Notice that in this case, we get six rows of data (index 0-5)! This happens because we are now doing the selection based on axis labels instead of normal Python-kind of indexing. It is important to notice the difference between these two approaches, as mixing the two may cause confusion,  incorrect analysis results or bugs in your code, if you do not pay attention. We recommend to use `.loc` always when possible (there are specific cases when you want to use other approaches, more about this soon). Hence, the basic syntax for `.loc` is:
  
- - `.loc[first_included_label:last_included_label, columns]`
+ ```.loc[first_included_label:last_included_label, columns]```
 
 By looking at the syntax, you might guess that it is also possible to select multiple columns when using `.loc`. Next, we will test this by selecting the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list:
 
@@ -120,17 +126,20 @@ selection = data.loc[0:5, ["TEMP", "TEMP_CELSIUS"]]
 selection
 ```
 
-<!-- #region -->
 As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5). 
+    
+#### Question 3.3
 
-
-_**Check your understanding (online)**_
-
-Using the interactive online version of this book, calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
-<!-- #endregion -->
+Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+data.loc[23:29, "TEMP_CELSIUS"].mean()
 ```
 
 ### Selecting a single row or value
@@ -164,7 +173,7 @@ As an output, we got the individual value 65.5. `.at` works only when accessing 
 selection.loc[0, "TEMP"]
 ```
 
-### Selecting values based on index positions
+### Selections based on index positions
 
 As we have learned thus far, `.loc` and `.at` are based on the *axis labels* - the names of columns and rows. For positional based indexing, pandas has an `.iloc` which is based on *integer value* indices. With `.iloc`, it is also possible to refer to the columns based on their index value (i.e. to a positional number of a column in the DataFrame). For example,  `data.iloc[0,0]` would return `20160601` in our example DataFrame which is the value on the first row and first column in the data:    
 
@@ -198,6 +207,18 @@ One handy functionality with `.iloc` is the ability to fetch data starting from 
 
 ```python
 data.iloc[-1, -1]
+```
+
+### Selections using listed criteria
+
+One common way of selecting rows from a DataFrame is to provide a list of values that are used for finding matching rows in a specific DataFrame column. For example, selecting rows that match specific dates can be done by passing a list of values used as criteria to the `.isin()` -function of pandas. This will go through each value in the selected column (in this case `YEARMODA`) and checks whether there is a match or not. As an output, the `.isin()` command returns a Series of boolean values (True or False) which can be combined with `.loc` to do the final selection that returns only rows that meet the selection criteria.  
+
+```python
+# List of values that will be used as basis for selecting the rows
+selection_criteria = [20160601, 20160608, 20160609]
+
+# Do the selection based on criteria applied to YEARMODA column
+data.loc[data["YEARMODA"].isin(selection_criteria)]
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -262,12 +283,17 @@ As we can see, now we did not receive any warnings, and it would be safe to cont
 
 
 
-_**Check your understanding (online)**_
+#### Question 3.4
 
-Using the interactive online version of this book, find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the `YEARMODA` column.
+Find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the `YEARMODA` column.
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+data["TEMP_CELSIUS"].loc[data["YEARMODA"] >= 20160624].mean()
 ```
 
 ### View vs a copy
@@ -414,52 +440,47 @@ data.sort_values(by=["WEEKDAY", "TEMP_CELSIUS"], ascending=[True, False]).head(1
 As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data. 
 
 
-## Exercises
-
-In this exercise, you will clean the data from our data file by removing no-data values, convert temperature values in Fahrenheit to Celsius, and split the data into separate datasets using the weather station identification code. We will start this problem by cleaning and converting our temperature data. An overview of the tasks in this exercise:
-
-- Create a new dataframe called `selected` that contains selected columns from the data file
-- Clean the new DataFrame by removing no-data values
-- Create a new column for temperatures converted from Fahrenheit to Celsius
-- Divide the data into separate DataFrames for the Helsinki Kumpula and Rovaniemi stations
-- Save the new DataFrames to CSV files
+## Table joins: Combining DataFrames based on a common key
 
 
-### Problem 1 - Read the data and remove NaN values
+### The basic logic of a table join
 
-The first step for this problem is to read the data file 6153237444115dat.csv into a variable `data` using pandas and cleaning it a bit:
+Joining data between two or several DataFrames is a common task when doing data anaysis. The minimum requirement for being able to combine data between two (or more) DataFrames (i.e. *tables*), is to have at least one common attribute (called *key*) that has identical values in both DataFrames. Figure 3.4 illustrates this logic: we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier. The common `key` in this case is the time information which is in column `YEARMODA` in the left DataFrame and `DATE` column in the right DataFrame accordingly. The column names of the keys can be different (as in our case), but the actual values stored in these columns should correspond to each other, so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example. 
 
-- Select the columns `USAF, YR--MODAHRMN, TEMP, MAX, MIN` from the `data` DataFrame and assign them to a variable `selected`
-- Remove all rows from `selected` that have NoData in the column `TEMP` using the `dropna()` function
+![_**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._](../img/Table_join_logic.png)
 
-
-
-### Problem 2 - Convert temperatures to Celsius
-
-Convert the temperature values from Fahrenheits to Celsius:
-
-- Create a new column to `selected` called `Celsius`.
-- Convert the Fahrenheit temperatures from `TEMP` using the conversion formula below and store the results in the new `Celsius` column:
-   - TempCelsius = (TempFahrenheit - 32) / 1.8
-- Round the values in the `Celsius` column to have 0 decimals (do not create a new column, update the current one)
-- Convert the `Celsius` values into integers (do not create a new column, update the current one)
+_**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._
 
 
-### Problem 3 - Select data and save to disk
+### Table join using pandas `.merge()`
 
-Divide the data in `selected` into two separate DataFrames:
+In the following, we first read the precipitation data from Kumpula, and then join this data with the DataFrame containing the average temperature data. Merging two DataFrames together based on a common key (or multiple keys) can be done easily with pandas using the `.merge()` -function. The column which represents the key can be specified with parameter `on`, if the key column is identical in both DataFrames. In our case, the columns containing the common values between the DataFrames are named differently. Hence, we need to specify separately the key for the left DataFrame using parameter `left_on`, and parameter `right_on` for the right DataFrame accordingly. 
 
-- Select all rows from the selected DataFrame with the `USAF` code `29980` into a variable called `kumpula`.
-- Select all rows from the selected DataFrame with the `USAF` code `28450` into a variable called `rovaniemi`.
-- Save the `kumpula` DataFrame into a file `Kumpula_temps_May_Aug_2017.csv` in CSV format:
-  - Separate the columns with commas (,)
-  - Use only 2 decimals for the floating point numbers
-- Repeat the same procedures and save the `rovaniemi` DataFrame into a file `Rovaniemi_temps_May_Aug_2017.csv`.
+```python
+# Read precipitation data and show first rows
+rainfall = pd.read_csv("data/2902781.csv")
+rainfall.head()
+```
 
+```python
+# Make a table join
+join = data.merge(rainfall, left_on="YEARMODA", right_on="DATE")
+join.head()
+```
 
+Now we have merged all the information from the right DataFrame into the left one and stored the result into variable `join`. By doing this, we can e.g. analyze the relationship between the daily average temperature and precipitation, to understand whether the temperature is lower when it rains. Currently, the `join` DataFrame contains many variables that are not necessarily useful for us. To make the output more concise, a useful trick to do when joining is to limit the number of columns that will be kept from the right DataFrame. This can be done by chaining a simple column selection while doing the merge as shown next. When doing this, it is important to remember that the `key` column on the right DataFrame needs to be part of the selection for the table join to work.  
+
+```python
+# Make another join but only keep the attribute of interest
+join2 = data.merge(rainfall[["DATE", "PRCP"]], left_on="YEARMODA", right_on="DATE")
+join2.head()
+```
+
+As can be seen, now only the column `DATE` and the attribute of interest `PRCP` were joined and kept in the output from the right DataFrame. Similar trick can also be applied to the left DataFrame by adding the selection before the `.merge()` call if you want to reduce the number of columns on the result. 
+
+In our case, doing the table join was fairly straightforward because we had only one unique record per day in both DataFrames. However, in some cases you might have multiple records on either one of the DataFrames (e.g. hourly observations vs daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled e.g. by aggregating the hourly data to a daily average. You can learn more about these aggregation techniques in the following sections. 
 
 
 ## Footnotes
 
 [^numpydtypes]: <https://numpy.org/doc/stable/user/basics.types.html>
-[^pandasio]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html>

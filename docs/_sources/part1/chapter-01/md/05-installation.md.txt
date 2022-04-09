@@ -14,9 +14,9 @@ jupyter:
 
 # Installation and setup
 
-In order to be able to follow and reproduce the examples in the rest of the book, here we present some information about how to install Python on your own computer along with all of the recommended software libraries we use. This is not strictly necessary, as it is possible to use the Binder cloud computing platform from [the book website](https://pythongis.org/) to interact with the book materials. However, if you would like to get the most out of the book and ensure you're easily able to continue with Python afterward, we strongly recommend you install Python and Jupyter on your own computer.
+In order to be able to follow and reproduce the examples in the rest of the book, here we present some information about how to install Python on your own computer along with all of the recommended software libraries we use. This is not strictly necessary, as it is possible to use the Binder cloud computing platform from the book website [https://pythongis.org/](https://pythongis.org/) to interact with the book materials. However, if you would like to get the most out of the book and ensure you're easily able to continue with Python afterward, we strongly recommend you install Python and Jupyter on your own computer.
 
-In the sections that follow, we provide instructions for the installation of the Python using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the a [Python environment file we provide]() to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.
+In the sections that follow, we provide instructions for the installation of the Python using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) [^miniconda]. for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the [Python environment file we provide]() to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.
 
 
 ## Which Python version to install?
@@ -29,7 +29,7 @@ This book assumes you are using **Python 3**, so for all operating systems we re
 
 ### Installing Miniconda
 
-To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.
+To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer. You can find the latest installer links for various operating systems from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links) [^miniconda]. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.
 
 ![_**Figure 1.12**. Miniconda versions available for Windows.](../img/miniconda-windows.png)
 
@@ -117,7 +117,7 @@ There are three steps to install the software libraries needed in this book.
 
 ### Installing Miniconda
 
-Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html) (Figure 1.14). Be sure you download the Python 3 package.
+Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) (Figure 1.14). Be sure you download the Python 3 package.
 
 ![_**Figure 1.14**. Miniconda versions available for Linux.](../img/miniconda-linux.png)
 
@@ -167,3 +167,9 @@ There are three steps to install the software libraries needed in this book.
     ```
 
     in the Anaconda Prompt. You should now have all of the software needed to proceed with the book.
+
+
+
+## Footnotes
+
+[^miniconda]: <https://docs.conda.io/en/latest/miniconda.html> 

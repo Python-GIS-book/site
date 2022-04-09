@@ -69,7 +69,7 @@ The list of basic arithmetic operations that can be done by default in Python ar
 | Division       | `/`    | `4 / 2`        | `2`            |
 | Exponentiation | `**`   | `2**3`         | `8`            |
 
-**Table 1.1**. Basic math operations in Python.
+_**Table 2.1**. Basic math operations in Python._
 
 For anything more advanced, we need to load a *{term}`module`* or *{term}`library`*. For math operations, this module is called *math* and it can be loaded by typing `import math`.
 <!-- #endregion -->
@@ -104,13 +104,13 @@ Note that modules may also contain constants such as ``math.pi``. Parentheses ar
 math.pi
 ```
 
-#### Check your understanding
+#### Question 2.1
 
 Use your Python skills to calculate the sine of pi. What value do you expect for this calculation? Did you get the expected result?
 
 ```python
 # Note that lines starting with "#" are ignored in Python.
-# An example solution can be found below.
+# Use this cell to enter your solution.
 ```
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["hide_cell"]
@@ -157,17 +157,17 @@ print("Temperature in Fahrenheit:", 9 / 5 * temp_celsius + 32)
 ```
 
 <!-- #region deletable=true editable=true -->
-#### Check your understanding
+#### Question 2.2
 
 Define a variable and print its value to the screen using the `print()` function. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name.
 <!-- #endregion -->
 
 ```python
-# An example solution can be found below.
+# Use this cell to enter your solution.
 ```
 
 ```python deletable=true editable=true tags=["hide_cell"]
-# Example solution
+# Solution
 
 my_variable = "Python is cool!"
 print(my_variable)
@@ -240,7 +240,7 @@ There are 4 basic data types in Python as shown in table 1.2.
 | `str`          | Character strings    | `'Hot'`    |
 | `bool`         | True/false values    | `True`     |
 
-**Table 1.2**. Basic data types in Python.
+_**Table 2.2**. Basic data types in Python._
 
 The data type can be found using the `type()` function. As you will see, the data types are important because some are not compatible with one another. Let's define a variable ``weatherForecast`` and assign it the value ``'Hot'``. After this, we can check its data type using the ``type()`` function.
 <!-- #endregion -->
@@ -262,16 +262,16 @@ In this case we get at ``TypeError`` because we are trying to execute a math ope
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
-#### Check your understanding
+#### Question 2.3
 
 As it turns out, it is possible some math with character strings in Python. Define two variables and assign them character string values. What happens if you try to add two character strings together? Can you subtract them? Which other math operations work for character strings?
 <!-- #endregion -->
 
 ```python
-# An example solution can be found in the cell below.
+# Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true tags=["hide_cell"]
+```python deletable=true editable=true tags=["hide_cell", "raises-exception"]
 # Solution
 
 first_variable = "Python"
@@ -284,7 +284,9 @@ print(first_variable - second_variable)
 
 ## Lists and indices
 
-Above we have seen a bit of data related to one of several FMI observation stations in the Helsinki area. Rather than having individual variables for each of those stations, we can store many related values in a *collection*. The simplest type of collection in Python is a *{term}`list`*.
+So far, we have learned a bit about variables, their values, and data types in this section. We will now continue with a new data type called a *{term}`list`*. Using a list, we can store many related values together with a single variable. In Python, there are several different types of data that can be used to store values together in a *collection*, and a list is the simplest type.
+
+To explore lists, we will be using data related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) [^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type.
 
 
 ### Creating a list
@@ -332,12 +334,12 @@ OK, that makes sense, but it may take some getting used to...
 <!-- #region -->
 ### A useful analog - Bill the vending machine
 
-As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill (Figure 1.8).
+As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill (Figure 2.1).
 
 
-![_**Figure 1.8**. Bill, the vending machine._](../img/bill-the-vending-machine.png)
+![_**Figure 2.1**. Bill, the vending machine._](../img/bill-the-vending-machine.png)
 
-_**Figure 1.8**. Bill, the vending machine._
+_**Figure 2.1**. Bill, the vending machine._
 
 As you can see, Bill is a vending machine that contains 6 items. Like Python lists, the list of items available from Bill starts at 0 and increases in increments of 1.
 
@@ -413,9 +415,31 @@ print(station_types)
 
 ### Data types in lists
 
-Lists can also store more than one type of data. Let’s consider that in addition to having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for station ‘Helsinki Kaivopuisto’.
+One of the benefits of a list is that they can be used to store more than one type of data. Let’s consider that instead of having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for a single station. In this case we will create a list of values for the ‘Helsinki Kaivopuisto’ station.
 
 ```python
+station_name = "Helsinki Kaivopuisto"
+```
+
+```python
+station_id = 132310
+```
+
+```python
+station_lat = 60.15
+```
+
+```python
+station_lon = 24.96
+```
+
+```python
+station_type = "Mareographs"
+```
+
+Now that we have defined five variables related to the Helsinki Kaivopuisto station, we can combine them in a list similar to how we have done previously.
+
+```python tags=[]
 station_hel_kaivo = [station_name, station_id, station_lat, station_lon, station_type]
 print(station_hel_kaivo)
 ```
@@ -437,6 +461,9 @@ type(station_hel_kaivo[1])  # The FMISID
 ```python
 type(station_hel_kaivo[2])  # The station latitude
 ```
+
+Note that although it is possible to have different types of data in a Python list, you are encouraged to create lists containing the same data types. Data science workflows are often built around handling collections of data of the same type and having multiple data types in a list may cause problems for software you are trying to use.
+
 
 ### Adding and removing values from lists
 
@@ -549,35 +576,21 @@ As you can see, the list has been sorted alphabetically using the `list.sort()` 
 ## Making different data types work together
 
 
-We learned a bit about variables and their values earlier in this section. We now continue with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:
+Earlier in this section we defined five variables related to the Helsinki Kaviopuisto observation station:
 
-```python
-station_name = "Helsinki Kaivopuisto"
-```
+- `station_name`
+- `station_id`
+- `station_lat`
+- `station_lon`
+- `station_type`
 
-```python
-station_id = 132310
-```
-
-```python
-station_lat = 60.15
-```
-
-```python
-station_lon = 24.96
-```
-
-```python
-station_type = "Mareographs"
-```
-
-Here we have 5 values assigned to variables related to a single observation station. Each variable has a unique name and they can store different types of data.
+which refer to the the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. Each variable has a unique name and they store different types of data.
 
 
 ### Data types and their compatibility
 
-We can explore the different types of data stored in variables using the `type()` function.
-Let's check the data types of the variables `station_name`, `station_id`, and `station_lat`.
+As you likely recall, we can explore the different types of data stored in variables using the `type()` function.
+Let's now check the data types of the variables `station_name`, `station_id`, and `station_lat`.
 
 ```python
 type(station_name)
@@ -657,12 +670,12 @@ info_text = f"The temperature at {station_name} station (ID: {station_id}) is {t
 print(info_text)
 ```
 
-![_**Figure 1.X**. F-string formatting explained. _](../img/F-string-formatting.png)
+![_**Figure 2.2**. F-string formatting explained._](../img/F-string-formatting.png)
 
-_**Figure 1.X**. F-string formatting explained._
+_**Figure 2.2**. F-string formatting explained._
 
 
-As you can see, using string formatting it is possible to easily modify a body of text "interactively" based on values stored in given variables. **Figure X** breaks down the different parts of the string. The text that you want to create and/or modify is enclosed within the quotes preceded with letter `f`. You can pass any existing variable inside the text template by placing the name of the variable within the curly braces `{}`. Using string formatting, it is also possible to insert numbers (such as `station_id` and `temp` here) within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does the data type conversion for us in the background without us needing to worry about it (handy!). 
+As you can see, using string formatting it is possible to easily modify a body of text "interactively" based on values stored in given variables. Figure 2.2 breaks down the different parts of the string. The text that you want to create and/or modify is enclosed within the quotes preceded with letter `f`. You can pass any existing variable inside the text template by placing the name of the variable within the curly braces `{}`. Using string formatting, it is also possible to insert numbers (such as `station_id` and `temp` here) within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does the data type conversion for us in the background without us needing to worry about it (handy!). 
 
 It is also possible to round these numbers on-the-fly to specific precision, such as two decimal points as in our example by adding format specifier (`:.2f`) after the variable that we want to round. The format specifier works by first adding a colon (`:`) after the variable name, and then specifying with dot (`.`) that we want to round our value to 2 decimal places (can be any digits). The final character `f` in the format specifier defines the type of the conversion that will be conducted: character `f` will convert the value to decimal number, whereas character `e` would make the number to appear as exponential number while character `%` would convert the value to percentage representation. 
 
@@ -754,15 +767,6 @@ print(stations_lower)
 print(stations_capitalize)
 ```
 
-## Exercises
-
-Add exercises.
-
-
 ## Footnotes
 
-[^swc]: <http://software-carpentry.org>
-[^jupyter]: <https://jupyter.org/>
-[^jupyterlab]: <http://jupyterlab.readthedocs.io/en/stable/>
-[^markdown]: <https://en.wikipedia.org/wiki/Markdown>
 [^FMI_stations]: <http://en.ilmatieteenlaitos.fi/observation-stations>

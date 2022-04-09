@@ -122,10 +122,10 @@
      "evalue": "name 'sin' is not defined",
      "output_type": "error",
      "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-3-2b5fc2868c51>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0msin\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m3\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;31mNameError\u001b[0m: name 'sin' is not defined"
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m/var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_60783/1532400118.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0msin\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m3\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m: name 'sin' is not defined"
      ]
     }
    ],
@@ -153,10 +153,10 @@
      "evalue": "name 'sqrt' is not defined",
      "output_type": "error",
      "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-4-317e033d29d5>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0msqrt\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m4\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;31mNameError\u001b[0m: name 'sqrt' is not defined"
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m/var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_60783/1103852951.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0msqrt\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m4\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m: name 'sqrt' is not defined"
      ]
     }
    ],
@@ -193,7 +193,7 @@
     "| Division       | `/`    | `4 / 2`        | `2`            |\n",
     "| Exponentiation | `**`   | `2**3`         | `8`            |\n",
     "\n",
-    "**Table 1.1**. Basic math operations in Python.\n",
+    "_**Table 2.1**. Basic math operations in Python._\n",
     "\n",
     "For anything more advanced, we need to load a *{term}`module`* or *{term}`library`*. For math operations, this module is called *math* and it can be loaded by typing `import math`."
    ]
@@ -320,7 +320,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "#### Check your understanding\n",
+    "#### Question 2.1\n",
     "\n",
     "Use your Python skills to calculate the sine of pi. What value do you expect for this calculation? Did you get the expected result?"
    ]
@@ -332,7 +332,7 @@
    "outputs": [],
    "source": [
     "# Note that lines starting with \"#\" are ignored in Python.\n",
-    "# An example solution can be found below."
+    "# Use this cell to enter your solution."
    ]
   },
   {
@@ -513,7 +513,7 @@
     "editable": true
    },
    "source": [
-    "#### Check your understanding\n",
+    "#### Question 2.2\n",
     "\n",
     "Define a variable and print its value to the screen using the `print()` function. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name."
    ]
@@ -524,7 +524,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# An example solution can be found below."
+    "# Use this cell to enter your solution."
    ]
   },
   {
@@ -547,7 +547,7 @@
     }
    ],
    "source": [
-    "# Example solution\n",
+    "# Solution\n",
     "\n",
     "my_variable = \"Python is cool!\"\n",
     "print(my_variable)"
@@ -631,10 +631,10 @@
      "evalue": "name 'tempFahrenheit' is not defined",
      "output_type": "error",
      "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-19-2067e78f4444>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'Temperature in Celsius:'\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;36m5\u001b[0m\u001b[1;33m/\u001b[0m\u001b[1;36m9\u001b[0m \u001b[1;33m*\u001b[0m \u001b[1;33m(\u001b[0m\u001b[0mtempFahrenheit\u001b[0m \u001b[1;33m-\u001b[0m \u001b[1;36m32\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;31mNameError\u001b[0m: name 'tempFahrenheit' is not defined"
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m/var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_60783/1178739870.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"Temperature in Celsius:\"\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;36m5\u001b[0m \u001b[0;34m/\u001b[0m \u001b[0;36m9\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0mtempFahrenheit\u001b[0m \u001b[0;34m-\u001b[0m \u001b[0;36m32\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m: name 'tempFahrenheit' is not defined"
      ]
     }
    ],
@@ -763,7 +763,7 @@
     "| `str`          | Character strings    | `'Hot'`    |\n",
     "| `bool`         | True/false values    | `True`     |\n",
     "\n",
-    "**Table 1.2**. Basic data types in Python.\n",
+    "_**Table 2.2**. Basic data types in Python._\n",
     "\n",
     "The data type can be found using the `type()` function. As you will see, the data types are important because some are not compatible with one another. Let's define a variable ``weatherForecast`` and assign it the value ``'Hot'``. After this, we can check its data type using the ``type()`` function."
    ]
@@ -823,10 +823,10 @@
      "evalue": "can't multiply sequence by non-int of type 'float'",
      "output_type": "error",
      "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-24-41e07022ce91>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[0;32m      1\u001b[0m \u001b[0mtype\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mtempFahrenheit\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m----> 2\u001b[1;33m \u001b[0mtempFahrenheit\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mtempFahrenheit\u001b[0m \u001b[1;33m+\u001b[0m \u001b[1;36m5.0\u001b[0m \u001b[1;33m*\u001b[0m \u001b[0mweatherForecast\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;31mTypeError\u001b[0m: can't multiply sequence by non-int of type 'float'"
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m/var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_60783/585404086.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0mtype\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtempFahrenheit\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0mtempFahrenheit\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mtempFahrenheit\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0;36m5.0\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0mweatherForecast\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m: can't multiply sequence by non-int of type 'float'"
      ]
     }
    ],
@@ -852,7 +852,7 @@
     "editable": true
    },
    "source": [
-    "#### Check your understanding\n",
+    "#### Question 2.3\n",
     "\n",
     "As it turns out, it is possible some math with character strings in Python. Define two variables and assign them character string values. What happens if you try to add two character strings together? Can you subtract them? Which other math operations work for character strings?"
    ]
@@ -863,7 +863,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# An example solution can be found in the cell below."
+    "# Use this cell to enter your solution."
    ]
   },
   {
@@ -873,7 +873,8 @@
     "deletable": true,
     "editable": true,
     "tags": [
-     "hide_cell"
+     "hide_cell",
+     "raises-exception"
     ]
    },
    "outputs": [
@@ -890,10 +891,10 @@
      "evalue": "unsupported operand type(s) for -: 'str' and 'str'",
      "output_type": "error",
      "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-26-7569c10503f0>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[0;32m      6\u001b[0m \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mfirst_variable\u001b[0m \u001b[1;33m+\u001b[0m \u001b[0msecond_variable\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m      7\u001b[0m \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m5\u001b[0m \u001b[1;33m*\u001b[0m \u001b[0mfirst_variable\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m----> 8\u001b[1;33m \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mfirst_variable\u001b[0m \u001b[1;33m-\u001b[0m \u001b[0msecond_variable\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;31mTypeError\u001b[0m: unsupported operand type(s) for -: 'str' and 'str'"
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m/var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_60783/2629847667.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      6\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfirst_variable\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0msecond_variable\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      7\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m5\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0mfirst_variable\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 8\u001b[0;31m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfirst_variable\u001b[0m \u001b[0;34m-\u001b[0m \u001b[0msecond_variable\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m: unsupported operand type(s) for -: 'str' and 'str'"
      ]
     }
    ],
@@ -914,7 +915,9 @@
    "source": [
     "## Lists and indices\n",
     "\n",
-    "Above we have seen a bit of data related to one of several FMI observation stations in the Helsinki area. Rather than having individual variables for each of those stations, we can store many related values in a *collection*. The simplest type of collection in Python is a *{term}`list`*."
+    "So far, we have learned a bit about variables, their values, and data types in this section. We will now continue with a new data type called a *{term}`list`*. Using a list, we can store many related values together with a single variable. In Python, there are several different types of data that can be used to store values together in a *collection*, and a list is the simplest type.\n",
+    "\n",
+    "To explore lists, we will be using data related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) [^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type."
    ]
   },
   {
@@ -928,7 +931,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 41,
+   "execution_count": 27,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -942,7 +945,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 42,
+   "execution_count": 28,
    "metadata": {},
    "outputs": [
     {
@@ -966,7 +969,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 43,
+   "execution_count": 29,
    "metadata": {},
    "outputs": [
     {
@@ -975,7 +978,7 @@
        "list"
       ]
      },
-     "execution_count": 43,
+     "execution_count": 29,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1002,7 +1005,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 44,
+   "execution_count": 30,
    "metadata": {},
    "outputs": [
     {
@@ -1026,7 +1029,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 45,
+   "execution_count": 31,
    "metadata": {},
    "outputs": [
     {
@@ -1054,12 +1057,12 @@
    "source": [
     "### A useful analog - Bill the vending machine\n",
     "\n",
-    "As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill (Figure 1.8).\n",
+    "As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill (Figure 2.1).\n",
     "\n",
     "\n",
-    "![_**Figure 1.8**. Bill, the vending machine._](../img/bill-the-vending-machine.png)\n",
+    "![_**Figure 2.1**. Bill, the vending machine._](../img/bill-the-vending-machine.png)\n",
     "\n",
-    "_**Figure 1.8**. Bill, the vending machine._\n",
+    "_**Figure 2.1**. Bill, the vending machine._\n",
     "\n",
     "As you can see, Bill is a vending machine that contains 6 items. Like Python lists, the list of items available from Bill starts at 0 and increases in increments of 1.\n",
     "\n",
@@ -1082,7 +1085,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 46,
+   "execution_count": 32,
    "metadata": {},
    "outputs": [
     {
@@ -1091,7 +1094,7 @@
        "4"
       ]
      },
-     "execution_count": 46,
+     "execution_count": 32,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1118,7 +1121,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 47,
+   "execution_count": 33,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -1130,10 +1133,10 @@
      "evalue": "list index out of range",
      "output_type": "error",
      "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mIndexError\u001b[0m                                Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-47-dc7905f18eab>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mstation_names\u001b[0m\u001b[1;33m[\u001b[0m\u001b[1;36m4\u001b[0m\u001b[1;33m]\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;31mIndexError\u001b[0m: list index out of range"
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mIndexError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m/var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_60783/268124338.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mstation_names\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m4\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mIndexError\u001b[0m: list index out of range"
      ]
     }
    ],
@@ -1150,7 +1153,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 48,
+   "execution_count": 34,
    "metadata": {},
    "outputs": [
     {
@@ -1174,7 +1177,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 49,
+   "execution_count": 35,
    "metadata": {},
    "outputs": [
     {
@@ -1191,7 +1194,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 50,
+   "execution_count": 36,
    "metadata": {},
    "outputs": [
     {
@@ -1215,7 +1218,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 51,
+   "execution_count": 37,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -1227,10 +1230,10 @@
      "evalue": "list index out of range",
      "output_type": "error",
      "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mIndexError\u001b[0m                                Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-51-65170e33400a>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mstation_names\u001b[0m\u001b[1;33m[\u001b[0m\u001b[1;33m-\u001b[0m\u001b[1;36m5\u001b[0m\u001b[1;33m]\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;31mIndexError\u001b[0m: list index out of range"
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mIndexError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m/var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_60783/3228138471.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mstation_names\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0;36m5\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mIndexError\u001b[0m: list index out of range"
      ]
     }
    ],
@@ -1249,7 +1252,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 52,
+   "execution_count": 38,
    "metadata": {},
    "outputs": [
     {
@@ -1279,7 +1282,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 53,
+   "execution_count": 39,
    "metadata": {},
    "outputs": [
     {
@@ -1301,13 +1304,67 @@
    "source": [
     "### Data types in lists\n",
     "\n",
-    "Lists can also store more than one type of data. Let’s consider that in addition to having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for station ‘Helsinki Kaivopuisto’."
+    "One of the benefits of a list is that they can be used to store more than one type of data. Let’s consider that instead of having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for a single station. In this case we will create a list of values for the ‘Helsinki Kaivopuisto’ station."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 54,
+   "execution_count": 40,
    "metadata": {},
+   "outputs": [],
+   "source": [
+    "station_name = \"Helsinki Kaivopuisto\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "station_id = 132310"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "station_lat = 60.15"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "station_lon = 24.96"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "station_type = \"Mareographs\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now that we have defined five variables related to the Helsinki Kaivopuisto station, we can combine them in a list similar to how we have done previously."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {
+    "tags": []
+   },
    "outputs": [
     {
      "name": "stdout",
@@ -1331,7 +1388,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 55,
+   "execution_count": 46,
    "metadata": {},
    "outputs": [
     {
@@ -1340,7 +1397,7 @@
        "list"
       ]
      },
-     "execution_count": 55,
+     "execution_count": 46,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1351,7 +1408,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 56,
+   "execution_count": 47,
    "metadata": {},
    "outputs": [
     {
@@ -1360,7 +1417,7 @@
        "str"
       ]
      },
-     "execution_count": 56,
+     "execution_count": 47,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1371,7 +1428,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 57,
+   "execution_count": 48,
    "metadata": {},
    "outputs": [
     {
@@ -1380,7 +1437,7 @@
        "int"
       ]
      },
-     "execution_count": 57,
+     "execution_count": 48,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1391,7 +1448,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 58,
+   "execution_count": 49,
    "metadata": {},
    "outputs": [
     {
@@ -1400,13 +1457,20 @@
        "float"
       ]
      },
-     "execution_count": 58,
+     "execution_count": 49,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
     "type(station_hel_kaivo[2])  # The station latitude"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Note that although it is possible to have different types of data in a Python list, you are encouraged to create lists containing the same data types. Data science workflows are often built around handling collections of data of the same type and having multiple data types in a list may cause problems for software you are trying to use."
    ]
   },
   {
@@ -1420,7 +1484,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 59,
+   "execution_count": 50,
    "metadata": {},
    "outputs": [
     {
@@ -1444,7 +1508,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 60,
+   "execution_count": 51,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1453,7 +1517,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 61,
+   "execution_count": 52,
    "metadata": {},
    "outputs": [
     {
@@ -1477,7 +1541,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 62,
+   "execution_count": 53,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1487,7 +1551,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 63,
+   "execution_count": 54,
    "metadata": {},
    "outputs": [
     {
@@ -1520,7 +1584,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 64,
+   "execution_count": 55,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1529,7 +1593,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 65,
+   "execution_count": 56,
    "metadata": {},
    "outputs": [
     {
@@ -1553,7 +1617,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 66,
+   "execution_count": 57,
    "metadata": {},
    "outputs": [
     {
@@ -1562,7 +1626,7 @@
        "int"
       ]
      },
-     "execution_count": 66,
+     "execution_count": 57,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1580,7 +1644,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 67,
+   "execution_count": 58,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -1592,10 +1656,10 @@
      "evalue": "'int' object has no attribute 'append'",
      "output_type": "error",
      "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mAttributeError\u001b[0m                            Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-67-69d63b22a4c2>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0mstation_name_length\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mappend\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m1\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;31mAttributeError\u001b[0m: 'int' object has no attribute 'append'"
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mAttributeError\u001b[0m                            Traceback (most recent call last)",
+      "\u001b[0;32m/var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_60783/3847642394.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mstation_name_length\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mappend\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mAttributeError\u001b[0m: 'int' object has no attribute 'append'"
      ]
     }
    ],
@@ -1621,7 +1685,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 68,
+   "execution_count": 59,
    "metadata": {},
    "outputs": [
     {
@@ -1630,7 +1694,7 @@
        "1"
       ]
      },
-     "execution_count": 68,
+     "execution_count": 59,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1648,7 +1712,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 69,
+   "execution_count": 60,
    "metadata": {},
    "outputs": [
     {
@@ -1657,7 +1721,7 @@
        "2"
       ]
      },
-     "execution_count": 69,
+     "execution_count": 60,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1686,7 +1750,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 70,
+   "execution_count": 61,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1695,7 +1759,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 71,
+   "execution_count": 62,
    "metadata": {},
    "outputs": [
     {
@@ -1728,7 +1792,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 72,
+   "execution_count": 63,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1737,7 +1801,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 73,
+   "execution_count": 64,
    "metadata": {},
    "outputs": [
     {
@@ -1770,59 +1834,15 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "We learned a bit about variables and their values earlier in this section. We now continue with some variables related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations)[^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. We can store this information and some additional information for a given station in Python as follows:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "station_name = \"Helsinki Kaivopuisto\""
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 3,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "station_id = 132310"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 4,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "station_lat = 60.15"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 5,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "station_lon = 24.96"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 6,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "station_type = \"Mareographs\""
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Here we have 5 values assigned to variables related to a single observation station. Each variable has a unique name and they can store different types of data."
+    "Earlier in this section we defined five variables related to the Helsinki Kaviopuisto observation station:\n",
+    "\n",
+    "- `station_name`\n",
+    "- `station_id`\n",
+    "- `station_lat`\n",
+    "- `station_lon`\n",
+    "- `station_type`\n",
+    "\n",
+    "which refer to the the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. Each variable has a unique name and they store different types of data."
    ]
   },
   {
@@ -1831,13 +1851,13 @@
    "source": [
     "### Data types and their compatibility\n",
     "\n",
-    "We can explore the different types of data stored in variables using the `type()` function.\n",
-    "Let's check the data types of the variables `station_name`, `station_id`, and `station_lat`."
+    "As you likely recall, we can explore the different types of data stored in variables using the `type()` function.\n",
+    "Let's now check the data types of the variables `station_name`, `station_id`, and `station_lat`."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 65,
    "metadata": {},
    "outputs": [
     {
@@ -1846,7 +1866,7 @@
        "str"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 65,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1857,7 +1877,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 66,
    "metadata": {},
    "outputs": [
     {
@@ -1866,7 +1886,7 @@
        "int"
       ]
      },
-     "execution_count": 8,
+     "execution_count": 66,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1877,7 +1897,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 67,
    "metadata": {},
    "outputs": [
     {
@@ -1886,7 +1906,7 @@
        "float"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 67,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1904,7 +1924,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 68,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -1918,7 +1938,7 @@
      "traceback": [
       "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
       "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[0;32m/tmp/ipykernel_10309/3495446551.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mstation_name\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0mstation_id\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m/var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_60783/3495446551.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mstation_name\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0mstation_id\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
       "\u001b[0;31mTypeError\u001b[0m: can only concatenate str (not \"int\") to str"
      ]
     }
@@ -1945,7 +1965,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 69,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1961,7 +1981,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 70,
    "metadata": {},
    "outputs": [
     {
@@ -1970,7 +1990,7 @@
        "str"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 70,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1981,7 +2001,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 71,
    "metadata": {},
    "outputs": [
     {
@@ -1990,7 +2010,7 @@
        "'132310'"
       ]
      },
-     "execution_count": 13,
+     "execution_count": 71,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -2017,7 +2037,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 72,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -2026,7 +2046,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 73,
    "metadata": {},
    "outputs": [
     {
@@ -2070,7 +2090,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 35,
+   "execution_count": 74,
    "metadata": {},
    "outputs": [
     {
@@ -2095,16 +2115,16 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "![_**Figure 1.X**. F-string formatting explained. _](../img/F-string-formatting.png)\n",
+    "![_**Figure 2.2**. F-string formatting explained._](../img/F-string-formatting.png)\n",
     "\n",
-    "_**Figure 1.X**. F-string formatting explained._"
+    "_**Figure 2.2**. F-string formatting explained._"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "As you can see, using string formatting it is possible to easily modify a body of text \"interactively\" based on values stored in given variables. **Figure X** breaks down the different parts of the string. The text that you want to create and/or modify is enclosed within the quotes preceded with letter `f`. You can pass any existing variable inside the text template by placing the name of the variable within the curly braces `{}`. Using string formatting, it is also possible to insert numbers (such as `station_id` and `temp` here) within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does the data type conversion for us in the background without us needing to worry about it (handy!). \n",
+    "As you can see, using string formatting it is possible to easily modify a body of text \"interactively\" based on values stored in given variables. Figure 2.2 breaks down the different parts of the string. The text that you want to create and/or modify is enclosed within the quotes preceded with letter `f`. You can pass any existing variable inside the text template by placing the name of the variable within the curly braces `{}`. Using string formatting, it is also possible to insert numbers (such as `station_id` and `temp` here) within the body of text without needing first to convert the data type to string. This is because the f-string functionality kindly does the data type conversion for us in the background without us needing to worry about it (handy!). \n",
     "\n",
     "It is also possible to round these numbers on-the-fly to specific precision, such as two decimal points as in our example by adding format specifier (`:.2f`) after the variable that we want to round. The format specifier works by first adding a colon (`:`) after the variable name, and then specifying with dot (`.`) that we want to round our value to 2 decimal places (can be any digits). The final character `f` in the format specifier defines the type of the conversion that will be conducted: character `f` will convert the value to decimal number, whereas character `e` would make the number to appear as exponential number while character `%` would convert the value to percentage representation. \n",
     "\n",
@@ -2122,7 +2142,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 39,
+   "execution_count": 75,
    "metadata": {},
    "outputs": [
     {
@@ -2154,7 +2174,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 38,
+   "execution_count": 76,
    "metadata": {},
    "outputs": [
     {
@@ -2192,7 +2212,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 46,
+   "execution_count": 77,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -2208,7 +2228,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 58,
+   "execution_count": 78,
    "metadata": {},
    "outputs": [
     {
@@ -2226,7 +2246,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 59,
+   "execution_count": 79,
    "metadata": {},
    "outputs": [
     {
@@ -2235,7 +2255,7 @@
        "list"
       ]
      },
-     "execution_count": 59,
+     "execution_count": 79,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -2253,7 +2273,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 60,
+   "execution_count": 80,
    "metadata": {},
    "outputs": [
     {
@@ -2262,7 +2282,7 @@
        "' Helsinki Kumpula, Helsinki Kaisaniemi, Helsinki Harmaja'"
       ]
      },
-     "execution_count": 60,
+     "execution_count": 80,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -2281,7 +2301,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 61,
+   "execution_count": 81,
    "metadata": {},
    "outputs": [
     {
@@ -2290,7 +2310,7 @@
        "'Helsinki Kumpula, Helsinki Kaisaniemi, Helsinki Harmaja'"
       ]
      },
-     "execution_count": 61,
+     "execution_count": 81,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -2316,7 +2336,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 62,
+   "execution_count": 82,
    "metadata": {},
    "outputs": [
     {
@@ -2325,7 +2345,7 @@
        "'Kumpula, Kaisaniemi, Harmaja'"
       ]
      },
-     "execution_count": 62,
+     "execution_count": 82,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -2344,7 +2364,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 64,
+   "execution_count": 83,
    "metadata": {},
    "outputs": [
     {
@@ -2371,21 +2391,8 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Exercises\n",
-    "\n",
-    "Add exercises."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
     "## Footnotes\n",
     "\n",
-    "[^swc]: <http://software-carpentry.org>\n",
-    "[^jupyter]: <https://jupyter.org/>\n",
-    "[^jupyterlab]: <http://jupyterlab.readthedocs.io/en/stable/>\n",
-    "[^markdown]: <https://en.wikipedia.org/wiki/Markdown>\n",
     "[^FMI_stations]: <http://en.ilmatieteenlaitos.fi/observation-stations>"
    ]
   }

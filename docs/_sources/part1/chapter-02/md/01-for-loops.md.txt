@@ -123,7 +123,9 @@ In sum, `for` loops are useful to repeat some part of the code a *definite* numb
 <!-- #region -->
 ### Your daily for loop
 
-![**Figure 1.9**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>.](../img/2009-11-03-Cats-Eye.jpg)
+![_**Figure 2.3**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>_.](../img/2009-11-03-Cats-Eye.jpg)
+
+_**Figure 2.3**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>_.
 
 Like many other programming concepts, the idea of looping through actions is something that is already perhaps more familiar to you than you think.
 Consider your actions during a given day.
@@ -190,7 +192,7 @@ help(range)
 ```
 
 <!-- #region -->
-**Check your understanding (online)**
+#### Question 2.4
 
 The program below will print numbers to the screen using the `range()` function.
 
@@ -199,7 +201,7 @@ for i in range(...):
     print(i)
 ```
 
-Using the documentation that is produced when you run `help(range)`, what values would you replace the `...` in the parentheses of the `range()` function with to have the following output printed to the screen?
+Using the documentation that is produced when you run `help(range)`, what values would you replace the `...` in the parentheses of the `range()` function with to have the following output printed to the screen? Try to first think about the function without running any code.
 
 ```python
 2
@@ -209,7 +211,14 @@ Using the documentation that is produced when you run `help(range)`, what values
 <!-- #endregion -->
 
 ```python
-# Add your solution here
+# You can use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+for i in range(2, 9, 3):
+    print(i)
 ```
 
 ## Looping over lists using index values
@@ -265,9 +274,9 @@ for i in range(len(cities)):
 Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week. In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
 
 <!-- #region -->
-**Check your understanding (online)**
+#### Question 2.5
 
-What output would the following program produce? Try to think about the loop without running any code.
+What output would the following program produce? Try to first think about the loop without running any code.
 
 ```python
 odd_numbers = [1, 3, 5, 7, 9]
@@ -278,12 +287,17 @@ for i in range(len(odd_numbers)):
 <!-- #endregion -->
 
 ```python
-
+# Use this cell to enter your solution.
 ```
 
-## Exercises
+```python tags=["hide-cell"]
+# Solution
 
-Add exercises.
-
+11
+7
+11
+15
+11
+```
 
 ## Footnotes

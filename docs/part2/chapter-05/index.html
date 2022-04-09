@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chapter 5: Processing vector data</title>
+    <title>Essentials: What is special about geographic data?</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/pythongis.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom-toggle-button.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -39,6 +40,8 @@
     <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Vector data processing" href="../chapter-06/index.html" />
+    <link rel="prev" title="Exercises" href="../../part1/chapter-04/nb/05-exercises.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -106,7 +109,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../part1/chapter-01/nb/03-jupyter.html">
-     Jupyter notebooks
+     Jupyter Notebooks
     </a>
    </li>
    <li class="toctree-l2">
@@ -190,7 +193,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../part1/chapter-03/nb/00-pandas-basics.html">
-     Getting started with pandas
+     Getting started with data pandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -209,7 +212,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part1/chapter-03/nb/04-references.html">
+    <a class="reference internal" href="../../part1/chapter-03/nb/04-exercises.html">
+     Exercises
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part1/chapter-03/nb/05-references.html">
      References
     </a>
    </li>
@@ -245,19 +253,182 @@
      Creating subplots
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part1/chapter-04/nb/04-plot-formatting.html">
+     Effective plot design: line plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part1/chapter-04/nb/05-exercises.html">
+     Exercises
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Part II - Using Python with GIS
+  Part II - Introduction to GIS with Python
  </span>
 </p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Introduction to GIS in Python
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Essentials: What is special about geographic data?
   </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../chapter-06/index.html">
+   Vector data processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/00-geometric-objects.html">
+     Geographic objects in Python/Shapely
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/01-geopandas-basics.html">
+     Introduction to spatial data analysis with Geopandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/02-data-io.html">
+     Vector Data I/O in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/03-projections.html">
+     Map projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/04-from-text-to-map.html">
+     From text to map
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/05-spatial-queries.html">
+     Spatial queries and selections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/06-spatial-join.html">
+     Spatial join
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/07-nearest-neighbour.html">
+     Nearest Neighbour Analysis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/08-spatial_index.html">
+     Spatial index - How to boost spatial queries?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/09-nearest-neighbor-faster.html">
+     Nearest neighbor analysis with large datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-06/nb/10-geometric-operations.html">
+     Geometric operations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../chapter-07/index.html">
+   Raster data processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-07/nb/01-reading-raster.html">
+     Reading raster files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-07/nb/plotting-raster.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-07/nb/clipping-raster.html">
+     Masking / clipping raster
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-07/nb/raster-map-algebra.html">
+     Raster map algebra
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-07/nb/raster-mosaic.html">
+     Creating a raster mosaic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-07/nb/zonal-statistics.html">
+     Zonal statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-07/nb/read-cogs.html">
+     Read Cloud Optimized Geotiffs
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../chapter-08/index.html">
+   Geographic data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-08/nb/00-static-maps.html">
+     Static maps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-08/nb/01-interactive-maps.html">
+     Interactive maps
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../chapter-09/index.html">
+   Using online geographic data sources
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-09/nb/00-retrieve_osm_data.html">
+     Retrieving OpenStreetMap data
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
@@ -282,8 +453,8 @@
   <a class="reference internal" href="../../back-matter/appendices.html">
    Appendices
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -310,12 +481,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../back-matter/nb/appendix-5.html">
-     Solutions to lesson questions
+     Solutions to questions
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../back-matter/nb/appendix-6.html">
-     Solutions to exercises
+     Exercise solutions
     </a>
    </li>
   </ul>
@@ -432,7 +603,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Chapter 5: Processing vector data</h1>
+                <h1>Essentials: What is special about geographic data?</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -443,9 +614,29 @@
             
               <div>
                 
-  <div class="section" id="chapter-5-processing-vector-data">
-<h1>Chapter 5: Processing vector data<a class="headerlink" href="#chapter-5-processing-vector-data" title="Permalink to this headline">¶</a></h1>
-<p>This section is under construction.</p>
+  <div class="section" id="essentials-what-is-special-about-geographic-data">
+<h1>Essentials: What is special about geographic data?<a class="headerlink" href="#essentials-what-is-special-about-geographic-data" title="Permalink to this headline">¶</a></h1>
+<p>Here we introduce basic GIS concepts for beginners.</p>
+<p><strong>This section is under construction.</strong></p>
+<p><em>Draft Intro text</em>:</p>
+<p>How do we represent geographic features such as roads and buildings or lakes and mountains on a computer? How can we analyze spatial relations between these features? How can we link abstract geometric objects to actual locations on the Earth? What is the difference between geographic and projected coordinate reference systems? How can we automate all this using Python?</p>
+<p>This chapter introduces you to the basic concepts and approaches related to Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.</p>
+<p><em>Topics to cover, but not extensively! Theory to appropriate sub-sections</em>:</p>
+<ul class="simple">
+<li><p>Spatial data structures - How can we represent spatial data?</p>
+<ul>
+<li><p>Intro: Point/Place, Surface/Field, Attribute/Geographic-Table, Network</p></li>
+<li><p>Vector data model - Points, LineStrings, Polygons</p></li>
+<li><p>Surfaces/Fields - Raster surfaces - Vector Surfaces</p></li>
+<li><p>Spatial Networks</p></li>
+</ul>
+</li>
+<li><p>Coordinate reference systems</p></li>
+<li><p>Geometric operations</p></li>
+<li><p>Spatial relationships (map algebra, overlay analysis, distance, direction, spatial weights)</p></li>
+<li><p>Distance operations</p></li>
+<li><p>Directional operations</p></li>
+</ul>
 </div>
 
 
@@ -453,7 +644,21 @@
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../../part1/chapter-04/nb/05-exercises.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Exercises</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../chapter-06/index.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Vector data processing</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             
         </div>
@@ -463,7 +668,7 @@
     
       By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
     
-        &copy; Copyright 2020, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+        &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
   </p>
 </footer>
 </main>

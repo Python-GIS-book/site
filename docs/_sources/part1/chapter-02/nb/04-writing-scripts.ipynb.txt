@@ -20,13 +20,15 @@
     "\n",
     "First, we need to create a new text file by clicking on **File** -> **New** -> **Text File** in the JupyterLab menu bar.\n",
     "\n",
+    "![_**Figure 2.5**. Creating a new text file in JupyterLab._](../img/new-text-file-400.png)\n",
     "\n",
-    "![**Figure 1.11**. Creating a new text file in Jupyter Lab._](../img/new-text-file-400.png)\n",
+    "_**Figure 2.5**. Creating a new text file in JupyterLab._\n",
     "\n",
     "This will create a new tab in your JupyterLab window that should look something like that below, a blank slate.\n",
     "\n",
-    "![**Figure 1.12**. The new, empty text file in Jupyter Lab._](../img/new-text-tab-800.png)\n",
+    "![_**Figure 2.6**. The new, empty text file in JupyterLab._](../img/new-text-tab-800.png)\n",
     "\n",
+    "_**Figure 2.6**. Creating a new text file in JupyterLab._\n",
     "\n",
     "Start by copying and pasting the text below into your new text file editor panel.\n",
     "\n",
@@ -44,10 +46,13 @@
     "\n",
     "As it turns out, Python scripts are just regular text files with the `.py` file extension to identify them as source code for Python. In order for our new text file to be detected as a Python source file in JupyterLab we thus need to rename it to have a `.py` file extension. You can rename the file by right clicking on the tab titled `untitled.txt` and renaming it as `temp_converter.py`. Be sure you change the `.txt` file extension to `.py`.\n",
     "\n",
-    "![**Figure 1.13**. Renaming a file in Jupyter Lab._](../img/rename-file-part-1-600.png)\n",
+    "![_**Figure 2.7**. Renaming a file in JupyterLab._](../img/rename-file-part-1-600.png)\n",
     "\n",
-    "![**Figure 1.14**. File renaming dialog in Jupyter Lab._](../img/rename-file-part-2-300.png)\n",
+    "_**Figure 2.7**. Renaming a file in JupyterLab._\n",
     "\n",
+    "![_**Figure 2.8**. File renaming dialog in JupyterLab._](../img/rename-file-part-2-300.png)\n",
+    "\n",
+    "_**Figure 2.8**. File renaming dialog in JupyterLab._\n",
     "\n",
     "Be sure to save your `temp_converter.py` file after making your changes. If all goes well, you should now see the Python syntax is highlighted in different colors in the JupyterLab editor panel. We'll return later to some best practices for writing script files, but for now let's continue with how to use our functions saved in the Python file we just created."
    ]
@@ -103,12 +108,11 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "\u001b[0m\u001b[01;32m00-motivation.ipynb\u001b[0m*              \u001b[01;32m06-writing-scripts.ipynb\u001b[0m*\n",
-      "\u001b[01;32m01-computers-and-programs.ipynb\u001b[0m*  \u001b[01;32m07-modules.ipynb\u001b[0m*\n",
-      "\u001b[01;32m02-python-basics.ipynb\u001b[0m*           \u001b[01;32m08-exercises.ipynb\u001b[0m*\n",
-      "\u001b[01;32m03-for-loops.ipynb\u001b[0m*               \u001b[01;32m09-references.ipynb\u001b[0m*\n",
-      "\u001b[01;32m04-conditional-statements.ipynb\u001b[0m*  \u001b[34;42m__pycache__\u001b[0m/\n",
-      "\u001b[01;32m05-functions.ipynb\u001b[0m*               \u001b[01;32mtemp_converter.py\u001b[0m*\n"
+      "00-python-basics.ipynb           05-modules.ipynb\n",
+      "01-for-loops.ipynb               06-exercises.ipynb\n",
+      "02-conditional-statements.ipynb  07-book-references.ipynb\n",
+      "03-functions.ipynb               07-references.ipynb\n",
+      "04-writing-scripts.ipynb         temp_converter.py\n"
      ]
     }
    ],
@@ -154,12 +158,11 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "\u001b[0m\u001b[01;32m00-motivation.ipynb\u001b[0m*              \u001b[01;32m06-writing-scripts.ipynb\u001b[0m*\n",
-      "\u001b[01;32m01-computers-and-programs.ipynb\u001b[0m*  \u001b[01;32m07-modules.ipynb\u001b[0m*\n",
-      "\u001b[01;32m02-python-basics.ipynb\u001b[0m*           \u001b[01;32m08-exercises.ipynb\u001b[0m*\n",
-      "\u001b[01;32m03-for-loops.ipynb\u001b[0m*               \u001b[01;32m09-references.ipynb\u001b[0m*\n",
-      "\u001b[01;32m04-conditional-statements.ipynb\u001b[0m*  \u001b[34;42m__pycache__\u001b[0m/\n",
-      "\u001b[01;32m05-functions.ipynb\u001b[0m*               \u001b[01;32mtemp_converter.py\u001b[0m*\n"
+      "00-python-basics.ipynb           05-modules.ipynb\n",
+      "01-for-loops.ipynb               06-exercises.ipynb\n",
+      "02-conditional-statements.ipynb  07-book-references.ipynb\n",
+      "03-functions.ipynb               07-references.ipynb\n",
+      "04-writing-scripts.ipynb         temp_converter.py\n"
      ]
     }
    ],
@@ -185,13 +188,21 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 3,
    "metadata": {
     "tags": [
      "hide_cell"
     ]
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/Users/whipp/Work/Research/manuscripts/drafts/Python-GIS-book/site-git/source/_static/part1/chapter-01\n"
+     ]
+    }
+   ],
    "source": [
     "# DO NOT RUN THIS CELL\n",
     "# This cell is only needed for generating the web page and book documents\n",
@@ -200,7 +211,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 4,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -222,7 +233,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -262,7 +273,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 6,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -282,7 +293,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 7,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -303,7 +314,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 8,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -324,7 +335,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 9,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -457,7 +468,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 10,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -503,7 +514,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -512,7 +523,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 12,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -525,7 +536,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 13,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -542,15 +553,6 @@
    ],
    "source": [
     "print(\"The temperature\", temp_kelvin, \"Kelvins is\", temperature_c, \"degrees Celsius.\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "## Exercises\n",
-    "\n",
-    "Add exercises."
    ]
   },
   {

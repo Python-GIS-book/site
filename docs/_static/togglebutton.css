@@ -61,7 +61,7 @@ button.toggle-button {
 
 @media (min-width: 768px) {
     button.toggle-button.toggle-button-hidden:before {
-        content: "Click to show";
+        content: "Show the solution";
         position: absolute;
         font-size: .8em;
         left: -6.5em;

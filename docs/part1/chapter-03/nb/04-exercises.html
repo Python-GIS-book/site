@@ -1,0 +1,955 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercises</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="References" href="05-references.html" />
+    <link rel="prev" title="Working with temporal data" href="03-temporal-data.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part I - Python essentials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-01/index.html">
+   Getting started
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/00-motivation.html">
+     Motivation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">
+     Computers and programs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/02-why-python.html">
+     Why Python?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/03-jupyter.html">
+     Jupyter Notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/04-coding-with-an-ide.html">
+     Other coding environments
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+     Installation and setup
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-02/index.html">
+   Basic programming concepts
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">
+     Basic elements of Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">
+     for loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">
+     Conditional statements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/03-functions.html">
+     Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">
+     Writing script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/05-modules.html">
+     Loading and using modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/06-exercises.html">
+     Exercises
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-02/nb/07-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../index.html">
+   Introduction to data analysis with Python
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="00-pandas-basics.html">
+     Getting started with data pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01-data-manipulation.html">
+     Common tabular operations in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02-data-analysis.html">
+     Data wrangling, grouping and aggregation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03-temporal-data.html">
+     Working with temporal data
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Exercises
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05-references.html">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-04/index.html">
+   Introduction to data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/00-introduction.html">
+     Python plotting libraries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/01-plot-anatomy.html">
+     Anatomy of a plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/02-basic-plotting.html">
+     Plotting with pandas and matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/03-subplots.html">
+     Creating subplots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/04-plot-formatting.html">
+     Effective plot design: line plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-04/nb/05-exercises.html">
+     Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part II - Introduction to GIS with Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part2/chapter-05/index.html">
+   Essentials: What is special about geographic data?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../part2/chapter-06/index.html">
+   Vector data processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-geometric-objects.html">
+     Geographic objects in Python/Shapely
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
+     Introduction to spatial data analysis with Geopandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Vector Data I/O in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/03-projections.html">
+     Map projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-from-text-to-map.html">
+     From text to map
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">
+     Spatial queries and selections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">
+     Spatial join
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">
+     Nearest Neighbour Analysis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/08-spatial_index.html">
+     Spatial index - How to boost spatial queries?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/09-nearest-neighbor-faster.html">
+     Nearest neighbor analysis with large datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/10-geometric-operations.html">
+     Geometric operations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../part2/chapter-07/index.html">
+   Raster data processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">
+     Reading raster files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-07/nb/plotting-raster.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-07/nb/clipping-raster.html">
+     Masking / clipping raster
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-07/nb/raster-map-algebra.html">
+     Raster map algebra
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-07/nb/raster-mosaic.html">
+     Creating a raster mosaic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-07/nb/zonal-statistics.html">
+     Zonal statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-07/nb/read-cogs.html">
+     Read Cloud Optimized Geotiffs
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../part2/chapter-08/index.html">
+   Geographic data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-08/nb/00-static-maps.html">
+     Static maps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-08/nb/01-interactive-maps.html">
+     Interactive maps
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../part2/chapter-09/index.html">
+   Using online geographic data sources
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieve_osm_data.html">
+     Retrieving OpenStreetMap data
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part III - Case studies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../part3/index.html">
+   Geographic data analysis applications
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Back matter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../back-matter/appendices.html">
+   Appendices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-1.html">
+     Version control with git
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-2.html">
+     Collaborative coding with GitHub
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-3.html">
+     Using Python script files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-4.html">
+     Testing and debugging your code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-5.html">
+     Solutions to questions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../back-matter/nb/appendix-6.html">
+     Exercise solutions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../authors.html">
+   About the authors
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/index.html">
+   Overview
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-03/nb/04-exercises.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        
+        
+        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-03/nb/04-exercises.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Python-GIS-book/site/master/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-03/nb/04-exercises.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-3-1">
+   Exercise 3.1
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-file-and-clean-it">
+     Problem 1 - Read the file and clean it
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-basic-characteristics-of-the-data">
+     Problem 2 - Basic characteristics of the data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-descriptive-statistics">
+     Problem 3 - Descriptive statistics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-3-2">
+   Exercise 3.2
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-data-and-remove-nan-values">
+     Problem 1 - Read the data and remove NaN values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-convert-temperatures-to-celsius">
+     Problem 2 - Convert temperatures to Celsius
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-select-data-and-save-to-disk">
+     Problem 3 - Select data and save to disk
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-3-3">
+   Exercise 3.3
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-data-and-calculate-basic-statistics">
+     Problem 1 - Read the data and calculate basic statistics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-select-data-and-compare-temperatures-between-months">
+     Problem 2 - Select data and compare temperatures between months
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-parse-daily-temperatures-by-aggregating-data">
+     Problem 3 - Parse daily temperatures by aggregating data
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Exercises</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-3-1">
+   Exercise 3.1
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-file-and-clean-it">
+     Problem 1 - Read the file and clean it
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-basic-characteristics-of-the-data">
+     Problem 2 - Basic characteristics of the data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-descriptive-statistics">
+     Problem 3 - Descriptive statistics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-3-2">
+   Exercise 3.2
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-data-and-remove-nan-values">
+     Problem 1 - Read the data and remove NaN values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-convert-temperatures-to-celsius">
+     Problem 2 - Convert temperatures to Celsius
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-select-data-and-save-to-disk">
+     Problem 3 - Select data and save to disk
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-3-3">
+   Exercise 3.3
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-read-the-data-and-calculate-basic-statistics">
+     Problem 1 - Read the data and calculate basic statistics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-select-data-and-compare-temperatures-between-months">
+     Problem 2 - Select data and compare temperatures between months
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-parse-daily-temperatures-by-aggregating-data">
+     Problem 3 - Parse daily temperatures by aggregating data
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="exercise-3-1">
+<h2>Exercise 3.1<a class="headerlink" href="#exercise-3-1" title="Permalink to this headline">¶</a></h2>
+<p>In this exercise your task is to open and explore a NOAA weather data file using Pandas. The data file name is 6153237444115dat.csv and it is located in the data folder (<em>add link</em>). An overview of the tasks in this exercise:</p>
+<ul class="simple">
+<li><p>Import the Pandas module</p></li>
+<li><p>Read the data using Pandas into a variable called data</p></li>
+<li><p>Calculate a number of basic statistics from the data</p></li>
+</ul>
+<div class="section" id="problem-1-read-the-file-and-clean-it">
+<h3>Problem 1 - Read the file and clean it<a class="headerlink" href="#problem-1-read-the-file-and-clean-it" title="Permalink to this headline">¶</a></h3>
+<p>Import the pandas module and read the weather data into a variable called <code class="docutils literal notranslate"><span class="pre">data</span></code>. Print the first five rows of the data file.</p>
+</div>
+<div class="section" id="problem-2-basic-characteristics-of-the-data">
+<h3>Problem 2 - Basic characteristics of the data<a class="headerlink" href="#problem-2-basic-characteristics-of-the-data" title="Permalink to this headline">¶</a></h3>
+<p>Based on the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame from Problem 1, answer to following questions:</p>
+<ol class="simple">
+<li><p>How many rows is there in the data?</p></li>
+<li><p>What are the column names?</p></li>
+<li><p>What are the datatypes of the columns?</p></li>
+</ol>
+</div>
+<div class="section" id="problem-3-descriptive-statistics">
+<h3>Problem 3 - Descriptive statistics<a class="headerlink" href="#problem-3-descriptive-statistics" title="Permalink to this headline">¶</a></h3>
+<p>Based on the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame from Problem 1, answer to following questions:</p>
+<ul class="simple">
+<li><p>What is the mean Fahrenheit temperature in the data (use the <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> column)?</p></li>
+<li><p>What is the standard deviation of the Maximum temperature (use the <code class="docutils literal notranslate"><span class="pre">MAX</span></code> column)?</p></li>
+<li><p>How many unique stations exists in the data (use the <code class="docutils literal notranslate"><span class="pre">USAF</span></code> column)?</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="exercise-3-2">
+<h2>Exercise 3.2<a class="headerlink" href="#exercise-3-2" title="Permalink to this headline">¶</a></h2>
+<p>In this exercise, you will clean the data from our data file by removing no-data values, convert temperature values in Fahrenheit to Celsius, and split the data into separate datasets using the weather station identification code. We will start this problem by cleaning and converting our temperature data. An overview of the tasks in this exercise:</p>
+<ul class="simple">
+<li><p>Create a new dataframe called <code class="docutils literal notranslate"><span class="pre">selected</span></code> that contains selected columns from the data file</p></li>
+<li><p>Clean the new DataFrame by removing no-data values</p></li>
+<li><p>Create a new column for temperatures converted from Fahrenheit to Celsius</p></li>
+<li><p>Divide the data into separate DataFrames for the Helsinki Kumpula and Rovaniemi stations</p></li>
+<li><p>Save the new DataFrames to CSV files</p></li>
+</ul>
+<div class="section" id="problem-1-read-the-data-and-remove-nan-values">
+<h3>Problem 1 - Read the data and remove NaN values<a class="headerlink" href="#problem-1-read-the-data-and-remove-nan-values" title="Permalink to this headline">¶</a></h3>
+<p>The first step for this problem is to read the data file 6153237444115dat.csv into a variable <code class="docutils literal notranslate"><span class="pre">data</span></code> using pandas and cleaning it a bit:</p>
+<ul class="simple">
+<li><p>Select the columns <code class="docutils literal notranslate"><span class="pre">USAF,</span> <span class="pre">YR--MODAHRMN,</span> <span class="pre">TEMP,</span> <span class="pre">MAX,</span> <span class="pre">MIN</span></code> from the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame and assign them to a variable <code class="docutils literal notranslate"><span class="pre">selected</span></code></p></li>
+<li><p>Remove all rows from <code class="docutils literal notranslate"><span class="pre">selected</span></code> that have NoData in the column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> using the <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> function</p></li>
+</ul>
+</div>
+<div class="section" id="problem-2-convert-temperatures-to-celsius">
+<h3>Problem 2 - Convert temperatures to Celsius<a class="headerlink" href="#problem-2-convert-temperatures-to-celsius" title="Permalink to this headline">¶</a></h3>
+<p>Convert the temperature values from Fahrenheits to Celsius:</p>
+<ul class="simple">
+<li><p>Create a new column to <code class="docutils literal notranslate"><span class="pre">selected</span></code> called <code class="docutils literal notranslate"><span class="pre">Celsius</span></code>.</p></li>
+<li><p>Convert the Fahrenheit temperatures from <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> using the conversion formula below and store the results in the new <code class="docutils literal notranslate"><span class="pre">Celsius</span></code> column:</p>
+<ul>
+<li><p>TempCelsius = (TempFahrenheit - 32) / 1.8</p></li>
+</ul>
+</li>
+<li><p>Round the values in the <code class="docutils literal notranslate"><span class="pre">Celsius</span></code> column to have 0 decimals (do not create a new column, update the current one)</p></li>
+<li><p>Convert the <code class="docutils literal notranslate"><span class="pre">Celsius</span></code> values into integers (do not create a new column, update the current one)</p></li>
+</ul>
+</div>
+<div class="section" id="problem-3-select-data-and-save-to-disk">
+<h3>Problem 3 - Select data and save to disk<a class="headerlink" href="#problem-3-select-data-and-save-to-disk" title="Permalink to this headline">¶</a></h3>
+<p>Divide the data in <code class="docutils literal notranslate"><span class="pre">selected</span></code> into two separate DataFrames:</p>
+<ul class="simple">
+<li><p>Select all rows from the selected DataFrame with the <code class="docutils literal notranslate"><span class="pre">USAF</span></code> code <code class="docutils literal notranslate"><span class="pre">29980</span></code> into a variable called <code class="docutils literal notranslate"><span class="pre">kumpula</span></code>.</p></li>
+<li><p>Select all rows from the selected DataFrame with the <code class="docutils literal notranslate"><span class="pre">USAF</span></code> code <code class="docutils literal notranslate"><span class="pre">28450</span></code> into a variable called <code class="docutils literal notranslate"><span class="pre">rovaniemi</span></code>.</p></li>
+<li><p>Save the <code class="docutils literal notranslate"><span class="pre">kumpula</span></code> DataFrame into a file <code class="docutils literal notranslate"><span class="pre">Kumpula_temps_May_Aug_2017.csv</span></code> in CSV format:</p>
+<ul>
+<li><p>Separate the columns with commas (,)</p></li>
+<li><p>Use only 2 decimals for the floating point numbers</p></li>
+</ul>
+</li>
+<li><p>Repeat the same procedures and save the <code class="docutils literal notranslate"><span class="pre">rovaniemi</span></code> DataFrame into a file <code class="docutils literal notranslate"><span class="pre">Rovaniemi_temps_May_Aug_2017.csv</span></code>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="exercise-3-3">
+<h2>Exercise 3.3<a class="headerlink" href="#exercise-3-3" title="Permalink to this headline">¶</a></h2>
+<p>In this Exercise, we will explore our temperature data by comparing spring temperatures between Kumpula and Rovaniemi. To do this we’ll use some conditions to extract subsets of our data and then analyse these subsets using basic pandas functions. Notice that in this exercise, we will use data saved from the previous Exercise (2.2.6), hence you should finish that Exercise before this one. An overview of the tasks in this exercise:</p>
+<ul class="simple">
+<li><p>Calculate the median temperatures for Kumpula and Rovaniemi for the summer of 2017</p></li>
+<li><p>Select temperatures for May and June 2017 in separate DataFrames for each location</p></li>
+<li><p>Calculate descriptive statistics for each month (May, June) and location (Kumpula, Rovaniemi)</p></li>
+</ul>
+<div class="section" id="problem-1-read-the-data-and-calculate-basic-statistics">
+<h3>Problem 1 - Read the data and calculate basic statistics<a class="headerlink" href="#problem-1-read-the-data-and-calculate-basic-statistics" title="Permalink to this headline">¶</a></h3>
+<p>Read in the CSV files generated in Exercise 2.2.6 to the variables <code class="docutils literal notranslate"><span class="pre">kumpula</span></code> and <code class="docutils literal notranslate"><span class="pre">rovaniemi</span></code> and answer to following questions:</p>
+<ul class="simple">
+<li><p>What was the median Celsius temperature during the observed period in Helsinki Kumpula? Store the answer in a variable <code class="docutils literal notranslate"><span class="pre">kumpula_median</span></code>.</p></li>
+<li><p>What was the median Celsius temperature during the observed period in Rovaniemi? Store the answer in a variable <code class="docutils literal notranslate"><span class="pre">rovaniemi_median</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="problem-2-select-data-and-compare-temperatures-between-months">
+<h3>Problem 2 - Select data and compare temperatures between months<a class="headerlink" href="#problem-2-select-data-and-compare-temperatures-between-months" title="Permalink to this headline">¶</a></h3>
+<p>The median temperatures above consider data from the entire summer (May-Aug), hence the differences might not be so clear. Let’s now find out the mean temperatures from May and June 2017 in Kumpula and Rovaniemi:</p>
+<ul class="simple">
+<li><p>From the <code class="docutils literal notranslate"><span class="pre">kumpula</span></code> and <code class="docutils literal notranslate"><span class="pre">rovaniemi</span></code> DataFrames, select the rows where values of the <code class="docutils literal notranslate"><span class="pre">YR--MODAHRMN</span></code> column are from May 2017. Assign these selected rows into the variables <code class="docutils literal notranslate"><span class="pre">kumpula_may</span></code> and <code class="docutils literal notranslate"><span class="pre">rovaniemi_may</span></code></p></li>
+<li><p>Repeat the procedure for the month of June and assign those values into variables to <code class="docutils literal notranslate"><span class="pre">kumpula_june</span></code> and <code class="docutils literal notranslate"><span class="pre">rovaniemi_june</span></code></p></li>
+<li><p>Calculate and print the mean, min and max Celsius temperatures for both places in May and June using the new subset dataframes (kumpula_may, rovaniemi_may, kumpula_june, and rovaniemi_june). Answer to following questions:</p>
+<ul>
+<li><p>Does there seem to be a large difference in temperatures between the months?</p></li>
+<li><p>Is Rovaniemi a much colder place than Kumpula?</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="problem-3-parse-daily-temperatures-by-aggregating-data">
+<h3>Problem 3 - Parse daily temperatures by aggregating data<a class="headerlink" href="#problem-3-parse-daily-temperatures-by-aggregating-data" title="Permalink to this headline">¶</a></h3>
+<p>In this problem, the aim is to aggregate the hourly temperature data for Kumpula and Rovaniemi weather stations to a daily level. Currently, there are at most three measurements per hour in the data, as you can see from the YR–MODAHRMN column:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">USAF</span>  <span class="n">YR</span><span class="o">--</span><span class="n">MODAHRMN</span>  <span class="n">TEMP</span>  <span class="n">MAX</span>  <span class="n">MIN</span>  <span class="n">Celsius</span>
+<span class="mi">0</span>  <span class="mi">28450</span>  <span class="mi">201705010000</span>  <span class="mf">31.0</span>  <span class="n">NaN</span>  <span class="n">NaN</span>       <span class="o">-</span><span class="mi">1</span>
+<span class="mi">1</span>  <span class="mi">28450</span>  <span class="mi">201705010020</span>  <span class="mf">30.0</span>  <span class="n">NaN</span>  <span class="n">NaN</span>       <span class="o">-</span><span class="mi">1</span>
+<span class="mi">2</span>  <span class="mi">28450</span>  <span class="mi">201705010050</span>  <span class="mf">30.0</span>  <span class="n">NaN</span>  <span class="n">NaN</span>       <span class="o">-</span><span class="mi">1</span>
+<span class="mi">3</span>  <span class="mi">28450</span>  <span class="mi">201705010100</span>  <span class="mf">31.0</span>  <span class="n">NaN</span>  <span class="n">NaN</span>       <span class="o">-</span><span class="mi">1</span>
+<span class="mi">4</span>  <span class="mi">28450</span>  <span class="mi">201705010120</span>  <span class="mf">30.0</span>  <span class="n">NaN</span>  <span class="n">NaN</span>       <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>In this problem you should:</p>
+<ul class="simple">
+<li><p>Summarize the information for each day by aggregating (grouping) the DataFrame using the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> function.</p></li>
+<li><p>The output should be a new DataFrame where you have calculated mean, max and min Celsius temperatures for each day separately based on hourly values.</p></li>
+<li><p>Repeat the task for the two data sets you created in Problem 2 (May-August temperatures from Rovaniemi and Kumpula).</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="03-temporal-data.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Working with temporal data</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="05-references.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">References</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+    
+        &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
