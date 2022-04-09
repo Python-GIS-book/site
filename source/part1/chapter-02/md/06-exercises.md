@@ -92,6 +92,8 @@ Data classification is another useful data analysis concept, where data values a
 |Comfortable |Greater than or equal to +2 °C and less than +15 °C |`comfortable` |
 |Warm        |Greater than or equal to +2 °C                      |`warm`        |
 
+_**Table 2.8**. Temperature categories and ranges for Exercise 2.5 and 2.7._
+
 The list of temperatures below were measured at the Helsinki Malmi Airport in April 2013 with night, day, and evening temperatures recorded for each day.
 
 ```python
@@ -128,3 +130,22 @@ For this problem you should:
     - 68 °F
     - 91 °F
     - -17 °F
+
+
+## Exercise 2.7 - A temperature classifier function
+
+This exercise uses the same logic presented in Exercise 2.5 to classify temperatures, but now using a function.
+
+In this exercise you should:
+
+- Create a function that classifies temperatures based on Table 2.8.
+    - The function should return the following values for the different categories
+        - Cold: `0`
+        - Slippery: `1`
+        - Comfortable: `2`
+        - Warm: `3`
+- Use the function to calculate the returned value the following temperatures:
+    - +17 °C
+    - +2 °C
+    - +1.9 °C
+    - -2 °C

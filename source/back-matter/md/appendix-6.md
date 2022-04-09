@@ -157,4 +157,31 @@ fahr_temps = [32, 68, 91, -17]
 for fahr_temp in fahr_temps:
     print(f"{fahr_temp} °F is equal to {fahr_to_celsius(fahr_temp):.1f} °C.")
 ```
+
+### Exercise 2.7
+
+```python
+def temp_classifier(temp_celsius):
+    """
+    Classifies temperatures into 4 different classes according following criteria:
+    
+    - Less than -2 degrees: returns 0
+    - Less than +2 degrees and greater than or equal to -2 degrees: returns 1
+    - Less than +15 degrees and greater than or equal to +2 degrees: returns 2
+    - Greater than or equal to 15 degrees: returns 3        
+    """
+    if temp_celsius < -2:
+        return 0
+    elif temp_celsius >= -2 and temp_celsius < 2:
+        return 1
+    elif temp_celsius >= 2 and temp_celsius < 15:
+        return 2
+    else:
+        return 3
+
+# Create list of temperatures to classify and classify them
+celsius_temps = [17, 2, 1.9, -2]
+for celsius_temp in celsius_temps:
+    print(f"The temperature {celsius_temp} °C is in category {temp_classifier(celsius_temp)}.")
+```
 <!-- #endregion -->
