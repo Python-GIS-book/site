@@ -5,9 +5,9 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.2
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -26,7 +26,7 @@ The traditional approach to writing programs comprises writing the actual progra
 
 _**Figure 1.8**. Features of a Jupyter Notebook._
 
-Jupyter Notebooks are an application that combines source code with rich-text documentation, equations, images, and plots in the form of a single interactive document (Figure 1.8). The notebooks are divided into cells, where each cell contains part of the document intended for either source code or documentation. The most common cell types for use in Jupyter Notebooks are "Code" cells and "Markdown" cells, which naturally are designed for source code and Markdown-formatted text (Figure 1.9). The code cells support several different programming languages, including Python, and the Markdown cells are for creating nicely formatted text using the Markdown language. An example of the Code and Markdown cells can be found in Figure 1.9. To interact with the notebooks, they must be hosted on a server either locally or remotely, and accessed via a web browser.
+Jupyter Notebooks are an application that combines source code with rich-text documentation, equations, images, and plots in the form of a single interactive document (Figure 1.8). The notebooks are divided into cells, where each cell contains part of the document intended for either source code or documentation. The most common cell types for use in Jupyter Notebooks are "Code" cells and "Markdown" cells (Figure 1.9). The code cells support several different programming languages, including Python. The Markdown cells are for creating nicely formatted text using the [Markdown markup language](https://en.wikipedia.org/wiki/Markdown) [^markdown]. To interact with the notebooks, they must be hosted on a server either locally or remotely, and accessed via a web browser.
 
 ![_**Figure 1.9**. An example Jupyter Notebook._](../img/jupyter-notebook-window.png)
 
@@ -38,3 +38,4 @@ Combining source code and documentation into a single document is an excellent s
 ## Footnotes
 
 [^project_jupyter]: <https://jupyter.org/>
+[^markdown]: <https://en.wikipedia.org/wiki/Markdown>
