@@ -259,5 +259,4 @@ for temperature in temperatures:
 <!-- #region tags=[] -->
 ## Footnotes
 
-[^swc]: <http://software-carpentry.org>
 <!-- #endregion -->
