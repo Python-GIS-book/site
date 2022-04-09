@@ -265,7 +265,7 @@ data["TIME"].head()
 data["TIME"].tail()
 ```
 
-The `TIME` column contains several observations per day (and even several observations per hour). The timestamp for the first observation is `190601010600`, i.e. from 1st of January 1906 (way back!), and the timestamp for the latest observation is `201910012350`. (**TODO: UPDATE THESE WITH NEW DATA**). As we can see, the data type (`dtype`) of our column seems to be `int64`, i.e. the information is stored as integer values. 
+The `TIME` column contains several observations per day (and even several observations per hour). The timestamp for the first observation is `190601010600`, i.e. from 1st of January 1906 (way back!), and the timestamp for the latest observation is `201910012350`. As we can see, the data type (`dtype`) of our column seems to be `int64`, i.e. the information is stored as integer values. 
 
 
 We want to aggregate this data on a monthly level. In order to do so, we need to "label" each row of data based on the month when the record was observed. Hence, we need to somehow separate information about the year and month for each row. In practice, we can create a new column (or an index) containing information about the month (including the year, but excluding days, hours and minutes). There are different ways of achieving this, but here we will take advantage of `string slicing` which means that we convert the date and time information into character strings and "cut" the needed information from the string objects. The other option would be to convert the timestamp values into something called `datetime` objects, but we will learn about those a bit later. Before further processing, we first want to convert the `TIME` column as character strings for convenience, stored into a new column `TIME_STR`:
@@ -274,7 +274,7 @@ We want to aggregate this data on a monthly level. In order to do so, we need to
 data["TIME_STR"] = data["TIME"].astype(str)
 ```
 
-If we look at the latest time stamp in the data (`201910012350`) (**UPDATE!**), you can see that there is a systematic pattern `YEAR-MONTH-DAY-HOUR-MINUTE`. Four first characters represent the year, and the following two characters represent month. Because we are interested in understanding monthly averages for different years, we want to slice the year and month values from the timestamp (the first 6 characters), like this:
+If we look at the latest time stamp in the data (`201910012350`), you can see that there is a systematic pattern `YEAR-MONTH-DAY-HOUR-MINUTE`. Four first characters represent the year, and the following two characters represent month. Because we are interested in understanding monthly averages for different years, we want to slice the year and month values from the timestamp (the first 6 characters), like this:
 
 ```python
 date = "201910012350"
@@ -308,15 +308,16 @@ data["MONTH"] = data["TIME_STR"].str.slice(start=4, stop=6)
 
 ## Grouping and aggregating data
 
-Next, we want to calculate the average temperature for each month in our dataset. Here, we will learn how to use a `.groupby()` method which is a handy tool for compressing large amounts of data and computing statistics for subgroups.
 
-We will use the groupby method to calculate the average temperatures for each month trough these three main steps:
+### Basic logic of grouping a DataFrame using `.groupby()`
+
+In the following sections, we want to calculate the average temperature for each month in our dataset. Here, we will learn how to use a `.groupby()` method which is a handy tool for compressing large amounts of data and computing statistics for subgroups. We will use the groupby method to calculate the average temperatures for each month trough these three main steps:
 
   1. group the data based on year and month using `groupby()`
-  2. calculate the average for each month (i.e. each group) 
-  3. Store those values into a new DataFrame called `monthly_data`
-
-We have quite a few rows of weather data (N=198334) (**UPDATE**), and several observations per day. Our goal is to create an aggreated DataFrame that would have only one row per month. The `groupby()` takes as a parameter the name of the column (or a list of columns) that you want to use as basis for doing the grouping.  Let's start by grouping our data based on unique year and month combination:
+  2. calculate the average temperature for each month (i.e. each group) 
+  3. store the resulting rows into a DataFrame called `monthly_data`
+  
+We have quite a few rows of weather data (N=198334), and several observations per day. Our goal is to create an aggreated DataFrame that would have only one row per month. The `.groupby()` takes as a parameter the name of the column (or a list of columns) that you want to use as basis for doing the grouping.  Let's start by grouping our data based on unique year and month combination:
 
 ```python
 grouped = data.groupby("YEAR_MONTH")
@@ -329,7 +330,7 @@ print(type(grouped))
 print(len(grouped))
 ```
 
-We have a new object with type `DataFrameGroupBy` with 826 groups (**UPDATE**). In order to understand what just happened, let's also check the number of unique year and month combinations in our data:
+We have a new object with type `DataFrameGroupBy` with 826 groups. In order to understand what just happened, let's also check the number of unique year and month combinations in our data:
 
 ```python
 data["YEAR_MONTH"].nunique()
@@ -352,26 +353,13 @@ group1 = grouped.get_group(month)
 group1
 ```
 
-Aha! As we can see, a single group contains a DataFrame with values only for that specific month. Let's check the DataType of this group:
+As we can see, a single group contains a DataFrame with values only for that specific month. Let's check the DataType of this group:
 
 ```python
 type(group1)
 ```
 
-So, one group is a pandas DataFrame which is really useful, because it allows us to use all the familiar DataFrame methods for calculating statistics etc. for this specific group. We can, for example, calculate the average values for all variables using the statistical functions that we have seen already (e.g. mean, std, min, max, median). To calculate the average temperature for each month, we can use the `mean()` function. Let's calculate the mean for all the weather related data attributes in our group at once:
-
-```python jupyter={"outputs_hidden": false}
-# Specify the columns that will be part of the calculation
-mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
-
-# Calculate the mean values all at one go
-mean_values = group1[mean_cols].mean()
-mean_values
-```
-
-Here, we aggregated the data into monthly average based on a single group. For aggregating the data for all groups (i.e. all months), we can use a `for` loop or methods available in the grouped object.
-
-It is possible to iterate over the groups in our `DataFrameGroupBy` object. When doing so, it is important to understand that a single group in our `DataFrameGroupBy` actually contains not only the actual values, but also information about the `key` that was used to do the grouping. Hence, when iterating we need to assign the `key` and the values (i.e. the group) into separate variables. Let's see how we can iterate over the groups and print the key and the data from a single group (again using `break` to only see what is happening):
+So, one group is a pandas DataFrame which is really useful, because it allows us to use all the familiar DataFrame methods for calculating statistics etc. for this specific group which we will see shortly. It is also possible to iterate over the groups in our `DataFrameGroupBy` object which can be useful if you need to conduct and apply some more complicated subtasks for each group. When doing so, it is important to understand that a single group in our `DataFrameGroupBy` actually contains not only the actual values, but also information about the `key` that was used to do the grouping. Hence, when iterating we need to assign the `key` and the values (i.e. the group) into separate variables. Let's see how we can iterate over the groups and print the key and the data from a single group (again using `break` to only see what is happening):
 
 ```python jupyter={"outputs_hidden": false}
 # Iterate over groups
@@ -384,11 +372,47 @@ for key, group in grouped:
     break
 ```
 
-From here we can see that the `key` contains the name of the group (i.e. the unique value from `YEAR_MONTH`). Let's now create a new DataFrame which we will use to store and calculate the mean values for all those weather attributes that we were interested in. We will repeat slightly the earlier steps so that you can see and better understand what is happening:
+Here, we can see that the `key` contains the name of the group (i.e. the unique value from `YEAR_MONTH`). 
+
+
+### Aggregating data with `groupby()`
+
+We can, for example, calculate the average values for all variables using the statistical functions that we have seen already (e.g. mean, std, min, max, median). To calculate the average temperature for each month, we can use the `mean()` function. Let's calculate the mean for all the weather related data attributes in our group at once:
+
+```python jupyter={"outputs_hidden": false}
+# Specify the columns that will be part of the calculation
+mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
+
+# Calculate the mean values all at one go
+mean_values = group1[mean_cols].mean()
+mean_values
+```
+
+As a result, we get a pandas Series with mean values calculated for all columns in the group. Notice that if you want to convert this Series back into a DataFrame (which can be useful if you e.g. want to merge multiple groups), you can use command `.to_frame().T` which first converts the Series into a DataFrame and then transposes the order of the axes (the label names becomes the column names):
 
 ```python
-# Create an empty DataFrame for the aggregated values
-monthly_data = pd.DataFrame()
+# Convert to DataFrame
+mean_values.to_frame().T
+```
+
+To do a similar aggregation with all the groups in our data, we can actually combine the `groupby()` function with the aggregation step (such as taking the mean, median etc. of given columns), and finally restructure the resulting DataFrame a bit. This can be at first a bit harder to understand, but this is how you would do the grouping and aggregating the values as follows:
+
+```python
+# The columns that we want to aggregate
+mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
+
+# Group and aggregate the data with one line
+monthly_data = data.groupby("YEAR_MONTH")[mean_cols].mean().reset_index()
+monthly_data
+```
+
+As we can see, aggregating the data in this way is fairly straightforward and fast process requiring merely a single command. So what did we actually do here? We i) grouped the data, ii) selected specific columns from the result (`mean_cols`), iii) calculated the mean for all of the selected columns of the groups, and finally 4) reset the index. Resetting the index at the end is not necessary, but by doing it, we turn the `YEAR_MONTH` values into a dedicated column in our data (which would be otherwise store as `index`) .
+
+What might not be obvious from this example is the fact that hidden in the background, each group is actually iterated over and the aggregation step is repeated for each group. For you to better understand what happens, we will next repeat the same process by iterating over groups and eventually creating a DataFrame that will contain the mean values for all those weather attributes that we were interested in. In this approach, we will first iterate over the groups, then calculate the mean values,  store the result into a list, and finally merge the aggregated data into a DataFrame called `monthly_data`.
+
+```python
+# Create an empty list for storing the aggregated rows/DataFrames
+data_container = []
 
 # The columns that we want to aggregate
 mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
@@ -399,29 +423,21 @@ for key, group in grouped:
     # Calculate mean
     mean_values = group[mean_cols].mean()
 
-    # Add the ´key´ (i.e. the date+time information) into the aggregated values
+    # Add the ´key´ (i.e. the date+time information) into the Series
     mean_values["YEAR_MONTH"] = key
 
-    # Append the aggregated values into the DataFrame
-    monthly_data = monthly_data.append(mean_values, ignore_index=True)
-```
-
-Let's see what we have now:
-
-```python jupyter={"outputs_hidden": false}
+    # Convert the pd.Series into DataFrame and
+    # append the aggregated values into a list as a DataFrame
+    data_container.append(mean_values.to_frame().T)
+    
+# After iterating all groups, merge the list of DataFrames
+monthly_data = pd.concat(data_container)
 monthly_data
 ```
 
-Awesome! As a result, we have now aggregated our data and filled the new DataFrame `monthly_data` with mean values for each month in the data set. Alternatively, we can also achieve the same result by `chaining` the `groupby()` function with the aggregation step (such as taking the mean, median etc.). This can be a bit harder to understand, but this is how you could shorten the whole grouping, loop and aggregation process into a single command:
+As a result, we get identical results as with the earlier approach that was done with a single line of code (except for the position of the `YEAR_MONTH` column).
 
-```python
-mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
-data.groupby("YEAR_MONTH")[mean_cols].mean().reset_index()
-```
-
-As we can see, doing the aggregation without a loop requires much less code, and in fact, it is also faster. So what did we do here? We 1) grouped the data, 2) selected specific columns from the result (`mean_cols`), 3) calculated the mean for all of the selected columns, and finally 4) reset the index. Resetting the index at the end is not necessary, but by doing it, we turn the `YEAR_MONTH` values (that would be otherwise store in `index`) into a dedicated column in our data.
-
-So which approach should you use? From the performance point of view, we recommend using the latter approach (i.e. chaining) which does not require a loop and is highly performant. However, this approach might be a bit difficult to read and comprehend (the loop might be easier), and sometimes you want to include additional processing steps inside the loop which can be hard accomplish by chaining everything into a single command. Hence, it is useful to know both of these approaches for doing aggregations with the data.  
+So which approach should you use? From the performance point of view, we recommend using the first approach (i.e. chaining) which does not require you to create a separate for loop, and is highly performant. However, this approach might be a bit more difficult to read and comprehend (the loop might be easier). Also sometimes you want to include additional processing steps inside the loop which can be hard accomplish by chaining everything into a single command. Hence, it is useful to know both of these approaches for doing aggregations with the data.  
 
 
 ## Case study: Detecting warm months
@@ -433,34 +449,29 @@ monthly_data["MONTH"] = monthly_data["YEAR_MONTH"].str.slice(start=4, stop=6)
 monthly_data.head()
 ```
 
-Now we can select the values for January from our data and store it into a new variable `january_data`:
+Now we can select the values for January from our data and store it into a new variable `january_data`. We will also check the highest temperature values by sorting the DataFrame in a descending order:
 
 ```python
 january_data = monthly_data.loc[monthly_data["MONTH"] == "01"]
+january_data.sort_values(by="TEMP_C", ascending=False).head()
 ```
 
-Now, we can check the highest temperature values by sorting the DataFrame in a descending order:
-
-```python
-january_data.sort_values(by="TEMP_C", ascending=False).head(10)
-```
-
-Now by looking at the order of `YEAR_MONTH` column, we can see that January 2020 indeed was on average the warmest month on record based on weather observations from Finland. (**UPDATE**)
+By looking at the order of `YEAR_MONTH` column, we can see that January 2020 indeed was on average the warmest month on record based on weather observations from Finland.
 
 
 ## Automating the analysis
 
 Now we have learned how to aggregate data using pandas. average temperatures for each month based on hourly weather observations. One of the most useful aspects of programming, is the ability to automate processes and repeat analyses such as these for any number of weather stations (assuming the data structure is the same). 
 
-Hence, let's now see how we can repeat the previous data analysis steps for all the available data we have from 15 weather stations located in different parts of Finland. The idea is that we will repeat the process for each input file using a (rather long) for loop. We will use the most efficient alternatives of the previously represented approaches, and finally will store the results in a single DataFrame for all stations. We will use the `glob()` function from the Python module `glob` to list our input files in the data directory `data`. We will store those paths to a variable `file_list`, so that we can use the file paths easily in the later steps:
+Hence, let's now see how we can repeat the previous data analysis steps for 15 weather stations located in different parts of Finland containing data for five years (2015-2019). The idea is that we will repeat the process for each input file using a (rather long) for loop. We will use the most efficient alternatives of the previously represented approaches, and finally will store the results in a single DataFrame for all stations. We will use the `glob()` function from the Python module `glob` to list our input files in the data directory `data/finnish_stations`. We will store those paths to a variable `file_list`, so that we can use the file paths easily in the later steps:
 
 ```python
 from glob import glob
 
-file_list = glob("data/0*txt")
+file_list = glob("data/finnish_stations/0*txt")
 ```
 
-Note that we're using the \* character as a wildcard, so any file that starts with `data/0` and ends with `txt` will be added to the list of files. We specifically use `data/0` as the starting part of the file names to avoid having our metadata files included in the list.
+Note that we're using the \* character as a wildcard, so any filename that starts with `0` and ends with `txt` will be added to the list of files. We specifically use `data/finnish_stations/0` as the starting part of the file names to avoid having our metadata files included in the list.
 
 ```python
 print("Number of files in the list:", len(file_list))
@@ -475,22 +486,24 @@ for fp in file_list:
     break
 ```
 
-Now we have all the file paths to our weather observation datasets in a list, and we can start iterating over them and repeat the analysis steps for each file separately. We keep all the analytical steps inside a loop so that all of them are repeated to different stations. Finally, we will store the warmest January for each station in a new DataFrame called `results` using an `append()` method which works quite in a similar manner as appending values to a regular list:
+The data that we have sampled is in regular CSV format which we can read easily with `pd.read_csv()` function: 
+
+```python
+data = pd.read_csv(fp)
+data.head()
+```
+
+Now we have all the file paths to our weather observation datasets in a list, and we can start iterating over them and repeat the analysis steps for each file separately. We keep all the analytical steps inside a loop so that all of them are repeated to different stations. Finally, we will store the warmest January for each station in a list called `results` using a regular Python's `append()` method and merge the list of DataFrames into one by using `pd.concat()` function:
 
 ```python jupyter={"outputs_hidden": false}
-# DataFrame for the end results
-results = pd.DataFrame()
+# A list for storing the result
+results = []
 
 # Repeat the analysis steps for each input file:
 for fp in file_list:
 
-    # Read selected columns of  data using varying amount of spaces as separator and specifying * characters as NoData values
-    data = pd.read_csv(
-        fp,
-        delim_whitespace=True,
-        usecols=["USAF", "YR--MODAHRMN", "DIR", "SPD", "GUS", "TEMP", "MAX", "MIN"],
-        na_values=["*", "**", "***", "****", "*****", "******"],
-    )
+    # Read the data from CSV file
+    data = pd.read_csv(fp)
 
     # Rename the columns
     new_names = {
@@ -532,23 +545,23 @@ for fp in file_list:
     warmest = monthly_mean.sort_values(by="TEMP_C", ascending=False).head(1)
 
     # Add to results
-    results = results.append(warmest, ignore_index=True)
+    results.append(warmest)
+
+# Merge all the results into a single DataFrame
+results = pd.concat(results)
 ```
 
-Awesome! Now we have conducted the same analysis for 15 weather stations in Finland and it did not took too many lines of code! We were able to follow how the process advances with the printed lines of information, i.e. we did some simple `logging` of the operations. Notice that when using the `append()` function, we used `ignore_index=True` which means that the original index value of the row in `warmest` DataFrame is not kept when storing the row to the `results` DataFrame (which might cause conflicts if two rows would happen to have identical index labels). Let's finally investigate our results:
+Awesome! Now we have conducted the same analysis for 15 weather stations in Finland and it did not took too many lines of code! We were able to follow how the process advances with the printed lines of information, i.e. we did some simple `logging` of the operations. Let's finally investigate our results:
 
 ```python
 results
 ```
 
-Each row in the results represents the warmest January at given `STATION_NUMBER` throughout the recorded years (1906 onwards). Based on the `YEAR` column, the warmest January in most of Finland's weather stations has been during the past 15 years. We can confirm this by checking the value counts of the `YEAR` column:
+Each row in the results represents the warmest January at given `STATION_NUMBER` between the years 2015 and 2019. Based on the `YEAR` column, the warmest January in most of Finland's weather stations during this five-year period was in 2015. We can confirm this by checking the value counts of the `YEAR` column:
 
 ```python
 results["YEAR"].value_counts()
 ```
-
-As we can see, the January in 2005 was exceptionally warm in most of Finland. (**UPDATE**)
-
 
 ## Footnotes
 
