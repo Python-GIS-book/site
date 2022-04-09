@@ -14,7 +14,7 @@ jupyter:
 
 # Effective plot design: line plots
 
-As we have seen, you should be aiming to produce plots that include all of the elements that help make understanding the plotted data intuitive. Typically, this might include:
+As we have seen earlier in this chapter, you should be aiming to produce plots that include all of the elements that help make understanding the plotted data intuitive. Typically, this might include:
 
 - Axis labels, including units if needed
 - A legend
@@ -24,7 +24,7 @@ As we have seen, you should be aiming to produce plots that include all of the e
 
 In addition, there are several factors that can help improve the communication of the plotted information. When plotting line data, for example, the color of the lines might be an important consideration to tell different lines apart. This is especially true when plotting several lines on the same axes, as readers will need to be able to differentiate the lines and know which line refers to a given set of data. But there is more to plotting lines than simply choosing nice colors. 
 
-Not all people viewing your plots will see them the same way. Some viewers may have color blindness, while others may have printed out a copy of your plot in grayscale from a printer. Thus, while choosing nice colors can help make your plots look visually pleasing to you, it is worthwhile to consider other viewers and formats in which your plots may be viewed. In this way your visualizations can be as inclusive to different viewers as possible.
+Not all people viewing your plots will see them the same way. Some viewers may have color blindness, while others may have printed out a copy of your plot in grayscale from a printer. Thus, while choosing nice colors can help make your plots look visually pleasing to you, it is worthwhile to consider the other viewers or formats in which your plots may be viewed. In this way your visualizations can be as inclusive to different viewers as possible.
 
 ## Tips for plotting lines
 
@@ -102,7 +102,7 @@ data = pd.DataFrame(index=dates, data=temperatures)
 data.head(4)
 ```
 
-And now we can create a plot (Figure 4.X) to visualize all of the temperature data for the four mythical lands using the pandas `plot()` function.
+Using this data we can create a plot (Figure 4.X) to visualize the temperatures for the four mythical lands using the pandas `plot()` function.
 
 ```python
 ax = data.plot(
@@ -115,13 +115,13 @@ ax = data.plot(
 
 _**Figure 4.X**. Hypothetical temperatures for one year in different mythical lands._
 
-In Figure 4.X, we can see all of the data in the `data` DataFrame and many people may be able to distinguish the lines using the four different colors that have been selected. However, not all people will see the figure in the same way, and those who may have printed a copy in grayscale will see things quite differently.
+In Figure 4.X, we can see a visualization of the contents of the `data` DataFrame and many people will be able to distinguish the lines using the four colors that have been selected. However, not all people may see the figure in the same way, and those who have printed a copy in grayscale will see things quite differently.
 
 ![_**Figure 4.X**. Hypothetical mythical land temperatures in grayscale._](../img/lines-grayscale.png)
 
 _**Figure 4.X**. Hypothetical mythical land temperatures in grayscale._
 
-In Figure 4.X, we see that it is nearly impossible to tell which line is which in the plot, so color alone is not helping in distinguishing the lines on this plot. In this case a better option is to vary both color and the line pattern for each line so they can be distinguished easily irrespective of the selected line colors. That can be done using the `style` parameter as shown below.
+In Figure 4.X, we see that it is nearly impossible to tell which line is which in the plot, so color alone is not helping in distinguishing the lines on this plot. In this case a better option is to vary both the color and line pattern for each line so they can be distinguished easily irrespective of the line colors and how they may be seen. This can be done using the `style` parameter in the `plot()` function, as shown below.
 
 ```python
 ax = data.plot(
@@ -133,7 +133,7 @@ ax = data.plot(
 );
 ```
 
-Here in Figure 4.X viewers can easily tell which line is which whether they have colorblindness or have printed a figure from a grayscale printer. Figure 4.X uses four different line styles: `-` for a solid line, `:` for a dotted line, `--` for a dashed line, and `-.` for a line with dots and dashes. These are defined using shorthand plot formatting for Matplotlib [^shorthand], for which there are only four available line styles. If your plots require more than four line styles, you will likely need to use Matplotlib rather than pandas for the plotting. In that case you can find more about the line styles for Matplotlib plotting in the [Matplotlib documentation online](https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html) [^linestyles]. 
+Here in Figure 4.X, viewers can easily tell which line is which whether they have colorblindness or have printed a figure from a printer in grayscale. The difference, of course, is that Figure 4.X uses four different line styles: `-` for a solid line, `:` for a dotted line, `--` for a dashed line, and `-.` for a line with dots and dashes. These are defined using shorthand plot formatting for Matplotlib [^shorthand], for which they are the only four available line styles. If your plots require more than four line styles, you will likely need to use Matplotlib rather than pandas for the plotting. In that case, you can find more about the line styles for Matplotlib plotting in the [Matplotlib documentation online](https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html) [^linestyles]. 
 
 Although this plotting example may seem like a simple tip, it can make a great difference in ensuring all viewers see the same data effectively the same way. We will return to the topic of effective plot design to discuss selecting colors and other visualization tips in greater detail in Chapter 8.
 
