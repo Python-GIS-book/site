@@ -94,7 +94,7 @@ We often want to make selections from our data and only use specific rows from a
 
 ### Selecting rows and columns
 
-One common way of selecting only specific rows from your DataFrame is done via a concept of **slicing**. Slicing in pandas can be done in a similar manner as with normal Python lists, i.e. you specify index range you want to select inside the square brackets: ``dataframe[start_index:stop_index]``. Let's select the first five rows and assign them to a variable called `selection`. Here, we will first see how selecting the data works like you would do with "normal" Python lists, based on index values:
+One common way of selecting only specific rows from your DataFrame is done via a concept of slicing. Getting a slice of data in pandas can be done in a similar manner as with normal Python lists by specifying an index range inside square brackets: ``dataframe[start_index:stop_index]``. Let's select the first five rows and assign them to a variable called `selection`. Here, we will first see how selecting the data works like you would do with "normal" Python lists, based on index values:
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 selection = data[0:5]
@@ -117,7 +117,7 @@ selection
 
 Notice that in this case, we get six rows of data (index 0-5)! This happens because we are now doing the selection based on axis labels instead of normal Python-kind of indexing. It is important to notice the difference between these two approaches, as mixing the two may cause confusion,  incorrect analysis results or bugs in your code, if you do not pay attention. We recommend to use `.loc` always when possible (there are specific cases when you want to use other approaches, more about this soon). Hence, the basic syntax for `.loc` is:
  
- - `.loc[first_included_label:last_included_label, columns]`
+ ```.loc[first_included_label:last_included_label, columns]```
 
 By looking at the syntax, you might guess that it is also possible to select multiple columns when using `.loc`. Next, we will test this by selecting the `TEMP` and `TEMP_CELSIUS` columns from a set of rows by passing them inside a list:
 
@@ -448,6 +448,7 @@ As a result the data is now ordered first by weekday (i.e. the same weekday valu
 Joining data between two or several DataFrames is a common task when doing data anaysis. The minimum requirement for being able to combine data between two (or more) DataFrames (i.e. *tables*), is to have at least one common attribute (called *key*) that has identical values in both DataFrames. Figure 3.4 illustrates this logic: we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier. The common `key` in this case is the time information which is in column `YEARMODA` in the left DataFrame and `DATE` column in the right DataFrame accordingly. The column names of the keys can be different (as in our case), but the actual values stored in these columns should correspond to each other, so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example. 
 
 ![_**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._](../img/Table_join_logic.png)
+
 _**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._
 
 
@@ -483,4 +484,3 @@ In our case, doing the table join was fairly straightforward because we had only
 ## Footnotes
 
 [^numpydtypes]: <https://numpy.org/doc/stable/user/basics.types.html>
-[^pandasio]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html>
