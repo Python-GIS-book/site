@@ -82,7 +82,7 @@ Similarly as with for loops, Python uses colons (`:`) and whitespace (indentatio
 Note also that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = 'Rain'`, the comparsion `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
 
 
-**Check your understanding (online)** 
+#### Question 2.6
 
 We might also need some other rainwear on a rainy day. Think about how you could add another instruction after the `weather == rain` condition so that the code would tell us to:
 
@@ -92,11 +92,12 @@ Wear rain boots
 ```
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
 ```
 
-```python
-# Here's one possible solution
+```python tags=["hide-cell"]
+# Solution
+
 weather = "rain"
 
 if weather == "rain":
@@ -119,7 +120,7 @@ Comparison operators such as `>` and `==` compare the values on each side of the
 | >        | Greater than             |
 | !=       | Not equal to             |
 
-**Table 1.3**. Comparison operators in Python.
+_**Table 2.3**. Comparison operators in Python._
 
 
 ### Boolean values
@@ -153,7 +154,7 @@ else:
 ```
 
 <!-- #region -->
-**Check your understanding (online)**
+#### Question 2.7
 
 Let's assume that yesterday it was 14°C, it is 10°C outside today, and tomorrow it will be 13°C.
 The following code compares these temperatures and prints something to the screen based on the comparison.
@@ -177,7 +178,13 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 <!-- #endregion -->
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
+"B"
 ```
 
 ### Combining conditions
@@ -185,10 +192,12 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 We can also use `and` and `or` to combine multiple conditions on boolean values.
 
 
-| Keyword   |example   | Description                          |
+| Keyword   | Example  | Description                          |
 | --------- |--------- |------------------------------------- |
 |  and      | a and b  | True if both a and b are True        |
 |  or       | a or b   | True if either a or b is True        |
+
+_**Table 2.4**. Logic for the `and` and `or` keywords in Python._
 
 ```python
 if (1 > 0) and (-1 > 0):
@@ -205,14 +214,19 @@ if (1 < 0) or (-1 < 0):
 Later on we will also need the bitwise operators `&` for `and`, and `|` for `or`.
 
 
-**Check your understanding (online)**
+#### Question 2.8
 
 Let's return to our example about making decisions on a rainy day. Imagine that we consider not only the rain, but also the wind speed (in meters per second). If it is windy or raining, we’ll just stay at home. If it's not windy or raining, we can go out and enjoy the weather! 
 
 Let' set 18 m/s as our comfort limit in the conditional statement and see what our Python program tells us to do in these conditions:
 
 ```python
-# Add your solution here
+# Use this cell to enter your solution.
+```
+
+```python tags=["hide-cell"]
+# Solution
+
 weather = "rain"
 wind_speed = 20
 comfort_limit = 18
@@ -242,11 +256,7 @@ for temperature in temperatures:
         print(temperature, "is not hot")
 ```
 
-## Exercises
-
-Add exercises.
-
-
+<!-- #region tags=[] -->
 ## Footnotes
 
-[^swc]: <http://software-carpentry.org>
+<!-- #endregion -->

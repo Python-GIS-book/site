@@ -5,9 +5,9 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.10.2
   kernelspec:
-    display_name: Python 3 (ipykernel)
+    display_name: Python 3
     language: python
     name: python3
 ---
@@ -21,11 +21,11 @@ We start this first chapter with a short introduction to computers and programs.
 
 You might be wondering about why you should even bother learning to program at all. Most likely you are not a computer scientist after all, but **neither are we**. Yet all of the authors of this book have developed their basic computer programming skills to be able to write and use simple programs. Even very short computer programs can be very useful!
 
-So, why bother? Well, the fields of geoscience and geography are becoming increasingly quantitative. In both fields we are now processing larger datasets, using numerical models, and performing other quantitative tasks that benefit from having some basic programming skills. Even these basic skills ca allow you to do more in exploring, manipulating, and analyzing your data. For example, many software packages used for data visualization or GIS now include the possibility to include your own Python scripts within the programs to extend what they can do.
+So, why bother? Well, the fields of geoscience and geography are becoming increasingly quantitative. In both fields we are now processing larger datasets, using numerical models, and performing other quantitative tasks that benefit from having some basic programming skills. Even these basic skills can allow you to do more in exploring, manipulating, and analyzing your data. For example, many Geographic Information Systems, such as QGIS, include the possibility to interact with the software and to develop new plugins using Python (Figure 1.5).
 
-![_**Figure 1.5**. Using the Python console to interact with GIS data in the QGIS program (<https://www.qgis.org/>)._](../img/QGIS-Python.png)
+![_**Figure 1.5**. Using the Python console to interact with GIS data in the QGIS program (<https://www.qgis.org/>). Data sources: City of Helsinki 2022, OpenStreetMap Contributors 2022._](../img/QGIS-Python.png)
 
-_**Figure 1.5**. Using the Python console to interact with GIS data in the QGIS program (<https://www.qgis.org/>)._
+_**Figure 1.5**. Using the Python console to interact with GIS data in the QGIS program (<https://www.qgis.org/>). Data sources: City of Helsinki 2022, OpenStreetMap Contributors 2022._
 
 Programming can also be fun! Once you learn the basic syntax you may enjoy finding ways to break complex problems down into simpler pieces, developing strategies for solving programming problems, and texting your solutions. This is part of the reason that children are being introduced to programming ideas in books such as the Hello Ruby series ({cite}`Liukas2015`). Coming up with solutions with simple programs can be exiting and rewarding, and you can test your solutions right away to see whether or not your solution works!
 
