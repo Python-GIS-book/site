@@ -111,7 +111,7 @@ For this exercise you should:
     - *Hint*: Create the empty lists before the start of the `for` loop.
 - Answer the following questions:
     - How many times was it cold in Helsinki in April 2013?
-    - How many times was it slippery?
+    - How many times was it comfortable?
     - Was it ever warm?
 <!-- #endregion -->
 

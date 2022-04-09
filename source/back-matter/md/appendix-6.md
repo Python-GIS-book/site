@@ -135,5 +135,10 @@ for temp in temperatures:
         comfortable.append(temp)
     elif temp >= 15:
         warm.append(temp)
+
+# Print out number of times it was cold, comfortable, or warm
+print(f"It was cold {len(cold)} times in Helsinki in April 2013.")
+print(f"It was cold {len(comfortable)} times in Helsinki in April 2013.")
+print(f"It was cold {len(warm)} times in Helsinki in April 2013.")
 ```
 <!-- #endregion -->
