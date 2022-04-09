@@ -281,7 +281,6 @@ Find the mean temperatures (in Celsius) for the last seven days of June again. T
 
 ```python tags=["hide-cell"]
 # Solution
-
 data["TEMP_CELSIUS"].loc[data["YEARMODA"] >= 20160624].mean()
 ```
 
@@ -427,6 +426,41 @@ data.sort_values(by=["WEEKDAY", "TEMP_CELSIUS"], ascending=[True, False]).head(1
 ```
 
 As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data. 
+
+
+## Table joins: Combining DataFrames based on a common key
+
+Joining data between two or several DataFrames is a common task when doing data anaysis. The minimum requirement for being able to combine data between two (or more) DataFrames (i.e. *tables*), is to have at least one common attribute (called *key*) that has identical values in both DataFrames. Figure 3.4 illustrates this logic: we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier. The common `key` in this case is the time information which is in column `YEARMODA` in the left DataFrame and `DATE` column in the right DataFrame accordingly. The column names of the keys can be different (as in our case), but the actual values stored in these columns should correspond to each other, so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example. 
+
+![_**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._](../img/Table_join_logic.png)
+_**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._
+
+
+In the following, we first read the precipitation data from Kumpula, and then create a table join with the DataFrame that we previously worked with, containing the average temperature data. Merging two DataFrames together based on a common key (or multiple keys) can be done easily with pandas using the `.merge()` -function. The column which represents the key can be specified with parameter `on`, if the key column is identical in both DataFrames. In our case, the columns containing the common values between the DataFrames are named differently. Hence, we need to specify separately the key for the left DataFrame using parameter `left_on`, and parameter `right_on` for the right DataFrame accordingly. 
+
+```python
+# Read precipitation data and show first rows
+rainfall = pd.read_csv("data/2902781.csv")
+rainfall.head()
+```
+
+```python
+# Make a table join
+join = data.merge(rainfall, left_on="YEARMODA", right_on="DATE")
+join.head()
+```
+
+Now we have merged all the information from the right DataFrame into the left one and stored the result into variable `join`. By doing this, we can e.g. analyze the relationship between the daily average temperature and precipitation, to understand whether the temperature is lower when it rains. Currently, the `join` DataFrame contains many variables that are not necessarily useful for us. To make the output more concise, a useful trick to do when joining is to limit the number of columns that will be kept from the right DataFrame. This can be done by chaining a simple column selection while doing the merge as shown next. When doing this, it is important to remember that the `key` column on the right DataFrame needs to be part of the selection for the table join to work.  
+
+```python
+# Make another join but only keep the attribute of interest
+join2 = data.merge(rainfall[["DATE", "PRCP"]], left_on="YEARMODA", right_on="DATE")
+join2.head()
+```
+
+As can be seen, now only the column `DATE` and the attribute of interest `PRCP` were joined and kept in the output from the right DataFrame. Similar trick can also be applied to the left DataFrame by adding the selection before the `.merge()` call if you want to reduce the number of columns on the result. 
+
+In our case, doing the table join was fairly straightforward because we had only one unique record per day in both DataFrames. However, in some cases you might have multiple records on either one of the DataFrames (e.g. hourly observations vs daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled e.g. by aggregating the hourly data to a daily average. You can learn more about these aggregation techniques in the following sections. 
 
 
 ## Footnotes
