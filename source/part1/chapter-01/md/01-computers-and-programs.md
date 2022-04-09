@@ -23,7 +23,7 @@ You might be wondering about why you should even bother learning to program at a
 
 So, why bother? Well, the fields of geoscience and geography are becoming increasingly quantitative. In both fields we are now processing larger datasets, using numerical models, and performing other quantitative tasks that benefit from having some basic programming skills. Even these basic skills can allow you to do more in exploring, manipulating, and analyzing your data. For example, many Geographic Information Systems, such as QGIS, include the possibility to interact with the software and to develop new plugins using Python (Figure 1.5).
 
-![_**Figure 1.5**. Using the Python console to interact with GIS data in the QGIS program (<https://www.qgis.org/>) Data sources: City of Helsinki 2022, OpenStreetMap Contributors 2022._](../img/QGIS-Python.png)
+![_**Figure 1.5**. Using the Python console to interact with GIS data in the QGIS program (<https://www.qgis.org/>). Data sources: City of Helsinki 2022, OpenStreetMap Contributors 2022._](../img/QGIS-Python.png)
 
 _**Figure 1.5**. Using the Python console to interact with GIS data in the QGIS program (<https://www.qgis.org/>). Data sources: City of Helsinki 2022, OpenStreetMap Contributors 2022._
 
