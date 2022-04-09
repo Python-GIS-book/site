@@ -173,7 +173,7 @@ As an output, we got the individual value 65.5. `.at` works only when accessing 
 selection.loc[0, "TEMP"]
 ```
 
-### Selecting values based on index positions
+### Selections based on index positions
 
 As we have learned thus far, `.loc` and `.at` are based on the *axis labels* - the names of columns and rows. For positional based indexing, pandas has an `.iloc` which is based on *integer value* indices. With `.iloc`, it is also possible to refer to the columns based on their index value (i.e. to a positional number of a column in the DataFrame). For example,  `data.iloc[0,0]` would return `20160601` in our example DataFrame which is the value on the first row and first column in the data:    
 
@@ -207,6 +207,18 @@ One handy functionality with `.iloc` is the ability to fetch data starting from 
 
 ```python
 data.iloc[-1, -1]
+```
+
+### Selections using listed criteria
+
+One common way of selecting rows from a DataFrame is to provide a list of values that are used for finding matching rows in a specific DataFrame column. For example, selecting rows that match specific dates can be done by passing a list of values used as criteria to the `.isin()` -function of pandas. This will go through each value in the selected column (in this case `YEARMODA`) and checks whether there is a match or not. As an output, the `.isin()` command returns a Series of boolean values (True or False) which can be combined with `.loc` to do the final selection that returns only rows that meet the selection criteria.  
+
+```python
+# List of values that will be used as basis for selecting the rows
+selection_criteria = [20160601, 20160608, 20160609]
+
+# Do the selection based on criteria applied to YEARMODA column
+data.loc[data["YEARMODA"].isin(selection_criteria)]
 ```
 
 <!-- #region deletable=true editable=true -->
