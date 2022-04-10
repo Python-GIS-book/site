@@ -1,5 +1,18 @@
-Essentials: What is special about geographic data?
-=================================================
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .md
+      format_name: markdown
+      format_version: '1.3'
+      jupytext_version: 1.11.5
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
+# Essentials: What is special about geographic data?
 
 Here we introduce basic GIS concepts for beginners.
 
@@ -12,15 +25,13 @@ This chapter introduces you to the basic concepts and approaches related to Geog
 *Topics to cover, but not extensively! Theory to appropriate sub-sections*:
 
 - Spatial data structures - How can we represent spatial data?
-
-  - Intro: Point/Place, Surface/Field, Attribute/Geographic-Table, Network
-  - Vector data model - Points, LineStrings, Polygons
-  - Surfaces/Fields - Raster surfaces - Vector Surfaces
-  - Spatial Networks
+    - Intro: Point/Place, Surface/Field, Attribute/Geographic-Table, Network
+    - Vector data model - Points, LineStrings, Polygons
+    - Surfaces/Fields - Raster surfaces - Vector Surfaces
+    - Spatial Networks
 
 - Coordinate reference systems
 - Geometric operations
 - Spatial relationships (map algebra, overlay analysis, distance, direction, spatial weights)
 - Distance operations
 - Directional operations
-
