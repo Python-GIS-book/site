@@ -60,6 +60,7 @@ Wait, what? Python can’t calculate square roots or do basic trigonometry? Of c
 ### Math operations
 
 The list of basic arithmetic operations that can be done by default in Python are listed in Table 2.1.
+<!-- #endregion -->
 
 <table>
     <tr>
@@ -101,8 +102,8 @@ The list of basic arithmetic operations that can be done by default in Python ar
     <caption><i><b>Table 2.1</b>. Basic math operations in Python.</i></caption>
 </table>
 
+
 For anything more advanced, we need to load a *{term}`module`* or *{term}`library`*. For math operations, this module is called *math* and it can be loaded by typing `import math`.
-<!-- #endregion -->
 
 ```python deletable=true editable=true
 import math
