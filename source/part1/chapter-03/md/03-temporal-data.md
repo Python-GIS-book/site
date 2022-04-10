@@ -420,6 +420,8 @@ sample = data.loc["1990":"2020"].copy()
 sample.plot(y="TEMP_F");
 ```
 
+_**Figure 3.5**. Temperature values in Fahrenheit for 1990-2020._
+
 In this plot we have time represented on the x-axis and the temperature in Fahrenheit on the y-axis. We can clearly see how the temperatures fluctuate over different seasons. Let's investigate our data a bit further and take a look of the first rows of our sample: 
 
 ```python
@@ -456,6 +458,8 @@ ax = annual.plot(ax=ax, y="TEMP_F", lw=3)
 ax.set_ylabel("Temperature (Fahrenheit)", size=12);
 ```
 
+_**Figure 3.6**. Temperature values and moving averages for 1990-2020._
+
 As a result, we have three different curves showing how the temperature values get smoothed by averaging. Green line is based on the moving average with 360 days; Orange line is based on the 180 days; and the blue line represents the moving average based on daily averages. As can be seen, the variance between observations is reduced (i.e. smoothed) when the size of the window gets larger. 
 
 In quite a similar manner, it is possible to use exponentially weighted (EW) window functions to give more weight on more recent observations based on a decay function, such as center of mass (com) following a formula: $\alpha$ *= 1 / (1 + com)*. A method called `.ewm()` does this, and as a result the smoothing adapts faster to changes than using equally weighted observations. The higher value you pass for the `com` -parameter, the more the end result will be smoothed:
@@ -463,6 +467,8 @@ In quite a similar manner, it is possible to use exponentially weighted (EW) win
 ```python
 sample["TEMP_F"].ewm(com=200).mean().plot();
 ```
+
+_**Figure 3.7**. Exponentially weighted temperature values for 1990-2020._
 
 In addition to these moving window functions, pandas provides a method `.expanding()` which increases the size of the window on each observation until it encompasses the whole series. This method basically cumulates the information on each observation and can be useful e.g. in some predictive applications where cumulative information about the given phenomena can provide more accurate results after more observations have been observed. It is also possible to apply and chain your own functions together with `.rolling()` and `.expanding()`, such as `.rolling(20).apply(myOwnFunction)`. 
 

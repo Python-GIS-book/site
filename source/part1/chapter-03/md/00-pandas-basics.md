@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-# Getting started with data pandas
+# Getting started with data analysis
 
 
 ## What is pandas?
@@ -159,8 +159,8 @@ It is also possible to read only specific columns from the data when using the `
 <!-- #endregion -->
 
 ```python
-temp_data = pd.read_csv("data/Kumpula-June-2016-w-metadata.txt", skiprows=8, 
-                        usecols=["YEARMODA", "TEMP"]
+temp_data = pd.read_csv(
+    "data/Kumpula-June-2016-w-metadata.txt", skiprows=8, usecols=["YEARMODA", "TEMP"]
 )
 
 temp_data.head()
