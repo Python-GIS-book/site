@@ -59,17 +59,47 @@ Wait, what? Python can’t calculate square roots or do basic trigonometry? Of c
 <!-- #region deletable=true editable=true -->
 ### Math operations
 
-The list of basic arithmetic operations that can be done by default in Python are listed in table 1.1.
+The list of basic arithmetic operations that can be done by default in Python are listed in Table 2.1.
 
-| Operation      | Symbol | Example syntax | Returned value |
-| -------------- | ------ | -------------- | -------------- |
-| Addition       | `+`    | `2 + 2`        | `4`            |
-| Subtraction    | `-`    | `4 - 2`        | `2`            |
-| Multiplication | `*`    | `2 * 3`        | `6`            | 
-| Division       | `/`    | `4 / 2`        | `2`            |
-| Exponentiation | `**`   | `2**3`         | `8`            |
-
-_**Table 2.1**. Basic math operations in Python._
+<table>
+    <tr>
+        <th>Operation</th>
+        <th>Symbol</th>
+        <th>Example syntax</th>
+        <th>Returned value</th>
+    </tr>
+    <tr>
+        <td>Addition</td>
+        <td>`+`</td>
+        <td>`2 + 2`</td>
+        <td>`4`</td>
+    </tr>
+    <tr>
+        <td>Subtraction</td>
+        <td>`-`</td>
+        <td>`4 - 2`</td>
+        <td>`2`</td>
+    </tr>
+    <tr>
+        <td>Multiplication</td>
+        <td>`*`</td>
+        <td>`2 * 3`</td>
+        <td>`6`</td>
+    </tr>
+    <tr>
+        <td>Division</td>
+        <td>`/`</td>
+        <td>`4 / 2`</td>
+        <td>`2`</td>
+    </tr>
+    <tr>
+        <td>Exponentiation</td>
+        <td>`**`</td>
+        <td>`2**3`</td>
+        <td>`8`</td>
+    </tr>
+    <caption><i><b>Table 2.1</b>. Basic math operations in Python.</i></caption>
+</table>
 
 For anything more advanced, we need to load a *{term}`module`* or *{term}`library`*. For math operations, this module is called *math* and it can be loaded by typing `import math`.
 <!-- #endregion -->
