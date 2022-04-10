@@ -113,14 +113,14 @@ Comparison operators such as `>` and `==` compare the values on each side of the
 
 : _**Table 2.3**. Comparison operators in Python._
 
-| Operator | Description              |
-| -------- | ------------------------ |
-| <        | Less than                |
-| <=       | Less than or equal to    |
-| ==       | Equal to                 |
-| >=       | Greater than or equal to |
-| >        | Greater than             |
-| !=       | Not equal to             |
+|Operator |Description              |
+|:--------|:------------------------|
+|`<`      |Less than                |
+|`<=`     |Less than or equal to    |
+|`==`     |Equal to                 |
+|`>=`     |Greater than or equal to |
+|`>`      |Greater than             |
+|`!=`     |Not equal to             |
 
 
 ### Boolean values
@@ -194,10 +194,10 @@ We can also use `and` and `or` to combine multiple conditions on boolean values 
 
 : _**Table 2.4**. Logic for the `and` and `or` keywords in Python._
 
-| Keyword   | Example  | Description                          |
-| --------- |--------- |------------------------------------- |
-|  and      | a and b  | True if both a and b are True        |
-|  or       | a or b   | True if either a or b is True        |
+|Keyword   | Example   |Description                          |
+|:---------|:---------:|:------------------------------------|
+|`and`     | `a and b` |True if both `a` and `b` are True    |
+|`or`      | `a or b`  |True if either `a` or `b` is True    |
 
 ```python
 if (1 > 0) and (-1 > 0):

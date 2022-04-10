@@ -34,14 +34,23 @@ For this exercise you should:
 
 ## Exercise 2.2 - Creating and changing lists
 
-![_**Tables 2.5 and 2.6**. [FMI observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) and the years in which they began operating_.](../img/exercise-2.2-tables.png)
+: _**Table 2.5**. [FMI observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) and the years in which they began operating_.
 
-_**Tables 2.5 and 2.6**. [FMI observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) and the years in which they began operating_.
+|FMI station name       | First year of operation | Group |
+|:----------------------|:-----------------------:|:-----:|
+|lighthouse             | 2003                    | 1     |
+|Harmaja                | 1989                    | 1     |
+|Suomenlinna aaltopoiju | 2016                    | 1     |
+|Kumpula                | 2005                    | 1     |
+|Kaisaniemi             | 1844                    | 1     |
+|Malmi airfield         | 1937                    | 2     |
+|Vuosaari harbour       | 2012                    | 2     |
+|Kaivopuisto            | 1904                    | 2     |
 
-For this exercise you should use the data in Tables 2.5 and 2.6 to:
+For this exercise you should use the data in Table 2.5 to:
 
-- Create two lists for the station names and first years of operation for the values in Table 2.5 (on the left) only. Be sure to list the values in the order they appear in the table.
-- Modify the lists you just created to add the values from Table 2.6 (on the right), again keeping them in the same order.
+- Create two lists for the station names and first years of operation for the stations in Group 1 in Table 2.5. Be sure to list the values in the order they appear in the table.
+- Modify the lists you just created to add the values Group 2, again keeping them in the same order.
 - Sort the two lists, sorting the first in alphabetical order and the second so that the most recent starting year is first
     - Do you see any problems with how the lists have been sorted?
     - Python has a function called `zip()` that might be helpful in solving the sorting issue. Search online to see whether you can find a way to use `zip()` to solve the problem with the two lists.
@@ -49,21 +58,7 @@ For this exercise you should use the data in Tables 2.5 and 2.6 to:
 
 ## Exercise 2.3 - Lists and index values
 
-![_**Table 2.7**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)_.](../img/exercise-2.3-table.png)
-
-_**Table 2.7**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)._
-
-For this exercise you should use the data in Table 2.7 to:
-
-- Create two lists with the months and their average temperatures.
-- Use a print statement to produce output like that below, where the months and temperatures are selected using index values in the corresponding lists.
-
-```
-The average temperature in Helsinki in March is -1.0
-```
-
-
-: _**Table 2.7**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)._
+: _**Table 2.6**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)._
 
 |Month     | Temperature (°C) |
 |:---------|:----------------:|
@@ -79,6 +74,15 @@ The average temperature in Helsinki in March is -1.0
 |October   | 6.0              |
 |November  | 2.0              |
 |December  | -1.5             |
+
+For this exercise you should use the data in Table 2.6 to:
+
+- Create two lists with the months and their average temperatures.
+- Use a print statement to produce output like that below, where the months and temperatures are selected using index values in the corresponding lists.
+
+```
+The average temperature in Helsinki in March is -1.0
+```
 
 
 ## Exercise 2.4 - Batch processing files with a `for` loop
@@ -101,18 +105,18 @@ For this exercise you should:
 <!-- #region -->
 ## Exercise 2.5 - Classifying temperatures
 
-Data classification is another useful data analysis concept, where data values are sorted into different groups that help you to interpret the data. Your goal in this exercise is to sort a list of temperatures into four categories using a Python list for each category:
+Data classification is another useful data analysis concept, where data values are sorted into different groups that help you to interpret the data. Your goal in this exercise is to sort a list of temperatures into four categories using a Python list for each category (Table 2.7):
 
-: _**Table 2.8**. Temperature categories and ranges for Exercise 2.5 and 2.7._
+: _**Table 2.7**. Temperature categories and ranges for Exercise 2.5 and 2.7._
 
-|Category    |Temperature range                  |List name     |
-|:-----------|:----------------------------------|:-------------|
-|Cold        |Less than -2 deg. C                |`cold`        |
-|Slippery    |Greater than or equal to -2 deg. C |`slippery`    |
-|            |and less than +2 deg. C            |              |
-|Comfortable |Greater than or equal to +2 deg. C |`comfortable` |
-|            |and less than +15 deg. C           |              |
-|Warm        |Greater than or equal to +2 deg. C |`warm`        |
+|Category    |Temperature range                  | List name     |
+|:-----------|:----------------------------------|:-------------:|
+|Cold        |Less than -2 deg. C                | `cold`        |
+|Slippery    |Greater than or equal to -2 deg. C | `slippery`    |
+|            |and less than +2 deg. C            |               |
+|Comfortable |Greater than or equal to +2 deg. C | `comfortable` |
+|            |and less than +15 deg. C           |               |
+|Warm        |Greater than or equal to +2 deg. C | `warm`        |
 
 The list of temperatures below were measured at the Helsinki Malmi Airport in April 2013 with night, day, and evening temperatures recorded for each day.
 
@@ -129,7 +133,7 @@ temperatures = [-5.4, 1.0, -1.3, -4.8, 3.9, 0.1, -4.4, 4.0, -2.2, -3.9, 4.4,
 
 For this exercise you should:
 
-- Use a `for` loop and conditional statments (e.g., `if`, `elif`, and `else`) to sort the temperatures in the list into the lists associated with each category.
+- Use a `for` loop and conditional statments (e.g., `if`, `elif`, and `else`) to sort the temperatures in the list into the lists associated with each category (see Table 2.7).
     - *Hint*: Create the empty lists before the start of the `for` loop.
 - Answer the following questions:
     - How many times was it cold in Helsinki in April 2013?
