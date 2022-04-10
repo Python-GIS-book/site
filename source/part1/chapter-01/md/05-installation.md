@@ -31,7 +31,7 @@ This book assumes you are using **Python 3**, so for all operating systems we re
 
 To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer. You can find the latest installer links for various operating systems from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links) [^miniconda]. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.
 
-![_**Figure 1.12**. Miniconda versions available for Windows.](../img/miniconda-windows.png)
+![_**Figure 1.12**. Miniconda versions available for Windows._](../img/miniconda-windows.png)
 
 _**Figure 1.12**. Miniconda versions available for Windows._
 
@@ -75,7 +75,7 @@ There are three steps to install the software libraries needed in this book.
 
 We recommend downloading the version of Miniconda that offers installation using a graphical installer (e.g., `Miniconda MacOSX 64-bit pkg`), and make sure you download the Python 3 package (Figure 1.13).
 
-![_**Figure 1.13**. Miniconda versions available for macOS.](../img/miniconda-macos.png)
+![_**Figure 1.13**. Miniconda versions available for macOS._](../img/miniconda-macos.png)
 
 _**Figure 1.13**. Miniconda versions available for macOS._
 
@@ -119,7 +119,7 @@ There are three steps to install the software libraries needed in this book.
 
 Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) (Figure 1.14). Be sure you download the Python 3 package.
 
-![_**Figure 1.14**. Miniconda versions available for Linux.](../img/miniconda-linux.png)
+![_**Figure 1.14**. Miniconda versions available for Linux._](../img/miniconda-linux.png)
 
 _**Figure 1.14**. Miniconda versions available for Linux._
 

@@ -32,9 +32,7 @@ There are a variety of different kinds of plots (also known as graphs, charts, d
 - [Treemap](https://en.wikipedia.org/wiki/Treemap)
 - [Network chart](https://en.wikipedia.org/wiki/Network_chart)
 
-In spite of the large variety of types of plots, there are certain elements that are common for most of them (not all). Thus, it is useful to know at least the basic terminology since it makes it easier to find help and information from the internet when you start creating or modifying your own plots.
-
-Figure 4.2 illustrates different elements of a basic line plot.
+In spite of the large variety of types of plots, there are certain elements that are common for most of them (not all). Thus, it is useful to know at least the basic terminology since it makes it easier to find help and information from the internet when you start creating or modifying your own plots. Figure 4.2 illustrates different elements of a basic line plot.
 
 ![_**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)_](../img/basic-elements-of-plot.png)
 
