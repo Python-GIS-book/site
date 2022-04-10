@@ -5,7 +5,7 @@ Here we introduce the basics of data analysis in Python using the pandas library
 You will learn how to read and write data from/to a file, and to manipulate and analyse tabular data using pandas data structures and functions.
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
     :caption: Sections:
 
     nb/00-pandas-basics.ipynb
