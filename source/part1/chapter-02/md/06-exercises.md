@@ -164,10 +164,10 @@ In this exercise you should:
 
 - Create a function that classifies temperatures based on Table 2.8.
     - The function should return the following values for the different categories
-        - Cold: `0`
-        - Slippery: `1`
-        - Comfortable: `2`
-        - Warm: `3`
+        - `0`: Cold
+        - `1`: Slippery
+        - `2`: Comfortable
+        - `3`: Warm
 - Use the function to calculate the returned value the following temperatures:
     - +17 °C
     - +2 °C
