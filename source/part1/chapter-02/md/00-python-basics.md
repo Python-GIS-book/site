@@ -59,7 +59,7 @@ Wait, what? Python can’t calculate square roots or do basic trigonometry? Of c
 <!-- #region deletable=true editable=true -->
 ### Math operations
 
-The list of basic arithmetic operations that can be done by default in Python are listed in table 1.1.
+The list of basic arithmetic operations that can be done by default in Python are listed in Table 2.1.
 
 | Operation      | Symbol | Example syntax | Returned value |
 | -------------- | ------ | -------------- | -------------- |
@@ -231,7 +231,7 @@ print(
 ## Data types
 
 A *{term}`data type`* determines the characteristics of data in a program.
-There are 4 basic data types in Python as shown in table 1.2.
+There are 4 basic data types in Python as shown in Table 2.2.
 
 | Data type name | Data type            | Example    |
 | -------------- | -------------------- | ---------- |
@@ -240,7 +240,7 @@ There are 4 basic data types in Python as shown in table 1.2.
 | `str`          | Character strings    | `'Hot'`    |
 | `bool`         | True/false values    | `True`     |
 
-_**Table 2.2**. Basic data types in Python._
+: _**Table 2.2**. Basic data types in Python._
 
 The data type can be found using the `type()` function. As you will see, the data types are important because some are not compatible with one another. Let's define a variable ``weatherForecast`` and assign it the value ``'Hot'``. After this, we can check its data type using the ``type()`` function.
 <!-- #endregion -->

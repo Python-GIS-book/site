@@ -85,14 +85,16 @@ For this exercise you should:
 
 Data classification is another useful data analysis concept, where data values are sorted into different groups that help you to interpret the data. Your goal in this exercise is to sort a list of temperatures into four categories using a Python list for each category:
 
-|Category    |Temperature range                                   |List name     |
-|:-----------|:---------------------------------------------------|:-------------|
-|Cold        |Less than -2 °C                                     |`cold`        |
-|Slippery    |Greater than or equal to -2 °C and less than +2 °C  |`slippery`    |
-|Comfortable |Greater than or equal to +2 °C and less than +15 °C |`comfortable` |
-|Warm        |Greater than or equal to +2 °C                      |`warm`        |
+|Category    |Temperature range                  |List name     |
+|:-----------|:----------------------------------|:-------------|
+|Cold        |Less than -2 deg. C                |`cold`        |
+|Slippery    |Greater than or equal to -2 deg. C |`slippery`    |
+|            |and less than +2 deg. C            |              |
+|Comfortable |Greater than or equal to +2 deg. C |`comfortable` |
+|            |and less than +15 deg. C           |              |
+|Warm        |Greater than or equal to +2 deg. C |`warm`        |
 
-_**Table 2.8**. Temperature categories and ranges for Exercise 2.5 and 2.7._
+: _**Table 2.8**. Temperature categories and ranges for Exercise 2.5 and 2.7._
 
 The list of temperatures below were measured at the Helsinki Malmi Airport in April 2013 with night, day, and evening temperatures recorded for each day.
 
