@@ -59,51 +59,22 @@ Wait, what? Python can’t calculate square roots or do basic trigonometry? Of c
 <!-- #region deletable=true editable=true -->
 ### Math operations
 
-The list of basic arithmetic operations that can be done by default in Python are listed in Table 2.1.
-<!-- #endregion -->
+The list of basic arithmetic operations that can be done by default in Python are listed in table 1.1.
 
-<table>
-    <tr>
-        <th>Operation</th>
-        <th>Symbol</th>
-        <th>Example syntax</th>
-        <th>Returned value</th>
-    </tr>
-    <tr>
-        <td>Addition</td>
-        <td><code>+</code></td>
-        <td><code>2 + 2</code></td>
-        <td><code>4</code></td>
-    </tr>
-    <tr>
-        <td>Subtraction</td>
-        <td><code>-</code></td>
-        <td><code>4 - 2</code></td>
-        <td><code>2</code></td>
-    </tr>
-    <tr>
-        <td>Multiplication</td>
-        <td><code>*</code></td>
-        <td><code>2 * 3</code></td>
-        <td><code>6</code></td>
-    </tr>
-    <tr>
-        <td>Division</td>
-        <td><code>/</code></td>
-        <td><code>4 / 2</code></td>
-        <td><code>2</code></td>
-    </tr>
-    <tr>
-        <td>Exponentiation</td>
-        <td><code>**</code></td>
-        <td><code>2**3</code></td>
-        <td><code>8</code></td>
-    </tr>
-    <caption><i><b>Table 2.1</b>. Basic math operations in Python.</i></caption>
-</table>
+<caption><i><b>Table 2.1</b>. Basic math operations in Python.</i></caption>
 
+| Operation      | Symbol | Example syntax | Returned value |
+| -------------- | ------ | -------------- | -------------- |
+| Addition       | `+`    | `2 + 2`        | `4`            |
+| Subtraction    | `-`    | `4 - 2`        | `2`            |
+| Multiplication | `*`    | `2 * 3`        | `6`            | 
+| Division       | `/`    | `4 / 2`        | `2`            |
+| Exponentiation | `**`   | `2**3`         | `8`            |
+
+_**Table 2.1**. Basic math operations in Python._
 
 For anything more advanced, we need to load a *{term}`module`* or *{term}`library`*. For math operations, this module is called *math* and it can be loaded by typing `import math`.
+<!-- #endregion -->
 
 ```python deletable=true editable=true
 import math
