@@ -1,3 +1,3 @@
 [tool.black]
-line-length = 82
+line-length = 88
 include = '\.ipynb'
