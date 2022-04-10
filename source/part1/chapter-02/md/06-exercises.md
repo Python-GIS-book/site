@@ -63,6 +63,16 @@ The average temperature in Helsinki in March is -1.0
 ```
 
 
+: _**Table 2.7**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)._
+
+|Month    | Temperature (°C) |Month  | Temperature (°C) | Month    | Temperature (°C) |
+|:--------|:----------------:|:------|:----------------:|:--------:| ---------------- |
+|January  | -3.5             |May    | 10.0             |September | 11.5             |
+|February | -4.5             |June   | 15.0             |October   | 6.0              |
+|March    | -1.0             |July   | 18.0             |November  | 2.0              |
+|April    | 4.0              |August | 16.0             |December  | -1.5             |
+
+
 ## Exercise 2.4 - Batch processing files with a `for` loop
 
 Batch processing is a common task in Python, where a set of data and/or files are analyzed one after another using the same script or program. In this exercise your goal is to produce a Python list of filenames that could be used to batch process the data they contain.
@@ -85,6 +95,8 @@ For this exercise you should:
 
 Data classification is another useful data analysis concept, where data values are sorted into different groups that help you to interpret the data. Your goal in this exercise is to sort a list of temperatures into four categories using a Python list for each category:
 
+: _**Table 2.8**. Temperature categories and ranges for Exercise 2.5 and 2.7._
+
 |Category    |Temperature range                  |List name     |
 |:-----------|:----------------------------------|:-------------|
 |Cold        |Less than -2 deg. C                |`cold`        |
@@ -93,8 +105,6 @@ Data classification is another useful data analysis concept, where data values a
 |Comfortable |Greater than or equal to +2 deg. C |`comfortable` |
 |            |and less than +15 deg. C           |              |
 |Warm        |Greater than or equal to +2 deg. C |`warm`        |
-
-: _**Table 2.8**. Temperature categories and ranges for Exercise 2.5 and 2.7._
 
 The list of temperatures below were measured at the Helsinki Malmi Airport in April 2013 with night, day, and evening temperatures recorded for each day.
 

@@ -61,6 +61,8 @@ Wait, what? Python can’t calculate square roots or do basic trigonometry? Of c
 
 The list of basic arithmetic operations that can be done by default in Python are listed in Table 2.1.
 
+: _**Table 2.1**. Basic math operations in Python._
+
 | Operation      | Symbol | Example syntax | Returned value |
 | -------------- | ------ | -------------- | -------------- |
 | Addition       | `+`    | `2 + 2`        | `4`            |
@@ -68,8 +70,6 @@ The list of basic arithmetic operations that can be done by default in Python ar
 | Multiplication | `*`    | `2 * 3`        | `6`            | 
 | Division       | `/`    | `4 / 2`        | `2`            |
 | Exponentiation | `**`   | `2**3`         | `8`            |
-
-: _**Table 2.1**. Basic math operations in Python._
 
 For anything more advanced, we need to load a *{term}`module`* or *{term}`library`*. For math operations, this module is called *math* and it can be loaded by typing `import math`.
 <!-- #endregion -->
@@ -233,14 +233,14 @@ print(
 A *{term}`data type`* determines the characteristics of data in a program.
 There are 4 basic data types in Python as shown in Table 2.2.
 
+: _**Table 2.2**. Basic data types in Python._
+
 | Data type name | Data type            | Example    |
 | -------------- | -------------------- | ---------- |
 | `int`          | Whole integer values | `4`        |
 | `float`        | Decimal values       | `3.1415`   |
 | `str`          | Character strings    | `'Hot'`    |
 | `bool`         | True/false values    | `True`     |
-
-: _**Table 2.2**. Basic data types in Python._
 
 The data type can be found using the `type()` function. As you will see, the data types are important because some are not compatible with one another. Let's define a variable ``weatherForecast`` and assign it the value ``'Hot'``. After this, we can check its data type using the ``type()`` function.
 <!-- #endregion -->
