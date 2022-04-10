@@ -424,11 +424,6 @@ Now we have an interactive line plot where the users can place their mouse curso
 That is all we will explore for the moment, but you are welcome to have a look at the [hvPlot User Guide](https://hvplot.holoviz.org/user_guide/index.html) [^hvplot_guide] to learn more about the types of visualizations available in hvPlot and how to use them.
 
 
-## Exercises
-
-Add exercises.
-
-
 ## Footnotes
 
 [^matplotlib]: <https://matplotlib.org/>
@@ -438,5 +433,5 @@ Add exercises.
 [^pandas-docs]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html>
 [^hvplot]: <https://hvplot.holoviz.org/>
 [^bokeh]: <https://docs.bokeh.org/en/latest/index.html>
-[^axis_labels]: Axis labels are a relatively new feature in pandas plotting, added in version 1.1.0. If you are using an older version of pandas and do not want upgrade then you will need to use a separate command such as `ax.set_xlabel('Date')` to set the axis labels.
 [^hvplot_guide]: https://hvplot.holoviz.org/user_guide/index.html
+[^axis_labels]: Axis labels are a relatively new feature in pandas plotting, added in version 1.1.0. If you are using an older version of pandas and do not want upgrade then you will need to use a separate command such as `ax.set_xlabel('Date')` to set the axis labels.

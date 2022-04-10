@@ -125,9 +125,13 @@ Let's have a look at the data from two different seasons to see whether the prec
 ax1 = winter_temps.plot()
 ```
 
+_**Figure 4.12**. Winter temperatures for 2012-2013._
+
 ```python
 ax2 = summer_temps.plot()
 ```
+
+_**Figure 4.13**. Summer temperatures for 2012-2013._
 
 Based on the plots above it looks that the correct seasons have been plotted and the temperatures between winter and summer are quite different, as we would expect. One thing we might need to consider with this is that the y-axis range currently varies between the two plots and we may want to define axis ranges that ensure the data are plotted with the same y-axis ranges in all subplots. This will help make it easier to visually compare the temperatures between seasons.
 
@@ -166,6 +170,8 @@ fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
 axs
 ```
 
+_**Figure 4.14**. Empty figure template with a 2x2 subplot panel._
+
 We can see that as a result we have now a list containing two nested lists, where the first one contains the axes for column 1 and 2 of **row 1** and the second list contains the axes for columns 1 and 2 of **row 2**.
 
 To make it easier to keep track of things, we can parse these axes into their own variables as follows.
@@ -198,6 +204,8 @@ autumn_temps.plot(ax=ax22, c="brown", lw=line_width, ylim=[min_temp, max_temp])
 fig
 ```
 
+_**Figure 4.15**. Seasonal temperatures for 2012-2013 plotted in a 2x2 panel._
+
 Great, now we have all the plots in same figure! However, we can see that there are some problems with our *x*-axis labels and a few other missing plot items we should add. Let's do that below.
 
 ```python
@@ -210,6 +218,8 @@ ax12 = axs[0][1]
 ax21 = axs[1][0]
 ax22 = axs[1][1]
 ```
+
+_**Figure 4.16**. Another empty figure template with a 2x2 subplot panel._
 
 Now, we'll add our seasonal temperatures to the plot commands for each time period. In addition, in this version of the plot we will also:
 - Modify the x- and y-axis labels using the `xlabel` and `ylabel` parameters in the `plot()` function.
@@ -271,8 +281,12 @@ ax22.text(pd.to_datetime("20131115"), -25, "Autumn")
 fig
 ```
 
-The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.
+<!-- #region -->
+_**Figure 4.17**. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible._
 
+
+The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.
+<!-- #endregion -->
 
 #### Question 4.3
 
@@ -328,11 +342,12 @@ ax1.text(pd.to_datetime("20130215"), -25, "Winter")
 ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 ```
 
-## Exercises
-
-Add exercises.
-
+_**Figure 4.18**. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel._
 
 ## Footnotes
 
 [^matplotlib_colors]: <https://matplotlib.org/stable/gallery/color/named_colors.html>
+
+```python
+
+```
