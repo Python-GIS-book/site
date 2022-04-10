@@ -5,9 +5,9 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.2
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -15,29 +15,29 @@ jupyter:
 <!-- #region -->
 # Map projections
 
-**Coordinate reference systems (CRS)** are important because the geometric shapes in a GeoDataFrame are simply a collection of coordinates in an arbitrary space. A CRS tells Python how those coordinates are related to places on the Earth. **A map projection** (or a projected coordinate system) is a systematic transformation of the latitudes and longitudes into a plain surface where units are quite commonly represented as meters (instead of decimal degrees). This transformation is used to **represent the three dimensional earth on a flat, two dimensional map**.
+Coordinate reference systems (CRS)are important because the geometric shapes in a GeoDataFrame are simply a collection of coordinates in an arbitrary space. A CRS tells Python how those coordinates are related to places on the Earth. A map projection (or a projected coordinate system) is a systematic transformation of the latitudes and longitudes into a plain surface where units are quite commonly represented as meters (instead of decimal degrees). This transformation is used to represent the three dimensional earth on a flat, two dimensional map.
 
-As the CRS in different spatial datasets differ fairly often (i.e. one might have coordinates defined in decimal degrees while the other one has them in meters), it is a common procedure to **reproject** (transform) different layers into a common CRS. It is important that the layers are in the same coordinate reference system when analyzing the spatial relationships between the layers, for example, when making a Point in Polygon -query, or other type of overlay analysis.
+As the CRS in different spatial datasets differ fairly often (i.e. one might have coordinates defined in decimal degrees while the other one has them in meters), it is a common procedure to reproject (transform) different layers into a common CRS. It is important that the layers are in the same coordinate reference system when analyzing the spatial relationships between the layers, for example, when making a Point in Polygon -query, or other type of overlay analysis.
 
 Choosing an appropriate projection for your map is not always straightforward because it depends on what you actually want to represent with your map, and what is the spatial scale of your data. In fact, there is not a single "perfect projection" since each one of them has some strengths and weaknesses, and you should choose a projection that fits best for your needs. In fact, the projection you choose might even tell something about you!
     
 
-![_**Figure X.X**. Map projections via https://xkcd.com/977/._](../img/Map-projections.png)
+![_**Figure 6.X**. Map projections Source: XKCD https://xkcd.com/977/._](../img/Map-projections.png)
 
-_**Figure X.X**. Map projections via XKCD https://xkcd.com/977/._
+_**Figure 6.X**. Map projections Source: XKCD https://xkcd.com/977/._
 
+You can find a lot of information about available coordinate reference systems from:
 
-For those of you who want a bit more analytical approach for choosing the projection, you can get a good overview from [georeference.org](http://www.georeference.org/doc/guide_to_selecting_map_projections.htm), or from this blog post introducing [the strengths and weaknesses of a few commonly used projections](http://usersguidetotheuniverse.com/index.php/2011/03/03/whats-the-best-map-projection/).
+  - [www.spatialreference.org](http://spatialreference.org/)
+  - [www.proj4.org](https://proj4.org/operations/projections/)
+  - [www.mapref.org](http://mapref.org/CollectionofCRSinEurope.html)
 <!-- #endregion -->
 
-## Coordinate reference system (CRS) in pyproj and geopandas
+## Managing coordinate reference systems in pyproj and geopandas
 
-Luckily, defining and changing projections is easy using Geopandas and a library called [pyproj](https://pyproj4.github.io/pyproj/stable/). In this tutorial we will see **how to retrieve the
-coordinate reference system information from the data, and how to re-project the data into another crs**. We will re-project a data file from
-WGS84 (lat, lon coordinates) into a Lambert Azimuthal Equal Area projection which is the [recommended projection for
-Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) by European Commission.
+Our main tool for managing coordinate reference systems (CRS) is the [PROJ library](https://proj.org/) [^proj] that is available in python and geopandas through the [pyproj Python library](https://pyproj4.github.io/pyproj/stable/) [^pyproj]. Pyproj can be used, for example, to get basic information of the CRS of a GeoDataFrame, and to reproject data from one projection to another. 
 
-For this tutorial we will be using a Shapefile called `Europe_borders.shp` representing the country borders in Europe, that you already should have [downloaded during the previous tutorial](geopandas-basics.ipynb) into `L2_data` folder. 
+Let's demonstrate this using sample data from Europe. We will re-project the layer from the original CRS WGS84 (lat, lon coordinates) into a Lambert Azimuthal Equal Area projection which is the [recommended projection for Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) [^EU_projection].
 
 In Shapefiles, information about the coordinate reference system is stored in the `.prj` -file. If this file is missing, you might be in trouble!. When reading the data into `GeoDataFrame` with Geopandas crs information is automatically stored into the `.crs` attribute of the GeoDataFrame.
 
@@ -63,17 +63,11 @@ The EPSG number (named after the *European Petroleum Survey Group*) is a code th
 
 The EPSG code of our geodataframe is`4326`, which refers to the WGS84 coordinate system (we can also figure this out by looking at the coordinates values which are longitude and latitudes decimal degrees).
 
-You can find a lot of information and lists of available coordinate reference systems from:
 
-  - [www.spatialreference.org](http://spatialreference.org/)
-  - [www.proj4.org](https://proj4.org/operations/projections/)
-  - [www.mapref.org](http://mapref.org/CollectionofCRSinEurope.html)
-
-
-- Let's continue by checking the values in our `geometry` -column to verify that the CRS of our GeoDataFrame seems correct:
+Let's continue by checking the values in our `geometry` -column to verify that the CRS of our GeoDataFrame seems correct:
 
 ```python
-data['geometry'].head()
+data["geometry"].head()
 ```
 
 As we can see, the coordinate values of the Polygons indeed look like latitude and longitude values, so everything seems to be in order.
@@ -94,7 +88,7 @@ data = data.to_crs(epsg=3035)
 
 ```python
 # Check the new geometry values
-data['geometry'].head()
+data["geometry"].head()
 ```
 
 And here we go, the coordinate values in the geometries have changed! Now we have successfully changed the projection of our layer into a new one, i.e. to `ETRS-LAEA` projection. 
@@ -114,13 +108,13 @@ import matplotlib.pyplot as plt
 fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12, 12))
 
 # Plot the data in WGS84 CRS
-data_wgs84.plot(ax=ax1, facecolor='gray')
+data_wgs84.plot(ax=ax1, facecolor="gray")
 
 # Add title
 ax1.set_title("WGS84")
 
 # Plot the one with ETRS-LAEA projection
-data.plot(ax=ax2, facecolor='blue')
+data.plot(ax=ax2, facecolor="blue")
 
 # Add title
 ax2.set_title("ETRS Lambert Azimuthal Equal Area projection")
@@ -133,6 +127,8 @@ ax2.set_aspect(aspect=1)
 plt.tight_layout()
 ```
 
+_**Figure 6.X**. Map of Europe plotted with two different coordinate reference systems._
+
 Indeed, the maps look quite different, and the re-projected one looks much better in Europe as the areas especially in the north are more realistic and not so stretched as in WGS84.
 
 Finally, let's save our projected layer into a Shapefile so that we can use it later. Note, even if the crs information is stored in the .prj file, it might be a good idea also to include crs info in the filename:
@@ -140,7 +136,7 @@ Finally, let's save our projected layer into a Shapefile so that we can use it l
 ```python
 # Ouput filepath
 outfp = "L2_data/Europe_borders_epsg3035.shp"
-    
+
 # Save to disk
 data.to_file(outfp)
 ```
@@ -184,7 +180,7 @@ print("PROJ dictionary:\n", crs_dict)
 print("\nCRS object:\n", crs_object)
 print("\nEPSG code: \n", crs_epsg)
 print("\nPROJ string: \n", crs_proj4)
-print("\nWell-Known Text (WKT):\n",crs_wkt) 
+print("\nWell-Known Text (WKT):\n", crs_wkt)
 ```
 
 ### Pyproj CRS object
@@ -272,7 +268,7 @@ However, be cautious when using this, as guessing the EPSG from "exotic" coordin
 Let's now save our data to disk using the `WKT` format as the crs of our GeoDataFrame. WKT is a [preferred output format](https://proj.org/faq.html#what-is-the-best-format-for-describing-coordinate-reference-systems) when storing crs information as text.
 
 ```python
-# Re-define the CRS of the input GeoDataFrame 
+# Re-define the CRS of the input GeoDataFrame
 data.crs = CRS.from_epsg(3035).to_wkt()
 ```
 
@@ -283,9 +279,9 @@ print(data.crs)
 ```python
 # Ouput filepath
 outfp = "L2_data/Europe_borders_epsg3035.shp"
-    
+
 # Save to disk
-#data.to_file(outfp)
+# data.to_file(outfp)
 ```
 
 <!-- #region -->
@@ -319,7 +315,7 @@ When plotting the maps, think about the advantages and disadvantages of differen
 
 ```python
 # Read in data
-fp = "L2_data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp" 
+fp = "L2_data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp"
 admin = gpd.read_file(fp)
 ```
 
@@ -330,14 +326,16 @@ admin.crs
 
 ```python
 # Set fig size
-plt.rcParams['figure.figsize'] = [12, 6]
+plt.rcParams["figure.figsize"] = [12, 6]
 ```
 
 ```python
-#Plot in original crs
+# Plot in original crs
 admin.plot()
 plt.title("WGS84")
 ```
+
+_**Figure 6.X**. Global map plotted in WGS 84._
 
 ```python
 # Define projection as web mercator, 3785
@@ -347,36 +345,54 @@ web_mercator = CRS.from_epsg(3785)
 admin.to_crs(web_mercator).plot()
 
 # Remove x and y axis
-plt.axis('off')
+plt.axis("off")
 plt.title("Web mercator")
 ```
 
+_**Figure 6.X**. Global map plotted in Web Mercator._
+
 ```python
 # Define projection Eckert IV from https://spatialreference.org/ref/esri/54012/
-eckert_IV = CRS.from_proj4("+proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+eckert_IV = CRS.from_proj4(
+    "+proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+)
 
 # Re-project and plot
 admin.to_crs(eckert_IV).plot()
 
 # Remove x and y axis
-plt.axis('off')
+plt.axis("off")
 plt.title("Eckert IV")
 ```
 
+_**Figure 6.X**. Global map plotted in Eckert IV._
+
 ```python
 # Define an orthographic projection, centered in Finland! from: http://www.statsmapsnpix.com/2019/09/globe-projections-and-insets-in-qgis.html
-ortho = CRS.from_proj4("+proj=ortho +lat_0=60.00 +lon_0=23.0000 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs")
+ortho = CRS.from_proj4(
+    "+proj=ortho +lat_0=60.00 +lon_0=23.0000 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs"
+)
 
 # Re-project and plot
 admin.to_crs(ortho).plot()
 
 # Remove x and y axis
-plt.axis('off')
+plt.axis("off")
 plt.title("Orthographic")
 ```
+
+_**Figure 6.X**. Global map plotted in an orthographic projection._
+
 
 ## Summary
 That's it! In this section we learned how to:
 
 1. reproject (transform) the geometries from crs to another using the `to_crs()` -function in GeoPandas
 2. Define the coordinate reference system in different formats using `pyproj` `CRS`
+
+
+## Footnotes
+
+[^proj]: <https://proj.org/>
+[^pyproj]: <https://pyproj4.github.io/pyproj/stable/>
+[^EU_projection]: <http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf>

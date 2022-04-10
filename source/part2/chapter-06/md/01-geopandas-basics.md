@@ -5,37 +5,29 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.2
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
 <!-- #region -->
-# Introduction to spatial data analysis with Geopandas
+# Introduction to spatial data analysis with geopandas
 
-Here we cover basics steps needed for interacting with spatial data in Python using the geopandas (http://geopandas.org/) library:
+We will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis in Python. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. 
 
-- Managing filepaths
-- Reading spatial data from file 
-- Geometry calculations 
-- Writing spatial data to file
-- Grouping and splitting spatial data into multiple layers
+The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas. 
 
-Geopandas makes it possible to work with geospatial data in Python in a relatively easy way. Geopandas combines the capabilities of the data analysis library [pandas](https://pandas.pydata.org/pandas-docs/stable/) with other packages like [shapely](https://shapely.readthedocs.io/en/stable/manual.html) and [fiona](https://fiona.readthedocs.io/en/latest/manual.html) for managing spatial data. 
-
-The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas!  If you need to refresh your memory about pandas, check out week 5 and 6 lesson materials from the [Geo-Python website](geo-python.github.io). 
-
-The main difference between geodataframes and pandas dataframes is that a [geodataframe](http://geopandas.org/data_structures.html#geodataframe) should contain one column for geometries. By default, the name of this column is `'geometry'`. The geometry column is a [geoseries](http://geopandas.org/data_structures.html#geoseries) which contains the geometries (points, lines, polygons, multipolygons etc.) as shapely objects. 
+The main difference between geopandas GeoDataFrames and pandas DataFrames is that a [GeoDataFrame](http://geopandas.org/data_structures.html#geodataframe) should contain one column for geometries. By default, the name of this column is `'geometry'`. The geometry column is a [GeoSeries](http://geopandas.org/data_structures.html#geoseries) which contains the geometries (points, lines, polygons, multipolygons etc.) as shapely objects. 
 
 
 
-![_**Figure X.X**. GeoDataFrame._](../img/geodataframe.png)
+![_**Figure 6.X**. Geometry column in a GeoDataFrame._](../img/geodataframe.png)
 
-_**Figure X.X**. GeoDataFrame._
+_**Figure 6.X**. Geometry column in a GeoDataFrame._
 
-As we learned in the Geo-Python course, it is conventional to import pandas as `pd`. Similarly,we will import geopandas as `gpd`:
+Similar to importing import pandas as `pd`, we will import geopandas as `gpd`:
 <!-- #endregion -->
 
 ```python
@@ -45,18 +37,16 @@ import geopandas as gpd
 <!-- #region -->
 ## Input data: Finnish topographic database 
 
-In this lesson we will work with the [National Land Survey of Finland (NLS) topographic database (from 2018)](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database). 
-- The data set is licensed under the NLS' [open data licence](https://www.maanmittauslaitos.fi/en/opendata-licence-cc40) (CC BY 4.0).
-- Structure of the data is described in a separate Excel file ([download link](http://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2018/10/maastotietokanta_kohdemalli_eng.xlsx)).
-- Further information about file naming is available at [fairdata.fi](https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae).
+In this lesson we will work with the [National Land Survey of Finland (NLS) topographic database](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database) [^NLS_topodata]. 
+- The data set is licensed under the NLS' [open data licence / CC BY 4.0](https://www.maanmittauslaitos.fi/en/opendata-licence-cc40) [^NLS_lisence]. 
+- Metadata are available from the [NLS website](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database) [^NLS_topodata] and [fairdata.fi](https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae) [^topodata_fair]. 
+- We have acquired a subset of the topographic database as shapefiles from the Helsinki Region in Finland via the [CSC open data portal](https://avaa.tdata.fi/web/paituli/latauspalvelu) [^paituli]:
 
-For this lesson, we have acquired a subset of the topographic database as shapefiles from the Helsinki Region in Finland via the [CSC open data portal](https://avaa.tdata.fi/web/paituli/latauspalvelu):
+![_**Figure 6.X**. Paituli data download._](../img/Paituli_maastotietokanta_download.png)
 
-![_**Figure X.X**. Paituli data download._](../img/Paituli_maastotietokanta_download.png)
+_**Figure 6.X**. Paituli data download._
 
-_**Figure X.X**. Paituli data download._
-
-In this lesson, we will focus on **terrain objects** (Feature group: "Terrain/1" in the topographic database). The Terrain/1 feature group contains several feature classes. **Our aim in this lesson is to save all the Terrain/1 feature classes into separate files**.
+In this lesson, we will focus on terrain objects(Feature group: "Terrain/1" in the topographic database). The Terrain/1 feature group contains several feature classes. Our aim in this lesson is to save all the Terrain/1 feature classes into separate files.
 
 *Terrain/1 features in the Topographic Database:*
 
@@ -84,7 +74,7 @@ In this lesson, we will focus on **terrain objects** (Feature group: "Terrain/1"
 | 36313          | Watercourse area                                           | Terrain/1     |
 
 
-According to the [naming convention](https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae), all files that start with a letter `m` and end with `p` contain the objects we are interested in (Terrain/1 polygons). 
+According to the [naming convention](https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae) [^topodata_fair], all files that start with a letter `m` and end with `p` contain the objects we are interested in (Terrain/1 polygons). 
 <!-- #endregion -->
 
 ## Downloading data
@@ -137,7 +127,7 @@ import os
 # Define path to folder
 input_folder = r"L2_data/NLS/2018/L4/L41/L4132R.shp"
 
-# Join folder path and filename 
+# Join folder path and filename
 fp = os.path.join(input_folder, "m_L4132R_p.shp")
 
 # Print out the full file path
@@ -182,13 +172,13 @@ As you might guess, the column names are in Finnish.
 Let's select only the useful columns and rename them into English:
 
 ```python
-data = data[['RYHMA', 'LUOKKA',  'geometry']]
+data = data[["RYHMA", "LUOKKA", "geometry"]]
 ```
 
 Define new column names in a dictionary:
 
 ```python
-colnames = {'RYHMA':'GROUP', 'LUOKKA':'CLASS'}
+colnames = {"RYHMA": "GROUP", "LUOKKA": "CLASS"}
 ```
 
 Rename:
@@ -216,9 +206,9 @@ Figure out the following information from our input data using your pandas skill
 </div>
 
 ```python
-print("Number of rows", len(data['CLASS']))
-print("Number of classes", data['CLASS'].nunique())
-print("Number of groups", data['GROUP'].nunique())
+print("Number of rows", len(data["CLASS"]))
+print("Number of classes", data["CLASS"].nunique())
+print("Number of groups", data["GROUP"].nunique())
 ```
 
 It is always a good idea to explore your data also on a map. Creating a simple map from a `GeoDataFrame` is really easy: you can use ``.plot()`` -function from geopandas that **creates a map based on the geometries of the data**. Geopandas actually uses matplotlib for plotting which we introduced in [Lesson 7 of the Geo-Python course](https://geo-python.github.io/site/notebooks/L7/matplotlib.html).
@@ -234,7 +224,7 @@ Voilá! As we can see, it is really easy to produce a map out of your Shapefile 
 *If you are living in the Helsinki region, you might recognize the shapes plotted on the map!*
 
 
-## Geometries in Geopandas
+## Geometries in geopandas
 
 Geopandas takes advantage of Shapely's geometric objects. Geometries are stored in a column called *geometry* that is a default column name for
 storing geometric information in geopandas.
@@ -243,7 +233,7 @@ storing geometric information in geopandas.
 Let's print the first 5 rows of the column 'geometry':
 
 ```python jupyter={"outputs_hidden": false}
-data['geometry'].head()
+data["geometry"].head()
 ```
 
 As we can see the `geometry` column contains familiar looking values, namely Shapely `Polygon` -objects. Since the spatial data is stored as Shapely objects, **it is possible to use Shapely methods** when dealing with geometries in geopandas.
@@ -258,7 +248,7 @@ data.at[0, "geometry"]
 ```
 
 ```python
-# Print information about the area 
+# Print information about the area
 print("Area:", round(data.at[0, "geometry"].area, 0), "square meters")
 ```
 
@@ -271,12 +261,16 @@ Let's do the same for the first five rows in the data;
 ```python jupyter={"outputs_hidden": false}
 # Iterate over rows and print the area of a Polygon
 for index, row in data[0:5].iterrows():
-    
+
     # Get the area from the shapely-object stored in the geometry-column
-    poly_area = row['geometry'].area
-    
+    poly_area = row["geometry"].area
+
     # Print info
-    print("Polygon area at index {index} is: {area:.0f} square meters".format(index=index, area=poly_area))
+    print(
+        "Polygon area at index {index} is: {area:.0f} square meters".format(
+            index=index, area=poly_area
+        )
+    )
 ```
 
 As you see from here, all **pandas** methods, such as the `iterrows()` function, are directly available in Geopandas without the need to call pandas separately because Geopandas is an **extension** for pandas. 
@@ -290,14 +284,14 @@ data.area
 Let's next create a new column into our GeoDataFrame where we calculate and store the areas of individual polygons:
 
 ```python jupyter={"outputs_hidden": false}
-# Create a new column called 'area' 
-data['area'] = data.area
+# Create a new column called 'area'
+data["area"] = data.area
 ```
 
 Check the output:
 
 ```python
-data['area']
+data["area"]
 ```
 
 These values correspond to the ones we saw in previous step when iterating rows.
@@ -306,20 +300,20 @@ Let's check what is the `min`, `max` and `mean` of those areas using familiar fu
 
 ```python
 # Maximum area
-round(data['area'].max(), 2)
+round(data["area"].max(), 2)
 ```
 
 ```python
 # Minimum area
-round(data['area'].min(), 2)
+round(data["area"].min(), 2)
 ```
 
 ```python
 # Average area
-round(data['area'].mean(), 2)
+round(data["area"].mean(), 2)
 ```
 
-## Writing data into a shapefile
+## Writing data into a file
 
 It is possible to export GeoDataFrames into various data formats using the [to_file()](http://geopandas.org/io.html#writing-spatial-data) method. In our case, we want to export subsets of the data into Shapefiles (one file for each feature class).
 
@@ -328,7 +322,7 @@ Let's first select one class (class number `36200`, "Lake water") from the data 
 
 ```python
 # Select a class
-selection = data.loc[data["CLASS"]==36200]
+selection = data.loc[data["CLASS"] == 36200]
 ```
 
 Check the selection:
@@ -372,15 +366,13 @@ temp.head()
 temp.plot()
 ```
 
-## Grouping the Geodataframe
+## Grouping the GeoDataFrame
 
-One really useful function that can be used in Pandas/Geopandas is [groupby()](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html) which groups data based on values on selected column(s). We saw and used this function already in Lesson 6 of the Geo-Python course. 
+Next we will automate the file export task. we will group the data based on column `CLASS` and export a shapefile for each class.
 
-Next we will automate the file export task; we will group the data based on column `CLASS` and export a shapefile for each class.
+This can be achieved using the [groupby()](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html) familiar from the pandas library and also available in GeoDataFrames. This function groups data based on values on selected column(s).  
 
-Let's continue with the same input file we already read previously into the variable `data`. We also selected and renamed a subset of the columns.
-
-Check again the first rows of our input data:
+Before continuing, let's check the first rows of our input data:
 
 ```python
 data.head()
@@ -390,14 +382,14 @@ The `CLASS` column in the data contains information about different land use typ
 
 ```python jupyter={"outputs_hidden": false}
 # Print all unique values in the column
-data['CLASS'].unique()
+data["CLASS"].unique()
 ```
 
-- Now we can use that information to group our data and save all land use types into different layers:
+Now we can use that information to group our data and save all land use types into different layers:
 
 ```python jupyter={"outputs_hidden": false}
 # Group the data by class
-grouped = data.groupby('CLASS')
+grouped = data.groupby("CLASS")
 
 # Let's see what we have
 grouped
@@ -420,8 +412,8 @@ Check how many rows of data each group has:
 for key, group in grouped:
 
     # Let's check how many rows each group has:
-    print('Terrain class:', key)
-    print('Number of rows:', len(group), "\n")
+    print("Terrain class:", key)
+    print("Number of rows:", len(group), "\n")
 ```
 
 There are, for example, 56 lake polygons in the input data.
@@ -485,16 +477,16 @@ Let's now export terrain classes into separate Shapefiles.
 # Determine output directory
 output_folder = r"L2_data/"
 
-# Create a new folder called 'Results' 
-result_folder = os.path.join(output_folder, 'Results')
+# Create a new folder called 'Results'
+result_folder = os.path.join(output_folder, "Results")
 
 # Check if the folder exists already
 if not os.path.exists(result_folder):
-    
+
     print("Creating a folder for the results..")
     # If it does not exist, create one
     os.makedirs(result_folder)
-    
+
 else:
     print("Results folder exists already.")
 ```
@@ -506,7 +498,7 @@ At this point, you can go to the file browser and check that the new folder was 
 ```python jupyter={"outputs_hidden": false}
 # Iterate over the groups
 for key, group in grouped:
-    # Format the filename 
+    # Format the filename
     output_name = "terrain_{}.shp".format(key)
 
     # Print information about the process
@@ -537,7 +529,7 @@ area_info = grouped.area.sum().round()
 area_info
 ```
 
-- save area info to csv using pandas:
+Save area info to csv using pandas:
 
 ```python
 # Create an output path
@@ -545,6 +537,10 @@ area_info.to_csv(os.path.join(result_folder, "terrain_class_areas.csv"), header=
 ```
 
 
-```python
+## Footnotes
 
-```
+[^geopandas]: <https://geopandas.org/>
+[^NLS_topodata]: <https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database>
+[^NLS_lisence]: <https://www.maanmittauslaitos.fi/en/opendata-licence-cc40>
+[^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>
+[^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>

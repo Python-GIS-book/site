@@ -46,29 +46,34 @@ timestamp = "2020-12-22T15:00:00"
 datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
 ```
 
-As a result we get a `datetime` object in which the date has been converted into a set of numbers, in which the first one is the year, second one is month, third one day, and so on. This structure is always the same, no matter in what format the input data has been. By using the format codes (i.e. the second argument of the function), we can tell the computer that the first component in our string represents year in 4 digits. The `%Y` characters (i.e. a *directive*) is a special way to instruct the computer to do so. In a similar manner, we can instruct the computer to read the month based on numbers with two digits (`12`) using the directive `%m`. As you can see, there is always a `%` character and then some letter after it, which is the way how we determine how the date is formatted in our text. Notice that the date components are separated with dash (`-`) and the time components are separated with colons (`:`). As we can see from our format code, we can add those separator characters between the directives just as they are represented in the timestamp. Following this approach it is possible to parse basically any kind of time information represented as text. A few of the most commonly used datetime format code directives are listed in Table 2.1. 
+As a result we get a `datetime` object in which the date has been converted into a set of numbers, in which the first one is the year, second one is month, third one day, and so on. This structure is always the same, no matter in what format the input data has been. By using the format codes (i.e. the second argument of the function), we can tell the computer that the first component in our string represents year in 4 digits. The `%Y` characters (i.e. a *directive*) is a special way to instruct the computer to do so. In a similar manner, we can instruct the computer to read the month based on numbers with two digits (`12`) using the directive `%m`. As you can see, there is always a `%` character and then some letter after it, which is the way how we determine how the date is formatted in our text. Notice that the date components are separated with dash (`-`) and the time components are separated with colons (`:`). As we can see from our format code, we can add those separator characters between the directives just as they are represented in the timestamp. Following this approach it is possible to parse basically any kind of time information represented as text. A few of the most commonly used datetime format code directives are listed in Table 3.1. 
 
-_**Table 2.1**. Most commonly used datetime directives and their meaning._
+: _**Table 3.1**. Most commonly used datetime directives and their meaning._
 
-| Directive | Description                                              | Examples                          |
-|-----------|----------------------------------------------------------|-----------------------------------|
-| %y        | Year without century as a zero-padded number.            | 00, 01, 10, 20                    |
-| %Y        | Year including century as a zero-padded number.          | 2000, 1900, 1920                  |
-| %m        | Month as a zero-padded number.                           | 01,02, ... , 11, 12               |
-| %b        | Month as abbreviated name.                               | Jan, Feb, ..., Dec                |
-| %B        | Month as full name.                                      | January, February, ..., December  |
-| %d        | Day of the month as a zero-padded number.                | 01, 02, ..., 30, 31               |
-| %H        | Hour (24-hour clock) as a zero-padded number.            | 00, 01, ..., 22, 23               |
-| %I        | Hour (12-hour clock) as a zero-padded number.            | 01, 02, ..., 11, 12               |
-| %p        | AM or PM (12-hour clock).                                | am, pm, AM, PM                    |
-| %M        | Minute as a zero-padded number.                          | 00, 01, ..., 58, 59               |
-| %S        | Second as a zero-padded number.                          | 00, 01, ..., 58, 59               |
-| %z        | UTC offset (can be empty).                               | +0000, +2000, -4000               |
-| %Z        | Time zone name (can be empty).                           | UTC, GMT                          |
-| %a        | Weekday as abbreviated name.                             | Mon, Tue, Sat, Sun                |
-| %A        | Weekday as full name.                                    | Monday, Tuesday, Saturday, Sunday |
-| %w        | Weekday as a number where 0 is Sunday and 6 is Saturday. | 0, 1, 2 ..., 6                    |
-
+|Directive |Description                    |Examples               |
+|:---------|:------------------------------|:----------------------|
+|`%y`      |Year without century as a      |00, 20, etc.           |
+|          |zero-padded number             |                       |
+|`%Y`      |Year including century as a    |2000, 1920, etc.       |
+|          |zero-padded number             |                       |
+|`%m`      |Month as a zero-padded number  |01, ..., 12            |
+|`%b`      |Month as abbreviated name      |Jan, ..., Dec          |
+|`%B`      |Month as full name             |January, ..., December |
+|`%d`      |Day of the month as a          |01, ..., 31            |
+|          |zero-padded number             |                       |
+|`%H`      |Hour (24-hour clock) as a      |00, ..., 23            |
+|          |zero-padded number             |                       |
+|`%I`      |Hour (12-hour clock) as a      |01, ..., 12            |
+|          |zero-padded number             |                       |
+|`%p`      |AM or PM (12-hour clock)       |am, pm, AM, PM         |
+|`%M`      |Minute as a zero-padded number |00, ..., 59            |
+|`%S`      |Second as a zero-padded number |00, ..., 59            |
+|`%z`      |UTC offset (can be empty)      |+0000, +2000, etc.     |
+|`%Z`      |Time zone name (can be empty)  |UTC, GMT               |
+|`%a`      |Weekday as abbreviated name    |Mon, ..., Sun          |
+|`%A`      |Weekday as full name           |Monday, ..., Sunday    |
+|`%w`      |Weekday as a number where 0 is |0, ..., 6              |
+|          |Sunday and 6 is Saturday       |                       |
 
 
 

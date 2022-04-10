@@ -5,9 +5,9 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.2
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -29,6 +29,10 @@ Since geopandas takes advantage of Shapely geometric objects, it is possible to 
 Let's start by creating a new empty `GeoDataFrame` object.
 
 ```python
+import geopandas as gpd
+```
+
+```python
 newdata = gpd.GeoDataFrame()
 ```
 
@@ -42,7 +46,7 @@ Let's create the `geometry` column:
 
 ```python jupyter={"outputs_hidden": false}
 # Create a new column called 'geometry' to the GeoDataFrame
-newdata['geometry'] = None
+newdata["geometry"] = None
 ```
 
 ```python
@@ -59,7 +63,12 @@ from shapely.geometry import Polygon
 
 ```python jupyter={"outputs_hidden": false}
 # Coordinates of the Helsinki Senate square in decimal degrees
-coordinates = [(24.950899, 60.169158), (24.953492, 60.169158), (24.953510, 60.170104), (24.950958, 60.169990)]
+coordinates = [
+    (24.950899, 60.169158),
+    (24.953492, 60.169158),
+    (24.953510, 60.170104),
+    (24.950958, 60.169990),
+]
 ```
 
 ```python
@@ -78,7 +87,7 @@ Let's insert the polygon into our 'geometry' column of our GeoDataFrame on the f
 
 ```python jupyter={"outputs_hidden": false}
 # Insert the polygon into 'geometry' -column at row 0
-newdata.at[0, 'geometry'] = poly
+newdata.at[0, "geometry"] = poly
 ```
 
 ```python
@@ -91,8 +100,8 @@ Great, now we have a GeoDataFrame with a Polygon that we could already now expor
 Let's add another column to our GeoDataFrame called `location` with text `Senaatintori` that describes the location of the feature.
 
 ```python jupyter={"outputs_hidden": false}
-# Add a new column and insert data 
-newdata.at[0, 'location'] = 'Senaatintori'
+# Add a new column and insert data
+newdata.at[0, "location"] = "Senaatintori"
 
 # Let's check the data
 print(newdata)
@@ -111,7 +120,7 @@ We passed the coordinates as latitude and longitude decimal degrees, so the corr
 Re-create the GeoDataFrame with correct crs definition: 
 
 ```python
-newdata = gpd.GeoDataFrame(newdata, crs="EPSG:4326")
+newdata = gpd.GeoDataFrame(newdata, crs=4326)
 ```
 
 ```python
@@ -200,7 +209,7 @@ from shapely.geometry import Point
 fp = r"data/addresses.txt"
 
 # Read the data
-data = pd.read_csv(fp, sep=';')
+data = pd.read_csv(fp, sep=";")
 ```
 
 Let's check that we imported the file correctly:
@@ -226,7 +235,7 @@ Now we have our data in a pandas DataFrame and we can geocode our addresses usin
 from geopandas.tools import geocode
 
 # Geocode addresses using Nominatim. Remember to provide a custom "application name" in the user_agent parameter!
-geo = geocode(data['addr'], provider='nominatim', user_agent='autogis_xx', timeout=4)
+geo = geocode(data["addr"], provider="nominatim", user_agent="autogis_xx", timeout=4)
 ```
 
 ```python
