@@ -191,7 +191,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -292,7 +292,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -730,12 +730,53 @@ Based on the factors above, my happiness rating is 8.5 out of 10 or 85.0 %!
 </div>
 <div class="section" id="exercise-2-2-creating-and-changing-lists">
 <h2>Exercise 2.2 - Creating and changing lists<a class="headerlink" href="#exercise-2-2-creating-and-changing-lists" title="Permalink to this headline">¶</a></h2>
-<p><img alt="Tables 2.5 and 2.6. FMI observation stations and the years in which they began operating." src="../../../_images/exercise-2.2-tables.png" /></p>
-<p><em><strong>Tables 2.5 and 2.6</strong>. <a class="reference external" href="http://en.ilmatieteenlaitos.fi/observation-stations">FMI observation stations</a> and the years in which they began operating</em>.</p>
-<p>For this exercise you should use the data in Tables 2.5 and 2.6 to:</p>
+<p>: <em><strong>Table 2.5</strong>. <a class="reference external" href="http://en.ilmatieteenlaitos.fi/observation-stations">FMI observation stations</a> and the years in which they began operating</em>.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FMI station name</p></th>
+<th class="text-align:center head"><p>First year of operation</p></th>
+<th class="text-align:center head"><p>Group</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>lighthouse</p></td>
+<td class="text-align:center"><p>2003</p></td>
+<td class="text-align:center"><p>1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Harmaja</p></td>
+<td class="text-align:center"><p>1989</p></td>
+<td class="text-align:center"><p>1</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Suomenlinna aaltopoiju</p></td>
+<td class="text-align:center"><p>2016</p></td>
+<td class="text-align:center"><p>1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Kumpula</p></td>
+<td class="text-align:center"><p>2005</p></td>
+<td class="text-align:center"><p>1</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Kaisaniemi</p></td>
+<td class="text-align:center"><p>1844</p></td>
+<td class="text-align:center"><p>1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Malmi airfield</p></td>
+<td class="text-align:center"><p>1937</p></td>
+<td class="text-align:center"><p>2</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Vuosaari harbour</p></td>
+<td class="text-align:center"><p>2012</p></td>
+<td class="text-align:center"><p>2</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Kaivopuisto</p></td>
+<td class="text-align:center"><p>1904</p></td>
+<td class="text-align:center"><p>2</p></td>
+</tr>
+</tbody>
+</table>
+<p>For this exercise you should use the data in Table 2.5 to:</p>
 <ul class="simple">
-<li><p>Create two lists for the station names and first years of operation for the values in Table 2.5 (on the left) only. Be sure to list the values in the order they appear in the table.</p></li>
-<li><p>Modify the lists you just created to add the values from Table 2.6 (on the right), again keeping them in the same order.</p></li>
+<li><p>Create two lists for the station names and first years of operation for the stations in Group 1 in Table 2.5. Be sure to list the values in the order they appear in the table.</p></li>
+<li><p>Modify the lists you just created to add the values Group 2, again keeping them in the same order.</p></li>
 <li><p>Sort the two lists, sorting the first in alphabetical order and the second so that the most recent starting year is first</p>
 <ul>
 <li><p>Do you see any problems with how the lists have been sorted?</p></li>
@@ -746,9 +787,53 @@ Based on the factors above, my happiness rating is 8.5 out of 10 or 85.0 %!
 </div>
 <div class="section" id="exercise-2-3-lists-and-index-values">
 <h2>Exercise 2.3 - Lists and index values<a class="headerlink" href="#exercise-2-3-lists-and-index-values" title="Permalink to this headline">¶</a></h2>
-<p><img alt="Table 2.7. Monthly average temperatures recorded at the Helsinki Malmi airport." src="../../../_images/exercise-2.3-table.png" /></p>
-<p><em><strong>Table 2.7</strong>. <a class="reference external" href="https://www.timeanddate.com/weather/finland/helsinki/climate">Monthly average temperatures recorded at the Helsinki Malmi airport</a>.</em></p>
-<p>For this exercise you should use the data in Table 2.7 to:</p>
+<p>: <em><strong>Table 2.6</strong>. <a class="reference external" href="https://www.timeanddate.com/weather/finland/helsinki/climate">Monthly average temperatures recorded at the Helsinki Malmi airport</a>.</em></p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Month</p></th>
+<th class="text-align:center head"><p>Temperature (°C)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>January</p></td>
+<td class="text-align:center"><p>-3.5</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>February</p></td>
+<td class="text-align:center"><p>-4.5</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>March</p></td>
+<td class="text-align:center"><p>-1.0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>April</p></td>
+<td class="text-align:center"><p>4.0</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>May</p></td>
+<td class="text-align:center"><p>10.0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>June</p></td>
+<td class="text-align:center"><p>15.0</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>July</p></td>
+<td class="text-align:center"><p>18.0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>August</p></td>
+<td class="text-align:center"><p>16.0</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>September</p></td>
+<td class="text-align:center"><p>11.5</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>October</p></td>
+<td class="text-align:center"><p>6.0</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>November</p></td>
+<td class="text-align:center"><p>2.0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>December</p></td>
+<td class="text-align:center"><p>-1.5</p></td>
+</tr>
+</tbody>
+</table>
+<p>For this exercise you should use the data in Table 2.6 to:</p>
 <ul class="simple">
 <li><p>Create two lists with the months and their average temperatures.</p></li>
 <li><p>Use a print statement to produce output like that below, where the months and temperatures are selected using index values in the corresponding lists.</p></li>
@@ -777,34 +862,42 @@ Based on the factors above, my happiness rating is 8.5 out of 10 or 85.0 %!
 </div>
 <div class="section" id="exercise-2-5-classifying-temperatures">
 <h2>Exercise 2.5 - Classifying temperatures<a class="headerlink" href="#exercise-2-5-classifying-temperatures" title="Permalink to this headline">¶</a></h2>
-<p>Data classification is another useful data analysis concept, where data values are sorted into different groups that help you to interpret the data. Your goal in this exercise is to sort a list of temperatures into four categories using a Python list for each category:</p>
+<p>Data classification is another useful data analysis concept, where data values are sorted into different groups that help you to interpret the data. Your goal in this exercise is to sort a list of temperatures into four categories using a Python list for each category (Table 2.7):</p>
+<p>: <em><strong>Table 2.7</strong>. Temperature categories and ranges for Exercise 2.5 and 2.7.</em></p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:left head"><p>Category</p></th>
 <th class="text-align:left head"><p>Temperature range</p></th>
-<th class="text-align:left head"><p>List name</p></th>
+<th class="text-align:center head"><p>List name</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-align:left"><p>Cold</p></td>
-<td class="text-align:left"><p>Less than -2 °C</p></td>
-<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">cold</span></code></p></td>
+<td class="text-align:left"><p>Less than -2 deg. C</p></td>
+<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">cold</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>Slippery</p></td>
-<td class="text-align:left"><p>Greater than or equal to -2 °C and less than +2 °C</p></td>
-<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">slippery</span></code></p></td>
+<td class="text-align:left"><p>Greater than or equal to -2 deg. C</p></td>
+<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">slippery</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Comfortable</p></td>
-<td class="text-align:left"><p>Greater than or equal to +2 °C and less than +15 °C</p></td>
-<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">comfortable</span></code></p></td>
+<tr class="row-even"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p>and less than +2 deg. C</p></td>
+<td class="text-align:center"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Comfortable</p></td>
+<td class="text-align:left"><p>Greater than or equal to +2 deg. C</p></td>
+<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">comfortable</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p>and less than +15 deg. C</p></td>
+<td class="text-align:center"><p></p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>Warm</p></td>
-<td class="text-align:left"><p>Greater than or equal to +2 °C</p></td>
-<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">warm</span></code></p></td>
+<td class="text-align:left"><p>Greater than or equal to +2 deg. C</p></td>
+<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">warm</span></code></p></td>
 </tr>
 </tbody>
 </table>
-<p><em><strong>Table 2.8</strong>. Temperature categories and ranges for Exercise 2.5 and 2.7.</em></p>
 <p>The list of temperatures below were measured at the Helsinki Malmi Airport in April 2013 with night, day, and evening temperatures recorded for each day.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temperatures</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">5.4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.8</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.4</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.9</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span>
                 <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.8</span><span class="p">,</span>
@@ -818,7 +911,7 @@ Based on the factors above, my happiness rating is 8.5 out of 10 or 85.0 %!
 </div>
 <p>For this exercise you should:</p>
 <ul class="simple">
-<li><p>Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and conditional statments (e.g., <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, and <code class="docutils literal notranslate"><span class="pre">else</span></code>) to sort the temperatures in the list into the lists associated with each category.</p>
+<li><p>Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and conditional statments (e.g., <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, and <code class="docutils literal notranslate"><span class="pre">else</span></code>) to sort the temperatures in the list into the lists associated with each category (see Table 2.7).</p>
 <ul>
 <li><p><em>Hint</em>: Create the empty lists before the start of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.</p></li>
 </ul>
@@ -862,10 +955,10 @@ Based on the factors above, my happiness rating is 8.5 out of 10 or 85.0 %!
 <ul>
 <li><p>The function should return the following values for the different categories</p>
 <ul>
-<li><p>Cold: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
-<li><p>Slippery: <code class="docutils literal notranslate"><span class="pre">1</span></code></p></li>
-<li><p>Comfortable: <code class="docutils literal notranslate"><span class="pre">2</span></code></p></li>
-<li><p>Warm: <code class="docutils literal notranslate"><span class="pre">3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: Cold</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: Slippery</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code>: Comfortable</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code>: Warm</p></li>
 </ul>
 </li>
 </ul>

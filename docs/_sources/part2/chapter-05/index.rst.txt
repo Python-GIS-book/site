@@ -1,9 +1,7 @@
 Essentials: What is special about geographic data?
-=================================================
+==================================================
 
 Here we introduce basic GIS concepts for beginners.
-
-**This section is under construction.**
 
 *Draft Intro text*:
 
@@ -25,4 +23,3 @@ This chapter introduces you to the basic concepts and approaches related to Geog
 - Spatial relationships (map algebra, overlay analysis, distance, direction, spatial weights)
 - Distance operations
 - Directional operations
-

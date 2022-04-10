@@ -4,29 +4,21 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Introduction to spatial data analysis with Geopandas\n",
+    "# Introduction to spatial data analysis with geopandas\n",
     "\n",
-    "Here we cover basics steps needed for interacting with spatial data in Python using the geopandas (http://geopandas.org/) library:\n",
+    "We will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis in Python. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. \n",
     "\n",
-    "- Managing filepaths\n",
-    "- Reading spatial data from file \n",
-    "- Geometry calculations \n",
-    "- Writing spatial data to file\n",
-    "- Grouping and splitting spatial data into multiple layers\n",
+    "The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas. \n",
     "\n",
-    "Geopandas makes it possible to work with geospatial data in Python in a relatively easy way. Geopandas combines the capabilities of the data analysis library [pandas](https://pandas.pydata.org/pandas-docs/stable/) with other packages like [shapely](https://shapely.readthedocs.io/en/stable/manual.html) and [fiona](https://fiona.readthedocs.io/en/latest/manual.html) for managing spatial data. \n",
-    "\n",
-    "The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas!  If you need to refresh your memory about pandas, check out week 5 and 6 lesson materials from the [Geo-Python website](geo-python.github.io). \n",
-    "\n",
-    "The main difference between geodataframes and pandas dataframes is that a [geodataframe](http://geopandas.org/data_structures.html#geodataframe) should contain one column for geometries. By default, the name of this column is `'geometry'`. The geometry column is a [geoseries](http://geopandas.org/data_structures.html#geoseries) which contains the geometries (points, lines, polygons, multipolygons etc.) as shapely objects. \n",
+    "The main difference between geopandas GeoDataFrames and pandas DataFrames is that a [GeoDataFrame](http://geopandas.org/data_structures.html#geodataframe) should contain one column for geometries. By default, the name of this column is `'geometry'`. The geometry column is a [GeoSeries](http://geopandas.org/data_structures.html#geoseries) which contains the geometries (points, lines, polygons, multipolygons etc.) as shapely objects. \n",
     "\n",
     "\n",
     "\n",
-    "![_**Figure X.X**. GeoDataFrame._](../img/geodataframe.png)\n",
+    "![_**Figure 6.X**. Geometry column in a GeoDataFrame._](../img/geodataframe.png)\n",
     "\n",
-    "_**Figure X.X**. GeoDataFrame._\n",
+    "_**Figure 6.X**. Geometry column in a GeoDataFrame._\n",
     "\n",
-    "As we learned in the Geo-Python course, it is conventional to import pandas as `pd`. Similarly,we will import geopandas as `gpd`:"
+    "Similar to importing import pandas as `pd`, we will import geopandas as `gpd`:"
    ]
   },
   {
@@ -44,18 +36,16 @@
    "source": [
     "## Input data: Finnish topographic database \n",
     "\n",
-    "In this lesson we will work with the [National Land Survey of Finland (NLS) topographic database (from 2018)](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database). \n",
-    "- The data set is licensed under the NLS' [open data licence](https://www.maanmittauslaitos.fi/en/opendata-licence-cc40) (CC BY 4.0).\n",
-    "- Structure of the data is described in a separate Excel file ([download link](http://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2018/10/maastotietokanta_kohdemalli_eng.xlsx)).\n",
-    "- Further information about file naming is available at [fairdata.fi](https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae).\n",
+    "In this lesson we will work with the [National Land Survey of Finland (NLS) topographic database](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database) [^NLS_topodata]. \n",
+    "- The data set is licensed under the NLS' [open data licence / CC BY 4.0](https://www.maanmittauslaitos.fi/en/opendata-licence-cc40) [^NLS_lisence]. \n",
+    "- Metadata are available from the [NLS website](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database) [^NLS_topodata] and [fairdata.fi](https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae) [^topodata_fair]. \n",
+    "- We have acquired a subset of the topographic database as shapefiles from the Helsinki Region in Finland via the [CSC open data portal](https://avaa.tdata.fi/web/paituli/latauspalvelu) [^paituli]:\n",
     "\n",
-    "For this lesson, we have acquired a subset of the topographic database as shapefiles from the Helsinki Region in Finland via the [CSC open data portal](https://avaa.tdata.fi/web/paituli/latauspalvelu):\n",
+    "![_**Figure 6.X**. Paituli data download._](../img/Paituli_maastotietokanta_download.png)\n",
     "\n",
-    "![_**Figure X.X**. Paituli data download._](../img/Paituli_maastotietokanta_download.png)\n",
+    "_**Figure 6.X**. Paituli data download._\n",
     "\n",
-    "_**Figure X.X**. Paituli data download._\n",
-    "\n",
-    "In this lesson, we will focus on **terrain objects** (Feature group: \"Terrain/1\" in the topographic database). The Terrain/1 feature group contains several feature classes. **Our aim in this lesson is to save all the Terrain/1 feature classes into separate files**.\n",
+    "In this lesson, we will focus on terrain objects(Feature group: \"Terrain/1\" in the topographic database). The Terrain/1 feature group contains several feature classes. Our aim in this lesson is to save all the Terrain/1 feature classes into separate files.\n",
     "\n",
     "*Terrain/1 features in the Topographic Database:*\n",
     "\n",
@@ -83,7 +73,7 @@
     "| 36313          | Watercourse area                                           | Terrain/1     |\n",
     "\n",
     "\n",
-    "According to the [naming convention](https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae), all files that start with a letter `m` and end with `p` contain the objects we are interested in (Terrain/1 polygons). "
+    "According to the [naming convention](https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae) [^topodata_fair], all files that start with a letter `m` and end with `p` contain the objects we are interested in (Terrain/1 polygons). "
    ]
   },
   {
@@ -379,7 +369,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Geometries in Geopandas\n",
+    "## Geometries in geopandas\n",
     "\n",
     "Geopandas takes advantage of Shapely's geometric objects. Geometries are stored in a column called *geometry* that is a default column name for\n",
     "storing geometric information in geopandas."
@@ -573,7 +563,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Writing data into a shapefile\n",
+    "## Writing data into a file\n",
     "\n",
     "It is possible to export GeoDataFrames into various data formats using the [to_file()](http://geopandas.org/io.html#writing-spatial-data) method. In our case, we want to export subsets of the data into Shapefiles (one file for each feature class).\n",
     "\n",
@@ -684,15 +674,13 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Grouping the Geodataframe\n",
+    "## Grouping the GeoDataFrame\n",
     "\n",
-    "One really useful function that can be used in Pandas/Geopandas is [groupby()](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html) which groups data based on values on selected column(s). We saw and used this function already in Lesson 6 of the Geo-Python course. \n",
+    "Next we will automate the file export task. we will group the data based on column `CLASS` and export a shapefile for each class.\n",
     "\n",
-    "Next we will automate the file export task; we will group the data based on column `CLASS` and export a shapefile for each class.\n",
+    "This can be achieved using the [groupby()](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html) familiar from the pandas library and also available in GeoDataFrames. This function groups data based on values on selected column(s).  \n",
     "\n",
-    "Let's continue with the same input file we already read previously into the variable `data`. We also selected and renamed a subset of the columns.\n",
-    "\n",
-    "Check again the first rows of our input data:"
+    "Before continuing, let's check the first rows of our input data:"
    ]
   },
   {
@@ -730,7 +718,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "- Now we can use that information to group our data and save all land use types into different layers:"
+    "Now we can use that information to group our data and save all land use types into different layers:"
    ]
   },
   {
@@ -993,7 +981,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "- save area info to csv using pandas:"
+    "Save area info to csv using pandas:"
    ]
   },
   {
@@ -1009,16 +997,22 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
+   "cell_type": "markdown",
    "metadata": {},
-   "outputs": [],
-   "source": []
+   "source": [
+    "## Footnotes\n",
+    "\n",
+    "[^geopandas]: <https://geopandas.org/>\n",
+    "[^NLS_topodata]: <https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database>\n",
+    "[^NLS_lisence]: <https://www.maanmittauslaitos.fi/en/opendata-licence-cc40>\n",
+    "[^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>\n",
+    "[^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>"
+   ]
   }
  ],
  "metadata": {
   "kernelspec": {
-   "display_name": "Python 3",
+   "display_name": "Python 3 (ipykernel)",
    "language": "python",
    "name": "python3"
   },
@@ -1032,7 +1026,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.8.8"
+   "version": "3.9.7"
   }
  },
  "nbformat": 4,

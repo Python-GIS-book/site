@@ -193,7 +193,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -294,7 +294,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -1111,14 +1111,13 @@ We can start by plotting the data for the different seasons with different color
 <span class="n">ax12</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">ax21</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">ax22</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Don&#39;t display the figure (it&#39;s the same 2x2 panel as above)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../../_images/03-subplots_33_0.png" src="../../../_images/03-subplots_33_0.png" />
 </div>
-</div>
-<p><em><strong>Figure 4.16</strong>. Another empty figure template with a 2x2 subplot panel.</em></p>
 <p>Now, we’ll add our seasonal temperatures to the plot commands for each time period. In addition, in this version of the plot we will also:</p>
 <ul class="simple">
 <li><p>Modify the x- and y-axis labels using the <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> parameters in the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function.</p></li>
@@ -1186,7 +1185,7 @@ We can start by plotting the data for the different seasons with different color
 <img alt="../../../_images/03-subplots_35_0.png" src="../../../_images/03-subplots_35_0.png" />
 </div>
 </div>
-<p><em><strong>Figure 4.17</strong>. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible.</em></p>
+<p><em><strong>Figure 4.16</strong>. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible.</em></p>
 <p>The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.</p>
 <div class="section" id="question-4-3">
 <h3>Question 4.3<a class="headerlink" href="#question-4-3" title="Permalink to this headline">¶</a></h3>
@@ -1253,7 +1252,7 @@ We can start by plotting the data for the different seasons with different color
 <img alt="../../../_images/03-subplots_39_1.png" src="../../../_images/03-subplots_39_1.png" />
 </div>
 </div>
-<p><em><strong>Figure 4.18</strong>. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel.</em></p>
+<p><em><strong>Figure 4.17</strong>. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel.</em></p>
 </div>
 </div>
 <div class="section" id="footnotes">

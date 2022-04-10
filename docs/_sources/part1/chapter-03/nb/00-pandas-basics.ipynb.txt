@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Getting started with data pandas"
+    "# Getting started with data analysis"
    ]
   },
   {

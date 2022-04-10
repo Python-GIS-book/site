@@ -193,7 +193,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -294,7 +294,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -619,8 +619,8 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#coordinate-reference-system-crs-in-pyproj-and-geopandas">
-   Coordinate reference system (CRS) in pyproj and geopandas
+  <a class="reference internal nav-link" href="#managing-coordinate-reference-systems-in-pyproj-and-geopandas">
+   Managing coordinate reference systems in pyproj and geopandas
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -655,6 +655,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#summary">
    Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
   </a>
  </li>
 </ul>
@@ -678,8 +683,8 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#coordinate-reference-system-crs-in-pyproj-and-geopandas">
-   Coordinate reference system (CRS) in pyproj and geopandas
+  <a class="reference internal nav-link" href="#managing-coordinate-reference-systems-in-pyproj-and-geopandas">
+   Managing coordinate reference systems in pyproj and geopandas
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -716,6 +721,11 @@
    Summary
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -727,19 +737,21 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="map-projections">
 <h1>Map projections<a class="headerlink" href="#map-projections" title="Permalink to this headline">¶</a></h1>
-<p><strong>Coordinate reference systems (CRS)</strong> are important because the geometric shapes in a GeoDataFrame are simply a collection of coordinates in an arbitrary space. A CRS tells Python how those coordinates are related to places on the Earth. <strong>A map projection</strong> (or a projected coordinate system) is a systematic transformation of the latitudes and longitudes into a plain surface where units are quite commonly represented as meters (instead of decimal degrees). This transformation is used to <strong>represent the three dimensional earth on a flat, two dimensional map</strong>.</p>
-<p>As the CRS in different spatial datasets differ fairly often (i.e. one might have coordinates defined in decimal degrees while the other one has them in meters), it is a common procedure to <strong>reproject</strong> (transform) different layers into a common CRS. It is important that the layers are in the same coordinate reference system when analyzing the spatial relationships between the layers, for example, when making a Point in Polygon -query, or other type of overlay analysis.</p>
+<p>Coordinate reference systems (CRS)are important because the geometric shapes in a GeoDataFrame are simply a collection of coordinates in an arbitrary space. A CRS tells Python how those coordinates are related to places on the Earth. A map projection (or a projected coordinate system) is a systematic transformation of the latitudes and longitudes into a plain surface where units are quite commonly represented as meters (instead of decimal degrees). This transformation is used to represent the three dimensional earth on a flat, two dimensional map.</p>
+<p>As the CRS in different spatial datasets differ fairly often (i.e. one might have coordinates defined in decimal degrees while the other one has them in meters), it is a common procedure to reproject (transform) different layers into a common CRS. It is important that the layers are in the same coordinate reference system when analyzing the spatial relationships between the layers, for example, when making a Point in Polygon -query, or other type of overlay analysis.</p>
 <p>Choosing an appropriate projection for your map is not always straightforward because it depends on what you actually want to represent with your map, and what is the spatial scale of your data. In fact, there is not a single “perfect projection” since each one of them has some strengths and weaknesses, and you should choose a projection that fits best for your needs. In fact, the projection you choose might even tell something about you!</p>
-<p><img alt="Figure X.X. Map projections via https://xkcd.com/977/." src="../../../_images/Map-projections.png" /></p>
-<p><em><strong>Figure X.X</strong>. Map projections via XKCD https://xkcd.com/977/.</em></p>
-<p>For those of you who want a bit more analytical approach for choosing the projection, you can get a good overview from <a class="reference external" href="http://www.georeference.org/doc/guide_to_selecting_map_projections.htm">georeference.org</a>, or from this blog post introducing <a class="reference external" href="http://usersguidetotheuniverse.com/index.php/2011/03/03/whats-the-best-map-projection/">the strengths and weaknesses of a few commonly used projections</a>.</p>
-<div class="section" id="coordinate-reference-system-crs-in-pyproj-and-geopandas">
-<h2>Coordinate reference system (CRS) in pyproj and geopandas<a class="headerlink" href="#coordinate-reference-system-crs-in-pyproj-and-geopandas" title="Permalink to this headline">¶</a></h2>
-<p>Luckily, defining and changing projections is easy using Geopandas and a library called <a class="reference external" href="https://pyproj4.github.io/pyproj/stable/">pyproj</a>. In this tutorial we will see <strong>how to retrieve the
-coordinate reference system information from the data, and how to re-project the data into another crs</strong>. We will re-project a data file from
-WGS84 (lat, lon coordinates) into a Lambert Azimuthal Equal Area projection which is the <a class="reference external" href="http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf">recommended projection for
-Europe</a> by European Commission.</p>
-<p>For this tutorial we will be using a Shapefile called <code class="docutils literal notranslate"><span class="pre">Europe_borders.shp</span></code> representing the country borders in Europe, that you already should have <span class="xref myst">downloaded during the previous tutorial</span> into <code class="docutils literal notranslate"><span class="pre">L2_data</span></code> folder.</p>
+<p><img alt="Figure 6.X. Map projections Source: XKCD https://xkcd.com/977/." src="../../../_images/Map-projections.png" /></p>
+<p><em><strong>Figure 6.X</strong>. Map projections Source: XKCD https://xkcd.com/977/.</em></p>
+<p>You can find a lot of information about available coordinate reference systems from:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://spatialreference.org/">www.spatialreference.org</a></p></li>
+<li><p><a class="reference external" href="https://proj4.org/operations/projections/">www.proj4.org</a></p></li>
+<li><p><a class="reference external" href="http://mapref.org/CollectionofCRSinEurope.html">www.mapref.org</a></p></li>
+</ul>
+<div class="section" id="managing-coordinate-reference-systems-in-pyproj-and-geopandas">
+<h2>Managing coordinate reference systems in pyproj and geopandas<a class="headerlink" href="#managing-coordinate-reference-systems-in-pyproj-and-geopandas" title="Permalink to this headline">¶</a></h2>
+<p>Our main tool for managing coordinate reference systems (CRS) is the <a class="reference external" href="https://proj.org/">PROJ library</a> <a class="footnote-reference brackets" href="#proj" id="id1">1</a> that is available in python and geopandas through the <a class="reference external" href="https://pyproj4.github.io/pyproj/stable/">pyproj Python library</a> <a class="footnote-reference brackets" href="#pyproj" id="id2">2</a>. Pyproj can be used, for example, to get basic information of the CRS of a GeoDataFrame, and to reproject data from one projection to another.</p>
+<p>Let’s demonstrate this using sample data from Europe. We will re-project the layer from the original CRS WGS84 (lat, lon coordinates) into a Lambert Azimuthal Equal Area projection which is the <a class="reference external" href="http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf">recommended projection for Europe</a> <a class="footnote-reference brackets" href="#eu-projection" id="id3">3</a>.</p>
 <p>In Shapefiles, information about the coordinate reference system is stored in the <code class="docutils literal notranslate"><span class="pre">.prj</span></code> -file. If this file is missing, you might be in trouble!. When reading the data into <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> with Geopandas crs information is automatically stored into the <code class="docutils literal notranslate"><span class="pre">.crs</span></code> attribute of the GeoDataFrame.</p>
 <p>Let’s start by reading the data from the <code class="docutils literal notranslate"><span class="pre">Europe_borders.shp</span></code> file and checking the <code class="docutils literal notranslate"><span class="pre">crs</span></code>:</p>
 <div class="cell docutils container">
@@ -780,15 +792,7 @@ Datum: World Geodetic System 1984
 <p>What we see here is in fact a CRS object from the pyproj module.</p>
 <p>The EPSG number (named after the <em>European Petroleum Survey Group</em>) is a code that tells about the coordinate system of the dataset. “<a class="reference external" href="http://www.epsg.org/">EPSG Geodetic Parameter Dataset</a> is a collection of definitions of coordinate reference systems and coordinate transformations which may be global, regional, national or local in application”.</p>
 <p>The EPSG code of our geodataframe is<code class="docutils literal notranslate"><span class="pre">4326</span></code>, which refers to the WGS84 coordinate system (we can also figure this out by looking at the coordinates values which are longitude and latitudes decimal degrees).</p>
-<p>You can find a lot of information and lists of available coordinate reference systems from:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="http://spatialreference.org/">www.spatialreference.org</a></p></li>
-<li><p><a class="reference external" href="https://proj4.org/operations/projections/">www.proj4.org</a></p></li>
-<li><p><a class="reference external" href="http://mapref.org/CollectionofCRSinEurope.html">www.mapref.org</a></p></li>
-</ul>
-<ul class="simple">
-<li><p>Let’s continue by checking the values in our <code class="docutils literal notranslate"><span class="pre">geometry</span></code> -column to verify that the CRS of our GeoDataFrame seems correct:</p></li>
-</ul>
+<p>Let’s continue by checking the values in our <code class="docutils literal notranslate"><span class="pre">geometry</span></code> -column to verify that the CRS of our GeoDataFrame seems correct:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -898,6 +902,7 @@ Datum: World Geodetic System 1984
 <img alt="../../../_images/03-projections_12_0.png" src="../../../_images/03-projections_12_0.png" />
 </div>
 </div>
+<p><em><strong>Figure 6.X</strong>. Map of Europe plotted with two different coordinate reference systems.</em></p>
 <p>Indeed, the maps look quite different, and the re-projected one looks much better in Europe as the areas especially in the north are more realistic and not so stretched as in WGS84.</p>
 <p>Finally, let’s save our projected layer into a Shapefile so that we can use it later. Note, even if the crs information is stored in the .prj file, it might be a good idea also to include crs info in the filename:</p>
 <div class="cell docutils container">
@@ -1204,6 +1209,7 @@ Datum: World Geodetic System 1984
 <img alt="../../../_images/03-projections_42_1.png" src="../../../_images/03-projections_42_1.png" />
 </div>
 </div>
+<p><em><strong>Figure 6.X</strong>. Global map plotted in WGS 84.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define projection as web mercator, 3785</span>
@@ -1222,9 +1228,10 @@ Datum: World Geodetic System 1984
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Web mercator&#39;)
 </pre></div>
 </div>
-<img alt="../../../_images/03-projections_43_1.png" src="../../../_images/03-projections_43_1.png" />
+<img alt="../../../_images/03-projections_44_1.png" src="../../../_images/03-projections_44_1.png" />
 </div>
 </div>
+<p><em><strong>Figure 6.X</strong>. Global map plotted in Web Mercator.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define projection Eckert IV from https://spatialreference.org/ref/esri/54012/</span>
@@ -1245,9 +1252,10 @@ Datum: World Geodetic System 1984
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Eckert IV&#39;)
 </pre></div>
 </div>
-<img alt="../../../_images/03-projections_44_1.png" src="../../../_images/03-projections_44_1.png" />
+<img alt="../../../_images/03-projections_46_1.png" src="../../../_images/03-projections_46_1.png" />
 </div>
 </div>
+<p><em><strong>Figure 6.X</strong>. Global map plotted in Eckert IV.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define an orthographic projection, centered in Finland! from: http://www.statsmapsnpix.com/2019/09/globe-projections-and-insets-in-qgis.html</span>
@@ -1268,9 +1276,10 @@ Datum: World Geodetic System 1984
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Orthographic&#39;)
 </pre></div>
 </div>
-<img alt="../../../_images/03-projections_45_1.png" src="../../../_images/03-projections_45_1.png" />
+<img alt="../../../_images/03-projections_48_1.png" src="../../../_images/03-projections_48_1.png" />
 </div>
 </div>
+<p><em><strong>Figure 6.X</strong>. Global map plotted in an orthographic projection.</em></p>
 </div>
 </div>
 <div class="section" id="summary">
@@ -1280,6 +1289,21 @@ Datum: World Geodetic System 1984
 <li><p>reproject (transform) the geometries from crs to another using the <code class="docutils literal notranslate"><span class="pre">to_crs()</span></code> -function in GeoPandas</p></li>
 <li><p>Define the coordinate reference system in different formats using <code class="docutils literal notranslate"><span class="pre">pyproj</span></code> <code class="docutils literal notranslate"><span class="pre">CRS</span></code></p></li>
 </ol>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="proj"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://proj.org/">https://proj.org/</a></p>
+</dd>
+<dt class="label" id="pyproj"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://pyproj4.github.io/pyproj/stable/">https://pyproj4.github.io/pyproj/stable/</a></p>
+</dd>
+<dt class="label" id="eu-projection"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p><a class="reference external" href="http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf">http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf</a></p>
+</dd>
+</dl>
 </div>
 </div>
 

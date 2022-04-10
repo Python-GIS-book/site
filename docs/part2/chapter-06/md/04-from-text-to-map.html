@@ -191,7 +191,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -292,7 +292,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nb/01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -710,6 +710,9 @@
 <h3>Creating new geometries from scratch<a class="headerlink" href="#creating-new-geometries-from-scratch" title="Permalink to this headline">¶</a></h3>
 <p>Since geopandas takes advantage of Shapely geometric objects, it is possible to create spatial data from scratch by passing Shapely’s geometric objects into the GeoDataFrame. This is useful as it makes it easy to convert e.g. a text file that contains coordinates into spatial data layers. Next we will see how to create a new GeoDataFrame from scratch and save it into a file. Our goal is to define a geometry that represents the outlines of the <a class="reference external" href="https://fi.wikipedia.org/wiki/Senaatintori">Senate square in Helsinki, Finland</a>.</p>
 <p>Let’s start by creating a new empty <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+</pre></div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">newdata</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -719,7 +722,7 @@
 <p>We have an empty GeoDataFrame! A geodataframe is basically a pandas DataFrame that should have one column dedicated for geometries. By default, the geometry-column should be named <code class="docutils literal notranslate"><span class="pre">geometry</span></code> (geopandas looks for geometries from this column).</p>
 <p>Let’s create the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new column called &#39;geometry&#39; to the GeoDataFrame</span>
-<span class="n">newdata</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">newdata</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">newdata</span><span class="p">)</span>
@@ -731,7 +734,12 @@
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Coordinates of the Helsinki Senate square in decimal degrees</span>
-<span class="n">coordinates</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">24.950899</span><span class="p">,</span> <span class="mf">60.169158</span><span class="p">),</span> <span class="p">(</span><span class="mf">24.953492</span><span class="p">,</span> <span class="mf">60.169158</span><span class="p">),</span> <span class="p">(</span><span class="mf">24.953510</span><span class="p">,</span> <span class="mf">60.170104</span><span class="p">),</span> <span class="p">(</span><span class="mf">24.950958</span><span class="p">,</span> <span class="mf">60.169990</span><span class="p">)]</span>
+<span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">24.950899</span><span class="p">,</span> <span class="mf">60.169158</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">24.953492</span><span class="p">,</span> <span class="mf">60.169158</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">24.953510</span><span class="p">,</span> <span class="mf">60.170104</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">24.950958</span><span class="p">,</span> <span class="mf">60.169990</span><span class="p">),</span>
+<span class="p">]</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Shapely polygon from the coordinate-tuple list</span>
@@ -745,7 +753,7 @@
 <p>Okay, now we have an appropriate <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> -object.</p>
 <p>Let’s insert the polygon into our ‘geometry’ column of our GeoDataFrame on the first row:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Insert the polygon into &#39;geometry&#39; -column at row 0</span>
-<span class="n">newdata</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">poly</span>
+<span class="n">newdata</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">poly</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s see what we have now</span>
@@ -754,8 +762,8 @@
 </div>
 <p>Great, now we have a GeoDataFrame with a Polygon that we could already now export to a Shapefile. However, typically you might want to include some attribute information with the geometry.</p>
 <p>Let’s add another column to our GeoDataFrame called <code class="docutils literal notranslate"><span class="pre">location</span></code> with text <code class="docutils literal notranslate"><span class="pre">Senaatintori</span></code> that describes the location of the feature.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a new column and insert data </span>
-<span class="n">newdata</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Senaatintori&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a new column and insert data</span>
+<span class="n">newdata</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Senaatintori&quot;</span>
 
 <span class="c1"># Let&#39;s check the data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">newdata</span><span class="p">)</span>
@@ -768,7 +776,7 @@
 </div>
 <p>We passed the coordinates as latitude and longitude decimal degrees, so the correct CRS is WGS84 (epsg code: 4326). In this case, we can simply re-build the geodataframe and pass the correct crs information to the GeoDataFrame constructor. You will learn more about how to handle coordinate reference systems using pyproj CRS objects later in this chapter.</p>
 <p>Re-create the GeoDataFrame with correct crs definition:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">newdata</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">newdata</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">newdata</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">newdata</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">newdata</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span>
@@ -831,7 +839,7 @@ Application Programming Interfaces (APIs) where you can send requests, and recei
 <span class="n">fp</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;data/addresses.txt&quot;</span>
 
 <span class="c1"># Read the data</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Let’s check that we imported the file correctly:</p>
@@ -853,7 +861,7 @@ Application Programming Interfaces (APIs) where you can send requests, and recei
 <span class="kn">from</span> <span class="nn">geopandas.tools</span> <span class="kn">import</span> <span class="n">geocode</span>
 
 <span class="c1"># Geocode addresses using Nominatim. Remember to provide a custom &quot;application name&quot; in the user_agent parameter!</span>
-<span class="n">geo</span> <span class="o">=</span> <span class="n">geocode</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;addr&#39;</span><span class="p">],</span> <span class="n">provider</span><span class="o">=</span><span class="s1">&#39;nominatim&#39;</span><span class="p">,</span> <span class="n">user_agent</span><span class="o">=</span><span class="s1">&#39;autogis_xx&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">geo</span> <span class="o">=</span> <span class="n">geocode</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">],</span> <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;nominatim&quot;</span><span class="p">,</span> <span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;autogis_xx&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">geo</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>

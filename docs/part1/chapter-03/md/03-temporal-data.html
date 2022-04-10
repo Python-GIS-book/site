@@ -193,7 +193,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -294,7 +294,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -760,79 +760,103 @@
 <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>As a result we get a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object in which the date has been converted into a set of numbers, in which the first one is the year, second one is month, third one day, and so on. This structure is always the same, no matter in what format the input data has been. By using the format codes (i.e. the second argument of the function), we can tell the computer that the first component in our string represents year in 4 digits. The <code class="docutils literal notranslate"><span class="pre">%Y</span></code> characters (i.e. a <em>directive</em>) is a special way to instruct the computer to do so. In a similar manner, we can instruct the computer to read the month based on numbers with two digits (<code class="docutils literal notranslate"><span class="pre">12</span></code>) using the directive <code class="docutils literal notranslate"><span class="pre">%m</span></code>. As you can see, there is always a <code class="docutils literal notranslate"><span class="pre">%</span></code> character and then some letter after it, which is the way how we determine how the date is formatted in our text. Notice that the date components are separated with dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) and the time components are separated with colons (<code class="docutils literal notranslate"><span class="pre">:</span></code>). As we can see from our format code, we can add those separator characters between the directives just as they are represented in the timestamp. Following this approach it is possible to parse basically any kind of time information represented as text. A few of the most commonly used datetime format code directives are listed in Table 2.1.</p>
-<p><em><strong>Table 2.1</strong>. Most commonly used datetime directives and their meaning.</em></p>
+<p>As a result we get a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object in which the date has been converted into a set of numbers, in which the first one is the year, second one is month, third one day, and so on. This structure is always the same, no matter in what format the input data has been. By using the format codes (i.e. the second argument of the function), we can tell the computer that the first component in our string represents year in 4 digits. The <code class="docutils literal notranslate"><span class="pre">%Y</span></code> characters (i.e. a <em>directive</em>) is a special way to instruct the computer to do so. In a similar manner, we can instruct the computer to read the month based on numbers with two digits (<code class="docutils literal notranslate"><span class="pre">12</span></code>) using the directive <code class="docutils literal notranslate"><span class="pre">%m</span></code>. As you can see, there is always a <code class="docutils literal notranslate"><span class="pre">%</span></code> character and then some letter after it, which is the way how we determine how the date is formatted in our text. Notice that the date components are separated with dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) and the time components are separated with colons (<code class="docutils literal notranslate"><span class="pre">:</span></code>). As we can see from our format code, we can add those separator characters between the directives just as they are represented in the timestamp. Following this approach it is possible to parse basically any kind of time information represented as text. A few of the most commonly used datetime format code directives are listed in Table 3.1.</p>
+<p>: <em><strong>Table 3.1</strong>. Most commonly used datetime directives and their meaning.</em></p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Directive</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Examples</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Directive</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+<th class="text-align:left head"><p>Examples</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>%y</p></td>
-<td><p>Year without century as a zero-padded number.</p></td>
-<td><p>00, 01, 10, 20</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%y</span></code></p></td>
+<td class="text-align:left"><p>Year without century as a</p></td>
+<td class="text-align:left"><p>00, 20, etc.</p></td>
 </tr>
-<tr class="row-odd"><td><p>%Y</p></td>
-<td><p>Year including century as a zero-padded number.</p></td>
-<td><p>2000, 1900, 1920</p></td>
+<tr class="row-odd"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p>zero-padded number</p></td>
+<td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-even"><td><p>%m</p></td>
-<td><p>Month as a zero-padded number.</p></td>
-<td><p>01,02, … , 11, 12</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%Y</span></code></p></td>
+<td class="text-align:left"><p>Year including century as a</p></td>
+<td class="text-align:left"><p>2000, 1920, etc.</p></td>
 </tr>
-<tr class="row-odd"><td><p>%b</p></td>
-<td><p>Month as abbreviated name.</p></td>
-<td><p>Jan, Feb, …, Dec</p></td>
+<tr class="row-odd"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p>zero-padded number</p></td>
+<td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-even"><td><p>%B</p></td>
-<td><p>Month as full name.</p></td>
-<td><p>January, February, …, December</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%m</span></code></p></td>
+<td class="text-align:left"><p>Month as a zero-padded number</p></td>
+<td class="text-align:left"><p>01, …, 12</p></td>
 </tr>
-<tr class="row-odd"><td><p>%d</p></td>
-<td><p>Day of the month as a zero-padded number.</p></td>
-<td><p>01, 02, …, 30, 31</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%b</span></code></p></td>
+<td class="text-align:left"><p>Month as abbreviated name</p></td>
+<td class="text-align:left"><p>Jan, …, Dec</p></td>
 </tr>
-<tr class="row-even"><td><p>%H</p></td>
-<td><p>Hour (24-hour clock) as a zero-padded number.</p></td>
-<td><p>00, 01, …, 22, 23</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%B</span></code></p></td>
+<td class="text-align:left"><p>Month as full name</p></td>
+<td class="text-align:left"><p>January, …, December</p></td>
 </tr>
-<tr class="row-odd"><td><p>%I</p></td>
-<td><p>Hour (12-hour clock) as a zero-padded number.</p></td>
-<td><p>01, 02, …, 11, 12</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%d</span></code></p></td>
+<td class="text-align:left"><p>Day of the month as a</p></td>
+<td class="text-align:left"><p>01, …, 31</p></td>
 </tr>
-<tr class="row-even"><td><p>%p</p></td>
-<td><p>AM or PM (12-hour clock).</p></td>
-<td><p>am, pm, AM, PM</p></td>
+<tr class="row-even"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p>zero-padded number</p></td>
+<td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-odd"><td><p>%M</p></td>
-<td><p>Minute as a zero-padded number.</p></td>
-<td><p>00, 01, …, 58, 59</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%H</span></code></p></td>
+<td class="text-align:left"><p>Hour (24-hour clock) as a</p></td>
+<td class="text-align:left"><p>00, …, 23</p></td>
 </tr>
-<tr class="row-even"><td><p>%S</p></td>
-<td><p>Second as a zero-padded number.</p></td>
-<td><p>00, 01, …, 58, 59</p></td>
+<tr class="row-even"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p>zero-padded number</p></td>
+<td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-odd"><td><p>%z</p></td>
-<td><p>UTC offset (can be empty).</p></td>
-<td><p>+0000, +2000, -4000</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%I</span></code></p></td>
+<td class="text-align:left"><p>Hour (12-hour clock) as a</p></td>
+<td class="text-align:left"><p>01, …, 12</p></td>
 </tr>
-<tr class="row-even"><td><p>%Z</p></td>
-<td><p>Time zone name (can be empty).</p></td>
-<td><p>UTC, GMT</p></td>
+<tr class="row-even"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p>zero-padded number</p></td>
+<td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-odd"><td><p>%a</p></td>
-<td><p>Weekday as abbreviated name.</p></td>
-<td><p>Mon, Tue, Sat, Sun</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%p</span></code></p></td>
+<td class="text-align:left"><p>AM or PM (12-hour clock)</p></td>
+<td class="text-align:left"><p>am, pm, AM, PM</p></td>
 </tr>
-<tr class="row-even"><td><p>%A</p></td>
-<td><p>Weekday as full name.</p></td>
-<td><p>Monday, Tuesday, Saturday, Sunday</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%M</span></code></p></td>
+<td class="text-align:left"><p>Minute as a zero-padded number</p></td>
+<td class="text-align:left"><p>00, …, 59</p></td>
 </tr>
-<tr class="row-odd"><td><p>%w</p></td>
-<td><p>Weekday as a number where 0 is Sunday and 6 is Saturday.</p></td>
-<td><p>0, 1, 2 …, 6</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%S</span></code></p></td>
+<td class="text-align:left"><p>Second as a zero-padded number</p></td>
+<td class="text-align:left"><p>00, …, 59</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%z</span></code></p></td>
+<td class="text-align:left"><p>UTC offset (can be empty)</p></td>
+<td class="text-align:left"><p>+0000, +2000, etc.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%Z</span></code></p></td>
+<td class="text-align:left"><p>Time zone name (can be empty)</p></td>
+<td class="text-align:left"><p>UTC, GMT</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%a</span></code></p></td>
+<td class="text-align:left"><p>Weekday as abbreviated name</p></td>
+<td class="text-align:left"><p>Mon, …, Sun</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%A</span></code></p></td>
+<td class="text-align:left"><p>Weekday as full name</p></td>
+<td class="text-align:left"><p>Monday, …, Sunday</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">%w</span></code></p></td>
+<td class="text-align:left"><p>Weekday as a number where 0 is</p></td>
+<td class="text-align:left"><p>0, …, 6</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p>Sunday and 6 is Saturday</p></td>
+<td class="text-align:left"><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -1098,6 +1122,7 @@
 <span class="n">sample</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
+<p><em><strong>Figure 3.5</strong>. Temperature values in Fahrenheit for 1990-2020.</em></p>
 <p>In this plot we have time represented on the x-axis and the temperature in Fahrenheit on the y-axis. We can clearly see how the temperatures fluctuate over different seasons. Let’s investigate our data a bit further and take a look of the first rows of our sample:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
@@ -1124,11 +1149,13 @@
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature (Fahrenheit)&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">);</span>
 </pre></div>
 </div>
+<p><em><strong>Figure 3.6</strong>. Temperature values and moving averages for 1990-2020.</em></p>
 <p>As a result, we have three different curves showing how the temperature values get smoothed by averaging. Green line is based on the moving average with 360 days; Orange line is based on the 180 days; and the blue line represents the moving average based on daily averages. As can be seen, the variance between observations is reduced (i.e. smoothed) when the size of the window gets larger.</p>
 <p>In quite a similar manner, it is possible to use exponentially weighted (EW) window functions to give more weight on more recent observations based on a decay function, such as center of mass (com) following a formula: <span class="math notranslate nohighlight">\(\alpha\)</span> <em>= 1 / (1 + com)</em>. A method called <code class="docutils literal notranslate"><span class="pre">.ewm()</span></code> does this, and as a result the smoothing adapts faster to changes than using equally weighted observations. The higher value you pass for the <code class="docutils literal notranslate"><span class="pre">com</span></code> -parameter, the more the end result will be smoothed:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ewm</span><span class="p">(</span><span class="n">com</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
+<p><em><strong>Figure 3.7</strong>. Exponentially weighted temperature values for 1990-2020.</em></p>
 <p>In addition to these moving window functions, pandas provides a method <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code> which increases the size of the window on each observation until it encompasses the whole series. This method basically cumulates the information on each observation and can be useful e.g. in some predictive applications where cumulative information about the given phenomena can provide more accurate results after more observations have been observed. It is also possible to apply and chain your own functions together with <code class="docutils literal notranslate"><span class="pre">.rolling()</span></code> and <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code>, such as <code class="docutils literal notranslate"><span class="pre">.rolling(20).apply(myOwnFunction)</span></code>.</p>
 </div>
 <div class="section" id="footnotes">

@@ -217,9 +217,10 @@ ax11 = axs[0][0]
 ax12 = axs[0][1]
 ax21 = axs[1][0]
 ax22 = axs[1][1]
-```
 
-_**Figure 4.16**. Another empty figure template with a 2x2 subplot panel._
+# Don't display the figure (it's the same 2x2 panel as above)
+plt.close()
+```
 
 Now, we'll add our seasonal temperatures to the plot commands for each time period. In addition, in this version of the plot we will also:
 - Modify the x- and y-axis labels using the `xlabel` and `ylabel` parameters in the `plot()` function.
@@ -282,7 +283,7 @@ fig
 ```
 
 <!-- #region -->
-_**Figure 4.17**. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible._
+_**Figure 4.16**. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible._
 
 
 The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.
@@ -342,12 +343,8 @@ ax1.text(pd.to_datetime("20130215"), -25, "Winter")
 ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 ```
 
-_**Figure 4.18**. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel._
+_**Figure 4.17**. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel._
 
 ## Footnotes
 
 [^matplotlib_colors]: <https://matplotlib.org/stable/gallery/color/named_colors.html>
-
-```python
-
-```

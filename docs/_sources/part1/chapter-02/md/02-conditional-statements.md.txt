@@ -109,18 +109,18 @@ else:
 
 ### Comparison operators
 
-Comparison operators such as `>` and `==` compare the values on each side of the operator. Table 1.3 lists operators used for value comparisons in Python: 
+Comparison operators such as `>` and `==` compare the values on each side of the operator. Table 2.3 lists operators used for value comparisons in Python: 
 
-| Operator | Description              |
-| -------- | ------------------------ |
-| <        | Less than                |
-| <=       | Less than or equal to    |
-| ==       | Equal to                 |
-| >=       | Greater than or equal to |
-| >        | Greater than             |
-| !=       | Not equal to             |
+: _**Table 2.3**. Comparison operators in Python._
 
-_**Table 2.3**. Comparison operators in Python._
+|Operator |Description              |
+|:--------|:------------------------|
+|`<`      |Less than                |
+|`<=`     |Less than or equal to    |
+|`==`     |Equal to                 |
+|`>=`     |Greater than or equal to |
+|`>`      |Greater than             |
+|`!=`     |Not equal to             |
 
 
 ### Boolean values
@@ -189,15 +189,15 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 
 ### Combining conditions
 
-We can also use `and` and `or` to combine multiple conditions on boolean values.
+We can also use `and` and `or` to combine multiple conditions on boolean values (Table 2.4).
 
 
-| Keyword   | Example  | Description                          |
-| --------- |--------- |------------------------------------- |
-|  and      | a and b  | True if both a and b are True        |
-|  or       | a or b   | True if either a or b is True        |
+: _**Table 2.4**. Logic for the `and` and `or` keywords in Python._
 
-_**Table 2.4**. Logic for the `and` and `or` keywords in Python._
+|Keyword   | Example   |Description                          |
+|:---------|:---------:|:------------------------------------|
+|`and`     | `a and b` |True if both `a` and `b` are True    |
+|`or`      | `a or b`  |True if either `a` or `b` is True    |
 
 ```python
 if (1 > 0) and (-1 > 0):
@@ -211,7 +211,7 @@ if (1 < 0) or (-1 < 0):
     print("At least one test is true")
 ```
 
-Later on we will also need the bitwise operators `&` for `and`, and `|` for `or`.
+Later in this book we will also need the bitwise operators `&` for `and`, and `|` for `or`.
 
 
 #### Question 2.8

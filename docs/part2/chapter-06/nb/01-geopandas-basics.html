@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction to spatial data analysis with Geopandas</title>
+    <title>Introduction to spatial data analysis with geopandas</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -193,7 +193,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -294,7 +294,7 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -647,16 +647,16 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#geometries-in-geopandas">
-   Geometries in Geopandas
+   Geometries in geopandas
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#writing-data-into-a-shapefile">
-   Writing data into a shapefile
+  <a class="reference internal nav-link" href="#writing-data-into-a-file">
+   Writing data into a file
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
+    <a class="reference internal nav-link" href="#id8">
      Check your understanding
     </a>
    </li>
@@ -664,7 +664,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#grouping-the-geodataframe">
-   Grouping the Geodataframe
+   Grouping the GeoDataFrame
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -679,6 +679,11 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -689,7 +694,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Introduction to spatial data analysis with Geopandas</h1>
+                <h1>Introduction to spatial data analysis with geopandas</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -728,16 +733,16 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#geometries-in-geopandas">
-   Geometries in Geopandas
+   Geometries in geopandas
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#writing-data-into-a-shapefile">
-   Writing data into a shapefile
+  <a class="reference internal nav-link" href="#writing-data-into-a-file">
+   Writing data into a file
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
+    <a class="reference internal nav-link" href="#id8">
      Check your understanding
     </a>
    </li>
@@ -745,7 +750,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#grouping-the-geodataframe">
-   Grouping the Geodataframe
+   Grouping the GeoDataFrame
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -760,6 +765,11 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -770,21 +780,13 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-spatial-data-analysis-with-geopandas">
-<h1>Introduction to spatial data analysis with Geopandas<a class="headerlink" href="#introduction-to-spatial-data-analysis-with-geopandas" title="Permalink to this headline">¶</a></h1>
-<p>Here we cover basics steps needed for interacting with spatial data in Python using the geopandas (http://geopandas.org/) library:</p>
-<ul class="simple">
-<li><p>Managing filepaths</p></li>
-<li><p>Reading spatial data from file</p></li>
-<li><p>Geometry calculations</p></li>
-<li><p>Writing spatial data to file</p></li>
-<li><p>Grouping and splitting spatial data into multiple layers</p></li>
-</ul>
-<p>Geopandas makes it possible to work with geospatial data in Python in a relatively easy way. Geopandas combines the capabilities of the data analysis library <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/">pandas</a> with other packages like <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">shapely</a> and <a class="reference external" href="https://fiona.readthedocs.io/en/latest/manual.html">fiona</a> for managing spatial data.</p>
-<p>The main data structures in geopandas are <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code> and <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which extend the capabilities of <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> from pandas. This means that we can use all our pandas skills also when working with geopandas!  If you need to refresh your memory about pandas, check out week 5 and 6 lesson materials from the <span class="xref myst">Geo-Python website</span>.</p>
-<p>The main difference between geodataframes and pandas dataframes is that a <a class="reference external" href="http://geopandas.org/data_structures.html#geodataframe">geodataframe</a> should contain one column for geometries. By default, the name of this column is <code class="docutils literal notranslate"><span class="pre">'geometry'</span></code>. The geometry column is a <a class="reference external" href="http://geopandas.org/data_structures.html#geoseries">geoseries</a> which contains the geometries (points, lines, polygons, multipolygons etc.) as shapely objects.</p>
-<p><img alt="Figure X.X. GeoDataFrame." src="../../../_images/geodataframe.png" /></p>
-<p><em><strong>Figure X.X</strong>. GeoDataFrame.</em></p>
-<p>As we learned in the Geo-Python course, it is conventional to import pandas as <code class="docutils literal notranslate"><span class="pre">pd</span></code>. Similarly,we will import geopandas as <code class="docutils literal notranslate"><span class="pre">gpd</span></code>:</p>
+<h1>Introduction to spatial data analysis with geopandas<a class="headerlink" href="#introduction-to-spatial-data-analysis-with-geopandas" title="Permalink to this headline">¶</a></h1>
+<p>We will use <a class="reference external" href="https://geopandas.org/">geopandas</a> <a class="footnote-reference brackets" href="#geopandas" id="id1">1</a> as our main tool for spatial data analysis in Python. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations.</p>
+<p>The main data structures in geopandas are <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code> and <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which extend the capabilities of <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> from pandas. This means that we can use all our pandas skills also when working with geopandas.</p>
+<p>The main difference between geopandas GeoDataFrames and pandas DataFrames is that a <a class="reference external" href="http://geopandas.org/data_structures.html#geodataframe">GeoDataFrame</a> should contain one column for geometries. By default, the name of this column is <code class="docutils literal notranslate"><span class="pre">'geometry'</span></code>. The geometry column is a <a class="reference external" href="http://geopandas.org/data_structures.html#geoseries">GeoSeries</a> which contains the geometries (points, lines, polygons, multipolygons etc.) as shapely objects.</p>
+<p><img alt="Figure 6.X. Geometry column in a GeoDataFrame." src="../../../_images/geodataframe.png" /></p>
+<p><em><strong>Figure 6.X</strong>. Geometry column in a GeoDataFrame.</em></p>
+<p>Similar to importing import pandas as <code class="docutils literal notranslate"><span class="pre">pd</span></code>, we will import geopandas as <code class="docutils literal notranslate"><span class="pre">gpd</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
@@ -794,16 +796,15 @@
 </div>
 <div class="section" id="input-data-finnish-topographic-database">
 <h2>Input data: Finnish topographic database<a class="headerlink" href="#input-data-finnish-topographic-database" title="Permalink to this headline">¶</a></h2>
-<p>In this lesson we will work with the <a class="reference external" href="https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database">National Land Survey of Finland (NLS) topographic database (from 2018)</a>.</p>
+<p>In this lesson we will work with the <a class="reference external" href="https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database">National Land Survey of Finland (NLS) topographic database</a> <a class="footnote-reference brackets" href="#nls-topodata" id="id2">2</a>.</p>
 <ul class="simple">
-<li><p>The data set is licensed under the NLS’ <a class="reference external" href="https://www.maanmittauslaitos.fi/en/opendata-licence-cc40">open data licence</a> (CC BY 4.0).</p></li>
-<li><p>Structure of the data is described in a separate Excel file (<a class="reference external" href="http://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2018/10/maastotietokanta_kohdemalli_eng.xlsx">download link</a>).</p></li>
-<li><p>Further information about file naming is available at <a class="reference external" href="https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae">fairdata.fi</a>.</p></li>
+<li><p>The data set is licensed under the NLS’ <a class="reference external" href="https://www.maanmittauslaitos.fi/en/opendata-licence-cc40">open data licence / CC BY 4.0</a> <a class="footnote-reference brackets" href="#nls-lisence" id="id3">3</a>.</p></li>
+<li><p>Metadata are available from the <a class="reference external" href="https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database">NLS website</a> <a class="footnote-reference brackets" href="#nls-topodata" id="id4">2</a> and <a class="reference external" href="https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae">fairdata.fi</a> <a class="footnote-reference brackets" href="#topodata-fair" id="id5">4</a>.</p></li>
+<li><p>We have acquired a subset of the topographic database as shapefiles from the Helsinki Region in Finland via the <a class="reference external" href="https://avaa.tdata.fi/web/paituli/latauspalvelu">CSC open data portal</a> <a class="footnote-reference brackets" href="#paituli" id="id6">5</a>:</p></li>
 </ul>
-<p>For this lesson, we have acquired a subset of the topographic database as shapefiles from the Helsinki Region in Finland via the <a class="reference external" href="https://avaa.tdata.fi/web/paituli/latauspalvelu">CSC open data portal</a>:</p>
-<p><img alt="Figure X.X. Paituli data download." src="../../../_images/Paituli_maastotietokanta_download.png" /></p>
-<p><em><strong>Figure X.X</strong>. Paituli data download.</em></p>
-<p>In this lesson, we will focus on <strong>terrain objects</strong> (Feature group: “Terrain/1” in the topographic database). The Terrain/1 feature group contains several feature classes. <strong>Our aim in this lesson is to save all the Terrain/1 feature classes into separate files</strong>.</p>
+<p><img alt="Figure 6.X. Paituli data download." src="../../../_images/Paituli_maastotietokanta_download.png" /></p>
+<p><em><strong>Figure 6.X</strong>. Paituli data download.</em></p>
+<p>In this lesson, we will focus on terrain objects(Feature group: “Terrain/1” in the topographic database). The Terrain/1 feature group contains several feature classes. Our aim in this lesson is to save all the Terrain/1 feature classes into separate files.</p>
 <p><em>Terrain/1 features in the Topographic Database:</em></p>
 <table class="colwidths-auto table">
 <thead>
@@ -895,7 +896,7 @@
 </tr>
 </tbody>
 </table>
-<p>According to the <a class="reference external" href="https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae">naming convention</a>, all files that start with a letter <code class="docutils literal notranslate"><span class="pre">m</span></code> and end with <code class="docutils literal notranslate"><span class="pre">p</span></code> contain the objects we are interested in (Terrain/1 polygons).</p>
+<p>According to the <a class="reference external" href="https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae">naming convention</a> <a class="footnote-reference brackets" href="#topodata-fair" id="id7">4</a>, all files that start with a letter <code class="docutils literal notranslate"><span class="pre">m</span></code> and end with <code class="docutils literal notranslate"><span class="pre">p</span></code> contain the objects we are interested in (Terrain/1 polygons).</p>
 </div>
 <div class="section" id="downloading-data">
 <h2>Downloading data<a class="headerlink" href="#downloading-data" title="Permalink to this headline">¶</a></h2>
@@ -1061,7 +1062,7 @@ Let’s select only the useful columns and rename them into English:</p>
 </div>
 </div>
 <div class="section" id="geometries-in-geopandas">
-<h2>Geometries in Geopandas<a class="headerlink" href="#geometries-in-geopandas" title="Permalink to this headline">¶</a></h2>
+<h2>Geometries in geopandas<a class="headerlink" href="#geometries-in-geopandas" title="Permalink to this headline">¶</a></h2>
 <p>Geopandas takes advantage of Shapely’s geometric objects. Geometries are stored in a column called <em>geometry</em> that is a default column name for
 storing geometric information in geopandas.</p>
 <p>Let’s print the first 5 rows of the column ‘geometry’:</p>
@@ -1167,8 +1168,8 @@ storing geometric information in geopandas.</p>
 </div>
 </div>
 </div>
-<div class="section" id="writing-data-into-a-shapefile">
-<h2>Writing data into a shapefile<a class="headerlink" href="#writing-data-into-a-shapefile" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="writing-data-into-a-file">
+<h2>Writing data into a file<a class="headerlink" href="#writing-data-into-a-file" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to export GeoDataFrames into various data formats using the <a class="reference external" href="http://geopandas.org/io.html#writing-spatial-data">to_file()</a> method. In our case, we want to export subsets of the data into Shapefiles (one file for each feature class).</p>
 <p>Let’s first select one class (class number <code class="docutils literal notranslate"><span class="pre">36200</span></code>, “Lake water”) from the data as a new GeoDataFrame:</p>
 <div class="cell docutils container">
@@ -1207,8 +1208,8 @@ storing geometric information in geopandas.</p>
 </div>
 </div>
 </div>
-<div class="section" id="id1">
-<h3>Check your understanding<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>Check your understanding<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <div class="alert alert-info">
 <p>Read the output Shapefile in a new geodataframe, and check that the data looks ok.</p>
 </div><div class="cell docutils container">
@@ -1237,11 +1238,10 @@ storing geometric information in geopandas.</p>
 </div>
 </div>
 <div class="section" id="grouping-the-geodataframe">
-<h2>Grouping the Geodataframe<a class="headerlink" href="#grouping-the-geodataframe" title="Permalink to this headline">¶</a></h2>
-<p>One really useful function that can be used in Pandas/Geopandas is <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html">groupby()</a> which groups data based on values on selected column(s). We saw and used this function already in Lesson 6 of the Geo-Python course.</p>
-<p>Next we will automate the file export task; we will group the data based on column <code class="docutils literal notranslate"><span class="pre">CLASS</span></code> and export a shapefile for each class.</p>
-<p>Let’s continue with the same input file we already read previously into the variable <code class="docutils literal notranslate"><span class="pre">data</span></code>. We also selected and renamed a subset of the columns.</p>
-<p>Check again the first rows of our input data:</p>
+<h2>Grouping the GeoDataFrame<a class="headerlink" href="#grouping-the-geodataframe" title="Permalink to this headline">¶</a></h2>
+<p>Next we will automate the file export task. we will group the data based on column <code class="docutils literal notranslate"><span class="pre">CLASS</span></code> and export a shapefile for each class.</p>
+<p>This can be achieved using the <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html">groupby()</a> familiar from the pandas library and also available in GeoDataFrames. This function groups data based on values on selected column(s).</p>
+<p>Before continuing, let’s check the first rows of our input data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1258,9 +1258,7 @@ storing geometric information in geopandas.</p>
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>Now we can use that information to group our data and save all land use types into different layers:</p></li>
-</ul>
+<p>Now we can use that information to group our data and save all land use types into different layers:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group the data by class</span>
@@ -1404,9 +1402,7 @@ storing geometric information in geopandas.</p>
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>save area info to csv using pandas:</p></li>
-</ul>
+<p>Save area info to csv using pandas:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an output path</span>
@@ -1416,6 +1412,27 @@ storing geometric information in geopandas.</p>
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="geopandas"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://geopandas.org/">https://geopandas.org/</a></p>
+</dd>
+<dt class="label" id="nls-topodata"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p><a class="reference external" href="https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database">https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database</a></p>
+</dd>
+<dt class="label" id="nls-lisence"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p><a class="reference external" href="https://www.maanmittauslaitos.fi/en/opendata-licence-cc40">https://www.maanmittauslaitos.fi/en/opendata-licence-cc40</a></p>
+</dd>
+<dt class="label" id="topodata-fair"><span class="brackets">4</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id7">2</a>)</span></dt>
+<dd><p><a class="reference external" href="https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae">https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae</a></p>
+</dd>
+<dt class="label" id="paituli"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p><a class="reference external" href="https://avaa.tdata.fi/web/paituli/latauspalvelu">https://avaa.tdata.fi/web/paituli/latauspalvelu</a></p>
+</dd>
+</dl>
 </div>
 </div>
 

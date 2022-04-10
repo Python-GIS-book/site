@@ -191,7 +191,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -292,7 +292,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nb/01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -767,10 +767,9 @@
 E. (2013), Chapter 3</a>.</p>
 <div class="section" id="spatial-data-model">
 <h2>Spatial data model<a class="headerlink" href="#spatial-data-model" title="Permalink to this headline">¶</a></h2>
-<p><img alt="_Figure X. Spatial data model (LET'S CHECK THE SOURCE OF THIS PHOTO)" src="../../../_images/spatial-data-model.png" /></p>
-<p><em>Fundamental geometric objects that can be used in Python with</em> <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">Shapely</a>.</p>
-<p>The most fundamental geometric objects are <code class="docutils literal notranslate"><span class="pre">Points</span></code>, <code class="docutils literal notranslate"><span class="pre">Lines</span></code> and <code class="docutils literal notranslate"><span class="pre">Polygons</span></code> which are the basic ingredients when working with spatial data in vector format.
-Python has a specific module called <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">Shapely</a> for doing various geometric operations. Basic knowledge of using Shapely is fundamental for understanding how geometries are stored and handled in GeoPandas.</p>
+<p><img alt="Figure 6.X. Spatial data model Source: CHECK!." src="../../../_images/spatial-data-model.png" /></p>
+<p><em><strong>Figure 6.X</strong>. Spatial data model.</em></p>
+<p>Fundamental geometric objects that can be used in Python with <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">Shapely</a>. The most fundamental geometric objects are <code class="docutils literal notranslate"><span class="pre">Points</span></code>, <code class="docutils literal notranslate"><span class="pre">Lines</span></code> and <code class="docutils literal notranslate"><span class="pre">Polygons</span></code> which are the basic ingredients when working with spatial data in vector format. Python has a specific module called <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">Shapely</a> for doing various geometric operations. Basic knowledge of using Shapely is fundamental for understanding how geometries are stored and handled in GeoPandas.</p>
 <p><strong>Geometric objects consist of coordinate tuples where:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Point</span></code> -object represents a single point in space. Points can be either two-dimensional (x, y) or three dimensional (x, y, z).</p></li>
@@ -849,7 +848,7 @@ Python has a specific module called <a class="reference external" href="https://
 <span class="n">y</span> <span class="o">=</span> <span class="n">point1</span><span class="o">.</span><span class="n">y</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>It is also possible to calculate the distance between two objects using the <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.distance">distance</a> method. In our example the distance is calculated in a cartesian coordinate system. When working with real GIS data the distance is based on the used coordinate reference system. always check what is the unit of measurement (for example, meters) in the coordinate reference system you are using.</p>
@@ -883,7 +882,7 @@ Python has a specific module called <a class="reference external" href="https://
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if lines are identical</span>
-<span class="n">line</span> <span class="o">==</span> <span class="n">line2</span> 
+<span class="n">line</span> <span class="o">==</span> <span class="n">line2</span>
 </pre></div>
 </div>
 <p>Let’s see how our line looks like:</p>
@@ -979,7 +978,7 @@ Python has a specific module called <a class="reference external" href="https://
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the help for Polygon objects:</span>
-<span class="c1">#help(Polygon)</span>
+<span class="c1"># help(Polygon)</span>
 </pre></div>
 </div>
 <!-- #region -->
@@ -1038,7 +1037,7 @@ Python has a specific module called <a class="reference external" href="https://
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print the outputs</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon centroid: &quot;</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon Area: &quot;</span><span class="p">,</span>  <span class="n">world</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon Area: &quot;</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon Bounding Box: &quot;</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon Exterior: &quot;</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">exterior</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon Exterior Length: &quot;</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
@@ -1059,15 +1058,15 @@ Python has a specific module called <a class="reference external" href="https://
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Triangle</span>
-<span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">)])</span>
+<span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Square</span>
-<span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">)])</span>
+<span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Circle (using a buffer around a point)</span>
-<span class="n">point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="n">point</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1111,7 +1110,7 @@ Python has a specific module called <a class="reference external" href="https://
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s create the exterior of the western part of the world</span>
 <span class="n">west_exterior</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">)]</span>
 
-<span class="c1"># Let&#39;s create a hole --&gt; remember there can be multiple holes, thus we need to have a list of hole(s). </span>
+<span class="c1"># Let&#39;s create a hole --&gt; remember there can be multiple holes, thus we need to have a list of hole(s).</span>
 <span class="c1"># Here we have just one.</span>
 <span class="n">west_hole</span> <span class="o">=</span> <span class="p">[[(</span><span class="o">-</span><span class="mi">170</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">170</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">80</span><span class="p">)]]</span>
 
@@ -1167,7 +1166,7 @@ Python has a specific module called <a class="reference external" href="https://
 <span class="n">multi_point</span><span class="o">.</span><span class="n">convex_hull</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Envelope (smalles rectangular polygon around the geometry collection): </span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Envelope (smalles rectangular polygon around the geometry collection):</span>
 <span class="n">multi_point</span><span class="o">.</span><span class="n">envelope</span>
 </pre></div>
 </div>

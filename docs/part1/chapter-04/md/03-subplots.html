@@ -191,7 +191,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -292,7 +292,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -850,9 +850,11 @@ We can start by plotting the data for the different seasons with different color
 <span class="n">ax12</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">ax21</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">ax22</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Don&#39;t display the figure (it&#39;s the same 2x2 panel as above)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 4.16</strong>. Another empty figure template with a 2x2 subplot panel.</em></p>
 <p>Now, we’ll add our seasonal temperatures to the plot commands for each time period. In addition, in this version of the plot we will also:</p>
 <ul class="simple">
 <li><p>Modify the x- and y-axis labels using the <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> parameters in the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function.</p></li>
@@ -914,7 +916,7 @@ We can start by plotting the data for the different seasons with different color
 </pre></div>
 </div>
 <!-- #region -->
-<p><em><strong>Figure 4.17</strong>. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible.</em></p>
+<p><em><strong>Figure 4.16</strong>. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible.</em></p>
 <p>The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.</p>
 <!-- #endregion -->
 <div class="section" id="question-4-3">
@@ -968,14 +970,11 @@ We can start by plotting the data for the different seasons with different color
 <span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s2">&quot;20130815&quot;</span><span class="p">),</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;Summer&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 4.18</strong>. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel.</em></p>
+<p><em><strong>Figure 4.17</strong>. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel.</em></p>
 </div>
 </div>
 <div class="section" id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="matplotlib-colors"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>

@@ -216,18 +216,18 @@
    "source": [
     "### Comparison operators\n",
     "\n",
-    "Comparison operators such as `>` and `==` compare the values on each side of the operator. Table 1.3 lists operators used for value comparisons in Python: \n",
+    "Comparison operators such as `>` and `==` compare the values on each side of the operator. Table 2.3 lists operators used for value comparisons in Python: \n",
     "\n",
-    "| Operator | Description              |\n",
-    "| -------- | ------------------------ |\n",
-    "| <        | Less than                |\n",
-    "| <=       | Less than or equal to    |\n",
-    "| ==       | Equal to                 |\n",
-    "| >=       | Greater than or equal to |\n",
-    "| >        | Greater than             |\n",
-    "| !=       | Not equal to             |\n",
+    ": _**Table 2.3**. Comparison operators in Python._\n",
     "\n",
-    "_**Table 2.3**. Comparison operators in Python._"
+    "|Operator |Description              |\n",
+    "|:--------|:------------------------|\n",
+    "|`<`      |Less than                |\n",
+    "|`<=`     |Less than or equal to    |\n",
+    "|`==`     |Equal to                 |\n",
+    "|`>=`     |Greater than or equal to |\n",
+    "|`>`      |Greater than             |\n",
+    "|`!=`     |Not equal to             |"
    ]
   },
   {
@@ -388,19 +388,19 @@
    "source": [
     "### Combining conditions\n",
     "\n",
-    "We can also use `and` and `or` to combine multiple conditions on boolean values."
+    "We can also use `and` and `or` to combine multiple conditions on boolean values (Table 2.4)."
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "| Keyword   | Example  | Description                          |\n",
-    "| --------- |--------- |------------------------------------- |\n",
-    "|  and      | a and b  | True if both a and b are True        |\n",
-    "|  or       | a or b   | True if either a or b is True        |\n",
+    ": _**Table 2.4**. Logic for the `and` and `or` keywords in Python._\n",
     "\n",
-    "_**Table 2.4**. Logic for the `and` and `or` keywords in Python._"
+    "|Keyword   | Example   |Description                          |\n",
+    "|:---------|:---------:|:------------------------------------|\n",
+    "|`and`     | `a and b` |True if both `a` and `b` are True    |\n",
+    "|`or`      | `a or b`  |True if either `a` or `b` is True    |"
    ]
   },
   {
@@ -445,7 +445,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Later on we will also need the bitwise operators `&` for `and`, and `|` for `or`."
+    "Later in this book we will also need the bitwise operators `&` for `and`, and `|` for `or`."
    ]
   },
   {

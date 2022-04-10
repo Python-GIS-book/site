@@ -191,7 +191,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -292,7 +292,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -819,7 +819,7 @@
 <li><p><strong>NoData values:</strong> NaN values in the NOAA data are coded with varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters, hence, we need to be able to instruct pandas to interpret those as NaNs.</p></li>
 <li><p><strong>Many columns</strong>: The input data contains many columns (altogether 33). Many of those do not contain any meaningful data for our needs. Hence, we should probably ignore the unnecessary columns already at this stage.</p></li>
 </ol>
-<p>Handling and cleaning heterogeneous input data (such as our example here) could naturally be done after the data has been imported to a DataFrame. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter <code class="docutils literal notranslate"><span class="pre">delim_whitespace=True</span></code> (alternatively, specifying <code class="docutils literal notranslate"><span class="pre">sep='\s+'</span></code> would work). For handling the NoData values (2), we can tell pandas to consider the <code class="docutils literal notranslate"><span class="pre">*</span></code> characters as NaNs by using a paramater <code class="docutils literal notranslate"><span class="pre">na_values</span></code> and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify <code class="docutils literal notranslate"><span class="pre">na_values=['*',</span> <span class="pre">'**',</span> <span class="pre">'***',</span> <span class="pre">'****',</span> <span class="pre">'*****',</span> <span class="pre">'******']</span></code> which will then convert the varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis (or at least meaningful to us), including e.g. the station name, timestamp, and data about the wind and temperature: <code class="docutils literal notranslate"><span class="pre">'USAF','YR--MODAHRMN',</span> <span class="pre">'DIR',</span> <span class="pre">'SPD',</span> <span class="pre">'GUS','TEMP',</span> <span class="pre">'MAX',</span> <span class="pre">'MIN'</span></code>. Achieving all these things is pretty straightforward using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function:</p>
+<p>Handling and cleaning heterogeneous input data (such as our example here) can be done after reading in the data. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter <code class="docutils literal notranslate"><span class="pre">delim_whitespace=True</span></code> (alternatively, specifying <code class="docutils literal notranslate"><span class="pre">sep='\s+'</span></code> would work). For handling the NoData values (2), we can tell pandas to consider the <code class="docutils literal notranslate"><span class="pre">*</span></code> characters as NaNs by using a paramater <code class="docutils literal notranslate"><span class="pre">na_values</span></code> and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify <code class="docutils literal notranslate"><span class="pre">na_values=['*',</span> <span class="pre">'**',</span> <span class="pre">'***',</span> <span class="pre">'****',</span> <span class="pre">'*****',</span> <span class="pre">'******']</span></code> which will then convert the varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis (or at least meaningful to us), including e.g. the station name, timestamp, and data about the wind and temperature: <code class="docutils literal notranslate"><span class="pre">'USAF','YR--MODAHRMN',</span> <span class="pre">'DIR',</span> <span class="pre">'SPD',</span> <span class="pre">'GUS','TEMP',</span> <span class="pre">'MAX',</span> <span class="pre">'MIN'</span></code>. Achieving all these things is pretty straightforward using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># Define relative path to the file</span>
@@ -1130,7 +1130,7 @@
     <span class="c1"># Convert the pd.Series into DataFrame and</span>
     <span class="c1"># append the aggregated values into a list as a DataFrame</span>
     <span class="n">data_container</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_values</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-    
+
 <span class="c1"># After iterating all groups, merge the list of DataFrames</span>
 <span class="n">monthly_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">data_container</span><span class="p">)</span>
 <span class="n">monthly_data</span>

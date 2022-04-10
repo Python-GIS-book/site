@@ -193,7 +193,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -294,7 +294,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -729,17 +729,14 @@
 <p>Let’s start by creating a new empty <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newdata</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">0</span><span class="n">c88b3e9d934</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">newdata</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;gpd&#39; is not defined
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newdata</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -751,12 +748,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">49</span><span class="n">c076f9bdff</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">type</span><span class="p">(</span><span class="n">newdata</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;newdata&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>geopandas.geodataframe.GeoDataFrame
 </pre></div>
 </div>
 </div>
@@ -880,7 +872,7 @@ Index: []
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EPSG:4326
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>None
 </pre></div>
 </div>
 </div>
@@ -889,7 +881,13 @@ Index: []
 <p>Re-create the GeoDataFrame with correct crs definition:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newdata</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">newdata</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newdata</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">newdata</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\vuokkhei\AppData\Local\Temp/ipykernel_11788/2392668392.py:1: FutureWarning: CRS mismatch between CRS of the passed geometries and &#39;crs&#39;. Use &#39;GeoDataFrame.set_crs(crs, allow_override=True)&#39; to overwrite CRS or &#39;GeoDataFrame.to_crs(crs)&#39; to reproject geometries. CRS mismatch will raise an error in the future versions of GeoPandas.
+  newdata = gpd.GeoDataFrame(newdata, crs=4326)
 </pre></div>
 </div>
 </div>
@@ -979,11 +977,6 @@ Application Programming Interfaces (APIs) where you can send requests, and recei
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>34
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -991,58 +984,6 @@ Application Programming Interfaces (APIs) where you can send requests, and recei
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>addr</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1000</td>
-      <td>Itämerenkatu 14, 00101 Helsinki, Finland</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1001</td>
-      <td>Kampinkuja 1, 00100 Helsinki, Finland</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1002</td>
-      <td>Kaivokatu 8, 00101 Helsinki, Finland</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1003</td>
-      <td>Hermannin rantatie 1, 00580 Helsinki, Finland</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1005</td>
-      <td>Tyynenmerenkatu 9, 00220 Helsinki, Finland</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Now we have our data in a pandas DataFrame and we can geocode our addresses using the <a class="reference external" href="http://geopandas.org/reference/geopandas.tools.geocode.html#geopandas-tools-geocode">geopandas geocoding function</a> that uses <code class="docutils literal notranslate"><span class="pre">geopy</span></code> package in the background.</p>
 <ul class="simple">
@@ -1067,58 +1008,6 @@ Application Programming Interfaces (APIs) where you can send requests, and recei
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>geometry</th>
-      <th>address</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>POINT (24.91556 60.16320)</td>
-      <td>Ruoholahti, 14, Itämerenkatu, Ruoholahti, Läns...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>POINT (24.93169 60.16902)</td>
-      <td>Kamppi, 1, Kampinkuja, Kamppi, Eteläinen suurp...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>POINT (24.94179 60.16989)</td>
-      <td>Kauppakeskus Citycenter, 8, Kaivokatu, Keskust...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>POINT (24.97783 60.18892)</td>
-      <td>Hermannin rantatie, Verkkosaari, Kalasatama, S...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>POINT (24.92160 60.15665)</td>
-      <td>Hesburger, 9, Tyynenmerenkatu, Jätkäsaari, Län...</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>And Voilà! As a result we have a GeoDataFrame that contains our original
 address and a ‘geometry’ column containing Shapely Point -objects that
@@ -1173,80 +1062,11 @@ based on index by default. This approach works correctly because the order of th
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>geometry</th>
-      <th>address</th>
-      <th>id</th>
-      <th>addr</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>POINT (24.91556 60.16320)</td>
-      <td>Ruoholahti, 14, Itämerenkatu, Ruoholahti, Läns...</td>
-      <td>1000</td>
-      <td>Itämerenkatu 14, 00101 Helsinki, Finland</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>POINT (24.93169 60.16902)</td>
-      <td>Kamppi, 1, Kampinkuja, Kamppi, Eteläinen suurp...</td>
-      <td>1001</td>
-      <td>Kampinkuja 1, 00100 Helsinki, Finland</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>POINT (24.94179 60.16989)</td>
-      <td>Kauppakeskus Citycenter, 8, Kaivokatu, Keskust...</td>
-      <td>1002</td>
-      <td>Kaivokatu 8, 00101 Helsinki, Finland</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>POINT (24.97783 60.18892)</td>
-      <td>Hermannin rantatie, Verkkosaari, Kalasatama, S...</td>
-      <td>1003</td>
-      <td>Hermannin rantatie 1, 00580 Helsinki, Finland</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>POINT (24.92160 60.15665)</td>
-      <td>Hesburger, 9, Tyynenmerenkatu, Jätkäsaari, Län...</td>
-      <td>1005</td>
-      <td>Tyynenmerenkatu 9, 00220 Helsinki, Finland</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Let’s also check the data type of our new <code class="docutils literal notranslate"><span class="pre">join</span></code> table.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">join</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>geopandas.geodataframe.GeoDataFrame
 </pre></div>
 </div>
 </div>

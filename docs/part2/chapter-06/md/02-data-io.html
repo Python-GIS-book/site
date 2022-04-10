@@ -191,7 +191,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -292,7 +292,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nb/01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -770,8 +770,8 @@
 <span class="n">gpd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span>
 
 <span class="c1"># Same as:</span>
-<span class="c1">#import fiona</span>
-<span class="c1">#fiona.supported_drivers</span>
+<span class="c1"># import fiona</span>
+<span class="c1"># fiona.supported_drivers</span>
 </pre></div>
 </div>
 <div class="section" id="read-write-shapefile">
@@ -803,7 +803,7 @@
 <div class="section" id="read-write-kml">
 <h3>Read / write KML<a class="headerlink" href="#read-write-kml" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable KML driver</span>
-<span class="n">gpd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;KML&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span>
+<span class="n">gpd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s2">&quot;KML&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rw&quot;</span>
 
 <span class="c1"># Read file from KML</span>
 <span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/finland_municipalities.kml&quot;</span>
@@ -831,11 +831,11 @@
 <h3>Read / write GeoDatabase<a class="headerlink" href="#read-write-geodatabase" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read file from File Geodatabase</span>
 <span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/finland.gdb&quot;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;OpenFileGDB&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;municipalities&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;OpenFileGDB&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;municipalities&quot;</span><span class="p">)</span>
 
 <span class="c1"># Write to same FileGDB (just add a new layer) - requires additional package installations(?)</span>
-<span class="c1">#outfp = &quot;data/finland.gdb&quot;</span>
-<span class="c1">#data.to_file(outfp, driver=&quot;FileGDB&quot;, layer=&quot;municipalities_copy&quot;)</span>
+<span class="c1"># outfp = &quot;data/finland.gdb&quot;</span>
+<span class="c1"># data.to_file(outfp, driver=&quot;FileGDB&quot;, layer=&quot;municipalities_copy&quot;)</span>
 </pre></div>
 </div>
 </div>
@@ -861,10 +861,13 @@
 <span class="kn">import</span> <span class="nn">psycopg2</span>
 
 <span class="c1"># Create connection to database with psycopg2 module (update params according your db)</span>
-<span class="n">conn</span><span class="p">,</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbname</span><span class="o">=</span><span class="s1">&#39;my_postgis_database&#39;</span><span class="p">,</span> 
-                                <span class="n">user</span><span class="o">=</span><span class="s1">&#39;my_usrname&#39;</span><span class="p">,</span> 
-                                <span class="n">password</span><span class="o">=</span><span class="s1">&#39;my_pwd&#39;</span><span class="p">,</span> 
-                                <span class="n">host</span><span class="o">=</span><span class="s1">&#39;123.22.432.16&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5432</span><span class="p">)</span>
+<span class="n">conn</span><span class="p">,</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">dbname</span><span class="o">=</span><span class="s2">&quot;my_postgis_database&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;my_usrname&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;my_pwd&quot;</span><span class="p">,</span>
+    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;123.22.432.16&quot;</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">5432</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># Specify sql query</span>
 <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM MY_TABLE;&quot;</span>
@@ -883,15 +886,21 @@
 <span class="kn">from</span> <span class="nn">geoalchemy2</span> <span class="kn">import</span> <span class="n">WKTElement</span><span class="p">,</span> <span class="n">Geometry</span>
 
 <span class="c1"># Update with your db parameters</span>
-<span class="n">HOST</span> <span class="o">=</span> <span class="s1">&#39;123.234.345.16&#39;</span>
-<span class="n">DB</span> <span class="o">=</span> <span class="s1">&#39;my_database&#39;</span>
-<span class="n">USER</span> <span class="o">=</span> <span class="s1">&#39;my_user&#39;</span>
+<span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;123.234.345.16&quot;</span>
+<span class="n">DB</span> <span class="o">=</span> <span class="s2">&quot;my_database&quot;</span>
+<span class="n">USER</span> <span class="o">=</span> <span class="s2">&quot;my_user&quot;</span>
 <span class="n">PORT</span> <span class="o">=</span> <span class="mi">5432</span>
-<span class="n">PWD</span> <span class="o">=</span> <span class="s1">&#39;my_password&#39;</span>
+<span class="n">PWD</span> <span class="o">=</span> <span class="s2">&quot;my_password&quot;</span>
 
 <span class="c1"># Database info</span>
-<span class="n">db_url</span> <span class="o">=</span> <span class="n">URL</span><span class="p">(</span><span class="n">drivername</span><span class="o">=</span><span class="s1">&#39;postgresql+psycopg2&#39;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">HOST</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="n">DB</span><span class="p">,</span>
-                   <span class="n">username</span><span class="o">=</span><span class="n">USER</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">PWD</span><span class="p">)</span>
+<span class="n">db_url</span> <span class="o">=</span> <span class="n">URL</span><span class="p">(</span>
+    <span class="n">drivername</span><span class="o">=</span><span class="s2">&quot;postgresql+psycopg2&quot;</span><span class="p">,</span>
+    <span class="n">host</span><span class="o">=</span><span class="n">HOST</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="n">DB</span><span class="p">,</span>
+    <span class="n">username</span><span class="o">=</span><span class="n">USER</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="n">PWD</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># Create engine</span>
 <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">db_url</span><span class="p">)</span>
@@ -927,18 +936,18 @@
 <span class="n">crs</span> <span class="o">=</span> <span class="mi">4326</span>
 
 <span class="c1"># Target table</span>
-<span class="n">target_table</span> <span class="o">=</span> <span class="s1">&#39;finland_copy&#39;</span>
+<span class="n">target_table</span> <span class="o">=</span> <span class="s2">&quot;finland_copy&quot;</span>
 
 <span class="c1"># Convert Shapely geometries to WKTElements into column &#39;geom&#39; (default in PostGIS)</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;geom&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">WKTElement</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">crs</span><span class="p">))</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;geom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">WKTElement</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">crs</span><span class="p">))</span>
 
 <span class="c1"># Drop Shapely geometries</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;geometry&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;geometry&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># Write to PostGIS (overwrite if table exists, be careful with this! )</span>
 <span class="c1"># Possible behavior: &#39;replace&#39;, &#39;append&#39;, &#39;fail&#39;</span>
 
-<span class="n">data</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">target_table</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">target_table</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -950,10 +959,10 @@
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">event</span>
 
 <span class="c1"># DB path</span>
-<span class="n">dbfp</span> <span class="o">=</span> <span class="s1">&#39;L2_data/Finland.sqlite&#39;</span>
+<span class="n">dbfp</span> <span class="o">=</span> <span class="s2">&quot;L2_data/Finland.sqlite&quot;</span>
 
 <span class="c1"># Name for the table</span>
-<span class="n">tbl_name</span> <span class="o">=</span> <span class="s1">&#39;finland&#39;</span>
+<span class="n">tbl_name</span> <span class="o">=</span> <span class="s2">&quot;finland&quot;</span>
 
 <span class="c1"># SRID (crs of your data)</span>
 <span class="n">srid</span> <span class="o">=</span> <span class="mi">4326</span>
@@ -964,15 +973,15 @@
 <span class="n">geom_type</span> <span class="o">=</span> <span class="n">gtype</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 
 <span class="c1"># Initialize database engine</span>
-<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///</span><span class="si">{db}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">dbfp</span><span class="p">),</span> <span class="n">module</span><span class="o">=</span><span class="n">sqlite</span><span class="p">)</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;sqlite:///</span><span class="si">{db}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">dbfp</span><span class="p">),</span> <span class="n">module</span><span class="o">=</span><span class="n">sqlite</span><span class="p">)</span>
 
 <span class="c1"># Initialize table without geometries</span>
-<span class="n">geo</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;geometry&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">geo</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;geometry&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbfp</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
-    <span class="n">geo</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">tbl_name</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">geo</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">tbl_name</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># Enable spatialite extension    </span>
+<span class="c1"># Enable spatialite extension</span>
 <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbfp</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">enable_load_extension</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">load_extension</span><span class="p">(</span><span class="s2">&quot;mod_spatialite&quot;</span><span class="p">)</span>
@@ -980,14 +989,16 @@
     <span class="c1"># Add geometry column with specified CRS with defined geometry typehaving two dimensions</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
         <span class="s2">&quot;SELECT AddGeometryColumn(</span><span class="si">{table}</span><span class="s2">, &#39;wkb_geometry&#39;,</span><span class="se">\</span>
-<span class="s2">        </span><span class="si">{srid}</span><span class="s2">, </span><span class="si">{geom_type}</span><span class="s2">, 2);&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="n">tbl_name</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">srid</span><span class="p">,</span> <span class="n">geom_type</span><span class="o">=</span><span class="n">geom_type</span><span class="p">)</span>
+<span class="s2">        </span><span class="si">{srid}</span><span class="s2">, </span><span class="si">{geom_type}</span><span class="s2">, 2);&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">tbl_name</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">srid</span><span class="p">,</span> <span class="n">geom_type</span><span class="o">=</span><span class="n">geom_type</span>
+        <span class="p">)</span>
     <span class="p">)</span>
-    
+
 <span class="c1"># Convert Shapely geometries into well-known-binary format</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">geom</span><span class="p">:</span> <span class="n">swkb</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">geom</span><span class="p">:</span> <span class="n">swkb</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span>
 
 <span class="c1"># Push to database (overwrite if table exists)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">tbl_name</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">tbl_name</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1000,19 +1011,24 @@
 <span class="kn">import</span> <span class="nn">geojson</span>
 <span class="kn">from</span> <span class="nn">pyproj</span> <span class="kn">import</span> <span class="n">CRS</span>
 
-<span class="c1"># Specify the url for the backend. </span>
-<span class="c1">#Here we are using data from Statistics Finland: https://www.stat.fi/org/avoindata/paikkatietoaineistot_en.html. (CC BY 4.0)</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://geo.stat.fi/geoserver/tilastointialueet/wfs&#39;</span>
+<span class="c1"># Specify the url for the backend.</span>
+<span class="c1"># Here we are using data from Statistics Finland: https://www.stat.fi/org/avoindata/paikkatietoaineistot_en.html. (CC BY 4.0)</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://geo.stat.fi/geoserver/tilastointialueet/wfs&quot;</span>
 
-<span class="c1"># Specify parameters (read data in json format). </span>
-<span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="s1">&#39;WFS&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;2.0.0&#39;</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;GetFeature&#39;</span><span class="p">,</span> 
-         <span class="n">typeName</span><span class="o">=</span><span class="s1">&#39;tilastointialueet:kunta4500k&#39;</span><span class="p">,</span> <span class="n">outputFormat</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+<span class="c1"># Specify parameters (read data in json format).</span>
+<span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;WFS&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
+    <span class="n">request</span><span class="o">=</span><span class="s2">&quot;GetFeature&quot;</span><span class="p">,</span>
+    <span class="n">typeName</span><span class="o">=</span><span class="s2">&quot;tilastointialueet:kunta4500k&quot;</span><span class="p">,</span>
+    <span class="n">outputFormat</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># Fetch data from WFS using requests</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 
 <span class="c1"># Create GeoDataFrame from geojson and set coordinate reference system</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="o">.</span><span class="n">from_features</span><span class="p">(</span><span class="n">geojson</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">),</span>  <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:3067&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="o">.</span><span class="n">from_features</span><span class="p">(</span><span class="n">geojson</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:3067&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1030,21 +1046,22 @@
 <span class="n">layer_name</span> <span class="o">=</span> <span class="s2">&quot;finland_municipalities&quot;</span>
 
 <span class="c1"># enable writing kml</span>
-<span class="n">gpd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;KML&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span>
+<span class="n">gpd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s2">&quot;KML&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rw&quot;</span>
 
 <span class="c1"># drivers and extensions for different file formats</span>
-<span class="n">drivers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ESRI Shapefile&#39;</span><span class="p">:</span> <span class="s1">&#39;shp&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;GeoJSON&#39;</span><span class="p">:</span> <span class="s1">&#39;gjson&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;KML&#39;</span><span class="p">:</span> <span class="s1">&#39;kml&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;GPKG&#39;</span><span class="p">:</span> <span class="s1">&#39;gpkg&#39;</span><span class="p">,</span>
-          <span class="p">}</span>
+<span class="n">drivers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ESRI Shapefile&quot;</span><span class="p">:</span> <span class="s2">&quot;shp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GeoJSON&quot;</span><span class="p">:</span> <span class="s2">&quot;gjson&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;KML&quot;</span><span class="p">:</span> <span class="s2">&quot;kml&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GPKG&quot;</span><span class="p">:</span> <span class="s2">&quot;gpkg&quot;</span><span class="p">,</span>
+<span class="p">}</span>
 
 <span class="c1"># Write layer to different file formats</span>
 <span class="k">for</span> <span class="n">driver</span><span class="p">,</span> <span class="n">extension</span> <span class="ow">in</span> <span class="n">drivers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    
+
     <span class="c1"># Create file path and file name</span>
     <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;data/</span><span class="si">{0}</span><span class="s2">.</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="n">extension</span><span class="p">)</span>
-    
+
     <span class="c1"># Write data using correct dricer</span>
     <span class="n">data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="n">driver</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Created file&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>

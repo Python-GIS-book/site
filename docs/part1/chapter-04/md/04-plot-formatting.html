@@ -191,7 +191,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">
-     Getting started with data pandas
+     Getting started with data analysis
     </a>
    </li>
    <li class="toctree-l2">
@@ -292,7 +292,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
-     Introduction to spatial data analysis with Geopandas
+     Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
@@ -746,7 +746,7 @@
 <p>In Figure 4.19, we can see a visualization of the contents of the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame and many people will be able to distinguish the lines using the four colors that have been selected. However, not all people may see the figure in the same way, and those who have printed a copy in grayscale will see things quite differently.</p>
 <p><img alt="Figure 4.20. Hypothetical mythical land temperatures in grayscale." src="../../../_images/lines-grayscale.png" /></p>
 <p><em><strong>Figure 4.20</strong>. Hypothetical mythical land temperatures in grayscale.</em></p>
-<p>In Figure 4.X, we see that it is nearly impossible to tell which line is which in the plot, so color alone is not helping in distinguishing the lines on this plot. In this case a better option is to vary both the color and line pattern for each line so they can be distinguished easily irrespective of the line colors and how they may be seen. This can be done using the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function, as shown below.</p>
+<p>In Figure 4.20, we see that it is nearly impossible to tell which line is which in the plot, so color alone is not helping in distinguishing the lines on this plot. In this case a better option is to vary both the color and line pattern for each line so they can be distinguished easily irrespective of the line colors and how they may be seen. This can be done using the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function, as shown below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="s2">&quot;-.&quot;</span><span class="p">],</span>
     <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span><span class="p">,</span>
@@ -756,7 +756,8 @@
 <span class="p">);</span>
 </pre></div>
 </div>
-<p>Here in Figure 4.20, viewers can easily tell which line is which whether they have colorblindness or have printed a figure from a printer in grayscale. The difference, of course, is that Figure 4.19 uses four different line styles: <code class="docutils literal notranslate"><span class="pre">-</span></code> for a solid line, <code class="docutils literal notranslate"><span class="pre">:</span></code> for a dotted line, <code class="docutils literal notranslate"><span class="pre">--</span></code> for a dashed line, and <code class="docutils literal notranslate"><span class="pre">-.</span></code> for a line with dots and dashes. These are defined using shorthand plot formatting for Matplotlib <a class="footnote-reference brackets" href="#shorthand" id="id2">2</a>, for which they are the only four available line styles. If your plots require more than four line styles, you will likely need to use Matplotlib rather than pandas for the plotting. In that case, you can find more about the line styles for Matplotlib plotting in the <a class="reference external" href="https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html">Matplotlib documentation online</a> <a class="footnote-reference brackets" href="#linestyles" id="id3">3</a>.</p>
+<p><em><strong>Figure 4.21</strong>. Hypothetical mythical land temperatures with different line styles.</em></p>
+<p>Here in Figure 4.21, viewers can easily tell which line is which whether they have colorblindness or have printed a figure from a printer in grayscale. The difference, of course, is that this figure uses four different line styles: <code class="docutils literal notranslate"><span class="pre">-</span></code> for a solid line, <code class="docutils literal notranslate"><span class="pre">:</span></code> for a dotted line, <code class="docutils literal notranslate"><span class="pre">--</span></code> for a dashed line, and <code class="docutils literal notranslate"><span class="pre">-.</span></code> for a line with dots and dashes. These are defined using shorthand plot formatting for Matplotlib <a class="footnote-reference brackets" href="#shorthand" id="id2">2</a>, for which they are the only four available line styles. If your plots require more than four line styles, you will likely need to use Matplotlib rather than pandas for the plotting. In that case, you can find more about the line styles for Matplotlib plotting in the <a class="reference external" href="https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html">Matplotlib documentation online</a> <a class="footnote-reference brackets" href="#linestyles" id="id3">3</a>.</p>
 <p>Although this plotting example may seem like a simple tip, it can make a great difference in ensuring all viewers see the same data effectively the same way. We will return to the topic of effective plot design to discuss selecting colors and other visualization tips in greater detail in Chapter 8.</p>
 </div>
 <div class="section" id="footnotes">

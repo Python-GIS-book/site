@@ -1,33 +1,7 @@
 Vector data processing
 =======================
 
-Here we introduce basics of vector data processing.
-
-**This chapter is under construction.**
-
-Sub-sections:
-
-- Intro Geographic objects in Python
-
-- Introduction to spatial data analysis with geopandas
-
-- Reading and writing vector data (Data I/O)
-
-- Coordinate reference systems
-
-- Analyzing spatial relationships
-
-  - Spatial queries and selections
-  - Neighborhood analysis - Spatial weights (linkage to Rey et al. 2020)
-  - Improving performance - Spatial index
-
-- Geometric data conversions – from form to another
-
-  - Dissolving and merging geometries
-  - Geocoding (addresses <-> points)
-  - Interpolation (e.g. IDW)
-  - Tesselation
-  - Overlay analysis
+Here we introduce basics of vector data processing in Python. You will learn to work with geographic objects in python, read and write vector data, work with coordinate reference systems and do various spatial analysis tasks using geopandas and other open source Python libraries. 
 
 .. toctree::
     :maxdepth: 1
