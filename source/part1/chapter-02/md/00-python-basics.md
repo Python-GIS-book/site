@@ -71,33 +71,33 @@ The list of basic arithmetic operations that can be done by default in Python ar
     </tr>
     <tr>
         <td>Addition</td>
-        <td>`+`</td>
-        <td>`2 + 2`</td>
-        <td>`4`</td>
+        <td><code>+</code></td>
+        <td><code>2 + 2</code></td>
+        <td><code>4</code></td>
     </tr>
     <tr>
         <td>Subtraction</td>
-        <td>`-`</td>
-        <td>`4 - 2`</td>
-        <td>`2`</td>
+        <td><code>-</code></td>
+        <td><code>4 - 2</code></td>
+        <td><code>2</code></td>
     </tr>
     <tr>
         <td>Multiplication</td>
-        <td>`*`</td>
-        <td>`2 * 3`</td>
-        <td>`6`</td>
+        <td><code>*</code></td>
+        <td><code>2 * 3</code></td>
+        <td><code>6</code></td>
     </tr>
     <tr>
         <td>Division</td>
-        <td>`/`</td>
-        <td>`4 / 2`</td>
-        <td>`2`</td>
+        <td><code>/</code></td>
+        <td><code>4 / 2</code></td>
+        <td><code>2</code></td>
     </tr>
     <tr>
         <td>Exponentiation</td>
-        <td>`**`</td>
-        <td>`2**3`</td>
-        <td>`8`</td>
+        <td><code>**</code></td>
+        <td><code>2**3</code></td>
+        <td><code>8</code></td>
     </tr>
     <caption><i><b>Table 2.1</b>. Basic math operations in Python.</i></caption>
 </table>
