@@ -3,8 +3,6 @@ Essentials: What is special about geographic data?
 
 Here we introduce basic GIS concepts for beginners.
 
-**This section is under construction.**
-
 *Draft Intro text*:
 
 How do we represent geographic features such as roads and buildings or lakes and mountains on a computer? How can we analyze spatial relations between these features? How can we link abstract geometric objects to actual locations on the Earth? What is the difference between geographic and projected coordinate reference systems? How can we automate all this using Python?
