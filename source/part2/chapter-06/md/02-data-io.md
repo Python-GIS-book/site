@@ -5,9 +5,9 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.2
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -32,8 +32,8 @@ import geopandas as gpd
 gpd.io.file.fiona.drvsupport.supported_drivers
 
 # Same as:
-#import fiona
-#fiona.supported_drivers
+# import fiona
+# fiona.supported_drivers
 ```
 
 ### Read / write Shapefile
@@ -66,7 +66,7 @@ data.to_file(outfp, driver="GeoJSON")
 
 ```python
 # Enable KML driver
-gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
+gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
 
 # Read file from KML
 fp = "data/finland_municipalities.kml"
@@ -94,11 +94,11 @@ data.to_file(outfp, driver="GPKG")
 ```python
 # Read file from File Geodatabase
 fp = "data/finland.gdb"
-data = gpd.read_file(fp, driver="OpenFileGDB", layer='municipalities')
+data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
 
 # Write to same FileGDB (just add a new layer) - requires additional package installations(?)
-#outfp = "data/finland.gdb"
-#data.to_file(outfp, driver="FileGDB", layer="municipalities_copy")
+# outfp = "data/finland.gdb"
+# data.to_file(outfp, driver="FileGDB", layer="municipalities_copy")
 ```
 
 ### Read / write MapInfo Tab
@@ -125,10 +125,13 @@ import geopandas as gpd
 import psycopg2
 
 # Create connection to database with psycopg2 module (update params according your db)
-conn, cursor = psycopg2.connect(dbname='my_postgis_database', 
-                                user='my_usrname', 
-                                password='my_pwd', 
-                                host='123.22.432.16', port=5432)
+conn, cursor = psycopg2.connect(
+    dbname="my_postgis_database",
+    user="my_usrname",
+    password="my_pwd",
+    host="123.22.432.16",
+    port=5432,
+)
 
 # Specify sql query
 sql = "SELECT * FROM MY_TABLE;"
@@ -147,15 +150,21 @@ from sqlalchemy.orm import sessionmaker
 from geoalchemy2 import WKTElement, Geometry
 
 # Update with your db parameters
-HOST = '123.234.345.16'
-DB = 'my_database'
-USER = 'my_user'
+HOST = "123.234.345.16"
+DB = "my_database"
+USER = "my_user"
 PORT = 5432
-PWD = 'my_password'
+PWD = "my_password"
 
 # Database info
-db_url = URL(drivername='postgresql+psycopg2', host=HOST, database=DB,
-                   username=USER, port=PORT, password=PWD)
+db_url = URL(
+    drivername="postgresql+psycopg2",
+    host=HOST,
+    database=DB,
+    username=USER,
+    port=PORT,
+    password=PWD,
+)
 
 # Create engine
 engine = create_engine(db_url)
@@ -191,18 +200,18 @@ session.close()
 crs = 4326
 
 # Target table
-target_table = 'finland_copy'
+target_table = "finland_copy"
 
 # Convert Shapely geometries to WKTElements into column 'geom' (default in PostGIS)
-data['geom'] = data['geometry'].apply(lambda row: WKTElement(row.wkt, srid=crs))
+data["geom"] = data["geometry"].apply(lambda row: WKTElement(row.wkt, srid=crs))
 
 # Drop Shapely geometries
-data = data.drop('geometry', axis=1)
+data = data.drop("geometry", axis=1)
 
 # Write to PostGIS (overwrite if table exists, be careful with this! )
 # Possible behavior: 'replace', 'append', 'fail'
 
-data.to_sql(target_table, engine, if_exists='replace', index=False)
+data.to_sql(target_table, engine, if_exists="replace", index=False)
 ```
 
 ### Read / write Spatialite database 
@@ -214,10 +223,10 @@ import shapely.wkb as swkb
 from sqlalchemy import create_engine, event
 
 # DB path
-dbfp = 'L2_data/Finland.sqlite'
+dbfp = "L2_data/Finland.sqlite"
 
 # Name for the table
-tbl_name = 'finland'
+tbl_name = "finland"
 
 # SRID (crs of your data)
 srid = 4326
@@ -228,15 +237,15 @@ assert len(gtype) == 1, "Mixed Geometries! Cannot insert into SQLite table."
 geom_type = gtype[0].upper()
 
 # Initialize database engine
-engine = create_engine('sqlite:///{db}'.format(db=dbfp), module=sqlite)
+engine = create_engine("sqlite:///{db}".format(db=dbfp), module=sqlite)
 
 # Initialize table without geometries
-geo = data.drop(['geometry'], axis=1)
+geo = data.drop(["geometry"], axis=1)
 
 with sqlite3.connect(dbfp) as conn:
-    geo.to_sql(tbl_name, conn, if_exists='replace', index=False)
+    geo.to_sql(tbl_name, conn, if_exists="replace", index=False)
 
-# Enable spatialite extension    
+# Enable spatialite extension
 with sqlite3.connect(dbfp) as conn:
     conn.enable_load_extension(True)
     conn.load_extension("mod_spatialite")
@@ -244,14 +253,16 @@ with sqlite3.connect(dbfp) as conn:
     # Add geometry column with specified CRS with defined geometry typehaving two dimensions
     conn.execute(
         "SELECT AddGeometryColumn({table}, 'wkb_geometry',\
-        {srid}, {geom_type}, 2);".format(table=tbl_name, srid=srid, geom_type=geom_type)
+        {srid}, {geom_type}, 2);".format(
+            table=tbl_name, srid=srid, geom_type=geom_type
+        )
     )
-    
+
 # Convert Shapely geometries into well-known-binary format
-data['geometry'] = data['geometry'].apply(lambda geom: swkb.dumps(geom))
+data["geometry"] = data["geometry"].apply(lambda geom: swkb.dumps(geom))
 
 # Push to database (overwrite if table exists)
-data.to_sql(tbl_name, engine, if_exists='replace', index=False)
+data.to_sql(tbl_name, engine, if_exists="replace", index=False)
 ```
 
 ## Read Web Feature Service (WFS)
@@ -264,19 +275,24 @@ import requests
 import geojson
 from pyproj import CRS
 
-# Specify the url for the backend. 
-#Here we are using data from Statistics Finland: https://www.stat.fi/org/avoindata/paikkatietoaineistot_en.html. (CC BY 4.0)
-url = 'http://geo.stat.fi/geoserver/tilastointialueet/wfs'
+# Specify the url for the backend.
+# Here we are using data from Statistics Finland: https://www.stat.fi/org/avoindata/paikkatietoaineistot_en.html. (CC BY 4.0)
+url = "http://geo.stat.fi/geoserver/tilastointialueet/wfs"
 
-# Specify parameters (read data in json format). 
-params = dict(service='WFS', version='2.0.0', request='GetFeature', 
-         typeName='tilastointialueet:kunta4500k', outputFormat='json')
+# Specify parameters (read data in json format).
+params = dict(
+    service="WFS",
+    version="2.0.0",
+    request="GetFeature",
+    typeName="tilastointialueet:kunta4500k",
+    outputFormat="json",
+)
 
 # Fetch data from WFS using requests
 r = requests.get(url, params=params)
 
 # Create GeoDataFrame from geojson and set coordinate reference system
-data = gpd.GeoDataFrame.from_features(geojson.loads(r.content),  crs="EPSG:3067")
+data = gpd.GeoDataFrame.from_features(geojson.loads(r.content), crs="EPSG:3067")
 ```
 
 ```python
@@ -298,21 +314,22 @@ data.crs
 layer_name = "finland_municipalities"
 
 # enable writing kml
-gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
+gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
 
 # drivers and extensions for different file formats
-drivers = {'ESRI Shapefile': 'shp',
-           'GeoJSON': 'gjson',
-           'KML': 'kml',
-           'GPKG': 'gpkg',
-          }
+drivers = {
+    "ESRI Shapefile": "shp",
+    "GeoJSON": "gjson",
+    "KML": "kml",
+    "GPKG": "gpkg",
+}
 
 # Write layer to different file formats
 for driver, extension in drivers.items():
-    
+
     # Create file path and file name
     file_name = "data/{0}.{1}".format(layer_name, extension)
-    
+
     # Write data using correct dricer
     data.to_file(file_name, driver=driver)
     print("Created file", file_name)

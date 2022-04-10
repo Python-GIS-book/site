@@ -5,9 +5,9 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.2
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -26,12 +26,11 @@ E. (2013), Chapter 3](https://www.packtpub.com/application-development/python-ge
 
 
 
-![_**Figure X**. Spatial data model (LET'S CHECK THE SOURCE OF THIS PHOTO)](./../img/spatial-data-model.png)
+![_**Figure 6.X**. Spatial data model Source: CHECK!._](./../img/spatial-data-model.png)
 
-*Fundamental geometric objects that can be used in Python with* [Shapely](https://shapely.readthedocs.io/en/stable/manual.html).
+_**Figure 6.X**. Spatial data model._
 
-The most fundamental geometric objects are `Points`, `Lines` and `Polygons` which are the basic ingredients when working with spatial data in vector format. 
-Python has a specific module called [Shapely](https://shapely.readthedocs.io/en/stable/manual.html) for doing various geometric operations. Basic knowledge of using Shapely is fundamental for understanding how geometries are stored and handled in GeoPandas.
+Fundamental geometric objects that can be used in Python with [Shapely](https://shapely.readthedocs.io/en/stable/manual.html). The most fundamental geometric objects are `Points`, `Lines` and `Polygons` which are the basic ingredients when working with spatial data in vector format. Python has a specific module called [Shapely](https://shapely.readthedocs.io/en/stable/manual.html) for doing various geometric operations. Basic knowledge of using Shapely is fundamental for understanding how geometries are stored and handled in GeoPandas.
 
 **Geometric objects consist of coordinate tuples where:**
 
@@ -142,7 +141,7 @@ y = point1.y
 ```
 
 ```python
-print( x, y)
+print(x, y)
 ```
 
 It is also possible to calculate the distance between two objects using the [distance](https://shapely.readthedocs.io/en/stable/manual.html#object.distance) method. In our example the distance is calculated in a cartesian coordinate system. When working with real GIS data the distance is based on the used coordinate reference system. always check what is the unit of measurement (for example, meters) in the coordinate reference system you are using.
@@ -184,7 +183,7 @@ line2 = LineString([(2.2, 4.2), (7.2, -25.1), (9.26, -2.456)])
 
 ```python
 # Check if lines are identical
-line == line2 
+line == line2
 ```
 
 Let's see how our line looks like: 
@@ -317,7 +316,7 @@ poly.geom_type
 
 ```python
 # Check the help for Polygon objects:
-#help(Polygon)
+# help(Polygon)
 ```
 
 <!-- #region -->
@@ -395,7 +394,7 @@ Here, we can see a few of the available attributes and how to access them:
 ```python
 # Print the outputs
 print("Polygon centroid: ", world.centroid)
-print("Polygon Area: ",  world.area)
+print("Polygon Area: ", world.area)
 print("Polygon Bounding Box: ", world.bounds)
 print("Polygon Exterior: ", world.exterior)
 print("Polygon Exterior Length: ", world.exterior.length)
@@ -421,17 +420,17 @@ Polygon([(30, 2.01), (31.91, 0.62), (31.18, -1.63), (28.82, -1.63), (28.09, 0.62
 
 ```python
 # Triangle
-Polygon([(0,0), (2,4), (4,0)])
+Polygon([(0, 0), (2, 4), (4, 0)])
 ```
 
 ```python
 # Square
-Polygon([(0,0), (0,4), (4,4), (4,0)])
+Polygon([(0, 0), (0, 4), (4, 4), (4, 0)])
 ```
 
 ```python
 # Circle (using a buffer around a point)
-point = Point((0,0))
+point = Point((0, 0))
 point.buffer(1)
 ```
 
@@ -482,7 +481,7 @@ MultiPolygons are constructed in a similar manner. Let's create a bounding box f
 # Let's create the exterior of the western part of the world
 west_exterior = [(-180, 90), (-180, -90), (0, -90), (0, 90)]
 
-# Let's create a hole --> remember there can be multiple holes, thus we need to have a list of hole(s). 
+# Let's create a hole --> remember there can be multiple holes, thus we need to have a list of hole(s).
 # Here we have just one.
 west_hole = [[(-170, 80), (-170, -80), (-10, -80), (-10, 80)]]
 
@@ -552,7 +551,7 @@ multi_point.convex_hull
 ```
 
 ```python
-# Envelope (smalles rectangular polygon around the geometry collection): 
+# Envelope (smalles rectangular polygon around the geometry collection):
 multi_point.envelope
 ```
 

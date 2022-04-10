@@ -2,6 +2,7 @@ Getting started
 ===============
 
 Here we introduce the essential background information needed to get started programming in Python.
+You will learn basic concepts related to computers and programming, and get basic information of the programming environment used in this book. 
 
 .. toctree::
     :maxdepth: 1
