@@ -403,32 +403,35 @@ print("Polygon Exterior Length: ", world.exterior.length)
 As we can see above, it is again fairly straightforward to access different attributes from the `Polygon` -object. Note that distance metrics will make more sense when we start working with data in a projected coordinate system.
 
 
-#### Check your understanding
+#### Question 6.1
 
-Plot these shapes using Shapely!
+Create these shapes using Shapely!
 
-- **Pentagon**, example coords: `(30, 2.01), (31.91, 0.62), (31.18, -1.63), (28.82, -1.63), (28.09, 0.62)` 
 - **Triangle**   
 - **Square**    
-- **Cicrle**    
-
+- **Cicrle**
 
 ```python
-# Pentagon - Coordinates borrowed from this thread: https://tex.stackexchange.com/questions/179843/make-a-polygon-with-automatically-labelled-nodes-according-to-their-coordinates
-Polygon([(30, 2.01), (31.91, 0.62), (31.18, -1.63), (28.82, -1.63), (28.09, 0.62)])
+# Use this cell to enter your solution.
 ```
 
 ```python
+# Solution
+
 # Triangle
 Polygon([(0, 0), (2, 4), (4, 0)])
 ```
 
 ```python
+# Solution
+
 # Square
 Polygon([(0, 0), (0, 4), (4, 4), (4, 0)])
 ```
 
 ```python
+# Solution
+
 # Circle (using a buffer around a point)
 point = Point((0, 0))
 point.buffer(1)

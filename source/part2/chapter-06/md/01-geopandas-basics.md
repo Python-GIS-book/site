@@ -345,24 +345,26 @@ output_fp = os.path.join(output_folder, "Class_36200.shp")
 selection.to_file(output_fp)
 ```
 
-#### Check your understanding
-
-
-<div class="alert alert-info">
+#### Question 6.2
 
 Read the output Shapefile in a new geodataframe, and check that the data looks ok.
-</div>
 
 ```python
-temp = gpd.read_file(output_fp)
+# Use this cell to enter your solution.
 ```
 
 ```python
+# Solution
+
+temp = gpd.read_file(output_fp)
+
 # Check first rows
 temp.head()
 ```
 
 ```python
+# Solution
+
 # You can also plot the data for a visual check
 temp.plot()
 ```
