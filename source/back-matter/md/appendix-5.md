@@ -199,3 +199,36 @@ ax1.text(pd.to_datetime("20130215"), -25, "Winter")
 ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 ```
 <!-- #endregion -->
+
+<!-- #region -->
+## Chapter 6
+
+6.1
+```python
+
+# Triangle
+Polygon([(0, 0), (2, 4), (4, 0)])
+
+# Square
+Polygon([(0, 0), (0, 4), (4, 4), (4, 0)])
+
+# Circle (using a buffer around a point)
+point = Point((0, 0))
+point.buffer(1)
+
+```
+
+6.2
+```python
+
+# Save to file
+temp = gpd.read_file(output_fp)
+
+# Check first rows
+temp.head()
+
+# You can also plot the data for a visual check
+temp.plot()
+
+```
+<!-- #endregion -->
