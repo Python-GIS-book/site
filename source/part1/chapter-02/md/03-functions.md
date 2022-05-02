@@ -117,13 +117,12 @@ print(output)
 ```python tags=["hide-cell"]
 # Solution
 
-
 def hello(name, age):
     return "Hello, my name is " + name + ". I am " + str(age) + " years old."
 
 
 output = hello(name="Dave", age=41)
-print(output)
+output
 ```
 
 ### Variable names and functions
@@ -146,11 +145,11 @@ As you will see below, the variables defined in the function exist only in its *
 Let's confirm that.
 
 ```python tags=["raises-exception"]
-print(temp_kelvins)
+temp_kelvins
 ```
 
 ```python tags=["raises-exception"]
-print(temp_celsius)
+temp_celsius
 ```
 
 Here, in the *global namespace* we get a `NameError` when trying to access the variables `temp_kelvins` or `temp_celsius` because they have only been defined within the `kelvins_to_celsius()` function.
@@ -163,7 +162,7 @@ kelvins_to_celsius(temp_kelvins=293.15)
 ```
 
 ```python tags=["raises-exception"]
-print(temp_kelvins)
+temp_kelvins
 ```
 
 As you can see `temp_kelvins` is still not defined in the global namespace, where values such as `freezing_point` have been defined.
@@ -214,7 +213,7 @@ def kelvins_to_celsius3(temp):
 ```
 
 ```python
-print(kelvins_to_celsius3(273.15))
+kelvins_to_celsius3(273.15)
 ```
 
 You were perhaps expecting to see a value of `0` returned by `kelvins_to_celsius3()`, but that does not occur because `temp` is assigned `temperature - 273.15` in the function.
