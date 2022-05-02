@@ -68,9 +68,11 @@ data.dropna(subset=["TEMP_F"], inplace=True)
 print("Number of rows after removing no data values:", len(data))
 ```
 
+<!-- #region tags=[] -->
 #### Question 4.2
 
 How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified DataFrame to another variable name or do not use the `inplace` parameter.
+<!-- #endregion -->
 
 ```python
 # Use this cell to enter your solution.
@@ -78,6 +80,7 @@ How many rows of data would remain if we removed all rows with any no-data value
 
 ```python tags=["hide-cell"]
 # Solution
+
 
 len(data.dropna())
 ```
@@ -206,7 +209,15 @@ fig
 
 _**Figure 4.15**. Seasonal temperatures for 2012-2013 plotted in a 2x2 panel._
 
-Great, now we have all the plots in same figure! However, we can see that there are some problems with our *x*-axis labels and a few other missing plot items we should add. Let's do that below.
+Great, now we have all the plots in same figure! However, we can see that there are some problems with our *x*-axis labels and a few other missing plot items we should add. 
+
+Let's re-create the plot and make some improvements. In this version of the plot we will:
+
+- Modify the x- and y-axis labels using the `xlabel` and `ylabel` parameters in the `plot()` function.
+- Enable grid lines on the plot using the `grid=True` parameter for the `plot()` function.
+- Add a figure title using the `fig.suptitle()` function.
+- Rotate the x-axis labels using the `plt.setp()` function.
+- Add a text label for each plot panel using the `text()` function.
 
 ```python
 # Create the new figure and subplots
@@ -218,18 +229,6 @@ ax12 = axs[0][1]
 ax21 = axs[1][0]
 ax22 = axs[1][1]
 
-# Don't display the figure (it's the same 2x2 panel as above)
-plt.close()
-```
-
-Now, we'll add our seasonal temperatures to the plot commands for each time period. In addition, in this version of the plot we will also:
-- Modify the x- and y-axis labels using the `xlabel` and `ylabel` parameters in the `plot()` function.
-- Enable grid lines on the plot using the `grid=True` parameter for the `plot()` function.
-- Add a figure title using the `fig.suptitle()` function.
-- Rotate the x-axis labels using the `plt.setp()` function.
-- Add a text label for each plot panel using the `text()` function.
-
-```python
 # Set plot line width
 line_width = 1.5
 
@@ -278,8 +277,8 @@ ax12.text(pd.to_datetime("20130515"), -25, "Spring")
 ax21.text(pd.to_datetime("20130815"), -25, "Summer")
 ax22.text(pd.to_datetime("20131115"), -25, "Autumn")
 
-# Display plot
-fig
+# Display figure
+plt.show()
 ```
 
 <!-- #region -->
@@ -341,6 +340,8 @@ plt.setp(ax2.xaxis.get_majorticklabels(), rotation=20)
 # Season label text
 ax1.text(pd.to_datetime("20130215"), -25, "Winter")
 ax2.text(pd.to_datetime("20130815"), -25, "Summer")
+
+plt.show()
 ```
 
 _**Figure 4.17**. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel._

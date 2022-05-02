@@ -25,7 +25,7 @@ math.sin(math.pi)
 2.2 
 ```python
 my_variable = "Python is cool!"
-print(my_variable)
+my_variable
 ```
 
 2.3 

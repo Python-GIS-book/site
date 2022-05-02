@@ -5,9 +5,9 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.2
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -21,7 +21,7 @@ Luckily there is an easy and widely used solution called **spatial index** that 
 
 The core idea behind the **R-tree** is to form a tree-like data structure where nearby objects are grouped together, and their geographical extent (minimum bounding box) is inserted into the data structure (i.e. R-tree). This bounding box then represents the whole group of geometries as one level (typically called as "page" or "node") in the data structure. This process is repeated several times, which produces a tree-like structure where different levels are connected to each other. This structure makes the query times for finding a single object from the data much faster, as the algorithm does not need to travel through all geometries in the data. In the example below, we can see how the geometries have been grouped into several sub-groups (lower part of the picture) and inserted into a tree structure (upper part) where there exists two groups on the highest level (`R1` and `R2`), which are again grouped into five lower level groups (`R3-R7`):
 
-![Rtree](img/Rtree-IBM.png)
+![Rtree](../img/Rtree-IBM.png)
 Simple example of an R-tree for 2D rectanges (source: [IBM](https://www.ibm.com/support/knowledgecenter/en/SSGU8G_11.50.0/com.ibm.rtree.doc/sii-overview-27706.htm))
 
 In the next tutorial we will learn how to significantly improve the query times for finding points that are within a given polygon. We will use data that represents all road intersections in the Uusimaa Region of Finland, and count the number of intersections on a postal code level. *Why would you do such a thing?*, well, one could for example try to understand the vitality of city blocks following [Jane Jacobs'](https://en.wikipedia.org/wiki/Jane_Jacobs) ideas. 
@@ -63,7 +63,7 @@ intersections = gpd.read_file(intersections_fp)
 postcode_areas = gpd.read_file(postcode_areas_fp)
 
 # Let's check first rows
-print(intersections.head(), '\n-------')
+print(intersections.head(), "\n-------")
 print(postcode_areas.head())
 ```
 
@@ -81,8 +81,8 @@ Okay, as we can see there are 63.5 thousand intersections in the region and 370 
 
 ```python
 %matplotlib inline
-ax = postcode_areas.plot(color='red', edgecolor='black', alpha=0.5)
-ax = intersections.plot(ax=ax, color='yellow', markersize=1, alpha=0.5)
+ax = postcode_areas.plot(color="red", edgecolor="black", alpha=0.5)
+ax = intersections.plot(ax=ax, color="yellow", markersize=1, alpha=0.5)
 
 # Zoom to closer (comment out the following to see the full extent of the data)
 ax.set_xlim([380000, 395000])
@@ -111,14 +111,16 @@ From this spatial index, we can e.g. see, how the geometries have been grouped i
 
 ```python
 # How many groups do we have?
-print("Number of groups:", len(intersection_sindex.leaves()), '\n')
+print("Number of groups:", len(intersection_sindex.leaves()), "\n")
 
 # Print some basic info for few of them
 n_iterations = 10
 for i, group in enumerate(intersection_sindex.leaves()):
     group_idx, indices, bbox = group
-    print("Group", group_idx, "contains ", len(indices), "geometries, bounding box:", bbox)
-    i+=1
+    print(
+        "Group", group_idx, "contains ", len(indices), "geometries, bounding box:", bbox
+    )
+    i += 1
     if i == n_iterations:
         break
 ```
@@ -129,7 +131,7 @@ For conducting fast spatial queries, we can utilize the spatial index of the int
 
 ```python
 # Select a postal code area representing the city center of Helsinki
-city_center_zip_area = postcode_areas.loc[postcode_areas['posti_alue']=='00100']
+city_center_zip_area = postcode_areas.loc[postcode_areas["posti_alue"] == "00100"]
 city_center_zip_area.plot()
 ```
 
@@ -147,8 +149,8 @@ point_candidate_idx = list(intersection_sindex.intersection(bounds))
 point_candidates = intersections.loc[point_candidate_idx]
 
 # Let's see what we have now
-ax = city_center_zip_area.plot(color='red', alpha=0.5)
-ax = point_candidates.plot(ax=ax, color='black', markersize=2)
+ax = city_center_zip_area.plot(color="red", alpha=0.5)
+ax = point_candidates.plot(ax=ax, color="black", markersize=2)
 ```
 
 Aha, as we can see, now we have successfully selected such points from the dataset that intersect with the **bounding box** of the Polygon. I.e. we conducted the first step of the process. 
@@ -157,11 +159,13 @@ Next, let's do the final selection using a "normal" intersect query, which is ho
 
 ```python
 # Make the precise Point in Polygon query
-final_selection = point_candidates.loc[point_candidates.intersects(city_center_zip_area['geometry'].values[0])]
+final_selection = point_candidates.loc[
+    point_candidates.intersects(city_center_zip_area["geometry"].values[0])
+]
 
 # Let's see what we have now
-ax = city_center_zip_area.plot(color='red', alpha=0.5)
-ax = final_selection.plot(ax=ax, color='black', markersize=2)
+ax = city_center_zip_area.plot(color="red", alpha=0.5)
+ax = final_selection.plot(ax=ax, color="black", markersize=2)
 ```
 
 ### Putting pieces together - Performance comparisons
@@ -172,40 +176,43 @@ Following functions both conduct the spatial query that we saw previously, the f
 def intersect_using_spatial_index(source_gdf, intersecting_gdf):
     """
     Conduct spatial intersection using spatial index for candidates GeoDataFrame to make queries faster.
-    Note, with this function, you can have multiple Polygons in the 'intersecting_gdf' and it will return all the points 
+    Note, with this function, you can have multiple Polygons in the 'intersecting_gdf' and it will return all the points
     intersect with ANY of those geometries.
     """
     source_sindex = source_gdf.sindex
     possible_matches_index = []
-    
+
     # 'itertuples()' function is a faster version of 'iterrows()'
     for other in intersecting_gdf.itertuples():
         bounds = other.geometry.bounds
         c = list(source_sindex.intersection(bounds))
         possible_matches_index += c
-    
+
     # Get unique candidates
     unique_candidate_matches = list(set(possible_matches_index))
     possible_matches = source_gdf.iloc[unique_candidate_matches]
 
     # Conduct the actual intersect
-    result = possible_matches.loc[possible_matches.intersects(intersecting_gdf.unary_union)]
+    result = possible_matches.loc[
+        possible_matches.intersects(intersecting_gdf.unary_union)
+    ]
     return result
+
 
 def normal_intersect(source_gdf, intersecting_gdf):
     """
     Conduct spatial intersection without spatial index.
-    Note, with this function, you can have multiple Polygons in the 'intersecting_gdf' and it will return all the points 
+    Note, with this function, you can have multiple Polygons in the 'intersecting_gdf' and it will return all the points
     intersect with ANY of those geometries.
     """
-    
+
     matches = []
-    
+
     # 'itertuples()' function is a faster version of 'iterrows()'
     for other in intersecting_gdf.itertuples():
         c = list(source_gdf.loc[source_gdf.intersects(other.geometry)].index)
         matches += c
-    
+
     # Get all points that are intersecting with the Polygons
     unique_matches = list(set(matches))
     result = source_gdf.loc[source_gdf.index.isin(unique_matches)]
@@ -235,22 +242,26 @@ The ultimate goal of this tutorial was to count the intersections per postal cod
 
 ```python
 # Count intersections by postal code area
-intersection_cnt = gpd.sjoin(postcode_areas, intersections).groupby('posti_alue').size().reset_index()
+intersection_cnt = (
+    gpd.sjoin(postcode_areas, intersections).groupby("posti_alue").size().reset_index()
+)
 intersection_cnt.head()
 ```
 
 ```python
 # Merge with postcode data and plot
-intersection_cnt = intersection_cnt.rename(columns={0: 'intersection_cnt'})
-postcode_areas = postcode_areas.merge(intersection_cnt, on='posti_alue')
+intersection_cnt = intersection_cnt.rename(columns={0: "intersection_cnt"})
+postcode_areas = postcode_areas.merge(intersection_cnt, on="posti_alue")
 postcode_areas
 ```
 
 ```python
 # Plot intersection density (number of intersections per square kilometer inside a Postal code)
 m2_to_km2_converter = 1000000
-postcode_areas['intersection_density'] = postcode_areas['intersection_cnt'] / (postcode_areas.area / m2_to_km2_converter)
-postcode_areas.plot('intersection_density', cmap='RdYlBu_r', legend=True)
+postcode_areas["intersection_density"] = postcode_areas["intersection_cnt"] / (
+    postcode_areas.area / m2_to_km2_converter
+)
+postcode_areas.plot("intersection_density", cmap="RdYlBu_r", legend=True)
 ```
 
 From the map, we can see that the intersection density is clearly highest in the city center areas of Helsinki (red colored areas). 
@@ -260,7 +271,7 @@ From the map, we can see that the intersection density is clearly highest in the
 
 As we have learned from this tutorial, spatial index can make the spatial queries significantly faster. There is however, a specific situation in which spatial index does not provide any improvements for the performance: if your polygon and points have more or less similar spatial extent (bounding box), the spatial index does not help to make the queries faster due to its design in working on a level of bounding boxes. This happens e.g. in following case:
 
-![los-angeles-boundary-intersections.png](img/los-angeles-boundary-intersections.png)
+![los-angeles-boundary-intersections.png](../img/los-angeles-boundary-intersections.png)
 *Example of a situation where spatial index does not provide boost in performance* (Source: [G. Boeing, 2016](https://geoffboeing.com/2016/10/r-tree-spatial-index-python/))
 
 
@@ -268,6 +279,6 @@ As we can see, in the map, there is a complex Polygon that share more or less id
 
 There is, however, a nice strategy to deal with this kind of situation, by sub-dividing the Polygon into smaller subsets (having also smaller bounding boxes) that will enable the spatial index to boost the queries:
 
-![los-angeles-boundary-quadrats-intersections](img/los-angeles-boundary-quadrats-intersections.png).
+![los-angeles-boundary-quadrats-intersections](../img/los-angeles-boundary-quadrats-intersections.png).
 
 You can read more about this strategy from an excellent post from [G. Boeing](https://geoffboeing.com/2016/10/r-tree-spatial-index-python/).

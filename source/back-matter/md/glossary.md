@@ -15,6 +15,9 @@ jupyter:
 # Glossary
 
 ```{glossary}
+Collection
+  A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.
+
 Computer
   We use the definition of a computer given by {cite}`Zelle2017`: "A machine that stores and manipulates information under the control of a changeable program."
 
@@ -27,6 +30,9 @@ DateOffsets
   
 DatetimeIndex
   An immutable array of datetime64 data that is specified as the index of the DataFrame. Can be used for indexing and grouping data based on time.
+  
+Dependency
+  Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work. 
 
 Docstring
   A text string used to document a section of code.
@@ -35,6 +41,9 @@ Docstring
 
 Function
   A reusable piece of code that performs a single action.
+
+Index
+  A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
 
 Jupyter Notebook
   A web application that allows users to combine rich-formtted text with code cells in an interactive document.
@@ -78,5 +87,8 @@ Syntax
 
 Variable
   A way of storing values in the memory of the computer using specific names that you define.
+  
+Virtual environment
+  A virtual environment is a Python programming environment which works in a way that the Python interpreter, libraries and scripts installed into it are isolated from the ones installed in other virtual environments, as well as from (possible) system Python, i.e., one which is installed as part of your operating system.
 ```
 

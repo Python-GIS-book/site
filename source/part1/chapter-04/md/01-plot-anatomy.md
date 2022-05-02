@@ -40,7 +40,9 @@ _**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)_
 
 ## Common plotting terminology
 
-These common terms may vary a bit depending on the plotting library that you use. For the list provided here we are using the typical terms for plotting in Matplotlib (see also Figure 4.2).
+The common terms in Table 4.1 may vary a bit depending on the plotting library that you use. For the list provided here we are using the typical terms for plotting in Matplotlib (see also Figure 4.2).
+
+: _**Table 4.1**. Common terminology for plot features in Matplotlib._
 
 | Term         | Description                                                                                                         |
 |--------------|---------------------------------------------------------------------------------------------------------------------|

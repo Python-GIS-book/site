@@ -21,7 +21,7 @@ In this section, we will introduce some basic programming concepts in Python.
 <!-- #region deletable=true editable=true -->
 ## Simple Python math
 
-We will start our Python introduction by learning a bit of the basic operations you can perform. Python can be used as a simple calculator. Let's try it out with some simple math operations such as ``1 + 1`` or ``5 * 7``.  When using a Jupyter Notebook you can press **Shift-Enter** to execute the code cells. 
+We will start our Python introduction by learning a bit of the basic operations you can perform. Python can be used as a simple calculator. Let's try it out with some simple math operations such as `1 + 1` or `5 * 7`.  When using a Jupyter Notebook you can press **Shift-Enter** to execute the code cells. 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -78,7 +78,7 @@ For anything more advanced, we need to load a *{term}`module`* or *{term}`librar
 import math
 ```
 
-Now that we have access to functions in the math module, we can use it by typing the module name, a period (dot), and the the name of the function we want to use. For example, ``math.sin(3)``.
+Now that we have access to functions in the math module, we can use it by typing the module name, a period (dot), and the the name of the function we want to use. For example, `math.sin(3)`.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 math.sin(3)
@@ -93,11 +93,11 @@ Let's summarize what we've just seen with modules:
 
 1. A *module* is a group of code items such as functions that are related to one another. Individual modules are often in a group referred to as a *library*.
 
-2. Modules can be loaded using the ``import`` statement. Functions that are part of the module ``modulename`` can then be used by typing ``modulename.functionname()``. For example, ``sin()`` is a function that is part of the ``math`` module, and used by typing ``math.sin()`` with some number between the parentheses.
+2. Modules can be loaded using the `import` statement. Functions that are part of the module `modulename` can then be used by typing `modulename.functionname()`. For example, `sin()` is a function that is part of the `math` module, and used by typing `math.sin()` with some number between the parentheses.
 
 3. In a Jupyter Notebook the variables you define earlier code cells will be available for use in the cells that follow as long as you have already executed the cells.
 
-Note that modules may also contain constants such as ``math.pi``. Parentheses are not used when calling constant values.
+Note that modules may also contain constants such as `math.pi`. Parentheses are not used when calling constant values.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -122,14 +122,14 @@ math.sin(math.pi)
 <!-- #region deletable=true editable=true -->
 ## Combining functions
 
-Functions can also be combined. The ``print()`` function returns values within the parentheses as text on the screen. Let's print the value of the square root of four.
+Functions can also be combined. The `print()` function returns values within the parentheses as text on the screen. Let's print the value of the square root of four.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 print(math.sqrt(4))
 ```
 
-You can also combine text with other calculated values using the ``print()`` function. For example, ``print('Two plus two is', 2+2)`` would generate text reading 'Two plus two is 4'. Let's combine the ``print()`` function with the ``math.sqrt()`` function in to produce text that reads `The square root of 4 is 2.0`.
+You can also combine text with other calculated values using the `print()` function. For example, `print('Two plus two is', 2+2)` would generate text reading 'Two plus two is 4'. Let's combine the `print()` function with the `math.sqrt()` function in to produce text that reads `The square root of 4 is 2.0`.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 print("The square root of 4 is", math.sqrt(4))
@@ -142,15 +142,20 @@ A *{term}`variable`* can be used to store values calculated in expressions and u
 
 ### Variable assignment
 
-Assigning value to variables is straightforward. To assign a value, you simply type ``variable_name = value``, where ``variable_name`` is the name of the variable you wish to define. Let's define a variable called ``temp_celsius`` and assign it a value of '10.0'. After this, we can print that variable value using the ``print()`` function.
+Assigning value to variables is straightforward. To assign a value, you simply type `variable_name = value`, where `variable_name` is the name of the variable you wish to define. Let's define a variable called `temp_celsius` and assign it a value of '10.0'. Note that when the variable is assigned there is no output to the screen.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 temp_celsius = 10.0
-print(temp_celsius)
 ```
 
-It is also possible to combine text and numbers and even use some math when printing out variable values. The idea is similar to the examples of adding 2+2 or calculating the square root of four from the previous section. Next, we will print out the value of ``temp_celsius`` in degrees Fahrenheit by multiplying ``temp_celsius`` by 9/5 and adding 32. This should be done within the ``print()`` function to produce output that reads 'Temperature in Fahrenheit: 50.0'.
+In order to see the value that has been assigned to the `temp_celsius` variable you need to either use the `print()` function (e.g., `print(temp_celsius)`) or simply type the name of the variable into the code cell to have its value displayed. This is a convenient way to see calculated values in code cells of Jupyter Notebooks, so for simplicity we will avoid using the `print()` function when possible in this book. In some cases, however, the `print()` function is needed, such as displaying output from multiple lines of a single code cell.
+
+```python
+temp_celsius
+```
+
+It is also possible to combine text and numbers and even use some math when printing out variable values. The idea is similar to the examples of adding 2+2 or calculating the square root of four from the previous section. Next, we will print out the value of `temp_celsius` in degrees Fahrenheit by multiplying `temp_celsius` by 9/5 and adding 32. This should be done within the `print()` function to produce output that reads 'Temperature in Fahrenheit: 50.0'.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 print("Temperature in Fahrenheit:", 9 / 5 * temp_celsius + 32)
@@ -159,7 +164,7 @@ print("Temperature in Fahrenheit:", 9 / 5 * temp_celsius + 32)
 <!-- #region deletable=true editable=true -->
 #### Question 2.2
 
-Define a variable and print its value to the screen using the `print()` function. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name.
+Define a variable and display its value on the screen. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name.
 <!-- #endregion -->
 
 ```python
@@ -170,13 +175,13 @@ Define a variable and print its value to the screen using the `print()` function
 # Solution
 
 my_variable = "Python is cool!"
-print(my_variable)
+my_variable
 ```
 
 <!-- #region deletable=true editable=true -->
 ### Updating variables
 
-Values stored in variables can also be updated. Let's redefine the value of ``temp_celsius`` to be equal to 15.0 and print its value using the `print()` function.
+Values stored in variables can also be updated. Let's redefine the value of `temp_celsius` to be equal to 15.0 and print its value using the `print()` function.
 <!-- #endregion -->
 
 ```python deletable=true editable=true
@@ -214,7 +219,7 @@ The number beside the cell, for example `In [2]`, tells you the order in which t
 <!-- #region deletable=true editable=true -->
 ### Variable values
 
-Changing the value of a variable does not affect other variable values. Let's redefine ``temp_celsius`` to be equal to 20.0, and print out the values of ``temp_celsius`` and ``tempFahrenheit``.
+Changing the value of a variable does not affect other variable values. Let's redefine `temp_celsius` to be equal to 20.0, and print out the values of `temp_celsius` and `tempFahrenheit`.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -242,7 +247,7 @@ There are 4 basic data types in Python as shown in Table 2.2.
 |`str`          |Character strings    | `'Hot'`    |
 |`bool`         |True/false values    | `True`     |
 
-The data type can be found using the `type()` function. As you will see, the data types are important because some are not compatible with one another. Let's define a variable ``weatherForecast`` and assign it the value ``'Hot'``. After this, we can check its data type using the ``type()`` function.
+The data type can be found using the `type()` function. As you will see, the data types are important because some are not compatible with one another. Let's define a variable `weatherForecast` and assign it the value `'Hot'`. After this, we can check its data type using the `type()` function.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -250,7 +255,7 @@ weatherForecast = "Hot"
 type(weatherForecast)
 ```
 
-Let's also check the type of ``tempFahrenheit``. What happens if you try to combine ``tempFahrenheit`` and ``weatherForecast`` in a single math equation such as ``tempFahrenheit = tempFahrenheit + 5.0 * weatherForecast``?
+Let's also check the type of `tempFahrenheit`. What happens if you try to combine `tempFahrenheit` and `weatherForecast` in a single math equation such as `tempFahrenheit = tempFahrenheit + 5.0 * weatherForecast`?
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["raises-exception"]
 type(tempFahrenheit)
@@ -258,7 +263,7 @@ tempFahrenheit = tempFahrenheit + 5.0 * weatherForecast
 ```
 
 <!-- #region deletable=true editable=true -->
-In this case we get at ``TypeError`` because we are trying to execute a math operation with data types that are not compatible. There is no way in Python to multpily decimal values with a character string.
+In this case we get at `TypeError` because we are trying to execute a math operation with data types that are not compatible. There is no way in Python to multpily decimal values with a character string.
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
@@ -284,7 +289,7 @@ print(first_variable - second_variable)
 
 ## Lists and indices
 
-So far, we have learned a bit about variables, their values, and data types in this section. We will now continue with a new data type called a *{term}`list`*. Using a list, we can store many related values together with a single variable. In Python, there are several different types of data that can be used to store values together in a *collection*, and a list is the simplest type.
+So far, we have learned a bit about variables, their values, and data types in this section. We will now continue with a new data type called a *{term}`list`*. Using a list, we can store many related values together with a single variable. In Python, there are several different types of data that can be used to store values together in a *{term}`collection`*, and a list is the simplest type.
 
 To explore lists, we will be using data related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) [^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type.
 
@@ -303,7 +308,7 @@ station_names = [
 ```
 
 ```python
-print(station_names)
+station_names
 ```
 
 We can also check the type of the `station_names` list using the `type()` function.
@@ -317,16 +322,16 @@ Here we have a list of 4 `station_name` values in a list called `station_names`.
 
 ### Index values
 
-To access an individual value in the list we need to use an {term}`index (taulukko)` value. An index value is a number that refers to a given position in the list. Let’s check out the first value in our list as an example by printing out `station_names[1]`:
+To access an individual value in the list we need to use an {term}`index` value. An index value is a number that refers to a given position in the list. Let’s check out the first value in our list as an example by printing out `station_names[1]`:
 
 ```python
-print(station_names[1])
+station_names[1]
 ```
 
 Wait, what? This is the second value in the list we’ve created, what is wrong? As it turns out, Python (and many other programming languages) start values stored in collections with the index value `0`. Thus, to get the value for the first item in the list, we must use index `0`. Let's print out the value at index `0` of `station_names`.
 
 ```python
-print(station_names[0])
+station_names[0]
 ```
 
 OK, that makes sense, but it may take some getting used to...
@@ -367,29 +372,29 @@ Just as expected, there are 4 values in our list and `len(station_names)` return
 If we know the length of the list, we can now use it to find the value of the last item in the list, right? What happens if you print the value from the `station_names` list at index `4`, the value of the length of the list?
 
 ```python tags=["raises-exception"]
-print(station_names[4])
+station_names[4]
 ```
 
 An `IndexError`? That’s right, since our list starts with index `0` and has 4 values, the index of the last item in the list is `len(station_names) - 1`. That isn’t ideal, but fortunately there’s a nice trick in Python to find the last item in a list. Let's first print the `station_names` list to remind us of the values that are in it.
 
 ```python
-print(station_names)
+station_names
 ```
 
 To find the value at the end of the list, we can print the value at index `-1`. To go further up the list in reverse, we can simply use larger negative numbers, such as index `-4`.
 
 ```python
-print(station_names[-1])
+station_names[-1]
 ```
 
 ```python
-print(station_names[-4])
+station_names[-4]
 ```
 
 Yes, in Python you can go backwards through lists by using negative index values. Index `-1` gives the last value in the list and index `-len(station_names)` would give the first. Of course, you still need to keep the index values within their ranges. What happens if you check the value at index `-5`?
 
 ```python tags=["raises-exception"]
-print(station_names[-5])
+station_names[-5]
 ```
 
 ### Modifying list values
@@ -403,14 +408,14 @@ station_types = [
     "Weather stations",
     "Weather stations",
 ]
-print(station_types)
+station_types
 ```
 
 Let's change the value for `station_types[2]` to be `'Mareographs'` and print out the `station_types` list again.
 
 ```python
 station_types[2] = "Mareographs"
-print(station_types)
+station_types
 ```
 
 ### Data types in lists
@@ -441,7 +446,7 @@ Now that we have defined five variables related to the Helsinki Kaivopuisto stat
 
 ```python tags=[]
 station_hel_kaivo = [station_name, station_id, station_lat, station_lon, station_type]
-print(station_hel_kaivo)
+station_hel_kaivo
 ```
 
 Here we have one list with 3 different types of data in it. We can confirm this using the `type()` function. Let's check the type of `station_hel_kaivo` and the types of the values at indices `0-2`.
@@ -470,7 +475,7 @@ Note that although it is possible to have different types of data in a Python li
 Finally, we can add and remove values from lists to change their lengths. Let’s consider that we no longer want to include the first value in the `station_names` list. Since we haven't see that list in a bit, let's first print it to the screen.
 
 ```python
-print(station_names)
+station_names
 ```
 
 `del` allows values in lists to be removed. It can also be used to delete values from memory in Python. To remove the first value from the `station_names` list, we can simply type `del station_names[0]`. If you then print out the `station_names` list, you should see the first value has been removed.
@@ -480,7 +485,7 @@ del station_names[0]
 ```
 
 ```python
-print(station_names)
+station_names
 ```
 
 If we would instead like to add a few samples to the `station_names` list, we can type `station_names.append('List item to add')`, where `'List item to add'` would be the text that would be added to the list in this example. Let's add two values to our list: `'Helsinki lighthouse'` and `'Helsinki Malmi airfield'` and check the list contents after this.
@@ -491,7 +496,7 @@ station_names.append("Helsinki Malmi airfield")
 ```
 
 ```python
-print(station_names)
+station_names
 ```
 
 As you can see, we add values one at a time using `station_names.append()`. `list.append()` is called a method in Python, which is a function that works for a given data type (a list in this case).
@@ -506,7 +511,7 @@ station_name_length = len(station_names)
 ```
 
 ```python
-print(station_name_length)
+station_name_length
 ```
 
 If we check the data type of `station_name_length`, we can see it is an integer value, as expected.
@@ -552,7 +557,7 @@ station_names.reverse()
 ```
 
 ```python
-print(station_names)
+station_names
 ```
 
 Yay, it works! A common mistake when reversing lists is to do something like `station_names = station_names.reverse()`. **Do not do this!** When reversing lists with `.reverse()` the `None` value is returned (this is why there is no screen ouput when running `station_names.reverse()`). If you then assign the output of `station_names.reverse()` to `station_names` you will reverse the list, but then overwrite its contents with the returned value `None`. This means you’ve deleted the contents of your list.
@@ -567,7 +572,7 @@ station_names.sort()  # Notice no output here...
 ```
 
 ```python
-print(station_names)
+station_names
 ```
 
 As you can see, the list has been sorted alphabetically using the `list.sort()` method, but there is no screen output when this occurs. Again, if you were to assign that output to `station_names` the list would get sorted, but the contents would then be assigned `None`. As you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighthouse` in the sorted list. This is because alphabetical sorting in Python places capital letters before lowercase letters.
@@ -643,7 +648,7 @@ station_name_and_id = station_name + ": " + str(station_id)
 ```
 
 ```python
-print(station_name_and_id)
+station_name_and_id
 ```
 
 Note that here we are converting `station_id` to a character string using the `str()` function within the assignment to the variable `station_name_and_id`. Alternatively, we could have simply added `station_name` and `station_id_str`.
@@ -667,7 +672,7 @@ temp = 18.56789876
 # 1. F-string approach (recommended way)
 info_text = f"The temperature at {station_name} station (ID: {station_id}) is {temp:.2f} Celsius."
 
-print(info_text)
+info_text
 ```
 
 ![_**Figure 2.2**. F-string formatting explained._](../img/F-string-formatting.png)
@@ -693,7 +698,7 @@ text2 = (
         my_text_variable=station_name, station_id=station_id, temp=temp
     )
 )
-print(text2)
+text2
 ```
 
 As you can see, here we got the same result as with f-strings, but used the `.format()` which was placed after the quotes. The variables were inserted within the text template by using curly braces and giving them a name (placeholder) which should have a matching counterpart within the parentheses that link to the actual variable which will be inserted to the body of text. As you see, the placeholder does not necessarily need to have the same name as the actual variable that contains the inserted value, but it can be anything, like the name `my_text_variable` as in the example above. 
@@ -703,7 +708,7 @@ The last (historical) string formatting approach is to use `%s` -operator. In th
 ```python
 # 3. %-operator approach (not recommended anymore)
 text3 = "The temperature at %s (ID: %s) is %.2f" % (station_name, station_id, temp)
-print(text3)
+text3
 ```
 
 The order of the variables within the parentheses specify which `%s` placeholder will receive what information. The order of the variables inside parentheses needs to be corrected always if making changes to the placing of the placeholders, and there should be exactly the same number of variables within the parentheses as there are `%s` placeholders within the text template. Hence, this approach is prone to errors and causing confusion, which is why we do not recommend using it.  
@@ -724,7 +729,7 @@ Let's start by demonstrating how we can **split** a string into different compon
 
 ```python
 splitted = text.split(":")
-print(splitted)
+splitted
 ```
 
 ```python

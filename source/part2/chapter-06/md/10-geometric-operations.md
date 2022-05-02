@@ -5,9 +5,9 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.2
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -20,7 +20,7 @@ jupyter:
 In this tutorial, the aim is to make an overlay analysis where we create a new layer based on geometries from a dataset that `intersect` with geometries of another layer. As our test case, we will select Polygon grid cells from `TravelTimes_to_5975375_RailwayStation_Helsinki.shp` that intersects with municipality borders of Helsinki found in `Helsinki_borders.shp`.
 
 Typical overlay operations are (source: [QGIS docs](https://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/vector_spatial_analysis_buffers.html#more-spatial-analysis-tools)):
-![](img/overlay_operations.png)
+![](../img/overlay_operations.png)
 
 ## Download data
 
@@ -60,6 +60,7 @@ You should now see the files in the `data` folder.Let's first read the data and 
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import shapely.speedups
+
 %matplotlib inline
 
 # File paths
@@ -75,8 +76,8 @@ Let's do a quick overlay visualization of the two layers:
 
 ```python
 # Plot the layers
-ax = grid.plot(facecolor='gray')
-hel.plot(ax=ax, facecolor='None', edgecolor='blue')
+ax = grid.plot(facecolor="gray")
+hel.plot(ax=ax, facecolor="None", edgecolor="blue")
 ```
 
 Here the grey area is the Travel Time Matrix - a data set that contains  13231 grid squares (13231 rows of data) that covers the Helsinki region, and the blue area represents the municipality of Helsinki. Our goal is to conduct an overlay analysis and select the geometries from the grid polygon layer that intersect with the Helsinki municipality polygon.
@@ -98,7 +99,7 @@ Indeed, they do. We are now ready to conduct an overlay analysis between these l
 We will create a new layer based on grid polygons that `intersect` with our Helsinki layer. We can use a function called `overlay()` to conduct the overlay analysis that takes as an input 1) first GeoDataFrame, 2) second GeoDataFrame, and 3) parameter `how` that can be used to control how the overlay analysis is conducted (possible values are `'intersection'`, `'union'`, `'symmetric_difference'`, `'difference'`, and `'identity'`):
 
 ```python
-intersection = gpd.overlay(grid, hel, how='intersection')
+intersection = gpd.overlay(grid, hel, how="intersection")
 ```
 
 Let's plot our data and see what we have:
@@ -151,8 +152,8 @@ dissolved.head()
 - Let's compare the number of cells in the layers before and after the aggregation:
 
 ```python
-print('Rows in original intersection GeoDataFrame:', len(intersection))
-print('Rows in dissolved layer:', len(dissolved))
+print("Rows in original intersection GeoDataFrame:", len(intersection))
+print("Rows in dissolved layer:", len(dissolved))
 ```
 
 Indeed the number of rows in our data has decreased and the Polygons were merged together.
@@ -207,8 +208,8 @@ selection = gpd.GeoDataFrame([dissolved.loc[15]], crs=dissolved.crs)
 
 ```python
 # Plot all the grid cells, and the grid cells that are 15 minutes a way from the Railway Station
-ax = dissolved.plot(facecolor='gray')
-selection.plot(ax=ax, facecolor='red')
+ax = dissolved.plot(facecolor="gray")
+selection.plot(ax=ax, facecolor="red")
 ```
 
 ## Simplifying geometries
@@ -242,12 +243,12 @@ The LineString that is presented here is quite detailed, so let's see how we can
 
 ```python
 # Generalize geometry
-data['geom_gen'] = data.simplify(tolerance=20000)
+data["geom_gen"] = data.simplify(tolerance=20000)
 
 # Set geometry to be our new simlified geometry
-data = data.set_geometry('geom_gen')
+data = data.set_geometry("geom_gen")
 
-# Plot 
+# Plot
 data.plot()
 ```
 
