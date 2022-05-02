@@ -12,7 +12,6 @@ jupyter:
     name: python3
 ---
 
-<!-- #region -->
 # Writing script files
 
 Up to this point we have been keeping our Python code and Markdown comments in a single Jupyter notebook document.
@@ -21,10 +20,12 @@ An alternative to typing in all of the commands you would like to run is the lis
 A Python script file is simply a file containing a list of the commands you would like to run, normally with one command per line, and formatted in the same way as if you were to type them in.
 Python script files traditionally use the `.py` file extension in their names.
 
+
 ## The general concept of a script file
 
 Because a Python script file is simply a list of commands that you might otherwise type into a Python cell in a Jupyter notebook or a Python console, we can quite easily create a basic script file and test things out.
 
+<!-- #region -->
 ### Getting started
 
 First, we need to create a new text file by clicking on **File** -> **New** -> **Text File** in the JupyterLab menu bar.
