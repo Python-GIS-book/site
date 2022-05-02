@@ -28,19 +28,19 @@ european_cities = ["Helsinki", "Paris", "Barcelona", "Uppsala"]
 Suppose we want to print out the name of each city in our list. We could use the index value for each city and do the following:
 
 ```python
-print(european_cities[0])
+european_cities[0]
 ```
 
 ```python
-print(european_cities[1])
+european_cities[1]
 ```
 
 ```python
-print(european_cities[2])
+european_cities[2]
 ```
 
 ```python
-print(european_cities[3])
+european_cities[3]
 ```
 
 But this is a bad idea. Why? Well there are two reasons.
@@ -53,19 +53,19 @@ european_cities = ["Riga", "Rome", "Athens"]
 ```
 
 ```python
-print(european_cities[0])
+european_cities[0]
 ```
 
 ```python
-print(european_cities[1])
+european_cities[1]
 ```
 
 ```python
-print(european_cities[2])
+european_cities[2]
 ```
 
 ```python tags=["raises-exception"]
-print(european_cities[3])
+european_cities[3]
 ```
 
 ## Introducing the for loop
@@ -182,14 +182,28 @@ for value in range(5):
     print(value)
 ```
 
+<!-- #region -->
 In this case, we use a special function called `range()` to give us a list of 5 numbers `[0, 1, 2, 3, 4]` and then we print each number in the list to the screen.
 When given an integer (whole number) as an argument, `range()` will produce a list of numbers with a length equal to the specified `number`.
 The list starts at `0` and ends with `number - 1`.
 You can learn a bit more about range by typing `help(range)`.
 
 ```python
-help(range)
+[1]: help(range)
 ```
+
+```
+Help on class range in module builtins:
+
+class range(object)
+ |  range(stop) -> range object
+ |  range(start, stop[, step]) -> range object
+ |  
+ |  Return an object that produces a sequence of integers from start (inclusive)
+ |  to stop (exclusive) by step.  range(i, j) produces i, i+1, i+2, ..., j-1.
+...
+```
+<!-- #endregion -->
 
 <!-- #region -->
 #### Question 2.4
@@ -239,7 +253,7 @@ for i in range(len(numbers)):
 ```
 
 ```python
-print(numbers)
+numbers
 ```
 
 There are several important things to observe in this `for` loop:
