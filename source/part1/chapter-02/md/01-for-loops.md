@@ -103,7 +103,7 @@ for city in us_cities:
 <!-- #region -->
 ### for loop format
 
-`for` loops in Python have the general form below.
+For loops in Python have the general form below.
 
 ```python
 for variable in collection:
@@ -117,21 +117,18 @@ Let's break down the code above to see some essential aspect of `for` loops:
 - The code that should be executed as part of the loop must be indented beneath the `for` loop statement. The typical indentation is 4 spaces.
 - There is no additional special word needed to end the loop, you simply change the indentation back to normal.
 
-In sum, `for` loops are useful to repeat some part of the code a *definite* number of times.
+In summary, `for` loops are useful to repeat some part of the code a *finite* number of times.
 <!-- #endregion -->
 
-<!-- #region -->
 ### Your daily for loop
 
-![_**Figure 2.3**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>_.](../img/2009-11-03-Cats-Eye.jpg)
+![_**Figure 2.3**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>._](../img/2009-11-03-Cats-Eye.jpg)
 
-_**Figure 2.3**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>_.
+_**Figure 2.3**. A cat's daily routine as an example loop. Original comic from <https://www.bugmartini.com/comic/cats-eye/>._
 
-Like many other programming concepts, the idea of looping through actions is something that is already perhaps more familiar to you than you think.
-Consider your actions during a given day.
-Many people have certain routines they follow each day, such as waking up, taking a shower, eating breakfast and brushing their teeth.
-In Python code, we might represent such actions as follows:
+Like many other programming concepts, the idea of looping through actions is something that is already perhaps more familiar to you than you think. Consider your actions during a given day. Many people have certain routines they follow each day, such as waking up, taking a shower, eating breakfast and brushing their teeth. In Python code, we might represent such actions as follows:
 
+<!-- #region -->
 ```python
 for day in my_life:
     wake_up()
@@ -189,7 +186,7 @@ The list starts at `0` and ends with `number - 1`.
 You can learn a bit more about range by typing `help(range)`.
 
 ```python
-[1]: help(range)
+In [1]: help(range)
 ```
 
 ```
@@ -201,7 +198,7 @@ class range(object)
  |  
  |  Return an object that produces a sequence of integers from start (inclusive)
  |  to stop (exclusive) by step.  range(i, j) produces i, i+1, i+2, ..., j-1.
-...
+... (output truncated)
 ```
 <!-- #endregion -->
 
