@@ -34,7 +34,6 @@ Similar to importing import pandas as `pd`, we will import geopandas as `gpd`:
 import geopandas as gpd
 ```
 
-<!-- #region -->
 ## Input data: Finnish topographic database 
 
 In this lesson we will work with the [National Land Survey of Finland (NLS) topographic database](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database) [^NLS_topodata]. 
@@ -48,34 +47,36 @@ _**Figure 6.X**. Paituli data download._
 
 In this lesson, we will focus on terrain objects(Feature group: "Terrain/1" in the topographic database). The Terrain/1 feature group contains several feature classes. Our aim in this lesson is to save all the Terrain/1 feature classes into separate files.
 
-*Terrain/1 features in the Topographic Database:*
+: _**Table 6.X**. Terrain/1 features in the Topographic Database_
 
-|  feature class | Name of feature                                            | Feature group |
-|----------------|------------------------------------------------------------|---------------|
-| 32421          | Motor traffic area                                         | Terrain/1     |
-| 32200          | Cemetery                                                   | Terrain/1     |
-| 34300          | Sand                                                       | Terrain/1     |
-| 34100          | Rock - area                                                | Terrain/1     |
-| 34700          | Rocky area                                                 | Terrain/1     |
-| 32500          | Quarry                                                     | Terrain/1     |
-| 32112          | Mineral resources extraction area, fine-grained material   | Terrain/1     |
-| 32111          | Mineral resources extraction area, coarse-grained material | Terrain/1     |
-| 32611          | Field                                                      | Terrain/1     |
-| 32612          | Garden                                                     | Terrain/1     |
-| 32800          | Meadow                                                     | Terrain/1     |
-| 32900          | Park                                                       | Terrain/1     |
-| 35300          | Paludified land                                            | Terrain/1     |
-| 35412          | Bog, easy to traverse forested                             | Terrain/1     |
-| 35411          | Open bog, easy to traverse treeless                        | Terrain/1     |
-| 35421          | Open fen, difficult to traverse treeless                   | Terrain/1     |
-| 33000          | Earth fill                                                 | Terrain/1     |
-| 33100          | Sports and recreation area                                 | Terrain/1     |
-| 36200          | Lake water                                                 | Terrain/1     |
-| 36313          | Watercourse area                                           | Terrain/1     |
-
+|  feature class | Name of feature                     | Feature group |
+|----------------|-------------------------------------|---------------|
+| 32421          | Motor traffic area                  | Terrain/1     |
+| 32200          | Cemetery                            | Terrain/1     |
+| 34300          | Sand                                | Terrain/1     |
+| 34100          | Rock - area                         | Terrain/1     |
+| 34700          | Rocky area                          | Terrain/1     |
+| 32500          | Quarry                              | Terrain/1     |
+| 32112          | Mineral resources extraction area,  | Terrain/1     |
+|                | fine-grained material               | Terrain/1     |
+| 32111          | Mineral resources extraction area,  | Terrain/1     |
+|                | coarse-grained material             | Terrain/1     |
+| 32611          | Field                               | Terrain/1     |
+| 32612          | Garden                              | Terrain/1     |
+| 32800          | Meadow                              | Terrain/1     |
+| 32900          | Park                                | Terrain/1     |
+| 35300          | Paludified land                     | Terrain/1     |
+| 35412          | Bog, easy to traverse forested      | Terrain/1     |
+| 35411          | Open bog, easy to traverse treeless | Terrain/1     |
+| 35421          | Open fen, difficult to traverse     | Terrain/1     |
+| 35421          | treeless                            | Terrain/1     |
+| 33000          | Earth fill                          | Terrain/1     |
+| 33100          | Sports and recreation area          | Terrain/1     |
+| 36200          | Lake water                          | Terrain/1     |
+| 36313          | Watercourse area                    | Terrain/1     |
 
 According to the [naming convention](https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae) [^topodata_fair], all files that start with a letter `m` and end with `p` contain the objects we are interested in (Terrain/1 polygons). 
-<!-- #endregion -->
+
 
 ## Downloading data
 
