@@ -139,11 +139,11 @@ print("The square root of 4 is", math.sqrt(4))
 ## Variables
 
 A *{term}`variable`* can be used to store values calculated in expressions and used for other calculations.
+<!-- #endregion -->
 
 ### Variable assignment
 
 Assigning value to variables is straightforward. To assign a value, you simply type `variable_name = value`, where `variable_name` is the name of the variable you wish to define. Let's define a variable called `temp_celsius` and assign it a value of '10.0'. Note that when the variable is assigned there is no output to the screen.
-<!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 temp_celsius = 10.0

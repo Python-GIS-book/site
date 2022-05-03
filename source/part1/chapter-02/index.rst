@@ -14,4 +14,3 @@ Here we introduce the basics of programming in the Python language. You will lea
     nb/04-writing-scripts.ipynb
     nb/05-modules.ipynb
     nb/06-exercises.ipynb
-    nb/07-references.ipynb

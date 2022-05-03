@@ -62,11 +62,12 @@ _**Figure 2.8**. File renaming dialog in JupyterLab._
 
 Be sure to save your `temp_converter.py` file after making your changes. If all goes well, you should now see the Python syntax is highlighted in different colors in the JupyterLab editor panel. We'll return later to some best practices for writing script files, but for now let's continue with how to use our functions saved in the Python file we just created.
 
-<!-- #region -->
+
 ## Saving and loading functions
 
 Naturally, after saving functions such as the one above to a script file, it is important to know how to access those functions from within a Juypter notebook. As noted earlier, quite often it is useful to create a dedicated function library for functions that you use frequently when doing data analysis, for example. Basically this is done by listing useful functions in a single `.py` file from which you can then import and use them whenever needed.
 
+<!-- #region -->
 ### Saving functions in a script file
 
 Before we move on to discussing how to use functions in a script file, let's add a few more functions we have been using to our script. Simply copy and paste the text below into your `temp_converter.py` file leaving one blank line between each function.
@@ -89,6 +90,7 @@ Don't forget to save your changes!
 ## Calling functions from a script file
 
 Now that we have saved our temperature conversion functions into a script file we can start using them.
+
 
 ### Making sure we're in the right working directory
 
@@ -153,14 +155,14 @@ Let's now use the function so that we can see that it is working. We can print t
 print("The freezing point of water in Fahrenheit is:", celsius_to_fahr(0))
 ```
 
-<!-- #region -->
 You should get following output:
 
 ```
 The freezing point of water in Fahrenheit is: 32.0
 ```
 
-#### Importing multiple functions
+<!-- #region -->
+### Other ways of importing functions
 
 It is also possible to import more than one function at a time by listing and separating them with a comma.
 
@@ -168,9 +170,7 @@ It is also possible to import more than one function at a time by listing and se
 from my_script import func1, func2, func3
 ```
 
-### Importing all functions from a script
-
-Sometimes it is useful to import the whole script and all of its functions at once. Let's use a different `import` statement and test that all functions work. This time we can type `import temp_converter as tc`.
+Additionally, it is sometimes useful to import the whole script and all of its functions at once. This can be done using a different `import` statement, which we can use and then test that all of the imported functions work. This time we can type `import temp_converter as tc`.
 <!-- #endregion -->
 
 ```python tags=["raises-exception"]
@@ -191,7 +191,6 @@ print("Absolute zero in Celsius is:", tc.kelvins_to_celsius(temp_kelvins=0))
 print("Absolute zero in Fahrenheit is:", tc.kelvins_to_fahr(temp_kelvins=0))
 ```
 
-<!-- #region -->
 ## Creating a temperature calculator
 
 So far our functions have had only one parameter, but it is also possible to define a function with multiple parameters. Let's now make a simple `temp_calculator` function that accepts temperatures in Kelvins and returns either Celsius or Fahrenheit. The new function will have two parameters:
@@ -199,6 +198,7 @@ So far our functions have had only one parameter, but it is also possible to def
 - `temp_k` = The parameter for passing temperature in Kelvins
 - `convert_to` = The parameter that determines whether to output should be in Celsius or in Fahrenheit (using the letters `C` or `F`)
 
+<!-- #region -->
 ### Defining the function
 
 Let's start defining our function by giving it a name and setting the parameters.
