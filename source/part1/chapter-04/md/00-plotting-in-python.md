@@ -14,7 +14,6 @@ jupyter:
 
 # Plotting in Python
 
-
 Data visualization is an essential part of understanding and interpreting data, and Python has a large number of libraries available for use in visualizing different types of data. Below we provide a bried overview of some of the Python plotting landscape as well as an introduction to the terminology commonly used to refer to different parts of a plot created using Python.
 
 
