@@ -7,9 +7,8 @@ Here we introduce basics of plotting data in Python using pandas and matplotlib.
     :maxdepth: 1
     :caption: Sections:
 
-    nb/00-introduction.ipynb
-    nb/01-plot-anatomy.ipynb
-    nb/02-basic-plotting.ipynb
-    nb/03-subplots.ipynb
-    nb/04-plot-formatting.ipynb
-    nb/05-exercises.ipynb
+    nb/00-plotting-in-python.ipynb
+    nb/01-basic-plotting.ipynb
+    nb/02-subplots.ipynb
+    nb/03-plot-formatting.ipynb
+    nb/04-exercises.ipynb
