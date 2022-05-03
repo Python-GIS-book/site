@@ -286,10 +286,10 @@ bibtex_reference_style = "author_year_no_brackets"
 
 # Files containing the bibliography info
 bibtex_bibfiles = [
-    "part1/chapter-01/chapter-01-references.bib",
-    "part1/chapter-02/chapter-02-references.bib",
-    "part1/chapter-03/chapter-03-references.bib",
-    "back-matter/back-matter-references.bib",
+    #"part1/chapter-01/chapter-01-references.bib",
+    #"part1/chapter-02/chapter-02-references.bib",
+    #"part1/chapter-03/chapter-03-references.bib",
+    "back-matter/references.bib",
 ]
 
 # Specify what text is used with toggle-buttons
