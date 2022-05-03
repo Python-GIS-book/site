@@ -346,6 +346,7 @@ plt.show()
 
 _**Figure 4.17**. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel._
 
+
 ## Footnotes
 
 [^matplotlib_colors]: <https://matplotlib.org/stable/gallery/color/named_colors.html>
