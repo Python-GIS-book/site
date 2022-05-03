@@ -14,4 +14,3 @@ You will learn basic concepts related to computers and programming, and get basi
     nb/03-jupyter.ipynb
     nb/04-coding-with-an-ide.ipynb
     nb/05-installation.ipynb
-    nb/06-references.ipynb
