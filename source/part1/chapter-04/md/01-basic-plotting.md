@@ -14,7 +14,6 @@ jupyter:
 
 # Plotting with pandas and matplotlib
 
-
 At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the [end of Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you'll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like [^matlab] plotting. We will also briefly explore creating interactive plots using the `hvplot` [^hvplot] plotting library, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax very similar to that in pandas.
 
 <!-- #region tags=[] -->
@@ -67,6 +66,7 @@ type(ax)
 ```
 
 OK, so this is a data type we have not seen previously, but clearly it is part of matplotlib. In case you were skeptical before, we now have evidence that pandas is using matplotlib for generating plots.
+
 
 ### Selecting plot data based on date
 
@@ -303,13 +303,13 @@ ax.legend(loc=4)
 
 <!-- #region tags=[] -->
 _**Figure 4.8**. The solution plot for Question 4.1._
+<!-- #endregion -->
 
 ## Bar plots in pandas
 
 In addition to line plots, there are many other options for plotting in pandas.
 Bar plots are one option, which can be used quite similarly to line plots with the addition of the `kind=bar` parameter.
 Note that it is easiest to plot our selected time range for a bar plot by selecting the dates in our data series first, rather than adjusting the plot limits. Pandas sees bar plot data as categorical, so the date range is more difficult to define for x-axis limits. For the y-axis, we can still define its range using the `ylim=[ymin, ymax]` parameter. Similarly, text placement on a bar plot is more difficult, and most easily done using the index value of the bar where the text should be placed.
-<!-- #endregion -->
 
 ```python
 oct1_afternoon = oct1_temps.loc[oct1_temps.index <= "201910011500"]

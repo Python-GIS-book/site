@@ -19,7 +19,6 @@ Data visualization is an essential part of understanding and interpreting data, 
 
 ## Python plotting libraries
 
-
 ![_**Figure 4.1**. Plotting libraries available in Python. Interactive version online at <https://pyviz.org/overviews/index.html>._](../img/python-plotting.png)
 
 _**Figure 4.1**. Plotting libraries available in Python. Interactive version online at <https://pyviz.org/overviews/index.html>._
@@ -43,10 +42,8 @@ Python has many nice, useful libraries that can be used for plotting. In the fig
 
 You should explore the plotting galleries and examples of different visualization libraries above to learn what's possible to do in Python. As you will see, the plotting possibilities in Python are numerous and rich. To get started, we suggest starting by learning to use one that suits your needs best, and later extending your knowledge and skills to other visualization libraries as necessary.
 
-
+<!-- #region -->
 ## Anatomy of a plot
-
-Before starting to visualize our data on a plot our data we need to address an obvious question: **What actually is a plot?** We will not go deep into the details of different types of plots (as it is not the purpose of this book), but rather we provide a brief introduction to different plots that can be created using Python and the (essential) elements of a plot.
 
 There are a variety of different kinds of plots (also known as graphs, charts, diagrams, etc.) available that have been designed to visually represent the characteristics of a dataset. Here is a list of several different types of plots that can be used to present different kinds of data. You can find more information about this plots online in Wikipedia, for example.
 
@@ -63,12 +60,15 @@ There are a variety of different kinds of plots (also known as graphs, charts, d
 - [Treemap](https://en.wikipedia.org/wiki/Treemap)
 - [Network chart](https://en.wikipedia.org/wiki/Network_chart)
 
+However, before starting to visualize our data on a plot our data we need to address an obvious question: **What actually is a plot?** We will not go deep into the details of different types of plots such as those listed above, as it is not the purpose of this book, but rather we will provide a brief introduction to different plots that can be created using Python and the (essential) elements of a plot.
+
+![_**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)._](../img/basic-elements-of-plot.png)
+
+_**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)._
+
+
 In spite of the large variety of types of plots, there are certain elements that are common for most of them (not all). Thus, it is useful to know at least the basic terminology since it makes it easier to find help and information from the internet when you start creating or modifying your own plots. Figure 4.2 illustrates different elements of a basic line plot.
-
-![_**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)_](../img/basic-elements-of-plot.png)
-
-_**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)_
-
+<!-- #endregion -->
 
 ### Common plotting terminology
 
@@ -76,21 +76,30 @@ The common terms in Table 4.1 may vary a bit depending on the plotting library t
 
 : _**Table 4.1**. Common terminology for plot features in Matplotlib._
 
-| Term         | Description                                                                                                         |
-|--------------|---------------------------------------------------------------------------------------------------------------------|
-| *axis*       | Axis of the graph that are typically x, y and z (for 3D plots).                                                     |
-| *title*      | Title of the whole plot.                                                                                            |
-| *label*      | Name for the whole axis (e.g. xlabel or ylabel).                                                                    |
-| *legend*     | Legend for the plot.                                                                                                |
-| *tick label* | Text or values that are represented on the axis.                                                                    |
-| *symbol*     | Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes/colors.             |
-| *size*       | Size of, for example, a point on a scatter plot. Also used for referring to the text sizes on a plot.               |
-| *linestyle*  | The style how the line should be drawn. Can be solid or dashed, for example.                                        |
-| *linewidth*  | The width of a line in a plot.                                                                                      |
-| *alpha*      | Transparency level of a filled element in a plot (values between 0.0 (fully transparent) to 1.0 (no trasnparency)). |
-| *tick(s)*    | Refers to the tick marks on a plot.                                                                                 |
-| *annotation* | Refers to the text added to a plot.                                                                                 |
-| *padding*    | The distance between a (axis/tick) label and the axis.                                                              | 
+| Term       | Description                                       |
+|:-----------|:--------------------------------------------------|
+| Axis       | Axis of the graph that are typically x, y and z   |
+|            | (for 3D plots).                                   |
+| Title      | Title of the whole plot.                          |
+| Label      | Name for the whole axis (e.g. xlabel or ylabel).  |
+| Legend     | Legend for the plot.                              |
+| Tick label | Text or values that are represented on the axis.  |
+| Symbol     | Symbol for data point(s) (on a scatter plot) that |
+|            | can be presented with different symbol shapes or  |
+|            | colors.                                           |
+| Size       | Size of, for example, a point on a scatter plot.  |
+|            | Also used for referring to text sizes on a plot.  |
+| Linestyle  | The style how the line should be drawn. Can be    |
+|            | solid or dashed, for example.                     |
+| Linewidth  | The width of a line in a plot.                    |
+| Alpha      | Transparency level of a filled element in a plot  |
+|            | (values range between 0.0 (fully transparent) to  |
+|            | 1.0 (no trasnparency)).                           |
+| Tick(s)    | Refers to the tick marks on a plot.               |
+| Annotation | Refers to the text added to a plot.               |
+| Padding    | The distance between a (axis/tick) label and the  |
+|            | axis.                                             |
+
 
 
 ## Footnotes
