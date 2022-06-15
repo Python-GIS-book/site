@@ -12,7 +12,6 @@ jupyter:
     name: python3
 ---
 
-<!-- #region -->
 # Geographic objects in Python/Shapely
 
 In this lesson, you will learn how to create and manipulate geometries in Python using the [Shapely Python Package](https://shapely.readthedocs.io/en/stable/manual.html).
@@ -24,9 +23,7 @@ E. (2013), Chapter 3](https://www.packtpub.com/application-development/python-ge
 
 ## Spatial data model
 
-
-
-![_**Figure 6.X**. Spatial data model Source: CHECK!._](./../img/spatial-data-model.png)
+![_**Figure 6.X**. Spatial data model Source: CHECK!._](../img/spatial-data-model.png)
 
 _**Figure 6.X**. Spatial data model._
 
@@ -51,7 +48,7 @@ Fundamental geometric objects that can be used in Python with [Shapely](https://
 -  Conducting geometric operations based on the input geometries such as `union`, `difference`, `distance` etc.
 -  Conducting spatial queries between geometries such as `intersects`, `touches`, `crosses`, `within` etc.
 
-<!-- #endregion -->
+
 
 <div class="alert alert-info">
 

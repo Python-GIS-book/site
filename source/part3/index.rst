@@ -6,10 +6,9 @@ This part of the book will introduce several real-world examples of how to apply
 Tentative chapter titles
 ------------------------
 
-- Chapter 9: Spatial network analysis
-- Chapter 10: Change analysis
-- Chapter 11: Digital terrain analysis
-- Chapter 12: Movement analysis
+- Chapter 10: Geospatial interpolation
+- Chapter 11: Spatial Network analysis
+- Chapter 12: Change analysis
 - Chapter 13: Conclusions
 
 ..
