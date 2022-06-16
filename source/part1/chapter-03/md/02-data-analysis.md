@@ -463,22 +463,64 @@ By looking at the order of `YEAR_MONTH` column, we can see that January 2020 ind
 
 Now we have learned how to aggregate data using pandas. average temperatures for each month based on hourly weather observations. One of the most useful aspects of programming, is the ability to automate processes and repeat analyses such as these for any number of weather stations (assuming the data structure is the same). 
 
-Hence, let's now see how we can repeat the previous data analysis steps for 15 weather stations located in different parts of Finland containing data for five years (2015-2019). The idea is that we will repeat the process for each input file using a (rather long) for loop. We will use the most efficient alternatives of the previously represented approaches, and finally will store the results in a single DataFrame for all stations. We will use the `glob()` function from the Python module `glob` to list our input files in the data directory `data/finnish_stations`. We will store those paths to a variable `file_list`, so that we can use the file paths easily in the later steps:
+Hence, let's now see how we can repeat the previous data analysis steps for 15 weather stations located in different parts of Finland containing data for five years (2015-2019). The idea is that we will repeat the process for each input file using a (rather long) for loop. We will use the most efficient alternatives of the previously represented approaches, and finally will store the results in a single DataFrame for all stations. We will learn how to manipulate filepaths in Python using the `pathlib` module and see how we can list our input files in the data directory `data/finnish_stations`. We will store those paths to a variable `file_list`, so that we can use the file paths easily in the later steps.
+
+
+### Managing and listing filesystem paths
+
+In Python there are two commonly used approaches to manage and manipulate filepaths, namely `os.path` sub-module and a newer `pathlib` module (available since Python 3.4) which we will demonstrate here.  The built-in module `pathlib` provides many useful functions for interacting and manipulating filepaths on your operating system. On the following, we have data in different sub-folders and we will learn how to use the `Path` class from the `pathlib` library to construct filepaths. Next, we will import and use the `Path` class and see how we can construct a filepath by joining a folder path and file name:
 
 ```python
-from glob import glob
+from pathlib import Path 
 
-file_list = glob("data/finnish_stations/0*txt")
+# Initialize the Path
+input_folder = Path("data/finnish_stations")
+
+# Join folder path and filename
+fp = input_folder / "028360.txt"
+fp
 ```
 
-Note that we're using the \* character as a wildcard, so any filename that starts with `0` and ends with `txt` will be added to the list of files. We specifically use `data/finnish_stations/0` as the starting part of the file names to avoid having our metadata files included in the list.
+Here, we first initialized the `Path` object and stored it in variable `input_folder` by passing a relative path as a string to directory where all our files are located. Then we created a full filepath to file `028360.txt` by adding a forward slash (`/`) character between the folder and the filename which joins them together (easy!). In this case, our end result is something called a *`PosixPath`* which is a filesystem path to a given file on Linux or Mac operating systems. If you would run the same commands on Windows machine, the end result would be a *`WindowsPath`*. Hence, the output depends on which operating system you are using. However, you do not need to worry about this, because both types of Paths work exactly the same, no matter which operating system you use.
+
+Both the `Path` object that we stored in `input_folder` variable and the `PosixPath` object that we stored in variable `fp` are actually quite versatile creatures, and we can do many useful things with them. For instance, we can find the parent folder where the file is located, extract the filename from the full path, test whether the file or directory actually exists, find various properties of the file (such as size of the file or creation time), and so on:
+
+```python
+fp.parent
+```
+
+```python
+fp.name
+```
+
+```python
+fp.exists()
+```
+
+```python
+# File properties
+size_in_bytes = fp.stat().st_size
+creation_time = fp.stat().st_ctime
+modified_time = fp.stat().st_mtime
+print(f"Size (bytes): {size_in_bytes}\nCreated (seconds since Epoch): {creation_time}\nModified (seconds since Epoch): {modified_time}")
+```
+
+There are also various other methods that you can do with `pathlib`, such as rename the files (`.rename()`) or create folders (`.mkdir()`). You can see all available methods from `pathlib` documentation [^pathlib]. One of the most useful tools in `pathlib` is the ability to list all files within a given folder by using the method `.glob()` which also allows you to add specific search criteria for listing only specific files from the directory:
+
+```python
+file_list = list(input_folder.glob("0*txt"))
+```
+
+Here, the result is stored into variable `file_list` as a list. By default, the `.glob()` produces something called a `generator` which is a "lazy iterator", i.e. a special kind of function that allows you to iterate over items like a list, but without actually storing the data in memory. By enclosing the `.glob()` search functionality with `list()` we convert this generator into a normal Python list. Note that we're using the \* character as a wildcard, so any filename that starts with `0` and ends with `txt` will be added to the list of files. We specifically use the number `0` as the starting part for the search criteria to avoid having metadata files included in the list. Let's take a look what we got as a result:
 
 ```python
 print("Number of files in the list:", len(file_list))
 file_list
 ```
 
-Now, you should have all the relevant file paths in the `file_list`, and we can loop over the list using a for loop (again we break the loop after first iteration):
+### Iterate over input files and repeat the analysis
+
+Now, we should have all the relevant file paths in the `file_list`, and we can loop over the list using a for loop (again we break the loop after first iteration):
 
 ```python
 for fp in file_list:
@@ -566,3 +608,4 @@ results["YEAR"].value_counts()
 ## Footnotes
 
 [^noaanews]: <https://www.noaa.gov/news/january-2020-was-earth-s-hottest-january-on-record>
+[^pathlib]: <https://docs.python.org/3/library/pathlib.html>
