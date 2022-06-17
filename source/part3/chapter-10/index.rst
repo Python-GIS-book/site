@@ -1,12 +1,12 @@
-Chapter 10: Change analysis
-===========================
+Chapter 10: Spatial interpolation
+=================================
 
-This section is under construction.
+This chapter will teach you how to conduct Inverse Distance Weighting (IWD) interpolation using point data.
 
-..
-    .. toctree::
-        :maxdepth: 1
-        :caption: Sections:
+.. toctree::
+    :maxdepth: 1
+    :caption: Sections:
 
-        a-taste-of-python.ipynb
+    nb/00-introduction-to-spatial-interpolation.ipynb
+    nb/01-inverse-distance-weighting.ipynb
 
