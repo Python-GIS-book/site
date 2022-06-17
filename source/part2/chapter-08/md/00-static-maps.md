@@ -5,35 +5,14 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.10.2
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
 # Static maps
-
-### Data
-
-You should have following Shapefiles in the `data` folder:
-
-  - addresses.shp
-  - metro.shp
-  - roads.shp
-  - some.geojson
-  - TravelTimes_to_5975375_RailwayStation.shp
-
-In case you don't see the required files in the `data` folder, you can download them [from this link](https://github.com/Automating-GIS-processes/Lesson-5-Making-Maps/raw/master/data/dataE5.zip).
-
-You can download and extract the data into a folder `data` using these commands:
-
-```
-    cd autogis/notebooks/L5
-    wget https://github.com/Automating-GIS-processes/Lesson-5-Making-Maps/raw/master/data/dataE5.zip
-    unzip dataE5.zip -d data
-```
-
 
 ## Static maps in geopandas
 
@@ -47,11 +26,14 @@ As usual, we start by importing the useful modules and reading in the input file
 import geopandas as gpd
 from pyproj import CRS
 import matplotlib.pyplot as plt
+from pathlib import Path
+import contextily as ctx
 
 # Filepaths
-grid_fp = "data/TravelTimes_to_5975375_RailwayStation.shp"
-roads_fp = "data/roads.shp"
-metro_fp = "data/metro.shp"
+data_dir = Path("../data")
+grid_fp = data_dir / "TravelTimes_to_5975375_RailwayStation.shp"
+roads_fp = data_dir / "roads.shp"
+metro_fp = data_dir / "metro.shp"
 
 # Read files
 grid = gpd.read_file(grid_fp)
@@ -74,7 +56,7 @@ Roads and the metro are in an old Finnish crs (EPSG:2392), while the grid is in 
 # Check CRS names
 print("Roads crs:", CRS(roads.crs).name)
 print("Metro crs:", CRS(metro.crs).name)
-print("Grid crs: ",CRS(grid.crs).name)
+print("Grid crs: ", CRS(grid.crs).name)
 ```
 
 Let's re-project geometries to ETRS89 / TM35FIN based on the grid crs:
@@ -104,7 +86,6 @@ Once the data are in the same projection, we can plot them on a map.
 </div>
 
 
-
 Plotting options for the polygon: 
 
 - Define the classification scheme using the `scheme` parameter
@@ -120,10 +101,18 @@ For better control of the figure and axes, use the plt.subplots function before 
 
 ```python
 # Create one subplot. Control figure size in here.
-fig, ax = plt.subplots(figsize=(12,8))
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # Visualize the travel times into 9 classes using "Quantiles" classification scheme
-grid.plot(ax=ax, column="car_r_t", linewidth=0.03, cmap="Spectral", scheme="quantiles", k=9, alpha=0.9)
+grid.plot(
+    ax=ax,
+    column="car_r_t",
+    linewidth=0.03,
+    cmap="Spectral",
+    scheme="quantiles",
+    k=9,
+    alpha=0.9,
+)
 
 # Add roads on top of the grid
 # (use ax parameter to define the map on top of which the second items are plotted)
@@ -147,19 +136,21 @@ If plotting the figure without a classification scheme you get a color bar as th
 
 ```python
 # Create one subplot. Control figure size in here.
-fig, ax = plt.subplots(figsize=(6,4))
+fig, ax = plt.subplots(figsize=(6, 4))
 
 # Visualize the travel times into 9 classes using "Quantiles" classification scheme
-grid.plot(ax=ax, column="car_r_t", 
-          linewidth=0.03, 
-          cmap="Spectral", 
-          alpha=0.9, 
-          legend=True, 
-          legend_kwds={'label': "Travel time (min)"}
-         )
+grid.plot(
+    ax=ax,
+    column="car_r_t",
+    linewidth=0.03,
+    cmap="Spectral",
+    alpha=0.9,
+    legend=True,
+    legend_kwds={"label": "Travel time (min)"},
+)
 
-#ax.get_legend().set_bbox_to_anchor(8)
-#ax.get_legend().set_title("Legend title")
+# ax.get_legend().set_bbox_to_anchor(8)
+# ax.get_legend().set_title("Legend title")
 
 # Remove the empty white-space around the axes
 plt.tight_layout()
@@ -169,20 +160,21 @@ If plotting a map using a classification scheme, we get a different kind of lede
 
 ```python
 # Create one subplot. Control figure size in here.
-fig, ax = plt.subplots(figsize=(10,5))
+fig, ax = plt.subplots(figsize=(10, 5))
 
 # Visualize the travel times into 9 classes using "Quantiles" classification scheme
-grid.plot(ax=ax, 
-          column="car_r_t", 
-          linewidth=0.03, 
-          cmap="Spectral", 
-          scheme="quantiles", 
-          k=9, 
-          legend=True, 
-          )
+grid.plot(
+    ax=ax,
+    column="car_r_t",
+    linewidth=0.03,
+    cmap="Spectral",
+    scheme="quantiles",
+    k=9,
+    legend=True,
+)
 
 # Re-position the legend and set a title
-ax.get_legend().set_bbox_to_anchor((1.3,1))
+ax.get_legend().set_bbox_to_anchor((1.3, 1))
 ax.get_legend().set_title("Travel time (min)")
 
 # Remove the empty white-space around the axes
@@ -191,29 +183,11 @@ plt.tight_layout()
 
 You can read more info about adjusting legends in the matplotlig [legend guide](https://matplotlib.org/tutorials/intermediate/legend_guide.html).
 
-
 ## Adding basemap from external source
 
 It is often useful to add a basemap to your visualization that shows e.g. streets, placenames and other contextual information. This can be done easily by using ready-made background map tiles from different providers such as [OpenStreetMap](https://wiki.openstreetmap.org/wiki/Tiles) or [Stamen Design](http://maps.stamen.com). A Python library called [contextily](https://github.com/darribas/contextily) is a handy package that can be used to fetch geospatial raster files and add them to your maps. Map tiles are typically distributed in [Web Mercator projection (EPSG:3857)](http://spatialreference.org/ref/sr-org/epsg3857-wgs84-web-mercator-auxiliary-sphere/), hence **it is often necessary to reproject all the spatial data into** [Web Mercator](https://en.wikipedia.org/wiki/Web_Mercator_projection) before visualizing the data.
 
-In this tutorial, we will see how to add a basemap underneath our previous visualization.
-
-- Read in the travel time data:
-
-```python
-import geopandas as gpd
-import matplotlib.pyplot as plt
-import contextily as ctx
-%matplotlib inline
-
-# Filepaths
-grid_fp = "data/TravelTimes_to_5975375_RailwayStation.shp"
-
-# Read data
-grid = gpd.read_file(grid_fp)
-grid.head(3)
-```
-
+In this tutorial, we will see how to add a basemap underneath our previous visualization. 
 Check the input crs:
 
 ```python
@@ -238,12 +212,20 @@ Next, we can plot our data using geopandas and add a basemap for our plot by usi
 
 ```python
 # Control figure size in here
-fig, ax = plt.subplots(figsize=(12,8))
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # Plot the data
-data.plot(ax=ax, column='pt_r_t', cmap='RdYlBu', linewidth=0, scheme="quantiles", k=9, alpha=0.6)
+data.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="quantiles",
+    k=9,
+    alpha=0.6,
+)
 
-# Add basemap 
+# Add basemap
 ctx.add_basemap(ax)
 ```
 
@@ -267,10 +249,18 @@ It is possible to change the tile provider using the `source` -parameter in `add
 
 ```python
 # Control figure size in here
-fig, ax = plt.subplots(figsize=(12,8))
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # Plot the data
-data.plot(ax=ax, column='pt_r_t', cmap='RdYlBu', linewidth=0, scheme="quantiles", k=9, alpha=0.6)
+data.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="quantiles",
+    k=9,
+    alpha=0.6,
+)
 
 # Add basemap with basic OpenStreetMap visualization
 ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik)
@@ -280,13 +270,21 @@ ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik)
 
 ```python
 # Control figure size in here
-fig, ax = plt.subplots(figsize=(12,8))
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # Subset the data to seel only grid squares near the destination
-subset = data.loc[(data['pt_r_t']>=0) & (data['pt_r_t']<=15)]
+subset = data.loc[(data["pt_r_t"] >= 0) & (data["pt_r_t"] <= 15)]
 
 # Plot the data from subset
-subset.plot(ax=ax, column='pt_r_t', cmap='RdYlBu', linewidth=0, scheme="quantiles", k=5, alpha=0.6)
+subset.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="quantiles",
+    k=5,
+    alpha=0.6,
+)
 
 # Add basemap with `OSM_A` style
 ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik)
@@ -296,12 +294,21 @@ As we can see now our map has much more details in it as the zoom level of the b
 
 - Let's reduce the level of detail from our map by passing `zoom=11`:
 
+
 ```python
 # Control figure size in here
-fig, ax = plt.subplots(figsize=(12,8))
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # Plot the data from subset
-subset.plot(ax=ax, column='pt_r_t', cmap='RdYlBu', linewidth=0, scheme="quantiles", k=5, alpha=0.6)
+subset.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="quantiles",
+    k=5,
+    alpha=0.6,
+)
 
 # Add basemap with `OSM_A` style using zoom level of 11
 ctx.add_basemap(ax, zoom=11, source=ctx.providers.OpenStreetMap.Mapnik)
@@ -314,19 +321,31 @@ We can also use `ax.set_xlim()` and `ax.set_ylim()` -parameters to crop our map 
 Let's add details about the data source, plot the original data, and crop the map:
 
 ```python
-credits = "Travel time data by Digital Geography Lab, Map Data © OpenStreetMap contributors"
+credits = (
+    "Travel time data by Tenkanen & Toivonen (2020), Map Data © OpenStreetMap contributors"
+)
 ```
 
 ```python
 # Control figure size in here
-fig, ax = plt.subplots(figsize=(12,8))
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # Plot the data
-data.plot(ax=ax, column='pt_r_t', cmap='RdYlBu', linewidth=0, scheme="quantiles", k=9, alpha=0.6)
+data.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="quantiles",
+    k=9,
+    alpha=0.6,
+)
 
-# Add basemap with `OSM_A` style using zoom level of 11 
-# Modify the attribution 
-ctx.add_basemap(ax, zoom=11, attribution=credits, source=ctx.providers.OpenStreetMap.Mapnik)
+# Add basemap with `OSM_A` style using zoom level of 11
+# Modify the attribution
+ctx.add_basemap(
+    ax, zoom=11, attribution=credits, source=ctx.providers.OpenStreetMap.Mapnik
+)
 
 # Crop the figure
 ax.set_xlim(2760000, 2800000)
@@ -358,17 +377,25 @@ Next, we will see how to use map tiles provided by CartoDB. To do that we need t
 
 ```python
 # Control figure size in here
-fig, ax = plt.subplots(figsize=(12,8))
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # The formatting should follow: 'https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{scale}.png'
 # Specify the style to use
 style = "rastertiles/voyager"
-cartodb_url = 'https://a.basemaps.cartocdn.com/%s/{z}/{x}/{y}.png' % style
+cartodb_url = "https://a.basemaps.cartocdn.com/%s/{z}/{x}/{y}.png" % style
 
 # Plot the data from subset
-subset.plot(ax=ax, column='pt_r_t', cmap='RdYlBu', linewidth=0, scheme="quantiles", k=5, alpha=0.6)
-    
-# Add basemap with `OSM_A` style using zoom level of 14 
+subset.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="quantiles",
+    k=5,
+    alpha=0.6,
+)
+
+# Add basemap with `OSM_A` style using zoom level of 14
 ctx.add_basemap(ax, zoom=14, attribution="", source=cartodb_url)
 
 # Crop the figure
@@ -377,22 +404,30 @@ ax.set_ylim(8435000, 8442500)
 ```
 
 As we can see now we have yet again different kind of background map, now coming from CartoDB. 
-
 Let's make a minor modification and change the style from `"rastertiles/voyager"` to `"dark_all"`:
+
 
 ```python
 # Control figure size in here
-fig, ax = plt.subplots(figsize=(12,8))
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # The formatting should follow: 'https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{r}.png'
 # Specify the style to use
 style = "dark_all"
-cartodb_url = 'https://a.basemaps.cartocdn.com/%s/{z}/{x}/{y}.png' % style
+cartodb_url = "https://a.basemaps.cartocdn.com/%s/{z}/{x}/{y}.png" % style
 
 # Plot the data from subset
-subset.plot(ax=ax, column='pt_r_t', cmap='RdYlBu', linewidth=0, scheme="quantiles", k=5, alpha=0.6)
+subset.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="quantiles",
+    k=5,
+    alpha=0.6,
+)
 
-# Add basemap with `OSM_A` style using zoom level of 14 
+# Add basemap with `OSM_A` style using zoom level of 14
 ctx.add_basemap(ax, zoom=13, attribution="", source=cartodb_url)
 
 # Crop the figure
