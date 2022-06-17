@@ -66,7 +66,7 @@ html_theme_options = {
     # "google_analytics_id": "UA-159257488-1",
     "use_edit_page_button": True,
     "launch_buttons": {
-        "binderhub_url": "https://mybinder.org/v2/gh/Python-GIS-book/site/master",
+        "binderhub_url": "https://mybinder.org",
         "thebelab": True,
         "notebook_interface": "jupyterlab",
     },
@@ -286,10 +286,10 @@ bibtex_reference_style = "author_year_no_brackets"
 
 # Files containing the bibliography info
 bibtex_bibfiles = [
-    "part1/chapter-01/chapter-01-references.bib",
-    "part1/chapter-02/chapter-02-references.bib",
-    "part1/chapter-03/chapter-03-references.bib",
-    "back-matter/back-matter-references.bib",
+    # "part1/chapter-01/chapter-01-references.bib",
+    # "part1/chapter-02/chapter-02-references.bib",
+    # "part1/chapter-03/chapter-03-references.bib",
+    "back-matter/references.bib",
 ]
 
 # Specify what text is used with toggle-buttons

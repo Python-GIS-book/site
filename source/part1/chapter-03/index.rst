@@ -13,4 +13,3 @@ You will learn how to read and write data from/to a file, and to manipulate and 
     nb/02-data-analysis.ipynb
     nb/03-temporal-data.ipynb
     nb/04-exercises.ipynb
-    nb/05-references.ipynb

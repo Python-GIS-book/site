@@ -4,16 +4,16 @@ jupyter:
     text_representation:
       extension: .md
       format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.6.0
+      format_version: '1.3'
+      jupytext_version: 1.11.5
   kernelspec:
-    display_name: Python 3
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
 # References
 
-```{bibliography} ../back-matter-references.bib
+```{bibliography} ../references.bib
 :style: apa
 ```

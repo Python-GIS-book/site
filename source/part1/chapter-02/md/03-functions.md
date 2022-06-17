@@ -28,7 +28,8 @@ Let's consider the task from the first lesson when we converted temperatures fro
 Such an operation is a fairly common task when dealing with temperature data.
 Thus we might need to repeat such calculations quite often when analysing or comparing weather or climate data between the US and Europe, for example.
 
-### Our first function
+
+### Creating a first function
 
 Let's define our first function called `celsius_to_fahr`. Figure 2.4 explains the main elements of a function.
 
@@ -48,9 +49,7 @@ When we call the function, the values we pass to it are assigned to the correspo
 Inside the function, we use a `return` statement to define the value that should be given back when the function is used, or called.
 
 
-## Calling functions
-
-### Using our new function
+### Calling a function
 
 Now let's try using our function.
 Calling our self-defined function is no different from calling any other function such as `print()`.
@@ -71,7 +70,7 @@ We can do the same thing with the boiling point of water in degrees Celsius (100
 print("The boiling point of water in Fahrenheit is:", celsius_to_fahr(100))
 ```
 
-### Let's make another function
+### Creating another function
 
 Now that we know how to create a function to convert Celsius to Fahrenheit, let’s create another function called `kelvins_to_celsius`. We can define this just like we did with our `celsius_to_fahr()` function, noting that the Celsius temperature is just the temperature in Kelvins minus 273.15. Just to avoid confusion this time, let's call the temperature variable used in the function `temp_kelvins`.
 
@@ -79,8 +78,6 @@ Now that we know how to create a function to convert Celsius to Fahrenheit, let�
 def kelvins_to_celsius(temp_kelvins):
     return temp_kelvins - 273.15
 ```
-
-### Using our second function
 
 Let's use it in the same way as the earlier one by defining a new variable `absolute_zero` that is the Celsius temperature of 0 Kelvins. Note that we can also use the parameter name `temp_kelvins` when calling the function to explicitly state which variable values is being used. Again, let's print the result to confirm everything works.
 
@@ -123,10 +120,33 @@ def hello(name, age):
 
 
 output = hello(name="Dave", age=41)
-print(output)
+output
 ```
 
-### Variable names and functions
+### Functions within a function
+
+What about converting Kelvins to Fahrenheit?
+We could write out a new formula for it, but we don’t need to.
+Instead, we can do the conversion using the two functions we have already created and calling those from the function we are now creating. Let's create a new function `kelvins_to_fahr` that takes the temperature in Kelvins as the parameter value `temp_kelvins` and uses our `kelvins_to_celsius` and `celsius_to_fahr` functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.
+
+```python
+def kelvins_to_fahr(temp_kelvins):
+    temp_celsius = kelvins_to_celsius(temp_kelvins)
+    temp_fahr = celsius_to_fahr(temp_celsius)
+    return temp_fahr
+```
+
+Now let's use the function to calculate the temperature of absolute zero in degrees Fahrenheit. We can then print that value to the screen again.
+
+```python
+absolute_zero_fahr = kelvins_to_fahr(temp_kelvins=0)
+```
+
+```python
+print("Absolute zero in Fahrenheit is:", absolute_zero_fahr)
+```
+
+## Functions and variable names
 
 A common point of confusion for new programmers is understanding how variable names in functions relate to those defined elsewhere in your notebooks.
 When defining a function, the variable names given in the function definition exist and will only be used when the function is called.
@@ -146,11 +166,11 @@ As you will see below, the variables defined in the function exist only in its *
 Let's confirm that.
 
 ```python tags=["raises-exception"]
-print(temp_kelvins)
+temp_kelvins
 ```
 
 ```python tags=["raises-exception"]
-print(temp_celsius)
+temp_celsius
 ```
 
 Here, in the *global namespace* we get a `NameError` when trying to access the variables `temp_kelvins` or `temp_celsius` because they have only been defined within the `kelvins_to_celsius()` function.
@@ -163,7 +183,7 @@ kelvins_to_celsius(temp_kelvins=293.15)
 ```
 
 ```python tags=["raises-exception"]
-print(temp_kelvins)
+temp_kelvins
 ```
 
 As you can see `temp_kelvins` is still not defined in the global namespace, where values such as `freezing_point` have been defined.
@@ -199,11 +219,9 @@ temperature
 As you can see, the value of the variable `temperature` in the global namespace was set to 303.15 and remains 303.15 after using the `kelvins_to_celsius2()` function.
 Although there is a variable inside that function with the same name as the value in the global namespace, using the function assigns the value of `temperature` inside the function and manipulates that value only inside the function.
 
-```{caution}
-Be aware that it is possible to access variable values in functions that have been defined in the global namespace, even if the value is not passed to the function.
+It is important to be aware that it is possible to access variable values  that have been defined in the global namespace from within functions, even if the value has not been passed to the function.
 This is because Python will search for variables defined with a given name first inside the function, and then outside the function (the search domain is known as the variable's *scope*).
-If such a value is found, it can be used by the function, which could be dangerous.
-```
+If such a value is found then it can be used by the function, which could be dangerous!
 
 Let's look at an example of behavior in a function that may be unexpected. Here we can define a third version of the `kelvins_to_celsius()` function that we can call `kelvins_to_celsius3()`.
 
@@ -214,7 +232,7 @@ def kelvins_to_celsius3(temp):
 ```
 
 ```python
-print(kelvins_to_celsius3(273.15))
+kelvins_to_celsius3(273.15)
 ```
 
 You were perhaps expecting to see a value of `0` returned by `kelvins_to_celsius3()`, but that does not occur because `temp` is assigned `temperature - 273.15` in the function.
@@ -223,32 +241,6 @@ Since `temperature = 303.15` we get a value of 30.0 returned when using `kelvins
 Conclusion: Be careful!
 
 For those who are interested, more information about namespaces and variables scopes can be found on the [Real Python website](https://realpython.com/python-namespaces-scope/).
-
-
-### Functions within a function
-
-What about converting Kelvins to Fahrenheit?
-We could write out a new formula for it, but we don’t need to.
-Instead, we can do the conversion using the two functions we have already created and calling those from the function we are now creating. Let's create a new function `kelvins_to_fahr` that takes the temperature in Kelvins as the parameter value `temp_kelvins` and uses our `kelvins_to_celsius` and `celsius_to_fahr` functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.
-
-```python
-def kelvins_to_fahr(temp_kelvins):
-    temp_celsius = kelvins_to_celsius(temp_kelvins)
-    temp_fahr = celsius_to_fahr(temp_celsius)
-    return temp_fahr
-```
-
-### Using our combined functions
-
-Now let's use the function to calculate the temperature of absolute zero in degrees Fahrenheit. We can then print that value to the screen again.
-
-```python
-absolute_zero_fahr = kelvins_to_fahr(temp_kelvins=0)
-```
-
-```python
-print("Absolute zero in Fahrenheit is:", absolute_zero_fahr)
-```
 
 <!-- #region -->
 ## Documenting functions with docstrings

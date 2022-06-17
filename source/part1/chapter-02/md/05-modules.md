@@ -108,7 +108,7 @@ _**Figure 2.9**. Example plot using the Matplotlib module._
 
 You can read more about the `plot` plotting function in the [matplotlib pyplot documentation](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html) [^matplotdocs]. We will introduce matplotlib in detail in Chapter 3.
 
-
+<!-- #region -->
 ## Using module functions
 
 As we see above, the easiest way to use a module is to import it an then use its functions by typing `modulename.functionname()` and providing the necessary arguments. Yes, it is that simple.
@@ -116,8 +116,21 @@ As we see above, the easiest way to use a module is to import it an then use its
 However, there are times that you may not know the names of all of the functions in a given module, or which are part of a module. You can view the list of functions that are part of a module by using the `dir()` function.
 
 ```python
-print(dir(math))
+In [1]: dir(math)
 ```
+
+```
+['__doc__',
+ '__file__',
+ '__loader__',
+ '__name__',
+ '__package__',
+ '__spec__',
+ 'acos',
+ 'acosh',
+... (output truncated)
+```
+<!-- #endregion -->
 
 In Jupyter notebooks you can also browse the available modules by typing in `modulename.` and then pressing the tab key:
 
@@ -155,15 +168,28 @@ If you have installed Python on your own computer, we recommend using the [Conda
     
 It's also good to be aware of [pip, the package installer for python](https://pypi.org/project/pip/)  [^pip]. Pip and conda are often used for similar purposes, but the key difference is that pip is used for installing packages written in Python, while conda handles packages that might also contain code written in other languages. Generally, we encourage you to use conda when installing packages (and within conda, it is preferable to use the same channel for installations). However, sometimes you might need a package that is not available via conda, but can be installed with pip. You can read more about differences and similarities of conda an pip at <https://www.anaconda.com/understanding-conda-and-pip/>.
 
-
-In a Jupyter Notebook, you can type in `help("modules")` to see the complete list of installed packages in Python. However, the output is a bit clumsy and hard to read...
+<!-- #region -->
+In a Jupyter Notebook, you can type in `help("modules")` to see the complete list of installed packages in Python. However, the output is a bit clumsy and hard to read. Note that when running this command, you might first get several warnings related to deprecated packages, etc.
 
 ```python
-# List all available modules. Note: when running this command, you might first get several
-# warnings related to deprecated packages etc.
-# We have commented the command out here to limit output in the book text
-# help("modules")
+In [1]: help("modules")
 ```
+
+```
+Please wait a moment while I gather a list of all available modules...
+
+/Users/whipp/opt/miniconda3/envs/python-gis-book/lib/python3.9/site-packages/
+IPython/kernel/__init__.py:12: ShimWarning: The `IPython.kernel` package has been
+deprecated since IPython 4.0.You should import from ipykernel or jupyter_client
+instead.
+  warn("The `IPython.kernel` package has been deprecated since IPython 4.0."
+
+Cython              click_completion    linkify_it          scipy
+IPython             click_log           llvmlite            seaborn
+OpenSSL             click_plugins       locale              secrets
+... (output truncated)
+```
+<!-- #endregion -->
 
 ## Footnotes
 
