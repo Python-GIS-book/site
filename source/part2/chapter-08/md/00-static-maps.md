@@ -22,7 +22,7 @@ Let's refresh our memory about the basics of plotting maps by creating a static 
 
 As usual, we start by importing the useful modules and reading in the input files:
 
-```python
+```python jupyter={"outputs_hidden": false}
 import geopandas as gpd
 from pyproj import CRS
 import matplotlib.pyplot as plt
@@ -43,7 +43,7 @@ metro = gpd.read_file(metro_fp)
 
 Let's check the coordinate reference systems (crs) of the input files. 
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Check the crs of each layer
 print(roads.crs)
 print(metro.crs)
@@ -52,7 +52,7 @@ print(grid.crs)
 
 Roads and the metro are in an old Finnish crs (EPSG:2392), while the grid is in ETRS89 / TM35FIN (EPSG:3067):
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Check CRS names
 print("Roads crs:", CRS(roads.crs).name)
 print("Metro crs:", CRS(metro.crs).name)
@@ -61,7 +61,7 @@ print("Grid crs: ", CRS(grid.crs).name)
 
 Let's re-project geometries to ETRS89 / TM35FIN based on the grid crs:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Reproject geometries to ETRS89 / TM35FIN based on the grid crs:
 roads = roads.to_crs(crs=grid.crs)
 metro = metro.to_crs(crs=grid.crs)
@@ -69,7 +69,7 @@ metro = metro.to_crs(crs=grid.crs)
 
 Now the layers should be in the same crs
 
-```python
+```python jupyter={"outputs_hidden": false}
 roads.crs == metro.crs == grid.crs
 ```
 
@@ -99,7 +99,7 @@ Plotting options fo the lines:
  
 For better control of the figure and axes, use the plt.subplots function before plotting the layers. See more info in [matplotlib documentation](https://matplotlib.org/3.3.3/gallery/subplots_axes_and_figures/subplots_demo.html#a-figure-with-just-one-subplot).
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Create one subplot. Control figure size in here.
 fig, ax = plt.subplots(figsize=(12, 8))
 
@@ -134,7 +134,7 @@ plt.savefig(outfp, dpi=300)
 It is possible to enable legend for a geopandas plot by setting `legend=True` in the plotting parameters.
 If plotting the figure without a classification scheme you get a color bar as the legend item and it is easy to add a label for the legend using `legend_kwds`. You can read more about creating a legend via geopandas [in here](https://geopandas.org/mapping.html#creating-a-legend).
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Create one subplot. Control figure size in here.
 fig, ax = plt.subplots(figsize=(6, 4))
 
@@ -158,7 +158,7 @@ plt.tight_layout()
 
 If plotting a map using a classification scheme, we get a different kind of ledend that shows the class values. In this case, we can control the position and title of the legend using matplotlib tools. We first need to access the [Legend object](https://matplotlib.org/3.3.2/api/legend_api.html#matplotlib.legend.Legend) and then change it's properties.
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Create one subplot. Control figure size in here.
 fig, ax = plt.subplots(figsize=(10, 5))
 
@@ -190,13 +190,13 @@ It is often useful to add a basemap to your visualization that shows e.g. street
 In this tutorial, we will see how to add a basemap underneath our previous visualization. 
 Check the input crs:
 
-```python
+```python jupyter={"outputs_hidden": false}
 print(grid.crs)
 ```
 
 Reproject the layer to ESPG 3857 projection (Web Mercator):
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Reproject to EPSG 3857
 data = grid.to_crs(epsg=3857)
 print(data.crs)
@@ -204,13 +204,13 @@ print(data.crs)
 
 Now the crs is `epsg:3857`. Also the coordinate values in the `geometry` column have changed:
 
-```python
+```python jupyter={"outputs_hidden": false}
 data.head(2)
 ```
 
 Next, we can plot our data using geopandas and add a basemap for our plot by using a function called `add_basemap()` from contextily:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Control figure size in here
 fig, ax = plt.subplots(figsize=(12, 8))
 
@@ -235,19 +235,19 @@ There are also various other possible data sources and styles for background map
 
 Contextily's `tile_providers` contain a list of providers and styles that can be used to control the appearence of your background map:
 
-```python
+```python jupyter={"outputs_hidden": false}
 dir(ctx.providers)
 ```
 
 There are multiple style options for most of these providers, for example: 
 
-```python
+```python jupyter={"outputs_hidden": false}
 ctx.providers.OpenStreetMap.keys()
 ```
 
 It is possible to change the tile provider using the `source` -parameter in `add_basemap()` function. Let's see how we can change the bacground map as the basic OpenStreetMap background:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Control figure size in here
 fig, ax = plt.subplots(figsize=(12, 8))
 
@@ -268,7 +268,7 @@ ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik)
 
  Let's take a subset of our data to see a bit better the background map characteristics:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Control figure size in here
 fig, ax = plt.subplots(figsize=(12, 8))
 
@@ -295,7 +295,7 @@ As we can see now our map has much more details in it as the zoom level of the b
 - Let's reduce the level of detail from our map by passing `zoom=11`:
 
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Control figure size in here
 fig, ax = plt.subplots(figsize=(12, 8))
 
@@ -320,13 +320,13 @@ We can also use `ax.set_xlim()` and `ax.set_ylim()` -parameters to crop our map 
 
 Let's add details about the data source, plot the original data, and crop the map:
 
-```python
+```python jupyter={"outputs_hidden": false}
 credits = (
     "Travel time data by Tenkanen & Toivonen (2020), Map Data © OpenStreetMap contributors"
 )
 ```
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Control figure size in here
 fig, ax = plt.subplots(figsize=(12, 8))
 
@@ -375,7 +375,7 @@ Next, we will see how to use map tiles provided by CartoDB. To do that we need t
     
 - We will use this information to parse the parameters in a way that contextily wants them:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Control figure size in here
 fig, ax = plt.subplots(figsize=(12, 8))
 
