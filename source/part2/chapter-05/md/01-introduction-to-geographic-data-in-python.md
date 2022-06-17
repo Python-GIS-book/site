@@ -566,27 +566,6 @@ multi_poly
 
 We can see that the outputs are similar to the basic geometric objects that we created previously but now these objects contain multiple features of those points, lines or polygons.
 
-### Convex hull and envelope
-
-Convex hull refers to the smalles possible polygon that contains all objects in a collection. Alongside with the minimum bounding box, convex hull is a useful shape when aiming to describe the extent of your data.  
-
-Let's create a convex hull around our multi_point object:
-
-```python
-# Check input geometry
-multi_point
-```
-
-```python
-# Convex Hull (smallest polygon around the geometry collection)
-multi_point.convex_hull
-```
-
-```python
-# Envelope (smalles rectangular polygon around the geometry collection):
-multi_point.envelope
-```
-
 ### Other useful attributes 
 lenght of the geometry collection:
 
@@ -606,7 +585,7 @@ print("Area of our Western Hemisphere polygon:", multi_poly[0].area)
 From the above we can see that MultiPolygons have exactly the same attributes available as single geometric objects but now the information such as area calculates the area of **ALL** of the individual -objects combined. We can also access individual objects inside the geometry collections using indices.
 
 
-Finally, we can check if we have a "valid" MultiPolygon. MultiPolygon is thought as valid if the individual polygons does notintersect with each other. 
+Finally, we can check if we have a "valid" MultiPolygon. MultiPolygon is thought as valid if the individual polygons does not intersect with each other. 
 Here, because the polygons have a common 0-meridian, we should NOT have a valid polygon. We can check the validity of an object from the **is_valid** -attribute that tells if the polygons or lines intersect with each other. This can be really useful information when trying to find topological errors from your data:
 
 ```python
