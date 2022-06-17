@@ -22,13 +22,18 @@ As the geometries in GeoDataFrames are eventually Shapely objects, we can use al
 
 ```python
 import geopandas as gpd
+from pathlib import Path
 
-fp = r"C:\LocalData\vuokkhei\data\temp\TravelTimes_to_5975375_RailwayStation.shp"
-#fp = r"data/TravelTimes_to_5975375_RailwayStation.shp"
+input_folder = Path("../data/Helsinki")
+fp = input_folder / "TravelTimes_to_5975375_RailwayStation.shp"
 
 data = gpd.read_file(fp)
 
 data.geometry.head()
+```
+
+```python
+# Plot grid geometry
 ```
 
 <!-- #region tags=[] -->
@@ -40,6 +45,10 @@ Extracting the centroid of geometric features is useful in a multitude of use ca
 ```python
 # Polygon centroids
 data.centroid
+```
+
+```python
+# plot centroid geometries
 ```
 
 ## Unary union
@@ -54,36 +63,50 @@ data.unary_union
 Note that the previous operation is identical to calling `data['geometry'].unary_union`.
 
 
-## Convex hull, bounds and envelope
+## Data extent
 
-Sometimes it is enough to describe the approximate extent of the data using a bounding polygon. 
+Sometimes it is enough to describe the approximate extent of the data using a bounding polygon.
 
-A convex hull represents the smalles possible polygon that contains all points in an object. In order to create a covex hull for our set of grid squares, we need to first create an unary union that puts together all the polygons, and then create a convex hull for this geometry collection: 
+
+### Bounding box
+
+A minimum bounding rectangle, i.e. a bounding box or an envelope is the smallest rectangular polygon surrounding a geometric object. In a GeoDataFrame, the `envelope` attribute returns the bounding rectangle for each geometry:
 
 ```python
-data.unary_union.convex_hull
+data.envelope
 ```
 
-A minimum bounding rectangle, or an envelope is the smallest rectangular polygon that contains the object.
+In order to get the bounding rectangle for the whole layer, we can first create an union of all geometries, and then create the bounding rectangle for those:
 
 ```python
 data.unary_union.envelope
 ```
 
-Corner coordinates of a GeoDataFrame can be fetched direclt via the `total_bounds`attribute, while the `bounds` attribute returns the bounding coordinates of each feature:
+Corner coordinates of a GeoDataFrame can be directly fetched via the `total_bounds`attribute, while the `bounds` attribute returns the bounding coordinates of each feature:
 
 ```python
 data.total_bounds
 ```
 
 ```python
-data.bounds
+data.bounds.head()
+```
+
+### Convex hull
+
+A bit more detailed delineation of the data extent can be extracted using a convex hull which represents the smalles possible polygon that contains all points in an object. 
+
+In order to create a covex hull for all grid squares, in stead of individual grid squares, we need to first create an union of all polygons: 
+
+```python
+data.unary_union.convex_hull
 ```
 
 ## Buffer
 
 ```python
-# add simple buffer example e.g. using the matrix extent (the data were calculated using study area + buffer)
+# 5 km buffer for the travel time matrix extent
+data.unary_union.buffer(5000)
 ```
 
 <!-- #region -->
@@ -168,6 +191,16 @@ selection = gpd.GeoDataFrame([dissolved.loc[15]], crs=dissolved.crs)
 # Plot all the grid cells, and the grid cells that are 15 minutes a way from the Railway Station
 ax = dissolved.plot(facecolor="gray")
 selection.plot(ax=ax, facecolor="red")
+```
+
+```python
+
+```
+
+## Simplifying geometries
+
+```python
+data.unary_union.simplify(tolerance=500)
 ```
 
 ## Simplifying geometries
