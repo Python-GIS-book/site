@@ -13,5 +13,7 @@ Geographic data visualization
     :maxdepth: 1
     :caption: Sections:
 
-    nb/00-static-maps.ipynb
-    nb/01-interactive-maps.ipynb
+    nb/00-introduction-to-geographic-visualization.ipynb
+    nb/01-static-maps.ipynb
+    nb/02-interactive-maps.ipynb
+    nb/03-map-design-principles-and-colors.ipynb
