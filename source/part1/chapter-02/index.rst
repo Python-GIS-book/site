@@ -1,5 +1,5 @@
-Basic programming concepts
-==========================
+2: Basic programming concepts
+=============================
 
 Here we introduce the basics of programming in the Python language. You will learn to define and use variables and to use for-loops and conditional statements for repeating tasks and making choises. You will also learn to write your own functions.
 

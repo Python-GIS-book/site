@@ -1,5 +1,5 @@
-Using online geographic data sources
-======================================
+9: Using online geographic data sources
+=======================================
 
 
 This chapter introduces you how to retrieve spatial data automatically from various different sources:

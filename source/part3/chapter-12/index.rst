@@ -1,5 +1,5 @@
-Chapter 12: Terrain analysis
-============================
+12: Terrain analysis
+====================
 
 This chapter will teach you how to analyze and interpret topographic features based on raster data using Python. 
 

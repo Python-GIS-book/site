@@ -1,5 +1,5 @@
-Raster data processing
-======================
+7: Raster data processing
+=========================
 
 **This chapter is under construction.**
 

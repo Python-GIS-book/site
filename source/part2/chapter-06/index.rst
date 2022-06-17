@@ -1,5 +1,5 @@
-Vector data processing
-=======================
+6: Vector data processing
+=========================
 
 Here we introduce basics of vector data processing in Python. You will learn to work with geographic objects in python, read and write vector data, work with coordinate reference systems and do various spatial analysis tasks using geopandas and other open source Python libraries. 
 
