@@ -1,5 +1,5 @@
-Getting started with Python GIS
-===============================
+Getting started
+===============
 
 .. toctree::
     :maxdepth: 1
