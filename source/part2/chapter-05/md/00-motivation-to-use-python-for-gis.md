@@ -12,10 +12,12 @@ jupyter:
     name: python3
 ---
 
-# Motivation: Why to use Python for geographic data analysis?
+# Motivation
 
 Now that you are familiar with the basics of Python programming and data analysis using `pandas` library, it is time to apply those skills to geographic data analysis. In this part of the book, you will learn how to deal with spatial data and analyze it using Python and various libraries that have been developed for GIS-related tasks. 
 
+
+## Why to use Python for geographic data analysis?
 
 Python is extremely useful language to learn if you are interested in geographic data analysis (or GIS as it is often called). Many (if not most) of the various GIS softwares (such as ArcGIS, QGIS, PostGIS etc.) provide an interface to do analysis using Python scripting. In this book, we will focus on doing geoprocessing and geographic data analysis without any third party softwares, such as ESRI's ArcGIS. Why? There are several reasons for doing GIS using Python without any additional software:
 
