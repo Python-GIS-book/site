@@ -11,4 +11,5 @@ This tutorial focuses on spatial networks and learn how to construct a routable 
     nb/00-introduction-to-spatial-network-analysis.ipynb
     nb/01-network-analysis-in-python.ipynb
     nb/02-multimodal-spatial-accessibility-modelling.ipynb
+    nb/03-exercises.ipynb
 

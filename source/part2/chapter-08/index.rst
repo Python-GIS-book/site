@@ -17,3 +17,4 @@
     nb/01-static-maps.ipynb
     nb/02-interactive-maps.ipynb
     nb/03-map-design-principles-and-colors.ipynb
+    nb/04-exercises.ipynb

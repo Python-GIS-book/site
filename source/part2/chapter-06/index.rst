@@ -12,3 +12,4 @@ Here we introduce basics of vector data processing in Python. You will learn to 
     nb/02-coordinate-reference-system.ipynb
     nb/03-geometric-manipulation.ipynb
     nb/04-operations-between-multiple-datasets.ipynb
+    nb/05-exercises.ipynb

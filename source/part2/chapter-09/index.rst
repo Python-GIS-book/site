@@ -17,4 +17,5 @@ This chapter introduces you how to retrieve spatial data automatically from vari
     nb/01-retrieving-data-from-wfs.ipynb
     nb/02-retrieving-data-from-wcs.ipynb
     nb/03-read-data-from-spatial-databases.ipynb
+    nb/04-exercises.ipynb
 

@@ -9,4 +9,5 @@ This chapter will teach you how to analyze and interpret topographic features ba
 
     nb/00-introduction-to-terrain-analysis.ipynb
     nb/01-interpreting-topographic-features.ipynb
+    nb/02-exercises.ipynb
 
