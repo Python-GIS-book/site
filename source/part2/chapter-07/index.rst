@@ -1,5 +1,5 @@
-Raster data processing
-======================
+7: Raster data processing
+=========================
 
 **This chapter is under construction.**
 
@@ -25,3 +25,4 @@ Sub-sections:
     nb/raster-mosaic.ipynb
     nb/zonal-statistics.ipynb
     nb/read-cogs.ipynb
+    nb/exercises.ipynb

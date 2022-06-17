@@ -30,6 +30,7 @@ dependencies:
   - mplleaflet
   - openpyxl
   - osmnx
+  - owslib
   - pygeos
   - pykrige
   - pyrosm

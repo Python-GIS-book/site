@@ -1,5 +1,5 @@
-Geographic data visualization
-=============================
+8: Geographic data visualization
+================================
 
 **This chapter is under construction.**
 
@@ -17,3 +17,4 @@ Geographic data visualization
     nb/01-static-maps.ipynb
     nb/02-interactive-maps.ipynb
     nb/03-map-design-principles-and-colors.ipynb
+    nb/04-exercises.ipynb

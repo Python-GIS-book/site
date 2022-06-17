@@ -1,12 +1,13 @@
-Chapter 12: Movement analysis
-=============================
+12: Terrain analysis
+====================
 
-This section is under construction.
+This chapter will teach you how to analyze and interpret topographic features based on raster data using Python. 
 
-..
-    .. toctree::
-        :maxdepth: 1
-        :caption: Sections:
+.. toctree::
+    :maxdepth: 1
+    :caption: Sections:
 
-        a-taste-of-python.ipynb
+    nb/00-introduction-to-terrain-analysis.ipynb
+    nb/01-interpreting-topographic-features.ipynb
+    nb/02-exercises.ipynb
 

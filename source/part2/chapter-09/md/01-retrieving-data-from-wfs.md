@@ -12,15 +12,19 @@ jupyter:
     name: python3
 ---
 
-## Read Web Feature Service (WFS)
+# Retrieving data from Web Feature Service (WFS)
 
-This script was used to generate input data for this tutorial (FileGDB and tab were created separately). Source: Statistics finland WFS.
+Contents:
+- Introduce OGC WFS
+- Use OWSLib to get capabilities of WFS API
+- Retrieve data to geopandas
 
 ```python
 import geopandas as gpd
 import requests
 import geojson
 from pyproj import CRS
+from owslib.wfs import WebFeatureService
 
 # Specify the url for the backend.
 # Here we are using data from Statistics Finland: https://www.stat.fi/org/avoindata/paikkatietoaineistot_en.html. (CC BY 4.0)
@@ -58,26 +62,8 @@ data.crs
 
 ```python
 # filename
-layer_name = "finland_municipalities"
+layer_name = "finland_municipalities.gpkg"
 
-# enable writing kml
-gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
-
-# drivers and extensions for different file formats
-drivers = {
-    "ESRI Shapefile": "shp",
-    "GeoJSON": "gjson",
-    "KML": "kml",
-    "GPKG": "gpkg",
-}
-
-# Write layer to different file formats
-for driver, extension in drivers.items():
-
-    # Create file path and file name
-    file_name = "data/{0}.{1}".format(layer_name, extension)
-
-    # Write data using correct dricer
-    data.to_file(file_name, driver=driver)
-    print("Created file", file_name)
+# Write data to disk
+#data.to_file(file_name, driver="GPKG")
 ```
