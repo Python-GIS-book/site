@@ -491,7 +491,7 @@ In this tutorial, we will:
 - First, we need to read our Travel Time data from Helsinki:
 <!-- #endregion -->
 
-```python
+```python jupyter={"outputs_hidden": false}
 import geopandas as gpd
 
 
@@ -509,7 +509,7 @@ As we can see, there are plenty of different variables (see [from here the descr
 - Thus we need to remove the No Data values first.
 
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Include only data that is above or equal to 0
 acc = acc.loc[acc["pt_r_tt"] >= 0]
 ```
@@ -518,7 +518,7 @@ acc = acc.loc[acc["pt_r_tt"] >= 0]
 - `cmap` parameter defines the color map. Read more about [choosing colormaps in matplotlib](https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html)
 - `scheme` option scales the colors according to a classification scheme (requires `mapclassify` module to be installed):
 
-```python
+```python jupyter={"outputs_hidden": false}
 import matplotlib.pyplot as plt
 
 # Plot using 9 classes and classify the values using "Natural Breaks" classification
@@ -539,7 +539,7 @@ As we can see from this map, the travel times are lower in the south where the c
 
 - Let's also make a plot about walking distances:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Plot walking distance
 acc.plot(
     column="walk_d",
@@ -560,25 +560,25 @@ Okay, from here we can see that the walking distances (along road network) remin
 
 As mentioned, the `scheme` option defines the classification scheme using `pysal/mapclassify`. Let's have a closer look at how these classifiers work.
 
-```python
+```python jupyter={"outputs_hidden": false}
 import mapclassify
 ```
 
 - Natural Breaks
 
-```python
+```python jupyter={"outputs_hidden": false}
 mapclassify.NaturalBreaks(y=acc["pt_r_tt"], k=9)
 ```
 
 - Quantiles (default is 5 classes):
 
-```python
+```python jupyter={"outputs_hidden": false}
 mapclassify.Quantiles(y=acc["pt_r_tt"])
 ```
 
 - It's possible to extract the threshold values into an array:
 
-```python
+```python jupyter={"outputs_hidden": false}
 classifier = mapclassify.NaturalBreaks(y=acc["pt_r_tt"], k=9)
 classifier.bins
 ```
@@ -586,14 +586,14 @@ classifier.bins
 - Let's apply one of the `Pysal` classifiers into our data and classify the travel times by public transport into 9 classes
 - The classifier needs to be initialized first with `make()` function that takes the number of desired classes as input parameter
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Create a Natural Breaks classifier
 classifier = mapclassify.NaturalBreaks.make(k=9)
 ```
 
 - Now we can apply that classifier into our data by using `apply` -function
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Classify the data
 classifications = acc[["pt_r_tt"]].apply(classifier)
 
@@ -601,7 +601,7 @@ classifications = acc[["pt_r_tt"]].apply(classifier)
 classifications.head()
 ```
 
-```python
+```python jupyter={"outputs_hidden": false}
 type(classifications)
 ```
 
@@ -609,7 +609,7 @@ Okay, so now we have a DataFrame where our input column was classified into 9 di
 
 - We can also add the classification values directly into a new column in our dataframe:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Rename the column so that we know that it was classified with natural breaks
 acc["nb_pt_r_tt"] = acc[["pt_r_tt"]].apply(classifier)
 
@@ -619,7 +619,7 @@ acc[["pt_r_tt", "nb_pt_r_tt"]].head()
 
 Great, now we have those values in our accessibility GeoDataFrame. Let's visualize the results and see how they look.
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Plot
 acc.plot(column="nb_pt_r_tt", linewidth=0, legend=True)
 
@@ -637,7 +637,7 @@ A histogram is a graphic representation of the distribution of the data. When cl
 - plot the histogram using [pandas.DataFrame.plot.hist](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.hist.html)
 - Number of histogram bins (groups of data) can be controlled using the parameter `bins`:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Histogram for public transport rush hour travel time
 acc["pt_r_tt"].plot.hist(bins=50)
 ```
@@ -646,7 +646,7 @@ Let's also add threshold values on thop of the histogram as vertical lines.
 
 - Natural Breaks:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Define classifier
 classifier = mapclassify.NaturalBreaks(y=acc["pt_r_tt"], k=9)
 
@@ -660,7 +660,7 @@ for value in classifier.bins:
 
 - Quantiles:
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Define classifier
 classifier = mapclassify.Quantiles(y=acc["pt_r_tt"])
 
@@ -699,7 +699,7 @@ It also possible to do classifiers with multiple criteria easily in Pandas/Geopa
 - Let's call it `custom_classifier` that does the binary classification based on two treshold values:
 
 
-```python
+```python jupyter={"outputs_hidden": false}
 def custom_classifier(row, src_col1, src_col2, threshold1, threshold2, output_col):
     """Custom classirifer that can be applied on each row of a pandas dataframe (axis=1).
 
@@ -738,7 +738,7 @@ Now we have defined the function, and we can start using it.
 - Let's create an empty column for our classification results called `"suitable_area"`.
 
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Create column for the classification results
 acc["suitable_area"] = None
 
@@ -762,7 +762,7 @@ Okey we have new values in `suitable_area` -column.
 - How many Polygons are suitable for us? Let's find out by using a Pandas function called `value_counts()` that return the count of different values in our column.
 
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Get value counts
 acc["suitable_area"].value_counts()
 ```
@@ -772,7 +772,7 @@ Okay, so there seems to be nine suitable locations for us where we can try to fi
 - Let's see where they are located:
 
 
-```python
+```python jupyter={"outputs_hidden": false}
 # Plot
 acc.plot(column="suitable_area", linewidth=0)
 
