@@ -6,9 +6,9 @@ This part of the book will introduce several real-world examples of how to apply
 Tentative chapter titles
 ------------------------
 
-- Chapter 10: Geospatial interpolation
+- Chapter 10: Spatial interpolation
 - Chapter 11: Spatial Network analysis
-- Chapter 12: Change analysis
+- Chapter 12: Terrain analysis
 - Chapter 13: Conclusions
 
 ..
@@ -16,7 +16,6 @@ Tentative chapter titles
         :maxdepth: 1
         :caption: Chapters in this part:
 
-        chapter-09/index
         chapter-10/index
         chapter-11/index
         chapter-12/index
