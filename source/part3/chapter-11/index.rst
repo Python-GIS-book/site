@@ -8,7 +8,7 @@ This tutorial focuses on spatial networks and learn how to construct a routable 
     :maxdepth: 1
     :caption: Sections:
 
-    00-introduction-to-spatial-network-analysis.ipynb
-    01-network-analysis-in-python.ipynb
-    02-multimodal-spatial-accessibility-modelling.ipynb
+    nb/00-introduction-to-spatial-network-analysis.ipynb
+    nb/01-network-analysis-in-python.ipynb
+    nb/02-multimodal-spatial-accessibility-modelling.ipynb
 
