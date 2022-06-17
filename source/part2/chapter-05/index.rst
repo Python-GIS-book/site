@@ -1,5 +1,5 @@
-Essentials of spatial data
-==========================
+Getting started with Python GIS
+===============================
 
 .. toctree::
     :maxdepth: 1
