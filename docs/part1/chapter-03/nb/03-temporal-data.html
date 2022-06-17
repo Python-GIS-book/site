@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Working with temporal data</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,26 +20,26 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Show the solution';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -51,7 +53,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -60,9 +76,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -110,23 +127,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/03-jupyter.html">
-     Jupyter Notebooks
+    <a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">
+     Writing and running Python code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/04-coding-with-an-ide.html">
-     Other coding environments
+    <a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">
+     Using JupyterLab for writing code
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
-     Installation and setup
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/06-references.html">
-     References
+     Installing Python and adding libraries
     </a>
    </li>
   </ul>
@@ -176,11 +188,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-02/nb/07-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 current active has-children">
@@ -218,11 +225,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="05-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -236,32 +238,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/00-introduction.html">
-     Python plotting libraries
+    <a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">
+     Plotting in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/01-plot-anatomy.html">
-     Anatomy of a plot
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/02-basic-plotting.html">
+    <a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">
      Plotting with pandas and matplotlib
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/03-subplots.html">
+    <a class="reference internal" href="../../chapter-04/nb/02-subplots.html">
      Creating subplots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/04-plot-formatting.html">
+    <a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">
      Effective plot design: line plots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/05-exercises.html">
+    <a class="reference internal" href="../../chapter-04/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -274,14 +271,9 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../part2/chapter-05/index.html">
-   Essentials: What is special about geographic data?
-  </a>
- </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part2/chapter-06/index.html">
-   Vector data processing
+  <a class="reference internal" href="../../../part2/chapter-05/index.html">
+   Getting started
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -290,58 +282,50 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-geometric-objects.html">
-     Geographic objects in Python/Shapely
+    <a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">
+     Motivation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
+     Introduction to geographic data in Python
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../part2/chapter-06/index.html">
+   Vector data processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
-     Vector Data I/O in Python
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
+     Data in/out: Preparing GeoDataFrames from spatial data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/03-projections.html">
-     Map projections
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
+     Coordinate Reference Systems
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-from-text-to-map.html">
-     From text to map
+    <a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">
+     Geometric data manipulations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">
-     Spatial queries and selections
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">
-     Spatial join
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">
-     Nearest Neighbour Analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/08-spatial_index.html">
-     Spatial index - How to boost spatial queries?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/09-nearest-neighbor-faster.html">
-     Nearest neighbor analysis with large datasets
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/10-geometric-operations.html">
-     Geometric operations
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+     Operations between multiple datasets
     </a>
    </li>
   </ul>
@@ -350,8 +334,8 @@
   <a class="reference internal" href="../../../part2/chapter-07/index.html">
    Raster data processing
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -397,8 +381,8 @@
   <a class="reference internal" href="../../../part2/chapter-08/index.html">
    Geographic data visualization
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -419,8 +403,8 @@
   <a class="reference internal" href="../../../part2/chapter-09/index.html">
    Using online geographic data sources
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -451,12 +435,17 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../back-matter/appendices.html">
    Appendices
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -494,13 +483,13 @@
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
-   Acknowledgements
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
-   Glossary
+  <a class="reference internal" href="../../../back-matter/nb/references.html">
+   References
   </a>
  </li>
  <li class="toctree-l1">
@@ -520,106 +509,185 @@
    Overview
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/noaa-data.html">
+   NOAA Weather data
+  </a>
+ </li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-03/nb/03-temporal-data.ipynb.txt"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        
-        
-        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-03/nb/03-temporal-data.ipynb"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Python-GIS-book/site/master/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-03/nb/03-temporal-data.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-03/nb/03-temporal-data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-03/nb/03-temporal-data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/part1/chapter-03/nb/03-temporal-data.ipynb.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#date-and-time-basics">
    Date and time basics
@@ -674,12 +742,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Working with temporal data</h1>
@@ -750,28 +817,29 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="working-with-temporal-data">
-<h1>Working with temporal data<a class="headerlink" href="#working-with-temporal-data" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="working-with-temporal-data">
+<h1>Working with temporal data<a class="headerlink" href="#working-with-temporal-data" title="Permalink to this headline">#</a></h1>
 <blockquote>
 <div><p>“Ever since the dawn of civilization, people have not been content to see events as unconnected and inexplicable. They have craved an understanding of the underlying order in the world.” - Stephen Hawking (1988)</p>
 </div></blockquote>
-<p>Time is one of the most fundamental ways how we humans organize things in life and what we use to find understanding of the underlying world, as Stephen <span id="id1"></span> famously put it in his book “A brief history of time”. Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and pandas.</p>
-<div class="section" id="date-and-time-basics">
-<h2>Date and time basics<a class="headerlink" href="#date-and-time-basics" title="Permalink to this headline">¶</a></h2>
+<p>Time is one of the most fundamental ways how we humans organize things in life and what we use to find understanding of the underlying world, as Stephen <span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id3" title="Stephen Hawking. A Brief History of Time: From the Big Bang to Black Holes. Bantam, London, 1988.">Hawking, 1988</a></span> famously put it in his book “A brief history of time”. Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and pandas.</p>
+<section id="date-and-time-basics">
+<h2>Date and time basics<a class="headerlink" href="#date-and-time-basics" title="Permalink to this headline">#</a></h2>
 <p>Before doing any progamming, we need to understand a few details about time conventions themselves. There are a couple of ways how the time information (commonly referred as <code class="docutils literal notranslate"><span class="pre">timestamp</span></code>) is typically represented. The first one is to represent the temporal information as text with specific format such as <code class="docutils literal notranslate"><span class="pre">&quot;2020-12-24T09:12:45Z&quot;</span></code> which follows an international ISO 8601 standard <a class="footnote-reference brackets" href="#isostandard" id="id2">1</a>. In this format, the date components (year, month, day) are separated with dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) and the time components (hour, minute, second) are separated with colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>). Typically there is a letter <code class="docutils literal notranslate"><span class="pre">T</span></code> separating the date and time components from each other (in some other formats, there could just be a space between them).</p>
 <p>The letter <code class="docutils literal notranslate"><span class="pre">Z</span></code> at the end of the string relates to time zones and means that the time here is represented as Coordinated Universal Time (UTC). Time zone information around the world are expressed using negative or positive offsets from the UTC time standard. <code class="docutils literal notranslate"><span class="pre">UTC±00:00</span></code> is the same as Greenwhich Mean Time (GMT) used e.g. in UK (during winter months), and it was chosen after a series of conferences between 1881-1884 (Ogle, 2015) as the worldwide standard for representing the zone 0 to which all other time zones in the world are relative to. For instance, the local time in Finland is two hours ahead of UTC, meaning that the time zone information is expressed as <code class="docutils literal notranslate"><span class="pre">UTC+2</span></code> or <code class="docutils literal notranslate"><span class="pre">UTC+02:00</span></code>, whereas the local time in New York is four hours behind UTC respectively (i.e. <code class="docutils literal notranslate"><span class="pre">UTC-4</span></code>).</p>
 <p>Another commonly used way to represent time in addition to ISO standardized timestamp is to use a so called <em>Unix time</em> (also known as <em>Epoch time</em> or <em>POSIX time</em>). Unix time is expressed as number of seconds since <em>Unix Epoch</em> that was on the first of January 1970 at midnight in UTC (i.e. <code class="docutils literal notranslate"><span class="pre">1970-01-01T00:00:00Z</span></code>). This system was developed to describe a point in time in numerical format, and it is widely used in computers by different operating systems. Unix time increments every second and e.g. the Unix time of December 22nd 2020 at 15:00:00 (UTC) is represented as a single number <code class="docutils literal notranslate"><span class="pre">1608649200</span></code>. Using this kind of numerical representation of time makes it much easier for computers to store and manipulate the time information compared to having the information in textual format (<code class="docutils literal notranslate"><span class="pre">2020-12-22T15:00:00Z</span></code>).</p>
 <p>Lastly, an important convention that relates to time and time zones is a concept called Daylight Saving Time (DST), also known as summer time. DST is a commonly used practice for advancing clocks typically by an hour during warmer months so that darkness falls at a later clock time. This is also the reason why e.g. the time zone information in Finland has an offset of +03:00 (summer time) instead of +02:00 which follows the official time zone specification for Finland. DST became a common practice after the global energy crisis in the 1970s and it was introduced in many countries during the following decade. However, some countries have never followed this convention, and there is an ongoing discussion to abandon the convention e.g. in EU.</p>
-</div>
-<div class="section" id="working-with-temporal-data-in-python">
-<h2>Working with temporal data in Python<a class="headerlink" href="#working-with-temporal-data-in-python" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="working-with-temporal-data-in-python">
+<h2>Working with temporal data in Python<a class="headerlink" href="#working-with-temporal-data-in-python" title="Permalink to this headline">#</a></h2>
 <p>Next we will learn how temporal data can be handled in Python in general. The most fundamental Python library for dealing with temporal data is called <code class="docutils literal notranslate"><span class="pre">datetime</span></code> that supplies functionalities to construct and manipulate dates and times. The module is one of the Python’s standard libraries, hence you do not need to install it separately. Other useful libraries for dealing with time and dates are <code class="docutils literal notranslate"><span class="pre">time</span></code> and <code class="docutils literal notranslate"><span class="pre">calendar</span></code> which provide some additional functionalities in addition to the functionalities provided by <code class="docutils literal notranslate"><span class="pre">datetime</span></code>. In addition, <code class="docutils literal notranslate"><span class="pre">pytz</span></code> library provides many useful functionalities to deal with time zone information and <code class="docutils literal notranslate"><span class="pre">dateutil</span></code> provides some handy functionalities to automate date parsing. Most often the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> module and <code class="docutils literal notranslate"><span class="pre">pytz</span></code> (in addition to pandas) provide everything you need when doing analysis with temporal data.</p>
-</div>
-<div class="section" id="constructing-datetime-objects">
-<h2>Constructing datetime objects<a class="headerlink" href="#constructing-datetime-objects" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="constructing-datetime-objects">
+<h2>Constructing datetime objects<a class="headerlink" href="#constructing-datetime-objects" title="Permalink to this headline">#</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object is a representation of time in a way that Python can understand and operate with it. With the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library it is possible to construct a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object for example by <code class="docutils literal notranslate"><span class="pre">parsing</span></code> it from text following the ISO 8601 format or from the Unix timestamp (notice that the name of the library and the object are the same). Let’s see how we can construct a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object from text using a function <code class="docutils literal notranslate"><span class="pre">strptime()</span></code>. The <code class="docutils literal notranslate"><span class="pre">strptime()</span></code> function takes the variable <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> as the first argument representing the time in textual format and a second argument (“%Y-%m-%dT%H:%M:%S”) which looks quite complicated, but it is the <code class="docutils literal notranslate"><span class="pre">format</span> <span class="pre">code</span></code> that instructs the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> how the textual representation of the time should be interpreted:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -965,9 +1033,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="parsing-temporal-components-from-datetime-object">
-<h2>Parsing temporal components from datetime object<a class="headerlink" href="#parsing-temporal-components-from-datetime-object" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="parsing-temporal-components-from-datetime-object">
+<h2>Parsing temporal components from datetime object<a class="headerlink" href="#parsing-temporal-components-from-datetime-object" title="Permalink to this headline">#</a></h2>
 <p>There are few useful tricks that you can do with the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects. It is for example possible to parse specific temporal components directly from the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object. You can for example access the <code class="docutils literal notranslate"><span class="pre">.year</span></code>, <code class="docutils literal notranslate"><span class="pre">.month</span></code>, <code class="docutils literal notranslate"><span class="pre">.day</span></code>, <code class="docutils literal notranslate"><span class="pre">.hour</span></code>, <code class="docutils literal notranslate"><span class="pre">.minute</span></code> and <code class="docutils literal notranslate"><span class="pre">.second</span></code> attributes very easily that will return the value of the temporal element as an integer number:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1017,9 +1085,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="working-with-temporal-data-in-pandas">
-<h2>Working with temporal data in pandas<a class="headerlink" href="#working-with-temporal-data-in-pandas" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="working-with-temporal-data-in-pandas">
+<h2>Working with temporal data in pandas<a class="headerlink" href="#working-with-temporal-data-in-pandas" title="Permalink to this headline">#</a></h2>
 <p>After learning the basics of how the temporal data can be represented as <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects, we can continue and see how temporal data can be manipulated in pandas. Pandas is extremely powerful and flexible what comes to working with temporal data. For instance, all the simple tricks that we saw earlier with <code class="docutils literal notranslate"><span class="pre">datetime</span></code> can be done also with pandas. When doing data analysis with pandas, it is typical that instead of dealing with single time observations, you actually work with time series data, such as the hourly temperature values that we analyzed in the previous section. Pandas supports many useful functionalities related to parsing, manipulating and aggregating time series data. Let’s start exploring the temporal capabilities of pandas by reading the hourly temperature observations from the same CSV file in a similar manner as we did previously. As a reminder, this is how the data look like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">USAF</span>  <span class="n">WBAN</span> <span class="n">YR</span><span class="o">--</span><span class="n">MODAHRMN</span> <span class="n">DIR</span> <span class="n">SPD</span> <span class="n">GUS</span> <span class="n">CLG</span> <span class="n">SKC</span> <span class="n">L</span> <span class="n">M</span> <span class="n">H</span>  <span class="n">VSB</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">AW</span>  <span class="o">...</span>
 <span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601010600</span> <span class="mi">090</span>   <span class="mi">7</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
@@ -1246,8 +1314,8 @@ Name: TIME, dtype: datetime64[ns]
 </div>
 </div>
 </div>
-<div class="section" id="handling-time-zones-in-pandas">
-<h3>Handling time zones in pandas<a class="headerlink" href="#handling-time-zones-in-pandas" title="Permalink to this headline">¶</a></h3>
+<section id="handling-time-zones-in-pandas">
+<h3>Handling time zones in pandas<a class="headerlink" href="#handling-time-zones-in-pandas" title="Permalink to this headline">#</a></h3>
 <p>When reading time series data to pandas as we did previously, the timestamp objects are represented without time zone information. However, it is straighforward to attach time zone information to a Series with Timestamp objects by using a method called <code class="docutils literal notranslate"><span class="pre">tz_localize()</span></code>. When manipulating the data based on time information in pandas, the first step that you typically do, is to set a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-DatetimeIndex"><span class="xref std std-term">DatetimeIndex</span></a></em> for you DataFrame (here based on column ‘TIME’) with <code class="docutils literal notranslate"><span class="pre">set_index()</span></code> method. Next, we will set the index and specify appropriate time zone for our data (<em>Europe/Helsinki</em>). We will also specify the <code class="docutils literal notranslate"><span class="pre">nonexistent</span></code> parameter as “shift_forward”, due to the fact that when the clocks are adjusted when changing from winter time to summer time, there is literally one non-existing hour during the night. With this parameter we tell pandas that this is okay, and we just want to shift the time forward (by an hour in most cases) in case there are such “non-existing” time observations. With <code class="docutils literal notranslate"><span class="pre">ambiguous</span></code> parameter, we tell pandas that when adjusting the clocks backwards (moving from summer time to winter time), the observations having ambigous times (e.g. duplicate timestamps due to Daylight Saving Time) are set as <code class="docutils literal notranslate"><span class="pre">NaT</span></code> (Not-a-Time). Notice that it is up to you to decide what is appropriate way of handling such cases (there are also other options for this parameter, such as “infer”):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1619,10 +1687,10 @@ Name: TEMP_F, dtype: float64
 </div>
 </div>
 <p>As you can see, pandas automatically converted the temporal information to UTC timezone, and the temperature values were summed up correctly.</p>
-</div>
-</div>
-<div class="section" id="selecting-data-based-on-datetimeindex">
-<h2>Selecting data based on DatetimeIndex<a class="headerlink" href="#selecting-data-based-on-datetimeindex" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="selecting-data-based-on-datetimeindex">
+<h2>Selecting data based on DatetimeIndex<a class="headerlink" href="#selecting-data-based-on-datetimeindex" title="Permalink to this headline">#</a></h2>
 <p>In chapter 3.3, we saw how to select observations using simple string manipulation operations applied to the timestamp. Although this worked quite well for our specific case, it is a rather glumpsy and inflexible approach to work with temporal information. A much better approach, is to take advantage of the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects stored in the time series. Let’s again first set the <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column as index for our DataFrame by using the method <code class="docutils literal notranslate"><span class="pre">set_index()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1960,9 +2028,9 @@ Last obs: 2016-02-29 23:00:00
 </div></div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">6H</span></code> stands for a duration of six hours (number of hours plus letter <code class="docutils literal notranslate"><span class="pre">H</span></code>) and the <code class="docutils literal notranslate"><span class="pre">10T</span></code> is a duration of ten minutes (number of minutes plus <code class="docutils literal notranslate"><span class="pre">T</span></code>), and you can combine those into a single duration as shown above. In a similar manner, you can specify many other <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-DateOffsets"><span class="xref std std-term">DateOffsets</span></a></em>, such as day (<code class="docutils literal notranslate"><span class="pre">D</span></code>) or second (<code class="docutils literal notranslate"><span class="pre">S</span></code>). The full list of all possible keywords (aliases) can be found from pandas documentation <a class="footnote-reference brackets" href="#dateoffsets" id="id3">2</a>.</p>
-</div>
-<div class="section" id="shifting-or-leading-and-lagging-data">
-<h2>Shifting - or leading and lagging data<a class="headerlink" href="#shifting-or-leading-and-lagging-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="shifting-or-leading-and-lagging-data">
+<h2>Shifting - or leading and lagging data<a class="headerlink" href="#shifting-or-leading-and-lagging-data" title="Permalink to this headline">#</a></h2>
 <p>One typical task when working with time series data, is to compare two consecutive values to each other. For instance, you might be interested in understanding how much warmer or colder the temperature was between different hours, or compute the percentual difference of how the value of a given stock has changed (to give a couple of examples). For these kind of operations, pandas provides a functionality called “shifting” which can be used to move (shift) data backward and forward. Next, we will see this method in action, by calculating the difference between consecutive temperature values. Let’s start by taking a small sample covering the data for 2019:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2396,9 +2464,9 @@ Name: TEMP_F, Length: 6455, dtype: float64
 </div></div></div>
 </div>
 <p>Here, we specified -7 as the first argument and passed a letter “D” for the <code class="docutils literal notranslate"><span class="pre">freq</span></code> parameter, meaning that we want shift the observations by 7 days. Then, we calculated the difference between the temperature on the following week and stored the result in a separate column <code class="docutils literal notranslate"><span class="pre">&quot;weekly_diff&quot;</span></code>. In a similar manner, you can easily calculate differences between observations taken at different times, which can be very efficient and useful to understand changes in time series.</p>
-</div>
-<div class="section" id="resampling-and-calculating-rolling-statistics">
-<h2>Resampling and calculating rolling statistics<a class="headerlink" href="#resampling-and-calculating-rolling-statistics" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="resampling-and-calculating-rolling-statistics">
+<h2>Resampling and calculating rolling statistics<a class="headerlink" href="#resampling-and-calculating-rolling-statistics" title="Permalink to this headline">#</a></h2>
 <p>Now as we know how to take advantage of the DatetimeIndex to make selections and time zone conversions as well as manipulate data by shifting observations, we are ready to explore further the functionalities of pandas for working with temporal data. One typical task when doing analysis with time series data is to <em><span class="xref std std-term">resample</span></em> the time series from one frequency to another, such as aggregating the hourly temperature observations to daily averages. This might sound familiar, as we did this process previously (in 3.3) by using specific string manipulation tricks, and then grouping and aggregating the values. Now we will learn how to use pandas resampling functionalities that allows to conduct both downsampling (i.e. aggregating values) and upsampling based on specific interpolation methods. When doing interpolation, you fill missing values between observations based on specific criteria, such as taking the average between two consecutive observations. For instance, you could interpolate hourly temperature observations into 30 minute frequencies by assuming that the temperature in the middle of two time steps, such as 14:00 and 15:00, is the average of both giving you an estimate what the temperature might be at 14:30. Notice that whenever interpolating/upsampling data, you are basically making “sophisticated guesses” and there is always uncertainty involved with your estimates.</p>
 <p>Let’s start by downsampling our observations into daily averages. To do this, we can use a <code class="docutils literal notranslate"><span class="pre">resample()</span></code> method that works in a bit similar manner as <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> but it works with <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> allowing you to easily control how the values should be grouped. Notice, that this only works with time series data, i.e. you need to make sure that you have set <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> for your DataFrame. Whenever resampling data, you typically want to combine it with a specific aggregation method, such as <code class="docutils literal notranslate"><span class="pre">mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">max()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, which will then specify how you want to aggregate the data, such as calculating the daily averages:</p>
 <div class="cell docutils container">
@@ -2844,9 +2912,9 @@ Name: TEMP_F, Length: 119407, dtype: float64
 </div>
 <p><em><strong>Figure 3.7</strong>. Exponentially weighted temperature values for 1990-2020.</em></p>
 <p>In addition to these moving window functions, pandas provides a method <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code> which increases the size of the window on each observation until it encompasses the whole series. This method basically cumulates the information on each observation and can be useful e.g. in some predictive applications where cumulative information about the given phenomena can provide more accurate results after more observations have been observed. It is also possible to apply and chain your own functions together with <code class="docutils literal notranslate"><span class="pre">.rolling()</span></code> and <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code>, such as <code class="docutils literal notranslate"><span class="pre">.rolling(20).apply(myOwnFunction)</span></code>.</p>
-</div>
-<div class="section" id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="isostandard"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
@@ -2859,15 +2927,17 @@ Name: TEMP_F, Length: 119407, dtype: float64
 <dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html</a></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="02-data-analysis.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2883,24 +2953,28 @@ Name: TEMP_F, Length: 119407, dtype: float64
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+  
+      &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
-    
-        &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

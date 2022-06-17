@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Static maps</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,26 +20,26 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Show the solution';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Interactive maps" href="01-interactive-maps.html" />
@@ -49,7 +51,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -58,9 +74,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -108,23 +125,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/03-jupyter.html">
-     Jupyter Notebooks
+    <a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">
+     Writing and running Python code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/04-coding-with-an-ide.html">
-     Other coding environments
+    <a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">
+     Using JupyterLab for writing code
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part1/chapter-01/nb/05-installation.html">
-     Installation and setup
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/06-references.html">
-     References
+     Installing Python and adding libraries
     </a>
    </li>
   </ul>
@@ -174,11 +186,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/07-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -216,11 +223,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/05-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -234,32 +236,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/00-introduction.html">
-     Python plotting libraries
+    <a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">
+     Plotting in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/01-plot-anatomy.html">
-     Anatomy of a plot
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/02-basic-plotting.html">
+    <a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">
      Plotting with pandas and matplotlib
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/03-subplots.html">
+    <a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">
      Creating subplots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/04-plot-formatting.html">
+    <a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">
      Effective plot design: line plots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -272,14 +269,9 @@
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapter-05/index.html">
-   Essentials: What is special about geographic data?
-  </a>
- </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-06/index.html">
-   Vector data processing
+  <a class="reference internal" href="../../chapter-05/index.html">
+   Getting started
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -288,58 +280,50 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/00-geometric-objects.html">
-     Geographic objects in Python/Shapely
+    <a class="reference internal" href="../../chapter-05/nb/00-motivation-to-use-python-for-gis.html">
+     Motivation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/01-geopandas-basics.html">
+    <a class="reference internal" href="../../chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
+     Introduction to geographic data in Python
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapter-06/index.html">
+   Vector data processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-06/nb/00-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/02-data-io.html">
-     Vector Data I/O in Python
+    <a class="reference internal" href="../../chapter-06/nb/01-data-io.html">
+     Data in/out: Preparing GeoDataFrames from spatial data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/03-projections.html">
-     Map projections
+    <a class="reference internal" href="../../chapter-06/nb/02-coordinate-reference-system.html">
+     Coordinate Reference Systems
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/04-from-text-to-map.html">
-     From text to map
+    <a class="reference internal" href="../../chapter-06/nb/03-geometric-manipulation.html">
+     Geometric data manipulations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/05-spatial-queries.html">
-     Spatial queries and selections
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/06-spatial-join.html">
-     Spatial join
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/07-nearest-neighbour.html">
-     Nearest Neighbour Analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/08-spatial_index.html">
-     Spatial index - How to boost spatial queries?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/09-nearest-neighbor-faster.html">
-     Nearest neighbor analysis with large datasets
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/10-geometric-operations.html">
-     Geometric operations
+    <a class="reference internal" href="../../chapter-06/nb/04-operations-between-multiple-datasets.html">
+     Operations between multiple datasets
     </a>
    </li>
   </ul>
@@ -348,8 +332,8 @@
   <a class="reference internal" href="../../chapter-07/index.html">
    Raster data processing
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -395,8 +379,8 @@
   <a class="reference internal" href="../index.html">
    Geographic data visualization
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -417,8 +401,8 @@
   <a class="reference internal" href="../../chapter-09/index.html">
    Using online geographic data sources
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -449,12 +433,17 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../back-matter/appendices.html">
    Appendices
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -492,13 +481,13 @@
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
-   Acknowledgements
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
-   Glossary
+  <a class="reference internal" href="../../../back-matter/nb/references.html">
+   References
   </a>
  </li>
  <li class="toctree-l1">
@@ -518,111 +507,185 @@
    Overview
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/noaa-data.html">
+   NOAA Weather data
+  </a>
+ </li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/part2/chapter-08/nb/00-static-maps.ipynb.txt"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        
-        
-        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part2/chapter-08/nb/00-static-maps.ipynb"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Python-GIS-book/site/master/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part2/chapter-08/nb/00-static-maps.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data">
-   Data
-  </a>
- </li>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part2/chapter-08/nb/00-static-maps.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/Python-GIS-book/site/edit/master/part2/chapter-08/nb/00-static-maps.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/part2/chapter-08/nb/00-static-maps.ipynb.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#static-maps-in-geopandas">
    Static maps in geopandas
@@ -638,14 +701,45 @@
    Adding basemap from external source
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-reclassification">
+   Data reclassification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#common-classifiers">
+   Common classifiers
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-schemes-for-thematic-maps">
+     Classification schemes for thematic maps
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#applying-classifiers-to-data">
+     Applying classifiers to data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting-a-histogram">
+   Plotting a histogram
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-a-custom-classifier">
+   Creating a custom classifier
+  </a>
+ </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Static maps</h1>
@@ -659,11 +753,6 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data">
-   Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#static-maps-in-geopandas">
    Static maps in geopandas
   </a>
@@ -678,37 +767,52 @@
    Adding basemap from external source
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-reclassification">
+   Data reclassification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#common-classifiers">
+   Common classifiers
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-schemes-for-thematic-maps">
+     Classification schemes for thematic maps
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#applying-classifiers-to-data">
+     Applying classifiers to data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting-a-histogram">
+   Plotting a histogram
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-a-custom-classifier">
+   Creating a custom classifier
+  </a>
+ </li>
 </ul>
 
                         </nav>
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="static-maps">
-<h1>Static maps<a class="headerlink" href="#static-maps" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="data">
-<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
-<p>You should have following Shapefiles in the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder:</p>
-<ul class="simple">
-<li><p>addresses.shp</p></li>
-<li><p>metro.shp</p></li>
-<li><p>roads.shp</p></li>
-<li><p>some.geojson</p></li>
-<li><p>TravelTimes_to_5975375_RailwayStation.shp</p></li>
-</ul>
-<p>In case you don’t see the required files in the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder, you can download them <a class="reference external" href="https://github.com/Automating-GIS-processes/Lesson-5-Making-Maps/raw/master/data/dataE5.zip">from this link</a>.</p>
-<p>You can download and extract the data into a folder <code class="docutils literal notranslate"><span class="pre">data</span></code> using these commands:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">cd</span> <span class="n">autogis</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">L5</span>
-    <span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Automating</span><span class="o">-</span><span class="n">GIS</span><span class="o">-</span><span class="n">processes</span><span class="o">/</span><span class="n">Lesson</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">Making</span><span class="o">-</span><span class="n">Maps</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">dataE5</span><span class="o">.</span><span class="n">zip</span>
-    <span class="n">unzip</span> <span class="n">dataE5</span><span class="o">.</span><span class="n">zip</span> <span class="o">-</span><span class="n">d</span> <span class="n">data</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="static-maps-in-geopandas">
-<h2>Static maps in geopandas<a class="headerlink" href="#static-maps-in-geopandas" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="static-maps">
+<h1>Static maps<a class="headerlink" href="#static-maps" title="Permalink to this headline">#</a></h1>
+<section id="static-maps-in-geopandas">
+<h2>Static maps in geopandas<a class="headerlink" href="#static-maps-in-geopandas" title="Permalink to this headline">#</a></h2>
 <p>We have already plotted basic static maps using geopandas during the previous weeks of this course. Remember that when using the <a class="reference external" href="http://geopandas.org/mapping.html#mapping-tools">plot() method in geopandas</a>, we are actually using the tools available from <a class="reference external" href="https://matplotlib.org/api/pyplot_api.html#pyplot">matplotlib pyplot</a>.</p>
 <p>Let’s refresh our memory about the basics of plotting maps by creating a static accessibility map with roads and metro line on it (three layers on top of each other in the same figure). Before plotting the layers, we need to check that they are in the same coordinate reference system.</p>
 <p>As usual, we start by importing the useful modules and reading in the input files:</p>
@@ -717,11 +821,14 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">from</span> <span class="nn">pyproj</span> <span class="kn">import</span> <span class="n">CRS</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">contextily</span> <span class="k">as</span> <span class="nn">ctx</span>
 
 <span class="c1"># Filepaths</span>
-<span class="n">grid_fp</span> <span class="o">=</span> <span class="s2">&quot;data/TravelTimes_to_5975375_RailwayStation.shp&quot;</span>
-<span class="n">roads_fp</span> <span class="o">=</span> <span class="s2">&quot;data/roads.shp&quot;</span>
-<span class="n">metro_fp</span> <span class="o">=</span> <span class="s2">&quot;data/metro.shp&quot;</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data&quot;</span><span class="p">)</span>
+<span class="n">grid_fp</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;TravelTimes_to_5975375_RailwayStation.shp&quot;</span>
+<span class="n">roads_fp</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;roads.shp&quot;</span>
+<span class="n">metro_fp</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;metro.shp&quot;</span>
 
 <span class="c1"># Read files</span>
 <span class="n">grid</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">grid_fp</span><span class="p">)</span>
@@ -798,8 +905,7 @@ Grid crs:  ETRS89 / TM35FIN(E,N)
 <li><p>plot first the grid using “quantiles” classification scheme</p></li>
 <li><p>then add roads and metro in the same plot</p></li>
 </ul>
-</div>
-<p>Plotting options for the polygon:</p>
+</div><p>Plotting options for the polygon:</p>
 <ul class="simple">
 <li><p>Define the classification scheme using the <code class="docutils literal notranslate"><span class="pre">scheme</span></code> parameter</p></li>
 <li><p>Change the colormap using the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> parameter. See <a class="reference external" href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib">colormap options from matplotlib documentation</a>.</p></li>
@@ -844,12 +950,12 @@ Grid crs:  ETRS89 / TM35FIN(E,N)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/00-static-maps_13_0.png" src="../../../_images/00-static-maps_13_0.png" />
+<img alt="../../../_images/00-static-maps_12_0.png" src="../../../_images/00-static-maps_12_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="adding-a-legend">
-<h2>Adding a legend<a class="headerlink" href="#adding-a-legend" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="adding-a-legend">
+<h2>Adding a legend<a class="headerlink" href="#adding-a-legend" title="Permalink to this headline">#</a></h2>
 <p>It is possible to enable legend for a geopandas plot by setting <code class="docutils literal notranslate"><span class="pre">legend=True</span></code> in the plotting parameters.
 If plotting the figure without a classification scheme you get a color bar as the legend item and it is easy to add a label for the legend using <code class="docutils literal notranslate"><span class="pre">legend_kwds</span></code>. You can read more about creating a legend via geopandas <a class="reference external" href="https://geopandas.org/mapping.html#creating-a-legend">in here</a>.</p>
 <div class="cell docutils container">
@@ -877,7 +983,7 @@ If plotting the figure without a classification scheme you get a color bar as th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/00-static-maps_15_0.png" src="../../../_images/00-static-maps_15_0.png" />
+<img alt="../../../_images/00-static-maps_14_0.png" src="../../../_images/00-static-maps_14_0.png" />
 </div>
 </div>
 <p>If plotting a map using a classification scheme, we get a different kind of ledend that shows the class values. In this case, we can control the position and title of the legend using matplotlib tools. We first need to access the <a class="reference external" href="https://matplotlib.org/3.3.2/api/legend_api.html#matplotlib.legend.Legend">Legend object</a> and then change it’s properties.</p>
@@ -907,131 +1013,16 @@ If plotting the figure without a classification scheme you get a color bar as th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/00-static-maps_17_0.png" src="../../../_images/00-static-maps_17_0.png" />
+<img alt="../../../_images/00-static-maps_16_0.png" src="../../../_images/00-static-maps_16_0.png" />
 </div>
 </div>
 <p>You can read more info about adjusting legends in the matplotlig <a class="reference external" href="https://matplotlib.org/tutorials/intermediate/legend_guide.html">legend guide</a>.</p>
-</div>
-<div class="section" id="adding-basemap-from-external-source">
-<h2>Adding basemap from external source<a class="headerlink" href="#adding-basemap-from-external-source" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="adding-basemap-from-external-source">
+<h2>Adding basemap from external source<a class="headerlink" href="#adding-basemap-from-external-source" title="Permalink to this headline">#</a></h2>
 <p>It is often useful to add a basemap to your visualization that shows e.g. streets, placenames and other contextual information. This can be done easily by using ready-made background map tiles from different providers such as <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Tiles">OpenStreetMap</a> or <a class="reference external" href="http://maps.stamen.com">Stamen Design</a>. A Python library called <a class="reference external" href="https://github.com/darribas/contextily">contextily</a> is a handy package that can be used to fetch geospatial raster files and add them to your maps. Map tiles are typically distributed in <a class="reference external" href="http://spatialreference.org/ref/sr-org/epsg3857-wgs84-web-mercator-auxiliary-sphere/">Web Mercator projection (EPSG:3857)</a>, hence <strong>it is often necessary to reproject all the spatial data into</strong> <a class="reference external" href="https://en.wikipedia.org/wiki/Web_Mercator_projection">Web Mercator</a> before visualizing the data.</p>
-<p>In this tutorial, we will see how to add a basemap underneath our previous visualization.</p>
-<ul class="simple">
-<li><p>Read in the travel time data:</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">contextily</span> <span class="k">as</span> <span class="nn">ctx</span>
-
-<span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="c1"># Filepaths</span>
-<span class="n">grid_fp</span> <span class="o">=</span> <span class="s2">&quot;data/TravelTimes_to_5975375_RailwayStation.shp&quot;</span>
-
-<span class="c1"># Read data</span>
-<span class="n">grid</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">grid_fp</span><span class="p">)</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>car_m_d</th>
-      <th>car_m_t</th>
-      <th>car_r_d</th>
-      <th>car_r_t</th>
-      <th>from_id</th>
-      <th>pt_m_d</th>
-      <th>pt_m_t</th>
-      <th>pt_m_tt</th>
-      <th>pt_r_d</th>
-      <th>pt_r_t</th>
-      <th>pt_r_tt</th>
-      <th>to_id</th>
-      <th>walk_d</th>
-      <th>walk_t</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>32297</td>
-      <td>43</td>
-      <td>32260</td>
-      <td>48</td>
-      <td>5785640</td>
-      <td>32616</td>
-      <td>116</td>
-      <td>147</td>
-      <td>32616</td>
-      <td>108</td>
-      <td>139</td>
-      <td>5975375</td>
-      <td>32164</td>
-      <td>459</td>
-      <td>POLYGON ((382000.000 6697750.000, 381750.000 6...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>32508</td>
-      <td>43</td>
-      <td>32471</td>
-      <td>49</td>
-      <td>5785641</td>
-      <td>32822</td>
-      <td>119</td>
-      <td>145</td>
-      <td>32822</td>
-      <td>111</td>
-      <td>133</td>
-      <td>5975375</td>
-      <td>29547</td>
-      <td>422</td>
-      <td>POLYGON ((382250.000 6697750.000, 382000.000 6...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>30133</td>
-      <td>50</td>
-      <td>31872</td>
-      <td>56</td>
-      <td>5785642</td>
-      <td>32940</td>
-      <td>121</td>
-      <td>146</td>
-      <td>32940</td>
-      <td>113</td>
-      <td>133</td>
-      <td>5975375</td>
-      <td>29626</td>
-      <td>423</td>
-      <td>POLYGON ((382500.000 6697750.000, 382250.000 6...</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>Check the input crs:</p>
+<p>In this tutorial, we will see how to add a basemap underneath our previous visualization.
+Check the input crs:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
@@ -1166,7 +1157,7 @@ If plotting the figure without a classification scheme you get a color bar as th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/00-static-maps_28_0.png" src="../../../_images/00-static-maps_28_0.png" />
+<img alt="../../../_images/00-static-maps_24_0.png" src="../../../_images/00-static-maps_24_0.png" />
 </div>
 </div>
 <p>As we can see, now the map has a background map that is by default using the Stamen Terrain background from <a class="reference external" href="http://maps.stamen.com/#terrain">Stamen Design</a>.</p>
@@ -1179,32 +1170,43 @@ If plotting the figure without a classification scheme you get a color bar as th
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;BasemapAT&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;AzureMaps&#39;,
+ &#39;BasemapAT&#39;,
  &#39;CartoDB&#39;,
+ &#39;CyclOSM&#39;,
  &#39;Esri&#39;,
  &#39;FreeMapSK&#39;,
+ &#39;Gaode&#39;,
  &#39;GeoportailFrance&#39;,
  &#39;HERE&#39;,
+ &#39;HEREv3&#39;,
  &#39;HikeBike&#39;,
  &#39;Hydda&#39;,
+ &#39;Jawg&#39;,
  &#39;JusticeMap&#39;,
  &#39;MapBox&#39;,
+ &#39;MapTiler&#39;,
  &#39;MtbMap&#39;,
  &#39;NASAGIBS&#39;,
  &#39;NLS&#39;,
+ &#39;OPNVKarte&#39;,
  &#39;OneMapSG&#39;,
+ &#39;OpenAIP&#39;,
  &#39;OpenFireMap&#39;,
- &#39;OpenMapSurfer&#39;,
- &#39;OpenPtMap&#39;,
  &#39;OpenRailwayMap&#39;,
  &#39;OpenSeaMap&#39;,
+ &#39;OpenSnowMap&#39;,
  &#39;OpenStreetMap&#39;,
  &#39;OpenTopoMap&#39;,
  &#39;OpenWeatherMap&#39;,
  &#39;SafeCast&#39;,
+ &#39;Stadia&#39;,
  &#39;Stamen&#39;,
+ &#39;Strava&#39;,
  &#39;Thunderforest&#39;,
- &#39;Wikimedia&#39;,
+ &#39;TomTom&#39;,
+ &#39;USGS&#39;,
+ &#39;WaymarkedTrails&#39;,
  &#39;nlmaps&#39;]
 </pre></div>
 </div>
@@ -1218,7 +1220,7 @@ If plotting the figure without a classification scheme you get a color bar as th
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;Mapnik&#39;, &#39;DE&#39;, &#39;CH&#39;, &#39;France&#39;, &#39;HOT&#39;, &#39;BZH&#39;])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;Mapnik&#39;, &#39;DE&#39;, &#39;CH&#39;, &#39;France&#39;, &#39;HOT&#39;, &#39;BZH&#39;, &#39;BlackAndWhite&#39;])
 </pre></div>
 </div>
 </div>
@@ -1246,7 +1248,7 @@ If plotting the figure without a classification scheme you get a color bar as th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/00-static-maps_34_0.png" src="../../../_images/00-static-maps_34_0.png" />
+<img alt="../../../_images/00-static-maps_30_0.png" src="../../../_images/00-static-maps_30_0.png" />
 </div>
 </div>
 <p>Let’s take a subset of our data to see a bit better the background map characteristics:</p>
@@ -1275,7 +1277,7 @@ If plotting the figure without a classification scheme you get a color bar as th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/00-static-maps_36_0.png" src="../../../_images/00-static-maps_36_0.png" />
+<img alt="../../../_images/00-static-maps_32_0.png" src="../../../_images/00-static-maps_32_0.png" />
 </div>
 </div>
 <p>As we can see now our map has much more details in it as the zoom level of the background map is larger. By default <code class="docutils literal notranslate"><span class="pre">contextily</span></code> sets the zoom level automatically but it is possible to also control that manually using parameter <code class="docutils literal notranslate"><span class="pre">zoom</span></code>. The zoom level is by default specified as <code class="docutils literal notranslate"><span class="pre">auto</span></code> but you can control that by passing in <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Zoom_levels">zoom level</a> as numbers ranging typically from 1 to 19 (the larger the number, the more details your basemap will have).</p>
@@ -1304,7 +1306,7 @@ If plotting the figure without a classification scheme you get a color bar as th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/00-static-maps_38_0.png" src="../../../_images/00-static-maps_38_0.png" />
+<img alt="../../../_images/00-static-maps_34_0.png" src="../../../_images/00-static-maps_34_0.png" />
 </div>
 </div>
 <p>As we can see, the map has now less detail (a bit too blurry for such a small area).</p>
@@ -1312,9 +1314,7 @@ If plotting the figure without a classification scheme you get a color bar as th
 <p>Let’s add details about the data source, plot the original data, and crop the map:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">credits</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;Travel time data by Digital Geography Lab, Map Data © OpenStreetMap contributors&quot;</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">credits</span> <span class="o">=</span> <span class="s2">&quot;Travel time data by Tenkanen &amp; Toivonen (2020), Map Data © OpenStreetMap contributors&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -1351,7 +1351,7 @@ If plotting the figure without a classification scheme you get a color bar as th
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(8430000.0, 8470000.0)
 </pre></div>
 </div>
-<img alt="../../../_images/00-static-maps_41_1.png" src="../../../_images/00-static-maps_41_1.png" />
+<img alt="../../../_images/00-static-maps_37_1.png" src="../../../_images/00-static-maps_37_1.png" />
 </div>
 </div>
 <p>It is also possible to use many other map tiles from different <a class="reference external" href="https://en.m.wikipedia.org/wiki/Tile_Map_Service">Tile Map Services</a> as the background map. A good list of different available sources can be found from <a class="reference external" href="http://leaflet-extras.github.io/leaflet-providers/preview/">here</a>. When using map tiles from different sources, it is necessary to parse a url address to the tile provider following a format defined by the provider.</p>
@@ -1411,11 +1411,11 @@ If plotting the figure without a classification scheme you get a color bar as th
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(8435000.0, 8442500.0)
 </pre></div>
 </div>
-<img alt="../../../_images/00-static-maps_43_1.png" src="../../../_images/00-static-maps_43_1.png" />
+<img alt="../../../_images/00-static-maps_39_1.png" src="../../../_images/00-static-maps_39_1.png" />
 </div>
 </div>
-<p>As we can see now we have yet again different kind of background map, now coming from CartoDB.</p>
-<p>Let’s make a minor modification and change the style from <code class="docutils literal notranslate"><span class="pre">&quot;rastertiles/voyager&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;dark_all&quot;</span></code>:</p>
+<p>As we can see now we have yet again different kind of background map, now coming from CartoDB.
+Let’s make a minor modification and change the style from <code class="docutils literal notranslate"><span class="pre">&quot;rastertiles/voyager&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;dark_all&quot;</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Control figure size in here</span>
@@ -1450,19 +1450,853 @@ If plotting the figure without a classification scheme you get a color bar as th
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(8435000.0, 8442500.0)
 </pre></div>
 </div>
-<img alt="../../../_images/00-static-maps_45_1.png" src="../../../_images/00-static-maps_45_1.png" />
+<img alt="../../../_images/00-static-maps_41_1.png" src="../../../_images/00-static-maps_41_1.png" />
 </div>
 </div>
 <p>Great! Now we have dark background map fetched from CartoDB. In a similar manner, you can use any map tiles from various other tile providers such as the ones listed in <a class="reference external" href="http://leaflet-extras.github.io/leaflet-providers/preview/">leaflet-providers</a>.</p>
+</section>
+<section id="data-reclassification">
+<h2>Data reclassification<a class="headerlink" href="#data-reclassification" title="Permalink to this headline">#</a></h2>
+<p>Reclassifying data based on specific criteria is a common task when doing GIS analysis. The purpose of this lesson is to see how we can reclassify values based on some criteria. We could, for example, classify information based on travel times and housing prices using these criteria:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1. if travel time to my work is less than 30 minutes
+
+    AND
+
+    2. the rent of the apartment is less than 1000 € per month
+
+    ------------------------------------------------------
+
+    IF TRUE: ==&gt; I go to view it and try to rent the apartment
+    IF NOT TRUE: ==&gt; I continue looking for something else
+</pre></div>
+</div>
+<p>In this tutorial, we will:</p>
+<ol class="simple">
+<li><p>Use classification schemes from the PySAL <a class="reference external" href="https://pysal.org/mapclassify/">mapclassify library</a> to classify travel times into multiple classes.</p></li>
+<li><p>Create a custom classifier to classify travel times and distances in order to find out good locations to buy an apartment with these conditions:</p>
+<ul class="simple">
+<li><p>good public transport accessibility to city center</p></li>
+<li><p>bit further away from city center where the prices are presumably lower</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="common-classifiers">
+<h2>Common classifiers<a class="headerlink" href="#common-classifiers" title="Permalink to this headline">#</a></h2>
+<section id="classification-schemes-for-thematic-maps">
+<h3>Classification schemes for thematic maps<a class="headerlink" href="#classification-schemes-for-thematic-maps" title="Permalink to this headline">#</a></h3>
+<p><a class="reference external" href="https://pysal.org/">PySAL</a> -module is an extensive Python library for spatial analysis. It also includes all of the most common data classifiers that are used commonly e.g. when visualizing data. Available map classifiers in <a class="reference external" href="https://github.com/pysal/mapclassify">pysal’s mapclassify -module</a>:</p>
+<ul class="simple">
+<li><p>Box_Plot</p></li>
+<li><p>Equal_Interval</p></li>
+<li><p>Fisher_Jenks</p></li>
+<li><p>Fisher_Jenks_Sampled</p></li>
+<li><p>HeadTail_Breaks</p></li>
+<li><p>Jenks_Caspall</p></li>
+<li><p>Jenks_Caspall_Forced</p></li>
+<li><p>Jenks_Caspall_Sampled</p></li>
+<li><p>Max_P_Classifier</p></li>
+<li><p>Maximum_Breaks</p></li>
+<li><p>Natural_Breaks</p></li>
+<li><p>Quantiles</p></li>
+<li><p>Percentiles</p></li>
+<li><p>Std_Mean</p></li>
+<li><p>User_Defined</p></li>
+<li><p>First, we need to read our Travel Time data from Helsinki:</p></li>
+</ul>
+<!-- #endregion --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+
+<span class="c1"># Read the GeoJSON file similarly as Shapefile</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Let&#39;s see what we have</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>car_m_d</th>
+      <th>car_m_t</th>
+      <th>car_r_d</th>
+      <th>car_r_t</th>
+      <th>from_id</th>
+      <th>pt_m_d</th>
+      <th>pt_m_t</th>
+      <th>pt_m_tt</th>
+      <th>pt_r_d</th>
+      <th>pt_r_t</th>
+      <th>pt_r_tt</th>
+      <th>to_id</th>
+      <th>walk_d</th>
+      <th>walk_t</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>32297</td>
+      <td>43</td>
+      <td>32260</td>
+      <td>48</td>
+      <td>5785640</td>
+      <td>32616</td>
+      <td>116</td>
+      <td>147</td>
+      <td>32616</td>
+      <td>108</td>
+      <td>139</td>
+      <td>5975375</td>
+      <td>32164</td>
+      <td>459</td>
+      <td>POLYGON ((2767221.646 8489079.101, 2766716.966...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>32508</td>
+      <td>43</td>
+      <td>32471</td>
+      <td>49</td>
+      <td>5785641</td>
+      <td>32822</td>
+      <td>119</td>
+      <td>145</td>
+      <td>32822</td>
+      <td>111</td>
+      <td>133</td>
+      <td>5975375</td>
+      <td>29547</td>
+      <td>422</td>
+      <td>POLYGON ((2767726.329 8489095.521, 2767221.646...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>30133</td>
+      <td>50</td>
+      <td>31872</td>
+      <td>56</td>
+      <td>5785642</td>
+      <td>32940</td>
+      <td>121</td>
+      <td>146</td>
+      <td>32940</td>
+      <td>113</td>
+      <td>133</td>
+      <td>5975375</td>
+      <td>29626</td>
+      <td>423</td>
+      <td>POLYGON ((2768231.014 8489111.905, 2767726.329...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>32690</td>
+      <td>54</td>
+      <td>34429</td>
+      <td>60</td>
+      <td>5785643</td>
+      <td>33233</td>
+      <td>125</td>
+      <td>150</td>
+      <td>33233</td>
+      <td>117</td>
+      <td>144</td>
+      <td>5975375</td>
+      <td>29919</td>
+      <td>427</td>
+      <td>POLYGON ((2768735.702 8489128.255, 2768231.014...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>31872</td>
+      <td>42</td>
+      <td>31834</td>
+      <td>48</td>
+      <td>5787544</td>
+      <td>32127</td>
+      <td>109</td>
+      <td>126</td>
+      <td>32127</td>
+      <td>101</td>
+      <td>121</td>
+      <td>5975375</td>
+      <td>31674</td>
+      <td>452</td>
+      <td>POLYGON ((2765724.126 8488524.148, 2765219.488...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As we can see, there are plenty of different variables (see <a class="reference external" href="http://blogs.helsinki.fi/accessibility/helsinki-region-travel-time-matrix-2015">from here the description</a> for all attributes) but what we are interested in are columns called <code class="docutils literal notranslate"><span class="pre">pt_r_tt</span></code> which is telling the time in minutes that it takes to reach city center from different parts of the city, and <code class="docutils literal notranslate"><span class="pre">walk_d</span></code> that tells the network distance by roads to reach city center from different parts of the city (almost equal to Euclidian distance).</p>
+<p><strong>The NoData values are presented with value -1</strong>.</p>
+<ul class="simple">
+<li><p>Thus we need to remove the No Data values first.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Include only data that is above or equal to 0</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">acc</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Let’s plot the data and see how it looks like</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmap</span></code> parameter defines the color map. Read more about <a class="reference external" href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html">choosing colormaps in matplotlib</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scheme</span></code> option scales the colors according to a classification scheme (requires <code class="docutils literal notranslate"><span class="pre">mapclassify</span></code> module to be installed):</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Plot using 9 classes and classify the values using &quot;Natural Breaks&quot; classification</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;Natural_Breaks&quot;</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Use tight layout</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/00-static-maps_50_0.png" src="../../../_images/00-static-maps_50_0.png" />
+</div>
+</div>
+<p>As we can see from this map, the travel times are lower in the south where the city center is located but there are some areas of “good” accessibility also in some other areas (where the color is red).</p>
+<ul class="simple">
+<li><p>Let’s also make a plot about walking distances:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot walking distance</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;walk_d&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;Natural_Breaks&quot;</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Use tight layour</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/00-static-maps_52_0.png" src="../../../_images/00-static-maps_52_0.png" />
+</div>
+</div>
+<p>Okay, from here we can see that the walking distances (along road network) reminds more or less Euclidian distances.</p>
+</section>
+<section id="applying-classifiers-to-data">
+<h3>Applying classifiers to data<a class="headerlink" href="#applying-classifiers-to-data" title="Permalink to this headline">#</a></h3>
+<p>As mentioned, the <code class="docutils literal notranslate"><span class="pre">scheme</span></code> option defines the classification scheme using <code class="docutils literal notranslate"><span class="pre">pysal/mapclassify</span></code>. Let’s have a closer look at how these classifiers work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mapclassify</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Natural Breaks</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapclassify</span><span class="o">.</span><span class="n">NaturalBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">acc</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NaturalBreaks           
+
+    Interval       Count
+------------------------
+[  0.00,  30.00] |   837
+( 30.00,  43.00] |  2361
+( 43.00,  54.00] |  2453
+( 54.00,  65.00] |  2088
+( 65.00,  78.00] |  1761
+( 78.00,  92.00] |  1694
+( 92.00, 108.00] |  1087
+(108.00, 129.00] |   557
+(129.00, 199.00] |   182
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Quantiles (default is 5 classes):</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapclassify</span><span class="o">.</span><span class="n">Quantiles</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">acc</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantiles               
+
+    Interval       Count
+------------------------
+[  0.00,  41.00] |  2674
+( 41.00,  52.00] |  2576
+( 52.00,  66.00] |  2623
+( 66.00,  85.00] |  2616
+( 85.00, 199.00] |  2531
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>It’s possible to extract the threshold values into an array:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">classifier</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">NaturalBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">acc</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">classifier</span><span class="o">.</span><span class="n">bins</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 28.,  41.,  53.,  65.,  77.,  90., 105., 127., 199.])
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Let’s apply one of the <code class="docutils literal notranslate"><span class="pre">Pysal</span></code> classifiers into our data and classify the travel times by public transport into 9 classes</p></li>
+<li><p>The classifier needs to be initialized first with <code class="docutils literal notranslate"><span class="pre">make()</span></code> function that takes the number of desired classes as input parameter</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Natural Breaks classifier</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">NaturalBreaks</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Now we can apply that classifier into our data by using <code class="docutils literal notranslate"><span class="pre">apply</span></code> -function</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Classify the data</span>
+<span class="n">classifications</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">classifier</span><span class="p">)</span>
+
+<span class="c1"># Let&#39;s see what we have</span>
+<span class="n">classifications</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pt_r_tt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">classifications</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pandas.core.frame.DataFrame
+</pre></div>
+</div>
+</div>
+</div>
+<p>Okay, so now we have a DataFrame where our input column was classified into 9 different classes (numbers 1-9) based on <a class="reference external" href="http://wiki-1-1930356585.us-east-1.elb.amazonaws.com/wiki/index.php/Jenks_Natural_Breaks_Classification">Natural Breaks classification</a>.</p>
+<ul class="simple">
+<li><p>We can also add the classification values directly into a new column in our dataframe:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rename the column so that we know that it was classified with natural breaks</span>
+<span class="n">acc</span><span class="p">[</span><span class="s2">&quot;nb_pt_r_tt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">classifier</span><span class="p">)</span>
+
+<span class="c1"># Check the original values and classification</span>
+<span class="n">acc</span><span class="p">[[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">,</span> <span class="s2">&quot;nb_pt_r_tt&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pt_r_tt</th>
+      <th>nb_pt_r_tt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>139</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>133</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>133</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>144</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>121</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Great, now we have those values in our accessibility GeoDataFrame. Let’s visualize the results and see how they look.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;nb_pt_r_tt&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Use tight layout</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/00-static-maps_69_0.png" src="../../../_images/00-static-maps_69_0.png" />
+</div>
+</div>
+<p>And here we go, now we have a map where we have used one of the common classifiers to classify our data into 9 classes.</p>
+</section>
+</section>
+<section id="plotting-a-histogram">
+<h2>Plotting a histogram<a class="headerlink" href="#plotting-a-histogram" title="Permalink to this headline">#</a></h2>
+<p>A histogram is a graphic representation of the distribution of the data. When classifying the data, it’s always good to consider how the data is distributed, and how the classification shceme divides values into different ranges.</p>
+<ul class="simple">
+<li><p>plot the histogram using <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.hist.html">pandas.DataFrame.plot.hist</a></p></li>
+<li><p>Number of histogram bins (groups of data) can be controlled using the parameter <code class="docutils literal notranslate"><span class="pre">bins</span></code>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Histogram for public transport rush hour travel time</span>
+<span class="n">acc</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;Frequency&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../../_images/00-static-maps_72_1.png" src="../../../_images/00-static-maps_72_1.png" />
+</div>
+</div>
+<p>Let’s also add threshold values on thop of the histogram as vertical lines.</p>
+<ul class="simple">
+<li><p>Natural Breaks:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define classifier</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">NaturalBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">acc</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="c1"># Plot histogram for public transport rush hour travel time</span>
+<span class="n">acc</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Add vertical lines for class breaks</span>
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">classifier</span><span class="o">.</span><span class="n">bins</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/00-static-maps_74_0.png" src="../../../_images/00-static-maps_74_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Quantiles:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define classifier</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">Quantiles</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">acc</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">])</span>
+
+<span class="c1"># Plot histogram for public transport rush hour travel time</span>
+<span class="n">acc</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">classifier</span><span class="o">.</span><span class="n">bins</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/00-static-maps_76_0.png" src="../../../_images/00-static-maps_76_0.png" />
+</div>
+</div>
+<div class="alert alert-info">
+<p><strong>Check your understanding</strong></p>
+<p>Select another column from the data (for example, travel times by car: <code class="docutils literal notranslate"><span class="pre">car_r_t</span></code>). Do the following visualizations using one of the classification schemes available from <a class="reference external" href="https://github.com/pysal/mapclassify">pysal/mapclassify</a>:</p>
+<ul class="simple">
+<li><p>histogram with vertical lines showing the classification bins</p></li>
+<li><p>thematic map using the classification scheme</p></li>
+</ul>
+</div></section>
+<section id="creating-a-custom-classifier">
+<h2>Creating a custom classifier<a class="headerlink" href="#creating-a-custom-classifier" title="Permalink to this headline">#</a></h2>
+<p><strong>Multicriteria data classification</strong></p>
+<p>Let’s create a function where we classify the geometries into two classes based on a given <code class="docutils literal notranslate"><span class="pre">threshold</span></code> -parameter. If the area of a polygon is lower than the threshold value (average size of the lake), the output column will get a value 0, if it is larger, it will get a value 1. This kind of classification is often called a <a class="reference external" href="https://en.wikipedia.org/wiki/Binary_classification">binary classification</a>.</p>
+<p>First we need to create a function for our classification task. This function takes a single row of the GeoDataFrame as input, plus few other parameters that we can use.</p>
+<p>It also possible to do classifiers with multiple criteria easily in Pandas/Geopandas by extending the example that we started earlier. Now we will modify our binaryClassifier function a bit so that it classifies the data based on two columns.</p>
+<ul class="simple">
+<li><p>Let’s call it <code class="docutils literal notranslate"><span class="pre">custom_classifier</span></code> that does the binary classification based on two treshold values:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_classifier</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">src_col1</span><span class="p">,</span> <span class="n">src_col2</span><span class="p">,</span> <span class="n">threshold1</span><span class="p">,</span> <span class="n">threshold2</span><span class="p">,</span> <span class="n">output_col</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Custom classirifer that can be applied on each row of a pandas dataframe (axis=1).</span>
+
+<span class="sd">    This function classifies data based on values in two source columns and stores the output value in the output column.</span>
+<span class="sd">    Output values is 1 if the value in src_col1 is LOWER than the threshold1 value AND the value in src_col2 is HIGHER than the threshold2 value.</span>
+<span class="sd">    In all other cases, output value is 0.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        row: one row of data</span>
+<span class="sd">        src_col1: source column name associated with threshold1</span>
+<span class="sd">        src_col2: source column name associated with threshold2</span>
+<span class="sd">        threshold1: upper threshold value for src_col1</span>
+<span class="sd">        threshold2: lower threshold value for src_col2</span>
+<span class="sd">        output_col: output column name</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        updated row of data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># If condition is true, assign 1 into output column</span>
+    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="n">src_col1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">threshold1</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="n">src_col2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold2</span><span class="p">:</span>
+        <span class="n">row</span><span class="p">[</span><span class="n">output_col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># Else, assign 1 into output column</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">row</span><span class="p">[</span><span class="n">output_col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Return the updated row</span>
+    <span class="k">return</span> <span class="n">row</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have defined the function, and we can start using it.</p>
+<ul class="simple">
+<li><p>Let’s do our classification based on two criteria and find out grid cells where the <strong>travel time is lower or equal to 20 minutes</strong> but they are further away <strong>than 4 km (4000 meters) from city center</strong>.</p></li>
+<li><p>Let’s create an empty column for our classification results called <code class="docutils literal notranslate"><span class="pre">&quot;suitable_area&quot;</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create column for the classification results</span>
+<span class="n">acc</span><span class="p">[</span><span class="s2">&quot;suitable_area&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Use the function</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="n">custom_classifier</span><span class="p">,</span>
+    <span class="n">src_col1</span><span class="o">=</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">,</span>
+    <span class="n">src_col2</span><span class="o">=</span><span class="s2">&quot;walk_d&quot;</span><span class="p">,</span>
+    <span class="n">threshold1</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">threshold2</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span>
+    <span class="n">output_col</span><span class="o">=</span><span class="s2">&quot;suitable_area&quot;</span><span class="p">,</span>
+    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># See the first rows</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>car_m_d</th>
+      <th>car_m_t</th>
+      <th>car_r_d</th>
+      <th>car_r_t</th>
+      <th>from_id</th>
+      <th>pt_m_d</th>
+      <th>pt_m_t</th>
+      <th>pt_m_tt</th>
+      <th>pt_r_d</th>
+      <th>pt_r_t</th>
+      <th>pt_r_tt</th>
+      <th>to_id</th>
+      <th>walk_d</th>
+      <th>walk_t</th>
+      <th>geometry</th>
+      <th>nb_pt_r_tt</th>
+      <th>suitable_area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>32297</td>
+      <td>43</td>
+      <td>32260</td>
+      <td>48</td>
+      <td>5785640</td>
+      <td>32616</td>
+      <td>116</td>
+      <td>147</td>
+      <td>32616</td>
+      <td>108</td>
+      <td>139</td>
+      <td>5975375</td>
+      <td>32164</td>
+      <td>459</td>
+      <td>POLYGON ((2767221.646 8489079.101, 2766716.966...</td>
+      <td>8</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>32508</td>
+      <td>43</td>
+      <td>32471</td>
+      <td>49</td>
+      <td>5785641</td>
+      <td>32822</td>
+      <td>119</td>
+      <td>145</td>
+      <td>32822</td>
+      <td>111</td>
+      <td>133</td>
+      <td>5975375</td>
+      <td>29547</td>
+      <td>422</td>
+      <td>POLYGON ((2767726.329 8489095.521, 2767221.646...</td>
+      <td>8</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>30133</td>
+      <td>50</td>
+      <td>31872</td>
+      <td>56</td>
+      <td>5785642</td>
+      <td>32940</td>
+      <td>121</td>
+      <td>146</td>
+      <td>32940</td>
+      <td>113</td>
+      <td>133</td>
+      <td>5975375</td>
+      <td>29626</td>
+      <td>423</td>
+      <td>POLYGON ((2768231.014 8489111.905, 2767726.329...</td>
+      <td>8</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>32690</td>
+      <td>54</td>
+      <td>34429</td>
+      <td>60</td>
+      <td>5785643</td>
+      <td>33233</td>
+      <td>125</td>
+      <td>150</td>
+      <td>33233</td>
+      <td>117</td>
+      <td>144</td>
+      <td>5975375</td>
+      <td>29919</td>
+      <td>427</td>
+      <td>POLYGON ((2768735.702 8489128.255, 2768231.014...</td>
+      <td>8</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>31872</td>
+      <td>42</td>
+      <td>31834</td>
+      <td>48</td>
+      <td>5787544</td>
+      <td>32127</td>
+      <td>109</td>
+      <td>126</td>
+      <td>32127</td>
+      <td>101</td>
+      <td>121</td>
+      <td>5975375</td>
+      <td>31674</td>
+      <td>452</td>
+      <td>POLYGON ((2765724.126 8488524.148, 2765219.488...</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Okey we have new values in <code class="docutils literal notranslate"><span class="pre">suitable_area</span></code> -column.</p>
+<ul class="simple">
+<li><p>How many Polygons are suitable for us? Let’s find out by using a Pandas function called <code class="docutils literal notranslate"><span class="pre">value_counts()</span></code> that return the count of different values in our column.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get value counts</span>
+<span class="n">acc</span><span class="p">[</span><span class="s2">&quot;suitable_area&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    13011
+1        9
+Name: suitable_area, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Okay, so there seems to be nine suitable locations for us where we can try to find an appartment to buy.</p>
+<ul class="simple">
+<li><p>Let’s see where they are located:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;suitable_area&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Use tight layour</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/00-static-maps_85_0.png" src="../../../_images/00-static-maps_85_0.png" />
+</div>
+</div>
+<p>A-haa, okay so we can see that suitable places for us with our criteria seem to be located in the
+eastern part from the city center. Actually, those locations are along the metro line which makes them good locations in terms of travel time to city center since metro is really fast travel mode.</p>
+<p><strong>Other examples</strong></p>
+<p>Older course materials contain an example of applying a <a class="reference external" href="https://automating-gis-processes.github.io/2017/lessons/L4/reclassify.html#classifying-data%3E">custom binary classifier on the Corine land cover data</a>.</p>
+</section>
+</section>
 
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1478,24 +2312,28 @@ If plotting the figure without a classification scheme you get a color bar as th
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+  
+      &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
-    
-        &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

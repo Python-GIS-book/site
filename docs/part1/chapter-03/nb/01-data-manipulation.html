@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Common tabular operations in pandas</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,26 +20,26 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Show the solution';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Data wrangling, grouping and aggregation" href="02-data-analysis.html" />
@@ -49,7 +51,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -58,9 +74,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -108,23 +125,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/03-jupyter.html">
-     Jupyter Notebooks
+    <a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">
+     Writing and running Python code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/04-coding-with-an-ide.html">
-     Other coding environments
+    <a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">
+     Using JupyterLab for writing code
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
-     Installation and setup
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/06-references.html">
-     References
+     Installing Python and adding libraries
     </a>
    </li>
   </ul>
@@ -174,11 +186,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-02/nb/07-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 current active has-children">
@@ -216,11 +223,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="05-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -234,32 +236,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/00-introduction.html">
-     Python plotting libraries
+    <a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">
+     Plotting in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/01-plot-anatomy.html">
-     Anatomy of a plot
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/02-basic-plotting.html">
+    <a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">
      Plotting with pandas and matplotlib
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/03-subplots.html">
+    <a class="reference internal" href="../../chapter-04/nb/02-subplots.html">
      Creating subplots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/04-plot-formatting.html">
+    <a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">
      Effective plot design: line plots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/05-exercises.html">
+    <a class="reference internal" href="../../chapter-04/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -272,14 +269,9 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../part2/chapter-05/index.html">
-   Essentials: What is special about geographic data?
-  </a>
- </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part2/chapter-06/index.html">
-   Vector data processing
+  <a class="reference internal" href="../../../part2/chapter-05/index.html">
+   Getting started
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -288,58 +280,50 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-geometric-objects.html">
-     Geographic objects in Python/Shapely
+    <a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">
+     Motivation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
+     Introduction to geographic data in Python
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../part2/chapter-06/index.html">
+   Vector data processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
-     Vector Data I/O in Python
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
+     Data in/out: Preparing GeoDataFrames from spatial data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/03-projections.html">
-     Map projections
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
+     Coordinate Reference Systems
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-from-text-to-map.html">
-     From text to map
+    <a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">
+     Geometric data manipulations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">
-     Spatial queries and selections
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">
-     Spatial join
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">
-     Nearest Neighbour Analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/08-spatial_index.html">
-     Spatial index - How to boost spatial queries?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/09-nearest-neighbor-faster.html">
-     Nearest neighbor analysis with large datasets
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/10-geometric-operations.html">
-     Geometric operations
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+     Operations between multiple datasets
     </a>
    </li>
   </ul>
@@ -348,8 +332,8 @@
   <a class="reference internal" href="../../../part2/chapter-07/index.html">
    Raster data processing
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -395,8 +379,8 @@
   <a class="reference internal" href="../../../part2/chapter-08/index.html">
    Geographic data visualization
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -417,8 +401,8 @@
   <a class="reference internal" href="../../../part2/chapter-09/index.html">
    Using online geographic data sources
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -449,12 +433,17 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../back-matter/appendices.html">
    Appendices
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -492,13 +481,13 @@
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
-   Acknowledgements
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
-   Glossary
+  <a class="reference internal" href="../../../back-matter/nb/references.html">
+   References
   </a>
  </li>
  <li class="toctree-l1">
@@ -518,106 +507,185 @@
    Overview
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/noaa-data.html">
+   NOAA Weather data
+  </a>
+ </li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-03/nb/01-data-manipulation.ipynb.txt"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        
-        
-        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-03/nb/01-data-manipulation.ipynb"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Python-GIS-book/site/master/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-03/nb/01-data-manipulation.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-03/nb/01-data-manipulation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-03/nb/01-data-manipulation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/part1/chapter-03/nb/01-data-manipulation.ipynb.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#basic-calculations">
    Basic calculations
@@ -725,12 +793,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Common tabular operations in pandas</h1>
@@ -854,14 +921,15 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="common-tabular-operations-in-pandas">
-<h1>Common tabular operations in pandas<a class="headerlink" href="#common-tabular-operations-in-pandas" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="common-tabular-operations-in-pandas">
+<h1>Common tabular operations in pandas<a class="headerlink" href="#common-tabular-operations-in-pandas" title="Permalink to this headline">#</a></h1>
 <p>Now you have learned the basics of pandas data structures (i.e. <em>Series</em> and <em>DataFrame</em>) and you should be familiar with basic methods for loading and exploring data. Next, we will continue exploring the pandas functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.</p>
-<div class="section" id="basic-calculations">
-<h2>Basic calculations<a class="headerlink" href="#basic-calculations" title="Permalink to this headline">¶</a></h2>
+<section id="basic-calculations">
+<h2>Basic calculations<a class="headerlink" href="#basic-calculations" title="Permalink to this headline">#</a></h2>
 <p>One of the most common things to do in pandas is to create new columns based on calculations between different variables (columns). Next, we will learn how to do that using the same input data (<code class="docutils literal notranslate"><span class="pre">'Kumpula-June-2016-w-metadata.txt'</span></code>) as in the previous section. We will first load it using the <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> method. Remember, that the first 8 lines contains the metadata which we will skip. This time, let’s store the filepath into a separate variable in order to make the code more readable and easier to change afterwards (a good practice).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1204,8 +1272,8 @@
 </table>
 </div></div></div>
 </div>
-<div class="section" id="question-3-2">
-<h3>Question 3.2<a class="headerlink" href="#question-3-2" title="Permalink to this headline">¶</a></h3>
+<section id="question-3-2">
+<h3>Question 3.2<a class="headerlink" href="#question-3-2" title="Permalink to this headline">#</a></h3>
 <p>Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_KELVIN</span></code> in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is: <code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">=</span> <span class="pre">C</span> <span class="pre">+</span> <span class="pre">273.15</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1223,13 +1291,13 @@
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="selecting-and-updating-data">
-<h2>Selecting and updating data<a class="headerlink" href="#selecting-and-updating-data" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="selecting-and-updating-data">
+<h2>Selecting and updating data<a class="headerlink" href="#selecting-and-updating-data" title="Permalink to this headline">#</a></h2>
 <p>We often want to make selections from our data and only use specific rows from a DataFrame in the analysis. There are multiple ways of selecting subsets of a pandas DataFrame than can be based on e.g. specific index values or using some predefined criteria to make the selection, such as “give me all rows where values in column X are larger than zero”. Next, we will go through the most useful tricks for selecting specific rows, columns and individual values.</p>
-<div class="section" id="selecting-rows-and-columns">
-<h3>Selecting rows and columns<a class="headerlink" href="#selecting-rows-and-columns" title="Permalink to this headline">¶</a></h3>
+<section id="selecting-rows-and-columns">
+<h3>Selecting rows and columns<a class="headerlink" href="#selecting-rows-and-columns" title="Permalink to this headline">#</a></h3>
 <p>One common way of selecting only specific rows from your DataFrame is done via a concept of slicing. Getting a slice of data in pandas can be done in a similar manner as with normal Python lists by specifying an index range inside square brackets: <code class="docutils literal notranslate"><span class="pre">dataframe[start_index:stop_index]</span></code>. Let’s select the first five rows and assign them to a variable called <code class="docutils literal notranslate"><span class="pre">selection</span></code>. Here, we will first see how selecting the data works like you would do with “normal” Python lists, based on index values:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1412,8 +1480,8 @@ Name: TEMP, dtype: float64
 </div></div></div>
 </div>
 <p>As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5).</p>
-<div class="section" id="question-3-3">
-<h4>Question 3.3<a class="headerlink" href="#question-3-3" title="Permalink to this headline">¶</a></h4>
+<section id="question-3-3">
+<h4>Question 3.3<a class="headerlink" href="#question-3-3" title="Permalink to this headline">#</a></h4>
 <p>Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1436,10 +1504,10 @@ Name: TEMP, dtype: float64
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="selecting-a-single-row-or-value">
-<h3>Selecting a single row or value<a class="headerlink" href="#selecting-a-single-row-or-value" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="selecting-a-single-row-or-value">
+<h3>Selecting a single row or value<a class="headerlink" href="#selecting-a-single-row-or-value" title="Permalink to this headline">#</a></h3>
 <p>You can also select an individual row from specific position using the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> indexing. Here we select all the data values using index 4 (the 5th row):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1502,9 +1570,9 @@ Let’s select the temperature (column <code class="docutils literal notranslate
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="selections-based-on-index-positions">
-<h3>Selections based on index positions<a class="headerlink" href="#selections-based-on-index-positions" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="selections-based-on-index-positions">
+<h3>Selections based on index positions<a class="headerlink" href="#selections-based-on-index-positions" title="Permalink to this headline">#</a></h3>
 <p>As we have learned thus far, <code class="docutils literal notranslate"><span class="pre">.loc</span></code> and <code class="docutils literal notranslate"><span class="pre">.at</span></code> are based on the <em>axis labels</em> - the names of columns and rows. For positional based indexing, pandas has an <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> which is based on <em>integer value</em> indices. With <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>, it is also possible to refer to the columns based on their index value (i.e. to a positional number of a column in the DataFrame). For example,  <code class="docutils literal notranslate"><span class="pre">data.iloc[0,0]</span></code> would return <code class="docutils literal notranslate"><span class="pre">20160601</span></code> in our example DataFrame which is the value on the first row and first column in the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1620,9 +1688,9 @@ Value at position (0,0) is 20160601
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="selections-using-listed-criteria">
-<h3>Selections using listed criteria<a class="headerlink" href="#selections-using-listed-criteria" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="selections-using-listed-criteria">
+<h3>Selections using listed criteria<a class="headerlink" href="#selections-using-listed-criteria" title="Permalink to this headline">#</a></h3>
 <p>One common way of selecting rows from a DataFrame is to provide a list of values that are used for finding matching rows in a specific DataFrame column. For example, selecting rows that match specific dates can be done by passing a list of values used as criteria to the <code class="docutils literal notranslate"><span class="pre">.isin()</span></code> -function of pandas. This will go through each value in the selected column (in this case <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code>) and checks whether there is a match or not. As an output, the <code class="docutils literal notranslate"><span class="pre">.isin()</span></code> command returns a Series of boolean values (True or False) which can be combined with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to do the final selection that returns only rows that meet the selection criteria.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1697,9 +1765,9 @@ Value at position (0,0) is 20160601
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="conditional-selections">
-<h3>Conditional selections<a class="headerlink" href="#conditional-selections" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="conditional-selections">
+<h3>Conditional selections<a class="headerlink" href="#conditional-selections" title="Permalink to this headline">#</a></h3>
 <p>One really useful feature in pandas is the ability to easily filter and select rows based on a conditional statement.
 The following example shows how we check if the Celsius temperature at each row on the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code>column is higher than 15 degrees:</p>
 <div class="cell docutils container">
@@ -2323,8 +2391,8 @@ Combining multiple criteria can be done with the <code class="docutils literal n
 </div>
 </div>
 <p>As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection without needing to worry that there are some “hidden linkages” between our DataFrames that could cause issues (we discuss more about this in the next section).</p>
-<div class="section" id="question-3-4">
-<h4>Question 3.4<a class="headerlink" href="#question-3-4" title="Permalink to this headline">¶</a></h4>
+<section id="question-3-4">
+<h4>Question 3.4<a class="headerlink" href="#question-3-4" title="Permalink to this headline">#</a></h4>
 <p>Find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2346,10 +2414,10 @@ Combining multiple criteria can be done with the <code class="docutils literal n
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="view-vs-a-copy">
-<h3>View vs a copy<a class="headerlink" href="#view-vs-a-copy" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="view-vs-a-copy">
+<h3>View vs a copy<a class="headerlink" href="#view-vs-a-copy" title="Permalink to this headline">#</a></h3>
 <p>A good thing to know when doing selections, is that the end result after making the selection can sometimes result to something called a <code class="docutils literal notranslate"><span class="pre">view</span></code>. In such cases, the selection and the original data may still linked to each other. This happens e.g. if you make a selection like above but return only a single column from the original data. In a situation where you have a view, a change in the original <em>data</em> for that specific column can also change the value in the <em>selection</em>. Without going into details why and when this happens, this behavior can nevertheless be confusing and have unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. <em>unlink</em> the two DataFrames). You can make a copy easily while doing the selection by adding a <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> at the end of the command:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2517,10 +2585,10 @@ Name: TEMP, dtype: float64
 </div>
 </div>
 <p>As we can see, now the value in our <em>temp</em> Series changed from 65.5 to 30.0 although we did not make any change to it directly. The change happened nevertheless because the data objects were still linked to each other.</p>
-</div>
-</div>
-<div class="section" id="dealing-with-missing-data">
-<h2>Dealing with missing data<a class="headerlink" href="#dealing-with-missing-data" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="dealing-with-missing-data">
+<h2>Dealing with missing data<a class="headerlink" href="#dealing-with-missing-data" title="Permalink to this headline">#</a></h2>
 <p>As you may have noticed by now, we have several missing values for the temperature minimum, maximum, and difference columns (<code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, <code class="docutils literal notranslate"><span class="pre">DIFF</span></code>, and <code class="docutils literal notranslate"><span class="pre">DIFF_MIN</span></code>). These missing values are indicated as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (not-a-number). Having missing data in your datafile is really common situation and typically you want to deal with it somehow. Common procedures to deal with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values are to either remove them from the DataFrame or fill them with some value. In Pandas both of these options are really easy to do. Let’s first start by checking whether our data has NaN values:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3036,9 +3104,9 @@ Name: TEMP, dtype: float64
 </div>
 <p>Notice that because we already filled every NaN in the whole DataFrame in the previous step, the command above does not change anything.</p>
 <p>It is important to be aware, that in many cases filling the data with a specific value is dangerous because you end up modifying the actual data, which might affect the results of your analysis. For example, in the case above we would have dramatically changed the temperature difference columns because the -9999 values not an actual temperature difference! Hence, use caution when filling missing values. In some cases, you might have to fill in no data values for the purposes of saving the data to file in a spesific format. For example, some GIS software don’t accept missing values. Always pay attention to potential no data values when reading in data files and doing further analysis.</p>
-</div>
-<div class="section" id="data-type-conversions">
-<h2>Data type conversions<a class="headerlink" href="#data-type-conversions" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="data-type-conversions">
+<h2>Data type conversions<a class="headerlink" href="#data-type-conversions" title="Permalink to this headline">#</a></h2>
 <p>When doing data analysis, one quite typical operation that needs to be done is to convert values in a column from one datatype to another, such as from floating point to integer. Remember, that we already did data type conversions in Chapter 1 using the built-in Python functions such as <code class="docutils literal notranslate"><span class="pre">int()</span></code> or <code class="docutils literal notranslate"><span class="pre">str()</span></code>. For values stored in pandas Series, we can use <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method. Next we will continue using the same data as previously, and convert all the temperature values (floats) in column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> to integers. Let’s start by looking our original data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3095,9 +3163,9 @@ Name: TEMP, dtype: int32
 </div>
 <p>As we can see, now the integer values are correctly rounded.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method supports converting between all basic Python data types (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>), but it also knows how to convert between more specific numpy data types, such as <code class="docutils literal notranslate"><span class="pre">int64</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, <code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code> to mention a few (see <a class="footnote-reference brackets" href="#numpydtypes" id="id1">1</a> for a full list). Using the numpy data type can useful if you need to be more specific e.g. how many bits should be reserved for storing the values. For instance, <code class="docutils literal notranslate"><span class="pre">int64</span></code> (i.e. <em>64-bit integer</em>) can store integer values ranging between -9223372036854775808 and 9223372036854775807, whereas <code class="docutils literal notranslate"><span class="pre">int16</span></code> can only store values from -32768 to 32767. If passing the “normal” <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">float</span></code> to the <code class="docutils literal notranslate"><span class="pre">astype()</span></code> function, pandas will automatically store 64-bit numeric values. The larger bits you use, the more physical memory is required to store the data. Hence, in some specific cases e.g. when dealing with extremely large datasets, it might be useful to be able to determine that the values in specific columns are stored with lower bits (to save memory).</p>
-</div>
-<div class="section" id="sorting-data">
-<h2>Sorting data<a class="headerlink" href="#sorting-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="sorting-data">
+<h2>Sorting data<a class="headerlink" href="#sorting-data" title="Permalink to this headline">#</a></h2>
 <p>Quite often it is useful to be able to sort your data (descending/ascending) based on values in some column
 This can be easily done with Pandas using <code class="docutils literal notranslate"><span class="pre">sort_values(by='YourColumnName')</span></code> -function. Let’s first sort the values on ascending order based on the <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> column:</p>
 <div class="cell docutils container">
@@ -3591,17 +3659,17 @@ This can be easily done with Pandas using <code class="docutils literal notransl
 </div></div></div>
 </div>
 <p>As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data.</p>
-</div>
-<div class="section" id="table-joins-combining-dataframes-based-on-a-common-key">
-<h2>Table joins: Combining DataFrames based on a common key<a class="headerlink" href="#table-joins-combining-dataframes-based-on-a-common-key" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="the-basic-logic-of-a-table-join">
-<h3>The basic logic of a table join<a class="headerlink" href="#the-basic-logic-of-a-table-join" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="table-joins-combining-dataframes-based-on-a-common-key">
+<h2>Table joins: Combining DataFrames based on a common key<a class="headerlink" href="#table-joins-combining-dataframes-based-on-a-common-key" title="Permalink to this headline">#</a></h2>
+<section id="the-basic-logic-of-a-table-join">
+<h3>The basic logic of a table join<a class="headerlink" href="#the-basic-logic-of-a-table-join" title="Permalink to this headline">#</a></h3>
 <p>Joining data between two or several DataFrames is a common task when doing data anaysis. The minimum requirement for being able to combine data between two (or more) DataFrames (i.e. <em>tables</em>), is to have at least one common attribute (called <em>key</em>) that has identical values in both DataFrames. Figure 3.4 illustrates this logic: we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier. The common <code class="docutils literal notranslate"><span class="pre">key</span></code> in this case is the time information which is in column <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> in the left DataFrame and <code class="docutils literal notranslate"><span class="pre">DATE</span></code> column in the right DataFrame accordingly. The column names of the keys can be different (as in our case), but the actual values stored in these columns should correspond to each other, so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example.</p>
 <p><img alt="Figure 3.4. Joining precipitation data from the right DataFrame to the left based on common key." src="../../../_images/Table_join_logic.png" /></p>
 <p><em><strong>Figure 3.4</strong>. Joining precipitation data from the right DataFrame to the left based on common key.</em></p>
-</div>
-<div class="section" id="table-join-using-pandas-merge">
-<h3>Table join using pandas <code class="docutils literal notranslate"><span class="pre">.merge()</span></code><a class="headerlink" href="#table-join-using-pandas-merge" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="table-join-using-pandas-merge">
+<h3>Table join using pandas <code class="docutils literal notranslate"><span class="pre">.merge()</span></code><a class="headerlink" href="#table-join-using-pandas-merge" title="Permalink to this headline">#</a></h3>
 <p>In the following, we first read the precipitation data from Kumpula, and then join this data with the DataFrame containing the average temperature data. Merging two DataFrames together based on a common key (or multiple keys) can be done easily with pandas using the <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> -function. The column which represents the key can be specified with parameter <code class="docutils literal notranslate"><span class="pre">on</span></code>, if the key column is identical in both DataFrames. In our case, the columns containing the common values between the DataFrames are named differently. Hence, we need to specify separately the key for the left DataFrame using parameter <code class="docutils literal notranslate"><span class="pre">left_on</span></code>, and parameter <code class="docutils literal notranslate"><span class="pre">right_on</span></code> for the right DataFrame accordingly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3933,25 +4001,27 @@ This can be easily done with Pandas using <code class="docutils literal notransl
 </div>
 <p>As can be seen, now only the column <code class="docutils literal notranslate"><span class="pre">DATE</span></code> and the attribute of interest <code class="docutils literal notranslate"><span class="pre">PRCP</span></code> were joined and kept in the output from the right DataFrame. Similar trick can also be applied to the left DataFrame by adding the selection before the <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> call if you want to reduce the number of columns on the result.</p>
 <p>In our case, doing the table join was fairly straightforward because we had only one unique record per day in both DataFrames. However, in some cases you might have multiple records on either one of the DataFrames (e.g. hourly observations vs daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled e.g. by aggregating the hourly data to a daily average. You can learn more about these aggregation techniques in the following sections.</p>
-</div>
-</div>
-<div class="section" id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="numpydtypes"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://numpy.org/doc/stable/user/basics.types.html">https://numpy.org/doc/stable/user/basics.types.html</a></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="00-pandas-basics.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -3967,24 +4037,28 @@ This can be easily done with Pandas using <code class="docutils literal notransl
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+  
+      &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
-    
-        &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Installation and setup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Installing Python and adding libraries</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,30 +20,30 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Show the solution';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="References" href="06-references.html" />
-    <link rel="prev" title="Other coding environments" href="04-coding-with-an-ide.html" />
+    <link rel="next" title="Basic programming concepts" href="../../chapter-02/index.html" />
+    <link rel="prev" title="Using JupyterLab for writing code" href="04-using-jupyterlab.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -49,7 +51,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -58,9 +74,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -108,23 +125,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="03-jupyter.html">
-     Jupyter Notebooks
+    <a class="reference internal" href="03-writing-and-running-python-code.html">
+     Writing and running Python code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="04-coding-with-an-ide.html">
-     Other coding environments
+    <a class="reference internal" href="04-using-jupyterlab.html">
+     Using JupyterLab for writing code
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Installation and setup
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="06-references.html">
-     References
+     Installing Python and adding libraries
     </a>
    </li>
   </ul>
@@ -174,11 +186,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-02/nb/07-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -216,11 +223,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-03/nb/05-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -234,32 +236,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/00-introduction.html">
-     Python plotting libraries
+    <a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">
+     Plotting in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/01-plot-anatomy.html">
-     Anatomy of a plot
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/02-basic-plotting.html">
+    <a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">
      Plotting with pandas and matplotlib
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/03-subplots.html">
+    <a class="reference internal" href="../../chapter-04/nb/02-subplots.html">
      Creating subplots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/04-plot-formatting.html">
+    <a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">
      Effective plot design: line plots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/05-exercises.html">
+    <a class="reference internal" href="../../chapter-04/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -272,14 +269,9 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../part2/chapter-05/index.html">
-   Essentials: What is special about geographic data?
-  </a>
- </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part2/chapter-06/index.html">
-   Vector data processing
+  <a class="reference internal" href="../../../part2/chapter-05/index.html">
+   Getting started
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -288,58 +280,50 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-geometric-objects.html">
-     Geographic objects in Python/Shapely
+    <a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">
+     Motivation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
+     Introduction to geographic data in Python
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../part2/chapter-06/index.html">
+   Vector data processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
-     Vector Data I/O in Python
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
+     Data in/out: Preparing GeoDataFrames from spatial data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/03-projections.html">
-     Map projections
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
+     Coordinate Reference Systems
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-from-text-to-map.html">
-     From text to map
+    <a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">
+     Geometric data manipulations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">
-     Spatial queries and selections
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">
-     Spatial join
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">
-     Nearest Neighbour Analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/08-spatial_index.html">
-     Spatial index - How to boost spatial queries?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/09-nearest-neighbor-faster.html">
-     Nearest neighbor analysis with large datasets
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/10-geometric-operations.html">
-     Geometric operations
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+     Operations between multiple datasets
     </a>
    </li>
   </ul>
@@ -348,8 +332,8 @@
   <a class="reference internal" href="../../../part2/chapter-07/index.html">
    Raster data processing
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -395,8 +379,8 @@
   <a class="reference internal" href="../../../part2/chapter-08/index.html">
    Geographic data visualization
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -417,8 +401,8 @@
   <a class="reference internal" href="../../../part2/chapter-09/index.html">
    Using online geographic data sources
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -449,12 +433,17 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../back-matter/appendices.html">
    Appendices
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -492,13 +481,13 @@
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
-   Acknowledgements
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
-   Glossary
+  <a class="reference internal" href="../../../back-matter/nb/references.html">
+   References
   </a>
  </li>
  <li class="toctree-l1">
@@ -518,109 +507,193 @@
    Overview
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/noaa-data.html">
+   NOAA Weather data
+  </a>
+ </li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-01/nb/05-installation.ipynb.txt"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        
-        
-        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-01/nb/05-installation.ipynb"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Python-GIS-book/site/master/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-01/nb/05-installation.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-01/nb/05-installation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-01/nb/05-installation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/part1/chapter-01/nb/05-installation.ipynb.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#which-python-version-to-install">
-   Which Python version to install?
+  <a class="reference internal nav-link" href="#essentials-for-managing-your-python-environment">
+   Essentials for managing your Python environment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-python-on-your-computer">
+   Installing Python on your computer
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -633,11 +706,6 @@
      Installing Miniconda
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setting-up-your-python-environment">
-     Setting up your Python environment
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -646,12 +714,36 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#setting-up-your-python-environment">
+     Setting up your Python environment
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#macos-macos">
+   macOS## macOS
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     Setting up your Python environment
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   macOS## macOS
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
      Installing Miniconda
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id8">
      Setting up your Python environment
     </a>
    </li>
@@ -663,12 +755,12 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id9">
      Installing Miniconda
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id10">
      Setting up your Python environment
     </a>
    </li>
@@ -681,15 +773,14 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Installation and setup</h1>
+                <h1>Installing Python and adding libraries</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -700,8 +791,13 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#which-python-version-to-install">
-   Which Python version to install?
+  <a class="reference internal nav-link" href="#essentials-for-managing-your-python-environment">
+   Essentials for managing your Python environment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-python-on-your-computer">
+   Installing Python on your computer
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -714,11 +810,6 @@
      Installing Miniconda
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setting-up-your-python-environment">
-     Setting up your Python environment
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -727,12 +818,36 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#setting-up-your-python-environment">
+     Setting up your Python environment
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#macos-macos">
+   macOS## macOS
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     Setting up your Python environment
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   macOS## macOS
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
      Installing Miniconda
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id8">
      Setting up your Python environment
     </a>
    </li>
@@ -744,12 +859,12 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id9">
      Installing Miniconda
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id10">
      Setting up your Python environment
     </a>
    </li>
@@ -766,24 +881,38 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="installation-and-setup">
-<h1>Installation and setup<a class="headerlink" href="#installation-and-setup" title="Permalink to this headline">¶</a></h1>
-<p>In order to be able to follow and reproduce the examples in the rest of the book, here we present some information about how to install Python on your own computer along with all of the recommended software libraries we use. This is not strictly necessary, as it is possible to use the Binder cloud computing platform from the book website <a class="reference external" href="https://pythongis.org/">https://pythongis.org/</a> to interact with the book materials. However, if you would like to get the most out of the book and ensure you’re easily able to continue with Python afterward, we strongly recommend you install Python and Jupyter on your own computer.</p>
-<p>In the sections that follow, we provide instructions for the installation of the Python using <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> <a class="footnote-reference brackets" href="#miniconda" id="id1">1</a>. for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the <span class="xref myst">Python environment file we provide</span> to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.</p>
-<div class="section" id="which-python-version-to-install">
-<h2>Which Python version to install?<a class="headerlink" href="#which-python-version-to-install" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="installing-python-and-adding-libraries">
+<h1>Installing Python and adding libraries<a class="headerlink" href="#installing-python-and-adding-libraries" title="Permalink to this headline">#</a></h1>
+<section id="essentials-for-managing-your-python-environment">
+<h2>Essentials for managing your Python environment<a class="headerlink" href="#essentials-for-managing-your-python-environment" title="Permalink to this headline">#</a></h2>
+<p>Knowing how to install Python and many of its wonderful libraries is one of the first things that you want to learn. Luckily, installing Python and its libraries is very easy once you are familiar with some basic concepts and approaches to manage your Python installations. In the next paragraphs, we provide some terminology, background information and good practices on how to handle Python installations before showing in detail how to install all the libraries used in this book. Next paragraphs probably include many new terms and some technical details that you might not understand at this point, but don’t worry, getting started is easy.</p>
+<ul class="simple">
+<li><p><strong>Handling dependencies:</strong> Because Python is one of the most popular programming languages in the world, there is also a huge number of libraries available for it. Having a large ecosystem of libraries is naturally a great thing, but it also bring some challenges that needs to be considered when doing installations. Many of the libraries developed for Python take advantage of, and are strongly linked to, other Python libraries. This is very useful because developers don’t need to create everything from scratch when developing libraries, allowing faster and (typically) more stable progress of the libraries. Python’s libraries are also evolving and improving all the time, and developers typically publish new versions of the libraries regularly. Because of these regular updates and <em><code class="docutils literal notranslate"><span class="pre">{term}</span> <span class="pre">dependencies</span> <span class="pre">&lt;Dependency&gt;</span></code></em> between Python packages, it is important to ensure that different packages (and their different versions) work well together. Luckily, Python has good tools (package managers) to help handling these installations, which solve all the dependencies between libraries for you, and allow you to keep your libraries up-to-date easily.</p></li>
+<li><p><strong>Python installation with Miniconda:</strong> Even though it is possible to install Python from the Python homepage [^Python website], we highly recommend using Miniconda <a class="footnote-reference brackets" href="#miniconda" id="id1">1</a> to install Python. Miniconda is a Python distribution that comes with Python interpreter and a small number of essential packages, such as package manager called <code class="docutils literal notranslate"><span class="pre">conda</span></code>, which makes it easy to install Python packages. Miniconda is professionally maintained and widely used installation package for getting started with Python. It is free to use for individual hobbyists, students, universities, non-profit organizations, or businesses with less than 200 employees (as of May, 2022). For larger businesses, we recommend to install Python using Miniforge <a class="footnote-reference brackets" href="#miniforge" id="id2">2</a>, which is identical to Miniconda, but does not have any commercial restrictions.</p></li>
+<li><p><strong>Package managers:</strong> Package managers, such as conda (or <code class="docutils literal notranslate"><span class="pre">mamba</span></code> which is a faster version of conda) are extremely useful tools to install Python packages. In essence, a package manager is a tool that makes life much easier when installing new packages for Python. Package managers are easy to use from terminal/command prompt, and some IDEs also provide nice graphical user interfaces for handling the installations. In addition to conda/mamba, it is good to know that there are also other package managers for Python (such as pip, Pipenv and poetry). Generally, we encourage you to use conda/mamba when installing packages, because they work reliably with all operating systems (including Windows), and they can also handle packages that contain code written in other languages. Many scientific and GIS libraries for Python include parts which are written in C, due to significant boost in performance (speed). You can also combine installations with conda/mamba and pip which might be sometimes necessary if a package is not available via conda, but can be installed with pip.</p></li>
+<li><p><strong>Virtual environments:</strong> Although <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Virtual-environment"><span class="xref std std-term">virtual environments</span></a></em> are not necessarily needed when first starting to learn programming, it is a good practice to create an isolated environment for your programming project (e.g. related to a specific course, manuscript/thesis, data analysis pipeline or software project). A virtual environment is a Python programming environment which works in a way that the Python interpreter, libraries and scripts installed into it are isolated from the ones installed in other virtual environments (or used by the operating system). This ensures that all the installed packages work nicely together. You can create multiple environments on your computer for different projects (having e.g. different versions of Python and specific libraries), and you can swap easily between environments by <em>activating</em> them from the command prompt with a single command (see next section for details).</p></li>
+<li><p><strong>Configuring and documenting your environments:</strong> Installing Python packages can be done easily one by one from a command prompt. However, to document and keep track of your packages while ensuring that your installation works smoothly, we recommended to write a dedicated configuration file which lists all the packages in your environment (see Figure 1.12). Python package managers support various formats to list/write your dependencies, but conda/mamba uses a configuration file written to <code class="docutils literal notranslate"><span class="pre">environment.yaml</span></code>. YAML is a human-friendly configuration language which is easy to use and a popular approach to manage Python environments. The name of the file can be anything, but file format should be <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>. In the configuration file, you can control all the specifications of your virtual environment, including the name for your environment and the version of Python that should be used in the environment. In addition, you can specify if you want to use a specific version of a given package (e.g. a slightly older version), or go with the newest version available (which is the default). It is a good practice to install all packages (if possible) from the same conda channel (e.g. <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> which we recommend), and not to mix conda and pip for installations if not strictly necessary. A conda channel is a remote location/directory having a dedicated web address where packages are stored. The channels serve as the base for hosting packages, and the package managers (such as conda/mamba) search and download the packages from these channels.</p></li>
+</ul>
+<p><img alt="Figure 1.12. An example of YAML configuration file used for creating a Python virtual environment." src="../../../_images/yaml_configuration_example.png" /></p>
+<p><em><strong>Figure 1.12</strong>. An example of YAML configuration file used for creating a Python virtual environment.</em></p>
+</section>
+<section id="installing-python-on-your-computer">
+<h2>Installing Python on your computer<a class="headerlink" href="#installing-python-on-your-computer" title="Permalink to this headline">#</a></h2>
+<p>In order to follow and reproduce the examples in the rest of the book, here we show in practice how to install Python on your own computer along with all of the recommended software libraries we use. This is not strictly necessary, as it is possible to use the Binder cloud computing platform from the book website to interact with the book materials. However, if you would like to get the most out of the book and ensure you’re easily able to continue with Python afterward, we strongly recommend you install Python and Jupyter on your own computer.</p>
+<p>In the sections that follow, we provide instructions for the installation of the Python using <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> <a class="footnote-reference brackets" href="#miniconda" id="id3">1</a>. for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the <span class="xref myst">Python environment file we provide</span> to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.</p>
 <p>This book assumes you are using <strong>Python 3</strong>, so for all operating systems we recommend you install Miniconda based on Python 3. At the time of writing of this book, Python 3.8 is the Python version that is recommended (e.g., Figure 1.12), however future versions of Python 3.X should also be suitable. Importantly, the coding examples we present will not work with Python 2.X, so be careful to install the correct version of Miniconda!</p>
-</div>
-<div class="section" id="windows">
-<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="installing-miniconda">
-<h3>Installing Miniconda<a class="headerlink" href="#installing-miniconda" title="Permalink to this headline">¶</a></h3>
-<p>To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer. You can find the latest installer links for various operating systems from the <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links">Miniconda website</a> <a class="footnote-reference brackets" href="#miniconda" id="id2">1</a>. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.</p>
-<p><img alt="Figure 1.12. Miniconda versions available for Windows." src="../../../_images/miniconda-windows.png" /></p>
-<p><em><strong>Figure 1.12</strong>. Miniconda versions available for Windows.</em></p>
+</section>
+<section id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">#</a></h2>
+<section id="installing-miniconda">
+<h3>Installing Miniconda<a class="headerlink" href="#installing-miniconda" title="Permalink to this headline">#</a></h3>
+<p>To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer. You can find the latest installer links for various operating systems from the <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links">Miniconda website</a> <a class="footnote-reference brackets" href="#miniconda" id="id4">1</a>. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.</p>
+<p><img alt="Figure 1.13. Miniconda versions available for Windows." src="../../../_images/miniconda-windows.png" /></p>
+<p><em><strong>Figure 1.13</strong>. Miniconda versions available for Windows.</em></p>
 <p>Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.</p>
 <ul class="simple">
 <li><p>Single-user installation: Select “<strong>Just Me</strong>” during the installation and Miniconda will only be available for the current user. This should not require administrator rights for the installation.</p></li>
@@ -791,9 +920,12 @@
 </ul>
 <p>After the installation has completed you can test that the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager works by opening the Anaconda Prompt from the Start menu and running a command such as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>. If the command returns a version number of conda (e.g. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">4.9.0</span></code>) then everything is working correctly.</p>
 <p>You can find some additional tips on installing Miniconda for Windows on the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html">Miniconda website</a>.</p>
-</div>
-<div class="section" id="setting-up-your-python-environment">
-<h3>Setting up your Python environment<a class="headerlink" href="#setting-up-your-python-environment" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="macos">
+<h2>macOS<a class="headerlink" href="#macos" title="Permalink to this headline">#</a></h2>
+<section id="setting-up-your-python-environment">
+<h3>Setting up your Python environment<a class="headerlink" href="#setting-up-your-python-environment" title="Permalink to this headline">#</a></h3>
 <p>There are three steps to install the software libraries needed in this book.</p>
 <ol>
 <li><p>Download a copy of our Python environment configuration file <code class="docutils literal notranslate"><span class="pre">python-gis-book.yml</span></code> that is available on the book website at <span class="xref myst">WEBSITE</span>.</p></li>
@@ -810,15 +942,37 @@
 <p>in the Anaconda Prompt. You should now have all of the software needed to proceed with the book.</p>
 </li>
 </ol>
+</section>
+</section>
+<section id="macos-macos">
+<h2>macOS## macOS<a class="headerlink" href="#macos-macos" title="Permalink to this headline">#</a></h2>
+<section id="id5">
+<h3>Setting up your Python environment<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<p>There are three steps to install the software libraries needed in this book.</p>
+<ol>
+<li><p>Download a copy of our Python environment configuration file <code class="docutils literal notranslate"><span class="pre">python-gis-book.yml</span></code> that is available on the book website at <span class="xref myst">WEBSITE</span>.</p></li>
+<li><p>Once you have downloaded the environment file you need, you can install it at the Anaconda Prompt by typing</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conda env create -f python-gis-book.yml
+</pre></div>
 </div>
+<p>This will create the Python environment by installing the required software. Please note that the downloaded file should be in the same directory where the Anaconda Prompt is running, and that the installation may take some time.</p>
+</li>
+<li><p>Finally, you can activate the new Python environment by typing</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conda activate python-gis-book
+</pre></div>
 </div>
-<div class="section" id="macos">
-<h2>macOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>Installing Miniconda<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>in the Anaconda Prompt. You should now have all of the software needed to proceed with the book.</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="id6">
+<h2>macOS## macOS<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h2>
+<section id="id7">
+<h3>Installing Miniconda<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
 <p>We recommend downloading the version of Miniconda that offers installation using a graphical installer (e.g., <code class="docutils literal notranslate"><span class="pre">Miniconda</span> <span class="pre">MacOSX</span> <span class="pre">64-bit</span> <span class="pre">pkg</span></code>), and make sure you download the Python 3 package (Figure 1.13).</p>
-<p><img alt="Figure 1.13. Miniconda versions available for macOS." src="../../../_images/miniconda-macos.png" /></p>
-<p><em><strong>Figure 1.13</strong>. Miniconda versions available for macOS.</em></p>
+<p><img alt="Figure 1.14. Miniconda versions available for macOS." src="../../../_images/miniconda-macos.png" /></p>
+<p><em><strong>Figure 1.14</strong>. Miniconda versions available for macOS.</em></p>
 <p>Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.</p>
 <ul class="simple">
 <li><p>Single-user installation: Select “<strong>Just Me</strong>” during the installation and Miniconda will only be available for the current user. This should not require administrator rights for the installation.</p></li>
@@ -826,9 +980,9 @@
 </ul>
 <p>After the installation has completed you can test that the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager works by opening Terminal or the Anaconda Prompt and running a command such as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>. If the command returns a version number of conda (e.g. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">4.9.0</span></code>) then everything is working correctly.</p>
 <p>In case you have any problems with the Miniconda installation, you can find some installation tips on the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html">Miniconda website</a>.</p>
-</div>
-<div class="section" id="id4">
-<h3>Setting up your Python environment<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id8">
+<h3>Setting up your Python environment<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
 <p>There are three steps to install the software libraries needed in this book.</p>
 <ol>
 <li><p>Download a copy of our Python environment configuration file <code class="docutils literal notranslate"><span class="pre">python-gis-book.yml</span></code> that is available on the book website at <span class="xref myst">WEBSITE</span>.</p></li>
@@ -845,15 +999,15 @@
 <p>in the Anaconda Prompt. You should now have all of the software needed to proceed with the book.</p>
 </li>
 </ol>
-</div>
-</div>
-<div class="section" id="linux">
-<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id5">
-<h3>Installing Miniconda<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="linux">
+<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">#</a></h2>
+<section id="id9">
+<h3>Installing Miniconda<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
 <p>Start by downloading the Miniconda installer for Linux from the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html">Miniconda website</a> (Figure 1.14). Be sure you download the Python 3 package.</p>
-<p><img alt="Figure 1.14. Miniconda versions available for Linux." src="../../../_images/miniconda-linux.png" /></p>
-<p><em><strong>Figure 1.14</strong>. Miniconda versions available for Linux.</em></p>
+<p><img alt="Figure 1.15. Miniconda versions available for Linux." src="../../../_images/miniconda-linux.png" /></p>
+<p><em><strong>Figure 1.15</strong>. Miniconda versions available for Linux.</em></p>
 <p>Once you have downloaded the installer, you can open a terminal window and type a command to start the installation. You should use the default installer options, but be aware that the command you run will differ depending on the installation type.</p>
 <ul>
 <li><p>Single-user installation: Start by running the following:</p>
@@ -871,9 +1025,9 @@
 </ul>
 <p>After the installation has completed you can test that the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager works by opening a terminal and running a command such as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>. If the command returns a version number of conda (e.g. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">4.9.0</span></code>) then everything is working correctly.</p>
 <p>In case you have any problems with the Miniconda installation, you can find some installation tips on the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html">Miniconda website</a>.</p>
-</div>
-<div class="section" id="id6">
-<h3>Setting up your Python environment<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id10">
+<h3>Setting up your Python environment<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
 <p>There are three steps to install the software libraries needed in this book.</p>
 <ol>
 <li><p>Download a copy of our Python environment configuration file <code class="docutils literal notranslate"><span class="pre">python-gis-book.yml</span></code> that is available on the book website at <span class="xref myst">WEBSITE</span>.</p></li>
@@ -890,58 +1044,68 @@
 <p>in the Anaconda Prompt. You should now have all of the software needed to proceed with the book.</p>
 </li>
 </ol>
-</div>
-</div>
-<div class="section" id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
-<dt class="label" id="miniconda"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dt class="label" id="miniconda"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>,<a href="#id4">3</a>)</span></dt>
 <dd><p><a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a></p>
 </dd>
+<dt class="label" id="miniforge"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://github.com/conda-forge/miniforge">https://github.com/conda-forge/miniforge</a>
+[^Python website]: <a class="reference external" href="https://www.python.org/">https://www.python.org/</a></p>
+</dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="04-coding-with-an-ide.html" title="previous page">
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="04-using-jupyterlab.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Other coding environments</p>
+            <p class="prev-next-title">Using JupyterLab for writing code</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="06-references.html" title="next page">
+    <a class='right-next' id="next-link" href="../../chapter-02/index.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">References</p>
+        <p class="prev-next-title">Basic programming concepts</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+  
+      &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
-    
-        &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Data wrangling, grouping and aggregation</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,26 +20,26 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Show the solution';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Working with temporal data" href="03-temporal-data.html" />
@@ -49,7 +51,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -58,9 +74,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -108,23 +125,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/03-jupyter.html">
-     Jupyter Notebooks
+    <a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">
+     Writing and running Python code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/04-coding-with-an-ide.html">
-     Other coding environments
+    <a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">
+     Using JupyterLab for writing code
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
-     Installation and setup
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/06-references.html">
-     References
+     Installing Python and adding libraries
     </a>
    </li>
   </ul>
@@ -174,11 +186,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-02/nb/07-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 current active has-children">
@@ -216,11 +223,6 @@
      Exercises
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="05-references.html">
-     References
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -234,32 +236,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/00-introduction.html">
-     Python plotting libraries
+    <a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">
+     Plotting in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/01-plot-anatomy.html">
-     Anatomy of a plot
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/02-basic-plotting.html">
+    <a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">
      Plotting with pandas and matplotlib
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/03-subplots.html">
+    <a class="reference internal" href="../../chapter-04/nb/02-subplots.html">
      Creating subplots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/04-plot-formatting.html">
+    <a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">
      Effective plot design: line plots
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/05-exercises.html">
+    <a class="reference internal" href="../../chapter-04/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -272,14 +269,9 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../part2/chapter-05/index.html">
-   Essentials: What is special about geographic data?
-  </a>
- </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part2/chapter-06/index.html">
-   Vector data processing
+  <a class="reference internal" href="../../../part2/chapter-05/index.html">
+   Getting started
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -288,58 +280,50 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-geometric-objects.html">
-     Geographic objects in Python/Shapely
+    <a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">
+     Motivation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-geopandas-basics.html">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
+     Introduction to geographic data in Python
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../part2/chapter-06/index.html">
+   Vector data processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
-     Vector Data I/O in Python
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
+     Data in/out: Preparing GeoDataFrames from spatial data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/03-projections.html">
-     Map projections
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
+     Coordinate Reference Systems
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-from-text-to-map.html">
-     From text to map
+    <a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">
+     Geometric data manipulations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">
-     Spatial queries and selections
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">
-     Spatial join
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">
-     Nearest Neighbour Analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/08-spatial_index.html">
-     Spatial index - How to boost spatial queries?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/09-nearest-neighbor-faster.html">
-     Nearest neighbor analysis with large datasets
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/10-geometric-operations.html">
-     Geometric operations
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+     Operations between multiple datasets
     </a>
    </li>
   </ul>
@@ -348,8 +332,8 @@
   <a class="reference internal" href="../../../part2/chapter-07/index.html">
    Raster data processing
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -395,8 +379,8 @@
   <a class="reference internal" href="../../../part2/chapter-08/index.html">
    Geographic data visualization
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -417,8 +401,8 @@
   <a class="reference internal" href="../../../part2/chapter-09/index.html">
    Using online geographic data sources
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -449,12 +433,17 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">
+   Acknowledgements
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../back-matter/appendices.html">
    Appendices
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -492,13 +481,13 @@
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/acknowledgements.html">
-   Acknowledgements
+  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
+   Glossary
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
-   Glossary
+  <a class="reference internal" href="../../../back-matter/nb/references.html">
+   References
   </a>
  </li>
  <li class="toctree-l1">
@@ -518,106 +507,185 @@
    Overview
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/noaa-data.html">
+   NOAA Weather data
+  </a>
+ </li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/part1/chapter-03/nb/02-data-analysis.ipynb.txt"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        
-        
-        <a class="edit-button" href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-03/nb/02-data-analysis.ipynb"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Python-GIS-book/site/master/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-03/nb/02-data-analysis.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-03/nb/02-data-analysis.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-03/nb/02-data-analysis.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/part1/chapter-03/nb/02-data-analysis.ipynb.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cleaning-data-while-reading">
    Cleaning data while reading
@@ -698,6 +766,18 @@
   <a class="reference internal nav-link" href="#automating-the-analysis">
    Automating the analysis
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#managing-and-listing-filesystem-paths">
+     Managing and listing filesystem paths
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#iterate-over-input-files-and-repeat-the-analysis">
+     Iterate over input files and repeat the analysis
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#footnotes">
@@ -706,12 +786,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Data wrangling, grouping and aggregation</h1>
@@ -804,6 +883,18 @@
   <a class="reference internal nav-link" href="#automating-the-analysis">
    Automating the analysis
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#managing-and-listing-filesystem-paths">
+     Managing and listing filesystem paths
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#iterate-over-input-files-and-repeat-the-analysis">
+     Iterate over input files and repeat the analysis
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#footnotes">
@@ -816,14 +907,15 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="data-wrangling-grouping-and-aggregation">
-<h1>Data wrangling, grouping and aggregation<a class="headerlink" href="#data-wrangling-grouping-and-aggregation" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="data-wrangling-grouping-and-aggregation">
+<h1>Data wrangling, grouping and aggregation<a class="headerlink" href="#data-wrangling-grouping-and-aggregation" title="Permalink to this headline">#</a></h1>
 <p>Next, we will continue working with weather data, but expand our analysis to cover longer periods of data from Finland. In the following, you will learn various useful techniques in pandas to manipulate, group and aggregate the data in different ways that are useful when extracting insights from your data. In the end, you will learn how to create an automated data analysis workflow that can be repeated with multiple input files having a similar structure. As a case study, we will investigate whether January 2020 was the warmest month on record also in Finland, as the month was the warmest one on record globally <a class="footnote-reference brackets" href="#noaanews" id="id1">1</a>.</p>
-<div class="section" id="cleaning-data-while-reading">
-<h2>Cleaning data while reading<a class="headerlink" href="#cleaning-data-while-reading" title="Permalink to this headline">¶</a></h2>
+<section id="cleaning-data-while-reading">
+<h2>Cleaning data while reading<a class="headerlink" href="#cleaning-data-while-reading" title="Permalink to this headline">#</a></h2>
 <p>In this section we are using weather observation data from Finland that was downloaded from NOAA (see <code class="docutils literal notranslate"><span class="pre">Datasets</span></code> chapter for further details). The input data is separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">USAF</span>  <span class="n">WBAN</span> <span class="n">YR</span><span class="o">--</span><span class="n">MODAHRMN</span> <span class="n">DIR</span> <span class="n">SPD</span> <span class="n">GUS</span> <span class="n">CLG</span> <span class="n">SKC</span> <span class="n">L</span> <span class="n">M</span> <span class="n">H</span>  <span class="n">VSB</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">AW</span>  <span class="o">...</span>
 <span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601010600</span> <span class="mi">090</span>   <span class="mi">7</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
@@ -956,9 +1048,9 @@
 </div></div></div>
 </div>
 <p>Perfect, looks good. We have skipped a bunch of unnecessary columns and also the asterisk (*) characters have been correctly converted to NaN values.</p>
-</div>
-<div class="section" id="renaming-columns">
-<h2>Renaming columns<a class="headerlink" href="#renaming-columns" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="renaming-columns">
+<h2>Renaming columns<a class="headerlink" href="#renaming-columns" title="Permalink to this headline">#</a></h2>
 <p>Let’s take a closer look at the column names of our DataFrame:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1021,9 +1113,9 @@
 </div>
 </div>
 <p>Perfect, now our column names are easier to understand and use.</p>
-</div>
-<div class="section" id="using-functions-with-pandas">
-<h2>Using functions with pandas<a class="headerlink" href="#using-functions-with-pandas" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-functions-with-pandas">
+<h2>Using functions with pandas<a class="headerlink" href="#using-functions-with-pandas" title="Permalink to this headline">#</a></h2>
 <p>Now it’s time to convert those temperatures from Fahrenheit to Celsius. We have done this many times before, but this time we will learn how to apply our own functions to data in a pandas DataFrame. We will define a function for the temperature conversion, and apply this function for each Celsius value on each row of the DataFrame. Output celsius values should be stored in a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code>. But first, it is a good idea to check some basic properties of our new input data before proceeding with data analysis:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1309,8 +1401,8 @@ memory usage: 12.1 MB
 </div></div></div>
 </div>
 <p>By looking at the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> values (Fahrenheit temperatures), we can confirm that our measurements seems more or less valid because the value range of the temperatures makes sense, i.e. there are no outliers such as extremely high <code class="docutils literal notranslate"><span class="pre">MAX</span></code> values or low <code class="docutils literal notranslate"><span class="pre">MIN</span></code> values. It is always a good practice to critically check your data before doing any analysis, as it is possible that your data may include incorrect values, e.g. due to a sensor malfunction or human error.</p>
-<div class="section" id="defining-a-function">
-<h3>Defining a function<a class="headerlink" href="#defining-a-function" title="Permalink to this headline">¶</a></h3>
+<section id="defining-a-function">
+<h3>Defining a function<a class="headerlink" href="#defining-a-function" title="Permalink to this headline">#</a></h3>
 <p>Now we are sure that our data looks okay, and we can start our temperature conversion process by first defining our temperature conversion function from Fahrenheit to Celsius. Pandas can use regular functions, hence you can define functions for pandas exactly in the same way as you would do normally (as we learned in Chapter 1). Hence, let’s define a function that converts Fahrenheits to Celsius:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1351,9 +1443,9 @@ memory usage: 12.1 MB
 </div>
 </div>
 <p>32 Fahrenheits is indeed 0 Celsius, so our function seem to be working correctly.</p>
-</div>
-<div class="section" id="using-a-function-by-iterating-over-rows">
-<h3>Using a function by iterating over rows<a class="headerlink" href="#using-a-function-by-iterating-over-rows" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="using-a-function-by-iterating-over-rows">
+<h3>Using a function by iterating over rows<a class="headerlink" href="#using-a-function-by-iterating-over-rows" title="Permalink to this headline">#</a></h3>
 <p>Next we will learn how to use our function with data stored in pandas DataFrame. We will first apply the function row-by-row using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and then we will learn a more efficient way of applying the function to all rows at once.</p>
 <p>Looping over rows in a DataFrame can be done in a couple of different ways. A common approach is to use a <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method which loops over the rows as a index-Series pairs. In other words, we can use the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method together with a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to repeat a process <em>for each row in a Pandas DataFrame</em>. Please note that iterating over rows this way is a rather inefficient approach, but it is still useful to understand the logic behind the iteration (we will learn a more efficient approach later). When using the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method it is important to understand that <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> accesses not only the values of one row, but also the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the row as we mentioned. Let’s start with a simple for loop that goes through each row in our DataFrame:</p>
 <div class="cell docutils container">
@@ -1516,9 +1608,9 @@ Temp F: 34.0
 </div>
 <p>Okay, now we have iterated over our data and updated the temperatures in Celsius to <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code> column by using our <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function. The values look correct as 32 Fahrenheits indeed is 0 Celsius degrees, as can be seen on the second row. We also have here the last row of our DataFrame which is a named tuple. As you can see, it is a bit like a weird looking dictionary with values assigned to the names of our columns. Basically, it is an object with attributes that we can access in a similar manner as we have used to access some of the pandas DataFrame attributes, such as <code class="docutils literal notranslate"><span class="pre">data.shape</span></code>.</p>
 <p>A couple of notes about our appoaches. We used <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> method for looping over the values because it is significantly faster compared to <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> (can be ~100x faster). We used <code class="docutils literal notranslate"><span class="pre">.at</span></code> to assign the value to the DataFrame because it is designed to access single values more efficiently compared to <code class="docutils literal notranslate"><span class="pre">.loc</span></code>, which can access also groups of rows and columns. That said, you could have used <code class="docutils literal notranslate"><span class="pre">data.loc[idx,</span> <span class="pre">new_column]</span> <span class="pre">=</span> <span class="pre">celsius</span></code> to achieve the same result (it is just slower).</p>
-</div>
-<div class="section" id="using-a-function-with-apply">
-<h3>Using a function with apply<a class="headerlink" href="#using-a-function-with-apply" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="using-a-function-with-apply">
+<h3>Using a function with apply<a class="headerlink" href="#using-a-function-with-apply" title="Permalink to this headline">#</a></h3>
 <p>Although using for loop with <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> can be fairly efficient, pandas DataFrames and Series have a dedicated method called <code class="docutils literal notranslate"><span class="pre">apply()</span></code> for applying functions on columns (or rows). <code class="docutils literal notranslate"><span class="pre">apply()</span></code> is typically faster than <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code>, especially if you have large number of rows, such as in our case. When using <code class="docutils literal notranslate"><span class="pre">apply()</span></code>, we pass the function that we want to use as an argument. Let’s start by applying the function to the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> column that contains the temperature values in Fahrenheit:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1724,10 +1816,10 @@ Name: TEMP_F, Length: 198334, dtype: float64
 </div></div></div>
 </div>
 <p>In this section, we showed you a few different ways to iterate over rows in pandas and apply functions. The most important thing is that you understand the logic of how loops work and how you can use your own functions to modify the values in a pandas DataFrame. Whenever you need to loop over your data, we recommend using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> as it is typically the most efficient one in terms of execution time. However, remember that in most cases you do not actually need to use loops, but you can do calculations in a “vectorized manner” (which is the fastest way) as we learned previously when doing basic calculations in pandas.</p>
-</div>
-</div>
-<div class="section" id="string-slicing">
-<h2>String slicing<a class="headerlink" href="#string-slicing" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="string-slicing">
+<h2>String slicing<a class="headerlink" href="#string-slicing" title="Permalink to this headline">#</a></h2>
 <p>We will eventually want to group our data based on month in order to see if the January temperatures in 2020 were higher than on average (which is the goal in our analysis as you might recall). Currently, the date and time information is stored in the column <code class="docutils literal notranslate"><span class="pre">TIME</span></code> that has a structure <code class="docutils literal notranslate"><span class="pre">yyyyMMddhhmm</span></code>. This is a typical timestamp format in which <code class="docutils literal notranslate"><span class="pre">yyyy</span></code> equals to year in four digit format, <code class="docutils literal notranslate"><span class="pre">MM</span></code> to month (two digits), <code class="docutils literal notranslate"><span class="pre">dd</span></code> days, <code class="docutils literal notranslate"><span class="pre">hh</span></code> hours and <code class="docutils literal notranslate"><span class="pre">mm</span></code> minutes. Let’s have a closer look at the date and time information we have by checking the values in that column, and their data type:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1902,8 +1994,8 @@ Name: TIME, dtype: int64
 </div></div></div>
 </div>
 <p>Nice! Now we have “labeled” the rows based on information about day of the year and hour of the day.</p>
-<div class="section" id="question-3-5">
-<h3>Question 3.5<a class="headerlink" href="#question-3-5" title="Permalink to this headline">¶</a></h3>
+<section id="question-3-5">
+<h3>Question 3.5<a class="headerlink" href="#question-3-5" title="Permalink to this headline">#</a></h3>
 <p>Create a new column <code class="docutils literal notranslate"><span class="pre">'MONTH'</span></code> with information about the month without the year.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1921,12 +2013,12 @@ Name: TIME, dtype: int64
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="grouping-and-aggregating-data">
-<h2>Grouping and aggregating data<a class="headerlink" href="#grouping-and-aggregating-data" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="basic-logic-of-grouping-a-dataframe-using-groupby">
-<h3>Basic logic of grouping a DataFrame using <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code><a class="headerlink" href="#basic-logic-of-grouping-a-dataframe-using-groupby" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="grouping-and-aggregating-data">
+<h2>Grouping and aggregating data<a class="headerlink" href="#grouping-and-aggregating-data" title="Permalink to this headline">#</a></h2>
+<section id="basic-logic-of-grouping-a-dataframe-using-groupby">
+<h3>Basic logic of grouping a DataFrame using <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code><a class="headerlink" href="#basic-logic-of-grouping-a-dataframe-using-groupby" title="Permalink to this headline">#</a></h3>
 <p>In the following sections, we want to calculate the average temperature for each month in our dataset. Here, we will learn how to use a <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method which is a handy tool for compressing large amounts of data and computing statistics for subgroups. We will use the groupby method to calculate the average temperatures for each month trough these three main steps:</p>
 <ol class="simple">
 <li><p>group the data based on year and month using <code class="docutils literal notranslate"><span class="pre">groupby()</span></code></p></li>
@@ -2248,9 +2340,9 @@ First rows of data in this group:
 </div>
 </div>
 <p>Here, we can see that the <code class="docutils literal notranslate"><span class="pre">key</span></code> contains the name of the group (i.e. the unique value from <code class="docutils literal notranslate"><span class="pre">YEAR_MONTH</span></code>).</p>
-</div>
-<div class="section" id="aggregating-data-with-groupby">
-<h3>Aggregating data with <code class="docutils literal notranslate"><span class="pre">groupby()</span></code><a class="headerlink" href="#aggregating-data-with-groupby" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="aggregating-data-with-groupby">
+<h3>Aggregating data with <code class="docutils literal notranslate"><span class="pre">groupby()</span></code><a class="headerlink" href="#aggregating-data-with-groupby" title="Permalink to this headline">#</a></h3>
 <p>We can, for example, calculate the average values for all variables using the statistical functions that we have seen already (e.g. mean, std, min, max, median). To calculate the average temperature for each month, we can use the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> function. Let’s calculate the mean for all the weather related data attributes in our group at once:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2306,18 +2398,16 @@ dtype: float64
       <th>GUST</th>
       <th>TEMP_F</th>
       <th>TEMP_C</th>
-      <th>YEAR_MONTH</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>278.583333</td>
-      <td>33.25</td>
-      <td>39.791667</td>
-      <td>8.75</td>
-      <td>8.75</td>
-      <td>201910</td>
+      <td>230.322581</td>
+      <td>13.473118</td>
+      <td>NaN</td>
+      <td>-0.537634</td>
+      <td>-0.537634</td>
     </tr>
   </tbody>
 </table>
@@ -2630,10 +2720,10 @@ dtype: float64
 </div>
 <p>As a result, we get identical results as with the earlier approach that was done with a single line of code (except for the position of the <code class="docutils literal notranslate"><span class="pre">YEAR_MONTH</span></code> column).</p>
 <p>So which approach should you use? From the performance point of view, we recommend using the first approach (i.e. chaining) which does not require you to create a separate for loop, and is highly performant. However, this approach might be a bit more difficult to read and comprehend (the loop might be easier). Also sometimes you want to include additional processing steps inside the loop which can be hard accomplish by chaining everything into a single command. Hence, it is useful to know both of these approaches for doing aggregations with the data.</p>
-</div>
-</div>
-<div class="section" id="case-study-detecting-warm-months">
-<h2>Case study: Detecting warm months<a class="headerlink" href="#case-study-detecting-warm-months" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="case-study-detecting-warm-months">
+<h2>Case study: Detecting warm months<a class="headerlink" href="#case-study-detecting-warm-months" title="Permalink to this headline">#</a></h2>
 <p>Now, we have aggregated our data on monthly level and all we need to do is to check which years had the warmest January temperatures. A simple approach is to select all January values from the data and check which group(s) have the highest mean value. Before doing this, let’s separate the month information from our timestamp following the same approach as previously we did when slicing the year-month combination:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2661,64 +2751,64 @@ dtype: float64
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>YEAR_MONTH</th>
       <th>DIR</th>
       <th>SPEED</th>
       <th>GUST</th>
       <th>TEMP_F</th>
       <th>TEMP_C</th>
+      <th>YEAR_MONTH</th>
       <th>MONTH</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>190601</td>
       <td>230.322581</td>
       <td>13.473118</td>
       <td>NaN</td>
       <td>-0.537634</td>
       <td>-0.537634</td>
+      <td>190601</td>
       <td>01</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>190602</td>
+      <th>0</th>
       <td>186.582278</td>
       <td>12.369048</td>
       <td>NaN</td>
       <td>-1.044974</td>
       <td>-1.044974</td>
+      <td>190602</td>
       <td>02</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>190603</td>
+      <th>0</th>
       <td>244.835165</td>
       <td>10.645161</td>
       <td>NaN</td>
       <td>-2.485066</td>
       <td>-2.485066</td>
+      <td>190603</td>
       <td>03</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>190604</td>
+      <th>0</th>
       <td>222.954545</td>
       <td>6.077778</td>
       <td>NaN</td>
       <td>2.740741</td>
       <td>2.740741</td>
+      <td>190604</td>
       <td>04</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>190605</td>
-      <td>167.500000</td>
+      <th>0</th>
+      <td>167.5</td>
       <td>5.847826</td>
       <td>NaN</td>
-      <td>10.722820</td>
-      <td>10.722820</td>
+      <td>10.72282</td>
+      <td>10.72282</td>
+      <td>190605</td>
       <td>05</td>
     </tr>
   </tbody>
@@ -2752,64 +2842,64 @@ dtype: float64
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>YEAR_MONTH</th>
       <th>DIR</th>
       <th>SPEED</th>
       <th>GUST</th>
       <th>TEMP_F</th>
       <th>TEMP_C</th>
+      <th>YEAR_MONTH</th>
       <th>MONTH</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>684</th>
-      <td>200801</td>
+      <th>0</th>
       <td>213.765182</td>
       <td>27.497976</td>
       <td>NaN</td>
       <td>1.302294</td>
       <td>1.302294</td>
+      <td>200801</td>
       <td>01</td>
     </tr>
     <tr>
-      <th>288</th>
-      <td>197501</td>
-      <td>213.765690</td>
+      <th>0</th>
+      <td>213.76569</td>
       <td>21.138075</td>
       <td>NaN</td>
       <td>1.293952</td>
       <td>1.293952</td>
+      <td>197501</td>
       <td>01</td>
     </tr>
     <tr>
-      <th>384</th>
-      <td>198301</td>
+      <th>0</th>
       <td>245.454545</td>
       <td>18.259259</td>
       <td>NaN</td>
       <td>1.273434</td>
       <td>1.273434</td>
+      <td>198301</td>
       <td>01</td>
     </tr>
     <tr>
-      <th>492</th>
-      <td>199201</td>
+      <th>0</th>
       <td>266.516393</td>
       <td>16.827869</td>
       <td>NaN</td>
-      <td>1.154910</td>
-      <td>1.154910</td>
+      <td>1.15491</td>
+      <td>1.15491</td>
+      <td>199201</td>
       <td>01</td>
     </tr>
     <tr>
-      <th>456</th>
-      <td>198901</td>
+      <th>0</th>
       <td>255.752212</td>
       <td>16.307359</td>
       <td>NaN</td>
       <td>1.069869</td>
       <td>1.069869</td>
+      <td>198901</td>
       <td>01</td>
     </tr>
   </tbody>
@@ -2817,21 +2907,100 @@ dtype: float64
 </div></div></div>
 </div>
 <p>By looking at the order of <code class="docutils literal notranslate"><span class="pre">YEAR_MONTH</span></code> column, we can see that January 2020 indeed was on average the warmest month on record based on weather observations from Finland.</p>
-</div>
-<div class="section" id="automating-the-analysis">
-<h2>Automating the analysis<a class="headerlink" href="#automating-the-analysis" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="automating-the-analysis">
+<h2>Automating the analysis<a class="headerlink" href="#automating-the-analysis" title="Permalink to this headline">#</a></h2>
 <p>Now we have learned how to aggregate data using pandas. average temperatures for each month based on hourly weather observations. One of the most useful aspects of programming, is the ability to automate processes and repeat analyses such as these for any number of weather stations (assuming the data structure is the same).</p>
-<p>Hence, let’s now see how we can repeat the previous data analysis steps for 15 weather stations located in different parts of Finland containing data for five years (2015-2019). The idea is that we will repeat the process for each input file using a (rather long) for loop. We will use the most efficient alternatives of the previously represented approaches, and finally will store the results in a single DataFrame for all stations. We will use the <code class="docutils literal notranslate"><span class="pre">glob()</span></code> function from the Python module <code class="docutils literal notranslate"><span class="pre">glob</span></code> to list our input files in the data directory <code class="docutils literal notranslate"><span class="pre">data/finnish_stations</span></code>. We will store those paths to a variable <code class="docutils literal notranslate"><span class="pre">file_list</span></code>, so that we can use the file paths easily in the later steps:</p>
+<p>Hence, let’s now see how we can repeat the previous data analysis steps for 15 weather stations located in different parts of Finland containing data for five years (2015-2019). The idea is that we will repeat the process for each input file using a (rather long) for loop. We will use the most efficient alternatives of the previously represented approaches, and finally will store the results in a single DataFrame for all stations. We will learn how to manipulate filepaths in Python using the <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module and see how we can list our input files in the data directory <code class="docutils literal notranslate"><span class="pre">data/finnish_stations</span></code>. We will store those paths to a variable <code class="docutils literal notranslate"><span class="pre">file_list</span></code>, so that we can use the file paths easily in the later steps.</p>
+<section id="managing-and-listing-filesystem-paths">
+<h3>Managing and listing filesystem paths<a class="headerlink" href="#managing-and-listing-filesystem-paths" title="Permalink to this headline">#</a></h3>
+<p>In Python there are two commonly used approaches to manage and manipulate filepaths, namely <code class="docutils literal notranslate"><span class="pre">os.path</span></code> sub-module and a newer <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module (available since Python 3.4) which we will demonstrate here.  The built-in module <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> provides many useful functions for interacting and manipulating filepaths on your operating system. On the following, we have data in different sub-folders and we will learn how to use the <code class="docutils literal notranslate"><span class="pre">Path</span></code> class from the <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> library to construct filepaths. Next, we will import and use the <code class="docutils literal notranslate"><span class="pre">Path</span></code> class and see how we can construct a filepath by joining a folder path and file name:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
-<span class="n">file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;data/finnish_stations/0*txt&quot;</span><span class="p">)</span>
+<span class="c1"># Initialize the Path</span>
+<span class="n">input_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/finnish_stations&quot;</span><span class="p">)</span>
+
+<span class="c1"># Join folder path and filename</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="n">input_folder</span> <span class="o">/</span> <span class="s2">&quot;028360.txt&quot;</span>
+<span class="n">fp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath(&#39;data/finnish_stations/028360.txt&#39;)
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note that we’re using the * character as a wildcard, so any filename that starts with <code class="docutils literal notranslate"><span class="pre">0</span></code> and ends with <code class="docutils literal notranslate"><span class="pre">txt</span></code> will be added to the list of files. We specifically use <code class="docutils literal notranslate"><span class="pre">data/finnish_stations/0</span></code> as the starting part of the file names to avoid having our metadata files included in the list.</p>
+<p>Here, we first initialized the <code class="docutils literal notranslate"><span class="pre">Path</span></code> object and stored it in variable <code class="docutils literal notranslate"><span class="pre">input_folder</span></code> by passing a relative path as a string to directory where all our files are located. Then we created a full filepath to file <code class="docutils literal notranslate"><span class="pre">028360.txt</span></code> by adding a forward slash (<code class="docutils literal notranslate"><span class="pre">/</span></code>) character between the folder and the filename which joins them together (easy!). In this case, our end result is something called a <em><code class="docutils literal notranslate"><span class="pre">PosixPath</span></code></em> which is a filesystem path to a given file on Linux or Mac operating systems. If you would run the same commands on Windows machine, the end result would be a <em><code class="docutils literal notranslate"><span class="pre">WindowsPath</span></code></em>. Hence, the output depends on which operating system you are using. However, you do not need to worry about this, because both types of Paths work exactly the same, no matter which operating system you use.</p>
+<p>Both the <code class="docutils literal notranslate"><span class="pre">Path</span></code> object that we stored in <code class="docutils literal notranslate"><span class="pre">input_folder</span></code> variable and the <code class="docutils literal notranslate"><span class="pre">PosixPath</span></code> object that we stored in variable <code class="docutils literal notranslate"><span class="pre">fp</span></code> are actually quite versatile creatures, and we can do many useful things with them. For instance, we can find the parent folder where the file is located, extract the filename from the full path, test whether the file or directory actually exists, find various properties of the file (such as size of the file or creation time), and so on:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fp</span><span class="o">.</span><span class="n">parent</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath(&#39;data/finnish_stations&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fp</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;028360.txt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fp</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># File properties</span>
+<span class="n">size_in_bytes</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span>
+<span class="n">creation_time</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_ctime</span>
+<span class="n">modified_time</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Size (bytes): </span><span class="si">{</span><span class="n">size_in_bytes</span><span class="si">}</span><span class="se">\n</span><span class="s2">Created (seconds since Epoch): </span><span class="si">{</span><span class="n">creation_time</span><span class="si">}</span><span class="se">\n</span><span class="s2">Modified (seconds since Epoch): </span><span class="si">{</span><span class="n">modified_time</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Size (bytes): 1347907
+Created (seconds since Epoch): 1649533212.9560282
+Modified (seconds since Epoch): 1649532851.545094
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are also various other methods that you can do with <code class="docutils literal notranslate"><span class="pre">pathlib</span></code>, such as rename the files (<code class="docutils literal notranslate"><span class="pre">.rename()</span></code>) or create folders (<code class="docutils literal notranslate"><span class="pre">.mkdir()</span></code>). You can see all available methods from <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> documentation <a class="footnote-reference brackets" href="#pathlib" id="id2">2</a>. One of the most useful tools in <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> is the ability to list all files within a given folder by using the method <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> which also allows you to add specific search criteria for listing only specific files from the directory:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_folder</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;0*txt&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, the result is stored into variable <code class="docutils literal notranslate"><span class="pre">file_list</span></code> as a list. By default, the <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> produces something called a <code class="docutils literal notranslate"><span class="pre">generator</span></code> which is a “lazy iterator”, i.e. a special kind of function that allows you to iterate over items like a list, but without actually storing the data in memory. By enclosing the <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> search functionality with <code class="docutils literal notranslate"><span class="pre">list()</span></code> we convert this generator into a normal Python list. Note that we’re using the * character as a wildcard, so any filename that starts with <code class="docutils literal notranslate"><span class="pre">0</span></code> and ends with <code class="docutils literal notranslate"><span class="pre">txt</span></code> will be added to the list of files. We specifically use the number <code class="docutils literal notranslate"><span class="pre">0</span></code> as the starting part for the search criteria to avoid having metadata files included in the list. Let’s take a look what we got as a result:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of files in the list:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_list</span><span class="p">))</span>
@@ -2843,26 +3012,29 @@ dtype: float64
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of files in the list: 15
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;data/finnish_stations/028360.txt&#39;,
- &#39;data/finnish_stations/029820.txt&#39;,
- &#39;data/finnish_stations/029070.txt&#39;,
- &#39;data/finnish_stations/029350.txt&#39;,
- &#39;data/finnish_stations/029170.txt&#39;,
- &#39;data/finnish_stations/028750.txt&#39;,
- &#39;data/finnish_stations/029720.txt&#39;,
- &#39;data/finnish_stations/029440.txt&#39;,
- &#39;data/finnish_stations/028970.txt&#39;,
- &#39;data/finnish_stations/029700.txt&#39;,
- &#39;data/finnish_stations/029810.txt&#39;,
- &#39;data/finnish_stations/029740.txt&#39;,
- &#39;data/finnish_stations/029500.txt&#39;,
- &#39;data/finnish_stations/028690.txt&#39;,
- &#39;data/finnish_stations/029110.txt&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[PosixPath(&#39;data/finnish_stations/028360.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029820.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029070.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029350.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029170.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/028750.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029720.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029440.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/028970.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029700.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029810.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029740.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029500.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/028690.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029110.txt&#39;)]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now, you should have all the relevant file paths in the <code class="docutils literal notranslate"><span class="pre">file_list</span></code>, and we can loop over the list using a for loop (again we break the loop after first iteration):</p>
+</section>
+<section id="iterate-over-input-files-and-repeat-the-analysis">
+<h3>Iterate over input files and repeat the analysis<a class="headerlink" href="#iterate-over-input-files-and-repeat-the-analysis" title="Permalink to this headline">#</a></h3>
+<p>Now, we should have all the relevant file paths in the <code class="docutils literal notranslate"><span class="pre">file_list</span></code>, and we can loop over the list using a for loop (again we break the loop after first iteration):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
@@ -3227,24 +3399,30 @@ Name: YEAR, dtype: int64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="noaanews"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://www.noaa.gov/news/january-2020-was-earth-s-hottest-january-on-record">https://www.noaa.gov/news/january-2020-was-earth-s-hottest-january-on-record</a></p>
 </dd>
+<dt class="label" id="pathlib"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html">https://docs.python.org/3/library/pathlib.html</a></p>
+</dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="01-data-manipulation.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -3260,24 +3438,28 @@ Name: YEAR, dtype: int64
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
+  
+      &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
-    
-        &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
