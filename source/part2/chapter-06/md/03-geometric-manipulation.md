@@ -14,57 +14,80 @@ jupyter:
 
 # Geometric data manipulations
 
-- Buffer
-- Centroid
-- Convex hull / bounding box / envelope
-- Unary union
-- Simplify?
-- Dissolving and merging geometries
-
 
 In this section we will use the Helsinki Region Travel Time Matrix data that constist of 13231 statistical grid squares (250m x 250m) to demonstrate some of the most common geometry manipulation functions available in geopandas. 
 
-As the geometries in GeoDataFrames are eventually Shapely objects, we can use all of Shapely's tools for geometry manipulation directly via geopandas. 
+As the geometries in GeoDataFrames are eventually Shapely objects, we can use all of Shapely's tools for geometry manipulation directly via geopandas.
 
+
+```python
+import geopandas as gpd
+
+fp = r"C:\LocalData\vuokkhei\data\temp\TravelTimes_to_5975375_RailwayStation.shp"
+#fp = r"data/TravelTimes_to_5975375_RailwayStation.shp"
+
+data = gpd.read_file(fp)
+
+data.geometry.head()
+```
+
+<!-- #region tags=[] -->
 ## Centroid
 
 Extracting the centroid of geometric features is useful in a multitude of use cases. For example, the values in the Travel Time Matrix data set have originally been calculated from the center point of each grid square. We can find out the geometric centroid of each grid square in geopandas via the centroid-attribute:
-
-```python
-# ADD READ DATA
-data = gpd.read_file()
-```
+<!-- #endregion -->
 
 ```python
 # Polygon centroids
 data.centroid
 ```
 
-
-
 ## Unary union
 
-## Convex hull, bounding box and envelope
-
-Convex hull refers to the smalles possible polygon that contains all objects in a collection. Alongside with the minimum bounding box, convex hull is a useful shape when aiming to describe the extent of your data.  
-
-Let's create a convex hull around our multi_point object:
+Extracting only the outlines of the set of grid squares is possible through creating a geometric union among all geometries in the GeoDataFrame/GeoSeries. This could be useful, for example, when delineating the outlines of a study area.
 
 ```python
-# Check input geometry
-multi_point
+# Polygon centroids
+data.unary_union
+```
+
+Note that the previous operation is identical to calling `data['geometry'].unary_union`.
+
+
+## Convex hull, bounds and envelope
+
+Sometimes it is enough to describe the approximate extent of the data using a bounding polygon. 
+
+A convex hull represents the smalles possible polygon that contains all points in an object. In order to create a covex hull for our set of grid squares, we need to first create an unary union that puts together all the polygons, and then create a convex hull for this geometry collection: 
+
+```python
+data.unary_union.convex_hull
+```
+
+A minimum bounding rectangle, or an envelope is the smallest rectangular polygon that contains the object.
+
+```python
+data.unary_union.envelope
+```
+
+Corner coordinates of a GeoDataFrame can be fetched direclt via the `total_bounds`attribute, while the `bounds` attribute returns the bounding coordinates of each feature:
+
+```python
+data.total_bounds
 ```
 
 ```python
-# Convex Hull (smallest polygon around the geometry collection)
-multi_point.convex_hull
+data.bounds
 ```
 
-```python
-# Envelope (smalles rectangular polygon around the geometry collection):
-multi_point.envelope
-```
 ## Buffer
+
+```python
+# add simple buffer example e.g. using the matrix extent (the data were calculated using study area + buffer)
+```
+
+<!-- #region -->
+
 
 ## Dissolving and merging geometries
 
@@ -74,6 +97,7 @@ In this section, we will aggregate our travel time data by car travel times (col
 
 - For doing the aggregation we will use a function called `dissolve()` that takes as input the column that will be used for conducting the aggregation:
 
+<!-- #endregion -->
 
 ```python
 # Conduct the aggregation
