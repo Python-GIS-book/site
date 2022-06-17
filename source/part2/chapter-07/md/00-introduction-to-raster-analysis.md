@@ -12,6 +12,6 @@ jupyter:
     name: python3
 ---
 
-# Exercises
+# Introduction to raster processing with Python
 
-**Under construction**
+**This section is under construction**
