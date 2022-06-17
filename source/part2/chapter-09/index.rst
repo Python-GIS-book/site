@@ -13,8 +13,8 @@ This chapter introduces you how to retrieve spatial data automatically from vari
     :maxdepth: 1
     :caption: Sections:
 
-    nb/00-retrieving_osm_data.ipynb
-    nb/01-retrieving_data-from-wfs.ipynb
-    nb/02-retrieving_data-from-wcs.ipynb
+    nb/00-retrieving-osm-data.ipynb
+    nb/01-retrieving-data-from-wfs.ipynb
+    nb/02-retrieving-data-from-wcs.ipynb
     nb/03-read-data-from-spatial-databases.ipynb
 
