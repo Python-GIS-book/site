@@ -234,8 +234,13 @@ selection.plot()
 
 ```python
 # Create a output path for the data
-output_folder = r"L2_data/"
-output_fp = os.path.join(output_folder, "Class_36200.shp")
+output_folder = Path("results")
+
+if not output_folder.exists():
+    output_folder.mkdir()
+    
+output_fp = output_folder / "Class_36200.shp"
+
 ```
 
 ```python
@@ -376,20 +381,18 @@ Let's now export terrain classes into separate Shapefiles.
 
 ```python
 # Determine output directory
-output_folder = r"L2_data/"
+output_folder = Path("results")
 
 # Create a new folder called 'Results'
-result_folder = os.path.join(output_folder, "Results")
+result_folder = output_folder / "Results"
 
 # Check if the folder exists already
-if not os.path.exists(result_folder):
+if not result_folder.exists():
 
     print("Creating a folder for the results..")
     # If it does not exist, create one
-    os.makedirs(result_folder)
+    result_folder.mkdir()
 
-else:
-    print("Results folder exists already.")
 ```
 
 At this point, you can go to the file browser and check that the new folder was created successfully.
@@ -400,13 +403,13 @@ At this point, you can go to the file browser and check that the new folder was 
 # Iterate over the groups
 for key, group in grouped:
     # Format the filename
-    output_name = "terrain_{}.shp".format(key)
+    output_name = Path("terrain_{}.shp".format(key))
 
     # Print information about the process
-    print("Saving file", os.path.basename(output_name))
+    print("Saving file", output_name.name)
 
     # Create an output path
-    outpath = os.path.join(result_folder, output_name)
+    outpath = result_folder / output_name
 
     # Export the data
     group.to_file(outpath)
@@ -434,7 +437,7 @@ Save area info to csv using pandas:
 
 ```python
 # Create an output path
-area_info.to_csv(os.path.join(result_folder, "terrain_class_areas.csv"), header=True)
+area_info.to_csv(result_folder / "terrain_class_areas.csv", header=True)
 ```
 
 
