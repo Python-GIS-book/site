@@ -5,5 +5,6 @@ Essentials of spatial data
     :maxdepth: 1
     :caption: Sections:
 
-    nb/00-introduction-to-geographic-data-in-python.ipynb
-    nb/00-geometric-objects.ipynb
+    nb/00-movitation-to-use-python-for-gis.ipynb
+    nb/01-introduction-to-geographic-data-in-python.ipynb
+    
