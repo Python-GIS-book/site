@@ -166,6 +166,7 @@ In geopandas, we can use a generic function [from_file()](http://geopandas.org/r
 
 ```python
 import geopandas as gpd
+
 gpd.io.file.fiona.drvsupport.supported_drivers
 ```
 

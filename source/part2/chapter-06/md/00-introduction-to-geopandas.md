@@ -12,7 +12,6 @@ jupyter:
     name: python3
 ---
 
-<!-- #region -->
 # Introduction to spatial data analysis with geopandas
 
 We will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis in Python. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas. 
@@ -25,7 +24,6 @@ The main difference between geopandas GeoDataFrames and pandas DataFrames is tha
 _**Figure 6.1**. Geometry column in a GeoDataFrame._
 
 Similar to importing import pandas as `pd`, we will import geopandas as `gpd`:
-<!-- #endregion -->
 
 ```python
 import geopandas as gpd
@@ -342,7 +340,6 @@ type(group)
 
 As we can see, each set of data are now grouped into separate GeoDataFrames, and we can save them into separate files.
 
-<!-- #region -->
 ### Saving multiple output files
 
 Let's **export each class into a separate Shapefile**. While doing this, we also want to **create unique filenames for each class**.
@@ -377,7 +374,6 @@ Read more from here: https://pyformat.info/
 Let's now export terrain classes into separate Shapefiles.
 
 - First, create a new folder for the outputs:
-<!-- #endregion -->
 
 ```python
 # Determine output directory
