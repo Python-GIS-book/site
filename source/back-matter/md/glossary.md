@@ -94,6 +94,9 @@ Semantics
 Software
   Another name for a {term}`program`.
 
+Spatial resolution
+  The spatial resolution of a raster refers typically to the size of the cells in a raster dataset. It can also mean the ratio of screen pixels to image pixels at the current map scale. 
+
 Subplots
   The term used in Matplotlib to refer to individual plots when more than one plot is part of a single figure.
 
