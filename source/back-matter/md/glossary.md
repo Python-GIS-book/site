@@ -20,6 +20,9 @@ Collection
 
 Computer
   We use the definition of a computer given by {cite}`Zelle2017`: "A machine that stores and manipulates information under the control of a changeable program."
+  
+Data model
+  A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell.    
 
 Data type
   An attribute defining the characteristics of a value in a program.
@@ -41,9 +44,18 @@ Docstring
 
 Function
   A reusable piece of code that performs a single action.
+  
+IDE
+  See `{term}Integrated Development Environment`.
 
 Index
   A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
+  
+Integrated Development Environment
+  An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface
+  
+Interpreter
+  An interpreter is a computer program that is used to execute program instructions written in Python (or other languages). The interpreter reads your statements of code and based on these instructions actually does the work that has been assigned to it. 
 
 Jupyter Notebook
   A web application that allows users to combine rich-formtted text with code cells in an interactive document.
@@ -73,8 +85,11 @@ Program
 Programming language
   A set of exact and unambiguous instructions that can be understood by the computer.
 
+Script
+  A Python script is a collection of commands in a file that can be executed like a program. 
+
 Semantics
-  The meaning of an element in a programming language. For example, the `len()` function in Python is used to determine the length of a data structure that is defined in memory.
+  The exact meaning of a component in a programming language, such as a statement or a function. For example, the `len()` function in Python is used to determine the length of a data structure that is defined in memory.
 
 Software
   Another name for a {term}`program`.
@@ -83,7 +98,7 @@ Subplots
   The term used in Matplotlib to refer to individual plots when more than one plot is part of a single figure.
 
 Syntax
-  The form of an element in a programming language. For example, the print function in Python expects the syntax `print('hello')` in order to have the word hello displayed on the screen.
+  The precise form of a component in a programming language. For example, the print function in Python expects the syntax `print('hello')` in order to have the word hello displayed on the screen.
 
 Variable
   A way of storing values in the memory of the computer using specific names that you define.
