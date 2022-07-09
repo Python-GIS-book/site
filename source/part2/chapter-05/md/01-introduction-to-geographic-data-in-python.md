@@ -14,13 +14,14 @@ jupyter:
 
 # Introduction to geographic data in Python
 
-How do we represent geographic features such as roads and buildings or lakes and mountains on a computer? How can we analyze spatial relations between these features? How can we link abstract geometric objects to actual locations on the Earth? What is the difference between geographic and projected coordinate reference systems? How can we automate all of this using Python? This chapter introduces you to the basic concepts and approaches related to Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.
+How do we represent geographic features such as roads, buildings, lakes or mountains on a computer? How can we analyze spatial relations between these features? How can we link abstract geometric objects to actual locations on the Earth? What is the difference between geographic and projected coordinate reference systems? How can we automate GIS operations or analyses in Python? This chapter introduces you to the basic concepts and approaches related to Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.
 
 
 ## Ways to represent spatial data 
 
-- Division between vector and raster data
-- Points, Lines, Polygons, Fields
+To be able to work with real world geographic objects (such as roads or lakes) on a computer, we need to represented them in a format that the computer can understand and work with. These representations are typically simplifications of the real world which are represented either with **vector** or **raster** *{term}`data model`*. Vector and raster data formats are very different by nature. Figure 5.2 shows how physical objects, such as roads and buildings, can be represented as vectors or rasters. The vector features are constructed from points in geographical space which are connected to each other forming lines or polygons. Raster features then again are constructed from rectangular cells (or pixels) with specific size (e.g. 5 meter by 5 meter - also called as having 5 m `spatial resolution`) that form a uniform grid (i.e. a raster). The grid is associated to specific geographical location and each cell of the grid contains a value representing some information, such as elevation, temperature or presence/absence.  Because the data structures are very different, there are typically a different set of GIS tools and methodologies that are applied for raster and vector data. However, the vector and raster worlds are not totally isolated from each other as in many cases it is useful to convert the data from one format to another for specific operations (as has been done in Figure 5.2). 
+![_**Figure 5.2.** Vector and raster representations of roads and buildings. _](../img/vector_vs_raster.jpg)
+_**Figure 5.2.** Vector and raster representations of roads and buildings._
 
 
 ## Data models for representing geographic information on a computer
