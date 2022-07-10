@@ -47,12 +47,12 @@ Vector data can be produced in many ways.
 
 As we pointed out earlier, there are two fundamental *{term}`data models`* to represent geographic information: **vector** and **raster** data models. In addition, there are other models which **extend** the previous ones, such as *{term}`spatio-temporal data model`* which incorporates time as one additional dimension to the geographic dimension; or models that are **underlying** the vector (or raster) data models, such as *{term}`topological data model`*, which incorporates topological relationships in the core model design (think e.g. street network consisting of intersections and roads connecting them). Next, we will dive deeper into the vector, raster and topological data models and see how they are formed, and how these data models can be represented in Python. 
 
-### Representing vector data with `shapely` 
+### Representing vector geometries with `shapely` 
 
-The most fundamental geometric objects when working with spatial data in vector format are `points`, `lines` and `areas`, as shown in Figure 5.3. `Point` -object represents a single point in geographic space. The location of the point in space is determined with coordinates: points can be either two-dimensional (with x, y -coordinates) or three dimensional (with x, y, and z coordinates). A single pair of coordinates forming a point is commonly called as `coordinate tuple`. `LineString` -object (i.e. a line) represents a sequence of points joined together to form a line. Hence, a line consist of a list of at least two coordinate tuples. `Polygon` -object represents a filled area that consists of a list of at least three coordinate tuples that forms the outerior ring and a (possible) list of hole polygons. It is also possible to have a collection of geometric objects (points, lines and areas) represented as `MultiPoint`, `MultiLineString` or `MultiPolygon`.
+The most fundamental geometric objects when working with spatial data in vector format are `points`, `lines` and `areas`. Figure 5.3 represents the vector data model and illustrates the variety of geometric objects that are availeble. `Point` -object represents a single point in geographic space and the location of the point in space is determined with coordinates. Points can be either two-dimensional (with x, y -coordinates) or three dimensional (with x, y, and z coordinates). A single pair of coordinates forming a point is commonly called as *`coordinate`* *{term}`tuple`*. `LineString` -object (i.e. a line) represents a sequence of points joined together to form a line. Hence, a line consist of a list of at least two coordinate tuples. `Polygon` -object represents a filled area that consists of a list of at least three coordinate tuples that forms the outerior ring and a (possible) list of hole polygons (as seen in the last plot of Figure 5.3) It is also possible to have a collection of geometric objects (points, lines and areas) represented as `MultiPoint`, `MultiLineString` or `MultiPolygon` as shown in the bottom row of Figure 5.3.
 
 
-![_**Figure 5.3**. Vector data model_](../img/spatial-data-model.png)
+![_**Figure 5.3**. Vector data model_](../img/vector_data_model.jpg)
 
 _**Figure 5.3**. Vector data model._
 
@@ -75,22 +75,6 @@ In this lesson, you will learn how to create and manipulate geometries in Python
 
 These materials are partly based on [Shapely-documentation](https://shapely.readthedocs.io/en/stable/manual.html) and [Westra
 E. (2013), Chapter 3](https://www.packtpub.com/application-development/python-geospatial-development-second-edition).
-
-
-
-<div class="alert alert-info">
-
-**Tuple**
-
-[Tuple](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences) is a Python data structure that consists of a number of values separated by commas. Coordinate pairs are often represented as a tuple. For example:
-
-```
-(60.192059, 24.945831)
-``` 
-
-Tuples belong to [sequence data types](https://docs.python.org/3/library/stdtypes.html#typesseq) in Python. Other sequence data types are lists and ranges. Tuples have many similarities with lists and ranges, but they are often used for different purposes. The main difference between tuples and lists is that tuples are [immutable](https://docs.python.org/3/glossary.html#term-immutable), which means that the contents of a tuple cannot be altered (while lists are mutable; you can, for example, add and remove values from lists).
-</div>
-
 
 
 
