@@ -14,394 +14,133 @@ jupyter:
 
 # Introduction to geographic data in Python
 
-How do we represent geographic features such as roads, buildings, lakes or mountains on a computer? How can we analyze spatial relations between these features? How can we link abstract geometric objects to actual locations on the Earth? What is the difference between geographic and projected coordinate reference systems? How can we automate GIS operations or analyses in Python? This chapter introduces you to the basic concepts and approaches related to Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.
+How do we represent geographic features such as roads, buildings, lakes or mountains on a computer? How can we read an image taken with a satellite sensor and use that in our analyses? How can we create a spatial network that can be used for navigation and finding the fastest route from A to B? This chapter introduces you to the fundamental data structures and formats that are most commonly used when working with Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.
 
 
 ## Ways to represent spatial data on a computer
 
 To be able to work with real world geographic objects (such as roads or lakes) on a computer, we need to represented them in a format that the computer can understand and work with. These representations are simplifications of the real world which are typically represented either with **vector** or **raster** *{term}`data model`*. Vector and raster data formats are very different by nature. Figure 5.2 shows how physical objects, such as roads and buildings, can be represented as vectors or rasters. In addition, there are other models which *extend* the previous ones, such as *{term}`spatio-temporal data model`* which incorporates time as one additional dimension to the geographic dimension. There are also models that *integrate* vector or raster data models, such as *{term}`topological data model`* which is typically build around vector data. This model can be used to represent e.g. street **networks** in a way that the topological relationships are incorporated in the core model design, which happens to be very useful for example when aiming to find a shortest route between two locations. 
 
-The vector representation of the road and building features (shown on the left in Figure 5.2) are constructed from points in geographical space which are connected to each other forming lines and polygons. The subplots on the right, shows raster representations of the same features. They are constructed from rectangular cells (also called as pixels) that form a uniform grid, i.e. a raster. The grid is associated to specific geographical location and each cell of the grid contains a value representing some information, such as elevation, temperature or presence/absence (as in this figure). The cell size of the grid can vary. For example, the top-right subplot represents the roads with 10 meter *{term}`spatial resolution`*, i.e. the size of an individual cell is 10 by 10 meters, whereas the bottom-right subplot represents the buildings with 1 meter spatial resolution. When working with raster data, the spatial resolution is an important aspect, because it determines how accurately the real-world entities, such as buildings, can be represented or identified from the data. Lastly, the roads on the top-left could be represented as a network, which is a vector-based data structure consisting of intersections (called *nodes*) that are represented as points, and streets connecting the nodes that are represented as lines (called *edges*). Because the vector and raster data models are very different, there are typically a different set of GIS tools and methodologies applied for raster and vector data. However, the vector and raster worlds are not totally isolated from each other, as in many cases it is useful to convert the data from one format to another for specific operations, as has been done in Figure 5.2.
+The vector representation of the road and building features (shown on the left in Figure 5.2) are constructed from points in geographical space which are connected to each other forming lines and polygons. The subplots on the right, shows raster representations of the same features. They are constructed from rectangular cells (also called as pixels) that form a uniform grid, i.e. a raster. The grid is associated to specific geographical location and each cell of the grid contains a value representing some information, such as elevation, temperature or presence/absence (as in this figure). Lastly, the roads on the top-left could be represented as a network, which is a vector-based data structure consisting of intersections (called *nodes*) that are represented as points, and streets connecting the nodes that are represented as lines (called *edges*). Because the vector and raster data models are very different, there are typically a different set of GIS tools and methodologies applied for raster and vector data. However, the vector and raster worlds are not totally isolated from each other, as in many cases it is useful to convert the data from one format to another for specific operations, as has been done in Figure 5.2.
  
 ![_**Figure 5.2.** Vector and raster representations of roads and buildings._](../img/vector_vs_raster.jpg)
 
 _**Figure 5.2.** Vector and raster representations of roads and buildings._
 
-<!-- #region -->
-<!---
-Vector data can be produced in many ways. 
-- Points
-- Lines
-- Areas (Polygons)
-- Collections
-- Box
-- Sidenote: storing geometry into WKT/WKB
-- Surface / field:
-  - Raster
-  - TIN/Voronoi (tesseleations)
-  - Hexagon (H3)
-- Networks
--->
 
+## Building blocks of vector data
 
-
-## Representing vector geometries with `shapely` 
+### Geometric objects
 
 The most fundamental geometric objects when working with spatial data in vector format are **points**, **lines** and **areas**. Figure 5.3 represents the vector data model and illustrates the variety of geometric objects that are available. `Point` -object represents a single point in geographic space and the location of the point in space is determined with coordinates. Points can be either two-dimensional (with x, y -coordinates) or three dimensional (with x, y, and z coordinates). A single pair of coordinates forming a point is commonly called as *`coordinate`* *{term}`tuple`*. `LineString` -object (i.e. a line) represents a sequence of points joined together to form a line. Hence, a line consist of a list of at least two coordinate tuples. `Polygon` -object represents a filled area that consists of a list of at least three coordinate tuples that forms the outerior ring (called `LinearRing`) and a possible list of holes (as seen in the last plot of Figure 5.3) It is also possible to have a collection of geometric objects (i.e. multiple points, lines or areas) represented as `MultiPoint`, `MultiLineString` and `MultiPolygon` as shown in the bottom row of Figure 5.3. Geometry collections can be useful for example when you want to present multiple building polygons belonging to the same property as a single entity (like a Finnish summer house that typically has a separate sauna building). In addition to these, you might sometimes hear about other geometry objects, such as `Curve`, `Surface` or `GeometryCollection`, but these are basically implemented by the same `Point`, `LineString` and `Polygon` geometry types, hence we don't really use them in practice. 
 
 All of these geometries are defined in *Simple Features Access Specification* ({cite}`Herring_2011`), which is a standard (ISO 19125-1) formalized by the *Open Geospatial Consortium* and *International Organization for Standardization*. Most (if not all) programming languages follow this same standard to represent spatial data. The text underneath each geometry (e.g. `Point (25 60.5)`) shows how each of these geometries can be represented as text (Figure 5.3). The way the text is formatted follows a specification called *{term}`Well-known text` (WKT)* which is also defined in the Simple Features Access Specification. The geometries can also be represented in binary format, which is called  *{term}`Well-known binary` (WKB)*. WKB is useful for storing the geometries in a more compact form, but it is not human-readable. Most often, you don't need to worry about these technical details when working with spatial data in Python, but it is useful to know the foundations underlying most (if not all) GIS libraries.
 
-![_**Figure 5.3**. Vector data model._](../img/vector_data_model.jpg)
+![_**Figure 5.3**. Vector data model following the Simple Features Access Specification._](../img/vector_data_model.jpg)
 
-_**Figure 5.3**. Vector data model._
-
-
-<!-- #endregion -->
-
-A core Python library for representing vector data in geospatial domain is called `shapely` [^shapely]. Although `shapely` library can be a bit hidden from most Python GIS user nowadays, it is one of the fundamental dependencies of `geopandas` library which is the go-to library when working with (vector) spatial data in Python. Hence, basic knowledge of shapely is fundamental to understand how geometries are stored and handled in `geopandas`. In the following, we give a quick overview, how to create geometries using `shapely`.
+_**Figure 5.3**. Vector data model following the Simple Features Access Specification._
 
 
-### Point geometries
 
-When creating geometries in Python, we first need to import the geometric object class (such as `Point`) that we want to create from `shapely.geometry` which contains all possible geometry types. After importing the `Point` class, creating a point is easy: we just pass `x` and `y` coordinates into the `Point()` -class (with a possible `z` -coordinate) which will create the point for us:
+### Attribute data
 
-```python jupyter={"outputs_hidden": false}
-from shapely.geometry import Point
+The geometry of a feature is one aspect of geospatial data which tells us about the location and possibly the shape of the real-world entity at hand. However, the other aspect which is equally important is the information that we associate with the geometry as an attribute data. Attribute data is typically attached to the geometries that describe the given entity with various possible characteristics. For example, in terms of a building geometry, we might have useful attribute information associated to the building, such as the number of floors, the height of the building, or how many people live there. In fact, we have already worked with this kind of attribute data in Part I of the book, when we worked with `pandas` DataFrames and analyzed the temperature observations. The DataFrame containing relevant information about the phenomena that we are analyzing (such as the temperature patterns) can be called as an attribute table, which is commonly used term in GIS softwares. Attributes are always linked to the geometries in one way or another: for example based on a unique feature identifier which is referenced both in the attribute table and the geometry records (e.g. when working with `Shapefiles`). The linking can also be done on a structural level of the data, such as in `GeoJSON` format in which a single feature always contains both the geometry information as well as the properties of the data (i.e. attributes associated with the geometry).  
 
-point = Point(2.2, 4.2)
-point3D = Point(9.26, -2.456, 0.57)
 
-point
+### Commonly used vector data formats
+
+**GeoJSON**: GeoJSON [^geojson] is an open standard format for encoding a variety of geographic data structures along with their attribute data which can be stored into a simple text file. The data format extends the widely used JSON format. GeoJSON is human readible and the data is not compressed, hence the files can get large when storing more complex geometries. An example of GeoJSON data structure:
+
+```
+{"type": "FeatureCollection", 
+    "features": [
+        {"type": "Feature", "properties": {"id": 75553155, "timestamp": 1494181812},
+        "geometry": {"type": "MultiLineString", "coordinates": [[[26.938, 60.520], [26.938, 60.520]], [[26.937, 60.521], [26.937, 60.521]], [[26.937, 60.521], [26.936, 60.522]]]}
+        }, 
+        {"type": "Feature", "properties": {"id": 424099695, "timestamp": 1465572910}, 
+        "geometry": {"type": "Polygon", "coordinates": [[[26.935, 60.521], [26.935, 60.521], [26.935, 60.521], [26.935, 60.521], [26.935, 60.521]]]}
+        }
+    ]
+}
+
 ```
 
-As we see here, Jupyter notebook is able to display the shape of the `point` directly on the screen when we call it. The point object here is represented as it has been defined in the *Simple Features Access Specification*. Under the hood `shapely` actually uses a C++ library called GEOS [^GEOS] to construct the geometries, which is one of the standard libraries behind various Geographic Information Systems, such as QGIS [^QGIS]. We can use the print statement to get the coordinate information of these objects in WKT format:
 
-```python jupyter={"outputs_hidden": false}
-print(point)
-print(point3D)
-```
+**Geopackage:** TODO.
 
-3D-point can be recognized from the capital Z -letter in front of the coordinates. Extracting the coordinates of a `Point` can be done in a couple of different ways. We can use the `coords` attribute contains the coordinate information as a `CoordinateSequence` which is a specific data type of Shapely. In addition, we can also directly use the attributes `x` and `y` to get the coordinates directly as plain decimal numbers.
 
-```python
-list(point.coords)
-```
+**Shapefile:** TODO.
 
-```python jupyter={"outputs_hidden": false}
-print(
-    point.x,
-    point.y
-)
-```
 
-Points and other shapely objects have many useful built-in attributes and methods [^shapely_methods], such as calculating the Euclidian distance between points or creating a buffer from the point that converts the point into a circle `Polygon` with specific radius. However, all of these functionalities are integrated into `geopandas` and we will go through them later in the book. 
+**Geoparquet:** TODO.
+
+
+Now you should have a basic understanding about the basic building blocks of vector data. In the following parts of the book, you will learn many useful geocomputational and analytical techniques that you can use when working with vector data.  
+
+
+## Basics of raster data and arrays
+
+As briefly mentioned earlier, in raster data model the data is represented as an array of cells (pixels) to represent real-world objects or continuous phenomena, such as temperatures. An intrinsic feature of raster data is that each cell in the dataset typically contains a value (although the cell value can also be `NoData`). This is different compared to vector data, in which the geometries (observations) can be unevenly distributed across space, although it is possible to also represent a regular grid with polygons (it is just much less efficient computationally). Also a basic feature of raster data is that the cell size of the grid can vary. For example, the top-right subplot in Figure 5.2 represents the roads with 10 meter *{term}`spatial resolution`*, i.e. the size of an individual cell is 10 by 10 meters, whereas the bottom-right subplot represents the buildings with 1 meter spatial resolution. This is an important aspect when working with raster data, because the spatial resolution determines how accurately the real-world entities, such as buildings or topographic features, can be represented or identified from the data. Raster data is commonly used to represent e.g. satellite imagery, digital elevation models and other type of data, in which the spatial extent of the data is large (covering e.g. whole countries, continents or the world) with continuous measurements across the space. It is good to be awere though, that it is also possible to store discrete or categorical data to a raster, such as landuse classification data. Raster data is commonly used e.g. for environmental monitoring, meteorology and cartography. 
+
+
+### Commonly used raster data formats
+
+TODO.
+
+
+Now you should know the basics raster data, and in Chapters 7-9 as well as in Chapter 12, you will learn many useful techniques that you can use when working with raster data. 
+
+
+## Representing spatial networks
+
+Networks are everywhere. Social networks, telecommunication networks, neural networks, and transportation networks are all familiar examples how the networks surround us and are very essential to our everyday life. No surprise then, that studying complex networks has grown to be a very important topic in various fields of science including biology, medical sciences, social science, engineering, geography and many others. In this book, we will focus on spatial networks that can represent for example street networks (one of the most typical examples). In Figure 5.2, we saw a simple street network represented as a collection of `LineStrings`. Although this representation can already be used to visualize the network, it does not yet allow to do analysis with it. For this, we need to create a `Network` data stucture with topology. Before showing how to do this, let's go through some basic concepts about networks (or graphs, as they are also commonly called).  
+
+### Network structure
+
+Graphs are, in principle, very simple data structures, and they consists of:
+
+ 1. **nodes** (e.g. intersections on a street, or a person in social network), and
+ 2. **edges** (a link that connects the nodes to each other)
+ 
+A simple graph could look like this:
+
+![A simple graph.](../img/graph_elements.png)
+
+Here, the letters `A, B, C, D, and E` are nodes and the lines that goes between them are edges/links. 
 
 
 <!-- #region -->
-### LineString geometries
+### Node and Edge attributes
+
+In terms of street networks, nodes typically contain the geographical information associated with the graph (i.e. coordinates of the intersection). Edges typically contain much more information. They e.g. contain information about **which nodes are connected to each other**, and what is the **cost** to travel between the nodes (e.g. time, distance, CO2, etc.). It is also possible to associate geographical information to edges (if you e.g. want to show how the roads are curved between intersections), but for basic travel time analyses this is not needed. 
+
+![Weighted graph.](../img/graph_weights.png)
+
+### Directed vs Undirected graphs
+
+Graphs can be **directed** or **undirected**, which basically determines whether the roads can be travelled to any direction or whether the travel direction is restricted to certain direction (e.g. a one-way-street). 
+In **undirected** graph, it is possible to travel in both directions between nodes (e.g. from `A --> C` and from `C --> A`). Undirected graphs are typically used e.g. with walking and cycling as with those travel modes it is typically possible to travel the same street in any direction you like. 
+
+![Directed graph.](../img/directed_graph.png)
+
+If the graph is **directed**, it means that you should have a separate edge for each direction. If you for example have a graph with only an edge that goes from `D` to `E`, you can travel to node `E` from `D` but you cannot travel back. In directed graphs, **you need to have a separate edge for each travel direction**. Fundamentally this means that for a bi-directional road, you should have edges in your data (i.e. two separate rows), such as:
 
 
-Creating `LineString` -objects is fairly similar to creating Shapely Points. Now, instead using a single coordinate-tuple we can construct the line using either a list of shapely `Point` -objects or pass the points as coordinate-tuples:
+| edge_id | from_node | to_node| description |
+|---------|-----------|--------|-------------|
+|1| A| C |  *edge for direction 1* |
+|2| C| A |  *edge for direction 2* |
 <!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false}
-from shapely.geometry import Point, LineString
-
-point1 = Point(2.2, 4.2)
-point2 = Point(7.2, -25.1)
-point3 = Point(9.26, -2.456)
-
-line = LineString([point1, point2, point3])
-line_from_tuples = LineString([(2.2, 4.2), (7.2, -25.1), (9.26, -2.456)])
-line
-```
-
-```python
-print(line)
-```
-
-As we can see from above, the WKT representation of the `line` -variable constitutes of multiple coordinate-pairs. `LineString` -object has many useful built-in attributes and methods similarly as `Point` -objects. It is for instance possible to extract the coordinates, calculate the length of the `LineString`, find out the centroid of the line, create points along the line at specific distance, calculate the closest distance from a line to specified Point, or simplify the geometry. A full list of functionalities can be read from `shapely` documentation [^shapely]. Most of these functionalities are directly implemented in `geopandas` (see next chapter), hence you very seldom need to parse these information directly from the `shapely` geometries yourself. However, here we go through a few of them for reference. We can extract the coordinates of a LineString similarly as with `Point`:
-
-```python jupyter={"outputs_hidden": false}
-list(line.coords)
-```
-
-As a result, we have a list of coordinate tuples (x,y) inside a list. If you need to access all `x` -coordinates or all `y` -coordinates of the line, you can do it directly using the `xy` attribute: 
-
-```python jupyter={"outputs_hidden": false}
-xcoords = list(line.xy[0])
-ycoords = list(line.xy[1])
-
-print(xcoords)
-print(ycoords)
-```
-
-It is possible to retrieve specific attributes such as `length` of the line and center of the line (`centroid`) straight from the `LineString` object itself:
-
-```python jupyter={"outputs_hidden": false}
-length = line.length
-centroid = line.centroid 
-print(f"Length of our line: {length:.2f} units")
-print(f"Centroid: {centroid}")
-```
-
-As you can see, the centroid of the line is again a Shapely Point object. In practice, you would rarely access these attributes directly from individual `shapely` geometries, but we can do the same things for a set of geometries at once using `geopandas`. 
-
-<!-- #region -->
-## Polygon
-
-
-Creating a `Polygon` -object continues the same logic of how `Point` and `LineString` were created but Polygon object only accepts a sequence of coordinates as input. 
-
-Polygon needs **at least three coordinate-tuples** (three points are reguired to form a surface):
-<!-- #endregion -->
-
-```python jupyter={"outputs_hidden": false}
-# Create a Polygon from the coordinates
-poly = Polygon([(2.2, 4.2), (7.2, -25.1), (9.26, -2.456)])
-```
-
-We can also use information from the Shapely Point objects created earlier, but we can't use the point objects directly. Instead, we need to get information of the x,y coordinate pairs as a sequence. We can achieve this by using a list comprehension.
-
-```python
-# Create a Polygon based on information from the Shapely points
-poly2 = Polygon([[p.x, p.y] for p in [point1, point2, point3]])
-```
-
-In order to understand what just happened, let's check what the list comprehension produces:
-
-```python
-[[p.x, p.y] for p in [point1, point2, point3]]
-```
-
-This list of lists was passed as input for creating the Polygon.
-
-```python
-# Check that polygon objects created using two different approaches are identical
-poly == poly2
-```
-
-Let's see how our Polygon looks like
-
-```python
-poly
-```
-
-```python
-print(poly)
-```
-
-Notice that `Polygon` representation has double parentheses around the coordinates (i.e. `POLYGON ((<values in here>))` ). This is because Polygon can also have holes inside of it. 
-
-
-Check also the data type:
-
-```python
-# Data type
-type(poly)
-```
-
-```python
-# Geometry type
-poly.geom_type
-```
-
-```python
-# Check the help for Polygon objects:
-# help(Polygon)
-```
-
-<!-- #region -->
-
-
-As the help of [Polygon](https://shapely.readthedocs.io/en/stable/manual.html#polygons) -object tells, a Polygon can be constructed using exterior coordinates and interior coordinates (optional) where the interior coordinates creates a hole inside the Polygon:
-
-<!-- #endregion -->
-
-```
-Help on Polygon in module shapely.geometry.polygon object:
-     class Polygon(shapely.geometry.base.BaseGeometry)
-      |  A two-dimensional figure bounded by a linear ring
-      |
-      |  A polygon has a non-zero area. It may have one or more negative-space
-      |  "holes" which are also bounded by linear rings. If any rings cross each
-      |  other, the feature is invalid and operations on it may fail.
-      |
-      |  Attributes
-      |  ----------
-      |  exterior : LinearRing
-      |      The ring which bounds the positive space of the polygon.
-      |  interiors : sequence
-      |      A sequence of rings which bound all existing holes.
-      
-```
-
-
-Let's see how we can create a `Polygon` with a hole:
-
-```python
-# Define the outer border
-border = [(-180, 90), (-180, -90), (180, -90), (180, 90)]
-```
-
-```python
-# Outer polygon
-world = Polygon(shell=border)
-print(world)
-```
-
-```python
-world
-```
-
-```python
-# Let's create a single big hole where we leave ten units at the boundaries
-# Note: there could be multiple holes, so we need to provide list of coordinates for the hole inside a list
-hole = [[(-170, 80), (-170, -80), (170, -80), (170, 80)]]
-```
-
-```python
-# Now we can construct our Polygon with the hole inside
-frame = Polygon(shell=border, holes=hole)
-print(frame)
-```
-
-Let's see what we have now:
-
-```python
-frame
-```
-
-As we can see the `Polygon` has now two different tuples of coordinates. The first one represents the **outerior** and the second one represents the **hole** inside of the Polygon.
-
-<!-- #region -->
-### Polygon attributes and functions
-
-
-We can again access different attributes directly from the `Polygon` object itself that can be really useful for many analyses, such as `area`, `centroid`, `bounding box`, `exterior`, and `exterior-length`. See a full list of methods in the [Shapely User Manual](https://shapely.readthedocs.io/en/stable/manual.html#the-shapely-user-manual).
-
-Here, we can see a few of the available attributes and how to access them:
-<!-- #endregion -->
-
-```python
-# Print the outputs
-print("Polygon centroid: ", world.centroid)
-print("Polygon Area: ", world.area)
-print("Polygon Bounding Box: ", world.bounds)
-print("Polygon Exterior: ", world.exterior)
-print("Polygon Exterior Length: ", world.exterior.length)
-```
-
-As we can see above, it is again fairly straightforward to access different attributes from the `Polygon` -object. Note that distance metrics will make more sense when we start working with data in a projected coordinate system.
-
-
-#### Question 6.1
-
-Create these shapes using Shapely!
-
-- **Triangle**   
-- **Square**    
-- **Cicrle**
-
-```python
-# Use this cell to enter your solution.
-```
-
-```python
-# Solution
-
-# Triangle
-Polygon([(0, 0), (2, 4), (4, 0)])
-```
-
-```python
-# Solution
-
-# Square
-Polygon([(0, 0), (0, 4), (4, 4), (4, 0)])
-```
-
-```python
-# Solution
-
-# Circle (using a buffer around a point)
-point = Point((0, 0))
-point.buffer(1)
-```
-
-Shapely also has a tool for creating [a bounding box](https://en.wikipedia.org/wiki/Minimum_bounding_box) based on minimum and maximum x and y coordinates. Instead of using the Polygon constructor, let's use the [box](https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.box) constructor for creating the polygon:  
-
-```python
-from shapely.geometry import box
-```
-
-```python
-# Specify the bbox extent (lower-left corner coordinates and upper-right corner coordinates)
-min_x, min_y = 0, -90
-max_x, max_y = 180, 90
-
-# Create the polygon using Shapely
-east_poly = box(minx=min_x, miny=min_y, maxx=max_x, maxy=max_y)
-
-# Print object definition
-print(east_poly)
-```
-
-```python
-east_poly
-```
-
-Finally, we can combine the two polygons into a MultiPolygon:
-
-```python
-# Let's create our MultiPolygon. We can pass multiple Polygon -objects into our MultiPolygon as a list
-multi_poly = MultiPolygon([west_poly, east_poly])
-
-# Print object definition
-print(multi_poly)
-```
-
-```python
-multi_poly
-```
-
-We can see that the outputs are similar to the basic geometric objects that we created previously but now these objects contain multiple features of those points, lines or polygons.
-
-### Other useful attributes 
-lenght of the geometry collection:
-
-```python
-print("Number of objects in our MultiLine:", len(multi_line))
-print("Number of objects in our MultiPolygon:", len(multi_poly))
-```
-
-Area:
-
-```python jupyter={"outputs_hidden": false}
-# Print outputs:
-print("Area of our MultiPolygon:", multi_poly.area)
-print("Area of our Western Hemisphere polygon:", multi_poly[0].area)
-```
-
-From the above we can see that MultiPolygons have exactly the same attributes available as single geometric objects but now the information such as area calculates the area of **ALL** of the individual -objects combined. We can also access individual objects inside the geometry collections using indices.
-
-
-Finally, we can check if we have a "valid" MultiPolygon. MultiPolygon is thought as valid if the individual polygons does not intersect with each other. 
-Here, because the polygons have a common 0-meridian, we should NOT have a valid polygon. We can check the validity of an object from the **is_valid** -attribute that tells if the polygons or lines intersect with each other. This can be really useful information when trying to find topological errors from your data:
-
-```python
-print("Is polygon valid?: ", multi_poly.is_valid)
-```
-
-### Representing raster data with `xarray` and `numpy`
-
-A typical source of information for raster data are images taken from space with specially equipped satellites that carry earth observation sensors. They are widely used e.g. for environmental monitoring, meteorology and cartography. 
-
-### Representing networks with `networkx` 
+Now you should have a basic understanding about the elements of a (spatial) network. In chapter 11, we will see how to create a spatial network in practice using a library called `networkx`, and how to do simple network analyses in Python.  
 
 
 ## Footnotes
 
+[^bounding_box]: <https://en.wikipedia.org/wiki/Minimum_bounding_box>
+[^box]: <https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.box>
+[^geojson]: <https://en.wikipedia.org/wiki/GeoJSON>
+[^polygon]: <https://shapely.readthedocs.io/en/stable/manual.html#polygons>
 [^shapely]: <https://shapely.readthedocs.io/en/stable/manual.html>
 [^shapely_methods]: <https://shapely.readthedocs.io/en/stable/manual.html#general-attributes-and-methods>
 [^GEOS]: <https://trac.osgeo.org/geos>
