@@ -47,9 +47,9 @@ _**Figure 5.3**. Vector data model following the Simple Features Access Specific
 The geometry of a feature is one aspect of geospatial data which tells us about the location and possibly the shape of the real-world entity at hand. However, the other aspect which is equally important is the information that we associate with the geometry as an attribute data. Attribute data is typically attached to the geometries that describe the given entity with various possible characteristics. For example, in terms of a building geometry, we might have useful attribute information associated to the building, such as the number of floors, the height of the building, or how many people live there. In fact, we have already worked with this kind of attribute data in Part I of the book, when we worked with `pandas` DataFrames and analyzed the temperature observations. The DataFrame containing relevant information about the phenomena that we are analyzing (such as the temperature patterns) can be called as an attribute table, which is commonly used term in GIS softwares. Attributes are always linked to the geometries in one way or another: for example based on a unique feature identifier which is referenced both in the attribute table and the geometry records (e.g. when working with `Shapefiles`). The linking can also be done on a structural level of the data, such as in `GeoJSON` format in which a single feature always contains both the geometry information as well as the properties of the data (i.e. attributes associated with the geometry).  
 
 
-### Commonly used vector data formats
+### Vector data formats
 
-**GeoJSON**: GeoJSON [^geojson] is an open standard format for encoding a variety of geographic data structures along with their attribute data which can be stored into a simple text file. The data format extends the widely used JSON format. GeoJSON is human readible and the data is not compressed, hence the files can get large when storing more complex geometries. An example of GeoJSON data structure:
+**GeoJSON**: GeoJSON [^geojson] is an open standard format for encoding a variety of geographic data structures along with their attribute data which can be stored into a simple text file. The data format extends the widely used JSON format. GeoJSON is human readible and the data is not compressed, hence the files can get large when storing more complex geometries. The file extension of GeoJSON is `.geojson`. An example of GeoJSON data structure:
 
 ```
 {"type": "FeatureCollection", 
@@ -66,13 +66,13 @@ The geometry of a feature is one aspect of geospatial data which tells us about 
 ```
 
 
-**Geopackage:** TODO.
+**Geopackage:** TODO. The file extension of geopackage is `.gpkg`.
 
 
-**Shapefile:** TODO.
+**Shapefile:** TODO. The file extension of Shapefile is `.shp`.
 
 
-**Geoparquet:** TODO.
+**Geoparquet:** TODO. The file extension of geoparquet is `.parquet`.
 
 
 Now you should have a basic understanding about the basic building blocks of vector data. In the following parts of the book, you will learn many useful geocomputational and analytical techniques that you can use when working with vector data.  
