@@ -72,10 +72,12 @@ Spatial vector data can be stored in different ways. Two of the most widely used
 ```
 
 
-- **GeoPackage:** A GeoPackage (GPKG) is an open, non-proprietary, platform-independent, portable and standards-based data format for storing spatial data. In the background, GeoPackage uses a SQLite database container to store the data. The file extension of GeoPackage is `.gpkg` and it was introduced in 2014 by Open Geospatial Consortium. GeoPackage can be used to store spatial vector data as well as raster data. However, the GeoPackage raster support is limited as it supports only `Byte` data type.    
+- **GeoPackage:** A GeoPackage (GPKG) is an open, non-proprietary, platform-independent, portable and standards-based data format for storing spatial data. In the background, GeoPackage uses a SQLite database container to store the data. GeoPackage was introduced in 2014 by Open Geospatial Consortium and it can be used to store spatial vector data as well as raster data. However, the GeoPackage raster support is limited as it supports only `Byte` data type. The file extension of GeoPackage is `.gpkg`.
+
+- **GML**: [Geography Markup Language](https://www.ogc.org/standards/gml) (GML) [^GML] is an XML based data format defined by the Open Geospatial Consortium (OGC) to express geographical features. GML serves as a modeling language for geographic systems as well as an open interchange format for geographic transactions on the Internet. Key to GML's utility is its ability to integrate all forms of geographic information, including not only conventional "vector" or discrete objects, but also coverages and sensor data. There are various extensions to GML, such as [CityGML](https://www.ogc.org/standards/citygml) [^CityGML] focusing on 3D city models and [IndoorGML](https://www.ogc.org/standards/citygml) [^IndoorGML] focusing on indoor spatial information. The file extension of GML is `.gml`. 
 
 
-These three are probably the most widely used file formats to store spatial data in vector format. However, there are numerous other file formats in addition to these, such as *{term}`Keyhole Markup Language` (KML)* that is commonly used file format to place geographic data on top of [Google Earth](https://en.wikipedia.org/wiki/Google_Earth) [^Google_Earth]. One file format which is still in the making, but a very promising one, is [GeoParquet](https://github.com/opengeospatial/geoparquet) [^GeoParquet] which stores spatial data in [Apache Parquet](https://parquet.apache.org/) [^Parquet]. Apache Parquet is a popular open source, column-oriented data file format designed for efficient data storage and retrieval. It provides efficient data compression and encoding schemes with enhanced performance to handle complex data in bulk.
+These are some of the most widely used file formats to store spatial data in vector format. However, there are numerous other file formats in addition to these, such as *{term}`Keyhole Markup Language` (KML)* that is commonly used file format to place geographic data on top of [Google Earth](https://en.wikipedia.org/wiki/Google_Earth) [^Google_Earth]. One file format which is still in the making, but a very promising one, is [GeoParquet](https://github.com/opengeospatial/geoparquet) [^GeoParquet] which stores spatial data in [Apache Parquet](https://parquet.apache.org/) [^Parquet]. Apache Parquet is a popular open source, column-oriented data file format designed for efficient data storage and retrieval. It provides efficient data compression and encoding schemes with enhanced performance to handle complex data in bulk.
 
 
 Now you should have a basic understanding about the basic building blocks of vector data. In the following parts of the book, you will learn many useful geocomputational and analytical techniques that you can use when working with vector data.  
@@ -83,7 +85,7 @@ Now you should have a basic understanding about the basic building blocks of vec
 
 ## Basics of raster data and arrays
 
-In raster data model the data is represented as arrays of cells, also called as pixels, to represent real-world objects or continuous phenomena (it is basically a two-dimensional array or a matrix). In fact, you are most likely already familiar with raster data as photographs taken with a digital camera are basically stored as raster data. Digital cameras typically capture the world using Red, Green and Blue (RGB) colors and stores this information in pixels as individual layers (as called as *{term}`band`s* or `channels`) for each color. When these layers of red, green and blue colors are combined, we get a photograph as we have used to see them. In a similar manner, we can store other information to pixels, such as elevation or temperature data (which have only one layer or `band`), or more detailed spectral information that capture how the light reflects from objects on earth at different wave-lengths (which is what e.g. satellite sensors do). In these cases, we might have tens or even hundreds of different bands (as with hyperspectral imaging) that record very detailed information about how the light reflects from the earth at different wave lengths, including Red, Green and Blue, but also many more such as near infrared (NIR), or long-wave infrared (LWIR) which is commonly used to monitor temperatures. 
+In raster data model the data is represented as arrays of cells, also called as pixels, to represent real-world objects or continuous phenomena. In fact, you are most likely already familiar with raster data as photographs taken with a digital camera are basically stored as raster data. Digital cameras typically capture the world using Red, Green and Blue (RGB) colors and stores this information in pixels as separate layers (as called as *{term}`band`s* or `channels`) for each color. When these layers of red, green and blue colors are combined, we get a photograph as we have used to see them. In a similar manner, we can store other information to pixels, such as elevation or temperature data (which have only one layer or `band`), or more detailed spectral information that capture how the light reflects from objects on earth at different wave-lengths (which is what e.g. satellite sensors do). In these cases, we might have tens or even hundreds of different bands (as with hyperspectral imaging) that record very detailed information about how the light reflects from the earth at different wave lengths, including Red, Green and Blue, but also many more such as near infrared (NIR), or long-wave infrared (LWIR) which is commonly used to monitor temperatures. 
 
 Each cell in the raster dataset typically contains a value as shown on the left in Figure 5.4 (although the cell value can also be `NoData`). This is different compared to vector data, in which the geometries (observations) can be unevenly distributed across space, although it is possible to also represent a regular grid with polygons, it is just much less efficient computationally. Each cell value also has an index (i.e. position) that can be accessed based on row and column numbers. For instance, the value (*11*) from the bottom-left corner cell can be accessed at index `(3,0)` in which the first number is the row number and the second is the column number. Cell values can be plotted by given a color according a specific *{term}`colormap`* (see the legend on the right) which turns the data into more understandable format, making it possible to detect patterns or trends from the data. For example in Figure 5.4, it is easy to detect that there is a cluster of high values on the bottom right corner. Detecting this pattern just by looking at cell values on the left is much more difficult task, especially if you would have much bigger raster than what we have here (4x4 grid). Also a basic feature of raster data is that the cell size of the grid can vary. For example, the Figure 5.4 and the top-right subplot in Figure 5.2 represents the data with 10 meter *{term}`spatial resolution`*, i.e. the size of an individual cell is 10 by 10 meters. However, the bottom-right subplot in Figure 5.2 represents the buildings with 1 meter spatial resolution. This is an important aspect when working with raster data, because the spatial resolution determines how accurately the real-world entities, such as buildings or topographic features, can be represented or identified from the data. Raster data is commonly used to represent e.g. satellite imagery, digital elevation models and other type of data, in which the spatial extent of the data is large (covering e.g. whole countries, continents or the world) with continuous measurements across the space. It is good to be awere though, that it is also possible to store discrete or categorical data to a raster, such as landuse classification data. Raster data is commonly used e.g. for environmental monitoring, meteorology and cartography. 
 
@@ -92,8 +94,8 @@ _**Figure 5.4**. Raster data model._
 
 One fundamental way to characterize a raster dataset is based on their *{term}`bit depth`* (also called as *{term}`pixel depth`*). The bit depth defines the range of distinct values that the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1, whereas 8-bit raster can have 256 different values that range between 0 to 255, as shown in Figure 5.5. 
 
-![_**Figure 5.5**. Raster bit depths._](../img/raster_bit_depths.jpg)
-_**Figure 5.5**. Rater bit depths._
+![_**Figure 5.5**. Examples of raster bit depths._](../img/raster_bit_depths.jpg)
+_**Figure 5.5**. Examples of raster bit depths._
 
 
 
@@ -101,72 +103,78 @@ _**Figure 5.5**. Rater bit depths._
 
 Similarly as with vector data, also raster data can be stored in various different formats. Below we list a few of the most commonly used ones.
 
-- **GeoTIFF**: A popular public domain raster data format is the GeoTIFF format. If maximum portability and platform independence is important, this file format may be a good choice.
-- **Imagine**: The Imagine file format was originally created by an image processing software company called ERDAS. This file format consists of a single `.img` file. The file is sometimes accompanied by an .xml file which usually stores metadata information about the raster layer.
+- **GeoTIFF**: GeoTIFF is a popular open, non-proprietary raster data format based on `TIFF format` originally developed at NASA in the early 90's. It is portable and platform independent. The file extension of GeoTIFF is `.tif`. 
+- **COG**: A Cloud Optimized GeoTIFF (COG) is a file format based on GeoTIFF. COG files are typically hosted on HTTP file servers. The format can enable more efficient workflows with large data files by leveraging the ability of users to retrieve just the parts of the file that they need, instead of downloading the whole file every time. The file extension of COG is `.tif` (i.e. the same as with GeoTIFF). 
+- **NetCDF**: Network Common Data Form (NetCDF) is a portable, self-describing and scalable file format for storing array-oriented multidimensional scientific data, commonly used for storing earch science data. Variables stored in NetCDF are often measured multiple times per day over large (e.g. continental) areas. The file extension of NetCDF is `.nc4`. 
+- **ASCII Grid**: The ASCII Raster File format is a simple format that can be used to transfer raster data between various applications. The file format was originally developed by ESRI and it is also known as Arc/Info ASCII grid. The file extension of ASCII Raster File is `.asc`. 
+- **IMG**: The ERDAS Imagine file format (IMG) is proprietary file format that was originally created by an image processing software company called ERDAS. The file can be accompanied with an .xml file which stores metadata information about the raster layer. The file extension of Imagine file format is `.img`. 
 
 
 Now you should know the basics raster data, and in Chapters 7-9 as well as in Chapter 12, you will learn many useful techniques that you can use when working with raster data. 
 
-
+<!-- #region -->
 ## Representing spatial networks
 
-Networks are everywhere. Social networks, telecommunication networks, neural networks, and transportation networks are all familiar examples how the networks surround us and are very essential to our everyday life. No surprise then, that studying complex networks has grown to be a very important topic in various fields of science including biology, medical sciences, social science, engineering, geography and many others. In this book, we will focus on spatial networks that can represent for example street networks (one of the most typical examples). In Figure 5.2, we saw a simple street network represented as a collection of `LineStrings`. Although this representation can already be used to visualize the network, it does not yet allow to do analysis with it. For this, we need to create a `Network` data stucture with topology. Before showing how to do this, let's go through some basic concepts about networks (or graphs, as they are also commonly called).  
+Networks are everywhere. Social networks, telecommunication networks, neural networks, and transportation networks are all familiar examples how the networks surround us and are very essential to our everyday life. No surprise then, that studying complex networks based on `graph theory` has grown to be a very important topic in various fields of science including biology, medical sciences, social science, engineering, geography and many others. In this book, we will focus on spatial networks that can represent for example street networks (one of the most typical examples). In addition to these, network is actually a very useful data structure because it allows to define and construct neighborhood relationships that are central to geographic data science / GIScience. In this book, we won't cover much of these topics but you can take a look at [geographicdata.science](https://geographicdata.science/book/intro.html) [^GDS] open online book to learn much more about these topics. 
 
-
-### Network structure
-
-Graphs are, in principle, very simple data structures, and they consists of:
+Graphs are, in principle, very simple data structures. In Figure 5.2, we saw a simple street network represented as a collection of `LineStrings`. Although this representation can already be used to visualize a network, it does not yet allow to do any useful network analysis with it. For this, we need to create a `network` data stucture with topology (also commonly called as graphs). A network basically consists of couple of core elements:
 
  1. **nodes** (e.g. intersections on a street, or a person in social network), and
  2. **edges** (a link that connects the nodes to each other)
  
-A simple graph could look like this:
-
-![_**Figure 5.5.** A simple graph._](../img/graph_elements.png)
-_**Figure 5.5.** A simple graph._
-
-Here, the letters `A, B, C, D, and E` are nodes and the lines that goes between them are edges/links. 
+A simple graph could look like the one shown in Figure 5.6 in which the letters `A, B, C, D, and E` are nodes and the lines that goes between them are the network edges (also called as links or arcs). 
 
 
+![_**Figure 5.6.** A simple graph._](../img/graph_elements.png)
+_**Figure 5.6.** A simple graph._
+<!-- #endregion -->
 
-### Node and Edge attributes
+### Attribute data
 
-In terms of street networks, nodes typically contain the geographical information associated with the graph (i.e. coordinates of the intersection). Edges typically contain much more information. They e.g. contain information about **which nodes are connected to each other**, and what is the **cost** to travel between the nodes (e.g. time, distance, CO2, etc.). It is also possible to associate geographical information to edges (if you e.g. want to show how the roads are curved between intersections), but for basic travel time analyses this is not needed. 
+In networks, most of the information is stored in `node` and `edge attributes`. In terms of street networks, `nodes` typically contain the geographical information associated with the graph, such as the coordinates of the intersections. Edges typically contain much more information. They can for instance contain information about which nodes are connected to each other, and what is the `cost` to travel between the nodes measured e.g. as time or distance (Figure 5.7). It is also possible to associate geographical information to edges if you want to show how the roads are curved between intersections, but for basic network analysis (such as finding the shortest route from a to b) this is not needed. 
 
-![_**Figure 5.6**. Weighted graph._](../img/graph_weights.png)
-_**Figure 5.6**. Weighted graph._![graph_elements.png](attachment:3d91ec35-f4c4-4e0e-9032-d64802d48297.png)
+![_**Figure 5.7**. Weighted graph._](../img/graph_weights.png)
+_**Figure 5.7**. Weighted graph._
 
-<!-- #region -->
-### Directed vs Undirected graphs
 
-Graphs can be **directed** or **undirected**, which basically determines whether the roads can be travelled to any direction or whether the travel direction is restricted to certain direction (e.g. a one-way-street). 
-In **undirected** graph, it is possible to travel in both directions between nodes (e.g. from `A --> C` and from `C --> A`). Undirected graphs are typically used e.g. with walking and cycling as with those travel modes it is typically possible to travel the same street in any direction you like. 
+### Directionality
 
-![_**Figure 5.7**. Directed graph._](../img/directed_graph.png)
-_**Figure 5.7**. Directed graph._
+Graphs can be `directed` or `undirected` (Figure 5.8), which basically determines whether the roads can be travelled to any direction or whether the travel direction is restricted to certain direction (e.g. a one-way-street). In `undirected` graph, it is possible to travel in both directions between nodes (e.g. from `A --> C` and from `C --> A` in Figure 5.8). Undirected graphs are typically used e.g. when you want to model walking and cycling paths, as with those travel modes it is typically possible to travel the same street in any direction you like. If the graph is `directed`, it means that you should have a separate edge for each direction. If you for example have a graph with only an edge that goes from `D` to `E`, you can travel to node `E` from `D` but you cannot travel back. In directed graphs, you typically need to have a separate edge for each travel direction. Fundamentally this means that for a bi-directional road, you should have two edges in your data (i.e. two separate rows), such as shown in Table 5.1.
 
-If the graph is **directed**, it means that you should have a separate edge for each direction. If you for example have a graph with only an edge that goes from `D` to `E`, you can travel to node `E` from `D` but you cannot travel back. In directed graphs, **you need to have a separate edge for each travel direction**. Fundamentally this means that for a bi-directional road, you should have edges in your data (i.e. two separate rows), such as:
+![_**Figure 5.8**. Directed graph._](../img/directed_graph.png)
+_**Figure 5.8**. Directed graph._
 
+_**Table 5.1**. Edges for each direction._
 
 | edge_id | from_node | to_node| description |
 |---------|-----------|--------|-------------|
 |1| A| C |  *edge for direction 1* |
 |2| C| A |  *edge for direction 2* |
-<!-- #endregion -->
+
+
+### Commonly used network data formats
+
+As with everything in life, there are also many flavors when it comes to storing network data in a file. Below we list a couple of commonly used data formats for storing network data. 
+
+- **GML**: Graph Modelling Language (GML) is a file format supporting network data with a very easy syntax. GML’s key features are portability, simple syntax, extensibility and flexibility. A GML file consists of a hierarchical key-value lists. The file extension of GML is `.gml`. Notice, that there is a spatial data file format for Geography Markup Language (GML) that has the same file extension.  
+- **GraphML**: GraphML is a comprehensive and easy-to-use file format for graphs based on XML. It consists of a language core to describe the structural properties of a graph and extension mechanism to add application-specific data. The file extension of GraphML is `.graphml`.
+
+In addition to these ones, there are multiple other data formats not listed here. Lastly, it is good to know that networks (such as networks representing streets) are often constructed from spatial vector data stored e.g. in a Shapefile or a GeoPackage. In these cases, the line features representing the network don't directly have the needed network data structure in place, but they are build from the line features. Additionally, simple networks can be build from edge lists or adjacency lists that are stored in a text file.
+
 
 Now you should have a basic understanding about the elements of a (spatial) network. In chapter 11, we will see how to create a spatial network in practice using a library called `networkx`, and how to do simple network analyses in Python.  
 
 
 ## Footnotes
 
+[^CityGML]: <https://www.ogc.org/standards/citygml>
 [^GDAL]: <https://gdal.org/>
+[^GDS]: <https://geographicdata.science/book/intro.html>
+[^GML]: <https://www.ogc.org/standards/gml>
 [^geojson]: <https://en.wikipedia.org/wiki/GeoJSON>
 [^GeoParquet]: <https://github.com/opengeospatial/geoparquet>
 [^GEOS]: <https://trac.osgeo.org/geos>
 [^Google_Earth]: <https://en.wikipedia.org/wiki/Google_Earth>
+[^IndoorGML]: <https://www.ogc.org/standards/citygml>
 [^Parquet]: <https://parquet.apache.org/>
 [^QGIS]: <http://www.qgis.org/en/site/>
-
-```python
-
-```
