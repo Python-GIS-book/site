@@ -36,10 +36,9 @@ The most fundamental geometric objects when working with spatial data in vector 
 
 All of these geometries are defined in *Simple Features Access Specification* ({cite}`Herring_2011`), which is a standard (ISO 19125-1) formalized by the *Open Geospatial Consortium* and *International Organization for Standardization*. Most (if not all) programming languages follow this same standard to represent spatial data. The text underneath each geometry (e.g. `Point (25 60.5)`) shows how each of these geometries can be represented as text (Figure 5.3). The way the text is formatted follows a specification called *{term}`Well-known text` (WKT)* which is also defined in the Simple Features Access Specification. The geometries can also be represented in binary format, which is called  *{term}`Well-known binary` (WKB)*. WKB is useful for storing the geometries in a more compact form, but it is not human-readable. Most often, you don't need to worry about these technical details when working with spatial data in Python, but it is useful to know the foundations underlying most (if not all) GIS libraries.
 
-![_**Figure 5.3**. Vector data model following the Simple Features Access Specification._](../img/vector_data_model.jpg)
+![_**Figure 5.3.** Vector data model following the Simple Features Access Specification._](../img/vector_data_model.jpg)
 
-_**Figure 5.3**. Vector data model following the Simple Features Access Specification._
-
+_**Figure 5.3.** Vector data model following the Simple Features Access Specification._
 
 
 ### Attribute data
@@ -89,14 +88,14 @@ In raster data model the data is represented as arrays of cells, also called as 
 
 Each cell in the raster dataset typically contains a value as shown on the left in Figure 5.4 (although the cell value can also be `NoData`). This is different compared to vector data, in which the geometries (observations) can be unevenly distributed across space, although it is possible to also represent a regular grid with polygons, it is just much less efficient computationally. Each cell value also has an index (i.e. position) that can be accessed based on row and column numbers. For instance, the value (*11*) from the bottom-left corner cell can be accessed at index `(3,0)` in which the first number is the row number and the second is the column number. Cell values can be plotted by given a color according a specific *{term}`colormap`* (see the legend on the right) which turns the data into more understandable format, making it possible to detect patterns or trends from the data. For example in Figure 5.4, it is easy to detect that there is a cluster of high values on the bottom right corner. Detecting this pattern just by looking at cell values on the left is much more difficult task, especially if you would have much bigger raster than what we have here (4x4 grid). Also a basic feature of raster data is that the cell size of the grid can vary. For example, the Figure 5.4 and the top-right subplot in Figure 5.2 represents the data with 10 meter *{term}`spatial resolution`*, i.e. the size of an individual cell is 10 by 10 meters. However, the bottom-right subplot in Figure 5.2 represents the buildings with 1 meter spatial resolution. This is an important aspect when working with raster data, because the spatial resolution determines how accurately the real-world entities, such as buildings or topographic features, can be represented or identified from the data. Raster data is commonly used to represent e.g. satellite imagery, digital elevation models and other type of data, in which the spatial extent of the data is large (covering e.g. whole countries, continents or the world) with continuous measurements across the space. It is good to be awere though, that it is also possible to store discrete or categorical data to a raster, such as landuse classification data. Raster data is commonly used e.g. for environmental monitoring, meteorology and cartography. 
 
-![_**Figure 5.4**. Raster data model._ ](../img/raster_data_model.jpg)
-_**Figure 5.4**. Raster data model._
+![_**Figure 5.4.** Raster data model._](../img/raster_data_model.jpg)
+_**Figure 5.4.** Raster data model._
+
 
 One fundamental way to characterize a raster dataset is based on their *{term}`bit depth`* (also called as *{term}`pixel depth`*). The bit depth defines the range of distinct values that the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1, whereas 8-bit raster can have 256 different values that range between 0 to 255, as shown in Figure 5.5. 
 
 ![_**Figure 5.5**. Examples of raster bit depths._](../img/raster_bit_depths.jpg)
 _**Figure 5.5**. Examples of raster bit depths._
-
 
 
 ### Commonly used raster data formats
@@ -129,22 +128,24 @@ A simple graph could look like the one shown in Figure 5.6 in which the letters 
 _**Figure 5.6.** A simple graph._
 <!-- #endregion -->
 
-### Attribute data
+### Network attribute data
 
 In networks, most of the information is stored in `node` and `edge attributes`. In terms of street networks, `nodes` typically contain the geographical information associated with the graph, such as the coordinates of the intersections. Edges typically contain much more information. They can for instance contain information about which nodes are connected to each other, and what is the `cost` to travel between the nodes measured e.g. as time or distance (Figure 5.7). It is also possible to associate geographical information to edges if you want to show how the roads are curved between intersections, but for basic network analysis (such as finding the shortest route from a to b) this is not needed. 
 
-![_**Figure 5.7**. Weighted graph._](../img/graph_weights.png)
-_**Figure 5.7**. Weighted graph._
+![_**Figure 5.7.** Weighted graph._](../img/graph_weights.png)
+_**Figure 5.7.** Weighted graph._
 
 
 ### Directionality
 
 Graphs can be `directed` or `undirected` (Figure 5.8), which basically determines whether the roads can be travelled to any direction or whether the travel direction is restricted to certain direction (e.g. a one-way-street). In `undirected` graph, it is possible to travel in both directions between nodes (e.g. from `A --> C` and from `C --> A` in Figure 5.8). Undirected graphs are typically used e.g. when you want to model walking and cycling paths, as with those travel modes it is typically possible to travel the same street in any direction you like. If the graph is `directed`, it means that you should have a separate edge for each direction. If you for example have a graph with only an edge that goes from `D` to `E`, you can travel to node `E` from `D` but you cannot travel back. In directed graphs, you typically need to have a separate edge for each travel direction. Fundamentally this means that for a bi-directional road, you should have two edges in your data (i.e. two separate rows), such as shown in Table 5.1.
 
-![_**Figure 5.8**. Directed graph._](../img/directed_graph.png)
-_**Figure 5.8**. Directed graph._
+![_**Figure 5.8.** Directed graph._](../img/directed_graph.png)
+_**Figure 5.8.** Directed graph._
 
-_**Table 5.1**. Edges for each direction._
+
+
+_**Table 5.1.** Edges for each direction._
 
 | edge_id | from_node | to_node| description |
 |---------|-----------|--------|-------------|
