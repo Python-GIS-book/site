@@ -1,0 +1,32 @@
+name: pythongis
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.9.7
+  # GIS environment
+  - contextily
+  - folium
+  - geojson
+  - geopandas
+  - geoplot
+  - geopy
+  - hvplot
+  - matplotlib
+  - mplleaflet
+  - openpyxl
+  - osmnx
+  - owslib
+  - pygeos
+  - pykrige
+  - pyrosm
+  - pysal
+  - rasterio
+  - rasterstats
+  - rioxarray
+  - scipy
+  - seaborn
+  - xarray
+  - xarray_leaflet
+  - xarray-spatial
