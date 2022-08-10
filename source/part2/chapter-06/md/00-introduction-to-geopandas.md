@@ -50,10 +50,7 @@ list(point.coords)
 ```
 
 ```python jupyter={"outputs_hidden": false}
-print(
-    point.x,
-    point.y
-)
+print(point.x, point.y)
 ```
 
 Points and other shapely objects have many useful built-in attributes and methods [^shapely_methods], such as calculating the Euclidian distance between points or creating a buffer from the point that converts the point into a circle `Polygon` with specific radius. However, all of these functionalities are integrated into `geopandas` and we will go through them later in the book. 
@@ -102,7 +99,7 @@ It is possible to retrieve specific attributes such as `length` of the line and 
 
 ```python jupyter={"outputs_hidden": false}
 length = line.length
-centroid = line.centroid 
+centroid = line.centroid
 print(f"Length of our line: {length:.2f} units")
 print(f"Centroid: {centroid}")
 ```
@@ -183,6 +180,7 @@ Now you have learned how all the basic geometries can be created in Python using
 
 ```python
 from shapely.geometry import box
+
 min_x, min_y = -180, -90
 max_x, max_y = 180, 90
 poly3 = box(minx=min_x, miny=min_y, maxx=max_x, maxy=max_y)
@@ -204,17 +202,21 @@ Creating a collection of `Point`, `LineString` or `Polygon` objects is very stra
 ```python
 from shapely.geometry import MultiPoint, MultiLineString, MultiPolygon
 
-multipoint = MultiPoint([ Point(2,2), Point(3,3) ])
+multipoint = MultiPoint([Point(2, 2), Point(3, 3)])
 multipoint
 ```
 
 ```python
-multiline = MultiLineString([ LineString([(2,2), (3,3)]), LineString([(4,3), (6,4)]) ])
+multiline = MultiLineString(
+    [LineString([(2, 2), (3, 3)]), LineString([(4, 3), (6, 4)])]
+)
 multiline
 ```
 
 ```python
-multipoly = MultiPolygon([ Polygon([(0,0), (0,4), (4,4)]), Polygon([(6,6), (6,12), (12, 12)]) ])
+multipoly = MultiPolygon(
+    [Polygon([(0, 0), (0, 4), (4, 4)]), Polygon([(6, 6), (6, 12), (12, 12)])]
+)
 multipoly
 ```
 
