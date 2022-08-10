@@ -14,11 +14,14 @@ jupyter:
 
 # Operations between multiple datasets
 
+<!---
 - Selecting data based on spatial relationships
 - Overlay analysis
 - Spatial join, nearest join
 - Distance operations
 - Spatial index
+-->
+
 
 ## Selecting data based on spatial relationships
 
@@ -33,6 +36,7 @@ is used.
 
 For further reading about PIP and other geometric operations, 
 see Chapter 4.2 in Smith, Goodchild & Longley: [Geospatial Analysis - 6th edition](https://www.spatialanalysisonline.com/HTML/index.html).
+
 
 ### How to check if point is inside a polygon?
 
@@ -57,7 +61,6 @@ operation, it is also possible to check if a LineString or Polygon is
 inside another Polygon.
 
 Let's import shapely functionalities and create some points:
-<!-- #endregion -->
 
 ```python
 from shapely.geometry import Point, Polygon
@@ -143,7 +146,9 @@ Which one should you use then? Well, it depends:
 
 -  if you have **many polygons and just one point** and you want to find out
    which polygon contains the point: You might need to iterate over the polygons until you find a polygon that **contains()** the point specified (assuming there are no overlapping polygons)
-        
+<!-- #endregion -->
+
+<!-- #region -->
 ## Intersect
 
 Another typical geospatial operation is to see if a geometry intersects
@@ -469,7 +474,8 @@ intersection.to_file(outfp, driver="GeoJSON")
 
 There are many more examples for different types of overlay analysis in [Geopandas documentation](http://geopandas.org/set_operations.html) where you can go and learn more.
 
-# Spatial join
+
+## Spatial join
 
 [Spatial join](http://wiki.gis.com/wiki/index.php/Spatial_Join) is
 yet another classic GIS problem. Getting attributes from one layer and
@@ -746,7 +752,7 @@ join.to_file(outfp)
 ADD Materials
 
 
-# Nearest Neighbour Analysis
+## Nearest Neighbour Analysis
 
 
 One commonly used GIS task is to be able to find the nearest neighbour for an object or a set of objects. For instance, you might have a single Point object
@@ -755,8 +761,8 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 
 In Python this kind of analysis can be done with shapely function called ``nearest_points()`` that [returns a tuple of the nearest points in the input geometries](https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.nearest_points).
 
-## Nearest point using Shapely
 
+### Nearest point using Shapely
 
 Let's start by testing how we can find the nearest Point using the ``nearest_points()`` function of Shapely.
 
@@ -822,7 +828,7 @@ In the tuple, the first item (at index 0) is the geometry of our origin point an
 This is the basic logic how we can find the nearest point from a set of points.
 
 
-## Nearest points using Geopandas
+### Nearest points using Geopandas
 
 Let's then see how it is possible to find nearest points from a set of origin points to a set of destination points using GeoDataFrames. Here, we will use the ``PKS_suuralueet.kml`` district data, and the ``addresses.shp`` address points from previous sections. 
 
@@ -942,17 +948,19 @@ df1.head()
 That's it! Now we found the closest point for each centroid and got the ``id`` value from our addresses into the ``df1`` GeoDataFrame.
 
 
-# Nearest neighbor analysis with large datasets
+## Nearest neighbor analysis with large datasets
 
 While Shapely's `nearest_points` -function provides a nice and easy way of conducting the nearest neighbor analysis, it can be quite slow. Using it also requires taking the `unary union` of the point dataset where all the Points are merged into a single layer. This can be a really memory hungry and slow operation, that can cause problems with large point datasets.  
 
 Luckily, there is a much faster and memory efficient alternatives for conducting nearest neighbor analysis, based on a function called [BallTree](https://en.wikipedia.org/wiki/Ball_tree) from a [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate `euclidian` distance between neighbors (good if your data is in metric crs), as well as `haversine` distance which allows to determine [Great Circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) between locations (good if your data is in lat/lon format). *Note: There is also an algorithm called [KDTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree) in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.* 
 
-## Motivation
+
+### Motivation
 
 In this tutorial, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in Helsinki Region (around 159 000 buildings) the closest public transport stop (~ 8400 stops). The building points have been fetched from OpenStreetMap using a library called [OSMnx](https://github.com/gboeing/osmnx) (we will learn more about this library later), and the public transport stops have been fetched from open [GTFS dataset for Helsinki Region](https://transitfeeds.com/p/helsinki-regional-transport/735) that contains information about public transport stops, schedules etc. 
 
-## Efficient nearest neighbor search with Geopandas and scikit-learn
+
+### Efficient nearest neighbor search with Geopandas and scikit-learn
 
 The following examples show how to conduct nearest neighbor analysis efficiently with large datasets. We will first define the functions and see how to use them, and then we go through the code to understand what happened.
 

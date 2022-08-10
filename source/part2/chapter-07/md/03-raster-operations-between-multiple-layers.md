@@ -12,10 +12,9 @@ jupyter:
     name: python3
 ---
 
-# Multimodal spatial accessibility analysis with Python
+# Raster operations between multiple layers
 
-**This section is under construction**
+**This section is under construction**.
 
-Contents:
-- How to analyze accessibility?
-- Travel time analyses by different travel modes using `r5py` library
+
+

@@ -14,9 +14,240 @@ jupyter:
 
 # Introduction to spatial data analysis with geopandas
 
-We will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis in Python. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas. 
+In this chapter, we will first learn how geometric objects are represented in Python using a library called `shapely`. After this, we will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas. The main difference between geopandas GeoDataFrames and pandas DataFrames is that a [GeoDataFrame](http://geopandas.org/data_structures.html#geodataframe) should contain one column for geometries. By default, the name of this column is `'geometry'`. The geometry column is a [GeoSeries](http://geopandas.org/data_structures.html#geoseries) which contains the geometries (points, lines, polygons, multipolygons etc.) as `shapely` objects. 
 
-The main difference between geopandas GeoDataFrames and pandas DataFrames is that a [GeoDataFrame](http://geopandas.org/data_structures.html#geodataframe) should contain one column for geometries. By default, the name of this column is `'geometry'`. The geometry column is a [GeoSeries](http://geopandas.org/data_structures.html#geoseries) which contains the geometries (points, lines, polygons, multipolygons etc.) as shapely objects. 
+
+## Representing vector geometries with `shapely` 
+
+
+A core Python library for representing vector data in geospatial domain is called `shapely` [^shapely]. Although `shapely` library can be a bit hidden from most Python GIS user nowadays, it is one of the fundamental dependencies of `geopandas` library which is the go-to library when working with (vector) spatial data in Python. Hence, basic knowledge of shapely is fundamental to understand how geometries are stored and handled in `geopandas`. In the following, we give a quick overview, how to create geometries using `shapely`.
+
+
+### Creating Point geometries
+
+When creating geometries in Python, we first need to import the geometric object class (such as `Point`) that we want to create from `shapely.geometry` which contains all possible geometry types. After importing the `Point` class, creating a point is easy: we just pass `x` and `y` coordinates into the `Point()` -class (with a possible `z` -coordinate) which will create the point for us:
+
+```python jupyter={"outputs_hidden": false}
+from shapely.geometry import Point
+
+point = Point(2.2, 4.2)
+point3D = Point(9.26, -2.456, 0.57)
+
+point
+```
+
+As we see here, Jupyter notebook is able to display the shape of the `point` directly on the screen when we call it. The point object here is represented as it has been defined in the *Simple Features Access Specification*. Under the hood `shapely` actually uses a C++ library called GEOS [^GEOS] to construct the geometries, which is one of the standard libraries behind various Geographic Information Systems, such as QGIS [^QGIS]. We can use the print statement to get the coordinate information of these objects in WKT format:
+
+```python jupyter={"outputs_hidden": false}
+print(point)
+print(point3D)
+```
+
+3D-point can be recognized from the capital Z -letter in front of the coordinates. Extracting the coordinates of a `Point` can be done in a couple of different ways. We can use the `coords` attribute contains the coordinate information as a `CoordinateSequence` which is a specific data type of Shapely. In addition, we can also directly use the attributes `x` and `y` to get the coordinates directly as plain decimal numbers.
+
+```python
+list(point.coords)
+```
+
+```python jupyter={"outputs_hidden": false}
+print(point.x, point.y)
+```
+
+Points and other shapely objects have many useful built-in attributes and methods [^shapely_methods], such as calculating the Euclidian distance between points or creating a buffer from the point that converts the point into a circle `Polygon` with specific radius. However, all of these functionalities are integrated into `geopandas` and we will go through them later in the book. 
+
+
+<!-- #region -->
+### Creating LineString geometries
+
+
+Creating `LineString` -objects is fairly similar to creating Shapely Points. Now, instead using a single coordinate-tuple we can construct the line using either a list of shapely `Point` -objects or pass the points as coordinate-tuples:
+<!-- #endregion -->
+
+```python jupyter={"outputs_hidden": false}
+from shapely.geometry import Point, LineString
+
+point1 = Point(2.2, 4.2)
+point2 = Point(7.2, -25.1)
+point3 = Point(9.26, -2.456)
+
+line = LineString([point1, point2, point3])
+line_from_tuples = LineString([(2.2, 4.2), (7.2, -25.1), (9.26, -2.456)])
+line
+```
+
+```python
+print(line)
+```
+
+As we can see from above, the WKT representation of the `line` -variable constitutes of multiple coordinate-pairs. `LineString` -object has many useful built-in attributes and methods similarly as `Point` -objects. It is for instance possible to extract the coordinates, calculate the length of the `LineString`, find out the centroid of the line, create points along the line at specific distance, calculate the closest distance from a line to specified Point, or simplify the geometry. A full list of functionalities can be read from `shapely` documentation [^shapely]. Most of these functionalities are directly implemented in `geopandas` (see next chapter), hence you very seldom need to parse these information directly from the `shapely` geometries yourself. However, here we go through a few of them for reference. We can extract the coordinates of a LineString similarly as with `Point`:
+
+```python jupyter={"outputs_hidden": false}
+list(line.coords)
+```
+
+As a result, we have a list of coordinate tuples (x,y) inside a list. If you need to access all `x` -coordinates or all `y` -coordinates of the line, you can do it directly using the `xy` attribute: 
+
+```python jupyter={"outputs_hidden": false}
+xcoords = list(line.xy[0])
+ycoords = list(line.xy[1])
+
+print(xcoords)
+print(ycoords)
+```
+
+It is possible to retrieve specific attributes such as `length` of the line and center of the line (`centroid`) straight from the `LineString` object itself:
+
+```python jupyter={"outputs_hidden": false}
+length = line.length
+centroid = line.centroid
+print(f"Length of our line: {length:.2f} units")
+print(f"Centroid: {centroid}")
+```
+
+As you can see, the centroid of the line is again a Shapely Point object. In practice, you would rarely access these attributes directly from individual `shapely` geometries, but we can do the same things for a set of geometries at once using `geopandas`. 
+
+
+### Creating Polygon geometries
+
+Creating a `Polygon` -object continues the same logic how `Point` and `LineString` were created. A `Polygon` can be created by passing a list of `Point` objects or a list of coordinate-tuples as input for the `Polygon` class. Polygon needs at least three coordinate-tuples to form a surface. In the following, we use the same points from the earlier `LineString` example to create a `Polygon`:
+
+```python jupyter={"outputs_hidden": false}
+poly = Polygon([point1, point2, point3])
+poly
+```
+
+```python
+print(poly)
+```
+
+Notice that the `Polygon` WKT representation has double parentheses around the coordinates (i.e. `POLYGON ((<values in here>))` ). This is because Polygon can also have holes inside of it. As the help of the `Polygon` [^polygon] object tells us (*output here is slightly simplified from the original*), a `Polygon` is constructed from *exterior* and *interior* (optional) which are the attributes of the `Polygon` object. The interior can be used to create holes inside the `Polygon`: 
+
+```
+class Polygon(shapely.geometry.base.BaseGeometry)
+ |  Polygon(shell=None, holes=None)
+ |  
+ |  A two-dimensional figure bounded by a linear ring
+ |  
+ |  A polygon has a non-zero area. It may have one or more negative-space
+ |  "holes" which are also bounded by linear rings. If any rings cross each
+ |  other, the feature is invalid and operations on it may fail.
+ |  
+ |  Attributes
+ |  ----------
+ |  exterior : LinearRing
+ |      The ring which bounds the positive space of the polygon.
+ |  interiors : sequence
+ |      A sequence of rings which bound all existing holes.
+ |  
+ |  Parameters
+ |  ----------
+ |  shell : sequence
+ |     A sequence of (x, y [,z]) numeric coordinate pairs or triples.
+ |     Also can be a sequence of Point objects.
+ |  holes : sequence
+ |      A sequence of objects which satisfy the same requirements as the
+ |      shell parameters above
+```
+
+
+If we want to create a `Polygon` with a hole, we can do this by using parameters `shell` for the exterior and `holes` for the interiors. Let's see how we can create a `Polygon` with a single hole by passing the coordinates in decimal degrees (lon, lat). Notice, that because a `Polygon` can have multiple holes, the `hole_coords` variable below contains nested square brackets (`[[ ]]`), which is due to the possibility of having multiple holes in a single `Polygon`: 
+
+```python
+border_coords = [(-180, 90), (-180, -90), (180, -90), (180, 90)]
+hole_coords = [[(-170, 80), (-170, -80), (170, -80), (170, 80)]]
+poly2 = Polygon(shell=border_coords, holes=hole_coords)
+poly2
+```
+
+```python
+print(poly2)
+```
+
+As we can see the `Polygon` has now two different tuples of coordinates. The first one represents the **outerior** and the second one represents the **interior**, i.e. a hole inside of the Polygon. 
+We can access different attributes directly from the `Polygon` object itself that can be really useful for many analyses, such as `area`, `centroid`, `bounding box`, `exterior`, and `exterior-length` (and you guessed it, these are available directly in `geopandas` as well).  See a full list of methods in the `shapely` documentation [^shapely]. Here, we can see a few of the available attributes and how to access them:
+
+```python
+print("Polygon centroid: ", poly2.centroid)
+print("Polygon Area: ", poly2.area)
+print("Polygon Bounding Box: ", poly2.bounds)
+print("Polygon Exterior: ", poly2.exterior)
+print("Polygon Exterior Length: ", poly2.exterior.length)
+```
+
+As we can see above, it is again fairly straightforward to access different attributes from the `Polygon` -object. Notice, that the `length` and `area` information are presented here in decimal degrees because our input coordinates were passed as longitudes and latitudes. We can get this information in more sensible format (in meters and m2) when we start working with data in a projected coordinate system later in the book. 
+
+Now you have learned how all the basic geometries can be created in Python using `shapely`. As a one last thing related to vector geometries, we will show you one useful tool that comes with `shapely` called `box` [^box]. The `box` -function can be used for creating a rectangular *{term}`bounding box`* [^bounding_box] based on minimum and maximum `x` and `y` coordinates, i.e. giving coordinate information of the bottom-left and top-right corners of the rectangle. Next, we will use `box` instead normal `Polygon` constructorto create the same polygon exterior as above:  
+
+```python
+from shapely.geometry import box
+
+min_x, min_y = -180, -90
+max_x, max_y = 180, 90
+poly3 = box(minx=min_x, miny=min_y, maxx=max_x, maxy=max_y)
+poly3
+```
+
+```python
+print(poly3)
+```
+
+As we can see, creating a rectangular bounding box `Polygon` can be done very easily by merely passing four coordinates to the `box` -function. Quite handy! In practice, the `box` function is quite useful for example when you want to select geometries from specific area of interest. In these cases, you only need to find out the coordinates of two points on the map to be able create the polygon, which you can use to select the data.   
+
+
+### Creating MultiPoint, MultiLineString and MultiPolygon geometries
+
+
+Creating a collection of `Point`, `LineString` or `Polygon` objects is very straightforward now as you have seen how to create the basic geometric objects. In the `Multi` -versions of these geometries, you just pass a list of points, lines or polygons to the `MultiPoint`, `MultiLineString` or `MultiPolygon` constructors as shown below:
+
+```python
+from shapely.geometry import MultiPoint, MultiLineString, MultiPolygon
+
+multipoint = MultiPoint([Point(2, 2), Point(3, 3)])
+multipoint
+```
+
+```python
+multiline = MultiLineString(
+    [LineString([(2, 2), (3, 3)]), LineString([(4, 3), (6, 4)])]
+)
+multiline
+```
+
+```python
+multipoly = MultiPolygon(
+    [Polygon([(0, 0), (0, 4), (4, 4)]), Polygon([(6, 6), (6, 12), (12, 12)])]
+)
+multipoly
+```
+
+### Question 5.1
+
+Create these shapes using Shapely!
+
+- **Triangle**   
+- **Square**    
+- **Circle**
+
+```python
+# Use this cell to enter your solution.
+```
+
+```python
+# Solution
+
+
+# Triangle
+Polygon([(0, 0), (2, 4), (4, 0)])
+
+# Square
+Polygon([(0, 0), (0, 4), (4, 4), (4, 0)])
+
+# Circle (using a buffer around a point)
+point = Point((0, 0))
+point.buffer(1)
+```
+
+## Getting started with geopandas
 
 
 ![_**Figure 6.1**. Geometry column in a GeoDataFrame._](../img/geodataframe.png)
@@ -35,6 +266,7 @@ Esri Shapefile is the default file format when reading in data usign geopandas, 
 
 ```python
 from pathlib import Path
+
 input_folder = Path("../data/NLS")
 fp = input_folder / "m_L4132R_p.shp"
 ```
@@ -236,9 +468,8 @@ output_folder = Path("results")
 
 if not output_folder.exists():
     output_folder.mkdir()
-    
-output_fp = output_folder / "Class_36200.shp"
 
+output_fp = output_folder / "Class_36200.shp"
 ```
 
 ```python
@@ -388,7 +619,6 @@ if not result_folder.exists():
     print("Creating a folder for the results..")
     # If it does not exist, create one
     result_folder.mkdir()
-
 ```
 
 At this point, you can go to the file browser and check that the new folder was created successfully.
@@ -439,8 +669,15 @@ area_info.to_csv(result_folder / "terrain_class_areas.csv", header=True)
 
 ## Footnotes
 
+[^bounding_box]: <https://en.wikipedia.org/wiki/Minimum_bounding_box>
+[^box]: <https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.box>
 [^geopandas]: <https://geopandas.org/>
+[^GEOS]: <https://trac.osgeo.org/geos>
 [^NLS_topodata]: <https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database>
 [^NLS_lisence]: <https://www.maanmittauslaitos.fi/en/opendata-licence-cc40>
-[^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>
 [^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>
+[^polygon]: <https://shapely.readthedocs.io/en/stable/manual.html#polygons>
+[^QGIS]: <http://www.qgis.org/en/site/>
+[^shapely]: <https://shapely.readthedocs.io/en/stable/manual.html>
+[^shapely_methods]: <https://shapely.readthedocs.io/en/stable/manual.html#general-attributes-and-methods>
+[^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>

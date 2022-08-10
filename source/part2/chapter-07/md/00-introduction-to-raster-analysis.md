@@ -12,6 +12,6 @@ jupyter:
     name: python3
 ---
 
-# Introduction to spatial network analysis
+# Introduction to raster processing with Python
 
 **This section is under construction**
