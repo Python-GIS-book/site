@@ -7,12 +7,20 @@
    "source": [
     "# Operations between multiple datasets\n",
     "\n",
+    "<!---\n",
     "- Selecting data based on spatial relationships\n",
     "- Overlay analysis\n",
     "- Spatial join, nearest join\n",
     "- Distance operations\n",
     "- Spatial index\n",
-    "\n",
+    "-->"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bc9777b7-a38d-4d00-a593-e4729546afaa",
+   "metadata": {},
+   "source": [
     "## Selecting data based on spatial relationships\n",
     "\n",
     "Finding out if a certain point is located inside or outside of an area,\n",
@@ -25,8 +33,14 @@
     "is used. \n",
     "\n",
     "For further reading about PIP and other geometric operations, \n",
-    "see Chapter 4.2 in Smith, Goodchild & Longley: [Geospatial Analysis - 6th edition](https://www.spatialanalysisonline.com/HTML/index.html).\n",
-    "\n",
+    "see Chapter 4.2 in Smith, Goodchild & Longley: [Geospatial Analysis - 6th edition](https://www.spatialanalysisonline.com/HTML/index.html)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c369d1fd-b9c4-49a5-a72f-d0d65fc3a4cc",
+   "metadata": {},
+   "source": [
     "### How to check if point is inside a polygon?\n",
     "\n",
     "Computationally, detecting if a point is inside a polygon is most commonly done using a specific formula called [Ray Casting algorithm](https://en.wikipedia.org/wiki/Point_in_polygon#Ray_casting_algorithm).\n",
@@ -49,8 +63,7 @@
     "operation, it is also possible to check if a LineString or Polygon is\n",
     "inside another Polygon.\n",
     "\n",
-    "Let's import shapely functionalities and create some points:\n",
-    "<!-- #endregion -->"
+    "Let's import shapely functionalities and create some points:"
    ]
   },
   {
@@ -246,8 +259,14 @@
     "   is **within()** the polygon.\n",
     "\n",
     "-  if you have **many polygons and just one point** and you want to find out\n",
-    "   which polygon contains the point: You might need to iterate over the polygons until you find a polygon that **contains()** the point specified (assuming there are no overlapping polygons)\n",
-    "        \n",
+    "   which polygon contains the point: You might need to iterate over the polygons until you find a polygon that **contains()** the point specified (assuming there are no overlapping polygons)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "29a81da6-597f-4df6-8efa-65cf556636e7",
+   "metadata": {},
+   "source": [
     "## Intersect\n",
     "\n",
     "Another typical geospatial operation is to see if a geometry intersects\n",
@@ -971,9 +990,15 @@
    "id": "791721ad",
    "metadata": {},
    "source": [
-    "There are many more examples for different types of overlay analysis in [Geopandas documentation](http://geopandas.org/set_operations.html) where you can go and learn more.\n",
-    "\n",
-    "# Spatial join\n",
+    "There are many more examples for different types of overlay analysis in [Geopandas documentation](http://geopandas.org/set_operations.html) where you can go and learn more."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d6e6ea90-8f81-4938-8227-22bcf4e969be",
+   "metadata": {},
+   "source": [
+    "## Spatial join\n",
     "\n",
     "[Spatial join](http://wiki.gis.com/wiki/index.php/Spatial_Join) is\n",
     "yet another classic GIS problem. Getting attributes from one layer and\n",
@@ -1496,7 +1521,7 @@
    "id": "bd3eb3a2",
    "metadata": {},
    "source": [
-    "# Nearest Neighbour Analysis"
+    "## Nearest Neighbour Analysis"
    ]
   },
   {
@@ -1508,9 +1533,7 @@
     "representing your home location, and then another set of locations representing e.g. public transport stops. Then, quite typical question is *\"which of the stops is closest one to my home?\"*\n",
     "This is a typical nearest neighbour analysis, where the aim is to find the closest geometry to another geometry.\n",
     "\n",
-    "In Python this kind of analysis can be done with shapely function called ``nearest_points()`` that [returns a tuple of the nearest points in the input geometries](https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.nearest_points).\n",
-    "\n",
-    "## Nearest point using Shapely"
+    "In Python this kind of analysis can be done with shapely function called ``nearest_points()`` that [returns a tuple of the nearest points in the input geometries](https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.nearest_points)."
    ]
   },
   {
@@ -1518,6 +1541,8 @@
    "id": "84011d7b",
    "metadata": {},
    "source": [
+    "### Nearest point using Shapely\n",
+    "\n",
     "Let's start by testing how we can find the nearest Point using the ``nearest_points()`` function of Shapely.\n",
     "\n",
     "- Let's create an origin Point and a few destination Points and find out the closest destination:\n",
@@ -1664,7 +1689,7 @@
    "id": "5099a611",
    "metadata": {},
    "source": [
-    "## Nearest points using Geopandas\n",
+    "### Nearest points using Geopandas\n",
     "\n",
     "Let's then see how it is possible to find nearest points from a set of origin points to a set of destination points using GeoDataFrames. Here, we will use the ``PKS_suuralueet.kml`` district data, and the ``addresses.shp`` address points from previous sections. \n",
     "\n",
@@ -1914,17 +1939,29 @@
    "id": "6d2524f2",
    "metadata": {},
    "source": [
-    "# Nearest neighbor analysis with large datasets\n",
+    "## Nearest neighbor analysis with large datasets\n",
     "\n",
     "While Shapely's `nearest_points` -function provides a nice and easy way of conducting the nearest neighbor analysis, it can be quite slow. Using it also requires taking the `unary union` of the point dataset where all the Points are merged into a single layer. This can be a really memory hungry and slow operation, that can cause problems with large point datasets.  \n",
     "\n",
-    "Luckily, there is a much faster and memory efficient alternatives for conducting nearest neighbor analysis, based on a function called [BallTree](https://en.wikipedia.org/wiki/Ball_tree) from a [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate `euclidian` distance between neighbors (good if your data is in metric crs), as well as `haversine` distance which allows to determine [Great Circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) between locations (good if your data is in lat/lon format). *Note: There is also an algorithm called [KDTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree) in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.* \n",
+    "Luckily, there is a much faster and memory efficient alternatives for conducting nearest neighbor analysis, based on a function called [BallTree](https://en.wikipedia.org/wiki/Ball_tree) from a [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate `euclidian` distance between neighbors (good if your data is in metric crs), as well as `haversine` distance which allows to determine [Great Circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) between locations (good if your data is in lat/lon format). *Note: There is also an algorithm called [KDTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree) in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.* "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "863b5985-1070-412b-86db-02bea6ed9924",
+   "metadata": {},
+   "source": [
+    "### Motivation\n",
     "\n",
-    "## Motivation\n",
-    "\n",
-    "In this tutorial, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in Helsinki Region (around 159 000 buildings) the closest public transport stop (~ 8400 stops). The building points have been fetched from OpenStreetMap using a library called [OSMnx](https://github.com/gboeing/osmnx) (we will learn more about this library later), and the public transport stops have been fetched from open [GTFS dataset for Helsinki Region](https://transitfeeds.com/p/helsinki-regional-transport/735) that contains information about public transport stops, schedules etc. \n",
-    "\n",
-    "## Efficient nearest neighbor search with Geopandas and scikit-learn\n",
+    "In this tutorial, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in Helsinki Region (around 159 000 buildings) the closest public transport stop (~ 8400 stops). The building points have been fetched from OpenStreetMap using a library called [OSMnx](https://github.com/gboeing/osmnx) (we will learn more about this library later), and the public transport stops have been fetched from open [GTFS dataset for Helsinki Region](https://transitfeeds.com/p/helsinki-regional-transport/735) that contains information about public transport stops, schedules etc. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "78deb086-edab-45ee-b3a7-089b1ae59e99",
+   "metadata": {},
+   "source": [
+    "### Efficient nearest neighbor search with Geopandas and scikit-learn\n",
     "\n",
     "The following examples show how to conduct nearest neighbor analysis efficiently with large datasets. We will first define the functions and see how to use them, and then we go through the code to understand what happened."
    ]

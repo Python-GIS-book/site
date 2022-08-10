@@ -42,16 +42,6 @@
   },
   {
    "cell_type": "markdown",
-   "id": "535c1e28-b980-4a46-a736-b6ed05d38834",
-   "metadata": {
-    "pycharm": {
-     "name": "#%% md\n"
-    }
-   },
-   "source": []
-  },
-  {
-   "cell_type": "markdown",
    "id": "smooth-fancy",
    "metadata": {
     "pycharm": {
@@ -77,7 +67,7 @@
     }
    },
    "source": [
-    "## Windows"
+    "## Install Miniconda"
    ]
   },
   {
@@ -89,9 +79,9 @@
     }
    },
    "source": [
-    "### Installing Miniconda\n",
+    "### Windows\n",
     "\n",
-    "To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer. You can find the latest installer links for various operating systems from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links) [^miniconda]. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.\n",
+    "To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer (Figure 1.13). You can find the latest installer links for various operating systems from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links) [^miniconda]. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.\n",
     "\n",
     "![_**Figure 1.13**. Miniconda versions available for Windows._](../img/miniconda-windows.png)\n",
     "\n",
@@ -109,88 +99,6 @@
   },
   {
    "cell_type": "markdown",
-   "source": [
-    "## macOS"
-   ],
-   "metadata": {
-    "collapsed": false,
-    "pycharm": {
-     "name": "#%% md\n"
-    }
-   }
-  },
-  {
-   "cell_type": "markdown",
-   "source": [
-    "### Setting up your Python environment\n",
-    "\n",
-    "There are three steps to install the software libraries needed in this book.\n",
-    "\n",
-    "1. Download a copy of our Python environment configuration file `python-gis-book.yml` that is available on the book website at [WEBSITE]().\n",
-    "\n",
-    "2. Once you have downloaded the environment file you need, you can install it at the Anaconda Prompt by typing\n",
-    "\n",
-    "    ```bash\n",
-    "    $ conda env create -f python-gis-book.yml\n",
-    "    ```\n",
-    "\n",
-    "    This will create the Python environment by installing the required software. Please note that the downloaded file should be in the same directory where the Anaconda Prompt is running, and that the installation may take some time.\n",
-    "   \n",
-    "3. Finally, you can activate the new Python environment by typing\n",
-    "\n",
-    "    ```bash\n",
-    "    $ conda activate python-gis-book\n",
-    "    ```\n",
-    "\n",
-    "    in the Anaconda Prompt. You should now have all of the software needed to proceed with the book.\n",
-    "\n",
-    "\n",
-    "## macOS## macOS"
-   ],
-   "metadata": {
-    "collapsed": false,
-    "pycharm": {
-     "name": "#%% md\n"
-    }
-   }
-  },
-  {
-   "cell_type": "markdown",
-   "id": "artistic-mount",
-   "metadata": {
-    "pycharm": {
-     "name": "#%% md\n"
-    }
-   },
-   "source": [
-    "### Setting up your Python environment\n",
-    "\n",
-    "There are three steps to install the software libraries needed in this book.\n",
-    "\n",
-    "1. Download a copy of our Python environment configuration file `python-gis-book.yml` that is available on the book website at [WEBSITE]().\n",
-    "\n",
-    "2. Once you have downloaded the environment file you need, you can install it at the Anaconda Prompt by typing\n",
-    "\n",
-    "    ```bash\n",
-    "    $ conda env create -f python-gis-book.yml\n",
-    "    ```\n",
-    "\n",
-    "    This will create the Python environment by installing the required software. Please note that the downloaded file should be in the same directory where the Anaconda Prompt is running, and that the installation may take some time.\n",
-    "   \n",
-    "3. Finally, you can activate the new Python environment by typing\n",
-    "\n",
-    "    ```bash\n",
-    "    $ conda activate python-gis-book\n",
-    "    ```\n",
-    "\n",
-    "    in the Anaconda Prompt. You should now have all of the software needed to proceed with the book.\n",
-    "\n",
-    "\n",
-    "## macOS## macOS"
-   ]
-  },
-  {
-   "cell_type": "markdown",
    "id": "assigned-queue",
    "metadata": {
     "pycharm": {
@@ -198,9 +106,9 @@
     }
    },
    "source": [
-    "### Installing Miniconda\n",
+    "### macOS\n",
     "\n",
-    "We recommend downloading the version of Miniconda that offers installation using a graphical installer (e.g., `Miniconda MacOSX 64-bit pkg`), and make sure you download the Python 3 package (Figure 1.13).\n",
+    "We recommend downloading the version of Miniconda that offers installation using a graphical installer (e.g., `Miniconda MacOSX 64-bit pkg`), and make sure you download the Python 3 package (Figure 1.14).\n",
     "\n",
     "![_**Figure 1.14**. Miniconda versions available for macOS._](../img/miniconda-macos.png)\n",
     "\n",
@@ -218,41 +126,6 @@
   },
   {
    "cell_type": "markdown",
-   "id": "incomplete-elite",
-   "metadata": {
-    "pycharm": {
-     "name": "#%% md\n"
-    }
-   },
-   "source": [
-    "### Setting up your Python environment\n",
-    "\n",
-    "There are three steps to install the software libraries needed in this book.\n",
-    "\n",
-    "1. Download a copy of our Python environment configuration file `python-gis-book.yml` that is available on the book website at [WEBSITE]().\n",
-    "\n",
-    "2. Once you have downloaded the environment file you need, you can install it using Terminal or the Anaconda Prompt by typing\n",
-    "\n",
-    "    ```bash\n",
-    "    $ conda env create -f python-gis-book.yml\n",
-    "    ```\n",
-    "\n",
-    "    This will create the Python environment by installing the required software. Please note that the downloaded file should be in the same directory where the Anaconda Prompt is running, and that the installation may take some time.\n",
-    "   \n",
-    "3. Finally, you can activate the new Python environment by typing\n",
-    "\n",
-    "    ```bash\n",
-    "    $ conda activate python-gis-book\n",
-    "    ```\n",
-    "\n",
-    "    in the Anaconda Prompt. You should now have all of the software needed to proceed with the book.\n",
-    "\n",
-    "\n",
-    "## Linux"
-   ]
-  },
-  {
-   "cell_type": "markdown",
    "id": "removed-conservative",
    "metadata": {
     "pycharm": {
@@ -260,9 +133,9 @@
     }
    },
    "source": [
-    "### Installing Miniconda\n",
+    "### Linux\n",
     "\n",
-    "Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) (Figure 1.14). Be sure you download the Python 3 package.\n",
+    "Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) (Figure 1.15). Be sure you download the Python 3 package.\n",
     "\n",
     "![_**Figure 1.15**. Miniconda versions available for Linux._](../img/miniconda-linux.png)\n",
     "\n",
@@ -286,9 +159,66 @@
     "\n",
     "    You will be propted for your password and must have administrator rights to install this way.\n",
     "\n",
-    "After the installation has completed you can test that the `conda` package manager works by opening a terminal and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.9.0`) then everything is working correctly.\n",
+    "After the installation has completed you can test that the `conda` package manager works by opening a terminal and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.9.0`) then everything is working correctly. In case you have any problems with the Miniconda installation, you can find some installation tips on the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "54d22e9f",
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
+   "source": [
+    "## Installing the Python libraries used in the book"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "447d3bcc",
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
+   "source": [
+    "As noted above, we will be using the `mamba` package manager to handle the installation of Python packages in Miniconda.\n",
+    "To do this, we must first install mamba and then download some Python environment files that contain the list of packages used in the book.\n",
+    "The steps for installing the Python GIS libraries are below."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "incomplete-elite",
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
+   "source": [
+    "### Installing `mamba`\n",
     "\n",
-    "In case you have any problems with the Miniconda installation, you can find some installation tips on the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html)."
+    "To get started we will install the `mamba` package manager in our new Miniconda environment (are you tired of all the snake references yet?).\n",
+    "We can install `mamba` by opening a terminal window or command prompt in Windows (as an admin user) and running the following:\n",
+    "\n",
+    "```\n",
+    "# Install mamba\n",
+    "conda install mamba -n base -c conda-forge\n",
+    "```\n",
+    "\n",
+    "If you're curious, you can find more about mamba in the [online user guide](https://mamba.readthedocs.io/en/latest/index.html) which covers most of the basic things, such as installing new packages."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1944b208-8158-45ef-989b-d956954426ae",
+   "metadata": {},
+   "source": [
+    "### Download the Python environment files\n",
+    "\n",
+    "Download the environment file (`environment.yml`) that contains information about all Python libraries that are needed to run the code examples in this book. \n",
+    "The file can be downloaded from [**HERE**](https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/environment/environment.yml) [^environment]."
    ]
   },
   {
@@ -300,32 +230,76 @@
     }
    },
    "source": [
-    "### Setting up your Python environment\n",
+    "### Install the libraries\n",
     "\n",
-    "There are three steps to install the software libraries needed in this book.\n",
+    "Once you have obtained the `environment.yml` file you can return to your terminal window, change to the directory where you have downloaded the file and create the environment as shown below. For example, on macOS or Linux you would do the following.\n",
     "\n",
-    "1. Download a copy of our Python environment configuration file `python-gis-book.yml` that is available on the book website at [WEBSITE]().\n",
+    "```\n",
+    "# Change to directory containing environment files\n",
+    "cd download_directory\n",
+    "    \n",
+    "# Create the environment using mamba\n",
+    "mamba env create -f environment.yml\n",
     "\n",
-    "2. Once you have downloaded the environment file you need, you can install it using a terminal by typing\n",
+    "# Activate the new environment \n",
+    "conda activate pythongis\n",
+    "```\n",
     "\n",
-    "    ```bash\n",
-    "    $ conda env create -f python-gis-book.yml\n",
-    "    ```\n",
+    "This creates a new Python virtual environment called `pythongis`, which contains the packages listed in the file `environment.yml`. The new environment is helpful because it will be isolated from other Python packages you might install on your computer and ensure you have all of the packages needed for this book.\n",
     "\n",
-    "    This will create the Python environment by installing the required software. Please note that the downloaded file should be in the same directory where the Anaconda Prompt is running, and that the installation may take some time.\n",
-    "   \n",
-    "3. Finally, you can activate the new Python environment by typing\n",
+    "To use the environment (since it will not be the default environment on your computer) you should type something like the following whenever you open a terminal window to use Python.\n",
     "\n",
-    "    ```bash\n",
-    "    $ conda activate python-gis-book\n",
-    "    ```\n",
+    "```\n",
+    "# Activate the your Python environment\n",
+    "conda activate pythongis\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6d3047bc-3435-40f7-9816-4c7977c6a30f",
+   "metadata": {},
+   "source": [
+    "### Running JupyterLab\n",
     "\n",
-    "    in the Anaconda Prompt. You should now have all of the software needed to proceed with the book.\n",
+    "We use [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html) as the main programming environment in this book.\n",
+    "You can start a JupyterLab instance by running this command on terminal or command prompt (notice the space between the words!):\n",
     "\n",
+    "```\n",
+    "jupyter lab\n",
+    "```\n",
     "\n",
+    "After running the command, JupyterLab should open up automatically in a browser window."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "866076eb-e9d6-44fc-9cb2-ce468df6be42",
+   "metadata": {},
+   "source": [
+    "### Installing additional libraries\n",
     "\n",
+    "You can install new packages using the `mamba install` command. The basic syntax for installing packages is `mamba install package-name`.\n",
+    "In addition, we also want to specify the `channel` from where the package is downloaded using the parameter ``-c``. A good rule of thumb is to always install packages from the same channel (in this book, we prefer the `conda-forge` channel). For instance, installing the `pandas` library from the conda-forge channel would be done as follows:\n",
+    "\n",
+    "```\n",
+    "mamba install -c conda-forge pandas\n",
+    "```\n",
+    "\n",
+    "Once you run this command, you will see also other packages getting installed and/or updated as mamba checks for dependencies of the installed package.\n",
+    "Read more about package installations in the [mamba documentation](https://mamba.readthedocs.io/en/latest/advanced_usage/detailed_operations.html) [^mamba_docs]\n",
+    "It's a good idea to search for installation instructions for each package online. In case you encounter an error message when installing new packages, you might want to first check the versions and channels of existing packages using the `mamba list` command before trying again."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9970eccb-de20-4e48-a448-02a41cc9d9a9",
+   "metadata": {},
+   "source": [
     "## Footnotes\n",
     "\n",
+    "[^environment]: <https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/environment/environment.yml>\n",
+    "[^mamba_docs]: <https://mamba.readthedocs.io/en/latest/advanced_usage/detailed_operations.html>\n",
     "[^miniconda]: <https://docs.conda.io/en/latest/miniconda.html> \n",
     "[^miniforge]: <https://github.com/conda-forge/miniforge>\n",
     "[^Python website]: <https://www.python.org/>"

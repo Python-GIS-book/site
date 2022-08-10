@@ -21,7 +21,7 @@
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
@@ -38,7 +38,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -342,42 +342,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-analysis.html">
+     Introduction to raster processing with Python
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">
      Reading raster files
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/plotting-raster.html">
-     Visualizing raster layers
+    <a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">
+     Common raster operations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/clipping-raster.html">
-     Masking / clipping raster
+    <a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">
+     Raster operations between multiple layers
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/raster-map-algebra.html">
-     Raster map algebra
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/raster-mosaic.html">
-     Creating a raster mosaic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/zonal-statistics.html">
-     Zonal statistics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/read-cogs.html">
-     Read Cloud Optimized Geotiffs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/exercises.html">
+    <a class="reference internal" href="../../chapter-07/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -399,22 +384,27 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/01-static-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">
      Static maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/02-interactive-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">
      Interactive maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/03-map-design-principles-and-colors.html">
+    <a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">
      Designing maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/04-exercises.html">
+    <a class="reference internal" href="../../chapter-08/nb/05-exercises.html">
      Exercises
     </a>
    </li>
@@ -791,6 +781,11 @@ title="Print to PDF"
    Python GIS ecosystem: Core libraries for doing GIS and geographic data analysis
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -820,6 +815,11 @@ title="Print to PDF"
    Python GIS ecosystem: Core libraries for doing GIS and geographic data analysis
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -838,27 +838,36 @@ title="Print to PDF"
 <p>Python is extremely useful language to learn if you are interested in geographic data analysis (or GIS as it is often called). Many (if not most) of the various GIS softwares (such as ArcGIS, QGIS, PostGIS etc.) provide an interface to do analysis using Python scripting. In this book, we will focus on doing geoprocessing and geographic data analysis without any third party softwares, such as ESRI’s ArcGIS. Why? There are several reasons for doing GIS using Python without any additional software:</p>
 <ul class="simple">
 <li><p><strong>Python has an extensive ecosystem of libraries and tools for GIS</strong>: you can do almost anything with spatial data. In fact, there is an enormous geospatial industry who are heavily relying on open source Python libraries.</p></li>
-<li><p><strong>Python GIS libraries are easy to learn</strong>: There are tons of good and free resources available to learn GIS with Python for free (the online version of this book is one example!)</p></li>
-<li><p><strong>Python is highly efficient</strong>: used for analysing big (and small) geospatial data</p></li>
-<li><p><strong>Python is highly flexible</strong>: supports hundreds of spatial data formats (most likely many which you, or us, have never heard of)</p></li>
-<li><p><strong>Python allows to mix and match various libraries</strong>: You can combine different libraries and methodological approaches together and create sophisticated analytical pipelines</p></li>
-<li><p><strong>Everything is free</strong>: you don’t need to buy a license for using the tools</p></li>
-<li><p><strong>You will learn and understand more deeply</strong> how different geoprocessing operations work</p></li>
+<li><p><strong>Python GIS libraries are easy to learn</strong>: there are tons of good and free resources available to learn GIS with Python for free (the online version of this book is one example!).</p></li>
+<li><p><strong>Python is highly efficient</strong>: used for analysing big (and small) geospatial data.</p></li>
+<li><p><strong>Python is highly flexible</strong>: supports hundreds of spatial data formats (most likely many which you, or us, have never heard of).</p></li>
+<li><p><strong>Python allows to mix and match various libraries</strong>: You can combine different libraries and methodological approaches together and create sophisticated analytical pipelines.</p></li>
+<li><p><strong>Everything is free</strong>: you don’t need to buy a license for using the tools.</p></li>
+<li><p><strong>You will learn and understand more deeply</strong> how different geoprocessing operations work.</p></li>
 <li><p>By using Python’s open source libraries and codes, <strong>you support open science</strong> by making it possible for everyone to reproduce your work, free-of-charge.</p></li>
 <li><p><strong>You can plug-in and chain different third-party softwares</strong> (not necessarily written in Python) which allow you to build e.g. fancy web-GIS applications (using e.g. KeplerGL, Dask or GeoDjango for developing the user interface and having PostGIS as a back-end database).</p></li>
+<li><p><strong>Python libraries are developing fast</strong>: an active open source community is continuously improving existing libraries and adding new functionalities to them, or creating new libraries for purposes that do not yet have an existing tool to work with. However, it is good to be aware that fast development is not necessarily a guarantee of stability or quality. Hence, as for any open source library (with any programming language), it is good to investigate a bit before starting to use a new open source library whether it has been actively maintained and if it seems to have an active community of users developing the library further.</p></li>
 </ul>
 </section>
 <section id="python-gis-ecosystem-core-libraries-for-doing-gis-and-geographic-data-analysis">
 <h2>Python GIS ecosystem: Core libraries for doing GIS and geographic data analysis<a class="headerlink" href="#python-gis-ecosystem-core-libraries-for-doing-gis-and-geographic-data-analysis" title="Permalink to this headline">#</a></h2>
-<p>We have already used a few Python modules for conducting different tasks, such as <code class="docutils literal notranslate"><span class="pre">pandas</span></code> for doing some basic data analysis tasks or <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for visualizing our data. From now on, we will familiarize ourselves with a punch of other Python modules that are useful when for geographic data analysis or different GIS tasks. One drawback when compared to using a specific GIS-software such as ArcGIS, is that open source GIS tools for Python are spread under different Python modules and created by different developers. This means that you need to familiarize yourself with many different modules (and their documentation), whereas e.g. in ArcGIS everything is packaged under a same module called arcpy. Below we have listed most of the crucial modules (and links to their docs) that helps you get going when doing data analysis or GIS in Python. If you are interested or when you start using these modules in your own work, you should read the documentation from the web pages of the module that you need:</p>
-<p><strong>ADD IMAGE</strong> about the ecosystem and linkages</p>
-<p>The core libraries for doing GIS and geographic data analysis in Python:</p>
+<p>We have already used a few Python modules for conducting different tasks, such as <code class="docutils literal notranslate"><span class="pre">pandas</span></code> for doing some basic data analysis tasks or <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for visualizing our data. From now on, we will familiarize ourselves with a punch of other Python modules that are useful when for geographic data analysis and different GIS related operations. Python has a large ecosystem of libraries that can be used for doing analysis, visualization or geocomputation with spatial data, as shown in Figure 5.1 which shows how different Python geo-oriented libraries (n=145) are linked to each other. There is a dedicated website at ecosystem.pythongis.org <a class="footnote-reference brackets" href="#ecosystem" id="id1">1</a> that lists and provides useful information for a large set of tools available for doing GIS and Earth Observation (remote sensing) in Python. Naturally, we won’t use all of these packages in this book, but we will explore kind many of them. Although the ecosystem is broad, there are a few core libraries that are widely used across the ecosystem:</p>
 <ul class="simple">
 <li><p>Core vector libraries: <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, <code class="docutils literal notranslate"><span class="pre">pyproj</span></code>, <code class="docutils literal notranslate"><span class="pre">shapely</span></code></p></li>
 <li><p>Core raster libraries: <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code></p></li>
-<li><p>Libraries for analysis and modelling: <code class="docutils literal notranslate"><span class="pre">pysal</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy.spatial</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code></p></li>
-<li><p>Libraries for data download and extraction: <code class="docutils literal notranslate"><span class="pre">OWSLib</span></code>, <code class="docutils literal notranslate"><span class="pre">osmnx</span></code>, <code class="docutils literal notranslate"><span class="pre">pyrosm</span></code></p></li>
 </ul>
+<p><img alt="Figure 5.1. Python ecosystem for GIS and Earth Observation ()." src="../../../_images/python-gis-ecosystem.png" /></p>
+<p><em><strong>Figure 5.1</strong>. Python ecosystem for GIS and Earth Observation (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id7" title="Henrikki Tenkanen. Pygieons: software to visualize python os ecosystem for gis and earth observation. 2022. URL: https://github.com/pygieons/pygieons.">Tenkanen, 2022</a></span>).</em></p>
+<p>One drawback of such a broad open source ecosystem compared to using a specific GIS software such as ArcGIS, is that open source tools and their documentation are spread under different Python modules and created by different developers. This means that when working you need to familiarize yourself with many different tools and their  documentation, whereas in ArcGIS everything is packaged under a same module called arcpy and all the documentation can be found from a single location. However, open source libraries have many other benefits as described earlier.</p>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="ecosystem"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://ecosystem.pythongis.org/">https://ecosystem.pythongis.org/</a></p>
+</dd>
+</dl>
 </section>
 </section>
 

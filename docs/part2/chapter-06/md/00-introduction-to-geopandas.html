@@ -21,7 +21,7 @@
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
@@ -38,7 +38,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -342,42 +342,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-analysis.html">
+     Introduction to raster processing with Python
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">
      Reading raster files
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/plotting-raster.html">
-     Visualizing raster layers
+    <a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">
+     Common raster operations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/clipping-raster.html">
-     Masking / clipping raster
+    <a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">
+     Raster operations between multiple layers
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/raster-map-algebra.html">
-     Raster map algebra
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/raster-mosaic.html">
-     Creating a raster mosaic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/zonal-statistics.html">
-     Zonal statistics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/read-cogs.html">
-     Read Cloud Optimized Geotiffs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/exercises.html">
+    <a class="reference internal" href="../../chapter-07/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -399,22 +384,27 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/01-static-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">
      Static maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/02-interactive-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">
      Interactive maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/03-map-design-principles-and-colors.html">
+    <a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">
      Designing maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/04-exercises.html">
+    <a class="reference internal" href="../../chapter-08/nb/05-exercises.html">
      Exercises
     </a>
    </li>
@@ -782,6 +772,48 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representing-vector-geometries-with-shapely">
+   Representing vector geometries with
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     shapely
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-point-geometries">
+     Creating Point geometries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-linestring-geometries">
+     Creating LineString geometries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-polygon-geometries">
+     Creating Polygon geometries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-multipoint-multilinestring-and-multipolygon-geometries">
+     Creating MultiPoint, MultiLineString and MultiPolygon geometries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#question-5-1">
+     Question 5.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started-with-geopandas">
+   Getting started with geopandas
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#reading-a-shapefile">
    Reading a Shapefile
   </a>
@@ -852,6 +884,48 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representing-vector-geometries-with-shapely">
+   Representing vector geometries with
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     shapely
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-point-geometries">
+     Creating Point geometries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-linestring-geometries">
+     Creating LineString geometries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-polygon-geometries">
+     Creating Polygon geometries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-multipoint-multilinestring-and-multipolygon-geometries">
+     Creating MultiPoint, MultiLineString and MultiPolygon geometries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#question-5-1">
+     Question 5.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started-with-geopandas">
+   Getting started with geopandas
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#reading-a-shapefile">
    Reading a Shapefile
   </a>
@@ -914,18 +988,209 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-spatial-data-analysis-with-geopandas">
 <h1>Introduction to spatial data analysis with geopandas<a class="headerlink" href="#introduction-to-spatial-data-analysis-with-geopandas" title="Permalink to this headline">#</a></h1>
-<p>We will use <a class="reference external" href="https://geopandas.org/">geopandas</a> <a class="footnote-reference brackets" href="#geopandas" id="id1">1</a> as our main tool for spatial data analysis in Python. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code> and <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which extend the capabilities of <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> from pandas. This means that we can use all our pandas skills also when working with geopandas.</p>
-<p>The main difference between geopandas GeoDataFrames and pandas DataFrames is that a <a class="reference external" href="http://geopandas.org/data_structures.html#geodataframe">GeoDataFrame</a> should contain one column for geometries. By default, the name of this column is <code class="docutils literal notranslate"><span class="pre">'geometry'</span></code>. The geometry column is a <a class="reference external" href="http://geopandas.org/data_structures.html#geoseries">GeoSeries</a> which contains the geometries (points, lines, polygons, multipolygons etc.) as shapely objects.</p>
+<p>In this chapter, we will first learn how geometric objects are represented in Python using a library called <code class="docutils literal notranslate"><span class="pre">shapely</span></code>. After this, we will use <a class="reference external" href="https://geopandas.org/">geopandas</a> <a class="footnote-reference brackets" href="#geopandas" id="id1">1</a> as our main tool for spatial data analysis. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code> and <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which extend the capabilities of <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> from pandas. This means that we can use all our pandas skills also when working with geopandas. The main difference between geopandas GeoDataFrames and pandas DataFrames is that a <a class="reference external" href="http://geopandas.org/data_structures.html#geodataframe">GeoDataFrame</a> should contain one column for geometries. By default, the name of this column is <code class="docutils literal notranslate"><span class="pre">'geometry'</span></code>. The geometry column is a <a class="reference external" href="http://geopandas.org/data_structures.html#geoseries">GeoSeries</a> which contains the geometries (points, lines, polygons, multipolygons etc.) as <code class="docutils literal notranslate"><span class="pre">shapely</span></code> objects.</p>
+<section id="representing-vector-geometries-with-shapely">
+<h2>Representing vector geometries with <code class="docutils literal notranslate"><span class="pre">shapely</span></code><a class="headerlink" href="#representing-vector-geometries-with-shapely" title="Permalink to this headline">#</a></h2>
+<p>A core Python library for representing vector data in geospatial domain is called <code class="docutils literal notranslate"><span class="pre">shapely</span></code> <a class="footnote-reference brackets" href="#shapely" id="id2">2</a>. Although <code class="docutils literal notranslate"><span class="pre">shapely</span></code> library can be a bit hidden from most Python GIS user nowadays, it is one of the fundamental dependencies of <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> library which is the go-to library when working with (vector) spatial data in Python. Hence, basic knowledge of shapely is fundamental to understand how geometries are stored and handled in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. In the following, we give a quick overview, how to create geometries using <code class="docutils literal notranslate"><span class="pre">shapely</span></code>.</p>
+<section id="creating-point-geometries">
+<h3>Creating Point geometries<a class="headerlink" href="#creating-point-geometries" title="Permalink to this headline">#</a></h3>
+<p>When creating geometries in Python, we first need to import the geometric object class (such as <code class="docutils literal notranslate"><span class="pre">Point</span></code>) that we want to create from <code class="docutils literal notranslate"><span class="pre">shapely.geometry</span></code> which contains all possible geometry types. After importing the <code class="docutils literal notranslate"><span class="pre">Point</span></code> class, creating a point is easy: we just pass <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates into the <code class="docutils literal notranslate"><span class="pre">Point()</span></code> -class (with a possible <code class="docutils literal notranslate"><span class="pre">z</span></code> -coordinate) which will create the point for us:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+
+<span class="n">point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">)</span>
+<span class="n">point3D</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">9.26</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.456</span><span class="p">,</span> <span class="mf">0.57</span><span class="p">)</span>
+
+<span class="n">point</span>
+</pre></div>
+</div>
+<p>As we see here, Jupyter notebook is able to display the shape of the <code class="docutils literal notranslate"><span class="pre">point</span></code> directly on the screen when we call it. The point object here is represented as it has been defined in the <em>Simple Features Access Specification</em>. Under the hood <code class="docutils literal notranslate"><span class="pre">shapely</span></code> actually uses a C++ library called GEOS <a class="footnote-reference brackets" href="#geos" id="id3">3</a> to construct the geometries, which is one of the standard libraries behind various Geographic Information Systems, such as QGIS <a class="footnote-reference brackets" href="#qgis" id="id4">4</a>. We can use the print statement to get the coordinate information of these objects in WKT format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">point3D</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>3D-point can be recognized from the capital Z -letter in front of the coordinates. Extracting the coordinates of a <code class="docutils literal notranslate"><span class="pre">Point</span></code> can be done in a couple of different ways. We can use the <code class="docutils literal notranslate"><span class="pre">coords</span></code> attribute contains the coordinate information as a <code class="docutils literal notranslate"><span class="pre">CoordinateSequence</span></code> which is a specific data type of Shapely. In addition, we can also directly use the attributes <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> to get the coordinates directly as plain decimal numbers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Points and other shapely objects have many useful built-in attributes and methods <a class="footnote-reference brackets" href="#shapely-methods" id="id5">5</a>, such as calculating the Euclidian distance between points or creating a buffer from the point that converts the point into a circle <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> with specific radius. However, all of these functionalities are integrated into <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and we will go through them later in the book.</p>
+<!-- #region -->
+</section>
+<section id="creating-linestring-geometries">
+<h3>Creating LineString geometries<a class="headerlink" href="#creating-linestring-geometries" title="Permalink to this headline">#</a></h3>
+<p>Creating <code class="docutils literal notranslate"><span class="pre">LineString</span></code> -objects is fairly similar to creating Shapely Points. Now, instead using a single coordinate-tuple we can construct the line using either a list of shapely <code class="docutils literal notranslate"><span class="pre">Point</span></code> -objects or pass the points as coordinate-tuples:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span>
+
+<span class="n">point1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">)</span>
+<span class="n">point2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.1</span><span class="p">)</span>
+<span class="n">point3</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">9.26</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.456</span><span class="p">)</span>
+
+<span class="n">line</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">,</span> <span class="n">point3</span><span class="p">])</span>
+<span class="n">line_from_tuples</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.1</span><span class="p">),</span> <span class="p">(</span><span class="mf">9.26</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.456</span><span class="p">)])</span>
+<span class="n">line</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see from above, the WKT representation of the <code class="docutils literal notranslate"><span class="pre">line</span></code> -variable constitutes of multiple coordinate-pairs. <code class="docutils literal notranslate"><span class="pre">LineString</span></code> -object has many useful built-in attributes and methods similarly as <code class="docutils literal notranslate"><span class="pre">Point</span></code> -objects. It is for instance possible to extract the coordinates, calculate the length of the <code class="docutils literal notranslate"><span class="pre">LineString</span></code>, find out the centroid of the line, create points along the line at specific distance, calculate the closest distance from a line to specified Point, or simplify the geometry. A full list of functionalities can be read from <code class="docutils literal notranslate"><span class="pre">shapely</span></code> documentation <a class="footnote-reference brackets" href="#shapely" id="id6">2</a>. Most of these functionalities are directly implemented in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> (see next chapter), hence you very seldom need to parse these information directly from the <code class="docutils literal notranslate"><span class="pre">shapely</span></code> geometries yourself. However, here we go through a few of them for reference. We can extract the coordinates of a LineString similarly as with <code class="docutils literal notranslate"><span class="pre">Point</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As a result, we have a list of coordinate tuples (x,y) inside a list. If you need to access all <code class="docutils literal notranslate"><span class="pre">x</span></code> -coordinates or all <code class="docutils literal notranslate"><span class="pre">y</span></code> -coordinates of the line, you can do it directly using the <code class="docutils literal notranslate"><span class="pre">xy</span></code> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xcoords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ycoords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">xcoords</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ycoords</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It is possible to retrieve specific attributes such as <code class="docutils literal notranslate"><span class="pre">length</span></code> of the line and center of the line (<code class="docutils literal notranslate"><span class="pre">centroid</span></code>) straight from the <code class="docutils literal notranslate"><span class="pre">LineString</span></code> object itself:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">length</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">length</span>
+<span class="n">centroid</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">centroid</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Length of our line: </span><span class="si">{</span><span class="n">length</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> units&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Centroid: </span><span class="si">{</span><span class="n">centroid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see, the centroid of the line is again a Shapely Point object. In practice, you would rarely access these attributes directly from individual <code class="docutils literal notranslate"><span class="pre">shapely</span></code> geometries, but we can do the same things for a set of geometries at once using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>.</p>
+</section>
+<section id="creating-polygon-geometries">
+<h3>Creating Polygon geometries<a class="headerlink" href="#creating-polygon-geometries" title="Permalink to this headline">#</a></h3>
+<p>Creating a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> -object continues the same logic how <code class="docutils literal notranslate"><span class="pre">Point</span></code> and <code class="docutils literal notranslate"><span class="pre">LineString</span></code> were created. A <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> can be created by passing a list of <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects or a list of coordinate-tuples as input for the <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> class. Polygon needs at least three coordinate-tuples to form a surface. In the following, we use the same points from the earlier <code class="docutils literal notranslate"><span class="pre">LineString</span></code> example to create a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">,</span> <span class="n">point3</span><span class="p">])</span>
+<span class="n">poly</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice that the <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> WKT representation has double parentheses around the coordinates (i.e. <code class="docutils literal notranslate"><span class="pre">POLYGON</span> <span class="pre">((&lt;values</span> <span class="pre">in</span> <span class="pre">here&gt;))</span></code> ). This is because Polygon can also have holes inside of it. As the help of the <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> <a class="footnote-reference brackets" href="#polygon" id="id7">6</a> object tells us (<em>output here is slightly simplified from the original</em>), a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> is constructed from <em>exterior</em> and <em>interior</em> (optional) which are the attributes of the <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> object. The interior can be used to create holes inside the <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Polygon</span><span class="p">(</span><span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">BaseGeometry</span><span class="p">)</span>
+ <span class="o">|</span>  <span class="n">Polygon</span><span class="p">(</span><span class="n">shell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">holes</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+ <span class="o">|</span>  
+ <span class="o">|</span>  <span class="n">A</span> <span class="n">two</span><span class="o">-</span><span class="n">dimensional</span> <span class="n">figure</span> <span class="n">bounded</span> <span class="n">by</span> <span class="n">a</span> <span class="n">linear</span> <span class="n">ring</span>
+ <span class="o">|</span>  
+ <span class="o">|</span>  <span class="n">A</span> <span class="n">polygon</span> <span class="n">has</span> <span class="n">a</span> <span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="n">area</span><span class="o">.</span> <span class="n">It</span> <span class="n">may</span> <span class="n">have</span> <span class="n">one</span> <span class="ow">or</span> <span class="n">more</span> <span class="n">negative</span><span class="o">-</span><span class="n">space</span>
+ <span class="o">|</span>  <span class="s2">&quot;holes&quot;</span> <span class="n">which</span> <span class="n">are</span> <span class="n">also</span> <span class="n">bounded</span> <span class="n">by</span> <span class="n">linear</span> <span class="n">rings</span><span class="o">.</span> <span class="n">If</span> <span class="nb">any</span> <span class="n">rings</span> <span class="n">cross</span> <span class="n">each</span>
+ <span class="o">|</span>  <span class="n">other</span><span class="p">,</span> <span class="n">the</span> <span class="n">feature</span> <span class="ow">is</span> <span class="n">invalid</span> <span class="ow">and</span> <span class="n">operations</span> <span class="n">on</span> <span class="n">it</span> <span class="n">may</span> <span class="n">fail</span><span class="o">.</span>
+ <span class="o">|</span>  
+ <span class="o">|</span>  <span class="n">Attributes</span>
+ <span class="o">|</span>  <span class="o">----------</span>
+ <span class="o">|</span>  <span class="n">exterior</span> <span class="p">:</span> <span class="n">LinearRing</span>
+ <span class="o">|</span>      <span class="n">The</span> <span class="n">ring</span> <span class="n">which</span> <span class="n">bounds</span> <span class="n">the</span> <span class="n">positive</span> <span class="n">space</span> <span class="n">of</span> <span class="n">the</span> <span class="n">polygon</span><span class="o">.</span>
+ <span class="o">|</span>  <span class="n">interiors</span> <span class="p">:</span> <span class="n">sequence</span>
+ <span class="o">|</span>      <span class="n">A</span> <span class="n">sequence</span> <span class="n">of</span> <span class="n">rings</span> <span class="n">which</span> <span class="n">bound</span> <span class="nb">all</span> <span class="n">existing</span> <span class="n">holes</span><span class="o">.</span>
+ <span class="o">|</span>  
+ <span class="o">|</span>  <span class="n">Parameters</span>
+ <span class="o">|</span>  <span class="o">----------</span>
+ <span class="o">|</span>  <span class="n">shell</span> <span class="p">:</span> <span class="n">sequence</span>
+ <span class="o">|</span>     <span class="n">A</span> <span class="n">sequence</span> <span class="n">of</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">[,</span><span class="n">z</span><span class="p">])</span> <span class="n">numeric</span> <span class="n">coordinate</span> <span class="n">pairs</span> <span class="ow">or</span> <span class="n">triples</span><span class="o">.</span>
+ <span class="o">|</span>     <span class="n">Also</span> <span class="n">can</span> <span class="n">be</span> <span class="n">a</span> <span class="n">sequence</span> <span class="n">of</span> <span class="n">Point</span> <span class="n">objects</span><span class="o">.</span>
+ <span class="o">|</span>  <span class="n">holes</span> <span class="p">:</span> <span class="n">sequence</span>
+ <span class="o">|</span>      <span class="n">A</span> <span class="n">sequence</span> <span class="n">of</span> <span class="n">objects</span> <span class="n">which</span> <span class="n">satisfy</span> <span class="n">the</span> <span class="n">same</span> <span class="n">requirements</span> <span class="k">as</span> <span class="n">the</span>
+ <span class="o">|</span>      <span class="n">shell</span> <span class="n">parameters</span> <span class="n">above</span>
+</pre></div>
+</div>
+<p>If we want to create a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> with a hole, we can do this by using parameters <code class="docutils literal notranslate"><span class="pre">shell</span></code> for the exterior and <code class="docutils literal notranslate"><span class="pre">holes</span></code> for the interiors. Let’s see how we can create a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> with a single hole by passing the coordinates in decimal degrees (lon, lat). Notice, that because a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> can have multiple holes, the <code class="docutils literal notranslate"><span class="pre">hole_coords</span></code> variable below contains nested square brackets (<code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">]]</span></code>), which is due to the possibility of having multiple holes in a single <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">border_coords</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">90</span><span class="p">)]</span>
+<span class="n">hole_coords</span> <span class="o">=</span> <span class="p">[[(</span><span class="o">-</span><span class="mi">170</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">170</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="mi">170</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="mi">170</span><span class="p">,</span> <span class="mi">80</span><span class="p">)]]</span>
+<span class="n">poly2</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">shell</span><span class="o">=</span><span class="n">border_coords</span><span class="p">,</span> <span class="n">holes</span><span class="o">=</span><span class="n">hole_coords</span><span class="p">)</span>
+<span class="n">poly2</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">poly2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see the <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> has now two different tuples of coordinates. The first one represents the <strong>outerior</strong> and the second one represents the <strong>interior</strong>, i.e. a hole inside of the Polygon.
+We can access different attributes directly from the <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> object itself that can be really useful for many analyses, such as <code class="docutils literal notranslate"><span class="pre">area</span></code>, <code class="docutils literal notranslate"><span class="pre">centroid</span></code>, <code class="docutils literal notranslate"><span class="pre">bounding</span> <span class="pre">box</span></code>, <code class="docutils literal notranslate"><span class="pre">exterior</span></code>, and <code class="docutils literal notranslate"><span class="pre">exterior-length</span></code> (and you guessed it, these are available directly in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> as well).  See a full list of methods in the <code class="docutils literal notranslate"><span class="pre">shapely</span></code> documentation <a class="footnote-reference brackets" href="#shapely" id="id8">2</a>. Here, we can see a few of the available attributes and how to access them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon centroid: &quot;</span><span class="p">,</span> <span class="n">poly2</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon Area: &quot;</span><span class="p">,</span> <span class="n">poly2</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon Bounding Box: &quot;</span><span class="p">,</span> <span class="n">poly2</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon Exterior: &quot;</span><span class="p">,</span> <span class="n">poly2</span><span class="o">.</span><span class="n">exterior</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polygon Exterior Length: &quot;</span><span class="p">,</span> <span class="n">poly2</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see above, it is again fairly straightforward to access different attributes from the <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> -object. Notice, that the <code class="docutils literal notranslate"><span class="pre">length</span></code> and <code class="docutils literal notranslate"><span class="pre">area</span></code> information are presented here in decimal degrees because our input coordinates were passed as longitudes and latitudes. We can get this information in more sensible format (in meters and m2) when we start working with data in a projected coordinate system later in the book.</p>
+<p>Now you have learned how all the basic geometries can be created in Python using <code class="docutils literal notranslate"><span class="pre">shapely</span></code>. As a one last thing related to vector geometries, we will show you one useful tool that comes with <code class="docutils literal notranslate"><span class="pre">shapely</span></code> called <code class="docutils literal notranslate"><span class="pre">box</span></code> <a class="footnote-reference brackets" href="#box" id="id9">7</a>. The <code class="docutils literal notranslate"><span class="pre">box</span></code> -function can be used for creating a rectangular <em><span class="xref std std-term">bounding box</span></em> <a class="footnote-reference brackets" href="#bounding-box" id="id10">8</a> based on minimum and maximum <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates, i.e. giving coordinate information of the bottom-left and top-right corners of the rectangle. Next, we will use <code class="docutils literal notranslate"><span class="pre">box</span></code> instead normal <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> constructorto create the same polygon exterior as above:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">box</span>
+
+<span class="n">min_x</span><span class="p">,</span> <span class="n">min_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span>
+<span class="n">max_x</span><span class="p">,</span> <span class="n">max_y</span> <span class="o">=</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">90</span>
+<span class="n">poly3</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">minx</span><span class="o">=</span><span class="n">min_x</span><span class="p">,</span> <span class="n">miny</span><span class="o">=</span><span class="n">min_y</span><span class="p">,</span> <span class="n">maxx</span><span class="o">=</span><span class="n">max_x</span><span class="p">,</span> <span class="n">maxy</span><span class="o">=</span><span class="n">max_y</span><span class="p">)</span>
+<span class="n">poly3</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">poly3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see, creating a rectangular bounding box <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> can be done very easily by merely passing four coordinates to the <code class="docutils literal notranslate"><span class="pre">box</span></code> -function. Quite handy! In practice, the <code class="docutils literal notranslate"><span class="pre">box</span></code> function is quite useful for example when you want to select geometries from specific area of interest. In these cases, you only need to find out the coordinates of two points on the map to be able create the polygon, which you can use to select the data.</p>
+</section>
+<section id="creating-multipoint-multilinestring-and-multipolygon-geometries">
+<h3>Creating MultiPoint, MultiLineString and MultiPolygon geometries<a class="headerlink" href="#creating-multipoint-multilinestring-and-multipolygon-geometries" title="Permalink to this headline">#</a></h3>
+<p>Creating a collection of <code class="docutils literal notranslate"><span class="pre">Point</span></code>, <code class="docutils literal notranslate"><span class="pre">LineString</span></code> or <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> objects is very straightforward now as you have seen how to create the basic geometric objects. In the <code class="docutils literal notranslate"><span class="pre">Multi</span></code> -versions of these geometries, you just pass a list of points, lines or polygons to the <code class="docutils literal notranslate"><span class="pre">MultiPoint</span></code>, <code class="docutils literal notranslate"><span class="pre">MultiLineString</span></code> or <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code> constructors as shown below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">MultiPoint</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">,</span> <span class="n">MultiPolygon</span>
+
+<span class="n">multipoint</span> <span class="o">=</span> <span class="n">MultiPoint</span><span class="p">([</span><span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="n">multipoint</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">multiline</span> <span class="o">=</span> <span class="n">MultiLineString</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">LineString</span><span class="p">([(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]),</span> <span class="n">LineString</span><span class="p">([(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])]</span>
+<span class="p">)</span>
+<span class="n">multiline</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">multipoly</span> <span class="o">=</span> <span class="n">MultiPolygon</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]),</span> <span class="n">Polygon</span><span class="p">([(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">)])]</span>
+<span class="p">)</span>
+<span class="n">multipoly</span>
+</pre></div>
+</div>
+</section>
+<section id="question-5-1">
+<h3>Question 5.1<a class="headerlink" href="#question-5-1" title="Permalink to this headline">#</a></h3>
+<p>Create these shapes using Shapely!</p>
+<ul class="simple">
+<li><p><strong>Triangle</strong></p></li>
+<li><p><strong>Square</strong></p></li>
+<li><p><strong>Circle</strong></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+
+<span class="c1"># Triangle</span>
+<span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
+
+<span class="c1"># Square</span>
+<span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
+
+<span class="c1"># Circle (using a buffer around a point)</span>
+<span class="n">point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">point</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="getting-started-with-geopandas">
+<h2>Getting started with geopandas<a class="headerlink" href="#getting-started-with-geopandas" title="Permalink to this headline">#</a></h2>
 <p><img alt="Figure 6.1. Geometry column in a GeoDataFrame." src="../../../_images/geodataframe.png" /></p>
 <p><em><strong>Figure 6.1</strong>. Geometry column in a GeoDataFrame.</em></p>
 <p>Similar to importing import pandas as <code class="docutils literal notranslate"><span class="pre">pd</span></code>, we will import geopandas as <code class="docutils literal notranslate"><span class="pre">gpd</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 </pre></div>
 </div>
+</section>
 <section id="reading-a-shapefile">
 <h2>Reading a Shapefile<a class="headerlink" href="#reading-a-shapefile" title="Permalink to this headline">#</a></h2>
 <p>Esri Shapefile is the default file format when reading in data usign geopandas, so we only need to pass the file path in order to read in our data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
 <span class="n">input_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/NLS&quot;</span><span class="p">)</span>
 <span class="n">fp</span> <span class="o">=</span> <span class="n">input_folder</span> <span class="o">/</span> <span class="s2">&quot;m_L4132R_p.shp&quot;</span>
 </pre></div>
@@ -1078,9 +1343,8 @@ storing geometric information in geopandas.</p>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">output_folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
     <span class="n">output_folder</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
-    
-<span class="n">output_fp</span> <span class="o">=</span> <span class="n">output_folder</span> <span class="o">/</span> <span class="s2">&quot;Class_36200.shp&quot;</span>
 
+<span class="n">output_fp</span> <span class="o">=</span> <span class="n">output_folder</span> <span class="o">/</span> <span class="s2">&quot;Class_36200.shp&quot;</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write those rows into a new file (the default output file format is Shapefile)</span>
@@ -1194,7 +1458,6 @@ storing geometric information in geopandas.</p>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating a folder for the results..&quot;</span><span class="p">)</span>
     <span class="c1"># If it does not exist, create one</span>
     <span class="n">result_folder</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
-
 </pre></div>
 </div>
 <p>At this point, you can go to the file browser and check that the new folder was created successfully.</p>
@@ -1241,6 +1504,27 @@ storing geometric information in geopandas.</p>
 <dl class="footnote brackets">
 <dt class="label" id="geopandas"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://geopandas.org/">https://geopandas.org/</a></p>
+</dd>
+<dt class="label" id="shapely"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id6">2</a>,<a href="#id8">3</a>)</span></dt>
+<dd><p><a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">https://shapely.readthedocs.io/en/stable/manual.html</a></p>
+</dd>
+<dt class="label" id="geos"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p><a class="reference external" href="https://trac.osgeo.org/geos">https://trac.osgeo.org/geos</a></p>
+</dd>
+<dt class="label" id="qgis"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p><a class="reference external" href="http://www.qgis.org/en/site/">http://www.qgis.org/en/site/</a></p>
+</dd>
+<dt class="label" id="shapely-methods"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p><a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#general-attributes-and-methods">https://shapely.readthedocs.io/en/stable/manual.html#general-attributes-and-methods</a></p>
+</dd>
+<dt class="label" id="polygon"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p><a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#polygons">https://shapely.readthedocs.io/en/stable/manual.html#polygons</a></p>
+</dd>
+<dt class="label" id="box"><span class="brackets"><a class="fn-backref" href="#id9">7</a></span></dt>
+<dd><p><a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.box">https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.box</a></p>
+</dd>
+<dt class="label" id="bounding-box"><span class="brackets"><a class="fn-backref" href="#id10">8</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Minimum_bounding_box">https://en.wikipedia.org/wiki/Minimum_bounding_box</a></p>
 </dd>
 </dl>
 </section>

@@ -20,7 +20,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/pythongis.css" />
@@ -37,7 +37,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
@@ -341,42 +341,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="part2/chapter-07/nb/00-introduction-to-raster-analysis.html">
+     Introduction to raster processing with Python
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="part2/chapter-07/nb/01-reading-raster.html">
      Reading raster files
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-07/nb/plotting-raster.html">
-     Visualizing raster layers
+    <a class="reference internal" href="part2/chapter-07/nb/02-common-raster-operations.html">
+     Common raster operations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-07/nb/clipping-raster.html">
-     Masking / clipping raster
+    <a class="reference internal" href="part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">
+     Raster operations between multiple layers
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-07/nb/raster-map-algebra.html">
-     Raster map algebra
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-07/nb/raster-mosaic.html">
-     Creating a raster mosaic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-07/nb/zonal-statistics.html">
-     Zonal statistics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-07/nb/read-cogs.html">
-     Read Cloud Optimized Geotiffs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-07/nb/exercises.html">
+    <a class="reference internal" href="part2/chapter-07/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -398,22 +383,27 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-08/nb/01-static-maps.html">
+    <a class="reference internal" href="part2/chapter-08/nb/01-static-vector-maps.html">
      Static maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-08/nb/02-interactive-maps.html">
+    <a class="reference internal" href="part2/chapter-08/nb/02-static-raster-maps.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="part2/chapter-08/nb/03-interactive-maps.html">
      Interactive maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-08/nb/03-map-design-principles-and-colors.html">
+    <a class="reference internal" href="part2/chapter-08/nb/04-map-design-principles-and-colors.html">
      Designing maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="part2/chapter-08/nb/04-exercises.html">
+    <a class="reference internal" href="part2/chapter-08/nb/05-exercises.html">
      Exercises
     </a>
    </li>
@@ -736,7 +726,9 @@ title="Fullscreen mode"
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="C">C</h2>
@@ -754,6 +746,8 @@ title="Fullscreen mode"
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Data-model"><strong>Data model</strong></a>, <a href="back-matter/nb/glossary.html#term-Data-model"><strong>[1]</strong></a>
+</li>
       <li><a href="back-matter/md/glossary.html#term-Data-type"><strong>Data type</strong></a>, <a href="back-matter/nb/glossary.html#term-Data-type"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-DateOffsets"><strong>DateOffsets</strong></a>, <a href="back-matter/nb/glossary.html#term-DateOffsets"><strong>[1]</strong></a>
@@ -780,15 +774,15 @@ title="Fullscreen mode"
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="back-matter/nb/glossary.html#term-IDE"><strong>IDE</strong></a>
+      <li><a href="back-matter/md/glossary.html#term-IDE"><strong>IDE</strong></a>, <a href="back-matter/nb/glossary.html#term-IDE"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-Index"><strong>Index</strong></a>, <a href="back-matter/nb/glossary.html#term-Index"><strong>[1]</strong></a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="back-matter/nb/glossary.html#term-Integrated-Development-Environment"><strong>Integrated Development Environment</strong></a>
+      <li><a href="back-matter/md/glossary.html#term-Integrated-Development-Environment"><strong>Integrated Development Environment</strong></a>, <a href="back-matter/nb/glossary.html#term-Integrated-Development-Environment"><strong>[1]</strong></a>
 </li>
-      <li><a href="back-matter/nb/glossary.html#term-Interpreter"><strong>Interpreter</strong></a>
+      <li><a href="back-matter/md/glossary.html#term-Interpreter"><strong>Interpreter</strong></a>, <a href="back-matter/nb/glossary.html#term-Interpreter"><strong>[1]</strong></a>
 </li>
   </ul></td>
 </tr></table>
@@ -842,17 +836,29 @@ title="Fullscreen mode"
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="back-matter/nb/glossary.html#term-Script"><strong>Script</strong></a>
+      <li><a href="back-matter/md/glossary.html#term-Script"><strong>Script</strong></a>, <a href="back-matter/nb/glossary.html#term-Script"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-Semantics"><strong>Semantics</strong></a>, <a href="back-matter/nb/glossary.html#term-Semantics"><strong>[1]</strong></a>
 </li>
+      <li><a href="back-matter/md/glossary.html#term-Software"><strong>Software</strong></a>, <a href="back-matter/nb/glossary.html#term-Software"><strong>[1]</strong></a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="back-matter/md/glossary.html#term-Software"><strong>Software</strong></a>, <a href="back-matter/nb/glossary.html#term-Software"><strong>[1]</strong></a>
+      <li><a href="back-matter/md/glossary.html#term-Spatial-resolution"><strong>Spatial resolution</strong></a>, <a href="back-matter/nb/glossary.html#term-Spatial-resolution"><strong>[1]</strong></a>
+</li>
+      <li><a href="back-matter/md/glossary.html#term-Spatio-temporal-data-model"><strong>Spatio-temporal data model</strong></a>, <a href="back-matter/nb/glossary.html#term-Spatio-temporal-data-model"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-Subplots"><strong>Subplots</strong></a>, <a href="back-matter/nb/glossary.html#term-Subplots"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-Syntax"><strong>Syntax</strong></a>, <a href="back-matter/nb/glossary.html#term-Syntax"><strong>[1]</strong></a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Tuple"><strong>Tuple</strong></a>, <a href="back-matter/nb/glossary.html#term-Tuple"><strong>[1]</strong></a>
 </li>
   </ul></td>
 </tr></table>
@@ -865,6 +871,18 @@ title="Fullscreen mode"
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="back-matter/md/glossary.html#term-Virtual-environment"><strong>Virtual environment</strong></a>, <a href="back-matter/nb/glossary.html#term-Virtual-environment"><strong>[1]</strong></a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Well-known-binary"><strong>Well-known binary</strong></a>, <a href="back-matter/nb/glossary.html#term-Well-known-binary"><strong>[1]</strong></a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Well-known-text"><strong>Well-known text</strong></a>, <a href="back-matter/nb/glossary.html#term-Well-known-text"><strong>[1]</strong></a>
 </li>
   </ul></td>
 </tr></table>

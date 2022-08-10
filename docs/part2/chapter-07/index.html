@@ -21,7 +21,7 @@
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/pythongis.css" />
@@ -38,11 +38,11 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Reading raster files" href="nb/01-reading-raster.html" />
+    <link rel="next" title="Introduction to raster processing with Python" href="nb/00-introduction-to-raster-analysis.html" />
     <link rel="prev" title="Exercises" href="../chapter-06/nb/05-exercises.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -344,42 +344,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="nb/00-introduction-to-raster-analysis.html">
+     Introduction to raster processing with Python
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="nb/01-reading-raster.html">
      Reading raster files
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="nb/plotting-raster.html">
-     Visualizing raster layers
+    <a class="reference internal" href="nb/02-common-raster-operations.html">
+     Common raster operations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="nb/clipping-raster.html">
-     Masking / clipping raster
+    <a class="reference internal" href="nb/03-raster-operations-between-multiple-layers.html">
+     Raster operations between multiple layers
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="nb/raster-map-algebra.html">
-     Raster map algebra
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nb/raster-mosaic.html">
-     Creating a raster mosaic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nb/zonal-statistics.html">
-     Zonal statistics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nb/read-cogs.html">
-     Read Cloud Optimized Geotiffs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nb/exercises.html">
+    <a class="reference internal" href="nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -401,22 +386,27 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../chapter-08/nb/01-static-maps.html">
+    <a class="reference internal" href="../chapter-08/nb/01-static-vector-maps.html">
      Static maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../chapter-08/nb/02-interactive-maps.html">
+    <a class="reference internal" href="../chapter-08/nb/02-static-raster-maps.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chapter-08/nb/03-interactive-maps.html">
      Interactive maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../chapter-08/nb/03-map-design-principles-and-colors.html">
+    <a class="reference internal" href="../chapter-08/nb/04-map-design-principles-and-colors.html">
      Designing maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../chapter-08/nb/04-exercises.html">
+    <a class="reference internal" href="../chapter-08/nb/05-exercises.html">
      Exercises
     </a>
    </li>
@@ -787,8 +777,7 @@ title="Print to PDF"
                 
   <section id="raster-data-processing">
 <h1>7: Raster data processing<a class="headerlink" href="#raster-data-processing" title="Permalink to this headline">#</a></h1>
-<p><strong>This chapter is under construction.</strong></p>
-<p>Sub-sections:</p>
+<p>In this chapter, we will introduce how to conduct various data analysis and manipulation operations in Python using raster data. You will learn to use a few of the core libraries for raster analysis/processing, such as <cite>xarray</cite> and <cite>rioxarray</cite>. More specifically this chapter will cover:</p>
 <ul class="simple">
 <li><p>Introduction to raster processing</p></li>
 <li><p>Reading and writing raster data (Data I/O)</p></li>
@@ -802,14 +791,11 @@ title="Print to PDF"
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Sections:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="nb/00-introduction-to-raster-analysis.html">Introduction to raster processing with Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nb/01-reading-raster.html">Reading raster files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nb/plotting-raster.html">Visualizing raster layers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nb/clipping-raster.html">Masking / clipping raster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nb/raster-map-algebra.html">Raster map algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nb/raster-mosaic.html">Creating a raster mosaic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nb/zonal-statistics.html">Zonal statistics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nb/read-cogs.html">Read Cloud Optimized Geotiffs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nb/exercises.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nb/02-common-raster-operations.html">Common raster operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nb/03-raster-operations-between-multiple-layers.html">Raster operations between multiple layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nb/04-exercises.html">Exercises</a></li>
 </ul>
 </div>
 </section>
@@ -829,10 +815,10 @@ title="Print to PDF"
             <p class="prev-next-title">Exercises</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="nb/01-reading-raster.html" title="next page">
+    <a class='right-next' id="next-link" href="nb/00-introduction-to-raster-analysis.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Reading raster files</p>
+        <p class="prev-next-title">Introduction to raster processing with Python</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

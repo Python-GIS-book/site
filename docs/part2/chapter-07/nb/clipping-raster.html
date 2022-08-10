@@ -21,7 +21,7 @@
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
@@ -38,12 +38,10 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Raster map algebra" href="raster-map-algebra.html" />
-    <link rel="prev" title="Visualizing raster layers" href="plotting-raster.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -268,7 +266,7 @@
   Part II - Introduction to GIS with Python
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../chapter-05/index.html">
    5: Getting started
@@ -333,53 +331,38 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../index.html">
    7: Raster data processing
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
   <label for="toctree-checkbox-7">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="00-introduction-to-raster-analysis.html">
+     Introduction to raster processing with Python
+    </a>
+   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="01-reading-raster.html">
      Reading raster files
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="plotting-raster.html">
-     Visualizing raster layers
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Masking / clipping raster
+    <a class="reference internal" href="02-common-raster-operations.html">
+     Common raster operations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="raster-map-algebra.html">
-     Raster map algebra
+    <a class="reference internal" href="03-raster-operations-between-multiple-layers.html">
+     Raster operations between multiple layers
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="raster-mosaic.html">
-     Creating a raster mosaic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="zonal-statistics.html">
-     Zonal statistics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="read-cogs.html">
-     Read Cloud Optimized Geotiffs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="exercises.html">
+    <a class="reference internal" href="04-exercises.html">
      Exercises
     </a>
    </li>
@@ -401,22 +384,27 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/01-static-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">
      Static maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/02-interactive-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">
      Interactive maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/03-map-design-principles-and-colors.html">
+    <a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">
      Designing maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/04-exercises.html">
+    <a class="reference internal" href="../../chapter-08/nb/05-exercises.html">
      Exercises
     </a>
    </li>
@@ -829,19 +817,20 @@ title="Print to PDF"
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">box</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">from</span> <span class="nn">fiona.crs</span> <span class="kn">import</span> <span class="n">from_epsg</span>
-<span class="kn">import</span> <span class="nn">pycrs</span>
+
+<span class="c1"># import pycrs</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="c1"># Data dir</span>
-<span class="n">data_dir</span> <span class="o">=</span> <span class="s2">&quot;L5_data&quot;</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span>
 
 <span class="c1"># Input raster</span>
-<span class="n">fp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;p188r018_7t20020529_z34__LV-FIN.tif&quot;</span><span class="p">)</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;kilimanjaro.tif&quot;</span><span class="p">)</span>
 
 <span class="c1"># Output raster</span>
-<span class="n">out_tif</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;Helsinki_Masked.tif&quot;</span><span class="p">)</span>
+<span class="n">out_tif</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;kilimanjaro_masked.tif&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -855,13 +844,25 @@ title="Print to PDF"
 <span class="n">data</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
 
 <span class="c1"># Visualize the NIR band</span>
-<span class="n">show</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <img alt="../../../_images/clipping-raster_4_0.png" src="../../../_images/clipping-raster_4_0.png" />
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x19996e3d7b8&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1620, 1800)
 </pre></div>
 </div>
 </div>
@@ -1037,7 +1038,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/clipping-raster_26_0.png" src="../../../_images/clipping-raster_26_0.png" />
+<img alt="../../../_images/clipping-raster_27_0.png" src="../../../_images/clipping-raster_27_0.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x19980263fd0&gt;
 </pre></div>
 </div>
@@ -1054,20 +1055,6 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="plotting-raster.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Visualizing raster layers</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="raster-map-algebra.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Raster map algebra</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

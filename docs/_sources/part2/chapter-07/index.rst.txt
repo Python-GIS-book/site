@@ -1,9 +1,7 @@
 7: Raster data processing
 =========================
 
-**This chapter is under construction.**
-
-Sub-sections:
+In this chapter, we will introduce how to conduct various data analysis and manipulation operations in Python using raster data. You will learn to use a few of the core libraries for raster analysis/processing, such as `xarray` and `rioxarray`. More specifically this chapter will cover:
 
 - Introduction to raster processing
 - Reading and writing raster data (Data I/O)
@@ -18,11 +16,9 @@ Sub-sections:
     :maxdepth: 1
     :caption: Sections:
 
+    nb/00-introduction-to-raster-analysis.ipynb
     nb/01-reading-raster.ipynb
-    nb/plotting-raster.ipynb
-    nb/clipping-raster.ipynb
-    nb/raster-map-algebra.ipynb
-    nb/raster-mosaic.ipynb
-    nb/zonal-statistics.ipynb
-    nb/read-cogs.ipynb
-    nb/exercises.ipynb
+    nb/02-common-raster-operations.ipynb
+    nb/03-raster-operations-between-multiple-layers.ipynb
+    nb/04-exercises.ipynb
+    

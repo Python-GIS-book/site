@@ -21,7 +21,7 @@
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
@@ -38,7 +38,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -342,42 +342,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-analysis.html">
+     Introduction to raster processing with Python
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">
      Reading raster files
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/plotting-raster.html">
-     Visualizing raster layers
+    <a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">
+     Common raster operations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/clipping-raster.html">
-     Masking / clipping raster
+    <a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">
+     Raster operations between multiple layers
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/raster-map-algebra.html">
-     Raster map algebra
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/raster-mosaic.html">
-     Creating a raster mosaic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/zonal-statistics.html">
-     Zonal statistics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/read-cogs.html">
-     Read Cloud Optimized Geotiffs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/exercises.html">
+    <a class="reference internal" href="../../chapter-07/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -399,22 +384,27 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/01-static-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">
      Static maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/02-interactive-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">
      Interactive maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/03-map-design-principles-and-colors.html">
+    <a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">
      Designing maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/04-exercises.html">
+    <a class="reference internal" href="../../chapter-08/nb/05-exercises.html">
      Exercises
     </a>
    </li>
@@ -781,146 +771,135 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Operations between multiple datasets
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#selecting-data-based-on-spatial-relationships">
+   Selecting data based on spatial relationships
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#selecting-data-based-on-spatial-relationships">
-     Selecting data based on spatial relationships
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#how-to-check-if-point-is-inside-a-polygon">
-       How to check if point is inside a polygon?
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#intersect">
-     Intersect
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#point-in-polygon-using-geopandas">
-     Point in Polygon using Geopandas
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#reading-kml-files-in-geopandas">
-       Reading KML-files in Geopandas
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overlay-analysis">
-     Overlay analysis
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-to-check-if-point-is-inside-a-polygon">
+     How to check if point is inside a polygon?
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#intersect">
+   Intersect
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#point-in-polygon-using-geopandas">
+   Point in Polygon using Geopandas
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reading-kml-files-in-geopandas">
+     Reading KML-files in Geopandas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overlay-analysis">
+   Overlay analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#spatial-join">
    Spatial join
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#join-the-layers">
-     Join the layers
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#spatial-join-nearest">
-     Spatial join nearest
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#join-the-layers">
+   Join the layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-join-nearest">
+   Spatial join nearest
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#nearest-neighbour-analysis">
    Nearest Neighbour Analysis
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#nearest-point-using-shapely">
      Nearest point using Shapely
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#nearest-points-using-geopandas">
      Nearest points using Geopandas
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#nearest-neighbor-analysis-with-large-datasets">
    Nearest neighbor analysis with large datasets
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#motivation">
      Motivation
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn">
      Efficient nearest neighbor search with Geopandas and scikit-learn
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#what-did-we-just-do-explanation">
-       What did we just do? Explanation.
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#combining-the-neighboring-datasets">
-       Combining the neighboring datasets
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#are-the-results-correct-validation">
-       Are the results correct? Validation
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#spatial-index-how-to-boost-spatial-queries">
-     Spatial index - How to boost spatial queries?
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-did-we-just-do-explanation">
+     What did we just do? Explanation.
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id1">
-       Motivation
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#spatial-index-with-geopandas">
-     Spatial index with Geopandas
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-the-neighboring-datasets">
+     Combining the neighboring datasets
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#putting-pieces-together-performance-comparisons">
-       Putting pieces together - Performance comparisons
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#counting-the-intersections">
-       Counting the intersections
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#note">
-       Note
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#are-the-results-correct-validation">
+     Are the results correct? Validation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-index-how-to-boost-spatial-queries">
+   Spatial index - How to boost spatial queries?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Motivation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-index-with-geopandas">
+   Spatial index with Geopandas
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#putting-pieces-together-performance-comparisons">
+     Putting pieces together - Performance comparisons
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#counting-the-intersections">
+     Counting the intersections
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#note">
+     Note
+    </a>
    </li>
   </ul>
  </li>
@@ -943,146 +922,135 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Operations between multiple datasets
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#selecting-data-based-on-spatial-relationships">
+   Selecting data based on spatial relationships
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#selecting-data-based-on-spatial-relationships">
-     Selecting data based on spatial relationships
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#how-to-check-if-point-is-inside-a-polygon">
-       How to check if point is inside a polygon?
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#intersect">
-     Intersect
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#point-in-polygon-using-geopandas">
-     Point in Polygon using Geopandas
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#reading-kml-files-in-geopandas">
-       Reading KML-files in Geopandas
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overlay-analysis">
-     Overlay analysis
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-to-check-if-point-is-inside-a-polygon">
+     How to check if point is inside a polygon?
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#intersect">
+   Intersect
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#point-in-polygon-using-geopandas">
+   Point in Polygon using Geopandas
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reading-kml-files-in-geopandas">
+     Reading KML-files in Geopandas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overlay-analysis">
+   Overlay analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#spatial-join">
    Spatial join
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#join-the-layers">
-     Join the layers
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#spatial-join-nearest">
-     Spatial join nearest
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#join-the-layers">
+   Join the layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-join-nearest">
+   Spatial join nearest
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#nearest-neighbour-analysis">
    Nearest Neighbour Analysis
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#nearest-point-using-shapely">
      Nearest point using Shapely
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#nearest-points-using-geopandas">
      Nearest points using Geopandas
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#nearest-neighbor-analysis-with-large-datasets">
    Nearest neighbor analysis with large datasets
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#motivation">
      Motivation
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn">
      Efficient nearest neighbor search with Geopandas and scikit-learn
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#what-did-we-just-do-explanation">
-       What did we just do? Explanation.
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#combining-the-neighboring-datasets">
-       Combining the neighboring datasets
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#are-the-results-correct-validation">
-       Are the results correct? Validation
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#spatial-index-how-to-boost-spatial-queries">
-     Spatial index - How to boost spatial queries?
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-did-we-just-do-explanation">
+     What did we just do? Explanation.
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id1">
-       Motivation
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#spatial-index-with-geopandas">
-     Spatial index with Geopandas
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-the-neighboring-datasets">
+     Combining the neighboring datasets
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#putting-pieces-together-performance-comparisons">
-       Putting pieces together - Performance comparisons
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#counting-the-intersections">
-       Counting the intersections
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#note">
-       Note
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#are-the-results-correct-validation">
+     Are the results correct? Validation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-index-how-to-boost-spatial-queries">
+   Spatial index - How to boost spatial queries?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Motivation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-index-with-geopandas">
+   Spatial index with Geopandas
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#putting-pieces-together-performance-comparisons">
+     Putting pieces together - Performance comparisons
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#counting-the-intersections">
+     Counting the intersections
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#note">
+     Note
+    </a>
    </li>
   </ul>
  </li>
@@ -1098,13 +1066,13 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="operations-between-multiple-datasets">
 <h1>Operations between multiple datasets<a class="headerlink" href="#operations-between-multiple-datasets" title="Permalink to this headline">#</a></h1>
-<ul class="simple">
-<li><p>Selecting data based on spatial relationships</p></li>
-<li><p>Overlay analysis</p></li>
-<li><p>Spatial join, nearest join</p></li>
-<li><p>Distance operations</p></li>
-<li><p>Spatial index</p></li>
-</ul>
+<!---
+- Selecting data based on spatial relationships
+- Overlay analysis
+- Spatial join, nearest join
+- Distance operations
+- Spatial index
+-->
 <section id="selecting-data-based-on-spatial-relationships">
 <h2>Selecting data based on spatial relationships<a class="headerlink" href="#selecting-data-based-on-spatial-relationships" title="Permalink to this headline">#</a></h2>
 <p>Finding out if a certain point is located inside or outside of an area,
@@ -1138,7 +1106,6 @@ that checks if a polygon contains a point</p></li>
 operation, it is also possible to check if a LineString or Polygon is
 inside another Polygon.</p>
 <p>Let’s import shapely functionalities and create some points:</p>
-<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Polygon</span>
 
 <span class="c1"># Create Point objects</span>
@@ -1211,6 +1178,8 @@ is <strong>within()</strong> the polygon.</p></li>
 <li><p>if you have <strong>many polygons and just one point</strong> and you want to find out
 which polygon contains the point: You might need to iterate over the polygons until you find a polygon that <strong>contains()</strong> the point specified (assuming there are no overlapping polygons)</p></li>
 </ul>
+<!-- #endregion -->
+<!-- #region -->
 </section>
 </section>
 <section id="intersect">
@@ -1473,9 +1442,8 @@ if Point was inside the Polygon, and <code class="docutils literal notranslate">
 </div>
 <p>There are many more examples for different types of overlay analysis in <a class="reference external" href="http://geopandas.org/set_operations.html">Geopandas documentation</a> where you can go and learn more.</p>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="spatial-join">
-<h1>Spatial join<a class="headerlink" href="#spatial-join" title="Permalink to this headline">#</a></h1>
+<section id="spatial-join">
+<h2>Spatial join<a class="headerlink" href="#spatial-join" title="Permalink to this headline">#</a></h2>
 <p><a class="reference external" href="http://wiki.gis.com/wiki/index.php/Spatial_Join">Spatial join</a> is
 yet another classic GIS problem. Getting attributes from one layer and
 transferring them into another layer based on their spatial relationship
@@ -1561,6 +1529,7 @@ more intuitive. As you might remember, we can easily rename (Geo)DataFrame colum
 </div>
 <p>Now we have cleaned the data and have only those columns that we need
 for our analysis.</p>
+</section>
 <section id="join-the-layers">
 <h2>Join the layers<a class="headerlink" href="#join-the-layers" title="Permalink to this headline">#</a></h2>
 <p>Now we are ready to perform the spatial join between the two layers that
@@ -1713,15 +1682,14 @@ values, <code class="docutils literal notranslate"><span class="pre">markersize<
 <h2>Spatial join nearest<a class="headerlink" href="#spatial-join-nearest" title="Permalink to this headline">#</a></h2>
 <p>ADD Materials</p>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="nearest-neighbour-analysis">
-<h1>Nearest Neighbour Analysis<a class="headerlink" href="#nearest-neighbour-analysis" title="Permalink to this headline">#</a></h1>
+<section id="nearest-neighbour-analysis">
+<h2>Nearest Neighbour Analysis<a class="headerlink" href="#nearest-neighbour-analysis" title="Permalink to this headline">#</a></h2>
 <p>One commonly used GIS task is to be able to find the nearest neighbour for an object or a set of objects. For instance, you might have a single Point object
 representing your home location, and then another set of locations representing e.g. public transport stops. Then, quite typical question is <em>“which of the stops is closest one to my home?”</em>
 This is a typical nearest neighbour analysis, where the aim is to find the closest geometry to another geometry.</p>
 <p>In Python this kind of analysis can be done with shapely function called <code class="docutils literal notranslate"><span class="pre">nearest_points()</span></code> that <a class="reference external" href="https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.nearest_points">returns a tuple of the nearest points in the input geometries</a>.</p>
 <section id="nearest-point-using-shapely">
-<h2>Nearest point using Shapely<a class="headerlink" href="#nearest-point-using-shapely" title="Permalink to this headline">#</a></h2>
+<h3>Nearest point using Shapely<a class="headerlink" href="#nearest-point-using-shapely" title="Permalink to this headline">#</a></h3>
 <p>Let’s start by testing how we can find the nearest Point using the <code class="docutils literal notranslate"><span class="pre">nearest_points()</span></code> function of Shapely.</p>
 <ul class="simple">
 <li><p>Let’s create an origin Point and a few destination Points and find out the closest destination:</p></li>
@@ -1776,7 +1744,7 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 <p>This is the basic logic how we can find the nearest point from a set of points.</p>
 </section>
 <section id="nearest-points-using-geopandas">
-<h2>Nearest points using Geopandas<a class="headerlink" href="#nearest-points-using-geopandas" title="Permalink to this headline">#</a></h2>
+<h3>Nearest points using Geopandas<a class="headerlink" href="#nearest-points-using-geopandas" title="Permalink to this headline">#</a></h3>
 <p>Let’s then see how it is possible to find nearest points from a set of origin points to a set of destination points using GeoDataFrames. Here, we will use the <code class="docutils literal notranslate"><span class="pre">PKS_suuralueet.kml</span></code> district data, and the <code class="docutils literal notranslate"><span class="pre">addresses.shp</span></code> address points from previous sections.</p>
 <p><strong>Our goal in this tutorial is to find out the closest address to the centroid of each district.</strong></p>
 <ul class="simple">
@@ -1876,16 +1844,16 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 <p>That’s it! Now we found the closest point for each centroid and got the <code class="docutils literal notranslate"><span class="pre">id</span></code> value from our addresses into the <code class="docutils literal notranslate"><span class="pre">df1</span></code> GeoDataFrame.</p>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="nearest-neighbor-analysis-with-large-datasets">
-<h1>Nearest neighbor analysis with large datasets<a class="headerlink" href="#nearest-neighbor-analysis-with-large-datasets" title="Permalink to this headline">#</a></h1>
+<section id="nearest-neighbor-analysis-with-large-datasets">
+<h2>Nearest neighbor analysis with large datasets<a class="headerlink" href="#nearest-neighbor-analysis-with-large-datasets" title="Permalink to this headline">#</a></h2>
 <p>While Shapely’s <code class="docutils literal notranslate"><span class="pre">nearest_points</span></code> -function provides a nice and easy way of conducting the nearest neighbor analysis, it can be quite slow. Using it also requires taking the <code class="docutils literal notranslate"><span class="pre">unary</span> <span class="pre">union</span></code> of the point dataset where all the Points are merged into a single layer. This can be a really memory hungry and slow operation, that can cause problems with large point datasets.</p>
 <p>Luckily, there is a much faster and memory efficient alternatives for conducting nearest neighbor analysis, based on a function called <a class="reference external" href="https://en.wikipedia.org/wiki/Ball_tree">BallTree</a> from a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html">scikit-learn</a> library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate <code class="docutils literal notranslate"><span class="pre">euclidian</span></code> distance between neighbors (good if your data is in metric crs), as well as <code class="docutils literal notranslate"><span class="pre">haversine</span></code> distance which allows to determine <a class="reference external" href="https://en.wikipedia.org/wiki/Great-circle_distance">Great Circle distances</a> between locations (good if your data is in lat/lon format). <em>Note: There is also an algorithm called <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree">KDTree</a> in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.</em></p>
 <section id="motivation">
-<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">#</a></h2>
+<h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">#</a></h3>
 <p>In this tutorial, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in Helsinki Region (around 159 000 buildings) the closest public transport stop (~ 8400 stops). The building points have been fetched from OpenStreetMap using a library called <a class="reference external" href="https://github.com/gboeing/osmnx">OSMnx</a> (we will learn more about this library later), and the public transport stops have been fetched from open <a class="reference external" href="https://transitfeeds.com/p/helsinki-regional-transport/735">GTFS dataset for Helsinki Region</a> that contains information about public transport stops, schedules etc.</p>
 </section>
 <section id="efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn">
-<h2>Efficient nearest neighbor search with Geopandas and scikit-learn<a class="headerlink" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn" title="Permalink to this headline">#</a></h2>
+<h3>Efficient nearest neighbor search with Geopandas and scikit-learn<a class="headerlink" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn" title="Permalink to this headline">#</a></h3>
 <p>The following examples show how to conduct nearest neighbor analysis efficiently with large datasets. We will first define the functions and see how to use them, and then we go through the code to understand what happened.</p>
 <ul class="simple">
 <li><p>Let’s first read the datasets into Geopandas. In case of reading the building data, we will here learn a trick how to read the data directly from a ZipFile. It is very practical to know how to do this, as compressing large datasets is a very common procedure.</p></li>
@@ -2031,6 +1999,7 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 </pre></div>
 </div>
 <p>Indeed, that seems to be the case. Hence, it is easy to combine these two datasets together. Before continuing our analysis, let’s take a bit deeper look, what we actually did with the functions above.</p>
+</section>
 <section id="what-did-we-just-do-explanation">
 <h3>What did we just do? Explanation.<a class="headerlink" href="#what-did-we-just-do-explanation" title="Permalink to this headline">#</a></h3>
 <p>To get a bit more understanding of what just happened, let’s go through the essential parts of the two functions we defined earlier, i.e. <code class="docutils literal notranslate"><span class="pre">nearest_neighbor()</span></code> and <code class="docutils literal notranslate"><span class="pre">get_closest()</span></code>.</p>

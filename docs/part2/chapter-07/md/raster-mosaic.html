@@ -21,7 +21,7 @@
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
@@ -38,7 +38,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -342,42 +342,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../nb/00-introduction-to-raster-analysis.html">
+     Introduction to raster processing with Python
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../nb/01-reading-raster.html">
      Reading raster files
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../nb/plotting-raster.html">
-     Visualizing raster layers
+    <a class="reference internal" href="../nb/02-common-raster-operations.html">
+     Common raster operations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../nb/clipping-raster.html">
-     Masking / clipping raster
+    <a class="reference internal" href="../nb/03-raster-operations-between-multiple-layers.html">
+     Raster operations between multiple layers
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../nb/raster-map-algebra.html">
-     Raster map algebra
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/raster-mosaic.html">
-     Creating a raster mosaic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/zonal-statistics.html">
-     Zonal statistics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/read-cogs.html">
-     Read Cloud Optimized Geotiffs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/exercises.html">
+    <a class="reference internal" href="../nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -399,22 +384,27 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/01-static-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">
      Static maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/02-interactive-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">
      Interactive maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/03-map-design-principles-and-colors.html">
+    <a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">
      Designing maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/04-exercises.html">
+    <a class="reference internal" href="../../chapter-08/nb/05-exercises.html">
      Exercises
     </a>
    </li>
@@ -790,6 +780,13 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#clipping-raster">
    Clipping raster
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#working-with-rasterio-remove-from-book">
+     Working with rasterio - Remove from book
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -819,6 +816,13 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#clipping-raster">
    Clipping raster
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#working-with-rasterio-remove-from-book">
+     Working with rasterio - Remove from book
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -931,6 +935,114 @@ title="Print to PDF"
 <span class="n">kilimanjaro</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span><span class="s2">&quot;data/kilimanjaro.tif&quot;</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="s2">&quot;LZMA&quot;</span><span class="p">,</span> <span class="n">tiled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<section id="working-with-rasterio-remove-from-book">
+<h3>Working with rasterio - Remove from book<a class="headerlink" href="#working-with-rasterio-remove-from-book" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rasterio</span>
+<span class="kn">from</span> <span class="nn">rasterio.merge</span> <span class="kn">import</span> <span class="n">merge</span>
+<span class="kn">from</span> <span class="nn">rasterio.plot</span> <span class="kn">import</span> <span class="n">show</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="c1"># File and folder paths</span>
+<span class="n">dirpath</span> <span class="o">=</span> <span class="s2">&quot;L5_data&quot;</span>
+<span class="n">out_fp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="s2">&quot;Helsinki_DEM2x2m_Mosaic.tif&quot;</span><span class="p">)</span>
+
+<span class="c1"># Make a search criteria to select the DEM files</span>
+<span class="n">search_criteria</span> <span class="o">=</span> <span class="s2">&quot;L*.tif&quot;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">search_criteria</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can see that we have a search criteria (variable <code class="docutils literal notranslate"><span class="pre">q</span></code>) that we can pass to <code class="docutils literal notranslate"><span class="pre">glob</span></code> -function.</p>
+<ul class="simple">
+<li><p>List all digital elevation files with glob() -function:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># glob function can be used to list files from a directory with specific criteria</span>
+<span class="n">dem_fps</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+<span class="c1"># Files that were found:</span>
+<span class="n">dem_fps</span>
+</pre></div>
+</div>
+<p>Great! Now we have all those 12 files in a list and we can start to make a mosaic out of them.</p>
+<ul class="simple">
+<li><p>Let’s first create a list for the source raster datafiles (in read mode) with rasterio that will be used to create the mosaic:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># List for the source files</span>
+<span class="n">src_files_to_mosaic</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Iterate over raster files and add them to source -list in &#39;read mode&#39;</span>
+<span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">dem_fps</span><span class="p">:</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+    <span class="n">src_files_to_mosaic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+<span class="n">src_files_to_mosaic</span>
+</pre></div>
+</div>
+<p>As we can see, now the list contains all those files as raster objects in read mode (´mode=’r’´).</p>
+<ul class="simple">
+<li><p>Let’s plot a few of them next to each other to see how they look like:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="c1"># Create 4 plots next to each other</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Plot first four files</span>
+<span class="n">show</span><span class="p">(</span><span class="n">src_files_to_mosaic</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">src_files_to_mosaic</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">src_files_to_mosaic</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">src_files_to_mosaic</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">)</span>
+
+<span class="c1"># Do not show y-ticks values in last three axis</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see we have multiple separate raster files that are actually located next to each other. Hence, we want to put them together into a single raster file that can by done by creating a raster mosaic.</p>
+<ul class="simple">
+<li><p>Now as we have placed the individual raster files in read -mode into the <code class="docutils literal notranslate"><span class="pre">source_files_to_mosaic</span></code> -list, it is really easy to merge those together and create a mosaic with rasterio’s <code class="docutils literal notranslate"><span class="pre">merge</span></code> function:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge function returns a single mosaic array and the transformation info</span>
+<span class="n">mosaic</span><span class="p">,</span> <span class="n">out_trans</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">src_files_to_mosaic</span><span class="p">)</span>
+
+<span class="c1"># Plot the result</span>
+<span class="n">show</span><span class="p">(</span><span class="n">mosaic</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Great, it looks correct! Now we are ready to save our mosaic to disk.</p>
+<ul class="simple">
+<li><p>Let’s first update the metadata with our new dimensions, transform and CRS:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Copy the metadata</span>
+<span class="n">out_meta</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Update the metadata</span>
+<span class="n">out_meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;driver&quot;</span><span class="p">:</span> <span class="s2">&quot;GTiff&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">mosaic</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">mosaic</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s2">&quot;transform&quot;</span><span class="p">:</span> <span class="n">out_trans</span><span class="p">,</span>
+        <span class="s2">&quot;crs&quot;</span><span class="p">:</span> <span class="s2">&quot;+proj=utm +zone=35 +ellps=GRS80 +units=m +no_defs &quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Finally we can write our mosaic to our computer:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write the mosaic raster to disk</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">out_fp</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">out_meta</span><span class="p">)</span> <span class="k">as</span> <span class="n">dest</span><span class="p">:</span>
+    <span class="n">dest</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">mosaic</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That’s it! Easy!</p>
+</section>
 </section>
 </section>
 

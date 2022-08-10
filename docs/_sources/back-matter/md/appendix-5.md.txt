@@ -12,9 +12,9 @@ jupyter:
     name: python3
 ---
 
-<!-- #region -->
 # Solutions to questions
 
+<!-- #region -->
 ## Chapter 2
 
 2.1

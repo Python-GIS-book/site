@@ -21,7 +21,7 @@
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
@@ -38,7 +38,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -344,42 +344,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-analysis.html">
+     Introduction to raster processing with Python
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">
      Reading raster files
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/plotting-raster.html">
-     Visualizing raster layers
+    <a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">
+     Common raster operations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/clipping-raster.html">
-     Masking / clipping raster
+    <a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">
+     Raster operations between multiple layers
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/raster-map-algebra.html">
-     Raster map algebra
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/raster-mosaic.html">
-     Creating a raster mosaic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/zonal-statistics.html">
-     Zonal statistics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/read-cogs.html">
-     Read Cloud Optimized Geotiffs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/exercises.html">
+    <a class="reference internal" href="../../chapter-07/nb/04-exercises.html">
      Exercises
     </a>
    </li>
@@ -401,22 +386,27 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/01-static-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">
      Static maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/02-interactive-maps.html">
+    <a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">
+     Visualizing raster layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">
      Interactive maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/03-map-design-principles-and-colors.html">
+    <a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">
      Designing maps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/04-exercises.html">
+    <a class="reference internal" href="../../chapter-08/nb/05-exercises.html">
      Exercises
     </a>
    </li>
@@ -957,7 +947,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="retrieving-openstreetmap-data">
 <h1>Retrieving OpenStreetMap data<a class="headerlink" href="#retrieving-openstreetmap-data" title="Permalink to this headline">#</a></h1>
-<p><img alt="" src="part2/chapter-09/nb/img/OSM_logo.png" /></p>
+<p><img alt="" src="../../../_images/OSM_logo.png" /></p>
 <section id="what-is-openstreetmap">
 <h2>What is OpenStreetMap?<a class="headerlink" href="#what-is-openstreetmap" title="Permalink to this headline">#</a></h2>
 <p>OpenStreetMap (OSM) is a global collaborative (crowd-sourced) dataset and project that aims at creating a free editable map of the world containing a lot of information about our environment.
@@ -1037,7 +1027,7 @@ hence as a result it returns a matplotlib figure and axis objects:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/00-retrieving-osm-data_12_0.png" src="../../../_images/00-retrieving-osm-data_12_0.png" />
+<img alt="../../../_images/00-retrieving-osm-data_13_0.png" src="../../../_images/00-retrieving-osm-data_13_0.png" />
 </div>
 </div>
 <p>Great! Now we can see that our graph contains nodes (the points) and edges (the lines) that connects those nodes to each other.</p>
@@ -1377,7 +1367,7 @@ Let’s still verify the data type:</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../../_images/00-retrieving-osm-data_25_1.png" src="../../../_images/00-retrieving-osm-data_25_1.png" />
+<img alt="../../../_images/00-retrieving-osm-data_26_1.png" src="../../../_images/00-retrieving-osm-data_26_1.png" />
 </div>
 </div>
 </section>
@@ -1864,7 +1854,7 @@ We can, for excample, retrieve all restaurat locations by referring to the tag <
   and should_run_async(code)
 </pre></div>
 </div>
-<img alt="../../../_images/00-retrieving-osm-data_45_1.png" src="../../../_images/00-retrieving-osm-data_45_1.png" />
+<img alt="../../../_images/00-retrieving-osm-data_46_1.png" src="../../../_images/00-retrieving-osm-data_46_1.png" />
 </div>
 </div>
 <p>Cool! Now we have a map where we have plotted the restaurants, buildings, streets and the boundaries of the selected region of ‘Kamppi’ in Helsinki. And all of this required only a few lines of code. Pretty neat!</p>
@@ -2093,7 +2083,7 @@ We can, for excample, retrieve all restaurat locations by referring to the tag <
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../../_images/00-retrieving-osm-data_60_1.png" src="../../../_images/00-retrieving-osm-data_60_1.png" />
+<img alt="../../../_images/00-retrieving-osm-data_61_1.png" src="../../../_images/00-retrieving-osm-data_61_1.png" />
 </div>
 </div>
 <p>Finally, we can add the park polygons to our map:</p>
@@ -2124,7 +2114,7 @@ We can, for excample, retrieve all restaurat locations by referring to the tag <
   and should_run_async(code)
 </pre></div>
 </div>
-<img alt="../../../_images/00-retrieving-osm-data_62_1.png" src="../../../_images/00-retrieving-osm-data_62_1.png" />
+<img alt="../../../_images/00-retrieving-osm-data_63_1.png" src="../../../_images/00-retrieving-osm-data_63_1.png" />
 </div>
 </div>
 </section>

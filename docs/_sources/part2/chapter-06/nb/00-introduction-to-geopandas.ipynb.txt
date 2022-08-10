@@ -6,9 +6,707 @@
    "source": [
     "# Introduction to spatial data analysis with geopandas\n",
     "\n",
-    "We will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis in Python. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas. \n",
+    "In this chapter, we will first learn how geometric objects are represented in Python using a library called `shapely`. After this, we will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas. The main difference between geopandas GeoDataFrames and pandas DataFrames is that a [GeoDataFrame](http://geopandas.org/data_structures.html#geodataframe) should contain one column for geometries. By default, the name of this column is `'geometry'`. The geometry column is a [GeoSeries](http://geopandas.org/data_structures.html#geoseries) which contains the geometries (points, lines, polygons, multipolygons etc.) as `shapely` objects. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Representing vector geometries with `shapely` "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A core Python library for representing vector data in geospatial domain is called `shapely` [^shapely]. Although `shapely` library can be a bit hidden from most Python GIS user nowadays, it is one of the fundamental dependencies of `geopandas` library which is the go-to library when working with (vector) spatial data in Python. Hence, basic knowledge of shapely is fundamental to understand how geometries are stored and handled in `geopandas`. In the following, we give a quick overview, how to create geometries using `shapely`."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Creating Point geometries\n",
     "\n",
-    "The main difference between geopandas GeoDataFrames and pandas DataFrames is that a [GeoDataFrame](http://geopandas.org/data_structures.html#geodataframe) should contain one column for geometries. By default, the name of this column is `'geometry'`. The geometry column is a [GeoSeries](http://geopandas.org/data_structures.html#geoseries) which contains the geometries (points, lines, polygons, multipolygons etc.) as shapely objects. "
+    "When creating geometries in Python, we first need to import the geometric object class (such as `Point`) that we want to create from `shapely.geometry` which contains all possible geometry types. After importing the `Point` class, creating a point is easy: we just pass `x` and `y` coordinates into the `Point()` -class (with a possible `z` -coordinate) which will create the point for us:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "image/svg+xml": [
+       "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100.0\" height=\"100.0\" viewBox=\"1.2000000000000002 3.2 2.0 2.0\" preserveAspectRatio=\"xMinYMin meet\"><g transform=\"matrix(1,0,0,-1,0,8.4)\"><circle cx=\"2.2\" cy=\"4.2\" r=\"0.06\" stroke=\"#555555\" stroke-width=\"0.02\" fill=\"#66cc99\" opacity=\"0.6\" /></g></svg>"
+      ],
+      "text/plain": [
+       "<shapely.geometry.point.Point at 0x7f052c134cd0>"
+      ]
+     },
+     "execution_count": 60,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from shapely.geometry import Point\n",
+    "\n",
+    "point = Point(2.2, 4.2)\n",
+    "point3D = Point(9.26, -2.456, 0.57)\n",
+    "\n",
+    "point"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we see here, Jupyter notebook is able to display the shape of the `point` directly on the screen when we call it. The point object here is represented as it has been defined in the *Simple Features Access Specification*. Under the hood `shapely` actually uses a C++ library called GEOS [^GEOS] to construct the geometries, which is one of the standard libraries behind various Geographic Information Systems, such as QGIS [^QGIS]. We can use the print statement to get the coordinate information of these objects in WKT format:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "POINT (2.2 4.2)\n",
+      "POINT Z (9.26 -2.456 0.57)\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(point)\n",
+    "print(point3D)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "3D-point can be recognized from the capital Z -letter in front of the coordinates. Extracting the coordinates of a `Point` can be done in a couple of different ways. We can use the `coords` attribute contains the coordinate information as a `CoordinateSequence` which is a specific data type of Shapely. In addition, we can also directly use the attributes `x` and `y` to get the coordinates directly as plain decimal numbers."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[(2.2, 4.2)]"
+      ]
+     },
+     "execution_count": 66,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "list(point.coords)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2.2 4.2\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(point.x, point.y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Points and other shapely objects have many useful built-in attributes and methods [^shapely_methods], such as calculating the Euclidian distance between points or creating a buffer from the point that converts the point into a circle `Polygon` with specific radius. However, all of these functionalities are integrated into `geopandas` and we will go through them later in the book. \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Creating LineString geometries\n",
+    "\n",
+    "\n",
+    "Creating `LineString` -objects is fairly similar to creating Shapely Points. Now, instead using a single coordinate-tuple we can construct the line using either a list of shapely `Point` -objects or pass the points as coordinate-tuples:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "image/svg+xml": [
+       "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100.0\" height=\"100.0\" viewBox=\"1.028 -26.272000000000002 9.404 31.644000000000002\" preserveAspectRatio=\"xMinYMin meet\"><g transform=\"matrix(1,0,0,-1,0,-20.900000000000002)\"><polyline fill=\"none\" stroke=\"#66cc99\" stroke-width=\"0.63288\" points=\"2.2,4.2 7.2,-25.1 9.26,-2.456\" opacity=\"0.8\" /></g></svg>"
+      ],
+      "text/plain": [
+       "<shapely.geometry.linestring.LineString at 0x7f052dfc1850>"
+      ]
+     },
+     "execution_count": 69,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from shapely.geometry import Point, LineString\n",
+    "\n",
+    "point1 = Point(2.2, 4.2)\n",
+    "point2 = Point(7.2, -25.1)\n",
+    "point3 = Point(9.26, -2.456)\n",
+    "\n",
+    "line = LineString([point1, point2, point3])\n",
+    "line_from_tuples = LineString([(2.2, 4.2), (7.2, -25.1), (9.26, -2.456)])\n",
+    "line"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "LINESTRING (2.2 4.2, 7.2 -25.1, 9.26 -2.456)\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(line)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we can see from above, the WKT representation of the `line` -variable constitutes of multiple coordinate-pairs. `LineString` -object has many useful built-in attributes and methods similarly as `Point` -objects. It is for instance possible to extract the coordinates, calculate the length of the `LineString`, find out the centroid of the line, create points along the line at specific distance, calculate the closest distance from a line to specified Point, or simplify the geometry. A full list of functionalities can be read from `shapely` documentation [^shapely]. Most of these functionalities are directly implemented in `geopandas` (see next chapter), hence you very seldom need to parse these information directly from the `shapely` geometries yourself. However, here we go through a few of them for reference. We can extract the coordinates of a LineString similarly as with `Point`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[(2.2, 4.2), (7.2, -25.1), (9.26, -2.456)]"
+      ]
+     },
+     "execution_count": 70,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "list(line.coords)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As a result, we have a list of coordinate tuples (x,y) inside a list. If you need to access all `x` -coordinates or all `y` -coordinates of the line, you can do it directly using the `xy` attribute: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 71,
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[2.2, 7.2, 9.26]\n",
+      "[4.2, -25.1, -2.456]\n"
+     ]
+    }
+   ],
+   "source": [
+    "xcoords = list(line.xy[0])\n",
+    "ycoords = list(line.xy[1])\n",
+    "\n",
+    "print(xcoords)\n",
+    "print(ycoords)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "It is possible to retrieve specific attributes such as `length` of the line and center of the line (`centroid`) straight from the `LineString` object itself:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 77,
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Length of our line: 52.46 units\n",
+      "Centroid: POINT (6.229961354035622 -11.89241115757239)\n"
+     ]
+    }
+   ],
+   "source": [
+    "length = line.length\n",
+    "centroid = line.centroid\n",
+    "print(f\"Length of our line: {length:.2f} units\")\n",
+    "print(f\"Centroid: {centroid}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As you can see, the centroid of the line is again a Shapely Point object. In practice, you would rarely access these attributes directly from individual `shapely` geometries, but we can do the same things for a set of geometries at once using `geopandas`. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Creating Polygon geometries\n",
+    "\n",
+    "Creating a `Polygon` -object continues the same logic how `Point` and `LineString` were created. A `Polygon` can be created by passing a list of `Point` objects or a list of coordinate-tuples as input for the `Polygon` class. Polygon needs at least three coordinate-tuples to form a surface. In the following, we use the same points from the earlier `LineString` example to create a `Polygon`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 80,
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "image/svg+xml": [
+       "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100.0\" height=\"100.0\" viewBox=\"1.028 -26.272000000000002 9.404 31.644000000000002\" preserveAspectRatio=\"xMinYMin meet\"><g transform=\"matrix(1,0,0,-1,0,-20.900000000000002)\"><path fill-rule=\"evenodd\" fill=\"#66cc99\" stroke=\"#555555\" stroke-width=\"0.63288\" opacity=\"0.6\" d=\"M 2.2,4.2 L 7.2,-25.1 L 9.26,-2.456 L 2.2,4.2 z\" /></g></svg>"
+      ],
+      "text/plain": [
+       "<shapely.geometry.polygon.Polygon at 0x7f052c1a7c70>"
+      ]
+     },
+     "execution_count": 80,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "poly = Polygon([point1, point2, point3])\n",
+    "poly"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 81,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "POLYGON ((2.2 4.2, 7.2 -25.1, 9.26 -2.456, 2.2 4.2))\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(poly)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Notice that the `Polygon` WKT representation has double parentheses around the coordinates (i.e. `POLYGON ((<values in here>))` ). This is because Polygon can also have holes inside of it. As the help of the `Polygon` [^polygon] object tells us (*output here is slightly simplified from the original*), a `Polygon` is constructed from *exterior* and *interior* (optional) which are the attributes of the `Polygon` object. The interior can be used to create holes inside the `Polygon`: \n",
+    "\n",
+    "```\n",
+    "class Polygon(shapely.geometry.base.BaseGeometry)\n",
+    " |  Polygon(shell=None, holes=None)\n",
+    " |  \n",
+    " |  A two-dimensional figure bounded by a linear ring\n",
+    " |  \n",
+    " |  A polygon has a non-zero area. It may have one or more negative-space\n",
+    " |  \"holes\" which are also bounded by linear rings. If any rings cross each\n",
+    " |  other, the feature is invalid and operations on it may fail.\n",
+    " |  \n",
+    " |  Attributes\n",
+    " |  ----------\n",
+    " |  exterior : LinearRing\n",
+    " |      The ring which bounds the positive space of the polygon.\n",
+    " |  interiors : sequence\n",
+    " |      A sequence of rings which bound all existing holes.\n",
+    " |  \n",
+    " |  Parameters\n",
+    " |  ----------\n",
+    " |  shell : sequence\n",
+    " |     A sequence of (x, y [,z]) numeric coordinate pairs or triples.\n",
+    " |     Also can be a sequence of Point objects.\n",
+    " |  holes : sequence\n",
+    " |      A sequence of objects which satisfy the same requirements as the\n",
+    " |      shell parameters above\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If we want to create a `Polygon` with a hole, we can do this by using parameters `shell` for the exterior and `holes` for the interiors. Let's see how we can create a `Polygon` with a single hole by passing the coordinates in decimal degrees (lon, lat). Notice, that because a `Polygon` can have multiple holes, the `hole_coords` variable below contains nested square brackets (`[[ ]]`), which is due to the possibility of having multiple holes in a single `Polygon`: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 85,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/svg+xml": [
+       "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"300\" height=\"208.8\" viewBox=\"-194.4 -104.4 388.8 208.8\" preserveAspectRatio=\"xMinYMin meet\"><g transform=\"matrix(1,0,0,-1,0,0.0)\"><path fill-rule=\"evenodd\" fill=\"#66cc99\" stroke=\"#555555\" stroke-width=\"2.592\" opacity=\"0.6\" d=\"M -180.0,90.0 L -180.0,-90.0 L 180.0,-90.0 L 180.0,90.0 L -180.0,90.0 z M -170.0,80.0 L -170.0,-80.0 L 170.0,-80.0 L 170.0,80.0 L -170.0,80.0 z\" /></g></svg>"
+      ],
+      "text/plain": [
+       "<shapely.geometry.polygon.Polygon at 0x7f052c1a7f40>"
+      ]
+     },
+     "execution_count": 85,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "border_coords = [(-180, 90), (-180, -90), (180, -90), (180, 90)]\n",
+    "hole_coords = [[(-170, 80), (-170, -80), (170, -80), (170, 80)]]\n",
+    "poly2 = Polygon(shell=border_coords, holes=hole_coords)\n",
+    "poly2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "POLYGON ((-180 90, -180 -90, 180 -90, 180 90, -180 90), (-170 80, -170 -80, 170 -80, 170 80, -170 80))\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(poly2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we can see the `Polygon` has now two different tuples of coordinates. The first one represents the **outerior** and the second one represents the **interior**, i.e. a hole inside of the Polygon. \n",
+    "We can access different attributes directly from the `Polygon` object itself that can be really useful for many analyses, such as `area`, `centroid`, `bounding box`, `exterior`, and `exterior-length` (and you guessed it, these are available directly in `geopandas` as well).  See a full list of methods in the `shapely` documentation [^shapely]. Here, we can see a few of the available attributes and how to access them:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Polygon centroid:  POINT (-0 -0)\n",
+      "Polygon Area:  10400.0\n",
+      "Polygon Bounding Box:  (-180.0, -90.0, 180.0, 90.0)\n",
+      "Polygon Exterior:  LINEARRING (-180 90, -180 -90, 180 -90, 180 90, -180 90)\n",
+      "Polygon Exterior Length:  1080.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Polygon centroid: \", poly2.centroid)\n",
+    "print(\"Polygon Area: \", poly2.area)\n",
+    "print(\"Polygon Bounding Box: \", poly2.bounds)\n",
+    "print(\"Polygon Exterior: \", poly2.exterior)\n",
+    "print(\"Polygon Exterior Length: \", poly2.exterior.length)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we can see above, it is again fairly straightforward to access different attributes from the `Polygon` -object. Notice, that the `length` and `area` information are presented here in decimal degrees because our input coordinates were passed as longitudes and latitudes. We can get this information in more sensible format (in meters and m2) when we start working with data in a projected coordinate system later in the book. \n",
+    "\n",
+    "Now you have learned how all the basic geometries can be created in Python using `shapely`. As a one last thing related to vector geometries, we will show you one useful tool that comes with `shapely` called `box` [^box]. The `box` -function can be used for creating a rectangular *{term}`bounding box`* [^bounding_box] based on minimum and maximum `x` and `y` coordinates, i.e. giving coordinate information of the bottom-left and top-right corners of the rectangle. Next, we will use `box` instead normal `Polygon` constructorto create the same polygon exterior as above:  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/svg+xml": [
+       "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"300\" height=\"208.8\" viewBox=\"-194.4 -104.4 388.8 208.8\" preserveAspectRatio=\"xMinYMin meet\"><g transform=\"matrix(1,0,0,-1,0,0.0)\"><path fill-rule=\"evenodd\" fill=\"#66cc99\" stroke=\"#555555\" stroke-width=\"2.592\" opacity=\"0.6\" d=\"M 180.0,-90.0 L 180.0,90.0 L -180.0,90.0 L -180.0,-90.0 L 180.0,-90.0 z\" /></g></svg>"
+      ],
+      "text/plain": [
+       "<shapely.geometry.polygon.Polygon at 0x7f052c12d550>"
+      ]
+     },
+     "execution_count": 92,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from shapely.geometry import box\n",
+    "\n",
+    "min_x, min_y = -180, -90\n",
+    "max_x, max_y = 180, 90\n",
+    "poly3 = box(minx=min_x, miny=min_y, maxx=max_x, maxy=max_y)\n",
+    "poly3"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 91,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "POLYGON ((180 -90, 180 90, -180 90, -180 -90, 180 -90))\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(poly3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we can see, creating a rectangular bounding box `Polygon` can be done very easily by merely passing four coordinates to the `box` -function. Quite handy! In practice, the `box` function is quite useful for example when you want to select geometries from specific area of interest. In these cases, you only need to find out the coordinates of two points on the map to be able create the polygon, which you can use to select the data.   "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Creating MultiPoint, MultiLineString and MultiPolygon geometries"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Creating a collection of `Point`, `LineString` or `Polygon` objects is very straightforward now as you have seen how to create the basic geometric objects. In the `Multi` -versions of these geometries, you just pass a list of points, lines or polygons to the `MultiPoint`, `MultiLineString` or `MultiPolygon` constructors as shown below:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 98,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/svg+xml": [
+       "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100.0\" height=\"100.0\" viewBox=\"1.96 1.96 1.08 1.08\" preserveAspectRatio=\"xMinYMin meet\"><g transform=\"matrix(1,0,0,-1,0,5.0)\"><g><circle cx=\"2.0\" cy=\"2.0\" r=\"0.0324\" stroke=\"#555555\" stroke-width=\"0.0108\" fill=\"#66cc99\" opacity=\"0.6\" /><circle cx=\"3.0\" cy=\"3.0\" r=\"0.0324\" stroke=\"#555555\" stroke-width=\"0.0108\" fill=\"#66cc99\" opacity=\"0.6\" /></g></g></svg>"
+      ],
+      "text/plain": [
+       "<shapely.geometry.multipoint.MultiPoint at 0x7f052c1a7fa0>"
+      ]
+     },
+     "execution_count": 98,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from shapely.geometry import MultiPoint, MultiLineString, MultiPolygon\n",
+    "\n",
+    "multipoint = MultiPoint([Point(2, 2), Point(3, 3)])\n",
+    "multipoint"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 105,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/svg+xml": [
+       "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100.0\" height=\"100.0\" viewBox=\"1.84 1.84 4.32 2.3200000000000003\" preserveAspectRatio=\"xMinYMin meet\"><g transform=\"matrix(1,0,0,-1,0,6.0)\"><g><polyline fill=\"none\" stroke=\"#66cc99\" stroke-width=\"0.0864\" points=\"2.0,2.0 3.0,3.0\" opacity=\"0.8\" /><polyline fill=\"none\" stroke=\"#66cc99\" stroke-width=\"0.0864\" points=\"4.0,3.0 6.0,4.0\" opacity=\"0.8\" /></g></g></svg>"
+      ],
+      "text/plain": [
+       "<shapely.geometry.multilinestring.MultiLineString at 0x7f052dfdcf10>"
+      ]
+     },
+     "execution_count": 105,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "multiline = MultiLineString(\n",
+    "    [LineString([(2, 2), (3, 3)]), LineString([(4, 3), (6, 4)])]\n",
+    ")\n",
+    "multiline"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 113,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/svg+xml": [
+       "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100.0\" height=\"100.0\" viewBox=\"-0.48 -0.48 12.96 12.96\" preserveAspectRatio=\"xMinYMin meet\"><g transform=\"matrix(1,0,0,-1,0,12.0)\"><g><path fill-rule=\"evenodd\" fill=\"#66cc99\" stroke=\"#555555\" stroke-width=\"0.25920000000000004\" opacity=\"0.6\" d=\"M 0.0,0.0 L 0.0,4.0 L 4.0,4.0 L 0.0,0.0 z\" /><path fill-rule=\"evenodd\" fill=\"#66cc99\" stroke=\"#555555\" stroke-width=\"0.25920000000000004\" opacity=\"0.6\" d=\"M 6.0,6.0 L 6.0,12.0 L 12.0,12.0 L 6.0,6.0 z\" /></g></g></svg>"
+      ],
+      "text/plain": [
+       "<shapely.geometry.multipolygon.MultiPolygon at 0x7f052c1344c0>"
+      ]
+     },
+     "execution_count": 113,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "multipoly = MultiPolygon(\n",
+    "    [Polygon([(0, 0), (0, 4), (4, 4)]), Polygon([(6, 6), (6, 12), (12, 12)])]\n",
+    ")\n",
+    "multipoly"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Question 5.1\n",
+    "\n",
+    "Create these shapes using Shapely!\n",
+    "\n",
+    "- **Triangle**   \n",
+    "- **Square**    \n",
+    "- **Circle**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Use this cell to enter your solution."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 93,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/svg+xml": [
+       "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100.0\" height=\"100.0\" viewBox=\"-1.08 -1.08 2.16 2.16\" preserveAspectRatio=\"xMinYMin meet\"><g transform=\"matrix(1,0,0,-1,0,0.0)\"><path fill-rule=\"evenodd\" fill=\"#66cc99\" stroke=\"#555555\" stroke-width=\"0.0432\" opacity=\"0.6\" d=\"M 1.0,0.0 L 0.9951847266721969,-0.0980171403295605 L 0.9807852804032305,-0.19509032201612808 L 0.9569403357322089,-0.2902846772544621 L 0.923879532511287,-0.3826834323650894 L 0.8819212643483553,-0.4713967368259972 L 0.8314696123025456,-0.5555702330196017 L 0.7730104533627374,-0.6343932841636449 L 0.7071067811865481,-0.7071067811865469 L 0.6343932841636463,-0.7730104533627363 L 0.5555702330196031,-0.8314696123025447 L 0.4713967368259986,-0.8819212643483545 L 0.38268343236509084,-0.9238795325112863 L 0.2902846772544636,-0.9569403357322085 L 0.19509032201612964,-0.9807852804032302 L 0.09801714032956209,-0.9951847266721967 L 1.6155445744325867e-15,-1.0 L -0.09801714032955888,-0.995184726672197 L -0.19509032201612647,-0.9807852804032308 L -0.2902846772544605,-0.9569403357322094 L -0.38268343236508784,-0.9238795325112875 L -0.4713967368259957,-0.881921264348356 L -0.5555702330196005,-0.8314696123025463 L -0.6343932841636436,-0.7730104533627385 L -0.7071067811865459,-0.7071067811865491 L -0.7730104533627353,-0.6343932841636476 L -0.8314696123025438,-0.5555702330196043 L -0.8819212643483537,-0.4713967368260002 L -0.9238795325112857,-0.38268343236509234 L -0.9569403357322079,-0.29028467725446533 L -0.9807852804032299,-0.19509032201613122 L -0.9951847266721966,-0.09801714032956392 L -1.0,-3.2310891488651735e-15 L -0.9951847266721972,0.0980171403295575 L -0.9807852804032311,0.19509032201612486 L -0.9569403357322098,0.29028467725445917 L -0.9238795325112882,0.38268343236508634 L -0.8819212643483567,0.4713967368259945 L -0.8314696123025475,0.555570233019599 L -0.7730104533627393,0.6343932841636426 L -0.7071067811865505,0.7071067811865446 L -0.6343932841636486,0.7730104533627344 L -0.5555702330196058,0.8314696123025428 L -0.4713967368260018,0.8819212643483528 L -0.3826834323650936,0.9238795325112852 L -0.29028467725446666,0.9569403357322076 L -0.19509032201613302,0.9807852804032295 L -0.09801714032956575,0.9951847266721964 L -4.624589118372729e-15,1.0 L 0.09801714032955566,0.9951847266721974 L 0.19509032201612306,0.9807852804032314 L 0.29028467725445783,0.9569403357322103 L 0.38268343236508506,0.9238795325112887 L 0.47139673682599287,0.8819212643483576 L 0.5555702330195974,0.8314696123025485 L 0.6343932841636415,0.7730104533627402 L 0.7071067811865436,0.7071067811865515 L 0.7730104533627332,0.63439328416365 L 0.8314696123025418,0.5555702330196074 L 0.8819212643483524,0.47139673682600264 L 0.9238795325112844,0.38268343236509533 L 0.956940335732207,0.29028467725446844 L 0.9807852804032291,0.19509032201613483 L 0.9951847266721963,0.0980171403295667 L 1.0,0.0 z\" /></g></svg>"
+      ],
+      "text/plain": [
+       "<shapely.geometry.polygon.Polygon at 0x7f052c12db20>"
+      ]
+     },
+     "execution_count": 93,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Solution\n",
+    "\n",
+    "\n",
+    "# Triangle\n",
+    "Polygon([(0, 0), (2, 4), (4, 0)])\n",
+    "\n",
+    "# Square\n",
+    "Polygon([(0, 0), (0, 4), (4, 4), (4, 0)])\n",
+    "\n",
+    "# Circle (using a buffer around a point)\n",
+    "point = Point((0, 0))\n",
+    "point.buffer(1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Getting started with geopandas"
    ]
   },
   {
@@ -1848,11 +2546,18 @@
    "source": [
     "## Footnotes\n",
     "\n",
+    "[^bounding_box]: <https://en.wikipedia.org/wiki/Minimum_bounding_box>\n",
+    "[^box]: <https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.box>\n",
     "[^geopandas]: <https://geopandas.org/>\n",
+    "[^GEOS]: <https://trac.osgeo.org/geos>\n",
     "[^NLS_topodata]: <https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database>\n",
     "[^NLS_lisence]: <https://www.maanmittauslaitos.fi/en/opendata-licence-cc40>\n",
-    "[^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>\n",
-    "[^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>"
+    "[^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>\n",
+    "[^polygon]: <https://shapely.readthedocs.io/en/stable/manual.html#polygons>\n",
+    "[^QGIS]: <http://www.qgis.org/en/site/>\n",
+    "[^shapely]: <https://shapely.readthedocs.io/en/stable/manual.html>\n",
+    "[^shapely_methods]: <https://shapely.readthedocs.io/en/stable/manual.html#general-attributes-and-methods>\n",
+    "[^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>"
    ]
   }
  ],
