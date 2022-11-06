@@ -39,4 +39,4 @@ Fortunately, there are a number of free online services that provide support for
 
 [^Binder]: <https://mybinder.org>
 [^Colab]: <https://colab.research.google.com/>
-[~Jupyter]: <https://jupyter.org>
+[^Jupyter]: <https://jupyter.org>
