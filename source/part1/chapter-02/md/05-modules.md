@@ -109,11 +109,11 @@ _**Figure 2.9**. Example plot using the Matplotlib module._
 You can read more about the `plot` plotting function in the [matplotlib pyplot documentation](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html) [^matplotdocs]. We will introduce matplotlib in detail in Chapter 3.
 
 <!-- #region -->
-## Using module functions
+## Checking available functions and modules
 
-As we see above, the easiest way to use a module is to import it an then use its functions by typing `modulename.functionname()` and providing the necessary arguments. Yes, it is that simple.
+As we saw above, the easiest way to use a module is to import it an then use its functions by typing `modulename.functionname()` and providing the necessary arguments. Yes, it is that simple.
 
-However, there are times that you may not know the names of all of the functions in a given module, or which are part of a module. You can view the list of functions that are part of a module by using the `dir()` function.
+However, there are times that you may not know the names of all of the functions in a module, or which are part of a given module. You can view the list of functions that are part of a module using the `dir()` function.
 
 ```python
 In [1]: dir(math)
@@ -138,38 +138,14 @@ In Jupyter notebooks you can also browse the available modules by typing in `mod
 
 _**Figure 2.10**. Listing functions in the math module in JupyterLab._
 
-So that's helpful, but what about when you don't know what a given function does? The easiest solution is to use the `help()` function (after importing the module). Let's have a look at the help for the `math.sin` function.
+So that's helpful, but what about when you don't know what a given function does? The easiest solution is to use the `help()` function (after importing the module). Let's have a look at the help for the `math.sin()` function. Note that we do not include the parentheses for the target function when using the `help()` function.
 
 ```python
 help(math.sin)
 ```
 
-## What should I not do?
-
-Modules are very useful in Python, but there are a few things to avoid.
-
-
-### from X import *
-
-Don't use `from X import *`. This may be easier to understand by way of an example, but assuming `X` above is a Python module, `from X import *` will import all of the functions in module X. Though you might think this is helpful, it is much better to simply `import X` or `import X as Y` to keep the connection between the functions and their module. It is also much more likely you will encounter conflicting names when using `from X import *`.
-
-
-### Poor names when renaming on import
-
-Don't use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (`import pandas as pd` is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, `import matplotlib as m` could be confusing, especially if we used `import math as m` above, and might do so in other Jupyter notebooks or script files. Similarly, `import matplotlib as math` is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.
-
-
-According to the good coding practices described in [PEP 8](https://www.python.org/dev/peps/pep-0008/#imports) [^pep8], we should always import modules at the top of the file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import requried modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.
-
-
-## Installing packages
-
-If you have installed Python on your own computer, we recommend using the [Conda package management system](https://docs.conda.io/projects/conda/en/latest/) [^conda] that comes with the Anaconda and Miniconda Python installers. Using Conda, you can list package names and versions using the `conda list` command in a terminal.
-    
-It's also good to be aware of [pip, the package installer for python](https://pypi.org/project/pip/)  [^pip]. Pip and conda are often used for similar purposes, but the key difference is that pip is used for installing packages written in Python, while conda handles packages that might also contain code written in other languages. Generally, we encourage you to use conda when installing packages (and within conda, it is preferable to use the same channel for installations). However, sometimes you might need a package that is not available via conda, but can be installed with pip. You can read more about differences and similarities of conda an pip at <https://www.anaconda.com/understanding-conda-and-pip/>.
-
 <!-- #region -->
-In a Jupyter Notebook, you can type in `help("modules")` to see the complete list of installed packages in Python. However, the output is a bit clumsy and hard to read. Note that when running this command, you might first get several warnings related to deprecated packages, etc.
+Another possible issue is that you may not know which modules are available for use in your Jupyter Notebook. In this case you can type `help("modules")` to see the complete list of installed Python packages. Be aware that although this works, the output can be a bit clumsy and hard to read. In addition, note that when running this command you may first see several warnings related to deprecated packages, etc.
 
 ```python
 In [1]: help("modules")
@@ -190,6 +166,24 @@ OpenSSL             click_plugins       locale              secrets
 ... (output truncated)
 ```
 <!-- #endregion -->
+
+## What should I not do?
+
+Modules are very useful in Python, but there are a few things to avoid.
+
+
+### from X import *
+
+Don't use `from X import *`. This may be easier to understand by way of an example, but assuming `X` above is a Python module, `from X import *` will import all of the functions in module X. Though you might think this is helpful, it is much better to simply `import X` or `import X as Y` to keep the connection between the functions and their module. It is also much more likely you will encounter conflicting names when using `from X import *`.
+
+
+### Poor names when renaming on import
+
+Don't use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (`import pandas as pd` is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, `import matplotlib as m` could be confusing, especially if we used `import math as m` above, and might do so in other Jupyter notebooks or script files. Similarly, `import matplotlib as math` is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.
+
+
+According to the good coding practices described in [PEP 8](https://www.python.org/dev/peps/pep-0008/#imports) [^pep8], we should always import modules at the top of the file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import requried modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.
+
 
 ## Footnotes
 
