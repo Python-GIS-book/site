@@ -31,9 +31,9 @@ Knowing how to install Python and many of its wonderful libraries is one of the 
 
 - **Configuring and documenting your environments:** Installing Python packages can be done easily one by one from a command prompt. However, to document and keep track of your packages while ensuring that your installation works smoothly, we recommended to write a dedicated configuration file which lists all the packages in your environment (see Figure 1.12). Python package managers support various formats to list/write your dependencies, but conda/mamba uses a configuration file written to `environment.yaml`. YAML is a human-friendly configuration language which is easy to use and a popular approach to manage Python environments. The name of the file can be anything, but file format should be `.yaml`. In the configuration file, you can control all the specifications of your virtual environment, including the name for your environment and the version of Python that should be used in the environment. In addition, you can specify if you want to use a specific version of a given package (e.g. a slightly older version), or go with the newest version available (which is the default). It is a good practice to install all packages (if possible) from the same conda channel (e.g. `conda-forge` which we recommend), and not to mix conda and pip for installations if not strictly necessary. A conda channel is a remote location/directory having a dedicated web address where packages are stored. The channels serve as the base for hosting packages, and the package managers (such as conda/mamba) search and download the packages from these channels.
 
-![_**Figure 1.12**. An example of YAML configuration file used for creating a Python virtual environment._](../img/yaml_configuration_example.png)
+![_**Figure 1.16**. An example of YAML configuration file used for creating a Python virtual environment._](../img/yaml_configuration_example.png)
 
-_**Figure 1.12**. An example of YAML configuration file used for creating a Python virtual environment._
+_**Figure 1.16**. An example of YAML configuration file used for creating a Python virtual environment._
 <!-- #endregion -->
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
@@ -55,9 +55,9 @@ This book assumes you are using **Python 3**, so for all operating systems we re
 
 To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer (Figure 1.13). You can find the latest installer links for various operating systems from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links) [^miniconda]. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.
 
-![_**Figure 1.13**. Miniconda versions available for Windows._](../img/miniconda-windows.png)
+![_**Figure 1.17**. Miniconda versions available for Windows._](../img/miniconda-windows.png)
 
-_**Figure 1.13**. Miniconda versions available for Windows._
+_**Figure 1.17**. Miniconda versions available for Windows._
 
 Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.
 
@@ -74,9 +74,9 @@ You can find some additional tips on installing Miniconda for Windows on the [Mi
 
 We recommend downloading the version of Miniconda that offers installation using a graphical installer (e.g., `Miniconda MacOSX 64-bit pkg`), and make sure you download the Python 3 package (Figure 1.14).
 
-![_**Figure 1.14**. Miniconda versions available for macOS._](../img/miniconda-macos.png)
+![_**Figure 1.18**. Miniconda versions available for macOS._](../img/miniconda-macos.png)
 
-_**Figure 1.14**. Miniconda versions available for macOS._
+_**Figure 1.18**. Miniconda versions available for macOS._
 
 Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.
 
@@ -93,9 +93,9 @@ In case you have any problems with the Miniconda installation, you can find some
 
 Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) (Figure 1.15). Be sure you download the Python 3 package.
 
-![_**Figure 1.15**. Miniconda versions available for Linux._](../img/miniconda-linux.png)
+![_**Figure 1.19**. Miniconda versions available for Linux._](../img/miniconda-linux.png)
 
-_**Figure 1.15**. Miniconda versions available for Linux._
+_**Figure 1.19**. Miniconda versions available for Linux._
 
 Once you have downloaded the installer, you can open a terminal window and type a command to start the installation. You should use the default installer options, but be aware that the command you run will differ depending on the installation type.
 
