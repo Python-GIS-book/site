@@ -5,7 +5,7 @@ matplotlib
 ipython
 jupyter-sphinx
 nbsphinx
-pydata-sphinx-theme
 sphinxcontrib-bibtex
+MyST-NB
 # Fix nbconvert version
 nbconvert==6.4.4
