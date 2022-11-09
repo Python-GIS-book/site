@@ -406,7 +406,7 @@ import hvplot.pandas
 
 With the submodule imported, we can simply take a slice of data from the `data` DataFrame, the month of July in 2014 in this example, and create a plot just as we would in pandas. The only difference here is that we will use the `hvplot()` method rather than the `plot()` method from pandas.
 
-```python
+```python tags=["hide-output"]
 july2014_df = data.loc[(data.index >= "201407010000") & (data.index < "201407310000")]
 
 july2014_df.hvplot(
@@ -416,6 +416,8 @@ july2014_df.hvplot(
     ylim=[45.0, 90.0],
 )
 ```
+
+![_**Figure 4.10**. An interactive plot example using hvPlot._](../img/hvplot-example.png)
 
 _**Figure 4.10**. An interactive plot example using hvPlot._
 
