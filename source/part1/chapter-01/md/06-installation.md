@@ -47,7 +47,7 @@ This book assumes you are using **Python 3**, so for all operating systems we re
 <!-- #endregion -->
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
-## Install Miniconda
+## Installing Miniconda
 <!-- #endregion -->
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
@@ -67,6 +67,7 @@ Once you have downloaded the installer, double click on the installer file to in
 After the installation has completed you can test that the `conda` package manager works by opening the Anaconda Prompt from the Start menu and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.9.0`) then everything is working correctly.
 
 You can find some additional tips on installing Miniconda for Windows on the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html).
+
 <!-- #endregion -->
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
@@ -86,6 +87,7 @@ Once you have downloaded the installer, double click on the installer file to in
 After the installation has completed you can test that the `conda` package manager works by opening Terminal or the Anaconda Prompt and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.9.0`) then everything is working correctly.
 
 In case you have any problems with the Miniconda installation, you can find some installation tips on the [Miniconda website](https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html).
+
 <!-- #endregion -->
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
