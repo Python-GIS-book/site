@@ -45,6 +45,12 @@ Docstring
 Function
   A reusable piece of code that performs a single action.
   
+Geocoding
+  The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see `{term}Georeferencing`.
+  
+Georeferencing
+  Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox. 
+  
 IDE
   See `{term}Integrated Development Environment`.
 
@@ -70,6 +76,9 @@ List
 
 Loop
   A programming construct that allows a section of code to be repeated a finite number of times or until a given condition is met.
+  
+Map projection
+  A map projection is a mathematical method to draw a graphical representation of the Earth's surface on a flat surface, i.e. a map. 
 
 Markdown
   A lightweight markup language used to convert plain text input to rich-formatted output.
@@ -122,4 +131,8 @@ Well-known text
   Well-known text (WKT) is a text markup language for representing vector geometry objects. WKT can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m). The binary equivalent for WKT is `Well-known binary` format.
 
   
+```
+
+```python
+
 ```
