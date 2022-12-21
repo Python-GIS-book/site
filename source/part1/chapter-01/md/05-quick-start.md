@@ -25,7 +25,7 @@ Fortunately, there are a number of free online services that provide support for
 
 ### Binder
 
-[Binder](https://mybinder.org)[^Binder] is a freely available service related to the [Jupyter Project](https://jupyter.org)[^Jupyter] that allows users to create cloud-based computing environments that can be used to execute Jupyter Notebooks. The notebooks can be hosted in a variety of locations, including on [GitHub.com](https://github.com), and their website at [mybinder.org](https://mybinder.org) provides detailed instructions about how to create your own computing environments. For use with this book, you can launch interactive versions of the notebook files used to produce the book materials on the book website at [pythongis.org](https://pythongis.org) by clicking on the "rocket ship icon" (Figure 1.15). This is the easiest way to get started learning Python and exploring the book materials!
+[Binder](https://mybinder.org) [^Binder] is a freely available service related to the [Jupyter Project](https://jupyter.org) [^Jupyter] that allows users to create cloud-based computing environments that can be used to execute Jupyter Notebooks. The notebooks can be hosted in a variety of locations, including on [GitHub.com](https://github.com), and their website at [mybinder.org](https://mybinder.org) provides detailed instructions about how to create your own computing environments. For use with this book, you can launch interactive versions of the notebook files used to produce the book materials on the book website at [pythongis.org](https://pythongis.org) by clicking on the "rocket ship icon" (Figure 1.15). This is the easiest way to get started learning Python and exploring the book materials!
 
 ![_**Figure 1.15**. The "rocket ship icon" that can be used to launch interactive versions of notebooks from the book website._](../img/binder-rocket-ship.png)
    
@@ -39,7 +39,7 @@ Please note, however, that there are a few important limitations to using the Bi
 
 ### Google Colaboratory (Colab)
 
-[Google Colab](https://colab.research.google.com/)[^Colab] is another free service provided by Google that can be used to interact with Jupyter Notebooks, although it differs from Binder in both the interface to the notebooks and its features. The interface is a more consistent with that of other Google applications and some terms differ from the equivalents used in JupyterLab, for example. However, a nice feature about Google Colab is that multiple people can work together on the same notebooks at the same time, and it is possible to save your modifications! More information about Google Colab can be found at <https://colab.research.google.com/>.
+[Google Colab](https://colab.research.google.com/) [^Colab] is another free service provided by Google that can be used to interact with Jupyter Notebooks, although it differs from Binder in both the interface to the notebooks and its features. The interface is a more consistent with that of other Google applications and some terms differ from the equivalents used in JupyterLab, for example. However, a nice feature about Google Colab is that multiple people can work together on the same notebooks at the same time, and it is possible to save your modifications! More information about Google Colab can be found at <https://colab.research.google.com/>.
 
 
 ## Footnotes

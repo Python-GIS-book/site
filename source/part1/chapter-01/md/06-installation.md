@@ -23,7 +23,7 @@ Knowing how to install Python and many of its wonderful libraries is one of the 
 
 - **Handling dependencies:** Because Python is one of the most popular programming languages in the world, there is also a huge number of libraries available for it. Having a large ecosystem of libraries is naturally a great thing, but it also bring some challenges that needs to be considered when doing installations. Many of the libraries developed for Python take advantage of, and are strongly linked to, other Python libraries. This is very useful because developers don't need to create everything from scratch when developing libraries, allowing faster and (typically) more stable progress of the libraries. Python's libraries are also evolving and improving all the time, and developers typically publish new versions of the libraries regularly. Because of these regular updates and *`{term} dependencies <Dependency>`* between Python packages, it is important to ensure that different packages (and their different versions) work well together. Luckily, Python has good tools (package managers) to help handling these installations, which solve all the dependencies between libraries for you, and allow you to keep your libraries up-to-date easily. 
 
-- **Python installation with Miniconda:** Even though it is possible to install Python from the Python homepage [^Python website], we highly recommend using Miniconda [^miniconda] to install Python. Miniconda is a Python distribution that comes with Python interpreter and a small number of essential packages, such as package manager called `conda`, which makes it easy to install Python packages. Miniconda is professionally maintained and widely used installation package for getting started with Python. It is free to use for individual hobbyists, students, universities, non-profit organizations, or businesses with less than 200 employees (as of May, 2022). For larger businesses, we recommend to install Python using Miniforge [^miniforge], which is identical to Miniconda, but does not have any commercial restrictions.
+- **Python installation with Miniconda:** Even though it is possible to install Python from the [Python homepage](https://www.python.org/) [^Python website], we highly recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) [^miniconda] to install Python. Miniconda is a Python distribution that comes with Python interpreter and a small number of essential packages, such as package manager called `conda`, which makes it easy to install Python packages. Miniconda is professionally maintained and widely used installation package for getting started with Python. It is free to use for individual hobbyists, students, universities, non-profit organizations, or businesses with less than 200 employees (as of May, 2022). For larger businesses, we recommend to install Python using [Miniforge](https://github.com/conda-forge/miniforge) [^miniforge], which is identical to Miniconda, but does not have any commercial restrictions.
 
 - **Package managers:** Package managers, such as conda (or `mamba` which is a faster version of conda) are extremely useful tools to install Python packages. In essence, a package manager is a tool that makes life much easier when installing new packages for Python. Package managers are easy to use from terminal/command prompt, and some IDEs also provide nice graphical user interfaces for handling the installations. In addition to conda/mamba, it is good to know that there are also other package managers for Python (such as pip, Pipenv and poetry). Generally, we encourage you to use conda/mamba when installing packages, because they work reliably with all operating systems (including Windows), and they can also handle packages that contain code written in other languages. Many scientific and GIS libraries for Python include parts which are written in C, due to significant boost in performance (speed). You can also combine installations with conda/mamba and pip which might be sometimes necessary if a package is not available via conda, but can be installed with pip.
 
@@ -41,7 +41,7 @@ _**Figure 1.16**. An example of YAML configuration file used for creating a Pyth
 
 In order to follow and reproduce the examples in the rest of the book, here we show in practice how to install Python on your own computer along with all of the recommended software libraries we use. This is not strictly necessary, as it is possible to use the Binder cloud computing platform from the book website to interact with the book materials. However, if you would like to get the most out of the book and ensure you're easily able to continue with Python afterward, we strongly recommend you install Python and Jupyter on your own computer.
 
-In the sections that follow, we provide instructions for the installation of the Python using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) [^miniconda]. for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the [Python environment file we provide]() to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.
+In the sections that follow, we provide instructions for the installation of the Python using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) [^miniconda]. for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the [Python environment file we provide](https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/environment/environment.yml) to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.
 
 This book assumes you are using **Python 3**, so for all operating systems we recommend you install Miniconda based on Python 3. At the time of writing of this book, Python 3.8 is the Python version that is recommended (e.g., Figure 1.12), however future versions of Python 3.X should also be suitable. Importantly, the coding examples we present will not work with Python 2.X, so be careful to install the correct version of Miniconda!
 <!-- #endregion -->
@@ -53,7 +53,7 @@ This book assumes you are using **Python 3**, so for all operating systems we re
 <!-- #region pycharm={"name": "#%% md\n"} -->
 ### Windows
 
-To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer (Figure 1.13). You can find the latest installer links for various operating systems from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links) [^miniconda]. Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.
+To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer (Figure 1.13). You can find the latest installer links for various operating systems from the [Miniconda website](https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links). Most likely you should choose the 64-bit installer, though those using a 32-bit operating systems should download the 32-bit version.
 
 ![_**Figure 1.17**. Miniconda versions available for Windows._](../img/miniconda-windows.png)
 
@@ -146,8 +146,8 @@ If you're curious, you can find more about mamba in the [online user guide](http
 
 ### Download the Python environment files
 
-Download the environment file (`environment.yml`) that contains information about all Python libraries that are needed to run the code examples in this book. 
-The file can be downloaded from [**HERE**](https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/environment/environment.yml) [^environment].
+In order to easily follow the coding examples in this book we have created a [Python environment file](https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/environment/environment.yml) [^environment] (`environment.yml`) that contains information about all Python libraries that are needed to run the code examples.
+We recommend that you download this file and use it to configure your book Python environment.
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
 ### Install the libraries
@@ -205,6 +205,6 @@ It's a good idea to search for installation instructions for each package online
 
 [^environment]: <https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/environment/environment.yml>
 [^mamba_docs]: <https://mamba.readthedocs.io/en/latest/advanced_usage/detailed_operations.html>
-[^miniconda]: <https://docs.conda.io/en/latest/miniconda.html> 
+[^miniconda]: <https://docs.conda.io/en/latest/miniconda.html>
 [^miniforge]: <https://github.com/conda-forge/miniforge>
-[^Python website]: <https://www.python.org/>
+[^Python website]: <https://www.python.org>
