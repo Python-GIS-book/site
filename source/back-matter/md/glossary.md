@@ -46,13 +46,13 @@ Function
   A reusable piece of code that performs a single action.
   
 Geocoding
-  The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see `{term}Georeferencing`.
+  The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see {term}`Georeferencing`.
   
 Georeferencing
   Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox. 
   
 IDE
-  See `{term}Integrated Development Environment`.
+  See {term}`Integrated Development Environment`.
 
 Index
   A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
