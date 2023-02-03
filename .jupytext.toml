@@ -1,5 +1,0 @@
-# Always pair ipynb notebooks to md files
-default_jupytext_formats = "nb//ipynb,md//md"
-
-# Sync outdate configuration in seconds
-outdated_text_notebook_margin = 60
