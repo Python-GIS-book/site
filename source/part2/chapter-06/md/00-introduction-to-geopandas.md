@@ -16,11 +16,16 @@ jupyter:
 
 In this chapter, we will first learn how geometric objects are represented in Python using a library called [shapely](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely]. After this, we will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and spatial features. A `GeoDataFrame` is basically a `pandas.DataFrame` that contains one column for geometries. The geometry column is a `GeoSeries` which contains the geometries  as `shapely` objects (points, lines, polygons, multipolygons etc.). 
 
-
+<!-- #region -->
 ## Representing vector geometries with `shapely` 
 
-`Shapely` is a fundamental Python package for representing vector data geometries on a computer. Basic knowledge of shapely is important for using higher-level tools that depend on it, such as `geopandas`.  In this section, we give a quick overview of creating geometries using `shapely`. For a full list of `shapely` objects and functions, see [the shapely user manual online](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely] 
+`Shapely` is a fundamental Python package for representing vector data geometries on a computer. Basic knowledge of shapely is important for using higher-level tools that depend on it, such as `geopandas`.  
 
+
+ Under the hood `shapely` actually uses a C++ library called [GEOS](https://trac.osgeo.org/geos) [^GEOS] to construct the geometries, which is one of the standard libraries behind various Geographic Information Systems (GIS), such as [PostGIS](https://postgis.net/) [^PostGIS] or [QGIS](http://www.qgis.org/en/site/) [^QGIS]. Objects and methods available in shapely adhere mainly to [the Open Geospatial Consortium’s Simple Features Access Specification](https://www.ogc.org/standards/sfa) [^OGC_sfa] making them compatible with various GIS tools.
+
+In this section, we give a quick overview of creating geometries using `shapely`. For a full list of `shapely` objects and methods, see [the shapely user manual online](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely].
+<!-- #endregion -->
 
 ### Creating point geometries
 
@@ -35,31 +40,40 @@ point3D = Point(9.26, -2.456, 0.57)
 point
 ```
 
-As we see here, Jupyter notebook is able to display the shape of the `point` directly on the screen when we call it. The point object here is represented as it has been defined in the *Simple Features Access Specification*. Under the hood `shapely` actually uses a C++ library called [GEOS](https://trac.osgeo.org/geos) [^GEOS] to construct the geometries, which is one of the standard libraries behind various Geographic Information Systems, such as [PostGIS](https://postgis.net/) [^PostGIS] or [QGIS](http://www.qgis.org/en/site/) [^QGIS]. We can use the print statement to get the coordinate information of these objects in WKT format:
+Jupyter Notebook is automatically able to visualize the point shape on the screen. We can use the print statement to get the text representation of the point geometry as [Well Known Text (WKT)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) [^WKT].
 
 ```python jupyter={"outputs_hidden": false}
 print(point)
 print(point3D)
 ```
 
-3D-point can be recognized from the capital Z -letter in front of the coordinates. Extracting the coordinates of a `Point` can be done in a couple of different ways. We can use the `coords` attribute contains the coordinate information as a `CoordinateSequence` which is a specific data type of Shapely. In addition, we can also directly use the attributes `x` and `y` to get the coordinates directly as plain decimal numbers.
+The letter Z indicates 3D coordinates. 
+
+Extracting the coordinates of a `Point` can be done in a couple of different ways. We can use the `coords` to access the coordinates and list out the contents. 
+
+```python
+point.coords
+```
 
 ```python
 list(point.coords)
 ```
 
+We can also access the coordinates directly using the `x` and `y` properties of the `Point` object.
+
 ```python jupyter={"outputs_hidden": false}
-print(point.x, point.y)
+print(point.x)
+print(point.y)
 ```
 
-Points and other shapely objects have many useful built-in attributes and methods [^shapely_methods], such as calculating the Euclidian distance between points or creating a buffer from the point that converts the point into a circle `Polygon` with specific radius. However, all of these functionalities are integrated into `geopandas` and we will go through them later in the book. 
+Points and other shapely objects have many useful built-in attributes and methods (see [shapely documentation for a full list](https://shapely.readthedocs.io/en/stable/manual.html#general-attributes-and-methods) [^shapely_methods]). For example, it is possible to calculate the Euclidian distance between points, or to create a buffer polygon for the point object. However, all of these functionalities are integrated into `geopandas` and we will go through them later in the book. 
 
 
 <!-- #region -->
 ### Creating LineString geometries
 
 
-Creating `LineString` -objects is fairly similar to creating Shapely Points. Now, instead using a single coordinate-tuple we can construct the line using either a list of shapely `Point` -objects or pass the points as coordinate-tuples:
+Creating `LineString` -objects is fairly similar to creating `Point`-objects. Now, instead using a single coordinate-tuple we can construct the line using either a list of points or pass the points as coordinate-tuples:
 <!-- #endregion -->
 
 ```python jupyter={"outputs_hidden": false}
@@ -111,6 +125,8 @@ As you can see, the centroid of the line is again a Shapely Point object. In pra
 Creating a `Polygon` -object continues the same logic how `Point` and `LineString` were created. A `Polygon` can be created by passing a list of `Point` objects or a list of coordinate-tuples as input for the `Polygon` class. Polygon needs at least three coordinate-tuples to form a surface. In the following, we use the same points from the earlier `LineString` example to create a `Polygon`:
 
 ```python jupyter={"outputs_hidden": false}
+from shapely.geometry import Polygon
+
 poly = Polygon([point1, point2, point3])
 poly
 ```
@@ -219,7 +235,7 @@ multipoly = MultiPolygon(
 multipoly
 ```
 
-### Question 5.1
+### Question 6.1
 
 Create these shapes using Shapely!
 
@@ -674,6 +690,7 @@ area_info.to_csv(result_folder / "terrain_class_areas.csv", header=True)
 [^GEOS]: <https://trac.osgeo.org/geos>
 [^NLS_topodata]: <https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database>
 [^NLS_lisence]: <https://www.maanmittauslaitos.fi/en/opendata-licence-cc40>
+[^OGC_sfa]: <https://www.ogc.org/standards/sfa>
 [^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>
 [^polygon]: <https://shapely.readthedocs.io/en/stable/manual.html#polygons>
 [^PostGIS]: <https://postgis.net/>
@@ -681,3 +698,4 @@ area_info.to_csv(result_folder / "terrain_class_areas.csv", header=True)
 [^shapely]: <https://shapely.readthedocs.io/en/stable/manual.html>
 [^shapely_methods]: <https://shapely.readthedocs.io/en/stable/manual.html#general-attributes-and-methods>
 [^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>
+[^WKT]: <https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry>
