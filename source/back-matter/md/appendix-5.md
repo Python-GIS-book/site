@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -85,11 +85,8 @@ else:
 
 2.9
 ```python
-def hello(name, age):
-    return "Hello, my name is " + name + ". I am " + str(age) + " years old."
-
-output = hello(name="Dave", age=41)
-print(output)
+def celsius_to_newton(temp_celsius):
+    return temp_celsius * 0.33
 ```
 <!-- #endregion -->
 
