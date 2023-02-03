@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -89,23 +89,22 @@ absolute_zero = kelvins_to_celsius(temp_kelvins=0)
 print("Absolute zero in Celsius is:", absolute_zero)
 ```
 
-<!-- #region -->
 #### Question 2.9
 
-Let's see how things are going so far with functions. Think about how you could:
+Isaac Newton developed [a scale for measuring temperatures](https://en.wikipedia.org/wiki/Newton_scale) that was a precursor to the modern-day Celsius scale. In his system, water would freeze at 0 °N and boil at 33 °N (°N here indicates degrees Newton, not degrees north :D). Although it is difficult to directly convert between the two scales, if we assume that the increments of temperature change are equal between 0 °N and 33 °N we can come up with a temperature conversion equation between degrees Celsius and degrees Newton:
 
-- Create a new function called `hello` with 2 parameters
-    - Parameter 1 should be called `name` and you should assign some text to this parameter this when using the function
-    - Parameter 2 should be called `age` and you should provide a number value for this parameter when using the function
+$$
+\begin{equation}
+  \Large
+  T_{\mathrm{Newton}} = T_{\mathrm{Celsius}} * 0.33
+\end{equation}
+$$
 
-When using your function, the value that is returned should be a character string stating the `name` and `age` that were provided, which you can assign to a variable called `output`.
-Printing out `output` should produce something like the following:
+You task here is to:
 
-```python
-print(output)
-'Hello, my name is Dave. I am 41 years old.'
-```
-<!-- #endregion -->
+- Create a new function called `celsius_to_newton` that
+    - Has one parameter that is the temperature in degrees Celsius to be converted to degrees Newton
+    - Returns the temperature in degrees Newton
 
 ```python
 # Use this cell to enter your solution.
@@ -114,13 +113,8 @@ print(output)
 ```python tags=["hide-cell"]
 # Solution
 
-
-def hello(name, age):
-    return "Hello, my name is " + name + ". I am " + str(age) + " years old."
-
-
-output = hello(name="Dave", age=41)
-output
+def celsius_to_newton(temp_celsius):
+    return temp_celsius * 0.33
 ```
 
 ### Functions within a function
