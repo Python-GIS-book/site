@@ -113,6 +113,7 @@ You task here is to:
 ```python tags=["hide-cell"]
 # Solution
 
+
 def celsius_to_newton(temp_celsius):
     return temp_celsius * 0.33
 ```
