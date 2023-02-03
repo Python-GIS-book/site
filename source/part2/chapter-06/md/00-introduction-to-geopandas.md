@@ -14,18 +14,17 @@ jupyter:
 
 # Introduction to spatial data analysis with geopandas
 
-In this chapter, we will first learn how geometric objects are represented in Python using a library called `shapely`. After this, we will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use all our pandas skills also when working with geopandas. The main difference between geopandas GeoDataFrames and pandas DataFrames is that a [GeoDataFrame](http://geopandas.org/data_structures.html#geodataframe) should contain one column for geometries. By default, the name of this column is `'geometry'`. The geometry column is a [GeoSeries](http://geopandas.org/data_structures.html#geoseries) which contains the geometries (points, lines, polygons, multipolygons etc.) as `shapely` objects. 
+In this chapter, we will first learn how geometric objects are represented in Python using a library called [shapely](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely]. After this, we will use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis. In the first part of this book, we covered the basics of data analysis using the pandas library. Geopandas extends the capacities of pandas with geospatial operations. The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and spatial features. A `GeoDataFrame` is basically a `pandas.DataFrame` that contains one column for geometries. The geometry column is a `GeoSeries` which contains the geometries  as `shapely` objects (points, lines, polygons, multipolygons etc.). 
 
 
 ## Representing vector geometries with `shapely` 
 
+`Shapely` is a fundamental Python package for representing vector data geometries on a computer. Basic knowledge of shapely is important for using higher-level tools that depend on it, such as `geopandas`.  In this section, we give a quick overview of creating geometries using `shapely`. For a full list of `shapely` objects and functions, see [the shapely user manual online](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely] 
 
-A core Python library for representing vector data in geospatial domain is called `shapely` [^shapely]. Although `shapely` library can be a bit hidden from most Python GIS user nowadays, it is one of the fundamental dependencies of `geopandas` library which is the go-to library when working with (vector) spatial data in Python. Hence, basic knowledge of shapely is fundamental to understand how geometries are stored and handled in `geopandas`. In the following, we give a quick overview, how to create geometries using `shapely`.
 
+### Creating point geometries
 
-### Creating Point geometries
-
-When creating geometries in Python, we first need to import the geometric object class (such as `Point`) that we want to create from `shapely.geometry` which contains all possible geometry types. After importing the `Point` class, creating a point is easy: we just pass `x` and `y` coordinates into the `Point()` -class (with a possible `z` -coordinate) which will create the point for us:
+When creating geometries with `shapely`, we first need to import the geometric object class (such as `Point`) that we want to create from `shapely.geometry` which contains all possible geometry types. After importing the `Point` class, creating a point is easy: we just pass `x` and `y` coordinates into the `Point()` -class (with a possible `z` -coordinate) which will create the point for us:
 
 ```python jupyter={"outputs_hidden": false}
 from shapely.geometry import Point
@@ -36,7 +35,7 @@ point3D = Point(9.26, -2.456, 0.57)
 point
 ```
 
-As we see here, Jupyter notebook is able to display the shape of the `point` directly on the screen when we call it. The point object here is represented as it has been defined in the *Simple Features Access Specification*. Under the hood `shapely` actually uses a C++ library called GEOS [^GEOS] to construct the geometries, which is one of the standard libraries behind various Geographic Information Systems, such as QGIS [^QGIS]. We can use the print statement to get the coordinate information of these objects in WKT format:
+As we see here, Jupyter notebook is able to display the shape of the `point` directly on the screen when we call it. The point object here is represented as it has been defined in the *Simple Features Access Specification*. Under the hood `shapely` actually uses a C++ library called [GEOS](https://trac.osgeo.org/geos) [^GEOS] to construct the geometries, which is one of the standard libraries behind various Geographic Information Systems, such as [PostGIS](https://postgis.net/) [^PostGIS] or [QGIS](http://www.qgis.org/en/site/) [^QGIS]. We can use the print statement to get the coordinate information of these objects in WKT format:
 
 ```python jupyter={"outputs_hidden": false}
 print(point)
@@ -677,6 +676,7 @@ area_info.to_csv(result_folder / "terrain_class_areas.csv", header=True)
 [^NLS_lisence]: <https://www.maanmittauslaitos.fi/en/opendata-licence-cc40>
 [^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>
 [^polygon]: <https://shapely.readthedocs.io/en/stable/manual.html#polygons>
+[^PostGIS]: <https://postgis.net/>
 [^QGIS]: <http://www.qgis.org/en/site/>
 [^shapely]: <https://shapely.readthedocs.io/en/stable/manual.html>
 [^shapely_methods]: <https://shapely.readthedocs.io/en/stable/manual.html#general-attributes-and-methods>
