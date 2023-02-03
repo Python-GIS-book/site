@@ -1,4 +1,4 @@
-name: python-gis-book
+name: python-gis-book-39
 
 channels:
   - conda-forge
