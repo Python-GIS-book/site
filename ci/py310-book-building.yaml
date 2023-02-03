@@ -50,4 +50,6 @@ dependencies:
   
   # PDF building
   - nbconvert
-  - nbmerge    
+  - pip
+  - pip:
+    - nbmerge    
