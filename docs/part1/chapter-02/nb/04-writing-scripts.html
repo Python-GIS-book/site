@@ -1119,9 +1119,9 @@ Python script files traditionally use the <code class="docutils literal notransl
 <ul>
 <li><p>If you see the list of notebooks above (e.g., <code class="docutils literal notranslate"><span class="pre">00-motivation.ipynb</span></code>, <code class="docutils literal notranslate"><span class="pre">01-computers-and-programs.ipynb</span></code>, …) but do note see the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file, then you should make sure you have saved the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file in the notebooks directory for Chapter 1. The easiest way to do this would be to use the file browser in Jupyter Lab, find the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file, right click on it and select <strong>Copy</strong>, navigate to the <code class="docutils literal notranslate"><span class="pre">part1/chapter-01/nb</span></code> directory in the file browser, and right click again in the space beneath the list of files to paste a copy of the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file in that location.</p></li>
 <li><p>If you do not see the list of notebooks above, you may need to change directories to be in the Chapter 1 notebooks directory. For example, if you see</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>_static/          back-matter/      index.rst         part2/
-appendices/       conf.py           page_builder.py   part3/
-authors.rst       front-matter/     part1/            requirements.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>_static/<span class="w">          </span>back-matter/<span class="w">      </span>index.rst<span class="w">         </span>part2/
+appendices/<span class="w">       </span>conf.py<span class="w">           </span>page_builder.py<span class="w">   </span>part3/
+authors.rst<span class="w">       </span>front-matter/<span class="w">     </span>part1/<span class="w">            </span>requirements.txt
 </pre></div>
 </div>
 <p>you are working in the base <code class="docutils literal notranslate"><span class="pre">source</span></code> directory. You can change directories to the notebooks directory for Chapter 1 by typing</p>
@@ -1299,7 +1299,7 @@ authors.rst       front-matter/     part1/            requirements.txt
 <h3>Adding a docstring<a class="headerlink" href="#adding-a-docstring" title="Permalink to this headline">#</a></h3>
 <p>Finally, since we want to be good programmers, we should add a short docstring at the beginning of our function that explains what the function does and how the parameters work.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function for converting temperature in Kelvins to Celsius or Fahrenheit.</span>
 
 <span class="sd">    Parameters</span>

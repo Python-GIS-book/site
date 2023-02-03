@@ -1097,7 +1097,7 @@ Conclusion: Be careful!</p>
 <h2>Documenting functions with docstrings<a class="headerlink" href="#documenting-functions-with-docstrings" title="Permalink to this headline">#</a></h2>
 <p>A documentation string, or a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Docstring"><span class="xref std std-term">docstring</span></a></em> is a block of text that describes what a specific function, library, or script does and how to use it. Surprise surprise, PEP 8 contains <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#documentation-strings">more guidance about documentation strings</a> <a class="footnote-reference brackets" href="#pep8-docstring" id="id1">1</a>, and docstrings even have <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">their own guide page</a> <a class="footnote-reference brackets" href="#pep257" id="id2">2</a>. Let’s look an an example from our of our functions above.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Converts temperature in Kelvins to degrees Celsius.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts temperature in Kelvins to degrees Celsius.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
 </pre></div>
 </div>
@@ -1109,7 +1109,7 @@ Conclusion: Be careful!</p>
 </ul>
 <p>Seems simple enough, right? We can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let’s expand the docstring above to provide more information about this function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts temperature in Kelvins to degrees Celsius.</span>
 
 <span class="sd">    Parameters</span>

@@ -2087,7 +2087,7 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_nearest_values</span><span class="p">(</span>
     <span class="n">row</span><span class="p">,</span> <span class="n">other_gdf</span><span class="p">,</span> <span class="n">point_column</span><span class="o">=</span><span class="s2">&quot;geometry&quot;</span><span class="p">,</span> <span class="n">value_column</span><span class="o">=</span><span class="s2">&quot;geometry&quot;</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Find the nearest point and return the corresponding value from specified value column.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the nearest point and return the corresponding value from specified value column.&quot;&quot;&quot;</span>
 
     <span class="c1"># Create an union of the other GeoDataFrame&#39;s geometries:</span>
     <span class="n">other_points</span> <span class="o">=</span> <span class="n">other_gdf</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unary_union</span>
@@ -2180,7 +2180,7 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 
 
 <span class="k">def</span> <span class="nf">read_gdf_from_zip</span><span class="p">(</span><span class="n">zip_fp</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads a spatial dataset from ZipFile into GeoPandas. Assumes that there is only a single file (such as GeoPackage)</span>
 <span class="sd">    inside the ZipFile.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2242,7 +2242,7 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 
 
 <span class="k">def</span> <span class="nf">get_nearest</span><span class="p">(</span><span class="n">src_points</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">k_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Find nearest neighbors for all source points from a set of candidate points&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find nearest neighbors for all source points from a set of candidate points&quot;&quot;&quot;</span>
 
     <span class="c1"># Create tree from the candidate points</span>
     <span class="n">tree</span> <span class="o">=</span> <span class="n">BallTree</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">leaf_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;haversine&quot;</span><span class="p">)</span>
@@ -2264,7 +2264,7 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 
 
 <span class="k">def</span> <span class="nf">nearest_neighbor</span><span class="p">(</span><span class="n">left_gdf</span><span class="p">,</span> <span class="n">right_gdf</span><span class="p">,</span> <span class="n">return_dist</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    For each point in left_gdf, find closest point in right GeoDataFrame and return them.</span>
 
 <span class="sd">    NOTICE: Assumes that the input Points are in WGS84 projection (lat/lon).</span>
@@ -2616,7 +2616,7 @@ but who are able to use many facilities in common.” <em>(–&gt; One could use
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">intersect_using_spatial_index</span><span class="p">(</span><span class="n">source_gdf</span><span class="p">,</span> <span class="n">intersecting_gdf</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Conduct spatial intersection using spatial index for candidates GeoDataFrame to make queries faster.</span>
 <span class="sd">    Note, with this function, you can have multiple Polygons in the &#39;intersecting_gdf&#39; and it will return all the points</span>
 <span class="sd">    intersect with ANY of those geometries.</span>
@@ -2642,7 +2642,7 @@ but who are able to use many facilities in common.” <em>(–&gt; One could use
 
 
 <span class="k">def</span> <span class="nf">normal_intersect</span><span class="p">(</span><span class="n">source_gdf</span><span class="p">,</span> <span class="n">intersecting_gdf</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Conduct spatial intersection without spatial index.</span>
 <span class="sd">    Note, with this function, you can have multiple Polygons in the &#39;intersecting_gdf&#39; and it will return all the points</span>
 <span class="sd">    intersect with ANY of those geometries.</span>
