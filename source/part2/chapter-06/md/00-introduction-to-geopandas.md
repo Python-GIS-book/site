@@ -258,11 +258,11 @@ Create these shapes using Shapely!
 - **Square**    
 - **Circle**
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python
+```python tags=["hide_cell", "remove_book_cell"]
 # Solution
 
 # Triangle
@@ -359,11 +359,11 @@ Figure out the following information from our input data using your pandas skill
 - Number of classes?
 - Number of groups?
 
-```python
+```python tags=["remove_cell"]
 # You can use this cell to enter your solution.
 ```
 
-```python
+```python tags=["remove_book_cell", "hide_cell"]
 # Solution 
 
 print("Number of rows", len(data["CLASS"]))
@@ -479,11 +479,11 @@ selection.to_file(output_fp)
 
 Read the output Shapefile in a new geodataframe, and check that the data looks ok.
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python
+```python tags=["remove_book_cell", "hide_cell"]
 # Solution
 
 temp = gpd.read_file(output_fp)
