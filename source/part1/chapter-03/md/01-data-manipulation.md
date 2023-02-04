@@ -185,11 +185,16 @@ print()
 print("Value at position (0,0) is", data.iloc[0, 0])
 ```
 
+<!-- #region -->
 Hence, the syntax for `.iloc` is: 
 
- - `.iloc[start_row_position:stop_row_position, start_column_position:stop_column_position]`
+```python
+.iloc[start_row_position:stop_row_position,
+      start_column_position:stop_column_position]
+```
 
 By following this syntax, we can access the value on the first row and second column (`TEMP`) by calling:
+<!-- #endregion -->
 
 ```python
 data.iloc[0, 1]
@@ -227,11 +232,20 @@ data.loc[data["YEARMODA"].isin(selection_criteria)]
 
 One really useful feature in pandas is the ability to easily filter and select rows based on a conditional statement.
 The following example shows how we check if the Celsius temperature at each row on the `TEMP_CELSIUS`column is higher than 15 degrees:
-<!-- #endregion -->
 
 ```python
-data["TEMP_CELSIUS"] > 15
+In [23]: help("modules")
 ```
+
+```code
+0      True
+1      True
+2      True
+3     False
+4     False
+... (output truncated)
+```
+<!-- #endregion -->
 
 As a result, we get a Series of booleans, where the value `True` or `False` at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a ``mask``. We can take advantage of this mask when doing selections with `.loc` based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable `warm_temps` (warm temperatures). We can specify the criteria directly inside the `.loc` square brackets. Next, we will select rows which have higher temperature (in Celsius) than 15 degrees:
 
