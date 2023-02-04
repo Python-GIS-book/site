@@ -148,21 +148,19 @@ help(math.sin)
 Another possible issue is that you may not know which modules are available for use in your Jupyter Notebook. In this case you can type `help("modules")` to see the complete list of installed Python packages. Be aware that although this works, the output can be a bit clumsy and hard to read. In addition, note that when running this command you may first see several warnings related to deprecated packages, etc.
 
 ```python
-In [1]: help("modules")
+In [13]: help("modules")
 ```
 
 ```
 Please wait a moment while I gather a list of all available modules...
 
-/Users/whipp/opt/miniconda3/envs/python-gis-book/lib/python3.9/site-packages/
-IPython/kernel/__init__.py:12: ShimWarning: The `IPython.kernel` package has been
-deprecated since IPython 4.0.You should import from ipykernel or jupyter_client
-instead.
-  warn("The `IPython.kernel` package has been deprecated since IPython 4.0."
+(Some warning messages may appear here)
 
-Cython              click_completion    linkify_it          scipy
-IPython             click_log           llvmlite            seaborn
-OpenSSL             click_plugins       locale              secrets
+Cython              click               lib2to3             rioxarray
+IPython             click_completion    libmambapy          rlcompleter
+OpenSSL             click_log           libpysal            rtree
+PIL                 click_plugins       linecache           runpy
+__future__          cligj               linkify_it          rvlib
 ... (output truncated)
 ```
 <!-- #endregion -->
