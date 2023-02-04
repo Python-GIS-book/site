@@ -151,7 +151,7 @@ Another possible issue is that you may not know which modules are available for 
 In [13]: help("modules")
 ```
 
-```
+```code
 Please wait a moment while I gather a list of all available modules...
 
 (Some warning messages may appear here)
