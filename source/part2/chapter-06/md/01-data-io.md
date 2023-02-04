@@ -270,25 +270,28 @@ senate_square.to_file(outfp)
 
 ## Geocoding
 
-Geocoding is the process of transforming place names or addresses into coordinates.
-In this section we will learn how to geocode addresses using Geopandas and
-[geopy](https://geopy.readthedocs.io/en/stable/).
+Geocoding is the process of transforming place names or addresses into coordinates. In this section we will learn how to geocode addresses using `geopandas` and [geopy](https://geopy.readthedocs.io/en/stable/) [^geopy].
 
-Geopy and other geocoding libaries (such as [geocoder](http://geocoder.readthedocs.io/))
-make it easy to locate the coordinates of addresses, cities, countries, and landmarks
-across the globe using web services ("geocoders"). In practice, geocoders are often
-Application Programming Interfaces (APIs) where you can send requests, and receive responses in the form of place names, addresses and coordinates.
+Geopy and other geocoding libaries (such as [geocoder](http://geocoder.readthedocs.io/)) make it easy to locate the coordinates of addresses, cities, countries, and landmarks across the globe using web services ("geocoders"). In practice, geocoders are often *{term}`Application Programming Interfaces (APIs) <API>`* where you can send requests, and receive responses in the form of place names, addresses and coordinates. Geopy offers access to several geocoding services, such as [Photon](https://photon.komoot.io/]) [^photon] and [Nominatim](https://nominatim.org/) [^nominatim] that rely on data from OpenStreetMap, among various other services. Check the [geopy documentation](https://geopy.readthedocs.io/en/stable/) [^geopy] for more a list of supported geocoding services and usage details.
 
-Geopy offers access to several geocoding services. Check the geopy documentation for more details about how to use each service via Python.
+Geocoding services might require an API key in order to use them. (i.e. you
+need to register for the service before you can access results from their API).
+Furthermore, rate limiting also restrict the use of these services. The
+geocoding process might end up in an error if you are making too many requests
+in a short time period (eg.  trying to geocode large number of addresses). If you pay for the geocoding service, you can naturally make more requests to the
+API.
 
-Geopandas has a function called `geocode()` that can geocode a list of addresses (strings) and return a GeoDataFrame containing the resulting point objects in ``geometry`` column. 
+In this lesson we will use the Nominatim geocoder for locating a relatively
+small number of addresses. 
+
+It is important to pay attention to the geocoding providers' Terms of Use. For example, the Nominatim API is not meant for super heavy use. Nominatim doesn't require the use of an API key, but the usage of the Nominatim service is rate-limited to 1 request per second (3600 / hour). Users also need to provide an identifier for their application, and give appropriate attribution to using OpenStreetMap data. You can read more about Nominatim usage policy in [here](https://operations.osmfoundation.org/policies/nominatim/) [^nominatim_toc]. When using Nominatim via `geopandas` and `geopy`, we can specify a custom a custom `user_agent` parameter to idenfy our application, and we can add a `timeout` to allow enough time to get the response from the service. 
 
 
 
 
 ### Geocoding addresses
 
-Let's try this out. We will geocode addresses stored in a text file called `addresses.txt`. These addresses are located in the Helsinki Region in Southern Finland. The first rows of the data look like this:
+We will geocode addresses stored in a text file called `addresses.txt`. These addresses are located in the Helsinki Region in Southern Finland. The first rows of the data look like this:
 
 ```
 id;addr
@@ -324,19 +327,21 @@ data.head()
 ```
 
 <!-- #region deletable=true editable=true -->
-Now we have our data in a pandas DataFrame and we can geocode our addresses using the [geopandas geocoding function](http://geopandas.org/reference/geopandas.tools.geocode.html#geopandas-tools-geocode) that uses `geopy` package in the background. 
+Now we have our data in a `DataFrame` and we can geocode our addresses using the the geocoding function in `geopandas` that uses `geopy` package in the background. The function geocodes a list of addresses (strings) and return a `GeoDataFrame` containing the resulting point objects in ``geometry`` column. 
 
-- Let's import the geocoding function and geocode the addresses (column `addr`) using Nominatim. 
-- Remember to provide a custom string (name of your application) in the `user_agent` parameter.
-- If needed, you can add the `timeout`-parameter which specifies how many seconds we will wait for a response from the service.
+Here we import the geocoding function and geocode the addresses (column `addr`) using Nominatim. Note that we need to provide a custom string (name of your application) in the `user_agent` parameter. We can also add the `timeout`-parameter to specifies how many seconds to wait for a response from the service.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Import the geocoding tool
 from geopandas.tools import geocode
 
-# Geocode addresses using Nominatim. Remember to provide a custom "application name" in the user_agent parameter!
-geo = geocode(data["addr"], provider="nominatim", user_agent="pythongis_xx", timeout=4)
+# Geocode addresses using Nominatim. 
+# You can provide your own
+geo = geocode(data["addr"], 
+              provider="nominatim", 
+              user_agent="pythongis_book", 
+              timeout=4)
 ```
 
 ```python
@@ -344,13 +349,13 @@ geo.head()
 ```
 
 <!-- #region deletable=true editable=true -->
-And Voilà! As a result we have a GeoDataFrame that contains our original
-address and a 'geometry' column containing Shapely Point -objects that
-we can use for exporting the addresses to a Shapefile for example.
-However, the ``id`` column is not there. Thus, we need to join the
+And Voilà! As a result we have a GeoDataFrame that contains an `address`-column containing the geocoded addresses and a `geometry` column containing `Point`-objects representing the geographic locations of the addresses. Notice that these addresses are given However, the ``id`` column is not there. Thus, we need to join the
 information from ``data`` into our new GeoDataFrame ``geo``, thus making
-a **Table Join**.
+a Table Join.
 <!-- #endregion -->
+
+
+
 
 <div class="alert alert-info">
 
@@ -378,38 +383,9 @@ data["coords"] = data['temp'].apply(lambda loc: tuple(loc.point) if loc else Non
 # Create shapely point objects to geometry column:
 data["geometry"] = data["coords"].apply(Point)
 ```
-All in all, remember that Nominatim is not meant for super heavy use. 
+All in all, remember that 
 </div>
 
-**Joining the geocoding result with the original DataFrame** 
-
-However, sometimes it is useful to join two tables together based on the **index** of those DataFrames. In such case, we assume
-that there is **same number of records** in our DataFrames and that the **order of the records should be the same** in both DataFrames.
-
-We can use this approach to join information from the original data to our geocoded addresses row-by-row 
-``join()`` -function which merges the two DataFrames together
-based on index by default. This approach works correctly because the order of the geocoded addresses in ``geo`` DataFrame is the same as in our original ``data`` DataFrame.
-<!-- #endregion -->
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
-join = geo.join(data)
-join.head()
-```
-
-<!-- #region deletable=true editable=true -->
-Let's also check the data type of our new ``join`` table.
-<!-- #endregion -->
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
-type(join)
-```
-
-<!-- #region deletable=true editable=true -->
-As a result we have a new GeoDataFrame called ``join`` where we now have
-all original columns plus a new column for ``geometry``. **Note!** If you would do the join the other way around, i.e. `data.join(geo)`, the output would be a pandas DataFrame, not a GeoDataFrame!
-
-
-<!-- #endregion -->
 
 Now it is easy to save our address points into a Shapefile
 
@@ -433,6 +409,10 @@ Nominatim works relatively nicely if you have well defined and well-known addres
 ## Footnotes
 
 [^shp]: <https://en.wikipedia.org/wiki/Shapefile> 
-[^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON> 
-[^KML]: <https://en.wikipedia.org/wiki/Keyhole_Markup_Language> 
+[^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON>
+[^geopy]: <https://geopy.readthedocs.io/en/stable/>
 [^GPKG]: <https://en.wikipedia.org/wiki/GeoPackage>
+[^KML]: <https://en.wikipedia.org/wiki/Keyhole_Markup_Language> 
+[^nominatim]: <https://nominatim.org/>
+[^nominatim_toc]: <https://operations.osmfoundation.org/policies/nominatim/>
+[^photon]: <https://photon.komoot.io/>
