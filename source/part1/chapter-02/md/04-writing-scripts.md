@@ -137,7 +137,7 @@ If you see `temp_converter.py` in the list of files above you are all set to con
 
 Let's now import our `celsius_to_fahr()` function from the other script by adding a specific `import` statement in the Python cell below: `from temp_converter import celsius_to_fahr`
 
-```python tags=["hide_cell"]
+```python tags=["remove_cell"]
 # DO NOT RUN THIS CELL
 # This cell is only needed for generating the web page and book documents
 %cd ../../../_static/part1/chapter-01/
