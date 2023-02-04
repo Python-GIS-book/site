@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-# Coordinate Reference Systems
+# Working with Coordinate Reference Systems in Python
 
 
 
