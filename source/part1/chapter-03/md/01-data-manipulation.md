@@ -126,8 +126,9 @@ selection = data.loc[0:5, ["TEMP", "TEMP_CELSIUS"]]
 selection
 ```
 
-As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5). 
-    
+As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5).
+
+
 #### Question 3.3
 
 Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.

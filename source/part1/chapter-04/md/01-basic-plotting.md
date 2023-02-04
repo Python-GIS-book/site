@@ -263,6 +263,7 @@ ax.legend()
 
 _**Figure 4.7**. A plot of the example temperature data further modified with additional formatting and reduced axis ranges._
 
+
 #### Question 4.1
 
 Create a line plot similar to the examples above with the following attributes:
