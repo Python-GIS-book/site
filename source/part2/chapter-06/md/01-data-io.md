@@ -30,19 +30,22 @@ This tutorial will show some typical examples how to read (and write) data from 
 
 ## Reading from different spatial data formats
 
-In geopandas, we can use a generic function [from_file()](http://geopandas.org/reference.html#geopandas.GeoDataFrame.to_file) for reading in different data formats. Esri Shapefile is the default file format. For other file formats we need to specify which driver to use for reading in the data. In the following section, we show how to read spatial data from a few of the most common vector file formats. To see all supported data formats, you can execute following: 
+In `geopandas`, we can use a generic function `.from_file()` for reading in various data formats. Esri Shapefile is the default file format. When reading files with `geopandas`, the data are passed on to the `fiona` library under the hood for reading the data. This means that you can read and write all data formats supported by `fiona` with `geopandas`. 
 
 ```python
 import geopandas as gpd
+import fiona
 ```
 
+Let's check which drivers are supported by `fiona`.
+
 ```python
-gpd.io.file.fiona.drvsupport.supported_drivers
+fiona.supported_drivers
 ```
 
 ### Read / write Shapefile
 
-Shapefile format originally developed by ESRI in the early 1990's is one of the most commonly used data formats (still) used today. The Shapefile is in fact comprised of several separate files that are all important for representing the spatial data. Typically a Shapefile includes (at least) four separate files with extensions `.shp`, `.dbx`, `.shx` and `.prj`. The first three of them are obligatory
+Shapefile format originally developed by the company Esri in the early 1990's is one of the most commonly used data formats (still) used today. The Shapefile is in fact comprised of several separate files that are all important for representing the spatial data. Typically a Shapefile includes (at least) four separate files with extensions `.shp`, `.dbx`, `.shx` and `.prj`. The first three of them are obligatory to have a functioning file, and the `.prj` file is highly recommended to have as it contains the coordiante reference system information.
 
 ```python
 import geopandas as gpd
@@ -121,7 +124,7 @@ data.to_file(outfp, driver="MapInfo File")
 
 ## Creating new GeoDataFrame from scratch
 
-Since geopandas takes advantage of Shapely geometric objects, it is possible to create spatial data from scratch by passing Shapely's geometric objects into the GeoDataFrame. This is useful as it makes it easy to convert e.g. a text file that contains coordinates into spatial data layers. Next we will see how to create a new GeoDataFrame from scratch and save it into a file. Our goal is to define a geometry that represents the outlines of the [Senate square in Helsinki, Finland](https://fi.wikipedia.org/wiki/Senaatintori). Let's start by creating a new empty `GeoDataFrame` object.
+Since `geopandas` takes advantage of `shapely` geometric objects, it is possible to create spatial data from scratch by passing `shapely`'s geometric objects into the `GeoDataFrame`. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into spatial data layers. Next we will see how to create a new `GeoDataFrame` from scratch and save it into a file. Our goal is to define a geometry that represents the outlines of the [Senate square in Helsinki, Finland](https://fi.wikipedia.org/wiki/Senaatintori). Let's start by creating a new empty `GeoDataFrame` object.
 
 ```python
 newdata = gpd.GeoDataFrame()
@@ -145,7 +148,7 @@ newdata["geometry"] = None
 print(newdata)
 ```
 
-Now we have a `geometry` column in our GeoDataFrame but we still don't have any data. Let's create a Shapely `Polygon` repsenting the Helsinki Senate square that we can later insert to our GeoDataFrame:
+Now we have a `geometry` column but we still don't have any data values in there. Let's create a `Polygon` repsenting the Helsinki Senate square that we can later insert to our `GeoDataFrame`.
 
 ```python
 from shapely.geometry import Polygon
@@ -171,7 +174,7 @@ poly = Polygon(coordinates)
 print(poly)
 ```
 
-Okay, now we have an appropriate `Polygon` -object. Let's insert the polygon into our 'geometry' column of our GeoDataFrame on the first row:
+Okay, now we have a `Polygon` -object that represents the Senate Square. Let's insert the polygon into our geometry-column on the first row of the `GeoDataFrame`.
 
 ```python jupyter={"outputs_hidden": false}
 # Insert the polygon into 'geometry' -column at row 0
@@ -183,9 +186,7 @@ newdata.at[0, "geometry"] = poly
 print(newdata)
 ```
 
-Great, now we have a GeoDataFrame with a Polygon that we could already now export to a Shapefile. However, typically you might want to include some attribute information with the geometry. 
-
-Let's add another column to our GeoDataFrame called `location` with text `Senaatintori` that describes the location of the feature.
+Great, now we have a GeoDataFrame with a polygon geometry. Let's also add some attribute information in there by adding another column called `location` with the text `Senaatintori`, i.e. the name of the Senate Square in Finnish.
 
 ```python jupyter={"outputs_hidden": false}
 # Add a new column and insert data
@@ -195,7 +196,7 @@ newdata.at[0, "location"] = "Senaatintori"
 print(newdata)
 ```
 
-Okay, now we have additional information that is useful for recognicing what the feature represents. 
+There it is! Now we have two columns in our data; one representing the geometry and another with additional attribute information.
 
 The next step would be to determine the coordinate reference system (CRS) for the GeoDataFrame. GeoDataFrame has an attribute called `.crs` that shows the coordinate system of the data (we will discuss more about CRS in next chapter). In our case, the layer doesn't yet have any crs definition.
 
@@ -225,7 +226,7 @@ outfp = "../data/Results/Senaatintori.shp"
 newdata.to_file(outfp)
 ```
 
-<!-- #region jp-MarkdownHeadingCollapsed=true tags=[] -->
+<!-- #region tags=[] -->
 Now we have successfully created a Shapefile from scratch using geopandas. Similar approach can be used to for example to read coordinates from a text file (e.g. points) and turn that information into a spatial layer.
 
 
@@ -238,6 +239,34 @@ Now we have successfully created a Shapefile from scratch using geopandas. Simil
 
 <!-- #endregion -->
 
+
+```python tags=[]
+# Use this cell to enter your solution.
+```
+
+```python tags=["remove_cell", "hide_cell"]
+# Solution
+
+# Read in the data
+senate_square = gpd.read_file(outfp)
+
+# One pontial way to check the contents
+senate_square.head()
+```
+
+```python tags=["remove_cell", "hide_cell"]
+# Solution
+
+# re-project
+senate_square = senate_square.to_crs(crs=3067)
+
+#check the result
+print(senate_square)
+
+# Save to new file
+outfp = "../data/Results/Senaatintori_epsg3067.shp"
+senate_square.to_file(outfp)
+```
 
 ## Geocoding
 
@@ -259,11 +288,7 @@ Geopandas has a function called `geocode()` that can geocode a list of addresses
 
 ### Geocoding addresses
 
-Let's try this out.
-
-We will geocode addresses stored in a text file called `addresses.txt`. These addresses are located in the Helsinki Region in Southern Finland.
-
-The first rows of the data look like this:
+Let's try this out. We will geocode addresses stored in a text file called `addresses.txt`. These addresses are located in the Helsinki Region in Southern Finland. The first rows of the data look like this:
 
 ```
 id;addr
@@ -273,9 +298,7 @@ id;addr
 1003;Hermannin rantatie 1, 00580 Helsinki, Finland
 ```
 
-We have an `id` for each row and an address on column `addr`.
-
-Let's first read the data into a Pandas DataFrame using the `read_csv()` -function:
+We have an `id` for each row and an address on column `addr`. Let's first read the data into a pandas DataFrame using the `read_csv()` -function.
 
 ```python deletable=true editable=true
 # Import necessary modules
@@ -284,13 +307,13 @@ import geopandas as gpd
 from shapely.geometry import Point
 
 # Filepath
-fp = r"data/addresses.txt"
+fp = r"../data/Helsinki/addresses.txt"
 
 # Read the data
 data = pd.read_csv(fp, sep=";")
 ```
 
-Let's check that we imported the file correctly:
+Let's check that we imported the file correctly.
 
 ```python
 len(data)
@@ -313,7 +336,7 @@ Now we have our data in a pandas DataFrame and we can geocode our addresses usin
 from geopandas.tools import geocode
 
 # Geocode addresses using Nominatim. Remember to provide a custom "application name" in the user_agent parameter!
-geo = geocode(data["addr"], provider="nominatim", user_agent="autogis_xx", timeout=4)
+geo = geocode(data["addr"], provider="nominatim", user_agent="pythongis_xx", timeout=4)
 ```
 
 ```python
@@ -392,7 +415,7 @@ Now it is easy to save our address points into a Shapefile
 
 ```python deletable=true editable=true
 # Output file path
-outfp = r"data/addresses.shp"
+outfp = r"../data/Results/addresses.shp"
 
 # Save to Shapefile
 join.to_file(outfp)
