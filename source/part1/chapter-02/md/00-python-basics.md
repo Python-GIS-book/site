@@ -113,7 +113,7 @@ Use your Python skills to calculate the sine of pi. What value do you expect for
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["hide_cell", "remove_cell"]
+```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["hide_cell", "remove_book_cell"]
 # Solution
 
 math.sin(math.pi)
@@ -171,7 +171,7 @@ Define a variable and display its value on the screen. The variable value can be
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true tags=["hide_cell", "remove_cell"]
+```python deletable=true editable=true tags=["hide_cell", "remove_book_cell"]
 # Solution
 
 my_variable = "Python is cool!"
@@ -276,7 +276,7 @@ As it turns out, it is possible some math with character strings in Python. Defi
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true tags=["hide_cell", "raises-exception", "remove_cell"]
+```python deletable=true editable=true tags=["hide_cell", "raises-exception", "remove_book_cell"]
 # Solution
 
 first_variable = "Python"
