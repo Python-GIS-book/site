@@ -12,52 +12,38 @@ jupyter:
     name: python3
 ---
 
-# Working with Coordinate Reference Systems in Python
+# Working with Map Projections
 
 
+## Managing Coordinate Reference Systems in Python
 
-## Managing coordinate reference systems in pyproj and geopandas
+In Chapter 5, we learned how the Coordinate Reference System (CRS) ultimately describes how geometries are related to the places on Earth and what are the core components of a CRS. Our main tool for managing coordinate reference systems is the [PROJ library](https://proj.org/) [^proj] which can be used through the [pyproj Python library](https://pyproj4.github.io/pyproj/stable/) [^pyproj]. `Pyproj` can be used to access the CRS information of a given geographic dataset and also for reprojecting the data from one coordinate system to another. In the following, we will demonstrate how to work with coordinate reference systems in `geopandas` by using a country border dataset from Europe. We will reproject the dataset from the original WGS84 coordinate system into a Lambert Azimuthal Equal Area projection which is the projection EU [recommends for Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) [^EU_projection].
 
-Our main tool for managing coordinate reference systems (CRS) is the [PROJ library](https://proj.org/) [^proj] that is available in python and geopandas through the [pyproj Python library](https://pyproj4.github.io/pyproj/stable/) [^pyproj]. Pyproj can be used, for example, to get basic information of the CRS of a GeoDataFrame, and to reproject data from one projection to another. 
-
-Let's demonstrate this using sample data from Europe. We will re-project the layer from the original CRS WGS84 (lat, lon coordinates) into a Lambert Azimuthal Equal Area projection which is the [recommended projection for Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) [^EU_projection].
-
-In Shapefiles, information about the coordinate reference system is stored in the `.prj` -file. If this file is missing, you might be in trouble!. When reading the data into `GeoDataFrame` with Geopandas crs information is automatically stored into the `.crs` attribute of the GeoDataFrame.
-
-Let's start by reading the data from the `Europe_borders.shp` file and checking the `crs`:
+Let's start by reading the data from the `eu_countries_2022.gpkg` file. When reading the data into `GeoDataFrame` with `geopandas`, the CRS information is automatically read from the datafile and stored into the `.crs` attribute:
 
 ```python
-# Import necessary packages
 import geopandas as gpd
 
 # Read the file
-fp = "../data/Europe_borders.shp"
+fp = "data/EU_countries/eu_countries_2022.gpkg"
 data = gpd.read_file(fp)
-```
 
-```python
-# Check the coordinate reference system
+# What is the type?
+print(type(data.crs))
+
+# Check the coordinate reference system information
 data.crs
 ```
 
-What we see here is in fact a CRS object from the pyproj module. 
-
-The EPSG number (named after the *European Petroleum Survey Group*) is a code that tells about the coordinate system of the dataset. "[EPSG Geodetic Parameter Dataset](http://www.epsg.org/) is a collection of definitions of coordinate reference systems and coordinate transformations which may be global, regional, national or local in application".
-
-The EPSG code of our geodataframe is`4326`, which refers to the WGS84 coordinate system (we can also figure this out by looking at the coordinates values which are longitude and latitudes decimal degrees).
-
-
-Let's continue by checking the values in our `geometry` -column to verify that the CRS of our GeoDataFrame seems correct:
+What `geopandas` returns here is in fact a CRS object from the `pyproj` library. The EPSG code of our data is `4326` which refers to the WGS84 coordinate system. You will encounter this EPSG-code frequenctly in the geospatial world as it is perhaps the most commonly used coordinate reference system in the world. As we learned earlier, the EPSG number is an identification code that tells which is the coordinate system of a given dataset. In this case, we could also guess the probable CRS by looking at the coordinates values in the `geometry` column which are longitude and latitudes decimal degrees:
 
 ```python
 data["geometry"].head()
 ```
 
-As we can see, the coordinate values of the Polygons indeed look like latitude and longitude values, so everything seems to be in order.
+As we can see, the coordinate values of the Polygons indeed look like {term}`decimal degrees`, so everything seems to be in order. WGS84 is not really a good coordinate system for representing European borders on a map because the areas get distorted. Hence, it is a good idea to convert these geometries into [Lambert Azimuthal Equal Area projection](http://spatialreference.org/ref/epsg/etrs89-etrs-laea/) [^LAEA] (EPSG:3035) which is a good option for creating maps with country-level data in Europe.
 
-WGS84 projection is not really a good one for representing European borders on a map (areas get distorted), so let's convert those geometries into Lambert Azimuthal Equal Area projection ([EPSG: 3035](http://spatialreference.org/ref/epsg/etrs89-etrs-laea/)) which is the recommended projection by European Comission.
-
-Changing the projection is simple to [do in Geopandas](http://geopandas.org/projections.html#re-projecting) with `.to_crs()` -function which is a built-in function of the GeoDataFrame. The function has two alternative parameters 1) `crs` and 2) `epgs` that can be used to make the coordinate transformation and re-project the data into the CRS that you want to use. 
+Changing from one coordinate system to another is a simple task to do in `geopandas`, as we can use the `.to_crs()` -method which is a built-in function of the GeoDataFrame. The function has two alternative parameters 1) `crs` and 2) `epgs` that can be used to make the coordinate transformation and re-project the data into the CRS that you want to use. 
 
 - Let's re-project our data into `EPSG 3035` using `epsg` -parameter:
 
@@ -336,19 +322,6 @@ plt.title("Web mercator")
 
 _**Figure 6.X**. Global map plotted in Web Mercator._
 
-```python
-# Define projection Eckert IV from https://spatialreference.org/ref/esri/54012/
-eckert_IV = CRS.from_proj4(
-    "+proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
-)
-
-# Re-project and plot
-admin.to_crs(eckert_IV).plot()
-
-# Remove x and y axis
-plt.axis("off")
-plt.title("Eckert IV")
-```
 
 _**Figure 6.X**. Global map plotted in Eckert IV._
 
@@ -381,3 +354,4 @@ That's it! In this section we learned how to:
 [^proj]: <https://proj.org/>
 [^pyproj]: <https://pyproj4.github.io/pyproj/stable/>
 [^EU_projection]: <http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf>
+[^LAEA]: <https://spatialreference.org/ref/epsg/etrs89-etrs-laea/>
