@@ -2,10 +2,8 @@
 line-length = 88
 include = '\.ipynb'
 
-[tool.jupytext.formats]
-# Always pair ipynb notebooks to md files
-"nb" = "ipynb"
-"md" = "md"
+[tool.jupytext]
+formats="nb///ipynb,md///md"
 
 # Sync outdate configuration in seconds - No longer supported?
 #outdated_text_notebook_margin = 60
