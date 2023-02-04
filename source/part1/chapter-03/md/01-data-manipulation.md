@@ -76,11 +76,11 @@ data.head()
 
 Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is: `K = C + 273.15`
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data["TEMP_KELVIN"] = data["TEMP_CELSIUS"] + 273.15
@@ -132,11 +132,11 @@ As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index
 
 Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data.loc[23:29, "TEMP_CELSIUS"].mean()
@@ -287,11 +287,11 @@ As we can see, now we did not receive any warnings, and it would be safe to cont
 
 Find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the `YEARMODA` column.
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 data["TEMP_CELSIUS"].loc[data["YEARMODA"] >= 20160624].mean()
 ```

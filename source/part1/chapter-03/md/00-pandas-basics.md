@@ -266,11 +266,11 @@ Here we see that `YEARMODA` is an integer value (with 64-bit precision; ``int64`
 
 How would you print out the number of columns in our DataFrame?
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 len(data.columns)
