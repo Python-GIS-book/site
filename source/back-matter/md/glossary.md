@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -84,6 +84,9 @@ Markdown
   A lightweight markup language used to convert plain text input to rich-formatted output.
   Markdown can, for example, be used to create simple documentation with different heading levels, text in bold and/or italics, text in lists, or documentation that includes hyperlinks.
   More information can be found at <https://en.wikipedia.org/wiki/Markdown>.
+  
+Metadata
+  Metadata refers to data that provides information about other data. It often describes characteristics of the data, such as its content, quality, format, and other relevant characteristics. For example, the metadata of a satellite image may include information about the image's resolution, file size, coordinate reference system, and the date it was taken. 
 
 Module
   A file containing Python definitions and statements. Module files have the ``.py`` file extension.
