@@ -144,5 +144,5 @@ Although this plotting example may seem like a simple tip, it can make a great d
 ## Footnotes
 
 [^linestyles]: <https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html>
-[^nerds]: These temperatures are in no way meant to be taken seriously.
+[^nerds]: We too are nerds, but please note these temperatures are in no way meant to be taken seriously.
 [^shorthand]: See notes section at <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html>
