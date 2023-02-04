@@ -16,9 +16,9 @@ jupyter:
 
 At this point you should know the basics of making plots with Matplotlib. Now we will expand on our basic plotting skills to learn how to create more advanced plots. In this section, we will show how to visualize data using pandas/Matplotlib and create multi-panel plots such as the one below.
 
-![_**Figure 4.11**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._](../img/subplots.png)
+![_**Figure 4.10**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._](../img/subplots.png)
 
-_**Figure 4.11**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._
+_**Figure 4.10**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._
 
 
 ## Preparing the data for plotting 
@@ -99,7 +99,7 @@ data.head()
 
 ## Subplots
 
-Having processed and cleaned the data we can now continue working with it and learn how to create figures that contain {term}`subplots`. Subplots are used to display multiple plots in different panels of the same figure, as shown at the start of this section (Figure 4.11).
+Having processed and cleaned the data we can now continue working with it and learn how to create figures that contain {term}`subplots`. Subplots are used to display multiple plots in different panels of the same figure, as shown at the start of this section (Figure 4.10).
 
 We can start with creating the subplots by dividing the data in the data file into different groups. In this case we can divide the temperature data into temperatures for the four different seasons of the year. We can make the following selections:
 
@@ -128,13 +128,13 @@ Let's have a look at the data from two different seasons to see whether the prec
 ax1 = winter_temps.plot()
 ```
 
-_**Figure 4.12**. Winter temperatures for 2012-2013._
+_**Figure 4.11**. Winter temperatures for 2012-2013._
 
 ```python
 ax2 = summer_temps.plot()
 ```
 
-_**Figure 4.13**. Summer temperatures for 2012-2013._
+_**Figure 4.12**. Summer temperatures for 2012-2013._
 
 Based on the plots above it looks that the correct seasons have been plotted and the temperatures between winter and summer are quite different, as we would expect. One thing we might need to consider with this is that the y-axis range currently varies between the two plots and we may want to define axis ranges that ensure the data are plotted with the same y-axis ranges in all subplots. This will help make it easier to visually compare the temperatures between seasons.
 
@@ -173,7 +173,7 @@ fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
 axs
 ```
 
-_**Figure 4.14**. Empty figure template with a 2x2 subplot panel._
+_**Figure 4.13**. Empty figure template with a 2x2 subplot panel._
 
 We can see that as a result we have now a list containing two nested lists, where the first one contains the axes for column 1 and 2 of **row 1** and the second list contains the axes for columns 1 and 2 of **row 2**.
 
@@ -207,7 +207,7 @@ autumn_temps.plot(ax=ax22, c="brown", lw=line_width, ylim=[min_temp, max_temp])
 fig
 ```
 
-_**Figure 4.15**. Seasonal temperatures for 2012-2013 plotted in a 2x2 panel._
+_**Figure 4.14**. Seasonal temperatures for 2012-2013 plotted in a 2x2 panel._
 
 Great, now we have all the plots in same figure! However, we can see that there are some problems with our *x*-axis labels and a few other missing plot items we should add. 
 
@@ -282,7 +282,7 @@ plt.show()
 ```
 
 <!-- #region -->
-_**Figure 4.16**. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible._
+_**Figure 4.15**. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible._
 
 
 The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.
@@ -344,7 +344,7 @@ ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 plt.show()
 ```
 
-_**Figure 4.17**. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel._
+_**Figure 4.16**. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel._
 
 
 ## Footnotes
