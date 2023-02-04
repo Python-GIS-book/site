@@ -18,17 +18,11 @@ Geocoding is the process of transforming place names or addresses into coordinat
 
 Geopy and other geocoding libaries (such as [geocoder](http://geocoder.readthedocs.io/)) make it easy to locate the coordinates of addresses, cities, countries, and landmarks across the globe using web services ("geocoders"). In practice, geocoders are often *{term}`Application Programming Interfaces (APIs) <API>`* where you can send requests, and receive responses in the form of place names, addresses and coordinates. Geopy offers access to several geocoding services, such as [Photon](https://photon.komoot.io/]) [^photon] and [Nominatim](https://nominatim.org/) [^nominatim] that rely on data from OpenStreetMap, among various other services. Check the [geopy documentation](https://geopy.readthedocs.io/en/stable/) [^geopy] for more a list of supported geocoding services and usage details.
 
-Geocoding services might require an API key in order to use them. (i.e. you
-need to register for the service before you can access results from their API).
-Furthermore, rate limiting also restrict the use of these services. The
+It is important to pay attention to the geocoding providers' Terms of Use. Geocoding services might require an API key in order to use them. (i.e. you need to register for the service before you can access results from their API). Furthermore, rate limiting also restrict the use of these services. The
 geocoding process might end up in an error if you are making too many requests
-in a short time period (eg.  trying to geocode large number of addresses). If you pay for the geocoding service, you can naturally make more requests to the
-API.
+in a short time period (eg.  trying to geocode large number of addresses). If you pay for the geocoding service, you can naturally make more requests to the API.
 
-In this lesson we will use the Nominatim geocoder for locating a relatively
-small number of addresses. 
-
-It is important to pay attention to the geocoding providers' Terms of Use. For example, the Nominatim API is not meant for super heavy use. Nominatim doesn't require the use of an API key, but the usage of the Nominatim service is rate-limited to 1 request per second (3600 / hour). Users also need to provide an identifier for their application, and give appropriate attribution to using OpenStreetMap data. You can read more about Nominatim usage policy in [here](https://operations.osmfoundation.org/policies/nominatim/) [^nominatim_toc]. When using Nominatim via `geopandas` and `geopy`, we can specify a custom a custom `user_agent` parameter to idenfy our application, and we can add a `timeout` to allow enough time to get the response from the service. 
+In this lesson we will use the Nominatim geocoder for locating a relatively small number of addresses. The Nominatim API is not meant for super heavy use. Nominatim doesn't require the use of an API key, but the usage of the Nominatim service is rate-limited to 1 request per second (3600 / hour). Users also need to provide an identifier for their application, and give appropriate attribution to using OpenStreetMap data. You can read more about Nominatim usage policy in [here](https://operations.osmfoundation.org/policies/nominatim/) [^nominatim_toc]. When using Nominatim via `geopandas` and `geopy`, we can specify a custom a custom `user_agent` parameter to idenfy our application, and we can add a `timeout` to allow enough time to get the response from the service. 
 
 
 
@@ -71,9 +65,9 @@ data.head()
 ```
 
 <!-- #region deletable=true editable=true -->
-Now we have our data in a `DataFrame` and we can geocode our addresses using the the geocoding function in `geopandas` that uses `geopy` package in the background. The function geocodes a list of addresses (strings) and return a `GeoDataFrame` containing the resulting point objects in ``geometry`` column. 
+Now we have our data in a `DataFrame` and we can geocode our addresses using the the geocoding function in `geopandas` that uses `geopy` package in the background. The function geocodes a list of addresses (strings) and returns a `GeoDataFrame` with the geocoded result. 
 
-Here we import the geocoding function and geocode the addresses (column `addr`) using Nominatim. Note that we need to provide a custom string (name of your application) in the `user_agent` parameter. We can also add the `timeout`-parameter to specifies how many seconds to wait for a response from the service.
+Here we import the geocoding function and geocode the addresses using Nominatim. The addressess are in the column `addr`. Note that we need to provide a custom string (name of your application) in the `user_agent` parameter. We can also add the `timeout`-parameter to specify how many seconds to wait for a response from the service.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -85,7 +79,7 @@ from geopandas.tools import geocode
 geo = geocode(data["addr"], 
               provider="nominatim", 
               user_agent="pythongis_book", 
-              timeout=4)
+              timeout=10)
 ```
 
 ```python
@@ -93,45 +87,19 @@ geo.head()
 ```
 
 <!-- #region deletable=true editable=true -->
-And Voilà! As a result we have a GeoDataFrame that contains an `address`-column containing the geocoded addresses and a `geometry` column containing `Point`-objects representing the geographic locations of the addresses. Notice that these addresses are given However, the ``id`` column is not there. Thus, we need to join the
-information from ``data`` into our new GeoDataFrame ``geo``, thus making
-a Table Join.
+And Voilà! As a result we have a GeoDataFrame that contains an `address`-column with the geocoded addresses and a `geometry` column containing `Point`-objects representing the geographic locations of the addresses. Notice that these addresses are not the original addresses, but those identified by Nominatim. We can join the data from the original text file to the geocoded result to get the address idss and original addresses along. 
+
+In this case, we can join the information using the `.join()` function because the original data frame and the geocoded output have an identical index and an identical number of rows.
 <!-- #endregion -->
-
-
-
-
-<div class="alert alert-info">
-
-**Rate-limiting**
-
-When geocoding a large dataframe, you might encounter an error when geocoding. In case you get a time out error, try first using the `timeout` parameter as we did above (allow the service a bit more time to respond). In case of Too Many Requests error, you have hit the rate-limit of the service, and you should slow down your requests. To our convenience, geopy provides additional tools for taking into account rate limits in geocoding services. This script adapts the usage of [geopy RateLimiter](https://geopy.readthedocs.io/en/stable/#geopy.extra.rate_limiter.RateLimiter) to our input data:
-
+```python
+join = geo.join(data)
 ```
-from geopy.geocoders import Nominatim
-from geopy.extra.rate_limiter import RateLimiter
-from shapely.geometry import Point
 
-# Initiate geocoder
-geolocator = Nominatim(user_agent='autogis_xx')
-
-# Create a geopy rate limiter:
-geocode_with_delay = RateLimiter(geolocator.geocode, min_delay_seconds=1)
-
-# Apply the geocoder with delay using the rate limiter:
-data['temp'] = data['addr'].apply(geocode_with_delay)
-
-# Get point coordinates from the GeoPy location object on each row:
-data["coords"] = data['temp'].apply(lambda loc: tuple(loc.point) if loc else None)
-
-# Create shapely point objects to geometry column:
-data["geometry"] = data["coords"].apply(Point)
+```python
+join.head()
 ```
-All in all, remember that 
-</div>
 
-
-Now it is easy to save our address points into a Shapefile
+Here we can see the geocoded address (column `address`) and original address (column `addr`) side-by side and verify that the results look correct for the five first rows. Note that in some cases, Nominatim has identified a spesific point-of-interest such as a restaurant as the exact location. Finally, we can save the geocoded addresses to a file.
 
 ```python deletable=true editable=true
 # Output file path
@@ -152,11 +120,8 @@ Nominatim works relatively nicely if you have well defined and well-known addres
 
 ## Footnotes
 
-[^shp]: <https://en.wikipedia.org/wiki/Shapefile> 
 [^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON>
 [^geopy]: <https://geopy.readthedocs.io/en/stable/>
-[^GPKG]: <https://en.wikipedia.org/wiki/GeoPackage>
-[^KML]: <https://en.wikipedia.org/wiki/Keyhole_Markup_Language> 
 [^nominatim]: <https://nominatim.org/>
 [^nominatim_toc]: <https://operations.osmfoundation.org/policies/nominatim/>
 [^photon]: <https://photon.komoot.io/>
