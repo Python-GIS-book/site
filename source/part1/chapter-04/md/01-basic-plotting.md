@@ -272,11 +272,11 @@ Create a line plot similar to the examples above with the following attributes:
 - A title that reads "Evening temperatures at Helsinki-Vantaa on October 1, 2019"
 - A text label indicating the warmest temperature in the evening
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 # Define dates
@@ -300,10 +300,6 @@ ax = oct1_temps.plot(
 ax.text(warm_time, 43.0, "Warmest temperature in the evening ->")
 ax.legend(loc=4)
 ```
-
-<!-- #region tags=[] -->
-_**Figure 4.8**. The solution plot for Question 4.1._
-<!-- #endregion -->
 
 ## Bar plots in pandas
 
@@ -329,7 +325,7 @@ ax.text(0, 42.1, "Coldest \ntemp \nv")
 ax.legend()
 ```
 
-_**Figure 4.9**. A bar plot using pandas with the example temperature data._
+_**Figure 4.8**. A bar plot using pandas with the example temperature data._
 
 You can find more about how to format bar charts on the [pandas documentation website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html) [^pandas-docs].
 
@@ -419,11 +415,11 @@ july2014_df.hvplot(
 
 <!-- #raw tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 4.10}. An interactive plot example using hvPlot.}}, center, nofloat}{../img/hvplot-example.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 4.9}. An interactive plot example using hvPlot.}}, center, nofloat}{../img/hvplot-example.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
-_**Figure 4.10**. An interactive plot example using hvPlot._
+_**Figure 4.9**. An interactive plot example using hvPlot._
 
 Now we have an interactive line plot where the users can place their mouse cursor above the line to see the plotted values at a given location, zoom in and/or pan the plot to areas of interest, and click on the legend items to hide or display them. And as you can see, hvPlot makes it very easy to start creating your own interactive plots from pandas DataFrames.
 

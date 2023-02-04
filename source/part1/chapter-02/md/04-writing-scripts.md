@@ -157,7 +157,7 @@ print("The freezing point of water in Fahrenheit is:", celsius_to_fahr(0))
 
 You should get following output:
 
-```
+```code
 The freezing point of water in Fahrenheit is: 32.0
 ```
 
