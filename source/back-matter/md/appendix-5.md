@@ -202,6 +202,7 @@ ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 ## Chapter 6
 
 6.1
+
 ```python
 
 # Triangle
@@ -217,6 +218,7 @@ point.buffer(1)
 ```
 
 6.2
+
 ```python
 
 print("Number of rows", len(data["CLASS"]))
@@ -225,7 +227,25 @@ print("Number of groups", data["GROUP"].nunique())
 
 ```
 
+
 6.3
+
+```python
+
+# Calculate population density
+data["pop_density_km2"] = data["pop2019"] / data["area_km2"]
+
+# Print out average and maximum values
+print("Average:", 
+      round(data["pop_density_km2"].mean()), "pop/km2")
+
+print("Maximum:", 
+      round(data["pop_density_km2"].max()), "pop/km2")
+
+```
+
+6.4
+
 ```python
 
 # Save to file

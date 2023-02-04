@@ -29,75 +29,44 @@ Similar to importing import pandas as `pd`, we will import geopandas as `gpd`:
 import geopandas as gpd
 ```
 
-## Reading a Shapefile
+## Reading a file
 
-Esri Shapefile is the default file format when reading in data usign geopandas, so we only need to pass the file path in order to read in our data:
+In `geopandas`, we can use a generic function `.from_file()` for reading in various data formats. The data-folder contains some census data from Austin, Texas downloaded from the [U.S Census bureau](https://www.census.gov/programs-surveys/acs/data.html) [^us_census]. Let's first define the path to the file.
 
 ```python
 from pathlib import Path
 
-input_folder = Path("../data/NLS")
-fp = input_folder / "m_L4132R_p.shp"
+data_folder = Path("data")
+fp = data_folder/ "Austin" / "austin_pop_2019.gpkg"
+print(fp)
 ```
 
+Now we can pass this filepath to `geopandas`.
+
 ```python
-# Read file using gpd.read_file()
 data = gpd.read_file(fp)
 ```
 
-Let's check the data type:
+Let's check the data type.
 
 ```python jupyter={"outputs_hidden": false}
 type(data)
 ```
 
-Here we see that our `data` -variable is a `GeoDataFrame`. GeoDataFrame extends the functionalities of
-`pandas.DataFrame` in a way that it is possible to handle spatial data using similar approaches and datastructures as in pandas (hence the name geopandas). 
-
-Let's check the first rows of data: 
+Here we see that our `data` -variable is a `GeoDataFrame` which extends the functionalities of
+`DataFrame` to handle spatial data. We can apply many familiar `pandas` methods to explore the contents of our `GeoDataFrame`. Let's have a closer look at the first rows of the data. 
 
 ```python jupyter={"outputs_hidden": false}
 data.head()
 ```
 
-- Check all column names:
-
-```python
-data.columns.values
-```
-
-As you might guess, the column names are in Finnish.
-Let's select only the useful columns and rename them into English:
-
-```python
-data = data[["RYHMA", "LUOKKA", "geometry"]]
-```
-
-Define new column names in a dictionary:
-
-```python
-colnames = {"RYHMA": "GROUP", "LUOKKA": "CLASS"}
-```
-
-Rename:
-
-```python
-data.rename(columns=colnames, inplace=True)
-```
-
-Check the output:
-
-```python
-data.head()
-```
-
 #### Question 6.2
 
-Figure out the following information from our input data using your pandas skills:
+Figure out the following information from our input data using your `pandas` skills:
     
 - Number of rows?
-- Number of classes?
-- Number of groups?
+- Number of census tracts (based on column `tract`)?
+- Total population (based on column `pop2019`)?
 
 ```python tags=["remove_cell"]
 # You can use this cell to enter your solution.
@@ -106,118 +75,103 @@ Figure out the following information from our input data using your pandas skill
 ```python tags=["remove_book_cell", "hide_cell"]
 # Solution 
 
-print("Number of rows", len(data["CLASS"]))
-print("Number of classes", data["CLASS"].nunique())
-print("Number of groups", data["GROUP"].nunique())
+print("Number of rows", len(data))
+print("Number of census tract", data["tract"].nunique())
+print("Total population", data["pop2019"].sum())
 ```
 
-It is always a good idea to explore your data also on a map. Creating a simple map from a `GeoDataFrame` is really easy. You can use ``.plot()`` -function from geopandas that **creates a map based on the geometries of the data**. Geopandas actually uses matplotlib for plotting which we introduced in Part 1 of this book. Let's try it out, and do a quick visualization of our data.
+It is always a good idea to explore your data also on a map. Creating a simple map from a `GeoDataFrame` is really easy. You can use the ``.plot()`` -function from geopandas that creates a map based on the geometries of the data. `geopandas` actually uses `matplotlib` for plotting which we introduced in Part 1 of this book. Let's try it out, and do a quick visualization of our data.
 
 ```python jupyter={"outputs_hidden": false}
 data.plot()
 ```
 
-Voilá! As we can see, it is really easy to produce a map out of your geospatial data with `geopandas`. *If you are living in the Helsinki region in Finland, you might recognize the shapes plotted on the map!*
+Voilá! Now we have a quick overview of the geometries in this data. The x and y axes in the plot are based on the coordiante values of the geometries.
 
 
 ## Geometries in geopandas
 
-Geopandas takes advantage of Shapely's geometric objects. Geometries are stored in a column called `geometry` that is a default column name for storing geometric information in geopandas.
-
-
-Let's print the first 5 rows of the column 'geometry':
+A `GeoDataFrame` has one column for storing geometries. By default, `geopandas` looks for the geometries from a column called `geometry`. It is also possible to define other columns as the geometry column. Th geometry column is a `GeoSeries` that contains shapely's geometric objects.  Let's have a look at the geometry column of our sample data.
 
 ```python jupyter={"outputs_hidden": false}
 data["geometry"].head()
 ```
 
-As we can see the `geometry` column contains familiar looking values, namely shapely `Polygon` -objects. Since the spatial data is stored as shapely objects, it is possible to use shapely methods when dealing with geometries in geopandas. Also,  all `pandas` methods are directly available in `geopandas` without the need to import `pandas` separately. Let's have a closer look at the polygons and try to apply some of the methods we are already familiar with. Let's start by checking the area of the first polygon in the data.
+As we can see here,  the `geometry` column contains polygon geometries. Since these polygons are  `shapely` objects, it is possible to use `shapely` methods for handling them also in `geopandas`. Many of the methods can be applied all at once to the whole `GeoDataFrame`. 
+
+Let's proceed to calculating area of the census tract polygons. At this point, it is good to note that the census data are in a metric coordinate reference system, so the area values will be given in square meters.
 
 ```python
-# Access the geometry on the first row of data
-data.at[0, "geometry"]
+data["geometry"].area
 ```
+
+The same result can be achieved by using the syntax `data.area`. Let's convert the area values from square meters to square kilometers and store them into a new column.
 
 ```python
-# Print information about the area
-print("Area:", round(data.at[0, "geometry"].area, 0), "square meters")
+# Get area and convert from m2 to km2
+data["area_km2"] = data.area / 1000000
 ```
 
-
-Geodataframes and geoseries have an attribute `area` which we can use for accessing the area for each feature at once.
+Check the output.
 
 ```python
-data.area
+data["area_km2"].head()
 ```
 
-Let's next create a new column into our GeoDataFrame where we calculate and store the areas of individual polygons:
+## Question 6.3
 
-```python jupyter={"outputs_hidden": false}
-# Create a new column called 'area'
-data["area"] = data.area
+Using your `pandas` skills, create a new column `pop_density_km2` and populate it with population density values (population / km2) calculated based on columns `pop2019` and `area_km2`. Print out answers to the following questions:
+
+- What was the average population density in 2019?
+- What was the maximum population density per census tract?
+
+```python tags=["remove_cell"]
+# Use this cell to enter your solution.
 ```
 
-Check the output:
+```python tags=["remove_book_cell", "hide_cell"]
+# Solution 
 
-```python
-data["area"]
-```
+# Calculate population density
+data["pop_density_km2"] = data["pop2019"] / data["area_km2"]
 
-Let's check what is the `min`, `max` and `mean` of those areas using `pandas` functions introduced in Part 1.
+# Print out average and maximum values
+print("Average:", 
+      round(data["pop_density_km2"].mean()), "pop/km2")
 
-```python
-# Maximum area
-round(data["area"].max(), 2)
-```
-
-```python
-# Minimum area
-round(data["area"].min(), 2)
-```
-
-```python
-# Average area
-round(data["area"].mean(), 2)
+print("Maximum:", 
+      round(data["pop_density_km2"].max()), "pop/km2")
 ```
 
 ## Writing data into a file
 
-It is possible to export GeoDataFrames into various data formats using the [to_file()](http://geopandas.org/io.html#writing-spatial-data) method. In our case, we want to export subsets of the data into Shapefiles (one file for each feature class).
-
-Let's first select one class (class number `36200`, "Lake water") from the data as a new GeoDataFrame:
-
+It is possible to export spatial data into various data formats using the `.to_file()` method in `geopandas`. Let's practice writing data into the geopackage file format. Before proceeding, let's check how the data looks like at this point.
 
 ```python
-# Select a class
-selection = data.loc[data["CLASS"] == 36200]
+data.head()
 ```
 
-Check the selection:
-
-```python
-selection.plot()
-```
-
-Write this layer into a new Shapefile using the `gpd.to_file()` -function.
+Let's create a folder  (if it doens't exist) and file name for our result. We will use geopackage also as the output format. 
 
 ```python
 # Create a output path for the data
-output_folder = Path("results")
+output_folder = Path("data/results")
 
 if not output_folder.exists():
     output_folder.mkdir()
 
-output_fp = output_folder / "Class_36200.shp"
+output_fp = output_folder / "austin_pop_density_2019.gpkg"
 ```
+
+Write the data into a file using the `.to_file()` method.
 
 ```python
-# Write those rows into a new file (the default output file format is Shapefile)
-selection.to_file(output_fp)
+data.to_file(output_fp)
 ```
 
-#### Question 6.3
+#### Question 6.4
 
-Read the output Shapefile in a new geodataframe, and check that the data looks ok.
+Read the output file using `geopandas` and check that the data looks ok.
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -247,3 +201,4 @@ temp.plot()
 [^OGC_sfa]: <https://www.ogc.org/standards/sfa>
 [^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>
 [^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>
+[^us_census]: <https://www.census.gov/programs-surveys/acs/data.html>
