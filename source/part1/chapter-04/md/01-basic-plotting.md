@@ -99,7 +99,7 @@ ax = oct1_temps.plot(
 
 _**Figure 4.5**. A plot of the example temperature data with additional formatting, a title, and axis labels._
 
-Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter `style='ko--'`. In this case, `k` tells the `oct1_temps.plot()` function to use black color for the lines and symbols, `o` tells it to show circles at the data points, and `--` says to use a dashed line between points. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, and axis labels using the `xlabel` and `ylabel` parameters [^axis_labels]. 
+Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter `style='ko--'`. In this case, `k` tells the `oct1_temps.plot()` function to use black color for the lines and symbols, `o` tells it to show circles at the data points, and `--` says to use a dashed line between points. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, and axis labels using the `xlabel` and `ylabel` parameters.
 
 <!-- #region -->
 ## Formatting and annotating the figure
@@ -437,4 +437,3 @@ That is all we will explore for the moment, but you are welcome to have a look a
 [^hvplot]: <https://hvplot.holoviz.org/>
 [^bokeh]: <https://docs.bokeh.org/en/latest/index.html>
 [^hvplot_guide]: <https://hvplot.holoviz.org/user_guide/index.html>
-[^axis_labels]: Axis labels are a relatively new feature in pandas plotting, added in version 1.1.0. If you are using an older version of pandas and do not want upgrade then you will need to use a separate command such as `ax.set_xlabel('Date')` to set the axis labels.

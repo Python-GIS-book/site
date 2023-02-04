@@ -278,17 +278,10 @@ point.buffer(1)
 
 ## Footnotes
 
-[^bounding_box]: <https://en.wikipedia.org/wiki/Minimum_bounding_box>
-[^box]: <https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.box>
-[^geopandas]: <https://geopandas.org/>
 [^GEOS]: <https://trac.osgeo.org/geos>
-[^NLS_topodata]: <https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database>
-[^NLS_lisence]: <https://www.maanmittauslaitos.fi/en/opendata-licence-cc40>
 [^OGC_sfa]: <https://www.ogc.org/standards/sfa>
-[^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>
 [^polygon]: <https://shapely.readthedocs.io/en/stable/manual.html#polygons>
 [^PostGIS]: <https://postgis.net/>
 [^QGIS]: <http://www.qgis.org/en/site/>
 [^shapely]: <https://shapely.readthedocs.io/en/stable/manual.html>
-[^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>
 [^WKT]: <https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry>

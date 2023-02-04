@@ -232,154 +232,18 @@ temp = gpd.read_file(output_fp)
 temp.head()
 ```
 
-```python
+```python tags=["remove_book_cell", "hide_cell"]
 # Solution
 
 # You can also plot the data for a visual check
 temp.plot()
 ```
 
-## Grouping the GeoDataFrame
-
-Next we will automate the file export task. we will group the data based on column `CLASS` and export a shapefile for each class. Here we can use the `.groupby()` method from `pandas` and apply it on our `GeoDataFrame`. The function groups data based on values on selected column(s).  We will want to group the data by distinct classes. Before continuing, let's check the structure of our data from the first rows.
-
-```python
-data.head()
-```
-
-The `CLASS` column in the data contains information about different land use types represeted with class codes. We can also check all unique values in that column and the number of unique values.
-
-```python jupyter={"outputs_hidden": false}
-# Print all unique values in the column
-data["CLASS"].unique()
-```
-
-```python
-#Check the number of unique values
-data["CLASS"].nunique()
-```
-
-Now we can group the data into 20 distinct groups based on the land use class code.
-
-```python jupyter={"outputs_hidden": false}
-# Group the data by class
-grouped = data.groupby("CLASS")
-
-# Let's see what we have
-len(grouped)
-```
-
-The grouped object is similar to a list of keys and values in a dictionary and we can access, for example, information about the group keys.
-
-```python
-grouped.groups.keys()
-```
-
-As it should be, the group keys are unique values from the column by which we grouped the dataframe. Let's also check how many rows of data belongs to each group.
-
-```python jupyter={"outputs_hidden": false}
-# Iterate over the grouped object
-for key, group in grouped:
-
-    # Check how many rows each group has:
-    print("Terrain class:", key)
-    print("Number of rows:", len(group), "\n")
-```
-
-There are, for example, 56 lake polygons (class number 36200) in the input data. To get a better sense of the data structure, we can also check how the _last_ group looks like (because at this point, we have the variables in memory from the last iteration of the for-loop).
-
-```python
-group.head()
-```
-
-Notice that the index numbers refer to the row numbers in the original data. Check also the data type of the group.
-
-```python
-type(group)
-```
-
-At this point, the data are now grouped into separate GeoDataFrames by class. From here, we can save them into separate files.
-
-### Saving multiple output files
-
-Let's export each class into a separate Shapefile. While doing this, we also want to create unique filenames for each class.
-
-When looping over the grouped object, information about the class is stored in the variable `key`, and we can use this information for creating new variable names inside the for-loop. For example, we want to name the shapefile containing lake polygons as "terrain_36200.shp".
-
-```python
-# Determine output directory
-output_folder = Path("../data")
-
-# Create a new folder called 'Results'
-result_folder = output_folder / "Results"
-
-# Check if the folder exists already
-if not result_folder.exists():
-
-    print("Creating a folder for the results..")
-    # If it does not exist, create one
-    result_folder.mkdir()
-```
-
-At this point, you can go to the file browser and check that the new folder was created successfully. Finally, we will iterate over groups, create a file name, and save each group to a separate file.
-
-```python jupyter={"outputs_hidden": false}
-# Iterate over the groups
-for key, group in grouped:
-    # Format the filename
-    output_name = Path("terrain_{}.shp".format(key))
-
-    # Print information about the process
-    print("Saving file", output_name.name)
-
-    # Create an output path
-    outpath = result_folder / output_name
-
-    # Export the data
-    group.to_file(outpath)
-```
-
-Excellent! Now we have saved those individual classes into separate files and named the file according to the class name. Imagine how long time it would have taken to do the same thing manually.
-
-
-### Save attributes to a text file
-
-
-We can also extract basic statistics from our geodataframe, and save this information as a text file. Let's summarize the total area of each group.
-
-```python
-data.head()
-```
-
-```python
-area_info = grouped.area.sum().round()
-```
-
-```python
-area_info
-```
-
-Save area info to csv using pandas:
-
-```python
-# Create an output path
-area_info.to_csv(result_folder / "terrain_class_areas.csv", header=True)
-```
-
-
 ## Footnotes
 
-[^bounding_box]: <https://en.wikipedia.org/wiki/Minimum_bounding_box>
-[^box]: <https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.box>
 [^geopandas]: <https://geopandas.org/>
-[^GEOS]: <https://trac.osgeo.org/geos>
 [^NLS_topodata]: <https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/topographic-database>
 [^NLS_lisence]: <https://www.maanmittauslaitos.fi/en/opendata-licence-cc40>
 [^OGC_sfa]: <https://www.ogc.org/standards/sfa>
 [^paituli]: <https://avaa.tdata.fi/web/paituli/latauspalvelu>
-[^polygon]: <https://shapely.readthedocs.io/en/stable/manual.html#polygons>
-[^PostGIS]: <https://postgis.net/>
-[^QGIS]: <http://www.qgis.org/en/site/>
-[^shapely]: <https://shapely.readthedocs.io/en/stable/manual.html>
 [^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>
-[^WKT]: <https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry>

@@ -18,15 +18,6 @@ Reading data into Python is usually the first step of an analysis workflow. Ther
 
 This tutorial will show some typical examples how to read (and write) data from different sources. The main point in this section is to demonstrate the basic syntax for reading and writing data using short code snippets. You can find the example data sets in the data-folder. However, most of the example databases do not exists, but you can use and modify the example syntax according to your own setup.
 
-```python
-# Use this cell to enter your solution.
-```
-
-```python
-# Solution
-
-
-```
 
 ## Reading from different spatial data formats
 
@@ -240,11 +231,11 @@ Now we have successfully created a Shapefile from scratch using geopandas. Simil
 <!-- #endregion -->
 
 
-```python tags=[]
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["remove_cell", "hide_cell"]
+```python tags=["hide_cell", "remove_book_cell"]
 # Solution
 
 # Read in the data
@@ -254,7 +245,7 @@ senate_square = gpd.read_file(outfp)
 senate_square.head()
 ```
 
-```python tags=["remove_cell", "hide_cell"]
+```python tags=["hide_cell", "remove_book_cell"]
 # Solution
 
 # re-project
@@ -268,13 +259,13 @@ outfp = "../data/Results/Senaatintori_epsg3067.shp"
 senate_square.to_file(outfp)
 ```
 
+### Creating a GeoDataFrame from a text file
+
+<!-- #region tags=[] -->
 ## Footnotes
 
 [^shp]: <https://en.wikipedia.org/wiki/Shapefile> 
 [^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON>
-[^geopy]: <https://geopy.readthedocs.io/en/stable/>
 [^GPKG]: <https://en.wikipedia.org/wiki/GeoPackage>
 [^KML]: <https://en.wikipedia.org/wiki/Keyhole_Markup_Language> 
-[^nominatim]: <https://nominatim.org/>
-[^nominatim_toc]: <https://operations.osmfoundation.org/policies/nominatim/>
-[^photon]: <https://photon.komoot.io/>
+<!-- #endregion -->
