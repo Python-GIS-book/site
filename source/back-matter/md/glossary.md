@@ -15,6 +15,14 @@ jupyter:
 # Glossary
 
 ```{glossary}
+
+Application Programming Interface
+  An application programming interface or API is a set of protocols and tools that enable pieces of software to communicate and exchange information. For example, the Nominatim service has an API for accessing its geocoding service.
+
+API
+  See {term}`Application Programming Interface`.
+  
+  
 Collection
   A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.
 
@@ -61,7 +69,7 @@ Index
   A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
   
 Integrated Development Environment
-  An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface
+  An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface.
   
 Interpreter
   An interpreter is a computer program that is used to execute program instructions written in Python (or other languages). The interpreter reads your statements of code and based on these instructions actually does the work that has been assigned to it. 
