@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -14,7 +14,7 @@ jupyter:
 
 # Data in/out: Preparing GeoDataFrames from spatial data 
 
-Reading data into Python is usually the first step of an analysis workflow. There are various different GIS data formats available such as [Shapefile](https://en.wikipedia.org/wiki/Shapefile), [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON), [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language), and [GPKG](https://en.wikipedia.org/wiki/GeoPackage). Geopandas is capable of reading data from all of these formats (plus many more). 
+Reading data into Python is usually the first step of an analysis workflow. There are various different GIS data formats available such as [Shapefile](https://en.wikipedia.org/wiki/Shapefile) [^shp], [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) [^GeoJson], [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) [^KML], and [GeoPackage](https://en.wikipedia.org/wiki/GeoPackage) [^GPKG]. Geopandas is capable of reading data from all of these formats (plus many more). 
 
 This tutorial will show some typical examples how to read (and write) data from different sources. The main point in this section is to demonstrate the basic syntax for reading and writing data using short code snippets. You can find the example data sets in the data-folder. However, most of the example databases do not exists, but you can use and modify the example syntax according to your own setup.
 
@@ -51,9 +51,7 @@ newdata["geometry"] = None
 print(newdata)
 ```
 
-Now we have a `geometry` column in our GeoDataFrame but we still don't have any data.
-
-Let's create a Shapely `Polygon` repsenting the Helsinki Senate square that we can later insert to our GeoDataFrame:
+Now we have a `geometry` column in our GeoDataFrame but we still don't have any data. Let's create a Shapely `Polygon` repsenting the Helsinki Senate square that we can later insert to our GeoDataFrame:
 
 ```python
 from shapely.geometry import Polygon
@@ -107,7 +105,7 @@ print(newdata)
 
 Okay, now we have additional information that is useful for recognicing what the feature represents. 
 
-The next step would be to **determine the coordinate reference system (CRS) for the GeoDataFrame.** GeoDataFrame has an attribute called `.crs` that shows the coordinate system of the data (we will discuss more about CRS in next chapter). In our case, the layer doesn't yet have any crs definition:
+The next step would be to determine the coordinate reference system (CRS) for the GeoDataFrame. GeoDataFrame has an attribute called `.crs` that shows the coordinate system of the data (we will discuss more about CRS in next chapter). In our case, the layer doesn't yet have any crs definition.
 
 ```python jupyter={"outputs_hidden": false}
 print(newdata.crs)
@@ -141,24 +139,25 @@ newdata.to_file(outfp)
 Now we have successfully created a Shapefile from scratch using geopandas. Similar approach can be used to for example to read coordinates from a text file (e.g. points) and turn that information into a spatial layer.
 
 
-#### Check your understanding
+#### Question 6.4
 
+- Check the output Shapefile by reading it with geopandas and make sure that the attribute table and geometry seems correct.
 
-<div class="alert alert-info">
+- Re-project the data to ETRS-TM35FIN (EPSG:3067) and save into a new file!
 
-    
-Check the output Shapefile by reading it with geopandas and make sure that the attribute table and geometry seems correct.
-
-</div>
-
-<div class="alert alert-info">
-    
-Re-project the data to ETRS-TM35FIN (EPSG:3067) and save into a new file!
-
-</div>
 
 <!-- #endregion -->
 
+
+```python
+# Use this cell to enter your solution.
+```
+
+```python
+# Solution
+
+
+```
 
 ## Reading from different spatial data formats
 
@@ -416,3 +415,10 @@ and made a Shapefile out of them. Easy isn't it!
 <!-- #region deletable=true editable=true -->
 Nominatim works relatively nicely if you have well defined and well-known addresses such as the ones that we used in this tutorial. In practice, the address needs to exist in the OpenStreetMap database. Sometimes, however, you might want to geocode a "point-of-interest", such as a museum, only based on it's name. If the museum name is not on OpenStreetMap, Nominatim won't provide any results for it, but you might be able to geocode the place using some other geocoder.
 <!-- #endregion -->
+
+## Footnotes
+
+[^shp]: <https://en.wikipedia.org/wiki/Shapefile> 
+[^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON> 
+[^KML]: <https://en.wikipedia.org/wiki/Keyhole_Markup_Language> 
+[^GPKG]: <https://en.wikipedia.org/wiki/GeoPackage>
