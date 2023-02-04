@@ -106,11 +106,11 @@ You task here is to:
     - Has one parameter that is the temperature in degrees Celsius to be converted to degrees Newton
     - Returns the temperature in degrees Newton
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 

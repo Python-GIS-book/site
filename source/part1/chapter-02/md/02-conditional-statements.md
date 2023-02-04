@@ -12,16 +12,18 @@ jupyter:
     name: python3
 ---
 
+<!-- #region tags=[] -->
 # Conditional statements
 
 Next, we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
 
+<!-- #endregion -->
 
-
+<!-- #region tags=[] -->
 ## Basics of conditional statements
 
 Conditional statements can change the code behaviour based on certain conditions. The idea is simple: **IF** a condition is met, **THEN** a set of actions is performed. 
-
+<!-- #endregion -->
 
 ### A simple conditional statement
 
@@ -91,11 +93,11 @@ Wear a raincoat
 Wear rain boots
 ```
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 weather = "rain"
@@ -177,11 +179,11 @@ elif today == today:
 Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 <!-- #endregion -->
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 "B"
@@ -218,20 +220,21 @@ Later in this book we will also need the bitwise operators `&` for `and`, and `|
 
 Let's return to our example about making decisions on a rainy day. Imagine that we consider not only the rain, but also the wind speed (in meters per second). If it is windy or raining, we’ll just stay at home. If it's not windy or raining, we can go out and enjoy the weather! 
 
-Let' set 18 m/s as our comfort limit in the conditional statement and see what our Python program tells us to do in these conditions:
+Let's set 10 m/s as our comfort limit in the conditional statement and see what our Python program tells us to do in these conditions:
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 weather = "rain"
-wind_speed = 20
-comfort_limit = 18
+wind_speed = 14
+comfort_limit = 10
 
-# If it is windy or raining, print "stay at home", else print "go out and enjoy the weather!"
+# If it is windy or raining, print "stay at home",
+# otherwise (else) print "go out and enjoy the weather!"
 if (weather == "rain") or (wind_speed >= comfort_limit):
     print("Just stay at home")
 else:

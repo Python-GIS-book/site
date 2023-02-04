@@ -73,10 +73,11 @@ else:
 2.8
 ```python
 weather = "rain"
-wind_speed = 20
-comfort_limit = 18
+wind_speed = 14
+comfort_limit = 10
 
-# If it is windy or raining, print "stay at home", else print "go out and enjoy the weather!"
+# If it is windy or raining, print "stay at home",
+# otherwise (else) print "go out and enjoy the weather!"
 if (weather == "rain") or (wind_speed >= comfort_limit):
     print("Just stay at home")
 else:

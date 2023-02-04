@@ -294,11 +294,11 @@ Nice! Now we have "labeled" the rows based on information about day of the year 
 
 Create a new column `'MONTH'` with information about the month without the year.
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data["MONTH"] = data["TIME_STR"].str.slice(start=4, stop=6)

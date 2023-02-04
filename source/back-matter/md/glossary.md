@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -20,6 +20,9 @@ Collection
 
 Computer
   We use the definition of a computer given by {cite}`Zelle2017`: "A machine that stores and manipulates information under the control of a changeable program."
+  
+Coordinate Reference System
+  A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth's surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.
   
 Data model
   A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell.    
@@ -84,6 +87,9 @@ Markdown
   A lightweight markup language used to convert plain text input to rich-formatted output.
   Markdown can, for example, be used to create simple documentation with different heading levels, text in bold and/or italics, text in lists, or documentation that includes hyperlinks.
   More information can be found at <https://en.wikipedia.org/wiki/Markdown>.
+  
+Metadata
+  Metadata refers to data that provides information about other data. It often describes characteristics of the data, such as its content, quality, format, and other relevant characteristics. For example, the metadata of a satellite image may include information about the image's resolution, file size, coordinate reference system, and the date it was taken. 
 
 Module
   A file containing Python definitions and statements. Module files have the ``.py`` file extension.
