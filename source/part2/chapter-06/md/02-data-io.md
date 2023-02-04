@@ -259,6 +259,8 @@ outfp = "../data/Results/Senaatintori_epsg3067.shp"
 senate_square.to_file(outfp)
 ```
 
+### Creating a GeoDataFrame from a text file
+
 <!-- #region tags=[] -->
 ## Footnotes
 
