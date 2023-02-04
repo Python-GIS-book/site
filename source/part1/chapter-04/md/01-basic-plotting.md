@@ -272,11 +272,11 @@ Create a line plot similar to the examples above with the following attributes:
 - A title that reads "Evening temperatures at Helsinki-Vantaa on October 1, 2019"
 - A text label indicating the warmest temperature in the evening
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 # Define dates

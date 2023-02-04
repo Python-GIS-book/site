@@ -74,11 +74,11 @@ print("Number of rows after removing no data values:", len(data))
 How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified DataFrame to another variable name or do not use the `inplace` parameter.
 <!-- #endregion -->
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 
@@ -292,11 +292,11 @@ The new version of the figure essentially conveys the same information as the fi
 
 Visualize only the winter and summer temperatures in a 1x2 panel figure. Save the resulting figure as a .png file.
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 # Create the new figure and subplots
