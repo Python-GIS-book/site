@@ -214,7 +214,7 @@ Now that we have defined `tempFahrenheit`, we can run again the print statement 
 print("temperature in Celsius:", temp_celsius, "and in Fahrenheit:", tempFahrenheit)
 ```
 
-The number beside the cell, for example `In [2]`, tells you the order in which the Python cells have been executed. This way you can see a history of the order in which you have run the cells.
+The number beside the cell, for example `In [21]`, tells you the order in which the Python cells have been executed. This way you can see a history of the order in which you have run the cells.
 
 <!-- #region deletable=true editable=true -->
 ### Variable values
