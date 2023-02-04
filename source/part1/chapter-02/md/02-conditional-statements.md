@@ -12,16 +12,18 @@ jupyter:
     name: python3
 ---
 
+<!-- #region tags=[] -->
 # Conditional statements
 
 Next, we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
 
+<!-- #endregion -->
 
-
+<!-- #region tags=[] -->
 ## Basics of conditional statements
 
 Conditional statements can change the code behaviour based on certain conditions. The idea is simple: **IF** a condition is met, **THEN** a set of actions is performed. 
-
+<!-- #endregion -->
 
 ### A simple conditional statement
 
@@ -91,11 +93,11 @@ Wear a raincoat
 Wear rain boots
 ```
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 weather = "rain"
@@ -177,11 +179,11 @@ elif today == today:
 Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 <!-- #endregion -->
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 "B"
@@ -220,11 +222,11 @@ Let's return to our example about making decisions on a rainy day. Imagine that 
 
 Let' set 18 m/s as our comfort limit in the conditional statement and see what our Python program tells us to do in these conditions:
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 weather = "rain"
