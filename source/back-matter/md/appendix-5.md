@@ -218,6 +218,15 @@ point.buffer(1)
 6.2
 ```python
 
+print("Number of rows", len(data["CLASS"]))
+print("Number of classes", data["CLASS"].nunique())
+print("Number of groups", data["GROUP"].nunique())
+
+```
+
+6.3
+```python
+
 # Save to file
 temp = gpd.read_file(output_fp)
 
