@@ -41,11 +41,12 @@ What `geopandas` returns here is in fact a CRS object from the `pyproj` library.
 data["geometry"].head()
 ```
 
-As we can see, the coordinate values of the Polygons indeed look like {term}`decimal degrees`, so everything seems to be in order. WGS84 is not really a good coordinate system for representing European borders on a map because the areas get distorted. Hence, it is a good idea to convert these geometries into [Lambert Azimuthal Equal Area projection](http://spatialreference.org/ref/epsg/etrs89-etrs-laea/) [^LAEA] (EPSG:3035) which is a good option for creating maps with country-level data in Europe.
+As we can see, the coordinate values of the Polygons indeed look like {term}`decimal degrees`, so everything looks correct. However, WGS84 is not really a good coordinate system for representing European borders on a map because the areas get distorted. Hence, it is a good idea to convert these geometries into [Lambert Azimuthal Equal Area projection](http://spatialreference.org/ref/epsg/etrs89-etrs-laea/) [^LAEA] (EPSG:3035) which is a good option for creating maps with country-level data in Europe.
 
-Changing from one coordinate system to another is a simple task to do in `geopandas`, as we can use the `.to_crs()` -method which is a built-in function of the GeoDataFrame. The function has two alternative parameters 1) `crs` and 2) `epgs` that can be used to make the coordinate transformation and re-project the data into the CRS that you want to use. 
 
-- Let's re-project our data into `EPSG 3035` using `epsg` -parameter:
+## Reprojecting a GeoDataFrame
+
+Changing from one coordinate system to another is a simple task to do in `geopandas`, as we can use the `.to_crs()` -method which is a built-in functionality of the `GeoDataFrame`. The method has two alternative parameters: 1) `crs` which accepts CRS information from various formats, such as proj-strings or OGS WKT text; and 2) `epgs` that accepts the EPSG-code of a given coordinate system as a number. Both of these can be used to make the coordinate transformation and reproject the data into the desired CRS. Let's reproject our data into `EPSG:3035` using the `epsg` -parameter:
 
 ```python
 # Let's make a backup copy of our data
@@ -53,22 +54,17 @@ data_wgs84 = data.copy()
 
 # Reproject the data
 data = data.to_crs(epsg=3035)
-```
 
-```python
 # Check the new geometry values
 data["geometry"].head()
 ```
 
-And here we go, the coordinate values in the geometries have changed! Now we have successfully changed the projection of our layer into a new one, i.e. to `ETRS-LAEA` projection. 
-
-To really understand what is going on, it is good to explore our data visually. Let's compare the datasets by making
-maps out of them.
-
-
 ```python
-data_wgs84.crs
+# What is the new EPSG code?
+data.crs.to_epsg()
 ```
+
+And here we go, the coordinate values in the geometries have changed! Now we have successfully changed the CRS of our layer into a new one, i.e. to the planar `ETRS-LAEA` coordinate system (EPSG:3035). To really understand what is going on, it is good to explore our data visually. Let's compare the datasets by making maps out of them:
 
 ```python
 import matplotlib.pyplot as plt
@@ -96,26 +92,20 @@ ax2.set_aspect(aspect=1)
 plt.tight_layout()
 ```
 
-_**Figure 6.X**. Map of Europe plotted with two different coordinate reference systems._
+_**Figure 6.12**. Map of Europe plotted with two different coordinate reference systems._
 
-Indeed, the maps look quite different, and the re-projected one looks much better in Europe as the areas especially in the north are more realistic and not so stretched as in WGS84.
-
-Finally, let's save our projected layer into a Shapefile so that we can use it later. Note, even if the crs information is stored in the .prj file, it might be a good idea also to include crs info in the filename:
+As we can see from the **Figure 6.12**, the maps look quite different and the reprojected one looks significantly better especially in the North where the geometries are more realistic and not so stretched as in WGS84. Finally, let's save our projected layer into a Shapefile so that we can use it later. Note, even if the CRS information is stored with the output file (in this case into a `.prj` file associated with the Shapefile), it might be a good idea also to include CRS info in the filename which makes it easy to identify the CRS directly from the name of the file:
 
 ```python
 # Ouput filepath
-outfp = "L2_data/Europe_borders_epsg3035.shp"
+outfp = "data/EU_countries/Europe_borders_epsg3035.shp"
 
 # Save to disk
 data.to_file(outfp)
 ```
 
-## Dealing with different CRS formats
+## Advanced CRS functionalities
 
-
-There are various ways to present Coordinate Reference System information, such as [PROJ strings](https://proj.org/usage/quickstart.html), `EPSG codes`, `Well-Known-Text (WKT)`, `JSON`. It is likely that you will encounter some of these when working with spatial data obtained from different sources. Being able to convert the CRS information from one format to another is needed every now and then, hence, it is useful to know a few tricks how to do this.
-
-Luckily, dealing with CRS information is easy in Python using the [pyproj](https://pyproj4.github.io/pyproj/stable/) library. In fact, `pyproj` is a Python wrapper around a software called [PROJ](https://proj.org/) (maintained by [OSGeo](https://www.osgeo.org/) community), which is widely used tool for conducting coordinate transformations in various GIS softwares. `Pyproj` is also used under the hood in Geopandas, and it handles all the CRS definitions and coordinate transformations (reprojecting from CRS to another as we did earlier). 
 
 As the CRS in different spatial datasets differ fairly often (i.e. one might have coordinates defined in decimal degrees while the other one has them in meters), it is a common procedure to reproject (transform) different layers into a common CRS. It is important that the layers are in the same coordinate reference system when analyzing the spatial relationships between the layers, for example, when making a Point in Polygon -query, or other type of overlay analysis.
 
@@ -166,15 +156,6 @@ print(data.crs)
 Printing the crs using the print() statement gives us the EPSG code. 
 
 However, let's see how the same information looks like in other formats such as `WKT` or `Proj4` text. For this we need to use the `CRS` class.  
-
-
-<div class="alert alert-info">
-
-**Note**
-    
-The following examples have been tested to work with `pyproj` version `2.6.1` and `geopandas` version `0.8.1`. You can check package versions by running the `conda list` -command.
-   
-</div>
 
 ```python
 # Initialize the CRS class for epsg code 3035:
@@ -245,14 +226,6 @@ data.crs = CRS.from_epsg(3035).to_wkt()
 
 ```python
 print(data.crs)
-```
-
-```python
-# Ouput filepath
-outfp = "L2_data/Europe_borders_epsg3035.shp"
-
-# Save to disk
-# data.to_file(outfp)
 ```
 
 <!-- #region -->
