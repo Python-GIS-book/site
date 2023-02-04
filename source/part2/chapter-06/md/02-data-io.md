@@ -113,159 +113,91 @@ outfp = "temp/finland_municipalities.tab"
 data.to_file(outfp, driver="MapInfo File")
 ```
 
-## Creating new GeoDataFrame from scratch
+## Creating a GeoDataFrame from scratch
 
-Since `geopandas` takes advantage of `shapely` geometric objects, it is possible to create spatial data from scratch by passing `shapely`'s geometric objects into the `GeoDataFrame`. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into spatial data layers. Next we will see how to create a new `GeoDataFrame` from scratch and save it into a file. Our goal is to define a geometry that represents the outlines of the [Senate square in Helsinki, Finland](https://fi.wikipedia.org/wiki/Senaatintori). Let's start by creating a new empty `GeoDataFrame` object.
-
-```python
-newdata = gpd.GeoDataFrame()
-```
-
-```python
-type(newdata)
-```
-
-```python
-print(newdata)
-```
-
-We have an empty GeoDataFrame! Next, we should add some geometries in there. By default, the geometry-column should be named `"geometry"` (geopandas automatically looks for geometries from this column).  So, let's create a new column called `"geometry"`
-
-```python jupyter={"outputs_hidden": false}
-newdata["geometry"] = None
-```
-
-```python
-print(newdata)
-```
-
-Now we have a `geometry` column but we still don't have any data values in there. Let's create a `Polygon` repsenting the Helsinki Senate square that we can later insert to our `GeoDataFrame`.
+It is possible to create spatial data from scratch by using `shapely`'s geometric objects and `geopandas`. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into spatial data layers. Let's first try creating a simple `GeoDataFrame` based on coordinate information that represents the outlines of the [Senate square in Helsinki, Finland](https://fi.wikipedia.org/wiki/Senaatintori). Here are the coordinates based on which we can create a `Polygon` object using `shapely.
 
 ```python
 from shapely.geometry import Polygon
-```
 
-```python jupyter={"outputs_hidden": false}
 # Coordinates of the Helsinki Senate square in decimal degrees
 coordinates = [
-    (24.950899, 60.169158),
-    (24.953492, 60.169158),
-    (24.953510, 60.170104),
-    (24.950958, 60.169990),
+    (24.950899, 60.169158), (24.953492, 60.169158),
+    (24.953510, 60.170104), (24.950958, 60.169990)
 ]
-```
 
-```python
 # Create a Shapely polygon from the coordinate-tuple list
 poly = Polygon(coordinates)
 ```
 
+Now we can use this polygon and `geopandas` to create a `GeoDataFrame` from scratch. The data can be passed in as a list-like object. In our case we will only have one row and one column of data. We can pass the polygon inside a list, and name the column as `geometry` so that `geopandas` will use the contents of that column the geometry column. Additionally, we could define the coordinate reference system for the data, but we will skip this step for now. For details of the syntax, see documentation for the `DataFrame` constructor and `GeoDataFrame` constructor online.
+
 ```python
-# Check the polyogon
-print(poly)
-```
-
-Okay, now we have a `Polygon` -object that represents the Senate Square. Let's insert the polygon into our geometry-column on the first row of the `GeoDataFrame`.
-
-```python jupyter={"outputs_hidden": false}
-# Insert the polygon into 'geometry' -column at row 0
-newdata.at[0, "geometry"] = poly
+newdata = gpd.GeoDataFrame(data=[poly], columns=["geometry"])
 ```
 
 ```python
-# Let's see what we have now
-print(newdata)
+newdata
 ```
 
-Great, now we have a GeoDataFrame with a polygon geometry. Let's also add some attribute information in there by adding another column called `location` with the text `Senaatintori`, i.e. the name of the Senate Square in Finnish.
+We can also add additional attribute information to a new column. 
 
 ```python jupyter={"outputs_hidden": false}
 # Add a new column and insert data
-newdata.at[0, "location"] = "Senaatintori"
+newdata.at[0, "name"] = "Senate Square"
 
-# Let's check the data
-print(newdata)
+# Check the contents
+newdata
 ```
 
-There it is! Now we have two columns in our data; one representing the geometry and another with additional attribute information.
+There it is! Now we have two columns in our data; one representing the geometry and another with additional attribute information. From here, you could proceed into adding additional rows of data, or printing out the data to a file. 
 
-The next step would be to determine the coordinate reference system (CRS) for the GeoDataFrame. GeoDataFrame has an attribute called `.crs` that shows the coordinate system of the data (we will discuss more about CRS in next chapter). In our case, the layer doesn't yet have any crs definition.
-
-```python jupyter={"outputs_hidden": false}
-print(newdata.crs)
-```
-
-We passed the coordinates as latitude and longitude decimal degrees, so the correct coordinate reference system (CRS) is WGS84 (epsg code: 4326). We can now set the correct CRS information for our data. 
-
-```python
-newdata = newdata.set_crs(crs=4326)
-```
-
-```python
-newdata.crs.name
-```
-
-As we can see, now we have added CRSinformation into our `GeoDataFrame`. The CRS information is necessary for creating a valid projection information for the output file. 
-
-Finally, we can export the GeoDataFrame using `.to_file()` -function. The function works quite similarly as the export functions in pandas, but here we only need to provide the output path for the Shapefile. Easy isn't it!:
-
-```python
-# Determine the output path for the Shapefile
-outfp = "../data/Results/Senaatintori.shp"
-
-# Write the data into that Shapefile
-newdata.to_file(outfp)
-```
-
-<!-- #region tags=[] -->
-Now we have successfully created a Shapefile from scratch using geopandas. Similar approach can be used to for example to read coordinates from a text file (e.g. points) and turn that information into a spatial layer.
-
-
-#### Question 6.4
-
-- Check the output Shapefile by reading it with geopandas and make sure that the attribute table and geometry seems correct.
-
-- Re-project the data to ETRS-TM35FIN (EPSG:3067) and save into a new file!
-
-
-<!-- #endregion -->
-
-
-```python tags=["remove_cell"]
-# Use this cell to enter your solution.
-```
-
-```python tags=["hide_cell", "remove_book_cell"]
-# Solution
-
-# Read in the data
-senate_square = gpd.read_file(outfp)
-
-# One pontial way to check the contents
-senate_square.head()
-```
-
-```python tags=["hide_cell", "remove_book_cell"]
-# Solution
-
-# re-project
-senate_square = senate_square.to_crs(crs=3067)
-
-#check the result
-print(senate_square)
-
-# Save to new file
-outfp = "../data/Results/Senaatintori_epsg3067.shp"
-senate_square.to_file(outfp)
-```
 
 ### Creating a GeoDataFrame from a text file
+
+
+A common case is to have coordinates in a delimited textfile that needs to be converted into spatial data. We can make use of `pandas`, `geopandas` and `shapely` for doing this. 
+
+The example data contains point coordinates of airports derived from [openflights.org](https://openflights.org/data.html) [^openflights]. Let's read it in and check the contenst.
+
+```python
+import pandas as pd
+```
+
+```python
+airports = pd.read_csv("data/Airports/airports.txt")
+```
+
+```python
+airports.head()
+```
+
+There is a lot of information available about the airports. Coordinate information is available in the Latitude and Longitude columns. 
+
+```python
+from shapely.geometry import Point
+
+airports["geometry"] = gpd.points_from_xy(x=airports["Longitude"], 
+                                          y=airports["Latitude"], 
+                                         crs="EPSG:4326")
+
+airports = gpd.GeoDataFrame(airports)
+```
+
+```python
+airports.crs.name
+```
+
+```python
+airports.plot(markersize=.1)
+```
 
 <!-- #region tags=[] -->
 ## Footnotes
 
-[^shp]: <https://en.wikipedia.org/wiki/Shapefile> 
 [^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON>
 [^GPKG]: <https://en.wikipedia.org/wiki/GeoPackage>
-[^KML]: <https://en.wikipedia.org/wiki/Keyhole_Markup_Language> 
+[^KML]: <https://en.wikipedia.org/wiki/Keyhole_Markup_Language>
+[^openflights]: <https://openflights.org/data.html>
+[^shp]: <https://en.wikipedia.org/wiki/Shapefile> 
 <!-- #endregion -->
