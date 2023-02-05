@@ -33,10 +33,10 @@ Coordinate Reference System
   A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth's surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.
   
 Coordinate transformation
-  See {term}`Map reprojection.`.
+  See {term}`Map reprojection`.
   
 Data model
-  A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell.    
+  A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell. 
 
 Data type
   An attribute defining the characteristics of a value in a program.
@@ -64,7 +64,7 @@ Geocoding
   The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see {term}`Georeferencing`.
   
 Geographic coordinate conversion
-  See {term}`Map reprojection.`.
+  See {term}`Map reprojection`.
   
 Georeferencing
   Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox. 
@@ -126,6 +126,9 @@ Semantics
 
 Software
   Another name for a {term}`program`.
+  
+Spatial Reference System
+  Spatial Reference System (SRS) is a synonym for the {term}`Coordinate Reference System`.
 
 Spatial resolution
   The spatial resolution of a raster refers typically to the size of the cells in a raster dataset. It can also mean the ratio of screen pixels to image pixels at the current map scale. 
