@@ -43,7 +43,9 @@ We have an `id` for each row and an address on column `addr`. Let's first read t
 
 ```python tags=["remove_cell"]
 import os
-os.environ['USE_PYGEOS'] = '0'
+
+
+os.environ["USE_PYGEOS"] = "0"
 import geopandas
 ```
 
@@ -54,7 +56,7 @@ import geopandas as gpd
 from shapely.geometry import Point
 
 # Filepath
-fp = r"../data/Helsinki/addresses.txt"
+fp = "data/Helsinki/addresses.txt"
 
 # Read the data
 data = pd.read_csv(fp, sep=";")
@@ -80,12 +82,11 @@ Here we import the geocoding function and geocode the addresses using Nominatim.
 # Import the geocoding tool
 from geopandas.tools import geocode
 
-# Geocode addresses using Nominatim. 
+# Geocode addresses using Nominatim.
 # You can provide your own
-geo = geocode(data["addr"], 
-              provider="nominatim", 
-              user_agent="pythongis_book", 
-              timeout=10)
+geo = geocode(
+    data["addr"], provider="nominatim", user_agent="pythongis_book", timeout=10
+)
 ```
 
 ```python
@@ -109,7 +110,7 @@ Here we can see the geocoded address (column `address`) and original address (co
 
 ```python deletable=true editable=true
 # Output file path
-outfp = r"../data/Results/addresses.shp"
+outfp = "data/Helsinki/addresses.shp"
 
 # Save to Shapefile
 join.to_file(outfp)
