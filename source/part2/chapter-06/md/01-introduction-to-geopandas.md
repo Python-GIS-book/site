@@ -42,8 +42,8 @@ In `geopandas`, we can use a generic function `.from_file()` for reading in vari
 ```python
 from pathlib import Path
 
-data_folder = Path("data")
-fp = data_folder/ "Austin" / "austin_pop_2019.gpkg"
+data_folder = Path("data/Austin")
+fp = data_folder / "austin_pop_2019.gpkg"
 print(fp)
 ```
 
@@ -159,21 +159,13 @@ It is possible to export spatial data into various data formats using the `.to_f
 data.head()
 ```
 
-Let's create a folder  (if it doens't exist) and file name for our result. We will use geopackage also as the output format. 
-
-```python
-# Create a output path for the data
-output_folder = Path("data/results")
-
-if not output_folder.exists():
-    output_folder.mkdir()
-
-output_fp = output_folder / "austin_pop_density_2019.gpkg"
-```
-
 Write the data into a file using the `.to_file()` method.
 
 ```python
+# Create a output path for the data
+output_fp = data_folder / "austin_pop_density_2019.gpkg"
+
+#Write the file
 data.to_file(output_fp)
 ```
 
