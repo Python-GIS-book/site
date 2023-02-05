@@ -1,0 +1,12 @@
+!table
+!version 300
+!charset Neutral
+
+Definition Table
+  Type NATIVE Charset "Neutral"
+  Fields 5
+    kunta Char (254) ;
+    vuosi Integer (10) ;
+    nimi Char (254) ;
+    namn Char (254) ;
+    name Char (254) ;

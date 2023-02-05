@@ -442,6 +442,6 @@ df
 [^pandasdocs]: <https://pandas.pydata.org/pandas-docs/stable/>
 [^pandas_ds]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html>
 [^noaa]: <https://www.ncdc.noaa.gov/cdo-web/>
-[^readcsv]: <https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html>
+[^readcsv]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html>
 [^pandas_io]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5>
 
