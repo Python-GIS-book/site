@@ -55,7 +55,6 @@ A good way to understand the way how the map projection works, is the "orange pe
 _**Figure 5.10**. Representing the process of map projection with an orange ([Source](http://profdrikageografia.blogspot.com/2010_12_01_archive.html))._
 
 
-
 When using map projections, we always make approximations and hence lose something. There are no projections that would not distort anything or have the same scale throughout the map. Hence, a projection needs to be chosen according to the purpose of use, in order to preserve specific aspects of the map that are the most important to the user. These can be for example the shapes of objects, their surface areas, correct distances between locations, or the compass direction ({cite}`Vermeer2019`).
 - If we want to preserve angles and ratios of distances, we speak of a conformal, or angle-preserving projections (such as Mercator projection). These kind of projections has historically been important e.g. for ship navigation. With conformal map projection, both the distances and surface areas are distorted, except at some special points of the map.
 - If we want to preserve correct area measure, we speak of an equivalent or equal-area projection (such as Mollweide or Albers equal area). Here, the angles and shapes are distorted, again with the exception of special points or lines. 
@@ -66,6 +65,7 @@ Figure 5.11 illustrates nine different map projections, where the latitude and l
 
 
 ![_**Figure 5.11**. Different map projections that can be used to represent the geographic data on a two-dimensional plane._](../img/projections.jpg)
+
 _**Figure 5.11**. Different map projections that can be used to represent the geographic data on a two-dimensional plane._
 
 
