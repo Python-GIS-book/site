@@ -42,11 +42,11 @@ Shapefile format originally developed by the company Esri in the early 1990's is
 import geopandas as gpd
 
 # Read file from Shapefile
-fp = "data/finland_municipalities.shp"
+fp = "data/Finland/municipalities_2023.shp"
 data = gpd.read_file(fp)
 
 # Write to Shapefile (just make a copy)
-outfp = "temp/finland_municipalities.shp"
+outfp = "data/temp/municipalities_2023.shp"
 data.to_file(outfp)
 ```
 
@@ -54,11 +54,11 @@ data.to_file(outfp)
 
 ```python
 # Read file from GeoJSON
-fp = "data/finland_municipalities.gjson"
+fp = "data/Finland/municipalities_2023.geojson"
 data = gpd.read_file(fp, driver="GeoJSON")
 
 # Write to GeoJSON (just make a copy)
-outfp = "temp/finland_municipalities.gjson"
+outfp = "data/Temp/municipalities_2023.geojson"
 data.to_file(outfp, driver="GeoJSON")
 ```
 
@@ -69,23 +69,23 @@ data.to_file(outfp, driver="GeoJSON")
 gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
 
 # Read file from KML
-fp = "data/finland_municipalities.kml"
-data = gpd.read_file(fp)
+fp = "data/Finland/municipalities_2023.kml"
+#data = gpd.read_file(fp)
 
 # Write to KML (just make a copy)
-outfp = "temp/finland_municipalities.kml"
-data.to_file(outfp, driver="KML")
+outfp = "data/Temp/municipalities_2023.kml"
+#data.to_file(outfp, driver="KML")
 ```
 
 ### Read / write Geopackage
 
 ```python
 # Read file from Geopackage
-fp = "data/finland_municipalities.gpkg"
+fp = "data/Finland/municipalities_2023.gpkg"
 data = gpd.read_file(fp)
 
 # Write to Geopackage (just make a copy)
-outfp = "temp/finland_municipalities.gpkg"
+outfp = "data/Temp/finland_municipalities.gpkg"
 data.to_file(outfp, driver="GPKG")
 ```
 
@@ -93,8 +93,8 @@ data.to_file(outfp, driver="GPKG")
 
 ```python
 # Read file from File Geodatabase
-fp = "data/finland.gdb"
-data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
+#fp = "data/Finland/finland.gdb"
+#data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
 
 # Write to same FileGDB (just add a new layer) - requires additional package installations(?)
 # outfp = "data/finland.gdb"
@@ -105,12 +105,12 @@ data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
 
 ```python
 # Read file from MapInfo Tab
-fp = "data/finland_municipalities.tab"
+fp = "data/Finland/municipalities_2023.tab"
 data = gpd.read_file(fp, driver="MapInfo File")
 
-# Write to same FileGDB (just add a new layer)
-outfp = "temp/finland_municipalities.tab"
-data.to_file(outfp, driver="MapInfo File")
+# Write to MapInfo Tab (just make a copy)
+outfp = "data/Temp/municipalities_2023.tab"
+#data.to_file(outfp, driver="MapInfo File")
 ```
 
 ## Creating a GeoDataFrame from scratch
@@ -153,40 +153,44 @@ newdata
 There it is! Now we have two columns in our data; one representing the geometry and another with additional attribute information. From here, you could proceed into adding additional rows of data, or printing out the data to a file. 
 
 
-### Creating a GeoDataFrame from a text file
+## Creating a GeoDataFrame from a text file
 
 
 A common case is to have coordinates in a delimited textfile that needs to be converted into spatial data. We can make use of `pandas`, `geopandas` and `shapely` for doing this. 
 
-The example data contains point coordinates of airports derived from [openflights.org](https://openflights.org/data.html) [^openflights]. Let's read it in and check the contenst.
+The example data contains point coordinates of airports derived from [openflights.org](https://openflights.org/data.html) [^openflights]. Let's read in a couple of useful columns from the data for further processing.
 
 ```python
 import pandas as pd
 ```
 
 ```python
-airports = pd.read_csv("data/Airports/airports.txt")
+airports = pd.read_csv("data/Airports/airports.txt", 
+                       usecols=["Airport ID", "Name", "City", "Country", "Latitude", "Longitude"])
 ```
 
 ```python
 airports.head()
 ```
 
-There is a lot of information available about the airports. Coordinate information is available in the Latitude and Longitude columns. 
+```python
+len(airports)
+```
+
+There are over 7000 airports in the data and we can use the coordinate information available in the `Latitude` and `Longitude` columns for visualizing them on a map. The coordinates are stored as *{term}`Decimal degrees <Decimal degrees>`*, meaning that the appropriate coordinate reference system for these data is WGS 84 (EPSG:4326).  
+
+There is a handy tool in `geopandas` for generating an array of `Point`objects based on x and y coordinates called `.points_from_xy()`. The tool assumes that x coordinates represent longitude and that y coordinates represent latitude. 
 
 ```python
-from shapely.geometry import Point
-
 airports["geometry"] = gpd.points_from_xy(x=airports["Longitude"], 
                                           y=airports["Latitude"], 
                                          crs="EPSG:4326")
 
 airports = gpd.GeoDataFrame(airports)
+airports.head()
 ```
 
-```python
-airports.crs.name
-```
+Now we have the point geometries as `shapely`objects in the geometry-column ready to be plotted on a map.
 
 ```python
 airports.plot(markersize=.1)
