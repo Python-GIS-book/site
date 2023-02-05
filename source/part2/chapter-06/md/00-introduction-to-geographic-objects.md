@@ -40,6 +40,8 @@ point3D = Point(9.26, -2.456, 0.57)
 point
 ```
 
+_**Figure 6.1**. ADD PROPER FIGURE CAPTION!._
+
 Jupyter Notebook is automatically able to visualize the point shape on the screen. We can use the print statement to get the text representation of the point geometry as [Well Known Text (WKT)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) [^WKT]. The letter Z indicates 3D coordinates. 
 
 ```python jupyter={"outputs_hidden": false}
@@ -81,6 +83,8 @@ line = LineString([point1, point2, point3])
 line_from_tuples = LineString([(2.2, 4.2), (7.2, -25.1), (9.26, -2.456)])
 line
 ```
+
+_**Figure 6.2**. ADD PROPER FIGURE CAPTION!._
 
 ```python
 print(line)
@@ -124,6 +128,8 @@ from shapely.geometry import Polygon
 poly = Polygon([point1, point2, point3])
 poly
 ```
+
+_**Figure 6.3**. ADD PROPER FIGURE CAPTION!._
 
 ```python
 print(poly)
@@ -178,10 +184,14 @@ poly_without_hole = Polygon(shell=exterior)
 poly_without_hole
 ```
 
+_**Figure 6.4**. ADD PROPER FIGURE CAPTION!._
+
 ```python
 poly_with_hole = Polygon(shell=exterior, holes=hole)
 poly_with_hole
 ```
+
+_**Figure 6.5**. ADD PROPER FIGURE CAPTION!._
 
 Let's also check how the WKT representation of the polygon looks like.
 
@@ -217,6 +227,8 @@ box_poly = box(minx=min_x, miny=min_y, maxx=max_x, maxy=max_y)
 box_poly
 ```
 
+_**Figure 6.6**. ADD PROPER FIGURE CAPTION!._
+
 ```python
 print(box_poly)
 ```
@@ -236,12 +248,16 @@ multipoint = MultiPoint([Point(2, 2), Point(3, 3)])
 multipoint
 ```
 
+_**Figure 6.7**. ADD PROPER FIGURE CAPTION!._
+
 ```python
 multiline = MultiLineString(
     [LineString([(2, 2), (3, 3)]), LineString([(4, 3), (6, 4)])]
 )
 multiline
 ```
+
+_**Figure 6.8**. ADD PROPER FIGURE CAPTION!._
 
 ```python
 multipoly = MultiPolygon(
@@ -250,7 +266,10 @@ multipoly = MultiPolygon(
 multipoly
 ```
 
-### Question 6.1
+_**Figure 6.9**. ADD PROPER FIGURE CAPTION!._
+
+
+#### Question 6.1
 
 Create these shapes using Shapely!
 

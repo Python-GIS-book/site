@@ -19,11 +19,17 @@ Now as we have learned how to create and represent geographic data in Python usi
 ## Getting started with geopandas
 
 
-![_**Figure 6.1**. Geometry column in a GeoDataFrame._](../img/geodataframe.png)
+![_**Figure 6.10**. Geometry column in a GeoDataFrame._](../img/geodataframe.png)
 
-_**Figure 6.1**. Geometry column in a GeoDataFrame._
+_**Figure 6.10**. Geometry column in a GeoDataFrame._
 
 Similar to importing import pandas as `pd`, we will import geopandas as `gpd`:
+
+```python tags=["remove_cell"]
+import os
+os.environ['USE_PYGEOS'] = '0'
+import geopandas
+```
 
 ```python
 import geopandas as gpd
@@ -86,6 +92,8 @@ It is always a good idea to explore your data also on a map. Creating a simple m
 data.plot()
 ```
 
+_**Figure 6.11**. Census tract polygons for Austin, Texas, USA._
+
 Voilá! Now we have a quick overview of the geometries in this data. The x and y axes in the plot are based on the coordiante values of the geometries.
 
 
@@ -118,7 +126,7 @@ Check the output.
 data["area_km2"].head()
 ```
 
-## Question 6.3
+#### Question 6.3
 
 Using your `pandas` skills, create a new column `pop_density_km2` and populate it with population density values (population / km2) calculated based on columns `pop2019` and `area_km2`. Print out answers to the following questions:
 

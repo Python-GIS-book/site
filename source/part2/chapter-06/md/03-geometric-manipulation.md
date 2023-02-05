@@ -19,6 +19,12 @@ Here we demonstrate some of the most common geometry manipulation functions avai
 
 Geopandas comes with some ready-to-use data for country borders from [Natural Earth](https://www.naturalearthdata.com/) which we will use here. 
 
+```python tags=["remove_cell"]
+import os
+os.environ['USE_PYGEOS'] = '0'
+import geopandas
+```
+
 ```python
 import geopandas as gpd
 import matplotlib.pyplot as plt
@@ -60,6 +66,8 @@ plt.axis("off")
 plt.show()
 ```
 
+_**Figure 6.13**. ADD PROPER FIGURE CAPTION!._
+
 <!-- #region tags=[] -->
 ## Centroid
 
@@ -94,6 +102,9 @@ plt.axis("off")
 plt.show()
 ```
 
+_**Figure 6.14**. ADD PROPER FIGURE CAPTION!._
+
+
 ## Unary union
 
 We can generate a joint outline for African countries represented in the Natural Earth data through creating a geometric union among all geometries. This could be useful, for example, for visualizing the outlines of a study area. The `unary_union` returns a single geometry object, which is automatically visualized when running the code in a Jupyter Notebook.
@@ -101,6 +112,8 @@ We can generate a joint outline for African countries represented in the Natural
 ```python
 data.unary_union
 ```
+
+_**Figure 6.15**. ADD PROPER FIGURE CAPTION!._
 
 ```python
 type(data.unary_union)
@@ -114,9 +127,14 @@ Geometry simplification is a useful process especially when visualizing data tha
 data.unary_union.simplify(tolerance=1)
 ```
 
+_**Figure 6.16**. ADD PROPER FIGURE CAPTION!._
+
 ```python
 data.unary_union.simplify(tolerance=10)
 ```
+
+_**Figure 6.17**. ADD PROPER FIGURE CAPTION!._
+
 
 ## Bounding polygon
 
@@ -131,6 +149,8 @@ In order to get the bounding rectangle for the whole layer, we  first create an 
 ```python
 data.unary_union.envelope
 ```
+
+_**Figure 6.18**. ADD PROPER FIGURE CAPTION!._
 
 Corner coordinates of the bounding box for a `GeoDataFrame` can be fetched via the `total_bounds` attribute. The `bounds` attribute returns the bounding coordinates of each feature.
 
@@ -155,6 +175,9 @@ In order to create a covex hull for the whole extent, we need to first create an
 ```python
 data.unary_union.convex_hull
 ```
+
+_**Figure 6.19**. ADD PROPER FIGURE CAPTION!._
+
 
 ## Buffer
 
