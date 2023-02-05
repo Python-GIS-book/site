@@ -1,0 +1,8 @@
+Finnish municipalities, 2023 (Statistics Finland, CC By 4.0)
+Downloaded from Statistics Finland WFS service on 5 Feb 2023 and exported to various file formats via QGIS.
+
+
+typename='tilastointialueet:kunta1000k_2023' 
+url='https://geo.stat.fi/geoserver/tilastointialueet/wfs' 
+srsname='EPSG:3067'
+
