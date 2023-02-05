@@ -41,6 +41,12 @@ id;addr
 
 We have an `id` for each row and an address on column `addr`. Let's first read the data into a pandas DataFrame using the `read_csv()` -function.
 
+```python tags=["remove_cell"]
+import os
+os.environ['USE_PYGEOS'] = '0'
+import geopandas
+```
+
 ```python deletable=true editable=true
 # Import necessary modules
 import pandas as pd
