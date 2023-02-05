@@ -133,7 +133,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -188,7 +193,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -284,7 +289,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -300,18 +310,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -320,12 +330,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -1127,7 +1147,6 @@ title="Print to PDF"
 <p>Looping over rows in a DataFrame can be done in a couple of different ways. A common approach is to use a <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method which loops over the rows as a index-Series pairs. In other words, we can use the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method together with a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to repeat a process <em>for each row in a Pandas DataFrame</em>. Please note that iterating over rows this way is a rather inefficient approach, but it is still useful to understand the logic behind the iteration (we will learn a more efficient approach later). When using the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method it is important to understand that <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> accesses not only the values of one row, but also the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the row as we mentioned. Let’s start with a simple for loop that goes through each row in our DataFrame:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Iterate over the rows</span>
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-
     <span class="c1"># Print the index value</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Index:&quot;</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
 
@@ -1144,7 +1163,6 @@ title="Print to PDF"
 
 <span class="c1"># Iterate over the rows</span>
 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
-
     <span class="c1"># Convert the Fahrenheit to Celsius</span>
     <span class="c1"># Notice how we access the row value</span>
     <span class="n">celsius</span> <span class="o">=</span> <span class="n">fahr_to_celsius</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">TEMP_F</span><span class="p">)</span>
@@ -1316,7 +1334,6 @@ title="Print to PDF"
 
 <span class="c1"># Iterate over the groups</span>
 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
-
     <span class="c1"># Calculate mean</span>
     <span class="n">mean_values</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">mean_cols</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
@@ -1357,7 +1374,7 @@ title="Print to PDF"
 <section id="managing-and-listing-filesystem-paths">
 <h3>Managing and listing filesystem paths<a class="headerlink" href="#managing-and-listing-filesystem-paths" title="Permalink to this headline">#</a></h3>
 <p>In Python there are two commonly used approaches to manage and manipulate filepaths, namely <code class="docutils literal notranslate"><span class="pre">os.path</span></code> sub-module and a newer <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module (available since Python 3.4) which we will demonstrate here.  The built-in module <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> provides many useful functions for interacting and manipulating filepaths on your operating system. On the following, we have data in different sub-folders and we will learn how to use the <code class="docutils literal notranslate"><span class="pre">Path</span></code> class from the <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> library to construct filepaths. Next, we will import and use the <code class="docutils literal notranslate"><span class="pre">Path</span></code> class and see how we can construct a filepath by joining a folder path and file name:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span> 
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="c1"># Initialize the Path</span>
 <span class="n">input_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/finnish_stations&quot;</span><span class="p">)</span>
@@ -1382,7 +1399,9 @@ title="Print to PDF"
 <span class="n">size_in_bytes</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span>
 <span class="n">creation_time</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_ctime</span>
 <span class="n">modified_time</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Size (bytes): </span><span class="si">{</span><span class="n">size_in_bytes</span><span class="si">}</span><span class="se">\n</span><span class="s2">Created (seconds since Epoch): </span><span class="si">{</span><span class="n">creation_time</span><span class="si">}</span><span class="se">\n</span><span class="s2">Modified (seconds since Epoch): </span><span class="si">{</span><span class="n">modified_time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Size (bytes): </span><span class="si">{</span><span class="n">size_in_bytes</span><span class="si">}</span><span class="se">\n</span><span class="s2">Created (seconds since Epoch): </span><span class="si">{</span><span class="n">creation_time</span><span class="si">}</span><span class="se">\n</span><span class="s2">Modified (seconds since Epoch): </span><span class="si">{</span><span class="n">modified_time</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>There are also various other methods that you can do with <code class="docutils literal notranslate"><span class="pre">pathlib</span></code>, such as rename the files (<code class="docutils literal notranslate"><span class="pre">.rename()</span></code>) or create folders (<code class="docutils literal notranslate"><span class="pre">.mkdir()</span></code>). You can see all available methods from <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> documentation <a class="footnote-reference brackets" href="#pathlib" id="id2">2</a>. One of the most useful tools in <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> is the ability to list all files within a given folder by using the method <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> which also allows you to add specific search criteria for listing only specific files from the directory:</p>
@@ -1414,7 +1433,6 @@ title="Print to PDF"
 
 <span class="c1"># Repeat the analysis steps for each input file:</span>
 <span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
-
     <span class="c1"># Read the data from CSV file</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
 

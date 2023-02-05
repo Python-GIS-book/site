@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Introduction to geographic data in Python</title>
+    <title>Geographic data in Python</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -42,7 +42,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="6: Vector data processing" href="../../chapter-06/index.html" />
+    <link rel="next" title="Coordinate reference systems" href="02-introduction-to-coordinate-reference-systems.html" />
     <link rel="prev" title="Motivation" href="00-motivation-to-use-python-for-gis.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -135,7 +135,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -190,7 +195,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../part1/chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,7 +291,12 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -302,18 +312,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -322,12 +332,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -877,7 +897,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Introduction to geographic data in Python</h1>
+                <h1>Geographic data in Python</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -963,8 +983,8 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-geographic-data-in-python">
-<h1>Introduction to geographic data in Python<a class="headerlink" href="#introduction-to-geographic-data-in-python" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="geographic-data-in-python">
+<h1>Geographic data in Python<a class="headerlink" href="#geographic-data-in-python" title="Permalink to this headline">#</a></h1>
 <p>How do we represent geographic features such as roads, buildings, lakes or mountains on a computer? How can we read an image taken with a satellite sensor and use that in our analyses? How can we create a spatial network that can be used for navigation and finding the fastest route from A to B? This chapter introduces you to the fundamental data structures and formats that are most commonly used when working with Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.</p>
 <section id="ways-to-represent-spatial-data-on-a-computer">
 <h2>Ways to represent spatial data on a computer<a class="headerlink" href="#ways-to-represent-spatial-data-on-a-computer" title="Permalink to this headline">#</a></h2>
@@ -1020,11 +1040,11 @@ title="Print to PDF"
 <h2>Basics of raster data and arrays<a class="headerlink" href="#basics-of-raster-data-and-arrays" title="Permalink to this headline">#</a></h2>
 <p>In raster data model the data is represented as arrays of cells, also called as pixels, to represent real-world objects or continuous phenomena. In fact, you are most likely already familiar with raster data as photographs taken with a digital camera are basically stored as raster data. Digital cameras typically capture the world using Red, Green and Blue (RGB) colors and stores this information in pixels as separate layers (as called as <em><span class="xref std std-term">band</span>s</em> or <code class="docutils literal notranslate"><span class="pre">channels</span></code>) for each color. When these layers of red, green and blue colors are combined, we get a photograph as we have used to see them. In a similar manner, we can store other information to pixels, such as elevation or temperature data (which have only one layer or <code class="docutils literal notranslate"><span class="pre">band</span></code>), or more detailed spectral information that capture how the light reflects from objects on earth at different wave-lengths (which is what e.g. satellite sensors do). In these cases, we might have tens or even hundreds of different bands (as with hyperspectral imaging) that record very detailed information about how the light reflects from the earth at different wave lengths, including Red, Green and Blue, but also many more such as near infrared (NIR), or long-wave infrared (LWIR) which is commonly used to monitor temperatures.</p>
 <p>Each cell in the raster dataset typically contains a value as shown on the left in Figure 5.4 (although the cell value can also be <code class="docutils literal notranslate"><span class="pre">NoData</span></code>). This is different compared to vector data, in which the geometries (observations) can be unevenly distributed across space, although it is possible to also represent a regular grid with polygons, it is just much less efficient computationally. Each cell value also has an index (i.e. position) that can be accessed based on row and column numbers. For instance, the value (<em>11</em>) from the bottom-left corner cell can be accessed at index <code class="docutils literal notranslate"><span class="pre">(3,0)</span></code> in which the first number is the row number and the second is the column number. Cell values can be plotted by given a color according a specific <em><span class="xref std std-term">colormap</span></em> (see the legend on the right) which turns the data into more understandable format, making it possible to detect patterns or trends from the data. For example in Figure 5.4, it is easy to detect that there is a cluster of high values on the bottom right corner. Detecting this pattern just by looking at cell values on the left is much more difficult task, especially if you would have much bigger raster than what we have here (4x4 grid). Also a basic feature of raster data is that the cell size of the grid can vary. For example, the Figure 5.4 and the top-right subplot in Figure 5.2 represents the data with 10 meter <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-resolution"><span class="xref std std-term">spatial resolution</span></a></em>, i.e. the size of an individual cell is 10 by 10 meters. However, the bottom-right subplot in Figure 5.2 represents the buildings with 1 meter spatial resolution. This is an important aspect when working with raster data, because the spatial resolution determines how accurately the real-world entities, such as buildings or topographic features, can be represented or identified from the data. Raster data is commonly used to represent e.g. satellite imagery, digital elevation models and other type of data, in which the spatial extent of the data is large (covering e.g. whole countries, continents or the world) with continuous measurements across the space. It is good to be awere though, that it is also possible to store discrete or categorical data to a raster, such as landuse classification data. Raster data is commonly used e.g. for environmental monitoring, meteorology and cartography.</p>
-<p><img alt="Figure 5.4. Raster data model." src="../../../_images/raster_data_model.jpg" />
-<em><strong>Figure 5.4.</strong> Raster data model.</em></p>
+<p><img alt="Figure 5.4. Raster data model." src="../../../_images/raster_data_model.jpg" /></p>
+<p><em><strong>Figure 5.4.</strong> Raster data model.</em></p>
 <p>One fundamental way to characterize a raster dataset is based on their <em><span class="xref std std-term">bit depth</span></em> (also called as <em><span class="xref std std-term">pixel depth</span></em>). The bit depth defines the range of distinct values that the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1, whereas 8-bit raster can have 256 different values that range between 0 to 255, as shown in Figure 5.5.</p>
-<p><img alt="Figure 5.5. Examples of raster bit depths." src="../../../_images/raster_bit_depths.jpg" />
-<em><strong>Figure 5.5</strong>. Examples of raster bit depths.</em></p>
+<p><img alt="Figure 5.5. Examples of raster bit depths." src="../../../_images/raster_bit_depths.jpg" /></p>
+<p><em><strong>Figure 5.5</strong>. Examples of raster bit depths.</em></p>
 <section id="commonly-used-raster-data-formats">
 <h3>Commonly used raster data formats<a class="headerlink" href="#commonly-used-raster-data-formats" title="Permalink to this headline">#</a></h3>
 <p>Similarly as with vector data, also raster data can be stored in various different formats. Below we list a few of the most commonly used ones.</p>
@@ -1047,20 +1067,20 @@ title="Print to PDF"
 <li><p><strong>edges</strong> (a link that connects the nodes to each other)</p></li>
 </ol>
 <p>A simple graph could look like the one shown in Figure 5.6 in which the letters <code class="docutils literal notranslate"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">and</span> <span class="pre">E</span></code> are nodes and the lines that goes between them are the network edges (also called as links or arcs).</p>
-<p><img alt="Figure 5.6. A simple graph." src="../../../_images/graph_elements.png" />
-<em><strong>Figure 5.6.</strong> A simple graph.</em></p>
+<p><img alt="Figure 5.6. A simple graph." src="../../../_images/graph_elements.png" /></p>
+<p><em><strong>Figure 5.6.</strong> A simple graph.</em></p>
 <section id="network-attribute-data">
 <h3>Network attribute data<a class="headerlink" href="#network-attribute-data" title="Permalink to this headline">#</a></h3>
 <p>In networks, most of the information is stored in <code class="docutils literal notranslate"><span class="pre">node</span></code> and <code class="docutils literal notranslate"><span class="pre">edge</span> <span class="pre">attributes</span></code>. In terms of street networks, <code class="docutils literal notranslate"><span class="pre">nodes</span></code> typically contain the geographical information associated with the graph, such as the coordinates of the intersections. Edges typically contain much more information. They can for instance contain information about which nodes are connected to each other, and what is the <code class="docutils literal notranslate"><span class="pre">cost</span></code> to travel between the nodes measured e.g. as time or distance (Figure 5.7). It is also possible to associate geographical information to edges if you want to show how the roads are curved between intersections, but for basic network analysis (such as finding the shortest route from a to b) this is not needed.</p>
-<p><img alt="Figure 5.7. Weighted graph." src="../../../_images/graph_weights.png" />
-<em><strong>Figure 5.7.</strong> Weighted graph.</em></p>
+<p><img alt="Figure 5.7. Weighted graph." src="../../../_images/graph_weights.png" /></p>
+<p><em><strong>Figure 5.7.</strong> Weighted graph.</em></p>
 </section>
 <section id="directionality">
 <h3>Directionality<a class="headerlink" href="#directionality" title="Permalink to this headline">#</a></h3>
 <p>Graphs can be <code class="docutils literal notranslate"><span class="pre">directed</span></code> or <code class="docutils literal notranslate"><span class="pre">undirected</span></code> (Figure 5.8), which basically determines whether the roads can be travelled to any direction or whether the travel direction is restricted to certain direction (e.g. a one-way-street). In <code class="docutils literal notranslate"><span class="pre">undirected</span></code> graph, it is possible to travel in both directions between nodes (e.g. from <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">--&gt;</span> <span class="pre">C</span></code> and from <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">--&gt;</span> <span class="pre">A</span></code> in Figure 5.8). Undirected graphs are typically used e.g. when you want to model walking and cycling paths, as with those travel modes it is typically possible to travel the same street in any direction you like. If the graph is <code class="docutils literal notranslate"><span class="pre">directed</span></code>, it means that you should have a separate edge for each direction. If you for example have a graph with only an edge that goes from <code class="docutils literal notranslate"><span class="pre">D</span></code> to <code class="docutils literal notranslate"><span class="pre">E</span></code>, you can travel to node <code class="docutils literal notranslate"><span class="pre">E</span></code> from <code class="docutils literal notranslate"><span class="pre">D</span></code> but you cannot travel back. In directed graphs, you typically need to have a separate edge for each travel direction. Fundamentally this means that for a bi-directional road, you should have two edges in your data (i.e. two separate rows), such as shown in Table 5.1.</p>
-<p><img alt="Figure 5.8. Directed graph." src="../../../_images/directed_graph.png" />
-<em><strong>Figure 5.8.</strong> Directed graph.</em></p>
-<p><em><strong>Table 5.1.</strong> Edges for each direction.</em></p>
+<p><img alt="Figure 5.8. Directed graph." src="../../../_images/directed_graph.png" /></p>
+<p><em><strong>Figure 5.8.</strong> Directed graph.</em></p>
+<p>: <em><strong>Table 5.1.</strong> Edges for each direction.</em></p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>edge_id</p></th>
@@ -1144,10 +1164,10 @@ title="Print to PDF"
             <p class="prev-next-title">Motivation</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../../chapter-06/index.html" title="next page">
+    <a class='right-next' id="next-link" href="02-introduction-to-coordinate-reference-systems.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">6: Vector data processing</p>
+        <p class="prev-next-title">Coordinate reference systems</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

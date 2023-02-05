@@ -135,7 +135,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../nb/05-installation.html">
+    <a class="reference internal" href="../nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -190,7 +195,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,7 +291,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -302,18 +312,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -322,12 +332,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -885,14 +905,14 @@ title="Print to PDF"
 <p>So, why bother? Well, the fields of geoscience and geography are becoming increasingly quantitative. In both fields we are now processing larger datasets, using numerical models, and performing other quantitative tasks that benefit from having some basic programming skills. Even these basic skills can allow you to do more in exploring, manipulating, and analyzing your data. For example, many Geographic Information Systems, such as QGIS, include the possibility to interact with the software and to develop new plugins using Python (Figure 1.5).</p>
 <p><img alt="Figure 1.5. Using the Python console to interact with GIS data in the QGIS program (https://www.qgis.org/). Data sources: City of Helsinki 2022, OpenStreetMap Contributors 2022." src="../../../_images/QGIS-Python.png" /></p>
 <p><em><strong>Figure 1.5</strong>. Using the Python console to interact with GIS data in the QGIS program (<a class="reference external" href="https://www.qgis.org/">https://www.qgis.org/</a>). Data sources: City of Helsinki 2022, OpenStreetMap Contributors 2022.</em></p>
-<p>Programming can also be fun! Once you learn the basic syntax you may enjoy finding ways to break complex problems down into simpler pieces, developing strategies for solving programming problems, and texting your solutions. This is part of the reason that children are being introduced to programming ideas in books such as the Hello Ruby series (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id4" title="Linda Liukas. Helo Ruby: Adventures in Coding. Feiwel &amp; Friends, 1st edition edition, 2015.">Liukas, 2015</a></span>). Coming up with solutions with simple programs can be exiting and rewarding, and you can test your solutions right away to see whether or not your solution works!</p>
+<p>Programming can also be fun! Once you learn the basic syntax you may enjoy finding ways to break complex problems down into simpler pieces, developing strategies for solving programming problems, and texting your solutions. This is part of the reason that children are being introduced to programming ideas in books such as the Hello Ruby series (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id4" title="Linda Liukas. Hello Ruby: Adventures in Coding. Feiwel &amp; Friends, 1st edition, 2015.">Liukas, 2015</a></span>). Coming up with solutions with simple programs can be exiting and rewarding, and you can test your solutions right away to see whether or not your solution works!</p>
 <p>Moreover, programming can help make us better scientists. The <a class="reference external" href="https://en.wikipedia.org/wiki/Scientific_method">scientific method</a> <a class="footnote-reference brackets" href="#sci-method" id="id2">1</a> is fundamental to how scientists conduct their research. It includes defining questions, gathering information, formulating and testing a hypothesis, analyzing experimental data, interpreting data and drawing conclusions, publishing results, and retesting. Learning basic programming skills can help us with many of these steps. Collecting data, performing experiments, and analyzing data can all be made more efficient using simple programs. For example, we will see how to take take multiple daily temperature observations and use them to calculate monthly average temperatures to investigate wamring trends in the monthly data as part of Chapter 2 in this text. In addition, we will introduce several good programming practices in the first part of this book that will help ensure our experiments and analyses are reproducible, which is a key aspect of <a class="reference external" href="https://en.wikipedia.org/wiki/Open_science">open science</a> <a class="footnote-reference brackets" href="#open-sci" id="id3">2</a>.</p>
 <p>Before we move into introducing programming concepts and the Python language, we will spend the remainder of this chapter with some basic terminology related to computing.</p>
 </section>
 <section id="what-is-a-computer">
 <h2>What is a computer?<a class="headerlink" href="#what-is-a-computer" title="Permalink to this headline">#</a></h2>
 <p><img alt="Figure 1.6. Diagram of the essential elements of a computer. Simplified from Zelle ." src="../../../_images/computer-diagram.png" /></p>
-<p><em><strong>Figure 1.6</strong>. Diagram of the essential elements of a computer. Simplified from <span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id6" title="John Zelle. Python Programming: An Introduction to Computer Science. Franklin, Beedle &amp; Associates, 3rd edition edition, 2017.">Zelle, 2017</a></span>.</em></p>
+<p><em><strong>Figure 1.6</strong>. Diagram of the essential elements of a computer. Simplified from <span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id6" title="John Zelle. Python Programming: An Introduction to Computer Science. Franklin, Beedle &amp; Associates, 3rd edition, 2017.">Zelle, 2017</a></span>.</em></p>
 <p>In its simplest form, a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Computer"><span class="xref std std-term">computer</span></a></em> takes input from an input device such as a mouse or keyboard, processes that input using the central processing unit (CPU) and memory, and provides output to a device such as the screen. The processing that is done is by the CPU manipulates data, modifying the input prior to being output. The steps for processing could be given in a computer program, which we will define below. An essential aspect of the programs used by a computer is that they are changable, so the instructions used by the computer can be modified to alter the output that is produced. Overall, the computer allows us to take input, modify it into a new/useful form, and output it for our interpretation.</p>
 <section id="what-are-computers-good-at">
 <h3>What are computers good at?<a class="headerlink" href="#what-are-computers-good-at" title="Permalink to this headline">#</a></h3>

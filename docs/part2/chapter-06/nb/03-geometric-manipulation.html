@@ -42,8 +42,8 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Operations between multiple datasets" href="04-operations-between-multiple-datasets.html" />
-    <link rel="prev" title="Coordinate Reference Systems" href="02-coordinate-reference-system.html" />
+    <link rel="next" title="Working with Map Projections" href="04-coordinate-reference-system.html" />
+    <link rel="prev" title="Preparing GeoDataFrames from geographic data" href="02-data-io.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -135,7 +135,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -190,7 +195,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../part1/chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,7 +291,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -302,18 +312,18 @@
   </label>
   <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="00-introduction-to-geopandas.html">
+    <a class="reference internal" href="00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -322,12 +332,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="05-exercises.html">
+    <a class="reference internal" href="07-exercises.html">
      Exercises
     </a>
    </li>
@@ -813,15 +833,15 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-extent">
-   Data extent
+  <a class="reference internal nav-link" href="#simplifying-geometries">
+   Simplifying geometries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bounding-polygon">
+   Bounding polygon
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bounding-box">
-     Bounding box
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#convex-hull">
      Convex hull
@@ -840,13 +860,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simplifying-geometries">
-   Simplifying geometries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Simplifying geometries
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
   </a>
  </li>
 </ul>
@@ -879,15 +894,15 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-extent">
-   Data extent
+  <a class="reference internal nav-link" href="#simplifying-geometries">
+   Simplifying geometries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bounding-polygon">
+   Bounding polygon
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bounding-box">
-     Bounding box
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#convex-hull">
      Convex hull
@@ -906,13 +921,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simplifying-geometries">
-   Simplifying geometries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Simplifying geometries
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
   </a>
  </li>
 </ul>
@@ -927,28 +937,113 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="geometric-data-manipulations">
 <h1>Geometric data manipulations<a class="headerlink" href="#geometric-data-manipulations" title="Permalink to this headline">#</a></h1>
-<p>In this section we will use the Helsinki Region Travel Time Matrix data that constist of 13231 statistical grid squares (250m x 250m) to demonstrate some of the most common geometry manipulation functions available in geopandas.</p>
-<p>As the geometries in GeoDataFrames are eventually Shapely objects, we can use all of Shapely’s tools for geometry manipulation directly via geopandas.</p>
+<p>Here we demonstrate some of the most common geometry manipulation functions available in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. We will continue exploring the census tract data from Austin, Texas. It is often useful to do geometric manipulations on administrative borders for further analysis and visualization purposes. We will learn how to generate centroids, different outlines and buffer zones for the polygons.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define path do the data</span>
+<span class="n">data_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/Austin&quot;</span><span class="p">)</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="n">data_folder</span> <span class="o">/</span> <span class="s2">&quot;austin_pop_density_2019.gpkg&quot;</span>
 
-<span class="n">input_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/Helsinki&quot;</span><span class="p">)</span>
-<span class="n">fp</span> <span class="o">=</span> <span class="n">input_folder</span> <span class="o">/</span> <span class="s2">&quot;TravelTimes_to_5975375_RailwayStation.shp&quot;</span>
-
+<span class="c1"># Read in the data and check the contents</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    POLYGON ((382000.000 6697750.000, 381750.000 6...
-1    POLYGON ((382250.000 6697750.000, 382000.000 6...
-2    POLYGON ((382500.000 6697750.000, 382250.000 6...
-3    POLYGON ((382750.000 6697750.000, 382500.000 6...
-4    POLYGON ((381250.000 6697500.000, 381000.000 6...
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pop2019</th>
+      <th>tract</th>
+      <th>area_km2</th>
+      <th>pop_density_km2</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6070.0</td>
+      <td>002422</td>
+      <td>4.029772</td>
+      <td>1506.288769</td>
+      <td>POLYGON ((615643.487 3338728.496, 615645.477 3...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2203.0</td>
+      <td>001751</td>
+      <td>1.532030</td>
+      <td>1437.961408</td>
+      <td>POLYGON ((618576.586 3359381.053, 618614.330 3...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7419.0</td>
+      <td>002411</td>
+      <td>3.960344</td>
+      <td>1873.322183</td>
+      <td>POLYGON ((619200.163 3341784.654, 619270.849 3...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4229.0</td>
+      <td>000401</td>
+      <td>2.181762</td>
+      <td>1938.341868</td>
+      <td>POLYGON ((621623.757 3350508.165, 621656.294 3...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4589.0</td>
+      <td>002313</td>
+      <td>2.431208</td>
+      <td>1887.538655</td>
+      <td>POLYGON ((621630.247 3345130.744, 621717.926 3...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>For the purposes of geometric manipulations, we are mainly interested in the geometry column which contains the polygon geometries. Remember, that the data type of the geometry-column is <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code>. Individual geometries are eventually <code class="docutils literal notranslate"><span class="pre">shapely</span></code> objects and we can use all of <code class="docutils literal notranslate"><span class="pre">shapely</span></code>’s tools for geometry manipulation directly via <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check contents of the geometry column</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    POLYGON ((615643.487 3338728.496, 615645.477 3...
+1    POLYGON ((618576.586 3359381.053, 618614.330 3...
+2    POLYGON ((619200.163 3341784.654, 619270.849 3...
+3    POLYGON ((621623.757 3350508.165, 621656.294 3...
+4    POLYGON ((621630.247 3345130.744, 621717.926 3...
 Name: geometry, dtype: geometry
 </pre></div>
 </div>
@@ -956,91 +1051,142 @@ Name: geometry, dtype: geometry
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot grid geometry</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="centroid">
-<h2>Centroid<a class="headerlink" href="#centroid" title="Permalink to this headline">#</a></h2>
-<p>Extracting the centroid of geometric features is useful in a multitude of use cases. For example, the values in the Travel Time Matrix data set have originally been calculated from the center point of each grid square. We can find out the geometric centroid of each grid square in geopandas via the centroid-attribute:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Polygon centroids</span>
-<span class="n">data</span><span class="o">.</span><span class="n">centroid</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check data type of the geometry column</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0        POINT (381875.000 6697875.000)
-1        POINT (382125.000 6697875.000)
-2        POINT (382375.000 6697875.000)
-3        POINT (382625.000 6697875.000)
-4        POINT (381125.000 6697625.000)
-                      ...              
-13226    POINT (372875.000 6665625.000)
-13227    POINT (373125.000 6665625.000)
-13228    POINT (372375.000 6665375.000)
-13229    POINT (372625.000 6665375.000)
-13230    POINT (372875.000 6665375.000)
-Length: 13231, dtype: geometry
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>geopandas.geoseries.GeoSeries
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot centroid geometries</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check data type of a value in the geometry column</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shapely.geometry.polygon.Polygon
 </pre></div>
 </div>
 </div>
 </div>
+<p>Let’s first plot the original geometries. We can use the in-built plotting function in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> to plot the geometries, and <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> to turn off axis lines and labels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/03-geometric-manipulation_10_0.png" src="../../../_images/03-geometric-manipulation_10_0.png" />
+</div>
+</div>
+<p><em><strong>Figure 6.13</strong>. Basic plot of the census tracts.</em></p>
+<section id="centroid">
+<h2>Centroid<a class="headerlink" href="#centroid" title="Permalink to this headline">#</a></h2>
+<p>Extracting the centroid of geometric features is useful in many cases. Geometric centroid can, for example, be used for locating text labels in visualizations. We can extract the center point of each polygon via the <code class="docutils literal notranslate"><span class="pre">centroid</span></code>-attribute of the geometry-column. The data should be in a projected coordinate reference system when calculating the centroids. If trying to calculate centroids based on latitude and longitude information, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> will warn us that the results are likely incorrect. Our sample data are in WGS 84 / UTM zone 14N (EPSG:32614), which is a projected , and we can proceed to calculating the centroids.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;WGS 84 / UTM zone 14N&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    POINT (616990.190 3339736.002)
+1    POINT (619378.303 3359650.002)
+2    POINT (620418.753 3342194.171)
+3    POINT (622613.506 3351414.386)
+4    POINT (622605.359 3343869.554)
+dtype: geometry
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also apply the method directly to the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> to achieve the same result using the syntax <code class="docutils literal notranslate"><span class="pre">data.centroid</span></code>. At the same time, we can also  plot the centroids for a visual check.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/03-geometric-manipulation_16_0.png" src="../../../_images/03-geometric-manipulation_16_0.png" />
+</div>
+</div>
+<p><em><strong>Figure 6.14</strong>. Basic plot of census tract centroids.</em></p>
 </section>
 <section id="unary-union">
 <h2>Unary union<a class="headerlink" href="#unary-union" title="Permalink to this headline">#</a></h2>
-<p>Extracting only the outlines of the set of grid squares is possible through creating a geometric union among all geometries in the GeoDataFrame/GeoSeries. This could be useful, for example, when delineating the outlines of a study area.</p>
+<p>We can generate a joint outline for the administrative areas through creating a geometric union among all geometries. This could be useful, for example, for visualizing the outlines of a study area. The <code class="docutils literal notranslate"><span class="pre">unary_union</span></code> returns a single geometry object, which is automatically visualized when running the code in a Jupyter Notebook.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Polygon centroids</span>
-<span class="n">data</span><span class="o">.</span><span class="n">unary_union</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/03-geometric-manipulation_8_0.svg" src="../../../_images/03-geometric-manipulation_8_0.svg" /></div>
+<img alt="../../../_images/03-geometric-manipulation_19_0.svg" src="../../../_images/03-geometric-manipulation_19_0.svg" /></div>
 </div>
-<p>Note that the previous operation is identical to calling <code class="docutils literal notranslate"><span class="pre">data['geometry'].unary_union</span></code>.</p>
+<p><em><strong>Figure 6.15</strong>. Union of all of census tract polygon geometries.</em></p>
 </section>
-<section id="data-extent">
-<h2>Data extent<a class="headerlink" href="#data-extent" title="Permalink to this headline">#</a></h2>
-<p>Sometimes it is enough to describe the approximate extent of the data using a bounding polygon.</p>
-<section id="bounding-box">
-<h3>Bounding box<a class="headerlink" href="#bounding-box" title="Permalink to this headline">#</a></h3>
-<p>A minimum bounding rectangle, i.e. a bounding box or an envelope is the smallest rectangular polygon surrounding a geometric object. In a GeoDataFrame, the <code class="docutils literal notranslate"><span class="pre">envelope</span></code> attribute returns the bounding rectangle for each geometry:</p>
+<section id="simplifying-geometries">
+<h2>Simplifying geometries<a class="headerlink" href="#simplifying-geometries" title="Permalink to this headline">#</a></h2>
+<p>Geometry simplification is a useful process especially when visualizing data that has very detailed geometry. With our sample data, we can generate simplified version of the outline extent. The tolerance parameter controls the level of simplification.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">envelope</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">tolerance</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0        POLYGON ((381750.000 6697750.000, 382000.000 6...
-1        POLYGON ((382000.000 6697750.000, 382250.000 6...
-2        POLYGON ((382250.000 6697750.000, 382500.000 6...
-3        POLYGON ((382500.000 6697750.000, 382750.000 6...
-4        POLYGON ((381000.000 6697500.000, 381250.000 6...
-                               ...                        
-13226    POLYGON ((372750.000 6665500.000, 373000.000 6...
-13227    POLYGON ((373000.000 6665500.000, 373250.000 6...
-13228    POLYGON ((372250.000 6665250.000, 372500.000 6...
-13229    POLYGON ((372500.000 6665250.000, 372750.000 6...
-13230    POLYGON ((372750.000 6665250.000, 373000.000 6...
-Length: 13231, dtype: geometry
+<img alt="../../../_images/03-geometric-manipulation_22_0.svg" src="../../../_images/03-geometric-manipulation_22_0.svg" /></div>
+</div>
+<p><em><strong>Figure 6.16</strong>. Simplified union of the census tract polygons.</em></p>
+</section>
+<section id="bounding-polygon">
+<h2>Bounding polygon<a class="headerlink" href="#bounding-polygon" title="Permalink to this headline">#</a></h2>
+<p>Bounding polygons are useful in many cases for describing the approximate extent of geographic data. A minimum bounding rectangle, also called a bounding box or an envelope is the smallest rectangular polygon surrounding a geometric object. In a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, the <code class="docutils literal notranslate"><span class="pre">envelope</span></code> attribute returns the bounding rectangle for each geometry.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">envelope</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    POLYGON ((615643.487 3337909.895, 618358.033 3...
+1    POLYGON ((618529.497 3358797.000, 620192.632 3...
+2    POLYGON ((619198.456 3340875.421, 621733.880 3...
+3    POLYGON ((621599.087 3350329.320, 623714.366 3...
+4    POLYGON ((621630.247 3343015.679, 624133.189 3...
+dtype: geometry
 </pre></div>
 </div>
 </div>
 </div>
-<p>In order to get the bounding rectangle for the whole layer, we can first create an union of all geometries, and then create the bounding rectangle for those:</p>
+<p>In order to get the bounding rectangle for the whole layer, we  first create an union of all geometries using <code class="docutils literal notranslate"><span class="pre">unary_union</span></code>, and then create the bounding rectangle for that polygon.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">envelope</span>
@@ -1048,9 +1194,10 @@ Length: 13231, dtype: geometry
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/03-geometric-manipulation_14_0.svg" src="../../../_images/03-geometric-manipulation_14_0.svg" /></div>
+<img alt="../../../_images/03-geometric-manipulation_27_0.svg" src="../../../_images/03-geometric-manipulation_27_0.svg" /></div>
 </div>
-<p>Corner coordinates of a GeoDataFrame can be directly fetched via the <code class="docutils literal notranslate"><span class="pre">total_bounds</span></code>attribute, while the <code class="docutils literal notranslate"><span class="pre">bounds</span></code> attribute returns the bounding coordinates of each feature:</p>
+<p><em><strong>Figure 6.17</strong>. Minimum bounding box for the census tracts.</em></p>
+<p>Corner coordinates of the bounding box for a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> can be fetched via the <code class="docutils literal notranslate"><span class="pre">total_bounds</span></code> attribute.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">total_bounds</span>
@@ -1058,12 +1205,13 @@ Length: 13231, dtype: geometry
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 361500.00014042, 6665250.00004393,  403750.00013197,
-       6698000.00003802])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 608125.39434001, 3337909.89495403,  629828.38846075,
+       3370513.6825782 ])
 </pre></div>
 </div>
 </div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">bounds</span></code> attribute returns the bounding coordinates of each feature.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1098,48 +1246,64 @@ Length: 13231, dtype: geometry
   <tbody>
     <tr>
       <th>0</th>
-      <td>381750.000136</td>
-      <td>6.697750e+06</td>
-      <td>382000.000136</td>
-      <td>6.698000e+06</td>
+      <td>615643.487492</td>
+      <td>3.337910e+06</td>
+      <td>618358.032738</td>
+      <td>3.341257e+06</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>382000.000136</td>
-      <td>6.697750e+06</td>
-      <td>382250.000136</td>
-      <td>6.698000e+06</td>
+      <td>618529.497100</td>
+      <td>3.358797e+06</td>
+      <td>620192.631882</td>
+      <td>3.360614e+06</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>382250.000136</td>
-      <td>6.697750e+06</td>
-      <td>382500.000136</td>
-      <td>6.698000e+06</td>
+      <td>619198.455980</td>
+      <td>3.340875e+06</td>
+      <td>621733.879615</td>
+      <td>3.343443e+06</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>382500.000136</td>
-      <td>6.697750e+06</td>
-      <td>382750.000136</td>
-      <td>6.698000e+06</td>
+      <td>621599.086586</td>
+      <td>3.350329e+06</td>
+      <td>623714.365506</td>
+      <td>3.352436e+06</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>381000.000136</td>
-      <td>6.697500e+06</td>
-      <td>381250.000136</td>
-      <td>6.697750e+06</td>
+      <td>621630.247042</td>
+      <td>3.343016e+06</td>
+      <td>624133.188692</td>
+      <td>3.345131e+06</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</section>
 <section id="convex-hull">
 <h3>Convex hull<a class="headerlink" href="#convex-hull" title="Permalink to this headline">#</a></h3>
-<p>A bit more detailed delineation of the data extent can be extracted using a convex hull which represents the smalles possible polygon that contains all points in an object.</p>
-<p>In order to create a covex hull for all grid squares, in stead of individual grid squares, we need to first create an union of all polygons:</p>
+<p>A bit more detailed delineation of the data extent can be extracted using a convex hull which represents the smalles possible polygon that contains all points in an object. If we apply the convex hull method on the whole <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, we will get a GeoSeries containing a convex hull for each polygon separately.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">convex_hull</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    POLYGON ((616870.883 3337909.895, 616852.964 3...
+1    POLYGON ((619496.705 3358797.000, 618962.703 3...
+2    POLYGON ((619848.500 3340875.421, 619811.394 3...
+3    POLYGON ((622145.426 3350329.320, 622132.429 3...
+4    POLYGON ((623931.770 3343015.679, 622426.307 3...
+dtype: geometry
+</pre></div>
+</div>
+</div>
+</div>
+<p>In order to create a covex hull for the whole extent, we need to first create an union of all polygons.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">convex_hull</span>
@@ -1147,182 +1311,174 @@ Length: 13231, dtype: geometry
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/03-geometric-manipulation_19_0.svg" src="../../../_images/03-geometric-manipulation_19_0.svg" /></div>
+<img alt="../../../_images/03-geometric-manipulation_35_0.svg" src="../../../_images/03-geometric-manipulation_35_0.svg" /></div>
 </div>
+<p><em><strong>Figure 6.18</strong>. Smallest convex polygon for the census tracts.</em></p>
 </section>
 </section>
 <section id="buffer">
 <h2>Buffer<a class="headerlink" href="#buffer" title="Permalink to this headline">#</a></h2>
+<p>Buffering is a common spatial operation that has a multitude of use cases in spatial analyses. For example, in transport network analyses, it is good to fetch the transport network also from outside the study area in order to capture routes that go beyond the study area border. The distance parameter in the <code class="docutils literal notranslate"><span class="pre">buffer</span></code> function defines the radius or the buffer (according to the coordinate reference system of the data). Applying the buffer function on the entire data frame will produce separate buffers for each census tract.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 5 km buffer for the travel time matrix extent</span>
-<span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1000 m buffer for each polygon</span>
+<span class="n">data</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/03-geometric-manipulation_21_0.svg" src="../../../_images/03-geometric-manipulation_21_0.svg" /></div>
+<img alt="../../../_images/03-geometric-manipulation_38_0.png" src="../../../_images/03-geometric-manipulation_38_0.png" />
 </div>
+</div>
+<p><em><strong>Figure 6.19</strong>. 1km buffer for each census tract.</em></p>
+<p>If we want one buffer for the whole area, we first need to combine the geometries into one object before the buffer analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1000 m buffer for each polygon</span>
+<span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/03-geometric-manipulation_41_0.svg" src="../../../_images/03-geometric-manipulation_41_0.svg" /></div>
+</div>
+<p><em><strong>Figure 6.20</strong>. 1km buffer for each census tract.</em></p>
 </section>
 <section id="dissolving-and-merging-geometries">
 <h2>Dissolving and merging geometries<a class="headerlink" href="#dissolving-and-merging-geometries" title="Permalink to this headline">#</a></h2>
-<p>Data aggregation refers to a process where we combine data into groups. When doing spatial data aggregation, we merge the geometries together into coarser units (based on some attribute), and can also calculate summary statistics for these combined geometries from the original, more detailed values. For example, suppose that we are interested in studying continents, but we only have country-level data like the country dataset. If we aggregate the data by continent, we would convert the country-level data into a continent-level dataset.</p>
-<p>In this section, we will aggregate our travel time data by car travel times (column <code class="docutils literal notranslate"><span class="pre">car_r_t</span></code>), i.e. the grid cells that have the same travel time to Railway Station will be merged together.</p>
-<ul class="simple">
-<li><p>For doing the aggregation we will use a function called <code class="docutils literal notranslate"><span class="pre">dissolve()</span></code> that takes as input the column that will be used for conducting the aggregation:</p></li>
-</ul>
+<p>Spatial data aggregation refers to combining geometries into coarser spatial units based on some attributes. The process may also include the calculation of summary statistics.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, we learned how to group and aggregate data using the <code class="docutils literal notranslate"><span class="pre">groupby</span></code>method. In <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, there is a function called <code class="docutils literal notranslate"><span class="pre">dissolve()</span></code> that groups the data based on an anttribute column and unions the geometries for each group in that attribute. At the same time, we can also get summary statistics of the attributes. Read more about the details of the dissolve-function and related aggregation options in the <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/aggregation_with_dissolve.html">online documentation</a> <a class="footnote-reference brackets" href="#gpd-dissolve" id="id1">1</a>.</p>
+<p>To exceplify how dissolve works with our sample data, let’s create create a new column to indicate census tracts with above average population density. We can do this by adding a new empty column <code class="docutils literal notranslate"><span class="pre">dense</span></code> and adding values that indicate above and below average population densities per census tract.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new column and add a constant value</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;dense&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter rows with above average pop density and update the column dense</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">&quot;dense&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check number of rows per category</span>
+<span class="n">data</span><span class="o">.</span><span class="n">dense</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    86
+1    44
+Name: dense, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have a new column with value 1 indicating above average population density which we can use for dissolving the data into two groups using the <code class="docutils literal notranslate"><span class="pre">.dissolve()</span></code> funcition. At the same time, we can sum up the population and area columns valuens using the <code class="docutils literal notranslate"><span class="pre">aggfunc</span></code> parameter. The aggregation requires that we do a selection of the numerical columns we want to include in the output.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Conduct the aggregation</span>
-<span class="n">dissolved</span> <span class="o">=</span> <span class="n">intersection</span><span class="o">.</span><span class="n">dissolve</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;car_r_t&quot;</span><span class="p">)</span>
+<span class="n">dissolved</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;pop2019&quot;</span><span class="p">,</span> <span class="s2">&quot;area_km2&quot;</span><span class="p">,</span> <span class="s2">&quot;dense&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">dissolve</span><span class="p">(</span>
+    <span class="n">by</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the result</span>
+<span class="n">dissolved</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="c1"># What did we get</span>
-<span class="n">dissolved</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geometry</th>
+      <th>pop2019</th>
+      <th>area_km2</th>
+    </tr>
+    <tr>
+      <th>dense</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MULTIPOLYGON (((614108.230 3339640.551, 614288...</td>
+      <td>368992.0</td>
+      <td>231.131494</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MULTIPOLYGON (((612263.531 3338931.800, 612265...</td>
+      <td>242943.0</td>
+      <td>71.234570</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-</div>
-</div>
-<ul class="simple">
-<li><p>Let’s compare the number of cells in the layers before and after the aggregation:</p></li>
-</ul>
+<p>The dissolved data should have as many rows of data as there were unique values in the column - one row for each unique value. Our data have been compressed into two geometric objects and the column used for dissolving the data can now be found in the index. Attribute columns represent the sum of the values per group. We can reset the index and insert the categorical information into a new column after which we can do a quick visualization of the result.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rows in original intersection GeoDataFrame:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersection</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rows in dissolved layer:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dissolved</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Indeed the number of rows in our data has decreased and the Polygons were merged together.</p>
-<p>What actually happened here? Let’s take a closer look.</p>
-<ul class="simple">
-<li><p>Let’s see what columns we have now in our GeoDataFrame:</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dissolved</span><span class="o">.</span><span class="n">columns</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>As we can see, the column that we used for conducting the aggregation (<code class="docutils literal notranslate"><span class="pre">car_r_t</span></code>) can not be found from the columns list anymore. What happened to it?</p>
-<ul class="simple">
-<li><p>Let’s take a look at the indices of our GeoDataFrame:</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dissolved</span><span class="o">.</span><span class="n">index</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Aha! Well now we understand where our column went. It is now used as index in our <code class="docutils literal notranslate"><span class="pre">dissolved</span></code> GeoDataFrame.</p>
-<ul class="simple">
-<li><p>Now, we can for example select only such geometries from the layer that are for example exactly 15 minutes away from the Helsinki Railway Station:</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select only geometries that are within 15 minutes away</span>
-<span class="n">dissolved</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dissolved</span> <span class="o">=</span> <span class="n">dissolved</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># See the data type</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">dissolved</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dissolved</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># See the data</span>
-<span class="n">dissolved</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/03-geometric-manipulation_53_0.png" src="../../../_images/03-geometric-manipulation_53_0.png" />
 </div>
 </div>
-</div>
-<p>As we can see, as a result, we have now a Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code> object containing basically one row from our original aggregated GeoDataFrame.</p>
-<p>Let’s also visualize those 15 minute grid cells.</p>
-<ul class="simple">
-<li><p>First, we need to convert the selected row back to a GeoDataFrame:</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a GeoDataFrame</span>
-<span class="n">selection</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">([</span><span class="n">dissolved</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">15</span><span class="p">]],</span> <span class="n">crs</span><span class="o">=</span><span class="n">dissolved</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>Plot the selection on top of the entire grid:</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot all the grid cells, and the grid cells that are 15 minutes a way from the Railway Station</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">dissolved</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-<span class="n">selection</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
+<p><em><strong>Figure 6.21</strong>. Dissolved census tract geometries.</em></p>
 </section>
-<section id="simplifying-geometries">
-<h2>Simplifying geometries<a class="headerlink" href="#simplifying-geometries" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">tolerance</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id1">
-<h2>Simplifying geometries<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
-<p>Sometimes it might be useful to be able to simplify geometries. This could be something to consider for example when you have very detailed spatial features that cover the whole world. If you make a map that covers the whole world, it is unnecessary to have really detailed geometries because it is simply impossible to see those small details from your map. Furthermore, it takes a long time to actually render a large quantity of features into a map. Here, we will see how it is possible to simplify geometric features in Python.</p>
-<p>As an example we will use data representing the Amazon river in South America, and simplify it’s geometries.</p>
-<ul class="simple">
-<li><p>Let’s first read the data and see how the river looks like:</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-
-<span class="c1"># File path</span>
-<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Amazon_river.shp&quot;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
-
-<span class="c1"># Print crs</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-
-<span class="c1"># Plot the river</span>
-<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The LineString that is presented here is quite detailed, so let’s see how we can generalize them a bit. As we can see from the coordinate reference system, the data is projected in a metric system using <a class="reference external" href="http://spatialreference.org/ref/sr-org/7868/">Mercator projection based on SIRGAS datum</a>.</p>
-<ul class="simple">
-<li><p>Generalization can be done easily by using a Shapely function called <code class="docutils literal notranslate"><span class="pre">.simplify()</span></code>. The <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> parameter can be used to adjusts how much geometries should be generalized. <strong>The tolerance value is tied to the coordinate system of the geometries</strong>. Hence, the value we pass here is 20 000 <strong>meters</strong> (20 kilometers).</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generalize geometry</span>
-<span class="n">data</span><span class="p">[</span><span class="s2">&quot;geom_gen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">tolerance</span><span class="o">=</span><span class="mi">20000</span><span class="p">)</span>
-
-<span class="c1"># Set geometry to be our new simlified geometry</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s2">&quot;geom_gen&quot;</span><span class="p">)</span>
-
-<span class="c1"># Plot</span>
-<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Nice! As a result, now we have simplified our LineString quite significantly as we can see from the map.</p>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="gpd-dissolve"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/aggregation_with_dissolve.html">https://geopandas.org/en/stable/docs/user_guide/aggregation_with_dissolve.html</a></p>
+</dd>
+</dl>
 </section>
 </section>
 
@@ -1334,17 +1490,17 @@ Length: 13231, dtype: geometry
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="02-coordinate-reference-system.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="02-data-io.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Coordinate Reference Systems</p>
+            <p class="prev-next-title">Preparing GeoDataFrames from geographic data</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="04-operations-between-multiple-datasets.html" title="next page">
+    <a class='right-next' id="next-link" href="04-coordinate-reference-system.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Operations between multiple datasets</p>
+        <p class="prev-next-title">Working with Map Projections</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

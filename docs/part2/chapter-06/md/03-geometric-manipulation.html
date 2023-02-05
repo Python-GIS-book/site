@@ -133,7 +133,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -188,7 +193,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../part1/chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -284,7 +289,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -300,18 +310,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -320,12 +330,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../nb/05-exercises.html">
+    <a class="reference internal" href="../nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -782,15 +802,15 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-extent">
-   Data extent
+  <a class="reference internal nav-link" href="#simplifying-geometries">
+   Simplifying geometries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bounding-polygon">
+   Bounding polygon
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bounding-box">
-     Bounding box
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#convex-hull">
      Convex hull
@@ -809,13 +829,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simplifying-geometries">
-   Simplifying geometries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Simplifying geometries
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
   </a>
  </li>
 </ul>
@@ -848,15 +863,15 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-extent">
-   Data extent
+  <a class="reference internal nav-link" href="#simplifying-geometries">
+   Simplifying geometries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bounding-polygon">
+   Bounding polygon
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bounding-box">
-     Bounding box
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#convex-hull">
      Convex hull
@@ -875,13 +890,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simplifying-geometries">
-   Simplifying geometries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Simplifying geometries
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
   </a>
  </li>
 </ul>
@@ -896,197 +906,181 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="geometric-data-manipulations">
 <h1>Geometric data manipulations<a class="headerlink" href="#geometric-data-manipulations" title="Permalink to this headline">#</a></h1>
-<p>In this section we will use the Helsinki Region Travel Time Matrix data that constist of 13231 statistical grid squares (250m x 250m) to demonstrate some of the most common geometry manipulation functions available in geopandas.</p>
-<p>As the geometries in GeoDataFrames are eventually Shapely objects, we can use all of Shapely’s tools for geometry manipulation directly via geopandas.</p>
+<p>Here we demonstrate some of the most common geometry manipulation functions available in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. We will continue exploring the census tract data from Austin, Texas. It is often useful to do geometric manipulations on administrative borders for further analysis and visualization purposes. We will learn how to generate centroids, different outlines and buffer zones for the polygons.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;USE_PYGEOS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+</pre></div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define path do the data</span>
+<span class="n">data_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/Austin&quot;</span><span class="p">)</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="n">data_folder</span> <span class="o">/</span> <span class="s2">&quot;austin_pop_density_2019.gpkg&quot;</span>
 
-<span class="n">input_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/Helsinki&quot;</span><span class="p">)</span>
-<span class="n">fp</span> <span class="o">=</span> <span class="n">input_folder</span> <span class="o">/</span> <span class="s2">&quot;TravelTimes_to_5975375_RailwayStation.shp&quot;</span>
-
+<span class="c1"># Read in the data and check the contents</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For the purposes of geometric manipulations, we are mainly interested in the geometry column which contains the polygon geometries. Remember, that the data type of the geometry-column is <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code>. Individual geometries are eventually <code class="docutils literal notranslate"><span class="pre">shapely</span></code> objects and we can use all of <code class="docutils literal notranslate"><span class="pre">shapely</span></code>’s tools for geometry manipulation directly via <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check contents of the geometry column</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check data type of the geometry column</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check data type of a value in the geometry column</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Let’s first plot the original geometries. We can use the in-built plotting function in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> to plot the geometries, and <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> to turn off axis lines and labels.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
-<span class="n">data</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot grid geometry</span>
-</pre></div>
-</div>
+<p><em><strong>Figure 6.13</strong>. Basic plot of the census tracts.</em></p>
 <!-- #region tags=[] -->
 <section id="centroid">
 <h2>Centroid<a class="headerlink" href="#centroid" title="Permalink to this headline">#</a></h2>
-<p>Extracting the centroid of geometric features is useful in a multitude of use cases. For example, the values in the Travel Time Matrix data set have originally been calculated from the center point of each grid square. We can find out the geometric centroid of each grid square in geopandas via the centroid-attribute:</p>
+<p>Extracting the centroid of geometric features is useful in many cases. Geometric centroid can, for example, be used for locating text labels in visualizations. We can extract the center point of each polygon via the <code class="docutils literal notranslate"><span class="pre">centroid</span></code>-attribute of the geometry-column. The data should be in a projected coordinate reference system when calculating the centroids. If trying to calculate centroids based on latitude and longitude information, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> will warn us that the results are likely incorrect. Our sample data are in WGS 84 / UTM zone 14N (EPSG:32614), which is a projected , and we can proceed to calculating the centroids.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Polygon centroids</span>
-<span class="n">data</span><span class="o">.</span><span class="n">centroid</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot centroid geometries</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>We can also apply the method directly to the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> to achieve the same result using the syntax <code class="docutils literal notranslate"><span class="pre">data.centroid</span></code>. At the same time, we can also  plot the centroids for a visual check.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 6.14</strong>. Basic plot of census tract centroids.</em></p>
 </section>
 <section id="unary-union">
 <h2>Unary union<a class="headerlink" href="#unary-union" title="Permalink to this headline">#</a></h2>
-<p>Extracting only the outlines of the set of grid squares is possible through creating a geometric union among all geometries in the GeoDataFrame/GeoSeries. This could be useful, for example, when delineating the outlines of a study area.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Polygon centroids</span>
-<span class="n">data</span><span class="o">.</span><span class="n">unary_union</span>
+<p>We can generate a joint outline for the administrative areas through creating a geometric union among all geometries. This could be useful, for example, for visualizing the outlines of a study area. The <code class="docutils literal notranslate"><span class="pre">unary_union</span></code> returns a single geometry object, which is automatically visualized when running the code in a Jupyter Notebook.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span>
 </pre></div>
 </div>
-<p>Note that the previous operation is identical to calling <code class="docutils literal notranslate"><span class="pre">data['geometry'].unary_union</span></code>.</p>
+<p><em><strong>Figure 6.15</strong>. Union of all of census tract polygon geometries.</em></p>
 </section>
-<section id="data-extent">
-<h2>Data extent<a class="headerlink" href="#data-extent" title="Permalink to this headline">#</a></h2>
-<p>Sometimes it is enough to describe the approximate extent of the data using a bounding polygon.</p>
-<section id="bounding-box">
-<h3>Bounding box<a class="headerlink" href="#bounding-box" title="Permalink to this headline">#</a></h3>
-<p>A minimum bounding rectangle, i.e. a bounding box or an envelope is the smallest rectangular polygon surrounding a geometric object. In a GeoDataFrame, the <code class="docutils literal notranslate"><span class="pre">envelope</span></code> attribute returns the bounding rectangle for each geometry:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">envelope</span>
+<section id="simplifying-geometries">
+<h2>Simplifying geometries<a class="headerlink" href="#simplifying-geometries" title="Permalink to this headline">#</a></h2>
+<p>Geometry simplification is a useful process especially when visualizing data that has very detailed geometry. With our sample data, we can generate simplified version of the outline extent. The tolerance parameter controls the level of simplification.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">tolerance</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In order to get the bounding rectangle for the whole layer, we can first create an union of all geometries, and then create the bounding rectangle for those:</p>
+<p><em><strong>Figure 6.16</strong>. Simplified union of the census tract polygons.</em></p>
+</section>
+<section id="bounding-polygon">
+<h2>Bounding polygon<a class="headerlink" href="#bounding-polygon" title="Permalink to this headline">#</a></h2>
+<p>Bounding polygons are useful in many cases for describing the approximate extent of geographic data. A minimum bounding rectangle, also called a bounding box or an envelope is the smallest rectangular polygon surrounding a geometric object. In a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, the <code class="docutils literal notranslate"><span class="pre">envelope</span></code> attribute returns the bounding rectangle for each geometry.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">envelope</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In order to get the bounding rectangle for the whole layer, we  first create an union of all geometries using <code class="docutils literal notranslate"><span class="pre">unary_union</span></code>, and then create the bounding rectangle for that polygon.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">envelope</span>
 </pre></div>
 </div>
-<p>Corner coordinates of a GeoDataFrame can be directly fetched via the <code class="docutils literal notranslate"><span class="pre">total_bounds</span></code>attribute, while the <code class="docutils literal notranslate"><span class="pre">bounds</span></code> attribute returns the bounding coordinates of each feature:</p>
+<p><em><strong>Figure 6.17</strong>. Minimum bounding box for the census tracts.</em></p>
+<p>Corner coordinates of the bounding box for a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> can be fetched via the <code class="docutils literal notranslate"><span class="pre">total_bounds</span></code> attribute.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">total_bounds</span>
 </pre></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">bounds</span></code> attribute returns the bounding coordinates of each feature.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
 <section id="convex-hull">
 <h3>Convex hull<a class="headerlink" href="#convex-hull" title="Permalink to this headline">#</a></h3>
-<p>A bit more detailed delineation of the data extent can be extracted using a convex hull which represents the smalles possible polygon that contains all points in an object.</p>
-<p>In order to create a covex hull for all grid squares, in stead of individual grid squares, we need to first create an union of all polygons:</p>
+<p>A bit more detailed delineation of the data extent can be extracted using a convex hull which represents the smalles possible polygon that contains all points in an object. If we apply the convex hull method on the whole <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, we will get a GeoSeries containing a convex hull for each polygon separately.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">convex_hull</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In order to create a covex hull for the whole extent, we need to first create an union of all polygons.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">convex_hull</span>
 </pre></div>
 </div>
+<p><em><strong>Figure 6.18</strong>. Smallest convex polygon for the census tracts.</em></p>
 </section>
 </section>
 <section id="buffer">
 <h2>Buffer<a class="headerlink" href="#buffer" title="Permalink to this headline">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 5 km buffer for the travel time matrix extent</span>
-<span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+<p>Buffering is a common spatial operation that has a multitude of use cases in spatial analyses. For example, in transport network analyses, it is good to fetch the transport network also from outside the study area in order to capture routes that go beyond the study area border. The distance parameter in the <code class="docutils literal notranslate"><span class="pre">buffer</span></code> function defines the radius or the buffer (according to the coordinate reference system of the data). Applying the buffer function on the entire data frame will produce separate buffers for each census tract.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1000 m buffer for each polygon</span>
+<span class="n">data</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<!-- #region -->
+<p><em><strong>Figure 6.19</strong>. 1km buffer for each census tract.</em></p>
+<p>If we want one buffer for the whole area, we first need to combine the geometries into one object before the buffer analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1000 m buffer for each polygon</span>
+<span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 6.20</strong>. 1km buffer for each census tract.</em></p>
+<!-- #region tags=[] -->
 </section>
 <section id="dissolving-and-merging-geometries">
 <h2>Dissolving and merging geometries<a class="headerlink" href="#dissolving-and-merging-geometries" title="Permalink to this headline">#</a></h2>
-<p>Data aggregation refers to a process where we combine data into groups. When doing spatial data aggregation, we merge the geometries together into coarser units (based on some attribute), and can also calculate summary statistics for these combined geometries from the original, more detailed values. For example, suppose that we are interested in studying continents, but we only have country-level data like the country dataset. If we aggregate the data by continent, we would convert the country-level data into a continent-level dataset.</p>
-<p>In this section, we will aggregate our travel time data by car travel times (column <code class="docutils literal notranslate"><span class="pre">car_r_t</span></code>), i.e. the grid cells that have the same travel time to Railway Station will be merged together.</p>
-<ul class="simple">
-<li><p>For doing the aggregation we will use a function called <code class="docutils literal notranslate"><span class="pre">dissolve()</span></code> that takes as input the column that will be used for conducting the aggregation:</p></li>
-</ul>
+<p>Spatial data aggregation refers to combining geometries into coarser spatial units based on some attributes. The process may also include the calculation of summary statistics.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, we learned how to group and aggregate data using the <code class="docutils literal notranslate"><span class="pre">groupby</span></code>method. In <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, there is a function called <code class="docutils literal notranslate"><span class="pre">dissolve()</span></code> that groups the data based on an anttribute column and unions the geometries for each group in that attribute. At the same time, we can also get summary statistics of the attributes. Read more about the details of the dissolve-function and related aggregation options in the <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/aggregation_with_dissolve.html">online documentation</a> <a class="footnote-reference brackets" href="#gpd-dissolve" id="id1">1</a>.</p>
 <!-- #endregion -->
+<p>To exceplify how dissolve works with our sample data, let’s create create a new column to indicate census tracts with above average population density. We can do this by adding a new empty column <code class="docutils literal notranslate"><span class="pre">dense</span></code> and adding values that indicate above and below average population densities per census tract.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new column and add a constant value</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;dense&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter rows with above average pop density and update the column dense</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">&quot;dense&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check number of rows per category</span>
+<span class="n">data</span><span class="o">.</span><span class="n">dense</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now we have a new column with value 1 indicating above average population density which we can use for dissolving the data into two groups using the <code class="docutils literal notranslate"><span class="pre">.dissolve()</span></code> funcition. At the same time, we can sum up the population and area columns valuens using the <code class="docutils literal notranslate"><span class="pre">aggfunc</span></code> parameter. The aggregation requires that we do a selection of the numerical columns we want to include in the output.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Conduct the aggregation</span>
-<span class="n">dissolved</span> <span class="o">=</span> <span class="n">intersection</span><span class="o">.</span><span class="n">dissolve</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;car_r_t&quot;</span><span class="p">)</span>
+<span class="n">dissolved</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;pop2019&quot;</span><span class="p">,</span> <span class="s2">&quot;area_km2&quot;</span><span class="p">,</span> 
+                  <span class="s2">&quot;dense&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">dissolve</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the result</span>
+<span class="n">dissolved</span>
+</pre></div>
+</div>
+<p>The dissolved data should have as many rows of data as there were unique values in the column - one row for each unique value. Our data have been compressed into two geometric objects and the column used for dissolving the data can now be found in the index. Attribute columns represent the sum of the values per group. We can reset the index and insert the categorical information into a new column after which we can do a quick visualization of the result.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dissolved</span> <span class="o">=</span> <span class="n">dissolved</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dissolved</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">)</span>
 
-<span class="c1"># What did we get</span>
-<span class="n">dissolved</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Let’s compare the number of cells in the layers before and after the aggregation:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rows in original intersection GeoDataFrame:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersection</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rows in dissolved layer:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dissolved</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>Indeed the number of rows in our data has decreased and the Polygons were merged together.</p>
-<p>What actually happened here? Let’s take a closer look.</p>
-<ul class="simple">
-<li><p>Let’s see what columns we have now in our GeoDataFrame:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dissolved</span><span class="o">.</span><span class="n">columns</span>
-</pre></div>
-</div>
-<p>As we can see, the column that we used for conducting the aggregation (<code class="docutils literal notranslate"><span class="pre">car_r_t</span></code>) can not be found from the columns list anymore. What happened to it?</p>
-<ul class="simple">
-<li><p>Let’s take a look at the indices of our GeoDataFrame:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dissolved</span><span class="o">.</span><span class="n">index</span>
-</pre></div>
-</div>
-<p>Aha! Well now we understand where our column went. It is now used as index in our <code class="docutils literal notranslate"><span class="pre">dissolved</span></code> GeoDataFrame.</p>
-<ul class="simple">
-<li><p>Now, we can for example select only such geometries from the layer that are for example exactly 15 minutes away from the Helsinki Railway Station:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select only geometries that are within 15 minutes away</span>
-<span class="n">dissolved</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># See the data type</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">dissolved</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># See the data</span>
-<span class="n">dissolved</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>As we can see, as a result, we have now a Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code> object containing basically one row from our original aggregated GeoDataFrame.</p>
-<p>Let’s also visualize those 15 minute grid cells.</p>
-<ul class="simple">
-<li><p>First, we need to convert the selected row back to a GeoDataFrame:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a GeoDataFrame</span>
-<span class="n">selection</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">([</span><span class="n">dissolved</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">15</span><span class="p">]],</span> <span class="n">crs</span><span class="o">=</span><span class="n">dissolved</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>Plot the selection on top of the entire grid:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot all the grid cells, and the grid cells that are 15 minutes a way from the Railway Station</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">dissolved</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-<span class="n">selection</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
+<p><em><strong>Figure 6.21</strong>. Dissolved census tract geometries.</em></p>
 </section>
-<section id="simplifying-geometries">
-<h2>Simplifying geometries<a class="headerlink" href="#simplifying-geometries" title="Permalink to this headline">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">unary_union</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">tolerance</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="id1">
-<h2>Simplifying geometries<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
-<p>Sometimes it might be useful to be able to simplify geometries. This could be something to consider for example when you have very detailed spatial features that cover the whole world. If you make a map that covers the whole world, it is unnecessary to have really detailed geometries because it is simply impossible to see those small details from your map. Furthermore, it takes a long time to actually render a large quantity of features into a map. Here, we will see how it is possible to simplify geometric features in Python.</p>
-<p>As an example we will use data representing the Amazon river in South America, and simplify it’s geometries.</p>
-<ul class="simple">
-<li><p>Let’s first read the data and see how the river looks like:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-
-<span class="c1"># File path</span>
-<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Amazon_river.shp&quot;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
-
-<span class="c1"># Print crs</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-
-<span class="c1"># Plot the river</span>
-<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>The LineString that is presented here is quite detailed, so let’s see how we can generalize them a bit. As we can see from the coordinate reference system, the data is projected in a metric system using <a class="reference external" href="http://spatialreference.org/ref/sr-org/7868/">Mercator projection based on SIRGAS datum</a>.</p>
-<ul class="simple">
-<li><p>Generalization can be done easily by using a Shapely function called <code class="docutils literal notranslate"><span class="pre">.simplify()</span></code>. The <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> parameter can be used to adjusts how much geometries should be generalized. <strong>The tolerance value is tied to the coordinate system of the geometries</strong>. Hence, the value we pass here is 20 000 <strong>meters</strong> (20 kilometers).</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generalize geometry</span>
-<span class="n">data</span><span class="p">[</span><span class="s2">&quot;geom_gen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">tolerance</span><span class="o">=</span><span class="mi">20000</span><span class="p">)</span>
-
-<span class="c1"># Set geometry to be our new simlified geometry</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s2">&quot;geom_gen&quot;</span><span class="p">)</span>
-
-<span class="c1"># Plot</span>
-<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Nice! As a result, now we have simplified our LineString quite significantly as we can see from the map.</p>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="gpd-dissolve"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/aggregation_with_dissolve.html">https://geopandas.org/en/stable/docs/user_guide/aggregation_with_dissolve.html</a></p>
+</dd>
+</dl>
 </section>
 </section>
 

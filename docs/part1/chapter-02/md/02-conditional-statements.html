@@ -133,7 +133,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -188,7 +193,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -284,7 +289,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -300,18 +310,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -320,12 +330,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -926,12 +946,16 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="conditional-statements">
+  <!-- #region tags=[] -->
+<section class="tex2jax_ignore mathjax_ignore" id="conditional-statements">
 <h1>Conditional statements<a class="headerlink" href="#conditional-statements" title="Permalink to this headline">#</a></h1>
 <p>Next, we will learn how to make choices in our code using conditional statements (<code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, <code class="docutils literal notranslate"><span class="pre">else</span></code>) and Boolean values (<code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
+<!-- #endregion -->
+<!-- #region tags=[] -->
 <section id="basics-of-conditional-statements">
 <h2>Basics of conditional statements<a class="headerlink" href="#basics-of-conditional-statements" title="Permalink to this headline">#</a></h2>
 <p>Conditional statements can change the code behaviour based on certain conditions. The idea is simple: <strong>IF</strong> a condition is met, <strong>THEN</strong> a set of actions is performed.</p>
+<!-- #endregion -->
 <section id="a-simple-conditional-statement">
 <h3>A simple conditional statement<a class="headerlink" href="#a-simple-conditional-statement" title="Permalink to this headline">#</a></h3>
 <p>Let’s look at a simple example with temperatures, and check if temperature 17 (celsius degrees) is hot or not:</p>
@@ -1121,17 +1145,18 @@ The following code compares these temperatures and prints something to the scree
 <section id="question-2-8">
 <h4>Question 2.8<a class="headerlink" href="#question-2-8" title="Permalink to this headline">#</a></h4>
 <p>Let’s return to our example about making decisions on a rainy day. Imagine that we consider not only the rain, but also the wind speed (in meters per second). If it is windy or raining, we’ll just stay at home. If it’s not windy or raining, we can go out and enjoy the weather!</p>
-<p>Let’ set 18 m/s as our comfort limit in the conditional statement and see what our Python program tells us to do in these conditions:</p>
+<p>Let’s set 10 m/s as our comfort limit in the conditional statement and see what our Python program tells us to do in these conditions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="n">weather</span> <span class="o">=</span> <span class="s2">&quot;rain&quot;</span>
-<span class="n">wind_speed</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">comfort_limit</span> <span class="o">=</span> <span class="mi">18</span>
+<span class="n">wind_speed</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">comfort_limit</span> <span class="o">=</span> <span class="mi">10</span>
 
-<span class="c1"># If it is windy or raining, print &quot;stay at home&quot;, else print &quot;go out and enjoy the weather!&quot;</span>
+<span class="c1"># If it is windy or raining, print &quot;stay at home&quot;,</span>
+<span class="c1"># otherwise (else) print &quot;go out and enjoy the weather!&quot;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">weather</span> <span class="o">==</span> <span class="s2">&quot;rain&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">wind_speed</span> <span class="o">&gt;=</span> <span class="n">comfort_limit</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Just stay at home&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>

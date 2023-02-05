@@ -135,7 +135,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -190,7 +195,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,7 +291,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -302,18 +312,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -322,12 +332,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -1104,12 +1124,11 @@ Python script files traditionally use the <code class="docutils literal notransl
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>00-python-basics.ipynb           06-exercises.ipynb
-01-for-loops.ipynb               07-book-references.ipynb
-02-conditional-statements.ipynb  07-references.ipynb
-03-functions.ipynb               <span class=" -Color -Color-Blue">__pycache__</span>/
-04-writing-scripts.ipynb         long-form-exercises.ipynb
-05-modules.ipynb                 temp_converter.py
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>00-python-basics.ipynb           05-modules.ipynb
+01-for-loops.ipynb               06-exercises.ipynb
+02-conditional-statements.ipynb  <span class=" -Color -Color-Blue">__pycache__</span>/
+03-functions.ipynb               long-form-exercises.ipynb
+04-writing-scripts.ipynb         temp_converter.py
 </pre></div>
 </div>
 </div>
@@ -1141,12 +1160,11 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>00-python-basics.ipynb           06-exercises.ipynb
-01-for-loops.ipynb               07-book-references.ipynb
-02-conditional-statements.ipynb  07-references.ipynb
-03-functions.ipynb               <span class=" -Color -Color-Blue">__pycache__</span>/
-04-writing-scripts.ipynb         long-form-exercises.ipynb
-05-modules.ipynb                 temp_converter.py
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>00-python-basics.ipynb           05-modules.ipynb
+01-for-loops.ipynb               06-exercises.ipynb
+02-conditional-statements.ipynb  <span class=" -Color -Color-Blue">__pycache__</span>/
+03-functions.ipynb               long-form-exercises.ipynb
+04-writing-scripts.ipynb         temp_converter.py
 </pre></div>
 </div>
 </div>
@@ -1156,20 +1174,6 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 <section id="importing-our-script-functions">
 <h3>Importing our script functions<a class="headerlink" href="#importing-our-script-functions" title="Permalink to this headline">#</a></h3>
 <p>Let’s now import our <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> function from the other script by adding a specific <code class="docutils literal notranslate"><span class="pre">import</span></code> statement in the Python cell below: <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">temp_converter</span> <span class="pre">import</span> <span class="pre">celsius_to_fahr</span></code></p>
-<div class="cell tag_hide_cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DO NOT RUN THIS CELL</span>
-<span class="c1"># This cell is only needed for generating the web page and book documents</span>
-<span class="o">%</span><span class="k">cd</span> ../../../_static/part1/chapter-01/
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/whipp/Work/Research/manuscripts/drafts/Python-GIS-book/site-git/source/_static/part1/chapter-01
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">temp_converter</span> <span class="kn">import</span> <span class="n">celsius_to_fahr</span>
@@ -1194,7 +1198,7 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 </div>
 </div>
 <p>You should get following output:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">freezing</span> <span class="n">point</span> <span class="n">of</span> <span class="n">water</span> <span class="ow">in</span> <span class="n">Fahrenheit</span> <span class="ow">is</span><span class="p">:</span> <span class="mf">32.0</span>
+<div class="highlight-code notranslate"><div class="highlight"><pre><span></span>The freezing point of water in Fahrenheit is: 32.0
 </pre></div>
 </div>
 </section>

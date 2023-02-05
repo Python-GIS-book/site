@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -99,7 +99,7 @@ ax = oct1_temps.plot(
 
 _**Figure 4.5**. A plot of the example temperature data with additional formatting, a title, and axis labels._
 
-Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter `style='ko--'`. In this case, `k` tells the `oct1_temps.plot()` function to use black color for the lines and symbols, `o` tells it to show circles at the data points, and `--` says to use a dashed line between points. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, and axis labels using the `xlabel` and `ylabel` parameters [^axis_labels]. 
+Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter `style='ko--'`. In this case, `k` tells the `oct1_temps.plot()` function to use black color for the lines and symbols, `o` tells it to show circles at the data points, and `--` says to use a dashed line between points. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, and axis labels using the `xlabel` and `ylabel` parameters.
 
 <!-- #region -->
 ## Formatting and annotating the figure
@@ -263,6 +263,7 @@ ax.legend()
 
 _**Figure 4.7**. A plot of the example temperature data further modified with additional formatting and reduced axis ranges._
 
+
 #### Question 4.1
 
 Create a line plot similar to the examples above with the following attributes:
@@ -272,11 +273,11 @@ Create a line plot similar to the examples above with the following attributes:
 - A title that reads "Evening temperatures at Helsinki-Vantaa on October 1, 2019"
 - A text label indicating the warmest temperature in the evening
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 # Define dates
@@ -300,10 +301,6 @@ ax = oct1_temps.plot(
 ax.text(warm_time, 43.0, "Warmest temperature in the evening ->")
 ax.legend(loc=4)
 ```
-
-<!-- #region tags=[] -->
-_**Figure 4.8**. The solution plot for Question 4.1._
-<!-- #endregion -->
 
 ## Bar plots in pandas
 
@@ -329,7 +326,7 @@ ax.text(0, 42.1, "Coldest \ntemp \nv")
 ax.legend()
 ```
 
-_**Figure 4.9**. A bar plot using pandas with the example temperature data._
+_**Figure 4.8**. A bar plot using pandas with the example temperature data._
 
 You can find more about how to format bar charts on the [pandas documentation website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html) [^pandas-docs].
 
@@ -406,7 +403,7 @@ import hvplot.pandas
 
 With the submodule imported, we can simply take a slice of data from the `data` DataFrame, the month of July in 2014 in this example, and create a plot just as we would in pandas. The only difference here is that we will use the `hvplot()` method rather than the `plot()` method from pandas.
 
-```python
+```python tags=[]
 july2014_df = data.loc[(data.index >= "201407010000") & (data.index < "201407310000")]
 
 july2014_df.hvplot(
@@ -417,7 +414,13 @@ july2014_df.hvplot(
 )
 ```
 
-_**Figure 4.10**. An interactive plot example using hvPlot._
+<!-- #raw tags=["hide-cell"] -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 4.9}. An interactive plot example using hvPlot.}}, center, nofloat}{../img/hvplot-example.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
+
+_**Figure 4.9**. An interactive plot example using hvPlot._
 
 Now we have an interactive line plot where the users can place their mouse cursor above the line to see the plotted values at a given location, zoom in and/or pan the plot to areas of interest, and click on the legend items to hide or display them. And as you can see, hvPlot makes it very easy to start creating your own interactive plots from pandas DataFrames.
 
@@ -433,5 +436,4 @@ That is all we will explore for the moment, but you are welcome to have a look a
 [^pandas-docs]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html>
 [^hvplot]: <https://hvplot.holoviz.org/>
 [^bokeh]: <https://docs.bokeh.org/en/latest/index.html>
-[^hvplot_guide]: https://hvplot.holoviz.org/user_guide/index.html
-[^axis_labels]: Axis labels are a relatively new feature in pandas plotting, added in version 1.1.0. If you are using an older version of pandas and do not want upgrade then you will need to use a separate command such as `ax.set_xlabel('Date')` to set the axis labels.
+[^hvplot_guide]: <https://hvplot.holoviz.org/user_guide/index.html>

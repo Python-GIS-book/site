@@ -135,7 +135,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -190,7 +195,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,7 +291,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -302,18 +312,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -322,12 +332,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -835,8 +855,8 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-module-functions">
-   Using module functions
+  <a class="reference internal nav-link" href="#checking-available-functions-and-modules">
+   Checking available functions and modules
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -855,11 +875,6 @@ title="Print to PDF"
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installing-packages">
-   Installing packages
-  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#footnotes">
@@ -918,8 +933,8 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-module-functions">
-   Using module functions
+  <a class="reference internal nav-link" href="#checking-available-functions-and-modules">
+   Checking available functions and modules
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -938,11 +953,6 @@ title="Print to PDF"
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installing-packages">
-   Installing packages
-  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#footnotes">
@@ -1094,7 +1104,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x168771c70&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x1654c4d60&gt;]
 </pre></div>
 </div>
 <img alt="../../../_images/05-modules_21_1.png" src="../../../_images/05-modules_21_1.png" />
@@ -1104,10 +1114,10 @@ title="Print to PDF"
 <p>You can read more about the <code class="docutils literal notranslate"><span class="pre">plot</span></code> plotting function in the <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html">matplotlib pyplot documentation</a> <a class="footnote-reference brackets" href="#matplotdocs" id="id5">5</a>. We will introduce matplotlib in detail in Chapter 3.</p>
 </section>
 </section>
-<section id="using-module-functions">
-<h2>Using module functions<a class="headerlink" href="#using-module-functions" title="Permalink to this headline">#</a></h2>
-<p>As we see above, the easiest way to use a module is to import it an then use its functions by typing <code class="docutils literal notranslate"><span class="pre">modulename.functionname()</span></code> and providing the necessary arguments. Yes, it is that simple.</p>
-<p>However, there are times that you may not know the names of all of the functions in a given module, or which are part of a module. You can view the list of functions that are part of a module by using the <code class="docutils literal notranslate"><span class="pre">dir()</span></code> function.</p>
+<section id="checking-available-functions-and-modules">
+<h2>Checking available functions and modules<a class="headerlink" href="#checking-available-functions-and-modules" title="Permalink to this headline">#</a></h2>
+<p>As we saw above, the easiest way to use a module is to import it an then use its functions by typing <code class="docutils literal notranslate"><span class="pre">modulename.functionname()</span></code> and providing the necessary arguments. Yes, it is that simple.</p>
+<p>However, there are times that you may not know the names of all of the functions in a module, or which are part of a given module. You can view the list of functions that are part of a module using the <code class="docutils literal notranslate"><span class="pre">dir()</span></code> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="nb">dir</span><span class="p">(</span><span class="n">math</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1125,7 +1135,7 @@ title="Print to PDF"
 <p>In Jupyter notebooks you can also browse the available modules by typing in <code class="docutils literal notranslate"><span class="pre">modulename.</span></code> and then pressing the tab key:</p>
 <p><img alt="Figure 2.10. Listing functions in the math module in JupyterLab." src="../../../_images/view_module_functions.png" /></p>
 <p><em><strong>Figure 2.10</strong>. Listing functions in the math module in JupyterLab.</em></p>
-<p>So that’s helpful, but what about when you don’t know what a given function does? The easiest solution is to use the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function (after importing the module). Let’s have a look at the help for the <code class="docutils literal notranslate"><span class="pre">math.sin</span></code> function.</p>
+<p>So that’s helpful, but what about when you don’t know what a given function does? The easiest solution is to use the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function (after importing the module). Let’s have a look at the help for the <code class="docutils literal notranslate"><span class="pre">math.sin()</span></code> function. Note that we do not include the parentheses for the target function when using the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">)</span>
@@ -1141,6 +1151,22 @@ sin(x, /)
 </div>
 </div>
 </div>
+<p>Another possible issue is that you may not know which modules are available for use in your Jupyter Notebook. In this case you can type <code class="docutils literal notranslate"><span class="pre">help(&quot;modules&quot;)</span></code> to see the complete list of installed Python packages. Be aware that although this works, the output can be a bit clumsy and hard to read. In addition, note that when running this command you may first see several warnings related to deprecated packages, etc.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">help</span><span class="p">(</span><span class="s2">&quot;modules&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-code notranslate"><div class="highlight"><pre><span></span>Please wait a moment while I gather a list of all available modules...
+
+(Some warning messages may appear here)
+
+Cython              click               lib2to3             rioxarray
+IPython             click_completion    libmambapy          rlcompleter
+OpenSSL             click_log           libpysal            rtree
+PIL                 click_plugins       linecache           runpy
+__future__          cligj               linkify_it          rvlib
+... (output truncated)
+</pre></div>
+</div>
 </section>
 <section id="what-should-i-not-do">
 <h2>What should I not do?<a class="headerlink" href="#what-should-i-not-do" title="Permalink to this headline">#</a></h2>
@@ -1154,29 +1180,6 @@ sin(x, /)
 <p>Don’t use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code> is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">m</span></code> could be confusing, especially if we used <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span> <span class="pre">as</span> <span class="pre">m</span></code> above, and might do so in other Jupyter notebooks or script files. Similarly, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">math</span></code> is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.</p>
 <p>According to the good coding practices described in <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#imports">PEP 8</a> <a class="footnote-reference brackets" href="#pep8" id="id6">6</a>, we should always import modules at the top of the file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import requried modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.</p>
 </section>
-</section>
-<section id="installing-packages">
-<h2>Installing packages<a class="headerlink" href="#installing-packages" title="Permalink to this headline">#</a></h2>
-<p>If you have installed Python on your own computer, we recommend using the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda package management system</a> <a class="footnote-reference brackets" href="#conda" id="id7">7</a> that comes with the Anaconda and Miniconda Python installers. Using Conda, you can list package names and versions using the <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">list</span></code> command in a terminal.</p>
-<p>It’s also good to be aware of <a class="reference external" href="https://pypi.org/project/pip/">pip, the package installer for python</a>  <a class="footnote-reference brackets" href="#pip" id="id8">8</a>. Pip and conda are often used for similar purposes, but the key difference is that pip is used for installing packages written in Python, while conda handles packages that might also contain code written in other languages. Generally, we encourage you to use conda when installing packages (and within conda, it is preferable to use the same channel for installations). However, sometimes you might need a package that is not available via conda, but can be installed with pip. You can read more about differences and similarities of conda an pip at <a class="reference external" href="https://www.anaconda.com/understanding-conda-and-pip/">https://www.anaconda.com/understanding-conda-and-pip/</a>.</p>
-<p>In a Jupyter Notebook, you can type in <code class="docutils literal notranslate"><span class="pre">help(&quot;modules&quot;)</span></code> to see the complete list of installed packages in Python. However, the output is a bit clumsy and hard to read. Note that when running this command, you might first get several warnings related to deprecated packages, etc.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">help</span><span class="p">(</span><span class="s2">&quot;modules&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Please wait a moment while I gather a list of all available modules...
-
-/Users/whipp/opt/miniconda3/envs/python-gis-book/lib/python3.9/site-packages/
-IPython/kernel/__init__.py:12: ShimWarning: The `IPython.kernel` package has been
-deprecated since IPython 4.0.You should import from ipykernel or jupyter_client
-instead.
-  warn(&quot;The `IPython.kernel` package has been deprecated since IPython 4.0.&quot;
-
-Cython              click_completion    linkify_it          scipy
-IPython             click_log           llvmlite            seaborn
-OpenSSL             click_plugins       locale              secrets
-... (output truncated)
-</pre></div>
-</div>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
@@ -1199,12 +1202,6 @@ OpenSSL             click_plugins       locale              secrets
 </dd>
 <dt class="label" id="pep8"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
 <dd><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#imports">https://www.python.org/dev/peps/pep-0008/#imports</a></p>
-</dd>
-<dt class="label" id="conda"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
-<dd><p><a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">https://docs.conda.io/projects/conda/en/latest/</a></p>
-</dd>
-<dt class="label" id="pip"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
-<dd><p><a class="reference external" href="https://pypi.org/project/pip/">https://pypi.org/project/pip/</a></p>
 </dd>
 </dl>
 </section>

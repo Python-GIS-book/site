@@ -133,7 +133,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -188,7 +193,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -284,7 +289,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -300,18 +310,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -320,12 +330,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -1146,11 +1166,14 @@ Let’s select the temperature (column <code class="docutils literal notranslate
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Value at position (0,0) is&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
+<!-- #region -->
 <p>Hence, the syntax for <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> is:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.iloc[start_row_position:stop_row_position,</span> <span class="pre">start_column_position:stop_column_position]</span></code></p></li>
-</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start_row_position</span><span class="p">:</span><span class="n">stop_row_position</span><span class="p">,</span>
+      <span class="n">start_column_position</span><span class="p">:</span><span class="n">stop_column_position</span><span class="p">]</span>
+</pre></div>
+</div>
 <p>By following this syntax, we can access the value on the first row and second column (<code class="docutils literal notranslate"><span class="pre">TEMP</span></code>) by calling:</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1181,10 +1204,18 @@ Let’s select the temperature (column <code class="docutils literal notranslate
 <h3>Conditional selections<a class="headerlink" href="#conditional-selections" title="Permalink to this headline">#</a></h3>
 <p>One really useful feature in pandas is the ability to easily filter and select rows based on a conditional statement.
 The following example shows how we check if the Celsius temperature at each row on the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code>column is higher than 15 degrees:</p>
-<!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">23</span><span class="p">]:</span> <span class="n">help</span><span class="p">(</span><span class="s2">&quot;modules&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="highlight-code notranslate"><div class="highlight"><pre><span></span>0      True
+1      True
+2      True
+3     False
+4     False
+... (output truncated)
+</pre></div>
+</div>
+<!-- #endregion -->
 <p>As a result, we get a Series of booleans, where the value <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a <code class="docutils literal notranslate"><span class="pre">mask</span></code>. We can take advantage of this mask when doing selections with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable <code class="docutils literal notranslate"><span class="pre">warm_temps</span></code> (warm temperatures). We can specify the criteria directly inside the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> square brackets. Next, we will select rows which have higher temperature (in Celsius) than 15 degrees:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">]</span>
 <span class="n">warm_temps</span>

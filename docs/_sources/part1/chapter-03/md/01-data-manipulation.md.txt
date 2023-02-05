@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -76,11 +76,11 @@ data.head()
 
 Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is: `K = C + 273.15`
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data["TEMP_KELVIN"] = data["TEMP_CELSIUS"] + 273.15
@@ -126,17 +126,18 @@ selection = data.loc[0:5, ["TEMP", "TEMP_CELSIUS"]]
 selection
 ```
 
-As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5). 
-    
+As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5).
+
+
 #### Question 3.3
 
 Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data.loc[23:29, "TEMP_CELSIUS"].mean()
@@ -184,11 +185,16 @@ print()
 print("Value at position (0,0) is", data.iloc[0, 0])
 ```
 
+<!-- #region -->
 Hence, the syntax for `.iloc` is: 
 
- - `.iloc[start_row_position:stop_row_position, start_column_position:stop_column_position]`
+```python
+.iloc[start_row_position:stop_row_position,
+      start_column_position:stop_column_position]
+```
 
 By following this syntax, we can access the value on the first row and second column (`TEMP`) by calling:
+<!-- #endregion -->
 
 ```python
 data.iloc[0, 1]
@@ -226,11 +232,20 @@ data.loc[data["YEARMODA"].isin(selection_criteria)]
 
 One really useful feature in pandas is the ability to easily filter and select rows based on a conditional statement.
 The following example shows how we check if the Celsius temperature at each row on the `TEMP_CELSIUS`column is higher than 15 degrees:
-<!-- #endregion -->
 
 ```python
-data["TEMP_CELSIUS"] > 15
+In [23]: help("modules")
 ```
+
+```code
+0      True
+1      True
+2      True
+3     False
+4     False
+... (output truncated)
+```
+<!-- #endregion -->
 
 As a result, we get a Series of booleans, where the value `True` or `False` at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a ``mask``. We can take advantage of this mask when doing selections with `.loc` based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable `warm_temps` (warm temperatures). We can specify the criteria directly inside the `.loc` square brackets. Next, we will select rows which have higher temperature (in Celsius) than 15 degrees:
 
@@ -287,11 +302,11 @@ As we can see, now we did not receive any warnings, and it would be safe to cont
 
 Find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the `YEARMODA` column.
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 data["TEMP_CELSIUS"].loc[data["YEARMODA"] >= 20160624].mean()
 ```

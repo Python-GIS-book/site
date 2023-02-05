@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -16,9 +16,9 @@ jupyter:
 
 At this point you should know the basics of making plots with Matplotlib. Now we will expand on our basic plotting skills to learn how to create more advanced plots. In this section, we will show how to visualize data using pandas/Matplotlib and create multi-panel plots such as the one below.
 
-![_**Figure 4.11**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._](../img/subplots.png)
+![_**Figure 4.10**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._](../img/subplots.png)
 
-_**Figure 4.11**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._
+_**Figure 4.10**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._
 
 
 ## Preparing the data for plotting 
@@ -74,11 +74,11 @@ print("Number of rows after removing no data values:", len(data))
 How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified DataFrame to another variable name or do not use the `inplace` parameter.
 <!-- #endregion -->
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 
@@ -99,7 +99,7 @@ data.head()
 
 ## Subplots
 
-Having processed and cleaned the data we can now continue working with it and learn how to create figures that contain {term}`subplots`. Subplots are used to display multiple plots in different panels of the same figure, as shown at the start of this section (Figure 4.11).
+Having processed and cleaned the data we can now continue working with it and learn how to create figures that contain {term}`subplots`. Subplots are used to display multiple plots in different panels of the same figure, as shown at the start of this section (Figure 4.10).
 
 We can start with creating the subplots by dividing the data in the data file into different groups. In this case we can divide the temperature data into temperatures for the four different seasons of the year. We can make the following selections:
 
@@ -128,13 +128,13 @@ Let's have a look at the data from two different seasons to see whether the prec
 ax1 = winter_temps.plot()
 ```
 
-_**Figure 4.12**. Winter temperatures for 2012-2013._
+_**Figure 4.11**. Winter temperatures for 2012-2013._
 
 ```python
 ax2 = summer_temps.plot()
 ```
 
-_**Figure 4.13**. Summer temperatures for 2012-2013._
+_**Figure 4.12**. Summer temperatures for 2012-2013._
 
 Based on the plots above it looks that the correct seasons have been plotted and the temperatures between winter and summer are quite different, as we would expect. One thing we might need to consider with this is that the y-axis range currently varies between the two plots and we may want to define axis ranges that ensure the data are plotted with the same y-axis ranges in all subplots. This will help make it easier to visually compare the temperatures between seasons.
 
@@ -173,9 +173,9 @@ fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
 axs
 ```
 
-_**Figure 4.14**. Empty figure template with a 2x2 subplot panel._
+_**Figure 4.13**. Empty figure template with a 2x2 subplot panel._
 
-We can see that as a result we have now a list containing two nested lists, where the first one contains the axes for column 1 and 2 of **row 1** and the second list contains the axes for columns 1 and 2 of **row 2**.
+We can see from the output of the code cell that we now have a list containing two nested lists, where the first nested list contains the axes for column 1 and 2 of **row 1** and the second contains the axes for columns 1 and 2 of **row 2**.
 
 To make it easier to keep track of things, we can parse these axes into their own variables as follows.
 
@@ -193,7 +193,18 @@ We can start by plotting the data for the different seasons with different color
 - We can also change the line width or weight using the `lw`.
 - The `ylim` parameter can be used to define the y-axis limits.
 
+Putting all of this together in a single code cell we have the following:
+
 ```python
+# Create the figure and subplot axes
+fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
+
+# Define variables to more easily refer to individual axes
+ax11 = axs[0][0]
+ax12 = axs[0][1]
+ax21 = axs[1][0]
+ax22 = axs[1][1]
+
 # Set plot line width
 line_width = 1.5
 
@@ -203,11 +214,13 @@ spring_temps.plot(ax=ax12, c="orange", lw=line_width, ylim=[min_temp, max_temp])
 summer_temps.plot(ax=ax21, c="green", lw=line_width, ylim=[min_temp, max_temp])
 autumn_temps.plot(ax=ax22, c="brown", lw=line_width, ylim=[min_temp, max_temp])
 
-# Display figure
-fig
+# Display the plot
+# Note: This is not required, but suppresses text from being printed
+# in the output cell
+plt.show()
 ```
 
-_**Figure 4.15**. Seasonal temperatures for 2012-2013 plotted in a 2x2 panel._
+_**Figure 4.14**. Seasonal temperatures for 2012-2013 plotted in a 2x2 panel._
 
 Great, now we have all the plots in same figure! However, we can see that there are some problems with our *x*-axis labels and a few other missing plot items we should add. 
 
@@ -220,10 +233,10 @@ Let's re-create the plot and make some improvements. In this version of the plot
 - Add a text label for each plot panel using the `text()` function.
 
 ```python
-# Create the new figure and subplots
+# Create the figure and subplot axes
 fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
 
-# Rename the axes for ease of use
+# Define variables to more easily refer to individual axes
 ax11 = axs[0][0]
 ax12 = axs[0][1]
 ax21 = axs[1][0]
@@ -263,7 +276,8 @@ autumn_temps.plot(
 )
 
 # Set figure title
-fig.suptitle("2012-2013 Seasonal temperature observations - Helsinki-Vantaa airport")
+fig.suptitle("2012-2013 Seasonal temperature observations"
+             "- Helsinki-Vantaa airport")
 
 # Rotate the x-axis labels so they don't overlap
 plt.setp(ax11.xaxis.get_majorticklabels(), rotation=20)
@@ -277,12 +291,12 @@ ax12.text(pd.to_datetime("20130515"), -25, "Spring")
 ax21.text(pd.to_datetime("20130815"), -25, "Summer")
 ax22.text(pd.to_datetime("20131115"), -25, "Autumn")
 
-# Display figure
+# Display the figure
 plt.show()
 ```
 
 <!-- #region -->
-_**Figure 4.16**. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible._
+_**Figure 4.15**. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible._
 
 
 The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.
@@ -292,11 +306,11 @@ The new version of the figure essentially conveys the same information as the fi
 
 Visualize only the winter and summer temperatures in a 1x2 panel figure. Save the resulting figure as a .png file.
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 # Create the new figure and subplots
@@ -330,7 +344,8 @@ summer_temps.plot(
 
 # Set figure title
 fig.suptitle(
-    "2012-2013 Winter and summer temperature observations - Helsinki-Vantaa airport"
+    "2012-2013 Winter and summer temperature observations"
+    "- Helsinki-Vantaa airport"
 )
 
 # Rotate the x-axis labels so they don't overlap
@@ -343,9 +358,6 @@ ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 
 plt.show()
 ```
-
-_**Figure 4.17**. Winter and Summer teperatures for 2012-2013 plotted in a 1x2 panel._
-
 
 ## Footnotes
 

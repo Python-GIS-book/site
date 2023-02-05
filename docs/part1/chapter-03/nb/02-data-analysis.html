@@ -135,7 +135,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -190,7 +195,7 @@
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,7 +291,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -302,18 +312,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -322,12 +332,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -1568,7 +1588,6 @@ memory usage: 12.1 MB
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Iterate over the rows</span>
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-
     <span class="c1"># Print the index value</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Index:&quot;</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
 
@@ -1595,7 +1614,6 @@ Temp F: 34.0
 
 <span class="c1"># Iterate over the rows</span>
 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
-
     <span class="c1"># Convert the Fahrenheit to Celsius</span>
     <span class="c1"># Notice how we access the row value</span>
     <span class="n">celsius</span> <span class="o">=</span> <span class="n">fahr_to_celsius</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">TEMP_F</span><span class="p">)</span>
@@ -2113,14 +2131,7 @@ Name: TIME, dtype: int64
 <section id="question-3-5">
 <h3>Question 3.5<a class="headerlink" href="#question-3-5" title="Permalink to this headline">#</a></h3>
 <p>Create a new column <code class="docutils literal notranslate"><span class="pre">'MONTH'</span></code> with information about the month without the year.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell tag_hide-cell docutils container">
+<div class="cell tag_hide-cell tag_remove_book_cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -2685,7 +2696,6 @@ dtype: float64
 
 <span class="c1"># Iterate over the groups</span>
 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
-
     <span class="c1"># Calculate mean</span>
     <span class="n">mean_values</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">mean_cols</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
@@ -3102,8 +3112,8 @@ dtype: float64
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Size (bytes): 1347907
-Created (seconds since Epoch): 1649533212.9560282
-Modified (seconds since Epoch): 1649532851.545094
+Created (seconds since Epoch): 1649535015.1847472
+Modified (seconds since Epoch): 1649535015.1847472
 </pre></div>
 </div>
 </div>
@@ -3128,21 +3138,21 @@ Modified (seconds since Epoch): 1649532851.545094
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of files in the list: 15
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[PosixPath(&#39;data/finnish_stations/028360.txt&#39;),
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[PosixPath(&#39;data/finnish_stations/029170.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/028690.txt&#39;),
  PosixPath(&#39;data/finnish_stations/029820.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029700.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/028970.txt&#39;),
  PosixPath(&#39;data/finnish_stations/029070.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029350.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029170.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029500.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/029110.txt&#39;),
  PosixPath(&#39;data/finnish_stations/028750.txt&#39;),
  PosixPath(&#39;data/finnish_stations/029720.txt&#39;),
  PosixPath(&#39;data/finnish_stations/029440.txt&#39;),
- PosixPath(&#39;data/finnish_stations/028970.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029700.txt&#39;),
+ PosixPath(&#39;data/finnish_stations/028360.txt&#39;),
  PosixPath(&#39;data/finnish_stations/029810.txt&#39;),
  PosixPath(&#39;data/finnish_stations/029740.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029500.txt&#39;),
- PosixPath(&#39;data/finnish_stations/028690.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029110.txt&#39;)]
+ PosixPath(&#39;data/finnish_stations/029350.txt&#39;)]
 </pre></div>
 </div>
 </div>
@@ -3160,7 +3170,7 @@ Modified (seconds since Epoch): 1649532851.545094
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/finnish_stations/028360.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/finnish_stations/029170.txt
 </pre></div>
 </div>
 </div>
@@ -3205,56 +3215,56 @@ Modified (seconds since Epoch): 1649532851.545094
   <tbody>
     <tr>
       <th>0</th>
-      <td>28360</td>
-      <td>201501010300</td>
-      <td>170.0</td>
-      <td>4.0</td>
+      <td>29170</td>
+      <td>201501010050</td>
+      <td>240.0</td>
+      <td>7.0</td>
       <td>NaN</td>
-      <td>32.0</td>
+      <td>34.0</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>28360</td>
-      <td>201501010600</td>
-      <td>210.0</td>
-      <td>4.0</td>
+      <td>29170</td>
+      <td>201501010120</td>
+      <td>260.0</td>
+      <td>5.0</td>
       <td>NaN</td>
-      <td>30.0</td>
-      <td>32.0</td>
-      <td>24.0</td>
+      <td>36.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>28360</td>
-      <td>201501010900</td>
-      <td>190.0</td>
-      <td>4.0</td>
+      <td>29170</td>
+      <td>201501010150</td>
+      <td>250.0</td>
+      <td>8.0</td>
       <td>NaN</td>
-      <td>30.0</td>
+      <td>34.0</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>28360</td>
-      <td>201501011200</td>
-      <td>160.0</td>
-      <td>2.0</td>
+      <td>29170</td>
+      <td>201501010220</td>
+      <td>250.0</td>
+      <td>8.0</td>
       <td>NaN</td>
-      <td>27.0</td>
+      <td>36.0</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>28360</td>
-      <td>201501011500</td>
-      <td>280.0</td>
-      <td>4.0</td>
+      <td>29170</td>
+      <td>201501010250</td>
+      <td>240.0</td>
+      <td>8.0</td>
       <td>NaN</td>
-      <td>22.0</td>
+      <td>36.0</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -3270,7 +3280,6 @@ Modified (seconds since Epoch): 1649532851.545094
 
 <span class="c1"># Repeat the analysis steps for each input file:</span>
 <span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
-
     <span class="c1"># Read the data from CSV file</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
 
@@ -3322,21 +3331,21 @@ Modified (seconds since Epoch): 1649532851.545094
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>STATION NUMBER: 28360	NUMBER OF OBSERVATIONS: 35442
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>STATION NUMBER: 29170	NUMBER OF OBSERVATIONS: 120211
+STATION NUMBER: 28690	NUMBER OF OBSERVATIONS: 119674
 STATION NUMBER: 29820	NUMBER OF OBSERVATIONS: 40264
+STATION NUMBER: 29700	NUMBER OF OBSERVATIONS: 120618
+STATION NUMBER: 28970	NUMBER OF OBSERVATIONS: 120891
 STATION NUMBER: 29070	NUMBER OF OBSERVATIONS: 40473
-STATION NUMBER: 29350	NUMBER OF OBSERVATIONS: 116220
-STATION NUMBER: 29170	NUMBER OF OBSERVATIONS: 120211
+STATION NUMBER: 29500	NUMBER OF OBSERVATIONS: 40405
+STATION NUMBER: 29110	NUMBER OF OBSERVATIONS: 81164
 STATION NUMBER: 28750	NUMBER OF OBSERVATIONS: 81127
 STATION NUMBER: 29720	NUMBER OF OBSERVATIONS: 81127
 STATION NUMBER: 29440	NUMBER OF OBSERVATIONS: 120947
-STATION NUMBER: 28970	NUMBER OF OBSERVATIONS: 120891
-STATION NUMBER: 29700	NUMBER OF OBSERVATIONS: 120618
+STATION NUMBER: 28360	NUMBER OF OBSERVATIONS: 35442
 STATION NUMBER: 29810	NUMBER OF OBSERVATIONS: 35377
 STATION NUMBER: 29740	NUMBER OF OBSERVATIONS: 121654
-STATION NUMBER: 29500	NUMBER OF OBSERVATIONS: 40405
-STATION NUMBER: 28690	NUMBER OF OBSERVATIONS: 119674
-STATION NUMBER: 29110	NUMBER OF OBSERVATIONS: 81164
+STATION NUMBER: 29350	NUMBER OF OBSERVATIONS: 116220
 </pre></div>
 </div>
 </div>
@@ -3379,9 +3388,17 @@ STATION NUMBER: 29110	NUMBER OF OBSERVATIONS: 81164
       <th>3</th>
       <td>2018</td>
       <td>1</td>
-      <td>19.644055</td>
-      <td>-6.864414</td>
-      <td>28360.0</td>
+      <td>27.705512</td>
+      <td>-2.385827</td>
+      <td>29170.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2018</td>
+      <td>1</td>
+      <td>20.855503</td>
+      <td>-6.191387</td>
+      <td>28690.0</td>
     </tr>
     <tr>
       <th>0</th>
@@ -3390,6 +3407,22 @@ STATION NUMBER: 29110	NUMBER OF OBSERVATIONS: 81164
       <td>38.708724</td>
       <td>3.727069</td>
       <td>29820.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>2015</td>
+      <td>1</td>
+      <td>38.052815</td>
+      <td>3.362675</td>
+      <td>29700.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2018</td>
+      <td>1</td>
+      <td>25.359090</td>
+      <td>-3.689395</td>
+      <td>28970.0</td>
     </tr>
     <tr>
       <th>2</th>
@@ -3403,17 +3436,17 @@ STATION NUMBER: 29110	NUMBER OF OBSERVATIONS: 81164
       <th>0</th>
       <td>2015</td>
       <td>1</td>
-      <td>28.617084</td>
-      <td>-1.879398</td>
-      <td>29350.0</td>
+      <td>39.166185</td>
+      <td>3.981214</td>
+      <td>29500.0</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>2018</td>
+      <th>0</th>
+      <td>2015</td>
       <td>1</td>
-      <td>27.705512</td>
-      <td>-2.385827</td>
-      <td>29170.0</td>
+      <td>32.306713</td>
+      <td>0.170396</td>
+      <td>29110.0</td>
     </tr>
     <tr>
       <th>0</th>
@@ -3443,17 +3476,9 @@ STATION NUMBER: 29110	NUMBER OF OBSERVATIONS: 81164
       <th>3</th>
       <td>2018</td>
       <td>1</td>
-      <td>25.359090</td>
-      <td>-3.689395</td>
-      <td>28970.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>38.052815</td>
-      <td>3.362675</td>
-      <td>29700.0</td>
+      <td>19.644055</td>
+      <td>-6.864414</td>
+      <td>28360.0</td>
     </tr>
     <tr>
       <th>0</th>
@@ -3475,25 +3500,9 @@ STATION NUMBER: 29110	NUMBER OF OBSERVATIONS: 81164
       <th>0</th>
       <td>2015</td>
       <td>1</td>
-      <td>39.166185</td>
-      <td>3.981214</td>
-      <td>29500.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2018</td>
-      <td>1</td>
-      <td>20.855503</td>
-      <td>-6.191387</td>
-      <td>28690.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>32.306713</td>
-      <td>0.170396</td>
-      <td>29110.0</td>
+      <td>28.617084</td>
+      <td>-1.879398</td>
+      <td>29350.0</td>
     </tr>
   </tbody>
 </table>

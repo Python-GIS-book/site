@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -221,11 +221,11 @@ Using the documentation that is produced when you run `help(range)`, what values
 ```
 <!-- #endregion -->
 
-```python
+```python tags=["remove_cell"]
 # You can use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 for i in range(2, 9, 3):
@@ -297,11 +297,11 @@ for i in range(len(odd_numbers)):
 ```
 <!-- #endregion -->
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 11

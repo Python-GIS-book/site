@@ -135,7 +135,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part1/chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../part1/chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part1/chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -190,7 +195,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../part1/chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,7 +291,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -302,18 +312,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -322,12 +332,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -923,10 +943,11 @@ title="Print to PDF"
 </div>
 <p>2.8</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="s2">&quot;rain&quot;</span>
-<span class="n">wind_speed</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">comfort_limit</span> <span class="o">=</span> <span class="mi">18</span>
+<span class="n">wind_speed</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">comfort_limit</span> <span class="o">=</span> <span class="mi">10</span>
 
-<span class="c1"># If it is windy or raining, print &quot;stay at home&quot;, else print &quot;go out and enjoy the weather!&quot;</span>
+<span class="c1"># If it is windy or raining, print &quot;stay at home&quot;,</span>
+<span class="c1"># otherwise (else) print &quot;go out and enjoy the weather!&quot;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">weather</span> <span class="o">==</span> <span class="s2">&quot;rain&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">wind_speed</span> <span class="o">&gt;=</span> <span class="n">comfort_limit</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Just stay at home&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
@@ -934,11 +955,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>2.9</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s2">&quot;Hello, my name is &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;. I am &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">age</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; years old.&quot;</span>
-
-<span class="n">output</span> <span class="o">=</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Dave&quot;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">41</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">celsius_to_newton</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">temp_celsius</span> <span class="o">*</span> <span class="mf">0.33</span>
 </pre></div>
 </div>
 </section>
@@ -1056,6 +1074,28 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>6.2</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of rows&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;CLASS&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of classes&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;CLASS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of groups&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;GROUP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+
+</pre></div>
+</div>
+<p>6.3</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Calculate population density</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop2019&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;area_km2&quot;</span><span class="p">]</span>
+
+<span class="c1"># Print out average and maximum values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average:&quot;</span><span class="p">,</span> 
+      <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="s2">&quot;pop/km2&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximum:&quot;</span><span class="p">,</span> 
+      <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span> <span class="s2">&quot;pop/km2&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p>6.4</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="c1"># Save to file</span>
 <span class="n">temp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">output_fp</span><span class="p">)</span>

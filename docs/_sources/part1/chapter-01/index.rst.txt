@@ -13,4 +13,5 @@ You will learn basic concepts related to computers and programming, and get basi
     nb/02-why-python.ipynb
     nb/03-writing-and-running-python-code.ipynb
     nb/04-using-jupyterlab.ipynb
-    nb/05-installation.ipynb
+    nb/05-quick-start.ipynb
+    nb/06-installation.ipynb

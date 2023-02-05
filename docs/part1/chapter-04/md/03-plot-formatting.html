@@ -133,7 +133,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -188,7 +193,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -284,7 +289,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -300,18 +310,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -320,12 +330,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -914,11 +934,11 @@ title="Print to PDF"
 <span class="p">)</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 4.19</strong>. Hypothetical temperatures for one year in different mythical lands.</em></p>
-<p>In Figure 4.19, we can see a visualization of the contents of the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame and many people will be able to distinguish the lines using the four colors that have been selected. However, not all people may see the figure in the same way, and those who have printed a copy in grayscale will see things quite differently.</p>
-<p><img alt="Figure 4.20. Hypothetical mythical land temperatures in grayscale." src="../../../_images/lines-grayscale.png" /></p>
-<p><em><strong>Figure 4.20</strong>. Hypothetical mythical land temperatures in grayscale.</em></p>
-<p>In Figure 4.20, we see that it is nearly impossible to tell which line is which in the plot, so color alone is not helping in distinguishing the lines on this plot. In this case a better option is to vary both the color and line pattern for each line so they can be distinguished easily irrespective of the line colors and how they may be seen. This can be done using the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function, as shown below.</p>
+<p><em><strong>Figure 4.17</strong>. Hypothetical temperatures for one year in different mythical lands.</em></p>
+<p>In Figure 4.17, we can see a visualization of the contents of the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame and many people will be able to distinguish the lines using the four colors that have been selected. However, not all people may see the figure in the same way, and those who have printed a copy in grayscale will see things quite differently.</p>
+<p><img alt="Figure 4.18. Hypothetical mythical land temperatures in grayscale." src="../../../_images/lines-grayscale.png" /></p>
+<p><em><strong>Figure 4.18</strong>. Hypothetical mythical land temperatures in grayscale.</em></p>
+<p>In Figure 4.18, we see that it is nearly impossible to tell which line is which in the plot, so color alone is not helping in distinguishing the lines on this plot. In this case a better option is to vary both the color and line pattern for each line so they can be distinguished easily irrespective of the line colors and how they may be seen. This can be done using the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function, as shown below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="s2">&quot;-.&quot;</span><span class="p">],</span>
     <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span><span class="p">,</span>
@@ -928,8 +948,8 @@ title="Print to PDF"
 <span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 4.21</strong>. Hypothetical mythical land temperatures with different line styles.</em></p>
-<p>Here in Figure 4.21, viewers can easily tell which line is which whether they have colorblindness or have printed a figure from a printer in grayscale. The difference, of course, is that this figure uses four different line styles: <code class="docutils literal notranslate"><span class="pre">-</span></code> for a solid line, <code class="docutils literal notranslate"><span class="pre">:</span></code> for a dotted line, <code class="docutils literal notranslate"><span class="pre">--</span></code> for a dashed line, and <code class="docutils literal notranslate"><span class="pre">-.</span></code> for a line with dots and dashes. These are defined using shorthand plot formatting for Matplotlib <a class="footnote-reference brackets" href="#shorthand" id="id2">2</a>, for which they are the only four available line styles. If your plots require more than four line styles, you will likely need to use Matplotlib rather than pandas for the plotting. In that case, you can find more about the line styles for Matplotlib plotting in the <a class="reference external" href="https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html">Matplotlib documentation online</a> <a class="footnote-reference brackets" href="#linestyles" id="id3">3</a>.</p>
+<p><em><strong>Figure 4.19</strong>. Hypothetical mythical land temperatures with different line styles.</em></p>
+<p>Here in Figure 4.19, viewers can easily tell which line is which whether they have colorblindness or have printed a figure from a printer in grayscale. The difference, of course, is that this figure uses four different line styles: <code class="docutils literal notranslate"><span class="pre">-</span></code> for a solid line, <code class="docutils literal notranslate"><span class="pre">:</span></code> for a dotted line, <code class="docutils literal notranslate"><span class="pre">--</span></code> for a dashed line, and <code class="docutils literal notranslate"><span class="pre">-.</span></code> for a line with dots and dashes. These are defined using shorthand plot formatting for Matplotlib <a class="footnote-reference brackets" href="#shorthand" id="id2">2</a>, for which they are the only four available line styles. If your plots require more than four line styles, you will likely need to use Matplotlib rather than pandas for the plotting. In that case, you can find more about the line styles for Matplotlib plotting in the <a class="reference external" href="https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html">Matplotlib documentation online</a> <a class="footnote-reference brackets" href="#linestyles" id="id3">3</a>.</p>
 <p>Although this plotting example may seem like a simple tip, it can make a great difference in ensuring all viewers see the same data effectively the same way. We will return to the topic of effective plot design to discuss selecting colors and other visualization tips in greater detail in Chapter 8.</p>
 </section>
 <section id="footnotes">

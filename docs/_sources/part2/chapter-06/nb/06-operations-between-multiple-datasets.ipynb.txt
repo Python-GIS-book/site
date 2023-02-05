@@ -1,0 +1,2830 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "486a9000",
+   "metadata": {},
+   "source": [
+    "# Operations between multiple datasets\n",
+    "\n",
+    "<!---\n",
+    "- Selecting data based on spatial relationships\n",
+    "- Overlay analysis\n",
+    "- Spatial join, nearest join\n",
+    "- Distance operations\n",
+    "- Spatial index\n",
+    "-->"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dc15b0ab",
+   "metadata": {},
+   "source": [
+    "## Selecting data based on spatial relationships\n",
+    "\n",
+    "Finding out if a certain point is located inside or outside of an area,\n",
+    "or finding out if a line intersects with another line or polygon are\n",
+    "fundamental geospatial operations that are often used e.g. to select\n",
+    "data based on location. Such spatial queries are one of the typical\n",
+    "first steps of the workflow when doing spatial analysis. Performing a\n",
+    "spatial join (will be introduced later) between two spatial datasets is\n",
+    "one of the most typical applications where Point in Polygon (PIP) query\n",
+    "is used. \n",
+    "\n",
+    "For further reading about PIP and other geometric operations, \n",
+    "see Chapter 4.2 in Smith, Goodchild & Longley: [Geospatial Analysis - 6th edition](https://www.spatialanalysisonline.com/HTML/index.html)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "29d7a295",
+   "metadata": {},
+   "source": [
+    "### How to check if point is inside a polygon?\n",
+    "\n",
+    "Computationally, detecting if a point is inside a polygon is most commonly done using a specific formula called [Ray Casting algorithm](https://en.wikipedia.org/wiki/Point_in_polygon#Ray_casting_algorithm).\n",
+    "Luckily, we do not need to create such a function ourselves for\n",
+    "conducting the Point in Polygon (PIP) query. Instead, we can take\n",
+    "advantage of [Shapely's binary predicates](https://shapely.readthedocs.io/en/stable/manual.html#binary-predicates)\n",
+    "that can evaluate the topolocical relationships between geographical\n",
+    "objects, such as the PIP as we're interested here.\n",
+    "\n",
+    "There are basically two ways of conducting PIP in Shapely:\n",
+    "\n",
+    "1. using a function called\n",
+    "   [within()](https://shapely.readthedocs.io/en/stable/manual.html#object.within)\n",
+    "   that checks if a point is within a polygon\n",
+    "2. using a function called\n",
+    "   [contains()](https://shapely.readthedocs.io/en/stable/manual.html#object.contains)\n",
+    "   that checks if a polygon contains a point\n",
+    "\n",
+    "Notice: even though we are talking here about **Point** in Polygon\n",
+    "operation, it is also possible to check if a LineString or Polygon is\n",
+    "inside another Polygon.\n",
+    "\n",
+    "Let's import shapely functionalities and create some points:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b977ca47",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from shapely.geometry import Point, Polygon\n",
+    "\n",
+    "# Create Point objects\n",
+    "p1 = Point(24.952242, 60.1696017)\n",
+    "p2 = Point(24.976567, 60.1612500)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "96aeb5cf",
+   "metadata": {},
+   "source": [
+    "Let's also create a polygon using a list of coordinate-tuples:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "087850cd",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Create a Polygon\n",
+    "coords = [\n",
+    "    (24.950899, 60.169158),\n",
+    "    (24.953492, 60.169158),\n",
+    "    (24.953510, 60.170104),\n",
+    "    (24.950958, 60.169990),\n",
+    "]\n",
+    "poly = Polygon(coords)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "eb70a5f8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Let's check what we have\n",
+    "print(p1)\n",
+    "print(p2)\n",
+    "print(poly)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7bb32053",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "- Let's check if those points are ``within`` the polygon:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "48ee117c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Check if p1 is within the polygon using the within function\n",
+    "p1.within(poly)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3d48f024",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Check if p2 is within the polygon\n",
+    "p2.within(poly)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "69eed617",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Okey, so we can see that the first point seems to be inside that polygon\n",
+    "and the other one isn't.\n",
+    "\n",
+    "-In fact, the first point is quite close to close to the center of the polygon as we\n",
+    "can see if we compare the point location to the polygon centroid:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a8c74ce6",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Our point\n",
+    "print(p1)\n",
+    "\n",
+    "# The centroid\n",
+    "print(poly.centroid)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a6256cf7",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "It is also possible to do PIP other way around, i.e. to check if\n",
+    "polygon contains a point:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8435ee3e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Does polygon contain p1?\n",
+    "poly.contains(p1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fe4555d0",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Does polygon contain p2?\n",
+    "poly.contains(p2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "64e1f373",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Thus, both ways of checking the spatial relationship are identical; [contains()](https://shapely.readthedocs.io/en/stable/manual.html#object.contains) is inverse to [within()](https://shapely.readthedocs.io/en/stable/manual.html#object.within) and vice versa.\n",
+    "\n",
+    "Which one should you use then? Well, it depends:\n",
+    "\n",
+    "-  if you have **many points and just one polygon** and you try to find out\n",
+    "   which one of them is inside the polygon: You might need to iterate over the points and check one at a time if it\n",
+    "   is **within()** the polygon.\n",
+    "\n",
+    "-  if you have **many polygons and just one point** and you want to find out\n",
+    "   which polygon contains the point: You might need to iterate over the polygons until you find a polygon that **contains()** the point specified (assuming there are no overlapping polygons)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "54ebd563",
+   "metadata": {},
+   "source": [
+    "## Intersect\n",
+    "\n",
+    "Another typical geospatial operation is to see if a geometry intersects\n",
+    "or touches another one. Again, there are binary operations in Shapely for checking these spatial relationships:\n",
+    "\n",
+    "- [intersects():](https://shapely.readthedocs.io/en/stable/manual.html#object.intersects) Two objects intersect if the boundary or interior of one object intersect in any way with the boundary or interior of the other object.\n",
+    "\n",
+    "- [touches():](https://shapely.readthedocs.io/en/stable/manual.html#object.touches) Two objects touch if the objects have at least one point in common and their interiors do not intersect with any part of the other object.\n",
+    "   \n",
+    "\n",
+    "Let's try these out.\n",
+    "\n",
+    "Let's create two LineStrings:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1126f8bf",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "from shapely.geometry import LineString, MultiLineString\n",
+    "\n",
+    "# Create two lines\n",
+    "line_a = LineString([(0, 0), (1, 1)])\n",
+    "line_b = LineString([(1, 1), (0, 2)])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "47efbc05",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Let's see if they intersect"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "eade991d",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "line_a.intersects(line_b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a742c29f",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Do they also touch?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f1334504",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "line_a.touches(line_b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0fcbd48f",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Indeed, they do and we can see this by plotting the features together"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "530bf98b",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Create a MultiLineString from line_a and line_b\n",
+    "multi_line = MultiLineString([line_a, line_b])\n",
+    "multi_line"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c84fc08e",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Thus, the ``line_b`` continues from the same node ( (1,1) ) where ``line_a`` ends.\n",
+    "\n",
+    "However, if the lines overlap fully, they don't touch due to the spatial relationship rule, as we can see:\n",
+    "\n",
+    "Check if `line_a` touches itself:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2e903de8",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Does the line touch with itself?\n",
+    "line_a.touches(line_a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5d6dfb3e",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "It does not. However, it does intersect:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8ec8cd3e",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Does the line intersect with itself?\n",
+    "line_a.intersects(line_a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ca34ac5f",
+   "metadata": {},
+   "source": [
+    "## Point in Polygon using Geopandas\n",
+    "\n",
+    "Next we will do a practical example where we check which of the addresses from [the geocoding tutorial](geocoding_in_geopandas.ipynb) are located in Southern district of Helsinki. Let's start by reading a KML-file ``PKS_suuralue.kml`` that has the Polygons for districts of Helsinki Region (data openly available from [Helsinki Region Infoshare](http://www.hri.fi/fi/dataset/paakaupunkiseudun-aluejakokartat).\n",
+    "\n",
+    "Let's start by reading the addresses from the Shapefile that we saved earlier."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d9eecd37",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "import geopandas as gpd\n",
+    "\n",
+    "fp = \"data/addresses.shp\"\n",
+    "data = gpd.read_file(fp)\n",
+    "\n",
+    "data.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5c06ba9b",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "\n",
+    "### Reading KML-files in Geopandas\n",
+    "\n",
+    "It is possible to read the data from KML-files with GeoPandas in a similar manner as Shapefiles. However, we need to first, enable the KML-driver which is not enabled by default (because KML-files can contain unsupported data structures, nested folders etc., hence be careful when reading KML-files). Supported drivers are managed with [`fiona.supported_drivers`](https://github.com/Toblerity/Fiona/blob/master/fiona/drvsupport.py), which is integrated in geopandas. Let's first check which formats are currently supported:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4b32dc06",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import geopandas as gpd\n",
+    "\n",
+    "gpd.io.file.fiona.drvsupport.supported_drivers"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9b33f274",
+   "metadata": {},
+   "source": [
+    "- Let's enable the read and write functionalities for KML-driver by passing ``'rw'`` to whitelist of fiona's supported drivers:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b630495a",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "gpd.io.file.fiona.drvsupport.supported_drivers[\"KML\"] = \"rw\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "41531ec2",
+   "metadata": {},
+   "source": [
+    "Let's check again the supported drivers:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c8939789",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gpd.io.file.fiona.drvsupport.supported_drivers"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ff1e767d",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Now we should be able to read a KML file using the geopandas [read_file()](http://geopandas.org/reference/geopandas.read_file.html#geopandas.read_file) function.\n",
+    "\n",
+    "- Let's read district polygons from a KML -file that is located in the data-folder:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ed18bf70",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "# Filepath to KML file\n",
+    "fp = \"data/PKS_suuralue.kml\"\n",
+    "polys = gpd.read_file(fp, driver=\"KML\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "caf8ee71",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Check the data\n",
+    "print(\"Number of rows:\", len(polys))\n",
+    "polys.head(11)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c00b82cb",
+   "metadata": {},
+   "source": [
+    "Nice, now we can see that we have 23 districts in our area. \n",
+    "Let's quickly plot the geometries to see how the layer looks like: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e4226cb3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "polys.plot()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "878da0c9",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "We are interested in an area that is called ``Eteläinen`` (*'Southern'* in English).\n",
+    "\n",
+    "Let's select the ``Eteläinen`` district and see where it is located on a map:\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3407dfb4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Select data\n",
+    "southern = polys.loc[polys[\"Name\"] == \"Eteläinen\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d88fd406",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Reset index for the selection\n",
+    "southern.reset_index(drop=True, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3bc97ffd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Check the selction\n",
+    "southern.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "84ccd3b1",
+   "metadata": {},
+   "source": [
+    "- Let's create a map which shows the location of the selected district, and let's also plot the geocoded address points on top of the map:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ef5d8be0",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "# Create a figure with one subplot\n",
+    "fig, ax = plt.subplots()\n",
+    "\n",
+    "# Plot polygons\n",
+    "polys.plot(ax=ax, facecolor=\"gray\")\n",
+    "southern.plot(ax=ax, facecolor=\"red\")\n",
+    "\n",
+    "# Plot points\n",
+    "data.plot(ax=ax, color=\"blue\", markersize=5)\n",
+    "\n",
+    "plt.tight_layout()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cd1fcc99",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Okey, so we can see that, indeed, certain points are within the selected red Polygon.\n",
+    "\n",
+    "Let's find out which one of them are located within the Polygon. Hence, we are conducting a **Point in Polygon query**.\n",
+    "\n",
+    "First, let's check that we have  `shapely.speedups` enabled. This module makes some of the spatial queries running faster (starting from Shapely version 1.6.0 Shapely speedups are enabled by default):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e3d2e731",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "# import shapely.speedups\n",
+    "from shapely import speedups\n",
+    "\n",
+    "speedups.enabled\n",
+    "\n",
+    "# If false, run this line:\n",
+    "# shapely.speedups.enable()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e15cd03c",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "- Let's check which Points are within the ``southern`` Polygon. Notice, that here we check if the Points are ``within`` the **geometry**\n",
+    "  of the ``southern`` GeoDataFrame. \n",
+    "- We use the ``.at[0, 'geometry']`` to parse the actual Polygon geometry object from the GeoDataFrame."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e9b2b4d0",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "pip_mask = data.within(southern.at[0, \"geometry\"])\n",
+    "print(pip_mask)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e02d4257",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "As we can see, we now have an array of boolean values for each row, where the result is ``True``\n",
+    "if Point was inside the Polygon, and ``False`` if it was not.\n",
+    "\n",
+    "We can now use this mask array to select the Points that are inside the Polygon. Selecting data with this kind of mask array (of boolean values) is easy by passing the array inside the ``loc`` indexer:\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0048230d",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "pip_data = data.loc[pip_mask]\n",
+    "pip_data"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5827194e",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Let's finally confirm that our Point in Polygon query worked as it should by plotting the points that are within the southern district:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "aac2a227",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "# Create a figure with one subplot\n",
+    "fig, ax = plt.subplots()\n",
+    "\n",
+    "# Plot polygons\n",
+    "polys.plot(ax=ax, facecolor=\"gray\")\n",
+    "southern.plot(ax=ax, facecolor=\"red\")\n",
+    "\n",
+    "# Plot points\n",
+    "pip_data.plot(ax=ax, color=\"gold\", markersize=2)\n",
+    "\n",
+    "plt.tight_layout()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4d105db2",
+   "metadata": {
+    "deletable": true,
+    "editable": true,
+    "lines_to_next_cell": 2
+   },
+   "source": [
+    "Perfect! Now we only have the (golden) points that, indeed, are inside the red Polygon which is exactly what we wanted!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "02e6d937",
+   "metadata": {},
+   "source": [
+    "## Overlay analysis\n",
+    "\n",
+    "In this tutorial, the aim is to make an overlay analysis where we create a new layer based on geometries from a dataset that `intersect` with geometries of another layer. As our test case, we will select Polygon grid cells from `TravelTimes_to_5975375_RailwayStation_Helsinki.shp` that intersects with municipality borders of Helsinki found in `Helsinki_borders.shp`.\n",
+    "\n",
+    "Typical overlay operations are (source: [QGIS docs](https://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/vector_spatial_analysis_buffers.html#more-spatial-analysis-tools)):\n",
+    "![](../img/overlay_operations.png)\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4ff3239c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import geopandas as gpd\n",
+    "import matplotlib.pyplot as plt\n",
+    "import shapely.speedups\n",
+    "\n",
+    "%matplotlib inline\n",
+    "\n",
+    "# File paths\n",
+    "border_fp = \"data/Helsinki_borders.shp\"\n",
+    "grid_fp = \"data/TravelTimes_to_5975375_RailwayStation.shp\"\n",
+    "\n",
+    "# Read files\n",
+    "grid = gpd.read_file(grid_fp)\n",
+    "hel = gpd.read_file(border_fp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "58205de0",
+   "metadata": {},
+   "source": [
+    "Let's do a quick overlay visualization of the two layers:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dd92e45e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Plot the layers\n",
+    "ax = grid.plot(facecolor=\"gray\")\n",
+    "hel.plot(ax=ax, facecolor=\"None\", edgecolor=\"blue\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9a5d22d0",
+   "metadata": {},
+   "source": [
+    "Here the grey area is the Travel Time Matrix - a data set that contains  13231 grid squares (13231 rows of data) that covers the Helsinki region, and the blue area represents the municipality of Helsinki. Our goal is to conduct an overlay analysis and select the geometries from the grid polygon layer that intersect with the Helsinki municipality polygon.\n",
+    "\n",
+    "When conducting overlay analysis, it is important to first check that the CRS of the layers match. The overlay visualization indicates that everything should be ok (the layers are plotted nicely on top of each other). However, let's still check if the crs match using Python:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cda0a0fa",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Check the crs of the municipality polygon\n",
+    "print(hel.crs)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3cc47117",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Ensure that the CRS matches, if not raise an AssertionError\n",
+    "assert hel.crs == grid.crs, \"CRS differs between layers!\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b096cb4f",
+   "metadata": {},
+   "source": [
+    "Indeed, they do. We are now ready to conduct an overlay analysis between these layers. \n",
+    "\n",
+    "We will create a new layer based on grid polygons that `intersect` with our Helsinki layer. We can use a function called `overlay()` to conduct the overlay analysis that takes as an input 1) first GeoDataFrame, 2) second GeoDataFrame, and 3) parameter `how` that can be used to control how the overlay analysis is conducted (possible values are `'intersection'`, `'union'`, `'symmetric_difference'`, `'difference'`, and `'identity'`):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7df5f24f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "intersection = gpd.overlay(grid, hel, how=\"intersection\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c8add88e",
+   "metadata": {},
+   "source": [
+    "Let's plot our data and see what we have:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6f9e6af2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "intersection.plot(color=\"b\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a43a3b0a",
+   "metadata": {},
+   "source": [
+    "As a result, we now have only those grid cells that intersect with the Helsinki borders. If you look closely, you can also observe that **the grid cells are clipped based on the boundary.**\n",
+    "\n",
+    "- Whatabout the data attributes? Let's see what we have:\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "56583208",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "intersection.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2a4ad64d",
+   "metadata": {},
+   "source": [
+    "As we can see, due to the overlay analysis, the dataset contains the attributes from both input layers.\n",
+    "\n",
+    "Let's save our result grid as a GeoJSON file that is commonly used file format nowadays for storing spatial data."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a89cd4af",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Output filepath\n",
+    "outfp = \"data/TravelTimes_to_5975375_RailwayStation_Helsinki.geojson\"\n",
+    "\n",
+    "# Use GeoJSON driver\n",
+    "intersection.to_file(outfp, driver=\"GeoJSON\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "49bd7ab4",
+   "metadata": {},
+   "source": [
+    "There are many more examples for different types of overlay analysis in [Geopandas documentation](http://geopandas.org/set_operations.html) where you can go and learn more."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e2018d24",
+   "metadata": {},
+   "source": [
+    "## Spatial join\n",
+    "\n",
+    "[Spatial join](http://wiki.gis.com/wiki/index.php/Spatial_Join) is\n",
+    "yet another classic GIS problem. Getting attributes from one layer and\n",
+    "transferring them into another layer based on their spatial relationship\n",
+    "is something you most likely need to do on a regular basis.\n",
+    "\n",
+    "In the previous section we learned how to perform **a Point in Polygon query**.\n",
+    "We can now use the same logic to conduct **a spatial join** between two layers based on their\n",
+    "spatial relationship. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the\n",
+    "attributes of a polygon that ``contains`` the point.\n",
+    "\n",
+    "Luckily, [spatial join is already implemented in Geopandas](http://geopandas.org/mergingdata.html#spatial-joins), thus we do not need to create our own function for doing it. There are three possible types of\n",
+    "join that can be applied in spatial join that are determined with ``op`` -parameter in the ``gpd.sjoin()`` -function:\n",
+    "\n",
+    "-  ``\"intersects\"``\n",
+    "-  ``\"within\"``\n",
+    "-  ``\"contains\"``\n",
+    "\n",
+    "Sounds familiar? Yep, all of those spatial relationships were discussed\n",
+    "in the [Point in Polygon lesson](point-in-polygon.ipynb), thus you should know how they work. \n",
+    "\n",
+    "Furthermore, pay attention to the different options for the type of join via the `how` parameter; \"left\", \"right\" and \"inner\". You can read more about these options in the [geopandas sjoin documentation](http://geopandas.org/mergingdata.html#sjoin-arguments) and pandas guide for [merge, join and concatenate](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)\n",
+    "\n",
+    "Let's perform a spatial join between these two layers:\n",
+    "- **Addresses:** the geocoded address-point (we created this Shapefile in the geocoding tutorial)\n",
+    "- **Population grid:** 250m x 250m grid polygon layer that contains population information from the Helsinki Region.\n",
+    "    - The population grid a dataset is produced by the **Helsinki Region Environmental\n",
+    "Services Authority (HSY)** (see [this page](https://www.hsy.fi/fi/asiantuntijalle/avoindata/Sivut/AvoinData.aspx?dataID=7) to access data from different years).\n",
+    "    - You can download the data from [from this link](https://www.hsy.fi/sites/AvoinData/AvoinData/SYT/Tietoyhteistyoyksikko/Shape%20(Esri)/V%C3%A4est%C3%B6tietoruudukko/Vaestotietoruudukko_2018_SHP.zip) in the  [Helsinki Region Infroshare\n",
+    "(HRI) open data portal](https://hri.fi/en_gb/).\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7afec855",
+   "metadata": {},
+   "source": [
+    "- Here, we will access the data directly from the HSY wfs:\n",
+    "\n",
+    "<!-- #endregion -->"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3b8f459c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import geopandas as gpd\n",
+    "from pyproj import CRS\n",
+    "import requests\n",
+    "import geojson\n",
+    "\n",
+    "# Specify the url for web feature service\n",
+    "url = \"https://kartta.hsy.fi/geoserver/wfs\"\n",
+    "\n",
+    "# Specify parameters (read data in json format).\n",
+    "# Available feature types in this particular data source: http://geo.stat.fi/geoserver/vaestoruutu/wfs?service=wfs&version=2.0.0&request=describeFeatureType\n",
+    "params = dict(\n",
+    "    service=\"WFS\",\n",
+    "    version=\"2.0.0\",\n",
+    "    request=\"GetFeature\",\n",
+    "    typeName=\"asuminen_ja_maankaytto:Vaestotietoruudukko_2018\",\n",
+    "    outputFormat=\"json\",\n",
+    ")\n",
+    "\n",
+    "# Fetch data from WFS using requests\n",
+    "r = requests.get(url, params=params)\n",
+    "\n",
+    "# Create GeoDataFrame from geojson\n",
+    "pop = gpd.GeoDataFrame.from_features(geojson.loads(r.content))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "385e5abb",
+   "metadata": {},
+   "source": [
+    "Check the result: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9e782638",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pop.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fba21f2b",
+   "metadata": {},
+   "source": [
+    "Okey so we have multiple columns in the dataset but the most important\n",
+    "one here is the column `asukkaita` (\"population\" in Finnish) that\n",
+    "tells the amount of inhabitants living under that polygon.\n",
+    "\n",
+    "-  Let's change the name of that column into `pop18` so that it is\n",
+    "   more intuitive. As you might remember, we can easily rename (Geo)DataFrame column names using the ``rename()`` function where we pass a dictionary of new column names like this: ``columns={'oldname': 'newname'}``."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "85e3f003",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Change the name of a column\n",
+    "pop = pop.rename(columns={\"asukkaita\": \"pop18\"})\n",
+    "\n",
+    "# Check the column names\n",
+    "pop.columns"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e07bbb3a",
+   "metadata": {},
+   "source": [
+    "Let's also get rid of all unnecessary columns by selecting only columns that we need i.e. ``pop18`` and ``geometry``"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "49dd94d2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Subset columns\n",
+    "pop = pop[[\"pop18\", \"geometry\"]]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "59d0b0b1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pop.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bf25ff21",
+   "metadata": {},
+   "source": [
+    "Now we have cleaned the data and have only those columns that we need\n",
+    "for our analysis."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2f2772da",
+   "metadata": {},
+   "source": [
+    "## Join the layers\n",
+    "\n",
+    "Now we are ready to perform the spatial join between the two layers that\n",
+    "we have. The aim here is to get information about **how many people live\n",
+    "in a polygon that contains an individual address-point** . Thus, we want\n",
+    "to join attributes from the population layer we just modified into the\n",
+    "addresses point layer ``addresses.shp`` that we created trough gecoding in the previous section.\n",
+    "\n",
+    "-  Read the addresses layer into memory:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "236fb246",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Addresses filpath\n",
+    "addr_fp = r\"data/addresses.shp\"\n",
+    "\n",
+    "# Read data\n",
+    "addresses = gpd.read_file(addr_fp)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a1b60940",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Check the head of the file\n",
+    "addresses.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a29e08b0",
+   "metadata": {},
+   "source": [
+    "In order to do a spatial join, the layers need to be in the same projection\n",
+    "\n",
+    "- Check the crs of input layers:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b3d54cd9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "addresses.crs"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ce3c5297",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pop.crs"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "345a8e5e",
+   "metadata": {},
+   "source": [
+    "If the crs information is missing from the population grid, we can **define the coordinate reference system** as **ETRS GK-25 (EPSG:3879)** because we know what it is based on the [population grid metadata](https://hri.fi/data/dataset/vaestotietoruudukko). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "64ebfcb0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Define crs\n",
+    "pop.crs = CRS.from_epsg(3879).to_wkt()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e3a1b229",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pop.crs"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "038e42a8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Are the layers in the same projection?\n",
+    "addresses.crs == pop.crs"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cb323f3b",
+   "metadata": {},
+   "source": [
+    "Let's re-project addresses to the projection of the population layer:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "973e2e74",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "addresses = addresses.to_crs(pop.crs)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dbaeb920",
+   "metadata": {},
+   "source": [
+    "-  Let's make sure that the coordinate reference system of the layers\n",
+    "are identical"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0ce3b451",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Check the crs of address points\n",
+    "print(addresses.crs)\n",
+    "\n",
+    "# Check the crs of population layer\n",
+    "print(pop.crs)\n",
+    "\n",
+    "# Do they match now?\n",
+    "addresses.crs == pop.crs"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7aa0fc0e",
+   "metadata": {},
+   "source": [
+    "Now they should be identical. Thus, we can be sure that when doing spatial\n",
+    "queries between layers the locations match and we get the right results\n",
+    "e.g. from the spatial join that we are conducting here.\n",
+    "\n",
+    "-  Let's now join the attributes from ``pop`` GeoDataFrame into\n",
+    "   ``addresses`` GeoDataFrame by using ``gpd.sjoin()`` -function:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b18aa02b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Make a spatial join\n",
+    "join = gpd.sjoin(addresses, pop, how=\"inner\", op=\"within\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f15ab54c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "join.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ed570c9f",
+   "metadata": {},
+   "source": [
+    "Awesome! Now we have performed a successful spatial join where we got\n",
+    "two new columns into our ``join`` GeoDataFrame, i.e. ``index_right``\n",
+    "that tells the index of the matching polygon in the population grid and\n",
+    "``pop18`` which is the population in the cell where the address-point is\n",
+    "located.\n",
+    "\n",
+    "- Let's still check how many rows of data we have now:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cedd8686",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "len(join)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ab9757ad",
+   "metadata": {},
+   "source": [
+    "Did we lose some data here? \n",
+    "\n",
+    "- Check how many addresses we had originally:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2e20463c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "len(addresses)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cc9418c0",
+   "metadata": {},
+   "source": [
+    "If we plot the layers on top of each other, we can observe that some of the points are located outside the populated grid squares (increase figure size if you can't see this properly!)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9868d281",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "# Create a figure with one subplot\n",
+    "fig, ax = plt.subplots(figsize=(15, 8))\n",
+    "\n",
+    "# Plot population grid\n",
+    "pop.plot(ax=ax)\n",
+    "\n",
+    "# Plot points\n",
+    "addresses.plot(ax=ax, color=\"red\", markersize=5)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "72b4f51c",
+   "metadata": {},
+   "source": [
+    "Let's also visualize the joined output:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2e580b10",
+   "metadata": {},
+   "source": [
+    "Plot the points and use the ``pop18`` column to indicate the color.\n",
+    "   ``cmap`` -parameter tells to use a sequential colormap for the\n",
+    "   values, ``markersize`` adjusts the size of a point, ``scheme`` parameter can be used to adjust the classification method based on [pysal](http://pysal.readthedocs.io/en/latest/library/esda/mapclassify.html), and ``legend`` tells that we want to have a legend:\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b5f125a8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Create a figure with one subplot\n",
+    "fig, ax = plt.subplots(figsize=(10, 6))\n",
+    "\n",
+    "# Plot the points with population info\n",
+    "join.plot(\n",
+    "    ax=ax, column=\"pop18\", cmap=\"Reds\", markersize=15, scheme=\"quantiles\", legend=True\n",
+    ")\n",
+    "\n",
+    "# Add title\n",
+    "plt.title(\"Amount of inhabitants living close the the point\")\n",
+    "\n",
+    "# Remove white space around the figure\n",
+    "plt.tight_layout()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "795fda24",
+   "metadata": {},
+   "source": [
+    "In a similar way, we can plot the original population grid and check the overall population distribution in Helsinki:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d03bac59",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Create a figure with one subplot\n",
+    "fig, ax = plt.subplots(figsize=(10, 6))\n",
+    "\n",
+    "# Plot the grid with population info\n",
+    "pop.plot(ax=ax, column=\"pop18\", cmap=\"Reds\", scheme=\"quantiles\", legend=True)\n",
+    "\n",
+    "# Add title\n",
+    "plt.title(\"Population 2018 in 250 x 250 m grid squares\")\n",
+    "\n",
+    "# Remove white space around the figure\n",
+    "plt.tight_layout()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3f5d2b02",
+   "metadata": {},
+   "source": [
+    "Finally, let's save the result point layer into a file:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "44d41cb1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Output path\n",
+    "outfp = r\"data/addresses_population.shp\"\n",
+    "\n",
+    "# Save to disk\n",
+    "join.to_file(outfp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d921d7a9",
+   "metadata": {},
+   "source": [
+    "## Spatial join nearest\n",
+    "\n",
+    "ADD Materials"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "77252260",
+   "metadata": {},
+   "source": [
+    "## Nearest Neighbour Analysis"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "06172ea5",
+   "metadata": {},
+   "source": [
+    "One commonly used GIS task is to be able to find the nearest neighbour for an object or a set of objects. For instance, you might have a single Point object\n",
+    "representing your home location, and then another set of locations representing e.g. public transport stops. Then, quite typical question is *\"which of the stops is closest one to my home?\"*\n",
+    "This is a typical nearest neighbour analysis, where the aim is to find the closest geometry to another geometry.\n",
+    "\n",
+    "In Python this kind of analysis can be done with shapely function called ``nearest_points()`` that [returns a tuple of the nearest points in the input geometries](https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.nearest_points)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6f95cf9e",
+   "metadata": {},
+   "source": [
+    "### Nearest point using Shapely\n",
+    "\n",
+    "Let's start by testing how we can find the nearest Point using the ``nearest_points()`` function of Shapely.\n",
+    "\n",
+    "- Let's create an origin Point and a few destination Points and find out the closest destination:\n",
+    "\n",
+    "<!-- #endregion -->"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "08d21458",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from shapely.geometry import Point, MultiPoint\n",
+    "from shapely.ops import nearest_points\n",
+    "\n",
+    "# Origin point\n",
+    "orig = Point(1, 1.67)\n",
+    "\n",
+    "# Destination points\n",
+    "dest1 = Point(0, 1.45)\n",
+    "dest2 = Point(2, 2)\n",
+    "dest3 = Point(0, 2.5)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4c3c5fda",
+   "metadata": {},
+   "source": [
+    "To be able to find out the closest destination point from the origin, we need to create a MultiPoint object from the destination points."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ea4f6db8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "destinations = MultiPoint([dest1, dest2, dest3])\n",
+    "print(destinations)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "07379cc2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "destinations"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6d89bdea",
+   "metadata": {},
+   "source": [
+    "Okey, now we can see that all the destination points are represented as a single MultiPoint object.\n",
+    "\n",
+    "- Now we can find out the nearest destination point by using ``nearest_points()`` function:\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ea6d1a57",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "nearest_geoms = nearest_points(orig, destinations)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a12fe055",
+   "metadata": {},
+   "source": [
+    "- We can check the data type of this object and confirm that the ``nearest_points()`` function returns a tuple of nearest points:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5fc282a3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "type(nearest_geoms)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "998da81a",
+   "metadata": {},
+   "source": [
+    " - let's check the contents of this tuple:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "39244b9f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(nearest_geoms)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "560f6426",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(nearest_geoms[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f3942646",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(nearest_geoms[1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5ae404e7",
+   "metadata": {},
+   "source": [
+    "In the tuple, the first item (at index 0) is the geometry of our origin point and the second item (at index 1) is the actual nearest geometry from the destination points. Hence, the closest destination point seems to be the one located at coordinates (0, 1.45).\n",
+    "\n",
+    "This is the basic logic how we can find the nearest point from a set of points."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "164559be",
+   "metadata": {},
+   "source": [
+    "### Nearest points using Geopandas\n",
+    "\n",
+    "Let's then see how it is possible to find nearest points from a set of origin points to a set of destination points using GeoDataFrames. Here, we will use the ``PKS_suuralueet.kml`` district data, and the ``addresses.shp`` address points from previous sections. \n",
+    "\n",
+    "**Our goal in this tutorial is to find out the closest address to the centroid of each district.**\n",
+    "\n",
+    "- Let's first read in the data and check their structure:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cfca28c4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Import geopandas\n",
+    "import geopandas as gpd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c7ea8cde",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Define filepaths\n",
+    "fp1 = \"data/PKS_suuralue.kml\"\n",
+    "fp2 = \"data/addresses.shp\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "158e8dd0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Enable KML driver\n",
+    "gpd.io.file.fiona.drvsupport.supported_drivers[\"KML\"] = \"rw\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8a5b5aec",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Read in data with geopandas\n",
+    "df1 = gpd.read_file(fp1, driver=\"KML\")\n",
+    "df2 = gpd.read_file(fp2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5f306bde",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# District polygons:\n",
+    "df1.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fd12de5c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Address points:\n",
+    "df2.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5bd028c9",
+   "metadata": {},
+   "source": [
+    "Before calculating any distances, we should re-project the data into a projected crs."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7831147c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df1 = df1.to_crs(epsg=3067)\n",
+    "df2 = df2.to_crs(epsg=3067)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c5302dca",
+   "metadata": {},
+   "source": [
+    "Furthermore, let's calculate the centroids for each district area:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c7de14e3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df1[\"centroid\"] = df1.centroid\n",
+    "df1.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ee97baf6",
+   "metadata": {},
+   "source": [
+    "SO, for each row of data in the disctricts -table, we want to figure out the nearest address point and fetch some attributes related to that point. In other words, we want to apply the Shapely `nearest_points`function so that we compare each polygon centroid to all address points, and based on this information access correct attribute information from the address table. \n",
+    "\n",
+    "For doing this, we can create a function that we will apply on the polygon GeoDataFrame:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "11c68e89",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def get_nearest_values(\n",
+    "    row, other_gdf, point_column=\"geometry\", value_column=\"geometry\"\n",
+    "):\n",
+    "    \"\"\"Find the nearest point and return the corresponding value from specified value column.\"\"\"\n",
+    "\n",
+    "    # Create an union of the other GeoDataFrame's geometries:\n",
+    "    other_points = other_gdf[\"geometry\"].unary_union\n",
+    "\n",
+    "    # Find the nearest points\n",
+    "    nearest_geoms = nearest_points(row[point_column], other_points)\n",
+    "\n",
+    "    # Get corresponding values from the other df\n",
+    "    nearest_data = other_gdf.loc[other_gdf[\"geometry\"] == nearest_geoms[1]]\n",
+    "\n",
+    "    nearest_value = nearest_data[value_column].values[0]\n",
+    "\n",
+    "    return nearest_value"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a9e489bc",
+   "metadata": {},
+   "source": [
+    "By default, this function returns the geometry of the nearest point for each row. It is also possible to fetch information from other columns by changing the `value_column` parameter."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d71ad979",
+   "metadata": {},
+   "source": [
+    "The function creates a MultiPoint object from `other_gdf` geometry column (in our case, the address points) and further passes this MultiPoint object to Shapely's `nearest_points` function. \n",
+    "\n",
+    "Here, we are using a method for creating an union of all input geometries called `unary_union`. \n",
+    "\n",
+    "- Let's check how unary union works by applying it to the address points GeoDataFrame:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "491e93a9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "unary_union = df2.unary_union\n",
+    "print(unary_union)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4683833e",
+   "metadata": {},
+   "source": [
+    "Okey now we are ready to use our function and find closest address point for each polygon centroid.\n",
+    " - Try first applying the function without any additional modifications: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "02339b2c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df1[\"nearest_loc\"] = df1.apply(\n",
+    "    get_nearest_values, other_gdf=df2, point_column=\"centroid\", axis=1\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e3d27794",
+   "metadata": {},
+   "source": [
+    "- Finally, we can specify that we want the `id` -column for each point, and store the output in a new column `\"nearest_loc\"`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1e53455f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df1[\"nearest_loc\"] = df1.apply(\n",
+    "    get_nearest_values,\n",
+    "    other_gdf=df2,\n",
+    "    point_column=\"centroid\",\n",
+    "    value_column=\"id\",\n",
+    "    axis=1,\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a42c4598",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df1.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b629bc3b",
+   "metadata": {},
+   "source": [
+    "That's it! Now we found the closest point for each centroid and got the ``id`` value from our addresses into the ``df1`` GeoDataFrame."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f66d96d5",
+   "metadata": {},
+   "source": [
+    "## Nearest neighbor analysis with large datasets\n",
+    "\n",
+    "While Shapely's `nearest_points` -function provides a nice and easy way of conducting the nearest neighbor analysis, it can be quite slow. Using it also requires taking the `unary union` of the point dataset where all the Points are merged into a single layer. This can be a really memory hungry and slow operation, that can cause problems with large point datasets.  \n",
+    "\n",
+    "Luckily, there is a much faster and memory efficient alternatives for conducting nearest neighbor analysis, based on a function called [BallTree](https://en.wikipedia.org/wiki/Ball_tree) from a [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate `euclidian` distance between neighbors (good if your data is in metric crs), as well as `haversine` distance which allows to determine [Great Circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) between locations (good if your data is in lat/lon format). *Note: There is also an algorithm called [KDTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree) in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.* "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "44f51664",
+   "metadata": {},
+   "source": [
+    "### Motivation\n",
+    "\n",
+    "In this tutorial, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in Helsinki Region (around 159 000 buildings) the closest public transport stop (~ 8400 stops). The building points have been fetched from OpenStreetMap using a library called [OSMnx](https://github.com/gboeing/osmnx) (we will learn more about this library later), and the public transport stops have been fetched from open [GTFS dataset for Helsinki Region](https://transitfeeds.com/p/helsinki-regional-transport/735) that contains information about public transport stops, schedules etc. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "54ed16d5",
+   "metadata": {},
+   "source": [
+    "### Efficient nearest neighbor search with Geopandas and scikit-learn\n",
+    "\n",
+    "The following examples show how to conduct nearest neighbor analysis efficiently with large datasets. We will first define the functions and see how to use them, and then we go through the code to understand what happened."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "97b466a7",
+   "metadata": {},
+   "source": [
+    "- Let's first read the datasets into Geopandas. In case of reading the building data, we will here learn a trick how to read the data directly from a ZipFile. It is very practical to know how to do this, as compressing large datasets is a very common procedure."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "03489175",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import geopandas as gpd\n",
+    "from zipfile import ZipFile\n",
+    "import io\n",
+    "\n",
+    "\n",
+    "def read_gdf_from_zip(zip_fp):\n",
+    "    \"\"\"\n",
+    "    Reads a spatial dataset from ZipFile into GeoPandas. Assumes that there is only a single file (such as GeoPackage)\n",
+    "    inside the ZipFile.\n",
+    "    \"\"\"\n",
+    "    with ZipFile(zip_fp) as z:\n",
+    "        # Lists all files inside the ZipFile, here assumes that there is only a single file inside\n",
+    "        layer = z.namelist()[0]\n",
+    "        data = gpd.read_file(io.BytesIO(z.read(layer)))\n",
+    "    return data\n",
+    "\n",
+    "\n",
+    "# Filepaths\n",
+    "stops = gpd.read_file(\"data/pt_stops_helsinki.gpkg\")\n",
+    "buildings = read_gdf_from_zip(\"data/building_points_helsinki.zip\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "28fa25cf",
+   "metadata": {},
+   "source": [
+    "- Let's see how our datasets look like:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a27362ee",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(buildings.head(), \"\\n--------\")\n",
+    "print(stops.head())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b33dbcc5",
+   "metadata": {},
+   "source": [
+    "Okay, so both of our datasets consisting points, and based on the coordinates, they seem to be in WGS84 projection.\n",
+    "\n",
+    "- Let's also make maps out of them to get a better understanding of the data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0c6252f4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))\n",
+    "\n",
+    "# Plot buildings\n",
+    "buildings.plot(ax=axes[0], markersize=0.2, alpha=0.5)\n",
+    "axes[0].set_title(\"Buildings\")\n",
+    "\n",
+    "# Plot stops\n",
+    "stops.plot(ax=axes[1], markersize=0.2, alpha=0.5, color=\"red\")\n",
+    "axes[1].set_title(\"Stops\");"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f0121f5d",
+   "metadata": {},
+   "source": [
+    "As we can see, we have a very densely distributed Point dataset that shows the location of the buildings (their centroid) in Helsinki Region. On the right, we have public transport stops that seem to cover a bit broader geographical extent with a few train stops reaching further North. Most importantly, we can see from the coordinates and the map that both of the layers share the same coordinate reference system, and they are approximately from the same geographical region. Hence, we are ready to find closest public transport stop (on the right) for each building on the left map.     "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "63eadaf1",
+   "metadata": {},
+   "source": [
+    "- Let's first prepare a couple of functions that does the work"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d2b05124",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.neighbors import BallTree\n",
+    "import numpy as np\n",
+    "\n",
+    "\n",
+    "def get_nearest(src_points, candidates, k_neighbors=1):\n",
+    "    \"\"\"Find nearest neighbors for all source points from a set of candidate points\"\"\"\n",
+    "\n",
+    "    # Create tree from the candidate points\n",
+    "    tree = BallTree(candidates, leaf_size=15, metric=\"haversine\")\n",
+    "\n",
+    "    # Find closest points and distances\n",
+    "    distances, indices = tree.query(src_points, k=k_neighbors)\n",
+    "\n",
+    "    # Transpose to get distances and indices into arrays\n",
+    "    distances = distances.transpose()\n",
+    "    indices = indices.transpose()\n",
+    "\n",
+    "    # Get closest indices and distances (i.e. array at index 0)\n",
+    "    # note: for the second closest points, you would take index 1, etc.\n",
+    "    closest = indices[0]\n",
+    "    closest_dist = distances[0]\n",
+    "\n",
+    "    # Return indices and distances\n",
+    "    return (closest, closest_dist)\n",
+    "\n",
+    "\n",
+    "def nearest_neighbor(left_gdf, right_gdf, return_dist=False):\n",
+    "    \"\"\"\n",
+    "    For each point in left_gdf, find closest point in right GeoDataFrame and return them.\n",
+    "\n",
+    "    NOTICE: Assumes that the input Points are in WGS84 projection (lat/lon).\n",
+    "    \"\"\"\n",
+    "\n",
+    "    left_geom_col = left_gdf.geometry.name\n",
+    "    right_geom_col = right_gdf.geometry.name\n",
+    "\n",
+    "    # Ensure that index in right gdf is formed of sequential numbers\n",
+    "    right = right_gdf.copy().reset_index(drop=True)\n",
+    "\n",
+    "    # Parse coordinates from points and insert them into a numpy array as RADIANS\n",
+    "    # Notice: should be in Lat/Lon format\n",
+    "    left_radians = np.array(\n",
+    "        left_gdf[left_geom_col]\n",
+    "        .apply(lambda geom: (geom.y * np.pi / 180, geom.x * np.pi / 180))\n",
+    "        .to_list()\n",
+    "    )\n",
+    "    right_radians = np.array(\n",
+    "        right[right_geom_col]\n",
+    "        .apply(lambda geom: (geom.y * np.pi / 180, geom.x * np.pi / 180))\n",
+    "        .to_list()\n",
+    "    )\n",
+    "\n",
+    "    # Find the nearest points\n",
+    "    # -----------------------\n",
+    "    # closest ==> index in right_gdf that corresponds to the closest point\n",
+    "    # dist ==> distance between the nearest neighbors (in meters)\n",
+    "\n",
+    "    closest, dist = get_nearest(src_points=left_radians, candidates=right_radians)\n",
+    "\n",
+    "    # Return points from right GeoDataFrame that are closest to points in left GeoDataFrame\n",
+    "    closest_points = right.loc[closest]\n",
+    "\n",
+    "    # Ensure that the index corresponds the one in left_gdf\n",
+    "    closest_points = closest_points.reset_index(drop=True)\n",
+    "\n",
+    "    # Add distance if requested\n",
+    "    if return_dist:\n",
+    "        # Convert to meters from radians\n",
+    "        earth_radius = 6371000  # meters\n",
+    "        closest_points[\"distance\"] = dist * earth_radius\n",
+    "\n",
+    "    return closest_points"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9a63b16b",
+   "metadata": {},
+   "source": [
+    "Okay, now we have our functions defined. So let's use them and find the nearest neighbors!"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f70e562a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Find closest public transport stop for each building and get also the distance based on haversine distance\n",
+    "# Note: haversine distance which is implemented here is a bit slower than using e.g. 'euclidean' metric\n",
+    "# but useful as we get the distance between points in meters\n",
+    "closest_stops = nearest_neighbor(buildings, stops, return_dist=True)\n",
+    "\n",
+    "# And the result looks like ..\n",
+    "closest_stops"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6aa47ed5",
+   "metadata": {},
+   "source": [
+    "Great, that didn't take too long! Especially considering that we had quite a few points in our datasets (8400\\*159000=1.33 billion connections). As a result, we have a new GeoDataFrame that reminds a lot the original `stops` dataset. However, as we can see there are much more rows than in the original dataset, and in fact, each row in this dataset corresponds to a single building in the `buildings` dataset. Hence, we should have exactly the same number of closest_stops as there are buildings. Let's confirm this: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e998d411",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Now we should have exactly the same number of closest_stops as we have buildings\n",
+    "print(len(closest_stops), \"==\", len(buildings))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f86ef245",
+   "metadata": {},
+   "source": [
+    "Indeed, that seems to be the case. Hence, it is easy to combine these two datasets together. Before continuing our analysis, let's take a bit deeper look, what we actually did with the functions above.  "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0d3a77bb",
+   "metadata": {},
+   "source": [
+    "### What did we just do? Explanation.\n",
+    "\n",
+    "To get a bit more understanding of what just happened, let's go through the essential parts of the two functions we defined earlier, i.e. `nearest_neighbor()` and `get_closest()`.\n",
+    "\n",
+    "The purpose of `nearest_neighbor()` function is to handle and transform the data from GeoDataFrame into `numpy arrays` (=super-fast data structure) in a format how `BallTree` function wants them. This includes converting the lat/lon coordinates into radians (and back), so that we get the distances between the neighboring points in a correct format: scikit-learn's [haversine distance metric](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html) wants inputs as radians and also outputs the data as radians. To convert a lat/lon coordinate to radian, we use formula: `Radian = Degree * PI / 180`. By doing this, we are able to get the output distance information in meters (even if our coordinates are in decimal degrees). \n",
+    "\n",
+    "The `get_closest()` function does the actual nearest neighbor search using [BallTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) function. We initialize the `BallTree` object with the coordinate information from the **right_gdf** (i.e. the point dataset that contains all the nearest neighbor candidates), and we specify the distance metric to be `haversine` so that we get the Great Circle Distances. The `leaf_size` parameter adjusts the tradeoff between the cost of BallTree node traversal and the cost of a brute-force distance estimate. Changing leaf_size will not affect the results of a query, but can significantly impact the speed of a query and the memory required to store the constructed tree. We determine the leaf_size as 15 which has been found to be a good compromise when [benchmarked](https://jakevdp.github.io/blog/2013/04/29/benchmarking-nearest-neighbor-searches-in-python/). After we have built (initialized) the ball-tree, we run the nearest neighbor query with `tree.query(src_points, k=k_neighbors)`, where the src_points are the building-coordinates (as radians) and the `k` -parameter is the number of neighbors we want to calculate (1 in our case as we are only interested in the closest neighbor). Finally, we just re-arrange the data back into a format in which the closest point indices and distances are in separate numpy arrays. \n",
+    "\n",
+    "**Note:** The functions here assume that your input points are in WGS84 projection. If you pass the points in some other projection, it is highly likely that the distances between nearest neighbors are incorrect. Determining which is the nearest neighbor should not be affected, though.  "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "990754a0",
+   "metadata": {},
+   "source": [
+    "### Combining the neighboring datasets \n",
+    "\n",
+    "Okay, now as we have found closest stop for each building in the region, we can easily merge the information about closest stops back to the building layer. The order of the `closest_stops` matches exactly the order in `buildings`, so we can easily merge the datasets based on index. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "86c0d299",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Rename the geometry of closest stops gdf so that we can easily identify it\n",
+    "closest_stops = closest_stops.rename(columns={\"geometry\": \"closest_stop_geom\"})\n",
+    "\n",
+    "# Merge the datasets by index (for this, it is good to use '.join()' -function)\n",
+    "buildings = buildings.join(closest_stops)\n",
+    "\n",
+    "# Let's see what we have\n",
+    "buildings.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "77ab7363",
+   "metadata": {},
+   "source": [
+    "Excellent! Now we have useful information for each building about the closest stop including the `distance` (in meters) and also e.g. the name of the stop in `stop_name` column. \n",
+    "\n",
+    "- Now it is easy to do some descriptive analysis based on this dataset, that gives information about levels of access to public transport in the region: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dd68af41",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "buildings[\"distance\"].describe()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "569d5f48",
+   "metadata": {},
+   "source": [
+    "Okay, as we can see the average distance to public transport in the region is around 300 meters. More than 75 % of the buildings seem to be within within 5 minute walking time (~370 meters with walking speed of 4.5 kmph) which indicates generally a good situation in terms of accessibility levels in the region overall. There seem to be some really remote buildings in the data as well, as the longest distance to closest public transport stop is more than 7 kilometers.\n",
+    "\n",
+    "- Let's make a map out of the distance information to see if there are some spatial patterns in the data in terms of accessibility levels:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "aa1413f7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "buildings.plot(\n",
+    "    column=\"distance\",\n",
+    "    markersize=0.2,\n",
+    "    alpha=0.5,\n",
+    "    figsize=(10, 10),\n",
+    "    scheme=\"quantiles\",\n",
+    "    k=4,\n",
+    "    legend=True,\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4969cb6f",
+   "metadata": {},
+   "source": [
+    "Okay, as we can see, there are some clear spatial patterns in the levels of access to public transport. The buildings with the shortest distances (i.e. best accessibility) are located in the densely populated areas, whereas the buildings locating in the periferial areas (such as islands on the South, and nature areas in the North-West) tend to have longer distance to public transport. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c17654e8",
+   "metadata": {},
+   "source": [
+    "### Are the results correct? Validation\n",
+    "\n",
+    "As a final step, it's good to ensure that our functions are working as they should. This can be done easily by examining the data visually.\n",
+    "\n",
+    "- Let's first create LineStrings between the building and closest stop points:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bf86249e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from shapely.geometry import LineString\n",
+    "\n",
+    "# Create a link (LineString) between building and stop points\n",
+    "buildings[\"link\"] = buildings.apply(\n",
+    "    lambda row: LineString([row[\"geometry\"], row[\"closest_stop_geom\"]]), axis=1\n",
+    ")\n",
+    "\n",
+    "# Set link as the active geometry\n",
+    "building_links = buildings.copy()\n",
+    "building_links = building_links.set_geometry(\"link\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "22c0c6a5",
+   "metadata": {},
+   "source": [
+    "- Let's now visualize the building points, stops and the links, and zoom to certain area so that we can investigate the results, and confirm that everything looks correct."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ef754dd3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Plot the connecting links between buildings and stops and color them based on distance\n",
+    "ax = building_links.plot(\n",
+    "    column=\"distance\",\n",
+    "    cmap=\"Greens\",\n",
+    "    scheme=\"quantiles\",\n",
+    "    k=4,\n",
+    "    alpha=0.8,\n",
+    "    lw=0.7,\n",
+    "    figsize=(13, 10),\n",
+    ")\n",
+    "ax = buildings.plot(ax=ax, color=\"yellow\", markersize=1, alpha=0.7)\n",
+    "ax = stops.plot(ax=ax, markersize=4, marker=\"o\", color=\"red\", alpha=0.9, zorder=3)\n",
+    "\n",
+    "# Zoom closer\n",
+    "ax.set_xlim([24.99, 25.01])\n",
+    "ax.set_ylim([60.26, 60.275])\n",
+    "\n",
+    "# Set map background color to black, which helps with contrast\n",
+    "ax.set_facecolor(\"black\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0ce11bfa",
+   "metadata": {},
+   "source": [
+    "Voilá, these weird star looking shapes are formed around public transport stops (red) where each link is associated buildings (yellow points) that are closest to the given stop. The color intensity varies according the distance between the stops and buildings. Based on this figure we can conclude that our nearest neighbor search was succesfull and worked as planned."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4bab9a7d",
+   "metadata": {},
+   "source": [
+    "## Spatial index - How to boost spatial queries?\n",
+    "\n",
+    "While using the technique from previous examples produces correct results, it is in fact quite slow from performance point of view. Especially when having large datasets (quite typical nowadays), the point in polygon queries can become frustratingly slow, which can be a nerve-racking experience for a busy geo-data scientist. \n",
+    "\n",
+    "Luckily there is an easy and widely used solution called **spatial index** that can significantly boost the performance of your spatial queries. Various alternative techniques has been developed to boost spatial queries, but one of the most popular one and widely used is a spatial index based on [R-tree](https://en.wikipedia.org/wiki/R-tree) data structure. \n",
+    "\n",
+    "The core idea behind the **R-tree** is to form a tree-like data structure where nearby objects are grouped together, and their geographical extent (minimum bounding box) is inserted into the data structure (i.e. R-tree). This bounding box then represents the whole group of geometries as one level (typically called as \"page\" or \"node\") in the data structure. This process is repeated several times, which produces a tree-like structure where different levels are connected to each other. This structure makes the query times for finding a single object from the data much faster, as the algorithm does not need to travel through all geometries in the data. In the example below, we can see how the geometries have been grouped into several sub-groups (lower part of the picture) and inserted into a tree structure (upper part) where there exists two groups on the highest level (`R1` and `R2`), which are again grouped into five lower level groups (`R3-R7`):\n",
+    "\n",
+    "![Rtree](../img/Rtree-IBM.png)\n",
+    "Simple example of an R-tree for 2D rectanges (source: [IBM](https://www.ibm.com/support/knowledgecenter/en/SSGU8G_11.50.0/com.ibm.rtree.doc/sii-overview-27706.htm))\n",
+    "\n",
+    "In the next tutorial we will learn how to significantly improve the query times for finding points that are within a given polygon. We will use data that represents all road intersections in the Uusimaa Region of Finland, and count the number of intersections on a postal code level. *Why would you do such a thing?*, well, one could for example try to understand the vitality of city blocks following [Jane Jacobs'](https://en.wikipedia.org/wiki/Jane_Jacobs) ideas. \n",
+    "\n",
+    "### Motivation\n",
+    "\n",
+    "As a motivation for counting intersections, we can use an example/theory from [Jane Jacobs'](https://en.wikipedia.org/wiki/Jane_Jacobs) classic book [\"The Death and Life of Great American Cities\"](https://en.wikipedia.org/wiki/The_Death_and_Life_of_Great_American_Cities) (1961), where she defines four requirements\n",
+    "that makes a vital/vibrant city:\n",
+    "\n",
+    " 1. \"The district, and indeed as many of its internal parts as possible, must serve more than one primary function; preferably more than two. \n",
+    "These must insure the presence of people who go outdoors on different schedules and are in the place for different purposes, \n",
+    "but who are able to use many facilities in common.\" *(--> One could use e.g. OSM data to understand the diversity of services etc.)*\n",
+    "\n",
+    "2. \"Most blocks must be short; that is, streets and **opportunities to turn corners** must be frequent.\" --> intersections!\n",
+    "\n",
+    "\n",
+    "3. \"The district must mingle buildings that vary in age and condition, including a good proportion of old ones so that they vary in the economic yield they must produce. This mingling must be fairly close-grained.\" (--> one could use e.g. existing building datasets that are available for many cities in Finland)\n",
+    "\n",
+    "4. \"There must be a sufficiently dence concentration of people, for whatever purposes they may be there. This includes dence concentration in the case of people who are there because of residence.\" \n",
+    "\n",
+    "The following tutorial only covers one aspect of these four (2.), but it certainly would be possible to measure all 4 aspects if combining more datasets together.\n",
+    "\n",
+    "\n",
+    "## Spatial index with Geopandas \n",
+    "\n",
+    "In this tutorial, we will first go through a step by step example showing how spatial index works, and in the end we put things together and produce a practical function for doing fast spatial queries. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9a80c4c0",
+   "metadata": {},
+   "source": [
+    "- Let's start by reading data representing road intersections (parsed from [Digiroad road network data](https://vayla.fi/web/en/open-data/digiroad/data#.Xca1TzP7Q2w)) and postal code areas (obtained from [Statistics Finland](https://www.tilastokeskus.fi/tup/karttaaineistot/postinumeroalueet.html)). In this time, we will read the data from Geopackage files:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "59146a0e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import geopandas as gpd\n",
+    "\n",
+    "# Filepaths\n",
+    "intersections_fp = \"data/uusimaa_intersections.gpkg\"\n",
+    "postcode_areas_fp = \"data/uusimaa_postal_code_areas.gpkg\"\n",
+    "\n",
+    "intersections = gpd.read_file(intersections_fp)\n",
+    "postcode_areas = gpd.read_file(postcode_areas_fp)\n",
+    "\n",
+    "# Let's check first rows\n",
+    "print(intersections.head(), \"\\n-------\")\n",
+    "print(postcode_areas.head())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ebc3312d",
+   "metadata": {},
+   "source": [
+    "- Let's see how many intersections and postal code areas we have:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "af32cec4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(\"Number of intersections:\", len(intersections))\n",
+    "print(\"Number of postal code areas:\", len(postcode_areas))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1c93e5b4",
+   "metadata": {},
+   "source": [
+    "Okay, as we can see there are 63.5 thousand intersections in the region and 370 postal code areas. These are not yet huge datasets, but big enough so that we can see the benefits in using a spatial index. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bd86b64b",
+   "metadata": {},
+   "source": [
+    "- Let's still explore quickly how our datasets look on a map before doing the point in polygon queries."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9d72f58b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "ax = postcode_areas.plot(color=\"red\", edgecolor=\"black\", alpha=0.5)\n",
+    "ax = intersections.plot(ax=ax, color=\"yellow\", markersize=1, alpha=0.5)\n",
+    "\n",
+    "# Zoom to closer (comment out the following to see the full extent of the data)\n",
+    "ax.set_xlim([380000, 395000])\n",
+    "ax.set_ylim([6667500, 6680000])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "772e5584",
+   "metadata": {},
+   "source": [
+    "As we can see from the map, we have a large number of points (intersections) that are scattered around the city. \n",
+    "\n",
+    "Next, we want to calculate how many of those points are inside each postal code area visible on the map. For doing this, we are going to take advantage of spatial index.\n",
+    "\n",
+    "- Building a spatial index for GeoDataFrame is easy in Geopandas. We can extract that by calling an attribute `.sindex`. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1dbb84ca",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Let's build spatial index for intersection points\n",
+    "intersection_sindex = intersections.sindex\n",
+    "\n",
+    "# Let's see what it is\n",
+    "intersection_sindex"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a47d6602",
+   "metadata": {},
+   "source": [
+    "Okay, as we can see the variable contains a `SpatialIndex` object. Fundamentally, this object contains now the geometries in an R-tree data structure as introduced in the beginning of this page. \n",
+    "\n",
+    "From this spatial index, we can e.g. see, how the geometries have been grouped in the spatial index. \n",
+    "\n",
+    "- Let's see how many groups we have, and extract some basic information from them. We can extract this information using `.leaves()` function."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "73e447df",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# How many groups do we have?\n",
+    "print(\"Number of groups:\", len(intersection_sindex.leaves()), \"\\n\")\n",
+    "\n",
+    "# Print some basic info for few of them\n",
+    "n_iterations = 10\n",
+    "for i, group in enumerate(intersection_sindex.leaves()):\n",
+    "    group_idx, indices, bbox = group\n",
+    "    print(\n",
+    "        \"Group\", group_idx, \"contains \", len(indices), \"geometries, bounding box:\", bbox\n",
+    "    )\n",
+    "    i += 1\n",
+    "    if i == n_iterations:\n",
+    "        break"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4395e8a2",
+   "metadata": {},
+   "source": [
+    "We seem to have 908 groups formed in the R-tree, and as we can see, each group seem to consist of 70 geometries. Okay, now as we understand a bit what the `R-tree` index is like. Let's take that into action.\n",
+    "\n",
+    "For conducting fast spatial queries, we can utilize the spatial index of the intersections, and compare the geometry of a given postal code area to the **bounding boxes** of points inside the R-tree spatial index. Let's start with a single postal code area, to keep things simple."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "84a99a4d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Select a postal code area representing the city center of Helsinki\n",
+    "city_center_zip_area = postcode_areas.loc[postcode_areas[\"posti_alue\"] == \"00100\"]\n",
+    "city_center_zip_area.plot()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d5299370",
+   "metadata": {},
+   "source": [
+    " Okay, now we can make a spatial query in which we want to select all the points, that are inside this Polygon. We conduct the point in polygon query in two steps: \n",
+    " \n",
+    " - **first**, we compare the bounds of the Polygon into the spatial index of the Points. This gives us point **candidates** that are likely to be within the Polygon (at this stage based on the MBR of the points that is stored inside the R-tree).\n",
+    " - **secondly**, we go through the candidate points and make a normal spatial intersection query that gives us the accurate results:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3d74acf3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Get the bounding box coordinates of the Polygon as a list\n",
+    "bounds = list(city_center_zip_area.bounds.values[0])\n",
+    "\n",
+    "# Get the indices of the Points that are likely to be inside the bounding box of the given Polygon\n",
+    "point_candidate_idx = list(intersection_sindex.intersection(bounds))\n",
+    "point_candidates = intersections.loc[point_candidate_idx]\n",
+    "\n",
+    "# Let's see what we have now\n",
+    "ax = city_center_zip_area.plot(color=\"red\", alpha=0.5)\n",
+    "ax = point_candidates.plot(ax=ax, color=\"black\", markersize=2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "06580be1",
+   "metadata": {},
+   "source": [
+    "Aha, as we can see, now we have successfully selected such points from the dataset that intersect with the **bounding box** of the Polygon. I.e. we conducted the first step of the process. \n",
+    "\n",
+    "Next, let's do the final selection using a \"normal\" intersect query, which is however, much faster because there is no need to go through all 63.5 thousand points in the full dataset:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "29fa108c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Make the precise Point in Polygon query\n",
+    "final_selection = point_candidates.loc[\n",
+    "    point_candidates.intersects(city_center_zip_area[\"geometry\"].values[0])\n",
+    "]\n",
+    "\n",
+    "# Let's see what we have now\n",
+    "ax = city_center_zip_area.plot(color=\"red\", alpha=0.5)\n",
+    "ax = final_selection.plot(ax=ax, color=\"black\", markersize=2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c5203042",
+   "metadata": {},
+   "source": [
+    "### Putting pieces together - Performance comparisons\n",
+    "\n",
+    "Following functions both conduct the spatial query that we saw previously, the first one **without** utilizing spatial index and the second one **with** spatial index. We can use them and compare the performance, so that we can get an idea how much the spatial index affects the performance time-wise."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5a73931d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def intersect_using_spatial_index(source_gdf, intersecting_gdf):\n",
+    "    \"\"\"\n",
+    "    Conduct spatial intersection using spatial index for candidates GeoDataFrame to make queries faster.\n",
+    "    Note, with this function, you can have multiple Polygons in the 'intersecting_gdf' and it will return all the points\n",
+    "    intersect with ANY of those geometries.\n",
+    "    \"\"\"\n",
+    "    source_sindex = source_gdf.sindex\n",
+    "    possible_matches_index = []\n",
+    "\n",
+    "    # 'itertuples()' function is a faster version of 'iterrows()'\n",
+    "    for other in intersecting_gdf.itertuples():\n",
+    "        bounds = other.geometry.bounds\n",
+    "        c = list(source_sindex.intersection(bounds))\n",
+    "        possible_matches_index += c\n",
+    "\n",
+    "    # Get unique candidates\n",
+    "    unique_candidate_matches = list(set(possible_matches_index))\n",
+    "    possible_matches = source_gdf.iloc[unique_candidate_matches]\n",
+    "\n",
+    "    # Conduct the actual intersect\n",
+    "    result = possible_matches.loc[\n",
+    "        possible_matches.intersects(intersecting_gdf.unary_union)\n",
+    "    ]\n",
+    "    return result\n",
+    "\n",
+    "\n",
+    "def normal_intersect(source_gdf, intersecting_gdf):\n",
+    "    \"\"\"\n",
+    "    Conduct spatial intersection without spatial index.\n",
+    "    Note, with this function, you can have multiple Polygons in the 'intersecting_gdf' and it will return all the points\n",
+    "    intersect with ANY of those geometries.\n",
+    "    \"\"\"\n",
+    "\n",
+    "    matches = []\n",
+    "\n",
+    "    # 'itertuples()' function is a faster version of 'iterrows()'\n",
+    "    for other in intersecting_gdf.itertuples():\n",
+    "        c = list(source_gdf.loc[source_gdf.intersects(other.geometry)].index)\n",
+    "        matches += c\n",
+    "\n",
+    "    # Get all points that are intersecting with the Polygons\n",
+    "    unique_matches = list(set(matches))\n",
+    "    result = source_gdf.loc[source_gdf.index.isin(unique_matches)]\n",
+    "    return result"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "954e0d39",
+   "metadata": {},
+   "source": [
+    "- Let's compare their performance and time it. Here we utilize a special IPython magic function called `%timeit` that allows to test how long it takes to run a specific function (it actually runs the function multiple times to get a more representative timing). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "227e9627",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Test the spatial query with spatial index\n",
+    "%timeit intersect_using_spatial_index(source_gdf=intersections, intersecting_gdf=city_center_zip_area)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e76f1b31",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Test the spatial query without spatial index\n",
+    "%timeit normal_intersect(source_gdf=intersections, intersecting_gdf=city_center_zip_area)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8cb093f9",
+   "metadata": {},
+   "source": [
+    "Okay, as these tests demonstrate, using the spatial index gives a significant boost in the performance, by being around 17x faster. \n",
+    "\n",
+    "Making the spatial query only with a single Polygon (as in the example) might not make a big difference, but having hundreds or thousands of Polygons, and wanting to find all points that are inside those ones, start to make a drastic difference."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d44fc5f1",
+   "metadata": {},
+   "source": [
+    "### Counting the intersections\n",
+    "\n",
+    "The ultimate goal of this tutorial was to count the intersections per postal code. We can do that easily and fast with Geopandas, by conducting a `spatial join` between the two datasets. Spatial join in Geopandas is highly performant, and in fact, it utilizes spatial index to make the queries fast. The following parts might include a bit advanced tricks that we have not covered, but for the sake of completeness, the following steps count the intersections per postal code area. Finally, we plot a density of the intersections as a number of intersections per square kilometer (per postal code area). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "387850c3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Count intersections by postal code area\n",
+    "intersection_cnt = (\n",
+    "    gpd.sjoin(postcode_areas, intersections).groupby(\"posti_alue\").size().reset_index()\n",
+    ")\n",
+    "intersection_cnt.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ac11b12b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Merge with postcode data and plot\n",
+    "intersection_cnt = intersection_cnt.rename(columns={0: \"intersection_cnt\"})\n",
+    "postcode_areas = postcode_areas.merge(intersection_cnt, on=\"posti_alue\")\n",
+    "postcode_areas"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "41e969ef",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Plot intersection density (number of intersections per square kilometer inside a Postal code)\n",
+    "m2_to_km2_converter = 1000000\n",
+    "postcode_areas[\"intersection_density\"] = postcode_areas[\"intersection_cnt\"] / (\n",
+    "    postcode_areas.area / m2_to_km2_converter\n",
+    ")\n",
+    "postcode_areas.plot(\"intersection_density\", cmap=\"RdYlBu_r\", legend=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8d56a1df",
+   "metadata": {},
+   "source": [
+    "From the map, we can see that the intersection density is clearly highest in the city center areas of Helsinki (red colored areas). "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b11b313a",
+   "metadata": {},
+   "source": [
+    "### Note\n",
+    "\n",
+    "As we have learned from this tutorial, spatial index can make the spatial queries significantly faster. There is however, a specific situation in which spatial index does not provide any improvements for the performance: if your polygon and points have more or less similar spatial extent (bounding box), the spatial index does not help to make the queries faster due to its design in working on a level of bounding boxes. This happens e.g. in following case:\n",
+    "\n",
+    "![los-angeles-boundary-intersections.png](../img/los-angeles-boundary-intersections.png)\n",
+    "*Example of a situation where spatial index does not provide boost in performance* (Source: [G. Boeing, 2016](https://geoffboeing.com/2016/10/r-tree-spatial-index-python/))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "97c9eb29",
+   "metadata": {},
+   "source": [
+    "As we can see, in the map, there is a complex Polygon that share more or less identical extent as the point layer, which is problematic from performance point of view.\n",
+    "\n",
+    "There is, however, a nice strategy to deal with this kind of situation, by sub-dividing the Polygon into smaller subsets (having also smaller bounding boxes) that will enable the spatial index to boost the queries:\n",
+    "\n",
+    "![los-angeles-boundary-quadrats-intersections](../img/los-angeles-boundary-quadrats-intersections.png).\n",
+    "\n",
+    "You can read more about this strategy from an excellent post from [G. Boeing](https://geoffboeing.com/2016/10/r-tree-spatial-index-python/)."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

@@ -42,7 +42,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Installing Python and adding libraries" href="05-installation.html" />
+    <link rel="next" title="Quickly getting started (without installing Python)" href="05-quick-start.html" />
     <link rel="prev" title="Writing and running Python code" href="03-writing-and-running-python-code.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -135,7 +135,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="05-installation.html">
+    <a class="reference internal" href="05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -190,7 +195,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,7 +291,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -302,18 +312,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -322,12 +332,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -843,7 +863,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="using-jupyterlab-for-writing-code">
 <h1>Using JupyterLab for writing code<a class="headerlink" href="#using-jupyterlab-for-writing-code" title="Permalink to this headline">#</a></h1>
-<p><a class="reference external" href="https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html">JupyterLab</a><a class="footnote-reference brackets" href="#jupyterlab" id="id1">1</a> is an open-source browser-based <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Integrated-Development-Environment"><span class="xref std std-term">Integrated Development Environment</span></a></em> for programming and doing data science. The JupyterLab interface consists of different components, such as a file browser, terminal, Python interpreter, text editor, and so on. When you run a JupyterLab (see next section for details how to do this), the interface will be automatically opened in a web browser. JupyterLab is a versatile programming tool that can do many things, but most importantly, you can use it to write and run code, create and write Jupyter Notebooks (combining both text and code), and e.g. explore files and outputs from your analyses. The main interface components of JupyterLab are shown in Figure 1.13, which is (approximately) what you would see when you first open a JupyterLab on your computer:</p>
+<p><a class="reference external" href="https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html">JupyterLab</a> <a class="footnote-reference brackets" href="#jupyterlab" id="id1">1</a> is an open-source browser-based <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Integrated-Development-Environment"><span class="xref std std-term">Integrated Development Environment</span></a></em> for programming and doing data science. The JupyterLab interface consists of different components, such as a file browser, terminal, Python interpreter, text editor, and so on. When you run a JupyterLab (see next section for details how to do this), the interface will be automatically opened in a web browser. JupyterLab is a versatile programming tool that can do many things, but most importantly, you can use it to write and run code, create and write Jupyter Notebooks (combining both text and code), and e.g. explore files and outputs from your analyses. The main interface components of JupyterLab are shown in Figure 1.13, which is (approximately) what you would see when you first open a JupyterLab on your computer:</p>
 <ul class="simple">
 <li><p>The file browser (navigation panel) on the left can be used for instance to navigate on your file system and create new files or folders (you can right-click on empty white space to see different options). If you double-click a specific file in the browser, it will open it. Selecting a file (a blue box appears) and right-clicking the file, opens various options that you can do with the file, such as renaming, copying, duplicating or deleting it.</p></li>
 <li><p>A “launcher panel” on the right</p></li>
@@ -879,10 +899,10 @@ title="Print to PDF"
             <p class="prev-next-title">Writing and running Python code</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="05-installation.html" title="next page">
+    <a class='right-next' id="next-link" href="05-quick-start.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Installing Python and adding libraries</p>
+        <p class="prev-next-title">Quickly getting started (without installing Python)</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -133,7 +133,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -188,7 +193,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -284,7 +289,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -300,18 +310,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -320,12 +330,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -976,7 +996,7 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p><em><strong>Figure 4.5</strong>. A plot of the example temperature data with additional formatting, a title, and axis labels.</em></p>
-<p>Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter <code class="docutils literal notranslate"><span class="pre">style='ko--'</span></code>. In this case, <code class="docutils literal notranslate"><span class="pre">k</span></code> tells the <code class="docutils literal notranslate"><span class="pre">oct1_temps.plot()</span></code> function to use black color for the lines and symbols, <code class="docutils literal notranslate"><span class="pre">o</span></code> tells it to show circles at the data points, and <code class="docutils literal notranslate"><span class="pre">--</span></code> says to use a dashed line between points. You can use <code class="docutils literal notranslate"><span class="pre">help(oct1_temps.plot)</span></code> to find out more about formatting plots. We have also added a title using the <code class="docutils literal notranslate"><span class="pre">title</span></code> parameter, and axis labels using the <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> parameters <a class="footnote-reference brackets" href="#axis-labels" id="id6">6</a>.</p>
+<p>Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter <code class="docutils literal notranslate"><span class="pre">style='ko--'</span></code>. In this case, <code class="docutils literal notranslate"><span class="pre">k</span></code> tells the <code class="docutils literal notranslate"><span class="pre">oct1_temps.plot()</span></code> function to use black color for the lines and symbols, <code class="docutils literal notranslate"><span class="pre">o</span></code> tells it to show circles at the data points, and <code class="docutils literal notranslate"><span class="pre">--</span></code> says to use a dashed line between points. You can use <code class="docutils literal notranslate"><span class="pre">help(oct1_temps.plot)</span></code> to find out more about formatting plots. We have also added a title using the <code class="docutils literal notranslate"><span class="pre">title</span></code> parameter, and axis labels using the <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> parameters.</p>
 <!-- #region -->
 </section>
 <section id="formatting-and-annotating-the-figure">
@@ -1040,7 +1060,7 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>This would add the label “Observed temperature” to the legend for the line formatted using the <code class="docutils literal notranslate"><span class="pre">ax.plot()</span></code> function. The legend can be displayed by adding <code class="docutils literal notranslate"><span class="pre">ax.legend()</span></code> to the code.</p>
-<p>Note that by default the legend will automatically be positioned in the top right corner of a plot, or in a location where it minimizes interference with other plot elements. The location of the legend can be controlled using the <code class="docutils literal notranslate"><span class="pre">loc</span></code> parameter in the call to the <code class="docutils literal notranslate"><span class="pre">legend()</span></code> function. The <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html">matplotlib documentation</a> <a class="footnote-reference brackets" href="#matplotlib-legend" id="id7">7</a> contains more information about how to control the location of the plot legend.</p>
+<p>Note that by default the legend will automatically be positioned in the top right corner of a plot, or in a location where it minimizes interference with other plot elements. The location of the legend can be controlled using the <code class="docutils literal notranslate"><span class="pre">loc</span></code> parameter in the call to the <code class="docutils literal notranslate"><span class="pre">legend()</span></code> function. The <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html">matplotlib documentation</a> <a class="footnote-reference brackets" href="#matplotlib-legend" id="id6">6</a> contains more information about how to control the location of the plot legend.</p>
 <!-- #endregion -->
 <p><strong>The modified example plot</strong></p>
 <p>Based on the additions above (changing the figure size, adding text to the plot, etc.), the modified plot can be generated using the code below.</p>
@@ -1143,9 +1163,6 @@ title="Print to PDF"
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<!-- #region tags=[] -->
-<p><em><strong>Figure 4.8</strong>. The solution plot for Question 4.1.</em></p>
-<!-- #endregion -->
 </section>
 </section>
 <section id="bar-plots-in-pandas">
@@ -1170,8 +1187,8 @@ Note that it is easiest to plot our selected time range for a bar plot by select
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 4.9</strong>. A bar plot using pandas with the example temperature data.</em></p>
-<p>You can find more about how to format bar charts on the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html">pandas documentation website</a> <a class="footnote-reference brackets" href="#pandas-docs" id="id8">8</a>.</p>
+<p><em><strong>Figure 4.8</strong>. A bar plot using pandas with the example temperature data.</em></p>
+<p>You can find more about how to format bar charts on the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html">pandas documentation website</a> <a class="footnote-reference brackets" href="#pandas-docs" id="id7">7</a>.</p>
 <!-- #region -->
 </section>
 <section id="saving-your-plots-as-image-files">
@@ -1228,8 +1245,8 @@ Let’s check out an example of how to save our lovely bar plot.</p>
 </section>
 <section id="interactive-plotting-a-teaser">
 <h2>Interactive plotting, a teaser<a class="headerlink" href="#interactive-plotting-a-teaser" title="Permalink to this headline">#</a></h2>
-<p>We have seen in the previous parts of this chapter that there are many ways to configure and visualize data using Python. Up to this point, however, we have focussed on static visualizations in Jupyter notebooks or those saved as images. As you might imagine, there are numerous Python options to also create interactive visualizations that allow those viewing them to dive deeper into the data and explore. Interactive visualizations are increasingly popular online, and here we provide a brief example of how to create an interactive visualization using the data we have already plotted above. In this example, we will be using the hvPlot library <a class="footnote-reference brackets" href="#hvplot" id="id9">4</a>, which we will return to using later in Part 2 of this book.</p>
-<p>hvPlot is a high-level plotting package that can accept several different common Python data types and plot them using using the bokeh visualization library <a class="footnote-reference brackets" href="#bokeh" id="id10">5</a>. The great thing with hvPlot is that it takes almost no effort to move from plotting in pandas to creating interactive plots. We can explore this in the following example.</p>
+<p>We have seen in the previous parts of this chapter that there are many ways to configure and visualize data using Python. Up to this point, however, we have focussed on static visualizations in Jupyter notebooks or those saved as images. As you might imagine, there are numerous Python options to also create interactive visualizations that allow those viewing them to dive deeper into the data and explore. Interactive visualizations are increasingly popular online, and here we provide a brief example of how to create an interactive visualization using the data we have already plotted above. In this example, we will be using the hvPlot library <a class="footnote-reference brackets" href="#hvplot" id="id8">4</a>, which we will return to using later in Part 2 of this book.</p>
+<p>hvPlot is a high-level plotting package that can accept several different common Python data types and plot them using using the bokeh visualization library <a class="footnote-reference brackets" href="#bokeh" id="id9">5</a>. The great thing with hvPlot is that it takes almost no effort to move from plotting in pandas to creating interactive plots. We can explore this in the following example.</p>
 <p>Let us start by importing the pandas submodule of hvPlot.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hvplot.pandas</span>
 </pre></div>
@@ -1245,9 +1262,13 @@ Let’s check out an example of how to save our lovely bar plot.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 4.10</strong>. An interactive plot example using hvPlot.</em></p>
+<!-- #raw tags=["hide-cell"] -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 4.9}. An interactive plot example using hvPlot.}}, center, nofloat}{../img/hvplot-example.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
+<p><em><strong>Figure 4.9</strong>. An interactive plot example using hvPlot.</em></p>
 <p>Now we have an interactive line plot where the users can place their mouse cursor above the line to see the plotted values at a given location, zoom in and/or pan the plot to areas of interest, and click on the legend items to hide or display them. And as you can see, hvPlot makes it very easy to start creating your own interactive plots from pandas DataFrames.</p>
-<p>That is all we will explore for the moment, but you are welcome to have a look at the <a class="reference external" href="https://hvplot.holoviz.org/user_guide/index.html">hvPlot User Guide</a> <a class="footnote-reference brackets" href="#hvplot-guide" id="id11">9</a> to learn more about the types of visualizations available in hvPlot and how to use them.</p>
+<p>That is all we will explore for the moment, but you are welcome to have a look at the <a class="reference external" href="https://hvplot.holoviz.org/user_guide/index.html">hvPlot User Guide</a> <a class="footnote-reference brackets" href="#hvplot-guide" id="id10">8</a> to learn more about the types of visualizations available in hvPlot and how to use them.</p>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
@@ -1262,23 +1283,20 @@ Let’s check out an example of how to save our lovely bar plot.</p>
 <dt class="label" id="matlab"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
 <dd><p><a class="reference external" href="https://www.mathworks.com/products/matlab.html">https://www.mathworks.com/products/matlab.html</a></p>
 </dd>
-<dt class="label" id="hvplot"><span class="brackets">4</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id9">2</a>)</span></dt>
+<dt class="label" id="hvplot"><span class="brackets">4</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id8">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://hvplot.holoviz.org/">https://hvplot.holoviz.org/</a></p>
 </dd>
-<dt class="label" id="bokeh"><span class="brackets">5</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id10">2</a>)</span></dt>
+<dt class="label" id="bokeh"><span class="brackets">5</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id9">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://docs.bokeh.org/en/latest/index.html">https://docs.bokeh.org/en/latest/index.html</a></p>
 </dd>
-<dt class="label" id="axis-labels"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
-<dd><p>Axis labels are a relatively new feature in pandas plotting, added in version 1.1.0. If you are using an older version of pandas and do not want upgrade then you will need to use a separate command such as <code class="docutils literal notranslate"><span class="pre">ax.set_xlabel('Date')</span></code> to set the axis labels.</p>
-</dd>
-<dt class="label" id="matplotlib-legend"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dt class="label" id="matplotlib-legend"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
 <dd><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html</a></p>
 </dd>
-<dt class="label" id="pandas-docs"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dt class="label" id="pandas-docs"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
 <dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html</a></p>
 </dd>
-<dt class="label" id="hvplot-guide"><span class="brackets"><a class="fn-backref" href="#id11">9</a></span></dt>
-<dd><p>https://hvplot.holoviz.org/user_guide/index.html</p>
+<dt class="label" id="hvplot-guide"><span class="brackets"><a class="fn-backref" href="#id10">8</a></span></dt>
+<dd><p><a class="reference external" href="https://hvplot.holoviz.org/user_guide/index.html">https://hvplot.holoviz.org/user_guide/index.html</a></p>
 </dd>
 </dl>
 </section>

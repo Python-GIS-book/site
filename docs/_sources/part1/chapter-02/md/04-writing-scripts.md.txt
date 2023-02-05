@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -137,7 +137,7 @@ If you see `temp_converter.py` in the list of files above you are all set to con
 
 Let's now import our `celsius_to_fahr()` function from the other script by adding a specific `import` statement in the Python cell below: `from temp_converter import celsius_to_fahr`
 
-```python tags=["hide_cell"]
+```python tags=["remove_cell"]
 # DO NOT RUN THIS CELL
 # This cell is only needed for generating the web page and book documents
 %cd ../../../_static/part1/chapter-01/
@@ -157,7 +157,7 @@ print("The freezing point of water in Fahrenheit is:", celsius_to_fahr(0))
 
 You should get following output:
 
-```
+```code
 The freezing point of water in Fahrenheit is: 32.0
 ```
 

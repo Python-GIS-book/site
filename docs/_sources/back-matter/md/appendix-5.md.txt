@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -73,10 +73,11 @@ else:
 2.8
 ```python
 weather = "rain"
-wind_speed = 20
-comfort_limit = 18
+wind_speed = 14
+comfort_limit = 10
 
-# If it is windy or raining, print "stay at home", else print "go out and enjoy the weather!"
+# If it is windy or raining, print "stay at home",
+# otherwise (else) print "go out and enjoy the weather!"
 if (weather == "rain") or (wind_speed >= comfort_limit):
     print("Just stay at home")
 else:
@@ -85,11 +86,8 @@ else:
 
 2.9
 ```python
-def hello(name, age):
-    return "Hello, my name is " + name + ". I am " + str(age) + " years old."
-
-output = hello(name="Dave", age=41)
-print(output)
+def celsius_to_newton(temp_celsius):
+    return temp_celsius * 0.33
 ```
 <!-- #endregion -->
 
@@ -204,6 +202,7 @@ ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 ## Chapter 6
 
 6.1
+
 ```python
 
 # Triangle
@@ -219,6 +218,34 @@ point.buffer(1)
 ```
 
 6.2
+
+```python
+
+print("Number of rows", len(data["CLASS"]))
+print("Number of classes", data["CLASS"].nunique())
+print("Number of groups", data["GROUP"].nunique())
+
+```
+
+
+6.3
+
+```python
+
+# Calculate population density
+data["pop_density_km2"] = data["pop2019"] / data["area_km2"]
+
+# Print out average and maximum values
+print("Average:", 
+      round(data["pop_density_km2"].mean()), "pop/km2")
+
+print("Maximum:", 
+      round(data["pop_density_km2"].max()), "pop/km2")
+
+```
+
+6.4
+
 ```python
 
 # Save to file

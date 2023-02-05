@@ -43,7 +43,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Common tabular operations in pandas" href="01-data-manipulation.html" />
-    <link rel="prev" title="3: Introduction to data analysis with Python" href="../index.html" />
+    <link rel="prev" title="3: Introduction to data analysis" href="../index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -135,7 +135,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -190,7 +195,7 @@
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -286,7 +291,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -302,18 +312,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -322,12 +332,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -949,7 +969,7 @@ title="Print to PDF"
 <h1>Getting started with data analysis<a class="headerlink" href="#getting-started-with-data-analysis" title="Permalink to this headline">#</a></h1>
 <section id="what-is-pandas">
 <h2>What is pandas?<a class="headerlink" href="#what-is-pandas" title="Permalink to this headline">#</a></h2>
-<p>The <a class="reference external" href="https://pandas.pydata.org/">pandas Python library</a> <a class="footnote-reference brackets" href="#pandas" id="id1">1</a> is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id5" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 2nd edition edition, 2017.">McKinney, 2017</a></span>).</p>
+<p>The <a class="reference external" href="https://pandas.pydata.org/">pandas Python library</a> <a class="footnote-reference brackets" href="#pandas" id="id1">1</a> is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id5" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 2nd edition, 2017.">McKinney, 2017</a></span>).</p>
 <p>Pandas is a “high-level” package, which means that it makes use of several other packages in the background. It combines the performance of powerful Python libraries such as <a class="reference external" href="https://numpy.org/">NumPy</a> <a class="footnote-reference brackets" href="#numpy" id="id3">2</a>, <a class="reference external" href="https://matplotlib.org/">matplotlib</a> <a class="footnote-reference brackets" href="#matplotlib" id="id4">3</a> and <a class="reference external" href="https://scipy.org/">SciPy</a> <a class="footnote-reference brackets" href="#scipy" id="id5">4</a>.</p>
 <p>One of the most useful features of pandas is its ability to interact with numerous data formats. It supports reading and writing data e.g. from/to:</p>
 <ul class="simple">
@@ -970,7 +990,7 @@ title="Print to PDF"
 <p>In pandas, table-like data are stored in two-dimensional <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects with labeled rows and columns. The pandas DataFrame was originally inspired by data frames that are in-built in the R programming language. You can think of the pandas DataFrame as a programmable spreadsheet. One-dimensional sequences of values are stored in pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code>. One row or one column in a pandas DataFrame is actually a pandas Series. You can think of a pandas Series as a clever list. These pandas structures incorporate a number of things we’ve already encountered earlier in this book, such as indices, data stored in a collection, and data types.</p>
 <p><img alt="Figure 3.1. Illustration of pandas DaraFrame and pandas Series data structures. Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values." src="../../../_images/pandas-structures-annotated.png" /></p>
 <p><em><strong>Figure 3.1</strong>. Illustration of pandas DaraFrame and pandas Series data structures. Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.</em></p>
-<p>As you can see from Figure 3.1, both the DataFrame and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the next sections, we will use many of these features to explore real-world data and learn some useful data analysis procedures. For a comprehensive overview of pandas data structures, we recommend you to have a look at pandas online documentation about data structures <a class="footnote-reference brackets" href="#pandas-ds" id="id7">6</a> as well as Chapter 5 in <span id="id8"><a class="reference internal" href="../../../back-matter/nb/references.html#id5" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 2nd edition edition, 2017.">McKinney, 2017</a></span>.</p>
+<p>As you can see from Figure 3.1, both the DataFrame and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the next sections, we will use many of these features to explore real-world data and learn some useful data analysis procedures. For a comprehensive overview of pandas data structures, we recommend you to have a look at pandas online documentation about data structures <a class="footnote-reference brackets" href="#pandas-ds" id="id7">6</a> as well as Chapter 5 in <span id="id8"><a class="reference internal" href="../../../back-matter/nb/references.html#id5" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 2nd edition, 2017.">McKinney, 2017</a></span>.</p>
 </section>
 <section id="reading-tabular-data">
 <h2>Reading tabular data<a class="headerlink" href="#reading-tabular-data" title="Permalink to this headline">#</a></h2>
@@ -1355,7 +1375,7 @@ title="Print to PDF"
 </div>
 <p>Looks good! We seem to have 30 rows of data (index running from 0 to 30), and meanigful column names and values.</p>
 <p>Note that pandas DataFrames have labelled axes (rows and columns). In our sample data, the rows labeled with an index value (<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">29</span></code>), and columns labelled <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code>, <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">MIN</span></code>. Later on, we will learn how to use these labels for selecting and updating subsets of the data.</p>
-<p>It is also possible to read only specific columns from the data when using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function. You can achieve this using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter when reading the file which accepts a list of column names that will be included in the resulting DataFrame. Also positional indices (e.g. <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>) corresponding the position of the column in the file can be used to specify which columns should be read. For additional details, see the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">read_csv() documention</a> <a class="footnote-reference brackets" href="#readcsv" id="id12">8</a>. Next, we will read the file <code class="docutils literal notranslate"><span class="pre">Kumpula-June-2016-w-metadata.txt</span></code> again and store its contents into a new variable called <code class="docutils literal notranslate"><span class="pre">temp_data</span></code>. In this case, we will only read the columns <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> and <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>, meaning that the new variable <code class="docutils literal notranslate"><span class="pre">temp_data</span></code> should have 30 rows and 2 columns:</p>
+<p>It is also possible to read only specific columns from the data when using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function. You can achieve this using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter when reading the file which accepts a list of column names that will be included in the resulting DataFrame. Also positional indices (e.g. <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>) corresponding the position of the column in the file can be used to specify which columns should be read. For additional details, see the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">pandas read_csv() documention</a>. Next, we will read the file <code class="docutils literal notranslate"><span class="pre">Kumpula-June-2016-w-metadata.txt</span></code> again and store its contents into a new variable called <code class="docutils literal notranslate"><span class="pre">temp_data</span></code>. In this case, we will only read the columns <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> and <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>, meaning that the new variable <code class="docutils literal notranslate"><span class="pre">temp_data</span></code> should have 30 rows and 2 columns:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
@@ -1423,7 +1443,7 @@ title="Print to PDF"
 </section>
 <section id="writing-data-to-a-file">
 <h2>Writing data to a file<a class="headerlink" href="#writing-data-to-a-file" title="Permalink to this headline">#</a></h2>
-<p>Naturally, it is also possible to write the data from pandas to a file. Pandas supports many common output formats such as CSV files, MS Excel, xml and others. For full details about supported file formats and writer functions, see the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5">pandas i/o documentation</a> <a class="footnote-reference brackets" href="#pandas-io" id="id13">9</a>. We will store our data back into a csv-file called <code class="docutils literal notranslate"><span class="pre">Kumpula_temp_results_June_2016.csv</span></code>.</p>
+<p>Naturally, it is also possible to write the data from pandas to a file. Pandas supports many common output formats such as CSV files, MS Excel, xml and others. For full details about supported file formats and writer functions, see the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5">pandas i/o documentation</a> <a class="footnote-reference brackets" href="#pandas-io" id="id12">9</a>. We will store our data back into a csv-file called <code class="docutils literal notranslate"><span class="pre">Kumpula_temp_results_June_2016.csv</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define output filename</span>
@@ -1531,14 +1551,7 @@ dtype: object
 <section id="question-3-1">
 <h3>Question 3.1<a class="headerlink" href="#question-3-1" title="Permalink to this headline">#</a></h3>
 <p>How would you print out the number of columns in our DataFrame?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell tag_hide-cell docutils container">
+<div class="cell tag_hide-cell tag_remove_book_cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -2149,10 +2162,10 @@ Index: []
 <dt class="label" id="noaa"><span class="brackets"><a class="fn-backref" href="#id9">7</a></span></dt>
 <dd><p><a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/">https://www.ncdc.noaa.gov/cdo-web/</a></p>
 </dd>
-<dt class="label" id="readcsv"><span class="brackets">8</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id12">2</a>)</span></dt>
-<dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html</a></p>
+<dt class="label" id="readcsv"><span class="brackets"><a class="fn-backref" href="#id10">8</a></span></dt>
+<dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
 </dd>
-<dt class="label" id="pandas-io"><span class="brackets">9</span><span class="fn-backref">(<a href="#id11">1</a>,<a href="#id13">2</a>)</span></dt>
+<dt class="label" id="pandas-io"><span class="brackets">9</span><span class="fn-backref">(<a href="#id11">1</a>,<a href="#id12">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5">https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5</a></p>
 </dd>
 </dl>
@@ -2171,7 +2184,7 @@ Index: []
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">3: Introduction to data analysis with Python</p>
+            <p class="prev-next-title">3: Introduction to data analysis</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="01-data-manipulation.html" title="next page">

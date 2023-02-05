@@ -183,25 +183,30 @@
    "source": [
     "#### Question 2.9\n",
     "\n",
-    "Let's see how things are going so far with functions. Think about how you could:\n",
+    "Isaac Newton developed [a scale for measuring temperatures](https://en.wikipedia.org/wiki/Newton_scale) that was a precursor to the modern-day Celsius scale. In his system, water would freeze at 0 °N and boil at 33 °N (°N here indicates degrees Newton, not degrees north :D). Although it is difficult to directly convert between the two scales, if we assume that the increments of temperature change are equal between 0 °N and 33 °N we can come up with a temperature conversion equation between degrees Celsius and degrees Newton:\n",
     "\n",
-    "- Create a new function called `hello` with 2 parameters\n",
-    "    - Parameter 1 should be called `name` and you should assign some text to this parameter this when using the function\n",
-    "    - Parameter 2 should be called `age` and you should provide a number value for this parameter when using the function\n",
+    "$$\n",
+    "\\begin{equation}\n",
+    "  \\Large\n",
+    "  T_{\\mathrm{Newton}} = T_{\\mathrm{Celsius}} * 0.33\n",
+    "\\end{equation}\n",
+    "$$\n",
     "\n",
-    "When using your function, the value that is returned should be a character string stating the `name` and `age` that were provided, which you can assign to a variable called `output`.\n",
-    "Printing out `output` should produce something like the following:\n",
+    "You task here is to:\n",
     "\n",
-    "```python\n",
-    "print(output)\n",
-    "'Hello, my name is Dave. I am 41 years old.'\n",
-    "```"
+    "- Create a new function called `celsius_to_newton` that\n",
+    "    - Has one parameter that is the temperature in degrees Celsius to be converted to degrees Newton\n",
+    "    - Returns the temperature in degrees Newton"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 8,
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "remove_cell"
+    ]
+   },
    "outputs": [],
    "source": [
     "# Use this cell to enter your solution."
@@ -212,31 +217,17 @@
    "execution_count": 9,
    "metadata": {
     "tags": [
-     "hide-cell"
+     "hide-cell",
+     "remove_book_cell"
     ]
    },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "'Hello, my name is Dave. I am 41 years old.'"
-      ]
-     },
-     "execution_count": 9,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
     "# Solution\n",
     "\n",
     "\n",
-    "def hello(name, age):\n",
-    "    return \"Hello, my name is \" + name + \". I am \" + str(age) + \" years old.\"\n",
-    "\n",
-    "\n",
-    "output = hello(name=\"Dave\", age=41)\n",
-    "output"
+    "def celsius_to_newton(temp_celsius):\n",
+    "    return temp_celsius * 0.33"
    ]
   },
   {
@@ -252,7 +243,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -271,7 +262,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -280,7 +271,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [
     {
@@ -311,7 +302,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -331,7 +322,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 14,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -345,7 +336,7 @@
      "traceback": [
       "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
       "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[0;32m/tmp/ipykernel_283694/3903921635.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mtemp_kelvins\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "Cell \u001b[0;32mIn[14], line 1\u001b[0m\n\u001b[0;32m----> 1\u001b[0m \u001b[43mtemp_kelvins\u001b[49m\n",
       "\u001b[0;31mNameError\u001b[0m: name 'temp_kelvins' is not defined"
      ]
     }
@@ -356,7 +347,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 15,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -370,7 +361,7 @@
      "traceback": [
       "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
       "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[0;32m/tmp/ipykernel_283694/2827182500.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mtemp_celsius\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "Cell \u001b[0;32mIn[15], line 1\u001b[0m\n\u001b[0;32m----> 1\u001b[0m \u001b[43mtemp_celsius\u001b[49m\n",
       "\u001b[0;31mNameError\u001b[0m: name 'temp_celsius' is not defined"
      ]
     }
@@ -391,7 +382,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [
     {
@@ -400,7 +391,7 @@
        "20.0"
       ]
      },
-     "execution_count": 13,
+     "execution_count": 16,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -411,7 +402,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 17,
    "metadata": {
     "tags": [
      "raises-exception"
@@ -425,7 +416,7 @@
      "traceback": [
       "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
       "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[0;32m/tmp/ipykernel_283694/3903921635.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mtemp_kelvins\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "Cell \u001b[0;32mIn[17], line 1\u001b[0m\n\u001b[0;32m----> 1\u001b[0m \u001b[43mtemp_kelvins\u001b[49m\n",
       "\u001b[0;31mNameError\u001b[0m: name 'temp_kelvins' is not defined"
      ]
     }
@@ -448,7 +439,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -469,7 +460,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 19,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -478,7 +469,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 20,
    "metadata": {},
    "outputs": [
     {
@@ -487,7 +478,7 @@
        "30.0"
       ]
      },
-     "execution_count": 17,
+     "execution_count": 20,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -498,7 +489,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [
     {
@@ -507,7 +498,7 @@
        "303.15"
       ]
      },
-     "execution_count": 18,
+     "execution_count": 21,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -532,7 +523,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 22,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -543,7 +534,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 23,
    "metadata": {},
    "outputs": [
     {
@@ -552,7 +543,7 @@
        "30.0"
       ]
      },
-     "execution_count": 20,
+     "execution_count": 23,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -644,7 +635,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.9.7"
+   "version": "3.10.9"
   }
  },
  "nbformat": 4,

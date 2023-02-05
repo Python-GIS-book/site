@@ -133,7 +133,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part1/chapter-01/nb/05-installation.html">
+    <a class="reference internal" href="../../part1/chapter-01/nb/05-quick-start.html">
+     Quickly getting started (without installing Python)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part1/chapter-01/nb/06-installation.html">
      Installing Python and adding libraries
     </a>
    </li>
@@ -188,7 +193,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../part1/chapter-03/index.html">
-   3: Introduction to data analysis with Python
+   3: Introduction to data analysis
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -284,7 +289,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Introduction to geographic data in Python
+     Geographic data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
+     Coordinate reference systems
     </a>
    </li>
   </ul>
@@ -300,18 +310,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/00-introduction-to-geopandas.html">
+    <a class="reference internal" href="../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
+     Introduction to geographic data objects in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
      Introduction to spatial data analysis with geopandas
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/01-data-io.html">
-     Data in/out: Preparing GeoDataFrames from spatial data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/02-coordinate-reference-system.html">
-     Coordinate Reference Systems
+    <a class="reference internal" href="../../part2/chapter-06/nb/02-data-io.html">
+     Preparing GeoDataFrames from geographic data
     </a>
    </li>
    <li class="toctree-l2">
@@ -320,12 +330,22 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/04-operations-between-multiple-datasets.html">
+    <a class="reference internal" href="../../part2/chapter-06/nb/04-coordinate-reference-system.html">
+     Working with Map Projections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part2/chapter-06/nb/05-geocoding.html">
+     Geocoding
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
      Operations between multiple datasets
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../part2/chapter-06/nb/05-exercises.html">
+    <a class="reference internal" href="../../part2/chapter-06/nb/07-exercises.html">
      Exercises
     </a>
    </li>
@@ -776,9 +796,17 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="glossary">
 <h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">#</a></h1>
 <dl class="glossary simple">
+<dt id="term-Application-Programming-Interface">Application Programming Interface<a class="headerlink" href="#term-Application-Programming-Interface" title="Permalink to this term">#</a></dt><dd><p>An application programming interface or API is a set of protocols and tools that enable pieces of software to communicate and exchange information. For example, the Nominatim service has an API for accessing its geocoding service.</p>
+</dd>
+<dt id="term-API">API<a class="headerlink" href="#term-API" title="Permalink to this term">#</a></dt><dd><p>See <a class="reference internal" href="../nb/glossary.html#term-Application-Programming-Interface"><span class="xref std std-term">Application Programming Interface</span></a>.</p>
+</dd>
 <dt id="term-Collection">Collection<a class="headerlink" href="#term-Collection" title="Permalink to this term">#</a></dt><dd><p>A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.</p>
 </dd>
-<dt id="term-Computer">Computer<a class="headerlink" href="#term-Computer" title="Permalink to this term">#</a></dt><dd><p>We use the definition of a computer given by <span id="id1"><a class="reference internal" href="../nb/references.html#id6" title="John Zelle. Python Programming: An Introduction to Computer Science. Franklin, Beedle &amp; Associates, 3rd edition edition, 2017.">Zelle, 2017</a></span>: “A machine that stores and manipulates information under the control of a changeable program.”</p>
+<dt id="term-Computer">Computer<a class="headerlink" href="#term-Computer" title="Permalink to this term">#</a></dt><dd><p>We use the definition of a computer given by <span id="id1"><a class="reference internal" href="../nb/references.html#id6" title="John Zelle. Python Programming: An Introduction to Computer Science. Franklin, Beedle &amp; Associates, 3rd edition, 2017.">Zelle, 2017</a></span>: “A machine that stores and manipulates information under the control of a changeable program.”</p>
+</dd>
+<dt id="term-Coordinate-Reference-System">Coordinate Reference System<a class="headerlink" href="#term-Coordinate-Reference-System" title="Permalink to this term">#</a></dt><dd><p>A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth’s surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.</p>
+</dd>
+<dt id="term-Coordinate-transformation">Coordinate transformation<a class="headerlink" href="#term-Coordinate-transformation" title="Permalink to this term">#</a></dt><dd><p>See <a class="reference internal" href="../nb/glossary.html#term-Map-reprojection"><span class="xref std std-term">Map reprojection</span></a>.</p>
 </dd>
 <dt id="term-Data-model">Data model<a class="headerlink" href="#term-Data-model" title="Permalink to this term">#</a></dt><dd><p>A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell.</p>
 </dd>
@@ -791,17 +819,23 @@ For example, type <code class="docutils literal notranslate"><span class="pre">i
 </dd>
 <dt id="term-Dependency">Dependency<a class="headerlink" href="#term-Dependency" title="Permalink to this term">#</a></dt><dd><p>Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work.</p>
 </dd>
-<dt id="term-Docstring">Docstring<a class="headerlink" href="#term-Docstring" title="Permalink to this term">#</a></dt><dd><p>A text string used to document a section of code.
-Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs.
-You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.</p>
+<dt id="term-Docstring">Docstring<a class="headerlink" href="#term-Docstring" title="Permalink to this term">#</a></dt><dd><p>A text string used to document a section of code. Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs. You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.</p>
+</dd>
+<dt id="term-Decimal-degrees">Decimal degrees<a class="headerlink" href="#term-Decimal-degrees" title="Permalink to this term">#</a></dt><dd><p>A decimal degree is a method of expressing latitude and longitude geographic coordinates as decimal fractions instead of degrees, minutes, and seconds. It represents the angle between a point on the earth’s surface and the equator or prime meridian, respectively, in units of decimal degrees. Decimal degrees provide a more convenient representation of geographic coordinates and make it easier to perform calculations with them.</p>
 </dd>
 <dt id="term-Function">Function<a class="headerlink" href="#term-Function" title="Permalink to this term">#</a></dt><dd><p>A reusable piece of code that performs a single action.</p>
 </dd>
-<dt id="term-IDE">IDE<a class="headerlink" href="#term-IDE" title="Permalink to this term">#</a></dt><dd><p>See <code class="docutils literal notranslate"><span class="pre">{term}Integrated</span> <span class="pre">Development</span> <span class="pre">Environment</span></code>.</p>
+<dt id="term-Geocoding">Geocoding<a class="headerlink" href="#term-Geocoding" title="Permalink to this term">#</a></dt><dd><p>The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see <a class="reference internal" href="../nb/glossary.html#term-Georeferencing"><span class="xref std std-term">Georeferencing</span></a>.</p>
+</dd>
+<dt id="term-Geographic-coordinate-conversion">Geographic coordinate conversion<a class="headerlink" href="#term-Geographic-coordinate-conversion" title="Permalink to this term">#</a></dt><dd><p>See <a class="reference internal" href="../nb/glossary.html#term-Map-reprojection"><span class="xref std std-term">Map reprojection</span></a>.</p>
+</dd>
+<dt id="term-Georeferencing">Georeferencing<a class="headerlink" href="#term-Georeferencing" title="Permalink to this term">#</a></dt><dd><p>Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox.</p>
+</dd>
+<dt id="term-IDE">IDE<a class="headerlink" href="#term-IDE" title="Permalink to this term">#</a></dt><dd><p>See <a class="reference internal" href="../nb/glossary.html#term-Integrated-Development-Environment"><span class="xref std std-term">Integrated Development Environment</span></a>.</p>
 </dd>
 <dt id="term-Index">Index<a class="headerlink" href="#term-Index" title="Permalink to this term">#</a></dt><dd><p>A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.</p>
 </dd>
-<dt id="term-Integrated-Development-Environment">Integrated Development Environment<a class="headerlink" href="#term-Integrated-Development-Environment" title="Permalink to this term">#</a></dt><dd><p>An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface</p>
+<dt id="term-Integrated-Development-Environment">Integrated Development Environment<a class="headerlink" href="#term-Integrated-Development-Environment" title="Permalink to this term">#</a></dt><dd><p>An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface.</p>
 </dd>
 <dt id="term-Interpreter">Interpreter<a class="headerlink" href="#term-Interpreter" title="Permalink to this term">#</a></dt><dd><p>An interpreter is a computer program that is used to execute program instructions written in Python (or other languages). The interpreter reads your statements of code and based on these instructions actually does the work that has been assigned to it.</p>
 </dd>
@@ -815,9 +849,15 @@ More information can be found at <a class="reference external" href="https://jup
 </dd>
 <dt id="term-Loop">Loop<a class="headerlink" href="#term-Loop" title="Permalink to this term">#</a></dt><dd><p>A programming construct that allows a section of code to be repeated a finite number of times or until a given condition is met.</p>
 </dd>
+<dt id="term-Map-projection">Map projection<a class="headerlink" href="#term-Map-projection" title="Permalink to this term">#</a></dt><dd><p>A map projection is a mathematical method to draw a graphical representation of the Earth’s surface on a flat surface, i.e. a map.</p>
+</dd>
+<dt id="term-Map-reprojection">Map reprojection<a class="headerlink" href="#term-Map-reprojection" title="Permalink to this term">#</a></dt><dd><p>Map reprojection is a process of converting coordinates described in one coordinate reference system (CRS) to another. The transformation between coordinate systems involves both translation and rotation, and requires knowledge of the shape and size of the earth, as well as its orientation in space.</p>
+</dd>
 <dt id="term-Markdown">Markdown<a class="headerlink" href="#term-Markdown" title="Permalink to this term">#</a></dt><dd><p>A lightweight markup language used to convert plain text input to rich-formatted output.
 Markdown can, for example, be used to create simple documentation with different heading levels, text in bold and/or italics, text in lists, or documentation that includes hyperlinks.
 More information can be found at <a class="reference external" href="https://en.wikipedia.org/wiki/Markdown">https://en.wikipedia.org/wiki/Markdown</a>.</p>
+</dd>
+<dt id="term-Metadata">Metadata<a class="headerlink" href="#term-Metadata" title="Permalink to this term">#</a></dt><dd><p>Metadata refers to data that provides information about other data. It often describes characteristics of the data, such as its content, quality, format, and other relevant characteristics. For example, the metadata of a satellite image may include information about the image’s resolution, file size, coordinate reference system, and the date it was taken.</p>
 </dd>
 <dt id="term-Module">Module<a class="headerlink" href="#term-Module" title="Permalink to this term">#</a></dt><dd><p>A file containing Python definitions and statements. Module files have the <code class="docutils literal notranslate"><span class="pre">.py</span></code> file extension.</p>
 </dd>
@@ -830,6 +870,8 @@ More information can be found at <a class="reference external" href="https://en.
 <dt id="term-Semantics">Semantics<a class="headerlink" href="#term-Semantics" title="Permalink to this term">#</a></dt><dd><p>The exact meaning of a component in a programming language, such as a statement or a function. For example, the <code class="docutils literal notranslate"><span class="pre">len()</span></code> function in Python is used to determine the length of a data structure that is defined in memory.</p>
 </dd>
 <dt id="term-Software">Software<a class="headerlink" href="#term-Software" title="Permalink to this term">#</a></dt><dd><p>Another name for a <a class="reference internal" href="../nb/glossary.html#term-Program"><span class="xref std std-term">program</span></a>.</p>
+</dd>
+<dt id="term-Spatial-Reference-System">Spatial Reference System<a class="headerlink" href="#term-Spatial-Reference-System" title="Permalink to this term">#</a></dt><dd><p>Spatial Reference System (SRS) is a synonym for the <a class="reference internal" href="../nb/glossary.html#term-Coordinate-Reference-System"><span class="xref std std-term">Coordinate Reference System</span></a>.</p>
 </dd>
 <dt id="term-Spatial-resolution">Spatial resolution<a class="headerlink" href="#term-Spatial-resolution" title="Permalink to this term">#</a></dt><dd><p>The spatial resolution of a raster refers typically to the size of the cells in a raster dataset. It can also mean the ratio of screen pixels to image pixels at the current map scale.</p>
 </dd>
@@ -850,6 +892,9 @@ More information can be found at <a class="reference external" href="https://en.
 <dt id="term-Well-known-text">Well-known text<a class="headerlink" href="#term-Well-known-text" title="Permalink to this term">#</a></dt><dd><p>Well-known text (WKT) is a text markup language for representing vector geometry objects. WKT can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m). The binary equivalent for WKT is <code class="docutils literal notranslate"><span class="pre">Well-known</span> <span class="pre">binary</span></code> format.</p>
 </dd>
 </dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </section>
 
 
