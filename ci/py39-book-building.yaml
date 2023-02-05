@@ -51,6 +51,7 @@ dependencies:
     - nbconvert
     - nbmerge
     - sphinxcontrib-bibtex
+    - geodatasets
 
 
 

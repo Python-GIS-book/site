@@ -53,3 +53,4 @@ dependencies:
   - pip=23.0
   - pip:
     - nbmerge=0.0.4
+    - geodatasets=2023.1.0b2
