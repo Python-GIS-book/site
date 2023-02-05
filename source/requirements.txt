@@ -1,9 +1,11 @@
-jupyter-book>=0.7.0b
+jupyter-book
 sphinx-book-theme
 sphinx
 matplotlib
 ipython
 jupyter-sphinx
 nbsphinx
-pydata-sphinx-theme
 sphinxcontrib-bibtex
+MyST-NB
+# Fix nbconvert version
+nbconvert==6.4.4

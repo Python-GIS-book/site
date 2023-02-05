@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -175,7 +175,6 @@ Looping over rows in a DataFrame can be done in a couple of different ways. A co
 ```python jupyter={"outputs_hidden": false}
 # Iterate over the rows
 for idx, row in data.iterrows():
-
     # Print the index value
     print("Index:", idx)
 
@@ -195,7 +194,6 @@ data["TEMP_C"] = 0.0
 
 # Iterate over the rows
 for row in data.itertuples():
-
     # Convert the Fahrenheit to Celsius
     # Notice how we access the row value
     celsius = fahr_to_celsius(row.TEMP_F)
@@ -296,11 +294,11 @@ Nice! Now we have "labeled" the rows based on information about day of the year 
 
 Create a new column `'MONTH'` with information about the month without the year.
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data["MONTH"] = data["TIME_STR"].str.slice(start=4, stop=6)
@@ -419,7 +417,6 @@ mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
 
 # Iterate over the groups
 for key, group in grouped:
-
     # Calculate mean
     mean_values = group[mean_cols].mean()
 
@@ -471,7 +468,7 @@ Hence, let's now see how we can repeat the previous data analysis steps for 15 w
 In Python there are two commonly used approaches to manage and manipulate filepaths, namely `os.path` sub-module and a newer `pathlib` module (available since Python 3.4) which we will demonstrate here.  The built-in module `pathlib` provides many useful functions for interacting and manipulating filepaths on your operating system. On the following, we have data in different sub-folders and we will learn how to use the `Path` class from the `pathlib` library to construct filepaths. Next, we will import and use the `Path` class and see how we can construct a filepath by joining a folder path and file name:
 
 ```python
-from pathlib import Path 
+from pathlib import Path
 
 # Initialize the Path
 input_folder = Path("data/finnish_stations")
@@ -502,7 +499,9 @@ fp.exists()
 size_in_bytes = fp.stat().st_size
 creation_time = fp.stat().st_ctime
 modified_time = fp.stat().st_mtime
-print(f"Size (bytes): {size_in_bytes}\nCreated (seconds since Epoch): {creation_time}\nModified (seconds since Epoch): {modified_time}")
+print(
+    f"Size (bytes): {size_in_bytes}\nCreated (seconds since Epoch): {creation_time}\nModified (seconds since Epoch): {modified_time}"
+)
 ```
 
 There are also various other methods that you can do with `pathlib`, such as rename the files (`.rename()`) or create folders (`.mkdir()`). You can see all available methods from `pathlib` documentation [^pathlib]. One of the most useful tools in `pathlib` is the ability to list all files within a given folder by using the method `.glob()` which also allows you to add specific search criteria for listing only specific files from the directory:
@@ -543,7 +542,6 @@ results = []
 
 # Repeat the analysis steps for each input file:
 for fp in file_list:
-
     # Read the data from CSV file
     data = pd.read_csv(fp)
 

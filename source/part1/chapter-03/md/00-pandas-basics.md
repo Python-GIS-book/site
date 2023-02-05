@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -155,7 +155,7 @@ Note that pandas DataFrames have labelled axes (rows and columns). In our sample
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
-It is also possible to read only specific columns from the data when using the `read_csv()` function. You can achieve this using the `usecols` parameter when reading the file which accepts a list of column names that will be included in the resulting DataFrame. Also positional indices (e.g. `[0, 1]`) corresponding the position of the column in the file can be used to specify which columns should be read. For additional details, see the [read_csv() documention](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html) [^readcsv]. Next, we will read the file `Kumpula-June-2016-w-metadata.txt` again and store its contents into a new variable called `temp_data`. In this case, we will only read the columns `YEARMODA` and `TEMP`, meaning that the new variable `temp_data` should have 30 rows and 2 columns:
+It is also possible to read only specific columns from the data when using the `read_csv()` function. You can achieve this using the `usecols` parameter when reading the file which accepts a list of column names that will be included in the resulting DataFrame. Also positional indices (e.g. `[0, 1]`) corresponding the position of the column in the file can be used to specify which columns should be read. For additional details, see the [pandas read_csv() documention](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html). Next, we will read the file `Kumpula-June-2016-w-metadata.txt` again and store its contents into a new variable called `temp_data`. In this case, we will only read the columns `YEARMODA` and `TEMP`, meaning that the new variable `temp_data` should have 30 rows and 2 columns:
 <!-- #endregion -->
 
 ```python
@@ -266,11 +266,11 @@ Here we see that `YEARMODA` is an integer value (with 64-bit precision; ``int64`
 
 How would you print out the number of columns in our DataFrame?
 
-```python
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell"]
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 len(data.columns)
@@ -442,6 +442,6 @@ df
 [^pandasdocs]: <https://pandas.pydata.org/pandas-docs/stable/>
 [^pandas_ds]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html>
 [^noaa]: <https://www.ncdc.noaa.gov/cdo-web/>
-[^readcsv]: <https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html>
+[^readcsv]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html>
 [^pandas_io]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5>
 

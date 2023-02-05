@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -15,14 +15,28 @@ jupyter:
 # Glossary
 
 ```{glossary}
+
+Application Programming Interface
+  An application programming interface or API is a set of protocols and tools that enable pieces of software to communicate and exchange information. For example, the Nominatim service has an API for accessing its geocoding service.
+
+API
+  See {term}`Application Programming Interface`.
+  
+  
 Collection
   A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.
 
 Computer
   We use the definition of a computer given by {cite}`Zelle2017`: "A machine that stores and manipulates information under the control of a changeable program."
   
+Coordinate Reference System
+  A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth's surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.
+  
+Coordinate transformation
+  See {term}`Map reprojection`.
+  
 Data model
-  A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell.    
+  A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell. 
 
 Data type
   An attribute defining the characteristics of a value in a program.
@@ -38,21 +52,31 @@ Dependency
   Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work. 
 
 Docstring
-  A text string used to document a section of code.
-  Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs.
-  You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.
+  A text string used to document a section of code. Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs. You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.
+  
+Decimal degrees
+  A decimal degree is a method of expressing latitude and longitude geographic coordinates as decimal fractions instead of degrees, minutes, and seconds. It represents the angle between a point on the earth's surface and the equator or prime meridian, respectively, in units of decimal degrees. Decimal degrees provide a more convenient representation of geographic coordinates and make it easier to perform calculations with them.
 
 Function
   A reusable piece of code that performs a single action.
   
+Geocoding
+  The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see {term}`Georeferencing`.
+  
+Geographic coordinate conversion
+  See {term}`Map reprojection`.
+  
+Georeferencing
+  Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox. 
+  
 IDE
-  See `{term}Integrated Development Environment`.
+  See {term}`Integrated Development Environment`.
 
 Index
   A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
   
 Integrated Development Environment
-  An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface
+  An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface.
   
 Interpreter
   An interpreter is a computer program that is used to execute program instructions written in Python (or other languages). The interpreter reads your statements of code and based on these instructions actually does the work that has been assigned to it. 
@@ -70,11 +94,20 @@ List
 
 Loop
   A programming construct that allows a section of code to be repeated a finite number of times or until a given condition is met.
+  
+Map projection
+  A map projection is a mathematical method to draw a graphical representation of the Earth's surface on a flat surface, i.e. a map. 
+  
+Map reprojection
+  Map reprojection is a process of converting coordinates described in one coordinate reference system (CRS) to another. The transformation between coordinate systems involves both translation and rotation, and requires knowledge of the shape and size of the earth, as well as its orientation in space.  
 
 Markdown
   A lightweight markup language used to convert plain text input to rich-formatted output.
   Markdown can, for example, be used to create simple documentation with different heading levels, text in bold and/or italics, text in lists, or documentation that includes hyperlinks.
   More information can be found at <https://en.wikipedia.org/wiki/Markdown>.
+  
+Metadata
+  Metadata refers to data that provides information about other data. It often describes characteristics of the data, such as its content, quality, format, and other relevant characteristics. For example, the metadata of a satellite image may include information about the image's resolution, file size, coordinate reference system, and the date it was taken. 
 
 Module
   A file containing Python definitions and statements. Module files have the ``.py`` file extension.
@@ -93,6 +126,9 @@ Semantics
 
 Software
   Another name for a {term}`program`.
+  
+Spatial Reference System
+  Spatial Reference System (SRS) is a synonym for the {term}`Coordinate Reference System`.
 
 Spatial resolution
   The spatial resolution of a raster refers typically to the size of the cells in a raster dataset. It can also mean the ratio of screen pixels to image pixels at the current map scale. 
@@ -122,4 +158,8 @@ Well-known text
   Well-known text (WKT) is a text markup language for representing vector geometry objects. WKT can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m). The binary equivalent for WKT is `Well-known binary` format.
 
   
+```
+
+```python
+
 ```
