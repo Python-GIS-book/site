@@ -112,6 +112,7 @@ You will likely encounter many different coordinate reference systems when worki
 
 ```python
 from pyproj import CRS
+
 crs_object = CRS.from_epsg(3035)
 crs_object
 ```
@@ -172,7 +173,9 @@ Naturally, you do not necessarily need to define the CRS separately after creati
 
 ```python
 # Create GeoDataFrame with one point and define the CRS
-gdf = gpd.GeoDataFrame({"geometry": Point(24.950899, 60.169158)}, index=[0], crs="EPSG:4326")
+gdf = gpd.GeoDataFrame(
+    {"geometry": Point(24.950899, 60.169158)}, index=[0], crs="EPSG:4326"
+)
 gdf.crs
 ```
 
@@ -184,14 +187,14 @@ As you can see, now the dataset contains the CRS information immediately after t
 Finally, let's play around with global map projections to show a few different map projections and how to define them. In this example, we use a global country border dataset from Natural Earth that comes with `geopandas`:
 
 ```python
-fp = gpd.datasets.get_path('naturalearth_lowres')
+fp = gpd.datasets.get_path("naturalearth_lowres")
 admin = gpd.read_file(fp)
 admin.crs
 ```
 
 ```python
 # Plot in original crs
-admin.plot(figsize=(12,6))
+admin.plot(figsize=(12, 6))
 plt.title("WGS84");
 ```
 
@@ -210,7 +213,7 @@ _**Figure 6.14**. Global map plotted in Web Mercator._
 As we can see, the Web Mercator projection also distorts and exaggerates e.g. the size of the Antarctica and Greenland quite significantly. Luckily, there are also better map projections for visualizing global datasets, such as Eckert IV. There isn't a direct EPSG number for Eckert IV, but we can provide the CRS information as an ESRI CRS code `ESRI:54012` as follows:
 
 ```python
-ax = admin.to_crs(crs="ESRI:54012").plot(figsize=(12,12))
+ax = admin.to_crs(crs="ESRI:54012").plot(figsize=(12, 12))
 plt.title("Eckert Ⅳ")
 plt.axis("off");
 ```
