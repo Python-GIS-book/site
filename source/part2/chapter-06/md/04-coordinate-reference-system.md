@@ -15,8 +15,6 @@ jupyter:
 # Working with Map Projections
 
 
-## Managing Coordinate Reference Systems in Python
-
 In Chapter 5, we learned how the Coordinate Reference System (CRS) ultimately describes how geometries are related to the places on Earth and what are the core components of a CRS. Our main tool for managing coordinate reference systems is the [PROJ library](https://proj.org/) [^proj] which can be used through the [pyproj Python library](https://pyproj4.github.io/pyproj/stable/) [^pyproj]. `Pyproj` can be used to access the CRS information of a given geographic dataset and also for reprojecting the data from one coordinate system to another. In the following, we will demonstrate how to work with coordinate reference systems in `geopandas` by using a country border dataset from Europe. We will reproject the dataset from the original WGS84 coordinate system into a Lambert Azimuthal Equal Area projection which is the projection EU [recommends for Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) [^EU_projection].
 
 Let's start by reading the data from the `eu_countries_2022.gpkg` file. When reading the data into `GeoDataFrame` with `geopandas`, the CRS information is automatically read from the datafile and stored into the `.crs` attribute:
@@ -46,7 +44,9 @@ As we can see, the coordinate values of the Polygons indeed look like {term}`dec
 
 ## Reprojecting a GeoDataFrame
 
-Changing from one coordinate system to another is a simple task to do in `geopandas`, as we can use the `.to_crs()` -method which is a built-in functionality of the `GeoDataFrame`. The method has two alternative parameters: 1) `crs` which accepts CRS information from various formats, such as proj-strings or OGS WKT text; and 2) `epgs` that accepts the EPSG-code of a given coordinate system as a number. Both of these can be used to make the coordinate transformation and reproject the data into the desired CRS. Let's reproject our data into `EPSG:3035` using the `epsg` -parameter:
+Changing from one coordinate system to another is one of the most common tasks to do when working with geographic data. This process is commonly called as {term}`map reprojection`, {term}`coordinate transformation` or {term}`geographic coordinate conversion`. When the data is reprojected, the coordinates described in one coordinate reference system to another are transformed by using specific geodetic equations. This is important when working with geographic data because different coordinate systems are used for different purposes, and it is often necessary to transform coordinates between them in order to compare or integrate data from different sources. For example, coordinates on the Earth's surface may be represented in geographic (latitude and longitude) or projected (Cartesian) coordinates, and the same location will have different coordinate values depending on the CRS used to describe it. It is important that the layers are in the same coordinate system when analyzing the spatial relationships between the layers, such as when making a Point in Polygon -query, or other type of overlay analysis. The transformation between these coordinate systems involves both translation and rotation, and requires knowledge of the shape and size of the earth, as well as its orientation in space.
+
+Reprojecting geographic data from one coordinate system to another might sound a bit tricky, but luckily we do not need to do any equations ourselves. The coordinate transformation can be done very easily in `geopandas` by using `.to_crs()` -method of a given `GeoDataFrame`. The method has two alternative parameters: 1) `crs` which accepts CRS information from various formats, such as proj-strings or OGS WKT text; and 2) `epgs` that accepts the EPSG-code of a given coordinate system as a number. Both of these can be used to make the coordinate transformation and reproject the data into a desired CRS. Let's reproject our data into `EPSG:3035` using the `epsg` -parameter:
 
 ```python
 # Let's make a backup copy of our data
@@ -92,6 +92,7 @@ ax2.set_aspect(aspect=1)
 plt.tight_layout()
 ```
 
+
 _**Figure 6.12**. Map of Europe plotted with two different coordinate reference systems._
 
 As we can see from the **Figure 6.12**, the maps look quite different and the reprojected one looks significantly better especially in the North where the geometries are more realistic and not so stretched as in WGS84. Finally, let's save our projected layer into a Shapefile so that we can use it later. Note, even if the CRS information is stored with the output file (in this case into a `.prj` file associated with the Shapefile), it might be a good idea also to include CRS info in the filename which makes it easy to identify the CRS directly from the name of the file:
@@ -104,91 +105,33 @@ outfp = "data/EU_countries/Europe_borders_epsg3035.shp"
 data.to_file(outfp)
 ```
 
-## Advanced CRS functionalities
+## Parsing Coordinate Reference System characteristics
 
 
-As the CRS in different spatial datasets differ fairly often (i.e. one might have coordinates defined in decimal degrees while the other one has them in meters), it is a common procedure to reproject (transform) different layers into a common CRS. It is important that the layers are in the same coordinate reference system when analyzing the spatial relationships between the layers, for example, when making a Point in Polygon -query, or other type of overlay analysis.
-
-
-### Overview
-
-The following code cell prints out a summary summary of different ways of representing crs information using pyproj CRS. Here, we use the crs of the original European borders layer as a starting point:
+You will likely encounter many different coordinate reference systems when working with geographic data obtained from different sources. Being able to define CRS information from scratch for a given dataset is needed every now and then, and in the following we show a few useful tricks to work with different coordinate systems using `pyproj` library. In the previous section, we saw how `geopandas` uses the `pyproj.CRS` object to store the coordinate reference system information. In fact, this same library provides many useful functionalities for dealing with CRS information, and we can use the `CRS` object/class to for example easily parse, define and convert CRS information. In the following, we import the `CRS` class from the `pyproj` library and initialize a specific coordinate reference system using the `.from_epsg()` method and `EPSG` code as input:
 
 ```python
-### Import CRS class from pyproj
 from pyproj import CRS
-```
-
-```python
-# PROJ dictionary:
-crs_dict = data_wgs84.crs
-
-# pyproj CRS object:
-crs_object = CRS(data_wgs84.crs)
-
-# EPSG code (here, the input crs information is a bit vague so we need to lower the confidence threshold)
-crs_epsg = CRS(data_wgs84.crs).to_epsg(min_confidence=25)
-
-# PROJ string
-crs_proj4 = CRS(data_wgs84.crs).to_proj4()
-
-# Well-Known Text (WKT)
-crs_wkt = CRS(data_wgs84.crs).to_wkt()
-```
-
-```python
-print("PROJ dictionary:\n", crs_dict)
-print("\nCRS object:\n", crs_object)
-print("\nEPSG code: \n", crs_epsg)
-print("\nPROJ string: \n", crs_proj4)
-print("\nWell-Known Text (WKT):\n", crs_wkt)
-```
-
-### Pyproj CRS object
-
-Next, let's see how it is possible to easily extract useful information from CRS, and transform CRS information from format to another. `pyproj` -library has a [class](https://docs.python.org/3/tutorial/classes.html) called [CRS](https://pyproj4.github.io/pyproj/dev/api/crs.html) that provides many useful functionalities for dealing with CRS information.
-
-```python
-# Let's see the current CRS of our data
-print(data.crs)
-```
-
-Printing the crs using the print() statement gives us the EPSG code. 
-
-However, let's see how the same information looks like in other formats such as `WKT` or `Proj4` text. For this we need to use the `CRS` class.  
-
-```python
-# Initialize the CRS class for epsg code 3035:
 crs_object = CRS.from_epsg(3035)
 crs_object
 ```
 
-As we can see, the `CRS` object contains a of information about the coordinate reference system such as the `Name` of the CRS (ETRS89/LAEA Europe), the `area` where the CRS is in use (*Europe* with bounds *(-16.1, 32.88, 40.18, 84.17)*), and the `Datum` (European Terrestrial Reference System 1989). 
-
-We can also easily parse this information individually as follows: 
+As you can see, it is very easy to initialize a CRS with `pyproj` with a given EPSG code, and in a similar manner you can initialize hundreds of other coordinate reference systems by changing this code. The resulting CRS object (variable `crs_object`) contains a lot of information about the coordinate reference system such as the `Name` of the CRS (ETRS89/LAEA Europe), the `area` where the CRS is in use (*Europe* with bounds *(-35.58, 24.6, 44.83, 84.73)*), and the `Datum` (European Terrestrial Reference System 1989). We can also easily parse this information individually as follows: 
 
 ```python
-# Name
 print("Name:", crs_object.name)
-
-# Coordinate system
 print("Coordinate system:", crs_object.coordinate_system)
-
-# Bounds of the area where CRS is used
 print("Bounds:", crs_object.area_of_use.bounds)
 ```
 
-You can explore all the possible information that can be extracted from the CRS by typing `crs_object.` and pressing Tabulator. 
-
-Let's see how we can convert the crs information from one format to another. Quite often it is useful to know the EPSG code of the CRS. Next, we will conduct a few transformations to demonstrate the capabilities of the `CRS` class.
+We can also easily export this CRS information to different formats, such as `WKT` or `Proj4` text, or to EPSG code. For this, we can use the `CRS` class methods, such as `.to_wkt()`, `.to_proj4()` and `.to_epsg()` accordingly. You can explore all the possible information that can be extracted (and exported) from the CRS by typing `crs_object.` and pressing <kbd>Tab</kbd>. In the following, we export the CRS information to WKT format: 
 
 ```python
-# Retrive CRS information in WKT format
 crs_wkt = crs_object.to_wkt()
 print(crs_wkt)
 ```
 
-As we can see, the `WKT` format contains a *lot* of information. Typically, e.g. the `.prj` file of a Shapefile contains the information in this format. Let's see how it is possible to extract `EPSG` code from this. For doing it, we need to re-initialize the CRS object, this time from the `WKT` text presentation.   
+As we can see, the `WKT` format contains a *lot* of information. Typically, e.g. the `.prj` file of a Shapefile contains the information in this format. Let's see how it is possible to extract `EPSG` code from this. For doing it, we first re-initialize the CRS object from the `WKT` text presentation, and then parse the EPSG code from the CRS:   
 
 ```python
 # Retrieve EPSG code from WKT text
@@ -196,130 +139,98 @@ epsg = CRS(crs_wkt).to_epsg()
 print(epsg)
 ```
 
-<div class="alert alert-info">
-
-**Not able to recognize epsg?**
-    
-Sometimes `to_epsg()` isn't able to recognize the EPSG code from the WKT representation. This can happen if the WKT information is missing some details. Luckily, we can easily adjust the minimum level of confidence for matching the CRS info and the EPSG code. We can do this by adjusting a parameter `min_confidence` when calling the function. By default, the confidence level is 70 %, but it is also possible to set a lower confidence threshold. 
-    
-The coordinate information of our input shapefile is incomplete, and does not yield an epsg value with default setting: However, CRS is able to determine the EPSG value with a lower confidence treshold: 
-    
-```
-# Let's try to extract the EPSG code from the crs of our original data:
-CRS(data.crs).to_epsg()
->>> None
-    
-# Let's try it again with a lower confidence requirement (25 %)
-CRS(data.crs).to_epsg(min_confidence=25)
->>> 3035
-```
-However, be cautious when using this, as guessing the EPSG from "exotic" coordinate reference systems might also provide false results. 
-</div>
+Sometimes `to_epsg()` isn't able to recognize the EPSG code from the WKT representation. This can happen if the WKT information is missing some details. Luckily, we can easily adjust the minimum level of confidence for matching the CRS info and the EPSG code. We can do this by adjusting a parameter `min_confidence` when calling the function. By default, the confidence level is 70 %, but it is also possible to set a lower confidence threshold, e.g. by specifying: `.to_epsg(min_confidence=25)`
 
 
-Let's now save our data to disk using the `WKT` format as the crs of our GeoDataFrame. WKT is a [preferred output format](https://proj.org/faq.html#what-is-the-best-format-for-describing-coordinate-reference-systems) when storing crs information as text.
+## Defining CRS for a GeoDataFrame
+
+One of the common situations when you need to define a CRS for your data is when creating a new GeoDataFrame from scratch. In the following, we first create a new GeoDataFrame with a single point without specifying the CRS: 
 
 ```python
-# Re-define the CRS of the input GeoDataFrame
-data.crs = CRS.from_epsg(3035).to_wkt()
+from shapely.geometry import Point
+
+# Create GeoDataFrame with one point
+gdf = gpd.GeoDataFrame({"geometry": Point(24.950899, 60.169158)}, index=[0])
+print(gdf.crs)
 ```
 
+As we see, the `GeoDataFrame` does not have CRS specified at this stage which is a problem, because the GIS systems cannot work with this kind of dataset. The coordinates for our point are represented in decimal degrees, hence the CRS of our `GeoDataFrame` should be WGS84. We can define the CRS for our data in a few different ways, but one of the approaches is to use the `CRS.from_epsg()` method from the `pyproj` library, and store the information to the `.crs` attibute of the `GeoDataFrame`:
+
 ```python
-print(data.crs)
+gdf.crs = CRS.from_epsg(4326)
+gdf.crs
 ```
 
-<!-- #region -->
-That's it. 
-
-
-**HINT**: A module called [PyCRS](https://github.com/karimbahgat/PyCRS) can also be useful library as it contains information and supports many different coordinate reference definitions, such as OGC WKT (v1), ESRI WKT, Proj4, and any EPSG, ESRI, or SR-ORG code available from spatialreference.org.
-<!-- #endregion -->
-
-<!-- #region -->
-## Global map projections
-
-Finally, let's play around with global map projections :) `L2_data` folder conaints a layer `ne_110m_admin_0_countries.shp` that represents the country borders of the world. The data was fownloaded from https://www.naturalearthdata.com/. 
-
-#### Check your understanding
-
-<div class="alert alert-info">
-
-    
-Read in a global dataset and plot three maps with different projections! See hints and projection definitions from:
-    
-- http://geopandas.org/projections.html
-- https://pyproj4.github.io/pyproj/dev/api/crs.html
-- https://spatialreference.org/
-    
-When plotting the maps, think about the advantages and disadvantages of different world map projections.
-   
-</div>
-
-<!-- #endregion -->
+As we can see, now the `.crs` attribute was updated with information about the coordinate reference system and we can for example reproject the data to another CRS if needed. Without a defined CRS, you cannot reproject the data.  You can also specify the CRS for a given `GeoDataFrame` by using `.set_crs()` method: 
 
 ```python
-# Read in data
-fp = "L2_data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp"
+gdf = gdf.set_crs(epsg=4326)
+print(gdf.crs)
+```
+
+Naturally, you do not necessarily need to define the CRS separately after creating the `GeoDataFrame`, but you can actually provide the CRS information with the `crs` parameter when creating the dataset as follows:
+
+```python
+# Create GeoDataFrame with one point and define the CRS
+gdf = gpd.GeoDataFrame({"geometry": Point(24.950899, 60.169158)}, index=[0], crs="EPSG:4326")
+gdf.crs
+```
+
+As you can see, now the dataset contains the CRS information immediately after the dataset was created. You can pass the CRS information for the `crs` parameter in various formats (e.g. as EPSG number, Proj4 or WKT text) and `pyproj` / `geopandas` libraries try to automatically set the CRS information for the data.  
+
+
+## Defining different map projections
+
+Finally, let's play around with global map projections to show a few different map projections and how to define them. In this example, we use a global country border dataset from Natural Earth that comes with `geopandas`:
+
+```python
+fp = gpd.datasets.get_path('naturalearth_lowres')
 admin = gpd.read_file(fp)
-```
-
-```python
-# Check input crs
 admin.crs
 ```
 
 ```python
-# Set fig size
-plt.rcParams["figure.figsize"] = [12, 6]
-```
-
-```python
 # Plot in original crs
-admin.plot()
-plt.title("WGS84")
+admin.plot(figsize=(12,6))
+plt.title("WGS84");
 ```
 
-_**Figure 6.X**. Global map plotted in WGS 84._
+
+_**Figure 6.13**. Global map plotted in WGS84 coordinate reference system._
+
+As we can see, the source data is in WGS84 projection which distorts the shape of the countries quite a bit especially in the Northern and Southern parts of the world. We can easily reproject the data into Web Mercator which is widely used in Web mapping applications. We can do this by using the `.to_crs()` method and plotting the result (in this case as an interactive map):
 
 ```python
-# Define projection as web mercator, 3785
-web_mercator = CRS.from_epsg(3785)
-
-# Re-project and plot
-admin.to_crs(web_mercator).plot()
-
-# Remove x and y axis
-plt.axis("off")
-plt.title("Web mercator")
+admin.to_crs(epsg=3857).explore()
 ```
 
-_**Figure 6.X**. Global map plotted in Web Mercator._
 
+_**Figure 6.14**. Global map plotted in Web Mercator._
 
-_**Figure 6.X**. Global map plotted in Eckert IV._
+As we can see, the Web Mercator projection also distorts and exaggerates e.g. the size of the Antarctica and Greenland quite significantly. Luckily, there are also better map projections for visualizing global datasets, such as Eckert IV. There isn't a direct EPSG number for Eckert IV, but we can provide the CRS information as an ESRI CRS code `ESRI:54012` as follows:
 
 ```python
-# Define an orthographic projection, centered in Finland! from: http://www.statsmapsnpix.com/2019/09/globe-projections-and-insets-in-qgis.html
-ortho = CRS.from_proj4(
-    "+proj=ortho +lat_0=60.00 +lon_0=23.0000 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs"
-)
+ax = admin.to_crs(crs="ESRI:54012").plot(figsize=(12,12))
+plt.title("Eckert Ⅳ")
+plt.axis("off");
+```
 
-# Re-project and plot
+
+_**Figure 6.15**. Global map plotted in Eckert IV._
+
+As the Figure 6.15 shows, the Eckert IV map projection provides a more balanced view of the world with less distortion in the Northern and Southern parts of the world. Lastly, we can also define an Orthographic projection for our map which can be centered to specific point in the world. For doing this, we can specify the CRS using a proj-string and specify the center point with a few of CRS parameters: `+lat`, `+lon` (see [PROJ documentation](https://proj.org/operations/projections/ortho.html) [^Ortho] for details).    
+
+```python
+proj_string = "+proj=ortho +lat_0=60.00 +lon_0=23.0000"
+ortho = CRS.from_proj4(proj_string)
 admin.to_crs(ortho).plot()
-
-# Remove x and y axis
 plt.axis("off")
-plt.title("Orthographic")
+plt.title("Orthographic");
 ```
 
-_**Figure 6.X**. Global map plotted in an orthographic projection._
+_**Figure 6.16**. Global map plotted in an orthographic projection._
 
-
-## Summary
-That's it! In this section we learned how to:
-
-1. reproject (transform) the geometries from crs to another using the `to_crs()` -function in GeoPandas
-2. Define the coordinate reference system in different formats using `pyproj` `CRS`
+As we can see, now we have a nice map centered around Finland that reminds a bit how the world would look from space. 
 
 
 ## Footnotes
@@ -328,3 +239,4 @@ That's it! In this section we learned how to:
 [^pyproj]: <https://pyproj4.github.io/pyproj/stable/>
 [^EU_projection]: <http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf>
 [^LAEA]: <https://spatialreference.org/ref/epsg/etrs89-etrs-laea/>
+[^Ortho]: <https://proj.org/operations/projections/ortho.html>
