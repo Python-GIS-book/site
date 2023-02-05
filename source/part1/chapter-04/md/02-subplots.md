@@ -175,7 +175,7 @@ axs
 
 _**Figure 4.13**. Empty figure template with a 2x2 subplot panel._
 
-We can see that as a result we have now a list containing two nested lists, where the first one contains the axes for column 1 and 2 of **row 1** and the second list contains the axes for columns 1 and 2 of **row 2**.
+We can see from the output of the code cell that we now have a list containing two nested lists, where the first nested list contains the axes for column 1 and 2 of **row 1** and the second contains the axes for columns 1 and 2 of **row 2**.
 
 To make it easier to keep track of things, we can parse these axes into their own variables as follows.
 
@@ -193,7 +193,18 @@ We can start by plotting the data for the different seasons with different color
 - We can also change the line width or weight using the `lw`.
 - The `ylim` parameter can be used to define the y-axis limits.
 
+Putting all of this together in a single code cell we have the following:
+
 ```python
+# Create the figure and subplot axes
+fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
+
+# Define variables to more easily refer to individual axes
+ax11 = axs[0][0]
+ax12 = axs[0][1]
+ax21 = axs[1][0]
+ax22 = axs[1][1]
+
 # Set plot line width
 line_width = 1.5
 
@@ -203,8 +214,10 @@ spring_temps.plot(ax=ax12, c="orange", lw=line_width, ylim=[min_temp, max_temp])
 summer_temps.plot(ax=ax21, c="green", lw=line_width, ylim=[min_temp, max_temp])
 autumn_temps.plot(ax=ax22, c="brown", lw=line_width, ylim=[min_temp, max_temp])
 
-# Display figure
-fig
+# Display the plot
+# Note: This is not required, but suppresses text from being printed
+# in the output cell
+plt.show()
 ```
 
 _**Figure 4.14**. Seasonal temperatures for 2012-2013 plotted in a 2x2 panel._
@@ -220,10 +233,10 @@ Let's re-create the plot and make some improvements. In this version of the plot
 - Add a text label for each plot panel using the `text()` function.
 
 ```python
-# Create the new figure and subplots
+# Create the figure and subplot axes
 fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
 
-# Rename the axes for ease of use
+# Define variables to more easily refer to individual axes
 ax11 = axs[0][0]
 ax12 = axs[0][1]
 ax21 = axs[1][0]
@@ -263,7 +276,8 @@ autumn_temps.plot(
 )
 
 # Set figure title
-fig.suptitle("2012-2013 Seasonal temperature observations - Helsinki-Vantaa airport")
+fig.suptitle("2012-2013 Seasonal temperature observations"
+             "- Helsinki-Vantaa airport")
 
 # Rotate the x-axis labels so they don't overlap
 plt.setp(ax11.xaxis.get_majorticklabels(), rotation=20)
@@ -277,7 +291,7 @@ ax12.text(pd.to_datetime("20130515"), -25, "Spring")
 ax21.text(pd.to_datetime("20130815"), -25, "Summer")
 ax22.text(pd.to_datetime("20131115"), -25, "Autumn")
 
-# Display figure
+# Display the figure
 plt.show()
 ```
 
@@ -330,7 +344,8 @@ summer_temps.plot(
 
 # Set figure title
 fig.suptitle(
-    "2012-2013 Winter and summer temperature observations - Helsinki-Vantaa airport"
+    "2012-2013 Winter and summer temperature observations"
+    "- Helsinki-Vantaa airport"
 )
 
 # Rotate the x-axis labels so they don't overlap
