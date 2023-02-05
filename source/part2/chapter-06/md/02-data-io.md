@@ -19,9 +19,9 @@ Reading data into Python is usually the first step of an analysis workflow. Ther
 This tutorial will show some typical examples how to read (and write) data from different sources. The main point in this section is to demonstrate the basic syntax for reading and writing data using short code snippets. You can find the example data sets in the data-folder. However, most of the example databases do not exists, but you can use and modify the example syntax according to your own setup.
 
 
-## Reading from different spatial data formats
+## Reading vector data
 
-In `geopandas`, we can use a generic function `.from_file()` for reading in various data formats. Esri Shapefile is the default file format. When reading files with `geopandas`, the data are passed on to the `fiona` library under the hood for reading the data. This means that you can read and write all data formats supported by `fiona` with `geopandas`. 
+In `geopandas`, we can use a generic function `.from_file()` for reading in various vector data formats. When reading files with `geopandas`, the data are passed on to the `fiona` library under the hood for reading the data. This means that you can read and write all data formats supported by `fiona` with `geopandas`. 
 
 ```python
 import geopandas as gpd
@@ -34,83 +34,92 @@ Let's check which drivers are supported by `fiona`.
 fiona.supported_drivers
 ```
 
-### Read / write Shapefile
+In the list of supported drivers, `r` is for file formats `fiona` can read, and `w` is for file formats it can write. Letter `a` marks formats for which `fiona` can append new data to existing files.
 
-Shapefile format originally developed by the company Esri in the early 1990's is one of the most commonly used data formats (still) used today. The Shapefile is in fact comprised of several separate files that are all important for representing the spatial data. Typically a Shapefile includes (at least) four separate files with extensions `.shp`, `.dbx`, `.shx` and `.prj`. The first three of them are obligatory to have a functioning file, and the `.prj` file is highly recommended to have as it contains the coordiante reference system information.
+
+Let's read in some sample data to see the basic syntax.
 
 ```python
-import geopandas as gpd
+# Read Esri Shapefile
+fp = "data/Austin/austin_pop_2019.shp"
+data = gpd.read_file(fp)
+data.head()
+```
 
-# Read file from Shapefile
-fp = "data/Finland/municipalities_2023.shp"
+The same syntax works for other commong vector data formats. 
+
+```python
+# Read file from Geopackage
+fp = "data/Austin/austin_pop_2019.gpkg"
 data = gpd.read_file(fp)
 
-# Write to Shapefile (just make a copy)
-outfp = "data/temp/municipalities_2023.shp"
-data.to_file(outfp)
+# Read file from GeoJSON
+fp = "data/Austin/austin_pop_2019.geojson"
+data = gpd.read_file(fp)
+
+# Read file from MapInfo Tab
+fp = "data/Austin/austin_pop_2019.tab"
+data = gpd.read_file(fp)
 ```
 
-### Read / write GeoJSON
+Some file formats such as GeoPackage and File Geodatabase files may contain multiple layers with different names wihich can be speficied using the `layer` -parameter. Our example geopackage file has only one layer with the same name as the file, so we don't actually need to specify it to read in the data.
 
 ```python
-# Read file from GeoJSON
-fp = "data/Finland/municipalities_2023.geojson"
-data = gpd.read_file(fp, driver="GeoJSON")
-
-# Write to GeoJSON (just make a copy)
-outfp = "data/Temp/municipalities_2023.geojson"
-data.to_file(outfp, driver="GeoJSON")
+# Read spesific layer from Geopackage
+fp = "data/Austin/austin_pop_2019.gpkg"
+data = gpd.read_file(fp, layer="austin_pop_2019")
 ```
 
-### Read / write KML
+```python
+# Read file from File Geodatabase
+#fp = "data/Finland/finland.gdb"
+#data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
+```
+
+(write intro about enabling additional drivers and reading in the KML file)
 
 ```python
 # Enable KML driver
 gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
 
 # Read file from KML
-fp = "data/Finland/municipalities_2023.kml"
+fp = "data/Austin/austin_pop_2019.kml"
 #data = gpd.read_file(fp)
-
-# Write to KML (just make a copy)
-outfp = "data/Temp/municipalities_2023.kml"
-#data.to_file(outfp, driver="KML")
 ```
 
-### Read / write Geopackage
+## Writing vector data
+
+We can save spatial data to various vector data formats using the `.to_file()` function in `geopandas` which also relies on `fiona`. It is possible to specify the output file format using the `driver` parameter, however, for most file formats it is not needed as the tool is able to infer the driver from the file extension. 
 
 ```python
-# Read file from Geopackage
-fp = "data/Finland/municipalities_2023.gpkg"
-data = gpd.read_file(fp)
+# Write to Shapefile (just make a copy)
+outfp = "data/temp/austin_pop_2019.shp"
+data.to_file(outfp)
 
 # Write to Geopackage (just make a copy)
-outfp = "data/Temp/finland_municipalities.gpkg"
+outfp = "data/Temp/austin_pop_2019.gpkg"
 data.to_file(outfp, driver="GPKG")
-```
 
-### Read / write GeoDatabase
+# Write to GeoJSON (just make a copy)
+outfp = "data/Temp/austin_pop_2019.geojson"
+data.to_file(outfp, driver="GeoJSON")
 
-```python
-# Read file from File Geodatabase
-#fp = "data/Finland/finland.gdb"
-#data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
+# Write to MapInfo Tab (just make a copy)
+outfp = "data/Temp/austin_pop_2019.tab"
+data.to_file(outfp)
 
 # Write to same FileGDB (just add a new layer) - requires additional package installations(?)
 # outfp = "data/finland.gdb"
 # data.to_file(outfp, driver="FileGDB", layer="municipalities_copy")
+
+# Write to KML (just make a copy)
+outfp = "data/Temp/austin_pop_2019.kml"
+#data.to_file(outfp, driver="KML")
 ```
 
-### Read / write MapInfo Tab
-
 ```python
-# Read file from MapInfo Tab
-fp = "data/Finland/municipalities_2023.tab"
-data = gpd.read_file(fp, driver="MapInfo File")
 
-# Write to MapInfo Tab (just make a copy)
-outfp = "data/Temp/municipalities_2023.tab"
-#data.to_file(outfp, driver="MapInfo File")
+
 ```
 
 ## Creating a GeoDataFrame from scratch
@@ -195,6 +204,8 @@ Now we have the point geometries as `shapely`objects in the geometry-column read
 ```python
 airports.plot(markersize=.1)
 ```
+
+_**Figure 6.X**. A basic plot showing the airports from openflights.org._
 
 <!-- #region tags=[] -->
 ## Footnotes
