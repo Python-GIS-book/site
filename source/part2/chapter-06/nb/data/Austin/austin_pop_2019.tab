@@ -1,0 +1,10 @@
+!table
+!version 300
+!charset Neutral
+
+Definition Table
+  Type NATIVE Charset "Neutral"
+  Fields 3
+    fid Decimal (20,0) ;
+    pop2019 Float ;
+    tract Char (254) ;
