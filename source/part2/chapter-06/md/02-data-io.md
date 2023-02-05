@@ -23,6 +23,12 @@ This tutorial will show some typical examples how to read (and write) data from 
 
 In `geopandas`, we can use a generic function `.from_file()` for reading in various vector data formats. When reading files with `geopandas`, the data are passed on to the `fiona` library under the hood for reading the data. This means that you can read and write all data formats supported by `fiona` with `geopandas`. 
 
+```python tags=["remove_cell"]
+import os
+os.environ['USE_PYGEOS'] = '0'
+import geopandas
+```
+
 ```python
 import geopandas as gpd
 import fiona
@@ -205,7 +211,7 @@ Now we have the point geometries as `shapely`objects in the geometry-column read
 airports.plot(markersize=.1)
 ```
 
-_**Figure 6.X**. A basic plot showing the airports from openflights.org._
+_**Figure 6.12**. A basic plot showing the airports from openflights.org._
 
 <!-- #region tags=[] -->
 ## Footnotes
