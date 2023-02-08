@@ -63,7 +63,7 @@ html_theme_options = {
     # "external_links": [],
     "repository_url": "https://github.com/Python-GIS-book/site/",
     # "twitter_url": "https://twitter.com/pythongis",
-    # "google_analytics_id": "UA-159257488-1",
+    "google_analytics_id": "UA-159257488-1",
     "use_edit_page_button": True,
     "launch_buttons": {
         "binderhub_url": "https://mybinder.org",
