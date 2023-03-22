@@ -19,7 +19,8 @@ Here we demonstrate some of the most common geometry manipulation functions avai
 
 ```python tags=["remove_cell"]
 import os
-os.environ['USE_PYGEOS'] = '0'
+
+os.environ["USE_PYGEOS"] = "0"
 ```
 
 ```python
@@ -158,7 +159,6 @@ data.unary_union.convex_hull
 
 _**Figure 6.18**. Smallest convex polygon for the census tracts._
 
-
 ## Buffer
 
 Buffering is a common spatial operation that has a multitude of use cases in spatial analyses. For example, in transport network analyses, it is good to fetch the transport network also from outside the study area in order to capture routes that go beyond the study area border. The distance parameter in the `buffer` function defines the radius or the buffer (according to the coordinate reference system of the data). Applying the buffer function on the entire data frame will produce separate buffers for each census tract.
@@ -200,7 +200,7 @@ data["dense"] = 0
 
 ```python
 # Filter rows with above average pop density and update the column dense
-data.loc[data["pop_density_km2"]> data["pop_density_km2"].mean(), "dense"] = 1
+data.loc[data["pop_density_km2"] > data["pop_density_km2"].mean(), "dense"] = 1
 ```
 
 ```python
@@ -212,8 +212,9 @@ Now we have a new column with value 1 indicating above average population densit
 
 ```python
 # Conduct the aggregation
-dissolved = data[["pop2019", "area_km2", 
-                  "dense", "geometry"]].dissolve(by="dense", aggfunc="sum")
+dissolved = data[["pop2019", "area_km2", "dense", "geometry"]].dissolve(
+    by="dense", aggfunc="sum"
+)
 ```
 
 ```python
