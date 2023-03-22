@@ -12,14 +12,14 @@ jupyter:
     name: python3
 ---
 
-# Introduction to spatial data analysis with geopandas
+# Storing geographic data in a GeoDataFrame
 
 Now as we have learned how to create and represent geographic data in Python using `shapely` objects, we will continue and use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis. Geopandas extends the capacities of pandas (which we covered in the Part I of the book) with geospatial operations. The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and spatial features. A `GeoDataFrame` is basically a `pandas.DataFrame` that contains one column for geometries. The geometry column is a `GeoSeries` which contains the geometries  as `shapely` objects (points, lines, polygons, multipolygons etc.). 
 
 ## Getting started with geopandas
 
 
-![_**Figure 6.10**. Geometry column in a GeoDataFrame._](../img/geodataframe.png)
+![_**Figure 6.10**. Geometry column in a GeoDataFrame._](../../img/geodataframe.png)
 
 _**Figure 6.10**. Geometry column in a GeoDataFrame._
 

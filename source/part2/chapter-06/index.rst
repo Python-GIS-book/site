@@ -8,10 +8,8 @@ Here we introduce basics of vector data processing in Python. You will learn to 
     :caption: Sections:
 
     nb/00-introduction-to-geographic-objects.ipynb
-    nb/01-introduction-to-geopandas.ipynb
-    nb/02-data-io.ipynb
-    nb/03-geometric-manipulation.ipynb
+    nb/common-spatial-data-operations/index
     nb/04-coordinate-reference-system.ipynb
     nb/05-geocoding.ipynb
-    nb/06-operations-between-multiple-datasets.ipynb
-    nb/07-exercises.ipynb
+    nb/operations-between-multiple-datasets/index
+    nb/12-exercises.ipynb

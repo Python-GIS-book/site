@@ -12,12 +12,12 @@ jupyter:
     name: python3
 ---
 
-# Introduction to geographic data objects in Python
+# Representing geographic data objects in Python
 
-In this chapter, we will learn how geometric objects (vector) are represented in Python using a library called [shapely](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely]. In the following parts of this chapter, we will use a library called `geopandas` extensively which uses these `shapely` geometries to represent the geographic features in the data. Understanding how these geometric objects work and can be created in Python is extremely useful, because these objects are the fundamental buildings blocks that enable us doing geographic data analysis. 
+In this chapter, we will learn how geometric objects (in vector format) are represented in Python using a library called [shapely](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely]. In the following parts of this chapter, we will use a library called `geopandas` extensively which uses these `shapely` geometries to represent the geographic features in the data. Understanding how these geometric objects work and can be created in Python is extremely useful, because these objects are the fundamental buildings blocks that enable us doing geographic data analysis. 
 
 <!-- #region -->
-## Representing vector geometries with `shapely` 
+## Creating vector geometries with `shapely` 
 
 `Shapely` is a fundamental Python package for representing vector data geometries on a computer. Basic knowledge of shapely is important for using higher-level tools that depend on it, such as `geopandas`. 
 

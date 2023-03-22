@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-# Preparing GeoDataFrames from geographic data
+# Preparing GeoDataFrames from different file formats
 
 Reading data into Python is usually the first step of an analysis workflow. There are various different GIS data formats available such as [Shapefile](https://en.wikipedia.org/wiki/Shapefile) [^shp], [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) [^GeoJson], [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) [^KML], and [GeoPackage](https://en.wikipedia.org/wiki/GeoPackage) [^GPKG]. Geopandas is capable of reading data from all of these formats (plus many more). 
 
@@ -25,7 +25,8 @@ In `geopandas`, we can use a generic function `.from_file()` for reading in vari
 
 ```python tags=["remove_cell"]
 import os
-os.environ['USE_PYGEOS'] = '0'
+
+os.environ["USE_PYGEOS"] = "0"
 import geopandas
 ```
 
@@ -78,8 +79,8 @@ data = gpd.read_file(fp, layer="austin_pop_2019")
 
 ```python
 # Read file from File Geodatabase
-#fp = "data/Finland/finland.gdb"
-#data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
+# fp = "data/Finland/finland.gdb"
+# data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
 ```
 
 (write intro about enabling additional drivers and reading in the KML file)
@@ -90,7 +91,7 @@ gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
 
 # Read file from KML
 fp = "data/Austin/austin_pop_2019.kml"
-#data = gpd.read_file(fp)
+# data = gpd.read_file(fp)
 ```
 
 ## Writing vector data
@@ -120,12 +121,7 @@ data.to_file(outfp)
 
 # Write to KML (just make a copy)
 outfp = "data/Temp/austin_pop_2019.kml"
-#data.to_file(outfp, driver="KML")
-```
-
-```python
-
-
+# data.to_file(outfp, driver="KML")
 ```
 
 ## Creating a GeoDataFrame from scratch
@@ -137,8 +133,10 @@ from shapely.geometry import Polygon
 
 # Coordinates of the Helsinki Senate square in decimal degrees
 coordinates = [
-    (24.950899, 60.169158), (24.953492, 60.169158),
-    (24.953510, 60.170104), (24.950958, 60.169990)
+    (24.950899, 60.169158),
+    (24.953492, 60.169158),
+    (24.953510, 60.170104),
+    (24.950958, 60.169990),
 ]
 
 # Create a Shapely polygon from the coordinate-tuple list
@@ -180,8 +178,10 @@ import pandas as pd
 ```
 
 ```python
-airports = pd.read_csv("data/Airports/airports.txt", 
-                       usecols=["Airport ID", "Name", "City", "Country", "Latitude", "Longitude"])
+airports = pd.read_csv(
+    "data/Airports/airports.txt",
+    usecols=["Airport ID", "Name", "City", "Country", "Latitude", "Longitude"],
+)
 ```
 
 ```python
@@ -197,9 +197,9 @@ There are over 7000 airports in the data and we can use the coordinate informati
 There is a handy tool in `geopandas` for generating an array of `Point`objects based on x and y coordinates called `.points_from_xy()`. The tool assumes that x coordinates represent longitude and that y coordinates represent latitude. 
 
 ```python
-airports["geometry"] = gpd.points_from_xy(x=airports["Longitude"], 
-                                          y=airports["Latitude"], 
-                                         crs="EPSG:4326")
+airports["geometry"] = gpd.points_from_xy(
+    x=airports["Longitude"], y=airports["Latitude"], crs="EPSG:4326"
+)
 
 airports = gpd.GeoDataFrame(airports)
 airports.head()
@@ -208,7 +208,7 @@ airports.head()
 Now we have the point geometries as `shapely`objects in the geometry-column ready to be plotted on a map.
 
 ```python
-airports.plot(markersize=.1)
+airports.plot(markersize=0.1)
 ```
 
 _**Figure 6.12**. A basic plot showing the airports from openflights.org._

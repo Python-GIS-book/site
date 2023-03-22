@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-# Geometric data manipulations
+# Common geometric operations
 
 
 Here we demonstrate some of the most common geometry manipulation functions available in `geopandas`. We will continue exploring the census tract data from Austin, Texas. It is often useful to do geometric manipulations on administrative borders for further analysis and visualization purposes. We will learn how to generate centroids, different outlines and buffer zones for the polygons.  
