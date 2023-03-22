@@ -93,9 +93,9 @@ plt.tight_layout()
 ```
 
 
-_**Figure 6.12**. Map of Europe plotted with two different coordinate reference systems._
+_**Figure 6.22**. Map of Europe plotted with two different coordinate reference systems._
 
-As we can see from the **Figure 6.12**, the maps look quite different and the reprojected one looks significantly better especially in the North where the geometries are more realistic and not so stretched as in WGS84. Finally, let's save our projected layer into a Shapefile so that we can use it later. Note, even if the CRS information is stored with the output file (in this case into a `.prj` file associated with the Shapefile), it might be a good idea also to include CRS info in the filename which makes it easy to identify the CRS directly from the name of the file:
+As we can see from the **Figure 6.22**, the maps look quite different and the reprojected one looks significantly better especially in the North where the geometries are more realistic and not so stretched as in WGS84. Finally, let's save our projected layer into a Shapefile so that we can use it later. Note, even if the CRS information is stored with the output file (in this case into a `.prj` file associated with the Shapefile), it might be a good idea also to include CRS info in the filename which makes it easy to identify the CRS directly from the name of the file:
 
 ```python
 # Ouput filepath
@@ -207,6 +207,12 @@ As we can see, the source data is in WGS84 projection which distorts the shape o
 admin.to_crs(epsg=3857).explore()
 ```
 
+
+<!-- #raw tags=["hide-cell"] -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.14}. Global map plotted in Web Mercator.}}, center, nofloat}{../img/interactive-map.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
 
 _**Figure 6.14**. Global map plotted in Web Mercator._
 
