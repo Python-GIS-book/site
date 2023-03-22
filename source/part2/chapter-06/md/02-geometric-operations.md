@@ -159,6 +159,7 @@ data.unary_union.convex_hull
 
 _**Figure 6.18**. Smallest convex polygon for the census tracts._
 
+
 ## Buffer
 
 Buffering is a common spatial operation that has a multitude of use cases in spatial analyses. For example, in transport network analyses, it is good to fetch the transport network also from outside the study area in order to capture routes that go beyond the study area border. The distance parameter in the `buffer` function defines the radius or the buffer (according to the coordinate reference system of the data). Applying the buffer function on the entire data frame will produce separate buffers for each census tract.
