@@ -27,7 +27,8 @@ Similar to importing import pandas as `pd`, we will import geopandas as `gpd`:
 
 ```python tags=["remove_cell"]
 import os
-os.environ['USE_PYGEOS'] = '0'
+
+os.environ["USE_PYGEOS"] = "0"
 import geopandas
 ```
 
@@ -79,7 +80,7 @@ Figure out the following information from our input data using your `pandas` ski
 ```
 
 ```python tags=["remove_book_cell", "hide_cell"]
-# Solution 
+# Solution
 
 print("Number of rows", len(data))
 print("Number of census tract", data["tract"].nunique())
@@ -138,17 +139,15 @@ Using your `pandas` skills, create a new column `pop_density_km2` and populate i
 ```
 
 ```python tags=["remove_book_cell", "hide_cell"]
-# Solution 
+# Solution
 
 # Calculate population density
 data["pop_density_km2"] = data["pop2019"] / data["area_km2"]
 
 # Print out average and maximum values
-print("Average:", 
-      round(data["pop_density_km2"].mean()), "pop/km2")
+print("Average:", round(data["pop_density_km2"].mean()), "pop/km2")
 
-print("Maximum:", 
-      round(data["pop_density_km2"].max()), "pop/km2")
+print("Maximum:", round(data["pop_density_km2"].max()), "pop/km2")
 ```
 
 ## Writing data into a file
@@ -165,7 +164,7 @@ Write the data into a file using the `.to_file()` method.
 # Create a output path for the data
 output_fp = data_folder / "austin_pop_density_2019.gpkg"
 
-#Write the file
+# Write the file
 data.to_file(output_fp)
 ```
 
