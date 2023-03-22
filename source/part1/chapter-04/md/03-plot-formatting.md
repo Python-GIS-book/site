@@ -103,7 +103,7 @@ data = pd.DataFrame(index=dates, data=temperatures)
 data.head(4)
 ```
 
-Using this data we can create a plot (Figure 4.X) to visualize the temperatures for the four mythical lands using the pandas `plot()` function.
+Using this data we can create a plot (Figure 4.16) to visualize the temperatures for the four mythical lands using the pandas `plot()` function.
 
 ```python
 ax = data.plot(
@@ -114,15 +114,15 @@ ax = data.plot(
 )
 ```
 
-_**Figure 4.17**. Hypothetical temperatures for one year in different mythical lands._
+_**Figure 4.16**. Hypothetical temperatures for one year in different mythical lands._
 
-In Figure 4.17, we can see a visualization of the contents of the `data` DataFrame and many people will be able to distinguish the lines using the four colors that have been selected. However, not all people may see the figure in the same way, and those who have printed a copy in grayscale will see things quite differently.
+In Figure 4.16, we can see a visualization of the contents of the `data` DataFrame and many people will be able to distinguish the lines using the four colors that have been selected. However, not all people may see the figure in the same way, and those who have printed a copy in grayscale will see things quite differently.
 
-![_**Figure 4.18**. Hypothetical mythical land temperatures in grayscale._](../img/lines-grayscale.png)
+![_**Figure 4.17**. Hypothetical mythical land temperatures in grayscale._](../img/lines-grayscale.png)
 
-_**Figure 4.18**. Hypothetical mythical land temperatures in grayscale._
+_**Figure 4.17**. Hypothetical mythical land temperatures in grayscale._
 
-In Figure 4.18, we see that it is nearly impossible to tell which line is which in the plot, so color alone is not helping in distinguishing the lines on this plot. In this case a better option is to vary both the color and line pattern for each line so they can be distinguished easily irrespective of the line colors and how they may be seen. This can be done using the `style` parameter in the `plot()` function, as shown below.
+In Figure 4.17, we see that it is nearly impossible to tell which line is which in the plot, so color alone is not helping in distinguishing the lines on this plot. In this case a better option is to vary both the color and line pattern for each line so they can be distinguished easily irrespective of the line colors and how they may be seen. This can be done using the `style` parameter in the `plot()` function, as shown below.
 
 ```python
 ax = data.plot(
@@ -134,9 +134,9 @@ ax = data.plot(
 );
 ```
 
-_**Figure 4.19**. Hypothetical mythical land temperatures with different line styles._
+_**Figure 4.18**. Hypothetical mythical land temperatures with different line styles._
 
-Here in Figure 4.19, viewers can easily tell which line is which whether they have colorblindness or have printed a figure from a printer in grayscale. The difference, of course, is that this figure uses four different line styles: `-` for a solid line, `:` for a dotted line, `--` for a dashed line, and `-.` for a line with dots and dashes. These are defined using shorthand plot formatting for Matplotlib [^shorthand], for which they are the only four available line styles. If your plots require more than four line styles, you will likely need to use Matplotlib rather than pandas for the plotting. In that case, you can find more about the line styles for Matplotlib plotting in the [Matplotlib documentation online](https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html) [^linestyles]. 
+Here in Figure 4.18, viewers can easily tell which line is which whether they have colorblindness or have printed a figure from a printer in grayscale. The difference, of course, is that this figure uses four different line styles: `-` for a solid line, `:` for a dotted line, `--` for a dashed line, and `-.` for a line with dots and dashes. These are defined using shorthand plot formatting for Matplotlib [^shorthand], for which they are the only four available line styles. If your plots require more than four line styles, you will likely need to use Matplotlib rather than pandas for the plotting. In that case, you can find more about the line styles for Matplotlib plotting in the [Matplotlib documentation online](https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html) [^linestyles]. 
 
 Although this plotting example may seem like a simple tip, it can make a great difference in ensuring all viewers see the same data effectively the same way. We will return to the topic of effective plot design to discuss selecting colors and other visualization tips in greater detail in Chapter 8.
 
