@@ -97,19 +97,21 @@ Let's then see how it is possible to find nearest points from a set of origin po
 - Let's first read in the data and check their structure:
 
 ```python
-# Import geopandas
+import os
+os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
+import fiona
 ```
 
 ```python
 # Define filepaths
-fp1 = "data/PKS_suuralue.kml"
-fp2 = "data/addresses.shp"
+fp1 = "data/Helsinki/PKS_suuralue.kml"
+fp2 = "data/Helsinki/addresses.shp"
 ```
 
 ```python
 # Enable KML driver
-gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
+fiona.supported_drivers["KML"] = "rw"
 ```
 
 ```python
@@ -246,8 +248,8 @@ def read_gdf_from_zip(zip_fp):
 
 
 # Filepaths
-stops = gpd.read_file("data/pt_stops_helsinki.gpkg")
-buildings = read_gdf_from_zip("data/building_points_helsinki.zip")
+stops = gpd.read_file("data/Helsinki/pt_stops_helsinki.gpkg")
+buildings = read_gdf_from_zip("data/Helsinki/building_points_helsinki.zip")
 ```
 
 - Let's see how our datasets look like:

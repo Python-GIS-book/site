@@ -51,6 +51,8 @@ Services Authority (HSY)** (see [this page](https://www.hsy.fi/fi/asiantuntijall
 <!-- #endregion -->
 
 ```python
+import os
+os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 from pyproj import CRS
 import requests
@@ -124,7 +126,7 @@ addresses point layer ``addresses.shp`` that we created trough gecoding in the p
 
 ```python
 # Addresses filpath
-addr_fp = r"data/addresses.shp"
+addr_fp = "data/Helsinki/addresses.shp"
 
 # Read data
 addresses = gpd.read_file(addr_fp)
@@ -192,7 +194,7 @@ e.g. from the spatial join that we are conducting here.
 
 ```python
 # Make a spatial join
-join = gpd.sjoin(addresses, pop, how="inner", op="within")
+join = gpd.sjoin(addresses, pop, how="inner", predicate="within")
 ```
 
 ```python
@@ -278,7 +280,7 @@ Finally, let's save the result point layer into a file:
 
 ```python
 # Output path
-outfp = r"data/addresses_population.shp"
+outfp = "data/Helsinki/addresses_population.shp"
 
 # Save to disk
 join.to_file(outfp)

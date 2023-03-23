@@ -43,8 +43,6 @@ We have an `id` for each row and an address on column `addr`. Let's first read t
 
 ```python tags=["remove_cell"]
 import os
-
-
 os.environ["USE_PYGEOS"] = "0"
 import geopandas
 ```
@@ -79,7 +77,6 @@ Here we import the geocoding function and geocode the addresses using Nominatim.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# Import the geocoding tool
 from geopandas.tools import geocode
 
 # Geocode addresses using Nominatim.

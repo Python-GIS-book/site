@@ -268,7 +268,7 @@ data = gpd.read_file(fp, layer="austin_pop_2019")
 # data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
 ```
 
-(write intro about enabling additional drivers and reading in the KML file)
+### TODO:(write intro about enabling additional drivers and reading in the KML file)
 
 ```python
 # Enable KML driver
@@ -277,6 +277,30 @@ gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
 # Read file from KML
 fp = "data/Austin/austin_pop_2019.kml"
 # data = gpd.read_file(fp)
+```
+
+### TODO: Write more details about Zipfile reading
+
+
+Lastly, it is also useful to know how to read data directly from a Zipfile. The following example shows how to do that:
+
+```python
+from zipfile import ZipFile
+import io
+
+def read_gdf_from_zip(zip_fp):
+    """
+    Reads a spatial dataset from ZipFile into GeoPandas. Assumes that there is only a single file (such as GeoPackage)
+    inside the ZipFile.
+    """
+    with ZipFile(zip_fp) as z:
+        # Lists all files inside the ZipFile, here assumes that there is only a single file inside
+        layer = z.namelist()[0]
+        data = gpd.read_file(io.BytesIO(z.read(layer)))
+    return data
+
+# Read the data
+buildings = read_gdf_from_zip("data/Helsinki/building_points_helsinki.zip")
 ```
 
 ### Writing vector data

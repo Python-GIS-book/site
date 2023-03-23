@@ -22,15 +22,16 @@ Typical overlay operations are (source: [QGIS docs](https://docs.qgis.org/2.8/en
 
 
 ```python
+import os
+os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 import matplotlib.pyplot as plt
-import shapely.speedups
 
 %matplotlib inline
 
 # File paths
-border_fp = "data/Helsinki_borders.shp"
-grid_fp = "data/TravelTimes_to_5975375_RailwayStation.shp"
+border_fp = "data/Helsinki/Helsinki_borders.shp"
+grid_fp = "data/Helsinki/TravelTimes_to_5975375_RailwayStation.shp"
 
 # Read files
 grid = gpd.read_file(grid_fp)
@@ -88,7 +89,7 @@ Let's save our result grid as a GeoJSON file that is commonly used file format n
 
 ```python
 # Output filepath
-outfp = "data/TravelTimes_to_5975375_RailwayStation_Helsinki.geojson"
+outfp = "data/Helsinki/TravelTimes_to_5975375_RailwayStation_Helsinki.geojson"
 
 # Use GeoJSON driver
 intersection.to_file(outfp, driver="GeoJSON")

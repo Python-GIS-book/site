@@ -20,6 +20,8 @@ In Chapter 5, we learned how the Coordinate Reference System (CRS) ultimately de
 Let's start by reading the data from the `eu_countries_2022.gpkg` file. When reading the data into `GeoDataFrame` with `geopandas`, the CRS information is automatically read from the datafile and stored into the `.crs` attribute:
 
 ```python
+import os
+os.environ['USE_PYGEOS'] = '0'
 import geopandas as gpd
 
 # Read the file
@@ -224,7 +226,9 @@ _**Figure 6.15**. Global map plotted in Eckert IV._
 As the Figure 6.15 shows, the Eckert IV map projection provides a more balanced view of the world with less distortion in the Northern and Southern parts of the world. Lastly, we can also define an Orthographic projection for our map which can be centered to specific point in the world. For doing this, we can specify the CRS using a proj-string and specify the center point with a few of CRS parameters: `+lat`, `+lon` (see [PROJ documentation](https://proj.org/operations/projections/ortho.html) [^Ortho] for details).    
 
 ```python
-proj_string = "+proj=ortho +lat_0=60.00 +lon_0=23.0000"
+center_lat = 60.0
+center_lon = 23.0
+proj_string = f"+proj=ortho +lat_0={center_lat} +lon_0={center_lon}"
 ortho = CRS.from_proj4(proj_string)
 admin.to_crs(ortho).plot()
 plt.axis("off")

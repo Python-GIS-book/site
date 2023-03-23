@@ -217,6 +217,8 @@ Next we will do a practical example where we check which of the addresses from [
 Let's start by reading the addresses from the Shapefile that we saved earlier.
 
 ```python deletable=true editable=true
+import os
+os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 
 fp = "data/Helsinki/addresses.shp"
@@ -228,25 +230,26 @@ data.head()
 <!-- #region deletable=true editable=true -->
 
 
-It is possible to read the data from KML-files with GeoPandas in a similar manner as Shapefiles. However, we need to first, enable the KML-driver which is not enabled by default (because KML-files can contain unsupported data structures, nested folders etc., hence be careful when reading KML-files). Supported drivers are managed with [`fiona.supported_drivers`](https://github.com/Toblerity/Fiona/blob/master/fiona/drvsupport.py), which is integrated in geopandas. Let's first check which formats are currently supported:
+It is possible to read the data from KML-files with GeoPandas in a similar manner as Shapefiles. However, we need to first, enable the KML-driver which is not enabled by default (because KML-files can contain unsupported data structures, nested folders etc., hence be careful when reading KML-files). Supported drivers are managed with a library called `fiona` that `geopandas` uses in the background to read files. Let's first check which formats are currently supported by calling [`fiona.supported_drivers`](https://github.com/Toblerity/Fiona/blob/master/fiona/drvsupport.py):
 <!-- #endregion -->
 
 ```python
 import geopandas as gpd
+import fiona
 
-gpd.io.file.fiona.drvsupport.supported_drivers
+fiona.supported_drivers
 ```
 
 - Let's enable the read and write functionalities for KML-driver by passing ``'rw'`` to whitelist of fiona's supported drivers:
 
 ```python deletable=true editable=true
-gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
+fiona.supported_drivers["KML"] = "rw"
 ```
 
 Let's check again the supported drivers:
 
 ```python
-gpd.io.file.fiona.drvsupport.supported_drivers
+fiona.supported_drivers
 ```
 
 <!-- #region deletable=true editable=true -->
