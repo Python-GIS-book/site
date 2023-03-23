@@ -423,8 +423,6 @@ airports.plot(markersize=0.1)
 _**Figure 6.12**. A basic plot showing the airports from openflights.org._
 
 <!-- #region tags=[] -->
-
-
 ## Footnotes
 
 [^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON>
@@ -439,5 +437,4 @@ _**Figure 6.12**. A basic plot showing the airports from openflights.org._
 [^shp]: <https://en.wikipedia.org/wiki/Shapefile> 
 [^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>
 [^us_census]: <https://www.census.gov/programs-surveys/acs/data.html>
-
 <!-- #endregion -->
