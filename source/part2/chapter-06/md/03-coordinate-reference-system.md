@@ -232,9 +232,7 @@ _**Figure 6.15**. Global map plotted in Eckert IV._
 As the Figure 6.15 shows, the Eckert IV map projection provides a more balanced view of the world with less distortion in the Northern and Southern parts of the world. Lastly, we can also define an Orthographic projection for our map which can be centered to specific point in the world. For doing this, we can specify the CRS using a proj-string and specify the center point with a few of CRS parameters: `+lat`, `+lon` (see [PROJ documentation](https://proj.org/operations/projections/ortho.html) [^Ortho] for details).    
 
 ```python
-center_lat = 60.0
-center_lon = 23.0
-proj_string = f"+proj=ortho +lat_0={center_lat} +lon_0={center_lon}"
+proj_string = "+proj=ortho +lat_0=60.00 +lon_0=23.0000"
 ortho = CRS.from_proj4(proj_string)
 admin.to_crs(ortho).plot()
 plt.axis("off")
