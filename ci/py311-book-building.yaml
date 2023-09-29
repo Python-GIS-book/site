@@ -1,0 +1,58 @@
+name: python-gis-book
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.11.5
+  - conda=23.7.4
+  - sphinx=5.0.2
+  - ipython=8.15.0
+  - ipykernel=6.25.2
+  - jupyter-sphinx=0.4.0
+  - nbsphinx=0.9.3
+  - myst-nb=0.17.2
+  - sphinx-book-theme=1.0.1
+  - mamba=1.5.1
+  - sphinxcontrib-bibtex=2.5.0
+
+  # Writing environment
+  - jupyterlab=4.0.6
+  - jupytext=1.15.2
+  - jupyter-book=0.15.1
+  - black=23.9.1
+  - black-jupyter=23.9.1
+  
+  # GIS environment
+  - contextily=1.3.0
+  - folium=0.14.0
+  - fiona=1.9.4
+  - geojson=3.0.1
+  - geopandas=0.14.0
+  - geoplot=0.5.1
+  - geopy=2.4.0
+  - hvplot=0.8.4
+  - matplotlib=3.8.0
+  - mplleaflet=0.0.5
+  - openpyxl=3.1.2
+  - osmnx=1.6.0
+  - owslib=0.29.2
+  - pygeos=0.14
+  - pykrige=1.7.0
+  #- pyrosm
+  - pysal=23.1
+  - rasterio=1.3.7
+  - rasterstats=0.19.0
+  - scipy=1.11.3
+  - seaborn=0.12.2
+  - shapely=2.0.1
+  - xarray=2023.9.0
+  - xarray_leaflet=0.2.3
+  - xarray-spatial=0.3.5
+  
+  # PDF building
+  - nbconvert=7.8.0
+  - pip=23.2.1
+  - pip:
+    - nbmerge==0.0.4
+    - geodatasets==2023.1.0b2
