@@ -21,8 +21,9 @@ Luckily there is an easy and widely used solution called **spatial index** that 
 
 The core idea behind the **R-tree** is to form a tree-like data structure where nearby objects are grouped together, and their geographical extent (minimum bounding box) is inserted into the data structure (i.e. R-tree). This bounding box then represents the whole group of geometries as one level (typically called as "page" or "node") in the data structure. This process is repeated several times, which produces a tree-like structure where different levels are connected to each other. This structure makes the query times for finding a single object from the data much faster, as the algorithm does not need to travel through all geometries in the data. In the example below, we can see how the geometries have been grouped into several sub-groups (lower part of the picture) and inserted into a tree structure (upper part) where there exists two groups on the highest level (`R1` and `R2`), which are again grouped into five lower level groups (`R3-R7`):
 
-![Rtree](../img/Rtree-IBM.png)
-Simple example of an R-tree for 2D rectanges (source: [IBM](https://www.ibm.com/support/knowledgecenter/en/SSGU8G_11.50.0/com.ibm.rtree.doc/sii-overview-27706.htm))
+![_**Figure 6.41**. Simple example of an R-tree for 2D rectangles. Source: [IBM](https://www.ibm.com/support/knowledgecenter/en/SSGU8G_11.50.0/com.ibm.rtree.doc/sii-overview-27706.htm)._](../img/Rtree-IBM.png)
+
+_**Figure 6.41**. Simple example of an R-tree for 2D rectangles. Source: [IBM](https://www.ibm.com/support/knowledgecenter/en/SSGU8G_11.50.0/com.ibm.rtree.doc/sii-overview-27706.htm)._
 
 In the next tutorial we will learn how to significantly improve the query times for finding points that are within a given polygon. We will use data that represents all road intersections in the Uusimaa Region of Finland, and count the number of intersections on a postal code level. *Why would you do such a thing?*, well, one could for example try to understand the vitality of city blocks following [Jane Jacobs'](https://en.wikipedia.org/wiki/Jane_Jacobs) ideas. 
 
@@ -271,14 +272,17 @@ From the map, we can see that the intersection density is clearly highest in the
 
 As we have learned from this tutorial, spatial index can make the spatial queries significantly faster. There is however, a specific situation in which spatial index does not provide any improvements for the performance: if your polygon and points have more or less similar spatial extent (bounding box), the spatial index does not help to make the queries faster due to its design in working on a level of bounding boxes. This happens e.g. in following case:
 
-![los-angeles-boundary-intersections.png](../img/los-angeles-boundary-intersections.png)
-*Example of a situation where spatial index does not provide boost in performance* (Source: [G. Boeing, 2016](https://geoffboeing.com/2016/10/r-tree-spatial-index-python/))
+![_**Figure 6.42**. Example of a situation where spatial index does not provide boost in performance. Source: [G. Boeing, 2016](https://geoffboeing.com/2016/10/r-tree-spatial-index-python/)._](../img/los-angeles-boundary-intersections.png)
+
+_**Figure 6.42**. Example of a situation where spatial index does not provide boost in performance. Source: [G. Boeing, 2016](https://geoffboeing.com/2016/10/r-tree-spatial-index-python/)._
 
 
 As we can see, in the map, there is a complex Polygon that share more or less identical extent as the point layer, which is problematic from performance point of view.
 
 There is, however, a nice strategy to deal with this kind of situation, by sub-dividing the Polygon into smaller subsets (having also smaller bounding boxes) that will enable the spatial index to boost the queries:
 
-![los-angeles-boundary-quadrats-intersections](../img/los-angeles-boundary-quadrats-intersections.png).
+![_**Figure 6.43**. INSERT PROPER FIGURE CAPTION!._](../img/los-angeles-boundary-quadrats-intersections.png)
+
+_**Figure 6.43**. INSERT PROPER FIGURE CAPTION!._
 
 You can read more about this strategy from an excellent post from [G. Boeing](https://geoffboeing.com/2016/10/r-tree-spatial-index-python/).
