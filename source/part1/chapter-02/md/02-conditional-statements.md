@@ -5,25 +5,23 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
-<!-- #region tags=[] -->
 # Conditional statements
 
 Next, we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
 
-<!-- #endregion -->
 
-<!-- #region tags=[] -->
+
 ## Basics of conditional statements
 
 Conditional statements can change the code behaviour based on certain conditions. The idea is simple: **IF** a condition is met, **THEN** a set of actions is performed. 
-<!-- #endregion -->
+
 
 ### A simple conditional statement
 
@@ -259,7 +257,5 @@ for temperature in temperatures:
         print(temperature, "is not hot")
 ```
 
-<!-- #region tags=[] -->
 ## Footnotes
 
-<!-- #endregion -->
