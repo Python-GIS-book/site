@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -189,6 +189,8 @@ multi_line
 ```
 
 <!-- #region deletable=true editable=true -->
+_**Figure 6.27**. ADD PROPER FIGURE CAPTION!._
+
 Thus, the ``line_b`` continues from the same node ( (1,1) ) where ``line_a`` ends.
 
 However, if the lines overlap fully, they don't touch due to the spatial relationship rule, as we can see:
@@ -218,6 +220,7 @@ Let's start by reading the addresses from the Shapefile that we saved earlier.
 
 ```python deletable=true editable=true
 import os
+
 os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 
@@ -278,6 +281,8 @@ polys.plot()
 ```
 
 <!-- #region deletable=true editable=true -->
+_**Figure 6.28**. ADD PROPER FIGURE CAPTION!._
+
 We are interested in an area that is called ``Eteläinen`` (*'Southern'* in English).
 
 Let's select the ``Eteläinen`` district and see where it is located on a map:
@@ -318,6 +323,8 @@ plt.tight_layout()
 ```
 
 <!-- #region deletable=true editable=true -->
+_**Figure 6.29**. ADD PROPER FIGURE CAPTION!._
+
 Okey, so we can see that, indeed, certain points are within the selected red Polygon.
 
 Let's find out which one of them are located within the Polygon. Hence, we are conducting a **Point in Polygon query**.
@@ -378,5 +385,7 @@ plt.tight_layout()
 ```
 
 <!-- #region deletable=true editable=true -->
+_**Figure 6.30**. ADD PROPER FIGURE CAPTION!._
+
 Perfect! Now we only have the (golden) points that, indeed, are inside the red Polygon which is exactly what we wanted!
 <!-- #endregion -->
