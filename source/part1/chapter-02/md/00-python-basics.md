@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -444,7 +444,7 @@ station_type = "Mareographs"
 
 Now that we have defined five variables related to the Helsinki Kaivopuisto station, we can combine them in a list similar to how we have done previously.
 
-```python tags=[]
+```python
 station_hel_kaivo = [station_name, station_id, station_lat, station_lon, station_type]
 station_hel_kaivo
 ```
