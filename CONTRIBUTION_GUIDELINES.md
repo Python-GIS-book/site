@@ -243,7 +243,7 @@ Cell tags can also be used to hide notebook cells in several different ways depe
 
 #### Removing a cell from the website and book
 
-If you have a cell that does something that affects the content produced in the notebooks, but do not want that cell to be visible in any way in the book or on the website, you can add the `remove_cell` tag to the celli (note the underscore). This will completely remove it from both places.
+If you have a cell that does something that affects the content produced in the notebooks, but do not want that cell to be visible in any way in the book or on the website, you can add the `remove_cell` tag to the cell (note the underscore). This will completely remove it from both places.
 
 #### Removing a cell from the book only and hiding the output on the website
 
