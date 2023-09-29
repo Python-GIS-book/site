@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -52,6 +52,7 @@ Services Authority (HSY)** (see [this page](https://www.hsy.fi/fi/asiantuntijall
 
 ```python
 import os
+
 os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 from pyproj import CRS
@@ -236,6 +237,8 @@ pop.plot(ax=ax)
 addresses.plot(ax=ax, color="red", markersize=5)
 ```
 
+_**Figure 6.34**. ADD PROPER FIGURE CAPTION!._
+
 Let's also visualize the joined output:
 
 
@@ -260,6 +263,8 @@ plt.title("Amount of inhabitants living close the the point")
 plt.tight_layout()
 ```
 
+_**Figure 6.35**. ADD PROPER FIGURE CAPTION!._
+
 In a similar way, we can plot the original population grid and check the overall population distribution in Helsinki:
 
 ```python
@@ -275,6 +280,8 @@ plt.title("Population 2018 in 250 x 250 m grid squares")
 # Remove white space around the figure
 plt.tight_layout()
 ```
+
+_**Figure 6.36**. ADD PROPER FIGURE CAPTION!._
 
 Finally, let's save the result point layer into a file:
 
