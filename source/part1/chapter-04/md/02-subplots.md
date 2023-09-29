@@ -5,13 +5,14 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Creating subplots
 
 At this point you should know the basics of making plots with Matplotlib. Now we will expand on our basic plotting skills to learn how to create more advanced plots. In this section, we will show how to visualize data using pandas/Matplotlib and create multi-panel plots such as the one below.
@@ -19,7 +20,7 @@ At this point you should know the basics of making plots with Matplotlib. Now we
 ![_**Figure 4.10**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._](../img/subplots.png)
 
 _**Figure 4.10**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._
-
+<!-- #endregion -->
 
 ## Preparing the data for plotting 
 
@@ -68,17 +69,15 @@ data.dropna(subset=["TEMP_F"], inplace=True)
 print("Number of rows after removing no data values:", len(data))
 ```
 
-<!-- #region tags=[] -->
 #### Question 4.2
 
 How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified DataFrame to another variable name or do not use the `inplace` parameter.
-<!-- #endregion -->
 
-```python tags=["remove_cell"]
+```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"]
+```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
 # Solution
 
 
@@ -276,8 +275,7 @@ autumn_temps.plot(
 )
 
 # Set figure title
-fig.suptitle("2012-2013 Seasonal temperature observations"
-             "- Helsinki-Vantaa airport")
+fig.suptitle("2012-2013 Seasonal temperature observations" "- Helsinki-Vantaa airport")
 
 # Rotate the x-axis labels so they don't overlap
 plt.setp(ax11.xaxis.get_majorticklabels(), rotation=20)
@@ -344,8 +342,7 @@ summer_temps.plot(
 
 # Set figure title
 fig.suptitle(
-    "2012-2013 Winter and summer temperature observations"
-    "- Helsinki-Vantaa airport"
+    "2012-2013 Winter and summer temperature observations" "- Helsinki-Vantaa airport"
 )
 
 # Rotate the x-axis labels so they don't overlap
@@ -359,6 +356,8 @@ ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 plt.show()
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^matplotlib_colors]: <https://matplotlib.org/stable/gallery/color/named_colors.html>
+<!-- #endregion -->

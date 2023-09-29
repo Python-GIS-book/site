@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -16,13 +16,16 @@ jupyter:
 
 At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the [end of Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you'll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like [^matlab] plotting. We will also briefly explore creating interactive plots using the `hvplot` [^hvplot] plotting library, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax very similar to that in pandas.
 
-<!-- #region tags=[] -->
+
 ## Creating a basic x-y plot
 
 The first step for creating a basic x-y plot is to import pandas and read in the data we want to plot from a file. We will be using a datetime index for our weather observation data as we [learned in Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). In this case, however, we'll include a few additional parameters in order to *read the data* with a datetime index. We will read in the data first, and then discuss what happened.
 
 Let's start by importing the libraries we will need (pandas and Matplotlib), and then read in the data.
-<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove-cell"]
+import warnings
+```
 
 ```python
 import pandas as pd
@@ -401,9 +404,15 @@ Let us start by importing the pandas submodule of hvPlot.
 import hvplot.pandas
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 With the submodule imported, we can simply take a slice of data from the `data` DataFrame, the month of July in 2014 in this example, and create a plot just as we would in pandas. The only difference here is that we will use the `hvplot()` method rather than the `plot()` method from pandas.
+<!-- #endregion -->
 
-```python tags=[]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+warnings.simplefilter("ignore")
+```
+
+```python editable=true slideshow={"slide_type": ""}
 july2014_df = data.loc[(data.index >= "201407010000") & (data.index < "201407310000")]
 
 july2014_df.hvplot(
@@ -414,7 +423,7 @@ july2014_df.hvplot(
 )
 ```
 
-<!-- #raw tags=["hide-cell"] -->
+<!-- #raw tags=["hide-cell"] editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 4.9}. An interactive plot example using hvPlot.}}, center, nofloat}{../img/hvplot-example.png}
 { \hspace*{\fill} \\}
@@ -426,7 +435,7 @@ Now we have an interactive line plot where the users can place their mouse curso
 
 That is all we will explore for the moment, but you are welcome to have a look at the [hvPlot User Guide](https://hvplot.holoviz.org/user_guide/index.html) [^hvplot_guide] to learn more about the types of visualizations available in hvPlot and how to use them.
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^matplotlib]: <https://matplotlib.org/>
@@ -437,3 +446,4 @@ That is all we will explore for the moment, but you are welcome to have a look a
 [^hvplot]: <https://hvplot.holoviz.org/>
 [^bokeh]: <https://docs.bokeh.org/en/latest/index.html>
 [^hvplot_guide]: <https://hvplot.holoviz.org/user_guide/index.html>
+<!-- #endregion -->
