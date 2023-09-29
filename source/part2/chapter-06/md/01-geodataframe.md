@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -288,6 +288,7 @@ Lastly, it is also useful to know how to read data directly from a Zipfile. The 
 from zipfile import ZipFile
 import io
 
+
 def read_gdf_from_zip(zip_fp):
     """
     Reads a spatial dataset from ZipFile into GeoPandas. Assumes that there is only a single file (such as GeoPackage)
@@ -298,6 +299,7 @@ def read_gdf_from_zip(zip_fp):
         layer = z.namelist()[0]
         data = gpd.read_file(io.BytesIO(z.read(layer)))
     return data
+
 
 # Read the data
 buildings = read_gdf_from_zip("data/Helsinki/building_points_helsinki.zip")
@@ -422,7 +424,7 @@ airports.plot(markersize=0.1)
 
 _**Figure 6.12**. A basic plot showing the airports from openflights.org._
 
-<!-- #region tags=[] -->
+
 ## Footnotes
 
 [^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON>
@@ -437,4 +439,3 @@ _**Figure 6.12**. A basic plot showing the airports from openflights.org._
 [^shp]: <https://en.wikipedia.org/wiki/Shapefile> 
 [^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>
 [^us_census]: <https://www.census.gov/programs-surveys/acs/data.html>
-<!-- #endregion -->
