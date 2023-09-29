@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -21,7 +21,8 @@ Let's start by reading the data from the `eu_countries_2022.gpkg` file. When rea
 
 ```python
 import os
-os.environ['USE_PYGEOS'] = '0'
+
+os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 
 # Read the file
@@ -201,7 +202,7 @@ plt.title("WGS84");
 ```
 
 
-_**Figure 6.13**. Global map plotted in WGS84 coordinate reference system._
+_**Figure 6.23**. Global map plotted in WGS84 coordinate reference system._
 
 As we can see, the source data is in WGS84 projection which distorts the shape of the countries quite a bit especially in the Northern and Southern parts of the world. We can easily reproject the data into Web Mercator which is widely used in Web mapping applications. We can do this by using the `.to_crs()` method and plotting the result (in this case as an interactive map):
 
@@ -212,11 +213,11 @@ admin.to_crs(epsg=3857).explore()
 
 <!-- #raw tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.14}. Global map plotted in Web Mercator.}}, center, nofloat}{../img/interactive-map.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.24}. Global map plotted in Web Mercator.}}, center, nofloat}{../img/interactive-map.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
-_**Figure 6.14**. Global map plotted in Web Mercator._
+_**Figure 6.24**. Global map plotted in Web Mercator._
 
 As we can see, the Web Mercator projection also distorts and exaggerates e.g. the size of the Antarctica and Greenland quite significantly. Luckily, there are also better map projections for visualizing global datasets, such as Eckert IV. There isn't a direct EPSG number for Eckert IV, but we can provide the CRS information as an ESRI CRS code `ESRI:54012` as follows:
 
@@ -227,9 +228,9 @@ plt.axis("off");
 ```
 
 
-_**Figure 6.15**. Global map plotted in Eckert IV._
+_**Figure 6.25**. Global map plotted in Eckert IV._
 
-As the Figure 6.15 shows, the Eckert IV map projection provides a more balanced view of the world with less distortion in the Northern and Southern parts of the world. Lastly, we can also define an Orthographic projection for our map which can be centered to specific point in the world. For doing this, we can specify the CRS using a proj-string and specify the center point with a few of CRS parameters: `+lat`, `+lon` (see [PROJ documentation](https://proj.org/operations/projections/ortho.html) [^Ortho] for details).    
+As the Figure 6.25 shows, the Eckert IV map projection provides a more balanced view of the world with less distortion in the Northern and Southern parts of the world. Lastly, we can also define an Orthographic projection for our map which can be centered to specific point in the world. For doing this, we can specify the CRS using a proj-string and specify the center point with a few of CRS parameters: `+lat`, `+lon` (see [PROJ documentation](https://proj.org/operations/projections/ortho.html) [^Ortho] for details).    
 
 ```python
 proj_string = "+proj=ortho +lat_0=60.00 +lon_0=23.0000"
@@ -239,7 +240,7 @@ plt.axis("off")
 plt.title("Orthographic");
 ```
 
-_**Figure 6.16**. Global map plotted in an orthographic projection._
+_**Figure 6.26**. Global map plotted in an orthographic projection._
 
 As we can see, now we have a nice map centered around Finland that reminds a bit how the world would look from space. 
 
