@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -68,11 +68,9 @@ data.dropna(subset=["TEMP_F"], inplace=True)
 print("Number of rows after removing no data values:", len(data))
 ```
 
-<!-- #region tags=[] -->
 #### Question 4.2
 
 How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified DataFrame to another variable name or do not use the `inplace` parameter.
-<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -276,8 +274,7 @@ autumn_temps.plot(
 )
 
 # Set figure title
-fig.suptitle("2012-2013 Seasonal temperature observations"
-             "- Helsinki-Vantaa airport")
+fig.suptitle("2012-2013 Seasonal temperature observations" "- Helsinki-Vantaa airport")
 
 # Rotate the x-axis labels so they don't overlap
 plt.setp(ax11.xaxis.get_majorticklabels(), rotation=20)
@@ -344,8 +341,7 @@ summer_temps.plot(
 
 # Set figure title
 fig.suptitle(
-    "2012-2013 Winter and summer temperature observations"
-    "- Helsinki-Vantaa airport"
+    "2012-2013 Winter and summer temperature observations" "- Helsinki-Vantaa airport"
 )
 
 # Rotate the x-axis labels so they don't overlap
