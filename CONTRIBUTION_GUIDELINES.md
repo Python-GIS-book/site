@@ -13,6 +13,7 @@
     - [Sync Notebook with MyST Markdown](#sync-jupyter-notebook-with-myst_markdown)
     - [Add a citation](#add-a-citation)
     - [Allow errors to be included in the docs](#allow-an-error-to-happen-in-code-blocks)
+    - [Hide cells on the website or in the book](#hide-cells)
 
 ## Objectives
 
@@ -235,6 +236,22 @@ when you want to **build** the website having errors you most probably end up ha
 To avoid this, it is necessary to add **a cell tag** `raises-exception` to those cells with errors that you want to include into the final documentation. 
 
 To get information how to add a cell-tag, follow [these instructions](https://github.com/jupyterlab/jupyterlab-toc/issues/87).
+
+### Hide cells
+
+Cell tags can also be used to hide notebook cells in several different ways depending on the situation. You can find a few common situations below.
+
+#### Removing a cell from the website and book
+
+If you have a cell that does something that affects the content produced in the notebooks, but do not want that cell to be visible in any way in the book or on the website, you can add the `remove_cell` tag to the celli (note the underscore). This will completely remove it from both places.
+
+#### Removing a cell from the book only and hiding the output on the website
+
+Cells can be removed from being shown in the book and have their output hidden on the website (with a dropdown that can show the output) by using the `remove_book_cell` and `hide-cell` tags. This is common for output from one of the book questions, where the output is handy to see on the website (but hidden) while in the book the answers to the questions are in the back of the book.
+
+#### Hiding cell output
+
+If you wish for the cell output to be visible in the book, but not on the website, you can set the cell type to `Raw` and then use the `hide-cell` tag. This will include the text from the cell in the book, but show nothing on the website. This can be useful for adding book figures in cases where the normal figure output is not visible in the book.
 
 ## Build PDF of the book
 
