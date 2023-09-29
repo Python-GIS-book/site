@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -43,6 +43,7 @@ We have an `id` for each row and an address on column `addr`. Let's first read t
 
 ```python tags=["remove_cell"]
 import os
+
 os.environ["USE_PYGEOS"] = "0"
 import geopandas
 ```
