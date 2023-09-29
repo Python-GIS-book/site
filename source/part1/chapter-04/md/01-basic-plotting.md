@@ -23,7 +23,7 @@ The first step for creating a basic x-y plot is to import pandas and read in the
 
 Let's start by importing the libraries we will need (pandas and Matplotlib), and then read in the data.
 
-```python editable=true slideshow={"slide_type": ""} tags=["hide-cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove-cell"]
 import warnings
 ```
 
@@ -408,11 +408,11 @@ import hvplot.pandas
 With the submodule imported, we can simply take a slice of data from the `data` DataFrame, the month of July in 2014 in this example, and create a plot just as we would in pandas. The only difference here is that we will use the `hvplot()` method rather than the `plot()` method from pandas.
 <!-- #endregion -->
 
-```python editable=true slideshow={"slide_type": ""} tags=["hide-cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove-cell"]
 warnings.simplefilter("ignore")
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 july2014_df = data.loc[(data.index >= "201407010000") & (data.index < "201407310000")]
 
 july2014_df.hvplot(
@@ -423,7 +423,7 @@ july2014_df.hvplot(
 )
 ```
 
-<!-- #raw tags=["hide-cell"] -->
+<!-- #raw tags=["hide-cell"] editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 4.9}. An interactive plot example using hvPlot.}}, center, nofloat}{../img/hvplot-example.png}
 { \hspace*{\fill} \\}
