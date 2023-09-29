@@ -1,7 +1,6 @@
 jupyter-book
 sphinx-book-theme
 sphinx
-#matplotlib
 ipython
 jupyter-sphinx
 nbsphinx
