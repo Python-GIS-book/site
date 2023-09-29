@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -16,13 +16,13 @@ jupyter:
 
 In this tutorial, the aim is to make an overlay analysis where we create a new layer based on geometries from a dataset that `intersect` with geometries of another layer. As our test case, we will select Polygon grid cells from `TravelTimes_to_5975375_RailwayStation_Helsinki.shp` that intersects with municipality borders of Helsinki found in `Helsinki_borders.shp`.
 
-Typical overlay operations are (source: [QGIS docs](https://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/vector_spatial_analysis_buffers.html#more-spatial-analysis-tools)):
-![](../img/overlay_operations.png)
+![_**Figure 6.31**. Typical overlay operations. Source: [QGIS documentation](https://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/vector_spatial_analysis_buffers.html#more-spatial-analysis-tools)._](../img/overlay_operations.png)
 
-
+_**Figure 6.31**. Typical overlay operations. Source: [QGIS documentation](https://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/vector_spatial_analysis_buffers.html#more-spatial-analysis-tools)._
 
 ```python
 import os
+
 os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 import matplotlib.pyplot as plt
@@ -45,6 +45,8 @@ Let's do a quick overlay visualization of the two layers:
 ax = grid.plot(facecolor="gray")
 hel.plot(ax=ax, facecolor="None", edgecolor="blue")
 ```
+
+_**Figure 6.32**. ADD PROPER FIGURE CAPTION!._
 
 Here the grey area is the Travel Time Matrix - a data set that contains  13231 grid squares (13231 rows of data) that covers the Helsinki region, and the blue area represents the municipality of Helsinki. Our goal is to conduct an overlay analysis and select the geometries from the grid polygon layer that intersect with the Helsinki municipality polygon.
 
@@ -74,9 +76,11 @@ Let's plot our data and see what we have:
 intersection.plot(color="b")
 ```
 
+_**Figure 6.33**. ADD PROPER FIGURE CAPTION!._
+
 As a result, we now have only those grid cells that intersect with the Helsinki borders. If you look closely, you can also observe that **the grid cells are clipped based on the boundary.**
 
-- Whatabout the data attributes? Let's see what we have:
+- What about the data attributes? Let's see what we have:
 
 
 ```python
