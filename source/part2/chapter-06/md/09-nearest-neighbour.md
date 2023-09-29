@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -54,6 +54,8 @@ print(destinations)
 destinations
 ```
 
+_**Figure 6.37**. ADD PROPER FIGURE CAPTION!._
+
 Okey, now we can see that all the destination points are represented as a single MultiPoint object.
 
 - Now we can find out the nearest destination point by using ``nearest_points()`` function:
@@ -98,6 +100,7 @@ Let's then see how it is possible to find nearest points from a set of origin po
 
 ```python
 import os
+
 os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 import fiona
@@ -278,6 +281,8 @@ stops.plot(ax=axes[1], markersize=0.2, alpha=0.5, color="red")
 axes[1].set_title("Stops");
 ```
 
+_**Figure 6.38**. ADD PROPER FIGURE CAPTION!._
+
 As we can see, we have a very densely distributed Point dataset that shows the location of the buildings (their centroid) in Helsinki Region. On the right, we have public transport stops that seem to cover a bit broader geographical extent with a few train stops reaching further North. Most importantly, we can see from the coordinates and the map that both of the layers share the same coordinate reference system, and they are approximately from the same geographical region. Hence, we are ready to find closest public transport stop (on the right) for each building on the left map.     
 
 
@@ -430,6 +435,8 @@ buildings.plot(
 )
 ```
 
+_**Figure 6.39**. ADD PROPER FIGURE CAPTION!._
+
 Okay, as we can see, there are some clear spatial patterns in the levels of access to public transport. The buildings with the shortest distances (i.e. best accessibility) are located in the densely populated areas, whereas the buildings locating in the periferial areas (such as islands on the South, and nature areas in the North-West) tend to have longer distance to public transport. 
 
 
@@ -476,5 +483,6 @@ ax.set_ylim([60.26, 60.275])
 ax.set_facecolor("black")
 ```
 
-Voilá, these weird star looking shapes are formed around public transport stops (red) where each link is associated buildings (yellow points) that are closest to the given stop. The color intensity varies according the distance between the stops and buildings. Based on this figure we can conclude that our nearest neighbor search was succesfull and worked as planned.
+_**Figure 6.40**. ADD PROPER FIGURE CAPTION!._
 
+Voilá, these weird star looking shapes are formed around public transport stops (red) where each link is associated buildings (yellow points) that are closest to the given stop. The color intensity varies according the distance between the stops and buildings. Based on this figure we can conclude that our nearest neighbor search was succesfull and worked as planned.
