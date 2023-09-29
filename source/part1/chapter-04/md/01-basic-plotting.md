@@ -23,6 +23,10 @@ The first step for creating a basic x-y plot is to import pandas and read in the
 
 Let's start by importing the libraries we will need (pandas and Matplotlib), and then read in the data.
 
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell"]
+import warnings
+```
+
 ```python
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -400,7 +404,13 @@ Let us start by importing the pandas submodule of hvPlot.
 import hvplot.pandas
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 With the submodule imported, we can simply take a slice of data from the `data` DataFrame, the month of July in 2014 in this example, and create a plot just as we would in pandas. The only difference here is that we will use the `hvplot()` method rather than the `plot()` method from pandas.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell"]
+warnings.simplefilter("ignore")
+```
 
 ```python
 july2014_df = data.loc[(data.index >= "201407010000") & (data.index < "201407310000")]
@@ -425,7 +435,7 @@ Now we have an interactive line plot where the users can place their mouse curso
 
 That is all we will explore for the moment, but you are welcome to have a look at the [hvPlot User Guide](https://hvplot.holoviz.org/user_guide/index.html) [^hvplot_guide] to learn more about the types of visualizations available in hvPlot and how to use them.
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^matplotlib]: <https://matplotlib.org/>
@@ -436,3 +446,4 @@ That is all we will explore for the moment, but you are welcome to have a look a
 [^hvplot]: <https://hvplot.holoviz.org/>
 [^bokeh]: <https://docs.bokeh.org/en/latest/index.html>
 [^hvplot_guide]: <https://hvplot.holoviz.org/user_guide/index.html>
+<!-- #endregion -->
