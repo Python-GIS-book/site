@@ -87,7 +87,7 @@ data.plot()
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.11**. Census tract polygons for Austin, Texas, USA._
 
-Voilá! Now we can see from the map a quick overview of how the geometries of the cencus tracts are located in the given area. The `x` and `y` axes in the plot are based on the coordinate values of the geometries which are in this case represented as meters.
+Voilá! Now you have created your first map with geopandas! This map gives a quick overview of how the geometries of the cencus tracts are located in the given region. The `x` and `y` axes in the plot are based on the coordinate values of the geometries which are in this case represented as meters.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -123,7 +123,7 @@ data["geometry"].head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see here,  the `geometry` column contains polygon geometries. The last line above reveals that the data type (`dtype`) of this column is `geometry`. Hence, in a similar manner as `pandas` can identify automatically that specific column contains e.g. integer values, geopandas has identified that the data type of a column containing `shapely.geometry` objects is `geometry`. As we learned earlier, the `shapely.geometry` objects have various useful attributes and methods that we can use to work with geographic data. Luckily for us, it is possible to use all these shapely methods directly in geopandas and apply them to a whole `GeoSeries` without a need to access individual geometries one by one. Hence, most of the shapely methods can be applied all at once to the whole `GeoDataFrame`. With this in mind, let's proceed and calculate the area of each census tract polygon. Calculating an area of all geometries in your data can be done easily by using a command `.area` that comes with the `GeoDataFrame` object. As a reminder, the census data are in a metric coordinate reference system, so the area values will be given in square meters:
+As we can see here,  the `geometry` column contains polygon geometries. The last line above reveals that the data type (`dtype`) of this column is `geometry`. Hence, in a similar manner as `pandas` can identify automatically that specific column contains e.g. integer values, geopandas has identified that the data type of a column containing `shapely.geometry` objects is `geometry`. As we learned earlier, the `shapely.geometry` objects have various useful attributes and methods that we can use to work with geographic data. Luckily for us, it is possible to use these shapely methods directly in geopandas and apply them to a whole `GeoSeries` without a need to access individual geometries one by one. With this in mind, let's proceed and calculate the area of each census tract polygon. Calculating an area of all geometries in your data can be done easily by using a command `.area` that comes with the `GeoDataFrame` object. As a reminder, the census data are in a metric coordinate reference system, so the area values will be given in square meters:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -140,7 +140,15 @@ data.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, now we added a new column into our `GeoDataFrame` which contains the area of each polygon as square kilometers. Now you have succesfully conducted your first geocomputational analysis in Python! Quite easy isn't it?
+As we can see, now we added a new column into our `GeoDataFrame` which contains the area of each polygon as square kilometers. Now you have succesfully conducted your first geocomputational analysis in Python! Quite easy isn't it? We can also very easily visualize the data and make a nice choropleth map by using the area of a given geometry to determine the color for it. To do this, we can use the parameter `column` of the `.plot()` method in geopandas to specify that the color for each polygon should be based on the values stored in the `area_km2` column:  
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+data.plot(column="area_km2")
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As a result, we can more easily spot the larger polygons from the map with brighter colors. There are various ways to modify the appearance of the map and colors, which we will learn later in Chapter 8.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -168,17 +176,21 @@ print("Average:", round(data["pop_density_km2"].mean()), "pop/km2")
 print("Maximum:", round(data["pop_density_km2"].max()), "pop/km2")
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Writing data into a file
 
-It is possible to export spatial data into various data formats using the `.to_file()` method in `geopandas`. Let's practice writing data into the geopackage file format. Before proceeding, let's check how the data looks like at this point.
+Similarly as reading data, writing the contents of your `GeoDataFrame` into a specific file is one of the most typical operations when working with geographic data. It is possible to export the `GeoDataFrame` into various data formats using the `.to_file()` method. Let's start by learning how we can write data into a `GeoPackage`. Before proceeding, let's see how the data looks like at this point:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data.head()
 ```
 
-Write the data into a file using the `.to_file()` method.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Writing the contents of this `GeoDataFrame` into a file can be done by using the `.to_file()` method. To use the method, we only need to pass the filepath to the file into which the data will be written. Geopandas automatically identifies the correct format based on the file extension that have been written after the dot in the file path. I.e. in the example below, the text `.gpkg` determines that the `GeoDataFrame` will be written in `GeoPackage` format:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Create a output path for the data
 output_fp = data_folder / "austin_pop_density_2019.gpkg"
 
@@ -186,36 +198,39 @@ output_fp = data_folder / "austin_pop_density_2019.gpkg"
 data.to_file(output_fp)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Now we have successfully stored the data into a file called `austin_pop_density_2019.gpkg`. Notice, that if you have an existing file with the same name, geopandas will automatically overwrite the contents (without asking). Hence, it is good to be a bit mindful about the naming of the files whenever writing data to disk. 
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 #### Question 6.4
 
 Read the output file using `geopandas` and check that the data looks ok.
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["remove_book_cell", "hide_cell"]
+```python tags=["remove_book_cell", "hide_cell"] editable=true slideshow={"slide_type": ""}
 # Solution
 
 temp = gpd.read_file(output_fp)
 
 # Check first rows
 temp.head()
+
+# You can also plot the data for a visual check by uncommenting the following
+# temp.plot()
 ```
 
-```python tags=["remove_book_cell", "hide_cell"]
-# Solution
-
-# You can also plot the data for a visual check
-temp.plot()
-```
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Preparing GeoDataFrames from different file formats
 
 Reading data into Python is usually the first step of an analysis workflow. There are various different GIS data formats available such as [Shapefile](https://en.wikipedia.org/wiki/Shapefile) [^shp], [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) [^GeoJson], [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) [^KML], and [GeoPackage](https://en.wikipedia.org/wiki/GeoPackage) [^GPKG]. Geopandas is capable of reading data from all of these formats (plus many more). 
 
 This tutorial will show some typical examples how to read (and write) data from different sources. The main point in this section is to demonstrate the basic syntax for reading and writing data using short code snippets. You can find the example data sets in the data-folder. However, most of the example databases do not exists, but you can use and modify the example syntax according to your own setup.
-
+<!-- #endregion -->
 
 ### Reading vector data
 
