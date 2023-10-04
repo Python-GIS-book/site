@@ -304,7 +304,7 @@ Create these shapes using Shapely!
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide_cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
+```python tags=["hide_cell", "remove_book_cell", "hide-cell"] editable=true slideshow={"slide_type": ""}
 # Solution
 
 # Triangle
