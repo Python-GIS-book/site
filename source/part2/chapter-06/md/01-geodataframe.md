@@ -14,36 +14,22 @@ jupyter:
 
 # Storing data into a GeoDataFrame
 
-Now as we have learned how to create and represent geographic data in Python using `shapely` objects, we will continue and use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis. Geopandas extends the capacities of pandas (which we covered in the Part I of the book) with geospatial operations.
-
-
+Now as we have learned how to create and represent geographic data in Python using shapely objects, we will continue and use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis in vector format. Geopandas extends the capacities of pandas (which we covered in the Part I of the book) with geospatial operations.
 
 
 ## GeoDataFrame data structures
 
-The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and spatial features. A `GeoDataFrame` is basically a `pandas.DataFrame` that contains one column for geometries. The geometry column is a `GeoSeries` which contains the geometries  as `shapely` objects (points, lines, polygons, multipolygons etc.). 
+The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and spatial features. A `GeoDataFrame` is basically a `pandas.DataFrame` that contains a dedicated column for storing geometries. The geometry column is a `GeoSeries` which contains the geometries  as shapely objects (points, lines, polygons, multipolygons etc.). 
 
 
 ![_**Figure 6.10**. Geometry column in a GeoDataFrame._](../img/geodataframe.png)
 
 _**Figure 6.10**. Geometry column in a GeoDataFrame._
 
-Similar to importing import pandas as `pd`, we will import geopandas as `gpd`:
-
-```python tags=["remove_cell"]
-import os
-
-os.environ["USE_PYGEOS"] = "0"
-import geopandas
-```
-
-```python
-import geopandas as gpd
-```
 
 ## Reading a file
 
-In `geopandas`, we can use a generic function `.from_file()` for reading in various data formats. The data-folder contains some census data from Austin, Texas downloaded from the [U.S Census bureau](https://www.census.gov/programs-surveys/acs/data.html) [^us_census]. Let's first define the path to the file.
+Similarly as with `pandas`, a typical first step when starting to work with `geopandas` is to read data from a given file. In `geopandas`, we can use a generic function `.from_file()` for reading geospatial data in various data formats. In the data -folder, we have census data from Austin, Texas downloaded from the [U.S Census bureau](https://www.census.gov/programs-surveys/acs/data.html) [^us_census] which we will use to introduce some of the basic data input/output functionalities of `geopandas`. Let's start by defining the path to the file that we want to read into the memory: 
 
 ```python
 from pathlib import Path
@@ -53,24 +39,29 @@ fp = data_folder / "austin_pop_2019.gpkg"
 print(fp)
 ```
 
-Now we can pass this filepath to `geopandas`.
+Similar to importing `pandas`, we will first import geopandas as `gpd` which allows us to start using the library. Then we will read the file by passing the filepath to `.read_file()` function of `geopandas`:
 
 ```python
+import geopandas as gpd
+
 data = gpd.read_file(fp)
 ```
 
-Let's check the data type.
+Let's check the data type:
 
 ```python jupyter={"outputs_hidden": false}
 type(data)
 ```
 
 Here we see that our `data` -variable is a `GeoDataFrame` which extends the functionalities of
-`DataFrame` to handle spatial data. We can apply many familiar `pandas` methods to explore the contents of our `GeoDataFrame`. Let's have a closer look at the first rows of the data. 
+`DataFrame` to handle spatial data. We can apply many familiar `pandas` methods to explore the contents of our `GeoDataFrame`. Let's have a closer look at the first rows of the data: 
 
 ```python jupyter={"outputs_hidden": false}
 data.head()
 ```
+
+We can see that there are three columns in our `GeoDataFrame`
+
 
 #### Question 6.2
 
@@ -208,13 +199,6 @@ This tutorial will show some typical examples how to read (and write) data from 
 
 In `geopandas`, we can use a generic function `.from_file()` for reading in various vector data formats. When reading files with `geopandas`, the data are passed on to the `fiona` library under the hood for reading the data. This means that you can read and write all data formats supported by `fiona` with `geopandas`. 
 
-```python tags=["remove_cell"]
-import os
-
-os.environ["USE_PYGEOS"] = "0"
-import geopandas
-```
-
 ```python
 import geopandas as gpd
 import fiona
@@ -233,7 +217,7 @@ Let's read in some sample data to see the basic syntax.
 
 ```python
 # Read Esri Shapefile
-fp = "data/Austin/austin_pop_2019.shp"
+fp = data_folder / "austin_pop_2019.shp"
 data = gpd.read_file(fp)
 data.head()
 ```
@@ -254,7 +238,7 @@ fp = "data/Austin/austin_pop_2019.tab"
 data = gpd.read_file(fp)
 ```
 
-Some file formats such as GeoPackage and File Geodatabase files may contain multiple layers with different names wihich can be speficied using the `layer` -parameter. Our example geopackage file has only one layer with the same name as the file, so we don't actually need to specify it to read in the data.
+Some file formats such as GeoPackage may contain multiple layers with different names which can be speficied using the `layer` -parameter. Our example geopackage file has only one layer with the same name as the file, so we don't actually need to specify it to read in the data.
 
 ```python
 # Read spesific layer from Geopackage
@@ -262,21 +246,15 @@ fp = "data/Austin/austin_pop_2019.gpkg"
 data = gpd.read_file(fp, layer="austin_pop_2019")
 ```
 
-```python
-# Read file from File Geodatabase
-# fp = "data/Finland/finland.gdb"
-# data = gpd.read_file(fp, driver="OpenFileGDB", layer="municipalities")
-```
-
 ### TODO:(write intro about enabling additional drivers and reading in the KML file)
 
 ```python
 # Enable KML driver
-gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
+gpd.io.file.fiona.drvsupport.supported_drivers["LIBKML"] = "rw"
 
 # Read file from KML
 fp = "data/Austin/austin_pop_2019.kml"
-# data = gpd.read_file(fp)
+data = gpd.read_file(fp)
 ```
 
 ### TODO: Write more details about Zipfile reading
@@ -326,13 +304,9 @@ data.to_file(outfp, driver="GeoJSON")
 outfp = "data/Temp/austin_pop_2019.tab"
 data.to_file(outfp)
 
-# Write to same FileGDB (just add a new layer) - requires additional package installations(?)
-# outfp = "data/finland.gdb"
-# data.to_file(outfp, driver="FileGDB", layer="municipalities_copy")
-
 # Write to KML (just make a copy)
 outfp = "data/Temp/austin_pop_2019.kml"
-# data.to_file(outfp, driver="KML")
+data.to_file(outfp, driver="KML")
 ```
 
 ## Creating a GeoDataFrame from scratch

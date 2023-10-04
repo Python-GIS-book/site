@@ -19,6 +19,7 @@ In Chapter 5, we learned how the Coordinate Reference System (CRS) ultimately de
 
 Let's start by reading the data from the `eu_countries_2022.gpkg` file. When reading the data into `GeoDataFrame` with `geopandas`, the CRS information is automatically read from the datafile and stored into the `.crs` attribute:
 
+
 ```python
 import os
 

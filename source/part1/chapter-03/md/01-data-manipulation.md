@@ -76,11 +76,11 @@ data.head()
 
 Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is: `K = C + 273.15`
 
-```python tags=["remove_cell"]
+```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"]
+```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
 # Solution
 
 data["TEMP_KELVIN"] = data["TEMP_CELSIUS"] + 273.15
@@ -133,11 +133,11 @@ As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index
 
 Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
 
-```python tags=["remove_cell"]
+```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"]
+```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
 # Solution
 
 data.loc[23:29, "TEMP_CELSIUS"].mean()

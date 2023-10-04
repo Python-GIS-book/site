@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -67,11 +67,10 @@ plt.show()
 
 _**Figure 6.13**. Basic plot of the census tracts._
 
-<!-- #region tags=[] -->
+
 ## Centroid
 
 Extracting the centroid of geometric features is useful in many cases. Geometric centroid can, for example, be used for locating text labels in visualizations. We can extract the center point of each polygon via the `centroid`-attribute of the geometry-column. The data should be in a projected coordinate reference system when calculating the centroids. If trying to calculate centroids based on latitude and longitude information, `geopandas` will warn us that the results are likely incorrect. Our sample data are in WGS 84 / UTM zone 14N (EPSG:32614), which is a projected , and we can proceed to calculating the centroids.
-<!-- #endregion -->
 
 ```python
 data.crs.name
@@ -184,13 +183,13 @@ data.unary_union.buffer(1000)
 
 _**Figure 6.20**. 1km buffer for each census tract._
 
-<!-- #region tags=[] -->
+
 ## Dissolving and merging geometries
 
 Spatial data aggregation refers to combining geometries into coarser spatial units based on some attributes. The process may also include the calculation of summary statistics. 
 
 In `pandas`, we learned how to group and aggregate data using the `groupby`method. In `geopandas`, there is a function called `dissolve()` that groups the data based on an anttribute column and unions the geometries for each group in that attribute. At the same time, we can also get summary statistics of the attributes. Read more about the details of the dissolve-function and related aggregation options in the `geopandas` [online documentation](https://geopandas.org/en/stable/docs/user_guide/aggregation_with_dissolve.html) [^gpd_dissolve].
-<!-- #endregion -->
+
 
 To exceplify how dissolve works with our sample data, let's create create a new column to indicate census tracts with above average population density. We can do this by adding a new empty column `dense` and adding values that indicate above and below average population densities per census tract.
 

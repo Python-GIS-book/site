@@ -25,8 +25,6 @@ in a short time period (eg.  trying to geocode large number of addresses). If yo
 In this lesson we will use the Nominatim geocoder for locating a relatively small number of addresses. The Nominatim API is not meant for super heavy use. Nominatim doesn't require the use of an API key, but the usage of the Nominatim service is rate-limited to 1 request per second (3600 / hour). Users also need to provide an identifier for their application, and give appropriate attribution to using OpenStreetMap data. You can read more about Nominatim usage policy in [here](https://operations.osmfoundation.org/policies/nominatim/) [^nominatim_toc]. When using Nominatim via `geopandas` and `geopy`, we can specify a custom a custom `user_agent` parameter to idenfy our application, and we can add a `timeout` to allow enough time to get the response from the service. 
 
 
-
-
 ### Geocoding addresses
 
 We will geocode addresses stored in a text file called `addresses.txt`. These addresses are located in the Helsinki Region in Southern Finland. The first rows of the data look like this:

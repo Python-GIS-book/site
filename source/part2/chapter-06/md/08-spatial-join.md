@@ -14,27 +14,23 @@ jupyter:
 
 # Spatial join
 
-[Spatial join](http://wiki.gis.com/wiki/index.php/Spatial_Join) is
-yet another classic GIS problem. Getting attributes from one layer and
-transferring them into another layer based on their spatial relationship
-is something you most likely need to do on a regular basis.
+ADD IMAGE ABOUT THE BASIC IDEA OF SPATIAL JOIN!
 
-In the previous section we learned how to perform **a Point in Polygon query**.
-We can now use the same logic to conduct **a spatial join** between two layers based on their
-spatial relationship. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the
-attributes of a polygon that ``contains`` the point.
+[Spatial join](http://wiki.gis.com/wiki/index.php/Spatial_Join) is yet another classic GIS problem. Getting attributes from one layer and
+transferring them into another layer based on their spatial relationship is something you most likely need to do on a regular basis.
 
-Luckily, [spatial join is already implemented in Geopandas](http://geopandas.org/mergingdata.html#spatial-joins), thus we do not need to create our own function for doing it. There are three possible types of
-join that can be applied in spatial join that are determined with ``op`` -parameter in the ``gpd.sjoin()`` -function:
+In the previous section we learned how to perform **a Point in Polygon query**. We can now use the same logic to conduct **a spatial join** between two layers based on their spatial relationship. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the
+attributes of a polygon that ``contains`` the point. 
+
+Luckily, [spatial join is already implemented in Geopandas](http://geopandas.org/mergingdata.html#spatial-joins), thus we do not need to create our own function for doing it. There are three possible types of join that can be applied in spatial join that are determined with ``op`` -parameter in the ``gpd.sjoin()`` -function:
 
 -  ``"intersects"``
 -  ``"within"``
 -  ``"contains"``
 
-Sounds familiar? Yep, all of those spatial relationships were discussed
-in the [Point in Polygon lesson](point-in-polygon.ipynb), thus you should know how they work. 
+Sounds familiar? Yep, all of those spatial relationships were discussed in the [Point in Polygon lesson](point-in-polygon.ipynb), thus you should know how they work. 
 
-Furthermore, pay attention to the different options for the type of join via the `how` parameter; "left", "right" and "inner". You can read more about these options in the [geopandas sjoin documentation](http://geopandas.org/mergingdata.html#sjoin-arguments) and pandas guide for [merge, join and concatenate](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
+Furthermore, pay attention to the different options for the type of join via the `how` parameter; "left", "right" and "inner". You can read more about these options in the [geopandas sjoin documentation](http://geopandas.org/mergingdata.html#sjoin-arguments) and pandas guide for [merge, join and concatenate](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html).
 
 Let's perform a spatial join between these two layers:
 - **Addresses:** the geocoded address-point (we created this Shapefile in the geocoding tutorial)

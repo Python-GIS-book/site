@@ -14,17 +14,12 @@ jupyter:
 
 # Selecting data based on spatial relationships
 
-Finding out if a certain point is located inside or outside of an area,
-or finding out if a line intersects with another line or polygon are
-fundamental geospatial operations that are often used e.g. to select
-data based on location. Such spatial queries are one of the typical
-first steps of the workflow when doing spatial analysis. Performing a
-spatial join (will be introduced later) between two spatial datasets is
-one of the most typical applications where Point in Polygon (PIP) query
-is used. 
+Finding out if a certain point is located inside or outside of an area, or finding out if a line intersects with another line or polygon are
+fundamental geospatial operations that are often used e.g. to select data based on location. Such spatial queries are one of the typical
+first steps of the workflow when doing spatial analysis. Performing a spatial join (will be introduced later) between two spatial datasets is
+one of the most typical applications where Point in Polygon (PIP) query is used. 
 
-For further reading about PIP and other geometric operations, 
-see Chapter 4.2 in Smith, Goodchild & Longley: [Geospatial Analysis - 6th edition](https://www.spatialanalysisonline.com/HTML/index.html).
+For further reading about PIP and other geometric operations, see Chapter 4.2 in Smith, Goodchild & Longley: [Geospatial Analysis - 6th edition](https://www.spatialanalysisonline.com/HTML/index.html).
 
 
 ## How to check if point is inside a polygon?

@@ -12,8 +12,10 @@ jupyter:
     name: python3
 ---
 
-## Nearest Neighbour Analysis
+## Nearest neighbour analysis
 
+
+ADD IMAGE ABOUT THE BASIC IDEA OF NEAREST NEIGHBOR!
 
 One commonly used GIS task is to be able to find the nearest neighbour for an object or a set of objects. For instance, you might have a single Point object
 representing your home location, and then another set of locations representing e.g. public transport stops. Then, quite typical question is *"which of the stops is closest one to my home?"*
