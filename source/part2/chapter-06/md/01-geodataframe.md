@@ -320,7 +320,7 @@ After this small adjustment, geopandas was able to read the KML file without a p
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Lastly, we demonstrate how it is possible to read data directly from a Zipfile which can be quite useful especially if you are working with large datasets or a collection of multiple files stored into a single Zipfile. ZipFile is a data format where the data is compressed efficiently. For instance after "zipping" Shapefiles, the disk space needed to store the data in the given format will be significantly lower.To read the data from ZipFiles, we can use the built-in Python library called **zipfile** and its `ZipFile` object, which makes it possible to work with compressed ZipFiles. The following example shows how to read data from a ZipFile. Let's start by opening the ZipFile into a variable `z` and read the names of the files stored inside of it:
+Lastly, we demonstrate how it is possible to read data directly from a Zipfile which can be quite useful especially if you are working with large datasets or a collection of multiple files stored into a single Zipfile. ZipFile is a data format where the data is compressed efficiently. For instance after "zipping" Shapefiles, the disk space needed to store the data in the given format will be significantly lower. To read the data from ZipFiles, we can use the built-in Python library called **zipfile** and its `ZipFile` object, which makes it possible to work with compressed ZipFiles. The following example shows how to read data from a ZipFile. Let's start by opening the ZipFile into a variable `z` and read the names of the files stored inside of it with the method `.namelist()`:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -333,7 +333,7 @@ with ZipFile(fp) as z:
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, the given ZipFile contains only a single GeoPackage called `building_points_helsinki.gpkg`. The `with ZipFile(fp) as z` command here is a standard Python convention to open files in read-format from ZipFiles. To read the contents of the GeoPackage stored inside the ZipFile, we first need use the `.read()` function of the opened `ZipFile` object to read the contents of the file into bytes. After this step, we still need to pass these bytes into a `BytesIO` in-memory file buffer by using the built-in `io` library. This file buffer that can then be used to read the actual contents of the file into geopandas. This maybe sounds complicated, but it actually only requires a few lines of code:
+As we can see, the given `ZipFile` contains only a single GeoPackage called `building_points_helsinki.gpkg`. The `with ZipFile(fp) as z:` command here is a standard Python convention to open files in read-format from ZipFiles. To read the contents of the GeoPackage stored inside the ZipFile, we first need use the `.read()` function of the opened `ZipFile` object to read the contents of the file into bytes. After this step, we still need to pass these bytes into a `BytesIO` in-memory file buffer by using the built-in `io` library. This file buffer that can then be used to read the actual contents of the file into geopandas. This maybe sounds complicated, but it actually only requires a few lines of code:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -361,10 +361,10 @@ Ta-da! Now we have succesfully read the GeoPackage from the ZipFile into a varia
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Writing vector data
 
-We can save spatial data to various vector data formats using the `.to_file()` function in `geopandas` which also relies on `fiona`. It is possible to specify the output file format using the `driver` parameter, however, for most file formats it is not needed as the tool is able to infer the driver from the file extension. 
+We can save spatial data to various vector data formats using the `.to_file()` function in geopandas which also relies on the fiona library. It is possible to specify the output file format using the `driver` parameter, however, for most file formats it is not needed as the tool is able to infer the driver from the file extension (similarly as when reading data):
 <!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Write to Shapefile (just make a copy)
 outfp = "data/Temp/austin_pop_2019.shp"
 data.to_file(outfp)
@@ -383,17 +383,18 @@ data.to_file(outfp)
 
 # Write to KML (just make a copy)
 outfp = "data/Temp/austin_pop_2019.kml"
-data.to_file(outfp, driver="KML")
+data.to_file(outfp, driver="LIBKML")
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Creating a GeoDataFrame from scratch
 
-It is possible to create spatial data from scratch by using `shapely`'s geometric objects and `geopandas`. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into spatial data layers. Let's first try creating a simple `GeoDataFrame` based on coordinate information that represents the outlines of the [Senate square in Helsinki, Finland](https://fi.wikipedia.org/wiki/Senaatintori). Here are the coordinates based on which we can create a `Polygon` object using `shapely.
+It is possible to create spatial data from scratch by using shapely's geometric objects and geopandas. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into geospatial data layers. Let's first create a simple `GeoDataFrame` based on coordinate information that represents the outlines of the Senate square in Helsinki, Finland. The coordinates below demonstrates the corners of the Senate square, which we can use to create a `Polygon` object in a similar manner as we learned earlier in this chapter:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 from shapely.geometry import Polygon
 
-# Coordinates of the Helsinki Senate square in decimal degrees
 coordinates = [
     (24.950899, 60.169158),
     (24.953492, 60.169158),
@@ -401,80 +402,83 @@ coordinates = [
     (24.950958, 60.169990),
 ]
 
-# Create a Shapely polygon from the coordinate-tuple list
 poly = Polygon(coordinates)
 ```
 
-Now we can use this polygon and `geopandas` to create a `GeoDataFrame` from scratch. The data can be passed in as a list-like object. In our case we will only have one row and one column of data. We can pass the polygon inside a list, and name the column as `geometry` so that `geopandas` will use the contents of that column the geometry column. Additionally, we could define the coordinate reference system for the data, but we will skip this step for now. For details of the syntax, see documentation for the `DataFrame` constructor and `GeoDataFrame` constructor online.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Now we can use this polygon and create a `GeoDataFrame` from scratch with geopandas. The data can be passed in as a list-like object. In our case, we will only have one row and one column of data. We can pass the polygon inside a list, and name the column as `geometry` so that geopandas will know to use the contents of that column as the source for geometries. Additionally, we could define the coordinate reference system for the data which we will learn in the next chapter.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 newdata = gpd.GeoDataFrame(data=[poly], columns=["geometry"])
-```
-
-```python
 newdata
 ```
 
-We can also add additional attribute information to a new column. 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+In this way, we can easily create a `GeoDataFrame` without any attribute data. However, quite often you also want to attach attribute information along with your geometry. We can create a `GeoDataFrame` from scratch with multiple attributes by passing a Python `dictionary` into the `GeoDataFrame` object as follows: 
+<!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false}
-# Add a new column and insert data
-newdata.at[0, "name"] = "Senate Square"
-
-# Check the contents
-newdata
+```python editable=true slideshow={"slide_type": ""}
+gdf_data = {
+    "geometry": [poly], 
+    "name": "Senate Square",
+    "city": "Helsinki",
+    "year": 2023
+}
+new_data_extended = gpd.GeoDataFrame(gdf_data)
+new_data_extended
 ```
 
-There it is! Now we have two columns in our data; one representing the geometry and another with additional attribute information. From here, you could proceed into adding additional rows of data, or printing out the data to a file. 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+There it is! Now we have four columns in our data, one representing the geometry and other columns with additional attribute information. 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Creating a GeoDataFrame from a text file
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+A common case is to have coordinates in a delimited textfile that needs to be converted into geospatial data. In such a case, we can make use of the pandas, geopandas and shapely libraries for doing this. The example data below contains point coordinates of airports derived from [openflights.org](https://openflights.org/data.html) [^openflights]. Let's read a couple of useful columns from the data into pandas `DataFrame` for further processing:
+<!-- #endregion -->
 
-A common case is to have coordinates in a delimited textfile that needs to be converted into spatial data. We can make use of `pandas`, `geopandas` and `shapely` for doing this. 
-
-The example data contains point coordinates of airports derived from [openflights.org](https://openflights.org/data.html) [^openflights]. Let's read in a couple of useful columns from the data for further processing.
-
-```python
+```python editable=true slideshow={"slide_type": ""}
 import pandas as pd
-```
 
-```python
 airports = pd.read_csv(
     "data/Airports/airports.txt",
     usecols=["Airport ID", "Name", "City", "Country", "Latitude", "Longitude"],
 )
-```
-
-```python
 airports.head()
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 len(airports)
 ```
 
-There are over 7000 airports in the data and we can use the coordinate information available in the `Latitude` and `Longitude` columns for visualizing them on a map. The coordinates are stored as *{term}`Decimal degrees <Decimal degrees>`*, meaning that the appropriate coordinate reference system for these data is WGS 84 (EPSG:4326).  
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+There are over 7000 airports in the data and we can use the coordinate information available in the `Latitude` and `Longitude` columns for visualizing them on a map. The coordinates are stored as *{term}`Decimal degrees <Decimal degrees>`*. There is a handy function in geopandas called `.points_from_xy()` for generating an array of `Point` objects based on x and y coordinates. This function assumes that x coordinates represent longitude and that y coordinates represent latitude. The following shows how we can create geometries for the airports:
+<!-- #endregion -->
 
-There is a handy tool in `geopandas` for generating an array of `Point`objects based on x and y coordinates called `.points_from_xy()`. The tool assumes that x coordinates represent longitude and that y coordinates represent latitude. 
-
-```python
+```python editable=true slideshow={"slide_type": ""}
 airports["geometry"] = gpd.points_from_xy(
-    x=airports["Longitude"], y=airports["Latitude"], crs="EPSG:4326"
+    x=airports["Longitude"], y=airports["Latitude"]
 )
 
 airports = gpd.GeoDataFrame(airports)
 airports.head()
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Now we have the point geometries as `shapely`objects in the geometry-column ready to be plotted on a map.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 airports.plot(markersize=0.1)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.12**. A basic plot showing the airports from openflights.org._
-
+<!-- #endregion -->
 
 ## Footnotes
 
