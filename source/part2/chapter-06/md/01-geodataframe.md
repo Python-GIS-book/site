@@ -12,26 +12,33 @@ jupyter:
     name: python3
 ---
 
-# Storing data into a GeoDataFrame
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+# Introduction to geopandas GeoDataFrames
 
-Now as we have learned how to create and represent geographic data in Python using shapely objects, we will continue and use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis in vector format. Geopandas extends the capacities of pandas (which we covered in the Part I of the book) with geospatial operations.
+Now as we have learned how to create and represent geographic data in Python using shapely objects, we will continue and use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis in vector format. 
 
+**Geopandas** is a Python library designed to make working with geospatial data in Python easier. It extends the datatypes used by pandas (which we covered in Part I) to allow geospatial operations on geometric types. Essentially, it provides a high-level interface for vector data (like points, lines, and polygons) that integrates well with the existing pandas framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5), making it easy to conduct spatial operations and analyses.
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## GeoDataFrame data structures
 
-The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and spatial features. A `GeoDataFrame` is basically a `pandas.DataFrame` that contains a dedicated column for storing geometries. The geometry column is a `GeoSeries` which contains the geometries  as shapely objects (points, lines, polygons, multipolygons etc.). 
+The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and geograpchic data. A `GeoDataFrame` is basically a `pandas.DataFrame` that contains a dedicated column for storing geometries (see Figure 6.10). The geometry column is a `GeoSeries` which contains the geometries as shapely objects (points, lines, polygons, multipolygons etc.). 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ![_**Figure 6.10**. Geometry column in a GeoDataFrame._](../img/geodataframe.png)
 
 _**Figure 6.10**. Geometry column in a GeoDataFrame._
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Reading a file
 
-Similarly as with `pandas`, a typical first step when starting to work with `geopandas` is to read data from a given file. In `geopandas`, we can use a generic function `.from_file()` for reading geospatial data in various data formats. In the data -folder, we have census data from Austin, Texas downloaded from the [U.S Census bureau](https://www.census.gov/programs-surveys/acs/data.html) [^us_census] which we will use to introduce some of the basic data input/output functionalities of `geopandas`. Let's start by defining the path to the file that we want to read into the memory: 
+Similarly as with `pandas`, a typical first step when starting to work with `geopandas` is to read data from a given file. In `geopandas`, we can use a generic function `.from_file()` for reading geospatial data from various data formats, such as the ones introduced in Chapter 5. In the data -folder, we have census data from Austin, Texas downloaded from the [U.S Census bureau](https://www.census.gov/programs-surveys/acs/data.html) [^us_census] which we will use to introduce some of the basic data input/output functionalities of `geopandas`. Let's start by defining the path to the file that we want to read into the memory: 
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 from pathlib import Path
 
 data_folder = Path("data/Austin")
@@ -39,30 +46,51 @@ fp = data_folder / "austin_pop_2019.gpkg"
 print(fp)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Similar to importing `pandas`, we will first import geopandas as `gpd` which allows us to start using the library. Then we will read the file by passing the filepath to `.read_file()` function of `geopandas`:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 import geopandas as gpd
 
 data = gpd.read_file(fp)
 ```
 
-Let's check the data type:
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+You can use the `.read_file()` command in this way to read data from many different vector formats (GeoPackage, Shapefile, GeoJSON, etc.). Hence, it is very easy to start working with geographic data using geopandas. Let's take a look at the data type of our `data` variable:
+<!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false}
+```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
 type(data)
 ```
 
-Here we see that our `data` -variable is a `GeoDataFrame` which extends the functionalities of
-`DataFrame` to handle spatial data. We can apply many familiar `pandas` methods to explore the contents of our `GeoDataFrame`. Let's have a closer look at the first rows of the data: 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Here we see that our `data` -variable is a `GeoDataFrame` which extends the functionalities of `DataFrame` to handle spatial data as discussed earlier. We can apply many familiar `pandas` methods to explore the contents of our `GeoDataFrame`. Let's have a closer look at the first rows of the data: 
+<!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false}
+```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
 data.head()
 ```
 
-We can see that there are three columns in our `GeoDataFrame`
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+We can see that there are three columns in our `GeoDataFrame`. The columns `pop2019` and `tract` represent attribute information in our data, namely the number of people living on a given census tract and a unique id-number for the tract, wherease the column `geometry` contains the geographic data (polygons) for each census tract.
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+It is always a good idea to explore your geographic data on a map. Creating a simple map from a `GeoDataFrame` is really easy. You can use the `.plot()` function from geopandas that creates a map based on the geometries of the data. `geopandas` actually uses `matplotlib` for plotting which we introduced in Part 1 of this book. Let's try it out, and do a quick visualization of our data.
+<!-- #endregion -->
 
+```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
+data.plot()
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 6.11**. Census tract polygons for Austin, Texas, USA._
+
+Voilá! Now we can see from the map a quick overview of how the geometries of the cencus tracts are located in the given area. The `x` and `y` axes in the plot are based on the coordinate values of the geometries which are in this case represented as meters.
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 #### Question 6.2
 
 Figure out the following information from our input data using your `pandas` skills:
@@ -70,12 +98,13 @@ Figure out the following information from our input data using your `pandas` ski
 - Number of rows?
 - Number of census tracts (based on column `tract`)?
 - Total population (based on column `pop2019`)?
+<!-- #endregion -->
 
-```python tags=["remove_cell"]
+```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
 # You can use this cell to enter your solution.
 ```
 
-```python tags=["remove_book_cell", "hide_cell"]
+```python tags=["remove_book_cell", "hide_cell"] editable=true slideshow={"slide_type": ""}
 # Solution
 
 print("Number of rows", len(data))
@@ -83,58 +112,51 @@ print("Number of census tract", data["tract"].nunique())
 print("Total population", data["pop2019"].sum())
 ```
 
-It is always a good idea to explore your data also on a map. Creating a simple map from a `GeoDataFrame` is really easy. You can use the ``.plot()`` -function from geopandas that creates a map based on the geometries of the data. `geopandas` actually uses `matplotlib` for plotting which we introduced in Part 1 of this book. Let's try it out, and do a quick visualization of our data.
-
-```python jupyter={"outputs_hidden": false}
-data.plot()
-```
-
-_**Figure 6.11**. Census tract polygons for Austin, Texas, USA._
-
-Voilá! Now we have a quick overview of the geometries in this data. The x and y axes in the plot are based on the coordiante values of the geometries.
-
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Geometries in geopandas
 
-A `GeoDataFrame` has one column for storing geometries. By default, `geopandas` looks for the geometries from a column called `geometry`. It is also possible to define other columns as the geometry column. Th geometry column is a `GeoSeries` that contains shapely's geometric objects.  Let's have a look at the geometry column of our sample data.
+As we saw from the previous example, a `GeoDataFrame` has one column for storing geometries. By default, `geopandas` looks for the geometries from a column called `geometry`, which is ultimately a `GeoSeries` data structure containing shapely geometric objects. Let's have a closer look at the geometry column of our data:
+<!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false}
+```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
 data["geometry"].head()
 ```
 
-As we can see here,  the `geometry` column contains polygon geometries. Since these polygons are  `shapely` objects, it is possible to use `shapely` methods for handling them also in `geopandas`. Many of the methods can be applied all at once to the whole `GeoDataFrame`. 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As we can see here,  the `geometry` column contains polygon geometries. The last line above reveals that the data type (`dtype`) of this column is `geometry`. Hence, in a similar manner as `pandas` can identify automatically that specific column contains e.g. integer values, geopandas has identified that the data type of a column containing `shapely.geometry` objects is `geometry`. As we learned earlier, the `shapely.geometry` objects have various useful attributes and methods that we can use to work with geographic data. Luckily for us, it is possible to use all these shapely methods directly in geopandas and apply them to a whole `GeoSeries` without a need to access individual geometries one by one. Hence, most of the shapely methods can be applied all at once to the whole `GeoDataFrame`. With this in mind, let's proceed and calculate the area of each census tract polygon. Calculating an area of all geometries in your data can be done easily by using a command `.area` that comes with the `GeoDataFrame` object. As a reminder, the census data are in a metric coordinate reference system, so the area values will be given in square meters:
+<!-- #endregion -->
 
-Let's proceed to calculating area of the census tract polygons. At this point, it is good to note that the census data are in a metric coordinate reference system, so the area values will be given in square meters.
-
-```python
+```python editable=true slideshow={"slide_type": ""}
 data["geometry"].area
 ```
 
-The same result can be achieved by using the syntax `data.area`. Let's convert the area values from square meters to square kilometers and store them into a new column.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+The same result can be achieved by using the syntax `data.area`. Let's convert the area values from square meters to square kilometers and store them into a new column called `area_km2`:
+<!-- #endregion -->
 
-```python
-# Get area and convert from m2 to km2
+```python editable=true slideshow={"slide_type": ""}
 data["area_km2"] = data.area / 1000000
+data.head()
 ```
 
-Check the output.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As we can see, now we added a new column into our `GeoDataFrame` which contains the area of each polygon as square kilometers. Now you have succesfully conducted your first geocomputational analysis in Python! Quite easy isn't it?
+<!-- #endregion -->
 
-```python
-data["area_km2"].head()
-```
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 #### Question 6.3
 
 Using your `pandas` skills, create a new column `pop_density_km2` and populate it with population density values (population / km2) calculated based on columns `pop2019` and `area_km2`. Print out answers to the following questions:
 
 - What was the average population density in 2019?
 - What was the maximum population density per census tract?
+<!-- #endregion -->
 
-```python tags=["remove_cell"]
+```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
 # Use this cell to enter your solution.
 ```
 
-```python tags=["remove_book_cell", "hide_cell"]
+```python tags=["remove_book_cell", "hide_cell"] editable=true slideshow={"slide_type": ""}
 # Solution
 
 # Calculate population density
