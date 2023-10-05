@@ -100,147 +100,165 @@ _**Figure 6.14**. Basic plot of census tract centroids._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Updating the source for geometries in a GeoDataFrame
-
-Before diving into other examples of geometric operations, let's discuss briefly about different ways to update the source column which is used to represent the geometries in your `GeoDataFrame`. In some cases, such as when calculating the centroids as we did earlier, you might actually want to save the centroids into your `GeoDataFrame` and continue processing or analysing the data based on these centroids. This can be done easily with geopandas, and there are a couple of approaches how to do this:
-
-1. Overwrite the existing geometries in the `geometry` column by storing the centroids into it.
-2. Create a new column (e.g. `centroid`) and store the centroid into this one. Then activate the column as the "source" for geometries in your `GeoDataFrame`. This means that you can have multiple simultaneous columns containing geometries in a `GeoDataFrame` which can be very handy!
-
-Some important remarks about these approaches: The option 1 is very easy to do, but the downside of it is the fact that you do not have access to the original geometries (e.g. polygons) anymore. The option 2 requires a couple of steps, but the good side of it, is that you can easily swap between the original geometries and the centroids in your data. However, when saving the geographic data into disk, you can only include one column with geometries. Hence, latest at this stage, you need to decide which column is used for representing the geometric features in your data. In the following, we demonstrate how to do both of these. Let's start by showing how you can overwrite the existing geometries with centroids:
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-# Make a copy
-option_1 = data.copy()
-
-option_1["geometry"].head(2)
-```
-
-```python editable=true slideshow={"slide_type": ""}
-# Update the geometry column with centroids
-option_1["geometry"] = option_1.centroid
-
-option_1.head(2)
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, now the geometries in the `geometry` column were replaced and populated with `Point` objects that represent the centroids of the polygons. With this approach, you cannot anymore access the original polygon geometries.
-
-The second option is to create a new column for storing the centroids and then use this column as the source for representing geometries of the given `GeoDataFrame`:
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-# Make a copy
-option_2 = data.copy()
-
-# Step 1: Create a column with centroids
-option_2["centroid"] = data.centroid
-option_2.head(2)
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-Now we have two columns in our `GeoDataFrame` that contain geometries. By default, geopandas always uses the `geometry` column as a source for representing the geometries. However, we can easily change this with `.set_geometry()` method which can be used to tell geopandas to use another column with geometries as the geometry-source:
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-# Use centroids as the GeoDataFrame geometries
-option2 = option_2.set_geometry("centroid")
-option2.head(2)
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-Nothing seem to have changed in the data itself, which is good because we did not want to modify any data. However, when we take a look at the `.geometry.name` attribute of the `GeoDataFrame`, we can see that the name of the column used for representing geometries has actually changed:
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-option2.geometry.name
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-We can still confirm this by plotting our `GeoDataFrame` which now returns a map with points:
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-option2.plot()
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-By following this approach, you can easily change the active `geometry` for your `GeoDataFrame`. This can be highly useful when manipulating geometries as you can store the geometries from different computational steps into a same `GeoDataFrame` without a need to make multiple copies of the data. However, we recommend to be a bit careful when storing multiple columns with geometries, as it is possible that you accidentally use a different source for geometries than what you have planned to do, which can cause confusion and problems with your analyses. Always remember the name the columns intuitively which can help avoiding issues and confusion in your analyses!
-<!-- #endregion -->
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Unary union
 
-We can generate a joint outline for the administrative areas through creating a geometric union among all geometries. This could be useful, for example, for visualizing the outlines of a study area. The `unary_union` returns a single geometry object, which is automatically visualized when running the code in a Jupyter Notebook.
+A unary union operation combines multiple geometric objects into a single, unified geometric shape. We can generate a joint outline for the administrative areas through creating a geometric union among all geometries. This can be useful, for example, for visualizing the outlines of a study area. The `.unary_union` returns a single geometry object, which is automatically visualized when running the code in a Jupyter Notebook:
 <!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data.unary_union
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.15**. Union of all of census tract polygon geometries._
+<!-- #endregion -->
 
-
-## Simplifying geometries
-
-Geometry simplification is a useful process especially when visualizing data that has very detailed geometry. With our sample data, we can generate simplified version of the outline extent. The tolerance parameter controls the level of simplification.
-
-```python
-data.unary_union.simplify(tolerance=1000)
-```
-
-_**Figure 6.16**. Simplified union of the census tract polygons._
-
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Bounding polygon
 
-Bounding polygons are useful in many cases for describing the approximate extent of geographic data. A minimum bounding rectangle, also called a bounding box or an envelope is the smallest rectangular polygon surrounding a geometric object. In a `GeoDataFrame`, the `envelope` attribute returns the bounding rectangle for each geometry.
+A bounding polygon, often referred to as a bounding box or envelope, is the smallest rectangular polygon that encloses a given geometry or a set of geometries. In simpler terms, it's like drawing the tightest possible rectangle around a shape, capturing all of its points within this rectangle. The bounding polygon is often used in spatial operations for preliminary filtering because it provides a computationally simple way to test for possible intersections or proximities between geometries that can be used to select data. 
 
-```python
+In a `GeoDataFrame`, we can easily return the minimum bounding rectangle of geometires by using the `envelope` attribute which returns the bounding rectangle for each geometry:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 data.envelope.head()
 ```
 
-In order to get the bounding rectangle for the whole layer, we  first create an union of all geometries using `unary_union`, and then create the bounding rectangle for that polygon.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+In order to get the bounding rectangle for the whole layer, we  first create an union of all geometries using `unary_union`, and then create the bounding rectangle for that polygon:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data.unary_union.envelope
 ```
 
-_**Figure 6.17**. Minimum bounding box for the census tracts._
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 6.16**. Minimum bounding box for the census tracts._
 
-Corner coordinates of the bounding box for a `GeoDataFrame` can be fetched via the `total_bounds` attribute. 
+Corner coordinates of the bounding box for a `GeoDataFrame` can be fetched via the `total_bounds` attribute: 
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data.total_bounds
 ```
 
-The `bounds` attribute returns the bounding coordinates of each feature.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+The `bounds` attribute returns the bounding coordinates of each feature:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data.bounds.head()
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Convex hull
 
-A bit more detailed delineation of the data extent can be extracted using a convex hull which represents the smalles possible polygon that contains all points in an object. If we apply the convex hull method on the whole `GeoDataFrame`, we will get a GeoSeries containing a convex hull for each polygon separately.
+A bit more detailed delineation of the data extent can be extracted using a convex hull which represents the smalles possible polygon that contains all points in an object. To illustrate this, imagine stretching a rubber band around a set of points. Once released, the rubber band would snap into the shape of the convex hull, which wraps around the outermost points. Thus, it excludes points that are "indentations" in the shape. In geocomputation, the convex hull is used for various tasks as it can be used to easily provide a simplified representation of a set of points or a more complex geometry. 
 
-```python
+In geopandas, we can use an attribute `.convex_hull` to return the convex hull of geometries. Similarly as with unary union, if we apply the convex hull method on the whole `GeoDataFrame`, we will get a GeoSeries containing a convex hull for each polygon separately:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 data.convex_hull.head()
 ```
 
-In order to create a covex hull for the whole extent, we need to first create an union of all polygons. 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+In order to create a convex hull for the whole extent, we need to first create an union of all polygons. 
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data.unary_union.convex_hull
 ```
 
-_**Figure 6.18**. Smallest convex polygon for the census tracts._
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 6.17**. Smallest convex polygon for the census tracts._
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Concave hull
 
+A concave hull is a polygon that encloses a set of points but, unlike the convex hull, is allowed to have concavities. In simpler terms, while a convex hull wraps around the outermost points in the tightest convex manner (like a stretched rubber band), a concave hull can bend inward to more closely follow the distribution of the points, providing a boundary that might be more representative of the actual shape of the dataset.
+
+In geopandas, we can create a concave hull of a `GeoDataFrame` by calling `.concave_hull()` function. It works in a very similar manner as the previous examples, but because there are specific parameters that we can adjust, you need to add the parentheses `()` after the command. Again, if we apply the concave hull method on the whole `GeoDataFrame`, we will get a GeoSeries containing a concave hull for each polygon separately:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+data.concave_hull().head()
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+If we want to return the concave hull for all geometries, we need to do a couple of tricks because this functionality does not come directly from shapely but is implemented only on geopandas. We first use `.unary_union` as before, but after this, we generate a `GeoDataFrame` out of this geometry, before calling the `concave_hull()` function:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+concave_hull = gpd.GeoDataFrame({"geometry": [data.unary_union]}).concave_hull()
+concave_hull.plot()
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As we can see, the exact shape of a concave hull has been simplified but the shape looks quite weird and has gaps between the shapes. Because calculating the concave hull is a much more complicated operation than the previous ones, there are actually a couple of parameters which we can use to control the shape of the output. Parameters `ratio` and `allow_holes` can be used in situations where the convex hull is too general or doesn't provide a realistic boundary for a set of points, like when capturing the outline of irregularly shaped clusters. In geopandas, the hull is constructed by removing border triangles of a process called Delaunay Triangulation of the points based on specific criteria. We can very easily improve the shape of the convex hull by adjusting the `ratio` parameter which accepts a value between 0.0 - 1.0. The higher the number, the fewer the number of vertices will be kept in the output. In the following, we can see how changing this value influences the end result. Let's first calculate the concave hull by passing different values for the `ratio` parameter:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Create GeoDataFrame
+gdf_union = gpd.GeoDataFrame({"geometry": [data.unary_union]})
+
+# Ratio 0.05
+concave_hull_a = gdf_union.concave_hull(ratio=0.05)
+
+# Ratio 0.2
+concave_hull_b = gdf_union.concave_hull(ratio=0.2)
+
+# Ratio 0.4
+concave_hull_c = gdf_union.concave_hull(ratio=0.4)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Now, let's plot these geometries side by side, so it is easy to compare them:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+import matplotlib.pyplot as plt
+
+# Create subplots 
+fig, (ax1, ax2, ax3) = plt.subplots(ncols=3)
+
+# Plot side by side
+concave_hull_a.plot(ax=ax1)
+concave_hull_b.plot(ax=ax2)
+concave_hull_c.plot(ax=ax3)
+
+# Remove axis
+ax1.axis("off"); ax2.axis("off"); ax3.axis("off");
+
+# Add titles
+ax1.set_title("Ratio 0.05"); ax2.set_title("Ratio 0.2"); ax3.set_title("Ratio 0.4");
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As we can see, by adjusting the `ratio` parameter, we can have a good control for determining how detailed geometries we get as an output.
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Simplifying geometries
+
+Geometry simplification is a useful process especially when visualizing data that has very detailed geometry. With our sample data, we can generate simplified version of the outline extent. The tolerance parameter controls the level of simplification.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+data.unary_union.simplify(tolerance=1000)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} jp-MarkdownHeadingCollapsed=true -->
+_**Figure 6.18**. Simplified union of the census tract polygons._
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Buffer
 
 Buffering is a common spatial operation that has a multitude of use cases in spatial analyses. For example, in transport network analyses, it is good to fetch the transport network also from outside the study area in order to capture routes that go beyond the study area border. The distance parameter in the `buffer` function defines the radius or the buffer (according to the coordinate reference system of the data). Applying the buffer function on the entire data frame will produce separate buffers for each census tract.
+<!-- #endregion -->
 
 ```python
 # 1000 m buffer for each polygon
@@ -316,6 +334,75 @@ plt.show()
 
 _**Figure 6.21**. Dissolved census tract geometries._
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Updating the source for geometries in a GeoDataFrame
+
+Before diving into other examples of geometric operations, let's discuss briefly about different ways to update the source column which is used to represent the geometries in your `GeoDataFrame`. In some cases, such as when calculating the centroids as we did earlier, you might actually want to save the centroids into your `GeoDataFrame` and continue processing or analysing the data based on these centroids. This can be done easily with geopandas, and there are a couple of approaches how to do this:
+
+1. Overwrite the existing geometries in the `geometry` column by storing the new geometries into it.
+2. Create a new column (e.g. `centroid`) and store the new geometries into this one. Then activate the column as the "source" for geometries in your `GeoDataFrame`. This means that you can have multiple simultaneous columns containing geometries in a `GeoDataFrame` which can be very handy!
+
+Some important remarks about these approaches: The option 1 is very easy to do, but the downside of it is the fact that you do not have access to the original geometries (e.g. polygons) anymore. The option 2 requires a couple of steps, but the good side of it, is that you can easily swap between the original geometries and the centroids in your data. However, when saving the geographic data into disk, you can only include one column with geometries. Hence, latest at this stage, you need to decide which column is used for representing the geometric features in your data. In the following, we demonstrate how to do both of these. Let's start by showing how you can overwrite the existing geometries with centroids:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Make a copy
+option_1 = data.copy()
+
+option_1["geometry"].head(2)
+```
+
+```python editable=true slideshow={"slide_type": ""}
+# Update the geometry column with centroids
+option_1["geometry"] = option_1.centroid
+
+option_1.head(2)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As we can see, now the geometries in the `geometry` column were replaced and populated with `Point` objects that represent the centroids of the polygons. With this approach, you cannot anymore access the original polygon geometries.
+
+The second option is to create a new column for storing the centroids and then use this column as the source for representing geometries of the given `GeoDataFrame`:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Make a copy
+option_2 = data.copy()
+
+# Step 1: Create a column with centroids
+option_2["centroid"] = data.centroid
+option_2.head(2)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Now we have two columns in our `GeoDataFrame` that contain geometries. By default, geopandas always uses the `geometry` column as a source for representing the geometries. However, we can easily change this with `.set_geometry()` method which can be used to tell geopandas to use another column with geometries as the geometry-source:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Use centroids as the GeoDataFrame geometries
+option2 = option_2.set_geometry("centroid")
+option2.head(2)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Nothing seem to have changed in the data itself, which is good because we did not want to modify any data. However, when we take a look at the `.geometry.name` attribute of the `GeoDataFrame`, we can see that the name of the column used for representing geometries has actually changed:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+option2.geometry.name
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+We can still confirm this by plotting our `GeoDataFrame` which now returns a map with points:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+option2.plot()
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+By following this approach, you can easily change the active `geometry` for your `GeoDataFrame` based on data stored in different columns. This can be highly useful when manipulating geometries as you can store the geometries from different computational steps into a same `GeoDataFrame` without a need to make multiple copies of the data. However, we recommend to be a bit careful when storing multiple columns with geometries, as it is possible that you accidentally use a different source for geometries than what you have planned to do, which can cause confusion and problems with your analyses. Always remember the name the columns intuitively which can help avoiding issues and confusion in your analyses!
+<!-- #endregion -->
 
 ## Footnotes
 
