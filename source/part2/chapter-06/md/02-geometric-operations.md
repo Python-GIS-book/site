@@ -12,24 +12,20 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Common geometric operations
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Geometric operations refer to a set of methods that can be used to process and analyze geometric features, like points, lines and polygons. In the context of geographic data analysis, these operations allow us, for instance, to ask questions about how two or more geographic objects relate to each other: Do they intersect, touch, or overlap? Are they adjacent to one another? How far apart are they? With the tools bundled in geopandas, it is easy to perform these kind of operations. As we delve into geometric operations, you'll discover they form the foundation of many geospatial analyses, enabling insights that are often difficult to discern from non-spatial data alone.
 
-Here we demonstrate some of the most common geometry manipulation functions available in `geopandas`. We will continue exploring the census tract data from Austin, Texas. It is often useful to do geometric manipulations on administrative borders for further analysis and visualization purposes. We will learn how to generate centroids, different outlines and buffer zones for the polygons.  
+In the following, we demonstrate some of the most common geometric manipulation functions available in geopandas. We will do this by continuing to explore the census tract data from Austin, Texas. Geometric manipulations are often useful e.g. when working with data related to administrative boundaries, as we often might need to transform or manipulate the geographic data in one way or another for further analysis and visualization purposes. Next, we will learn how to generate centroids, different outlines and buffer zones for the polygons. Let's start by reading the census tract data into `GeoDataFrame`. In this case, we use data that we already manipulated a bit in the previous section (by calculating the area and population density):
+<!-- #endregion -->
 
-```python tags=["remove_cell"]
-import os
-
-os.environ["USE_PYGEOS"] = "0"
-```
-
-```python
+```python editable=true slideshow={"slide_type": ""}
 import geopandas as gpd
-import matplotlib.pyplot as plt
 from pathlib import Path
-```
 
-```python
 # Define path do the data
 data_folder = Path("data/Austin")
 fp = data_folder / "austin_pop_density_2019.gpkg"
@@ -39,62 +35,145 @@ data = gpd.read_file(fp)
 data.head()
 ```
 
-For the purposes of geometric manipulations, we are mainly interested in the geometry column which contains the polygon geometries. Remember, that the data type of the geometry-column is `GeoSeries`. Individual geometries are eventually `shapely` objects and we can use all of `shapely`'s tools for geometry manipulation directly via `geopandas`.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+For the purposes of geometric manipulations, we are mainly interested in the geometry column which contains the polygon geometries. Remember, that the data type of the geometry-column is `GeoSeries`. As we have mentioned earlier, the individual geometries are ultimately shapely geometric objects (e.g. `Point`, `LineString`, `Polygon`), and we can use all of shapely's tools for geometric manipulations directly via geopandas. The following shows that the geometries in the `GeoSeries` are stored as `MultiPolygon` objects:
+<!-- #endregion -->
 
-```python
-# Check contents of the geometry column
+```python editable=true slideshow={"slide_type": ""}
 data["geometry"].head()
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Check data type of the geometry column
 type(data["geometry"])
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Check data type of a value in the geometry column
 type(data["geometry"].values[0])
 ```
 
-Let's first plot the original geometries. We can use the in-built plotting function in `geopandas` to plot the geometries, and `matplotlib.pyplot` to turn off axis lines and labels.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Let's first plot the original geometries. We can use the built-in `.plot()` function in geopandas to plot the geometries, and `matplotlib.pyplot` to turn off axis lines and labels:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
+import matplotlib.pyplot as plt
+
 data.plot(facecolor="none", linewidth=0.2)
 
 plt.axis("off")
 plt.show()
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.13**. Basic plot of the census tracts._
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Centroid
 
-Extracting the centroid of geometric features is useful in many cases. Geometric centroid can, for example, be used for locating text labels in visualizations. We can extract the center point of each polygon via the `centroid`-attribute of the geometry-column. The data should be in a projected coordinate reference system when calculating the centroids. If trying to calculate centroids based on latitude and longitude information, `geopandas` will warn us that the results are likely incorrect. Our sample data are in WGS 84 / UTM zone 14N (EPSG:32614), which is a projected , and we can proceed to calculating the centroids.
+The centroid of a geometry is the geometric center of a given geometry (line, polygon or a geometry collection). Extracting the centroid of geometric features is useful in many cases. Geometric centroid can, for example, be used for locating text labels in visualizations. We can extract the center point of each polygon via the `centroid` attribute of the `geometry` column. The data should be in a projected coordinate reference system when calculating the centroids. If trying to calculate centroids based on latitude and longitude information, geopandas will warn us that the results are likely (slightly) incorrect. Our `GeoDataFrame` is in WGS 84 / UTM zone 14N (EPSG:32614) coordinate reference system (CRS) which is a projected one (we will learn more about these in the next section). Thus, we can directly proceed to calculating the centroids:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data.crs.name
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data["geometry"].centroid.head()
 ```
 
-We can also apply the method directly to the `GeoDataFrame` to achieve the same result using the syntax `data.centroid`. At the same time, we can also  plot the centroids for a visual check.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+We can also apply the method directly to the `GeoDataFrame` to achieve the same result using the syntax `data.centroid`. At the same time, we can also  plot the centroids for a visual check:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data.centroid.plot(markersize=1)
 
 plt.axis("off")
 plt.show()
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.14**. Basic plot of census tract centroids._
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Updating the source for geometries in a GeoDataFrame
 
+Before diving into other examples of geometric operations, let's discuss briefly about different ways to update the source column which is used to represent the geometries in your `GeoDataFrame`. In some cases, such as when calculating the centroids as we did earlier, you might actually want to save the centroids into your `GeoDataFrame` and continue processing or analysing the data based on these centroids. This can be done easily with geopandas, and there are a couple of approaches how to do this:
+
+1. Overwrite the existing geometries in the `geometry` column by storing the centroids into it.
+2. Create a new column (e.g. `centroid`) and store the centroid into this one. Then activate the column as the "source" for geometries in your `GeoDataFrame`. This means that you can have multiple simultaneous columns containing geometries in a `GeoDataFrame` which can be very handy!
+
+Some important remarks about these approaches: The option 1 is very easy to do, but the downside of it is the fact that you do not have access to the original geometries (e.g. polygons) anymore. The option 2 requires a couple of steps, but the good side of it, is that you can easily swap between the original geometries and the centroids in your data. However, when saving the geographic data into disk, you can only include one column with geometries. Hence, latest at this stage, you need to decide which column is used for representing the geometric features in your data. In the following, we demonstrate how to do both of these. Let's start by showing how you can overwrite the existing geometries with centroids:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Make a copy
+option_1 = data.copy()
+
+option_1["geometry"].head(2)
+```
+
+```python editable=true slideshow={"slide_type": ""}
+# Update the geometry column with centroids
+option_1["geometry"] = option_1.centroid
+
+option_1.head(2)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As we can see, now the geometries in the `geometry` column were replaced and populated with `Point` objects that represent the centroids of the polygons. With this approach, you cannot anymore access the original polygon geometries.
+
+The second option is to create a new column for storing the centroids and then use this column as the source for representing geometries of the given `GeoDataFrame`:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Make a copy
+option_2 = data.copy()
+
+# Step 1: Create a column with centroids
+option_2["centroid"] = data.centroid
+option_2.head(2)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Now we have two columns in our `GeoDataFrame` that contain geometries. By default, geopandas always uses the `geometry` column as a source for representing the geometries. However, we can easily change this with `.set_geometry()` method which can be used to tell geopandas to use another column with geometries as the geometry-source:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Use centroids as the GeoDataFrame geometries
+option2 = option_2.set_geometry("centroid")
+option2.head(2)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Nothing seem to have changed in the data itself, which is good because we did not want to modify any data. However, when we take a look at the `.geometry.name` attribute of the `GeoDataFrame`, we can see that the name of the column used for representing geometries has actually changed:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+option2.geometry.name
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+We can still confirm this by plotting our `GeoDataFrame` which now returns a map with points:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+option2.plot()
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+By following this approach, you can easily change the active `geometry` for your `GeoDataFrame`. This can be highly useful when manipulating geometries as you can store the geometries from different computational steps into a same `GeoDataFrame` without a need to make multiple copies of the data. However, we recommend to be a bit careful when storing multiple columns with geometries, as it is possible that you accidentally use a different source for geometries than what you have planned to do, which can cause confusion and problems with your analyses. Always remember the name the columns intuitively which can help avoiding issues and confusion in your analyses!
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Unary union
 
 We can generate a joint outline for the administrative areas through creating a geometric union among all geometries. This could be useful, for example, for visualizing the outlines of a study area. The `unary_union` returns a single geometry object, which is automatically visualized when running the code in a Jupyter Notebook.
+<!-- #endregion -->
 
 ```python
 data.unary_union
