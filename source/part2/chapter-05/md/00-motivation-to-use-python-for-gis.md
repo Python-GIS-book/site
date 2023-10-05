@@ -5,17 +5,18 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Motivation
 
 Now that you are familiar with the basics of Python programming and data analysis using `pandas` library, it is time to apply those skills to geographic data analysis. In this part of the book, you will learn how to deal with spatial data and analyze it using Python and various libraries that have been developed for GIS-related tasks. 
-
+<!-- #endregion -->
 
 ## Why to use Python for geographic data analysis?
 
@@ -32,8 +33,8 @@ Python is extremely useful language to learn if you are interested in geographic
 - **You can plug-in and chain different third-party softwares** (not necessarily written in Python) which allow you to build e.g. fancy web-GIS applications (using e.g. KeplerGL, Dask or GeoDjango for developing the user interface and having PostGIS as a back-end database).
 - **Python libraries are developing fast**: an active open source community is continuously improving existing libraries and adding new functionalities to them, or creating new libraries for purposes that do not yet have an existing tool to work with. However, it is good to be aware that fast development is not necessarily a guarantee of stability or quality. Hence, as for any open source library (with any programming language), it is good to investigate a bit before starting to use a new open source library whether it has been actively maintained and if it seems to have an active community of users developing the library further. 
 
-
-## Python GIS ecosystem: Core libraries for doing GIS and geographic data analysis
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Core libraries for geographic data analysis in Python
 
 We have already used a few Python modules for conducting different tasks, such as `pandas` for doing some basic data analysis tasks or `matplotlib` for visualizing our data. From now on, we will familiarize ourselves with a punch of other Python modules that are useful when for geographic data analysis and different GIS related operations. Python has a large ecosystem of libraries that can be used for doing analysis, visualization or geocomputation with spatial data, as shown in Figure 5.1 which shows how different Python geo-oriented libraries (n=145) are linked to each other. There is a dedicated website at ecosystem.pythongis.org [^ecosystem] that lists and provides useful information for a large set of tools available for doing GIS and Earth Observation (remote sensing) in Python. Naturally, we won't use all of these packages in this book, but we will explore kind many of them. Although the ecosystem is broad, there are a few core libraries that are widely used across the ecosystem:
 
@@ -43,10 +44,11 @@ We have already used a few Python modules for conducting different tasks, such a
 ![_**Figure 5.1**. Python ecosystem for GIS and Earth Observation ({cite}`Tenkanen_2022`)._](../img/python-gis-ecosystem.png)
 
 _**Figure 5.1**. Python ecosystem for GIS and Earth Observation ({cite}`Tenkanen_2022`)._
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 One drawback of such a broad open source ecosystem compared to using a specific GIS software such as ArcGIS, is that open source tools and their documentation are spread under different Python modules and created by different developers. This means that when working you need to familiarize yourself with many different tools and their  documentation, whereas in ArcGIS everything is packaged under a same module called arcpy and all the documentation can be found from a single location. However, open source libraries have many other benefits as described earlier.
-
+<!-- #endregion -->
 
 ## Footnotes
 
