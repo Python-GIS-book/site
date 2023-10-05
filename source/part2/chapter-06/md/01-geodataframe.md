@@ -192,7 +192,7 @@ Writing the contents of this `GeoDataFrame` into a file can be done by using the
 
 ```python editable=true slideshow={"slide_type": ""}
 # Create a output path for the data
-output_fp = data_folder / "austin_pop_density_2019.gpkg"
+output_fp = "data/Temp/austin_pop_density_2019.gpkg"
 
 # Write the file
 data.to_file(output_fp)
