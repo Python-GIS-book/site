@@ -17,13 +17,13 @@ jupyter:
 
 Now as we have learned how to create and represent geographic data in Python using shapely objects, we will continue and use [geopandas](https://geopandas.org/) [^geopandas] as our main tool for spatial data analysis in vector format. 
 
-**Geopandas** is a Python library designed to make working with geospatial data in Python easier. It extends the datatypes used by pandas (which we covered in Part I) to allow geospatial operations on geometric types. Essentially, it provides a high-level interface for vector data (like points, lines, and polygons) that integrates well with the existing pandas framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5), making it easy to conduct spatial operations and analyses.
+**Geopandas** is a Python library designed to make working with geospatial data in Python easier. It extends the data types used by pandas (which we covered in Part I) to allow geospatial operations on geometric types. Essentially, it provides a high-level interface for vector data (like points, lines, and polygons) that integrates well with the existing pandas framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5). Geopandas is one of the core libraries for GIS in Python and it is widely used in different sectors (academia, industry, etc.) for conducting spatial operations and analyses.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## GeoDataFrame data structures
+## What is a GeoDataFrame?
 
-The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and geograpchic data. A `GeoDataFrame` is basically a `pandas.DataFrame` that contains a dedicated column for storing geometries (see Figure 6.10). The geometry column is a `GeoSeries` which contains the geometries as shapely objects (points, lines, polygons, multipolygons etc.). 
+The main data structures in geopandas are `GeoSeries` and `GeoDataFrame` which extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and geograpchic data. A `GeoDataFrame` is basically a `pandas.DataFrame` that contains a dedicated column for storing geometries (see Figure 6.10). The geometry column is a `GeoSeries` which contains the geometries as shapely objects (points, lines, polygons, multipolygons etc.). As we learned in the previous section, shapely provides many useful functionalities to work with geographic data. Luckily for us, these same functionalities can be directly applied to `GeoSeries` which makes it extremely convenient to work with data layers that potentially contain thousands or even millions of geographic features. In this chapter, you will learn various useful techniques and tools bundled in geopandas that help you to work with geographic data in vector format.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -267,6 +267,10 @@ data = gpd.read_file(fp)
 fp = "data/Austin/austin_pop_2019.geojson"
 data = gpd.read_file(fp)
 
+# Read file from Geodatabase
+fp = "data/Austin/austin_pop_2019.gdb"
+data = gpd.read_file(fp)
+
 # Read file from MapInfo TAB
 fp = "data/Austin/austin_pop_2019.tab"
 data = gpd.read_file(fp)
@@ -303,7 +307,7 @@ data = gpd.read_file(fp)
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-In case you receive an error that says something like "unsupported driver: XXX", it means that the given data format is not supported by geopandas by default. Luckily, most often you are still able to read the data after telling to geopandas that it is okay to read the data from a given data format. As an example, here we tell the geopandas to support KML file format by adding `LIBKML` to supported drivers, and specify that it is possible to data read and write data with this file format (by adding `"rw"`):
+In case you receive an error that says something like `DriverError: unsupported driver: XXXXX`, it means that the given data format is not ready for reading by default. Luckily, most often you are still able to read the data after telling geopandas that it is okay to read the data from a given data format. As an example, here we tell the geopandas to support KML file format by adding `LIBKML` to supported drivers, and specify that it is possible to data read and write data with this file format (by adding `"rw"`):
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -313,14 +317,16 @@ gpd.io.file.fiona.drvsupport.supported_drivers["LIBKML"] = "rw"
 # Read file from KML
 fp = "data/Austin/austin_pop_2019.kml"
 data = gpd.read_file(fp)
+
+type(data)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-After this small adjustment, geopandas was able to read the KML file without a problem! In a similar manner, you can also enable some other file formats that are not enabled by default for reading and/or writing.
+After this small adjustment, geopandas is able to read the KML file into a `GeoDataFrame` without a problem. In a similar manner, you can also enable some other file formats that are not enabled by default for reading and/or writing.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Lastly, we demonstrate how it is possible to read data directly from a Zipfile which can be quite useful especially if you are working with large datasets or a collection of multiple files stored into a single Zipfile. ZipFile is a data format where the data is compressed efficiently. For instance after "zipping" Shapefiles, the disk space needed to store the data in the given format will be significantly lower. To read the data from ZipFiles, we can use the built-in Python library called **zipfile** and its `ZipFile` object, which makes it possible to work with compressed ZipFiles. The following example shows how to read data from a ZipFile. Let's start by opening the ZipFile into a variable `z` and read the names of the files stored inside of it with the method `.namelist()`:
+Lastly, we demonstrate how it is possible to read data directly from a ZIP file format which can be quite useful especially if you are working with large datasets or a collection of multiple files stored into a single ZIP archive. ZIP file is an archive data format where the data is compressed efficiently. For instance, after zipping Shapefiles, the disk space needed to store the data in the given format will be significantly lower. To read the data from ZIP files, we can use the built-in Python library called **zipfile** and its `ZipFile` object which makes it possible to work with compressed ZIP files. The following example shows how to read data from a compressed ZIP file. Let's start by opening the file into a variable `z` and then read the names of the files stored inside the archive with the method `.namelist()`:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -333,7 +339,7 @@ with ZipFile(fp) as z:
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, the given `ZipFile` contains only a single GeoPackage called `building_points_helsinki.gpkg`. The `with ZipFile(fp) as z:` command here is a standard Python convention to open files in read-format from ZipFiles. To read the contents of the GeoPackage stored inside the ZipFile, we first need use the `.read()` function of the opened `ZipFile` object to read the contents of the file into bytes. After this step, we still need to pass these bytes into a `BytesIO` in-memory file buffer by using the built-in `io` library. This file buffer that can then be used to read the actual contents of the file into geopandas. This maybe sounds complicated, but it actually only requires a few lines of code:
+As you can see, the given `ZipFile` which is opened in variable `z` contains only a single GeoPackage called `building_points_helsinki.gpkg`. The `with ZipFile(fp) as z:` command here is a standard Python convention to open files in read-format from ZIP files. To read the contents of the GeoPackage stored inside the file, we first need use the `.read()` function of the opened `ZipFile` object to read the contents of the file into bytes. After this step, we need to pass these bytes into a `BytesIO` in-memory file buffer by using the built-in `io` library. A file buffer is an in-memory file-like object that can be used as a temporary storage or buffer for bytes-like data. Instead of writing data directly to a physical file on a disk, it allows you to write the data into a `BytesIO` object, which stores the data in computer's memory. This file buffer can then be used by geopandas to read the actual contents of the file into a `GeoDataFrame`. This might sound a bit complicated, but it actually requires only a few lines of code:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -355,35 +361,39 @@ buildings.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Ta-da! Now we have succesfully read the GeoPackage from the ZipFile into a variable `buildings`. In many cases you might have multiple files stored inside a ZipFile. Following and modifying the examples above (namely the `name_of_the_file` and `fp` variables), you can easily explore the files that are stored inside a given ZipFile and read any geographic data stored in the ZipFile into geopandas.
+Ta-da! Now we have succesfully read the GeoPackage from the given ZIP file into a variable `buildings`. In many cases you might have multiple files stored inside a ZIP archive. Following and modifying the examples above (namely the `name_of_the_file` and `fp` variables), you can easily explore the files that are stored inside a given ZIP file and read any geographic data stored in the file into geopandas.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Writing vector data
 
-We can save spatial data to various vector data formats using the `.to_file()` function in geopandas which also relies on the fiona library. It is possible to specify the output file format using the `driver` parameter, however, for most file formats it is not needed as the tool is able to infer the driver from the file extension (similarly as when reading data):
+We can save spatial data to various vector data formats using the `.to_file()` method of the `GeoDataFrame`. Similarly as when reading data, this functionality also relies on the fiona library under the hood. When writing a `GeoDataFrame` into a file, you basically only need to pass a filename/path to the `.to_file()` method, which will then write the data into the given file. It is possible to specify the output file format using the `driver` parameter. However, for most file formats it is not needed as the tool is able to infer the driver from the file extension (similarly as when reading data):
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-# Write to Shapefile (just make a copy)
+# Write to Shapefile 
 outfp = "data/Temp/austin_pop_2019.shp"
 data.to_file(outfp)
 
-# Write to Geopackage (just make a copy)
-outfp = "data/Temp/austin_pop_2019.gpkg"
-data.to_file(outfp, driver="GPKG")
-
-# Write to GeoJSON (just make a copy)
-outfp = "data/Temp/austin_pop_2019.geojson"
-data.to_file(outfp, driver="GeoJSON")
-
-# Write to MapInfo Tab (just make a copy)
+# Write to MapInfo Tab 
 outfp = "data/Temp/austin_pop_2019.tab"
 data.to_file(outfp)
 
-# Write to KML (just make a copy)
+# Write to Geopackage 
+outfp = "data/Temp/austin_pop_2019.gpkg"
+data.to_file(outfp, driver="GPKG")
+
+# Write to GeoJSON 
+outfp = "data/Temp/austin_pop_2019.geojson"
+data.to_file(outfp, driver="GeoJSON")
+
+# Write to KML 
 outfp = "data/Temp/austin_pop_2019.kml"
 data.to_file(outfp, driver="LIBKML")
+
+# Write to File Geodatabase
+outfp = "data/Temp/austin_pop_2019.gdb"
+data.to_file(outfp, driver="OpenFileGDB")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -438,7 +448,7 @@ There it is! Now we have four columns in our data, one representing the geometry
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-A common case is to have coordinates in a delimited textfile that needs to be converted into geospatial data. In such a case, we can make use of the pandas, geopandas and shapely libraries for doing this. The example data below contains point coordinates of airports derived from [openflights.org](https://openflights.org/data.html) [^openflights]. Let's read a couple of useful columns from the data into pandas `DataFrame` for further processing:
+One rather typical situation that you might encounter when working with your course mates or colleagues, is that you receive data that has coordinates but they are stored e.g. in a delimited textfile (or an Excel file). In this case, you cannot directly read the data into `GeoDataFrame` from the text file, but it needs to be converted into geospatial data using the coordinate information. In such a case, we can make use of the pandas, geopandas and shapely libraries for turning the data from a text file into a fully functional `GeoDataFrame`. To demonstrate this, we have some example data below that contains point coordinates of airports derived from [openflights.org](https://openflights.org/data.html) [^openflights]. The operation of turning this data into a `GeoDataFrame` begins with reading the data with pandas into a `DataFrame`. Let's read a couple of useful columns from the data for further processing:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -452,11 +462,15 @@ airports.head()
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
+type(airports)
+```
+
+```python editable=true slideshow={"slide_type": ""}
 len(airports)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-There are over 7000 airports in the data and we can use the coordinate information available in the `Latitude` and `Longitude` columns for visualizing them on a map. The coordinates are stored as *{term}`Decimal degrees <Decimal degrees>`*. There is a handy function in geopandas called `.points_from_xy()` for generating an array of `Point` objects based on x and y coordinates. This function assumes that x coordinates represent longitude and that y coordinates represent latitude. The following shows how we can create geometries for the airports:
+As we can see, now the data was read from a textfile into a regular pandas `DataFrame`. In a similar manner, you can read data with coordinates from numerous file formats supported by pandas. Our data covers over 7000 airports with specific attribute information including the coordinates in the `Latitude` and `Longitude` columns. We can use this coordinate information for turning this data into a `GeoDataFrame` and ultimately visualizing the data on a map. There is a handy function in geopandas called `.points_from_xy()` for generating an array of `Point` objects based on `x` and `y` coordinates. This function assumes that x-coordinates represent longitude and the y-coordinates represent latitude. The following code snippet shows how we can create geometries for the airports based on these coordinates:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -468,8 +482,12 @@ airports = gpd.GeoDataFrame(airports)
 airports.head()
 ```
 
+```python editable=true slideshow={"slide_type": ""}
+type(airports)
+```
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now we have the point geometries as `shapely`objects in the geometry-column ready to be plotted on a map.
+The `GeoDataFrame` was created with a couple of steps. First, we created a new column called `geometry` into the `DataFrame` and used the `.points_from_xy()` function to turn the coordinates into shapely `Point` objects. At this stage, the data is still in a `DataFrame` format, but we can easily convert the data into a `GeoDataFrame`. The second command in the code snippet converts the pandas `DataFrame` into a `GeoDataFrame` which then has all the capabilities and tools bundled with geopandas. After these two steps, we have succesfully turned the data into geospatial format and we can for example plot the data on a map:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
