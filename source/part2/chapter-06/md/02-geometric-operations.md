@@ -225,7 +225,7 @@ Now, let's plot these geometries side by side, so it is easy to compare them:
 ```python editable=true slideshow={"slide_type": ""}
 import matplotlib.pyplot as plt
 
-# Create subplots 
+# Create subplots
 fig, (ax1, ax2, ax3) = plt.subplots(ncols=3)
 
 # Plot side by side
@@ -234,10 +234,14 @@ concave_hull_b.plot(ax=ax2)
 concave_hull_c.plot(ax=ax3)
 
 # Remove axis texts
-ax1.axis("off"); ax2.axis("off"); ax3.axis("off");
+ax1.axis("off")
+ax2.axis("off")
+ax3.axis("off")
 
 # Add titles
-ax1.set_title("Ratio 0.05"); ax2.set_title("Ratio 0.2"); ax3.set_title("Ratio 0.4");
+ax1.set_title("Ratio 0.05")
+ax2.set_title("Ratio 0.2")
+ax3.set_title("Ratio 0.4")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -258,7 +262,7 @@ Under the hood, the `.simplify()` uses a Douglas-Peucker algorithm to recursivel
 data.simplify(tolerance=1000).head()
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} jp-MarkdownHeadingCollapsed=true -->
+<!-- #region editable=true jp-MarkdownHeadingCollapsed=true slideshow={"slide_type": ""} -->
 In a similar manner as before, we can easily apply the `.simplify()` to the extent of all geometries by first getting the unary union of the input geometries:
 <!-- #endregion -->
 

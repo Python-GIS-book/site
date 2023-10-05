@@ -60,7 +60,7 @@ data = gpd.read_file(fp)
 You can use the `.read_file()` command in this way to read data from many different vector formats (GeoPackage, Shapefile, GeoJSON, etc.). Hence, it is very easy to start working with geographic data using geopandas. Let's take a look at the data type of our `data` variable:
 <!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
+```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 type(data)
 ```
 
@@ -68,7 +68,7 @@ type(data)
 Here we see that our `data` -variable is a `GeoDataFrame` which extends the functionalities of `DataFrame` to handle spatial data as discussed earlier. We can apply many familiar `pandas` methods to explore the contents of our `GeoDataFrame`. Let's have a closer look at the first rows of the data: 
 <!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
+```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 data.head()
 ```
 
@@ -80,7 +80,7 @@ We can see that there are three columns in our `GeoDataFrame`. The columns `pop2
 It is always a good idea to explore your geographic data on a map. Creating a simple map from a `GeoDataFrame` is really easy. You can use the `.plot()` function from geopandas that creates a map based on the geometries of the data. `geopandas` actually uses `matplotlib` for plotting which we introduced in Part 1 of this book. Let's try it out, and do a quick visualization of our data.
 <!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
+```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 data.plot()
 ```
 
@@ -100,11 +100,11 @@ Figure out the following information from our input data using your `pandas` ski
 - Total population (based on column `pop2019`)?
 <!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # You can use this cell to enter your solution.
 ```
 
-```python tags=["remove_book_cell", "hide_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
 # Solution
 
 print("Number of rows", len(data))
@@ -118,7 +118,7 @@ print("Total population", data["pop2019"].sum())
 As we saw from the previous example, a `GeoDataFrame` has one column for storing geometries. By default, `geopandas` looks for the geometries from a column called `geometry`, which is ultimately a `GeoSeries` data structure containing shapely geometric objects. Let's have a closer look at the geometry column of our data:
 <!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
+```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 data["geometry"].head()
 ```
 
@@ -160,11 +160,11 @@ Using your `pandas` skills, create a new column `pop_density_km2` and populate i
 - What was the maximum population density per census tract?
 <!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["remove_book_cell", "hide_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
 # Solution
 
 # Calculate population density
@@ -212,7 +212,7 @@ Read the output file using `geopandas` and check that the data looks ok.
 # Use this cell to enter your solution.
 ```
 
-```python tags=["remove_book_cell", "hide_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
 # Solution
 
 temp = gpd.read_file(output_fp)
@@ -300,7 +300,7 @@ data = gpd.read_file(fp)
 ![Unsupported driver error.](../img/unsupported_driver_error.png)
 <!-- #endregion -->
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, center, nofloat}{../img/unsupported_driver_error.png}
 { \hspace*{\fill} \\}
@@ -371,23 +371,23 @@ We can save spatial data to various vector data formats using the `.to_file()` m
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-# Write to Shapefile 
+# Write to Shapefile
 outfp = "data/Temp/austin_pop_2019.shp"
 data.to_file(outfp)
 
-# Write to MapInfo Tab 
+# Write to MapInfo Tab
 outfp = "data/Temp/austin_pop_2019.tab"
 data.to_file(outfp)
 
-# Write to Geopackage 
+# Write to Geopackage
 outfp = "data/Temp/austin_pop_2019.gpkg"
 data.to_file(outfp, driver="GPKG")
 
-# Write to GeoJSON 
+# Write to GeoJSON
 outfp = "data/Temp/austin_pop_2019.geojson"
 data.to_file(outfp, driver="GeoJSON")
 
-# Write to KML 
+# Write to KML
 outfp = "data/Temp/austin_pop_2019.kml"
 data.to_file(outfp, driver="LIBKML")
 
@@ -430,10 +430,10 @@ In this way, we can easily create a `GeoDataFrame` without any attribute data. H
 
 ```python editable=true slideshow={"slide_type": ""}
 gdf_data = {
-    "geometry": [poly], 
+    "geometry": [poly],
     "name": "Senate Square",
     "city": "Helsinki",
-    "year": 2023
+    "year": 2023,
 }
 new_data_extended = gpd.GeoDataFrame(gdf_data)
 new_data_extended
