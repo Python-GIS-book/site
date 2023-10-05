@@ -29,7 +29,7 @@ from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferen
 # -- Project information -----------------------------------------------------
 
 project = "Introduction to Python for Geographic Data Analysis"
-copyright = "2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
+copyright = "2020-2023, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
 author = "Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
 
 
