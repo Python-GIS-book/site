@@ -12,19 +12,14 @@ jupyter:
     name: python3
 ---
 
-# Selecting data based on spatial relationships
+# Selecting data based on spatial relations
 
-Finding out if a certain point is located inside or outside of an area, or finding out if a line intersects with another line or polygon are
-fundamental geospatial operations that are often used e.g. to select data based on location. Such spatial queries are one of the typical
-first steps of the workflow when doing spatial analysis. Performing a spatial join (will be introduced later) between two spatial datasets is
-one of the most typical applications where Point in Polygon (PIP) query is used. 
-
-For further reading about PIP and other geometric operations, see Chapter 4.2 in Smith, Goodchild & Longley: [Geospatial Analysis - 6th edition](https://www.spatialanalysisonline.com/HTML/index.html).
+Finding out if a certain point is located inside or outside of an area, or finding out if a line intersects with another line or polygon are fundamental geospatial operations that are often used e.g. to select data based on location. Such spatial queries are one of the typical first steps of the workflow when doing spatial analysis. Performing a spatial join between two spatial datasets is one of the most typical applications where Point in Polygon (PIP) query is used. For further reading about PIP and other geometric operations, see Chapter 4.2 in Smith, Goodchild & Longley: [Geospatial Analysis - 6th edition](https://www.spatialanalysisonline.com/HTML/index.html).
 
 
 ## How to check if point is inside a polygon?
 
-Computationally, detecting if a point is inside a polygon is most commonly done using a specific formula called [Ray Casting algorithm](https://en.wikipedia.org/wiki/Point_in_polygon#Ray_casting_algorithm).
+Computationally, detecting if a point is inside a polygon can be done in different ways, but most using a *Dimensionally Extended 9-Intersection Model* ([DE-9IM](https://en.wikipedia.org/wiki/DE-9IM)) which is .
 Luckily, we do not need to create such a function ourselves for
 conducting the Point in Polygon (PIP) query. Instead, we can take
 advantage of [Shapely's binary predicates](https://shapely.readthedocs.io/en/stable/manual.html#binary-predicates)
