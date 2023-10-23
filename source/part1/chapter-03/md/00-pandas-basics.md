@@ -12,12 +12,13 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Getting started with data analysis
-
+<!-- #endregion -->
 
 ## What is pandas?
 
-The [pandas Python library](https://pandas.pydata.org/) [^pandas] is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community ({cite}`McKinney2017`). 
+The [pandas Python library](https://pandas.pydata.org/) [^pandas] is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community ({cite}`McKinney2022`). 
 
 Pandas is a "high-level" package, which means that it makes use of several other packages in the background. It combines the performance of powerful Python libraries such as [NumPy](https://numpy.org/) [^numpy], [matplotlib](https://matplotlib.org/) [^matplotlib] and [SciPy](https://scipy.org/) [^scipy].
 
@@ -44,7 +45,7 @@ In pandas, table-like data are stored in two-dimensional `DataFrame` objects wit
 
 _**Figure 3.1**. Illustration of pandas DaraFrame and pandas Series data structures. Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values._
 
-As you can see from Figure 3.1, both the DataFrame and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the next sections, we will use many of these features to explore real-world data and learn some useful data analysis procedures. For a comprehensive overview of pandas data structures, we recommend you to have a look at pandas online documentation about data structures [^pandas_ds] as well as Chapter 5 in {cite}`McKinney2017`.
+As you can see from Figure 3.1, both the DataFrame and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the next sections, we will use many of these features to explore real-world data and learn some useful data analysis procedures. For a comprehensive overview of pandas data structures, we recommend you to have a look at pandas online documentation about data structures [^pandas_ds] as well as Chapter 5 in {cite}`McKinney2022`.
 <!-- #endregion -->
 
 <!-- #region -->
@@ -262,9 +263,11 @@ Here we see that `YEARMODA` is an integer value (with 64-bit precision; ``int64`
 <!-- #endregion -->
 
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.1
 
 How would you print out the number of columns in our DataFrame?
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -433,6 +436,7 @@ df["lat"] = latitudes
 df
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^pandas]: <https://pandas.pydata.org/>
@@ -445,3 +449,4 @@ df
 [^readcsv]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html>
 [^pandas_io]: <https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5>
 
+<!-- #endregion -->

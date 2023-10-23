@@ -12,12 +12,13 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Working with temporal data
 
 > “Ever since the dawn of civilization, people have not been content to see events as unconnected and inexplicable. They have craved an understanding of the underlying order in the world." - Stephen Hawking (1988)
 
 Time is one of the most fundamental ways how we humans organize things in life and what we use to find understanding of the underlying world, as Stephen {cite}`Hawking1988` famously put it in his book "A brief history of time". Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and pandas.
-
+<!-- #endregion -->
 
 ## Date and time basics
 
