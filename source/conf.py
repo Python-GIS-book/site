@@ -20,7 +20,7 @@ from pybtex.style.labels import BaseLabelStyle
 import pybtex
 from collections import Counter
 
-import dataclasses
+from dataclasses import dataclass, field
 import sphinxcontrib.bibtex.plugin
 
 from sphinxcontrib.bibtex.style.referencing import BracketStyle
@@ -265,7 +265,7 @@ my_bracket_style = BracketStyle(
 )
 
 
-@dataclasses.dataclass
+@dataclass
 class MyReferenceStyle(AuthorYearReferenceStyle):
     bracket_parenthetical: BracketStyle = field(default_factory=my_bracket_style)
     bracket_textual: BracketStyle = field(default_factory=my_bracket_style)
