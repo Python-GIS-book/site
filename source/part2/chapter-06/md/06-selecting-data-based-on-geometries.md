@@ -12,19 +12,14 @@ jupyter:
     name: python3
 ---
 
-# Selecting data based on spatial relations
+# Selecting data based on spatial relationship
 
-Finding out if a certain point is located inside or outside of an area, or finding out if a line intersects with another line or polygon are fundamental geospatial operations that are often used e.g. to select data based on location. Such spatial queries are one of the typical first steps of the workflow when doing spatial analysis. Performing a spatial join between two spatial datasets is one of the most typical applications where Point in Polygon (PIP) query is used. For further reading about PIP and other geometric operations, see Chapter 4.2 in Smith, Goodchild & Longley: [Geospatial Analysis - 6th edition](https://www.spatialanalysisonline.com/HTML/index.html).
+Finding out if a certain point is located inside or outside of an area, or finding out if a line intersects with another line (or a polygon) are one of the fundamental geospatial operations that are often needed when e.g. selecting data for a specific region. These kind of queries are something that relate to *term`{topological spatial relations}`* which are fundamental constructs that describe how two or more spatial objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as "contains", "touches", "overlaps" and "disjoint" ({cite}`Clementini_1994`). For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. In GIS, these kind of topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities and more focused on their relative arrangements and positions. Next, we will learn how to conduct these kind of spatial queries with Python and conduct a Point in Polygon query, i.e. select points that are within specific area of interest.
 
 
 ## How to check if point is inside a polygon?
 
-Computationally, detecting if a point is inside a polygon can be done in different ways, but most using a *Dimensionally Extended 9-Intersection Model* ([DE-9IM](https://en.wikipedia.org/wiki/DE-9IM)) which is .
-Luckily, we do not need to create such a function ourselves for
-conducting the Point in Polygon (PIP) query. Instead, we can take
-advantage of [Shapely's binary predicates](https://shapely.readthedocs.io/en/stable/manual.html#binary-predicates)
-that can evaluate the topolocical relationships between geographical
-objects, such as the PIP as we're interested here.
+Computationally, conducting queries based on topological spatial relations, such as detecting if a point is inside a polygon can be done in different ways but most GIS software rely on something called *term`{Dimensionally Extended 9-Intersection Model}`* ([DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) [^DE-9IM]). DE-9IM is a fundamental framework in GIS used for describing and analyzing spatial relationships between geometric objects. DE-9IM provides a matrix-based approach where the rows and columns represent the interior, boundary, and exterior of two geometric shapes being compared. By examining the intersections of these parts, a detailed characterization of their spatial relationship can be achieved, including spatial predicates such as "touches", "overlaps", and "contains". Luckily, when working with Python, we do not need to create such functionalities ourselves, but we can take advantage of DE-9IM functionalities implemented in shapely and geopandas that can evaluate the topolocical relationships between geographical objects.
 
 There are basically two ways of conducting PIP in Shapely:
 
@@ -379,3 +374,7 @@ _**Figure 6.30**. ADD PROPER FIGURE CAPTION!._
 
 Perfect! Now we only have the (golden) points that, indeed, are inside the red Polygon which is exactly what we wanted!
 <!-- #endregion -->
+
+## Footnotes
+
+[^DE-9IM]: <https://en.wikipedia.org/wiki/DE-9IM>
