@@ -12,10 +12,11 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Loading and using modules
 
 In this section we provide some additional background on loading and using *{term}`modules <module>`* in Python. Modules are not much different from the Python script files produced in the previous section, but there are many Python modules that are freely available and this is one of the best things about using Python. You can find modules to do *many* common programming tasks in Python!
-
+<!-- #endregion -->
 
 ## Modules, packages and libraries?
 
@@ -182,7 +183,7 @@ Don't use confusing names when renaming on import. Be smart when you import modu
 
 According to the good coding practices described in [PEP 8](https://www.python.org/dev/peps/pep-0008/#imports) [^pep8], we should always import modules at the top of the file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import requried modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^builtin]: <https://docs.python.org/3/library/functions.html>
@@ -193,3 +194,4 @@ According to the good coding practices described in [PEP 8](https://www.python.o
 [^package]: <https://docs.python.org/3/tutorial/modules.html#packages>
 [^pep8]: <https://www.python.org/dev/peps/pep-0008/#imports>
 [^pip]: <https://pypi.org/project/pip/>
+<!-- #endregion -->
