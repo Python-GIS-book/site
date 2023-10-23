@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-<!-- #region deletable=true editable=true -->
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
 # Common tabular operations in pandas
 
 Now you have learned the basics of pandas data structures (i.e. *Series* and *DataFrame*) and you should be familiar with basic methods for loading and exploring data. Next, we will continue exploring the pandas functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.
@@ -72,15 +72,17 @@ data.head()
 ```
 
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.2
 
 Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is: `K = C + 273.15`
+<!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data["TEMP_KELVIN"] = data["TEMP_CELSIUS"] + 273.15
@@ -128,16 +130,17 @@ selection
 
 As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5).
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.3
 
 Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
+<!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
+```python tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data.loc[23:29, "TEMP_CELSIUS"].mean()
@@ -297,10 +300,11 @@ warm_temps.iloc[0, -1] = 17.5
 As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection without needing to worry that there are some "hidden linkages" between our DataFrames that could cause issues (we discuss more about this in the next section). 
 
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.4
 
 Find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the `YEARMODA` column.
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -495,7 +499,8 @@ As can be seen, now only the column `DATE` and the attribute of interest `PRCP` 
 
 In our case, doing the table join was fairly straightforward because we had only one unique record per day in both DataFrames. However, in some cases you might have multiple records on either one of the DataFrames (e.g. hourly observations vs daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled e.g. by aggregating the hourly data to a daily average. You can learn more about these aggregation techniques in the following sections. 
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^numpydtypes]: <https://numpy.org/doc/stable/user/basics.types.html>
+<!-- #endregion -->

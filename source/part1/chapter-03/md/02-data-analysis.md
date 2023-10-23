@@ -12,10 +12,11 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Data wrangling, grouping and aggregation
 
 Next, we will continue working with weather data, but expand our analysis to cover longer periods of data from Finland. In the following, you will learn various useful techniques in pandas to manipulate, group and aggregate the data in different ways that are useful when extracting insights from your data. In the end, you will learn how to create an automated data analysis workflow that can be repeated with multiple input files having a similar structure. As a case study, we will investigate whether January 2020 was the warmest month on record also in Finland, as the month was the warmest one on record globally [^noaanews]. 
-
+<!-- #endregion -->
 
 ## Cleaning data while reading
 
@@ -289,10 +290,11 @@ data.head()
 Nice! Now we have "labeled" the rows based on information about day of the year and hour of the day.
 
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.5
 
 Create a new column `'MONTH'` with information about the month without the year.
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
