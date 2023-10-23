@@ -1,9 +1,12 @@
 version: 2
-formats: []
 
 python:
-    version: 3
     install:
         - requirements: source/requirements.txt
         - method: pip
           path: .
+
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3"
