@@ -4,10 +4,9 @@
 .. 
     Introductory text about what this chapter covers, followed by a list of learning goals/outcomes/whatever for the chapter. NOTHING BELOW THE TOCTREE!
 
-.. startchintro
+.. startextract
 
-Chapter 1 provides the essential background information needed to get started programming in Python.
-You will learn basic concepts related to computers and programming, and get some basic information about the programming environment used in this book, including how to install Python on your own computer.
+.. startbox
 
 Learning objectives
 -------------------
@@ -19,7 +18,12 @@ At the end of this chapter, you should be able to:
 * Explain different ways to run Python programs and why we use Jupyter notebooks in this book
 * Use Jupyter notebooks online and install Python on your own computer
 
-.. endchintro
+.. endbox
+
+Chapter 1 provides the essential background information needed to get started programming in Python.
+This chapter introduces basic concepts related to computers and programming, and provides some basic information about the programming environment used in this book, including how to install Python on your own computer.
+
+.. endextract
 
 .. toctree::
     :maxdepth: 1
