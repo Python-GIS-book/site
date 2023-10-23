@@ -12,6 +12,7 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Writing script files
 
 Up to this point we have been keeping our Python code and Markdown comments in a single Jupyter notebook document.
@@ -19,7 +20,7 @@ This is great, but there are some cases, like when you have long Python code blo
 An alternative to typing in all of the commands you would like to run is the list them in a Python *{term}`script`* file.
 A Python script file is simply a file containing a list of the commands you would like to run, normally with one command per line, and formatted in the same way as if you were to type them in.
 Python script files traditionally use the `.py` file extension in their names.
-
+<!-- #endregion -->
 
 ## The general concept of a script file
 
@@ -137,7 +138,7 @@ If you see `temp_converter.py` in the list of files above you are all set to con
 
 Let's now import our `celsius_to_fahr()` function from the other script by adding a specific `import` statement in the Python cell below: `from temp_converter import celsius_to_fahr`
 
-```python tags=["remove_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # DO NOT RUN THIS CELL
 # This cell is only needed for generating the web page and book documents
 %cd ../../../_static/part1/chapter-01/
@@ -306,4 +307,6 @@ temperature_c = tc.temp_calculator(temp_k=temp_kelvin, convert_to="C")
 print("The temperature", temp_kelvin, "Kelvins is", temperature_c, "degrees Celsius.")
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
+<!-- #endregion -->
