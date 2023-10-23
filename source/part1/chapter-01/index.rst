@@ -12,10 +12,12 @@ You will learn basic concepts related to computers and programming, and get some
 Learning objectives
 -------------------
 
-* The fundamental elements of computers and programming languages
-* Why Python is a useful programming language to learn
-* Different ways to run Python programs and why we use Jupyter Notebooks in this book
-* How to run Python programs used in this book and install Python on your own computer.
+At the end of this chapter, you should be able to:
+
+* Explain the fundamental elements of computers and programming languages
+* Describe why Python is a useful programming language to learn
+* Explain different ways to run Python programs and why we use Jupyter notebooks in this book
+* Use Jupyter notebooks online and install Python on your own computer
 
 .. endchintro
 
