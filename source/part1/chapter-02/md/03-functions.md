@@ -12,10 +12,11 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Functions
 
 In this lesson we introduce functions as a way of making blocks of code for a specific task that are easy to use and re-use in your programs.
-
+<!-- #endregion -->
 
 ## What is a function?
 
@@ -89,24 +90,15 @@ absolute_zero = kelvins_to_celsius(temp_kelvins=0)
 print("Absolute zero in Celsius is:", absolute_zero)
 ```
 
-#### Question 2.9
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+#### Question 2.12
 
-Isaac Newton developed [a scale for measuring temperatures](https://en.wikipedia.org/wiki/Newton_scale) that was a precursor to the modern-day Celsius scale. In his system, water would freeze at 0 °N and boil at 33 °N (°N here indicates degrees Newton, not degrees north :D). Although it is difficult to directly convert between the two scales, if we assume that the increments of temperature change are equal between 0 °N and 33 °N we can come up with a temperature conversion equation between degrees Celsius and degrees Newton:
+Isaac Newton developed [a scale for measuring temperatures](https://en.wikipedia.org/wiki/Newton_scale) that was a precursor to the modern-day Celsius scale. In his system, water would freeze at 0 °N and boil at 33 °N (°N here indicates degrees Newton, not degrees north :D). Although it is difficult to directly convert between the two scales, if we assume that the increments of temperature change are equal between 0 °N and 33 °N we can come up with a temperature conversion equation between degrees Celsius and degrees Newton: $T_{\mathrm{Newton}} = T_{\mathrm{Celsius}} * 0.33$.
 
-$$
-\begin{equation}
-  \Large
-  T_{\mathrm{Newton}} = T_{\mathrm{Celsius}} * 0.33
-\end{equation}
-$$
+Your task here is to create a new function called `celsius_to_newton` that (1) has one parameter that is the temperature in degrees Celsius to be converted to degrees Newton and (2) returns the temperature in degrees Newton.
+<!-- #endregion -->
 
-You task here is to:
-
-- Create a new function called `celsius_to_newton` that
-    - Has one parameter that is the temperature in degrees Celsius to be converted to degrees Newton
-    - Returns the temperature in degrees Newton
-
-```python tags=["remove_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
@@ -141,14 +133,16 @@ absolute_zero_fahr = kelvins_to_fahr(temp_kelvins=0)
 print("Absolute zero in Fahrenheit is:", absolute_zero_fahr)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Functions and variable names
 
-A common point of confusion for new programmers is understanding how variable names in functions relate to those defined elsewhere in your notebooks.
+A common point of confusion for new programmers is understanding how variable names in functions relate to those defined elsewhere in their code (or your notebooks).
 When defining a function, the variable names given in the function definition exist and will only be used when the function is called.
-That might seem confusing, but as it turns out, this is an excellent feature in Python that can save you from much suffering.
+That might seem confusing, but as it turns out this is an excellent feature in Python that can save you from much suffering.
 Let's try to understand this by way of an example.
 
 Let us define modified version of our `kelvins_to_celsius` function where the parameter value is still called `temp_kelvins`, but we now store the converted temperature as temp_celsius first and return that value.
+<!-- #endregion -->
 
 ```python
 def kelvins_to_celsius(temp_kelvins):
@@ -156,22 +150,26 @@ def kelvins_to_celsius(temp_kelvins):
     return temp_celsius
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 So, we have defined our function to accept `temp_kelvins` as its only parameter, calculate `temp_celsius`, and return that value.
 As you will see below, the variables defined in the function exist only in its *namespace*.
-Let's confirm that.
+Let's confirm that by printing each out.
+<!-- #endregion -->
 
 ```python tags=["raises-exception"]
 temp_kelvins
 ```
 
-```python tags=["raises-exception"]
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 temp_celsius
 ```
 
-Here, in the *global namespace* we get a `NameError` when trying to access the variables `temp_kelvins` or `temp_celsius` because they have only been defined within the `kelvins_to_celsius()` function.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Here, in the *global namespace* we get a `NameError` when trying to access the variables `temp_kelvins` and `temp_celsius` because they have only been defined within the scope of the `kelvins_to_celsius()` function.
 
 Perhaps, however, you are thinking that we have not yet called the function, so that is why we get a `NameError`. Maybe if we use the function, then these variable values will be defined.
-Let's try that.
+Let's try that and print out `temp_kelvins` once again.
+<!-- #endregion -->
 
 ```python
 kelvins_to_celsius(temp_kelvins=293.15)
@@ -194,10 +192,12 @@ def kelvins_to_celsius2(temperature):
     return temperature
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Here, we pass in a value as `temperature` and modify the value that is passed in before returning it.
 This is probably not a good idea in most cases because it could cause confusion, but it is perfectly valid code.
 
-Let's now define a variable `temperature` in the global namespace and use our function to modify it.
+Let's now define a variable `temperature` in the global namespace, use our function with it, and print its value out afterwards.
+<!-- #endregion -->
 
 ```python
 temperature = 303.15
@@ -211,14 +211,16 @@ kelvins_to_celsius2(temperature=temperature)
 temperature
 ```
 
-As you can see, the value of the variable `temperature` in the global namespace was set to 303.15 and remains 303.15 after using the `kelvins_to_celsius2()` function.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As you can see, the value of the variable `temperature` in the global namespace was set to 303.15 and remains 303.15 even after using the `kelvins_to_celsius2()` function.
 Although there is a variable inside that function with the same name as the value in the global namespace, using the function assigns the value of `temperature` inside the function and manipulates that value only inside the function.
 
-It is important to be aware that it is possible to access variable values  that have been defined in the global namespace from within functions, even if the value has not been passed to the function.
+It is important to be aware that it is possible to access variable values that have been defined in the global namespace from within functions, even if the value has not been passed to the function.
 This is because Python will search for variables defined with a given name first inside the function, and then outside the function (the search domain is known as the variable's *scope*).
 If such a value is found then it can be used by the function, which could be dangerous!
 
 Let's look at an example of behavior in a function that may be unexpected. Here we can define a third version of the `kelvins_to_celsius()` function that we can call `kelvins_to_celsius3()`.
+<!-- #endregion -->
 
 ```python
 def kelvins_to_celsius3(temp):
@@ -230,14 +232,16 @@ def kelvins_to_celsius3(temp):
 kelvins_to_celsius3(273.15)
 ```
 
-You were perhaps expecting to see a value of `0` returned by `kelvins_to_celsius3()`, but that does not occur because `temp` is assigned `temperature - 273.15` in the function.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Perhaps you were expecting to see a value of `0` returned by `kelvins_to_celsius3()`, but that does not occur because `temp` is assigned `temperature - 273.15` inside the function.
 Although `temperature` was not passed to `kelvins_to_celsius3()` it is defined in the global namespace and thus can be used by our example function.
 Since `temperature = 303.15` we get a value of 30.0 returned when using `kelvins_to_celsius3()`.
 Conclusion: Be careful!
 
 For those who are interested, more information about namespaces and variables scopes can be found on the [Real Python website](https://realpython.com/python-namespaces-scope/).
+<!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Documenting functions with docstrings
 
 A documentation string, or a *{term}`docstring`* is a block of text that describes what a specific function, library, or script does and how to use it. Surprise surprise, PEP 8 contains [more guidance about documentation strings](https://www.python.org/dev/peps/pep-0008/#documentation-strings) [^pep8_docstring], and docstrings even have [their own guide page](https://www.python.org/dev/peps/pep-0257/) [^pep257]. Let's look an an example from our of our functions above.
@@ -277,8 +281,10 @@ def kelvins_to_celsius(temp_kelvins):
 Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format is to have the quotation marks on their own separate lines.
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^pep8_docstring]: <https://www.python.org/dev/peps/pep-0008/#documentation-strings>
 [^pep257]: <https://www.python.org/dev/peps/pep-0257/>
 [^pep257_one_line]: <https://www.python.org/dev/peps/pep-0257/#one-line-docstrings>
+<!-- #endregion -->
