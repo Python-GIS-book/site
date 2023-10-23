@@ -1,8 +1,12 @@
 1: Getting started
 ==================
 
+.. startchintro
+Introductory text about what this chapter covers, followed by a list of learning goals/outcomes/whatever for the chapter. NOTHING BELOW THE TOCTREE!
+
 Here we introduce the essential background information needed to get started programming in Python.
 You will learn basic concepts related to computers and programming, and get basic information of the programming environment used in this book. 
+.. endchintro
 
 .. toctree::
     :maxdepth: 1
