@@ -297,4 +297,3 @@ togglebutton_hint = "Show the solution"
 
 # Add math config options for new version of MyST
 myst_enable_extensions = ["dollarmath"]
-
