@@ -5,16 +5,18 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Solutions to questions
+<!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 2
 
 2.1
@@ -39,13 +41,28 @@ print(5 * first_variable)                # Works
 print(first_variable - second_variable)  # Fails
 ```
 
-2.4 
+2.4
+```python
+'kitten'
+```
+
+2.5
+```python
+132334.96
+```
+
+2.6
+```python
+'Helsinki Kaivopuisto132310'
+```
+
+2.7 
 ```python
 for i in range(2, 9, 3):
     print(i)
 ```
 
-2.5
+2.8
 ```bash
 11
 7
@@ -54,7 +71,7 @@ for i in range(2, 9, 3):
 11
 ```
 
-2.6
+2.9
 ```python
 weather = "rain"
 
@@ -65,12 +82,12 @@ else:
     print("No rainwear needed")
 ```
 
-2.7
+2.10
 ```python
 'B'
 ```
 
-2.8
+2.11
 ```python
 weather = "rain"
 wind_speed = 14
@@ -84,14 +101,14 @@ else:
     print("Go out and enjoy the weather! :)")
 ```
 
-2.9
+2.12
 ```python
 def celsius_to_newton(temp_celsius):
     return temp_celsius * 0.33
 ```
 <!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 3
 
 3.1
