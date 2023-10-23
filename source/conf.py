@@ -267,11 +267,11 @@ my_bracket_style = BracketStyle(
 
 @dataclasses.dataclass
 class MyReferenceStyle(AuthorYearReferenceStyle):
-    bracket_parenthetical: BracketStyle = my_bracket_style
-    bracket_textual: BracketStyle = my_bracket_style
-    bracket_author: BracketStyle = my_bracket_style
-    bracket_label: BracketStyle = my_bracket_style
-    bracket_year: BracketStyle = my_bracket_style
+    bracket_parenthetical: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_textual: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_author: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_label: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_year: BracketStyle = field(default_factory=my_bracket_style)
 
 
 # Register the changes
