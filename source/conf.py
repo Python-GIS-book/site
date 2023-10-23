@@ -20,7 +20,7 @@ from pybtex.style.labels import BaseLabelStyle
 import pybtex
 from collections import Counter
 
-import dataclasses
+from dataclasses import dataclass, field
 import sphinxcontrib.bibtex.plugin
 
 from sphinxcontrib.bibtex.style.referencing import BracketStyle
@@ -259,19 +259,21 @@ pybtex.plugin.register_plugin("pybtex.style.formatting", "apa", APAStyle)
 # Use parentheses when citing
 # -----------------------------------
 
-my_bracket_style = BracketStyle(
-    left="",
-    right="",
-)
+
+def my_bracket_style() -> BracketStyle:
+    return BracketStyle(
+        left="",
+        right="",
+    )
 
 
-@dataclasses.dataclass
+@dataclass
 class MyReferenceStyle(AuthorYearReferenceStyle):
-    bracket_parenthetical: BracketStyle = my_bracket_style
-    bracket_textual: BracketStyle = my_bracket_style
-    bracket_author: BracketStyle = my_bracket_style
-    bracket_label: BracketStyle = my_bracket_style
-    bracket_year: BracketStyle = my_bracket_style
+    bracket_parenthetical: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_textual: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_author: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_label: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_year: BracketStyle = field(default_factory=my_bracket_style)
 
 
 # Register the changes
@@ -297,4 +299,3 @@ togglebutton_hint = "Show the solution"
 
 # Add math config options for new version of MyST
 myst_enable_extensions = ["dollarmath"]
-
