@@ -259,10 +259,12 @@ pybtex.plugin.register_plugin("pybtex.style.formatting", "apa", APAStyle)
 # Use parentheses when citing
 # -----------------------------------
 
-my_bracket_style = BracketStyle(
-    left="",
-    right="",
-)
+
+def my_bracket_style() -> BracketStyle:
+    return BracketStyle(
+        left="",
+        right="",
+    )
 
 
 @dataclass
