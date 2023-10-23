@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -33,10 +33,10 @@ Coordinate Reference System
   A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth's surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.
   
 Coordinate transformation
-  See {term}`Map reprojection`.
+  See {term}`Map reprojection.`.
   
 Data model
-  A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell. 
+  A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell.    
 
 Data type
   An attribute defining the characteristics of a value in a program.
@@ -47,9 +47,15 @@ DateOffsets
   
 DatetimeIndex
   An immutable array of datetime64 data that is specified as the index of the DataFrame. Can be used for indexing and grouping data based on time.
+
+DE-9IM
+  See {term}`Dimensionally Extended 9-Intersection Model`.
   
 Dependency
   Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work. 
+
+Dimensionally Extended 9-Intersection Model 
+  Dimensionally Extended 9-Intersection Model (DE-9IM) is a fundamental framework in GIS used for describing and analyzing spatial relationships between geometric objects. DE-9IM provides a matrix-based approach where the rows and columns represent the interior, boundary, and exterior of two geometric shapes being compared. By examining the intersections of these parts, a detailed characterization of their spatial relationship can be achieved, including spatial predicates such as "touches", "overlaps", and "contains".  
 
 Docstring
   A text string used to document a section of code. Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs. You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.
@@ -64,7 +70,7 @@ Geocoding
   The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see {term}`Georeferencing`.
   
 Geographic coordinate conversion
-  See {term}`Map reprojection`.
+  See {term}`Map reprojection.`.
   
 Georeferencing
   Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox. 
@@ -126,9 +132,6 @@ Semantics
 
 Software
   Another name for a {term}`program`.
-  
-Spatial Reference System
-  Spatial Reference System (SRS) is a synonym for the {term}`Coordinate Reference System`.
 
 Spatial resolution
   The spatial resolution of a raster refers typically to the size of the cells in a raster dataset. It can also mean the ratio of screen pixels to image pixels at the current map scale. 
