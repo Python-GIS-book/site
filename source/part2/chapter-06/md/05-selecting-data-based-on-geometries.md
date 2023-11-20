@@ -14,16 +14,16 @@ jupyter:
 
 # Spatial queries
 
-Finding out if a certain point is located inside or outside of an area, or finding out if a line intersects with another line (or a polygon) are one of the fundamental geospatial operations that are often needed when e.g. selecting data for a specific region. These kind of queries are something that relate to *term`{topological spatial relations}`* which are fundamental constructs that describe how two or more spatial objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as "contains", "touches", "overlaps" and "disjoint" ({cite}`Clementini_1994`). For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. In GIS, these kind of topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities and more focused on their relative arrangements and positions. Next, we will learn how to conduct these kind of spatial queries with Python and conduct a Point in Polygon query, i.e. select points that are within specific area of interest.
-
-![_**Figure 6.XX**. Possible topological relationships between geometries adapted from Gebbert et al. (2019)._](../img/spatial-relations.png)
-
-_**Figure 6.XX**. Possible topological relationships between geometries adapted from Gebbert et al. (2019)._
+Finding out if a certain point is located inside or outside of an area, or finding out if a line intersects with another line (or a polygon) are one of the fundamental geospatial operations that are often needed when e.g. selecting data for a specific region. These kind of queries are something that relate to *term`{topological spatial relations}`* which are fundamental constructs that describe how two or more spatial objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as "contains", "touches", "intersects" and "disjoint" ({cite}`Clementini_1994`). For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. In GIS, these kind of topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities and more focused on their relative arrangements and positions. Next, we will learn how to conduct these kind of spatial queries with Python and conduct a Point in Polygon query, i.e. select points that are within specific area of interest.
 
 
-## How to check if point is inside a polygon?
+## Topological spatial relations
 
 Computationally, conducting queries based on topological spatial relations, such as detecting if a point is inside a polygon can be done in different ways but most GIS software rely on something called *term`{Dimensionally Extended 9-Intersection Model}`* ([DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) [^DE-9IM]). DE-9IM is a fundamental framework in GIS used for describing and analyzing spatial relationships between geometric objects. DE-9IM provides a matrix-based approach where the rows and columns represent the interior, boundary, and exterior of two geometric shapes being compared. By examining the intersections of these parts, a detailed characterization of their spatial relationship can be achieved, including spatial predicates such as "touches", "overlaps", and "contains". Luckily, when working with Python, we do not need to create such functionalities ourselves, but we can take advantage of DE-9IM functionalities implemented in shapely and geopandas that can evaluate the topolocical relationships between geographical objects.
+
+![_**Figure 6.XX**. Eight common spatial predicates formed based on spatial relations between two geometries. Modified after Egenhofer et al. (1992)_](../img/spatial-relations.png)
+
+_**Figure 6.XX**. Eight common spatial predicates formed based on spatial relations between two geometries. Modified after Egenhofer et al. (1992)_
 
 There are basically two ways of conducting PIP in Shapely:
 
