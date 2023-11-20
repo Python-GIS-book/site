@@ -1,4 +1,4 @@
-3: Introduction to data analysis
+3. Introduction to data analysis
 ================================
 
 Here we introduce the basics of data analysis in Python using the pandas library.

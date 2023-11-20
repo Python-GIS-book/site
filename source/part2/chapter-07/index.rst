@@ -1,4 +1,4 @@
-7: Raster data processing
+7. Raster data processing
 =========================
 
 In this chapter, we will introduce how to conduct various data analysis and manipulation operations in Python using raster data. You will learn to use a few of the core libraries for raster analysis/processing, such as `xarray` and `rioxarray`. More specifically this chapter will cover:

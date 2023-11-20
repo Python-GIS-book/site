@@ -1,4 +1,4 @@
-4: Introduction to data visualization
+4. Introduction to data visualization
 =====================================
 
 Here we introduce basics of plotting data in Python using pandas and matplotlib. You will learn how to visualize tabular data using different types of plots, and to manipulate plot formatting for efficient communication.

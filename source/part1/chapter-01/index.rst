@@ -1,4 +1,4 @@
-1: Getting started
+1. Getting started
 ==================
 
 .. 

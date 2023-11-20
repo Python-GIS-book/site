@@ -1,4 +1,4 @@
-8: Geographic data visualization
+8. Geographic data visualization
 ================================
 
 **This chapter is under construction.**

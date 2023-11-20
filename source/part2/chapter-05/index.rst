@@ -1,4 +1,4 @@
-5: Getting started
+5. Getting started
 ==================
 
 .. toctree::

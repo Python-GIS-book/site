@@ -1,4 +1,4 @@
-9: Using online geographic data sources
+9. Using online geographic data sources
 =======================================
 
 
