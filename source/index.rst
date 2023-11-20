@@ -106,9 +106,6 @@ The book consists of 4 parts:
    part1/chapter-03/index
    part1/chapter-04/index
 
-   .. part1/index
-
-
 .. toctree::
    :maxdepth: 2
    :caption: Part II - Introduction to GIS with Python
@@ -120,8 +117,6 @@ The book consists of 4 parts:
    part2/chapter-07/index
    part2/chapter-08/index
    part2/chapter-09/index
-
-   ..part2/index
 
 .. toctree::
    :maxdepth: 2
