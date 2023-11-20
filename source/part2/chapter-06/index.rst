@@ -15,5 +15,5 @@ Here we introduce basics of vector data processing in Python. You will learn to 
     6.6 Spatial queries <nb/05-selecting-data-based-on-geometries.ipynb>
     6.7 Overlay analysis <nb/06-overlay-analysis-with-vector-data.ipynb>
     6.8 Spatial join <nb/07-spatial-join.ipynb>
-    6.9 Nearest neighbour <nb/08-nearest-neighbour.ipynb>
+    6.9 Nearest neighbour analysis <nb/08-nearest-neighbour.ipynb>
     nb/09-exercises.ipynb
