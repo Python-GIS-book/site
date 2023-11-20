@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-# Representing geographic data objects in Python
+# Representing geographic data in Python
 
 In this chapter, we will learn how geometric objects (in vector format) are represented in Python using a library called [shapely](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely]. In the following parts of the book, we will use a library called **geopandas** extensively which uses these **shapely** geometries to represent the geographic data in vector format. Understanding how these geometric objects work and can be created in Python is extremely useful, because these objects are the fundamental buildings blocks that enable us doing geographic data analysis. 
 <!-- #endregion -->
