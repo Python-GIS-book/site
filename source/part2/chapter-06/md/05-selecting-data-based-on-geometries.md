@@ -26,6 +26,8 @@ Computationally, conducting queries based on topological spatial relations, such
 _**Figure 6.XX**. Eight common spatial predicates formed based on spatial relations between two geometries. Modified after Egenhofer et al. (1992)_
 
 
+The top row of the **Figure 6.XX** shows spatial predicates in which the geometries A and B are clearly disjoint from each other, contained or within each other, or identical to each other. The bottom row shows examples of spatial relationships that are slightly "special cases" in one way or another. When two geometries *touch* each other, they have at least one point in common at the border, but their interiors do not intersect with each other. When the interiors of the geometries A and B are on top of each other (or have at least one point in common), the geometries are said to be *intersecting* with each other. The spatial predicate for *covers* is when the interior of geometry B is almost totally within A, except at least one common coordinate at the border. Similarly, if geometry A is almost totally contained by the geometry B (except at least one common coordinate at the border) the spatial predicate is called *covered by*. These eight examples represent some of the common spatial predicates based on two Polygon shapes. When other shapes are considered (Points, LineStrings), there are plenty of more topological relations: altogether 512 with 2D data.
+
 
 ## Making spatial queries in Python
 
