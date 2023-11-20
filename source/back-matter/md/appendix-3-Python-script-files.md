@@ -12,15 +12,6 @@ jupyter:
     name: python3
 ---
 
-# Operations between multiple datasets
+# Using Python script files
 
-<!---
-- Selecting data based on spatial relationships
-- Overlay analysis
-- Spatial join, nearest join
-- Distance operations
-- Spatial index
--->
-
-Add introductory text. 
-
+Content to be added.

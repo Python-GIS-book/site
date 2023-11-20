@@ -12,5 +12,8 @@ Here we introduce basics of vector data processing in Python. You will learn to 
     nb/02-geometric-operations.ipynb
     nb/03-coordinate-reference-system.ipynb
     nb/04-geocoding.ipynb
-    multilayer-operations
-    nb/11-exercises.ipynb
+    nb/05-selecting-data-based-on-geometries.ipynb
+    nb/06-overlay-analysis-with-vector-data.ipynb
+    nb/07-spatial-join.ipynb
+    nb/08-nearest-neighbor.ipynb
+    nb/09-exercises.ipynb
