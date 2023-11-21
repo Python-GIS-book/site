@@ -6,10 +6,6 @@ Introduction to Python for Geographic Data Analysis
     :target: https://python-gis-book.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
-.. image:: https://badges.gitter.im/Python-for-Geographic-Data-Analysis/book/community.svg
-    :alt: Chat on Gitter
-    :target: https://gitter.im/Python-for-Geographic-Data-Analysis/book
-
 .. image:: https://img.shields.io/gitter/room/Python-for-Geographic-Data-Analysis/book
    :alt: Chat on Gitter
    :target: https://gitter.im/Python-for-Geographic-Data-Analysis/book
