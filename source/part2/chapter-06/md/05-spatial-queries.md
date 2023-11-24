@@ -170,58 +170,22 @@ Next we will do a practical example where we check which of the addresses from [
 Let's start by reading the addresses from the Shapefile that we saved earlier.
 
 ```python deletable=true editable=true
-import os
-
-os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 
 fp = "data/Helsinki/addresses.shp"
-data = gpd.read_file(fp)
+fp2 = "data/Helsinki/Major_districts.gpkg"
 
-data.head()
-```
+# Read the datasets
+points = gpd.read_file(fp)
+districts = gpd.read_file(fp2)
 
-<!-- #region deletable=true editable=true -->
-
-
-It is possible to read the data from KML-files with GeoPandas in a similar manner as Shapefiles. However, we need to first, enable the KML-driver which is not enabled by default (because KML-files can contain unsupported data structures, nested folders etc., hence be careful when reading KML-files). Supported drivers are managed with a library called `fiona` that `geopandas` uses in the background to read files. Let's first check which formats are currently supported by calling [`fiona.supported_drivers`](https://github.com/Toblerity/Fiona/blob/master/fiona/drvsupport.py):
-<!-- #endregion -->
-
-```python
-import geopandas as gpd
-import fiona
-
-fiona.supported_drivers
-```
-
-- Let's enable the read and write functionalities for KML-driver by passing ``'rw'`` to whitelist of fiona's supported drivers:
-
-```python deletable=true editable=true
-fiona.supported_drivers["KML"] = "rw"
-```
-
-Let's check again the supported drivers:
-
-```python
-fiona.supported_drivers
-```
-
-<!-- #region deletable=true editable=true -->
-Now we should be able to read a KML file using the geopandas [read_file()](http://geopandas.org/reference/geopandas.read_file.html#geopandas.read_file) function.
-
-- Let's read district polygons from a KML -file that is located in the data-folder:
-<!-- #endregion -->
-
-```python deletable=true editable=true
-# Filepath to KML file
-fp = "data/Helsinki/PKS_suuralue.kml"
-polys = gpd.read_file(fp, driver="KML")
+print("Shape:", points.shape)
+points.head()
 ```
 
 ```python
-# Check the data
-print("Number of rows:", len(polys))
-polys.head(11)
+print("Shape:", districts.shape)
+districts.head()
 ```
 
 Nice, now we can see that we have 23 districts in our area. 
