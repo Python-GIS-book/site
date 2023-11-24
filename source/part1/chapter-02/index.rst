@@ -7,6 +7,7 @@ Here we introduce the basics of programming in the Python language. You will lea
     :maxdepth: 1
     :caption: Sections:
     
+    nb/0-learning-objectives.ipynb
     nb/00-python-basics.ipynb
     nb/01-for-loops.ipynb
     nb/02-conditional-statements.ipynb
