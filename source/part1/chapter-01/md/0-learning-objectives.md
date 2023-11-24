@@ -22,7 +22,7 @@ This chapter introduces basic concepts related to computers and programming, and
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
-:::{admonition} Learning objectives
+```{admonition} Learning objectives
 
 At the end of this chapter, you should be able to:
 
@@ -30,5 +30,5 @@ At the end of this chapter, you should be able to:
 - Describe why Python is a useful programming language to learn
 - Explain different ways to run Python programs and why we use Jupyter notebooks in this book
 - Use Jupyter notebooks online and install Python on your own computer
-:::
+```
 <!-- #endregion -->
