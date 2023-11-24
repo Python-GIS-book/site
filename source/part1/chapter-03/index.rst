@@ -8,6 +8,7 @@ You will learn how to read and write data from/to a file, and to manipulate and 
     :maxdepth: 1
     :caption: Sections:
 
+    nb/0-learning-objectives.ipynb
     nb/00-pandas-basics.ipynb
     nb/01-data-manipulation.ipynb
     nb/02-data-analysis.ipynb
