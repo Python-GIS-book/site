@@ -112,6 +112,7 @@ The book consists of 4 parts:
    :titlesonly:
    :hidden:
    
+   part2/index.ipynb
    part2/chapter-05/index
    part2/chapter-06/index
    part2/chapter-07/index
