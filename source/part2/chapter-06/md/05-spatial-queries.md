@@ -38,128 +38,84 @@ The top row of the **Figure 6.XX** shows spatial predicates in which the geometr
 
 ## Making spatial queries in Python
 
-Now as we know the basics of topological spatial relations, we can proceed and see how to make such spatial queries using Python. Luckily, we do not need to worry about the exact DE-9IM implementation ourselves as these functionalities are already implemented to shapely and geopandas libraries. With these libraries, we can evaluate the topolocical relationships between geographical objects easily and efficiently. In the following, we will consider a common spatial query in which the objective is to find out whether a given Point geometry is within a Polygon. Alternatively, we can also check whether a given Polygon contains a point, or if the two geometries intersect with each other. In Python, all the basic spatial predicates listed in **Figure 6.XX** are available from shapely library, including:
+Now as we know the basics of topological spatial relations, we can proceed and see how to make such spatial queries using Python. Luckily, we do not need to worry about the exact DE-9IM implementation ourselves, as these functionalities are already implemented to shapely and geopandas libraries. With these libraries, we can evaluate the topolocical relationship between geographical objects easily and efficiently. In Python, all the basic spatial predicates listed in **Figure 6.XX** are available from shapely library, including:
  
+ - `.intersects()`
  - `.within()`
  - `.contains()`
- - `.intersects()`
+ - `.overlaps()`
  - `.touches()`
  - `.covers()`
  - `.covered_by()`
  - `.equals()`
  - `.disjoint()`
+ - `.crosses()`
 
-In addition to these, there are a couple of other spatial predicates, such as `.crosses()` and `.overlaps()`. which returns `True` in case two geometries spatially cross each other, meaning that they have some but not all interior points in common, the intersection is one dimension less than the maximum dimension of A or B, and the intersection is not equal to either A or B. 
-
-Notice: even though we are talking here about **Point** in Polygon operation, it is also possible to check if a LineString or Polygon is inside another Polygon.
-Let's import shapely functionalities and create some points:
+When you want to use Python to find out how two geometric objects are related to each other topologically, you start by creating the geometries using shapely library. In the following, we create a couple of `Point` objects and one `Polygon` object which we can use to test how they relate to each other: 
 
 ```python
 from shapely.geometry import Point, Polygon
 
 # Create Point objects
-p1 = Point(24.952242, 60.1696017)
-p2 = Point(24.976567, 60.1612500)
-```
+point1 = Point(24.952242, 60.1696017)
+point2 = Point(24.976567, 60.1612500)
 
-Let's also create a polygon using a list of coordinate-tuples:
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Create a Polygon
-coords = [
+coordinates = [
     (24.950899, 60.169158),
     (24.953492, 60.169158),
     (24.953510, 60.170104),
-    (24.950958, 60.169990),
+    (24.950958, 60.169990)
 ]
-poly = Polygon(coords)
+polygon = Polygon(coordinates)
+
+# Print the objects
+print(point1)
+print(point2)
+print(polygon)
 ```
 
-```python
-# Let's check what we have
-print(p1)
-print(p2)
-print(poly)
-```
-
-<!-- #region deletable=true editable=true -->
-- Let's check if those points are ``within`` the polygon:
+<!-- #region deletable=true editable=true jupyter={"outputs_hidden": false} -->
+If you want to test whether these `Point` geometries stored in `point1` and `point2` are within the `polygon`, you can call the `.within()` method as follows:
 <!-- #endregion -->
 
 ```python
-# Check if p1 is within the polygon using the within function
-p1.within(poly)
-```
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# Check if p2 is within the polygon
-p2.within(poly)
+point1.within(polygon)
 ```
 
 ```python
-p1.overlaps(poly)
+point2.within(polygon)
 ```
 
-<!-- #region deletable=true editable=true -->
-Okey, so we can see that the first point seems to be inside that polygon
-and the other one isn't.
-
--In fact, the first point is quite close to close to the center of the polygon as we
-can see if we compare the point location to the polygon centroid:
-<!-- #endregion -->
-
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# Our point
-print(p1)
-
-# The centroid
-print(poly.centroid)
-```
-
-<!-- #region deletable=true editable=true -->
-It is also possible to do PIP other way around, i.e. to check if
-polygon contains a point:
-<!-- #endregion -->
+As we can see, the first point seem to be located within the polygon where as the second one does not. In a similar manner, you can test all different spatial predicates and assess the spatial relationship between the geometries. The following prints results for all predicates between the `point1` and the `polygon`: 
 
 ```python
-# Does polygon contain p1?
-poly.contains(p1)
+print("Intersects?", point1.intersects(polygon))
+print("Within?", point1.within(polygon))
+print("Contains?", point1.contains(polygon))
+print("Overlaps?", point1.overlaps(polygon))
+print("Touches?", point1.touches(polygon))
+print("Covers?", point1.covers(polygon))
+print("Covered by?", point1.covered_by(polygon))
+print("Equals?", point1.equals(polygon))
+print("Disjoint?", point1.disjoint(polygon))
+print("Crosses?", point1.crosses(polygon))
 ```
 
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# Does polygon contain p2?
-poly.contains(p2)
-```
+By going through all the spatial predicates, we can see that the spatial relationship between our point and polygon object produces three `True` values: The point and polygon intersect with each other, the point is within the polygon, and the point is covered by the polygon. All the other tests correctly produce `False`, which matches with the logic of the `DE-9IM` standard. 
 
-<!-- #region deletable=true editable=true -->
-Thus, both ways of checking the spatial relationship are identical; [contains()](https://shapely.readthedocs.io/en/stable/manual.html#object.contains) is inverse to [within()](https://shapely.readthedocs.io/en/stable/manual.html#object.within) and vice versa.
+It is good to notice that some of these spatial predicates are closely related to each other. For example, the `.within()` and `covered_by()` in our tests produce similar result with our data. Also `.contains()` is closely related to `within()`. Our `point1` was within the `polygon`, but we can also say that the `polygon` contains `point1`. Hence, both tests produce the same result, but the logic for the relationship is inverse. Which one should you use then? Well, it depends:
 
-Which one should you use then? Well, it depends:
+-  if you have many points and just one polygon and you try to find out which one of them is inside the polygon: You might need to iterate over the points and check one at a time if it is `.within()` the polygon.
+-  if you have many polygons and just one point and you want to find out which polygon contains the point: You might need to iterate over the polygons until you find a polygon that `.contains()` the point specified (assuming there are no overlapping polygons).
 
--  if you have **many points and just one polygon** and you try to find out
-   which one of them is inside the polygon: You might need to iterate over the points and check one at a time if it
-   is **within()** the polygon.
 
--  if you have **many polygons and just one point** and you want to find out
-   which polygon contains the point: You might need to iterate over the polygons until you find a polygon that **contains()** the point specified (assuming there are no overlapping polygons)
-<!-- #endregion -->
+One of the most common spatial queries is to see if a geometry intersects or touches another one. Again, there are binary operations in shapely for checking these spatial relationships:
 
-<!-- #region -->
-
-## Intersect
-
-Another typical geospatial operation is to see if a geometry intersects
-or touches another one. Again, there are binary operations in Shapely for checking these spatial relationships:
-
-- [intersects():](https://shapely.readthedocs.io/en/stable/manual.html#object.intersects) Two objects intersect if the boundary or interior of one object intersect in any way with the boundary or interior of the other object.
-
-- [touches():](https://shapely.readthedocs.io/en/stable/manual.html#object.touches) Two objects touch if the objects have at least one point in common and their interiors do not intersect with any part of the other object.
+- `.intersects()` - Two objects intersect if the boundary or interior of one object intersect in any way with the boundary or interior of the other object.
+- `.touches()` - Two objects touch if the objects have at least one point in common and their interiors do not intersect with any part of the other object.
    
-
-Let's try these out.
-
-Let's create two LineStrings:
-<!-- #endregion -->
+Let's try these by creating two `LineString` geometries and test whether they intersect and touch each other:
 
 ```python deletable=true editable=true
 from shapely.geometry import LineString, MultiLineString
@@ -169,24 +125,16 @@ line_a = LineString([(0, 0), (1, 1)])
 line_b = LineString([(1, 1), (0, 2)])
 ```
 
-<!-- #region deletable=true editable=true -->
-Let's see if they intersect
-<!-- #endregion -->
-
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 line_a.intersects(line_b)
 ```
-
-<!-- #region deletable=true editable=true -->
-Do they also touch?
-<!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 line_a.touches(line_b)
 ```
 
 <!-- #region deletable=true editable=true -->
-Indeed, they do and we can see this by plotting the features together
+As we can see, it seems that our two `LineString` objects are both intersecting and touching each other. We can confirm this by plotting the features together as a `MultiLineString`:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -196,30 +144,26 @@ multi_line
 ```
 
 <!-- #region deletable=true editable=true -->
-_**Figure 6.27**. ADD PROPER FIGURE CAPTION!._
+_**Figure 6.XX**. Two LineStrings that both intersect and touch each other._
 
-Thus, the ``line_b`` continues from the same node ( (1,1) ) where ``line_a`` ends.
-
-However, if the lines overlap fully, they don't touch due to the spatial relationship rule, as we can see:
-
-Check if `line_a` touches itself:
+As we can see, the lines `.touch()` each other because `line_b` continues from the same node ( (1,1) ) where the `line_a` ends.
+However, if the lines are fully overlapping with each other they don't touch due to the spatial relationship rule in the DE-9IM. We can confirm this by checking if `line_a` touches itself:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# Does the line touch with itself?
 line_a.touches(line_a)
 ```
 
 <!-- #region deletable=true editable=true -->
-It does not. However, it does intersect:
+It does not. However, the `.intersects()` and `.equals()` should produce `True` for a case when we compare the `line_a` with itself:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-# Does the line intersect with itself?
-line_a.intersects(line_a)
+print("Intersects?", line_a.intersects(line_a))
+print("Equals?", line_a.equals(line_a))
 ```
 
-## Point in Polygon using Geopandas
+## Spatial queries using geopandas
 
 Next we will do a practical example where we check which of the addresses from [the geocoding tutorial](geocoding_in_geopandas.ipynb) are located in Southern district of Helsinki. Let's start by reading a KML-file ``PKS_suuralue.kml`` that has the Polygons for districts of Helsinki Region (data openly available from [Helsinki Region Infoshare](http://www.hri.fi/fi/dataset/paakaupunkiseudun-aluejakokartat).
 
