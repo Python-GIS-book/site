@@ -23,6 +23,7 @@ This chapter introduces basic concepts related to computers and programming, and
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
 ```{admonition} Learning objectives
+:class: tip
 
 At the end of this chapter, you should be able to:
 
