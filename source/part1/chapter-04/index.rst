@@ -8,8 +8,8 @@ Here we introduce basics of plotting data in Python using pandas and matplotlib.
     :caption: Sections:
 
     nb/0-learning-objectives.ipynb
-    nb/00-plotting-in-python.ipynb
-    nb/01-basic-plotting.ipynb
-    nb/02-subplots.ipynb
-    nb/03-plot-formatting.ipynb
-    nb/04-exercises.ipynb
+    4.1 Plotting in Python <nb/00-plotting-in-python.ipynb>
+    4.2 Plotting with pandas and matplotlib <nb/01-basic-plotting.ipynb>
+    4.3 Creating subplots <nb/02-subplots.ipynb>
+    4.4 Effective plot design: line plots <nb/03-plot-formatting.ipynb>
+    4.5 Exercises <nb/04-exercises.ipynb>
