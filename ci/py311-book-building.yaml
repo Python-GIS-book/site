@@ -22,6 +22,7 @@ dependencies:
   - jupyter-book=0.15.1
   - black=23.9.1
   - black-jupyter=23.9.1
+  - jupyterlab-spellchecker=0.8.4
   
   # GIS environment
   - contextily=1.3.0
@@ -56,3 +57,4 @@ dependencies:
   - pip:
     - nbmerge==0.0.4
     - geodatasets==2023.3.0
+    - jupyterlab_myst==2.1.0
