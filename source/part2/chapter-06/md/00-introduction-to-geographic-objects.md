@@ -27,11 +27,11 @@ In this chapter, we will learn how geometric objects (in vector format) are repr
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Creating point geometries
 
-When creating geometries with shapely, we first need to import the geometric object class (such as `Point`) that we want to create from `shapely.geometry` which contains classes to create all possible geometry types. After importing the `Point` class, creating a point is easy: we just pass `x` and `y` coordinates into the `Point()` -class (with a possible `z` -coordinate) which will create the point for us:
+When creating geometries with shapely, we first need to import the geometric object class (such as `Point`, `LineString` or `Polygon`) which we want to create. Let's start by creating a simple `Point` object. First, we need to import the `Point` class which we can then use to create the point geometry. When creating the geometry, we need to pass the `x` and `y` coordinates into the `Point()` -class (with a possible `z` -coordinate), which will create the point geometry for us, as follows:
 <!-- #endregion -->
 
 ```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
-from shapely.geometry import Point
+from shapely import Point
 
 point = Point(2.2, 4.2)
 point3D = Point(9.26, -2.456, 0.57)
@@ -92,7 +92,7 @@ Creating a `LineString` -object is very similar to creating a `Point`-object. To
 <!-- #endregion -->
 
 ```python jupyter={"outputs_hidden": false}
-from shapely.geometry import Point, LineString
+from shapely import Point, LineString
 
 point1 = Point(2.2, 4.2)
 point2 = Point(7.2, -25.1)
@@ -144,7 +144,7 @@ As you can see, the centroid of the line is again a `shapely.geometry.Point` obj
 Creating a `Polygon` -object continues the same logic as when creating `Point` and `LineString` objects. A `Polygon` can be created by passing a list of `Point` objects or a list of coordinate-tuples as input for the `Polygon` class. `Polygon` needs at least three coordinate-tuples to form a surface. In the following, we use the same points from the earlier `LineString` example to create a `Polygon`.
 
 ```python jupyter={"outputs_hidden": false}
-from shapely.geometry import Polygon
+from shapely import Polygon
 
 poly = Polygon([point1, point2, point3])
 poly
@@ -265,7 +265,7 @@ In practice, the `box` function is quite useful for example when you want to sel
 Creating a collection of `Point`, `LineString` or `Polygon` objects is very straightforward now as you have seen how to create the basic geometric objects. In the `Multi` -versions of these geometries, you just pass a list of points, lines or polygons to the `MultiPoint`, `MultiLineString` or `MultiPolygon` constructors as shown below:
 
 ```python
-from shapely.geometry import MultiPoint, MultiLineString, MultiPolygon
+from shapely import MultiPoint, MultiLineString, MultiPolygon
 
 multipoint = MultiPoint([Point(2, 2), Point(3, 3)])
 multipoint
