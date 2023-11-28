@@ -7,6 +7,7 @@ Here we introduce basics of vector data processing in Python. You will learn to 
     :maxdepth: 1
     :caption: Sections:
 
+    nb/0-learning-objectives.ipynb
     6.1 Representing geographic data in Python <nb/00-introduction-to-geographic-objects.ipynb>
     6.2 Introduction to geopandas GeoDataFrames <nb/01-geodataframe.ipynb>
     6.3 Common geometric operations <nb/02-geometric-operations.ipynb>
