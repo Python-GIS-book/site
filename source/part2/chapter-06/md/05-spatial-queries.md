@@ -26,7 +26,7 @@ Computationally, conducting queries based on topological spatial relations, such
 _**Figure 6.XX**. Interior, boundary and exterior for different geometric data types. The data types can be either 0, 1 or 2-dimensional._
 
 
-By examining the intersections of the interior, boundary and exterior of two geometric objects, a detailed characterization of their spatial relationship can be achieved. One can for instance test whether a given Point or LineString is *within* a Polygon (returning True or False). When testing how two geometries relate to each other, the DE-9IM model gives a result which is called {term}`spatial predicate`. The **Figure 6.XX** shows eight common spatial predicates based on the spatial relationship between the geometries ({cite}`Egenhofer_1992`). Many of these predicates, such as *intersects*, *within*, *contains*, *overlaps* and *touches* are commonly used when selecting data for specific area of interest or when joining data from one dataset to another based on the spatial relation between the layers. 
+By examining the intersections of the interior, boundary and exterior of two geometric objects, a detailed characterization of their spatial relationship can be achieved. One can for instance test whether a given Point or LineString is *within* a Polygon (returning True or False). When testing how two geometries relate to each other, the DE-9IM model gives a result which is called {term}`spatial predicate` (or sometimes {term}`binary predicate`). The **Figure 6.XX** shows eight common spatial predicates based on the spatial relationship between the geometries ({cite}`Egenhofer_1992`). Many of these predicates, such as *intersects*, *within*, *contains*, *overlaps* and *touches* are commonly used when selecting data for specific area of interest or when joining data from one dataset to another based on the spatial relation between the layers. 
 
 ![_**Figure 6.XX**. Eight common spatial predicates formed based on spatial relations between two geometries. Modified after Egenhofer et al. (1992)_.](../img/spatial-relations.png)
 
@@ -54,7 +54,7 @@ Now as we know the basics of topological spatial relations, we can proceed and s
 When you want to use Python to find out how two geometric objects are related to each other topologically, you start by creating the geometries using shapely library. In the following, we create a couple of `Point` objects and one `Polygon` object which we can use to test how they relate to each other: 
 
 ```python
-from shapely.geometry import Point, Polygon
+from shapely import Point, Polygon
 
 # Create Point objects
 point1 = Point(24.952242, 60.1696017)
@@ -87,27 +87,7 @@ point1.within(polygon)
 point2.within(polygon)
 ```
 
-As we can see, the first point seem to be located within the polygon where as the second one does not. In a similar manner, you can test all different spatial predicates and assess the spatial relationship between the geometries. The following prints results for all predicates between the `point1` and the `polygon`: 
-
-```python
-print("Intersects?", point1.intersects(polygon))
-print("Within?", point1.within(polygon))
-print("Contains?", point1.contains(polygon))
-print("Overlaps?", point1.overlaps(polygon))
-print("Touches?", point1.touches(polygon))
-print("Covers?", point1.covers(polygon))
-print("Covered by?", point1.covered_by(polygon))
-print("Equals?", point1.equals(polygon))
-print("Disjoint?", point1.disjoint(polygon))
-print("Crosses?", point1.crosses(polygon))
-```
-
-By going through all the spatial predicates, we can see that the spatial relationship between our point and polygon object produces three `True` values: The point and polygon intersect with each other, the point is within the polygon, and the point is covered by the polygon. All the other tests correctly produce `False`, which matches with the logic of the `DE-9IM` standard. 
-
-It is good to notice that some of these spatial predicates are closely related to each other. For example, the `.within()` and `covered_by()` in our tests produce similar result with our data. Also `.contains()` is closely related to `within()`. Our `point1` was within the `polygon`, but we can also say that the `polygon` contains `point1`. Hence, both tests produce the same result, but the logic for the relationship is inverse. Which one should you use then? Well, it depends:
-
--  if you have many points and just one polygon and you try to find out which one of them is inside the polygon: You might need to iterate over the points and check one at a time if it is `.within()` the polygon.
--  if you have many polygons and just one point and you want to find out which polygon contains the point: You might need to iterate over the polygons until you find a polygon that `.contains()` the point specified (assuming there are no overlapping polygons).
+As we can see, the first point seem to be located within the polygon where as the second one does not. 
 
 
 One of the most common spatial queries is to see if a geometry intersects or touches another one. Again, there are binary operations in shapely for checking these spatial relationships:
@@ -118,7 +98,7 @@ One of the most common spatial queries is to see if a geometry intersects or tou
 Let's try these by creating two `LineString` geometries and test whether they intersect and touch each other:
 
 ```python deletable=true editable=true
-from shapely.geometry import LineString, MultiLineString
+from shapely import LineString, MultiLineString
 
 # Create two lines
 line_a = LineString([(0, 0), (1, 1)])
@@ -163,99 +143,72 @@ print("Intersects?", line_a.intersects(line_a))
 print("Equals?", line_a.equals(line_a))
 ```
 
+In a similar manner as in the examples above, you can test all different spatial predicates and assess the spatial relationship between geometries. The following prints results for all predicates between the `point1` and the `polygon` which we created earlier: 
+
+```python
+print("Intersects?", point1.intersects(polygon))
+print("Within?", point1.within(polygon))
+print("Contains?", point1.contains(polygon))
+print("Overlaps?", point1.overlaps(polygon))
+print("Touches?", point1.touches(polygon))
+print("Covers?", point1.covers(polygon))
+print("Covered by?", point1.covered_by(polygon))
+print("Equals?", point1.equals(polygon))
+print("Disjoint?", point1.disjoint(polygon))
+print("Crosses?", point1.crosses(polygon))
+```
+
+By going through all the spatial predicates, we can see that the spatial relationship between our point and polygon object produces three `True` values: The point and polygon intersect with each other, the point is within the polygon, and the point is covered by the polygon. All the other tests correctly produce `False`, which matches with the logic of the `DE-9IM` standard. 
+
+It is good to notice that some of these spatial predicates are closely related to each other. For example, the `.within()` and `covered_by()` in our tests produce similar result with our data. Also `.contains()` is closely related to `within()`. Our `point1` was within the `polygon`, but we can also say that the `polygon` contains `point1`. Hence, both tests produce the same result, but the logic for the relationship is inverse. Which one should you use then? Well, it depends:
+
+-  if you have many points and just one polygon and you try to find out which one of them is inside the polygon: You might need to iterate over the points and check one at a time if it is `.within()` the polygon.
+-  if you have many polygons and just one point and you want to find out which polygon contains the point: You might need to iterate over the polygons until you find a polygon that `.contains()` the point specified (assuming there are no overlapping polygons).
+
+
 ## Spatial queries using geopandas
 
-Next we will do a practical example where we check which of the addresses from [the geocoding tutorial](geocoding_in_geopandas.ipynb) are located in Southern district of Helsinki. Let's start by reading a KML-file ``PKS_suuralue.kml`` that has the Polygons for districts of Helsinki Region (data openly available from [Helsinki Region Infoshare](http://www.hri.fi/fi/dataset/paakaupunkiseudun-aluejakokartat).
-
-Let's start by reading the addresses from the Shapefile that we saved earlier.
+Now as we have learned how to investigate the spatial relationships between shapely geometries, we can continue and learn how to conduct similar spatial queries with geopandas `GeoDataFrames`. Conducting spatial queries with geopandas is handy because you can easily compare the spatial relationships between multiple geometries stored in separate `GeoDataFrames`. Next, we will run an example in which we check which points are located within specific areas of Helsinki. Let's start by reading data that contains Polygons for major districts in Helsinki Region, as well as a few point observations that represent addresses around Helsinki that we geocoded in the previous section:
 
 ```python deletable=true editable=true
 import geopandas as gpd
 
-fp = "data/Helsinki/addresses.shp"
-fp2 = "data/Helsinki/Major_districts.gpkg"
+points = gpd.read_file("data/Helsinki/addresses.shp")
+districts = gpd.read_file("data/Helsinki/Major_districts.gpkg")
+```
 
-# Read the datasets
-points = gpd.read_file(fp)
-districts = gpd.read_file(fp2)
-
+```python
 print("Shape:", points.shape)
 points.head()
 ```
 
 ```python
 print("Shape:", districts.shape)
-districts.head()
-```
-
-Nice, now we can see that we have 23 districts in our area. 
-Let's quickly plot the geometries to see how the layer looks like: 
-
-```python
-polys.plot()
+districts.tail(5)
 ```
 
 <!-- #region deletable=true editable=true -->
-_**Figure 6.28**. ADD PROPER FIGURE CAPTION!._
-
-We are interested in an area that is called ``Eteläinen`` (*'Southern'* in English).
-
-Let's select the ``Eteläinen`` district and see where it is located on a map:
-
+We can see that we have altogether 34 points and 23 districts in our area. For demonstration purposes, we are interested in finding all points that are within two areas in Helsinki region, namely `Itäinen` and `Eteläinen` (*'Eastern'* and *'Southern'* in English). Let's first select the districts using the `.loc` indexer and the listed criteria which we can use with the `.isin()` method to filter the data, as we learned already in Chapter 3:
 <!-- #endregion -->
 
 ```python
-# Select data
-southern = polys.loc[polys["Name"] == "Eteläinen"]
+selection = districts.loc[districts["Name"].isin(["Itäinen", "Eteläinen"])]
+selection.head()
 ```
 
-```python
-# Reset index for the selection
-southern.reset_index(drop=True, inplace=True)
-```
-
-```python
-# Check the selction
-southern.head()
-```
-
-- Let's create a map which shows the location of the selected district, and let's also plot the geocoded address points on top of the map:
+Let's now plot the layers on top of each other. The areas with red color represent the districts that we want to use for testing the spatial relationships against the point layer (shown with blue color):
 
 ```python deletable=true editable=true
-import matplotlib.pyplot as plt
-
-# Create a figure with one subplot
-fig, ax = plt.subplots()
-
-# Plot polygons
-polys.plot(ax=ax, facecolor="gray")
-southern.plot(ax=ax, facecolor="red")
-
-# Plot points
-data.plot(ax=ax, color="blue", markersize=5)
-
-plt.tight_layout()
+base = districts.plot(facecolor="gray")
+selection.plot(ax=base, facecolor="red")
+points.plot(ax=base, color="blue", markersize=5)
 ```
 
 <!-- #region deletable=true editable=true -->
-_**Figure 6.29**. ADD PROPER FIGURE CAPTION!._
+_**Figure 6.XX**. ADD PROPER FIGURE CAPTION!._
 
-Okey, so we can see that, indeed, certain points are within the selected red Polygon.
-
-Let's find out which one of them are located within the Polygon. Hence, we are conducting a **Point in Polygon query**.
-
-First, let's check that we have  `shapely.speedups` enabled. This module makes some of the spatial queries running faster (starting from Shapely version 1.6.0 Shapely speedups are enabled by default):
+As we can see from **Figure 6.XX**, many points seem to be within the two selected districts. To find out which of of them are located within the Polygon. Hence, we are conducting a **Point in Polygon query**.
 <!-- #endregion -->
-
-```python deletable=true editable=true
-# import shapely.speedups
-from shapely import speedups
-
-speedups.enabled
-
-# If false, run this line:
-# shapely.speedups.enable()
-```
 
 <!-- #region deletable=true editable=true -->
 - Let's check which Points are within the ``southern`` Polygon. Notice, that here we check if the Points are ``within`` the **geometry**
@@ -264,7 +217,7 @@ speedups.enabled
 <!-- #endregion -->
 
 ```python deletable=true editable=true
-pip_mask = data.within(southern.at[0, "geometry"])
+pip_mask = points.within(selection.unary_union)
 print(pip_mask)
 ```
 
@@ -277,7 +230,7 @@ We can now use this mask array to select the Points that are inside the Polygon.
 <!-- #endregion -->
 
 ```python deletable=true editable=true
-pip_data = data.loc[pip_mask]
+pip_data = points.loc[pip_mask]
 pip_data
 ```
 
@@ -290,8 +243,8 @@ Let's finally confirm that our Point in Polygon query worked as it should by plo
 fig, ax = plt.subplots()
 
 # Plot polygons
-polys.plot(ax=ax, facecolor="gray")
-southern.plot(ax=ax, facecolor="red")
+districts.plot(ax=ax, facecolor="gray")
+selection.plot(ax=ax, facecolor="red")
 
 # Plot points
 pip_data.plot(ax=ax, color="gold", markersize=2)
