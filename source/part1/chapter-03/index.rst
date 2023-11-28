@@ -13,4 +13,4 @@ You will learn how to read and write data from/to a file, and to manipulate and 
     3.2 Common tabular operations in pandas <nb/01-data-manipulation.ipynb>
     3.3 Data wrangling, grouping and aggregation <nb/02-data-analysis.ipynb>
     3.4 Working with temporal data <nb/03-temporal-data.ipynb>
-    3.5 Exercises <nb/04-exercises.ipynb>
+    nb/04-exercises.ipynb

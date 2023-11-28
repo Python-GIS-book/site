@@ -14,4 +14,4 @@ Here we introduce the basics of programming in the Python language. You will lea
     2.4 Functions <nb/03-functions.ipynb>
     2.5 Writing script files <nb/04-writing-scripts.ipynb>
     2.6 Loading and using modules <nb/05-modules.ipynb>
-    2.7 Exercises <nb/06-exercises.ipynb>
+    nb/06-exercises.ipynb
