@@ -12,6 +12,7 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Effective plot design: line plots
 
 As we have seen earlier in this chapter, you should be aiming to produce plots that include all of the elements that help make understanding the plotted data intuitive. Typically, this might include:
@@ -26,10 +27,8 @@ In addition, there are several factors that can help improve the communication o
 
 Not all people viewing your plots will see them the same way. Some viewers may have color blindness, while others may have printed out a copy of your plot in grayscale from a printer. Thus, while choosing nice colors can help make your plots look visually pleasing to you, it is worthwhile to consider the other viewers or formats in which your plots may be viewed. In this way your visualizations can be as inclusive to different viewers as possible.
 
-
-## Tips for plotting lines
-
 Let's consider an illustrative example. In this case we will use four lines to plot hypothetical monthly temperatures for various mythical lands in the year 1680 [^nerds]. We will use a pandas DataFrame called `data` for this purpose with four columns and one year of data. We can see temperatures for the first four months in the data table below by typing `data.head(4)`.
+<!-- #endregion -->
 
 ```python tags=["hide-cell"]
 # Load the libraries we need

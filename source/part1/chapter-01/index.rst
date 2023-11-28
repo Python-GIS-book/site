@@ -2,7 +2,7 @@
 ==================
 
 .. 
-    Introductory text about what this chapter covers, followed by a list of learning goals/outcomes/whatever for the chapter. NOTHING BELOW THE TOCTREE!
+    Only the TOCtree goes here.
 
 .. toctree::
     :maxdepth: 1

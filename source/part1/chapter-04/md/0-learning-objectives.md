@@ -17,8 +17,8 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter 1 provides the essential background information needed to get started programming in Python.
-This chapter introduces basic concepts related to computers and programming, and provides some basic information about the programming environment used in this book, including how to install Python on your own computer.
+Chapter four provides an introduction to the essentials of data visualization in Python using the matplotlib library.
+This chapter presents an overview of various data visualization libraries available in Python and demonstrates how to create common visualizations using the matplotlib library.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
@@ -27,10 +27,10 @@ This chapter introduces basic concepts related to computers and programming, and
 
 At the end of this chapter, you should be able to:
 
-- Explain the fundamental elements of computers and programming languages
-- Describe why Python is a useful programming language to learn
-- Explain different ways to run Python programs and why we use Jupyter notebooks in this book
-- Use Jupyter notebooks online and install Python on your own computer
+- Describe some of the different libraries available for data visualization in Python
+- List the important elements of a plot
+- Create and manipulate line, bar, and sets of plots using the matplotlib libary
+- Explain key elements of effective line plots
 
 ```
 <!-- #endregion -->
