@@ -17,8 +17,7 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter 1 provides the essential background information needed to get started programming in Python.
-This chapter introduces basic concepts related to computers and programming, and provides some basic information about the programming environment used in this book, including how to install Python on your own computer.
+Chapter three introduces the basics of data analysis in Python using the pandas library. The goal is to be able to read and manipulate table data in files to be able to perform common data analysis tasks such as calculating averages over a given time period.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
@@ -27,10 +26,11 @@ This chapter introduces basic concepts related to computers and programming, and
 
 At the end of this chapter, you should be able to:
 
-- Explain the fundamental elements of computers and programming languages
-- Describe why Python is a useful programming language to learn
-- Explain different ways to run Python programs and why we use Jupyter notebooks in this book
-- Use Jupyter notebooks online and install Python on your own computer
+- Read and explore tabluar data in Python using the pandas library
+- Perform basic data analysis using pandas data structures and functions
+- Clean datasets to remove missing values
+- Use your own functions to process table data
+- Manipulate data tables that include dates/times (temporal datasets) and resample their values
 
 ```
 <!-- #endregion -->

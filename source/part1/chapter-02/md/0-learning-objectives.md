@@ -17,8 +17,7 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter 1 provides the essential background information needed to get started programming in Python.
-This chapter introduces basic concepts related to computers and programming, and provides some basic information about the programming environment used in this book, including how to install Python on your own computer.
+Chapter two presents some essential programming concepts and how to apply them in the Python language. This chapter covers the necessary background to create your own basic programs and use common data structures and operations in Python.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
@@ -27,10 +26,12 @@ This chapter introduces basic concepts related to computers and programming, and
 
 At the end of this chapter, you should be able to:
 
-- Explain the fundamental elements of computers and programming languages
-- Describe why Python is a useful programming language to learn
-- Explain different ways to run Python programs and why we use Jupyter notebooks in this book
-- Use Jupyter notebooks online and install Python on your own computer
+- Define and use variables, and convert between data types
+- Describe index variables and how they are used in Python collections
+- Utilize for loops to repeat actions in a program
+- Use conditional statements to decide which parts of a program to execute
+- Create functions to make it easy to use and re-use parts of your programs
+- Understand how to create your own Python script files and use Python modules
 
 ```
 <!-- #endregion -->
