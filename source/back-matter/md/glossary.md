@@ -156,6 +156,9 @@ Topological spatial relations
 Tuple
   [Tuple](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences) is a Python data structure that consists of a number of values separated by commas. Coordinate pairs are often represented as a tuple, such as: `(60.192059, 24.945831)`. Tuples belong to [sequence data types](https://docs.python.org/3/library/stdtypes.html#typesseq) in Python. Other sequence data types are lists and ranges. Tuples have many similarities with lists and ranges, but they are often used for different purposes. The main difference between tuples and lists is that tuples are [immutable](https://docs.python.org/3/glossary.html#term-immutable), which means that the contents of a tuple cannot be altered (while lists are mutable; you can, for example, add and remove values from lists).
 
+Unary union
+  The unary union operation takes multiple geometries and merges them into a single geometry. This is useful when you have a collection of shapes and you want to treat them as a single entity for analysis or visualization.
+
 Variable
   A way of storing values in the memory of the computer using specific names that you define.
   
@@ -169,4 +172,8 @@ Well-known text
   Well-known text (WKT) is a text markup language for representing vector geometry objects. WKT can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m). The binary equivalent for WKT is `Well-known binary` format.
 
   
+```
+
+```python
+
 ```
