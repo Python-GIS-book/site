@@ -135,6 +135,9 @@ Semantics
 Software
   Another name for a {term}`program`.
 
+Spatial join
+  A spatial join is a method used to combine spatial data based on the locations and relationships of the features in two separate geospatial datasets. It merges the two datasets based on their spatial relations, e.g. by joining information from all points in a given dataset that are within given polygons present in another dataset.
+
 Spatial resolution
   The spatial resolution of a raster refers typically to the size of the cells in a raster dataset. It can also mean the ratio of screen pixels to image pixels at the current map scale. 
 
