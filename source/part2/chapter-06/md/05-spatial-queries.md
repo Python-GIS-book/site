@@ -14,7 +14,7 @@ jupyter:
 
 # Selecting and joining data between layers based on spatial relationships
 
-When working with geospatial data, it is quite common to do specific GIS operations based on how two (or more) data layers are located on top of each other. For instance, finding out if a certain point is located inside of an area, or whether a line intersects with another line (or a polygon), are one of the fundamental geospatial operations that are needed when selecting data for a specific region. These kind of spatial queries relate to {term}`topological spatial relations` which are fundamental constructs that describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as *contains*, *touches* and *intersects* ({cite}`Clementini_1994`). In GIS, the topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions. For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. Next, we will learn a bit more details about these topological relations and how to use them for spatial queries in Python.
+When working with geospatial data, it is a quite common situtation that you need to do specific GIS operations based on how two (or more) data layers are located on top of each other. For instance, finding out if a certain point is located inside of an area, or whether a line intersects with another line (or a polygon), are one of the fundamental geospatial operations that are needed when selecting data for a specific region. These kind of spatial queries relate to {term}`topological spatial relations` which are fundamental constructs that describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as *contains*, *touches* and *intersects* ({cite}`Clementini_1994`). In GIS, the topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions. For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. Next, we will learn a bit more details about these topological relations and how to use them for spatial queries in Python.
 
 
 ## Topological spatial relations
@@ -217,7 +217,7 @@ print(pip_mask)
 ```
 
 <!-- #region deletable=true editable=true -->
-As as result we get `True` if the given point is inside the selected Polygons, and `False` if it is not. We can now use this mask array to select the points that are inside the given polygons. Selecting data with this kind of mask array (containing boolean values) is easy by passing the array inside the `loc` indexer:
+As as result, we get `True` if the given point is inside the selected Polygons, and `False` if it is not. We can now use this mask array to select the points that are inside the given polygons. Selecting data with this kind of mask array (containing boolean values) is easy by passing the array inside the `loc` indexer:
 <!-- #endregion -->
 
 ```python deletable=true editable=true
@@ -241,12 +241,42 @@ pip_data.plot(ax=ax, color="gold", markersize=2)
 <!-- #region deletable=true editable=true -->
 _**Figure 6.30**. ADD PROPER FIGURE CAPTION!._
 
-Perfect! Now we only have the (golden) points that, indeed, are inside the red polygons which is exactly what we wanted. However, why did we use the unary union when doing the `.within()` query you might wonder? The reason for using `selection.unary_union` is that it creates a single `shapely.MultiPolygon` object out of all geometries in the `selection` GeoDataFrame, and hence makes the spatial query to consider all geometries in the `selection` GeoDataFrame. Without the unary union, the comparisons would be conducted between two `GeoSeries` at row-by-row basis producing most likely unwanted results: the geometry of the first row in the left GeoDataFrame would be compared against the geometry in the first row in the other GeoDataFrame accordingly. Hence, when you want to find which points in the left GeoDataFrame are within all polygons in the right GeoDataFrame, it is recommended to use the `.unary_union`, or some other geometric operation to turn the geometries of the other GeoDataFrame into a shapely geometry. 
+Perfect! Now we only have the (golden) points that, indeed, are inside the red polygons which is exactly what we wanted. However, why did we use the unary union when doing the `.within()` query, you might wonder? The reason for using `selection.unary_union` is that it creates a single `shapely.MultiPolygon` object out of all geometries in the `selection` GeoDataFrame, and hence makes the spatial query to consider all geometries in the `selection` GeoDataFrame. Without the unary union, the comparisons would be conducted between two `GeoSeries` at row-by-row basis producing most likely unwanted results: the geometry of the first row in the left GeoDataFrame would be compared against the geometry in the first row in the other GeoDataFrame accordingly. Hence, when you want to find out for example "which points in the left GeoDataFrame are within all polygons in the right GeoDataFrame", it is recommended to use the `.unary_union`, or some other geometric operation to combine all geometries of the right GeoDataFrame into a single shapely geometry. This is true not only for polygons, but applies similarly to all geometry types. 
 <!-- #endregion -->
 
-## Faster spatial queries using spatial join
+## Efficient selections using `.sjoin()`
 
-Add stuff.
+In the previous section, we used the *traditional* GeoDataFrame methods for spatial predicates (`.within()`, `.contains()` etc.) to see how two spatial data layers relate with each other. In the following, we will show how to take advantage of a method called `.sjoin()` for doing spatial queries between two GeoDataFrames. Normally, `.sjoin()` method is used for conducting a {term}`spatial join` between two spatial datasets, meaning that specific attribute information from a given GeoDataFrame is joined to the other one based on their topological relationship (see next section for more details). However, the spatial join can also be used as an efficient way to conduct spatial queries between two GeoDataFrames, producing similar results as when using the normal shapely spatial predicates. Consider the following example:  
+
+```python
+selected_points = points.sjoin(selection, predicate="within")
+```
+
+```python
+ax = districts.plot(facecolor="gray")
+ax = selection.plot(ax=ax, facecolor="red")
+ax = selected_points.plot(ax=ax, color="gold", markersize=2)
+```
+
+In a similar manner, we can also investigate which districts contain at least one point:
+
+```python
+districts_with_points = districts.sjoin(points, predicate="contains")
+```
+
+```python
+ax = districts.plot(facecolor="gray")
+ax = districts_with_points.plot(ax=ax, ec="gray")
+ax = points.plot(ax=ax, color="red")
+```
+
+```python
+districts_with_points.explore(tooltip=["Name"])
+```
+
+_**Figure 6.XX**. ADD PROPER FIGURE CAPTION!._
+
+As we can see, the `.sjoin()` method here (Figure **6.XX**) produces exactly the same results as in the previous example (Figure **6.XX**)! Hence, we can easily use the `.sjoin()` with the parameter `predicate` to investigate how the geometries between the two GeoDataFrames are related to each other. What is even nicer, is that the `.sjoin()` method is extremely powerful as it uses a {term}`spatial index` to make the queries faster (see Appendix 5). This comes very practical especially when working with large datasets and doing e.g. a point-in-polygon type of queries with millions of point observations. 
 
 
 ## Footnotes
