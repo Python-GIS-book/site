@@ -258,7 +258,11 @@ ax = selection.plot(ax=ax, facecolor="red")
 ax = selected_points.plot(ax=ax, color="gold", markersize=2)
 ```
 
-In a similar manner, we can also investigate which districts contain at least one point:
+_**Figure 6.XX**. ADD PROPER FIGURE CAPTION!._
+
+As we can see, the `.sjoin()` method here (Figure **6.XX**) produces exactly the same results as in the previous example (Figure **6.XX**). Hence, we can easily use the `.sjoin()` with the parameter `predicate` to investigate how the geometries between the two GeoDataFrames are related to each other.
+
+In a similar manner, we can also investigate which of the districts contain at least one point. In this case, we make a spatial join using the `disctricts` GeoDataFrame as a starting point, join the layer with the `points` and change the `predicate` parameter to `"contains"`:
 
 ```python
 districts_with_points = districts.sjoin(points, predicate="contains")
@@ -266,17 +270,25 @@ districts_with_points = districts.sjoin(points, predicate="contains")
 
 ```python
 ax = districts.plot(facecolor="gray")
-ax = districts_with_points.plot(ax=ax, ec="gray")
-ax = points.plot(ax=ax, color="red")
-```
-
-```python
-districts_with_points.explore(tooltip=["Name"])
+ax = districts_with_points.plot(ax=ax, edgecolor="gray")
+ax = points.plot(ax=ax, color="red", markersize=2)
 ```
 
 _**Figure 6.XX**. ADD PROPER FIGURE CAPTION!._
 
-As we can see, the `.sjoin()` method here (Figure **6.XX**) produces exactly the same results as in the previous example (Figure **6.XX**)! Hence, we can easily use the `.sjoin()` with the parameter `predicate` to investigate how the geometries between the two GeoDataFrames are related to each other. What is even nicer, is that the `.sjoin()` method is extremely powerful as it uses a {term}`spatial index` to make the queries faster (see Appendix 5). This comes very practical especially when working with large datasets and doing e.g. a point-in-polygon type of queries with millions of point observations. 
+As a result, we can now see that all the polygons marked with blue color were correctly selected as those ones which contain at least one point object. In a similar manner, you can also test other topological relationships by changing the value in `predicate` parameter. You can easily find all possible spatial predicates for a given GeoDataFrame by calling:
+
+```python
+districts.sindex.valid_query_predicates
+```
+
+But what is this `.sindex` that we use here? Let's investigate a bit further by calling it: 
+
+```python
+districts.sindex
+```
+
+As we can see, the `.sindex` is something called `PyGEOSSSTRTreeIndex` object. This is something that geopandas prepares automatically for GeoDataFrames and it contains the {term}`spatial index` for our data. A spatial index is a special data structure that allows for efficient querying of spatial data. There are many different kind of spatial indices, but geopandas uses a spatial index called R-tree which is a hierarchical, tree-like structure that divides the space into nested, overlapping rectangles and indexes the bounding boxes of each geometry. The spatial index improves the performance of spatial queries, such as finding all objects that intersect with a given area. The `.sjoin()` method takes advantage of the spatial index and is therefore an extremely powerful and makes the queries faster (see Appendix 5 for further details). This comes very practical especially when working with large datasets and doing e.g. a point-in-polygon type of queries with millions of point observations. Hence, when selecting data based on topological relations, we recommend using `.sjoin()` instead of directly calling `.within()`, `.contains()` or other predicates as we saw previously. 
 
 
 ## Footnotes
