@@ -12,28 +12,28 @@ jupyter:
     name: python3
 ---
 
-# Spatial queries
+# Selecting and joining data between layers based on spatial relationships
 
-Finding out if a certain point is located inside of an area, or whether a line intersects with another line (or a polygon) are one of the fundamental geospatial operations that are needed when e.g. selecting data for a specific region. These kind of spatial queries relate to {term}`topological spatial relations` which are fundamental constructs that describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as *contains*, *touches* and *intersects* ({cite}`Clementini_1994`). In GIS, the topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions. For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. Next, we will learn a bit more details about these topological relations and how to use them for spatial queries in Python.
+When working with geospatial data, it is quite common to do specific GIS operations based on how two (or more) data layers are located on top of each other. For instance, finding out if a certain point is located inside of an area, or whether a line intersects with another line (or a polygon), are one of the fundamental geospatial operations that are needed when selecting data for a specific region. These kind of spatial queries relate to {term}`topological spatial relations` which are fundamental constructs that describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as *contains*, *touches* and *intersects* ({cite}`Clementini_1994`). In GIS, the topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions. For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. Next, we will learn a bit more details about these topological relations and how to use them for spatial queries in Python.
 
 
 ## Topological spatial relations
 
-Computationally, conducting queries based on topological spatial relations, such as detecting if a point is inside a polygon can be done in different ways, but most GIS software rely on something called {term}`Dimensionally Extended 9-Intersection Model` ([DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) [^DE-9IM]). DE-9IM is an ISO approved standard and a fundamental framework in GIS that is used to describe and analyze spatial relationships between geometric objects ({cite}`Clementini_1993`). DE-9IM defines the topological relations based on the interior, boundary, and exterior of two geometric shapes and how they intersect with each other (see **Figure 6.XX and Figure 6.XX**). The model also takes into account the dimensionality of the objects: The Point objects are 0-dimensional, LineString and LinearRing are 1-dimensional and Polygons are 2-dimensional. Considering the dimensionality of geometric objects in the DE-9IM model is important because it determines the nature of spatial relations, influences the complexity of interactions between objects, and defines topological rules.
+Computationally, conducting queries based on topological spatial relations, such as detecting if a point is inside a polygon can be done in different ways, but most GIS software rely on something called {term}`Dimensionally Extended 9-Intersection Model` ([DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) [^DE-9IM]). DE-9IM is an ISO and OGC approved standard and a fundamental framework in GIS that is used to describe and analyze spatial relationships between geometric objects ({cite}`Clementini_1993`). DE-9IM defines the topological relations based on the interior, boundary, and exterior of two geometric shapes and how they intersect with each other (see **Figure 6.XX and Figure 6.XX**). When doing this, the DE-9IM also considers the dimensionality of the objects. Considering the dimensionality of geometric objects is important because it determines the nature of spatial relations, influences the complexity of interactions between objects, and defines topological rules. Typically the more dimensions the geometric object has, the more complex the geometry: The Point objects are 0-dimensional, LineString and LinearRing are 1-dimensional and Polygons are 2-dimensional (see Figure **6.XX**).   
 
 ![_**Figure 6.XX**. Interior, boundary and exterior for different geometric data types. The data types can be either 0, 1 or 2-dimensional._](../img/DE-9IM_topology_interior_boundary_exterior.png)
 
 _**Figure 6.XX**. Interior, boundary and exterior for different geometric data types. The data types can be either 0, 1 or 2-dimensional._
 
 
-By examining the intersections of the interior, boundary and exterior of two geometric objects, a detailed characterization of their spatial relationship can be achieved. One can for instance test whether a given Point or LineString is *within* a Polygon (returning True or False). When testing how two geometries relate to each other, the DE-9IM model gives a result which is called {term}`spatial predicate` (or sometimes {term}`binary predicate`). The **Figure 6.XX** shows eight common spatial predicates based on the spatial relationship between the geometries ({cite}`Egenhofer_1992`). Many of these predicates, such as *intersects*, *within*, *contains*, *overlaps* and *touches* are commonly used when selecting data for specific area of interest or when joining data from one dataset to another based on the spatial relation between the layers. 
+We do not go into details about the mathematics of the DI-9IM here, but under the hood the model uses a specific 3x3 intersection matrix to examine the intersections of the interior, boundary and exterior of two geometric objects. This makes it possible to produce a detailed characterization of the geometries' spatial relationship and one can for instance test whether a given Point or LineString is *within* a Polygon (returning True or False). When testing how two geometries relate to each other, the DE-9IM model gives a result which is called {term}`spatial predicate` (also called as {term}`binary predicate`). The **Figure 6.XX** shows eight common spatial predicates based on the spatial relationship between the geometries ({cite}`Egenhofer_1992`). Many of these predicates, such as *intersects*, *within*, *contains*, *overlaps* and *touches* are commonly used when selecting data for specific area of interest or when joining data from one dataset to another based on the spatial relation between the layers. 
 
 ![_**Figure 6.XX**. Eight common spatial predicates formed based on spatial relations between two geometries. Modified after Egenhofer et al. (1992)_.](../img/spatial-relations.png)
 
 _**Figure 6.XX**. Eight common spatial predicates formed based on spatial relations between two Polygon geometries. Modified after Egenhofer et al. (1992)_.
 
 
-The top row of the **Figure 6.XX** shows spatial predicates in which the geometries A and B are clearly disjoint from each other, contained or within each other, or identical to each other. When the geometries have at least one point in common, the geometries are said to be *intersecting* with each other. Thus, in this figure, all the comparisons except the first one (disjoint) are True, i.e. the geometries *intersect* with each other. The bottom row shows examples of spatial relationships that are slightly "special cases" in one way or another. When two geometries *touch* each other, they have at least one point in common (at the border in this case), but their interiors do not intersect with each other. When the interiors of the geometries A and B are partially on top of each other and partially outside of each other, the geometries are *overlapping* with each other. The spatial predicate for *covers* is when the interior of geometry B is almost totally within A, except at least one common coordinate at the border. Similarly, if geometry A is almost totally contained by the geometry B (except at least one common coordinate at the border) the spatial predicate is called *covered by*. These eight examples represent some of the common spatial predicates based on two Polygon shapes. When other shapes are considered (e.g. Points, LineStrings), there are plenty of more topological relations: altogether 512 with 2D data.
+The top row of the **Figure 6.XX** shows spatial predicates in which the geometries A and B are clearly disjoint from each other, contained or within each other, or identical to each other. When the geometries have at least one point in common, the geometries are said to be *intersecting* with each other. Thus, in this figure, all the comparisons except the first one (disjoint) are True, i.e. the geometries *intersect* with each other. The bottom row shows examples of spatial relationships that are slightly "special cases" in one way or another. When two geometries *touch* each other, they have at least one point in common (at the border in this case), but their interiors do not intersect with each other. When the interiors of the geometries A and B are partially on top of each other and partially outside of each other, the geometries are *overlapping* with each other. The spatial predicate for *covers* is when the interior of geometry B is almost totally within A, but they share at least one common coordinate at the border. Similarly, if geometry A is almost totally contained by the geometry B (except at least one common coordinate at the border) the spatial predicate is called *covered by*. These eight examples represent some of the common spatial predicates based on two Polygon shapes. When other shapes are considered (e.g. Points, LineStrings), there are plenty of more topological relations: altogether 512 with 2D data.
 
 
 ## Making spatial queries in Python
@@ -138,7 +138,7 @@ line_a.touches(line_a)
 It does not. However, the `.intersects()` and `.equals()` should produce `True` for a case when we compare the `line_a` with itself:
 <!-- #endregion -->
 
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
+```python deletable=true editable=true
 print("Intersects?", line_a.intersects(line_a))
 print("Equals?", line_a.equals(line_a))
 ```
@@ -207,13 +207,8 @@ points.plot(ax=base, color="blue", markersize=5)
 <!-- #region deletable=true editable=true -->
 _**Figure 6.XX**. ADD PROPER FIGURE CAPTION!._
 
-As we can see from **Figure 6.XX**, many points seem to be within the two selected districts. To find out which of of them are located within the Polygon. Hence, we are conducting a **Point in Polygon query**.
-<!-- #endregion -->
-
-<!-- #region deletable=true editable=true -->
-- Let's check which Points are within the ``southern`` Polygon. Notice, that here we check if the Points are ``within`` the **geometry**
-  of the ``southern`` GeoDataFrame. 
-- We use the ``.at[0, 'geometry']`` to parse the actual Polygon geometry object from the GeoDataFrame.
+As we can see from **Figure 6.XX**, many points seem to be within the two selected districts. To find out which of of them are located within the Polygon, we need to conduct a Point in Polygon -query.
+We can do this by checking which Points in the `points` GeoDataFrame are `.within()` the selected polygons stored in the `selection` GeoDataFrame. Notice that we convert the Polygons into a single `MultiPolygon` by conducting a {term}`unary union` based on the geometries in the `selection` GeoDataFrame. As a result, we get a Series that contains Boolean values (True or False) corresponding to each Point object in the `points` GeoDataFrame:
 <!-- #endregion -->
 
 ```python deletable=true editable=true
@@ -222,11 +217,7 @@ print(pip_mask)
 ```
 
 <!-- #region deletable=true editable=true -->
-As we can see, we now have an array of boolean values for each row, where the result is ``True``
-if Point was inside the Polygon, and ``False`` if it was not.
-
-We can now use this mask array to select the Points that are inside the Polygon. Selecting data with this kind of mask array (of boolean values) is easy by passing the array inside the ``loc`` indexer:
-
+As as result we get `True` if the given point is inside the selected Polygons, and `False` if it is not. We can now use this mask array to select the points that are inside the given polygons. Selecting data with this kind of mask array (containing boolean values) is easy by passing the array inside the `loc` indexer:
 <!-- #endregion -->
 
 ```python deletable=true editable=true
@@ -239,24 +230,24 @@ Let's finally confirm that our Point in Polygon query worked as it should by plo
 <!-- #endregion -->
 
 ```python deletable=true editable=true
-# Create a figure with one subplot
-fig, ax = plt.subplots()
-
 # Plot polygons
-districts.plot(ax=ax, facecolor="gray")
+ax = districts.plot(facecolor="gray")
 selection.plot(ax=ax, facecolor="red")
 
 # Plot points
 pip_data.plot(ax=ax, color="gold", markersize=2)
-
-plt.tight_layout()
 ```
 
 <!-- #region deletable=true editable=true -->
 _**Figure 6.30**. ADD PROPER FIGURE CAPTION!._
 
-Perfect! Now we only have the (golden) points that, indeed, are inside the red Polygon which is exactly what we wanted!
+Perfect! Now we only have the (golden) points that, indeed, are inside the red polygons which is exactly what we wanted. However, why did we use the unary union when doing the `.within()` query you might wonder? The reason for using `selection.unary_union` is that it creates a single `shapely.MultiPolygon` object out of all geometries in the `selection` GeoDataFrame, and hence makes the spatial query to consider all geometries in the `selection` GeoDataFrame. Without the unary union, the comparisons would be conducted between two `GeoSeries` at row-by-row basis producing most likely unwanted results: the geometry of the first row in the left GeoDataFrame would be compared against the geometry in the first row in the other GeoDataFrame accordingly. Hence, when you want to find which points in the left GeoDataFrame are within all polygons in the right GeoDataFrame, it is recommended to use the `.unary_union`, or some other geometric operation to turn the geometries of the other GeoDataFrame into a shapely geometry. 
 <!-- #endregion -->
+
+## Faster spatial queries using spatial join
+
+Add stuff.
+
 
 ## Footnotes
 
