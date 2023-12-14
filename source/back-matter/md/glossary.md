@@ -138,6 +138,9 @@ Software
 Spatial join
   A spatial join is a method used to combine spatial data based on the locations and relationships of the features in two separate geospatial datasets. It merges the two datasets based on their spatial relations, e.g. by joining information from all points in a given dataset that are within given polygons present in another dataset.
 
+Spatial queries
+  A spatial query is a process in GIS commonly used e.g. to select spatial features or properties based on the spatial relationships between geospatial data layers or geometries. Spatial queries are used for answering topology related questions on the basis of geometric information only, i.e., the spatial position and extent of the geometric objects involved.
+
 Spatial resolution
   The spatial resolution of a raster refers typically to the size of the cells in a raster dataset. It can also mean the ratio of screen pixels to image pixels at the current map scale. 
 
