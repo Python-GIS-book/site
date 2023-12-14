@@ -12,9 +12,9 @@ jupyter:
     name: python3
 ---
 
-# Selecting and joining data between layers based on spatial relationships
+# Selecting data based on spatial relationships
 
-When working with geospatial data, it is a quite common situtation that you need to do specific GIS operations based on how two (or more) data layers are located on top of each other. For instance, finding out if a certain point is located inside of an area, or whether a line intersects with another line (or a polygon), are one of the fundamental geospatial operations that are needed when selecting data for a specific region. These kind of spatial queries relate to {term}`topological spatial relations` which are fundamental constructs that describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as *contains*, *touches* and *intersects* ({cite}`Clementini_1994`). In GIS, the topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions. For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. Next, we will learn a bit more details about these topological relations and how to use them for spatial queries in Python.
+When working with geospatial data, it is a quite common situtation that you need to do specific GIS operations based on how two (or more) data layers are located in relation to each other. For instance, finding out if a certain point is located inside of an area, or whether a line intersects with another line (or a polygon), are one of the fundamental geospatial operations that are needed when e.g. selecting data for a specific region. These kind of queries are commonly called as {term}`spatial queries`. Spatial queries are conducted based on the {term}`topological spatial relations` which are fundamental constructs that describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as *contains*, *touches* and *intersects* ({cite}`Clementini_1994`). In GIS, the topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions. For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. Next, we will learn a bit more details about these topological relations and how to use them for spatial queries in Python.
 
 
 ## Topological spatial relations
@@ -244,12 +244,12 @@ _**Figure 6.30**. ADD PROPER FIGURE CAPTION!._
 Perfect! Now we only have the (golden) points that, indeed, are inside the red polygons which is exactly what we wanted. However, why did we use the unary union when doing the `.within()` query, you might wonder? The reason for using `selection.unary_union` is that it creates a single `shapely.MultiPolygon` object out of all geometries in the `selection` GeoDataFrame, and hence makes the spatial query to consider all geometries in the `selection` GeoDataFrame. Without the unary union, the comparisons would be conducted between two `GeoSeries` at row-by-row basis producing most likely unwanted results: the geometry of the first row in the left GeoDataFrame would be compared against the geometry in the first row in the other GeoDataFrame accordingly. Hence, when you want to find out for example "which points in the left GeoDataFrame are within all polygons in the right GeoDataFrame", it is recommended to use the `.unary_union`, or some other geometric operation to combine all geometries of the right GeoDataFrame into a single shapely geometry. This is true not only for polygons, but applies similarly to all geometry types. 
 <!-- #endregion -->
 
-## Efficient selections using `.sjoin()`
+## Efficient spatial selections using `.sjoin()`
 
-In the previous section, we used the *traditional* GeoDataFrame methods for spatial predicates (`.within()`, `.contains()` etc.) to see how two spatial data layers relate with each other. In the following, we will show how to take advantage of a method called `.sjoin()` for doing spatial queries between two GeoDataFrames. Normally, `.sjoin()` method is used for conducting a {term}`spatial join` between two spatial datasets, meaning that specific attribute information from a given GeoDataFrame is joined to the other one based on their topological relationship (see next section for more details). However, the spatial join can also be used as an efficient way to conduct spatial queries between two GeoDataFrames, producing similar results as when using the normal shapely spatial predicates. Consider the following example:  
+In the previous section, we used the more "traditional" GeoDataFrame methods for spatial predicates (`.within()`, `.contains()` etc.) to see how two spatial data layers relate with each other. In the following, we will show how to take advantage of a method called `.sjoin()` for doing spatial queries between two GeoDataFrames. Normally, `.sjoin()` method is used for conducting a {term}`spatial join` between two spatial datasets, meaning that specific attribute information from a given GeoDataFrame is joined to the other one based on their topological relationship (see next section for more details). However, spatial join can also be used as an efficient way to conduct spatial queries between two GeoDataFrames, producing similar results as when using the normal shapely spatial predicates. Consider the following example:  
 
 ```python
-selected_points = points.sjoin(selection, predicate="within")
+selected_points = points.sjoin(selection.geometry.to_frame())
 ```
 
 ```python
@@ -260,12 +260,12 @@ ax = selected_points.plot(ax=ax, color="gold", markersize=2)
 
 _**Figure 6.XX**. ADD PROPER FIGURE CAPTION!._
 
-As we can see, the `.sjoin()` method here (Figure **6.XX**) produces exactly the same results as in the previous example (Figure **6.XX**). Hence, we can easily use the `.sjoin()` with the parameter `predicate` to investigate how the geometries between the two GeoDataFrames are related to each other.
+As we can see, the `.sjoin()` method here (Figure **6.XX**) produces exactly the same results as in the previous example (Figure **6.XX**). Notice how we used the `selection.geometry.to_frame()` when calling the `sjoin()` method? This is a special trick to avoid attaching any extra attributes from the `selection` GeoDataFrame to our data, which is what `sjoin()` method would normally do (and which it is actually designed for). As we are only interested in the geometries of the right-hand-side layer to do the selection, calling the `.geometry.to_frame()` will first select the geometry column from the `selection` layer and then converts it into a GeoDataFrame (which would otherwise be a GeoSeries). 
 
-In a similar manner, we can also investigate which of the districts contain at least one point. In this case, we make a spatial join using the `disctricts` GeoDataFrame as a starting point, join the layer with the `points` and change the `predicate` parameter to `"contains"`:
+In a similar manner, we can easily use the `.sjoin()` with the parameter `predicate` to make selections based on how the geometries between two GeoDataFrames are related to each other. By default, the `sjoin()` uses `"intersects"` as a spatial predicate, but it is easy to change this. For example, we can investigate which of the districts *contain* at least one point. In this case, we make a spatial join using the `disctricts` GeoDataFrame as a starting point, join the layer with the `points` and use the `"contains"` as a value to our `predicate` parameter:
 
 ```python
-districts_with_points = districts.sjoin(points, predicate="contains")
+districts_with_points = districts.sjoin(points.geometry.to_frame(), predicate="contains")
 ```
 
 ```python
@@ -276,13 +276,15 @@ ax = points.plot(ax=ax, color="red", markersize=2)
 
 _**Figure 6.XX**. ADD PROPER FIGURE CAPTION!._
 
-As a result, we can now see that all the polygons marked with blue color were correctly selected as those ones which contain at least one point object. In a similar manner, you can also test other topological relationships by changing the value in `predicate` parameter. You can easily find all possible spatial predicates for a given GeoDataFrame by calling:
+As a result, we can now see that all the polygons marked with blue color were correctly selected as those ones which contain at least one point object. One important thing to remember whenever making spatial queries is that both layers need to share the same Coordinate Reference System for the selection to work properly. A typical reason for getting incorrect results when selecting data (likely an empty GeoDataFrame) is that one data layer is e.g. in WGS84 coordinate reference system whereas the other one is in some projected CRS, such as ETRS-LAEA. If this happens, you can easily fix the situation by defining and reprojecting both GeoDataFrames to same CRS using the `to_crs()` method (see Chapter 6.4).  
+
+Following the previous examples, you can easily test other topological relationships as well, by changing the value in `predicate` parameter. To find all possible spatial predicates for a given GeoDataFrame you can call:
 
 ```python
 districts.sindex.valid_query_predicates
 ```
 
-But what is this `.sindex` that we use here? Let's investigate a bit further by calling it: 
+As you can see, this list includes all typical spatial predicates which we covered earlier. But what is this `.sindex` that we use here? Let's investigate a bit further by calling it: 
 
 ```python
 districts.sindex
