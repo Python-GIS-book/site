@@ -12,10 +12,11 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Plotting with pandas and matplotlib
 
 At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the [end of Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you'll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like [^matlab] plotting. We will also briefly explore creating interactive plots using the `hvplot` [^hvplot] plotting library, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax very similar to that in pandas.
-
+<!-- #endregion -->
 
 ## Creating a basic x-y plot
 
@@ -266,15 +267,12 @@ ax.legend()
 
 _**Figure 4.7**. A plot of the example temperature data further modified with additional formatting and reduced axis ranges._
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 4.1
 
-Create a line plot similar to the examples above with the following attributes:
-    
-- Temperature data from 18:00-24:00 on October 1, 2019
-- A dotted red line connecting the observations (do not show the data points)
-- A title that reads "Evening temperatures at Helsinki-Vantaa on October 1, 2019"
-- A text label indicating the warmest temperature in the evening
+Create a line plot similar to the examples above with the following attributes: (1) Temperature data from 18:00-24:00 on October 1, 2019, (2) 
+a dotted red line connecting the observations (do not show the data points), (3) a title that reads "Evening temperatures at Helsinki-Vantaa on October 1, 2019", and (4) a text label indicating the warmest temperature in the evening.
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -423,7 +421,7 @@ july2014_df.hvplot(
 )
 ```
 
-<!-- #raw tags=["hide-cell"] editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 4.9}. An interactive plot example using hvPlot.}}, center, nofloat}{../img/hvplot-example.png}
 { \hspace*{\fill} \\}
