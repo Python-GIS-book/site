@@ -15,9 +15,11 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Working with temporal data
 
-> “Ever since the dawn of civilization, people have not been content to see events as unconnected and inexplicable. They have craved an understanding of the underlying order in the world." - Stephen Hawking (1988)
+> “Ever since the dawn of civilization, people have not been content to see events as unconnected and inexplicable. They have craved an understanding of the underlying order in the world."
+>
+> Stephen Hawking (1988)
 
-Time is one of the most fundamental ways how we humans organize things in life and what we use to find understanding of the underlying world, as Stephen {cite}`Hawking1988` famously put it in his book "A brief history of time". Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and pandas.
+Time is one of the most fundamental ways how we humans organize things in life and what we use to find understanding of the underlying world, as Stephen Hawking famously put it in his book "A brief history of time" ({cite}`Hawking1988`). Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and pandas.
 <!-- #endregion -->
 
 ## Date and time basics
@@ -83,7 +85,15 @@ To crystallize the understanding how the timestamps can be parsed, let's look at
 ```python
 timestamp_with_tz = "2020-12-22T15:00:00 +0200"
 dtz = datetime.strptime(timestamp_with_tz, "%Y-%m-%dT%H:%M:%S %z")
-dtz
+print(dtz)
+```
+
+```python
+type(dtz)
+```
+
+```python
+dtz.tzinfo
 ```
 
 As we can see, now we produced the `datetime` object having time zone information attached into the `tzinfo` attribute showing the offset (i.e. *timedelta*) from UTC represented in seconds. Having the timezone information attached can be very useful if doing analysis with temporal data that has been collected from different parts of the world (under different time zones). Let's still take a look at an example in which we parse the `datetime` object from a textual representation that is written in a way how we humans normally write dates:
@@ -216,14 +226,18 @@ data = data.tz_localize("Europe/Helsinki", nonexistent="shift_forward", ambiguou
 data.tail()
 ```
 
-Now the TIME column is set as our index and it was moved to the left and replaced the original sequantial numbers. Notice that the `TIME` column is no longer part of the columns in our DataFrame (we will later see how to get it back as a column). Also the time zone information was attached to the Timestamp objects as can be seen by the five last characters showing `+03:00`. From this information we can see that the time zone in Finland is +3 hours at the given date (summer time). We can easily access the values in the index by calling it as follows: 
-
-```python
-data.index
-```
+Now the TIME column is set as our index and it was moved to the left and replaced the original sequantial numbers. Notice that the `TIME` column is no longer part of the columns in our DataFrame (we will later see how to get it back as a column). Also the time zone information was attached to the Timestamp objects as can be seen by the five last characters showing `+03:00`. From this information we can see that the time zone in Finland is +3 hours at the given date (summer time). We can easily access the values in the index by calling it. Let's check the first and last values of `data.index` and its data type.
 
 ```python
 data.index[0]
+```
+
+```python
+data.index[-1]
+```
+
+```python
+type(data.index)
 ```
 
 As we can see, the index is now a `DatetimeIndex` which is essentially an array consisting of `Timestamp` objects armed with all the attributes and methods that we have seen in the previous examples. In addition, our array has time zone specified as "Europe/Helsinki". Hint: If you want to know the available time zones, you can access them by `from pytz import all_timezones` which imports them into the variable `all_timezones` as a list. 
@@ -236,7 +250,7 @@ In some occasions, you might want to convert your time series data from one time
 # 'TIME' column is returned back as a normal column
 data = data.reset_index()
 data["NY_TIME"] = data["TIME"].dt.tz_convert("US/Eastern")
-data.head()
+print(data.head())
 ```
 
 Now we can see, that the timestamps were converted to represent the times in US/Eastern time zone and stored to the NY_TIME column. For example the first observation in our data that was recorded at 6 AM 1st of January in 1906 was correctly converted to a value from the last day of previous year at 11:20 PM (`1905-12-31 23:20`). This functionality can be very useful when working with temporal data from different parts of the world. Quite often the data collected from different global services (such as tweets collected from Twitter) store the information as UTC values. Hence, it is up to the user to parse the correct local time for tweets posted in different parts of the world. Using pandas for doing these kind of manipulation with the temporal data is extremely handy and efficient. In case your data is already represented in different timezones, pandas makes your life easy because timestamps are stored under the hood always in UTC. This means that it is straightforward to do operations between the two time series without any additional timezone conversions. We can for example do simple calculations between two DataFrames that are represented in different timezones:  
