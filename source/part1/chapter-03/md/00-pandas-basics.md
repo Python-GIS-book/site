@@ -18,7 +18,7 @@ jupyter:
 
 ## What is pandas?
 
-The [pandas Python library](https://pandas.pydata.org/) [^pandas] is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community ({cite}`McKinney2022`). 
+The [pandas Python library](https://pandas.pydata.org/) [^pandas] is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community ({cite}`McKinney2022`).
 
 Pandas is a "high-level" package, which means that it makes use of several other packages in the background. It combines the performance of powerful Python libraries such as [NumPy](https://numpy.org/) [^numpy], [matplotlib](https://matplotlib.org/) [^matplotlib] and [SciPy](https://scipy.org/) [^scipy].
 
