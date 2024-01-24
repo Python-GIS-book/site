@@ -69,15 +69,17 @@ data.dropna(subset=["TEMP_F"], inplace=True)
 print("Number of rows after removing no data values:", len(data))
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 4.2
 
 How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified DataFrame to another variable name or do not use the `inplace` parameter.
+<!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 
@@ -300,9 +302,11 @@ _**Figure 4.15**. Seasonal temperatures for 2012-2013 plotted with season names 
 The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 4.3
 
 Visualize only the winter and summer temperatures in a 1x2 panel figure. Save the resulting figure as a .png file.
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
