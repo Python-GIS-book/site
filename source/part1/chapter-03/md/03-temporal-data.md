@@ -279,7 +279,7 @@ As you can see, pandas automatically converted the temporal information to UTC t
 ## Selecting data based on DatetimeIndex
 
 
-In chapter 3.3, we saw how to select observations using simple string manipulation operations applied to the timestamp. Although this worked quite well for our specific case, it is a rather glumpsy and inflexible approach to work with temporal information. A much better approach, is to take advantage of the `datetime` objects stored in the time series. Let's again first set the `TIME` column as index for our DataFrame by using the method `set_index()`:
+In Chapter 3.3, we saw how to select observations using simple string manipulation operations applied to the timestamp. Although this worked quite well for our specific case, it is a rather glumpsy and inflexible approach to work with temporal information. A much better approach, is to take advantage of the `datetime` objects stored in the time series. Let's again first set the `TIME` column as index for our DataFrame by using the method `set_index()`:
 
 ```python
 fp = "data/029820.txt"
@@ -338,13 +338,23 @@ Or select data covering the whole year of 2018:
 data.loc["2018"]
 ```
 
-Combining this kind of indexing with methods such as `first()` or `last()` is extremely powerful, as you can easily retrieve for example all observations within first 6 hours and 10 minutes of a specific day (an arbitrary duration), in case you would be interested to understand temperatures during night time:
+It is also possible to select subsets of data for specific time intervals starting from the first dates or for the last dates in the selection. For example, if you would like to select the values for the first 6 hours and 10 minutes of January 1st, 2018 you could do the following.
 
 ```python
-data.loc["2018-01-01"].first("6H 10T")
+start_dt = datetime(2018, 1, 1)
+end_dt = start_dt + pd.DateOffset(hours=6, minutes=10)
+data.loc[start_dt:end_dt]
 ```
 
-The `6H` stands for a duration of six hours (number of hours plus letter `H`) and the `10T` is a duration of ten minutes (number of minutes plus `T`), and you can combine those into a single duration as shown above. In a similar manner, you can specify many other *{term}`DateOffsets`*, such as day (`D`) or second (`S`). The full list of all possible keywords (aliases) can be found from pandas documentation [^dateoffsets].  
+Here we define a starting date `start_dt` using the already familiar `datetime` function. The ending time `end_dt` is then defined as the starting time plus a time offset of 6 hours and 10 minutes using the `pd.DateOffset` function. The `pd.DateOffset` function can be used to specify a time by which another time could be shifted. Below is another example, looking at the last 8 hours and 45 minutes of data from January 31st, 2018.
+
+```python
+end_dt = datetime(2018, 1, 31, 23, 59, 59)
+start_dt = end_dt - pd.DateOffset(hours=8, minutes=45)
+data.loc[start_dt:end_dt]
+```
+
+Note that in this case the logic is slightly different from selecting the first values of a given day for a few reasons. First, we want to exclude midnight on February 1st, 2018 so the date value used for the end time of the selected dates is 23:59:59 on January 31st. If we had set `end_dt = datetime(2018, 2, 1)`, the corresponding date and time would be midnight (i.e., the start of the day) on February 1st. Second, we assign the end time first and then subtract the date offset to find the starting date and time to include in the selection. This way we get only values for January 31st. Additional useful details can be found in the  [pandas documentation for DateOffset objects]() [^dateoffsets].
 
 
 ## Shifting - or leading and lagging data
