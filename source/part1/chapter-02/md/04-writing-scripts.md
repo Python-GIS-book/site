@@ -218,10 +218,12 @@ Next, we need to add conditional statements that check whether the desired outpu
 def temp_calculator(temp_k, convert_to):
     # Check if user wants the temperature in Celsius
     if convert_to == "C":
-        # Convert the value to Celsius using the dedicated function for the task that we imported from another script
+        # Convert the value to Celsius using the dedicated function for
+        # the task that we imported from another script
         converted_temp = kelvins_to_celsius(temp_kelvins=temp_k)
     elif convert_to == "F":
-        # Convert the value to Fahrenheit using the dedicated function for the task that we imported from another script
+        # Convert the value to Fahrenheit using the dedicated function
+        # for the task that we imported from another script
         converted_temp = kelvins_to_fahr(temp_kelvins=temp_k)
 ```
 <!-- #endregion -->
@@ -235,10 +237,12 @@ Next, we need to add a return statement so that our function sends back the valu
 def temp_calculator(temp_k, convert_to):
     # Check if user wants the temperature in Celsius
     if convert_to == "C":
-        # Convert the value to Celsius using the dedicated function for the task that we imported from another script
+        # Convert the value to Celsius using the dedicated function for
+        # the task that we imported from another script
         converted_temp = kelvins_to_celsius(temp_kelvins=temp_k)
     elif convert_to == "F":
-        # Convert the value to Fahrenheit using the dedicated function for the task that we imported from another script
+        # Convert the value to Fahrenheit using the dedicated function
+        # for the task that we imported from another script
         converted_temp = kelvins_to_fahr(temp_kelvins=temp_k)
     # Return the result
     return converted_temp
@@ -253,14 +257,15 @@ Finally, since we want to be good programmers, we should add a short docstring a
 ```python
 def temp_calculator(temp_k, convert_to):
     """
-    Function for converting temperature in Kelvins to Celsius or Fahrenheit.
+    Converts temperature in Kelvins to Celsius or Fahrenheit.
 
     Parameters
     ----------
     temp_k: <numerical>
         Temperature in Kelvins
     convert_to: <str>
-        Target temperature that can be either Celsius ('C') or Fahrenheit ('F'). Supported values: 'C' | 'F'
+        Target temperature that can be either Celsius ('C') or
+        Fahrenheit ('F'). Supported values: 'C' | 'F'
 
     Returns
     -------
@@ -270,10 +275,12 @@ def temp_calculator(temp_k, convert_to):
 
     # Check if user wants the temperature in Celsius
     if convert_to == "C":
-        # Convert the value to Celsius using the dedicated function for the task that we imported from another script
+        # Convert the value to Celsius using the dedicated function for
+        # the task that we imported from another script
         converted_temp = kelvins_to_celsius(temp_kelvins=temp_k)
     elif convert_to == "F":
-        # Convert the value to Fahrenheit using the dedicated function for the task that we imported from another script
+        # Convert the value to Fahrenheit using the dedicated function
+        # for the task that we imported from another script
         converted_temp = kelvins_to_fahr(temp_kelvins=temp_k)
     # Return the result
     return converted_temp
@@ -304,7 +311,7 @@ temperature_c = tc.temp_calculator(temp_k=temp_kelvin, convert_to="C")
 ```
 
 ```python tags=["raises-exception"]
-print("The temperature", temp_kelvin, "Kelvins is", temperature_c, "degrees Celsius.")
+print(f"{temp_kelvin} Kelvins is {temperature_c:.2f} degrees Celsius.")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->

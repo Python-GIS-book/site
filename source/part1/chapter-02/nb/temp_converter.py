@@ -14,14 +14,15 @@ def kelvins_to_fahr(temp_kelvins):
 
 def temp_calculator(temp_k, convert_to):
     """
-    Function for converting temperature in Kelvins to Celsius or Fahrenheit.
+    Converts temperature in Kelvins to Celsius or Fahrenheit.
 
     Parameters
     ----------
     temp_k: <numerical>
         Temperature in Kelvins
     convert_to: <str>
-        Target temperature that can be either Celsius ('C') or Fahrenheit ('F'). Supported values: 'C' | 'F'
+        Target temperature that can be either Celsius ('C') or
+        Fahrenheit ('F'). Supported values: 'C' | 'F'
 
     Returns
     -------
@@ -31,10 +32,12 @@ def temp_calculator(temp_k, convert_to):
 
     # Check if user wants the temperature in Celsius
     if convert_to == "C":
-        # Convert the value to Celsius using the dedicated function for the task that we imported from another script
+        # Convert the value to Celsius using the dedicated function for
+        # the task that we imported from another script
         converted_temp = kelvins_to_celsius(temp_kelvins=temp_k)
     elif convert_to == "F":
-        # Convert the value to Fahrenheit using the dedicated function for the task that we imported from another script
+        # Convert the value to Fahrenheit using the dedicated function
+        # for the task that we imported from another script
         converted_temp = kelvins_to_fahr(temp_kelvins=temp_k)
     # Return the result
     return converted_temp

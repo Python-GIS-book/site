@@ -36,7 +36,7 @@ By looking at the data, we can notice a few things that we need to consider when
 2. **NoData values:** NaN values in the NOAA data are coded with varying number of `*` characters, hence, we need to be able to instruct pandas to interpret those as NaNs. 
 3. **Many columns**: The input data contains many columns (altogether 33). Many of those do not contain any meaningful data for our needs. Hence, we should probably ignore the unnecessary columns already at this stage. 
 
-Handling and cleaning heterogeneous input data (such as our example here) can be done after reading in the data. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter `delim_whitespace=True` (alternatively, specifying `sep='\s+'` would work). For handling the NoData values (2), we can tell pandas to consider the `*` characters as NaNs by using a paramater `na_values` and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify `na_values=['*', '**', '***', '****', '*****', '******']` which will then convert the varying number of `*` characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the `usecols` parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis (or at least meaningful to us), including e.g. the station name, timestamp, and data about the wind and temperature: `'USAF','YR--MODAHRMN', 'DIR', 'SPD', 'GUS','TEMP', 'MAX', 'MIN'`. Achieving all these things is pretty straightforward using the `read_csv()` function: 
+Handling and cleaning heterogeneous input data (such as our example here) can be done after reading in the data. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter `delim_whitespace=True` (alternatively, specifying `sep='\s+'` would work). For handling the NoData values (2), we can tell pandas to consider the `*` characters as NaNs by using a paramater `na_values` and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify `na_values=['*', '**', '***', '****', '*****', '******']` which will then convert the varying number of `*` characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the `usecols` parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis, including the station name, timestamp, and data about temperatures: `'USAF', 'YR--MODAHRMN', 'TEMP', 'MAX', 'MIN'`. Achieving all these things is pretty straightforward using the `read_csv()` function: 
 
 ```python
 import pandas as pd
@@ -51,7 +51,7 @@ data = pd.read_csv(
     fp,
     delim_whitespace=True,
     na_values=["*", "**", "***", "****", "*****", "******"],
-    usecols=["USAF", "YR--MODAHRMN", "DIR", "SPD", "GUS", "TEMP", "MAX", "MIN"],
+    usecols=["USAF", "YR--MODAHRMN", "TEMP", "MAX", "MIN"],
 )
 ```
 
@@ -69,25 +69,21 @@ Perfect, looks good. We have skipped a bunch of unnecessary columns and also the
 Let's take a closer look at the column names of our DataFrame: 
 
 ```python jupyter={"outputs_hidden": false}
-data.columns
+print(data.columns)
 ```
 
 As we see, some of the column names are a bit awkward and difficult to interpret (a description for the columns is available in the metadata [data/3505doc.txt](data/3505doc.txt)). Luckily, it is easy to alter labels in a pandas DataFrame using the `rename()` function. In order to change the column names, we need to tell pandas how we want to rename the columns using a dictionary that converts the old names to new ones. As you probably remember from Chapter 1, a `dictionary` is a specific data structure in Python for storing key-value pairs. We can define the new column names using a dictionary where we list "`key: value`" pairs in following manner:
    
-- `USAF`: `STATION_NUMBER`
+- `USAF`: `STATION_ID`
 - `YR--MODAHRMN`: `TIME`
-- `SPD`: `SPEED`
-- `GUS`: `GUST`
 - `TEMP`: `TEMP_F`
 
-Hence, the original column name (e.g. `YR--MODAHRMN`) is the dictionary `key` which will be converted to a new column name `TIME` (which is the `value`). The temperature values in our data file is again represented in Fahrenheit. We will soon convert these temperatures to Celsius. Hence, in order to avoid confusion with the columns, let's rename the column `TEMP` to `TEMP_F`. Also the station number `USAF` is much more intuitive if we call it `STATION_NUMBER`. Let's create a dictionary for the new column names:
+Hence, the original column name (e.g. `YR--MODAHRMN`) is the dictionary `key` which will be converted to a new column name `TIME` (which is the `value`). The temperature values in our data file is again represented in Fahrenheit. We will soon convert these temperatures to Celsius. Hence, in order to avoid confusion with the columns, let's rename the column `TEMP` to `TEMP_F`. Also the station number `USAF` is much more intuitive if we call it `STATION_ID`. Let's create a dictionary for the new column names:
 
 ```python jupyter={"outputs_hidden": false}
 new_names = {
-    "USAF": "STATION_NUMBER",
+    "USAF": "STATION_ID",
     "YR--MODAHRMN": "TIME",
-    "SPD": "SPEED",
-    "GUS": "GUST",
     "TEMP": "TEMP_F",
 }
 new_names
@@ -169,9 +165,9 @@ fahr_to_celsius(32)
 
 ### Using a function by iterating over rows
 
-Next we will learn how to use our function with data stored in pandas DataFrame. We will first apply the function row-by-row using a `for` loop and then we will learn a more efficient way of applying the function to all rows at once.
+Next we will learn how to use our function with data stored in a pandas DataFrame. We will first apply the function row-by-row using a `for` loop and then we will learn a more efficient way of applying the function to all rows at once.
 
-Looping over rows in a DataFrame can be done in a couple of different ways. A common approach is to use a `iterrows()` method which loops over the rows as a index-Series pairs. In other words, we can use the `iterrows()` method together with a `for` loop to repeat a process *for each row in a Pandas DataFrame*. Please note that iterating over rows this way is a rather inefficient approach, but it is still useful to understand the logic behind the iteration (we will learn a more efficient approach later). When using the `iterrows()` method it is important to understand that `iterrows()` accesses not only the values of one row, but also the `index` of the row as we mentioned. Let's start with a simple for loop that goes through each row in our DataFrame:
+Looping over rows in a DataFrame can be done in a couple of different ways. A common approach is to use the `iterrows()` method which loops over the rows as index-Series pairs. In other words, we can use the `iterrows()` method together with a `for` loop to repeat a process *for each row in a Pandas DataFrame*. Please note that iterating over rows this way is a rather inefficient approach, but it is still useful to understand the logic behind how this works. When using the `iterrows()` method it is important to understand that `iterrows()` accesses not only the values of one row, but also the `index` of the row. Let's start with a simple example `for` loop that goes through each row in our DataFrame.
 
 ```python jupyter={"outputs_hidden": false}
 # Iterate over the rows
@@ -185,9 +181,11 @@ for idx, row in data.iterrows():
     break
 ```
 
-We can see that the `idx` variable indeed contains the index value at position 0 (the first row) and the `row` variable contains all the data from that given row stored as a pandas `Series`. Notice, that when developing a for loop, you don't always need to go through the entire loop if you just want to test things out. Using the `break` statement in Python terminates a loop whenever it is placed inside a loop. We used it here just to test check out the values on the first row. With a large data, you might not want to print out thousands of values to the screen!
+We can see that the `idx` variable indeed contains the index value at position 0 (the first row) and the `row` variable contains all the data from that given row stored as a pandas Series. Also, notice that when developing a for loop you do not always need to iterate through the entire loop if you just want to test things out. Using the `break` statement in Python terminates a loop whenever it is placed inside the loop. Here we used it to check out the values on the first row of the DataFrame. This allows us to test the code logic without printing thousands of values to the screen!
 
-Let's now create an empty column `TEMP_C` for the Celsius temperatures and update the values in that column using the `fahr_to_celsius()` function that we defined earlier. For updating the value, we can use `at` which we already used earlier in this chapter. This time, we will use the `itertuples()` method which works in a similar manner, except it only return the row values without the `index`. When using `itertuples()` accessing the row values needs to be done a bit differently, because the row is not a Series, but a `named tuple` (hence the name). A tuple is like a list (but immutable, i.e. you cannot change it) and "named tuple" is a special kind of tuple object that adds the ability to access the values by name instead of position index. Hence, we will access the `TEMP_F` value by using `row.TEMP_F` (compare to how we accessed the value in the prevous code block):
+Next, let's create an empty column `TEMP_C` for the Celsius temperatures and update the values in that column using the `fahr_to_celsius()` function that we defined earlier. For updating the value in the DataFrame, we can use the `at` method that we already used earlier in this chapter. This time, however, we will use the `itertuples()` method to access the rows in the DataFrame. The `itertuples()` method works similarly to `iterrows()`, except it returns only the row values without the `index`. In addition,  the returned values are not a pandas Series, but instead `itertuples()` returns a named tuple data type. As a result, when using `itertuples()` accessing the row values needs to be done a bit differently. A tuple is like a list (but immutable, i.e. you cannot change it) and "named tuple" is a special kind of tuple object that adds the ability to access the values by name instead of position index. Hence, we can access the `TEMP_F` value in a given row using `row.TEMP_F` (in contrast to how we accessed the value in the previous code above). We will not work with named tuples in the rest of the book, but more information can be found in the Python documentation for named tuples [^namedtuple].
+
+Let's see an example of how to use the `itertuples()` method.
 
 ```python
 # Create an empty column for the output values
@@ -210,13 +208,13 @@ data.head()
 ```
 
 ```python
-# How does our row look like?
-row
+# What does our row look like?
+row._asdict()
 ```
 
-Okay, now we have iterated over our data and updated the temperatures in Celsius to `TEMP_C` column by using our `fahr_to_celsius()` function. The values look correct as 32 Fahrenheits indeed is 0 Celsius degrees, as can be seen on the second row. We also have here the last row of our DataFrame which is a named tuple. As you can see, it is a bit like a weird looking dictionary with values assigned to the names of our columns. Basically, it is an object with attributes that we can access in a similar manner as we have used to access some of the pandas DataFrame attributes, such as `data.shape`. 
+Okay, now we have iterated over our data and updated the temperatures in Celsius to `TEMP_C` column by using our `fahr_to_celsius()` function. The values look correct as 32 degrees Fahrenheit indeed is 0 Celsius degrees, as can be seen on the second row. We also have the last row of our DataFrame in the code above, which is a named tuple that has been converted to the more familiar dictionary data type using the `_asdict()` method for named tuples.
 
-A couple of notes about our appoaches. We used `itertuples()` method for looping over the values because it is significantly faster compared to `iterrows()` (can be ~100x faster). We used `.at` to assign the value to the DataFrame because it is designed to access single values more efficiently compared to `.loc`, which can access also groups of rows and columns. That said, you could have used `data.loc[idx, new_column] = celsius` to achieve the same result (it is just slower). 
+Before moving to other more efficient ways to use functions with pandas DataFrames, we should note a few things about the approaches above. We demonstrated use of the `itertuples()` method for looping over the values because it is significantly faster than `iterrows()` (can be around 100x faster). We also used `.at` to assign the value to the DataFrame because it is designed to access single values more efficiently than `.loc`, which can access also groups of rows and columns. That said, you could have also simply used `data.loc[idx, new_column] = celsius` to achieve the same result as both examples above. It is just slower. 
 
 
 ### Using a function with apply
@@ -381,7 +379,7 @@ We can, for example, calculate the average values for all variables using the st
 
 ```python jupyter={"outputs_hidden": false}
 # Specify the columns that will be part of the calculation
-mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
+mean_cols = ["TEMP_F", "TEMP_C"]
 
 # Calculate the mean values all at one go
 mean_values = group1[mean_cols].mean()
@@ -399,7 +397,7 @@ To do a similar aggregation with all the groups in our data, we can actually com
 
 ```python
 # The columns that we want to aggregate
-mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
+mean_cols = ["TEMP_F", "TEMP_C"]
 
 # Group and aggregate the data with one line
 monthly_data = data.groupby("YEAR_MONTH")[mean_cols].mean().reset_index()
@@ -415,7 +413,7 @@ What might not be obvious from this example is the fact that hidden in the backg
 data_container = []
 
 # The columns that we want to aggregate
-mean_cols = ["DIR", "SPEED", "GUST", "TEMP_F", "TEMP_C"]
+mean_cols = ["TEMP_F", "TEMP_C"]
 
 # Iterate over the groups
 for key, group in grouped:
@@ -551,13 +549,12 @@ for fp in file_list:
     new_names = {
         "USAF": "STATION_NUMBER",
         "YR--MODAHRMN": "TIME",
-        "SPD": "SPEED",
-        "GUS": "GUST",
         "TEMP": "TEMP_F",
     }
     data = data.rename(columns=new_names)
 
-    # Print info about the current input file (useful to understand how the process advances):
+    # Print info about the current input file
+    # This is useful to understand how the process proceeds
     print(
         f"STATION NUMBER: {data.at[0,'STATION_NUMBER']}\tNUMBER OF OBSERVATIONS: {len(data)}"
     )
@@ -566,7 +563,7 @@ for fp in file_list:
     col_name = "TEMP_C"
     data[col_name] = None
 
-    # Convert tempetarues from Fahrenheits to Celsius
+    # Convert temperatures from Fahrenheit to Celsius
     data["TEMP_C"] = data["TEMP_F"].apply(fahr_to_celsius)
 
     # Convert TIME to string
@@ -607,5 +604,6 @@ results["YEAR"].value_counts()
 
 ## Footnotes
 
+[^namedtuple]: <https://docs.python.org/3/library/collections.html#collections.namedtuple>
 [^noaanews]: <https://www.noaa.gov/news/january-2020-was-earth-s-hottest-january-on-record>
 [^pathlib]: <https://docs.python.org/3/library/pathlib.html>

@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -29,6 +29,7 @@ _**Figure 5.2.** Vector and raster representations of roads and buildings._
 
 
 ## Building blocks of vector data
+
 
 ### Geometry types
 
@@ -57,15 +58,21 @@ Spatial vector data can be stored in different ways. Two of the most widely used
 - **GeoJSON**: GeoJSON [^geojson] is an open standard format for encoding a variety of geographic data structures along with their attribute data which can be stored into a simple text file. The filename extension for GeoJSON is `.geojson`. The data format extends the widely used JSON format. GeoJSON is human readible and the data is not compressed, hence the files can get large when storing more complex geometries. Because of this, another variation of GeoJSON was developed called `TopoJSON` which is a more compact format. TopoJSON stores the geometries in a way that they can be referenced multiple times in the file, e.g. when two polygons share a common border between them. An example of GeoJSON data structure:
 
 ```
-{"type": "FeatureCollection", 
-    "features": [
-        {"type": "Feature", "properties": {"id": 75553155, "timestamp": 1494181812},
-        "geometry": {"type": "MultiLineString", "coordinates": [[[26.938, 60.520], [26.938, 60.520]], [[26.937, 60.521], [26.937, 60.521]], [[26.937, 60.521], [26.936, 60.522]]]}
-        }, 
-        {"type": "Feature", "properties": {"id": 424099695, "timestamp": 1465572910}, 
-        "geometry": {"type": "Polygon", "coordinates": [[[26.935, 60.521], [26.935, 60.521], [26.935, 60.521], [26.935, 60.521], [26.935, 60.521]]]}
-        }
-    ]
+{"type": "FeatureCollection",
+  "features": [
+    {"type": "Feature", "properties": {"id": 75553155, "timestamp": 1494181812},
+      "geometry": {"type": "MultiLineString",
+        "coordinates": [[[26.938, 60.520], [26.938, 60.520]], [[26.937, 60.521],
+                         [26.937, 60.521]], [[26.937, 60.521], [26.936, 60.522]]]
+      }
+    }, 
+    {"type": "Feature", "properties": {"id": 424099695, "timestamp": 1465572910}, 
+      "geometry": {"type": "Polygon",
+        "coordinates": [[[26.935, 60.521], [26.935, 60.521], [26.935, 60.521],
+                         [26.935, 60.521], [26.935, 60.521]]]
+      }
+    }
+  ]
 }
 
 ```

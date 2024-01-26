@@ -271,7 +271,8 @@ Finally, we can also combine for-loops and conditional statements. Let's iterate
 ```python editable=true slideshow={"slide_type": ""}
 temperatures = [0, 28, 12, 17, 30]
 
-# For each temperature, if the temperature is greater than 25, print "..is hot"
+# Loop over each temperature
+# If the temperature is greater than 25, print "...is hot"
 for temperature in temperatures:
     if temperature > 25:
         print(f"{temperature} is hot")

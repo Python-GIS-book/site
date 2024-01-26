@@ -735,9 +735,9 @@ In the following, we show how we can combine the `station_name` text, `station_i
 temp = 18.56789876
 
 # 1. The f-string approach (recommended)
-info_text = f"The temperature at {station_name} station (ID: {station_id}) is {temp:.2f} Celsius."
+info_text = f"The temperature at {station_name} (ID: {station_id}) is {temp:.2f} Celsius."
 
-info_text
+print(info_text)
 ```
 
 ![_**Figure 2.2**. F-string formatting explained._](../img/F-string-formatting.png)
@@ -764,7 +764,7 @@ text2 = (
         my_text_variable=station_name, station_id=station_id, temp=temp
     )
 )
-text2
+print(text2)
 ```
 
 As you can see, here we got the same result as with f-strings, but used the `.format()` which was placed after the quotes. The variables were inserted within the text template by using curly braces and giving them a name (placeholder) which should have a matching counterpart within the parentheses that link to the actual variable which will be inserted to the body of text. As you see, the placeholder does not necessarily need to have the same name as the actual variable that contains the inserted value, but it can be anything, like the name `my_text_variable` as in the example above. 
@@ -774,7 +774,7 @@ The last (historical) string formatting approach is to use `%s` -operator. In th
 ```python editable=true slideshow={"slide_type": ""}
 # 3. The % operator approach (no longer recommended)
 text3 = "The temperature at %s (ID: %s) is %.2f" % (station_name, station_id, temp)
-text3
+print(text3)
 ```
 
 The order of the variables within the parentheses specify which `%s` placeholder will receive what information. The order of the variables inside parentheses needs to be corrected always if making changes to the placing of the placeholders, and there should be exactly the same number of variables within the parentheses as there are `%s` placeholders within the text template. Hence, this approach is prone to errors and causing confusion, which is why we do not recommend using it.  

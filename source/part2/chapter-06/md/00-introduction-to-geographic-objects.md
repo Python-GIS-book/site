@@ -214,21 +214,22 @@ poly_with_hole = Polygon(shell=exterior, holes=hole)
 poly_with_hole
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.5**. A Shapely Polygon geometry with a single hole inside of it._
 
-As we can see, now the Polygon contains a large hole inside of it, and the actual geometry is located at the borders, resembling a frame of a painting. Let's also take a look how the WKT representation of the polygon looks like:
+As we can see, now the Polygon contains a large hole inside of it, and the actual geometry is located at the borders, resembling a frame of a painting. Let's also take a look how the WKT representation of the polygon looks like (from running `poly_with_hole.wkt`):
 
-```python editable=true slideshow={"slide_type": ""}
-poly_with_hole.wkt
+```
+POLYGON ((-180 90, -180 -90, 180 -90, 180 90, -180 90),
+         (-170 80, -170 -80, 170 -80, 170 80, -170 80))
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
 As we can see the `Polygon` has now two different tuples of coordinates. The first one represents the outer ring and the second one represents the inner ring, i.e. the hole. 
 
 There are many useful attributes and methods related to shapely `Polygon`, such as `area`, `centroid`, `bounding box`, `exterior`, and `exterior-length`. For a full list, see the `shapely` documentation [^shapely]. Same attributes and methods are also available when working with polygon data in `geopandas`. Here are a couple of polygon attributes that are often useful when doing geographic data analysis:
 <!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 print("Polygon centroid: ", poly.centroid)
 print("Polygon Area: ", poly.area)
 print("Polygon Bounding Box: ", poly.bounds)
