@@ -105,12 +105,13 @@ _**Figure 4.5**. A plot of the example temperature data with additional formatti
 
 Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter `style='ko--'`. In this case, `k` tells the `oct1_temps.plot()` function to use black color for the lines and symbols, `o` tells it to show circles at the data points, and `--` says to use a dashed line between points. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, and axis labels using the `xlabel` and `ylabel` parameters.
 
-<!-- #region -->
-## Formatting and annotating the figure
+
+## Further formatting the plot and figure
 
 In addition to labeling the plot axes and adding a title, there are several other common plot attributes one might like to utilize. We briefly present some of the most common plot features here and then demonstrate how they work in a modified example plot below.
 
-**Changing the figure size**
+<!-- #region -->
+### Changing the figure size
 
 While the default plot sizes we're working with are fine, it is often helpful to be able to control the figure size. Fortunately, there is an easy way to change the figure size in pandas and matplotlib. In order to define the figure size, we simply include the `figsize` parameter with a tuple (set of values in normal parentheses) that lists the width and height of the figure (in inches!).
 
@@ -125,7 +126,7 @@ Note that it is also possible to change the default figure size for all figures 
 <!-- #endregion -->
 
 <!-- #region -->
-**Adding text to the figure**
+### Adding text to the figure
 
 It is also possible to add text that can be displayed on a plot using `ax.text()`. For example, 
 
@@ -139,7 +140,7 @@ would add the text "This is my text." aligned to the left starting from the date
 <!-- #endregion -->
 
 <!-- #region -->
-**Changing the axis ranges**
+### Changing the axis ranges
 
 In some cases you may want to plot only a subset of the data you are working with. You can modify the range of values that are plotted by definiing the axis ranges. Changing the plot axes can be done using the `xlim` and `ylim` parameters of the `plot()` function, where `xmin` is the minimum bound of the x-axis, `xmax` is the maximum bound, and the same goes for the y-axis with `ymin` and `ymax`. For example, adding
 
@@ -176,7 +177,7 @@ Defining axis ranges this way is handy becaues it will adjust the range of value
 <!-- #endregion -->
 
 <!-- #region -->
-**Adding a legend**
+### Adding a legend
 
 The final example of a common plot feature we can add is a legend. The legend allows you to provide some additional information about the lines, points, or other features of a plot, and adding a legend is quite simple. To do so, we need to add two things: a `label` parameter in the plot function that lists the text that should be displayed in the legend, and a call to the `legend()` function to display the plot legend. For example, adding the following to the plot will add and display a legend.
 
@@ -193,7 +194,7 @@ This would add the label "Observed temperature" to the legend for the line forma
 Note that by default the legend will automatically be positioned in the top right corner of a plot, or in a location where it minimizes interference with other plot elements. The location of the legend can be controlled using the `loc` parameter in the call to the `legend()` function. The [matplotlib documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html) [^matplotlib-legend] contains more information about how to control the location of the plot legend.
 <!-- #endregion -->
 
-**The modified example plot**
+### The modified example plot
 
 Based on the additions above (changing the figure size, adding text to the plot, etc.), the modified plot can be generated using the code below.
 
