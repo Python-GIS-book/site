@@ -218,9 +218,23 @@ _**Figure 6.5**. A Shapely Polygon geometry with a single hole inside of it._
 
 As we can see, now the Polygon contains a large hole inside of it, and the actual geometry is located at the borders, resembling a frame of a painting. Let's also take a look how the WKT representation of the polygon looks like:
 
+```
+POLYGON ((-180 90, -180 -90, 180 -90, 180 90, -180 90),
+         (-170 80, -170 -80, 170 -80, 170 80, -170 80))
+```
+
 ```python editable=true slideshow={"slide_type": ""}
 poly_with_hole.wkt
 ```
+
+```python editable=true slideshow={"slide_type": ""} tags=["hide-output"]
+poly_with_hole.wkt
+```
+
+<!-- #raw -->
+'POLYGON ((-180 90, -180 -90, 180 -90, 180 90, -180 90),
+          (-170 80, -170 -80, 170 -80, 170 80, -170 80))'
+<!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 As we can see the `Polygon` has now two different tuples of coordinates. The first one represents the outer ring and the second one represents the inner ring, i.e. the hole. 
