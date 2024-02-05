@@ -206,14 +206,16 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 
 We can also use `and` and `or` to combine multiple conditions on boolean values (Table 2.4).
 
-
 : _**Table 2.4**. Logic for the `and` and `or` keywords in Python._
 
-| Operator | Description                                | Comparison example | Result  |
-|:--------:|:-------------------------------------------|:------------------:|:-------:|
-| `and`    | True only if both comparisons are true     | `2 > 1 and 1 < 0`  | `False` |
-| `or`     | True if either comparison is true          | `2 > 1 or 1 < 0`   | `True`  |
-| `not`    | False if comparison is true and vice versa | `not 2 > 1`        | `False` |
+| Operator | Description            | Comparison example | Result  |
+|:--------:|:-----------------------|:------------------:|:-------:|
+| `and`    | True only if both      | `2 > 1 and 1 < 0`  | `False` |
+|          | comparisons are true   |                    |         |
+| `or`     | True if either         | `2 > 1 or 1 < 0`   | `True`  |
+|          | comparison is true     |                    |         |
+| `not`    | False if comparison is | `not 2 > 1`        | `False` |
+|          | true and vice versa    |                    |         |
 
 With Table 2.4 in mind, let's consider a few examples.
 
