@@ -128,7 +128,7 @@ Comparison operators such as `>` and `==` compare the values on each side of the
 : _**Table 2.3**. Comparison operators in Python._
 
 | Operator | Description              | Comparison example | Result  |
-|:---------|:-------------------------|:------------------:|:-------:|
+|:--------:|:-------------------------|:------------------:|:-------:|
 | `==`     | Equal to                 | `"cat" == "dog"`   | `False` |
 | `!=`     | Not equal to             | `"cat" != "dog"`   | `True`  |
 | `<`      | Less than                | `2 < 1`            | `False` |
@@ -210,7 +210,7 @@ We can also use `and` and `or` to combine multiple conditions on boolean values 
 : _**Table 2.4**. Logic for the `and` and `or` keywords in Python._
 
 | Operator | Description                                | Comparison example | Result  |
-|:---------|:-------------------------------------------|:------------------:|:-------:|
+|:--------:|:-------------------------------------------|:------------------:|:-------:|
 | `and`    | True only if both comparisons are true     | `2 > 1 and 1 < 0`  | `False` |
 | `or`     | True if either comparison is true          | `2 > 1 or 1 < 0`   | `True`  |
 | `not`    | False if comparison is true and vice versa | `not 2 > 1`        | `False` |
