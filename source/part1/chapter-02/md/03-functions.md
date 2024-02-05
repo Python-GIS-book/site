@@ -39,7 +39,7 @@ def celsius_to_fahr(temp):
     return 9 / 5 * temp + 32
 ```
 
-![_**Figure 2.4** An example function with annotation of its important elements._](../img/Function_anatomy-400.png)
+![_**Figure 2.4** An example function with annotation of its important elements._](../img/function_anatomy.png)
 
 _**Figure 2.4** An example function with annotation of its important elements._
 
