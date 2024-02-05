@@ -65,7 +65,7 @@ coordinates = [
     (24.950899, 60.169158),
     (24.953492, 60.169158),
     (24.953510, 60.170104),
-    (24.950958, 60.169990)
+    (24.950958, 60.169990),
 ]
 polygon = Polygon(coordinates)
 
@@ -265,7 +265,9 @@ As we can see, the `.sjoin()` method here (Figure **6.XX**) produces exactly the
 In a similar manner, we can easily use the `.sjoin()` with the parameter `predicate` to make selections based on how the geometries between two GeoDataFrames are related to each other. By default, the `sjoin()` uses `"intersects"` as a spatial predicate, but it is easy to change this. For example, we can investigate which of the districts *contain* at least one point. In this case, we make a spatial join using the `disctricts` GeoDataFrame as a starting point, join the layer with the `points` and use the `"contains"` as a value to our `predicate` parameter:
 
 ```python
-districts_with_points = districts.sjoin(points.geometry.to_frame(), predicate="contains")
+districts_with_points = districts.sjoin(
+    points.geometry.to_frame(), predicate="contains"
+)
 ```
 
 ```python
