@@ -294,3 +294,6 @@ bibtex_bibfiles = [
 
 # Specify what text is used with toggle-buttons
 togglebutton_hint = "Show the solution"
+
+# Include extra files not directly related to the documentation
+html_extra_path = ["install.html"]
