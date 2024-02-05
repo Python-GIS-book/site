@@ -179,12 +179,12 @@ districts = gpd.read_file("data/Helsinki/Major_districts.gpkg")
 
 ```python
 print("Shape:", points.shape)
-points.head()
+print(points.head())
 ```
 
 ```python
 print("Shape:", districts.shape)
-districts.tail(5)
+print(districts.tail(5))
 ```
 
 <!-- #region deletable=true editable=true -->
@@ -193,7 +193,7 @@ We can see that we have altogether 34 points and 23 districts in our area. For d
 
 ```python
 selection = districts.loc[districts["Name"].isin(["Itäinen", "Eteläinen"])]
-selection.head()
+print(selection.head())
 ```
 
 Let's now plot the layers on top of each other. The areas with red color represent the districts that we want to use for testing the spatial relationships against the point layer (shown with blue color):
@@ -222,7 +222,7 @@ As as result, we get `True` if the given point is inside the selected Polygons, 
 
 ```python deletable=true editable=true
 pip_data = points.loc[pip_mask]
-pip_data
+print(pip_data)
 ```
 
 <!-- #region deletable=true editable=true -->

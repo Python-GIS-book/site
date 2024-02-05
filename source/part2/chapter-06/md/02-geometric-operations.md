@@ -342,7 +342,7 @@ Now we can use this `dense` column to dissolve the data into two groups using th
 dissolved = data[["pop2019", "area_km2", "dense", "geometry"]].dissolve(
     by="dense", aggfunc="sum"
 )
-dissolved
+print(dissolved)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -386,7 +386,7 @@ option_1["geometry"].head(2)
 # Update the geometry column with centroids
 option_1["geometry"] = option_1.centroid
 
-option_1.head(2)
+print(option_1.head(2))
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->

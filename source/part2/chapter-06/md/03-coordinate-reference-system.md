@@ -112,10 +112,9 @@ You will likely encounter many different coordinate reference systems when worki
 from pyproj import CRS
 
 crs_object = CRS.from_epsg(3035)
-crs_object
 ```
 
-As you can see, it is very easy to initialize a CRS with a given EPSG code, and in a similar manner you can initialize hundreds of other coordinate reference systems by changing this code. The resulting CRS object (here stored in variable `crs_object`) contains a lot of information about the coordinate reference system such as the `Name` of the CRS (ETRS89/LAEA Europe), the `Axis Info` of the coordinate system (ellipsoidal or cartesian), the `Area of Use` where the given CRS is in use (Europe with bounds `(-35.58, 24.6, 44.83, 84.73)`), as well as the `Datum` (European Terrestrial Reference System 1989). We can also easily parse this information individually as follows: 
+As you can see, it is very easy to initialize a CRS with a given EPSG code, and in a similar manner you can initialize hundreds of other coordinate reference systems by changing this code. The resulting CRS object (here stored in variable `crs_object`) contains a lot of information about the coordinate reference system such as the `Name` of the CRS (ETRS89/LAEA Europe), the `Axis Info` of the coordinate system (ellipsoidal or cartesian), the `Area of Use` where the given CRS is in use (Europe with bounds `(-35.58, 24.6, 44.83, 84.73)`), as well as the `Datum` (European Terrestrial Reference System 1989). You could output all of this information by typing `crs_object` in a code cell, but we can also easily parse this information individually as follows: 
 
 ```python
 print("Name:", crs_object.name)
@@ -128,10 +127,22 @@ We can also easily export this CRS information to different formats, such as `WK
 
 ```python
 crs_wkt = crs_object.to_wkt()
-print(crs_wkt)
 ```
 
-As we can see, the `WKT` format contains a *lot* of information. Typically, e.g. the `.prj` file of a Shapefile contains the information in this format. Let's see how it is possible to extract `EPSG` code from this. For doing it, we first re-initialize the CRS object from the `WKT` text presentation, and then parse the EPSG code from the CRS:   
+The `WKT` format contains a *lot* of information. If we were to run `print(crs_wkt)` we would see output like that below (truncated to save space):
+```
+PROJCRS["ETRS89-extended / LAEA Europe",BASEGEOGCRS["ETRS89",ENSEMBLE["European
+Terrestrial Reference System 1989 ensemble",MEMBER["European Terrestrial Referen
+ce Frame 1989"],MEMBER["European Terrestrial Reference Frame 1990"],MEMBER["Euro
+pean Terrestrial Reference Frame 1991"],MEMBER["European Terrestrial Reference F
+rame 1992"],MEMBER["European Terrestrial Reference Frame 1993"],MEMBER["European
+ Terrestrial Reference Frame 1994"],MEMBER["European Terrestrial Reference Frame
+ 1996"],MEMBER["European Terrestrial Reference Frame 1997"],MEMBER["European Ter
+restrial Reference Frame 2000"],MEMBER["European Terrestrial Reference Frame 200
+5"],MEMBER["European Terrestrial Reference Frame 2014"],ELLIPSOID["GRS 1980",637
+...
+```
+Typically, e.g. the `.prj` file of a Shapefile contains the information in this format. Let's see how it is possible to extract `EPSG` code from this. For doing it, we first re-initialize the CRS object from the `WKT` text presentation, and then parse the EPSG code from the CRS:   
 
 ```python
 # Retrieve EPSG code from WKT text

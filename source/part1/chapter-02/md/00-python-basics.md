@@ -740,7 +740,7 @@ info_text = f"The temperature at {station_name} (ID: {station_id}) is {temp:.2f}
 print(info_text)
 ```
 
-![_**Figure 2.2**. F-string formatting explained._](../img/F-string-formatting.png)
+![_**Figure 2.2**. F-string formatting explained._](../img/f-string-annotated.png)
 
 _**Figure 2.2**. F-string formatting explained._
 

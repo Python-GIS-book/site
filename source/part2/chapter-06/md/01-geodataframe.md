@@ -321,6 +321,12 @@ data = gpd.read_file(fp)
 type(data)
 ```
 
+Note that the KML file format isn't a format that is fully supported in geopandas, so there may be additional data columns read into the `data` GeoDataFrame. Thus, we will extract only the columns of interest before proceeding.
+
+```python
+data = data[["pop2019", "tract", "geometry"]]
+```
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 After this small adjustment, geopandas is able to read the KML file into a `GeoDataFrame` without a problem. In a similar manner, you can also enable some other file formats that are not enabled by default for reading and/or writing.
 <!-- #endregion -->
@@ -396,6 +402,10 @@ outfp = "data/Temp/austin_pop_2019.gdb"
 data.to_file(outfp, driver="OpenFileGDB")
 ```
 
+```python
+print(data.head())
+```
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Creating a GeoDataFrame from scratch
 
@@ -436,7 +446,7 @@ gdf_data = {
     "year": 2023,
 }
 new_data_extended = gpd.GeoDataFrame(gdf_data)
-new_data_extended
+print(new_data_extended)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -498,6 +508,7 @@ airports.plot(markersize=0.1)
 _**Figure 6.12**. A basic plot showing the airports from openflights.org._
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON>
@@ -512,3 +523,4 @@ _**Figure 6.12**. A basic plot showing the airports from openflights.org._
 [^shp]: <https://en.wikipedia.org/wiki/Shapefile> 
 [^topodata_fair]: <https://etsin.fairdata.fi/dataset/5023ecc7-914a-4494-9e32-d0a39d3b56ae>
 [^us_census]: <https://www.census.gov/programs-surveys/acs/data.html>
+<!-- #endregion -->

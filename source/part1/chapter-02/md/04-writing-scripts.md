@@ -31,13 +31,13 @@ Because a Python script file is simply a list of commands that you might otherwi
 
 First, we need to create a new text file by clicking on **File** -> **New** -> **Text File** in the JupyterLab menu bar.
 
-![_**Figure 2.5**. Creating a new text file in JupyterLab._](../img/new-text-file-400.png)
+![_**Figure 2.5**. Creating a new text file in JupyterLab._](../img/new-text-file.png)
 
 _**Figure 2.5**. Creating a new text file in JupyterLab._
 
 This will create a new tab in your JupyterLab window that should look something like that below, a blank slate.
 
-![_**Figure 2.6**. The new, empty text file in JupyterLab._](../img/new-text-tab-800.png)
+![_**Figure 2.6**. The new, empty text file in JupyterLab._](../img/new-text-tab.png)
 
 _**Figure 2.6**. Creating a new text file in JupyterLab._
 
