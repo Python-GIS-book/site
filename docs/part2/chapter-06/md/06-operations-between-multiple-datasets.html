@@ -1,1101 +1,489 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Operations between multiple datasets</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
-    
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Show the solution';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-06/md/06-operations-between-multiple-datasets';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
-<script async="" src="https://www.google-analytics.com/analytics.js"></script>
-<script>
-                        window.ga = window.ga || function () {
-                            (ga.q = ga.q || []).push(arguments) };
-                        ga.l = +new Date;
-                        ga('create', 'UA-159257488-1', 'auto');
-                        ga('set', 'anonymizeIp', true);
-                        ga('send', 'pageview');
-                    </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../../index.html">
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
         
       
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
       
-      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
-      
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part I - Python essentials
- </span>
-</p>
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part1/chapter-01/index.html">
-   1: Getting started
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">
-     Motivation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">
-     Computers and programs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">
-     Why Python?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">
-     Writing and running Python code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">
-     Using JupyterLab for writing code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">
-     Quickly getting started (without installing Python)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">
-     Installing Python and adding libraries
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part1/chapter-02/index.html">
-   2: Basic programming concepts
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">
-     Basic elements of Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/01-for-loops.html">
-     for loops
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/02-conditional-statements.html">
-     Conditional statements
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/03-functions.html">
-     Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/04-writing-scripts.html">
-     Writing script files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/05-modules.html">
-     Loading and using modules
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/06-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part1/chapter-03/index.html">
-   3: Introduction to data analysis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">
-     Getting started with data analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">
-     Common tabular operations in pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">
-     Data wrangling, grouping and aggregation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">
-     Working with temporal data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part1/chapter-04/index.html">
-   4: Introduction to data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">
-     Plotting in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">
-     Plotting with pandas and matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">
-     Creating subplots
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">
-     Effective plot design: line plots
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-01/index.html">1: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">Installing Python and adding libraries</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part II - Introduction to GIS with Python
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-05/index.html">
-   5: Getting started
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-05/nb/00-motivation-to-use-python-for-gis.html">
-     Motivation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Geographic data in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
-     Coordinate reference systems
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../index.html">
-   6: Vector data processing
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/00-introduction-to-geographic-objects.html">
-     Introduction to geographic data objects in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/01-introduction-to-geopandas.html">
-     Introduction to spatial data analysis with geopandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/02-data-io.html">
-     Preparing GeoDataFrames from geographic data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/03-geometric-manipulation.html">
-     Geometric data manipulations
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/04-coordinate-reference-system.html">
-     Working with Map Projections
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/05-geocoding.html">
-     Geocoding
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/06-operations-between-multiple-datasets.html">
-     Operations between multiple datasets
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../nb/07-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-07/index.html">
-   7: Raster data processing
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-analysis.html">
-     Introduction to raster processing with Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">
-     Reading raster files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">
-     Common raster operations
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">
-     Raster operations between multiple layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-08/index.html">
-   8: Geographic data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">
-     Introduction to geographic visualization
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">
-     Static maps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">
-     Visualizing raster layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">
-     Interactive maps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">
-     Designing maps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/05-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-09/index.html">
-   9: Using online geographic data sources
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/00-retrieving-osm-data.html">
-     Retrieving OpenStreetMap data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/01-retrieving-data-from-wfs.html">
-     Retrieving data from Web Feature Service (WFS)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/02-retrieving-data-from-wcs.html">
-     Retrieving data from Web Coverage Service (WCS)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/03-read-data-from-spatial-databases.html">
-     Reading data from spatial databases
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-02/index.html">2: Basic programming concepts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">Basic elements of Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/01-for-loops.html">for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/02-conditional-statements.html">Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/03-functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/04-writing-scripts.html">Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/05-modules.html">Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/06-exercises.html">Exercises</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part III - Case studies
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part3/chapter-10/index.html">
-   10: Spatial interpolation
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">
-     Introduction to spatial interpolation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">
-     Inverse Distance Weighting interpolation with Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part3/chapter-11/index.html">
-   11: Spatial network analysis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-  <label for="toctree-checkbox-11">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">
-     Introduction to spatial network analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">
-     Multimodal spatial accessibility analysis with Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part3/chapter-12/index.html">
-   12: Terrain analysis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-  <label for="toctree-checkbox-12">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">
-     Introduction to terrain analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">
-     Interpreting topographic features from raster data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../part3/chapter-13/index.html">
-   13: Conclusions
-  </a>
- </li>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-03/index.html">3: Introduction to data analysis</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">Exercises</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Back matter
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">
-   Acknowledgements
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../back-matter/appendices.html">
-   Appendices
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-  <label for="toctree-checkbox-13">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-1.html">
-     Version control with git
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-2.html">
-     Collaborative coding with GitHub
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-3.html">
-     Using Python script files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-4.html">
-     Testing and debugging your code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-5.html">
-     Solutions to questions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-6.html">
-     Exercise solutions
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
-   Glossary
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/references.html">
-   References
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../authors.html">
-   About the authors
-  </a>
- </li>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-04/index.html">4: Introduction to data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">Exercises</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Datasets
- </span>
-</p>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../data/index.html">
-   Overview
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../data/noaa-data.html">
-   NOAA Weather data
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-05/index.html">5: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/00-motivation-to-use-python-for-gis.html">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/01-introduction-to-geographic-data-in-python.html">Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">Coordinate reference systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">6: Vector data processing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/00-introduction-to-geographic-objects.html">Introduction to geographic data objects in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/01-introduction-to-geopandas.html">Introduction to spatial data analysis with geopandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/02-data-io.html">Preparing GeoDataFrames from geographic data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/03-geometric-manipulation.html">Geometric data manipulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/04-coordinate-reference-system.html">Working with Map Projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/05-geocoding.html">Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/06-operations-between-multiple-datasets.html">Operations between multiple datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/07-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-07/index.html">7: Raster data processing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-analysis.html">Introduction to raster processing with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">Reading raster files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">Raster operations between multiple layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-08/index.html">8: Geographic data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">Designing maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/05-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-09/index.html">9: Using online geographic data sources</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/00-retrieving-osm-data.html">Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/01-retrieving-data-from-wfs.html">Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/02-retrieving-data-from-wcs.html">Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/03-read-data-from-spatial-databases.html">Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10: Spatial interpolation</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11: Spatial network analysis</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12: Terrain analysis</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13: Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendices.html">Appendices</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4.html">Testing and debugging your code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5.html">Solutions to questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6.html">Exercise solutions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/part2/chapter-06/md/06-operations-between-multiple-datasets.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/Python-GIS-book/site/edit/master/part2/chapter-06/md/06-operations-between-multiple-datasets.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Edit this page"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-pencil-alt"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../../../_sources/part2/chapter-06/md/06-operations-between-multiple-datasets.md.txt"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part2/chapter-06/md/06-operations-between-multiple-datasets.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="btn__text-container">.md</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#selecting-data-based-on-spatial-relationships">
-   Selecting data based on spatial relationships
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#how-to-check-if-point-is-inside-a-polygon">
-     How to check if point is inside a polygon?
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#intersect">
-   Intersect
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#point-in-polygon-using-geopandas">
-   Point in Polygon using Geopandas
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reading-kml-files-in-geopandas">
-     Reading KML-files in Geopandas
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#overlay-analysis">
-   Overlay analysis
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spatial-join">
-   Spatial join
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#join-the-layers">
-   Join the layers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spatial-join-nearest">
-   Spatial join nearest
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nearest-neighbour-analysis">
-   Nearest Neighbour Analysis
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nearest-point-using-shapely">
-     Nearest point using Shapely
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nearest-points-using-geopandas">
-     Nearest points using Geopandas
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nearest-neighbor-analysis-with-large-datasets">
-   Nearest neighbor analysis with large datasets
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#motivation">
-     Motivation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn">
-     Efficient nearest neighbor search with Geopandas and scikit-learn
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#what-did-we-just-do-explanation">
-     What did we just do? Explanation.
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#combining-the-neighboring-datasets">
-     Combining the neighboring datasets
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#are-the-results-correct-validation">
-     Are the results correct? Validation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spatial-index-how-to-boost-spatial-queries">
-   Spatial index - How to boost spatial queries?
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Motivation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spatial-index-with-geopandas">
-   Spatial index with Geopandas
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#putting-pieces-together-performance-comparisons">
-     Putting pieces together - Performance comparisons
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#counting-the-intersections">
-     Counting the intersections
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#note">
-     Note
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Operations between multiple datasets</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#selecting-data-based-on-spatial-relationships">
-   Selecting data based on spatial relationships
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#how-to-check-if-point-is-inside-a-polygon">
-     How to check if point is inside a polygon?
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#intersect">
-   Intersect
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#point-in-polygon-using-geopandas">
-   Point in Polygon using Geopandas
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reading-kml-files-in-geopandas">
-     Reading KML-files in Geopandas
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#overlay-analysis">
-   Overlay analysis
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spatial-join">
-   Spatial join
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#join-the-layers">
-   Join the layers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spatial-join-nearest">
-   Spatial join nearest
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nearest-neighbour-analysis">
-   Nearest Neighbour Analysis
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nearest-point-using-shapely">
-     Nearest point using Shapely
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nearest-points-using-geopandas">
-     Nearest points using Geopandas
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nearest-neighbor-analysis-with-large-datasets">
-   Nearest neighbor analysis with large datasets
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#motivation">
-     Motivation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn">
-     Efficient nearest neighbor search with Geopandas and scikit-learn
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#what-did-we-just-do-explanation">
-     What did we just do? Explanation.
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#combining-the-neighboring-datasets">
-     Combining the neighboring datasets
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#are-the-results-correct-validation">
-     Are the results correct? Validation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spatial-index-how-to-boost-spatial-queries">
-   Spatial index - How to boost spatial queries?
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Motivation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spatial-index-with-geopandas">
-   Spatial index with Geopandas
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#putting-pieces-together-performance-comparisons">
-     Putting pieces together - Performance comparisons
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#counting-the-intersections">
-     Counting the intersections
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#note">
-     Note
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Operations between multiple datasets</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-based-on-spatial-relationships">Selecting data based on spatial relationships</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-check-if-point-is-inside-a-polygon">How to check if point is inside a polygon?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intersect">Intersect</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#point-in-polygon-using-geopandas">Point in Polygon using Geopandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-kml-files-in-geopandas">Reading KML-files in Geopandas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-analysis">Overlay analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-join">Spatial join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join-the-layers">Join the layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-join-nearest">Spatial join nearest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbour-analysis">Nearest Neighbour Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-point-using-shapely">Nearest point using Shapely</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-points-using-geopandas">Nearest points using Geopandas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-analysis-with-large-datasets">Nearest neighbor analysis with large datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn">Efficient nearest neighbor search with Geopandas and scikit-learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-did-we-just-do-explanation">What did we just do? Explanation.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-the-neighboring-datasets">Combining the neighboring datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#are-the-results-correct-validation">Are the results correct? Validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-index-how-to-boost-spatial-queries">Spatial index - How to boost spatial queries?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Motivation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-index-with-geopandas">Spatial index with Geopandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-pieces-together-performance-comparisons">Putting pieces together - Performance comparisons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-the-intersections">Counting the intersections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note">Note</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
-  <section class="tex2jax_ignore mathjax_ignore" id="operations-between-multiple-datasets">
-<h1>Operations between multiple datasets<a class="headerlink" href="#operations-between-multiple-datasets" title="Permalink to this headline">#</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="operations-between-multiple-datasets">
+<h1>Operations between multiple datasets<a class="headerlink" href="#operations-between-multiple-datasets" title="Permalink to this heading">#</a></h1>
 <!---
 - Selecting data based on spatial relationships
 - Overlay analysis
@@ -1104,7 +492,7 @@ title="Print to PDF"
 - Spatial index
 -->
 <section id="selecting-data-based-on-spatial-relationships">
-<h2>Selecting data based on spatial relationships<a class="headerlink" href="#selecting-data-based-on-spatial-relationships" title="Permalink to this headline">#</a></h2>
+<h2>Selecting data based on spatial relationships<a class="headerlink" href="#selecting-data-based-on-spatial-relationships" title="Permalink to this heading">#</a></h2>
 <p>Finding out if a certain point is located inside or outside of an area,
 or finding out if a line intersects with another line or polygon are
 fundamental geospatial operations that are often used e.g. to select
@@ -1116,7 +504,7 @@ is used.</p>
 <p>For further reading about PIP and other geometric operations,
 see Chapter 4.2 in Smith, Goodchild &amp; Longley: <a class="reference external" href="https://www.spatialanalysisonline.com/HTML/index.html">Geospatial Analysis - 6th edition</a>.</p>
 <section id="how-to-check-if-point-is-inside-a-polygon">
-<h3>How to check if point is inside a polygon?<a class="headerlink" href="#how-to-check-if-point-is-inside-a-polygon" title="Permalink to this headline">#</a></h3>
+<h3>How to check if point is inside a polygon?<a class="headerlink" href="#how-to-check-if-point-is-inside-a-polygon" title="Permalink to this heading">#</a></h3>
 <p>Computationally, detecting if a point is inside a polygon is most commonly done using a specific formula called <a class="reference external" href="https://en.wikipedia.org/wiki/Point_in_polygon#Ray_casting_algorithm">Ray Casting algorithm</a>.
 Luckily, we do not need to create such a function ourselves for
 conducting the Point in Polygon (PIP) query. Instead, we can take
@@ -1124,7 +512,7 @@ advantage of <a class="reference external" href="https://shapely.readthedocs.io/
 that can evaluate the topolocical relationships between geographical
 objects, such as the PIP as we’re interested here.</p>
 <p>There are basically two ways of conducting PIP in Shapely:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>using a function called
 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.within">within()</a>
 that checks if a point is within a polygon</p></li>
@@ -1213,7 +601,7 @@ which polygon contains the point: You might need to iterate over the polygons un
 </section>
 </section>
 <section id="intersect">
-<h2>Intersect<a class="headerlink" href="#intersect" title="Permalink to this headline">#</a></h2>
+<h2>Intersect<a class="headerlink" href="#intersect" title="Permalink to this heading">#</a></h2>
 <p>Another typical geospatial operation is to see if a geometry intersects
 or touches another one. Again, there are binary operations in Shapely for checking these spatial relationships:</p>
 <ul class="simple">
@@ -1268,7 +656,7 @@ or touches another one. Again, there are binary operations in Shapely for checki
 </div>
 </section>
 <section id="point-in-polygon-using-geopandas">
-<h2>Point in Polygon using Geopandas<a class="headerlink" href="#point-in-polygon-using-geopandas" title="Permalink to this headline">#</a></h2>
+<h2>Point in Polygon using Geopandas<a class="headerlink" href="#point-in-polygon-using-geopandas" title="Permalink to this heading">#</a></h2>
 <p>Next we will do a practical example where we check which of the addresses from <span class="xref myst">the geocoding tutorial</span> are located in Southern district of Helsinki. Let’s start by reading a KML-file <code class="docutils literal notranslate"><span class="pre">PKS_suuralue.kml</span></code> that has the Polygons for districts of Helsinki Region (data openly available from <a class="reference external" href="http://www.hri.fi/fi/dataset/paakaupunkiseudun-aluejakokartat">Helsinki Region Infoshare</a>.</p>
 <p>Let’s start by reading the addresses from the Shapefile that we saved earlier.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
@@ -1281,7 +669,7 @@ or touches another one. Again, there are binary operations in Shapely for checki
 </div>
 <!-- #region deletable=true editable=true -->
 <section id="reading-kml-files-in-geopandas">
-<h3>Reading KML-files in Geopandas<a class="headerlink" href="#reading-kml-files-in-geopandas" title="Permalink to this headline">#</a></h3>
+<h3>Reading KML-files in Geopandas<a class="headerlink" href="#reading-kml-files-in-geopandas" title="Permalink to this heading">#</a></h3>
 <p>It is possible to read the data from KML-files with GeoPandas in a similar manner as Shapefiles. However, we need to first, enable the KML-driver which is not enabled by default (because KML-files can contain unsupported data structures, nested folders etc., hence be careful when reading KML-files). Supported drivers are managed with <a class="reference external" href="https://github.com/Toblerity/Fiona/blob/master/fiona/drvsupport.py"><code class="docutils literal notranslate"><span class="pre">fiona.supported_drivers</span></code></a>, which is integrated in geopandas. Let’s first check which formats are currently supported:</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
@@ -1410,7 +798,7 @@ if Point was inside the Polygon, and <code class="docutils literal notranslate">
 </section>
 </section>
 <section id="overlay-analysis">
-<h2>Overlay analysis<a class="headerlink" href="#overlay-analysis" title="Permalink to this headline">#</a></h2>
+<h2>Overlay analysis<a class="headerlink" href="#overlay-analysis" title="Permalink to this heading">#</a></h2>
 <p>In this tutorial, the aim is to make an overlay analysis where we create a new layer based on geometries from a dataset that <code class="docutils literal notranslate"><span class="pre">intersect</span></code> with geometries of another layer. As our test case, we will select Polygon grid cells from <code class="docutils literal notranslate"><span class="pre">TravelTimes_to_5975375_RailwayStation_Helsinki.shp</span></code> that intersects with municipality borders of Helsinki found in <code class="docutils literal notranslate"><span class="pre">Helsinki_borders.shp</span></code>.</p>
 <p>Typical overlay operations are (source: <a class="reference external" href="https://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/vector_spatial_analysis_buffers.html#more-spatial-analysis-tools">QGIS docs</a>):
 <img alt="" src="../../../_images/overlay_operations.png" /></p>
@@ -1473,7 +861,7 @@ if Point was inside the Polygon, and <code class="docutils literal notranslate">
 <p>There are many more examples for different types of overlay analysis in <a class="reference external" href="http://geopandas.org/set_operations.html">Geopandas documentation</a> where you can go and learn more.</p>
 </section>
 <section id="spatial-join">
-<h2>Spatial join<a class="headerlink" href="#spatial-join" title="Permalink to this headline">#</a></h2>
+<h2>Spatial join<a class="headerlink" href="#spatial-join" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="http://wiki.gis.com/wiki/index.php/Spatial_Join">Spatial join</a> is
 yet another classic GIS problem. Getting attributes from one layer and
 transferring them into another layer based on their spatial relationship
@@ -1561,7 +949,7 @@ more intuitive. As you might remember, we can easily rename (Geo)DataFrame colum
 for our analysis.</p>
 </section>
 <section id="join-the-layers">
-<h2>Join the layers<a class="headerlink" href="#join-the-layers" title="Permalink to this headline">#</a></h2>
+<h2>Join the layers<a class="headerlink" href="#join-the-layers" title="Permalink to this heading">#</a></h2>
 <p>Now we are ready to perform the spatial join between the two layers that
 we have. The aim here is to get information about <strong>how many people live
 in a polygon that contains an individual address-point</strong> . Thus, we want
@@ -1709,17 +1097,17 @@ values, <code class="docutils literal notranslate"><span class="pre">markersize<
 </div>
 </section>
 <section id="spatial-join-nearest">
-<h2>Spatial join nearest<a class="headerlink" href="#spatial-join-nearest" title="Permalink to this headline">#</a></h2>
+<h2>Spatial join nearest<a class="headerlink" href="#spatial-join-nearest" title="Permalink to this heading">#</a></h2>
 <p>ADD Materials</p>
 </section>
 <section id="nearest-neighbour-analysis">
-<h2>Nearest Neighbour Analysis<a class="headerlink" href="#nearest-neighbour-analysis" title="Permalink to this headline">#</a></h2>
+<h2>Nearest Neighbour Analysis<a class="headerlink" href="#nearest-neighbour-analysis" title="Permalink to this heading">#</a></h2>
 <p>One commonly used GIS task is to be able to find the nearest neighbour for an object or a set of objects. For instance, you might have a single Point object
 representing your home location, and then another set of locations representing e.g. public transport stops. Then, quite typical question is <em>“which of the stops is closest one to my home?”</em>
 This is a typical nearest neighbour analysis, where the aim is to find the closest geometry to another geometry.</p>
 <p>In Python this kind of analysis can be done with shapely function called <code class="docutils literal notranslate"><span class="pre">nearest_points()</span></code> that <a class="reference external" href="https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.nearest_points">returns a tuple of the nearest points in the input geometries</a>.</p>
 <section id="nearest-point-using-shapely">
-<h3>Nearest point using Shapely<a class="headerlink" href="#nearest-point-using-shapely" title="Permalink to this headline">#</a></h3>
+<h3>Nearest point using Shapely<a class="headerlink" href="#nearest-point-using-shapely" title="Permalink to this heading">#</a></h3>
 <p>Let’s start by testing how we can find the nearest Point using the <code class="docutils literal notranslate"><span class="pre">nearest_points()</span></code> function of Shapely.</p>
 <ul class="simple">
 <li><p>Let’s create an origin Point and a few destination Points and find out the closest destination:</p></li>
@@ -1774,7 +1162,7 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 <p>This is the basic logic how we can find the nearest point from a set of points.</p>
 </section>
 <section id="nearest-points-using-geopandas">
-<h3>Nearest points using Geopandas<a class="headerlink" href="#nearest-points-using-geopandas" title="Permalink to this headline">#</a></h3>
+<h3>Nearest points using Geopandas<a class="headerlink" href="#nearest-points-using-geopandas" title="Permalink to this heading">#</a></h3>
 <p>Let’s then see how it is possible to find nearest points from a set of origin points to a set of destination points using GeoDataFrames. Here, we will use the <code class="docutils literal notranslate"><span class="pre">PKS_suuralueet.kml</span></code> district data, and the <code class="docutils literal notranslate"><span class="pre">addresses.shp</span></code> address points from previous sections.</p>
 <p><strong>Our goal in this tutorial is to find out the closest address to the centroid of each district.</strong></p>
 <ul class="simple">
@@ -1875,15 +1263,15 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 </section>
 </section>
 <section id="nearest-neighbor-analysis-with-large-datasets">
-<h2>Nearest neighbor analysis with large datasets<a class="headerlink" href="#nearest-neighbor-analysis-with-large-datasets" title="Permalink to this headline">#</a></h2>
+<h2>Nearest neighbor analysis with large datasets<a class="headerlink" href="#nearest-neighbor-analysis-with-large-datasets" title="Permalink to this heading">#</a></h2>
 <p>While Shapely’s <code class="docutils literal notranslate"><span class="pre">nearest_points</span></code> -function provides a nice and easy way of conducting the nearest neighbor analysis, it can be quite slow. Using it also requires taking the <code class="docutils literal notranslate"><span class="pre">unary</span> <span class="pre">union</span></code> of the point dataset where all the Points are merged into a single layer. This can be a really memory hungry and slow operation, that can cause problems with large point datasets.</p>
 <p>Luckily, there is a much faster and memory efficient alternatives for conducting nearest neighbor analysis, based on a function called <a class="reference external" href="https://en.wikipedia.org/wiki/Ball_tree">BallTree</a> from a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html">scikit-learn</a> library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate <code class="docutils literal notranslate"><span class="pre">euclidian</span></code> distance between neighbors (good if your data is in metric crs), as well as <code class="docutils literal notranslate"><span class="pre">haversine</span></code> distance which allows to determine <a class="reference external" href="https://en.wikipedia.org/wiki/Great-circle_distance">Great Circle distances</a> between locations (good if your data is in lat/lon format). <em>Note: There is also an algorithm called <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree">KDTree</a> in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.</em></p>
 <section id="motivation">
-<h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">#</a></h3>
+<h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">#</a></h3>
 <p>In this tutorial, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in Helsinki Region (around 159 000 buildings) the closest public transport stop (~ 8400 stops). The building points have been fetched from OpenStreetMap using a library called <a class="reference external" href="https://github.com/gboeing/osmnx">OSMnx</a> (we will learn more about this library later), and the public transport stops have been fetched from open <a class="reference external" href="https://transitfeeds.com/p/helsinki-regional-transport/735">GTFS dataset for Helsinki Region</a> that contains information about public transport stops, schedules etc.</p>
 </section>
 <section id="efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn">
-<h3>Efficient nearest neighbor search with Geopandas and scikit-learn<a class="headerlink" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn" title="Permalink to this headline">#</a></h3>
+<h3>Efficient nearest neighbor search with Geopandas and scikit-learn<a class="headerlink" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn" title="Permalink to this heading">#</a></h3>
 <p>The following examples show how to conduct nearest neighbor analysis efficiently with large datasets. We will first define the functions and see how to use them, and then we go through the code to understand what happened.</p>
 <ul class="simple">
 <li><p>Let’s first read the datasets into Geopandas. In case of reading the building data, we will here learn a trick how to read the data directly from a ZipFile. It is very practical to know how to do this, as compressing large datasets is a very common procedure.</p></li>
@@ -2031,14 +1419,14 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 <p>Indeed, that seems to be the case. Hence, it is easy to combine these two datasets together. Before continuing our analysis, let’s take a bit deeper look, what we actually did with the functions above.</p>
 </section>
 <section id="what-did-we-just-do-explanation">
-<h3>What did we just do? Explanation.<a class="headerlink" href="#what-did-we-just-do-explanation" title="Permalink to this headline">#</a></h3>
+<h3>What did we just do? Explanation.<a class="headerlink" href="#what-did-we-just-do-explanation" title="Permalink to this heading">#</a></h3>
 <p>To get a bit more understanding of what just happened, let’s go through the essential parts of the two functions we defined earlier, i.e. <code class="docutils literal notranslate"><span class="pre">nearest_neighbor()</span></code> and <code class="docutils literal notranslate"><span class="pre">get_closest()</span></code>.</p>
 <p>The purpose of <code class="docutils literal notranslate"><span class="pre">nearest_neighbor()</span></code> function is to handle and transform the data from GeoDataFrame into <code class="docutils literal notranslate"><span class="pre">numpy</span> <span class="pre">arrays</span></code> (=super-fast data structure) in a format how <code class="docutils literal notranslate"><span class="pre">BallTree</span></code> function wants them. This includes converting the lat/lon coordinates into radians (and back), so that we get the distances between the neighboring points in a correct format: scikit-learn’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html">haversine distance metric</a> wants inputs as radians and also outputs the data as radians. To convert a lat/lon coordinate to radian, we use formula: <code class="docutils literal notranslate"><span class="pre">Radian</span> <span class="pre">=</span> <span class="pre">Degree</span> <span class="pre">*</span> <span class="pre">PI</span> <span class="pre">/</span> <span class="pre">180</span></code>. By doing this, we are able to get the output distance information in meters (even if our coordinates are in decimal degrees).</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">get_closest()</span></code> function does the actual nearest neighbor search using <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html">BallTree</a> function. We initialize the <code class="docutils literal notranslate"><span class="pre">BallTree</span></code> object with the coordinate information from the <strong>right_gdf</strong> (i.e. the point dataset that contains all the nearest neighbor candidates), and we specify the distance metric to be <code class="docutils literal notranslate"><span class="pre">haversine</span></code> so that we get the Great Circle Distances. The <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code> parameter adjusts the tradeoff between the cost of BallTree node traversal and the cost of a brute-force distance estimate. Changing leaf_size will not affect the results of a query, but can significantly impact the speed of a query and the memory required to store the constructed tree. We determine the leaf_size as 15 which has been found to be a good compromise when <a class="reference external" href="https://jakevdp.github.io/blog/2013/04/29/benchmarking-nearest-neighbor-searches-in-python/">benchmarked</a>. After we have built (initialized) the ball-tree, we run the nearest neighbor query with <code class="docutils literal notranslate"><span class="pre">tree.query(src_points,</span> <span class="pre">k=k_neighbors)</span></code>, where the src_points are the building-coordinates (as radians) and the <code class="docutils literal notranslate"><span class="pre">k</span></code> -parameter is the number of neighbors we want to calculate (1 in our case as we are only interested in the closest neighbor). Finally, we just re-arrange the data back into a format in which the closest point indices and distances are in separate numpy arrays.</p>
 <p><strong>Note:</strong> The functions here assume that your input points are in WGS84 projection. If you pass the points in some other projection, it is highly likely that the distances between nearest neighbors are incorrect. Determining which is the nearest neighbor should not be affected, though.</p>
 </section>
 <section id="combining-the-neighboring-datasets">
-<h3>Combining the neighboring datasets<a class="headerlink" href="#combining-the-neighboring-datasets" title="Permalink to this headline">#</a></h3>
+<h3>Combining the neighboring datasets<a class="headerlink" href="#combining-the-neighboring-datasets" title="Permalink to this heading">#</a></h3>
 <p>Okay, now as we have found closest stop for each building in the region, we can easily merge the information about closest stops back to the building layer. The order of the <code class="docutils literal notranslate"><span class="pre">closest_stops</span></code> matches exactly the order in <code class="docutils literal notranslate"><span class="pre">buildings</span></code>, so we can easily merge the datasets based on index.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rename the geometry of closest stops gdf so that we can easily identify it</span>
 <span class="n">closest_stops</span> <span class="o">=</span> <span class="n">closest_stops</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;closest_stop_geom&quot;</span><span class="p">})</span>
@@ -2075,7 +1463,7 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 <p>Okay, as we can see, there are some clear spatial patterns in the levels of access to public transport. The buildings with the shortest distances (i.e. best accessibility) are located in the densely populated areas, whereas the buildings locating in the periferial areas (such as islands on the South, and nature areas in the North-West) tend to have longer distance to public transport.</p>
 </section>
 <section id="are-the-results-correct-validation">
-<h3>Are the results correct? Validation<a class="headerlink" href="#are-the-results-correct-validation" title="Permalink to this headline">#</a></h3>
+<h3>Are the results correct? Validation<a class="headerlink" href="#are-the-results-correct-validation" title="Permalink to this heading">#</a></h3>
 <p>As a final step, it’s good to ensure that our functions are working as they should. This can be done easily by examining the data visually.</p>
 <ul class="simple">
 <li><p>Let’s first create LineStrings between the building and closest stop points:</p></li>
@@ -2121,7 +1509,7 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 </section>
 </section>
 <section id="spatial-index-how-to-boost-spatial-queries">
-<h2>Spatial index - How to boost spatial queries?<a class="headerlink" href="#spatial-index-how-to-boost-spatial-queries" title="Permalink to this headline">#</a></h2>
+<h2>Spatial index - How to boost spatial queries?<a class="headerlink" href="#spatial-index-how-to-boost-spatial-queries" title="Permalink to this heading">#</a></h2>
 <p>While using the technique from previous examples produces correct results, it is in fact quite slow from performance point of view. Especially when having large datasets (quite typical nowadays), the point in polygon queries can become frustratingly slow, which can be a nerve-racking experience for a busy geo-data scientist.</p>
 <p>Luckily there is an easy and widely used solution called <strong>spatial index</strong> that can significantly boost the performance of your spatial queries. Various alternative techniques has been developed to boost spatial queries, but one of the most popular one and widely used is a spatial index based on <a class="reference external" href="https://en.wikipedia.org/wiki/R-tree">R-tree</a> data structure.</p>
 <p>The core idea behind the <strong>R-tree</strong> is to form a tree-like data structure where nearby objects are grouped together, and their geographical extent (minimum bounding box) is inserted into the data structure (i.e. R-tree). This bounding box then represents the whole group of geometries as one level (typically called as “page” or “node”) in the data structure. This process is repeated several times, which produces a tree-like structure where different levels are connected to each other. This structure makes the query times for finding a single object from the data much faster, as the algorithm does not need to travel through all geometries in the data. In the example below, we can see how the geometries have been grouped into several sub-groups (lower part of the picture) and inserted into a tree structure (upper part) where there exists two groups on the highest level (<code class="docutils literal notranslate"><span class="pre">R1</span></code> and <code class="docutils literal notranslate"><span class="pre">R2</span></code>), which are again grouped into five lower level groups (<code class="docutils literal notranslate"><span class="pre">R3-R7</span></code>):</p>
@@ -2129,10 +1517,10 @@ This is a typical nearest neighbour analysis, where the aim is to find the close
 Simple example of an R-tree for 2D rectanges (source: <a class="reference external" href="https://www.ibm.com/support/knowledgecenter/en/SSGU8G_11.50.0/com.ibm.rtree.doc/sii-overview-27706.htm">IBM</a>)</p>
 <p>In the next tutorial we will learn how to significantly improve the query times for finding points that are within a given polygon. We will use data that represents all road intersections in the Uusimaa Region of Finland, and count the number of intersections on a postal code level. <em>Why would you do such a thing?</em>, well, one could for example try to understand the vitality of city blocks following <a class="reference external" href="https://en.wikipedia.org/wiki/Jane_Jacobs">Jane Jacobs’</a> ideas.</p>
 <section id="id1">
-<h3>Motivation<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<h3>Motivation<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>As a motivation for counting intersections, we can use an example/theory from <a class="reference external" href="https://en.wikipedia.org/wiki/Jane_Jacobs">Jane Jacobs’</a> classic book <a class="reference external" href="https://en.wikipedia.org/wiki/The_Death_and_Life_of_Great_American_Cities">“The Death and Life of Great American Cities”</a> (1961), where she defines four requirements
 that makes a vital/vibrant city:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>“The district, and indeed as many of its internal parts as possible, must serve more than one primary function; preferably more than two.
 These must insure the presence of people who go outdoors on different schedules and are in the place for different purposes,
 but who are able to use many facilities in common.” <em>(–&gt; One could use e.g. OSM data to understand the diversity of services etc.)</em></p></li>
@@ -2144,7 +1532,7 @@ but who are able to use many facilities in common.” <em>(–&gt; One could use
 </section>
 </section>
 <section id="spatial-index-with-geopandas">
-<h2>Spatial index with Geopandas<a class="headerlink" href="#spatial-index-with-geopandas" title="Permalink to this headline">#</a></h2>
+<h2>Spatial index with Geopandas<a class="headerlink" href="#spatial-index-with-geopandas" title="Permalink to this heading">#</a></h2>
 <p>In this tutorial, we will first go through a step by step example showing how spatial index works, and in the end we put things together and produce a practical function for doing fast spatial queries.</p>
 <!-- #endregion -->
 <ul class="simple">
@@ -2253,7 +1641,7 @@ but who are able to use many facilities in common.” <em>(–&gt; One could use
 </pre></div>
 </div>
 <section id="putting-pieces-together-performance-comparisons">
-<h3>Putting pieces together - Performance comparisons<a class="headerlink" href="#putting-pieces-together-performance-comparisons" title="Permalink to this headline">#</a></h3>
+<h3>Putting pieces together - Performance comparisons<a class="headerlink" href="#putting-pieces-together-performance-comparisons" title="Permalink to this heading">#</a></h3>
 <p>Following functions both conduct the spatial query that we saw previously, the first one <strong>without</strong> utilizing spatial index and the second one <strong>with</strong> spatial index. We can use them and compare the performance, so that we can get an idea how much the spatial index affects the performance time-wise.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">intersect_using_spatial_index</span><span class="p">(</span><span class="n">source_gdf</span><span class="p">,</span> <span class="n">intersecting_gdf</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2316,7 +1704,7 @@ but who are able to use many facilities in common.” <em>(–&gt; One could use
 <p>Making the spatial query only with a single Polygon (as in the example) might not make a big difference, but having hundreds or thousands of Polygons, and wanting to find all points that are inside those ones, start to make a drastic difference.</p>
 </section>
 <section id="counting-the-intersections">
-<h3>Counting the intersections<a class="headerlink" href="#counting-the-intersections" title="Permalink to this headline">#</a></h3>
+<h3>Counting the intersections<a class="headerlink" href="#counting-the-intersections" title="Permalink to this heading">#</a></h3>
 <p>The ultimate goal of this tutorial was to count the intersections per postal code. We can do that easily and fast with Geopandas, by conducting a <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">join</span></code> between the two datasets. Spatial join in Geopandas is highly performant, and in fact, it utilizes spatial index to make the queries fast. The following parts might include a bit advanced tricks that we have not covered, but for the sake of completeness, the following steps count the intersections per postal code area. Finally, we plot a density of the intersections as a number of intersections per square kilometer (per postal code area).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count intersections by postal code area</span>
 <span class="n">intersection_cnt</span> <span class="o">=</span> <span class="p">(</span>
@@ -2342,7 +1730,7 @@ but who are able to use many facilities in common.” <em>(–&gt; One could use
 <p>From the map, we can see that the intersection density is clearly highest in the city center areas of Helsinki (red colored areas).</p>
 </section>
 <section id="note">
-<h3>Note<a class="headerlink" href="#note" title="Permalink to this headline">#</a></h3>
+<h3>Note<a class="headerlink" href="#note" title="Permalink to this heading">#</a></h3>
 <p>As we have learned from this tutorial, spatial index can make the spatial queries significantly faster. There is however, a specific situation in which spatial index does not provide any improvements for the performance: if your polygon and points have more or less similar spatial extent (bounding box), the spatial index does not help to make the queries faster due to its design in working on a level of bounding boxes. This happens e.g. in following case:</p>
 <p><img alt="los-angeles-boundary-intersections.png" src="../../../_images/los-angeles-boundary-intersections.png" />
 <em>Example of a situation where spatial index does not provide boost in performance</em> (Source: <a class="reference external" href="https://geoffboeing.com/2016/10/r-tree-spatial-index-python/">G. Boeing, 2016</a>)</p>
@@ -2355,36 +1743,120 @@ but who are able to use many facilities in common.” <em>(–&gt; One could use
 </section>
 
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-based-on-spatial-relationships">Selecting data based on spatial relationships</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-check-if-point-is-inside-a-polygon">How to check if point is inside a polygon?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intersect">Intersect</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#point-in-polygon-using-geopandas">Point in Polygon using Geopandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-kml-files-in-geopandas">Reading KML-files in Geopandas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-analysis">Overlay analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-join">Spatial join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join-the-layers">Join the layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-join-nearest">Spatial join nearest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbour-analysis">Nearest Neighbour Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-point-using-shapely">Nearest point using Shapely</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-points-using-geopandas">Nearest points using Geopandas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-analysis-with-large-datasets">Nearest neighbor analysis with large datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-nearest-neighbor-search-with-geopandas-and-scikit-learn">Efficient nearest neighbor search with Geopandas and scikit-learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-did-we-just-do-explanation">What did we just do? Explanation.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-the-neighboring-datasets">Combining the neighboring datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#are-the-results-correct-validation">Are the results correct? Validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-index-how-to-boost-spatial-queries">Spatial index - How to boost spatial queries?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Motivation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-index-with-geopandas">Spatial index with Geopandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-pieces-together-performance-comparisons">Putting pieces together - Performance comparisons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-the-intersections">Counting the intersections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note">Note</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
-  
-      &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

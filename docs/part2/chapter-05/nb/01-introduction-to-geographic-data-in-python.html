@@ -1,1029 +1,531 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Geographic data in Python</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
-    
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Show the solution';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-05/nb/01-introduction-to-geographic-data-in-python';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Coordinate reference systems" href="02-introduction-to-coordinate-reference-systems.html" />
     <link rel="prev" title="Motivation" href="00-motivation-to-use-python-for-gis.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
-<script async="" src="https://www.google-analytics.com/analytics.js"></script>
-<script>
-                        window.ga = window.ga || function () {
-                            (ga.q = ga.q || []).push(arguments) };
-                        ga.l = +new Date;
-                        ga('create', 'UA-159257488-1', 'auto');
-                        ga('set', 'anonymizeIp', true);
-                        ga('send', 'pageview');
-                    </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../../index.html">
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
-      
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part I - Python essentials
- </span>
-</p>
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part1/chapter-01/index.html">
-   1: Getting started
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">
-     Motivation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">
-     Computers and programs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">
-     Why Python?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">
-     Writing and running Python code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">
-     Using JupyterLab for writing code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">
-     Quickly getting started (without installing Python)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">
-     Installing Python and adding libraries
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part1/chapter-02/index.html">
-   2: Basic programming concepts
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">
-     Basic elements of Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/01-for-loops.html">
-     for loops
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/02-conditional-statements.html">
-     Conditional statements
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/03-functions.html">
-     Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/04-writing-scripts.html">
-     Writing script files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/05-modules.html">
-     Loading and using modules
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-02/nb/06-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part1/chapter-03/index.html">
-   3: Introduction to data analysis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">
-     Getting started with data analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">
-     Common tabular operations in pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">
-     Data wrangling, grouping and aggregation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">
-     Working with temporal data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part1/chapter-04/index.html">
-   4: Introduction to data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">
-     Plotting in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">
-     Plotting with pandas and matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">
-     Creating subplots
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">
-     Effective plot design: line plots
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-01/index.html">1: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">Installing Python and adding libraries</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part II - Introduction to GIS with Python
- </span>
-</p>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-02/index.html">2: Basic programming concepts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">Basic elements of Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/01-for-loops.html">for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/02-conditional-statements.html">Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/03-functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/04-writing-scripts.html">Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/05-modules.html">Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/06-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-03/index.html">3: Introduction to data analysis</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-04/index.html">4: Introduction to data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../index.html">
-   5: Getting started
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="00-motivation-to-use-python-for-gis.html">
-     Motivation
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Geographic data in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02-introduction-to-coordinate-reference-systems.html">
-     Coordinate reference systems
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-06/index.html">
-   6: Vector data processing
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/00-introduction-to-geographic-objects.html">
-     Introduction to geographic data objects in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/01-introduction-to-geopandas.html">
-     Introduction to spatial data analysis with geopandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/02-data-io.html">
-     Preparing GeoDataFrames from geographic data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/03-geometric-manipulation.html">
-     Geometric data manipulations
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/04-coordinate-reference-system.html">
-     Working with Map Projections
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/05-geocoding.html">
-     Geocoding
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/06-operations-between-multiple-datasets.html">
-     Operations between multiple datasets
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-06/nb/07-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-07/index.html">
-   7: Raster data processing
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-analysis.html">
-     Introduction to raster processing with Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">
-     Reading raster files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">
-     Common raster operations
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">
-     Raster operations between multiple layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-07/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-08/index.html">
-   8: Geographic data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">
-     Introduction to geographic visualization
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">
-     Static maps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">
-     Visualizing raster layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">
-     Interactive maps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">
-     Designing maps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-08/nb/05-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-09/index.html">
-   9: Using online geographic data sources
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/00-retrieving-osm-data.html">
-     Retrieving OpenStreetMap data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/01-retrieving-data-from-wfs.html">
-     Retrieving data from Web Feature Service (WFS)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/02-retrieving-data-from-wcs.html">
-     Retrieving data from Web Coverage Service (WCS)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/03-read-data-from-spatial-databases.html">
-     Reading data from spatial databases
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-09/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">5: Getting started</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="00-motivation-to-use-python-for-gis.html">Motivation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-introduction-to-coordinate-reference-systems.html">Coordinate reference systems</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part III - Case studies
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part3/chapter-10/index.html">
-   10: Spatial interpolation
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">
-     Introduction to spatial interpolation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">
-     Inverse Distance Weighting interpolation with Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part3/chapter-11/index.html">
-   11: Spatial network analysis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-  <label for="toctree-checkbox-11">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">
-     Introduction to spatial network analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">
-     Multimodal spatial accessibility analysis with Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part3/chapter-12/index.html">
-   12: Terrain analysis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-  <label for="toctree-checkbox-12">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">
-     Introduction to terrain analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">
-     Interpreting topographic features from raster data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../part3/chapter-13/index.html">
-   13: Conclusions
-  </a>
- </li>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-06/index.html">6: Vector data processing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/00-introduction-to-geographic-objects.html">Introduction to geographic data objects in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/01-introduction-to-geopandas.html">Introduction to spatial data analysis with geopandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/02-data-io.html">Preparing GeoDataFrames from geographic data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/03-geometric-manipulation.html">Geometric data manipulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/04-coordinate-reference-system.html">Working with Map Projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/05-geocoding.html">Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/06-operations-between-multiple-datasets.html">Operations between multiple datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/07-exercises.html">Exercises</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Back matter
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">
-   Acknowledgements
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../back-matter/appendices.html">
-   Appendices
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-  <label for="toctree-checkbox-13">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-1.html">
-     Version control with git
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-2.html">
-     Collaborative coding with GitHub
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-3.html">
-     Using Python script files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-4.html">
-     Testing and debugging your code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-5.html">
-     Solutions to questions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-6.html">
-     Exercise solutions
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
-   Glossary
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/references.html">
-   References
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../authors.html">
-   About the authors
-  </a>
- </li>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-07/index.html">7: Raster data processing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-analysis.html">Introduction to raster processing with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">Reading raster files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">Raster operations between multiple layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/04-exercises.html">Exercises</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Datasets
- </span>
-</p>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-08/index.html">8: Geographic data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">Designing maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/05-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-09/index.html">9: Using online geographic data sources</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/00-retrieving-osm-data.html">Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/01-retrieving-data-from-wfs.html">Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/02-retrieving-data-from-wcs.html">Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/03-read-data-from-spatial-databases.html">Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../data/index.html">
-   Overview
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../data/noaa-data.html">
-   NOAA Weather data
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10: Spatial interpolation</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11: Spatial network analysis</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12: Terrain analysis</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13: Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendices.html">Appendices</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4.html">Testing and debugging your code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5.html">Solutions to questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6.html">Exercise solutions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../../../_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/Python-GIS-book/site/edit/master/part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Edit this page"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-pencil-alt"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../../../_sources/part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.ipynb.txt"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ways-to-represent-spatial-data-on-a-computer">
-   Ways to represent spatial data on a computer
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#building-blocks-of-vector-data">
-   Building blocks of vector data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#geometry-types">
-     Geometry types
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#attribute-data">
-     Attribute data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vector-data-formats">
-     Vector data formats
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#basics-of-raster-data-and-arrays">
-   Basics of raster data and arrays
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#commonly-used-raster-data-formats">
-     Commonly used raster data formats
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#representing-spatial-networks">
-   Representing spatial networks
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#network-attribute-data">
-     Network attribute data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#directionality">
-     Directionality
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#commonly-used-network-data-formats">
-     Commonly used network data formats
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#footnotes">
-   Footnotes
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Geographic data in Python</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ways-to-represent-spatial-data-on-a-computer">
-   Ways to represent spatial data on a computer
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#building-blocks-of-vector-data">
-   Building blocks of vector data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#geometry-types">
-     Geometry types
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#attribute-data">
-     Attribute data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vector-data-formats">
-     Vector data formats
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#basics-of-raster-data-and-arrays">
-   Basics of raster data and arrays
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#commonly-used-raster-data-formats">
-     Commonly used raster data formats
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#representing-spatial-networks">
-   Representing spatial networks
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#network-attribute-data">
-     Network attribute data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#directionality">
-     Directionality
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#commonly-used-network-data-formats">
-     Commonly used network data formats
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#footnotes">
-   Footnotes
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Geographic data in Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ways-to-represent-spatial-data-on-a-computer">Ways to represent spatial data on a computer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-blocks-of-vector-data">Building blocks of vector data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-types">Geometry types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attribute-data">Attribute data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-data-formats">Vector data formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics-of-raster-data-and-arrays">Basics of raster data and arrays</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commonly-used-raster-data-formats">Commonly used raster data formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representing-spatial-networks">Representing spatial networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#network-attribute-data">Network attribute data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directionality">Directionality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commonly-used-network-data-formats">Commonly used network data formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
-  <section class="tex2jax_ignore mathjax_ignore" id="geographic-data-in-python">
-<h1>Geographic data in Python<a class="headerlink" href="#geographic-data-in-python" title="Permalink to this headline">#</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="geographic-data-in-python">
+<h1>Geographic data in Python<a class="headerlink" href="#geographic-data-in-python" title="Permalink to this heading">#</a></h1>
 <p>How do we represent geographic features such as roads, buildings, lakes or mountains on a computer? How can we read an image taken with a satellite sensor and use that in our analyses? How can we create a spatial network that can be used for navigation and finding the fastest route from A to B? This chapter introduces you to the fundamental data structures and formats that are most commonly used when working with Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.</p>
 <section id="ways-to-represent-spatial-data-on-a-computer">
-<h2>Ways to represent spatial data on a computer<a class="headerlink" href="#ways-to-represent-spatial-data-on-a-computer" title="Permalink to this headline">#</a></h2>
+<h2>Ways to represent spatial data on a computer<a class="headerlink" href="#ways-to-represent-spatial-data-on-a-computer" title="Permalink to this heading">#</a></h2>
 <p>To be able to work with real world geographic objects (such as roads or lakes) on a computer, we need to represented them in a format that the computer can understand and work with. These representations are simplifications of the real world which are typically represented either with <strong>vector</strong> or <strong>raster</strong> <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Data-model"><span class="xref std std-term">data model</span></a></em>. Vector and raster data formats are very different by nature. Figure 5.2 shows how physical objects, such as roads and buildings, can be represented as vectors or rasters. In addition, there are other models which <em>extend</em> the previous ones, such as <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatio-temporal-data-model"><span class="xref std std-term">spatio-temporal data model</span></a></em> which incorporates time as one additional dimension to the geographic dimension. There are also models that <em>integrate</em> vector or raster data models, such as <em><span class="xref std std-term">topological data model</span></em> which is typically build around vector data. This model can be used to represent e.g. street <strong>networks</strong> in a way that the topological relationships are incorporated in the core model design, which happens to be very useful for example when aiming to find a shortest route between two locations.</p>
 <p>The vector representation of the road and building features (shown on the left in Figure 5.2) are constructed from points in geographical space which are connected to each other forming lines and polygons. The subplots on the right, shows raster representations of the same features. They are constructed from rectangular cells (also called as pixels) that form a uniform grid, i.e. a raster. The grid is associated to specific geographical location and each cell of the grid contains a value representing some information, such as elevation, temperature or presence/absence (as in this figure). Lastly, the roads on the top-left could be represented as a network, which is a vector-based data structure consisting of intersections (called <em>nodes</em>) that are represented as points, and streets connecting the nodes that are represented as lines (called <em>edges</em>). Because the vector and raster data models are very different, there are typically a different set of GIS tools and methodologies applied for raster and vector data. However, the vector and raster worlds are not totally isolated from each other, as in many cases it is useful to convert the data from one format to another for specific operations, as has been done in Figure 5.2.</p>
 <p><img alt="Figure 5.2. Vector and raster representations of roads and buildings." src="../../../_images/vector_vs_raster.jpg" /></p>
 <p><em><strong>Figure 5.2.</strong> Vector and raster representations of roads and buildings.</em></p>
 </section>
 <section id="building-blocks-of-vector-data">
-<h2>Building blocks of vector data<a class="headerlink" href="#building-blocks-of-vector-data" title="Permalink to this headline">#</a></h2>
+<h2>Building blocks of vector data<a class="headerlink" href="#building-blocks-of-vector-data" title="Permalink to this heading">#</a></h2>
 <section id="geometry-types">
-<h3>Geometry types<a class="headerlink" href="#geometry-types" title="Permalink to this headline">#</a></h3>
+<h3>Geometry types<a class="headerlink" href="#geometry-types" title="Permalink to this heading">#</a></h3>
 <p>The most fundamental geometric objects when working with spatial data in vector format are <strong>points</strong>, <strong>lines</strong> and <strong>areas</strong>. Figure 5.3 represents the vector data model and illustrates the variety of geometric objects that are available. <code class="docutils literal notranslate"><span class="pre">Point</span></code> -object represents a single point in geographic space and the location of the point in space is determined with coordinates. Points can be either two-dimensional (with x, y -coordinates) or three dimensional (with x, y, and z coordinates). A single pair of coordinates forming a point is commonly called as <em><code class="docutils literal notranslate"><span class="pre">coordinate</span></code></em> <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Tuple"><span class="xref std std-term">tuple</span></a></em>. <code class="docutils literal notranslate"><span class="pre">LineString</span></code> -object (i.e. a line) represents a sequence of points joined together to form a line. Hence, a line consist of a list of at least two coordinate tuples. <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> -object represents a filled area that consists of a list of at least three coordinate tuples that forms the outerior ring (called <code class="docutils literal notranslate"><span class="pre">LinearRing</span></code>) and a possible list of holes (as seen in the last plot of Figure 5.3) It is also possible to have a collection of geometric objects (i.e. multiple points, lines or areas) represented as <code class="docutils literal notranslate"><span class="pre">MultiPoint</span></code>, <code class="docutils literal notranslate"><span class="pre">MultiLineString</span></code> and <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code> as shown in the bottom row of Figure 5.3. Geometry collections can be useful for example when you want to present multiple building polygons belonging to the same property as a single entity (like a Finnish summer house that typically has a separate sauna building). In addition to these, you might sometimes hear about other geometry objects, such as <code class="docutils literal notranslate"><span class="pre">Curve</span></code>, <code class="docutils literal notranslate"><span class="pre">Surface</span></code> or <code class="docutils literal notranslate"><span class="pre">GeometryCollection</span></code>, but these are basically implemented by the same <code class="docutils literal notranslate"><span class="pre">Point</span></code>, <code class="docutils literal notranslate"><span class="pre">LineString</span></code> and <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> geometry types, hence we don’t really use them in practice.</p>
 <p>All of these geometries are defined in <em>Simple Features Access Specification</em> (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id8" title="John R. Herring. Ogc-simple features access - part 1: common architecture. 2011. URL: https://www.ogc.org/docs/is.">Herring, 2011</a></span>), which is a standard (ISO 19125-1) formalized by the <em>Open Geospatial Consortium</em> and <em>International Organization for Standardization</em>. Most (if not all) programming languages follow this same standard to represent spatial data. The text underneath each geometry (e.g. <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">(25</span> <span class="pre">60.5)</span></code>) shows how each of these geometries can be represented as text (Figure 5.3). The way the text is formatted follows a specification called <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Well-known-text"><span class="xref std std-term">Well-known text</span></a> (WKT)</em> which is also defined in the Simple Features Access Specification. The geometries can also be represented in binary format, which is called  <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Well-known-binary"><span class="xref std std-term">Well-known binary</span></a> (WKB)</em>. WKB is useful for storing the geometries in a more compact form, but it is not human-readable. Most often, you don’t need to worry about these technical details when working with spatial data in Python, but it is useful to know the foundations underlying most (if not all) GIS libraries.</p>
 <p><img alt="Figure 5.3. Vector data model following the Simple Features Access Specification." src="../../../_images/vector_data_model.jpg" /></p>
 <p><em><strong>Figure 5.3.</strong> Vector data model following the Simple Features Access Specification.</em></p>
 </section>
 <section id="attribute-data">
-<h3>Attribute data<a class="headerlink" href="#attribute-data" title="Permalink to this headline">#</a></h3>
+<h3>Attribute data<a class="headerlink" href="#attribute-data" title="Permalink to this heading">#</a></h3>
 <p>The geometry of a feature is one aspect of geospatial data which tells us about the location and possibly the shape of the real-world entity at hand. However, the other aspect which is equally important is the information that we associate with the geometry as an attribute data. Attribute data is typically attached to the geometries that describe the given entity with various possible characteristics. For example, in terms of a building geometry, we might have useful attribute information associated to the building, such as the number of floors, the height of the building, or how many people live there. In fact, we have already worked with this kind of attribute data in Part I of the book, when we worked with <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrames and analyzed the temperature observations. The DataFrame containing relevant information about the phenomena that we are analyzing (such as the temperature patterns) can be called as an attribute table, which is commonly used term in GIS softwares. Attributes are always linked to the geometries in one way or another: for example based on a unique feature identifier which is referenced both in the attribute table and the geometry records (e.g. when working with <code class="docutils literal notranslate"><span class="pre">Shapefiles</span></code>). The linking can also be done on a structural level of the data, such as in <code class="docutils literal notranslate"><span class="pre">GeoJSON</span></code> format in which a single feature always contains both the geometry information as well as the properties of the data (i.e. attributes associated with the geometry).</p>
 </section>
 <section id="vector-data-formats">
-<h3>Vector data formats<a class="headerlink" href="#vector-data-formats" title="Permalink to this headline">#</a></h3>
-<p>Spatial vector data can be stored in different ways. Two of the most widely used approaches is to either store the data into a spatial data file that is stored to disk, or store the data into a spatially-aware database, such as PostGIS database that supports storing spatial data. When storing data to a data file there are multiple options to choose from in terms of data formats. You can easily read and write spatial vector data to approximately eighty different file formats which are supported by the <a class="reference external" href="https://gdal.org/">Geospatial Data Abstraction Library</a> (GDAL) <a class="footnote-reference brackets" href="#gdal" id="id2">1</a>. <code class="docutils literal notranslate"><span class="pre">GDAL</span></code> is a computer software library for reading and writing raster and vector geospatial data formats, and it is used under the hood by hundreds of GIS softwares and libraries in different programming languages (including Python). Below, we will provide information about a few selected spatial vector data formats that are commonly used for storing spatial data.</p>
+<h3>Vector data formats<a class="headerlink" href="#vector-data-formats" title="Permalink to this heading">#</a></h3>
+<p>Spatial vector data can be stored in different ways. Two of the most widely used approaches is to either store the data into a spatial data file that is stored to disk, or store the data into a spatially-aware database, such as PostGIS database that supports storing spatial data. When storing data to a data file there are multiple options to choose from in terms of data formats. You can easily read and write spatial vector data to approximately eighty different file formats which are supported by the <a class="reference external" href="https://gdal.org/">Geospatial Data Abstraction Library</a> (GDAL) <a class="footnote-reference brackets" href="#gdal" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. <code class="docutils literal notranslate"><span class="pre">GDAL</span></code> is a computer software library for reading and writing raster and vector geospatial data formats, and it is used under the hood by hundreds of GIS softwares and libraries in different programming languages (including Python). Below, we will provide information about a few selected spatial vector data formats that are commonly used for storing spatial data.</p>
 <ul class="simple">
 <li><p><strong>Shapefile:</strong> The shapefile is still widely used data format for storing geospatial vector data, although the file format was developed and introduced by ESRI already in the early 1990s. The filename extension for the Shapefile is <code class="docutils literal notranslate"><span class="pre">.shp</span></code>. Shapefile is not actually only a single file, but it is made of multiple separate files. The three mandatory files that are associated to a valid shapefile dataset are: <code class="docutils literal notranslate"><span class="pre">.shp</span></code> containing the feature geometries, <code class="docutils literal notranslate"><span class="pre">.shx</span></code> containing a positional index for the feature geometries, and <code class="docutils literal notranslate"><span class="pre">.dbf</span></code> containing the attribute information. In addition to these, a shapefile dataset typically includes a <code class="docutils literal notranslate"><span class="pre">.prj</span></code> file which contains information about the coordinate reference system of the dataset.</p></li>
 </ul>
 <ul class="simple">
-<li><p><strong>GeoJSON</strong>: GeoJSON <a class="footnote-reference brackets" href="#geojson" id="id3">2</a> is an open standard format for encoding a variety of geographic data structures along with their attribute data which can be stored into a simple text file. The filename extension for GeoJSON is <code class="docutils literal notranslate"><span class="pre">.geojson</span></code>. The data format extends the widely used JSON format. GeoJSON is human readible and the data is not compressed, hence the files can get large when storing more complex geometries. Because of this, another variation of GeoJSON was developed called <code class="docutils literal notranslate"><span class="pre">TopoJSON</span></code> which is a more compact format. TopoJSON stores the geometries in a way that they can be referenced multiple times in the file, e.g. when two polygons share a common border between them. An example of GeoJSON data structure:</p></li>
+<li><p><strong>GeoJSON</strong>: GeoJSON <a class="footnote-reference brackets" href="#geojson" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> is an open standard format for encoding a variety of geographic data structures along with their attribute data which can be stored into a simple text file. The filename extension for GeoJSON is <code class="docutils literal notranslate"><span class="pre">.geojson</span></code>. The data format extends the widely used JSON format. GeoJSON is human readible and the data is not compressed, hence the files can get large when storing more complex geometries. Because of this, another variation of GeoJSON was developed called <code class="docutils literal notranslate"><span class="pre">TopoJSON</span></code> which is a more compact format. TopoJSON stores the geometries in a way that they can be referenced multiple times in the file, e.g. when two polygons share a common border between them. An example of GeoJSON data structure:</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span> 
     <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -1040,14 +542,14 @@ title="Print to PDF"
 </div>
 <ul class="simple">
 <li><p><strong>GeoPackage:</strong> A GeoPackage (GPKG) is an open, non-proprietary, platform-independent, portable and standards-based data format for storing spatial data. In the background, GeoPackage uses a SQLite database container to store the data. GeoPackage was introduced in 2014 by Open Geospatial Consortium and it can be used to store spatial vector data as well as raster data. However, the GeoPackage raster support is limited as it supports only <code class="docutils literal notranslate"><span class="pre">Byte</span></code> data type. The file extension of GeoPackage is <code class="docutils literal notranslate"><span class="pre">.gpkg</span></code>.</p></li>
-<li><p><strong>GML</strong>: <a class="reference external" href="https://www.ogc.org/standards/gml">Geography Markup Language</a> (GML) <a class="footnote-reference brackets" href="#gml" id="id4">3</a> is an XML based data format defined by the Open Geospatial Consortium (OGC) to express geographical features. GML serves as a modeling language for geographic systems as well as an open interchange format for geographic transactions on the Internet. Key to GML’s utility is its ability to integrate all forms of geographic information, including not only conventional “vector” or discrete objects, but also coverages and sensor data. There are various extensions to GML, such as <a class="reference external" href="https://www.ogc.org/standards/citygml">CityGML</a> <a class="footnote-reference brackets" href="#citygml" id="id5">4</a> focusing on 3D city models and <a class="reference external" href="https://www.ogc.org/standards/citygml">IndoorGML</a> <a class="footnote-reference brackets" href="#indoorgml" id="id6">5</a> focusing on indoor spatial information. The file extension of GML is <code class="docutils literal notranslate"><span class="pre">.gml</span></code>.</p></li>
+<li><p><strong>GML</strong>: <a class="reference external" href="https://www.ogc.org/standards/gml">Geography Markup Language</a> (GML) <a class="footnote-reference brackets" href="#gml" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> is an XML based data format defined by the Open Geospatial Consortium (OGC) to express geographical features. GML serves as a modeling language for geographic systems as well as an open interchange format for geographic transactions on the Internet. Key to GML’s utility is its ability to integrate all forms of geographic information, including not only conventional “vector” or discrete objects, but also coverages and sensor data. There are various extensions to GML, such as <a class="reference external" href="https://www.ogc.org/standards/citygml">CityGML</a> <a class="footnote-reference brackets" href="#citygml" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> focusing on 3D city models and <a class="reference external" href="https://www.ogc.org/standards/citygml">IndoorGML</a> <a class="footnote-reference brackets" href="#indoorgml" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> focusing on indoor spatial information. The file extension of GML is <code class="docutils literal notranslate"><span class="pre">.gml</span></code>.</p></li>
 </ul>
-<p>These are some of the most widely used file formats to store spatial data in vector format. However, there are numerous other file formats in addition to these, such as <em><span class="xref std std-term">Keyhole Markup Language</span> (KML)</em> that is commonly used file format to place geographic data on top of <a class="reference external" href="https://en.wikipedia.org/wiki/Google_Earth">Google Earth</a> <a class="footnote-reference brackets" href="#google-earth" id="id7">6</a>. One file format which is still in the making, but a very promising one, is <a class="reference external" href="https://github.com/opengeospatial/geoparquet">GeoParquet</a> <a class="footnote-reference brackets" href="#geoparquet" id="id8">7</a> which stores spatial data in <a class="reference external" href="https://parquet.apache.org/">Apache Parquet</a> <a class="footnote-reference brackets" href="#parquet" id="id9">8</a>. Apache Parquet is a popular open source, column-oriented data file format designed for efficient data storage and retrieval. It provides efficient data compression and encoding schemes with enhanced performance to handle complex data in bulk.</p>
+<p>These are some of the most widely used file formats to store spatial data in vector format. However, there are numerous other file formats in addition to these, such as <em><span class="xref std std-term">Keyhole Markup Language</span> (KML)</em> that is commonly used file format to place geographic data on top of <a class="reference external" href="https://en.wikipedia.org/wiki/Google_Earth">Google Earth</a> <a class="footnote-reference brackets" href="#google-earth" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>. One file format which is still in the making, but a very promising one, is <a class="reference external" href="https://github.com/opengeospatial/geoparquet">GeoParquet</a> <a class="footnote-reference brackets" href="#geoparquet" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> which stores spatial data in <a class="reference external" href="https://parquet.apache.org/">Apache Parquet</a> <a class="footnote-reference brackets" href="#parquet" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>. Apache Parquet is a popular open source, column-oriented data file format designed for efficient data storage and retrieval. It provides efficient data compression and encoding schemes with enhanced performance to handle complex data in bulk.</p>
 <p>Now you should have a basic understanding about the basic building blocks of vector data. In the following parts of the book, you will learn many useful geocomputational and analytical techniques that you can use when working with vector data.</p>
 </section>
 </section>
 <section id="basics-of-raster-data-and-arrays">
-<h2>Basics of raster data and arrays<a class="headerlink" href="#basics-of-raster-data-and-arrays" title="Permalink to this headline">#</a></h2>
+<h2>Basics of raster data and arrays<a class="headerlink" href="#basics-of-raster-data-and-arrays" title="Permalink to this heading">#</a></h2>
 <p>In raster data model the data is represented as arrays of cells, also called as pixels, to represent real-world objects or continuous phenomena. In fact, you are most likely already familiar with raster data as photographs taken with a digital camera are basically stored as raster data. Digital cameras typically capture the world using Red, Green and Blue (RGB) colors and stores this information in pixels as separate layers (as called as <em><span class="xref std std-term">band</span>s</em> or <code class="docutils literal notranslate"><span class="pre">channels</span></code>) for each color. When these layers of red, green and blue colors are combined, we get a photograph as we have used to see them. In a similar manner, we can store other information to pixels, such as elevation or temperature data (which have only one layer or <code class="docutils literal notranslate"><span class="pre">band</span></code>), or more detailed spectral information that capture how the light reflects from objects on earth at different wave-lengths (which is what e.g. satellite sensors do). In these cases, we might have tens or even hundreds of different bands (as with hyperspectral imaging) that record very detailed information about how the light reflects from the earth at different wave lengths, including Red, Green and Blue, but also many more such as near infrared (NIR), or long-wave infrared (LWIR) which is commonly used to monitor temperatures.</p>
 <p>Each cell in the raster dataset typically contains a value as shown on the left in Figure 5.4 (although the cell value can also be <code class="docutils literal notranslate"><span class="pre">NoData</span></code>). This is different compared to vector data, in which the geometries (observations) can be unevenly distributed across space, although it is possible to also represent a regular grid with polygons, it is just much less efficient computationally. Each cell value also has an index (i.e. position) that can be accessed based on row and column numbers. For instance, the value (<em>11</em>) from the bottom-left corner cell can be accessed at index <code class="docutils literal notranslate"><span class="pre">(3,0)</span></code> in which the first number is the row number and the second is the column number. Cell values can be plotted by given a color according a specific <em><span class="xref std std-term">colormap</span></em> (see the legend on the right) which turns the data into more understandable format, making it possible to detect patterns or trends from the data. For example in Figure 5.4, it is easy to detect that there is a cluster of high values on the bottom right corner. Detecting this pattern just by looking at cell values on the left is much more difficult task, especially if you would have much bigger raster than what we have here (4x4 grid). Also a basic feature of raster data is that the cell size of the grid can vary. For example, the Figure 5.4 and the top-right subplot in Figure 5.2 represents the data with 10 meter <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-resolution"><span class="xref std std-term">spatial resolution</span></a></em>, i.e. the size of an individual cell is 10 by 10 meters. However, the bottom-right subplot in Figure 5.2 represents the buildings with 1 meter spatial resolution. This is an important aspect when working with raster data, because the spatial resolution determines how accurately the real-world entities, such as buildings or topographic features, can be represented or identified from the data. Raster data is commonly used to represent e.g. satellite imagery, digital elevation models and other type of data, in which the spatial extent of the data is large (covering e.g. whole countries, continents or the world) with continuous measurements across the space. It is good to be awere though, that it is also possible to store discrete or categorical data to a raster, such as landuse classification data. Raster data is commonly used e.g. for environmental monitoring, meteorology and cartography.</p>
 <p><img alt="Figure 5.4. Raster data model." src="../../../_images/raster_data_model.jpg" /></p>
@@ -1056,7 +558,7 @@ title="Print to PDF"
 <p><img alt="Figure 5.5. Examples of raster bit depths." src="../../../_images/raster_bit_depths.jpg" /></p>
 <p><em><strong>Figure 5.5</strong>. Examples of raster bit depths.</em></p>
 <section id="commonly-used-raster-data-formats">
-<h3>Commonly used raster data formats<a class="headerlink" href="#commonly-used-raster-data-formats" title="Permalink to this headline">#</a></h3>
+<h3>Commonly used raster data formats<a class="headerlink" href="#commonly-used-raster-data-formats" title="Permalink to this heading">#</a></h3>
 <p>Similarly as with vector data, also raster data can be stored in various different formats. Below we list a few of the most commonly used ones.</p>
 <ul class="simple">
 <li><p><strong>GeoTIFF</strong>: GeoTIFF is a popular open, non-proprietary raster data format based on <code class="docutils literal notranslate"><span class="pre">TIFF</span> <span class="pre">format</span></code> originally developed at NASA in the early 90’s. It is portable and platform independent. The file extension of GeoTIFF is <code class="docutils literal notranslate"><span class="pre">.tif</span></code>.</p></li>
@@ -1069,10 +571,10 @@ title="Print to PDF"
 </section>
 </section>
 <section id="representing-spatial-networks">
-<h2>Representing spatial networks<a class="headerlink" href="#representing-spatial-networks" title="Permalink to this headline">#</a></h2>
-<p>Networks are everywhere. Social networks, telecommunication networks, neural networks, and transportation networks are all familiar examples how the networks surround us and are very essential to our everyday life. No surprise then, that studying complex networks based on <code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">theory</span></code> has grown to be a very important topic in various fields of science including biology, medical sciences, social science, engineering, geography and many others. In this book, we will focus on spatial networks that can represent for example street networks (one of the most typical examples). In addition to these, network is actually a very useful data structure because it allows to define and construct neighborhood relationships that are central to geographic data science / GIScience. In this book, we won’t cover much of these topics but you can take a look at <a class="reference external" href="https://geographicdata.science/book/intro.html">geographicdata.science</a> <a class="footnote-reference brackets" href="#gds" id="id10">9</a> open online book to learn much more about these topics.</p>
+<h2>Representing spatial networks<a class="headerlink" href="#representing-spatial-networks" title="Permalink to this heading">#</a></h2>
+<p>Networks are everywhere. Social networks, telecommunication networks, neural networks, and transportation networks are all familiar examples how the networks surround us and are very essential to our everyday life. No surprise then, that studying complex networks based on <code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">theory</span></code> has grown to be a very important topic in various fields of science including biology, medical sciences, social science, engineering, geography and many others. In this book, we will focus on spatial networks that can represent for example street networks (one of the most typical examples). In addition to these, network is actually a very useful data structure because it allows to define and construct neighborhood relationships that are central to geographic data science / GIScience. In this book, we won’t cover much of these topics but you can take a look at <a class="reference external" href="https://geographicdata.science/book/intro.html">geographicdata.science</a> <a class="footnote-reference brackets" href="#gds" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> open online book to learn much more about these topics.</p>
 <p>Graphs are, in principle, very simple data structures. In Figure 5.2, we saw a simple street network represented as a collection of <code class="docutils literal notranslate"><span class="pre">LineStrings</span></code>. Although this representation can already be used to visualize a network, it does not yet allow to do any useful network analysis with it. For this, we need to create a <code class="docutils literal notranslate"><span class="pre">network</span></code> data stucture with topology (also commonly called as graphs). A network basically consists of couple of core elements:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><strong>nodes</strong> (e.g. intersections on a street, or a person in social network), and</p></li>
 <li><p><strong>edges</strong> (a link that connects the nodes to each other)</p></li>
 </ol>
@@ -1080,18 +582,18 @@ title="Print to PDF"
 <p><img alt="Figure 5.6. A simple graph." src="../../../_images/graph_elements.png" /></p>
 <p><em><strong>Figure 5.6.</strong> A simple graph.</em></p>
 <section id="network-attribute-data">
-<h3>Network attribute data<a class="headerlink" href="#network-attribute-data" title="Permalink to this headline">#</a></h3>
+<h3>Network attribute data<a class="headerlink" href="#network-attribute-data" title="Permalink to this heading">#</a></h3>
 <p>In networks, most of the information is stored in <code class="docutils literal notranslate"><span class="pre">node</span></code> and <code class="docutils literal notranslate"><span class="pre">edge</span> <span class="pre">attributes</span></code>. In terms of street networks, <code class="docutils literal notranslate"><span class="pre">nodes</span></code> typically contain the geographical information associated with the graph, such as the coordinates of the intersections. Edges typically contain much more information. They can for instance contain information about which nodes are connected to each other, and what is the <code class="docutils literal notranslate"><span class="pre">cost</span></code> to travel between the nodes measured e.g. as time or distance (Figure 5.7). It is also possible to associate geographical information to edges if you want to show how the roads are curved between intersections, but for basic network analysis (such as finding the shortest route from a to b) this is not needed.</p>
 <p><img alt="Figure 5.7. Weighted graph." src="../../../_images/graph_weights.png" /></p>
 <p><em><strong>Figure 5.7.</strong> Weighted graph.</em></p>
 </section>
 <section id="directionality">
-<h3>Directionality<a class="headerlink" href="#directionality" title="Permalink to this headline">#</a></h3>
+<h3>Directionality<a class="headerlink" href="#directionality" title="Permalink to this heading">#</a></h3>
 <p>Graphs can be <code class="docutils literal notranslate"><span class="pre">directed</span></code> or <code class="docutils literal notranslate"><span class="pre">undirected</span></code> (Figure 5.8), which basically determines whether the roads can be travelled to any direction or whether the travel direction is restricted to certain direction (e.g. a one-way-street). In <code class="docutils literal notranslate"><span class="pre">undirected</span></code> graph, it is possible to travel in both directions between nodes (e.g. from <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">--&gt;</span> <span class="pre">C</span></code> and from <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">--&gt;</span> <span class="pre">A</span></code> in Figure 5.8). Undirected graphs are typically used e.g. when you want to model walking and cycling paths, as with those travel modes it is typically possible to travel the same street in any direction you like. If the graph is <code class="docutils literal notranslate"><span class="pre">directed</span></code>, it means that you should have a separate edge for each direction. If you for example have a graph with only an edge that goes from <code class="docutils literal notranslate"><span class="pre">D</span></code> to <code class="docutils literal notranslate"><span class="pre">E</span></code>, you can travel to node <code class="docutils literal notranslate"><span class="pre">E</span></code> from <code class="docutils literal notranslate"><span class="pre">D</span></code> but you cannot travel back. In directed graphs, you typically need to have a separate edge for each travel direction. Fundamentally this means that for a bi-directional road, you should have two edges in your data (i.e. two separate rows), such as shown in Table 5.1.</p>
 <p><img alt="Figure 5.8. Directed graph." src="../../../_images/directed_graph.png" /></p>
 <p><em><strong>Figure 5.8.</strong> Directed graph.</em></p>
 <p>: <em><strong>Table 5.1.</strong> Edges for each direction.</em></p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>edge_id</p></th>
 <th class="head"><p>from_node</p></th>
@@ -1114,7 +616,7 @@ title="Print to PDF"
 </table>
 </section>
 <section id="commonly-used-network-data-formats">
-<h3>Commonly used network data formats<a class="headerlink" href="#commonly-used-network-data-formats" title="Permalink to this headline">#</a></h3>
+<h3>Commonly used network data formats<a class="headerlink" href="#commonly-used-network-data-formats" title="Permalink to this heading">#</a></h3>
 <p>As with everything in life, there are also many flavors when it comes to storing network data in a file. Below we list a couple of commonly used data formats for storing network data.</p>
 <ul class="simple">
 <li><p><strong>GML</strong>: Graph Modelling Language (GML) is a file format supporting network data with a very easy syntax. GML’s key features are portability, simple syntax, extensibility and flexibility. A GML file consists of a hierarchical key-value lists. The file extension of GML is <code class="docutils literal notranslate"><span class="pre">.gml</span></code>. Notice, that there is a spatial data file format for Geography Markup Language (GML) that has the same file extension.</p></li>
@@ -1125,85 +627,162 @@ title="Print to PDF"
 </section>
 </section>
 <section id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
 <hr class="footnotes docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="gdal"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p><a class="reference external" href="https://gdal.org/">https://gdal.org/</a></p>
-</dd>
-<dt class="label" id="geojson"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
-<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/GeoJSON">https://en.wikipedia.org/wiki/GeoJSON</a></p>
-</dd>
-<dt class="label" id="gml"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
-<dd><p><a class="reference external" href="https://www.ogc.org/standards/gml">https://www.ogc.org/standards/gml</a></p>
-</dd>
-<dt class="label" id="citygml"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
-<dd><p><a class="reference external" href="https://www.ogc.org/standards/citygml">https://www.ogc.org/standards/citygml</a></p>
-</dd>
-<dt class="label" id="indoorgml"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
-<dd><p><a class="reference external" href="https://www.ogc.org/standards/citygml">https://www.ogc.org/standards/citygml</a></p>
-</dd>
-<dt class="label" id="google-earth"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
-<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Google_Earth">https://en.wikipedia.org/wiki/Google_Earth</a></p>
-</dd>
-<dt class="label" id="geoparquet"><span class="brackets"><a class="fn-backref" href="#id8">7</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/opengeospatial/geoparquet">https://github.com/opengeospatial/geoparquet</a></p>
-</dd>
-<dt class="label" id="parquet"><span class="brackets"><a class="fn-backref" href="#id9">8</a></span></dt>
-<dd><p><a class="reference external" href="https://parquet.apache.org/">https://parquet.apache.org/</a></p>
-</dd>
-<dt class="label" id="gds"><span class="brackets"><a class="fn-backref" href="#id10">9</a></span></dt>
-<dd><p><a class="reference external" href="https://geographicdata.science/book/intro.html">https://geographicdata.science/book/intro.html</a></p>
-</dd>
-</dl>
+<aside class="footnote brackets" id="gdal" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://gdal.org/">https://gdal.org/</a></p>
+</aside>
+<aside class="footnote brackets" id="geojson" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/GeoJSON">https://en.wikipedia.org/wiki/GeoJSON</a></p>
+</aside>
+<aside class="footnote brackets" id="gml" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.ogc.org/standards/gml">https://www.ogc.org/standards/gml</a></p>
+</aside>
+<aside class="footnote brackets" id="citygml" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.ogc.org/standards/citygml">https://www.ogc.org/standards/citygml</a></p>
+</aside>
+<aside class="footnote brackets" id="indoorgml" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.ogc.org/standards/citygml">https://www.ogc.org/standards/citygml</a></p>
+</aside>
+<aside class="footnote brackets" id="google-earth" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">6</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Google_Earth">https://en.wikipedia.org/wiki/Google_Earth</a></p>
+</aside>
+<aside class="footnote brackets" id="geoparquet" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">7</a><span class="fn-bracket">]</span></span>
+<p><a class="github reference external" href="https://github.com/opengeospatial/geoparquet">opengeospatial/geoparquet</a></p>
+</aside>
+<aside class="footnote brackets" id="parquet" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">8</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://parquet.apache.org/">https://parquet.apache.org/</a></p>
+</aside>
+<aside class="footnote brackets" id="gds" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">9</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://geographicdata.science/book/intro.html">https://geographicdata.science/book/intro.html</a></p>
+</aside>
 </section>
 </section>
 
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="00-motivation-to-use-python-for-gis.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Motivation</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="00-motivation-to-use-python-for-gis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Motivation</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="02-introduction-to-coordinate-reference-systems.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="02-introduction-to-coordinate-reference-systems.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Coordinate reference systems</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ways-to-represent-spatial-data-on-a-computer">Ways to represent spatial data on a computer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-blocks-of-vector-data">Building blocks of vector data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-types">Geometry types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attribute-data">Attribute data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-data-formats">Vector data formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics-of-raster-data-and-arrays">Basics of raster data and arrays</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commonly-used-raster-data-formats">Commonly used raster data formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representing-spatial-networks">Representing spatial networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#network-attribute-data">Network attribute data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directionality">Directionality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commonly-used-network-data-formats">Commonly used network data formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
-  
-      &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

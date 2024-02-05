@@ -1,1243 +1,537 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Basic elements of Python</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
-    
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Show the solution';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part1/chapter-02/nb/00-python-basics';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="for loops" href="01-for-loops.html" />
     <link rel="prev" title="2: Basic programming concepts" href="../index.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
-<script async="" src="https://www.google-analytics.com/analytics.js"></script>
-<script>
-                        window.ga = window.ga || function () {
-                            (ga.q = ga.q || []).push(arguments) };
-                        ga.l = +new Date;
-                        ga('create', 'UA-159257488-1', 'auto');
-                        ga('set', 'anonymizeIp', true);
-                        ga('send', 'pageview');
-                    </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../../index.html">
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../../../_static/pythongis-logo.png" class="logo" alt="logo">
-      
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part I - Python essentials
- </span>
-</p>
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-01/index.html">
-   1: Getting started
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/00-motivation.html">
-     Motivation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">
-     Computers and programs
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/02-why-python.html">
-     Why Python?
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">
-     Writing and running Python code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">
-     Using JupyterLab for writing code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">
-     Quickly getting started (without installing Python)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-01/nb/06-installation.html">
-     Installing Python and adding libraries
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../index.html">
-   2: Basic programming concepts
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Basic elements of Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="01-for-loops.html">
-     for loops
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02-conditional-statements.html">
-     Conditional statements
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="03-functions.html">
-     Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04-writing-scripts.html">
-     Writing script files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="05-modules.html">
-     Loading and using modules
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="06-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-03/index.html">
-   3: Introduction to data analysis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">
-     Getting started with data analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-03/nb/01-data-manipulation.html">
-     Common tabular operations in pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-03/nb/02-data-analysis.html">
-     Data wrangling, grouping and aggregation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html">
-     Working with temporal data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-03/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapter-04/index.html">
-   4: Introduction to data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">
-     Plotting in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">
-     Plotting with pandas and matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/02-subplots.html">
-     Creating subplots
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">
-     Effective plot design: line plots
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapter-04/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">Installing Python and adding libraries</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part II - Introduction to GIS with Python
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part2/chapter-05/index.html">
-   5: Getting started
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">
-     Motivation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">
-     Geographic data in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">
-     Coordinate reference systems
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part2/chapter-06/index.html">
-   6: Vector data processing
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">
-     Introduction to geographic data objects in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">
-     Introduction to spatial data analysis with geopandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">
-     Preparing GeoDataFrames from geographic data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">
-     Geometric data manipulations
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">
-     Working with Map Projections
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">
-     Geocoding
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">
-     Operations between multiple datasets
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part2/chapter-07/index.html">
-   7: Raster data processing
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">
-     Introduction to raster processing with Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">
-     Reading raster files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">
-     Common raster operations
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">
-     Raster operations between multiple layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-07/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part2/chapter-08/index.html">
-   8: Geographic data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">
-     Introduction to geographic visualization
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">
-     Static maps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">
-     Visualizing raster layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">
-     Interactive maps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">
-     Designing maps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-08/nb/05-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part2/chapter-09/index.html">
-   9: Using online geographic data sources
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">
-     Retrieving OpenStreetMap data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">
-     Retrieving data from Web Feature Service (WFS)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">
-     Retrieving data from Web Coverage Service (WCS)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">
-     Reading data from spatial databases
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part2/chapter-09/nb/04-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">2: Basic programming concepts</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Basic elements of Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-for-loops.html">for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-conditional-statements.html">Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-writing-scripts.html">Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-modules.html">Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06-exercises.html">Exercises</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part III - Case studies
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part3/chapter-10/index.html">
-   10: Spatial interpolation
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">
-     Introduction to spatial interpolation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">
-     Inverse Distance Weighting interpolation with Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part3/chapter-11/index.html">
-   11: Spatial network analysis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-  <label for="toctree-checkbox-11">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">
-     Introduction to spatial network analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">
-     Multimodal spatial accessibility analysis with Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../part3/chapter-12/index.html">
-   12: Terrain analysis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-  <label for="toctree-checkbox-12">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">
-     Introduction to terrain analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">
-     Interpreting topographic features from raster data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">
-     Exercises
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../part3/chapter-13/index.html">
-   13: Conclusions
-  </a>
- </li>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-03/index.html">3: Introduction to data analysis</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/01-data-manipulation.html">Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/02-data-analysis.html">Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html">Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/04-exercises.html">Exercises</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Back matter
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">
-   Acknowledgements
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../back-matter/appendices.html">
-   Appendices
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-  <label for="toctree-checkbox-13">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-1.html">
-     Version control with git
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-2.html">
-     Collaborative coding with GitHub
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-3.html">
-     Using Python script files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-4.html">
-     Testing and debugging your code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-5.html">
-     Solutions to questions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../back-matter/nb/appendix-6.html">
-     Exercise solutions
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/glossary.html">
-   Glossary
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../back-matter/nb/references.html">
-   References
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../authors.html">
-   About the authors
-  </a>
- </li>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-04/index.html">4: Introduction to data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/02-subplots.html">Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/04-exercises.html">Exercises</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Datasets
- </span>
-</p>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../data/index.html">
-   Overview
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../data/noaa-data.html">
-   NOAA Weather data
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">Coordinate reference systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6: Vector data processing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">Introduction to geographic data objects in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">Introduction to spatial data analysis with geopandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">Preparing GeoDataFrames from geographic data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">Geometric data manipulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">Working with Map Projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">Operations between multiple datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7: Raster data processing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">Introduction to raster processing with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">Reading raster files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">Raster operations between multiple layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8: Geographic data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">Designing maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9: Using online geographic data sources</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10: Spatial interpolation</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11: Spatial network analysis</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12: Terrain analysis</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13: Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendices.html">Appendices</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4.html">Testing and debugging your code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5.html">Solutions to questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6.html">Exercise solutions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-02/nb/00-python-basics.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-02/nb/00-python-basics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../../../_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/part1/chapter-02/nb/00-python-basics.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/Python-GIS-book/site/edit/master/part1/chapter-02/nb/00-python-basics.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Edit this page"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-pencil-alt"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../../../_sources/part1/chapter-02/nb/00-python-basics.ipynb.txt"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part1/chapter-02/nb/00-python-basics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simple-python-math">
-   Simple Python math
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#functions">
-     Functions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#math-operations">
-     Math operations
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#question-2-1">
-       Question 2.1
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combining-functions">
-   Combining functions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#variables">
-   Variables
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#variable-assignment">
-     Variable assignment
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#question-2-2">
-       Question 2.2
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#updating-variables">
-     Updating variables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#variable-values">
-     Variable values
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-types">
-   Data types
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#question-2-3">
-     Question 2.3
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lists-and-indices">
-   Lists and indices
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#creating-a-list">
-     Creating a list
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#index-values">
-     Index values
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-useful-analog-bill-the-vending-machine">
-     A useful analog - Bill the vending machine
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#number-of-items-in-a-list">
-     Number of items in a list
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#index-value-tips">
-     Index value tips
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#modifying-list-values">
-     Modifying list values
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-types-in-lists">
-     Data types in lists
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#adding-and-removing-values-from-lists">
-     Adding and removing values from lists
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#appending-to-an-integer-not-so-fast">
-     Appending to an integer? Not so fast…
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#some-other-useful-list-methods">
-     Some other useful list methods
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reversing-a-list">
-     Reversing a list
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sorting-a-list">
-     Sorting a list
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#making-different-data-types-work-together">
-   Making different data types work together
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-types-and-their-compatibility">
-     Data types and their compatibility
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#converting-data-from-one-type-to-another">
-     Converting data from one type to another
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#combining-text-and-numbers">
-     Combining text and numbers
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#working-with-text-and-numbers">
-   Working with text (and numbers)
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#f-string-formatting">
-     F-String formatting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#older-approaches-for-string-formatting">
-     Older approaches for string formatting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#common-string-manipulation-techniques">
-     Common string manipulation techniques
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#footnotes">
-   Footnotes
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Basic elements of Python</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simple-python-math">
-   Simple Python math
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#functions">
-     Functions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#math-operations">
-     Math operations
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#question-2-1">
-       Question 2.1
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combining-functions">
-   Combining functions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#variables">
-   Variables
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#variable-assignment">
-     Variable assignment
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#question-2-2">
-       Question 2.2
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#updating-variables">
-     Updating variables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#variable-values">
-     Variable values
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-types">
-   Data types
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#question-2-3">
-     Question 2.3
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lists-and-indices">
-   Lists and indices
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#creating-a-list">
-     Creating a list
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#index-values">
-     Index values
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-useful-analog-bill-the-vending-machine">
-     A useful analog - Bill the vending machine
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#number-of-items-in-a-list">
-     Number of items in a list
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#index-value-tips">
-     Index value tips
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#modifying-list-values">
-     Modifying list values
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-types-in-lists">
-     Data types in lists
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#adding-and-removing-values-from-lists">
-     Adding and removing values from lists
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#appending-to-an-integer-not-so-fast">
-     Appending to an integer? Not so fast…
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#some-other-useful-list-methods">
-     Some other useful list methods
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reversing-a-list">
-     Reversing a list
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sorting-a-list">
-     Sorting a list
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#making-different-data-types-work-together">
-   Making different data types work together
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-types-and-their-compatibility">
-     Data types and their compatibility
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#converting-data-from-one-type-to-another">
-     Converting data from one type to another
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#combining-text-and-numbers">
-     Combining text and numbers
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#working-with-text-and-numbers">
-   Working with text (and numbers)
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#f-string-formatting">
-     F-String formatting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#older-approaches-for-string-formatting">
-     Older approaches for string formatting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#common-string-manipulation-techniques">
-     Common string manipulation techniques
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#footnotes">
-   Footnotes
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Basic elements of Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-python-math">Simple Python math</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-operations">Math operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-1">Question 2.1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-functions">Combining functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-assignment">Variable assignment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-2">Question 2.2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-variables">Updating variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-values">Variable values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-3">Question 2.3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists-and-indices">Lists and indices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-list">Creating a list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#index-values">Index values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-useful-analog-bill-the-vending-machine">A useful analog - Bill the vending machine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#number-of-items-in-a-list">Number of items in a list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#index-value-tips">Index value tips</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-list-values">Modifying list values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types-in-lists">Data types in lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-and-removing-values-from-lists">Adding and removing values from lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appending-to-an-integer-not-so-fast">Appending to an integer? Not so fast…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-other-useful-list-methods">Some other useful list methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reversing-a-list">Reversing a list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-a-list">Sorting a list</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-different-data-types-work-together">Making different data types work together</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types-and-their-compatibility">Data types and their compatibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-data-from-one-type-to-another">Converting data from one type to another</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-text-and-numbers">Combining text and numbers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-text-and-numbers">Working with text (and numbers)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-string-formatting">F-String formatting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#older-approaches-for-string-formatting">Older approaches for string formatting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-string-manipulation-techniques">Common string manipulation techniques</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
-  <section class="tex2jax_ignore mathjax_ignore" id="basic-elements-of-python">
-<h1>Basic elements of Python<a class="headerlink" href="#basic-elements-of-python" title="Permalink to this headline">#</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="basic-elements-of-python">
+<h1>Basic elements of Python<a class="headerlink" href="#basic-elements-of-python" title="Permalink to this heading">#</a></h1>
 <p>In this section, we will introduce some basic programming concepts in Python.</p>
 <section id="simple-python-math">
-<h2>Simple Python math<a class="headerlink" href="#simple-python-math" title="Permalink to this headline">#</a></h2>
+<h2>Simple Python math<a class="headerlink" href="#simple-python-math" title="Permalink to this heading">#</a></h2>
 <p>We will start our Python introduction by learning a bit of the basic operations you can perform. Python can be used as a simple calculator. Let’s try it out with some simple math operations such as <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">*</span> <span class="pre">7</span></code>.  When using a Jupyter Notebook you can press <strong>Shift-Enter</strong> to execute the code cells.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1265,7 +559,7 @@ title="Print to PDF"
 </div>
 <p>If you want to edit and re-run some code, simply make changes to the Python cell and press <strong>Shift-Enter</strong> to execute the modified code.</p>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">#</a></h3>
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">#</a></h3>
 <p>You can use Python for more advanced math by using a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Function"><span class="xref std std-term">function</span></a></em>. Functions are pieces of code that perform a single action such as printing information to the screen (e.g., the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function). Functions exist for a huge number of operations in Python.</p>
 <p>Let’s try out a few simple examples using functions to find the sine or square root of a value using the <code class="docutils literal notranslate"><span class="pre">sin()</span></code> and <code class="docutils literal notranslate"><span class="pre">sqrt()</span></code> functions.</p>
 <div class="cell tag_raises-exception docutils container">
@@ -1305,42 +599,42 @@ title="Print to PDF"
 <p>Wait, what? Python can’t calculate square roots or do basic trigonometry? Of course it can, but we need one more step.</p>
 </section>
 <section id="math-operations">
-<h3>Math operations<a class="headerlink" href="#math-operations" title="Permalink to this headline">#</a></h3>
+<h3>Math operations<a class="headerlink" href="#math-operations" title="Permalink to this heading">#</a></h3>
 <p>The list of basic arithmetic operations that can be done by default in Python are listed in Table 2.1.</p>
 <p>: <em><strong>Table 2.1</strong>. Basic math operations in Python.</em></p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Operation</p></th>
-<th class="text-align:center head"><p>Symbol</p></th>
-<th class="text-align:center head"><p>Example syntax</p></th>
-<th class="text-align:center head"><p>Returned value</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Operation</p></th>
+<th class="head text-center"><p>Symbol</p></th>
+<th class="head text-center"><p>Example syntax</p></th>
+<th class="head text-center"><p>Returned value</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Addition</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">2</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p>Addition</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">2</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Subtraction</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">-</span> <span class="pre">2</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p>Subtraction</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">-</span> <span class="pre">2</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Multiplication</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">3</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p>Multiplication</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">3</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Division</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">/</span> <span class="pre">2</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p>Division</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">/</span> <span class="pre">2</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Exponentiation</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">**</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">2**3</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">8</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p>Exponentiation</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">**</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2**3</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">8</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1378,7 +672,7 @@ title="Print to PDF"
 </div>
 </div>
 <p>Let’s summarize what we’ve just seen with modules:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>A <em>module</em> is a group of code items such as functions that are related to one another. Individual modules are often in a group referred to as a <em>library</em>.</p></li>
 <li><p>Modules can be loaded using the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement. Functions that are part of the module <code class="docutils literal notranslate"><span class="pre">modulename</span></code> can then be used by typing <code class="docutils literal notranslate"><span class="pre">modulename.functionname()</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">sin()</span></code> is a function that is part of the <code class="docutils literal notranslate"><span class="pre">math</span></code> module, and used by typing <code class="docutils literal notranslate"><span class="pre">math.sin()</span></code> with some number between the parentheses.</p></li>
 <li><p>In a Jupyter Notebook the variables you define earlier code cells will be available for use in the cells that follow as long as you have already executed the cells.</p></li>
@@ -1397,7 +691,7 @@ title="Print to PDF"
 </div>
 </div>
 <section id="question-2-1">
-<h4>Question 2.1<a class="headerlink" href="#question-2-1" title="Permalink to this headline">#</a></h4>
+<h4>Question 2.1<a class="headerlink" href="#question-2-1" title="Permalink to this heading">#</a></h4>
 <p>Use your Python skills to calculate the sine of pi. What value do you expect for this calculation? Did you get the expected result?</p>
 <div class="cell tag_hide_cell tag_remove_book_cell docutils container">
 <div class="cell_input docutils container">
@@ -1417,7 +711,7 @@ title="Print to PDF"
 </section>
 </section>
 <section id="combining-functions">
-<h2>Combining functions<a class="headerlink" href="#combining-functions" title="Permalink to this headline">#</a></h2>
+<h2>Combining functions<a class="headerlink" href="#combining-functions" title="Permalink to this heading">#</a></h2>
 <p>Functions can also be combined. The <code class="docutils literal notranslate"><span class="pre">print()</span></code> function returns values within the parentheses as text on the screen. Let’s print the value of the square root of four.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1446,10 +740,10 @@ title="Print to PDF"
 </div>
 </section>
 <section id="variables">
-<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">#</a></h2>
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h2>
 <p>A <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Variable"><span class="xref std std-term">variable</span></a></em> can be used to store values calculated in expressions and used for other calculations.</p>
 <section id="variable-assignment">
-<h3>Variable assignment<a class="headerlink" href="#variable-assignment" title="Permalink to this headline">#</a></h3>
+<h3>Variable assignment<a class="headerlink" href="#variable-assignment" title="Permalink to this heading">#</a></h3>
 <p>Assigning value to variables is straightforward. To assign a value, you simply type <code class="docutils literal notranslate"><span class="pre">variable_name</span> <span class="pre">=</span> <span class="pre">value</span></code>, where <code class="docutils literal notranslate"><span class="pre">variable_name</span></code> is the name of the variable you wish to define. Let’s define a variable called <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> and assign it a value of ‘10.0’. Note that when the variable is assigned there is no output to the screen.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1485,7 +779,7 @@ title="Print to PDF"
 </div>
 </div>
 <section id="question-2-2">
-<h4>Question 2.2<a class="headerlink" href="#question-2-2" title="Permalink to this headline">#</a></h4>
+<h4>Question 2.2<a class="headerlink" href="#question-2-2" title="Permalink to this heading">#</a></h4>
 <p>Define a variable and display its value on the screen. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name.</p>
 <div class="cell tag_hide_cell tag_remove_book_cell docutils container">
 <div class="cell_input docutils container">
@@ -1505,7 +799,7 @@ title="Print to PDF"
 </section>
 </section>
 <section id="updating-variables">
-<h3>Updating variables<a class="headerlink" href="#updating-variables" title="Permalink to this headline">#</a></h3>
+<h3>Updating variables<a class="headerlink" href="#updating-variables" title="Permalink to this heading">#</a></h3>
 <p>Values stored in variables can also be updated. Let’s redefine the value of <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> to be equal to 15.0 and print its value using the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1568,7 +862,7 @@ title="Print to PDF"
 <p>The number beside the cell, for example <code class="docutils literal notranslate"><span class="pre">In</span> <span class="pre">[21]</span></code>, tells you the order in which the Python cells have been executed. This way you can see a history of the order in which you have run the cells.</p>
 </section>
 <section id="variable-values">
-<h3>Variable values<a class="headerlink" href="#variable-values" title="Permalink to this headline">#</a></h3>
+<h3>Variable values<a class="headerlink" href="#variable-values" title="Permalink to this heading">#</a></h3>
 <p>Changing the value of a variable does not affect other variable values. Let’s redefine <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> to be equal to 20.0, and print out the values of <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> and <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1591,33 +885,33 @@ title="Print to PDF"
 </section>
 </section>
 <section id="data-types">
-<h2>Data types<a class="headerlink" href="#data-types" title="Permalink to this headline">#</a></h2>
+<h2>Data types<a class="headerlink" href="#data-types" title="Permalink to this heading">#</a></h2>
 <p>A <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Data-type"><span class="xref std std-term">data type</span></a></em> determines the characteristics of data in a program.
 There are 4 basic data types in Python as shown in Table 2.2.</p>
 <p>: <em><strong>Table 2.2</strong>. Basic data types in Python.</em></p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Data type name</p></th>
-<th class="text-align:left head"><p>Data type</p></th>
-<th class="text-align:center head"><p>Example</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Data type name</p></th>
+<th class="head text-left"><p>Data type</p></th>
+<th class="head text-center"><p>Example</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-<td class="text-align:left"><p>Whole integer values</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td class="text-left"><p>Whole integer values</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-<td class="text-align:left"><p>Decimal values</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">3.1415</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-left"><p>Decimal values</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">3.1415</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-<td class="text-align:left"><p>Character strings</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">'Hot'</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Character strings</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">'Hot'</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-<td class="text-align:left"><p>True/false values</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td class="text-left"><p>True/false values</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1657,7 +951,7 @@ There are 4 basic data types in Python as shown in Table 2.2.</p>
 </div>
 <p>In this case we get at <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> because we are trying to execute a math operation with data types that are not compatible. There is no way in Python to multpily decimal values with a character string.</p>
 <section id="question-2-3">
-<h3>Question 2.3<a class="headerlink" href="#question-2-3" title="Permalink to this headline">#</a></h3>
+<h3>Question 2.3<a class="headerlink" href="#question-2-3" title="Permalink to this heading">#</a></h3>
 <p>As it turns out, it is possible some math with character strings in Python. Define two variables and assign them character string values. What happens if you try to add two character strings together? Can you subtract them? Which other math operations work for character strings?</p>
 <div class="cell tag_hide_cell tag_raises-exception tag_remove_book_cell docutils container">
 <div class="cell_input docutils container">
@@ -1692,11 +986,11 @@ PythonPythonPythonPythonPython
 </section>
 </section>
 <section id="lists-and-indices">
-<h2>Lists and indices<a class="headerlink" href="#lists-and-indices" title="Permalink to this headline">#</a></h2>
+<h2>Lists and indices<a class="headerlink" href="#lists-and-indices" title="Permalink to this heading">#</a></h2>
 <p>So far, we have learned a bit about variables, their values, and data types in this section. We will now continue with a new data type called a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-List"><span class="xref std std-term">list</span></a></em>. Using a list, we can store many related values together with a single variable. In Python, there are several different types of data that can be used to store values together in a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Collection"><span class="xref std std-term">collection</span></a></em>, and a list is the simplest type.</p>
-<p>To explore lists, we will be using data related to <a class="reference external" href="http://en.ilmatieteenlaitos.fi/observation-stations">Finnish Meteorological Institute (FMI) observation stations</a> <a class="footnote-reference brackets" href="#fmi-stations" id="id1">1</a>. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type.</p>
+<p>To explore lists, we will be using data related to <a class="reference external" href="http://en.ilmatieteenlaitos.fi/observation-stations">Finnish Meteorological Institute (FMI) observation stations</a> <a class="footnote-reference brackets" href="#fmi-stations" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type.</p>
 <section id="creating-a-list">
-<h3>Creating a list<a class="headerlink" href="#creating-a-list" title="Permalink to this headline">#</a></h3>
+<h3>Creating a list<a class="headerlink" href="#creating-a-list" title="Permalink to this heading">#</a></h3>
 <p>Let’s first create a list of selected <code class="docutils literal notranslate"><span class="pre">station_name</span></code> values and print it to the screen.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1741,7 +1035,7 @@ PythonPythonPythonPythonPython
 <p>Here we have a list of 4 <code class="docutils literal notranslate"><span class="pre">station_name</span></code> values in a list called <code class="docutils literal notranslate"><span class="pre">station_names</span></code>. As you can see, the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function recognizes this as a list. Lists can be created using the square brackets <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code>, with commas separating the values in the list.</p>
 </section>
 <section id="index-values">
-<h3>Index values<a class="headerlink" href="#index-values" title="Permalink to this headline">#</a></h3>
+<h3>Index values<a class="headerlink" href="#index-values" title="Permalink to this heading">#</a></h3>
 <p>To access an individual value in the list we need to use an <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Index"><span class="xref std std-term">index</span></a> value. An index value is a number that refers to a given position in the list. Let’s check out the first value in our list as an example by printing out <code class="docutils literal notranslate"><span class="pre">station_names[1]</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1771,7 +1065,7 @@ PythonPythonPythonPythonPython
 <p>OK, that makes sense, but it may take some getting used to…</p>
 </section>
 <section id="a-useful-analog-bill-the-vending-machine">
-<h3>A useful analog - Bill the vending machine<a class="headerlink" href="#a-useful-analog-bill-the-vending-machine" title="Permalink to this headline">#</a></h3>
+<h3>A useful analog - Bill the vending machine<a class="headerlink" href="#a-useful-analog-bill-the-vending-machine" title="Permalink to this heading">#</a></h3>
 <p>As it turns out, index values are extremely useful, common in many programming languages, yet often a point of confusion for new programmers. Thus, we need to have a trick for remembering what an index value is and how they are used. For this, we need to be introduced to Bill (Figure 2.1).</p>
 <p><img alt="Figure 2.1. Bill, the vending machine." src="../../../_images/bill-the-vending-machine.png" /></p>
 <p><em><strong>Figure 2.1</strong>. Bill, the vending machine.</em></p>
@@ -1783,7 +1077,7 @@ PythonPythonPythonPythonPython
 </div>
 </section>
 <section id="number-of-items-in-a-list">
-<h3>Number of items in a list<a class="headerlink" href="#number-of-items-in-a-list" title="Permalink to this headline">#</a></h3>
+<h3>Number of items in a list<a class="headerlink" href="#number-of-items-in-a-list" title="Permalink to this heading">#</a></h3>
 <p>We can find the length of a list using the <code class="docutils literal notranslate"><span class="pre">len()</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1800,7 +1094,7 @@ PythonPythonPythonPythonPython
 <p>Just as expected, there are 4 values in our list and <code class="docutils literal notranslate"><span class="pre">len(station_names)</span></code> returns a value of <code class="docutils literal notranslate"><span class="pre">4</span></code>.</p>
 </section>
 <section id="index-value-tips">
-<h3>Index value tips<a class="headerlink" href="#index-value-tips" title="Permalink to this headline">#</a></h3>
+<h3>Index value tips<a class="headerlink" href="#index-value-tips" title="Permalink to this heading">#</a></h3>
 <p>If we know the length of the list, we can now use it to find the value of the last item in the list, right? What happens if you print the value from the <code class="docutils literal notranslate"><span class="pre">station_names</span></code> list at index <code class="docutils literal notranslate"><span class="pre">4</span></code>, the value of the length of the list?</p>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
@@ -1880,7 +1174,7 @@ PythonPythonPythonPythonPython
 </div>
 </section>
 <section id="modifying-list-values">
-<h3>Modifying list values<a class="headerlink" href="#modifying-list-values" title="Permalink to this headline">#</a></h3>
+<h3>Modifying list values<a class="headerlink" href="#modifying-list-values" title="Permalink to this heading">#</a></h3>
 <p>Another nice feature of lists is that they are <em>mutable</em>, meaning that the values in a list that has been defined can be modified. Consider a list of the observation station types corresponding to the station names in the <code class="docutils literal notranslate"><span class="pre">station_names</span></code> list.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1919,7 +1213,7 @@ PythonPythonPythonPythonPython
 </div>
 </section>
 <section id="data-types-in-lists">
-<h3>Data types in lists<a class="headerlink" href="#data-types-in-lists" title="Permalink to this headline">#</a></h3>
+<h3>Data types in lists<a class="headerlink" href="#data-types-in-lists" title="Permalink to this heading">#</a></h3>
 <p>One of the benefits of a list is that they can be used to store more than one type of data. Let’s consider that instead of having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for a single station. In this case we will create a list of values for the ‘Helsinki Kaivopuisto’ station.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2022,7 +1316,7 @@ PythonPythonPythonPythonPython
 <p>Note that although it is possible to have different types of data in a Python list, you are encouraged to create lists containing the same data types. Data science workflows are often built around handling collections of data of the same type and having multiple data types in a list may cause problems for software you are trying to use.</p>
 </section>
 <section id="adding-and-removing-values-from-lists">
-<h3>Adding and removing values from lists<a class="headerlink" href="#adding-and-removing-values-from-lists" title="Permalink to this headline">#</a></h3>
+<h3>Adding and removing values from lists<a class="headerlink" href="#adding-and-removing-values-from-lists" title="Permalink to this heading">#</a></h3>
 <p>Finally, we can add and remove values from lists to change their lengths. Let’s consider that we no longer want to include the first value in the <code class="docutils literal notranslate"><span class="pre">station_names</span></code> list. Since we haven’t see that list in a bit, let’s first print it to the screen.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2087,7 +1381,7 @@ PythonPythonPythonPythonPython
 <p>As you can see, we add values one at a time using <code class="docutils literal notranslate"><span class="pre">station_names.append()</span></code>. <code class="docutils literal notranslate"><span class="pre">list.append()</span></code> is called a method in Python, which is a function that works for a given data type (a list in this case).</p>
 </section>
 <section id="appending-to-an-integer-not-so-fast">
-<h3>Appending to an integer? Not so fast…<a class="headerlink" href="#appending-to-an-integer-not-so-fast" title="Permalink to this headline">#</a></h3>
+<h3>Appending to an integer? Not so fast…<a class="headerlink" href="#appending-to-an-integer-not-so-fast" title="Permalink to this heading">#</a></h3>
 <p>Let’s consider our list <code class="docutils literal notranslate"><span class="pre">station_names</span></code>. As we know, we already have data in the list <code class="docutils literal notranslate"><span class="pre">station_names</span></code>, and we can modify that data using built-in methods such as <code class="docutils literal notranslate"><span class="pre">station_names.append()</span></code>. In this case, the method <code class="docutils literal notranslate"><span class="pre">append()</span></code> is something that exists for lists, but not for other data types. It is intuitive that you might like to add (or append) things to a list, but perhaps it does not make sense to append to other data types. Let’s create a variable <code class="docutils literal notranslate"><span class="pre">station_name_length</span></code> that we can use to store the length of the list <code class="docutils literal notranslate"><span class="pre">station_names</span></code>. We can then print the value of <code class="docutils literal notranslate"><span class="pre">station_name_length</span></code> to confirm the length is correct.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2142,7 +1436,7 @@ PythonPythonPythonPythonPython
 <p>Here we get an <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> because there is no method built in to the <code class="docutils literal notranslate"><span class="pre">int</span></code> data type to append to <code class="docutils literal notranslate"><span class="pre">int</span></code> data. While <code class="docutils literal notranslate"><span class="pre">append()</span></code> makes sense for <code class="docutils literal notranslate"><span class="pre">list</span></code> data, it is not sensible for <code class="docutils literal notranslate"><span class="pre">int</span></code> data, which is the reason no such method exists for <code class="docutils literal notranslate"><span class="pre">int</span></code> data.</p>
 </section>
 <section id="some-other-useful-list-methods">
-<h3>Some other useful list methods<a class="headerlink" href="#some-other-useful-list-methods" title="Permalink to this headline">#</a></h3>
+<h3>Some other useful list methods<a class="headerlink" href="#some-other-useful-list-methods" title="Permalink to this heading">#</a></h3>
 <p>With lists we can do a number of useful things, such as count the number of times a value occurs in a list or where it occurs. The <code class="docutils literal notranslate"><span class="pre">list.count()</span></code> method can be used to find the number of instances of an item in a list. For instance, we can check to see how many times <code class="docutils literal notranslate"><span class="pre">'Helsinki</span> <span class="pre">Kumpula'</span></code> occurs in our list <code class="docutils literal notranslate"><span class="pre">station_names</span></code> by typing <code class="docutils literal notranslate"><span class="pre">station_names.count('Helsinki</span> <span class="pre">Kumpula')</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2173,7 +1467,7 @@ PythonPythonPythonPythonPython
 <p>There are two other common methods for lists that we need to see.</p>
 </section>
 <section id="reversing-a-list">
-<h3>Reversing a list<a class="headerlink" href="#reversing-a-list" title="Permalink to this headline">#</a></h3>
+<h3>Reversing a list<a class="headerlink" href="#reversing-a-list" title="Permalink to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">list.reverse()</span></code> method can be used to reverse the order of items in a list. Let’s reverse our <code class="docutils literal notranslate"><span class="pre">station_names</span></code> list and then print the results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2201,7 +1495,7 @@ PythonPythonPythonPythonPython
 <p>Yay, it works! A common mistake when reversing lists is to do something like <code class="docutils literal notranslate"><span class="pre">station_names</span> <span class="pre">=</span> <span class="pre">station_names.reverse()</span></code>. <strong>Do not do this!</strong> When reversing lists with <code class="docutils literal notranslate"><span class="pre">.reverse()</span></code> the <code class="docutils literal notranslate"><span class="pre">None</span></code> value is returned (this is why there is no screen ouput when running <code class="docutils literal notranslate"><span class="pre">station_names.reverse()</span></code>). If you then assign the output of <code class="docutils literal notranslate"><span class="pre">station_names.reverse()</span></code> to <code class="docutils literal notranslate"><span class="pre">station_names</span></code> you will reverse the list, but then overwrite its contents with the returned value <code class="docutils literal notranslate"><span class="pre">None</span></code>. This means you’ve deleted the contents of your list.</p>
 </section>
 <section id="sorting-a-list">
-<h3>Sorting a list<a class="headerlink" href="#sorting-a-list" title="Permalink to this headline">#</a></h3>
+<h3>Sorting a list<a class="headerlink" href="#sorting-a-list" title="Permalink to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">list.sort()</span></code> method works in a similary way as reversing a list. Let’s sort our <code class="docutils literal notranslate"><span class="pre">station_names</span></code> list and print its contents.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2230,7 +1524,7 @@ PythonPythonPythonPythonPython
 </section>
 </section>
 <section id="making-different-data-types-work-together">
-<h2>Making different data types work together<a class="headerlink" href="#making-different-data-types-work-together" title="Permalink to this headline">#</a></h2>
+<h2>Making different data types work together<a class="headerlink" href="#making-different-data-types-work-together" title="Permalink to this heading">#</a></h2>
 <p>Earlier in this section we defined five variables related to the Helsinki Kaviopuisto observation station:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">station_name</span></code></p></li>
@@ -2241,7 +1535,7 @@ PythonPythonPythonPythonPython
 </ul>
 <p>which refer to the the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type. Each variable has a unique name and they store different types of data.</p>
 <section id="data-types-and-their-compatibility">
-<h3>Data types and their compatibility<a class="headerlink" href="#data-types-and-their-compatibility" title="Permalink to this headline">#</a></h3>
+<h3>Data types and their compatibility<a class="headerlink" href="#data-types-and-their-compatibility" title="Permalink to this heading">#</a></h3>
 <p>As you likely recall, we can explore the different types of data stored in variables using the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function.
 Let’s now check the data types of the variables <code class="docutils literal notranslate"><span class="pre">station_name</span></code>, <code class="docutils literal notranslate"><span class="pre">station_id</span></code>, and <code class="docutils literal notranslate"><span class="pre">station_lat</span></code>.</p>
 <div class="cell docutils container">
@@ -2301,7 +1595,7 @@ Let’s now check the data types of the variables <code class="docutils literal 
 <p>Here we get a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> because Python does not know to combine a string of characters (<code class="docutils literal notranslate"><span class="pre">station_name</span></code>) with an integer value (<code class="docutils literal notranslate"><span class="pre">station_id</span></code>).</p>
 </section>
 <section id="converting-data-from-one-type-to-another">
-<h3>Converting data from one type to another<a class="headerlink" href="#converting-data-from-one-type-to-another" title="Permalink to this headline">#</a></h3>
+<h3>Converting data from one type to another<a class="headerlink" href="#converting-data-from-one-type-to-another" title="Permalink to this heading">#</a></h3>
 <p>It is not the case that things like the <code class="docutils literal notranslate"><span class="pre">station_name</span></code> and <code class="docutils literal notranslate"><span class="pre">station_id</span></code> cannot be combined at all, but in order to combine a character string with a number we need to perform a <em>data type conversion</em> to make them compatible. Let’s convert <code class="docutils literal notranslate"><span class="pre">station_id</span></code> to a character string using the <code class="docutils literal notranslate"><span class="pre">str()</span></code> function. We can store the converted variable as <code class="docutils literal notranslate"><span class="pre">station_id_str</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2338,7 +1632,7 @@ Let’s now check the data types of the variables <code class="docutils literal 
 <p>As you can see, <code class="docutils literal notranslate"><span class="pre">str()</span></code> converts a numerical value into a character string with the same numbers as before. Similar to using <code class="docutils literal notranslate"><span class="pre">str()</span></code> to convert numbers to character strings, <code class="docutils literal notranslate"><span class="pre">int()</span></code> can be used to convert strings or floating point numbers to integers and <code class="docutils literal notranslate"><span class="pre">float()</span></code> can be used to convert strings or integers to floating point numbers.</p>
 </section>
 <section id="combining-text-and-numbers">
-<h3>Combining text and numbers<a class="headerlink" href="#combining-text-and-numbers" title="Permalink to this headline">#</a></h3>
+<h3>Combining text and numbers<a class="headerlink" href="#combining-text-and-numbers" title="Permalink to this heading">#</a></h3>
 <p>Although most mathematical operations operate on numerical values, a common way to combine character strings is using the addition operator <code class="docutils literal notranslate"><span class="pre">+</span></code>. Let’s create a text string in the variable <code class="docutils literal notranslate"><span class="pre">station_name_and_id</span></code> that is the combination of the <code class="docutils literal notranslate"><span class="pre">station_name</span></code> and <code class="docutils literal notranslate"><span class="pre">station_id</span></code> variables. Once we define <code class="docutils literal notranslate"><span class="pre">station_name_and_id</span></code>, we can print it to the screen to see the result.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2363,11 +1657,11 @@ Let’s now check the data types of the variables <code class="docutils literal 
 </section>
 </section>
 <section id="working-with-text-and-numbers">
-<h2>Working with text (and numbers)<a class="headerlink" href="#working-with-text-and-numbers" title="Permalink to this headline">#</a></h2>
+<h2>Working with text (and numbers)<a class="headerlink" href="#working-with-text-and-numbers" title="Permalink to this heading">#</a></h2>
 <p>The previous example showed a simple example how it is possible to combine character strings and numbers together using the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator between the different text components. Although this approach works, it can become quite laborous and error-prone if having more complicated set of textual and/or numerical components that you should work with. Hence, next we show a few useful techniques that make manipulating strings easier and more efficient.</p>
 <p>There are three approaches that can be used to manipulate strings in Python, namely 1) f-strings, 2) using the<code class="docutils literal notranslate"><span class="pre">.format()</span></code> -function and 3) using the %-operator. We recommed using the f-string approach, but we also give examples of the two other approaches because there are plenty of examples and code snippets on the web, where these string formatting approaches are still used. Hence, it is good to be aware of them all. In addition, we show a few useful methods that make working with text in different ways possible.</p>
 <section id="f-string-formatting">
-<h3>F-String formatting<a class="headerlink" href="#f-string-formatting" title="Permalink to this headline">#</a></h3>
+<h3>F-String formatting<a class="headerlink" href="#f-string-formatting" title="Permalink to this heading">#</a></h3>
 <p>In the following, we show how we can combine the <code class="docutils literal notranslate"><span class="pre">station_name</span></code> text, <code class="docutils literal notranslate"><span class="pre">station_id</span></code> integer number and <code class="docutils literal notranslate"><span class="pre">temp</span></code> floating point number together using Python’s f-string formatting approach. In addition, we will round a decimal number (temperature) into two decimal points on-the-fly:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2394,7 +1688,7 @@ Let’s now check the data types of the variables <code class="docutils literal 
 <p>As we have hopefully demonstrated, f-string formatting is easy to use, yet powerful with its capability to e.g. do data conversions on the fly. Hence, it is the recommended approach for doing string manipulation nowadays in Python. Just remember to add the letter <code class="docutils literal notranslate"><span class="pre">f</span></code> before your string template!</p>
 </section>
 <section id="older-approaches-for-string-formatting">
-<h3>Older approaches for string formatting<a class="headerlink" href="#older-approaches-for-string-formatting" title="Permalink to this headline">#</a></h3>
+<h3>Older approaches for string formatting<a class="headerlink" href="#older-approaches-for-string-formatting" title="Permalink to this heading">#</a></h3>
 <p>As mentioned previously, there are also a couple of other approaches that can be used to achieve the same result as above. These older approaches preceded the f-string which was introduced in Python version 3.6. The first one is <code class="docutils literal notranslate"><span class="pre">.format()</span></code> method that is placed after the quotes, like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2434,7 +1728,7 @@ Let’s now check the data types of the variables <code class="docutils literal 
 <p>To conclude, using the f-string approach is the easiest and most intuitive way to construct and format text. Hence, we highly recommend learning that approach and sticking with it.</p>
 </section>
 <section id="common-string-manipulation-techniques">
-<h3>Common string manipulation techniques<a class="headerlink" href="#common-string-manipulation-techniques" title="Permalink to this headline">#</a></h3>
+<h3>Common string manipulation techniques<a class="headerlink" href="#common-string-manipulation-techniques" title="Permalink to this heading">#</a></h3>
 <p>In the following, we will demonstrate some of the most useful string manipulation techniques, such as splitting strings based on given character, replacing characters with new ones, slicing the strings etc.
 Here, our final target is to get a list of weather station locations within Helsinki represented in UPPER case (i.e. KUMPULA, KAISANIEMI, HARMAJA). The text that we will be working on is following:</p>
 <div class="cell docutils container">
@@ -2537,61 +1831,162 @@ Kumpula, kaisaniemi, harmaja
 </section>
 </section>
 <section id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
 <hr class="footnotes docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="fmi-stations"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="http://en.ilmatieteenlaitos.fi/observation-stations">http://en.ilmatieteenlaitos.fi/observation-stations</a></p>
-</dd>
-</dl>
+<aside class="footnote brackets" id="fmi-stations" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://en.ilmatieteenlaitos.fi/observation-stations">http://en.ilmatieteenlaitos.fi/observation-stations</a></p>
+</aside>
 </section>
 </section>
 
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">2: Basic programming concepts</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2: Basic programming concepts</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="01-for-loops.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="01-for-loops.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">for loops</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-python-math">Simple Python math</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-operations">Math operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-1">Question 2.1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-functions">Combining functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-assignment">Variable assignment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-2">Question 2.2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-variables">Updating variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-values">Variable values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-3">Question 2.3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists-and-indices">Lists and indices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-list">Creating a list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#index-values">Index values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-useful-analog-bill-the-vending-machine">A useful analog - Bill the vending machine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#number-of-items-in-a-list">Number of items in a list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#index-value-tips">Index value tips</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-list-values">Modifying list values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types-in-lists">Data types in lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-and-removing-values-from-lists">Adding and removing values from lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appending-to-an-integer-not-so-fast">Appending to an integer? Not so fast…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-other-useful-list-methods">Some other useful list methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reversing-a-list">Reversing a list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-a-list">Sorting a list</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-different-data-types-work-together">Making different data types work together</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types-and-their-compatibility">Data types and their compatibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-data-from-one-type-to-another">Converting data from one type to another</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-text-and-numbers">Combining text and numbers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-text-and-numbers">Working with text (and numbers)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-string-formatting">F-String formatting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#older-approaches-for-string-formatting">Older approaches for string formatting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-string-manipulation-techniques">Common string manipulation techniques</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp<br/>
-  
-      &copy; Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
