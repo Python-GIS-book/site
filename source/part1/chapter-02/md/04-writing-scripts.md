@@ -53,11 +53,11 @@ def celsius_to_fahr(temp_celsius):
 
 As it turns out, Python scripts are just regular text files with the `.py` file extension to identify them as source code for Python. In order for our new text file to be detected as a Python source file in JupyterLab we thus need to rename it to have a `.py` file extension. You can rename the file by right clicking on the tab titled `untitled.txt` and renaming it as `temp_converter.py`. Be sure you change the `.txt` file extension to `.py`.
 
-![_**Figure 2.7**. Renaming a file in JupyterLab._](../img/rename-file-part-1-600.png)
+![_**Figure 2.7**. Renaming a file in JupyterLab._](../img/rename-file-part-1.png)
 
 _**Figure 2.7**. Renaming a file in JupyterLab._
 
-![_**Figure 2.8**. File renaming dialog in JupyterLab._](../img/rename-file-part-2-300.png)
+![_**Figure 2.8**. File renaming dialog in JupyterLab._](../img/rename-file-part-2.png)
 
 _**Figure 2.8**. File renaming dialog in JupyterLab._
 
