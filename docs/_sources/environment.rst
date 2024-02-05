@@ -8,12 +8,4 @@
     </head>
     </html>
 
-.. raw:: html
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta HTTP-EQUIV="REFRESH" content="5; url=https://pythongis.org/part1/chapter-01/nb/06-installation.html#install-the-libraries">
-    </head>
-    </html>
