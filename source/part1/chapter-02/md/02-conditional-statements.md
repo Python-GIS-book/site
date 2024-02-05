@@ -127,18 +127,19 @@ Comparison operators such as `>` and `==` compare the values on each side of the
 
 : _**Table 2.3**. Comparison operators in Python._
 
-|Operator |Description              |
-|:--------|:------------------------|
-|`<`      |Less than                |
-|`<=`     |Less than or equal to    |
-|`==`     |Equal to                 |
-|`>=`     |Greater than or equal to |
-|`>`      |Greater than             |
-|`!=`     |Not equal to             |
+| Operator | Description              | Comparison example | Result  |
+|:---------|:-------------------------|:------------------:|:-------:|
+| `==`     | Equal to                 | `"cat" == "dog"`   | `False` |
+| `!=`     | Not equal to             | `"cat" != "dog"`   | `True`  |
+| `<`      | Less than                | `2 < 1`            | `False` |
+| `>`      | Greater than             | `2 > 1`            | `True`  |
+| `<=`     | Less than or equal to    | `2 <= 2`           | `True`  |
+| `>=`     | Greater than or equal to | `2 >= 4`           | `False` |
 
 
 ### Boolean values
-Comparison operations yield boolean values (`True` or `False`). In Python, the words `True` and `False` are reserved for these Boolean values, and can't be used for anything else. 
+
+As shown in Table 2.3, comparison operations yield boolean values (`True` or `False`). In Python, the words `True` and `False` are reserved for these Boolean values, and cannot be used for anything else. 
 
 Let's check the current value of the conditions we used in the previous examples:
 
@@ -208,10 +209,13 @@ We can also use `and` and `or` to combine multiple conditions on boolean values 
 
 : _**Table 2.4**. Logic for the `and` and `or` keywords in Python._
 
-|Keyword   | Example   |Description                          |
-|:---------|:---------:|:------------------------------------|
-|`and`     | `a and b` |True if both `a` and `b` are True    |
-|`or`      | `a or b`  |True if either `a` or `b` is True    |
+| Operator | Description                                | Comparison example | Result  |
+|:---------|:-------------------------------------------|:------------------:|:-------:|
+| `and`    | True only if both comparisons are true     | `2 > 1 and 1 < 0`  | `False` |
+| `or`     | True if either comparison is true          | `2 > 1 or 1 < 0`   | `True`  |
+| `not`    | False if comparison is true and vice versa | `not 2 > 1`        | `False` |
+
+With Table 2.4 in mind, let's consider a few examples.
 
 ```python editable=true slideshow={"slide_type": ""}
 hot_temperature = 35.0
