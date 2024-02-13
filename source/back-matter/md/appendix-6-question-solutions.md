@@ -18,7 +18,9 @@ jupyter:
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 2
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.1
 
 ```python
