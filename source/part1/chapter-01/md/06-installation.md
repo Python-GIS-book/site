@@ -201,7 +201,7 @@ It's a good idea to search for installation instructions for each package online
 
 ## Footnotes
 
-[^environment]: <https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/environment/environment.yml>
+[^environment]: <https://pythongis.org/environment>
 [^mamba_docs]: <https://mamba.readthedocs.io/en/latest/advanced_usage/detailed_operations.html>
 [^miniconda]: <https://docs.conda.io/en/latest/miniconda.html>
 [^miniforge]: <https://github.com/conda-forge/miniforge>
