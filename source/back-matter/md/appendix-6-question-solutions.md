@@ -26,14 +26,18 @@ jupyter:
 ```python
 math.sin(math.pi)
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.2
 
 ```python
 my_variable = "Python is cool!"
 my_variable
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.3
 
 ```python
@@ -45,32 +49,42 @@ print(first_variable + second_variable)  # Works
 print(5 * first_variable)                # Works
 print(first_variable - second_variable)  # Fails
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.4
 
 ```python
 'kitten'
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.5
 
 ```python
 132334.96
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.6
 
 ```python
 'Helsinki Kaivopuisto132310'
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.7
 
 ```python
 for i in range(2, 9, 3):
     print(i)
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.8
 
 ```bash
@@ -80,7 +94,9 @@ for i in range(2, 9, 3):
 15
 11
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.9
 
 ```python
@@ -92,13 +108,17 @@ if weather == "rain":
 else:
     print("No rainwear needed")
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.10
 
 ```python
 'B'
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.11
 
 ```python
@@ -113,7 +133,9 @@ if (weather == "rain") or (wind_speed >= comfort_limit):
 else:
     print("Go out and enjoy the weather! :)")
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 2.12
 ```python
 def celsius_to_newton(temp_celsius):
