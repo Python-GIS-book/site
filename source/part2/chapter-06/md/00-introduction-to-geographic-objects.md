@@ -21,7 +21,7 @@ In this chapter, we will learn how geometric objects (in vector format) are repr
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Creating point geometries
+## Creating Point geometries
 
 When creating geometries with shapely, we first need to import the geometric object class (such as `Point`, `LineString` or `Polygon`) which we want to create. Let's start by creating a simple `Point` object. First, we need to import the `Point` class which we can then use to create the point geometry. When creating the geometry, we need to pass the `x` and `y` coordinates into the `Point()` -class (with a possible `z` -coordinate), which will create the point geometry for us, as follows:
 <!-- #endregion -->
