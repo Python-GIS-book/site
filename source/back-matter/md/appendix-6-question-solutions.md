@@ -19,18 +19,21 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 2
 
-2.1
+### 2.1
+
 ```python
 math.sin(math.pi)
 ```
 
-2.2 
+### 2.2
+
 ```python
 my_variable = "Python is cool!"
 my_variable
 ```
 
-2.3 
+### 2.3
+
 ```python
 # Solutions may vary
 first_variable = "Python"
@@ -41,28 +44,33 @@ print(5 * first_variable)                # Works
 print(first_variable - second_variable)  # Fails
 ```
 
-2.4
+### 2.4
+
 ```python
 'kitten'
 ```
 
-2.5
+### 2.5
+
 ```python
 132334.96
 ```
 
-2.6
+### 2.6
+
 ```python
 'Helsinki Kaivopuisto132310'
 ```
 
-2.7 
+### 2.7
+
 ```python
 for i in range(2, 9, 3):
     print(i)
 ```
 
-2.8
+### 2.8
+
 ```bash
 11
 7
@@ -71,7 +79,8 @@ for i in range(2, 9, 3):
 11
 ```
 
-2.9
+### 2.9
+
 ```python
 weather = "rain"
 
@@ -82,12 +91,14 @@ else:
     print("No rainwear needed")
 ```
 
-2.10
+### 2.10
+
 ```python
 'B'
 ```
 
-2.11
+### 2.11
+
 ```python
 weather = "rain"
 wind_speed = 14
