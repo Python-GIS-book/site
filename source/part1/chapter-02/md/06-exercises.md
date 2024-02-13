@@ -56,7 +56,7 @@ For this exercise you should use the data in Table 2.5 to:
     - Python has a function called `zip()` that might be helpful in solving the sorting issue. Search online to see whether you can find a way to use `zip()` to solve the problem with the two lists.
 
 
-## Exercise 2.3 - Lists and index values
+### Exercise 2.3 - Lists and index values
 
 : _**Table 2.6**. [Monthly average temperatures recorded at the Helsinki Malmi airport](https://www.timeanddate.com/weather/finland/helsinki/climate)._
 
@@ -85,7 +85,7 @@ The average temperature in Helsinki in March is -1.0
 ```
 
 
-## Exercise 2.4 - Batch processing files with a `for` loop
+### Exercise 2.4 - Batch processing files with a `for` loop
 
 Batch processing is a common task in Python, where a set of data and/or files are analyzed one after another using the same script or program. In this exercise your goal is to produce a Python list of filenames that could be used to batch process the data they contain.
 
@@ -103,7 +103,7 @@ For this exercise you should:
     ```
 
 <!-- #region -->
-## Exercise 2.5 - Classifying temperatures
+### Exercise 2.5 - Classifying temperatures
 
 Data classification is another useful data analysis concept, where data values are sorted into different groups that help you to interpret the data. Your goal in this exercise is to sort a list of temperatures into four categories using a Python list for each category (Table 2.7):
 
@@ -141,7 +141,7 @@ For this exercise you should:
     - Was it ever warm?
 <!-- #endregion -->
 
-## Exercise 2.6 - A temperature conversion function
+### Exercise 2.6 - A temperature conversion function
 
 Functions are commonly used for small calculations that occur frequently within a program, such as converting between units.
 
@@ -156,7 +156,7 @@ For this problem you should:
     - -17 °F
 
 
-## Exercise 2.7 - A temperature classifier function
+### Exercise 2.7 - A temperature classifier function
 
 This exercise uses the same logic presented in Exercise 2.5 to classify temperatures, but now using a function.
 
