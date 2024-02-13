@@ -7,9 +7,11 @@ The appendices include information for working efficiently with Python: how to d
     :maxdepth: 1
     :caption: Contents:
 
-    nb/appendix-1.ipynb
-    nb/appendix-2.ipynb
-    nb/appendix-3.ipynb
-    nb/appendix-4.ipynb
-    nb/appendix-5.ipynb
-    nb/appendix-6.ipynb
+    nb/appendix-0-python-environments.ipynb
+    nb/appendix-1-git.ipynb
+    nb/appendix-2-github.ipynb
+    nb/appendix-3-script-files.ipynb
+    nb/appendix-4-testing-and-debugging.ipynb
+    nb/appendix-5-spatial-index.ipynb
+    nb/appendix-6-question-solutions.ipynb
+    nb/appendix-7-exercise-solutions.ipynb

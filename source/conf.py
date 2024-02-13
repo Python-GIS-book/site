@@ -83,7 +83,7 @@ html_static_path = ["_static"]
 html_title = ""
 
 # Do not execute cells
-jupyter_execute_notebooks = "off"
+nb_execution_mode = "off"
 
 # -- Options for nbsphinx --
 nbsphinx_allow_errors = True
