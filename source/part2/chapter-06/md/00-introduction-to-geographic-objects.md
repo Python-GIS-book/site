@@ -15,17 +15,13 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Representing geographic data in Python
 
-In this chapter, we will learn how geometric objects (in vector format) are represented in Python using a library called [shapely](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely]. In the following parts of the book, we will use a library called **geopandas** extensively which uses these **shapely** geometries to represent the geographic data in vector format. Understanding how these geometric objects work and can be created in Python is extremely useful, because these objects are the fundamental buildings blocks that enable us doing geographic data analysis. 
-<!-- #endregion -->
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-## Creating vector geometries with shapely 
+In this chapter, we will learn how geometric objects (in vector format) are represented in Python using a library called [shapely](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely]. In the following parts of the book, we will use a library called **geopandas** extensively which uses these **shapely** geometries to represent the geographic data in vector format. Understanding how these geometric objects work and can be created in Python is extremely useful, because these objects are the fundamental buildings blocks that enable us doing geographic data analysis.
 
 **Shapely** is a fundamental Python package for representing vector data geometries on a computer. Basic knowledge of shapely is important for using higher-level tools that depend on it, such as geopandas. Under the hood shapely uses a C++ library called [GEOS](https://trac.osgeo.org/geos) [^GEOS] to construct the geometries, which is one of the standard libraries behind various Geographic Information Systems (GIS) software, such as [PostGIS](https://postgis.net/) [^PostGIS] or [QGIS](http://www.qgis.org/en/site/) [^QGIS]. Objects and methods available in shapely adhere mainly to [the Open Geospatial Consortium’s Simple Features Access Specification](https://www.ogc.org/standards/sfa) [^OGC_sfa], as discussed in Chapter 5, making them compatible with various GIS tools. In this section, we give a quick overview of creating geometries using shapely. For a full list of shapely -related objects and methods, see [the shapely user manual online](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely].
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-### Creating point geometries
+## Creating point geometries
 
 When creating geometries with shapely, we first need to import the geometric object class (such as `Point`, `LineString` or `Polygon`) which we want to create. Let's start by creating a simple `Point` object. First, we need to import the `Point` class which we can then use to create the point geometry. When creating the geometry, we need to pass the `x` and `y` coordinates into the `Point()` -class (with a possible `z` -coordinate), which will create the point geometry for us, as follows:
 <!-- #endregion -->
@@ -85,7 +81,7 @@ Points and other shapely objects have many useful built-in attributes and method
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-### Creating LineString geometries
+## Creating LineString geometries
 
 
 Creating a `LineString` -object is very similar to creating a `Point`-object. To be able to create a `LineString`, we need at least two points that are connected to each other, which thus constitute a line. We can construct the line using either a list of `Point`-objects or pass the point coordinates as coordinate-tuples to the `LineString` constructor:
@@ -139,7 +135,7 @@ print(f"Centroid: {centroid}")
 As you can see, the centroid of the line is again a `shapely.geometry.Point` object. This is useful, because it means that you can continue working with the line centroid having access to all of the methods that come with the shapely `Point` object.
 
 
-### Creating Polygon geometries
+## Creating Polygon geometries
 
 Creating a `Polygon` -object continues the same logic as when creating `Point` and `LineString` objects. A `Polygon` can be created by passing a list of `Point` objects or a list of coordinate-tuples as input for the `Polygon` class. `Polygon` needs at least three coordinate-tuples to form a surface. In the following, we use the same points from the earlier `LineString` example to create a `Polygon`.
 
@@ -260,7 +256,7 @@ box_poly.wkt
 In practice, the `box` function is quite useful for example when you want to select geometries from a specific area of interest. In these cases, you only need to find out the coordinates of two points on the map (bottom-left and top-righ corners) to be able create the bounding box polygon.   
 <!-- #endregion -->
 
-### Creating MultiPoint, MultiLineString and MultiPolygon geometries
+## Creating MultiPoint, MultiLineString and MultiPolygon geometries
 
 
 Creating a collection of `Point`, `LineString` or `Polygon` objects is very straightforward now as you have seen how to create the basic geometric objects. In the `Multi` -versions of these geometries, you just pass a list of points, lines or polygons to the `MultiPoint`, `MultiLineString` or `MultiPolygon` constructors as shown below:
