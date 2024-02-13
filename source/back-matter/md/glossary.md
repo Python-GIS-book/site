@@ -82,6 +82,9 @@ IDE
 
 Index
   A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
+
+Inner join
+  The inner join results in a DataFrame that contains only the rows with matching keys (or binary/spatial predicate) in both original (Geo)DataFrames, excluding all rows in either (Geo)DataFrame that do not have a match in the other. The match can be based on a common key that can be found in both DataFrames (as in table join) or on a spatial predicate in case the data is merged based on the spatial relationship between two spatial data layers.
   
 Integrated Development Environment
   An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface.
@@ -93,6 +96,9 @@ Jupyter Notebook
   A web application that allows users to combine rich-formtted text with code cells in an interactive document.
   Jupyter Notebooks can contain nicely formatted text, equations, images, interactive visualizations, and more.
   More information can be found at <https://jupyter.org/>.
+
+Left outer join
+  A left outer join includes all the rows from the left (Geo)DataFrame and those rows from the right (Geo)DataFrame that have a matching key in the table, or that intersect or match based on the specified spatial relationship (e.g., intersects, contains, within). If there is no matching row in the right (Geo)DataFrame for a row in the left (Geo)DataFrame, the result will still include the row from the left (Geo)DataFrame, but with missing values (NaNs) in the columns from the right (Geo)DataFrame.
 
 Library
   A group of related modules. See definition of a *{term}`module`*.
@@ -125,6 +131,9 @@ Program
   
 Programming language
   A set of exact and unambiguous instructions that can be understood by the computer.
+
+Right outer join
+  Right outer join includes all the rows from the right (Geo)DataFrame and those rows from the left (Geo)DataFrame that have a matching key in the table, or that intersect or match based on the specified spatial relationship (e.g., intersects, contains, within). If there is no matching row in the left (Geo)DataFrame for a row in the right (Geo)DataFrame, the result will still include the row from the right (Geo)DataFrame, but with missing values (NaNs) in the columns from the left (Geo)DataFrame.
 
 Script
   A Python script is a collection of commands in a file that can be executed like a program. 
@@ -178,8 +187,4 @@ Well-known text
   Well-known text (WKT) is a text markup language for representing vector geometry objects. WKT can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m). The binary equivalent for WKT is `Well-known binary` format.
 
   
-```
-
-```python
-
 ```
