@@ -735,7 +735,9 @@ In the following, we show how we can combine the `station_name` text, `station_i
 temp = 18.56789876
 
 # 1. The f-string approach (recommended)
-info_text = f"The temperature at {station_name} (ID: {station_id}) is {temp:.2f} Celsius."
+info_text = (
+    f"The temperature at {station_name} (ID: {station_id}) is {temp:.2f} Celsius."
+)
 
 print(info_text)
 ```
