@@ -14,6 +14,9 @@ jupyter:
 
 # Spatial join
 
+
+## Understanding the logic of spatial join
+
 Spatial join is yet another classic GIS problem. Getting attributes from one layer and transferring them into another layer based on their spatial relationship is something you most likely need to do on a regular basis. In the previous section (Chapter 6.6), we learned how to perform spatial queries, such as investigating if a Point is located within a Polygon. We can use this same logic to conduct a spatial join between two layers based on their spatial relationship and transfer the information stored in one layer into the other. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the attributes of a polygon that `intersects` with the point. 
 
 **Figure 6.xx** illustrates the basic logic of a spatial join by showing how we can combine information between spatial data layers that are located in the same area (i.e. they overlap with each other). The target here is to combine attribute information of three layers: properties, land use and buildings. Each of these three layers has their own attribute information. Transfering the information between the layers is based on how the individual points in the Properties layer intersect with these layers as shown on the left, i.e. considering different land use areas (commercial, residential, industrial, natural), as well as the building footprints containing a variety of building-related attibute information. On the right, we show the table attributes for these three layers considering the features that intersect with the four Point observations. The table at the bottom shows how the results look after all the attribute data from these layers has been combined into a single table. 
@@ -25,11 +28,11 @@ It is good to remember that spatial join is always conducted between two layers 
 _**Figure 6.XX**. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship._
 
 
-<!-- #region -->
+
 Now as we understand the basic idea behind the spatial join, let's continue to learn a bit more about the details of spatial join. **Figure 6.XX**, illustrates how we can do a spatial join between Point and Polygon layers, and how changing specific parameters in the way the join is conducted influence the results. In spatial join, there are two set of options that you can control, which ultimately influence how the data is transferred between the layers. You can control: 
 
 1) How the spatial relationship between geometries should be checked (i.e. spatial predicates)?, and
-2) What kind of table join you want to conduct? (inner, left, or right outer join)
+2) What type of table join you want to conduct? (inner, left, or right outer join)
 
 The spatial predicates control how the spatial relationship between the geometries in the two data layers is checked. Only those cases where the spatial predicate returns `True` will be kept in the result. Thus, changing this option (parameter) can have a big influence on your final results after the join. In **Figure 6.XX** this difference is illustrated at the bottom when you compare the result tables *i* and *ii*: In the first table (*i*) the spatial predicate is `within` that gives us 4 rows that is shown in the table. However, on the second result table (*ii*), the spatial predicate is `intersects` which gives us 5 rows. Why is there a difference? This is because the Point with id-number 6 happens to lie exactly at the border of the Polygon C. As you might remember from the  Chapter 6.6, there is a certain difference between these two spatial predicates: The `within` expects that the Point should be inside the Polygon (`False` in our case), whereas the `intersects` returns `True` if at least one point is common between the geometries (`True` in our case). In a similar manner, you could change the spatial predicate to `contains`, `touches`, `overlaps` etc. and the result would change accordingly. 
 
@@ -38,6 +41,20 @@ It is also important to ensure that the logic for investigating these spatial re
 ![_**Figure 6.XX**. Different approaches to join two data layers with each other based on spatial relationships._](../img/spatial-join-alternatives.png)
 
 _**Figure 6.XX**. Different approaches to join two data layers with each other based on spatial relationships._
+
+
+The other parameter that you can use to control how the spatial join is conducted is the spatial join type. There are three different join types that influence the outcome of the spatial join:
+
+1. {term}`inner join`
+2. {term}`left outer join`
+3. {term}`right outer join`
+
+The terms left and right correspond to the two data layers/tables used in the spatial join, and specifically to the order how these layers are used in the spatia join. In our case, the Layer 1 represents always the `left` side of spatial join (indicated with green background color in the tables), whereas the Layer 2 corresponds to the `right` accordingly (white background). When looking at the result tables *i* and *ii* (**Figure 6.XX**), we can see that both spatial joins have been conducted using an `inner join`. When using the `inner join`, we only keep such rows from the right and left tables that have received `True` after testing the relationship based on the chosen spatial predicate. The result table *iii* shows an example of `left outer join` in which all the rows from the left are kept (no matter what), and the ones from the right that have a match based on spatial predicate will be added to the result. In case some of the rows on the left do not have a match with the right layer, those attributes will receive NaN (No data) as the attribute value as shown with Point id 3 and 6 in the result table *iii*. The `right outer join` works in quite a similar manner, but in this case the values on the right layer are always kept (no matter what), and only the ones from the left that have a match based on the spatial predicate will be kept. The rows without a match will receive a Nan (No data) on the left side as shown in result table *iv* with Polygon that has a Name D.  
+
+With these two parameters (spatial predicate and join type), it is possible to conduct many kind of spatial joins. Commonly the `inner join` using the `intersect` as a spatial predicate is the one that you want to use, but depending on your needs there are various options where to choose from.
+
+
+## Conducting a spatial join with Python
 
 
 Luckily, [spatial join is already implemented in Geopandas](http://geopandas.org/mergingdata.html#spatial-joins), thus we do not need to create our own function for doing it. There are three possible types of join that can be applied in spatial join that are determined with ``op`` -parameter in the ``gpd.sjoin()`` -function:
@@ -58,7 +75,6 @@ Services Authority (HSY)** (see [this page](https://www.hsy.fi/fi/asiantuntijall
     - You can download the data from [from this link](https://www.hsy.fi/sites/AvoinData/AvoinData/SYT/Tietoyhteistyoyksikko/Shape%20(Esri)/V%C3%A4est%C3%B6tietoruudukko/Vaestotietoruudukko_2018_SHP.zip) in the  [Helsinki Region Infroshare
 (HRI) open data portal](https://hri.fi/en_gb/).
 
-<!-- #endregion -->
 
 - Here, we will access the data directly from the HSY wfs:
 
