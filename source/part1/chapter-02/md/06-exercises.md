@@ -15,7 +15,7 @@ jupyter:
 # Exercises
 
 
-## Exercise 2.1 - Getting started with Python
+### Exercise 2.1 - Getting started with Python
 
 The goal of this exercise is to print text like that below to the screen based on variable values you define.
 
@@ -32,7 +32,7 @@ For this exercise you should:
 - Reproduce your version of the example text using the `print()` function and the variables you have defined. Note that you may need to be careful combining text and numbers!
 
 
-## Exercise 2.2 - Creating and changing lists
+### Exercise 2.2 - Creating and changing lists
 
 : _**Table 2.5**. [FMI observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) and the years in which they began operating_.
 
