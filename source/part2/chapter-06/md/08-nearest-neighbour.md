@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-## Nearest neighbour analysis
+# Nearest neighbour analysis
 
 
 ADD IMAGE ABOUT THE BASIC IDEA OF NEAREST NEIGHBOR!
