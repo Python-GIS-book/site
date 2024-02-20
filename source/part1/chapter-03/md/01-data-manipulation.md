@@ -238,6 +238,8 @@ The following example shows how we check if the Celsius temperature at each row 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# This cell sets the number of lines of pandas output to a maximum of 9
+# The cell is removed when building the website/book PDF
 pd.set_option("display.max_rows", 9)
 ```
 
