@@ -14,12 +14,12 @@ jupyter:
 
 # Spatial join
 
+Spatial join is yet another classic GIS task. Retrieving table attributes from one layer and transferring them into another layer based on their spatial relationship is something you most likely need to do on a regular basis. In the previous section (Chapter 6.6), we learned how to perform spatial queries, such as investigating if a Point is located within a Polygon. We can use this same logic to conduct a spatial join between two layers based on their spatial relationship and transfer the information stored in one layer into the other. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the attributes of a polygon that `intersects` with the point. 
 
-## Understanding the logic of spatial join
 
-Spatial join is yet another classic GIS problem. Getting attributes from one layer and transferring them into another layer based on their spatial relationship is something you most likely need to do on a regular basis. In the previous section (Chapter 6.6), we learned how to perform spatial queries, such as investigating if a Point is located within a Polygon. We can use this same logic to conduct a spatial join between two layers based on their spatial relationship and transfer the information stored in one layer into the other. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the attributes of a polygon that `intersects` with the point. 
+## The basic logic of spatial join
 
-**Figure 6.xx** illustrates the basic logic of a spatial join by showing how we can combine information between spatial data layers that are located in the same area (i.e. they overlap with each other). The target here is to combine attribute information of three layers: properties, land use and buildings. Each of these three layers has their own attribute information. Transfering the information between the layers is based on how the individual points in the Properties layer intersect with these layers as shown on the left, i.e. considering different land use areas (commercial, residential, industrial, natural), as well as the building footprints containing a variety of building-related attibute information. On the right, we show the table attributes for these three layers considering the features that intersect with the four Point observations. The table at the bottom shows how the results look after all the attribute data from these layers has been combined into a single table. 
+In **Figure 6.xx**, we illustrate the logic of a spatial join by showing how it is possible to combine information between spatial data layers that are located in the same area (i.e. they overlap with each other at least partially). The target here is to combine attribute information of three layers: properties, land use and buildings. Each of these three layers has their own attribute information. Transfering the information between the layers is based on how the individual points in the Properties layer intersect with these layers as shown on the left, i.e. considering different land use areas (commercial, residential, industrial, natural), as well as the building footprints containing a variety of building-related attibute information. On the right, we show the table attributes for these three layers considering the features that intersect with the four Point observations. The table at the bottom shows how the results look after all the attribute data from these layers has been combined into a single table. 
 
 It is good to remember that spatial join is always conducted between two layers at a time. Hence, in practice, if we want to make a spatial join between these three layers shown in **Figure 6.xx**, we first need to conduct the spatial join between Properties and Land use, and then store this information into an intermediate result. After the first join, we need to make another spatial join between the intermediate result and the third layer (here, the Buildings dataset). After these two separate spatial joins, we have achieved the final result shown at the bottom, showing for each property (row) the corresponding attributes from the land use and building layers as separate columns. In a similar manner, you could also continue joining data (attributes) from other layers as long as you need.  
 
@@ -54,103 +54,92 @@ The terms left and right correspond to the two data layers/tables used in the sp
 With these two parameters (spatial predicate and join type), it is possible to conduct many kind of spatial joins. Commonly the `inner join` using the `intersect` as a spatial predicate is the one that you want to use, but depending on your needs there are various options where to choose from.
 
 
-## Conducting a spatial join with Python
+## Spatial join with Python
 
 
-Luckily, [spatial join is already implemented in Geopandas](http://geopandas.org/mergingdata.html#spatial-joins), thus we do not need to create our own function for doing it. There are three possible types of join that can be applied in spatial join that are determined with ``op`` -parameter in the ``gpd.sjoin()`` -function:
-
--  ``"intersects"``
--  ``"within"``
--  ``"contains"``
-
-Sounds familiar? Yep, all of those spatial relationships were discussed in the [Point in Polygon lesson](point-in-polygon.ipynb), thus you should know how they work. 
-
-Furthermore, pay attention to the different options for the type of join via the `how` parameter; "left", "right" and "inner". You can read more about these options in the [geopandas sjoin documentation](http://geopandas.org/mergingdata.html#sjoin-arguments) and pandas guide for [merge, join and concatenate](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html).
-
-Let's perform a spatial join between these two layers:
-- **Addresses:** the geocoded address-point (we created this Shapefile in the geocoding tutorial)
-- **Population grid:** 250m x 250m grid polygon layer that contains population information from the Helsinki Region.
-    - The population grid a dataset is produced by the **Helsinki Region Environmental
-Services Authority (HSY)** (see [this page](https://www.hsy.fi/fi/asiantuntijalle/avoindata/Sivut/AvoinData.aspx?dataID=7) to access data from different years).
-    - You can download the data from [from this link](https://www.hsy.fi/sites/AvoinData/AvoinData/SYT/Tietoyhteistyoyksikko/Shape%20(Esri)/V%C3%A4est%C3%B6tietoruudukko/Vaestotietoruudukko_2018_SHP.zip) in the  [Helsinki Region Infroshare
-(HRI) open data portal](https://hri.fi/en_gb/).
-
-
-- Here, we will access the data directly from the HSY wfs:
-
-<!-- #endregion -->
+Now as we have learned the basic logic of spatial join, let's see how we can do it in Python. Spatial join can be done easily with geopandas using the `.sjoin()` method. Next, we will learn how to use this method to perform a spatial join between two layers: 1) `addresses` which are the locations that we geocoded in the Chapter 6.5, and 2) `population grid` which is a 250m x 250m grid polygon layer that contains population information from the Helsinki Region (source: Helsinki Region Environmental Services Authority). Let's start by reading the data:
 
 ```python
 import geopandas as gpd
-from pyproj import CRS
-import requests
-import geojson
 
-# Specify the url for web feature service
-url = "https://kartta.hsy.fi/geoserver/wfs"
+addr_fp = "data/Helsinki/addresses.shp"
+addresses = gpd.read_file(addr_fp)
+addresses.head(2)
+```
 
-# Specify parameters (read data in json format).
-# Available feature types in this particular data source: http://geo.stat.fi/geoserver/vaestoruutu/wfs?service=wfs&version=2.0.0&request=describeFeatureType
-params = dict(
-    service="WFS",
-    version="2.0.0",
-    request="GetFeature",
-    typeName="asuminen_ja_maankaytto:Vaestotietoruudukko_2018",
-    outputFormat="json",
+As we can see, the `addresses` GeoDataFrame contains address Points which represent a selection of public transport stations in the Helsinki Region.
+
+```python
+pop_grid_fp = "data/Helsinki/Population_grid_2021_HSY.gpkg"
+pop_grid = gpd.read_file(pop_grid_fp)
+pop_grid.head(2)
+```
+
+The `pop_grid` dataset contains few columns, namely a unique `id`, the number of `inhabitants` per grid cell, and the `occupancy_rate` as percentage. 
+
+
+### Preparations for spatial join
+
+As a first step before making a spatial join, it is always good to check that the coordinate reference system (CRS) of the layers are identical. The basic requirement for a successful spatial join is that the layers should overlap with each other in space. If the geometries between the layers do not share the same CRS, it is very likely that the spatial join will fail and produces an empty GeoDataFrame. By looking at the numbers in the `geometry` column of the `addresses` and `pop_grid` GeoDataFrames above, it is fairly evident that the datasets are in different coordinate reference system as the numbers seem to differ a lot. We can easily verify this by making a simple test comparing the `.crs` attributes of both layers:
+
+```python
+addresses.crs == pop_grid.crs
+```
+
+As we see from the result, the CRS are not identical. Thus, let's reproject the geometries in the `addresses` GeoDataFrame to the same CRS as `pop_grid`. We can do this easily using the `.to_crs()` which learned in Chapter 6.4. Here, we will be passing the `pop_grid.crs` attribute information as the input for the `crs` parameter:
+
+```python
+# Reproject
+addresses = addresses.to_crs(crs=pop_grid.crs)
+# Validate match
+addresses.crs == pop_grid.crs
+```
+
+Good, now the datasets share the same coordinate reference system. As a last preparatory step, let's visualize both datasets on top of each other to see how the inhabitants are distributed over the region, and how the address points are located in relation to the grid:
+
+```python
+# Plot the grid
+ax = pop_grid.plot(
+    column="inhabitants", 
+    cmap = "Greens",
+    # Classify the data into 5 classes
+    scheme="naturalbreaks", 
+    k=5, 
+    # Place legend to the lower right
+    legend=True, 
+    legend_kwds={"loc": "lower right"},
+    # Modify figure size
+    figsize=(10, 8)
 )
 
-# Fetch data from WFS using requests
-r = requests.get(url, params=params)
-
-# Create GeoDataFrame from geojson
-pop = gpd.GeoDataFrame.from_features(geojson.loads(r.content))
+# Add address points on top using blue "Diamond" markers
+ax = addresses.plot(ax=ax, color="blue", markersize=7, marker="D")
 ```
 
 Check the result: 
 
-```python
-pop.head()
-```
 
-Okey so we have multiple columns in the dataset but the most important
-one here is the column `asukkaita` ("population" in Finnish) that
-tells the amount of inhabitants living under that polygon.
+### Join the layers based on spatial relationship
 
--  Let's change the name of that column into `pop18` so that it is
-   more intuitive. As you might remember, we can easily rename (Geo)DataFrame column names using the ``rename()`` function where we pass a dictionary of new column names like this: ``columns={'oldname': 'newname'}``.
+As we saw in the beginning of Chapter 6.7, there are different ways to conduct spatial join by adjusting the {term}`spatial predicate` and the `join type` options. Controlling the spatial predicate can be done using the `predicate` parameter in the `.sjoin()` method. The most commonly used options for the `predicate` parameter are:
 
-```python
-# Change the name of a column
-pop = pop.rename(columns={"asukkaita": "pop18"})
+- "intersects" (the default option)
+- "contains"
+- "covered_by"
+- "covers"
+- "crosses"
+- "overlaps"
+- "touches"
+- "within'
 
-# Check the column names
-pop.columns
-```
+The join type, as we learned earlier, is the second option to control how the data will be merged. In `.sjoin()` method, this can be adjusted with the `how` parameter. The possible values for the `how` parameter are:
 
-Let's also get rid of all unnecessary columns by selecting only columns that we need i.e. ``pop18`` and ``geometry``
-
-```python
-# Subset columns
-pop = pop[["pop18", "geometry"]]
-```
-
-```python
-pop.head()
-```
-
-Now we have cleaned the data and have only those columns that we need
-for our analysis.
-
-
-## Join the layers
-
-Now we are ready to perform the spatial join between the two layers that
-we have. The aim here is to get information about **how many people live
-in a polygon that contains an individual address-point** . Thus, we want
-to join attributes from the population layer we just modified into the
+- `"inner"` (the default option)
+- `"left"`
+- `"right"`
+Now we are ready to perform the spatial join between the two layers that we have. The aim here is to get information about **how many people live
+in a polygon that contains an individual address-point** . Thus, we want to join attributes from the population layer we just modified into the
 addresses point layer ``addresses.shp`` that we created trough gecoding in the previous section.
-
--  Read the addresses layer into memory:
 
 ```python
 # Addresses filpath
