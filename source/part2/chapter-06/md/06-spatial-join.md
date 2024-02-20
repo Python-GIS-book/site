@@ -132,7 +132,7 @@ pd.set_option("display.max_rows", 7)
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Join the layers based on spatial relationship
 
-After the preparatory steps, we are ready to perform the spatial join between our two data layers. The aim here is to get information about *How many people live in a given polygon that contains an individual address-point*? Thus, we want to join the attribute information from the `pop_grid` layer into the `addresses` Point layer using the `.sjoin()` method. As we saw in the beginning of Chapter 6.7, there are different ways to conduct spatial join by adjusting the {term}`spatial predicate` and the `join type` options. Controlling the spatial predicate in the `.sjoin()` can be done using the `predicate` parameter. The most commonly used options for the `predicate` parameter are:
+After the preparatory steps, we are ready to perform the spatial join between our two data layers. The aim here is to get information about *How many people live in a given polygon that contains an individual address-point*? Thus, we want to join the attribute information from the `pop_grid` layer into the `addresses` Point layer using the `.sjoin()` method. As we saw in the beginning of Chapter 6.7, there are different ways to conduct spatial join by adjusting the {term}`spatial predicate` and join-type options. Controlling the spatial predicate in the `.sjoin()` can be done using the `predicate` parameter. The most commonly used options for the `predicate` parameter are:
 
 - "intersects" (the default option)
 - "contains"
@@ -177,7 +177,7 @@ ax = join.plot(
 ax.set_title("Amount of inhabitants living close the the point");
 ```
 
-_**Figure 6.XX**. ADD PROPER FIGURE CAPTION!._
+_**Figure 6.XX**. Amount of population living close to the addresses can be visualized after a successful spatial join with the population grid._
 
 As we see from the map, the number of population living close to the stations vary quite significantly ranging from 43 up to 1409 inhabitants. As a last thing after the spatial join, it is useful to investigate if we lost any data while doing the spatial join. Let's check this by comparing the number of rows in our result to how many addresses we had originally:
 
@@ -218,7 +218,7 @@ The result from this query reveals the exact locations of the points that miss i
 
 ## Spatial join nearest
 
-Geopandas provides a handy functionality for conducting spatial join in a way that it 
+Geopandas provides a handy functionality for conducting spatial join based on nearest geometries in the other layer. 
 
 ```python
 
