@@ -116,12 +116,23 @@ ax = pop_grid.plot(
 ax = addresses.plot(ax=ax, color="blue", markersize=7, marker="D")
 ```
 
-Check the result: 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 6.XX**. Prerequisite for a successful spatial join: The Polygon layer overlaps with the Point layer._
 
+As we can see from the map in Figure 6.XX, the Polygons representing the population distribution in the area now overlaps nicely with the address locations. Thus we are ready to merge these datasets based on their spatial relationship.   
+<!-- #endregion -->
 
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# This cell sets the number of lines of pandas output to a maximum of 7
+# The cell is removed when building the website/book PDF
+import pandas as pd
+pd.set_option("display.max_rows", 7)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Join the layers based on spatial relationship
 
-As we saw in the beginning of Chapter 6.7, there are different ways to conduct spatial join by adjusting the {term}`spatial predicate` and the `join type` options. Controlling the spatial predicate can be done using the `predicate` parameter in the `.sjoin()` method. The most commonly used options for the `predicate` parameter are:
+After the preparatory steps, we are ready to perform the spatial join between our two data layers. The aim here is to get information about *How many people live in a given polygon that contains an individual address-point*? Thus, we want to join the attribute information from the `pop_grid` layer into the `addresses` Point layer using the `.sjoin()` method. As we saw in the beginning of Chapter 6.7, there are different ways to conduct spatial join by adjusting the {term}`spatial predicate` and the `join type` options. Controlling the spatial predicate in the `.sjoin()` can be done using the `predicate` parameter. The most commonly used options for the `predicate` parameter are:
 
 - "intersects" (the default option)
 - "contains"
@@ -137,178 +148,78 @@ The join type, as we learned earlier, is the second option to control how the da
 - `"inner"` (the default option)
 - `"left"`
 - `"right"`
-Now we are ready to perform the spatial join between the two layers that we have. The aim here is to get information about **how many people live
-in a polygon that contains an individual address-point** . Thus, we want to join attributes from the population layer we just modified into the
-addresses point layer ``addresses.shp`` that we created trough gecoding in the previous section.
+<!-- #endregion -->
 
-```python
-# Addresses filpath
-addr_fp = "data/Helsinki/addresses.shp"
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Let's now join the attributes from the `pop_grid` GeoDataFrame into the `addresses` GeoDataFrame by using the `.sjoin()`. Here, the `addresses` GeoDataFrame containing the points is the one we want to use as a starting point, as this layer is the *receiving* member of the spatial join. Futhermore, we specify `predicate="within"` for the spatial predicate as we are interested to know *within* which Polygon a given Point is located. Finally, we specify the join type with `how="inner"` which means that only such rows are kept from both layers where the spatial predicate returns `True`. This means that if there are Points that are not inside of any of the Polygons, they will be dropped from the result. Thus, we formulate the command in the following form and store the result in the variable `join`:
+<!-- #endregion -->
 
-# Read data
-addresses = gpd.read_file(addr_fp)
+```python editable=true slideshow={"slide_type": ""}
+join = addresses.sjoin(pop_grid, predicate="within", how="inner")
+join
 ```
 
-```python
-# Check the head of the file
-addresses.head()
-```
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Awesome! Now we have performed a successful spatial join that gave us as a result 31 rows and four new columns. Most importantly, we received information about `inhabitants` and `occupancy_rate` which correspond to the number of inhabitants and occupancy rate in the cell where the address-point is located. In addition, we got columns `index_right` and `id_right` which tell the index and id of the matching polygon in the right-side member of the spatial join (i.e. population grid). As you see, also the `id` column in the left-side member of the spatial join was renamed as `id_left`. The suffices `_left` and `_right` are appended to the column names to differentiate the columns in cases where there are identical column names present in both GeoDataFrames. 
 
-In order to do a spatial join, the layers need to be in the same projection
-
-- Check the crs of input layers:
+Let's also visualize the joined output. In the following, we plot the points using the `inhabitants` column to indicate the color:
+<!-- #endregion -->
 
 ```python
-addresses.crs
-```
-
-```python
-pop.crs
-```
-
-If the crs information is missing from the population grid, we can **define the coordinate reference system** as **ETRS GK-25 (EPSG:3879)** because we know what it is based on the [population grid metadata](https://hri.fi/data/dataset/vaestotietoruudukko). 
-
-```python
-# Define crs
-pop.crs = CRS.from_epsg(3879).to_wkt()
-```
-
-```python
-pop.crs
-```
-
-```python
-# Are the layers in the same projection?
-addresses.crs == pop.crs
-```
-
-Let's re-project addresses to the projection of the population layer:
-
-```python
-addresses = addresses.to_crs(pop.crs)
-```
-
--  Let's make sure that the coordinate reference system of the layers
-are identical
-
-```python
-# Check the crs of address points
-print(addresses.crs)
-
-# Check the crs of population layer
-print(pop.crs)
-
-# Do they match now?
-addresses.crs == pop.crs
-```
-
-Now they should be identical. Thus, we can be sure that when doing spatial
-queries between layers the locations match and we get the right results
-e.g. from the spatial join that we are conducting here.
-
--  Let's now join the attributes from ``pop`` GeoDataFrame into
-   ``addresses`` GeoDataFrame by using ``gpd.sjoin()`` -function:
-
-```python
-# Make a spatial join
-join = gpd.sjoin(addresses, pop, how="inner", predicate="within")
-```
-
-```python
-join.head()
-```
-
-Awesome! Now we have performed a successful spatial join where we got
-two new columns into our ``join`` GeoDataFrame, i.e. ``index_right``
-that tells the index of the matching polygon in the population grid and
-``pop18`` which is the population in the cell where the address-point is
-located.
-
-- Let's still check how many rows of data we have now:
-
-```python
-len(join)
-```
-
-Did we lose some data here? 
-
-- Check how many addresses we had originally:
-
-```python
-len(addresses)
-```
-
-If we plot the layers on top of each other, we can observe that some of the points are located outside the populated grid squares (increase figure size if you can't see this properly!)
-
-```python
-import matplotlib.pyplot as plt
-
-# Create a figure with one subplot
-fig, ax = plt.subplots(figsize=(15, 8))
-
-# Plot population grid
-pop.plot(ax=ax)
-
-# Plot points
-addresses.plot(ax=ax, color="red", markersize=5)
-```
-
-_**Figure 6.34**. ADD PROPER FIGURE CAPTION!._
-
-Let's also visualize the joined output:
-
-
-Plot the points and use the ``pop18`` column to indicate the color.
-   ``cmap`` -parameter tells to use a sequential colormap for the
-   values, ``markersize`` adjusts the size of a point, ``scheme`` parameter can be used to adjust the classification method based on [pysal](http://pysal.readthedocs.io/en/latest/library/esda/mapclassify.html), and ``legend`` tells that we want to have a legend:
-
-
-```python
-# Create a figure with one subplot
-fig, ax = plt.subplots(figsize=(10, 6))
-
-# Plot the points with population info
-join.plot(
-    ax=ax, column="pop18", cmap="Reds", markersize=15, scheme="quantiles", legend=True
+ax = join.plot(
+    column="inhabitants", 
+    cmap="Reds", 
+    markersize=15, 
+    scheme="quantiles", 
+    legend=True,
+    figsize=(10,6),
 )
-
-# Add title
-plt.title("Amount of inhabitants living close the the point")
-
-# Remove white space around the figure
-plt.tight_layout()
+ax.set_title("Amount of inhabitants living close the the point");
 ```
 
-_**Figure 6.35**. ADD PROPER FIGURE CAPTION!._
+_**Figure 6.XX**. ADD PROPER FIGURE CAPTION!._
 
-In a similar way, we can plot the original population grid and check the overall population distribution in Helsinki:
+As we see from the map, the number of population living close to the stations vary quite significantly ranging from 43 up to 1409 inhabitants. As a last thing after the spatial join, it is useful to investigate if we lost any data while doing the spatial join. Let's check this by comparing the number of rows in our result to how many addresses we had originally:
 
 ```python
-# Create a figure with one subplot
-fig, ax = plt.subplots(figsize=(10, 6))
-
-# Plot the grid with population info
-pop.plot(ax=ax, column="pop18", cmap="Reds", scheme="quantiles", legend=True)
-
-# Add title
-plt.title("Population 2018 in 250 x 250 m grid squares")
-
-# Remove white space around the figure
-plt.tight_layout()
+len(addresses) - len(join)
 ```
 
-_**Figure 6.36**. ADD PROPER FIGURE CAPTION!._
-
-Finally, let's save the result point layer into a file:
+As we can see, there seems to be three Points that were located outside of the populated grid cells. If we plot the layers on top of each other as an interactive map, we can investigate where the points outside of polygons are located:
 
 ```python
-# Output path
-outfp = "data/Helsinki/addresses_population.shp"
-
-# Save to disk
-join.to_file(outfp)
+m = pop_grid.explore(color="blue", style_kwds=dict(color="blue", stroke=False))
+addresses.explore(m=m, color="red")
 ```
+
+_**Figure 6.XX**. An interactive map of the two layers reveal that some points are located outside of the Polygons._
+
+By exploring the **Figure 6.XX**, we can see that some points are located outside of polygons in the areas close to the railway lines and the motorway. Is this a problem? It depends, but in certain cases, you might want to keep the information for the points that did not get a match based on the spatial relationship. We can achieve this by changing the `how` parameter into `left`, which keeps every row from the left member of the spatial join even when no match is found from the other layer:
+
+```python
+# This cell sets the number of lines of pandas output to a maximum of 7
+# The cell is removed when building the website/book PDF
+pd.set_option("display.max_rows", 7)
+```
+
+```python
+left_join = addresses.sjoin(pop_grid, predicate="within", how="left")
+left_join
+```
+
+Now the result in the `left_join` contains all the original 34 addresses. Let's investigate a bit more to see which rows did not have a matching polygon in the population grid. After a left-join, those rows that do not have a matching geometry in the right-side member of the join are filled with NaN values. Thus, we should be able to locate them easily by searching for rows that do not have any values e.g. in the `inhabitants` column that was part of the `pop_grid` GeoDataFrame. We can do this by doing a selection using the `.isnull()` method:
+
+```python
+left_join.loc[left_join["inhabitants"].isnull()]
+```
+
+The result from this query reveals the exact locations of the points that miss information in the last four columns of the GeoDataFrame. Okay, but is this all we can do? In certain cases, it would be useful to get information also for these points, if not based on the exact spatial match with the polygons, but based on the closest polygon to given address. Luckily, we can do this as well with geopandas which we will learn next.
+
 
 ## Spatial join nearest
 
-ADD Materials
+Geopandas provides a handy functionality for conducting spatial join in a way that it 
+
+```python
+
+```
