@@ -1,5 +1,5 @@
-Appendix A - Spatial index efficiency
-=====================================
+A. Spatial index efficiency
+===========================
 
 TEXT DESCRIPTION GOES HERE...
 

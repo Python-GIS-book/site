@@ -1,5 +1,5 @@
-Appendix C: Solutions to questions and exercises
-================================================
+C. Solutions to questions and exercises
+=======================================
 
 TEXT DESCRIPTION GOES HERE...
 

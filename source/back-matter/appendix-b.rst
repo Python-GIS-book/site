@@ -1,5 +1,5 @@
-Appendix B: Working effectively in Python
-=========================================
+B. Working effectively in Python
+================================
 
 TEXT DESCRIPTION GOES HERE...
 
