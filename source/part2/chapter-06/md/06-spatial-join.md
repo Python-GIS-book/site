@@ -213,7 +213,7 @@ Now the result in the `left_join` contains all the original 34 addresses. Let's 
 left_join.loc[left_join["inhabitants"].isnull()]
 ```
 
-The result from this query reveals the exact locations of the points that miss information in the last four columns of the GeoDataFrame. Okay, but is this all we can do? In certain cases, it would be useful to get information also for these points, if not based on the exact spatial match with the polygons, but based on the closest polygon to given address. Luckily, we can do this as well with geopandas which we will learn next.
+The result from this query reveals the exact locations of the points that miss information in the last four columns of the GeoDataFrame. Okay, but is this all we can do? In some cases, it can be crucial that all features in the target layer would get information from the other dataset even if the spatial predicate between the geometries would not match perfectly. Sometimes fetching information from another layer based on the closest geometry up to a certain distance threshold can be considered sufficient for making a spatial join. Luckily, we can achieve this with relative ease using geopandas which we will learn next.
 
 
 ## Spatial join nearest
