@@ -132,12 +132,35 @@ The book consists of 4 parts:
 
 .. toctree::
    :maxdepth: 2
+   :caption: Appendix A: Spatial index
+   :titlesonly:
+   :hidden:
+
+   back-matter/appendix-a
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Appendix B: Working in Python
+   :titlesonly:
+   :hidden:
+
+   back-matter/appendix-b
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Appendix C: Solutions
+   :titlesonly:
+   :hidden:
+
+   back-matter/appendix-c
+
+.. toctree::
+   :maxdepth: 2
    :caption: Back matter
    :titlesonly:
    :hidden:
 
    back-matter/nb/acknowledgements.ipynb
-   back-matter/appendices
    back-matter/nb/glossary.ipynb
    back-matter/nb/references.ipynb
    authors
