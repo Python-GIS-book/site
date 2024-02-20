@@ -1,11 +1,11 @@
-Appendix B
-==========
+Appendix B: Working effectively in Python
+=========================================
 
 TEXT DESCRIPTION GOES HERE...
 
 .. toctree::
     :maxdepth: 1
-    :caption: Appendix B: Working effectively in Python
+    :caption: Contents:
 
     nb/appendix-0-python-environments.ipynb
     nb/appendix-1-git.ipynb
