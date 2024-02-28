@@ -132,12 +132,21 @@ The book consists of 4 parts:
 
 .. toctree::
    :maxdepth: 2
+   :caption: Appendices
+   :titlesonly:
+   :hidden:
+
+   back-matter/appendix-a
+   back-matter/appendix-b
+   back-matter/appendix-c
+
+.. toctree::
+   :maxdepth: 2
    :caption: Back matter
    :titlesonly:
    :hidden:
 
    back-matter/nb/acknowledgements.ipynb
-   back-matter/appendices
    back-matter/nb/glossary.ipynb
    back-matter/nb/references.ipynb
    authors
