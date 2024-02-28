@@ -12,12 +12,15 @@ jupyter:
     name: python3
 ---
 
-# Nearest neighbour
+# Nearest neighbour analysis
 
 
 The idea of neighbourhood is one of the fundamental concepts in geographic data analysis and modelling. Being able to understand how close geographic objects are to each other, or which nearby features are neighboring a specific location are underlying various spatial analysis techniques, such as spatial interpolation (which we cover in Chapter 10) or understanding whether there exist spatial autocorrelation (i.e. clustering) in the data (see Chapters [6](https://geographicdata.science/book/notebooks/06_spatial_autocorrelation.html) and [7](https://geographicdata.science/book/notebooks/07_local_autocorrelation.html) in {cite}`Rey_et_al_2023`). Many of these techniques rely on the idea that closeness in geographic space quite often indicates closeness or similarity also in attribute space. For instance, it is quite typical that a neighborhood with high population density is next to another neighborhood that also has high concentration of residents (i.e. the population density tend to cluster). One of the most famous notions related to this is the *First law of geography* which states that "everything is related to everything, but near things are more related than distant things" ({cite}`Tobler1970`). Thus, being able to understand how close neighboring geographic features are, or which objects are the closest ones to specific location is an important task in GIS.   
 
-ADD IMAGE ABOUT THE BASIC IDEA OF NEAREST NEIGHBOR!
+![_**Figure 6.XX**. The basic idea of finding a nearest neighbour based on geographic distance.](../img/nearest-neighbour.png)
+
+_**Figure 6.XX**. The basic idea of finding a nearest neighbour based on geographic distance._
+
 
 One commonly used GIS task is to be able to find the nearest neighbour for an object or a set of objects. For instance, you might have a single Point object representing your home location, and then another set of locations representing e.g. public transport stops. Then, quite typical question is *"which of the stops is closest one to my home?"*
 This is a typical nearest neighbour analysis, where the aim is to find the closest geometry to another geometry.
