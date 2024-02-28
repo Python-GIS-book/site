@@ -214,12 +214,3 @@ left_join.loc[left_join["inhabitants"].isnull()]
 ```
 
 The result from this query reveals the exact locations of the points that miss information in the last four columns of the GeoDataFrame. Okay, but is this all we can do? In some cases, it can be crucial that all features in the target layer would get information from the other dataset even if the spatial predicate between the geometries would not match perfectly. Sometimes fetching information from another layer based on the closest geometry up to a certain distance threshold can be considered sufficient for making a spatial join. Luckily, we can achieve this with relative ease using geopandas which we will learn next.
-
-
-## Spatial join nearest
-
-Geopandas provides a handy functionality for conducting spatial join based on nearest geometries in the other layer. 
-
-```python
-
-```
