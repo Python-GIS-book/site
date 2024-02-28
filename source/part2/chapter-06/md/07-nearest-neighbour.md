@@ -12,13 +12,14 @@ jupyter:
     name: python3
 ---
 
-# Nearest neighbour analysis
+# Nearest neighbour
 
+
+The idea of neighbourhood is one of the fundamental concepts in geographic data analysis and modelling. Being able to understand how close geographic objects are to each other, or which nearby features are neighboring a specific location are underlying various spatial analysis techniques, such as spatial interpolation (which we cover in Chapter 10) or understanding whether there exist spatial autocorrelation (i.e. clustering) in the data (see Chapters [6](https://geographicdata.science/book/notebooks/06_spatial_autocorrelation.html) and [7](https://geographicdata.science/book/notebooks/07_local_autocorrelation.html) in {cite}`Rey_et_al_2023`). Many of these techniques rely on the idea that closeness in geographic space quite often indicates closeness or similarity also in attribute space. For instance, it is quite typical that a neighborhood with high population density is next to another neighborhood that also has high concentration of residents (i.e. the population density tend to cluster). One of the most famous notions related to this is the Tobler's (1970) *First law of geography* which states that "everything is related to everything, but near things are more related than distant things". Thus, being able to understand how close neighboring geographic features are, or which objects are the closest ones to specific location is an important task in GIS.   
 
 ADD IMAGE ABOUT THE BASIC IDEA OF NEAREST NEIGHBOR!
 
-One commonly used GIS task is to be able to find the nearest neighbour for an object or a set of objects. For instance, you might have a single Point object
-representing your home location, and then another set of locations representing e.g. public transport stops. Then, quite typical question is *"which of the stops is closest one to my home?"*
+One commonly used GIS task is to be able to find the nearest neighbour for an object or a set of objects. For instance, you might have a single Point object representing your home location, and then another set of locations representing e.g. public transport stops. Then, quite typical question is *"which of the stops is closest one to my home?"*
 This is a typical nearest neighbour analysis, where the aim is to find the closest geometry to another geometry.
 
 In Python this kind of analysis can be done with shapely function called ``nearest_points()`` that [returns a tuple of the nearest points in the input geometries](https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.nearest_points).
@@ -101,9 +102,6 @@ Let's then see how it is possible to find nearest points from a set of origin po
 - Let's first read in the data and check their structure:
 
 ```python
-import os
-
-os.environ["USE_PYGEOS"] = "0"
 import geopandas as gpd
 import fiona
 ```
@@ -257,7 +255,44 @@ stops = gpd.read_file("data/Helsinki/pt_stops_helsinki.gpkg")
 buildings = read_gdf_from_zip("data/Helsinki/building_points_helsinki.zip")
 ```
 
+```python
+stops = stops.to_crs(epsg=3067)
+buildings = buildings.to_crs(epsg=3067)
+
+closest = buildings.sjoin_nearest(stops, distance_col="distance")
+```
+
+```python
+buildings.tail()
+```
+
+```python
+closest.head()
+```
+
+```python
+# Bring the geometry from the stops
+stops["index"] = stops.index
+closest = closest.merge(stops[["index", "geometry"]], left_on="index_right", right_on="index")
+closest.head()
+```
+
+```python
+from shapely import LineString
+closest["geometry"] = closest.apply(lambda row: LineString([row["geometry_x"], row["geometry_y"]]), axis=1)
+closest = closest.set_geometry("geometry")
+closest.head()
+```
+
 - Let's see how our datasets look like:
+
+```python
+ax = closest.plot(lw=0.5, figsize=(10,10))
+ax = closest.set_geometry("geometry_x").plot(ax=ax, color="red", markersize=2)
+ax = closest.set_geometry("geometry_y").plot(ax=ax, color="black", markersize=8.5, marker="s")
+ax.set_xlim(382000, 384100)
+ax.set_ylim(6676000, 6678000)
+```
 
 ```python
 print(buildings.head(), "\n--------")
