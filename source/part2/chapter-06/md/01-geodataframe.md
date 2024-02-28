@@ -148,6 +148,8 @@ data.plot(column="area_km2")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 6.12**. A map showing census tracts colored based on the size of the Polygon._
+
 As a result, we can more easily spot the larger polygons from the map with brighter colors. There are various ways to modify the appearance of the map and colors, which we will learn later in Chapter 8.
 <!-- #endregion -->
 
@@ -505,7 +507,7 @@ airports.plot(markersize=0.1)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.12**. A basic plot showing the airports from openflights.org._
+_**Figure 6.13**. A basic plot showing the airports from openflights.org._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->

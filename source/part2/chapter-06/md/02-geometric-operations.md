@@ -67,7 +67,7 @@ plt.show()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.13**. Basic plot of the census tracts._
+_**Figure 6.14**. Basic plot of the census tracts._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -96,7 +96,7 @@ plt.show()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.14**. Basic plot of census tract centroids._
+_**Figure 6.15**. Basic plot of census tract centroids._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -110,7 +110,7 @@ data.unary_union
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.15**. Union of all of census tract polygon geometries._
+_**Figure 6.16**. Union of all of census tract polygon geometries._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -134,7 +134,7 @@ data.unary_union.envelope
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.16**. Minimum bounding box for the census tracts._
+_**Figure 6.17**. Minimum bounding box for the census tracts._
 
 Corner coordinates of the bounding box for a `GeoDataFrame` can be fetched via the `total_bounds` attribute: 
 <!-- #endregion -->
@@ -172,7 +172,7 @@ data.unary_union.convex_hull
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.17**. Smallest convex polygon for the census tracts._
+_**Figure 6.18**. Smallest convex polygon for the census tracts._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -197,7 +197,7 @@ concave_hull.plot()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.18**. A concave hull applied with default settings for the census tracts produces interesting shapes._
+_**Figure 6.19**. A concave hull applied with default settings for the census tracts produces interesting shapes._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -245,7 +245,7 @@ ax3.set_title("Ratio 0.4")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.19**. A concave hull with different `ratio` settings produces a varying level of simplification of the input geometry._
+_**Figure 6.20**. A concave hull with different `ratio` settings produces a varying level of simplification of the input geometry._
 
 As we can see, by adjusting the `ratio` parameter, we can have a good control for determining how detailed geometries we get as an output of the concave hull.
 <!-- #endregion -->
@@ -271,7 +271,7 @@ data.unary_union.simplify(tolerance=1000)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.20**. Simplified union of the census tract polygons._
+_**Figure 6.21**. Simplified union of the census tract polygons._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -291,7 +291,7 @@ plt.show()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.21**. 1km buffer for each census tract._
+_**Figure 6.22**. 1km buffer for each census tract._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -304,7 +304,7 @@ data.unary_union.buffer(1000)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.20**. 1km buffer for each census tract._
+_**Figure 6.23**. 1km buffer for each census tract._
 
 Buffer can be used with different geometry types, also with `Point` and `LineString` objects. It is good to notice that if you apply a buffer for points or polygons, the resulting geometry will always be a `Polygon`. 
 <!-- #endregion -->
@@ -361,7 +361,7 @@ plt.show()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.22**. Dissolved census tract geometries._
+_**Figure 6.24**. Dissolved census tract geometries._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -431,7 +431,7 @@ option2.plot()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.23**. Centroids of the census tracts stored in a GeoDataFrame._
+_**Figure 6.25**. Centroids of the census tracts stored in a GeoDataFrame._
 
 By following this approach, you can easily change the active `geometry` for your `GeoDataFrame` based on data stored in different columns. This can be highly useful when manipulating geometries as you can store the geometries from different computational steps into a same `GeoDataFrame` without a need to make multiple copies of the data. However, we recommend to be a bit careful when storing multiple columns with geometries, as it is possible that you accidentally use a different source for geometries than what you have planned to do, which can cause confusion and problems with your analyses. Always remember the name the columns intuitively which can help avoiding issues and confusion in your analyses!
 <!-- #endregion -->
