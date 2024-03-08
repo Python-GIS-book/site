@@ -15,7 +15,12 @@ jupyter:
 # Nearest neighbour analysis
 
 
-The idea of neighbourhood is one of the fundamental concepts in geographic data analysis and modelling. Being able to understand how close geographic objects are to each other, or which nearby features are neighboring a specific location are underlying various spatial analysis techniques, such as spatial interpolation (which we cover in Chapter 10) or understanding whether there exist spatial autocorrelation (i.e. clustering) in the data (see Chapters [6](https://geographicdata.science/book/notebooks/06_spatial_autocorrelation.html) and [7](https://geographicdata.science/book/notebooks/07_local_autocorrelation.html) in {cite}`Rey_et_al_2023`). Many of these techniques rely on the idea that closeness in geographic space quite often indicates closeness or similarity also in attribute space. For instance, it is quite typical that a neighborhood with high population density is next to another neighborhood that also has high concentration of residents (i.e. the population density tend to cluster). One of the most famous notions related to this is the *First law of geography* which states that "everything is related to everything, but near things are more related than distant things" ({cite}`Tobler1970`). Thus, being able to understand how close neighboring geographic features are, or which objects are the closest ones to specific location is an important task in GIS.   
+The idea of neighbourhood is one of the fundamental concepts in geographic data analysis and modelling. Being able to understand how close geographic objects are to each other, or which features are neighboring a specific location is fundamental to various spatial analysis techniques, such as spatial interpolation (which we cover in Chapter 10) or understanding whether there exist spatial autocorrelation (i.e. clustering) in the data (see Chapters [6](https://geographicdata.science/book/notebooks/06_spatial_autocorrelation.html) and [7](https://geographicdata.science/book/notebooks/07_local_autocorrelation.html) in {cite}`Rey_et_al_2023`). Many of these techniques rely on the idea that proximity in geographic space typically indicates also similarity in attribute space. For example, it is quite typical that a neighborhood with high population density is next to another neighborhood that also has high concentration of residents (i.e. the population density tend to cluster). One of the most famous notions related to this is the *First law of geography* which states that "everything is related to everything, but near things are more related than distant things" ({cite}`Tobler1970`). Thus, being able to understand how close neighboring geographic features are, or which objects are the closest ones to specific location is an important task in GIS. 
+
+**Figure 6.43** illustrates two common ways to find nearest neighbors to specific locations. In the first example (top row), the idea is to find closest observation (rectangle) for all the points in the area. Here, the nearest neighbor is determined based on distance between the points and rectangles, and the nearest neighbors are visualized with a line from every point to the closest rectangle. The bottom row shows an example in which we aim to find the closest point for the rectangles, but in this case we also apply a maximum search distance that limits the search area. Only those points that are within the search area are considered when finding the nearest neighbor and the points outside of this area are simply ignored. As a result, we find the point that is closest to the given rectangle which is visualized with a connected line on the right. 
+
+Quite often with very large datasets, we might want to limit the search area up to a specific maximum distance. This can be due to practical reasons as it can significantly speed up the computation time, or because we have specific reasoning that makes it sensible to limit the search area. For example, if we would aim to understand how easily accessible public transportation is to citizens living in a city, it would make sense to limit the search area e.g. up to 2 km from the homes of people, because people are not willing to walk for very long distances to get into a bus stop. It's important to notice that the distances in the calculations are commonly based on the Euclidian distance, i.e. we calculate the distances based on coordinates on a Cartesian plain, meaning that the distances do not consider changes in height (i.e. third dimension is omitted). It is of course possible also to consider 3D distances, but the most typical Python tools ignore the height information. 
+
 
 ![_**Figure 6.43**. The basic idea of finding a nearest neighbour based on geographic distance.](../img/nearest-neighbour.png)
 
@@ -95,6 +100,87 @@ In the tuple, the first item (at index 0) is the geometry of our origin point an
 
 This is the basic logic how we can find the nearest point from a set of points.
 
+
+## Nearest neighbor analysis with large datasets
+
+While Shapely's `nearest_points` -function provides a nice and easy way of conducting the nearest neighbor analysis, it can be quite slow. Using it also requires taking the `unary union` of the point dataset where all the Points are merged into a single layer. This can be a really memory hungry and slow operation, that can cause problems with large point datasets.  
+
+Luckily, there is a much faster and memory efficient alternatives for conducting nearest neighbor analysis, based on a function called [BallTree](https://en.wikipedia.org/wiki/Ball_tree) from a [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate `euclidian` distance between neighbors (good if your data is in metric crs), as well as `haversine` distance which allows to determine [Great Circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) between locations (good if your data is in lat/lon format). *Note: There is also an algorithm called [KDTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree) in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.* 
+
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
+### Motivation
+
+In this tutorial, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in Helsinki Region (around 159 000 buildings) the closest public transport stop (~ 8400 stops). The building points have been fetched from OpenStreetMap using a library called [OSMnx](https://github.com/gboeing/osmnx) (we will learn more about this library later), and the public transport stops have been fetched from open [GTFS dataset for Helsinki Region](https://transitfeeds.com/p/helsinki-regional-transport/735) that contains information about public transport stops, schedules etc. 
+<!-- #endregion -->
+
+## Efficient nearest neighbor search with Geopandas `sjoin`
+
+The following examples show how to conduct nearest neighbor analysis efficiently with large datasets. We will first define the functions and see how to use them, and then we go through the code to understand what happened.
+
+
+- Let's first read the datasets into Geopandas. In case of reading the building data, we will here learn a trick how to read the data directly from a ZipFile. It is very practical to know how to do this, as compressing large datasets is a very common procedure.
+
+```python
+import geopandas as gpd
+from zipfile import ZipFile
+import io
+
+
+def read_gdf_from_zip(zip_fp):
+    """
+    Reads a spatial dataset from ZipFile into GeoPandas. Assumes that there is only a single file (such as GeoPackage)
+    inside the ZipFile.
+    """
+    with ZipFile(zip_fp) as z:
+        # Lists all files inside the ZipFile, here assumes that there is only a single file inside
+        layer = z.namelist()[0]
+        data = gpd.read_file(io.BytesIO(z.read(layer)))
+    return data
+
+
+# Filepaths
+stops = gpd.read_file("data/Helsinki/pt_stops_helsinki.gpkg")
+buildings = read_gdf_from_zip("data/Helsinki/building_points_helsinki.zip")
+```
+
+```python
+stops = stops.to_crs(epsg=3067)
+buildings = buildings.to_crs(epsg=3067)
+
+closest = buildings.sjoin_nearest(stops, distance_col="distance")
+```
+
+```python
+buildings.tail()
+```
+
+```python
+closest.head()
+```
+
+```python
+# Bring the geometry from the stops
+stops["index"] = stops.index
+closest = closest.merge(stops[["index", "geometry"]], left_on="index_right", right_on="index")
+closest.head()
+```
+
+```python
+from shapely import LineString
+closest["geometry"] = closest.apply(lambda row: LineString([row["geometry_x"], row["geometry_y"]]), axis=1)
+closest = closest.set_geometry("geometry")
+closest.head()
+```
+
+- Let's see how our datasets look like:
+
+```python jupyter={"outputs_hidden": true}
+ax = closest.plot(lw=0.5, figsize=(10,10))
+ax = closest.set_geometry("geometry_x").plot(ax=ax, color="red", markersize=2)
+ax = closest.set_geometry("geometry_y").plot(ax=ax, color="black", markersize=8.5, marker="s")
+ax.set_xlim(382000, 384100)
+ax.set_ylim(6676000, 6678000)
+```
 
 ### Nearest points using Geopandas
 
@@ -214,88 +300,6 @@ df1.head()
 ```
 
 That's it! Now we found the closest point for each centroid and got the ``id`` value from our addresses into the ``df1`` GeoDataFrame.
-
-
-## Nearest neighbor analysis with large datasets
-
-While Shapely's `nearest_points` -function provides a nice and easy way of conducting the nearest neighbor analysis, it can be quite slow. Using it also requires taking the `unary union` of the point dataset where all the Points are merged into a single layer. This can be a really memory hungry and slow operation, that can cause problems with large point datasets.  
-
-Luckily, there is a much faster and memory efficient alternatives for conducting nearest neighbor analysis, based on a function called [BallTree](https://en.wikipedia.org/wiki/Ball_tree) from a [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate `euclidian` distance between neighbors (good if your data is in metric crs), as well as `haversine` distance which allows to determine [Great Circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) between locations (good if your data is in lat/lon format). *Note: There is also an algorithm called [KDTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree) in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.* 
-
-
-### Motivation
-
-In this tutorial, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in Helsinki Region (around 159 000 buildings) the closest public transport stop (~ 8400 stops). The building points have been fetched from OpenStreetMap using a library called [OSMnx](https://github.com/gboeing/osmnx) (we will learn more about this library later), and the public transport stops have been fetched from open [GTFS dataset for Helsinki Region](https://transitfeeds.com/p/helsinki-regional-transport/735) that contains information about public transport stops, schedules etc. 
-
-
-### Efficient nearest neighbor search with Geopandas and scikit-learn
-
-The following examples show how to conduct nearest neighbor analysis efficiently with large datasets. We will first define the functions and see how to use them, and then we go through the code to understand what happened.
-
-
-- Let's first read the datasets into Geopandas. In case of reading the building data, we will here learn a trick how to read the data directly from a ZipFile. It is very practical to know how to do this, as compressing large datasets is a very common procedure.
-
-```python
-import geopandas as gpd
-from zipfile import ZipFile
-import io
-
-
-def read_gdf_from_zip(zip_fp):
-    """
-    Reads a spatial dataset from ZipFile into GeoPandas. Assumes that there is only a single file (such as GeoPackage)
-    inside the ZipFile.
-    """
-    with ZipFile(zip_fp) as z:
-        # Lists all files inside the ZipFile, here assumes that there is only a single file inside
-        layer = z.namelist()[0]
-        data = gpd.read_file(io.BytesIO(z.read(layer)))
-    return data
-
-
-# Filepaths
-stops = gpd.read_file("data/Helsinki/pt_stops_helsinki.gpkg")
-buildings = read_gdf_from_zip("data/Helsinki/building_points_helsinki.zip")
-```
-
-```python
-stops = stops.to_crs(epsg=3067)
-buildings = buildings.to_crs(epsg=3067)
-
-closest = buildings.sjoin_nearest(stops, distance_col="distance")
-```
-
-```python
-buildings.tail()
-```
-
-```python
-closest.head()
-```
-
-```python
-# Bring the geometry from the stops
-stops["index"] = stops.index
-closest = closest.merge(stops[["index", "geometry"]], left_on="index_right", right_on="index")
-closest.head()
-```
-
-```python
-from shapely import LineString
-closest["geometry"] = closest.apply(lambda row: LineString([row["geometry_x"], row["geometry_y"]]), axis=1)
-closest = closest.set_geometry("geometry")
-closest.head()
-```
-
-- Let's see how our datasets look like:
-
-```python
-ax = closest.plot(lw=0.5, figsize=(10,10))
-ax = closest.set_geometry("geometry_x").plot(ax=ax, color="red", markersize=2)
-ax = closest.set_geometry("geometry_y").plot(ax=ax, color="black", markersize=8.5, marker="s")
-ax.set_xlim(382000, 384100)
-ax.set_ylim(6676000, 6678000)
-```
 
 ```python
 print(buildings.head(), "\n--------")
