@@ -17,7 +17,7 @@ jupyter:
 
 The idea of neighbourhood is one of the fundamental concepts in geographic data analysis and modelling. Being able to understand how close geographic objects are to each other, or which features are neighboring a specific location is fundamental to various spatial analysis techniques, such as spatial interpolation (which we cover in Chapter 10) or understanding whether there exist spatial autocorrelation (i.e. clustering) in the data (see Chapters [6](https://geographicdata.science/book/notebooks/06_spatial_autocorrelation.html) and [7](https://geographicdata.science/book/notebooks/07_local_autocorrelation.html) in {cite}`Rey_et_al_2023`). Many of these techniques rely on the idea that proximity in geographic space typically indicates also similarity in attribute space. For example, it is quite typical that a neighborhood with high population density is next to another neighborhood that also has high concentration of residents (i.e. the population density tend to cluster). One of the most famous notions related to this is the *First law of geography* which states that "everything is related to everything, but near things are more related than distant things" ({cite}`Tobler1970`). Thus, being able to understand how close neighboring geographic features are, or which objects are the closest ones to specific location is an important task in GIS. 
 
-**Figure 6.43** illustrates two common ways to find nearest neighbors to specific locations. In the first example (top row), the idea is to find closest observation (rectangle) for all the points in the area. Here, the nearest neighbor is determined based on distance between the points and rectangles, and the nearest neighbors are visualized with a line from every point to the closest rectangle. The bottom row shows an example in which we aim to find the closest point for the rectangles, but in this case we also apply a maximum search distance that limits the search area. Only those points that are within the search area are considered when finding the nearest neighbor and the points outside of this area are simply ignored. As a result, we find the point that is closest to the given rectangle which is visualized with a connected line on the right. 
+**Figure 6.43** illustrates two common ways to find nearest neighbors to specific locations. In these examples, we have two Point datasets visualized with blue circles and red rectangles that are used for doing the nearest neighbor analysis. In the first example (top row), the idea is to find the closest geometry (rectangles) for all the points in the area. Here, the nearest neighbor is determined based on distance between the points and rectangles, and the nearest neighbors are visualized with a line from every point to the closest rectangle (on the right). The bottom row shows an example in which we aim to find the closest point for each rectangle, but in this case we also apply a maximum search distance that limits the search area. Only those points that are within the search area are considered when finding the nearest neighbor, while the points outside of this area are simply ignored. As a result, the point closest to a given rectangle is visualized with a connected line (on the right). In these examples, the geographic objects are simple point like features, but similar approach can be used with any geographic features, for example by finding closest LineString or Polygon geometry to a given Point, or by finding the closest Polygon to another Polygon. In these cases, the calculations are a bit more complicated, but the basic idea is the same. 
 
 Quite often with very large datasets, we might want to limit the search area up to a specific maximum distance. This can be due to practical reasons as it can significantly speed up the computation time, or because we have specific reasoning that makes it sensible to limit the search area. For example, if we would aim to understand how easily accessible public transportation is to citizens living in a city, it would make sense to limit the search area e.g. up to 2 km from the homes of people, because people are not willing to walk for very long distances to get into a bus stop. It's important to notice that the distances in the calculations are commonly based on the Euclidian distance, i.e. we calculate the distances based on coordinates on a Cartesian plain, meaning that the distances do not consider changes in height (i.e. third dimension is omitted). It is of course possible also to consider 3D distances, but the most typical Python tools ignore the height information. 
 
@@ -27,25 +27,18 @@ Quite often with very large datasets, we might want to limit the search area up 
 _**Figure 6.43**. The basic idea of finding a nearest neighbour based on geographic distance._
 
 
-One commonly used GIS task is to be able to find the nearest neighbour for an object or a set of objects. For instance, you might have a single Point object representing your home location, and then another set of locations representing e.g. public transport stops. Then, quite typical question is *"which of the stops is closest one to my home?"*
-This is a typical nearest neighbour analysis, where the aim is to find the closest geometry to another geometry.
+## Nearest neighbour analysis with Python
 
-In Python this kind of analysis can be done with shapely function called ``nearest_points()`` that [returns a tuple of the nearest points in the input geometries](https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.nearest_points).
+In Python, there are various libraries that can be used to find nearest neighbors for given set of geometries, including `shapely`, `geopandas`, `scikit-learn`, and `pysal` among others. Here, we focus on first introducing how `shapely` can be used to find the nearest neighbor for a given Point geometry, and then we show how to find nearest neighbors for all geometries in a given GeoDataFrame based on geometries in another GeoDataFrame. 
 
-
-### Nearest point using Shapely
-
-Let's start by testing how we can find the nearest Point using the ``nearest_points()`` function of Shapely.
-
-- Let's create an origin Point and a few destination Points and find out the closest destination:
-
-<!-- #endregion -->
+In `shapely`, we can do a simple nearest neighbour analysis between Point observations using a function called `nearest_points()` which returns a tuple of the nearest points in the input geometries.
+Let's start by creating a "source" Point object and a few "destination" Points and find out which of the points in "destination" set of geometries is the closest:
 
 ```python
-from shapely.geometry import Point, MultiPoint
+from shapely import Point, MultiPoint
 from shapely.ops import nearest_points
 
-# Origin point
+# Source point
 orig = Point(1, 1.67)
 
 # Destination points
@@ -54,7 +47,7 @@ dest2 = Point(2, 2)
 dest3 = Point(0, 2.5)
 ```
 
-To be able to find out the closest destination point from the origin, we need to create a MultiPoint object from the destination points.
+Now we have one source point and three destination points. To be able to find out the closest destination point from the source, we need to create a MultiPoint object from the destination points:
 
 ```python
 destinations = MultiPoint([dest1, dest2, dest3])
@@ -65,24 +58,16 @@ print(destinations)
 destinations
 ```
 
-_**Figure 6.37**. ADD PROPER FIGURE CAPTION!._
+_**Figure 6.44**. A set of geometries represented as MultiPoint object which are used in nearest neighbor computation._
 
-Okey, now we can see that all the destination points are represented as a single MultiPoint object.
-
-- Now we can find out the nearest destination point by using ``nearest_points()`` function:
-
+As we can see from Figure 6.44, all the destination points are represented as a single MultiPoint object. Now we can find the nearest point from the `destination` variable by using the `nearest_points()` function:
 
 ```python
-nearest_geoms = nearest_points(orig, destinations)
+nearest_geometries = nearest_points(orig, destinations)
+type(nearest_geometries)
 ```
 
-- We can check the data type of this object and confirm that the ``nearest_points()`` function returns a tuple of nearest points:
-
-```python
-type(nearest_geoms)
-```
-
- - let's check the contents of this tuple:
+As we can see, the `nearest_points()` function returns a tuple. Let's take a look at the contents of this variable: 
 
 ```python
 print(nearest_geoms)
@@ -90,73 +75,75 @@ print(nearest_geoms)
 
 ```python
 print(nearest_geoms[0])
-```
-
-```python
 print(nearest_geoms[1])
 ```
 
-In the tuple, the first item (at index 0) is the geometry of our origin point and the second item (at index 1) is the actual nearest geometry from the destination points. Hence, the closest destination point seems to be the one located at coordinates (0, 1.45).
-
-This is the basic logic how we can find the nearest point from a set of points.
+In the tuple, the first item (at index 0) is the geometry of our source point and the second item (at index 1) is the actual nearest geometry from the destination points. Hence, the closest destination point seems to be the one located at coordinates (0, 1.45). This is the basic logic how we can find the nearest point from a set of points using `shapely`. While Shapely's `nearest_points` function provides a nice way to conduct the nearest neighbor analysis, it can be quite slow. Using it also requires taking the `unary union` of the point dataset where all the Points are merged into a single layer. This can be a really memory hungry and slow operation, that can cause problems with large point datasets. Luckily, we can do nearest neighbor analysis much more efficiently using geopandas. 
 
 
-## Nearest neighbor analysis with large datasets
+## Nearest neighbor analysis between GeoDataFrames
 
-While Shapely's `nearest_points` -function provides a nice and easy way of conducting the nearest neighbor analysis, it can be quite slow. Using it also requires taking the `unary union` of the point dataset where all the Points are merged into a single layer. This can be a really memory hungry and slow operation, that can cause problems with large point datasets.  
-
-Luckily, there is a much faster and memory efficient alternatives for conducting nearest neighbor analysis, based on a function called [BallTree](https://en.wikipedia.org/wiki/Ball_tree) from a [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate `euclidian` distance between neighbors (good if your data is in metric crs), as well as `haversine` distance which allows to determine [Great Circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) between locations (good if your data is in lat/lon format). *Note: There is also an algorithm called [KDTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree) in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.* 
-
-<!-- #region jp-MarkdownHeadingCollapsed=true -->
-### Motivation
-
-In this tutorial, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in Helsinki Region (around 159 000 buildings) the closest public transport stop (~ 8400 stops). The building points have been fetched from OpenStreetMap using a library called [OSMnx](https://github.com/gboeing/osmnx) (we will learn more about this library later), and the public transport stops have been fetched from open [GTFS dataset for Helsinki Region](https://transitfeeds.com/p/helsinki-regional-transport/735) that contains information about public transport stops, schedules etc. 
-<!-- #endregion -->
-
-## Efficient nearest neighbor search with Geopandas `sjoin`
-
-The following examples show how to conduct nearest neighbor analysis efficiently with large datasets. We will first define the functions and see how to use them, and then we go through the code to understand what happened.
-
-
-- Let's first read the datasets into Geopandas. In case of reading the building data, we will here learn a trick how to read the data directly from a ZipFile. It is very practical to know how to do this, as compressing large datasets is a very common procedure.
+In the following, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in the Helsinki Region the closest public transport stop. In geopandas, we can find nearest neighbors for all geometries in a given GeoDataFrame based on another GeoDataFrame very easily by using a method called `.sjoin_nearest()`. To show how to use this method, let's start by reading the datasets into GeoDataFrames and visualize them to understand a bit better what we have. 
 
 ```python
 import geopandas as gpd
-from zipfile import ZipFile
-import io
+import matplotlib.pyplot as plt
 
-
-def read_gdf_from_zip(zip_fp):
-    """
-    Reads a spatial dataset from ZipFile into GeoPandas. Assumes that there is only a single file (such as GeoPackage)
-    inside the ZipFile.
-    """
-    with ZipFile(zip_fp) as z:
-        # Lists all files inside the ZipFile, here assumes that there is only a single file inside
-        layer = z.namelist()[0]
-        data = gpd.read_file(io.BytesIO(z.read(layer)))
-    return data
-
-
-# Filepaths
 stops = gpd.read_file("data/Helsinki/pt_stops_helsinki.gpkg")
-buildings = read_gdf_from_zip("data/Helsinki/building_points_helsinki.zip")
+buildings = gpd.read_file("data/Helsinki/building_points_helsinki.zip")
+
+print("Number of stops:", len(stops))
+stops.head(2)
 ```
+
+```python
+print("Number of buildings:", len(buildings))
+buildings.head(2)
+```
+
+As we can see, both GeoDataFrames contain Point geometries. There seems to be approximately 8400 stops and almost 159 thousand buildings in our data. Hence, we have already a fair amount of data and calculations to do, to find the nearest neighbor for each building. Let's still visualize the GeoDataFrames next to each other so that we can see them on a map:
+
+```python
+fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(15, 10))
+
+# Plot buildings
+buildings.plot(ax=ax1, markersize=0.2, alpha=0.5)
+ax1.set_title("Buildings")
+
+# Plot stops
+stops.plot(ax=ax2, markersize=0.2, alpha=0.5, color="red")
+ax2.set_title("Stops");
+```
+
+_**Figure 6.45**. Maps representing the buildings and public transport stops which we use to find the closest stop for each building._
+
+As mentioned earlier, finding the nearest geometries between two GeoDataFrames (here building and stop points) can be done easily using the `.sjoin_nearest()` method in geopandas. As the name implies, this method is actually designed to merge data between GeoDataFrames in a similar manner as with regular `.sjoin()` method that we saw earlier in Chapter 6.7. However, in this case the method is actually searching for the closest geometries instead of relying on spatial predicates, such as *within*. The `sjoin_nearest()` can be used for different geometry types, so the input geometries do not necessarily need to be Point objects as in our example. For the method to work properly, it is recommended to ensure that the both GeoDataFrames are having the same coordinate reference system (CRS), and preferably having a projected (metric) CRS because that ensures that the reported distances are meaningful (in meters) and correct. Hence, let's start by reprojecting our latitude and longitude values into a metric system using the national EUREF-FIN coordinate reference system (EPSG code 3067) for Finland:
 
 ```python
 stops = stops.to_crs(epsg=3067)
 buildings = buildings.to_crs(epsg=3067)
 
+stops.head(2)
+```
+
+Now the GeoDataFrames are surely in the same coordinate system and we can see that the coordinates in the `geometry` column have changed representing meters. Next, we will use the `buildings.sjoin_nearest()` to find the closest stop for each building. Because we are interested to find the closest stop geometry for each building, the `buildings` GeoDataFrame is the left hand side of the command. As inputs, we pass the `stops` GeoDataFrame as well as give a name for a column which is used to store information about the distance between a given building and the closest stop (this is optional):
+
+```python
+%time
 closest = buildings.sjoin_nearest(stops, distance_col="distance")
+closest
 ```
 
-```python
-buildings.tail()
-```
+As a result, we now have found the closest stop for each building and also merged the attributes of the `stops` GeoDataFrame into the results. The last column in the table shows the distance in meters between a given building and the closest stop to it which we specified to be stored in the column `distance`. The `%time` command at the beginning of the cell provided us some details about the time it took to find the nearest neighbors and merge the data. As we can see the computations are very efficient taking only a matter of some microseconds for the almost 160 thousand observations. We can make this even faster by specifying a `max_distance` parameter the maximum search distance from a given geometry. Here, we specify the maximum distance to be 100 meters from each building:
 
 ```python
-closest.head()
+%time
+closest_limited = buildings.sjoin_nearest(stops, max_distance=100, distance_col="distance")
+closest_limited
 ```
+
+As we can see, there was a slight improvement in the execution time compared to the previous call without specifying the `max_distance` parameter. One important aspect to notice from the results is that the number of rows in our results has decreased significantly from 160 to 40 thousand buildings. This happens because our search distance was very low (100 meters) which means that there were many buildings that did not have any buildings within 100 meters from them. Because the default join type in `sjoin_nearest` is `inner` join, all the records that did not have a match were dropped. If you would like to keep all the buildings in the results to e.g. investigate which buildings do not have any stops within 100 meters, you can add parameter `how="left"` which will retain all the records in the `buildings` GeoDataFrame.
+
 
 ```python
 # Bring the geometry from the stops
@@ -174,7 +161,7 @@ closest.head()
 
 - Let's see how our datasets look like:
 
-```python jupyter={"outputs_hidden": true}
+```python
 ax = closest.plot(lw=0.5, figsize=(10,10))
 ax = closest.set_geometry("geometry_x").plot(ax=ax, color="red", markersize=2)
 ax = closest.set_geometry("geometry_y").plot(ax=ax, color="black", markersize=8.5, marker="s")
@@ -182,13 +169,7 @@ ax.set_xlim(382000, 384100)
 ax.set_ylim(6676000, 6678000)
 ```
 
-### Nearest points using Geopandas
-
-Let's then see how it is possible to find nearest points from a set of origin points to a set of destination points using GeoDataFrames. Here, we will use the ``PKS_suuralueet.kml`` district data, and the ``addresses.shp`` address points from previous sections. 
-
-**Our goal in this tutorial is to find out the closest address to the centroid of each district.**
-
-- Let's first read in the data and check their structure:
+There are also other fast and memory efficient alternatives for conducting nearest neighbor analysis between point datasets, based on a function called [BallTree](https://en.wikipedia.org/wiki/Ball_tree) from a [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate `euclidian` distance between neighbors (good if your data is in metric crs), as well as `haversine` distance which allows to determine [Great Circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) between locations (good if your data is in lat/lon format). *Note: There is also an algorithm called [KDTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree) in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.* 
 
 ```python
 import geopandas as gpd
