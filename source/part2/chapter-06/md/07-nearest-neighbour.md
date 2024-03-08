@@ -27,7 +27,7 @@ Quite often with very large datasets, we might want to limit the search area up 
 _**Figure 6.43**. The basic idea of finding a nearest neighbour based on geographic distance._
 
 
-## Nearest neighbour analysis with Python
+## Nearest neighbour analysis in Python
 
 In Python, there are various libraries that can be used to find nearest neighbors for given set of geometries, including `shapely`, `geopandas`, `scikit-learn`, and `pysal` among others. Here, we focus on first introducing how `shapely` can be used to find the nearest neighbor for a given Point geometry, and then we show how to find nearest neighbors for all geometries in a given GeoDataFrame based on geometries in another GeoDataFrame. 
 
@@ -83,7 +83,7 @@ In the tuple, the first item (at index 0) is the geometry of our source point an
 
 ## Nearest neighbor analysis between GeoDataFrames
 
-In the following, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in the Helsinki Region the closest public transport stop. In geopandas, we can find nearest neighbors for all geometries in a given GeoDataFrame based on another GeoDataFrame very easily by using a method called `.sjoin_nearest()`. To show how to use this method, let's start by reading the datasets into GeoDataFrames and visualize them to understand a bit better what we have. 
+In the following, we go through a very practical example that relates to our daily commute: Where is the closest public transport stop from my place of living? Hence, our aim is to search for each building in the Helsinki Region the closest public transport stop. In geopandas, we can find nearest neighbors for all geometries in a given GeoDataFrame very easily by using a method called `.sjoin_nearest()`. To show how to use this method, let's start by reading two datasets representing buildings and stops into GeoDataFrames, and visualize them to understand a bit better what we have:
 
 ```python
 import geopandas as gpd
@@ -134,7 +134,9 @@ closest = buildings.sjoin_nearest(stops, distance_col="distance")
 closest
 ```
 
-As a result, we now have found the closest stop for each building and also merged the attributes of the `stops` GeoDataFrame into the results. The last column in the table shows the distance in meters between a given building and the closest stop to it which we specified to be stored in the column `distance`. The `%time` command at the beginning of the cell provided us some details about the time it took to find the nearest neighbors and merge the data. As we can see the computations are very efficient taking only a matter of some microseconds for the almost 160 thousand observations. We can make this even faster by specifying a `max_distance` parameter the maximum search distance from a given geometry. Here, we specify the maximum distance to be 100 meters from each building:
+As a result, we now have found the closest stop for each building including the attributes of the closest stops that were merged into the results. The last column in the table shows the distance in meters between a given building and the closest stop. The distance is only returned upon request as we did by specifying `distance_col="distance"`. The column `index_right` provides information about the index number of the closest stop in the `stops` GeoDataFrame. If you look carefully, you can see that the number of rows in our result has actually increased slightly from the original (158731 vs 159818). This happens because for some geometries in the `buildings` GeoDataFrame, the distance between the building and two (or more) stops have been exactly the same (i.e. they are equidistant). In such cases, the `sjoin_nearest()` will store both records into the results by duplicating the building information and attaching information from the stops into separate rows accordingly. In some cases, this can cause trouble for further analysis, so it is good to be careful and investigate whether any duplicate buildings have emerged into the results. If they have emerged, and if this causes issues in your analysis, you might need to pick one of them based on some criteria. Alternatively, you can just pick the first (or last) one if you do not have any specific justification for making the selection.
+
+The `%time` command at the beginning of the cell provides us some details about the time it took to find the nearest neighbors and merge the data between the two GeoDataFrames. As we can see, the computations are very efficient taking only a matter of some microseconds for almost 159 thousand observations. We can make this even faster by specifying a `max_distance` parameter that specifies the maximum search distance. Here, we specify the maximum distance as 100 meters from each building:
 
 ```python
 %time
@@ -142,15 +144,17 @@ closest_limited = buildings.sjoin_nearest(stops, max_distance=100, distance_col=
 closest_limited
 ```
 
-As we can see, there was a slight improvement in the execution time compared to the previous call without specifying the `max_distance` parameter. One important aspect to notice from the results is that the number of rows in our results has decreased significantly from 160 to 40 thousand buildings. This happens because our search distance was very low (100 meters) which means that there were many buildings that did not have any buildings within 100 meters from them. Because the default join type in `sjoin_nearest` is `inner` join, all the records that did not have a match were dropped. If you would like to keep all the buildings in the results to e.g. investigate which buildings do not have any stops within 100 meters, you can add parameter `how="left"` which will retain all the records in the `buildings` GeoDataFrame.
+As we can see, there was a slight improvement in the execution time compared to the previous call without specifying the `max_distance` parameter. The difference can be more significant if you have larger datasets or more complicated geometries (e.g. Polygons). One important aspect to notice from these results is that the number of rows has decreased significantly: from 160 to 40 thousand buildings. This happens because our search distance was very low (100 meters), and as a consequence, there were many buildings that did not have any stops within 100 meter radius from them. Because the default join type in `sjoin_nearest` is `inner` join, all the records that did not have a stop within 100 meters were dropped. If you would like to keep all the records in the results, to e.g. investigate which buildings do not have any stops within the search radius, you can add parameter `how="left"`, which will retain all buildings from the original GeoDataFrame.
 
+In some cases, you might actually want to connect the nearest neighbors to each other with a straight line. For doing this, we need to merge also the Point geometries from the other layer into our results, which can then be used to create a LineString connecting the points to each other. This can be useful for many purposes, but in our case, we want to do this to be able to validate whether our results are correct. For merging the closest stop geometries into our results, we can take advantage of the `index_right` column in our table and conduct a normal table join using the `.merge()` method. Below, we first store the index of the `stops` GeoDataFrame into a column called `stop_index` and then use this to make a table join with our `closest` GeoDataFrame. Notice that we only keep the `stop_index` and `geometry` columns from the `stops` GeoDataFrame because all the other attributes already exist in our results: 
 
 ```python
-# Bring the geometry from the stops
-stops["index"] = stops.index
-closest = closest.merge(stops[["index", "geometry"]], left_on="index_right", right_on="index")
+stops["stop_index"] = stops.index
+closest = closest.merge(stops[["stop_index", "geometry"]], left_on="index_right", right_on="stop_index")
 closest.head()
 ```
+
+As a result, we now brought two new columns into our results, namely `stop_index` and `geometry_y`. Because there was a column called `geometry` in both GeoDataFrames, geopandas automatically renamed the columns into `geometry_x` and `geometry_y` respectively. Now we have all the data that we need to create a connecting `LineString` between the buildings and the closest stops. We can do this by looping over the rows in our `closest` GeoDataFrame using the `.apply()` method (see Chapter 3.3 for more details) and then create the line by calling the shapely's `LineString` object which takes the Point geometries as input. We store these LineStrings into a column `geometry` which we lastly set to be the active geometry of the GeoDataFrame:    
 
 ```python
 from shapely import LineString
@@ -159,159 +163,35 @@ closest = closest.set_geometry("geometry")
 closest.head()
 ```
 
-- Let's see how our datasets look like:
+Great! Now we have created a new geometry column that contains the lines between buildings and the closest stops. To better understand the results, let's create a nice map that visualizes the buildings, stops and the connecting lines between the buildings and the closest stops in a single figure: 
 
 ```python
 ax = closest.plot(lw=0.5, figsize=(10,10))
-ax = closest.set_geometry("geometry_x").plot(ax=ax, color="red", markersize=2)
-ax = closest.set_geometry("geometry_y").plot(ax=ax, color="black", markersize=8.5, marker="s")
+ax = buildings.plot(ax=ax, color="red", markersize=2)
+ax = stops.plot(ax=ax, color="black", markersize=8.5, marker="s")
+# Zoom to specific area
 ax.set_xlim(382000, 384100)
-ax.set_ylim(6676000, 6678000)
+ax.set_ylim(6676000, 6678000);
 ```
 
-There are also other fast and memory efficient alternatives for conducting nearest neighbor analysis between point datasets, based on a function called [BallTree](https://en.wikipedia.org/wiki/Ball_tree) from a [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) library. The Balltree algorithm has some nice features, such as the ability to calculate the distance between neighbors with various different distance metrics. Most importantly the function allows to calculate `euclidian` distance between neighbors (good if your data is in metric crs), as well as `haversine` distance which allows to determine [Great Circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) between locations (good if your data is in lat/lon format). *Note: There is also an algorithm called [KDTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree) in scikit-learn, that is also highly efficient but less flexible in terms of supported distance metrics.* 
+_**Figure 6.46**. A map showing the buildings (red points), the stops (black rectangles) and the lines between the buildings and the closest stops._
+
+As we can see from the Figure 6.46, the nearest neighbor search have worked well as planned, and each building marked with red color has been correctly connected with a line to the closest stop. The map reveals that there are multiple isolated stops that do not have any buildings connected to them. As a practical example, this information could be used e.g. for transport planning by investigating whether these isolated stops are less used by citizens to get on board of the public transport vehicles. This information could again be used by transport planners to decide whether there is a need to maintain these isolated stops. Thus, with these rather simple computations, one can already provide useful information that has relevance in real life. Finally, because we have calculated the distance between buildings and the stops, it is easy to do some descriptive analysis based on this data providing information about levels of access to public transport in the region: 
 
 ```python
-import geopandas as gpd
-import fiona
+closest["distance"].describe()
 ```
 
-```python
-# Define filepaths
-fp1 = "data/Helsinki/PKS_suuralue.kml"
-fp2 = "data/Helsinki/addresses.shp"
-```
-
-```python
-# Enable KML driver
-fiona.supported_drivers["KML"] = "rw"
-```
-
-```python
-# Read in data with geopandas
-df1 = gpd.read_file(fp1, driver="KML")
-df2 = gpd.read_file(fp2)
-```
-
-```python
-# District polygons:
-df1.head()
-```
-
-```python
-# Address points:
-df2.head()
-```
-
-Before calculating any distances, we should re-project the data into a projected crs.
-
-```python
-df1 = df1.to_crs(epsg=3067)
-df2 = df2.to_crs(epsg=3067)
-```
-
-Furthermore, let's calculate the centroids for each district area:
-
-```python
-df1["centroid"] = df1.centroid
-df1.head()
-```
-
-SO, for each row of data in the disctricts -table, we want to figure out the nearest address point and fetch some attributes related to that point. In other words, we want to apply the Shapely `nearest_points`function so that we compare each polygon centroid to all address points, and based on this information access correct attribute information from the address table. 
-
-For doing this, we can create a function that we will apply on the polygon GeoDataFrame:
-
-```python
-def get_nearest_values(
-    row, other_gdf, point_column="geometry", value_column="geometry"
-):
-    """Find the nearest point and return the corresponding value from specified value column."""
-
-    # Create an union of the other GeoDataFrame's geometries:
-    other_points = other_gdf["geometry"].unary_union
-
-    # Find the nearest points
-    nearest_geoms = nearest_points(row[point_column], other_points)
-
-    # Get corresponding values from the other df
-    nearest_data = other_gdf.loc[other_gdf["geometry"] == nearest_geoms[1]]
-
-    nearest_value = nearest_data[value_column].values[0]
-
-    return nearest_value
-```
-
-By default, this function returns the geometry of the nearest point for each row. It is also possible to fetch information from other columns by changing the `value_column` parameter.
+As we can see, the average distance to public transport in the region is around 230 meters. More than 75 % of the buildings seem to be within within 3.5 minute walking time (~260 meters with walking speed of 4.5 kmph) which indicates very good situation in terms of accessibility levels in the region overall. There seem to be some really remote buildings in the data as well, as the longest distance to closest public transport stop is more than 7 kilometers.
 
 
-The function creates a MultiPoint object from `other_gdf` geometry column (in our case, the address points) and further passes this MultiPoint object to Shapely's `nearest_points` function. 
-
-Here, we are using a method for creating an union of all input geometries called `unary_union`. 
-
-- Let's check how unary union works by applying it to the address points GeoDataFrame:
-
-```python
-unary_union = df2.unary_union
-print(unary_union)
-```
-
-Okey now we are ready to use our function and find closest address point for each polygon centroid.
- - Try first applying the function without any additional modifications: 
-
-```python
-df1["nearest_loc"] = df1.apply(
-    get_nearest_values, other_gdf=df2, point_column="centroid", axis=1
-)
-```
-
-- Finally, we can specify that we want the `id` -column for each point, and store the output in a new column `"nearest_loc"`:
-
-```python
-df1["nearest_loc"] = df1.apply(
-    get_nearest_values,
-    other_gdf=df2,
-    point_column="centroid",
-    value_column="id",
-    axis=1,
-)
-```
-
-```python
-df1.head()
-```
-
-That's it! Now we found the closest point for each centroid and got the ``id`` value from our addresses into the ``df1`` GeoDataFrame.
-
-```python
-print(buildings.head(), "\n--------")
-print(stops.head())
-```
-
-Okay, so both of our datasets consisting points, and based on the coordinates, they seem to be in WGS84 projection.
-
-- Let's also make maps out of them to get a better understanding of the data
-
-```python
-%matplotlib inline
-import matplotlib.pyplot as plt
-
-fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
-
-# Plot buildings
-buildings.plot(ax=axes[0], markersize=0.2, alpha=0.5)
-axes[0].set_title("Buildings")
-
-# Plot stops
-stops.plot(ax=axes[1], markersize=0.2, alpha=0.5, color="red")
-axes[1].set_title("Stops");
-```
-
-_**Figure 6.38**. ADD PROPER FIGURE CAPTION!._
-
-As we can see, we have a very densely distributed Point dataset that shows the location of the buildings (their centroid) in Helsinki Region. On the right, we have public transport stops that seem to cover a bit broader geographical extent with a few train stops reaching further North. Most importantly, we can see from the coordinates and the map that both of the layers share the same coordinate reference system, and they are approximately from the same geographical region. Hence, we are ready to find closest public transport stop (on the right) for each building on the left map.     
+### ADD EXAMPLE NEAREST NEIGHBOR BETWEEN POLYGONS AND LINESTRINGS
 
 
-- Let's first prepare a couple of functions that does the work
+TO BE ADDED.
+
+
+## K-nearest neighbor analysis
 
 ```python
 from sklearn.neighbors import BallTree
@@ -438,7 +318,7 @@ buildings.head()
 
 Excellent! Now we have useful information for each building about the closest stop including the `distance` (in meters) and also e.g. the name of the stop in `stop_name` column. 
 
-- Now it is easy to do some descriptive analysis based on this dataset, that gives information about levels of access to public transport in the region: 
+Now it is easy to do some descriptive analysis based on this dataset, that gives information about levels of access to public transport in the region: 
 
 ```python
 buildings["distance"].describe()
@@ -447,67 +327,3 @@ buildings["distance"].describe()
 Okay, as we can see the average distance to public transport in the region is around 300 meters. More than 75 % of the buildings seem to be within within 5 minute walking time (~370 meters with walking speed of 4.5 kmph) which indicates generally a good situation in terms of accessibility levels in the region overall. There seem to be some really remote buildings in the data as well, as the longest distance to closest public transport stop is more than 7 kilometers.
 
 - Let's make a map out of the distance information to see if there are some spatial patterns in the data in terms of accessibility levels:
-
-```python
-buildings.plot(
-    column="distance",
-    markersize=0.2,
-    alpha=0.5,
-    figsize=(10, 10),
-    scheme="quantiles",
-    k=4,
-    legend=True,
-)
-```
-
-_**Figure 6.39**. ADD PROPER FIGURE CAPTION!._
-
-Okay, as we can see, there are some clear spatial patterns in the levels of access to public transport. The buildings with the shortest distances (i.e. best accessibility) are located in the densely populated areas, whereas the buildings locating in the periferial areas (such as islands on the South, and nature areas in the North-West) tend to have longer distance to public transport. 
-
-
-### Are the results correct? Validation
-
-As a final step, it's good to ensure that our functions are working as they should. This can be done easily by examining the data visually.
-
-- Let's first create LineStrings between the building and closest stop points:
-
-```python
-from shapely.geometry import LineString
-
-# Create a link (LineString) between building and stop points
-buildings["link"] = buildings.apply(
-    lambda row: LineString([row["geometry"], row["closest_stop_geom"]]), axis=1
-)
-
-# Set link as the active geometry
-building_links = buildings.copy()
-building_links = building_links.set_geometry("link")
-```
-
-- Let's now visualize the building points, stops and the links, and zoom to certain area so that we can investigate the results, and confirm that everything looks correct.
-
-```python
-# Plot the connecting links between buildings and stops and color them based on distance
-ax = building_links.plot(
-    column="distance",
-    cmap="Greens",
-    scheme="quantiles",
-    k=4,
-    alpha=0.8,
-    lw=0.7,
-    figsize=(13, 10),
-)
-ax = buildings.plot(ax=ax, color="yellow", markersize=1, alpha=0.7)
-ax = stops.plot(ax=ax, markersize=4, marker="o", color="red", alpha=0.9, zorder=3)
-
-# Zoom closer
-ax.set_xlim([24.99, 25.01])
-ax.set_ylim([60.26, 60.275])
-
-# Set map background color to black, which helps with contrast
-ax.set_facecolor("black")
-```
-
-_**Figure 6.40**. ADD PROPER FIGURE CAPTION!._
-
-Voilá, these weird star looking shapes are formed around public transport stops (red) where each link is associated buildings (yellow points) that are closest to the given stop. The color intensity varies according the distance between the stops and buildings. Based on this figure we can conclude that our nearest neighbor search was succesfull and worked as planned.
