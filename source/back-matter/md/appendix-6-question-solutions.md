@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-# Solutions to questions
+# Question solutions
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->

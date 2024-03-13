@@ -100,7 +100,7 @@ Left outer join
   A left outer join includes all the rows from the left (Geo)DataFrame and those rows from the right (Geo)DataFrame that have a matching key in the table, or that intersect or match based on the specified spatial relationship (e.g., intersects, contains, within). If there is no matching row in the right (Geo)DataFrame for a row in the left (Geo)DataFrame, the result will still include the row from the left (Geo)DataFrame, but with missing values (NaNs) in the columns from the right (Geo)DataFrame.
 
 Library
-  A group of related modules. See definition of a *{term}`module`*.
+  A group of related modules. See definition of a {term}`module`.
 
 List
   A data type in Python that can be used to store collections of values. Values in Python lists can be added, removed, or modified, and the list items do not need to be the same data types. Python lists are enclosed in square brackets (`[` `]`) and list items are separated by commas.
@@ -153,7 +153,7 @@ Spatial resolution
   The spatial resolution of a raster refers typically to the size of the cells in a raster dataset. It can also mean the ratio of screen pixels to image pixels at the current map scale. 
 
 Spatial predicate
-  Spatial predicate is an output from *{term}`DE-9IM`* model that describe the spatial relationship between two geometric objects. Example spatial predicates are within, contains, touches and intersect.
+  Spatial predicate is an output from {term}`DE-9IM` model that describe the spatial relationship between two geometric objects. Example spatial predicates are within, contains, touches and intersect.
   
 Spatio-temporal data model
   A data model that incorporates time (t) as an additional dimension to the geographical dimension (x, y). 
