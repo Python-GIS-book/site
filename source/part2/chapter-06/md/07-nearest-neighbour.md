@@ -146,6 +146,7 @@ import geopandas as gpd
 buildings = gpd.read_file("data/Helsinki/Kamppi_buildings.gpkg")
 parks = gpd.read_file("data/Helsinki/Kamppi_parks.gpkg")
 roads = gpd.read_file("data/Helsinki/Kamppi_roads.gpkg")
+buildings
 ```
 
 ```python
@@ -157,12 +158,58 @@ ax = roads.plot(ax=ax, color="red")
 
 _**Figure 6.46**. A map showing the buildings with gray color and the parks (green) in the neighborhood of Kamppi, Helsinki._
 
-
+Similarly as finding the nearest neighbor using Points as input data, we can use the `.sjoin_nearest()` to find nearest neighbor between two Polygon datasets. Here, we find the nearest park for each building Polygon and store the distance into the column `distance`:
 
 ```python
 nearest_parks = buildings.sjoin_nearest(parks, distance_col="distance")
-nearest_parks.head()
+nearest_parks
 ```
+
+```python
+print("Maximum distance:", nearest_parks["distance"].max().round(0))
+print("Average distance:", nearest_parks["distance"].mean().round(0))
+```
+
+Now we have found the nearest park for each building, and as we can see on average the closest park seem to be 61 meters away from the buildings while the longest distance from one of the buildings to the closest park seems to be 229 meters. In a simimar, manner we can also find the nearest road from each building as follows:
+
+```python
+nearest_roads = buildings.sjoin_nearest(roads, distance_col="distance")
+nearest_roads
+```
+
+As a result, we now have found the nearest road for each building. We have now 703 rows of data which means that for some buildings there have been more than one road that are exactly the same distance apart. To better understand how the spatial join between the buildings and roads have been conducted, we can again visualize the nearest neighbors with a straight line. To do this, we first bring the geometries from the `roads` GeoDataFrame into the same table with the buildings: 
+
+```python
+roads["index"] = roads.index
+nearest_roads = nearest_roads.merge(roads[["geometry", "index"]], left_on="index_right", right_on="index")
+nearest_roads.head()
+```
+
+Now we have the `geometry_x` column representing the building geometries and the `geometry_y` column representing the road geometries (LineStrings). To visualize the connecting lines between buildings and roads, we first need to create geometries that connect the building and closest road geometry from the locations where the distance is shortest. To do this, we can take advantage of a handy function called `nearest_points()` from the `shapely` library that returns a list of Point objects representing the locations with shortest distance between geometries. By using these points as input, we can create a LineString geometries that represent the connector between a given building and the closest road. Finally, we create a new GeoDataFrame called `connectors` out of these lines and also store the length of the LineStrings as a separate column:
+
+```python
+from shapely.ops import nearest_points
+
+# Generate LineString between nearest points of two geometries
+connectors = nearest_roads.apply(lambda row: LineString(nearest_points(row["geometry_x"], row["geometry_y"])), axis=1)
+
+# Create a new GeoDataFrame out of these geometries 
+connectors = gpd.GeoDataFrame({"geometry": connectors}, crs=roads.crs)
+connectors["distance"] = connectors.length
+connectors.head()
+```
+
+Great, now we have a new GeoDataFrame that represents the connectors between the buildings and the roads. Finally, we can visualize the buildings, roads and these connectors to better understand the exact points where the distance between a given building and the closest road is shortest:
+
+```python
+m = buildings.explore(color="gray", tiles="CartoDB Positron")
+m = roads.explore(m=m, color="red")
+m = connectors.explore(m=m, color="green")
+m
+```
+
+_**Figure 6.47**. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest._
+
 
 ## K-nearest neighbor analysis
 
