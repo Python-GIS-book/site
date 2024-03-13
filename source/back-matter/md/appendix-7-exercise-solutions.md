@@ -14,9 +14,10 @@ jupyter:
 
 # Exercise solutions
 
-<!-- #region -->
+
 ## Chapter 2
 
+<!-- #region -->
 ### Exercise 2.1
 
 ```python
@@ -39,7 +40,9 @@ print("My name is", name, "and I give eating ice cream a score of", ice_cream_ra
 print("My sleeping enjoyment rating is", sleep_rating, "/ 10!")
 print("Based on the factors above, my happiness rating is", happiness_rating, "or", happiness_rating * 10, "%!")
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Exercise 2.2
 
 ```python
@@ -62,7 +65,9 @@ station_start_years.reverse()
 
 # Problem: List values are no longer correctly linked for same index value
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Exercise 2.3
 
 ```python
@@ -78,7 +83,9 @@ print_statement = f"The average temperature in Helsinki in {months[selected_mont
 # Alternative print statement format
 print_statement = 'The average temperature in Helsinki in ' + str(months[selected_month_index]) + ' is ' + str(average_temp[selected_month_index])
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Exercise 2.4
 
 ```python
@@ -93,7 +100,9 @@ for i in range(21):
     station = basename + "_" + str(i) + ".txt"
     filenames.append(station)
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Exercise 2.5
 
 ```python
@@ -141,7 +150,9 @@ print(f"It was cold {len(cold)} times in Helsinki in April 2013.")
 print(f"It was cold {len(comfortable)} times in Helsinki in April 2013.")
 print(f"It was cold {len(warm)} times in Helsinki in April 2013.")
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Exercise 2.6
 
 ```python
@@ -157,7 +168,9 @@ fahr_temps = [32, 68, 91, -17]
 for fahr_temp in fahr_temps:
     print(f"{fahr_temp} °F is equal to {fahr_to_celsius(fahr_temp):.1f} °C.")
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Exercise 2.7
 
 ```python
