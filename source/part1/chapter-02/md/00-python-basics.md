@@ -91,7 +91,7 @@ math.sqrt(4)
 <!-- #region deletable=true editable=true -->
 Let's summarize what we've just seen with modules:
 
-1. A *module* is a group of code items such as functions that are related to one another. Individual modules are often in a group referred to as a *library*.
+1. A *{index}`module`* is a group of code items such as functions that are related to one another. Individual modules are often in a group referred to as a *library*.
 
 2. Modules can be loaded using the `import` statement. Functions that are part of the module `modulename` can then be used by typing `modulename.functionname()`. For example, `sin()` is a function that is part of the `math` module, and used by typing `math.sin()` with some number between the parentheses.
 
