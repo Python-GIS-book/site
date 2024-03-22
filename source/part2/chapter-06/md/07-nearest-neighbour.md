@@ -67,7 +67,7 @@ ax2.set_title("Stops");
 
 _**Figure 6.44**. Maps representing the buildings and public transport stops which we use to find the closest stop for each building._
 
-As mentioned earlier, finding the nearest geometries between two GeoDataFrames (here building and stop points) can be done easily using the `.sjoin_nearest()` method in geopandas. As the name implies, this method is actually designed to merge data between GeoDataFrames in a similar manner as with regular `.sjoin()` method that we saw earlier in Chapter 6.7. However, in this case the method is actually searching for the closest geometries instead of relying on spatial predicates, such as *within*. The `sjoin_nearest()` can be used for different geometry types, so the input geometries do not necessarily need to be Point objects as in our example. Under the hood, the method uses an {term}`R-tree` {term}`spatial index` called `STRTree` ({cite}`leutenegger_1997`) implemented in the `shapely` library to make the nearest neighbor queries very efficient (you can read more about spatial indices in Appendices). For the method to work properly, it is recommended to ensure that the both GeoDataFrames are having the same coordinate reference system (CRS), and preferably having a projected (metric) CRS because that ensures that the reported distances are meaningful (in meters) and correct. Hence, let's start by reprojecting our latitude and longitude values into a metric system using the national EUREF-FIN coordinate reference system (EPSG code 3067) for Finland:
+As mentioned earlier, finding the nearest geometries between two GeoDataFrames (here building and stop points) can be done easily using the `.sjoin_nearest()` method in geopandas. As the name implies, this method is actually designed to merge data between GeoDataFrames in a similar manner as with regular `.sjoin()` method that we saw earlier in Chapter 6.7. However, in this case the method is actually searching for the closest geometries instead of relying on spatial predicates, such as *within*. The `sjoin_nearest()` can be used for different geometry types, so the input geometries do not necessarily need to be Point objects as in our example. Under the hood, the method uses a {term}`spatial index` called `STRTree` ({cite}`leutenegger_1997`) which is an efficient implementation of {term}`R-tree` dynamic index structure for spatial searching ({cite}`guttman_1984`). The STRTree is implemented in the `shapely` library making the nearest neighbor queries very efficient. You can read more about spatial indices in Appendices section of the book. For the method to work properly, it is recommended to ensure that the both GeoDataFrames are having the same coordinate reference system (CRS), and preferably having a projected (metric) CRS because that ensures that the reported distances are meaningful (in meters) and correct. Hence, let's start by reprojecting our latitude and longitude values into a metric system using the national EUREF-FIN coordinate reference system (EPSG code 3067) for Finland:
 
 ```python
 stops = stops.to_crs(epsg=3067)
@@ -218,6 +218,101 @@ _**Figure 6.47**. A map showing the closest road for each building. The LineStri
 
 
 ```python
+building_points
+```
+
+```python
+stops
+```
+
+```python
+from scipy.spatial import cKDTree
+```
+
+```python
+building_coords = building_points.get_coordinates().to_numpy()
+stop_coords = stops.geometry.get_coordinates().to_numpy()
+```
+
+```python
+building_coords.shape
+```
+
+```python
+building_kdt = cKDTree(building_coords)
+```
+
+```python
+stop_kdt = cKDTree(stop_coords)
+```
+
+```python
+# Find the three nearest neighbors from stop KD-Tree for each building
+k_nearest_dist, k_nearest_ix = stop_kdt.query(building_coords, k=3)
+```
+
+```python
+k_nearest_dist.shape
+```
+
+```python
+k_nearest_dist
+```
+
+```python
+k_nearest_ix
+```
+
+```python
+import pandas as pd
+
+building_points.geometry
+```
+
+```python
+building_coords
+```
+
+```python
+k_nearest_ix.T[0]
+```
+
+```python
+# Add indices of nearest stops
+building_points["1st_nearest_idx"] = k_nearest_ix.T[0]
+building_points["2nd_nearest_idx"] = k_nearest_ix.T[1]
+building_points["3rd_nearest_idx"] = k_nearest_ix.T[2]
+
+# Add distances 
+building_points["1st_nearest_dist"] = k_nearest_dist.T[0]
+building_points["2nd_nearest_dist"] = k_nearest_dist.T[1]
+building_points["3rd_nearest_dist"] = k_nearest_dist.T[2]
+```
+
+```python
+building_points.head()
+```
+
+```python
+building_kdt.query?
+```
+
+```python
+k_nearest_dist
+```
+
+```python
+k_nearest_ix
+```
+
+```python
+x = building_coords.copy()
+
+x['k1_dist'] = k_nearest_dist
+
+```
+
+```python
 from sklearn.neighbors import BallTree
 import numpy as np
 
@@ -313,7 +408,7 @@ print(len(closest_stops), "==", len(buildings))
 
 Indeed, that seems to be the case. Hence, it is easy to combine these two datasets together. Before continuing our analysis, let's take a bit deeper look, what we actually did with the functions above.  
 
-
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ### What did we just do? Explanation.
 
 To get a bit more understanding of what just happened, let's go through the essential parts of the two functions we defined earlier, i.e. `nearest_neighbor()` and `get_closest()`.
@@ -323,7 +418,7 @@ The purpose of `nearest_neighbor()` function is to handle and transform the data
 The `get_closest()` function does the actual nearest neighbor search using [BallTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) function. We initialize the `BallTree` object with the coordinate information from the **right_gdf** (i.e. the point dataset that contains all the nearest neighbor candidates), and we specify the distance metric to be `haversine` so that we get the Great Circle Distances. The `leaf_size` parameter adjusts the tradeoff between the cost of BallTree node traversal and the cost of a brute-force distance estimate. Changing leaf_size will not affect the results of a query, but can significantly impact the speed of a query and the memory required to store the constructed tree. We determine the leaf_size as 15 which has been found to be a good compromise when [benchmarked](https://jakevdp.github.io/blog/2013/04/29/benchmarking-nearest-neighbor-searches-in-python/). After we have built (initialized) the ball-tree, we run the nearest neighbor query with `tree.query(src_points, k=k_neighbors)`, where the src_points are the building-coordinates (as radians) and the `k` -parameter is the number of neighbors we want to calculate (1 in our case as we are only interested in the closest neighbor). Finally, we just re-arrange the data back into a format in which the closest point indices and distances are in separate numpy arrays. 
 
 **Note:** The functions here assume that your input points are in WGS84 projection. If you pass the points in some other projection, it is highly likely that the distances between nearest neighbors are incorrect. Determining which is the nearest neighbor should not be affected, though.  
-
+<!-- #endregion -->
 
 ### Combining the neighboring datasets 
 
