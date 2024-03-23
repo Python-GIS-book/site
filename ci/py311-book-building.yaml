@@ -25,6 +25,8 @@ dependencies:
   
   # GIS environment
   - contextily=1.6.0
+  - dask=2024.3.1
+  - dask-geopandas=0.3.1
   - datashader=0.16.0
   - folium=0.16.0
   - fiona=1.9.6
