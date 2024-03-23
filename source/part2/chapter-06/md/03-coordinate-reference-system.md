@@ -15,7 +15,7 @@ jupyter:
 # Working with map projections
 
 
-In Chapter 5, we learned that the Coordinate Reference System (CRS) can be used to describe how geometries are related to the places on Earth and what are the core components of a CRS. Our main tool for managing coordinate reference systems is the [PROJ library](https://proj.org/) [^proj] which can be used through the [pyproj](https://pyproj4.github.io/pyproj/stable/) [^pyproj] Python library. Pyproj can be used to access the CRS information of a given geographic dataset and also for reprojecting the data from one coordinate system to another. In the following, we will demonstrate how to work with coordinate reference systems in geopandas by using a country border dataset from Europe. We will reproject the dataset from the original WGS84 coordinate system into a Lambert Azimuthal Equal Area projection which is the projection that European Union [recommends for Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) [^EU_projection].
+In Chapter 5, we learned that the Coordinate Reference System (CRS) describes how geometries are related to the places on Earth and what are the core components of a CRS. Our main tool for managing coordinate reference systems is the [PROJ library](https://proj.org/) [^proj] which can be used through the [pyproj](https://pyproj4.github.io/pyproj/stable/) [^pyproj] Python library. Pyproj can be used to access the CRS information of a given geographic dataset and also for reprojecting the data from one coordinate system to another. In the following, we will demonstrate how to work with coordinate reference systems in geopandas by using a country border dataset from Europe. We will reproject the dataset from the original WGS84 coordinate system into a Lambert Azimuthal Equal Area projection which is the projection that European Union [recommends for Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) [^EU_projection].
 
 Let's start by reading the data from the `eu_countries_2022.gpkg` file. When reading the data into `GeoDataFrame` with `geopandas`, the CRS information is automatically read from the datafile and stored into the `.crs` attribute:
 
@@ -44,9 +44,9 @@ As we can see, the coordinate values of the MultiPolygons here vary between 6-50
 
 ## Reprojecting a GeoDataFrame
 
-Changing from one coordinate system to another is one of the most common tasks to do when working with geographic data. This process is commonly called as {term}`map reprojection`, {term}`coordinate transformation` or {term}`geographic coordinate conversion`. When the data is reprojected, the coordinates described in one coordinate reference system to another are transformed by using specific geodetic equations. This is important when working with geographic data because different coordinate systems are used for different purposes, and it is often necessary to transform coordinates between them in order to compare or integrate data from different sources. For example, coordinates on the Earth's surface may be represented in geographic (latitude and longitude) or projected (Cartesian) coordinates, and the same location will have different coordinate values depending on the CRS used to describe it. It is important that the layers are in the same coordinate system when analyzing the spatial relationships between the layers, such as when making a Point in Polygon -query, or other type of overlay analysis. The transformation between these coordinate systems involves both translation and rotation, and requires knowledge of the shape and size of the earth, as well as its orientation in space.
+Changing from one coordinate system to another is one of the most common tasks to do when working with geographic data. This process is commonly called as {term}`map reprojection`, {term}`coordinate transformation` or {term}`geographic coordinate conversion`. When the data is reprojected, the coordinates described in one CRS transformed to another CRS by using specific geodetic equations. Knowing how to transform coordinates is important because different coordinate systems are used for different purposes, and it is often necessary to reproject some data to make them interoparable and comparable. For example, coordinates on the Earth's surface may be represented in geographic (latitude and longitude) or projected (Cartesian) coordinates, and the same location will have different coordinate values depending on the CRS used. It is important that the layers are in the same coordinate system when analyzing the spatial relationships between the layers, such as when making a Point in Polygon -query, or other types of overlay analysis. The transformation between the coordinate systems involves both translation and rotation, and requires knowledge of the shape and size of the Earth, as well as its orientation in space.
 
-Reprojecting geographic data from one coordinate system to another might sound a bit tricky, but luckily we do not need to do any equations ourselves. The coordinate transformation can be done very easily in geopandas by using `.to_crs()` -method of a given `GeoDataFrame`. The method has two alternative parameters: 1) `crs` which accepts CRS information from various formats, such as proj-strings or OGS WKT text; and 2) `epgs` that accepts the EPSG-code of a given coordinate system as a number. Both of these can be used to make the coordinate transformation and reproject the data into a desired CRS. Let's reproject our data into `EPSG:3035` using the `epsg` -parameter:
+Reprojecting geographic data from one coordinate system to another might sound a bit tricky, but luckily we do not need to define any equations ourselves. In geopandas, the `.to_crs()` -method of a `GeoDataFrame` will perform coordinate transformations with given parameters. The method has two alternative parameters: 1) `crs` which accepts CRS information from various formats, such as proj-strings or OGS WKT text; and 2) `epgs` that accepts the EPSG-code of a given coordinate system as a number. Both of these can be used to make the coordinate transformation and reproject the data into a desired CRS. Let's try it out and reproject our data into `EPSG:3035` using the `epsg` -parameter:
 
 ```python
 # Let's make a backup copy of our data
@@ -60,11 +60,11 @@ data["geometry"].head()
 ```
 
 ```python
-# What is the new EPSG code?
+# Checkthe new EPSG code
 data.crs.to_epsg()
 ```
 
-And here we go, the coordinate values in the geometries have changed! Now we have successfully changed the CRS of our layer into a new one, i.e. to the planar `ETRS-LAEA` coordinate system (EPSG:3035). To really understand what is going on, it is good to explore our data visually. Let's compare the datasets by making maps out of them:
+And here we go, the coordinate values in the geometries have changed! Now we have successfully changed the CRS of our layer into a new one, i.e. to the planar `ETRS-LAEA` coordinate system (EPSG:3035). To really understand what is going on we can explore the result visually by plotting the original and reprojected data side-to-side. 
 
 ```python
 import matplotlib.pyplot as plt
@@ -101,6 +101,44 @@ outfp = "data/EU_countries/Europe_borders_epsg3035.shp"
 
 # Save to disk
 data.to_file(outfp)
+```
+
+#### Question 6.6
+
+One of the recommended coordinate reference systems for Finland is [ETRS89 / TM35FIN (EPSG:3067)](https://spatialreference.org/ref/epsg/3067/)[^EPSG3067]
+
+First, select Finland from our dataset of EU countries. Then, plot two maps of Finland where you compare the WGS84 (EPSG:4326) representation and ETRS89 / TM35FIN (EPSG:3067). You can achieve this by modifying the previous example for the whole EU. 
+
+```python
+# Use this cell to enter your solution.
+```
+
+```python
+# Solution
+
+# Select Finland and reproject
+finland_wgs84 = data_wgs84.loc[data_wgs84["NAME_ENGL"]=="Finland"].copy()
+finland_etrs89 = finland_wgs84.to_crs(epsg=3067)
+
+# Make subplots that are next to each other
+fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(5, 5))
+
+# Plot the data in WGS84 CRS
+finland_wgs84.plot(ax=ax1, facecolor="gray")
+
+# Plot the one with ETRS-LAEA projection
+finland_etrs89.plot(ax=ax2, facecolor="blue", edgecolor="white", lw=0.5)
+
+# Add titles
+ax1.set_title("WGS84")
+ax2.set_title("ETRS89 / TM35FIN")
+
+# Set aspect ratio as 1
+ax1.set_aspect(aspect=1)
+ax2.set_aspect(aspect=1)
+
+# Remove empty white space around the plot
+plt.tight_layout()
 ```
 
 ## Parsing Coordinate Reference System characteristics
@@ -236,7 +274,7 @@ _**Figure 6.28**. Global map plotted in Web Mercator._
 As we can see, the Web Mercator projection also distorts and exaggerates e.g. the size of the Antarctica and Greenland quite significantly. Luckily, there are also better map projections for visualizing global datasets, such as Eckert IV. There isn't a direct EPSG number for Eckert IV, but we can provide the CRS information as an ESRI CRS code `ESRI:54012` as follows:
 
 ```python
-ax = admin.to_crs(crs="ESRI:54012").plot(figsize=(12, 12))
+admin.to_crs(crs="ESRI:54012").plot(figsize=(12, 12))
 plt.title("Eckert Ⅳ")
 plt.axis("off");
 ```
@@ -265,5 +303,6 @@ As we can see, now we have a nice map centered around Finland that reminds a bit
 [^pyproj]: <https://pyproj4.github.io/pyproj/stable/>
 [^EU_projection]: <http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf>
 [^LAEA]: <https://spatialreference.org/ref/epsg/etrs89-etrs-laea/>
+[^EPSG3067]: <https://spatialreference.org/ref/epsg/3067/>
 [^natural_earth]: <https://www.naturalearthdata.com/downloads/110m-cultural-vectors/>
 [^Ortho]: <https://proj.org/operations/projections/ortho.html>
