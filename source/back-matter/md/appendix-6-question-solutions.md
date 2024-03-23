@@ -313,7 +313,7 @@ temp.plot()
 
 6.5
 
-```
+```python
 # Plot the admin borders as background
 ax1 = data.plot(color="grey")
 
@@ -323,6 +323,50 @@ dissolved.loc[dissolved["dense"]==1].buffer(500).plot(ax=ax1,
                                                       color="yellow")
 ```
 
+6.6
+
+```python
+# Select Finland and reproject
+finland_wgs84 = data_wgs84.loc[data_wgs84["NAME_ENGL"]=="Finland"].copy()
+finland_etrs89 = finland_wgs84.to_crs(epsg=3067)
+
+# Make subplots that are next to each other
+fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(1, 1))
+
+# Plot the data in WGS84 CRS
+finland_wgs84.plot(ax=ax1, facecolor="gray")
+
+# Plot the one with ETRS-LAEA projection
+finland_etrs89.plot(ax=ax2, facecolor="blue", edgecolor="white", lw=0.5)
+
+# Add titles
+ax1.set_title("WGS84")
+ax2.set_title("ETRS89 / TM35FIN")
+
+# Set aspect ratio as 1
+ax1.set_aspect(aspect=1)
+ax2.set_aspect(aspect=1)
+
+# Remove empty white space around the plot
+plt.tight_layout()
+```
+
+6.7
+
+```python
+
+# Example list of addresses
+adress_list = ["Pietari Kalmin katu 5, Helsinki, Finland", 
+               "Konetekniikka 1, Espoo, Finland"]
+
+# Do the geocoding
+geo = geocode(
+    adress_list, provider="nominatim", user_agent="pythongis_book", timeout=10
+)
+
+# Check if the result looks correct on a map
+geo.explore()
+```
 <!-- #endregion -->
 
 ```python
