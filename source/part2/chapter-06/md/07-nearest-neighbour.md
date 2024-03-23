@@ -256,7 +256,7 @@ stop_kdt = KDTree(stop_coords)
 stop_kdt
 ```
 
-Now we have initialized a `KDTree` index structure by populating it with stop coordinates. By doing this, we can make very fast queries and find out which of the approx. 8000 stops is closest to specific buildings. To do this, we can use the `.query()` method which goes through all the input coordinates (i.e. buildings) and very quickly calculates which of them is the closest, 2nd closest etc. The method returns the distances to the K-number of nearest neighbors as well as the index of the closest `stop` to the given building. By passing an argument `k=3`, we can specify that we want to find three closest neighbors for each building: 
+Now we have initialized a `KDTree` index structure by populating it with stop coordinates. By doing this, we can make very efficient queries to find out which of the ~8000 stops is closest to specific buildings. To do this, we can use the `.query()` method which goes through all the input coordinates (i.e. buildings) and very quickly calculates which of them is the closest, 2nd closest etc. The method returns the distances to the K-number of nearest neighbors as well as the index of the closest `stop` to the given building. By passing an argument `k=3`, we can specify that we want to find three closest neighbors for each building: 
 
 ```python
 # Find the three nearest neighbors from stop KD-Tree for each building
@@ -306,7 +306,7 @@ k_nearest["3rd_nearest_dist"] = k_nearest_dist.T[2]
 k_nearest.head()
 ```
 
-Perfect! Now we have stored the information for each building about the indices and distances to the three of the closest stops around given buildings. To make this information easier to understand, we can make a nice map that shows the closest three stops for each building. To do this, we can follow a similar approach as we used earlier when visualizing the results from the `sjoin_nearest()` function. Namely, we bring the geometry from the k-nearest stops and connect the building Points with the given stop Points with a LineString. Then it is easy to visualize the closest stops for each building. In the following, we create three separate GeoDataFrames that correspond to the nearest, second nearest and third nearest stops from the buildings. We start by storing the `stop_index` as a column which allows us to easily merge the data between `stops` and `k_nearest` (buildings) GeoDataFrames. For making the table join, we can use the pandas `.merge()` function in which we use the `1st_nearest_idx`,  `2nd_nearest_idx` and `3rd_nearest_idx` as the key on the left GeoDataFrame, while the `stop_index` is the key on the right GeoDataFrame. We also pass the `suffixes=('', '_knearest)` argument to the `.merge()` method to specify that the column names on the left-side GeoDataFrame should stay as they are, while the column names on the right-side will get a suffix `_knearest` in case there are identical column names present in both GeoDataFrames (which we have as both frames contain the `geometry` column. Let's see how we can create these three GeoDataFrames stored into `k_nearest_1`, `k_nearest_2` and `k_nearest_3` variables:
+Perfect! Now we have stored the information for each building about the indices and distances to the three of the closest stops around given buildings. To make this information easier to understand, we can make a nice map that shows the closest three stops for each building. To do this, we can follow a similar approach as we used earlier when visualizing the results from the `sjoin_nearest()` function. Namely, we bring the geometry from the k-nearest stops and connect the building Points with the given stop Points with a LineString. Then it is easy to visualize the closest stops for each building. In the following, we create three separate GeoDataFrames that correspond to the nearest, second nearest and third nearest stops from the buildings. We start by storing the `stop_index` as a column which allows us to easily merge the data between `stops` and `k_nearest` (buildings) GeoDataFrames. For making the table join, we can use the pandas `.merge()` function in which we use the `1st_nearest_idx`,  `2nd_nearest_idx` and `3rd_nearest_idx` as the key on the left GeoDataFrame, while the `stop_index` is the key on the right GeoDataFrame. We also pass the `suffixes=('', '_knearest)` argument to the `.merge()` method to specify that the column names on the left-side GeoDataFrame should stay as they are, while the column names on the right-side will get a suffix `_knearest` in case there are identical column names present in both GeoDataFrames (which we have as both frames contain the `geometry` column. Let's see how we can create these three GeoDataFrames and store them into `k_nearest_1`, `k_nearest_2` and `k_nearest_3` variables:
 
 ```python
 # Store the stop index for making the table join
@@ -331,7 +331,7 @@ k_nearest_3 = k_nearest.merge(stops[["stop_index", "geometry"]], left_on="3rd_ne
 k_nearest_3.head(2)
 ```
 
-**ADD TEXT**
+Excellent, now we have merged the stop geometries into the `geometry_knearest` column of the GeoDataFrames. By comparing the values in the `stop_index` column of the GeoDataFrames `k_nearest_1`, `k_nearethe st_2` and `k_nearest_3`, we can see that the values change correctly following the values in `1st_`, `2nd_` and `3rd_nearest_index` column accordingly. The geometries stored in the `geometry_knearest` also have different values in all of the GeoDataFrames which is as should. Now we can create LineString geometries connecting these Point objects to each other which allows us to create a nice map out of our nearest neighbors and thus better understand the data:
 
 ```python
 from shapely import LineString
@@ -340,16 +340,18 @@ from shapely import LineString
 k_nearest_1["geometry"] = k_nearest_1.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
 k_nearest_2["geometry"] = k_nearest_2.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
 k_nearest_3["geometry"] = k_nearest_3.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
+
+k_nearest_1.head(2)
 ```
 
-**ADD TEXT**
+Now we have updated the `geometry` column of our datasets with LineString geometries connecting the building Point with the nearest stop geometries. Next, it is easy to visualize the closest three stops for each building. Because there are thousands of connections in our data, in the following, we select a specific building and the closest stops from that building. The `name` column contains information about the names of the buildings which we can use to choose a building of our interest for visualization:
 
 ```python
 # Find unique building names
 k_nearest.name.unique()
 ```
 
-**ADD TEXT**
+As we can see, one of the buildings is called `Hartwall Arena` which is an interesting example because it is a large sports arena that is reached by thousands of people via public transport whenever there is some event happening. Thus, let's filter the data for that building and create an interactive map out of the results, showing the three closest stops indicated with different colors:
 
 ```python
 # Visualize 3 nearest stops to
@@ -362,7 +364,9 @@ m = stops.explore(m=m, color="green")
 m
 ```
 
-**ADD TEXT**
+_**Figure 6.48**. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop._
+
+From the map, we can see that the closest stops to the arena seem to be located close to a large road 100-130 meters away from the arena, while the third closest stop is closer to the rail roads 377 meters away (Euclidian distance) from the building. 
 
 
 ## Range search
