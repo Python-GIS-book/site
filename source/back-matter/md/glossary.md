@@ -96,6 +96,9 @@ Jupyter Notebook
   Jupyter Notebooks can contain nicely formatted text, equations, images, interactive visualizations, and more.
   More information can be found at <https://jupyter.org/>.
 
+K-Nearest Neighbor search
+  K-Nearest Neighbor (KNN) search is a type of algorithm used to find the "k" closest points (or neighbors) to a given query point in a dataset. In the context of spatial data, KNN search can identify the nearest geographical features based on their spatial coordinates. The algorithm calculates distances between the query point and all points in the dataset, then selects the "k" smallest distances to determine the nearest neighbors. 
+
 Left outer join
   A left outer join includes all the rows from the left (Geo)DataFrame and those rows from the right (Geo)DataFrame that have a matching key in the table, or that intersect or match based on the specified spatial relationship (e.g., intersects, contains, within). If there is no matching row in the right (Geo)DataFrame for a row in the left (Geo)DataFrame, the result will still include the row from the left (Geo)DataFrame, but with missing values (NaNs) in the columns from the right (Geo)DataFrame.
 
