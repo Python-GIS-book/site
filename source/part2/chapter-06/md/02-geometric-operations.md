@@ -364,6 +364,24 @@ plt.show()
 _**Figure 6.24**. Dissolved census tract geometries._
 <!-- #endregion -->
 
+#### Question 6.5
+
+Combining your pandas and geopandas skills, create a 500m buffer zone around the dense areas in Austin and plot a simple map of this zone.
+
+```python
+# Use this cell to enter your solution.
+```
+
+```python
+# Solution
+
+# Plotting the buffer zone of dense areas on top of the admin borders
+ax1 = data.plot(color="grey")
+dissolved.loc[dissolved["dense"]==1].buffer(500).plot(ax=ax1, 
+                                                      alpha=0.5, 
+                                                      color="yellow")
+```
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Updating the source for geometries in a GeoDataFrame
 
@@ -378,14 +396,12 @@ Some important remarks about these approaches: The option 1 is very easy to do, 
 ```python editable=true slideshow={"slide_type": ""}
 # Make a copy
 option_1 = data.copy()
-
 option_1["geometry"].head(2)
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
 # Update the geometry column with centroids
 option_1["geometry"] = option_1.centroid
-
 print(option_1.head(2))
 ```
 
@@ -396,10 +412,8 @@ The second option is to create a new column for storing the centroids and then u
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-# Make a copy
+# Make a copy and Create a column with centroids
 option_2 = data.copy()
-
-# Step 1: Create a column with centroids
 option_2["centroid"] = data.centroid
 option_2.head(2)
 ```
