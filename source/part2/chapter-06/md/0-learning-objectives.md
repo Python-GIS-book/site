@@ -17,8 +17,11 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter 1 provides the essential background information needed to get started programming in Python.
-This chapter introduces basic concepts related to computers and programming, and provides some basic information about the programming environment used in this book, including how to install Python on your own computer.
+Chapter six provides an overview of vector data processing in Python. Basic knowledge of the pandas library for tabular data that was introduced in Part I is a prerequisite for learning to use geopandas for spatial data analysis in this section.
+
+This chapter introduces how geographic objects can be represented and manipulated in Python, and provides an overview of coordinate reference systems, common geometric operations, spatial queries and other spatial analysis processes such as geocoding, nearest neighbor analysis, and geographic overlay analysis. 
+
+
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
@@ -27,10 +30,15 @@ This chapter introduces basic concepts related to computers and programming, and
 
 At the end of this chapter, you should be able to:
 
-- Explain the fundamental elements of computers and programming languages
-- Describe why Python is a useful programming language to learn
-- Explain different ways to run Python programs and why we use Jupyter notebooks in this book
-- Use Jupyter notebooks online and install Python on your own computer
+- Represent geographic vector objects in Python using the shapely library
+- Understand the basic data structures and methods of geopandas GeoDataFrames
+- Execute common geometric operations with points, lines and polygons
+- Understand what coordinate reference systems (CRS) are
+- Define and reproject the CRS of a spatial dataset
+- Geocode addresses to coordinates using Python
+- Perform spatial queries and spatial join operations
+- Conduct nearest neighbor analysis
+- Perform various geographic overlay analysis
 
 ```
 <!-- #endregion -->
