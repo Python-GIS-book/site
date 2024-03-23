@@ -218,11 +218,11 @@ _**Figure 6.47**. A map showing the closest road for each building. The LineStri
 
 
 ```python
-building_points
+building_points.head()
 ```
 
 ```python
-stops
+stops.head()
 ```
 
 ```python
@@ -235,11 +235,7 @@ stop_coords = stops.geometry.get_coordinates().to_numpy()
 ```
 
 ```python
-building_coords.shape
-```
-
-```python
-building_kdt = cKDTree(building_coords)
+stop_coords
 ```
 
 ```python
@@ -252,25 +248,11 @@ k_nearest_dist, k_nearest_ix = stop_kdt.query(building_coords, k=3)
 ```
 
 ```python
-k_nearest_dist.shape
-```
-
-```python
 k_nearest_dist
 ```
 
 ```python
 k_nearest_ix
-```
-
-```python
-import pandas as pd
-
-building_points.geometry
-```
-
-```python
-building_coords
 ```
 
 ```python
@@ -278,171 +260,116 @@ k_nearest_ix.T[0]
 ```
 
 ```python
+k_nearest = building_points.copy()
+```
+
+```python
 # Add indices of nearest stops
-building_points["1st_nearest_idx"] = k_nearest_ix.T[0]
-building_points["2nd_nearest_idx"] = k_nearest_ix.T[1]
-building_points["3rd_nearest_idx"] = k_nearest_ix.T[2]
+k_nearest["1st_nearest_idx"] = k_nearest_ix.T[0]
+k_nearest["2nd_nearest_idx"] = k_nearest_ix.T[1]
+k_nearest["3rd_nearest_idx"] = k_nearest_ix.T[2]
 
 # Add distances 
-building_points["1st_nearest_dist"] = k_nearest_dist.T[0]
-building_points["2nd_nearest_dist"] = k_nearest_dist.T[1]
-building_points["3rd_nearest_dist"] = k_nearest_dist.T[2]
+k_nearest["1st_nearest_dist"] = k_nearest_dist.T[0]
+k_nearest["2nd_nearest_dist"] = k_nearest_dist.T[1]
+k_nearest["3rd_nearest_dist"] = k_nearest_dist.T[2]
 ```
 
 ```python
-building_points.head()
+k_nearest.head()
 ```
 
 ```python
-building_kdt.query?
+stops["stop_index"] = stops.index
 ```
 
 ```python
-k_nearest_dist
+# Merge the geometries of the nearest stops to the GeoDataFrame
+k_nearest_1 = k_nearest.merge(stops[["stop_index", "geometry"]], left_on="1st_nearest_idx", right_on="stop_index", suffixes=('', '_knearest'))
+k_nearest_1.head(2)
 ```
 
 ```python
-k_nearest_ix
+# Merge the geometries of the 2nd nearest stops to the GeoDataFrame
+k_nearest_2 = k_nearest.merge(stops[["stop_index", "geometry"]], left_on="2nd_nearest_idx", right_on="stop_index", suffixes=('', '_knearest'))
+k_nearest_2.head(2)
 ```
 
 ```python
-x = building_coords.copy()
-
-x['k1_dist'] = k_nearest_dist
-
+# Merge the geometries of the 3rd nearest stops to the GeoDataFrame
+k_nearest_3 = k_nearest.merge(stops[["stop_index", "geometry"]], left_on="3rd_nearest_idx", right_on="stop_index", suffixes=('', '_knearest'))
+k_nearest_3.head(2)
 ```
 
 ```python
-from sklearn.neighbors import BallTree
-import numpy as np
+from shapely import LineString
 
-
-def get_nearest(src_points, candidates, k_neighbors=1):
-    """Find nearest neighbors for all source points from a set of candidate points"""
-
-    # Create tree from the candidate points
-    tree = BallTree(candidates, leaf_size=15, metric="haversine")
-
-    # Find closest points and distances
-    distances, indices = tree.query(src_points, k=k_neighbors)
-
-    # Transpose to get distances and indices into arrays
-    distances = distances.transpose()
-    indices = indices.transpose()
-
-    # Get closest indices and distances (i.e. array at index 0)
-    # note: for the second closest points, you would take index 1, etc.
-    closest = indices[0]
-    closest_dist = distances[0]
-
-    # Return indices and distances
-    return (closest, closest_dist)
-
-
-def nearest_neighbor(left_gdf, right_gdf, return_dist=False):
-    """
-    For each point in left_gdf, find closest point in right GeoDataFrame and return them.
-
-    NOTICE: Assumes that the input Points are in WGS84 projection (lat/lon).
-    """
-
-    left_geom_col = left_gdf.geometry.name
-    right_geom_col = right_gdf.geometry.name
-
-    # Ensure that index in right gdf is formed of sequential numbers
-    right = right_gdf.copy().reset_index(drop=True)
-
-    # Parse coordinates from points and insert them into a numpy array as RADIANS
-    # Notice: should be in Lat/Lon format
-    left_radians = np.array(
-        left_gdf[left_geom_col]
-        .apply(lambda geom: (geom.y * np.pi / 180, geom.x * np.pi / 180))
-        .to_list()
-    )
-    right_radians = np.array(
-        right[right_geom_col]
-        .apply(lambda geom: (geom.y * np.pi / 180, geom.x * np.pi / 180))
-        .to_list()
-    )
-
-    # Find the nearest points
-    # -----------------------
-    # closest ==> index in right_gdf that corresponds to the closest point
-    # dist ==> distance between the nearest neighbors (in meters)
-
-    closest, dist = get_nearest(src_points=left_radians, candidates=right_radians)
-
-    # Return points from right GeoDataFrame that are closest to points in left GeoDataFrame
-    closest_points = right.loc[closest]
-
-    # Ensure that the index corresponds the one in left_gdf
-    closest_points = closest_points.reset_index(drop=True)
-
-    # Add distance if requested
-    if return_dist:
-        # Convert to meters from radians
-        earth_radius = 6371000  # meters
-        closest_points["distance"] = dist * earth_radius
-
-    return closest_points
+# Generate LineStrings connecting the building point and K-nearest neighbor
+k_nearest_1["geometry"] = k_nearest_1.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
+k_nearest_2["geometry"] = k_nearest_2.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
+k_nearest_3["geometry"] = k_nearest_3.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
 ```
-
-Okay, now we have our functions defined. So let's use them and find the nearest neighbors!
 
 ```python
-# Find closest public transport stop for each building and get also the distance based on haversine distance
-# Note: haversine distance which is implemented here is a bit slower than using e.g. 'euclidean' metric
-# but useful as we get the distance between points in meters
-closest_stops = nearest_neighbor(buildings, stops, return_dist=True)
-
-# And the result looks like ..
-closest_stops
+# Find unique building names
+k_nearest.name.unique()
 ```
-
-Great, that didn't take too long! Especially considering that we had quite a few points in our datasets (8400\*159000=1.33 billion connections). As a result, we have a new GeoDataFrame that reminds a lot the original `stops` dataset. However, as we can see there are much more rows than in the original dataset, and in fact, each row in this dataset corresponds to a single building in the `buildings` dataset. Hence, we should have exactly the same number of closest_stops as there are buildings. Let's confirm this: 
 
 ```python
-# Now we should have exactly the same number of closest_stops as we have buildings
-print(len(closest_stops), "==", len(buildings))
+# Visualize 3 nearest stops to
+selected_name = "Hartwall Arena"
+
+m = k_nearest_1.loc[k_nearest_1["name"]==selected_name].explore(color="red", tiles="CartoDB Positron", max_zoom=16)
+m = k_nearest_2.loc[k_nearest_2["name"]==selected_name].explore(m=m, color="orange")
+m = k_nearest_3.loc[k_nearest_3["name"]==selected_name].explore(m=m, color="blue")
+m = stops.explore(m=m, color="green")
+m
 ```
 
-Indeed, that seems to be the case. Hence, it is easy to combine these two datasets together. Before continuing our analysis, let's take a bit deeper look, what we actually did with the functions above.  
-
-<!-- #region jp-MarkdownHeadingCollapsed=true -->
-### What did we just do? Explanation.
-
-To get a bit more understanding of what just happened, let's go through the essential parts of the two functions we defined earlier, i.e. `nearest_neighbor()` and `get_closest()`.
-
-The purpose of `nearest_neighbor()` function is to handle and transform the data from GeoDataFrame into `numpy arrays` (=super-fast data structure) in a format how `BallTree` function wants them. This includes converting the lat/lon coordinates into radians (and back), so that we get the distances between the neighboring points in a correct format: scikit-learn's [haversine distance metric](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html) wants inputs as radians and also outputs the data as radians. To convert a lat/lon coordinate to radian, we use formula: `Radian = Degree * PI / 180`. By doing this, we are able to get the output distance information in meters (even if our coordinates are in decimal degrees). 
-
-The `get_closest()` function does the actual nearest neighbor search using [BallTree](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html) function. We initialize the `BallTree` object with the coordinate information from the **right_gdf** (i.e. the point dataset that contains all the nearest neighbor candidates), and we specify the distance metric to be `haversine` so that we get the Great Circle Distances. The `leaf_size` parameter adjusts the tradeoff between the cost of BallTree node traversal and the cost of a brute-force distance estimate. Changing leaf_size will not affect the results of a query, but can significantly impact the speed of a query and the memory required to store the constructed tree. We determine the leaf_size as 15 which has been found to be a good compromise when [benchmarked](https://jakevdp.github.io/blog/2013/04/29/benchmarking-nearest-neighbor-searches-in-python/). After we have built (initialized) the ball-tree, we run the nearest neighbor query with `tree.query(src_points, k=k_neighbors)`, where the src_points are the building-coordinates (as radians) and the `k` -parameter is the number of neighbors we want to calculate (1 in our case as we are only interested in the closest neighbor). Finally, we just re-arrange the data back into a format in which the closest point indices and distances are in separate numpy arrays. 
-
-**Note:** The functions here assume that your input points are in WGS84 projection. If you pass the points in some other projection, it is highly likely that the distances between nearest neighbors are incorrect. Determining which is the nearest neighbor should not be affected, though.  
-<!-- #endregion -->
-
-### Combining the neighboring datasets 
-
-Okay, now as we have found closest stop for each building in the region, we can easily merge the information about closest stops back to the building layer. The order of the `closest_stops` matches exactly the order in `buildings`, so we can easily merge the datasets based on index. 
+## Range search
 
 ```python
-# Rename the geometry of closest stops gdf so that we can easily identify it
-closest_stops = closest_stops.rename(columns={"geometry": "closest_stop_geom"})
-
-# Merge the datasets by index (for this, it is good to use '.join()' -function)
-buildings = buildings.join(closest_stops)
-
-# Let's see what we have
-buildings.head()
+# Find the three nearest neighbors from stop KD-Tree for each building
+k_nearest_ix = stop_kdt.query_ball_tree(building_kdt, r=200)
 ```
-
-Excellent! Now we have useful information for each building about the closest stop including the `distance` (in meters) and also e.g. the name of the stop in `stop_name` column. 
-
-Now it is easy to do some descriptive analysis based on this dataset, that gives information about levels of access to public transport in the region: 
 
 ```python
-buildings["distance"].describe()
+len(k_nearest_ix)
 ```
 
-Okay, as we can see the average distance to public transport in the region is around 300 meters. More than 75 % of the buildings seem to be within within 5 minute walking time (~370 meters with walking speed of 4.5 kmph) which indicates generally a good situation in terms of accessibility levels in the region overall. There seem to be some really remote buildings in the data as well, as the longest distance to closest public transport stop is more than 7 kilometers.
+```python
+k_nearest_ix[0]
+```
 
-- Let's make a map out of the distance information to see if there are some spatial patterns in the data in terms of accessibility levels:
+```python
+stops.head()
+```
+
+```python
+stops["building_ids_within_range"] = k_nearest_ix
+```
+
+```python
+stops.head()
+```
+
+```python
+stops["building_cnt"] = stops["building_ids_within_range"].apply(lambda id_list: len(id_list))
+```
+
+```python
+stops.head()
+```
+
+```python
+print("Max number of buildings:", stops["building_cnt"].max())
+print("Average number of buildings:", stops["building_cnt"].mean().round(1))
+```
+
+```python
+stops.loc[stops["building_cnt"] == stops["building_cnt"].max()].explore(tiles="CartoDB Positron", color="red", marker_kwds={"radius": 5}, max_zoom=16)
+```
+
+```python
+
+```
