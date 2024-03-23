@@ -85,6 +85,33 @@ join.to_file(outfp)
 That's it. Now we have successfully geocoded those addresses into Points and made a Shapefile out of them. Easy isn't it! Nominatim works relatively nicely if you have well defined and well-known addresses such as the ones that we used in this tutorial. In practice, the address needs to exist in the OpenStreetMap database. Sometimes, however, you might want to geocode a "point-of-interest", such as a museum, only based on it's name. If the museum name is not on OpenStreetMap, Nominatim won't provide any results for it, but you might be able to geocode the place using some other geocoders.
 <!-- #endregion -->
 
+#### Question 6.7
+Do another round of geocoding with your own list of addresses from anywhere in the world. Are you happy with the result?
+
+In the above example we passed the address column to the geocoding function. [The geopandas documentation of geopandas.tools.geocode](https://geopandas.org/en/stable/docs/reference/api/geopandas.tools.geocode.html#geopandas-tools-geocode)[^geopandas_geocode] confirms that we should also be able to pass a list of strings to the geocoding tool. So, you should be able to answer this question by defining a list of addresses and using this list as input strings.
+
+
+
+```python
+# Use this cell to enter your solution.
+```
+
+```python
+# Solution
+
+# Example list of addresses
+adress_list = ["Pietari Kalmin katu 5, Helsinki, Finland", 
+               "Konetekniikka 1, Espoo, Finland"]
+
+# Do the geocoding
+geo = geocode(
+    adress_list, provider="nominatim", user_agent="pythongis_book", timeout=10
+)
+
+# Check if the result looks correct on a map
+geo.explore()
+```
+
 ## Footnotes
 
 [^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON>
@@ -92,3 +119,4 @@ That's it. Now we have successfully geocoded those addresses into Points and mad
 [^nominatim]: <https://nominatim.org/>
 [^nominatim_toc]: <https://operations.osmfoundation.org/policies/nominatim/>
 [^photon]: <https://photon.komoot.io/>
+[^geopandas_geocode]:<https://geopandas.org/en/stable/docs/reference/api/geopandas.tools.geocode.html#geopandas-tools-geocode>
