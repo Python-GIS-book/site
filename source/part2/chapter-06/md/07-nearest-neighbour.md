@@ -183,7 +183,7 @@ As a result, we now have found the nearest road for each building. We have now 7
 ```python
 roads["index"] = roads.index
 nearest_roads = nearest_roads.merge(roads[["geometry", "index"]], left_on="index_right", right_on="index")
-nearest_roads.head()
+nearest_roads.head(3)
 ```
 
 Now we have the `geometry_x` column representing the building geometries and the `geometry_y` column representing the road geometries (LineStrings). To visualize the connecting lines between buildings and roads, we first need to create geometries that connect the building and closest road geometry from the locations where the distance is shortest. To do this, we can take advantage of a handy function called `nearest_points()` from the `shapely` library that returns a list of Point objects representing the locations with shortest distance between geometries. By using these points as input, we can create a LineString geometries that represent the connector between a given building and the closest road. Finally, we create a new GeoDataFrame called `connectors` out of these lines and also store the length of the LineStrings as a separate column:
@@ -214,57 +214,83 @@ _**Figure 6.47**. A map showing the closest road for each building. The LineStri
 
 ## K-Nearest Neighbor search
 
-Thus far, we have only focused on finding the nearest neighbor to a given geometry. However, quite commonly you might want to find not only the closest geometry, but a specific number of closest geometries to a given location. For example, you might be interested to find 3-5 closest public transport stops from your home, because these stops might provide alternative connections to different parts of the city. Doing these kind of queries is actually quite common procedure for many data analysis techniques, and it is commonly called as *{term}`K-Nearest Neighbors search`* (or KNN search). Next, we will learn how to find *k* number of closest neighbors based on two GeoDataFrames. We will first aim to find the three nearest public transport stops for each building in the Helsinki Region, and then we will see how to make a *{term}`radius query`* to find all neighbors within specific distance apart from a given location. K-Nearest Neighbor search techniques are also typically built on top of *{term}`spatial indices <spatial index>`* to make the queries more efficient. Previously with `sjoin_nearest()`, we used an `R-tree` index structure to efficiently find the nearest neighbor for any kind of geometry. Because the R-tree implementation only supports finding the closest neighbor (similarly to other software relying on GEOS), we need to use another tree structure called *{term}`KD-Tree`* (K-dimensional tree) that can provide us information about k-nearest neighbors (i.e. not only the closest). KD-tree is similar to R-tree, but the data is ordered and sorted in a bit different manner to make the spatial search operations faster (see Appendices for further details). 
+Thus far, we have only focused on finding the nearest neighbor to a given geometry. However, quite commonly you might want to find not only the closest geometry, but a specific number of closest geometries to a given location (1st closest, 2nd closest, and so on). For example, you might be interested to find 3-5 closest public transport stops from your home, because these stops might provide alternative connections to different parts of the city. Doing these kind of queries is a common procedure and a prerequisite for many data analysis techniques, and the technique is commonly called as *{term}`K-Nearest Neighbors search`* (or KNN search). Next, we will learn how to find *k* number of closest neighbors based on two GeoDataFrames. We will first aim to find the three nearest public transport stops for each building in the Helsinki Region, and then we will see how to make a *{term}`radius query`* to find all neighbors within specific distance apart from a given location. K-Nearest Neighbor search techniques are also typically built on top of *{term}`spatial indices <spatial index>`* to make the queries more efficient. Previously, with `sjoin_nearest()`, we used an `R-tree` index structure to efficiently find the nearest neighbor for any kind of geometry. However, because the R-tree implementation in Python only supports finding the closest neighbor (a limitation in the underlying GEOS software), we need to use another tree structure called *{term}`KD-Tree`* (K-dimensional tree) that can provide us information about K-nearest neighbors (i.e. not only the closest). KD-tree is similar to R-tree, but the data is ordered and sorted in a bit different manner (see Appendices for further details). 
 
-
+In Python, we can conduct KNN search between Point datasets using the `scipy` library. Before we can do the actual query, we need to build the `KD-Tree` spatial index. In scipy, we can use the `KDTree` to build the spatial index which is available from the `scipy.spatial` submodule. The `KDTree` has been implemented in C-language which makes it very fast. In the following, we use the `building_points` and `stops` GeoDataFrames that we already used earlier to find three closest public transport stops for each building. Let's start by reading the data and reproject the GeoDataFrames into a metric coordinate reference system (EPSG:3067) so that the distances will be presented as meters:
 
 ```python
-building_points.head()
+import geopandas as gpd
+
+# Read the files and reproject to EPSG:3067
+stops = gpd.read_file("data/Helsinki/pt_stops_helsinki.gpkg").to_crs(epsg=3067)
+building_points = gpd.read_file("data/Helsinki/building_points_helsinki.zip").to_crs(epsg=3067)
+
+building_points.head(2)
 ```
 
 ```python
-stops.head()
+stops.head(2)
 ```
 
 ```python
-from scipy.spatial import cKDTree
+stops.shape
 ```
+
+As we see, both datasets include Point geometries representing specific buildings and public transport stops (n=8377). 
+
+As a first step, we need to build a `KDTRee` index structure based on the Point coordinates. The `KDTree` class expects the Point coordinates to be in `array` format, i.e. not as shapely `Point` objects which we have stored in the `geometry` column. Luckily, it is very easy to convert the shapely geometries into `numpy.array` format by chaining a method `.get_coordinates()` with the `.to_numpy()` method as follows: 
 
 ```python
 building_coords = building_points.get_coordinates().to_numpy()
 stop_coords = stops.geometry.get_coordinates().to_numpy()
-```
 
-```python
 stop_coords
 ```
 
+By running these commands, the `.get_coordinates()` method first returns a DataFrame with `x` and `y` coordinates as columns, and the `.to_numpy()` method then converts this data into a numpy `array` as we see above. The `stop_coords` variable now contains an array of coordinate tuples (x and y coordinates) which we can pass to the `KDTree` class and create a KD-Tree index structure as follows: 
+
 ```python
-stop_kdt = cKDTree(stop_coords)
+from scipy.spatial import KDTree
+
+stop_kdt = KDTree(stop_coords)
+stop_kdt
 ```
+
+Now we have initialized a `KDTree` index structure by populating it with stop coordinates. By doing this, we can make very fast queries and find out which of the approx. 8000 stops is closest to specific buildings. To do this, we can use the `.query()` method which goes through all the input coordinates (i.e. buildings) and very quickly calculates which of them is the closest, 2nd closest etc. The method returns the distances to the K-number of nearest neighbors as well as the index of the closest `stop` to the given building. By passing an argument `k=3`, we can specify that we want to find three closest neighbors for each building: 
 
 ```python
 # Find the three nearest neighbors from stop KD-Tree for each building
 k_nearest_dist, k_nearest_ix = stop_kdt.query(building_coords, k=3)
+
+len(k_nearest_dist)
 ```
 
+The `stop_kdt.query()` call returns us two objects. The first one which we store to variable `k_nearest_dist` represents an array/list of distances from each building (n=158 731) to the three of the closest public transport stops in the data. The second variable `k_nearest_ix` represents the index values of the three nearest stops for each building: 
+
 ```python
+# Distances to 3 nearest stops
 k_nearest_dist
 ```
 
 ```python
+# Index values of the 3 nearest stops
 k_nearest_ix
 ```
 
-```python
-k_nearest_ix.T[0]
-```
+Based on these arrays, we can see that the closest stop to the first building in our data is 92.7 meters away from the building, while the second and third closest stops are approximately 460 meters away from the given building. By looking at the index values in the `k_nearest_ix` variable, we can see that the stops with indices 1131, 1135 and 1125 seem to be the three closest public transport stops to the first building in our data. 
+
+Now we have successfully computed the K-nearest neighbors between the buildings and the stops. Next, we will attach this information back to our GeoDataFrame so that it is easier to do further analyses with the data and create some nice maps out of the data. The data which is returned by the `stop_kdt.query()` command comes out as an array of lists, where each item (list) contains three values that show the distances between three nearest stops and the given building. To be able to easily merge this data with the original GeoDataFrame containing the building data, we need to transpose our arrays. After the transpose, the data will be restructured in a way that there will be three arrays and each of these arrays contains the distances/stop-ids for all the buildings in a single list. To transpose a numpy array, we can use the method `.T` which does the trick:
 
 ```python
+k_nearest_ix.T
+```
+
+By following this approach, we can store the index and distance information as columns into our GeoDataFrame containing values for the 1-3 nearest stops. In the following, we first create a clean copy of the `building_points` GeoDataFrame into variable `k_nearest`, which we will then populate with three new columns for the stop indices, and three columns for the distances to the 1-3 closest stops. To access the information for the closest stop, we can call `.T[0]`, while the `.T[1]` and `.T[2]` returns the information for the second and third closest stops accordingly:
+
+```python
+# Make a copy
 k_nearest = building_points.copy()
-```
 
-```python
 # Add indices of nearest stops
 k_nearest["1st_nearest_idx"] = k_nearest_ix.T[0]
 k_nearest["2nd_nearest_idx"] = k_nearest_ix.T[1]
@@ -280,7 +306,10 @@ k_nearest["3rd_nearest_dist"] = k_nearest_dist.T[2]
 k_nearest.head()
 ```
 
+Perfect! Now we have stored the information for each building about the indices and distances to the three of the closest stops around given buildings. To make this information easier to understand, we can make a nice map that shows the closest three stops for each building. To do this, we can follow a similar approach as we used earlier when visualizing the results from the `sjoin_nearest()` function. Namely, we bring the geometry from the k-nearest stops and connect the building Points with the given stop Points with a LineString. Then it is easy to visualize the closest stops for each building. In the following, we create three separate GeoDataFrames that correspond to the nearest, second nearest and third nearest stops from the buildings. We start by storing the `stop_index` as a column which allows us to easily merge the data between `stops` and `k_nearest` (buildings) GeoDataFrames. For making the table join, we can use the pandas `.merge()` function in which we use the `1st_nearest_idx`,  `2nd_nearest_idx` and `3rd_nearest_idx` as the key on the left GeoDataFrame, while the `stop_index` is the key on the right GeoDataFrame. We also pass the `suffixes=('', '_knearest)` argument to the `.merge()` method to specify that the column names on the left-side GeoDataFrame should stay as they are, while the column names on the right-side will get a suffix `_knearest` in case there are identical column names present in both GeoDataFrames (which we have as both frames contain the `geometry` column. Let's see how we can create these three GeoDataFrames stored into `k_nearest_1`, `k_nearest_2` and `k_nearest_3` variables:
+
 ```python
+# Store the stop index for making the table join
 stops["stop_index"] = stops.index
 ```
 
@@ -302,6 +331,8 @@ k_nearest_3 = k_nearest.merge(stops[["stop_index", "geometry"]], left_on="3rd_ne
 k_nearest_3.head(2)
 ```
 
+**ADD TEXT**
+
 ```python
 from shapely import LineString
 
@@ -311,10 +342,14 @@ k_nearest_2["geometry"] = k_nearest_2.apply(lambda row: LineString([ row["geomet
 k_nearest_3["geometry"] = k_nearest_3.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
 ```
 
+**ADD TEXT**
+
 ```python
 # Find unique building names
 k_nearest.name.unique()
 ```
+
+**ADD TEXT**
 
 ```python
 # Visualize 3 nearest stops to
@@ -326,6 +361,9 @@ m = k_nearest_3.loc[k_nearest_3["name"]==selected_name].explore(m=m, color="blue
 m = stops.explore(m=m, color="green")
 m
 ```
+
+**ADD TEXT**
+
 
 ## Range search
 
