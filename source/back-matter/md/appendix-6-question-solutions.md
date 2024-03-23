@@ -310,4 +310,21 @@ temp.head()
 temp.plot()
 
 ```
+
+6.5
+
+```
+# Plot the admin borders as background
+ax1 = data.plot(color="grey")
+
+# Plot the buffer zone of dense areas on top
+dissolved.loc[dissolved["dense"]==1].buffer(500).plot(ax=ax1, 
+                                                      alpha=0.5, 
+                                                      color="yellow")
+```
+
 <!-- #endregion -->
+
+```python
+
+```
