@@ -214,7 +214,7 @@ _**Figure 6.47**. A map showing the closest road for each building. The LineStri
 
 ## K-Nearest Neighbor search
 
-Thus far, we have only focused on finding the nearest neighbor to a given geometry. However, quite commonly you might want to find not only the closest geometry, but a specific number of closest geometries to a given location. For example, you might be interested to find 3-5 closest public transport stops from your home, because these stops might provide alternative connections to different parts of the city. Doing these kind of queries is actually quite common procedure for many data analysis techniques, and it is commonly called as *{term}`K-Nearest Neighbors search`* (or KNN search). Next, we will learn how to find *k* number of closest neighbors based on two GeoDataFrames. We will first aim to find the three nearest public transport stops for each building in the Helsinki Region, and then we will see how to make a *{term}`radius query`* to find all neighbors within specific distance apart from a given location. K-Nearest Neighbor search techniques are also typically built on top of *{term}`spatial indices <spatial index>`* to make the queries more efficient. Previously with `sjoin_nearest()`, we used an `R-tree` index structure to efficiently find the nearest neighbor for any kind of geometry. Because the R-tree implementation only supports finding the closest neighbor (similarly to other software relying on GEOS), we need to use another tree structure called *{term}`KD-tree`* that can provide us information about k-nearest neighbors (i.e. not only the closest). KD-tree is similar to R-tree, but the data is ordered and sorted in a bit different manner to make the spatial search operations faster (see Appendices for further details). 
+Thus far, we have only focused on finding the nearest neighbor to a given geometry. However, quite commonly you might want to find not only the closest geometry, but a specific number of closest geometries to a given location. For example, you might be interested to find 3-5 closest public transport stops from your home, because these stops might provide alternative connections to different parts of the city. Doing these kind of queries is actually quite common procedure for many data analysis techniques, and it is commonly called as *{term}`K-Nearest Neighbors search`* (or KNN search). Next, we will learn how to find *k* number of closest neighbors based on two GeoDataFrames. We will first aim to find the three nearest public transport stops for each building in the Helsinki Region, and then we will see how to make a *{term}`radius query`* to find all neighbors within specific distance apart from a given location. K-Nearest Neighbor search techniques are also typically built on top of *{term}`spatial indices <spatial index>`* to make the queries more efficient. Previously with `sjoin_nearest()`, we used an `R-tree` index structure to efficiently find the nearest neighbor for any kind of geometry. Because the R-tree implementation only supports finding the closest neighbor (similarly to other software relying on GEOS), we need to use another tree structure called *{term}`KD-Tree`* (K-dimensional tree) that can provide us information about k-nearest neighbors (i.e. not only the closest). KD-tree is similar to R-tree, but the data is ordered and sorted in a bit different manner to make the spatial search operations faster (see Appendices for further details). 
 
 
 
@@ -330,6 +330,8 @@ m
 ## Range search
 
 ```python
+building_kdt = cKDTree(building_coords)
+
 # Find the three nearest neighbors from stop KD-Tree for each building
 k_nearest_ix = stop_kdt.query_ball_tree(building_kdt, r=200)
 ```
@@ -371,6 +373,4 @@ print("Average number of buildings:", stops["building_cnt"].mean().round(1))
 stops.loc[stops["building_cnt"] == stops["building_cnt"].max()].explore(tiles="CartoDB Positron", color="red", marker_kwds={"radius": 5}, max_zoom=16)
 ```
 
-```python
-
-```
+There is an alternative approach for making a radius query by calculating a buffer around the stop points and then making a spatial join between these Polygon geometries and the buildings. This approach also allows to make queries between other type of geometries than Points. 
