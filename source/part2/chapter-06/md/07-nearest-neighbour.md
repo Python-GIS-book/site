@@ -171,7 +171,7 @@ print("Maximum distance:", nearest_parks["distance"].max().round(0))
 print("Average distance:", nearest_parks["distance"].mean().round(0))
 ```
 
-Now we have found the nearest park for each building, and as we can see on average the closest park seem to be 61 meters away from the buildings while the longest distance from one of the buildings to the closest park seems to be 229 meters. In a simimar, manner we can also find the nearest road from each building as follows:
+Now we have found the nearest park for each building, and as we can see on average the closest park seem to be 61 meters away from the buildings while the longest distance from one of the buildings to the closest park seems to be 229 meters. In a similar manner, we can also find the nearest road from each building as follows:
 
 ```python
 nearest_roads = buildings.sjoin_nearest(roads, distance_col="distance")
@@ -369,10 +369,16 @@ _**Figure 6.48**. A map showing the three closest public transport stops to the 
 From the map, we can see that the closest stops to the arena seem to be located close to a large road 100-130 meters away from the arena, while the third closest stop is closer to the rail roads 377 meters away (Euclidian distance) from the building. 
 
 
-## Range search
+### Nearest neighbors within radius
+
+As a last example related to nearest neighbors we show how to find all neighbors of a given Point geometry within a specific distance threshold. As a practical example, we aim to find and calculate the number of buildings that are within 200 meters from a given public transport stop. Doing this kind of nearest neighbor query is similar to the one that we did with `.sjoin_nearest()` using the `max_distance` parameter, but here we aim to efficiently retrieve all neighbors within the given search radius, not only the closest one which is how `sjoin_nearest()` operates. Finding all neighbors within a specific search radius can also be done using the KD-Tree spatial index. However, in this case we actually build the `KDTree` index for both datasets (buildings and stops) and then use a `.query_ball_tree()` method to find all neighbors within the radius `r`: 
 
 ```python
-building_kdt = cKDTree(building_coords)
+from scipy.spatial import KDTree
+
+# Build KDTree indices
+stop_kdt = KDTree(stop_coords)
+building_kdt = KDTree(building_coords)
 
 # Find the three nearest neighbors from stop KD-Tree for each building
 k_nearest_ix = stop_kdt.query_ball_tree(building_kdt, r=200)
@@ -382,27 +388,23 @@ k_nearest_ix = stop_kdt.query_ball_tree(building_kdt, r=200)
 len(k_nearest_ix)
 ```
 
-```python
-k_nearest_ix[0]
-```
+Now we have found all the building points within 200 meters from the stops (n=8377). As a result, we get a list of building index values for each stop. The following shows all the indices for the first stop at index 0:
 
 ```python
-stops.head()
+print(k_nearest_ix[0])
 ```
+
+Now we can easily store the building indices as a new column to the `stops` GeoDataFrame:
 
 ```python
 stops["building_ids_within_range"] = k_nearest_ix
-```
-
-```python
 stops.head()
 ```
 
-```python
-stops["building_cnt"] = stops["building_ids_within_range"].apply(lambda id_list: len(id_list))
-```
+With this information, we can for example calculate the number of buildings within 200 meters from each stop. To do this, we can create a simple `lambda` function that checks the length of the id-list and store the result into column `building_cnt`:
 
 ```python
+stops["building_cnt"] = stops["building_ids_within_range"].apply(lambda id_list: len(id_list))
 stops.head()
 ```
 
@@ -411,8 +413,20 @@ print("Max number of buildings:", stops["building_cnt"].max())
 print("Average number of buildings:", stops["building_cnt"].mean().round(1))
 ```
 
+By calculating simple statistics from the `building_cnt` column, we can see that on average there are 32.2 buildings within 200 meters from the public transport stops and the maximum number of buildings within this distance is whopping 181 buildings. This indicates very dense neighborhood having numerous buildings in a small area. To better understand, where this kind of neighborhood is located and what does it look like, we can make a map by selecting the rows with highest number of buildings and then plotting the stop and building points within radius:
+
 ```python
-stops.loc[stops["building_cnt"] == stops["building_cnt"].max()].explore(tiles="CartoDB Positron", color="red", marker_kwds={"radius": 5}, max_zoom=16)
+filter = stops["building_cnt"] == stops["building_cnt"].max()
+building_ids = stops.loc[filter].building_ids_within_range.values[0]
+
+m = stops.loc[filter].explore(tiles="CartoDB Positron", color="red", marker_kwds={"radius": 5}, max_zoom=16)
+building_points.loc[building_ids].explore(m=m)
 ```
+
+_**Figure 6.49**. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius._
+
+The map reveals that this stop is indeed located in a densely built neighborhood called Laurinlahti with lots of detached houses. By using similar approach, it is possible to investigate the urban design and morphology across the city regions which can reveal some interesting patterns and developments relevant to urban planning. 
+
+**Question XX:** Can you think of other approach that you could use to find all buildings within 200 meters from the transit stops?
 
 There is an alternative approach for making a radius query by calculating a buffer around the stop points and then making a spatial join between these Polygon geometries and the buildings. This approach also allows to make queries between other type of geometries than Points. 
