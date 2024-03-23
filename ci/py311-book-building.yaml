@@ -29,7 +29,7 @@ dependencies:
   - folium=0.14.0
   - fiona=1.9.4
   - geojson=3.0.1
-  - geopandas=0.14.0
+  - geopandas=0.14.3
   - geoplot=0.5.1
   - geopy=2.4.0
   - hvplot=0.8.4
