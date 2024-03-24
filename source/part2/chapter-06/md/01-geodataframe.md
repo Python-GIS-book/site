@@ -90,7 +90,7 @@ _**Figure 6.11**. Census tract polygons for Austin, Texas, USA._
 Voilá! Here is our first map created with geopandas! This map gives a quick overview of how the geometries of the cencus tracts are located in the given region. The `x` and `y` axes in the plot are based on the coordinate values of the geometries which are in this case represented as meters.
 <!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.2
 
 Figure out the following information from our input data using your `pandas` skills:
@@ -153,7 +153,7 @@ _**Figure 6.12**. A map showing census tracts colored based on the size of the p
 As a result, we can more easily spot the larger polygons from the map with brighter colors. There are various ways to modify the appearance of the map and colors, which we will learn later in Chapter 8.
 <!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.3
 
 Using your `pandas` skills, create a new column `pop_density_km2` and populate it with population density values (population / km2) calculated based on columns `pop2019` and `area_km2`. Print out answers to the following questions:
@@ -204,13 +204,13 @@ data.to_file(output_fp)
 Now we have successfully stored the data into a file called `austin_pop_density_2019.gpkg`. Notice, that if you have an existing file with the same name, geopandas will automatically overwrite the contents (without asking). Hence, it is good to be a bit mindful about the naming of the files whenever writing data to disk. 
 <!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.4
 
 Read the output file using `geopandas` and check that the data looks ok.
 <!-- #endregion -->
 
-```python tags=["remove_cell"]
+```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
 # Use this cell to enter your solution.
 ```
 

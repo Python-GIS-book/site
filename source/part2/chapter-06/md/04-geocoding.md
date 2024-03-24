@@ -12,13 +12,14 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Geocoding
 
 Geocoding is the process of transforming place names or addresses into coordinates. In this section, we will learn how to geocode addresses using geopandas and [geopy](https://geopy.readthedocs.io/en/stable/) [^geopy]. Geopy and other geocoding libaries (such as [geocoder](http://geocoder.readthedocs.io/)) make it easy to locate the coordinates of addresses, cities, countries, and landmarks across the globe. In practice, geocoding libraries are often based on *{term}`Application Programming Interfaces (APIs) <API>`* where you can send requests, and receive responses in the form of place names, addresses and coordinates. Geopy offers access to several geocoding services, such as [Photon](https://photon.komoot.io/]) [^photon] and [Nominatim](https://nominatim.org/) [^nominatim] that rely on data from OpenStreetMap, among various other services. You can see a full list of supported geocoding services and usage details from the [geopy documentation](https://geopy.readthedocs.io/en/stable/) [^geopy].
 
 It is important to pay attention to the geocoding providers' Terms of Use. Geocoding services might require an API key in order to use them. (i.e. you need to register for the service before you can access results from their API). Furthermore, rate limiting also restrict the use of these services. The
 geocoding process might end up in an error if you are making too many requests in a short time period (e.g. when trying to geocode large number of addresses). If you pay for the geocoding service, you can naturally make more requests to the API.
-
+<!-- #endregion -->
 
 ### Geocoding addresses
 
@@ -85,18 +86,20 @@ join.to_file(outfp)
 That's it. Now we have successfully geocoded those addresses into Points and made a Shapefile out of them. Easy isn't it! Nominatim works relatively nicely if you have well defined and well-known addresses such as the ones that we used in this tutorial. In practice, the address needs to exist in the OpenStreetMap database. Sometimes, however, you might want to geocode a "point-of-interest", such as a museum, only based on it's name. If the museum name is not on OpenStreetMap, Nominatim won't provide any results for it, but you might be able to geocode the place using some other geocoders.
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.7
 Do another round of geocoding with your own list of addresses from anywhere in the world. Are you happy with the result?
 
 In the above example we passed the address column to the geocoding function. [The geopandas documentation of geopandas.tools.geocode](https://geopandas.org/en/stable/docs/reference/api/geopandas.tools.geocode.html#geopandas-tools-geocode)[^geopandas_geocode] confirms that we should also be able to pass a list of strings to the geocoding tool. So, you should be able to answer this question by defining a list of addresses and using this list as input strings.
 
 
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
 # Solution
 
 # Example list of addresses

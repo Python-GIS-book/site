@@ -287,7 +287,7 @@ multipoly
 
 _**Figure 6.9**. A MultiPolygon geometry consisting of two Polygon objects._
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.1
 
 Create examples of these shapes using your shapely skills:
@@ -295,12 +295,13 @@ Create examples of these shapes using your shapely skills:
 - **Triangle**   
 - **Square**    
 - **Circle**
+<!-- #endregion -->
 
 ```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide_cell", "remove_book_cell", "hide-cell"] editable=true slideshow={"slide_type": ""}
+```python tags=["hide_cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
 # Solution
 
 # Triangle

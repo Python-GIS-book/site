@@ -364,15 +364,17 @@ plt.show()
 _**Figure 6.24**. Dissolved census tract geometries._
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.5
 
 Combining your pandas and geopandas skills, create a 500m buffer zone around the dense areas in Austin and plot a simple map of this zone.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
 # Solution
 
 # Plot the admin borders as background

@@ -12,8 +12,9 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Working with map projections
-
+<!-- #endregion -->
 
 In Chapter 5, we learned that the Coordinate Reference System (CRS) describes how geometries are related to the places on Earth and what are the core components of a CRS. Our main tool for managing coordinate reference systems is the [PROJ library](https://proj.org/) [^proj] which can be used through the [pyproj](https://pyproj4.github.io/pyproj/stable/) [^pyproj] Python library. Pyproj can be used to access the CRS information of a given geographic dataset and also for reprojecting the data from one coordinate system to another. In the following, we will demonstrate how to work with coordinate reference systems in geopandas by using a country border dataset from Europe. We will reproject the dataset from the original WGS84 coordinate system into a Lambert Azimuthal Equal Area projection which is the projection that European Union [recommends for Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) [^EU_projection].
 
@@ -103,17 +104,19 @@ outfp = "data/EU_countries/Europe_borders_epsg3035.shp"
 data.to_file(outfp)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.6
 
 One of the recommended coordinate reference systems for Finland is [ETRS89 / TM35FIN (EPSG:3067)](https://spatialreference.org/ref/epsg/3067/)[^EPSG3067]
 
 First, select Finland from our dataset of EU countries. Then, plot two maps of Finland where you compare the WGS84 (EPSG:4326) representation and ETRS89 / TM35FIN (EPSG:3067). You can achieve this by modifying the previous example for the whole EU. 
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 # Select Finland and reproject
