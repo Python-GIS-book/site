@@ -250,7 +250,7 @@ ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 ```
 <!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 6
 
 6.1
@@ -367,8 +367,22 @@ geo = geocode(
 # Check if the result looks correct on a map
 geo.explore()
 ```
-<!-- #endregion -->
+
+6.8
 
 ```python
-
+print("Line a is equal to line b: ", line_a.equals(line_b))
 ```
+
+6.9
+```python
+# Check column names in the spatial join result
+print(districts_with_points.columns.values)
+
+# Group by district name
+grouped = districts_with_points.groupby("Name")
+
+# Count the number of rows (adress locations) in each district
+grouped.index_right.count()
+```
+<!-- #endregion -->
