@@ -12,11 +12,13 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Spatial join
 
-Spatial join is yet another classic GIS task. Retrieving table attributes from one layer and transferring them into another layer based on their spatial relationship is something you most likely need to do on a regular basis. In the previous section (Chapter 6.6), we learned how to perform spatial queries, such as investigating if a Point is located within a Polygon. We can use this same logic to conduct a spatial join between two layers based on their spatial relationship and transfer the information stored in one layer into the other. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the attributes of a polygon that `intersects` with the point. 
+Spatial join is yet another classic GIS task. Retrieving table attributes from one layer and transferring them into another layer based on their spatial relationship is something you most likely need to do on a regular basis when working with geographic data. In the previous section, we learned how to perform spatial queries, such as investigating if a Point is located within a Polygon. We can use this same logic to conduct a spatial join between two layers based on their spatial relationship and transfer the information stored in one layer into the other. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the attributes of a polygon that `intersects` with the point. 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## The basic logic of spatial join
 
 In **Figure 6.38**, we illustrate the logic of a spatial join by showing how it is possible to combine information between spatial data layers that are located in the same area (i.e. they overlap with each other at least partially). The target here is to combine attribute information of three layers: properties, land use and buildings. Each of these three layers has their own attribute information. Transfering the information between the layers is based on how the individual points in the Properties layer intersect with these layers as shown on the left, i.e. considering different land use areas (commercial, residential, industrial, natural), as well as the building footprints containing a variety of building-related attibute information. On the right, we show the table attributes for these three layers considering the features that intersect with the four Point observations. The table at the bottom shows how the results look after all the attribute data from these layers has been combined into a single table. 
@@ -27,22 +29,24 @@ It is good to remember that spatial join is always conducted between two layers 
 
 _**Figure 6.38**. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship._
 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Now as we understand the basic idea behind the spatial join, let's continue to learn a bit more about the details of spatial join. **Figure 6.39**, illustrates how we can do a spatial join between Point and Polygon layers, and how changing specific parameters in the way the join is conducted influence the results. In spatial join, there are two set of options that you can control, which ultimately influence how the data is transferred between the layers. You can control: 
 
 1) How the spatial relationship between geometries should be checked (i.e. spatial predicates)?, and
 2) What type of table join you want to conduct? (inner, left, or right outer join)
 
-The spatial predicates control how the spatial relationship between the geometries in the two data layers is checked. Only those cases where the spatial predicate returns `True` will be kept in the result. Thus, changing this option (parameter) can have a big influence on your final results after the join. In **Figure 6.39** this difference is illustrated at the bottom when you compare the result tables *i* and *ii*: In the first table (*i*) the spatial predicate is `within` that gives us 4 rows that is shown in the table. However, on the second result table (*ii*), the spatial predicate is `intersects` which gives us 5 rows. Why is there a difference? This is because the Point with id-number 6 happens to lie exactly at the border of the Polygon C. As you might remember from the  Chapter 6.6, there is a certain difference between these two spatial predicates: The `within` expects that the Point should be inside the Polygon (`False` in our case), whereas the `intersects` returns `True` if at least one point is common between the geometries (`True` in our case). In a similar manner, you could change the spatial predicate to `contains`, `touches`, `overlaps` etc. and the result would change accordingly. 
+The spatial predicates control how the spatial relationship between the geometries in the two data layers is checked. Only those cases where the spatial predicate returns `True` will be kept in the result. Thus, changing this option (parameter) can have a big influence on your final results after the join. In **Figure 6.39** this difference is illustrated at the bottom when you compare the result tables *i* and *ii*: In the first table (*i*) the spatial predicate is `within` that gives us 4 rows that is shown in the table. However, on the second result table (*ii*), the spatial predicate `intersects` gives us 5 rows. Why is there a difference? This is because the Point with id-number 6 happens to lie exactly at the border of the Polygon C. As you might remember from the  Chapter 6.6, there is a certain difference between these two spatial predicates: The `within` predicate expects that the Point should be inside the Polygon (`False` in our case), whereas `intersects` returns `True` if at least one point is common between the geometries (`True` in our case). In a similar manner, you could change the spatial predicate to `contains`, `touches`, `overlaps` etc. and the result would change accordingly. 
 
 It is also important to ensure that the logic for investigating these spatial relationships makes sense when deciding which spatial predicate to use. For example, it would not make any sense to check whether Layer 1 (points) contain the Layer 2 (polygons) because Point objects do not have an interior or boundary, thus lacking the ability to contain any geometric object. Doing this kind of spatial join is possible, but the result from this type of spatial join would always return an empty GeoDataFrame.  However, if we change the spatial join criteria and join the data between layers if the Layer 2 (polygons) contain the Layer 1 (points), this would make a perfect sense, and the query would return rows that match with this criteria.   
 
 ![_**Figure 6.39**. Different approaches to join two data layers with each other based on spatial relationships._](../img/spatial-join-alternatives.png)
 
 _**Figure 6.39**. Different approaches to join two data layers with each other based on spatial relationships._
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 The other parameter that you can use to control how the spatial join is conducted is the spatial join type. There are three different join types that influence the outcome of the spatial join:
 
 1. {term}`inner join`
@@ -52,14 +56,15 @@ The other parameter that you can use to control how the spatial join is conducte
 The terms left and right correspond to the two data layers/tables used in the spatial join, and specifically to the order how these layers are used in the spatia join. In our case, the Layer 1 represents always the `left` side of spatial join (indicated with green background color in the tables), whereas the Layer 2 corresponds to the `right` accordingly (white background). When looking at the result tables *i* and *ii* (**Figure 6.39**), we can see that both spatial joins have been conducted using an `inner join`. When using the `inner join`, we only keep such rows from the right and left tables that have received `True` after testing the relationship based on the chosen spatial predicate. The result table *iii* shows an example of `left outer join` in which all the rows from the left are kept (no matter what), and the ones from the right that have a match based on spatial predicate will be added to the result. In case some of the rows on the left do not have a match with the right layer, those attributes will receive NaN (No data) as the attribute value as shown with Point id 3 and 6 in the result table *iii*. The `right outer join` works in quite a similar manner, but in this case the values on the right layer are always kept (no matter what), and only the ones from the left that have a match based on the spatial predicate will be kept. The rows without a match will receive a Nan (No data) on the left side as shown in result table *iv* with Polygon that has a Name D.  
 
 With these two parameters (spatial predicate and join type), it is possible to conduct many kind of spatial joins. Commonly the `inner join` using the `intersect` as a spatial predicate is the one that you want to use, but depending on your needs there are various options where to choose from.
-
+<!-- #endregion -->
 
 ## Spatial join with Python
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Now as we have learned the basic logic of spatial join, let's see how we can do it in Python. Spatial join can be done easily with geopandas using the `.sjoin()` method. Next, we will learn how to use this method to perform a spatial join between two layers: 1) `addresses` which are the locations that we geocoded in the Chapter 6.5, and 2) `population grid` which is a 250m x 250m grid polygon layer that contains population information from the Helsinki Region (source: Helsinki Region Environmental Services Authority). Let's start by reading the data:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 import geopandas as gpd
 
 addr_fp = "data/Helsinki/addresses.shp"
@@ -77,38 +82,41 @@ pop_grid.head(2)
 
 The `pop_grid` dataset contains few columns, namely a unique `id`, the number of `inhabitants` per grid cell, and the `occupancy_rate` as percentage. 
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Preparations for spatial join
 
-As a first step before making a spatial join, it is always good to check that the coordinate reference system (CRS) of the layers are identical. The basic requirement for a successful spatial join is that the layers should overlap with each other in space. If the geometries between the layers do not share the same CRS, it is very likely that the spatial join will fail and produces an empty GeoDataFrame. By looking at the numbers in the `geometry` column of the `addresses` and `pop_grid` GeoDataFrames above, it is fairly evident that the datasets are in different coordinate reference system as the numbers seem to differ a lot. We can easily verify this by making a simple test comparing the `.crs` attributes of both layers:
+As a first step before making a spatial join, it is always good to check that the coordinate reference system (CRS) of the layers are identical. The basic requirement for a successful spatial join is that the layers should overlap with each other in space. If the geometries between the layers do not share the same CRS, it is very likely that the spatial join will fail and produces an empty GeoDataFrame. By looking at the numbers in the `geometry` column of the `addresses` and `pop_grid` GeoDataFrames above, it is fairly evident that the datasets are in different coordinate reference system as the numbers seem to differ a lot. We can verify this by making a simple test comparing the `.crs` attributes of both layers:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 addresses.crs == pop_grid.crs
 ```
 
-As we see from the result, the CRS are not identical. Thus, let's reproject the geometries in the `addresses` GeoDataFrame to the same CRS as `pop_grid`. We can do this easily using the `.to_crs()` which learned in Chapter 6.4. Here, we will be passing the `pop_grid.crs` attribute information as the input for the `crs` parameter:
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As we see from the result, the CRS are not identical. Thus, let's reproject the geometries in the `addresses` GeoDataFrame to the same CRS as `pop_grid` using the `.to_crs()` method which was introduced in Chapter 6.4. To ensure that we will have exactly the same CRS in both layers, we can use the `pop_grid.crs` attribute information as the input for the `crs` parameter:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Reproject
 addresses = addresses.to_crs(crs=pop_grid.crs)
+
 # Validate match
 addresses.crs == pop_grid.crs
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Good, now the datasets share the same coordinate reference system. As a last preparatory step, let's visualize both datasets on top of each other to see how the inhabitants are distributed over the region, and how the address points are located in relation to the grid:
+<!-- #endregion -->
 
-```python
-# Plot the grid
+```python editable=true slideshow={"slide_type": ""}
+# Plot the population data classified into 5 classes
 ax = pop_grid.plot(
     column="inhabitants", 
     cmap = "Greens",
-    # Classify the data into 5 classes
     scheme="naturalbreaks", 
     k=5, 
-    # Place legend to the lower right
     legend=True, 
     legend_kwds={"loc": "lower right"},
-    # Modify figure size
     figsize=(10, 8)
 )
 
@@ -119,7 +127,7 @@ ax = addresses.plot(ax=ax, color="blue", markersize=7, marker="D")
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.40**. Prerequisite for a successful spatial join: The Polygon layer overlaps with the Point layer._
 
-As we can see from the map in Figure 6.XX, the Polygons representing the population distribution in the area now overlaps nicely with the address locations. Thus we are ready to merge these datasets based on their spatial relationship.   
+As we can see from the map in Figure 6.40, the Polygons representing the population distribution in the area now overlap nicely with the address locations and we are ready to join information among these two layers based on their spatial relationship.   
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
@@ -192,11 +200,13 @@ m = pop_grid.explore(color="blue", style_kwds=dict(color="blue", stroke=False))
 addresses.explore(m=m, color="red")
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.42**. An interactive map of the two layers reveal that some points are located outside of the Polygons._
 
-By exploring the **Figure 6.42**, we can see that some points are located outside of polygons in the areas close to the railway lines and the motorway. Is this a problem? It depends, but in certain cases, you might want to keep the information for the points that did not get a match based on the spatial relationship. We can achieve this by changing the `how` parameter into `left`, which keeps every row from the left member of the spatial join even when no match is found from the other layer:
+From **Figure 6.42**, we can see that some points are located outside of polygons in the areas close to the railway lines and the motorway. Is this a problem? It depends, but in certain cases, you might want to keep the information for the points that did not get a match based on the spatial relationship. We can achieve this by changing the `how` parameter into `left`, which keeps every row from the left member of the spatial join even when no match is found from the other layer:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # This cell sets the number of lines of pandas output to a maximum of 7
 # The cell is removed when building the website/book PDF
 pd.set_option("display.max_rows", 7)
@@ -209,8 +219,10 @@ left_join
 
 Now the result in the `left_join` contains all the original 34 addresses. Let's investigate a bit more to see which rows did not have a matching polygon in the population grid. After a left-join, those rows that do not have a matching geometry in the right-side member of the join are filled with NaN values. Thus, we should be able to locate them easily by searching for rows that do not have any values e.g. in the `inhabitants` column that was part of the `pop_grid` GeoDataFrame. We can do this by doing a selection using the `.isnull()` method:
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 left_join.loc[left_join["inhabitants"].isnull()]
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 The result from this query reveals the exact locations of the points that miss information in the last four columns of the GeoDataFrame. Okay, but is this all we can do? In some cases, it can be crucial that all features in the target layer would get information from the other dataset even if the spatial predicate between the geometries would not match perfectly. Sometimes fetching information from another layer based on the closest geometry up to a certain distance threshold can be considered sufficient for making a spatial join. Luckily, we can achieve this with relative ease using geopandas which we will learn next.
+<!-- #endregion -->
