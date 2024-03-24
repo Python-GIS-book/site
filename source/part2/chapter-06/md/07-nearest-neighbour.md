@@ -202,15 +202,31 @@ connectors.head()
 
 Great, now we have a new GeoDataFrame that represents the connectors between the buildings and the drivable roads. Finally, we can visualize the buildings, roads and these connectors to better understand the exact points where the distance between a given building and the closest road is shortest:
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 m = buildings.explore(color="gray", tiles="CartoDB Positron")
 m = roads.explore(m=m, color="red")
 m = connectors.explore(m=m, color="green")
 m
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.47**. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest._
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+#### Question 6.X
+
+ADD A QUESTION.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# You can use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
+# Solution
+
+```
 
 ## K-Nearest Neighbor search
 
@@ -331,9 +347,11 @@ k_nearest_3 = k_nearest.merge(stops[["stop_index", "geometry"]], left_on="3rd_ne
 k_nearest_3.head(2)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Excellent, now we have merged the stop geometries into the `geometry_knearest` column of the GeoDataFrames. By comparing the values in the `stop_index` column of the GeoDataFrames `k_nearest_1`, `k_nearethe st_2` and `k_nearest_3`, we can see that the values change correctly following the values in `1st_`, `2nd_` and `3rd_nearest_index` column accordingly. The geometries stored in the `geometry_knearest` also have different values in all of the GeoDataFrames which is as should. Now we can create LineString geometries connecting these Point objects to each other which allows us to create a nice map out of our nearest neighbors and thus better understand the data:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 from shapely import LineString
 
 # Generate LineStrings connecting the building point and K-nearest neighbor
@@ -423,10 +441,43 @@ m = stops.loc[filter].explore(tiles="CartoDB Positron", color="red", marker_kwds
 building_points.loc[building_ids].explore(m=m)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.49**. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius._
 
 The map reveals that this stop is indeed located in a densely built neighborhood called Laurinlahti with lots of detached houses. By using similar approach, it is possible to investigate the urban design and morphology across the city regions which can reveal some interesting patterns and developments relevant to urban planning. 
 
-**Question XX:** Can you think of other approach that you could use to find all buildings within 200 meters from the transit stops?
+There is also an alternative approach for making a radius query by calculating a buffer around the stop points and then making a spatial join between these Polygon geometries and the buildings. This approach also allows to make queries between other type of geometries than Points.
+<!-- #endregion -->
 
-There is an alternative approach for making a radius query by calculating a buffer around the stop points and then making a spatial join between these Polygon geometries and the buildings. This approach also allows to make queries between other type of geometries than Points. 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+#### Question 6.X
+
+Test and try to find all buildings within 200 meters from the transit stops by creating a 200 meter buffer around the stops and then making a spatial join between the buffers and building points. Calculate the number of buildings per stop_id. Did it take longer to find the nearest buildings using this approach?
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# You can use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
+# Solution
+
+# Create a 200 meter buffer
+stop_buffer = stops.copy()
+stop_buffer["geometry"] = stops.buffer(200)
+
+# Find all the building points intersecting with the buffer
+buffer_buildings = stop_buffer.sjoin(building_points, predicate="intersects")
+
+# Calculate the number of buildings per stop by grouping
+building_count = buffer_buildings.groupby("stop_id").stop_name.count().to_frame().reset_index()
+
+# Now the "stop_name" column contains information about building count, rename
+building_count = building_count.rename(columns={"stop_name": "building_cnt_buffer"})
+
+# Join the information into the stops
+stop_buffer = stop_buffer.merge(building_count, on="stop_id")
+
+# As a result, we should have identical number of buildings identified per stop (see the last two columns)
+stop_buffer.head()
+```
