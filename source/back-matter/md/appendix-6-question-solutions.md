@@ -250,7 +250,7 @@ ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 ```
 <!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 6
 
 6.1
@@ -367,8 +367,75 @@ geo = geocode(
 # Check if the result looks correct on a map
 geo.explore()
 ```
-<!-- #endregion -->
+
+6.8
+
+```python
+print("Line a is equal to line b: ", line_a.equals(line_b))
+```
+
+6.9
+```python
+# Check column names in the spatial join result
+print(districts_with_points.columns.values)
+
+# Group by district name
+grouped = districts_with_points.groupby("Name")
+
+# Count the number of rows (adress locations) in each district
+grouped.index_right.count()
+```
+
+6.10
 
 ```python
 
+# Join information from address points to the grid
+result = pop_grid.sjoin(addresses)
+
+# Check the structure
+print(result.head(2))
+
+# Visualize the result
+result.explore()
+
 ```
+How does the result differ from the version where we joined information from the grids to the points? 
+- this result has polygon geometry in stead of points
+- order of the columns is different
+  
+What would be the benefit of doing the join this way around?
+- If your research question is related to the population grid, then it might make more sense to join additional information to those statistical units.
+- If the point data would be somehow sensitive, joining the information to a coarser spatial unit might be meaningful
+
+
+6.11
+
+```python
+#insert solution here
+```
+
+6.12
+
+```python
+
+# Create a 200 meter buffer
+stop_buffer = stops.copy()
+stop_buffer["geometry"] = stops.buffer(200)
+
+# Find all the building points intersecting with the buffer
+buffer_buildings = stop_buffer.sjoin(building_points, predicate="intersects")
+
+# Calculate the number of buildings per stop by grouping
+building_count = buffer_buildings.groupby("stop_id").stop_name.count().to_frame().reset_index()
+
+# Now the "stop_name" column contains information about building count, rename
+building_count = building_count.rename(columns={"stop_name": "building_cnt_buffer"})
+
+# Join the information into the stops
+stop_buffer = stop_buffer.merge(building_count, on="stop_id")
+
+# As a result, we should have identical number of buildings identified per stop (see the last two columns)
+stop_buffer.head()
+```
+<!-- #endregion -->
