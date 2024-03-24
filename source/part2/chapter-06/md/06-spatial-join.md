@@ -34,8 +34,8 @@ _**Figure 6.38**. Spatial join allows you to combine attribute information from 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 Now as we understand the basic idea behind the spatial join, let's continue to learn a bit more about the details of spatial join. **Figure 6.39**, illustrates how we can do a spatial join between Point and Polygon layers, and how changing specific parameters in the way the join is conducted influence the results. In spatial join, there are two set of options that you can control, which ultimately influence how the data is transferred between the layers. You can control: 
 
-1) How the spatial relationship between geometries should be checked (i.e. spatial predicates)?, and
-2) What type of table join you want to conduct? (inner, left, or right outer join)
+1) How the spatial relationship between geometries should be checked (i.e. spatial predicates), and
+2) What type of table join you want to conduct (inner, left, or right outer join)
 
 The spatial predicates control how the spatial relationship between the geometries in the two data layers is checked. Only those cases where the spatial predicate returns `True` will be kept in the result. Thus, changing this option (parameter) can have a big influence on your final results after the join. In **Figure 6.39** this difference is illustrated at the bottom when you compare the result tables *i* and *ii*: In the first table (*i*) the spatial predicate is `within` that gives us 4 rows that is shown in the table. However, on the second result table (*ii*), the spatial predicate `intersects` gives us 5 rows. Why is there a difference? This is because the Point with id-number 6 happens to lie exactly at the border of the Polygon C. As you might remember from the  Chapter 6.6, there is a certain difference between these two spatial predicates: The `within` predicate expects that the Point should be inside the Polygon (`False` in our case), whereas `intersects` returns `True` if at least one point is common between the geometries (`True` in our case). In a similar manner, you could change the spatial predicate to `contains`, `touches`, `overlaps` etc. and the result would change accordingly. 
 
@@ -85,15 +85,24 @@ The `pop_grid` dataset contains few columns, namely a unique `id`, the number of
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Preparations for spatial join
 
-As a first step before making a spatial join, it is always good to check that the coordinate reference system (CRS) of the layers are identical. The basic requirement for a successful spatial join is that the layers should overlap with each other in space. If the geometries between the layers do not share the same CRS, it is very likely that the spatial join will fail and produces an empty GeoDataFrame. By looking at the numbers in the `geometry` column of the `addresses` and `pop_grid` GeoDataFrames above, it is fairly evident that the datasets are in different coordinate reference system as the numbers seem to differ a lot. We can verify this by making a simple test comparing the `.crs` attributes of both layers:
+As a first step before making a spatial join, it is always good to check that the coordinate reference system (CRS) of the layers are identical. The basic requirement for a successful spatial join is that the layers should overlap with each other in space. If the geometries between the layers do not share the same CRS, it is very likely that the spatial join will fail and produces an empty GeoDataFrame. By looking at the numbers in the `geometry` column of the `addresses` and `pop_grid` GeoDataFrames above, it is fairly evident that the datasets are in different coordinate reference system as the numbers seem to differ a lot. Let's check the CRS information of each layer:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
+print("Adress points CRS:", addresses.crs.name)
+print("Population grid CRS:", pop_grid.crs.name)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+We can further verify that the crs are indeed not the same. 
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
 addresses.crs == pop_grid.crs
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we see from the result, the CRS are not identical. Thus, let's reproject the geometries in the `addresses` GeoDataFrame to the same CRS as `pop_grid` using the `.to_crs()` method which was introduced in Chapter 6.4. To ensure that we will have exactly the same CRS in both layers, we can use the `pop_grid.crs` attribute information as the input for the `crs` parameter:
+To fix this issue, let's reproject the geometries in the `addresses` GeoDataFrame to the same CRS as `pop_grid` using the `.to_crs()` method which was introduced in Chapter 6.4. To ensure that we will have exactly the same CRS in both layers, we can use the `pop_grid.crs` attribute information as the input for the `crs` parameter:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -226,3 +235,28 @@ left_join.loc[left_join["inhabitants"].isnull()]
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 The result from this query reveals the exact locations of the points that miss information in the last four columns of the GeoDataFrame. Okay, but is this all we can do? In some cases, it can be crucial that all features in the target layer would get information from the other dataset even if the spatial predicate between the geometries would not match perfectly. Sometimes fetching information from another layer based on the closest geometry up to a certain distance threshold can be considered sufficient for making a spatial join. Luckily, we can achieve this with relative ease using geopandas which we will learn next.
 <!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+#### Question 6.10
+
+Do the spatial join another way around, i.e. make a spatial join where you join information from the address points into the population grid. How does the result differ from the version where we joined information from the grids to the points? What would be the benefit of doing the join this way around?
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# You can use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
+# Solution
+
+# Join information from address points to the grid
+result = pop_grid.sjoin(addresses)
+
+# Check the structure
+print(result.head(2))
+
+# Visualize the result
+result.explore()
+
+# see reflection about this solution in the back matter
+```
