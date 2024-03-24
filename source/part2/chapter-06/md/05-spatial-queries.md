@@ -12,10 +12,11 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Selecting data based on spatial relationships
 
 When working with geospatial data,  you often need to do specific GIS operations based on how the data layers are located in relation to each other. For instance, finding out if a certain point is located inside an area, or whether a line intersects with another line or a polygon, are some of the fundamental geospatial operations for selecting data based on spatial location. These kind of queries are commonly called as {term}`spatial queries`. Spatial queries are conducted based on the {term}`topological spatial relations` which are fundamental constructs that describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as *contains*, *touches* and *intersects* ({cite}`Clementini_1994`). In GIS, the topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions. For instance, regardless of their exact shape or size, a lake *inside* a forest maintains this relationship even if the forest's boundaries or the lake's size change slightly, as long as the lake remains enclosed by the forest. Next, we will learn a bit more details about these topological relations and how to use them for spatial queries in Python.
-
+<!-- #endregion -->
 
 ## Topological spatial relations
 
@@ -135,7 +136,7 @@ line_a.touches(line_a)
 ```
 
 <!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
-No it doesn't. However, checking if`.intersects()` and `.equals()` should produce `True` for a case when we compare the `line_a` with itself:
+No it doesn't. However, `.intersects()` and `.equals()` should produce `True` for a case when we compare the `line_a` with itself:
 <!-- #endregion -->
 
 ```python deletable=true editable=true slideshow={"slide_type": ""}
@@ -146,7 +147,7 @@ print("Equals?", line_a.equals(line_a))
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.8
 
-Use python to prove that line_a and line_b are not identical.
+Use python to prove that `line_a` and `line_b` are not identical.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
@@ -160,10 +161,10 @@ print("Line a is equal to line b: ", line_a.equals(line_b))
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-In a similar manner as in the examples above, you can test all different spatial predicates and assess the spatial relationship between geometries. The following prints results for all predicates between the `point1` and the `polygon` which we created earlier: 
+Following the syntax from the previous examples, we can test all different spatial predicates and assess the spatial relationship between geometries. The following prints results for all predicates between the `point1` and the `polygon` which we created earlier: 
 <!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 print("Intersects?", point1.intersects(polygon))
 print("Within?", point1.within(polygon))
 print("Contains?", point1.contains(polygon))
@@ -321,7 +322,7 @@ As we can see, the `.sindex` is something called `PyGEOSSSTRTreeIndex` object. T
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.9
 
-How many addresses are located in each district? You can do this by grouping the spatial join result based the district name (see Part I, chapter 3 for a reminder on how to group and aggregate data). 
+How many addresses are located in each district? You can find out the answer by grouping the spatial join result based the district name (see Part I, chapter 3 for a reminder on how to group and aggregate data). 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
