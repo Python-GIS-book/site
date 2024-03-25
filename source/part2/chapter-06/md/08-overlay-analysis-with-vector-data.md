@@ -19,7 +19,7 @@ Vector overlay operations are common in GIS in which two or more vector layers a
 
 The basic idea of vector overlay operations is demonstrated in **Figure 6.50** but it is good to keep in mind that overlays operate at the GeoDataFrame level, not on individual geometries, and the properties from both are retained. In effect, for every shape in the left GeoDataFrame, this operation is executed against every other shape in the right GeoDataFrame
 
-![_**Figure 6.50**. Typical vector overlay operations between two geographic layers (circle and rectangles). _](../img/vector_overlay_idea.png)
+![_**Figure 6.50**. Typical vector overlay operations between two geographic layers (circle and rectangles). _](../img/vector_overlay_processes.png)
 
 _**Figure 6.50**. Typical vector overlay operations between two geographic layers (circle and rectangles)._
 
@@ -169,13 +169,17 @@ def plot_vector_overlay(gdf1, gdf2, result, title):
 
     ax1 = gdf1.plot(ax=ax1)
     ax1 = gdf2.plot(ax=ax1, color="red", alpha=0.3)
-    
+
     result.plot(ax=ax2)
-    
-    ax2.set_xlim(379282.2011, 390161.5504)
-    ax2.set_ylim(6664478.5683, 6677328.8306)
+
+    # Fetch bounds and apply to axis 2
+    xmin, ymin, xmax, ymax = gdf1.total_bounds
+        
+    ax2.set_xlim(xmin, xmax)
+    ax2.set_ylim(ymin, ymax)
     
     fig.suptitle(title, fontsize=16)
+    fig.text(0.49, 0.5, "⇨", fontsize=30, color="red")
     ax1.axis("off")
     ax2.axis("off")
     plt.tight_layout()
@@ -184,7 +188,6 @@ def plot_vector_overlay(gdf1, gdf2, result, title):
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
-
 # Intersection
 intersection = postal_areas.overlay(station_buffer, how="intersection")
 
