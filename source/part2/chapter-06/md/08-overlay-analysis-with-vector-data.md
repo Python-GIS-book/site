@@ -19,9 +19,9 @@ Vector overlay operations are common in GIS in which two or more vector layers a
 
 The basic idea of vector overlay operations is demonstrated in **Figure 6.50** but it is good to keep in mind that overlays operate at the GeoDataFrame level, not on individual geometries, and the properties from both are retained. In effect, for every shape in the left GeoDataFrame, this operation is executed against every other shape in the right GeoDataFrame
 
-![_**Figure 6.50**. Typical vector overlay operations._](../img/vector_overlay_operations.png)
+![_**Figure 6.50**. Typical vector overlay operations between two geographic layers (circle and rectangles). _](../img/vector_overlay_idea.png)
 
-_**Figure 6.50**. Typical vector overlay operations._
+_**Figure 6.50**. Typical vector overlay operations between two geographic layers (circle and rectangles)._
 
 
 Refs:
