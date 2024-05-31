@@ -72,6 +72,8 @@ m
 _**Figure 6.51**. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station._
 <!-- #endregion -->
 
+## Intersection
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 We are now ready to conduct an overlay analysis between these layers. We will create a new layer based postal code polygons that `intersect` with our Helsinki layer. We can use a method called `.overlay()` to conduct the overlay analysis between the given GeoDataFrame (`postal_areas`) and a second GeoDataFrame (`station_buffer`). With parameter `how` we can control how the overlay analysis is conducted. Possible values are `'intersection'`, `'union'`, `'symmetric_difference'`, `'difference'`, and `'identity'`. Let's start by doing an overlay using `"intersection"` as the overlay operation:
 <!-- #endregion -->
@@ -128,9 +130,15 @@ fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas,
                                     title="Intersection")
 ```
 
-As we can see, the `"intersection"` overlay operation keeps the postal code areas that intersect with the circle and keeps all those geometries in the result. Important thing to notice is that with `overlay()` the intersecting GeoDataFrame (`station_buffer`) will also modify the input geometries by cutting them in the border areas where they cross. This is one of the key differences between `.overlay()` and `sjoin()` methods as `sjoin()` will not modify the input geometries. As mentioned earlier, attribute data from both GeoDataFrames are kept from the features that are part of the result. 
+_**Figure 6.52**. Result after conducting vector overlay operation by intersecting the two layers._
 
-In the following, we will show one-by-one, how different overlay operations (i.e. union, difference, symmetric difference, identity) influence the results:
+
+As we can see, the `"intersection"` overlay operation keeps the postal code areas that intersect with the circle and keeps all those geometries in the result. Important thing to notice is that with `overlay()` the intersecting GeoDataFrame (`station_buffer`) will also modify the input geometries by cutting them in the border areas where they cross. This is one of the key differences between `.overlay()` and `sjoin()` methods as `sjoin()` will not modify the input geometries. As mentioned earlier, attribute data from both GeoDataFrames are kept from the features that are part of the result.  In the following, we will show one-by-one, how different overlay operations (i.e. union, difference, symmetric difference, identity) influence the results.
+
+
+## Union
+
+In a similar manner as with intersection, we can conduct overlay operation using `"union"` as below:
 
 ```python editable=true slideshow={"slide_type": ""}
 # Union
@@ -143,14 +151,14 @@ fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas,
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-
+_**Figure 6.53**. Result after conducting vector overlay operation based on union._
 <!-- #endregion -->
 
 ```python
 union.shape
 ```
 
-When using `"union"` overlay operation, the geometries from both GeoDataFrames are kept in the result. As you can see, the number of rows has increased quite significantly from 30 to 42 rows. This happens because the postal code geometries are again modified by the `station_buffer` in the areas where the geometries cross each other: the postal code geometry is splitted in two in areas where the buffer geometry crosses the postal code geometry. Hence, this will increase the number of rows in the final output.  
+When using `"union"` overlay operation, the geometries from both GeoDataFrames are kept in the result. As you can see, the number of rows has increased quite significantly from 30 to 42 rows. This happens because the postal code geometries are again modified by the `station_buffer` in the areas where the geometries cross each other: the postal code geometry is splitted in two in areas where the buffer geometry crosses the postal code geometry. Hence, this will increase the number of rows in the final output. 
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.13
@@ -163,16 +171,20 @@ Did you fully understand why the number of rows increase after doing the union o
 ```
 
 ```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
-# Solution
+# Answer
 print("""
-Answer:
 When hovering over the buffer geometry border, the attribute values in the table change. 
 Inside the ring, the attributes of the Helsinki railway station are kept in the results, whereas outside of the ring 
 the table does not include any data for the columns associated with the railway station.
 """)
 
+# Solution
 union.explore()
 ```
+
+## Difference and symmetric difference
+
+Sometimes it might be useful to focus extract geometries that area *outside* a given layer. This can be achieved by using the `.overlay()` with `"difference"` operator:
 
 ```python editable=true slideshow={"slide_type": ""}
 # Difference
@@ -184,6 +196,20 @@ fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas,
                                     title="Difference")
 ```
 
+_**Figure 6.54**. Result after conducting vector overlay operation based on difference._
+
+```python
+difference.columns
+```
+
+```python
+difference.shape
+```
+
+As can be seen from the results above, the `"difference"` will keep the postal code geometries that are outside of the buffer geometry. In terms of attributes, only the columns that are present in the source GeoDataFrame (i.e. `postal_areas`) are kept. 
+
+The symmetric difference overlay operation is an interesting one. It will keep the geometries and attributes outside of the `station_buffer` layer, as well as create a geometry within the `station_buffer` that includes areas that are within the `station_buffer` ring but outside the `postal_areas` GeoDataFrame. I.e. in our case, it mostly contains water areas that surround the Helsinki city centre as shown below:
+
 ```python editable=true slideshow={"slide_type": ""}
 # Symmetric Difference
 symmetric_difference = postal_areas.overlay(station_buffer, how="symmetric_difference")
@@ -193,6 +219,27 @@ fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas,
                                     result=symmetric_difference,
                                     title="Symmetric Difference")
 ```
+
+_**Figure 6.55**. Result after conducting vector overlay operation based on symmetric difference._
+
+```python
+symmetric_difference.columns
+```
+
+```python
+symmetric_difference.shape
+```
+
+```python
+symmetric_difference.tail()
+```
+
+As can be seen from above, the table includes now the attributes from the `postal_areas` GeoDataFrame as well as the attributes from `station_buffer` in the last row of the resulting GeoDataFrame. 
+
+
+## Identity
+
+As a last overlay operation, we have the `"identity"` which computes a geometric intersection of the input features and identity features. The input features or portions thereof that overlap identity features will get the attributes of those identity features. The basic idea is very similar to `"union"` but in this case, the areas outside of `postal_areas` GeoDataFrame will not be filled with the `station_buffer` geometry as demonstrated below:
 
 ```python editable=true slideshow={"slide_type": ""}
 # Identity 
@@ -204,14 +251,18 @@ fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas,
                                     title="Identity")
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-Computes a geometric intersection of the input features and identity features. The input features or portions thereof that overlap identity features will get the attributes of those identity features.
-<!-- #endregion -->
+_**Figure 6.56**. Result after conducting vector overlay operation based on identity._
 
 ```python editable=true slideshow={"slide_type": ""}
-identity.explore()
+identity.columns
 ```
 
 ```python
-
+identity.shape
 ```
+
+```python
+identity.loc[20:25]
+```
+
+As can be seen from the results above, the output now includes attribute information from both GeoDataFrames and the geometries in the `postal_areas` are split into multiple parts in places where the `station_buffer` cuts them. However, the geometry of the `station_buffer` itself is not included at all in the results. 
