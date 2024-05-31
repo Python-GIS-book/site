@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -52,7 +52,7 @@ One of the simplest options for coding in Python is to use the Python *{term}`in
 
 _**Figure 1.11**. The IPython console, an enhanced Python interpreter._
 
-<!-- #region jp-MarkdownHeadingCollapsed=true tags=[] -->
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ### Integrated development environments (IDEs)
 
 At the other end of the spectrum in terms of comprehensiveness and complexity (compared to Python interpreter) are *{term}`integrated development environments <Integrated Development Environment>`*, or *{term}`IDEs <IDE>`* as they are typically called. IDEs, such as the one in Figure 1.12, are software applications that typically include a source code editor, debugging tools, a file browser, software version control tools, and a linter that can be used to detect syntax errors in source code. The idea of an IDE is to assemble relevant software development tools into a single application that can help users to develop better software more quickly and with fewer errors. For new programmers, an IDE can be somewhat intimidating, but can also be helpful because many IDEs will indicate syntax errors and suggest fixes in the source code. These include some errors that may be difficult to identify from runtime errors that arise when the code is executed.

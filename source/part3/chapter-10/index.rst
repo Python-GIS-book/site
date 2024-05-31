@@ -1,4 +1,4 @@
-10: Spatial interpolation
+10. Spatial interpolation
 =========================
 
 This chapter will teach you how to conduct Inverse Distance Weighting (IWD) interpolation using point data.

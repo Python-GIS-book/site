@@ -20,16 +20,19 @@ from pybtex.style.labels import BaseLabelStyle
 import pybtex
 from collections import Counter
 
-import dataclasses
+from dataclasses import dataclass, field
 import sphinxcontrib.bibtex.plugin
 
 from sphinxcontrib.bibtex.style.referencing import BracketStyle
 from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
 
 # -- Project information -----------------------------------------------------
+import time
+
+current_year = time.localtime().tm_year
 
 project = "Introduction to Python for Geographic Data Analysis"
-copyright = "2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
+copyright = f"2020-{current_year}, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
 author = "Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
 
 
@@ -72,6 +75,8 @@ html_theme_options = {
     },
 }
 
+html_context = {"default_mode": "light"}
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
@@ -81,7 +86,7 @@ html_static_path = ["_static"]
 html_title = ""
 
 # Do not execute cells
-jupyter_execute_notebooks = "off"
+nb_execution_mode = "off"
 
 # -- Options for nbsphinx --
 nbsphinx_allow_errors = True
@@ -259,19 +264,21 @@ pybtex.plugin.register_plugin("pybtex.style.formatting", "apa", APAStyle)
 # Use parentheses when citing
 # -----------------------------------
 
-my_bracket_style = BracketStyle(
-    left="",
-    right="",
-)
+
+def my_bracket_style() -> BracketStyle:
+    return BracketStyle(
+        left="",
+        right="",
+    )
 
 
-@dataclasses.dataclass
+@dataclass
 class MyReferenceStyle(AuthorYearReferenceStyle):
-    bracket_parenthetical: BracketStyle = my_bracket_style
-    bracket_textual: BracketStyle = my_bracket_style
-    bracket_author: BracketStyle = my_bracket_style
-    bracket_label: BracketStyle = my_bracket_style
-    bracket_year: BracketStyle = my_bracket_style
+    bracket_parenthetical: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_textual: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_author: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_label: BracketStyle = field(default_factory=my_bracket_style)
+    bracket_year: BracketStyle = field(default_factory=my_bracket_style)
 
 
 # Register the changes
@@ -294,6 +301,9 @@ bibtex_bibfiles = [
 
 # Specify what text is used with toggle-buttons
 togglebutton_hint = "Show the solution"
+
+# Add math config options for new version of MyST
+myst_enable_extensions = ["dollarmath"]
 
 # Include extra files not directly related to the documentation
 html_extra_path = ["install.html"]

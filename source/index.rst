@@ -6,9 +6,9 @@ Introduction to Python for Geographic Data Analysis
     :target: https://python-gis-book.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
-.. image:: https://badges.gitter.im/Python-for-Geographic-Data-Analysis/book/community.svg
-    :alt: Chat on Gitter
-    :target: https://gitter.im/Python-for-Geographic-Data-Analysis/book
+.. image:: https://img.shields.io/gitter/room/Python-for-Geographic-Data-Analysis/book
+   :alt: Chat on Gitter
+   :target: https://gitter.im/Python-for-Geographic-Data-Analysis/book
 
 |
 This is an online version of the book *"Introduction to Python for Geographic Data Analysis"*, in which we introduce the basics of Python programming and geographic data analysis for all "geo-minded" people (geographers, geologists and others using spatial data). A physical copy of the book will be published later by CRC Press (Taylor & Francis Group). The contents of the book will be developed and shared freely online at `pythongis.org <https://pythongis.org>`_ licensed under Creative Commons 4.0.
@@ -100,13 +100,11 @@ The book consists of 4 parts:
    :titlesonly:
    :hidden:
 
+   part1/index.ipynb
    part1/chapter-01/index
    part1/chapter-02/index
    part1/chapter-03/index
    part1/chapter-04/index
-
-   .. part1/index
-
 
 .. toctree::
    :maxdepth: 2
@@ -114,13 +112,12 @@ The book consists of 4 parts:
    :titlesonly:
    :hidden:
    
+   part2/index.ipynb
    part2/chapter-05/index
    part2/chapter-06/index
    part2/chapter-07/index
    part2/chapter-08/index
    part2/chapter-09/index
-
-   ..part2/index
 
 .. toctree::
    :maxdepth: 2
@@ -135,12 +132,21 @@ The book consists of 4 parts:
 
 .. toctree::
    :maxdepth: 2
+   :caption: Appendices
+   :titlesonly:
+   :hidden:
+
+   back-matter/appendix-a
+   back-matter/appendix-b
+   back-matter/appendix-c
+
+.. toctree::
+   :maxdepth: 2
    :caption: Back matter
    :titlesonly:
    :hidden:
 
    back-matter/nb/acknowledgements.ipynb
-   back-matter/appendices
    back-matter/nb/glossary.ipynb
    back-matter/nb/references.ipynb
    authors

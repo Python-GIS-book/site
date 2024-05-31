@@ -5,17 +5,18 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Plotting in Python
 
 Data visualization is an essential part of understanding and interpreting data, and Python has a large number of libraries available for use in visualizing different types of data. Below we provide a bried overview of some of the Python plotting landscape as well as an introduction to the terminology commonly used to refer to different parts of a plot created using Python.
-
+<!-- #endregion -->
 
 ## Python plotting libraries
 

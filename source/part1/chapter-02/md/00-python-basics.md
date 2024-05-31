@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -91,7 +91,7 @@ math.sqrt(4)
 <!-- #region deletable=true editable=true -->
 Let's summarize what we've just seen with modules:
 
-1. A *module* is a group of code items such as functions that are related to one another. Individual modules are often in a group referred to as a *library*.
+1. A *{index}`module`* is a group of code items such as functions that are related to one another. Individual modules are often in a group referred to as a *library*.
 
 2. Modules can be loaded using the `import` statement. Functions that are part of the module `modulename` can then be used by typing `modulename.functionname()`. For example, `sin()` is a function that is part of the `math` module, and used by typing `math.sin()` with some number between the parentheses.
 
@@ -104,16 +104,18 @@ Note that modules may also contain constants such as `math.pi`. Parentheses are 
 math.pi
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 2.1
 
 Use your Python skills to calculate the sine of pi. What value do you expect for this calculation? Did you get the expected result?
+<!-- #endregion -->
 
-```python tags=["remove_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Note that lines starting with "#" are ignored in Python.
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["hide_cell", "remove_book_cell"]
+```python deletable=true editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
 # Solution
 
 math.sin(math.pi)
@@ -161,7 +163,7 @@ It is also possible to combine text and numbers and even use some math when prin
 print("Temperature in Fahrenheit:", 9 / 5 * temp_celsius + 32)
 ```
 
-<!-- #region deletable=true editable=true -->
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 2.2
 
 Define a variable and display its value on the screen. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name.
@@ -266,17 +268,17 @@ tempFahrenheit = tempFahrenheit + 5.0 * weatherForecast
 In this case we get at `TypeError` because we are trying to execute a math operation with data types that are not compatible. There is no way in Python to multpily decimal values with a character string.
 <!-- #endregion -->
 
-<!-- #region deletable=true editable=true -->
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 2.3
 
 As it turns out, it is possible some math with character strings in Python. Define two variables and assign them character string values. What happens if you try to add two character strings together? Can you subtract them? Which other math operations work for character strings?
 <!-- #endregion -->
 
-```python tags=["remove_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true tags=["hide_cell", "raises-exception", "remove_book_cell"]
+```python deletable=true editable=true slideshow={"slide_type": ""} tags=["hide_cell", "raises-exception", "remove_book_cell"]
 # Solution
 
 first_variable = "Python"
@@ -296,7 +298,7 @@ To explore lists, we will be using data related to [Finnish Meteorological Insti
 
 ### Creating a list
 
-Let’s first create a list of selected `station_name` values and print it to the screen.
+Let’s first create a list of some station names and print it out.
 
 ```python
 station_names = [
@@ -348,10 +350,11 @@ _**Figure 2.1**. Bill, the vending machine._
 
 As you can see, Bill is a vending machine that contains 6 items. Like Python lists, the list of items available from Bill starts at 0 and increases in increments of 1.
 
-The way Bill works is that you insert your money, then select the location of the item you wish to receive. In an analogy to Python, we could say Bill is simply a list of food items and the buttons you push to get them are the index values. For example, if you would like to buy a taco from Bill, you would push button `3`. If we had a Python list called `Bill`, an equivalent operation could simply be
+The way Bill works is that you insert your money, then select the location of the item you wish to receive. In an analogy to Python, we could say Bill is simply a list of food items and the buttons you push to get them are the index values. For example, if you would like to buy a taco from Bill, you would push button `3`. If we had a Python list called `Bill`, an equivalent operation would simply be
 
 ```python
 print(Bill[3])
+
 Taco
 ```
 <!-- #endregion -->
@@ -397,9 +400,32 @@ Yes, in Python you can go backwards through lists by using negative index values
 station_names[-5]
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+#### Question 2.4
+
+Which animal is at index -2 in the python list below?
+
+```python
+cute_animals = ["bunny", "chick", "duckling", "kitten", "puppy"]
+```
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# Use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
+# Solution
+
+cute_animals = ["bunny", "chick", "duckling", "kitten", "puppy"]
+cute_animals[-2]
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Modifying list values
 
 Another nice feature of lists is that they are *mutable*, meaning that the values in a list that has been defined can be modified. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
+<!-- #endregion -->
 
 ```python
 station_types = [
@@ -444,7 +470,7 @@ station_type = "Mareographs"
 
 Now that we have defined five variables related to the Helsinki Kaivopuisto station, we can combine them in a list similar to how we have done previously.
 
-```python tags=[]
+```python
 station_hel_kaivo = [station_name, station_id, station_lat, station_lon, station_type]
 station_hel_kaivo
 ```
@@ -472,13 +498,13 @@ Note that although it is possible to have different types of data in a Python li
 
 ### Adding and removing values from lists
 
-Finally, we can add and remove values from lists to change their lengths. Let’s consider that we no longer want to include the first value in the `station_names` list. Since we haven't see that list in a bit, let's first print it to the screen.
+Finally, we can add and remove values from lists to change their lengths. Let’s consider that we no longer want to include the first value in the `station_names` list. Since we haven't see that list in a bit, let's first print it out.
 
 ```python
 station_names
 ```
 
-`del` allows values in lists to be removed. It can also be used to delete values from memory in Python. To remove the first value from the `station_names` list, we can simply type `del station_names[0]`. If you then print out the `station_names` list, you should see the first value has been removed.
+The `del` statement allows values in lists to be removed. It can also be used to delete values from memory in Python. To remove the first value from the `station_names` list, we can simply type `del station_names[0]`. If you then print out the `station_names` list, you should see the first value has been removed.
 
 ```python
 del station_names[0]
@@ -487,6 +513,12 @@ del station_names[0]
 ```python
 station_names
 ```
+
+In addition to the `del` statement, there are two other common approaches for removing items from lists in Python. Let's consider both with an example list called `demo_list`.
+
+- `demo_list.remove(value)`: Will iterate over the list `demo_list` and remove the first item with a value equal to `value`
+- `demo_list.pop(index)`: Will remove the item at index `index` from the list `demo_list`
+
 
 If we would instead like to add a few samples to the `station_names` list, we can type `station_names.append('List item to add')`, where `'List item to add'` would be the text that would be added to the list in this example. Let's add two values to our list: `'Helsinki lighthouse'` and `'Helsinki Malmi airfield'` and check the list contents after this.
 
@@ -560,12 +592,12 @@ station_names.reverse()
 station_names
 ```
 
-Yay, it works! A common mistake when reversing lists is to do something like `station_names = station_names.reverse()`. **Do not do this!** When reversing lists with `.reverse()` the `None` value is returned (this is why there is no screen ouput when running `station_names.reverse()`). If you then assign the output of `station_names.reverse()` to `station_names` you will reverse the list, but then overwrite its contents with the returned value `None`. This means you’ve deleted the contents of your list.
+Yay, it works! A common mistake when reversing lists is to do something like `station_names = station_names.reverse()`. **Do not do this!** When reversing lists with `.reverse()` the `None` value is returned (this is why there is no screen ouput when running `station_names.reverse()`). If you then assign the output of `station_names.reverse()` to `station_names` you will reverse the list, but then overwrite its contents with the returned value `None`. This means you’ve deleted the contents of your list!
 
 
 ### Sorting a list
 
-The `list.sort()` method works in a similary way as reversing a list. Let's sort our `station_names` list and print its contents.
+The `list.sort()` method works the same way as reversing a list. Let's sort our `station_names` list and print its contents.
 
 ```python
 station_names.sort()  # Notice no output here...
@@ -575,7 +607,7 @@ station_names.sort()  # Notice no output here...
 station_names
 ```
 
-As you can see, the list has been sorted alphabetically using the `list.sort()` method, but there is no screen output when this occurs. Again, if you were to assign that output to `station_names` the list would get sorted, but the contents would then be assigned `None`. As you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighthouse` in the sorted list. This is because alphabetical sorting in Python places capital letters before lowercase letters.
+As you can see, the list has been sorted alphabetically using the `list.sort()` method, but there is no screen output when this occurs. Again, if you were to assign that output to `station_names` the list would get sorted, but the contents would then be assigned `None`. And as you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighthouse` in the sorted list. This is because alphabetical sorting in Python places capital letters before lowercase letters.
 
 
 ## Making different data types work together
@@ -609,7 +641,7 @@ type(station_id)
 type(station_lat)
 ```
 
-As expected, we see that the `station_name` is a character string, the `station_id` is an integer, and the `station_lat` is a floating point number. Being aware of the data type of variables is important because some are not compatible with one another. Let's see what happens if we try to sum up the variables `station_name` and `station_id`.
+As expected, we see that the `station_name` is a character string, the `station_id` is an integer, and the `station_lat` is a floating point number. Being aware of the data type of variables is important because some are not compatible with one another. Let's see what happens if we try to sum the variables `station_name` and `station_id`.
 
 ```python tags=["raises-exception"]
 station_name + station_id
@@ -638,6 +670,37 @@ station_id_str
 
 As you can see, `str()` converts a numerical value into a character string with the same numbers as before. Similar to using `str()` to convert numbers to character strings, `int()` can be used to convert strings or floating point numbers to integers and `float()` can be used to convert strings or integers to floating point numbers.
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+#### Question 2.5
+
+What output would you expect to see when you execute `print(station_id + station_lon)`?
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# Use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
+# Solution
+
+print(station_id + station_lon)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+#### Question 2.6
+
+What output would you expect to see when you execute `print(station_name + station_id_str)`?
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# Use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
+# Solution
+
+print(station_name + station_id_str)
+```
 
 ### Combining text and numbers
 
@@ -653,29 +716,33 @@ station_name_and_id
 
 Note that here we are converting `station_id` to a character string using the `str()` function within the assignment to the variable `station_name_and_id`. Alternatively, we could have simply added `station_name` and `station_id_str`.
 
-
-## Working with text (and numbers)
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Formatting text (and numbers)
 
 The previous example showed a simple example how it is possible to combine character strings and numbers together using the `+` operator between the different text components. Although this approach works, it can become quite laborous and error-prone if having more complicated set of textual and/or numerical components that you should work with. Hence, next we show a few useful techniques that make manipulating strings easier and more efficient.
 
-There are three approaches that can be used to manipulate strings in Python, namely 1) f-strings, 2) using the`.format()` -function and 3) using the %-operator. We recommed using the f-string approach, but we also give examples of the two other approaches because there are plenty of examples and code snippets on the web, where these string formatting approaches are still used. Hence, it is good to be aware of them all. In addition, we show a few useful methods that make working with text in different ways possible.
+There are three approaches that can be used to manipulate strings in Python, namely 1) f-strings, 2) using the`.format()` function and 3) using the % operator. We recommed using the f-string approach, but we also give examples of the two other approaches because there are plenty of examples and code snippets on the web, where these string formatting approaches are still used. Hence, it is good to be aware of them all. In addition, we show a few useful methods that make working with text in different ways possible.
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### F-String formatting
 
 In the following, we show how we can combine the `station_name` text, `station_id` integer number and `temp` floating point number together using Python's f-string formatting approach. In addition, we will round a decimal number (temperature) into two decimal points on-the-fly:
+<!-- #endregion -->
 
-```python
-# Temperature with many decimals
+```python editable=true slideshow={"slide_type": ""}
+# An example temperature with many decimals
 temp = 18.56789876
 
-# 1. F-string approach (recommended way)
-info_text = f"The temperature at {station_name} station (ID: {station_id}) is {temp:.2f} Celsius."
+# 1. The f-string approach (recommended)
+info_text = (
+    f"The temperature at {station_name} (ID: {station_id}) is {temp:.2f} Celsius."
+)
 
-info_text
+print(info_text)
 ```
 
-![_**Figure 2.2**. F-string formatting explained._](../img/F-string-formatting.png)
+![_**Figure 2.2**. F-string formatting explained._](../img/f-string-annotated.png)
 
 _**Figure 2.2**. F-string formatting explained._
 
@@ -686,48 +753,54 @@ It is also possible to round these numbers on-the-fly to specific precision, suc
 
 As we have hopefully demonstrated, f-string formatting is easy to use, yet powerful with its capability to e.g. do data conversions on the fly. Hence, it is the recommended approach for doing string manipulation nowadays in Python. Just remember to add the letter `f` before your string template! 
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Older approaches for string formatting
 
 As mentioned previously, there are also a couple of other approaches that can be used to achieve the same result as above. These older approaches preceded the f-string which was introduced in Python version 3.6. The first one is `.format()` method that is placed after the quotes, like this:
+<!-- #endregion -->
 
-```python
-# 2. .format() approach (not recommended anymore)
+```python editable=true slideshow={"slide_type": ""}
+# 2. .format() approach (no longer recommended)
 text2 = (
     "The temperature at {my_text_variable} (ID: {station_id}) is {temp:.2f}.".format(
         my_text_variable=station_name, station_id=station_id, temp=temp
     )
 )
-text2
+print(text2)
 ```
 
 As you can see, here we got the same result as with f-strings, but used the `.format()` which was placed after the quotes. The variables were inserted within the text template by using curly braces and giving them a name (placeholder) which should have a matching counterpart within the parentheses that link to the actual variable which will be inserted to the body of text. As you see, the placeholder does not necessarily need to have the same name as the actual variable that contains the inserted value, but it can be anything, like the name `my_text_variable` as in the example above. 
 
 The last (historical) string formatting approach is to use `%s` -operator. In this approach, the placeholder `%s` is added within the quotes, and the variables that are inserted into the body of text are placed inside parentheses after the `%` operator, like this:
 
-```python
-# 3. %-operator approach (not recommended anymore)
+```python editable=true slideshow={"slide_type": ""}
+# 3. The % operator approach (no longer recommended)
 text3 = "The temperature at %s (ID: %s) is %.2f" % (station_name, station_id, temp)
-text3
+print(text3)
 ```
 
 The order of the variables within the parentheses specify which `%s` placeholder will receive what information. The order of the variables inside parentheses needs to be corrected always if making changes to the placing of the placeholders, and there should be exactly the same number of variables within the parentheses as there are `%s` placeholders within the text template. Hence, this approach is prone to errors and causing confusion, which is why we do not recommend using it.  
 
 To conclude, using the f-string approach is the easiest and most intuitive way to construct and format text. Hence, we highly recommend learning that approach and sticking with it.
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Manipulating character strings
 
-### Common string manipulation techniques
+Here we demonstrate some of the most useful string manipulation techniques, such as splitting strings based on a given character, replacing characters with new ones, slicing strings, etc. 
+The aim is to produce a list of weather station locations in Helsinki that are represented in uppercase text (i.e., KUMPULA, KAISANIEMI, HARMAJA). The text that we will begin working with is following:
+<!-- #endregion -->
 
-In the following, we will demonstrate some of the most useful string manipulation techniques, such as splitting strings based on given character, replacing characters with new ones, slicing the strings etc. 
-Here, our final target is to get a list of weather station locations within Helsinki represented in UPPER case (i.e. KUMPULA, KAISANIEMI, HARMAJA). The text that we will be working on is following:
-
-```python
+```python editable=true slideshow={"slide_type": ""}
 text = "Stations: Helsinki Kumpula, Helsinki Kaisaniemi, Helsinki Harmaja"
 ```
 
-Let's start by demonstrating how we can **split** a string into different components based on specific character(s). we split the given text based on the colon (`:`) by passing the character into a method called `.split()`:
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Splitting strings
 
-```python
+Let's start by demonstrating how we can split a string into different parts based on specific character(s). We can split the given text using the colon character (`:`) by passing the character into a method called `.split()`.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 splitted = text.split(":")
 splitted
 ```
@@ -736,33 +809,56 @@ splitted
 type(splitted)
 ```
 
-As a result, the body of text was splitted into two components inside a list where the first item (at index 0) now has the text `Stations` (i.e. the text preceeding the colon) and the second item (at index 1) contains the body of text listing the stations that are separated with comma. Now we can continue working towards our target by selecting the stations text from the `splitted` list at index 1:
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As a result, the body of text was split into two parts in a list, where the first item (at index 0) now has the text `Stations` (i.e., the text preceeding the colon) and the second item (at index 1) contains the body of text listing the stations that are separated by commas.
+<!-- #endregion -->
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Slicing strings
+
+Now we can continue working towards our goal by selecting the stations text from the `splitted` list at index 1.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 stations_text = splitted[1]
 stations_text
 ```
 
-As can be seen, the first character in our string is actually an empty space (' ') before the word Helsinki. We can get rid off that character easily by **slicing** the text. Each character on a body of text can be accessed based on its position (index) similarly as with lists that were introduced earlier. Thus, we can slice our word by specifying that we want to keep all characters after the first position (i.e. removing the empty space). We can do this by adding the position inside square brackets (`[]`) where we want to start accessing the text, and by adding a colon (`:`) after this number, we can specify that we want to keep all the rest of the characters in our text (i.e. we take a slice of it):
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As can be seen, the first character in our string is actually an empty space (' ') before the word Helsinki. We can remove that character easily by slicing the text. Each character in a character string can be accessed based on its position (index) in the same way as with the Python lists that were introduced earlier in this chapter. We can slice our word by specifying that we want to keep all characters after the first position (i.e., removing the empty space). We can do this by adding the position inside square brackets (`[]`) where we want to start accessing the text, and by adding a colon (`:`) after this number, we can specify that we want to keep all the rest of the characters in our text (i.e., we take a slice of it).
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 stations_text = stations_text[1:]
 stations_text
 ```
 
-Now we have accessed and stored all the characters starting from position 1, and hence dropped the first empty space. Alternative approach for achieving this would be to use a method called `.strip()`. You could also specify a specific range of characters that you want to slice from the word by adding the index position after the colon (e.g. `[1:9]` would have separated the word `Helsinki` from the text).
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Now we have accessed and stored all the characters starting from position index 1, and hence dropped the first empty space. An alternative approach for achieving this would be to use a method called `.strip()`. You could also specify a specific range of characters that you want to slice from the word by adding the index position after the colon (e.g. `[1:9]` would have separated the word `Helsinki` from the text).
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Replacing text in strings
 
-Now the word `Helsinki` is repeated multiple times in our text before the station names. We can easily get rid off this word by **replacing** the word `Helsinki` with an empty string (`""`) which will basically remove those words from the text. We can accomplish this by using a method called `.replace()` which takes the `old` word as the first argument and the `new` word (or character(s)) as the seconds argument:
+Currently in the processed text, the word `Helsinki` is repeated multiple times before the station names. We can easily remove this word by replacing the word `Helsinki` with an empty string (`""`), which will basically delete this word from the text. We can accomplish this by using a method called `.replace()` which takes an original word as the first argument and a replacement word (or character(s)) as the second argument.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 stations_text = stations_text.replace("Helsinki ", "")
 stations_text
 ```
 
-Now we have replaced the word `"Helsinki "` basically with nothing, and as a result we got a text where the station names are listed. Finally, we can easily **change the case to upper** by using a method called `.upper()` (and in a similar manner to lower or capitalize the text):
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Now we have replaced the word `"Helsinki "` with nothing (an empty string), and as a result we have text where only the station names are listed.
+<!-- #endregion -->
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Changing the string case
+
+Finally, we can easily change the text to uppercase using a method called `.upper()`. Similarly, we could make the text all lowercase or capitalize only the first character using `.lower()` or `.capitalize()`, respectively.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 stations_upper = stations_text.upper()
 stations_lower = stations_text.lower()
 stations_capitalize = stations_lower.capitalize()
@@ -772,6 +868,8 @@ print(stations_lower)
 print(stations_capitalize)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^FMI_stations]: <http://en.ilmatieteenlaitos.fi/observation-stations>
+<!-- #endregion -->

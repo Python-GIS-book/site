@@ -1,4 +1,4 @@
-13: Conclusions
+13. Conclusions
 ===============
 
 This section is under construction.

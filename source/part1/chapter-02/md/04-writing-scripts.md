@@ -5,13 +5,14 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Writing script files
 
 Up to this point we have been keeping our Python code and Markdown comments in a single Jupyter notebook document.
@@ -19,7 +20,7 @@ This is great, but there are some cases, like when you have long Python code blo
 An alternative to typing in all of the commands you would like to run is the list them in a Python *{term}`script`* file.
 A Python script file is simply a file containing a list of the commands you would like to run, normally with one command per line, and formatted in the same way as if you were to type them in.
 Python script files traditionally use the `.py` file extension in their names.
-
+<!-- #endregion -->
 
 ## The general concept of a script file
 
@@ -30,13 +31,13 @@ Because a Python script file is simply a list of commands that you might otherwi
 
 First, we need to create a new text file by clicking on **File** -> **New** -> **Text File** in the JupyterLab menu bar.
 
-![_**Figure 2.5**. Creating a new text file in JupyterLab._](../img/new-text-file-400.png)
+![_**Figure 2.5**. Creating a new text file in JupyterLab._](../img/new-text-file.png)
 
 _**Figure 2.5**. Creating a new text file in JupyterLab._
 
 This will create a new tab in your JupyterLab window that should look something like that below, a blank slate.
 
-![_**Figure 2.6**. The new, empty text file in JupyterLab._](../img/new-text-tab-800.png)
+![_**Figure 2.6**. The new, empty text file in JupyterLab._](../img/new-text-tab.png)
 
 _**Figure 2.6**. Creating a new text file in JupyterLab._
 
@@ -52,11 +53,11 @@ def celsius_to_fahr(temp_celsius):
 
 As it turns out, Python scripts are just regular text files with the `.py` file extension to identify them as source code for Python. In order for our new text file to be detected as a Python source file in JupyterLab we thus need to rename it to have a `.py` file extension. You can rename the file by right clicking on the tab titled `untitled.txt` and renaming it as `temp_converter.py`. Be sure you change the `.txt` file extension to `.py`.
 
-![_**Figure 2.7**. Renaming a file in JupyterLab._](../img/rename-file-part-1-600.png)
+![_**Figure 2.7**. Renaming a file in JupyterLab._](../img/rename-file-part-1.png)
 
 _**Figure 2.7**. Renaming a file in JupyterLab._
 
-![_**Figure 2.8**. File renaming dialog in JupyterLab._](../img/rename-file-part-2-300.png)
+![_**Figure 2.8**. File renaming dialog in JupyterLab._](../img/rename-file-part-2.png)
 
 _**Figure 2.8**. File renaming dialog in JupyterLab._
 
@@ -137,7 +138,7 @@ If you see `temp_converter.py` in the list of files above you are all set to con
 
 Let's now import our `celsius_to_fahr()` function from the other script by adding a specific `import` statement in the Python cell below: `from temp_converter import celsius_to_fahr`
 
-```python tags=["remove_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # DO NOT RUN THIS CELL
 # This cell is only needed for generating the web page and book documents
 %cd ../../../_static/part1/chapter-01/
@@ -217,10 +218,12 @@ Next, we need to add conditional statements that check whether the desired outpu
 def temp_calculator(temp_k, convert_to):
     # Check if user wants the temperature in Celsius
     if convert_to == "C":
-        # Convert the value to Celsius using the dedicated function for the task that we imported from another script
+        # Convert the value to Celsius using the dedicated function for
+        # the task that we imported from another script
         converted_temp = kelvins_to_celsius(temp_kelvins=temp_k)
     elif convert_to == "F":
-        # Convert the value to Fahrenheit using the dedicated function for the task that we imported from another script
+        # Convert the value to Fahrenheit using the dedicated function
+        # for the task that we imported from another script
         converted_temp = kelvins_to_fahr(temp_kelvins=temp_k)
 ```
 <!-- #endregion -->
@@ -234,10 +237,12 @@ Next, we need to add a return statement so that our function sends back the valu
 def temp_calculator(temp_k, convert_to):
     # Check if user wants the temperature in Celsius
     if convert_to == "C":
-        # Convert the value to Celsius using the dedicated function for the task that we imported from another script
+        # Convert the value to Celsius using the dedicated function for
+        # the task that we imported from another script
         converted_temp = kelvins_to_celsius(temp_kelvins=temp_k)
     elif convert_to == "F":
-        # Convert the value to Fahrenheit using the dedicated function for the task that we imported from another script
+        # Convert the value to Fahrenheit using the dedicated function
+        # for the task that we imported from another script
         converted_temp = kelvins_to_fahr(temp_kelvins=temp_k)
     # Return the result
     return converted_temp
@@ -252,14 +257,15 @@ Finally, since we want to be good programmers, we should add a short docstring a
 ```python
 def temp_calculator(temp_k, convert_to):
     """
-    Function for converting temperature in Kelvins to Celsius or Fahrenheit.
+    Converts temperature in Kelvins to Celsius or Fahrenheit.
 
     Parameters
     ----------
     temp_k: <numerical>
         Temperature in Kelvins
     convert_to: <str>
-        Target temperature that can be either Celsius ('C') or Fahrenheit ('F'). Supported values: 'C' | 'F'
+        Target temperature that can be either Celsius ('C') or
+        Fahrenheit ('F'). Supported values: 'C' | 'F'
 
     Returns
     -------
@@ -269,10 +275,12 @@ def temp_calculator(temp_k, convert_to):
 
     # Check if user wants the temperature in Celsius
     if convert_to == "C":
-        # Convert the value to Celsius using the dedicated function for the task that we imported from another script
+        # Convert the value to Celsius using the dedicated function for
+        # the task that we imported from another script
         converted_temp = kelvins_to_celsius(temp_kelvins=temp_k)
     elif convert_to == "F":
-        # Convert the value to Fahrenheit using the dedicated function for the task that we imported from another script
+        # Convert the value to Fahrenheit using the dedicated function
+        # for the task that we imported from another script
         converted_temp = kelvins_to_fahr(temp_kelvins=temp_k)
     # Return the result
     return converted_temp
@@ -303,7 +311,9 @@ temperature_c = tc.temp_calculator(temp_k=temp_kelvin, convert_to="C")
 ```
 
 ```python tags=["raises-exception"]
-print("The temperature", temp_kelvin, "Kelvins is", temperature_c, "degrees Celsius.")
+print(f"{temp_kelvin} Kelvins is {temperature_c:.2f} degrees Celsius.")
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
+<!-- #endregion -->
