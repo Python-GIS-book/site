@@ -27,9 +27,11 @@ from sphinxcontrib.bibtex.style.referencing import BracketStyle
 from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
 
 # -- Project information -----------------------------------------------------
+import time
+current_year = time.localtime().tm_year
 
 project = "Introduction to Python for Geographic Data Analysis"
-copyright = "2020-2023, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
+copyright = f"2020-{current_year}, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
 author = "Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
 
 
