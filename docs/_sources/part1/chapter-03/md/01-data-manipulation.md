@@ -5,14 +5,14 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
-<!-- #region deletable=true editable=true -->
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
 # Common tabular operations in pandas
 
 Now you have learned the basics of pandas data structures (i.e. *Series* and *DataFrame*) and you should be familiar with basic methods for loading and exploring data. Next, we will continue exploring the pandas functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.
@@ -72,9 +72,11 @@ data.head()
 ```
 
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.2
 
 Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called `TEMP_KELVIN` in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is: `K = C + 273.15`
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -128,10 +130,11 @@ selection
 
 As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5).
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.3
 
 Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -227,34 +230,33 @@ selection_criteria = [20160601, 20160608, 20160609]
 data.loc[data["YEARMODA"].isin(selection_criteria)]
 ```
 
-<!-- #region deletable=true editable=true -->
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
 ### Conditional selections
 
 One really useful feature in pandas is the ability to easily filter and select rows based on a conditional statement.
-The following example shows how we check if the Celsius temperature at each row on the `TEMP_CELSIUS`column is higher than 15 degrees:
-
-```python
-In [23]: help("modules")
-```
-
-```code
-0      True
-1      True
-2      True
-3     False
-4     False
-... (output truncated)
-```
+The following example shows how we check if the Celsius temperature at each row on the `TEMP_CELSIUS` column is higher than 15 degrees:
 <!-- #endregion -->
 
-As a result, we get a Series of booleans, where the value `True` or `False` at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a ``mask``. We can take advantage of this mask when doing selections with `.loc` based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable `warm_temps` (warm temperatures). We can specify the criteria directly inside the `.loc` square brackets. Next, we will select rows which have higher temperature (in Celsius) than 15 degrees:
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# This cell sets the number of lines of pandas output to a maximum of 9
+# The cell is removed when building the website/book PDF
+pd.set_option("display.max_rows", 9)
+```
 
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
+```python editable=true slideshow={"slide_type": ""}
+data["TEMP_CELSIUS"] > 15
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As a result, we get a Series of booleans, where the value `True` or `False` at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a ``mask``. We can take advantage of this mask when doing selections with `.loc` based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable `warm_temps` (warm temperatures). We can specify the criteria directly inside the `.loc` square brackets. Next, we will select rows which have higher temperature (in Celsius) than 15 degrees:
+<!-- #endregion -->
+
+```python deletable=true editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 warm_temps = data.loc[data["TEMP_CELSIUS"] > 15]
 warm_temps
 ```
 
-<!-- #region deletable=true editable=true -->
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
 It is also possible to combine multiple criteria at the same time. Here, we select temperatures above 15 degrees that were recorded on the second half of June in 2016 (i.e. `YEARMODA >= 20160615`).
 Combining multiple criteria can be done with the `&` operator (AND) or the `|` operator (OR). Notice, that it is often useful to separate the different clauses inside the parentheses `()`. Let's select rows having higher temperature than 15 degrees from late June 2016 (from 15th day onwards):
 <!-- #endregion -->
@@ -297,10 +299,11 @@ warm_temps.iloc[0, -1] = 17.5
 As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection without needing to worry that there are some "hidden linkages" between our DataFrames that could cause issues (we discuss more about this in the next section). 
 
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.4
 
 Find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the `YEARMODA` column.
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -418,19 +421,19 @@ The `astype()` method supports converting between all basic Python data types (`
 Quite often it is useful to be able to sort your data (descending/ascending) based on values in some column
 This can be easily done with Pandas using `sort_values(by='YourColumnName')` -function. Let's first sort the values on ascending order based on the `TEMP` column:
 
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
+```python deletable=true editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 # Sort dataframe, ascending
-data.sort_values(by="TEMP").head()
+data.sort_values(by="TEMP")
 ```
 
-<!-- #region deletable=true editable=true -->
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
 Of course, it is also possible to sort them in descending order with ``ascending=False`` parameter:
 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Sort dataframe, descending
-data.sort_values(by="TEMP", ascending=False).head()
+data.sort_values(by="TEMP", ascending=False)
 ```
 
 In some situations, you might need to sort values based on multiple columns simultaneously, which is sometimes called as multi-level sorting. This can be done by passing a list of column names to the `by` parameter. When you sort the data based on multiple columns, sometimes you also might want to sort your data in a way that the first-level sorting happens in ascending order, and the second-level sorting happens in descending order. A typical situation for this kind of sorting could be e.g. when sorting the temperatures first by weekday (Monday, Tuesday, etc.) and then under each weekday ordering the values in descending order that would always show the warmest temperature of specific week first. Let's modify our data a bit to demonstrate this. We will add a new column that has information about the weekday. The 1st of June 2016 was Wednesday, so we start from that:
@@ -443,13 +446,13 @@ day_list = week_days * 4 + week_days[:2]
 
 # Add the weekdays to our DataFrame
 data["WEEKDAY"] = day_list
-data.head(10)
+data
 ```
 
 Now we have a new column with information about the weekday of each row. Next, we can test how to sort the values, so that we order the data by weekday and within each weekday the temperatures are in descending order. You can adjust how the ordering works by passing a list of boolean values to `ascending` parameter:
 
 ```python
-data.sort_values(by=["WEEKDAY", "TEMP_CELSIUS"], ascending=[True, False]).head(10)
+data.sort_values(by=["WEEKDAY", "TEMP_CELSIUS"], ascending=[True, False])
 ```
 
 As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data. 
@@ -495,7 +498,8 @@ As can be seen, now only the column `DATE` and the attribute of interest `PRCP` 
 
 In our case, doing the table join was fairly straightforward because we had only one unique record per day in both DataFrames. However, in some cases you might have multiple records on either one of the DataFrames (e.g. hourly observations vs daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled e.g. by aggregating the hourly data to a daily average. You can learn more about these aggregation techniques in the following sections. 
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^numpydtypes]: <https://numpy.org/doc/stable/user/basics.types.html>
+<!-- #endregion -->

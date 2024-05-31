@@ -1,17 +1,18 @@
-6: Vector data processing
+6. Vector data processing
 =========================
-
-Here we introduce basics of vector data processing in Python. You will learn to work with geographic objects in python, read and write vector data, work with coordinate reference systems and do various spatial analysis tasks using geopandas and other open source Python libraries. 
 
 .. toctree::
     :maxdepth: 1
     :caption: Sections:
 
-    nb/00-introduction-to-geographic-objects.ipynb
-    nb/01-introduction-to-geopandas.ipynb
-    nb/02-data-io.ipynb
-    nb/03-geometric-manipulation.ipynb
-    nb/04-coordinate-reference-system.ipynb
-    nb/05-geocoding.ipynb
-    nb/06-operations-between-multiple-datasets.ipynb
-    nb/07-exercises.ipynb
+    nb/0-learning-objectives.ipynb
+    6.1 Representing geographic data in Python <nb/00-introduction-to-geographic-objects.ipynb>
+    6.2 Introduction to geopandas GeoDataFrames <nb/01-geodataframe.ipynb>
+    6.3 Common geometric operations <nb/02-geometric-operations.ipynb>
+    6.4 Working with map projections <nb/03-coordinate-reference-system.ipynb>
+    6.5 Geocoding <nb/04-geocoding.ipynb>
+    6.6 Selecting data based on spatial relationships <nb/05-spatial-queries.ipynb>
+    6.7 Spatial join <nb/06-spatial-join.ipynb>
+    6.8 Nearest neighbour analysis <nb/07-nearest-neighbour.ipynb>
+    6.9 Vector overlay operations <nb/08-overlay-analysis-with-vector-data.ipynb>
+    Exercises <nb/09-exercises.ipynb>

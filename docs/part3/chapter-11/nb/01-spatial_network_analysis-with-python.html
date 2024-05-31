@@ -1,51 +1,48 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Spatial network analysis</title>
   
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css?v=b6a4faad" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part3/chapter-11/nb/01-spatial_network_analysis-with-python';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -54,31 +51,27 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -100,8 +93,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -136,134 +134,168 @@
   
     
     
-      
-    
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
     <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-01/index.html">1: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">Motivation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">Computers and programs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">Why Python?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">Writing and running Python code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">Using JupyterLab for writing code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">Quickly getting started (without installing Python)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">Installing Python and adding libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part1/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-02/index.html">2: Basic programming concepts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">Basic elements of Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/01-for-loops.html">for loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/02-conditional-statements.html">Conditional statements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/03-functions.html">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/04-writing-scripts.html">Writing script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/05-modules.html">Loading and using modules</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">2.1 Basic elements of Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/01-for-loops.html">2.2 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/02-conditional-statements.html">2.3 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/03-functions.html">2.4 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/04-writing-scripts.html">2.5 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/05-modules.html">2.6 Loading and using modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/06-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-03/index.html">3: Introduction to data analysis</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">Getting started with data analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">Common tabular operations in pandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">Data wrangling, grouping and aggregation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">Working with temporal data</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-03/index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-04/index.html">4: Introduction to data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">Plotting in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">Plotting with pandas and matplotlib</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">Creating subplots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">Effective plot design: line plots</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">Motivation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">Geographic data in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6: Vector data processing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">Introduction to geographic data objects in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">Introduction to spatial data analysis with geopandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">Preparing GeoDataFrames from geographic data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">Geometric data manipulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">Working with Map Projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">Geocoding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">Operations between multiple datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">Exercises</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7: Raster data processing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">Introduction to raster processing with Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">Reading raster files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">Common raster operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">Raster operations between multiple layers</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">7.1 Introduction to raster processing with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">7.2 Reading raster files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">7.4 Raster operations between multiple layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8: Geographic data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">Static maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">Visualizing raster layers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">Designing maps</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9: Using online geographic data sources</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">Retrieving OpenStreetMap data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">Retrieving data from Web Feature Service (WFS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">Retrieving data from Web Coverage Service (WCS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">Reading data from spatial databases</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">9.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">9.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">9.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">9.4 Reading data from spatial databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-10/index.html">10: Spatial interpolation</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/02-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">11: Spatial network analysis</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-12/index.html">12: Terrain analysis</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-12/nb/02-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../chapter-13/index.html">13: Conclusions</a></li>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendices.html">Appendices</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1.html">Version control with git</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2.html">Collaborative coding with GitHub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3.html">Using Python script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4.html">Testing and debugging your code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5.html">Solutions to questions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6.html">Exercise solutions</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
@@ -287,7 +319,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -296,7 +328,7 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
@@ -498,15 +530,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="spatial-network-analysis">
-<h1>Spatial network analysis<a class="headerlink" href="#spatial-network-analysis" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="spatial-network-analysis">
+<h1>Spatial network analysis<a class="headerlink" href="#spatial-network-analysis" title="Link to this heading">#</a></h1>
 <p>In this section we will focus on a network analysis methods that relate to way-finding. We will learn the basic elements of a <strong>spatial network</strong>. In addition, we will learn how to construct a routable <strong>directed</strong> graph for Networkx and find shortest paths along the given street network based on travel times or distance by car. In addition, we will learn how to calculate travel times from a single source into all nodes in the graph. Finding a shortest path from A to B using a specific street network is a very common spatial analytics problem that has many practical applications.</p>
 <p>Python provides easy to use tools for conducting spatial network analysis. One of the easiest ways to start is to use a library called <a class="reference external" href="https://networkx.github.io/documentation/stable/">Networkx</a> which is a Python module that provides a lot tools that can be used to analyze networks on various different ways. It also contains algorithms such as <a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.weighted.single_source_dijkstra.html#networkx.algorithms.shortest_paths.weighted.single_source_dijkstra">Dijkstra’s algorithm</a>
 or <a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.astar.astar_path.html#networkx.algorithms.shortest_paths.astar.astar_path">A*</a>
 algoritm that are commonly used to find shortest paths along transportation network.</p>
 <p>Next, we will learn how to do spatial network analysis in practice.</p>
 <section id="typical-workflow-for-routing">
-<h2>Typical workflow for routing<a class="headerlink" href="#typical-workflow-for-routing" title="Permalink to this heading">#</a></h2>
+<h2>Typical workflow for routing<a class="headerlink" href="#typical-workflow-for-routing" title="Link to this heading">#</a></h2>
 <p>If you want to conduct network analysis (in any programming language) there are a few basic steps that typically needs to be done before you can start routing. These steps are:</p>
 <ol class="arabic simple">
 <li><p><strong>Retrieve data</strong> (such as street network from OSM or Digiroad + possibly transit data if routing with PT).</p></li>
@@ -515,7 +547,7 @@ algoritm that are commonly used to find shortest paths along transportation netw
 <li><p><strong>Conduct network analysis</strong> (such as shortest path analysis) with the routing tool of your choice.</p></li>
 </ol>
 <section id="retrieve-data">
-<h3>1. Retrieve data<a class="headerlink" href="#retrieve-data" title="Permalink to this heading">#</a></h3>
+<h3>1. Retrieve data<a class="headerlink" href="#retrieve-data" title="Link to this heading">#</a></h3>
 <p>As a first step, we need to obtain data for routing. <a class="reference external" href="https://pyrosm.readthedocs.io/en/latest/">Pyrosm</a> library makes it really easy to retrieve routable networks from OpenStreetMap (OSM) with different transport modes (walking, cycling and driving).</p>
 <ul class="simple">
 <li><p>Let’s first extract OSM data for Helsinki that are walkable. In <code class="docutils literal notranslate"><span class="pre">pyrosm</span></code>, we can use a function called <code class="docutils literal notranslate"><span class="pre">osm.get_network()</span></code> which retrieves data from OpenStreetMap. It is possible to specify what kind of roads should be retrieved from OSM with <code class="docutils literal notranslate"><span class="pre">network_type</span></code> -parameter (supports <code class="docutils literal notranslate"><span class="pre">walking</span></code>, <code class="docutils literal notranslate"><span class="pre">cycling</span></code>, <code class="docutils literal notranslate"><span class="pre">driving</span></code>).</p></li>
@@ -908,7 +940,7 @@ algoritm that are commonly used to find shortest paths along transportation netw
 </section>
 </section>
 <section id="modify-the-data">
-<h2>2. Modify the data<a class="headerlink" href="#modify-the-data" title="Permalink to this heading">#</a></h2>
+<h2>2. Modify the data<a class="headerlink" href="#modify-the-data" title="Link to this heading">#</a></h2>
 <p>At this stage, we have the necessary components to build a routable graph (nodes and edges) based on distance. However, in real life the network distance is not the best cost metric to use, because the shortest path (based on distance) is not necessarily always the optimal route in terms of <strong>travel time</strong>. Time is typically the measure that people value more (plus it is easier to comprehend), so at this stage we want to <strong>add a new cost attribute</strong> to our edges GeoDataFrame that converts the metric distance information to travel time (in seconds) based on following formula:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;distance-in-meters&gt;</span> <span class="pre">/</span> <span class="pre">(&lt;speed-limit-kmph&gt;</span> <span class="pre">/</span> <span class="pre">3.6)</span></code></p></li>
@@ -935,7 +967,7 @@ Name: maxspeed, dtype: int64
 </div>
 </div>
 <p>As we can see, the rows which do not contain information about the speed limit is the second largest group in our data. Hence, we need to apply a criteria to fill these gaps. We can do this based on following “rule of thumb” criteria in Finland (notice that these vary country by country):</p>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Road class</p></th>
 <th class="head"><p>Speed limit within urban region</p></th>
@@ -1009,6 +1041,7 @@ Name: maxspeed, dtype: int64
 </tr>
 </tbody>
 </table>
+</div>
 <p>For simplicity, we can consider that all the roads in Helsinki Region follows the <em>within urban region</em> speed limits, although this is not exactly true (the higher speed limits start somewhere at the outer parts of the city region). For making the speed limit values more robust / correct, you could use data about urban/rural classification which is available in Finland from <a class="reference external" href="https://www.avoindata.fi/data/fi/dataset/kaupunki-maaseutu-luokitus-ykr">Finnish Environment Institute</a>. Let’s first convert our <code class="docutils literal notranslate"><span class="pre">maxspeed</span></code> values to integers using <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1258,7 +1291,7 @@ Length: 6, dtype: Int64
 <p>Excellent! Now our GeoDataFrame has all the information we need for creating a graph that can be used to conduct shortest path analysis based on length or travel time. Notice that here we assume that the cars can drive with the same speed as what the speed limit is. Considering the urban dynamics and traffic congestion, this assumption might not hold, but for simplicity, we assume so in this tutorial.</p>
 </section>
 <section id="a-build-a-directed-graph-from-scratch-see-3b-for-easier-approach">
-<h2>3a. Build a directed graph from scratch (see 3b for easier approach)<a class="headerlink" href="#a-build-a-directed-graph-from-scratch-see-3b-for-easier-approach" title="Permalink to this heading">#</a></h2>
+<h2>3a. Build a directed graph from scratch (see 3b for easier approach)<a class="headerlink" href="#a-build-a-directed-graph-from-scratch-see-3b-for-easier-approach" title="Link to this heading">#</a></h2>
 <p>Now as we have calculated the travel time for our edges. We still need to convert our nodes and edges into a directed graph, so that we can start using it for routing. There are easy-to-use functionalities for doing this in <code class="docutils literal notranslate"><span class="pre">pyrosm</span></code> and <code class="docutils literal notranslate"><span class="pre">osmnx</span></code>, but we will do this manually by ourselves, so that you understand what is going on under the hood.</p>
 <p>First of all, we need to take care that our edges correctly represent a <code class="docutils literal notranslate"><span class="pre">directed</span></code> network. This means that we need to look at the values in <code class="docutils literal notranslate"><span class="pre">oneway</span></code> column and modify our edges based on the rules set in that column. If the <code class="docutils literal notranslate"><span class="pre">oneway</span></code> is <code class="docutils literal notranslate"><span class="pre">'yes'</span></code>, it means that the street can be driven only to one direction, and if it is <code class="docutils literal notranslate"><span class="pre">None</span></code> or has a value <code class="docutils literal notranslate"><span class="pre">&quot;no&quot;</span></code>, then that road can be driven to both directions. This means that we need to make new duplicate edge and reversing the from-id and to-id values in the <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span></code> columns. In addition, value <code class="docutils literal notranslate"><span class="pre">-1</span></code> in the <code class="docutils literal notranslate"><span class="pre">oneway</span></code> column means that the road can only be driven to one direction but <strong>against</strong> the digitization direction. In such cases, we need to flip the <em>to-id</em> (<code class="docutils literal notranslate"><span class="pre">u</span></code>) and <em>from-id</em> (<code class="docutils literal notranslate"><span class="pre">u</span></code>) values so that the directionality in the graph is correctly specified. Let’s first check what kind of values we have in the <code class="docutils literal notranslate"><span class="pre">oneway</span></code> column:</p>
 <div class="cell docutils container">
@@ -1494,7 +1527,7 @@ Directed edge count: 3387
 <p>Awesome, now we have created a NetworkX MultiDigraph object that we can use for doing routing. This hopefully gives you an idea how it is possible to create a routable graph from street network. Similar approach can be used for constructing routable graphs from many different data sources, such as Digiroad which is the national street database in Finland. Naturally the code needs to be adjusted to reflect the data structure of Digiroad or any other street network data that you want to use. You need to have some information about the allowed driving directions as well as the from and to-ids for each edge. These ids are not necessarily present in the data by default. In such cases, you can create your own ids e.g. based on vertices of the edge geometries (i.e. the x-y coordinates of the vertices can be used to create a unique node-id).</p>
 </section>
 <section id="b-build-a-directed-graph-with-pyrosm">
-<h2>3b. Build a directed graph with pyrosm<a class="headerlink" href="#b-build-a-directed-graph-with-pyrosm" title="Permalink to this heading">#</a></h2>
+<h2>3b. Build a directed graph with pyrosm<a class="headerlink" href="#b-build-a-directed-graph-with-pyrosm" title="Link to this heading">#</a></h2>
 <p>Naturally, if you are using OpenStreetMap data, you do not necessarily need to build graphs yourself, because <code class="docutils literal notranslate"><span class="pre">pyrosm</span></code> library (as well as <code class="docutils literal notranslate"><span class="pre">OSMnx</span></code>) contains functions that does all this work for you. Let’s see how we can create a routable NetworkX graph using <code class="docutils literal notranslate"><span class="pre">pyrosm</span></code> with one command:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1523,10 +1556,10 @@ Directed edge count: 3387
 </div>
 </section>
 <section id="routing-with-networkx">
-<h2>4. Routing with NetworkX<a class="headerlink" href="#routing-with-networkx" title="Permalink to this heading">#</a></h2>
+<h2>4. Routing with NetworkX<a class="headerlink" href="#routing-with-networkx" title="Link to this heading">#</a></h2>
 <p>Now we have everything we need to start routing with NetworkX (based on driving distance or travel time). But first, let’s again go through some basics about routing.</p>
 <section id="basic-logic-in-routing">
-<h3>Basic logic in routing<a class="headerlink" href="#basic-logic-in-routing" title="Permalink to this heading">#</a></h3>
+<h3>Basic logic in routing<a class="headerlink" href="#basic-logic-in-routing" title="Link to this heading">#</a></h3>
 <p>Most (if not all) routing algorithms work more or less in a similar manner. The basic steps for finding an optimal route from A to B, is to:</p>
 <ol class="arabic simple">
 <li><p>Find the nearest node for origin location * (+ get info about its node-id and distance between origin and node)</p></li>
@@ -1539,7 +1572,7 @@ Directed edge count: 3387
 </section>
 </section>
 <section id="find-the-optimal-route-between-two-locations">
-<h2>Find the optimal route between two locations<a class="headerlink" href="#find-the-optimal-route-between-two-locations" title="Permalink to this heading">#</a></h2>
+<h2>Find the optimal route between two locations<a class="headerlink" href="#find-the-optimal-route-between-two-locations" title="Link to this heading">#</a></h2>
 <p>Next, we will learn how to find the shortest path between two locations using <a class="reference external" href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">Dijkstra’s</a> algorithm.</p>
 <p>First, let’s find the closest nodes for two locations that are located in the area. OSMnx provides a handly function for geocoding an address <code class="docutils literal notranslate"><span class="pre">ox.geocode()</span></code>. We can use that to retrieve the x and y coordinates of our origin and destination.</p>
 <div class="cell docutils container">
@@ -1568,7 +1601,7 @@ Destination coords: 24.9512311 60.1664348
 </div>
 <p>Okay, now we have coordinates for our origin and destination.</p>
 <section id="find-the-nearest-nodes">
-<h3>Find the nearest nodes<a class="headerlink" href="#find-the-nearest-nodes" title="Permalink to this heading">#</a></h3>
+<h3>Find the nearest nodes<a class="headerlink" href="#find-the-nearest-nodes" title="Link to this heading">#</a></h3>
 <p>Next, we need to find the closest nodes from the graph for both of our locations. For calculating the closest point we use <code class="docutils literal notranslate"><span class="pre">ox.distance.nearest_nodes()</span></code> -function and specify <code class="docutils literal notranslate"><span class="pre">return_dist=True</span></code> to get the distance in meters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1595,7 +1628,7 @@ Destination node-id: 3367881248 and distance: 1.3705603583619679 meters.
 <p>Now we are ready to start the actual routing with NetworkX.</p>
 </section>
 <section id="find-the-fastest-route-by-distance-time">
-<h3>Find the fastest route by distance / time<a class="headerlink" href="#find-the-fastest-route-by-distance-time" title="Permalink to this heading">#</a></h3>
+<h3>Find the fastest route by distance / time<a class="headerlink" href="#find-the-fastest-route-by-distance-time" title="Link to this heading">#</a></h3>
 <p>Now we can do the routing and find the shortest path between the origin and target locations
 by using the <code class="docutils literal notranslate"><span class="pre">dijkstra_path()</span></code> function of NetworkX. For getting only the cumulative cost of the trip, we can directly use a function <code class="docutils literal notranslate"><span class="pre">dijkstra_path_length()</span></code> that returns the travel time without the actual path.</p>
 <p>With <code class="docutils literal notranslate"><span class="pre">weight</span></code> -parameter we can specify the attribute that we want to use as cost/impedance. We have now three possible weight attributes available: <code class="docutils literal notranslate"><span class="pre">'length'</span></code> and <code class="docutils literal notranslate"><span class="pre">'travel_time_seconds'</span></code>.</p>
@@ -1677,7 +1710,7 @@ by using the <code class="docutils literal notranslate"><span class="pre">dijkst
 </section>
 </section>
 <section id="calculate-travel-times-from-one-to-many-locations">
-<h2>Calculate travel times from one to many locations<a class="headerlink" href="#calculate-travel-times-from-one-to-many-locations" title="Permalink to this heading">#</a></h2>
+<h2>Calculate travel times from one to many locations<a class="headerlink" href="#calculate-travel-times-from-one-to-many-locations" title="Link to this heading">#</a></h2>
 <p>When trying to understand the accessibility of a specific location, you typically want to look at travel times between multiple locations (one-to-many) or use isochrones (travel time contours).</p>
 <ul class="simple">
 <li><p>Let’s see how we can calculate travel times from the origin node, to all other nodes in our graph using NetworkX function <code class="docutils literal notranslate"><span class="pre">single_source_dijkstra_path_length()</span></code>:</p></li>
@@ -2020,7 +2053,7 @@ by using the <code class="docutils literal notranslate"><span class="pre">dijkst
 <p>Okay, as we can see now we have quickly calculated the travel times for each node in the graph using a single call.</p>
 <p>If you would have for example a predefined grid, you could find the nearest node for each grid centroid to produce a more matrix-like result.</p>
 <section id="alternative-approach-ego-graph">
-<h3>Alternative approach - Ego graph<a class="headerlink" href="#alternative-approach-ego-graph" title="Permalink to this heading">#</a></h3>
+<h3>Alternative approach - Ego graph<a class="headerlink" href="#alternative-approach-ego-graph" title="Link to this heading">#</a></h3>
 <p>Alternatively, it is possible to directly set a specific time limit and restrict <strong>how long the graph is travelled</strong> from the origin, and return that subgraph for the user.</p>
 <ul class="simple">
 <li><p>Let’s see an example:</p></li>
@@ -2041,7 +2074,7 @@ by using the <code class="docutils literal notranslate"><span class="pre">dijkst
 </section>
 </section>
 <section id="larger-scale-analysis">
-<h2>Larger scale analysis<a class="headerlink" href="#larger-scale-analysis" title="Permalink to this heading">#</a></h2>
+<h2>Larger scale analysis<a class="headerlink" href="#larger-scale-analysis" title="Link to this heading">#</a></h2>
 <p>We can very easily create a travel time map covering larger areas as well. This is how you could calculate travel times by car from city center of Helsinki to other parts of the region:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2171,7 +2204,7 @@ by using the <code class="docutils literal notranslate"><span class="pre">dijkst
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
 </div>
@@ -2235,7 +2268,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -2259,8 +2292,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

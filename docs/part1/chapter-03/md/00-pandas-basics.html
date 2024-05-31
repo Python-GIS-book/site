@@ -1,51 +1,48 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Getting started with data analysis</title>
   
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css?v=b6a4faad" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part1/chapter-03/md/00-pandas-basics';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -54,31 +51,27 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -100,8 +93,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -136,134 +134,168 @@
   
     
     
-      
-    
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
     <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">Motivation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">Computers and programs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">Why Python?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">Writing and running Python code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">Using JupyterLab for writing code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">Quickly getting started (without installing Python)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">Installing Python and adding libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-02/index.html">2: Basic programming concepts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">Basic elements of Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">for loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">Conditional statements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/03-functions.html">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">Writing script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/05-modules.html">Loading and using modules</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">2.1 Basic elements of Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">2.2 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">2.3 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/03-functions.html">2.4 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">2.5 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/05-modules.html">2.6 Loading and using modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/06-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">3: Introduction to data analysis</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../nb/00-pandas-basics.html">Getting started with data analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/01-data-manipulation.html">Common tabular operations in pandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/02-data-analysis.html">Data wrangling, grouping and aggregation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/03-temporal-data.html">Working with temporal data</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-04/index.html">4: Introduction to data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">Plotting in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">Plotting with pandas and matplotlib</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/02-subplots.html">Creating subplots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">Effective plot design: line plots</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">Motivation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">Geographic data in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6: Vector data processing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">Introduction to geographic data objects in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">Introduction to spatial data analysis with geopandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">Preparing GeoDataFrames from geographic data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">Geometric data manipulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">Working with Map Projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">Geocoding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">Operations between multiple datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">Exercises</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7: Raster data processing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">Introduction to raster processing with Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">Reading raster files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">Common raster operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">Raster operations between multiple layers</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">7.1 Introduction to raster processing with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">7.2 Reading raster files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">7.4 Raster operations between multiple layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8: Geographic data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">Static maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">Visualizing raster layers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">Designing maps</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9: Using online geographic data sources</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">Retrieving OpenStreetMap data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">Retrieving data from Web Feature Service (WFS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">Retrieving data from Web Coverage Service (WCS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">Reading data from spatial databases</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">9.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">9.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">9.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">9.4 Reading data from spatial databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10: Spatial interpolation</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11: Spatial network analysis</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12: Terrain analysis</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13: Conclusions</a></li>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendices.html">Appendices</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1.html">Version control with git</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2.html">Collaborative coding with GitHub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3.html">Using Python script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4.html">Testing and debugging your code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5.html">Solutions to questions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6.html">Exercise solutions</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
@@ -287,7 +319,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -296,7 +328,7 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
@@ -459,11 +491,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="getting-started-with-data-analysis">
-<h1>Getting started with data analysis<a class="headerlink" href="#getting-started-with-data-analysis" title="Permalink to this heading">#</a></h1>
+  <!-- #region editable=true slideshow={"slide_type": ""} -->
+<section class="tex2jax_ignore mathjax_ignore" id="getting-started-with-data-analysis">
+<h1>Getting started with data analysis<a class="headerlink" href="#getting-started-with-data-analysis" title="Link to this heading">#</a></h1>
+<!-- #endregion -->
 <section id="what-is-pandas">
-<h2>What is pandas?<a class="headerlink" href="#what-is-pandas" title="Permalink to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://pandas.pydata.org/">pandas Python library</a> <a class="footnote-reference brackets" href="#pandas" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id5" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 2nd edition, 2017.">McKinney, 2017</a></span>).</p>
+<h2>What is pandas?<a class="headerlink" href="#what-is-pandas" title="Link to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://pandas.pydata.org/">pandas Python library</a> <a class="footnote-reference brackets" href="#pandas" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id15" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 3rd edition, 2022.">McKinney, 2022</a></span>).</p>
 <p>Pandas is a “high-level” package, which means that it makes use of several other packages in the background. It combines the performance of powerful Python libraries such as <a class="reference external" href="https://numpy.org/">NumPy</a> <a class="footnote-reference brackets" href="#numpy" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, <a class="reference external" href="https://matplotlib.org/">matplotlib</a> <a class="footnote-reference brackets" href="#matplotlib" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> and <a class="reference external" href="https://scipy.org/">SciPy</a> <a class="footnote-reference brackets" href="#scipy" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
 <p>One of the most useful features of pandas is its ability to interact with numerous data formats. It supports reading and writing data e.g. from/to:</p>
 <ul class="simple">
@@ -481,16 +515,16 @@ document.write(`
 <!-- #region deletable=true editable=true -->
 </section>
 <section id="pandas-data-structures">
-<h2>Pandas data structures<a class="headerlink" href="#pandas-data-structures" title="Permalink to this heading">#</a></h2>
+<h2>Pandas data structures<a class="headerlink" href="#pandas-data-structures" title="Link to this heading">#</a></h2>
 <p>In pandas, table-like data are stored in two-dimensional <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects with labeled rows and columns. The pandas DataFrame was originally inspired by data frames that are in-built in the R programming language. You can think of the pandas DataFrame as a programmable spreadsheet. One-dimensional sequences of values are stored in pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code>. One row or one column in a pandas DataFrame is actually a pandas Series. You can think of a pandas Series as a clever list. These pandas structures incorporate a number of things we’ve already encountered earlier in this book, such as indices, data stored in a collection, and data types.</p>
 <p><img alt="Figure 3.1. Illustration of pandas DaraFrame and pandas Series data structures. Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values." src="../../../_images/pandas-structures-annotated.png" /></p>
 <p><em><strong>Figure 3.1</strong>. Illustration of pandas DaraFrame and pandas Series data structures. Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.</em></p>
-<p>As you can see from Figure 3.1, both the DataFrame and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the next sections, we will use many of these features to explore real-world data and learn some useful data analysis procedures. For a comprehensive overview of pandas data structures, we recommend you to have a look at pandas online documentation about data structures <a class="footnote-reference brackets" href="#pandas-ds" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> as well as Chapter 5 in <span id="id8"><a class="reference internal" href="../../../back-matter/nb/references.html#id5" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 2nd edition, 2017.">McKinney, 2017</a></span>.</p>
+<p>As you can see from Figure 3.1, both the DataFrame and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the next sections, we will use many of these features to explore real-world data and learn some useful data analysis procedures. For a comprehensive overview of pandas data structures, we recommend you to have a look at pandas online documentation about data structures <a class="footnote-reference brackets" href="#pandas-ds" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> as well as Chapter 5 in <span id="id8"><a class="reference internal" href="../../../back-matter/nb/references.html#id15" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 3rd edition, 2022.">McKinney, 2022</a></span>.</p>
 <!-- #endregion -->
 <!-- #region -->
 </section>
 <section id="reading-tabular-data">
-<h2>Reading tabular data<a class="headerlink" href="#reading-tabular-data" title="Permalink to this heading">#</a></h2>
+<h2>Reading tabular data<a class="headerlink" href="#reading-tabular-data" title="Link to this heading">#</a></h2>
 <p>In the following sections, we will learn how to read data from a text file (“Kumpula-June-2016-w-metadata.txt”) which contains weather observations from Kumpula, Helsinki (Finland). The data were  retrieved from <a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/">NOAA climate database</a> <a class="footnote-reference brackets" href="#noaa" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> and it contains observed daily mean, minimum, and maximum temperatures from June 2016, recorded by a weather observation station in Kumpula. The file includes altogether 30 rows of observations (one per day). The first fifteen rows in the file look like following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data file contents: Daily temperatures (mean, min, max) for Kumpula, Helsinki</span>
 <span class="c1">#                     for June 1-30, 2016</span>
@@ -582,7 +616,7 @@ document.write(`
 <!-- #region editable=true -->
 </section>
 <section id="writing-data-to-a-file">
-<h2>Writing data to a file<a class="headerlink" href="#writing-data-to-a-file" title="Permalink to this heading">#</a></h2>
+<h2>Writing data to a file<a class="headerlink" href="#writing-data-to-a-file" title="Link to this heading">#</a></h2>
 <p>Naturally, it is also possible to write the data from pandas to a file. Pandas supports many common output formats such as CSV files, MS Excel, xml and others. For full details about supported file formats and writer functions, see the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5">pandas i/o documentation</a> <a class="footnote-reference brackets" href="#pandas-io" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>. We will store our data back into a csv-file called <code class="docutils literal notranslate"><span class="pre">Kumpula_temp_results_June_2016.csv</span></code>.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># define output filename</span>
@@ -613,7 +647,7 @@ document.write(`
 <!-- #region deletable=true editable=true -->
 </section>
 <section id="dataframe-properties">
-<h2>DataFrame properties<a class="headerlink" href="#dataframe-properties" title="Permalink to this heading">#</a></h2>
+<h2>DataFrame properties<a class="headerlink" href="#dataframe-properties" title="Link to this heading">#</a></h2>
 <p>Now we will continue exploring the full dataset that we have stored in the variable <code class="docutils literal notranslate"><span class="pre">data</span></code>. A normal first step when you load new data is to explore the dataset a bit to understand how the data is structured, and what kind of values are stored in there. Let’s start by checking the size of our DataFrame. We can use the <code class="docutils literal notranslate"><span class="pre">len()</span></code> function similar to the use with lists to check how many rows we have:</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -648,9 +682,11 @@ document.write(`
 <!-- #region deletable=true editable=true -->
 <p>Here we see that <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> is an integer value (with 64-bit precision; <code class="docutils literal notranslate"><span class="pre">int64</span></code>), while the other values are all decimal values with 64-bit precision (float64).</p>
 <!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 <section id="question-3-1">
-<h3>Question 3.1<a class="headerlink" href="#question-3-1" title="Permalink to this heading">#</a></h3>
+<h3>Question 3.1<a class="headerlink" href="#question-3-1" title="Link to this heading">#</a></h3>
 <p>How would you print out the number of columns in our DataFrame?</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
 </pre></div>
 </div>
@@ -662,7 +698,7 @@ document.write(`
 </section>
 </section>
 <section id="selecting-columns">
-<h2>Selecting columns<a class="headerlink" href="#selecting-columns" title="Permalink to this heading">#</a></h2>
+<h2>Selecting columns<a class="headerlink" href="#selecting-columns" title="Link to this heading">#</a></h2>
 <p>When conducting data analysis, it is very common that you want to choose certain columns from the data for further processing. We can select specific columns based on the column values. The basic syntax is <code class="docutils literal notranslate"><span class="pre">dataframe[value]</span></code>, where value can be a single column name, or a list of column names. Let’s start by selecting two columns, <code class="docutils literal notranslate"><span class="pre">'YEARMODA'</span></code> and <code class="docutils literal notranslate"><span class="pre">'TEMP'</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]]</span>
 <span class="n">selection</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -691,7 +727,7 @@ document.write(`
 <!-- #endregion -->
 </section>
 <section id="unique-values">
-<h2>Unique values<a class="headerlink" href="#unique-values" title="Permalink to this heading">#</a></h2>
+<h2>Unique values<a class="headerlink" href="#unique-values" title="Link to this heading">#</a></h2>
 <p>Sometimes it is useful to extract the unique values that you have in your column. We can do that by using <code class="docutils literal notranslate"><span class="pre">unique()</span></code> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 </pre></div>
@@ -706,9 +742,9 @@ document.write(`
 </div>
 </section>
 <section id="descriptive-statistics">
-<h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this heading">#</a></h2>
+<h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Link to this heading">#</a></h2>
 <!-- #region deletable=true editable=true -->
-<p>pandas DataFrame and Series contain useful methods for getting summary statistics. Available methods include <code class="docutils literal notranslate"><span class="pre">mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">median()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, <code class="docutils literal notranslate"><span class="pre">max()</span></code>, and <code class="docutils literal notranslate"><span class="pre">std()</span></code> (the standard deviation). The statistics can be calculated on a Series level (a single column) or getting the statistics for all columns at once for the whole DataFrame. To check e.g. the mean temperature in out input data, i.e. focusing on a single column (<em>Series</em>), we can do following:</p>
+<p>pandas DataFrame and Series contain useful methods for getting summary statistics. Available methods include <code class="docutils literal notranslate"><span class="pre">mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">median()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, <code class="docutils literal notranslate"><span class="pre">max()</span></code>, and <code class="docutils literal notranslate"><span class="pre">std()</span></code> (the standard deviation). The statistics can be calculated on a Series level (a single column) or getting the statistics for all columns at once for the whole DataFrame. To check e.g. the mean temperature in our input data, i.e. focusing on a single column (<em>Series</em>), we can do following:</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
@@ -730,7 +766,7 @@ document.write(`
 <!-- #region deletable=true editable=true -->
 </section>
 <section id="different-ways-of-constructing-pandas-objects">
-<h2>Different ways of constructing pandas objects<a class="headerlink" href="#different-ways-of-constructing-pandas-objects" title="Permalink to this heading">#</a></h2>
+<h2>Different ways of constructing pandas objects<a class="headerlink" href="#different-ways-of-constructing-pandas-objects" title="Link to this heading">#</a></h2>
 <p>Most often we create pandas objects by reading in data from an external source, such as a text file. Here, we will briefly show different ways how you can create pandas objects from Python objects (lists and dictionaries). If you have a very long lists of numbers, creating a pandas Series (or numpy.array) will allow you to interact with these values more efficiently in terms of computing time that using and working with a pure Python list. This is how you can create a pandas Series from a list:</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">number_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">])</span>
@@ -782,46 +818,50 @@ document.write(`
 <span class="n">df</span>
 </pre></div>
 </div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
 <section id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<!-- #endregion -->
 <hr class="footnotes docutils" />
-<aside class="footnote brackets" id="pandas" role="note">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="pandas" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://pandas.pydata.org/">https://pandas.pydata.org/</a></p>
 </aside>
-<aside class="footnote brackets" id="numpy" role="note">
+<aside class="footnote brackets" id="numpy" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://numpy.org/">https://numpy.org/</a></p>
 </aside>
-<aside class="footnote brackets" id="matplotlib" role="note">
+<aside class="footnote brackets" id="matplotlib" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://matplotlib.org/">https://matplotlib.org/</a></p>
 </aside>
-<aside class="footnote brackets" id="scipy" role="note">
+<aside class="footnote brackets" id="scipy" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">4</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://scipy.org/">https://scipy.org/</a></p>
 </aside>
-<aside class="footnote brackets" id="pandasdocs" role="note">
+<aside class="footnote brackets" id="pandasdocs" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">5</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/">https://pandas.pydata.org/pandas-docs/stable/</a></p>
 </aside>
-<aside class="footnote brackets" id="pandas-ds" role="note">
+<aside class="footnote brackets" id="pandas-ds" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">6</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html</a></p>
 </aside>
-<aside class="footnote brackets" id="noaa" role="note">
+<aside class="footnote brackets" id="noaa" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">7</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/">https://www.ncdc.noaa.gov/cdo-web/</a></p>
 </aside>
-<aside class="footnote brackets" id="readcsv" role="note">
+<aside class="footnote brackets" id="readcsv" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">8</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
 </aside>
-<aside class="footnote brackets" id="pandas-io" role="note">
+<aside class="footnote brackets" id="pandas-io" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id11">1</a>,<a role="doc-backlink" href="#id12">2</a>)</span>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5">https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5</a></p>
+</aside>
 </aside>
 </section>
 </section>
@@ -834,7 +874,7 @@ document.write(`
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
 </div>
@@ -890,7 +930,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -914,8 +954,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

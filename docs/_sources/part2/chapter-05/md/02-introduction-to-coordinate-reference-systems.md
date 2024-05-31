@@ -5,15 +5,16 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Coordinate reference systems
-
+<!-- #endregion -->
 
 ## Georeferencing
 
@@ -68,8 +69,8 @@ Figure 5.11 illustrates nine different map projections, where the latitude and l
 
 _**Figure 5.11**. Different map projections that can be used to represent the geographic data on a two-dimensional plane._
 
-
-## Storing and exchanging the CRS information 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Storing Coordinate Reference System information 
 
 The CRS information of a geographic dataset can be stored in various different ways. Some of the most common systems to store the CRS information are EPSG, PROJ and OGC WKT. All of these basically serve the same purpose: they store the key characteristics of a given coordinate reference system in a standardized manner which is essential for being able to work with geographic data using any GIS software or library (not limited to Python). Below, you can find some basic information about the most commonly used systems to store CRS information:
 
@@ -78,7 +79,7 @@ The CRS information of a geographic dataset can be stored in various different w
 - **PROJ system**: PROJ is another system and open source library for storing and transforming CRS information from one system to another. The CRS information in this one is commonly stored as a *"proj-strings"*, which includes information about the coordinate system as a plain text following specific naming conventions for the parameters. Typically these parameters provide information e.g. about the datum, ellipsoid, projection of the data, and units for the coordinates (e.g. meters). There can also be information about the Univeral Tranverse Mercator (UTM) zone if the data is using Cartesian coordinate system. In UTM, the data is presented on a plain and the world has been divided into 60 zones where each zone is 6-degrees of longitude in width. You can read more details and useful documentation about coordinate systems from the [PROJ website](https://proj.org/) [^PROJ]. As an example, PROJ4 text for the ETRS-TM35FIN coordinate system (EPSG:3067) commonly used in Finland, is described with following text: 
 
 ```
-+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs`
++proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs
 ```
 
 - **OGC WKT**: Open Geospatial Consortium's (OGC) well-known text (WKT) representation of coordinate reference systems is also widely used format to store CRS information. This one is typically more lengthy as it aims to be human-readable and also provide description about coordinate operations. The following shows how the ETRS-TM35FIN coordinate system (EPSG:3067) would be presented as OGW WKT:
@@ -111,8 +112,10 @@ PROJCS["ETRS89 / TM35FIN(E,N)",
 
 All of these systems and formats are designed to ensure that CRS information can be stored, transmitted, and used consistently across different systems and applications, which is essential for accurate location-based data analysis and mapping. In Chapters 6 and 7, we will see how to work with coordinate reference systems in Python when working with vector and raster data.
 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^PROJ]: <https://proj.org/>
+<!-- #endregion -->

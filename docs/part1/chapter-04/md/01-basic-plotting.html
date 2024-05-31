@@ -1,51 +1,48 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Plotting with pandas and matplotlib</title>
   
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css?v=b6a4faad" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part1/chapter-04/md/01-basic-plotting';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -54,31 +51,27 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -100,8 +93,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -136,134 +134,168 @@
   
     
     
-      
-    
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
     <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">Motivation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">Computers and programs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">Why Python?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">Writing and running Python code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">Using JupyterLab for writing code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">Quickly getting started (without installing Python)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">Installing Python and adding libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-02/index.html">2: Basic programming concepts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">Basic elements of Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">for loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">Conditional statements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/03-functions.html">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">Writing script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/05-modules.html">Loading and using modules</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">2.1 Basic elements of Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">2.2 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">2.3 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/03-functions.html">2.4 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">2.5 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/05-modules.html">2.6 Loading and using modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/06-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-03/index.html">3: Introduction to data analysis</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">Getting started with data analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/01-data-manipulation.html">Common tabular operations in pandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/02-data-analysis.html">Data wrangling, grouping and aggregation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html">Working with temporal data</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-03/index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">4: Introduction to data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../nb/00-plotting-in-python.html">Plotting in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/01-basic-plotting.html">Plotting with pandas and matplotlib</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/02-subplots.html">Creating subplots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/03-plot-formatting.html">Effective plot design: line plots</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">Motivation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">Geographic data in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6: Vector data processing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">Introduction to geographic data objects in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">Introduction to spatial data analysis with geopandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">Preparing GeoDataFrames from geographic data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">Geometric data manipulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">Working with Map Projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">Geocoding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">Operations between multiple datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">Exercises</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7: Raster data processing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">Introduction to raster processing with Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">Reading raster files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">Common raster operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">Raster operations between multiple layers</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">7.1 Introduction to raster processing with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">7.2 Reading raster files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">7.4 Raster operations between multiple layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8: Geographic data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">Static maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">Visualizing raster layers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">Designing maps</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9: Using online geographic data sources</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">Retrieving OpenStreetMap data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">Retrieving data from Web Feature Service (WFS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">Retrieving data from Web Coverage Service (WCS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">Reading data from spatial databases</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">9.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">9.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">9.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">9.4 Reading data from spatial databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10: Spatial interpolation</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11: Spatial network analysis</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12: Terrain analysis</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13: Conclusions</a></li>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendices.html">Appendices</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1.html">Version control with git</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2.html">Collaborative coding with GitHub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3.html">Using Python script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4.html">Testing and debugging your code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5.html">Solutions to questions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6.html">Exercise solutions</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
@@ -287,7 +319,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -296,7 +328,7 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
@@ -440,7 +472,14 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-plot-formatting">Basic plot formatting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-and-annotating-the-figure">Formatting and annotating the figure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-formatting-the-plot-and-figure">Further formatting the plot and figure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-figure-size">Changing the figure size</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-text-to-the-figure">Adding text to the figure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-axis-ranges">Changing the axis ranges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-legend">Adding a legend</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-modified-example-plot">The modified example plot</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-datetime-axes">Dealing with datetime axes</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-4-1">Question 4.1</a></li>
 </ul>
@@ -460,15 +499,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="plotting-with-pandas-and-matplotlib">
-<h1>Plotting with pandas and matplotlib<a class="headerlink" href="#plotting-with-pandas-and-matplotlib" title="Permalink to this heading">#</a></h1>
-<p>At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the <a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html"><span class="doc std std-doc">end of Chapter 3</span></a>. Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <a class="footnote-reference brackets" href="#matplotlib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you’ll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> <a class="footnote-reference brackets" href="#pyplot" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> module in matplotlib, which provides MATLAB-like <a class="footnote-reference brackets" href="#matlab" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> plotting. We will also briefly explore creating interactive plots using the <code class="docutils literal notranslate"><span class="pre">hvplot</span></code> <a class="footnote-reference brackets" href="#hvplot" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> plotting library, which allows us to produce plots similar to those available in the <code class="docutils literal notranslate"><span class="pre">bokeh</span></code> plotting library <a class="footnote-reference brackets" href="#bokeh" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> using plotting syntax very similar to that in pandas.</p>
-<!-- #region tags=[] -->
-<section id="creating-a-basic-x-y-plot">
-<h2>Creating a basic x-y plot<a class="headerlink" href="#creating-a-basic-x-y-plot" title="Permalink to this heading">#</a></h2>
-<p>The first step for creating a basic x-y plot is to import pandas and read in the data we want to plot from a file. We will be using a datetime index for our weather observation data as we <a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html"><span class="doc std std-doc">learned in Chapter 3</span></a>. In this case, however, we’ll include a few additional parameters in order to <em>read the data</em> with a datetime index. We will read in the data first, and then discuss what happened.</p>
-<p>Let’s start by importing the libraries we will need (pandas and Matplotlib), and then read in the data.</p>
+  <!-- #region editable=true slideshow={"slide_type": ""} -->
+<section class="tex2jax_ignore mathjax_ignore" id="plotting-with-pandas-and-matplotlib">
+<h1>Plotting with pandas and matplotlib<a class="headerlink" href="#plotting-with-pandas-and-matplotlib" title="Link to this heading">#</a></h1>
+<p>At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the <a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html"><span class="std std-doc">end of Chapter 3</span></a>. Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <a class="footnote-reference brackets" href="#matplotlib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you’ll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> <a class="footnote-reference brackets" href="#pyplot" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> module in matplotlib, which provides MATLAB-like <a class="footnote-reference brackets" href="#matlab" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> plotting. We will also briefly explore creating interactive plots using the <code class="docutils literal notranslate"><span class="pre">hvplot</span></code> <a class="footnote-reference brackets" href="#hvplot" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> plotting library, which allows us to produce plots similar to those available in the <code class="docutils literal notranslate"><span class="pre">bokeh</span></code> plotting library <a class="footnote-reference brackets" href="#bokeh" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> using plotting syntax very similar to that in pandas.</p>
 <!-- #endregion -->
+<section id="creating-a-basic-x-y-plot">
+<h2>Creating a basic x-y plot<a class="headerlink" href="#creating-a-basic-x-y-plot" title="Link to this heading">#</a></h2>
+<p>The first step for creating a basic x-y plot is to import pandas and read in the data we want to plot from a file. We will be using a datetime index for our weather observation data as we <a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html"><span class="std std-doc">learned in Chapter 3</span></a>. In this case, however, we’ll include a few additional parameters in order to <em>read the data</em> with a datetime index. We will read in the data first, and then discuss what happened.</p>
+<p>Let’s start by importing the libraries we will need (pandas and Matplotlib), and then read in the data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+</pre></div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -504,7 +546,7 @@ document.write(`
 </div>
 <p>OK, so this is a data type we have not seen previously, but clearly it is part of matplotlib. In case you were skeptical before, we now have evidence that pandas is using matplotlib for generating plots.</p>
 <section id="selecting-plot-data-based-on-date">
-<h3>Selecting plot data based on date<a class="headerlink" href="#selecting-plot-data-based-on-date" title="Permalink to this heading">#</a></h3>
+<h3>Selecting plot data based on date<a class="headerlink" href="#selecting-plot-data-based-on-date" title="Link to this heading">#</a></h3>
 <p>Now we can make a few small changes to our plot to further explore plotting with pandas. We can begin by plotting only the observed temperatures in the <code class="docutils literal notranslate"><span class="pre">data['TEMP']</span></code> column. In addition, we can restrict ourselves to observations from only the afternoon of October 1, 2019 (the last day in this dataset). We will do this by first creating a pandas series for only the desired data column and restricting the dateof interest. Once we have created the new pandas series we can plot the results.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create basic plot with subset of data</span>
 <span class="n">oct1_temps</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="s2">&quot;201910011200&quot;</span><span class="p">]</span>
@@ -516,7 +558,7 @@ document.write(`
 </section>
 </section>
 <section id="basic-plot-formatting">
-<h2>Basic plot formatting<a class="headerlink" href="#basic-plot-formatting" title="Permalink to this heading">#</a></h2>
+<h2>Basic plot formatting<a class="headerlink" href="#basic-plot-formatting" title="Link to this heading">#</a></h2>
 <p>We can control the appearance of our plots, making them look nicer and provide more information by using a few additional plotting options available in pandas and/or matplotlib. Let’s start by changing the line format, adding some axis labels, and adding a title.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Change line and symbol format, and add axis labels/title</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">oct1_temps</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
@@ -529,12 +571,13 @@ document.write(`
 </div>
 <p><em><strong>Figure 4.5</strong>. A plot of the example temperature data with additional formatting, a title, and axis labels.</em></p>
 <p>Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter <code class="docutils literal notranslate"><span class="pre">style='ko--'</span></code>. In this case, <code class="docutils literal notranslate"><span class="pre">k</span></code> tells the <code class="docutils literal notranslate"><span class="pre">oct1_temps.plot()</span></code> function to use black color for the lines and symbols, <code class="docutils literal notranslate"><span class="pre">o</span></code> tells it to show circles at the data points, and <code class="docutils literal notranslate"><span class="pre">--</span></code> says to use a dashed line between points. You can use <code class="docutils literal notranslate"><span class="pre">help(oct1_temps.plot)</span></code> to find out more about formatting plots. We have also added a title using the <code class="docutils literal notranslate"><span class="pre">title</span></code> parameter, and axis labels using the <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> parameters.</p>
-<!-- #region -->
 </section>
-<section id="formatting-and-annotating-the-figure">
-<h2>Formatting and annotating the figure<a class="headerlink" href="#formatting-and-annotating-the-figure" title="Permalink to this heading">#</a></h2>
+<section id="further-formatting-the-plot-and-figure">
+<h2>Further formatting the plot and figure<a class="headerlink" href="#further-formatting-the-plot-and-figure" title="Link to this heading">#</a></h2>
 <p>In addition to labeling the plot axes and adding a title, there are several other common plot attributes one might like to utilize. We briefly present some of the most common plot features here and then demonstrate how they work in a modified example plot below.</p>
-<p><strong>Changing the figure size</strong></p>
+<!-- #region -->
+<section id="changing-the-figure-size">
+<h3>Changing the figure size<a class="headerlink" href="#changing-the-figure-size" title="Link to this heading">#</a></h3>
 <p>While the default plot sizes we’re working with are fine, it is often helpful to be able to control the figure size. Fortunately, there is an easy way to change the figure size in pandas and matplotlib. In order to define the figure size, we simply include the <code class="docutils literal notranslate"><span class="pre">figsize</span></code> parameter with a tuple (set of values in normal parentheses) that lists the width and height of the figure (in inches!).</p>
 <p>For example, adding the parameter</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
@@ -544,7 +587,9 @@ document.write(`
 <p>Note that it is also possible to change the default figure size for all figures in a Jupyter Notebook by importing the pyplot module from matplotlib (i.e., <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib.pyplot</span> <span class="pre">as</span> <span class="pre">plt</span></code>)and then defining the default figure size using <code class="docutils literal notranslate"><span class="pre">plt.rcParams['figure.figsize']</span> <span class="pre">=</span> <span class="pre">[12,</span> <span class="pre">6]</span></code>. In this case the figure size should be given as a Python list.</p>
 <!-- #endregion -->
 <!-- #region -->
-<p><strong>Adding text to the figure</strong></p>
+</section>
+<section id="adding-text-to-the-figure">
+<h3>Adding text to the figure<a class="headerlink" href="#adding-text-to-the-figure" title="Link to this heading">#</a></h3>
 <p>It is also possible to add text that can be displayed on a plot using <code class="docutils literal notranslate"><span class="pre">ax.text()</span></code>. For example,</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;201910011800&quot;</span><span class="p">,</span> <span class="mi">42</span>
@@ -554,7 +599,9 @@ document.write(`
 <p>would add the text “This is my text.” aligned to the left starting from the date and time 6:00 pm on October 1, 2019 (<code class="docutils literal notranslate"><span class="pre">x=&quot;201910011800&quot;</span></code>) and at temperature <code class="docutils literal notranslate"><span class="pre">y=42</span></code>. Notice that the <code class="docutils literal notranslate"><span class="pre">x</span></code> coordinate is passed as a text following the formatting in the original data.</p>
 <!-- #endregion -->
 <!-- #region -->
-<p><strong>Changing the axis ranges</strong></p>
+</section>
+<section id="changing-the-axis-ranges">
+<h3>Changing the axis ranges<a class="headerlink" href="#changing-the-axis-ranges" title="Link to this heading">#</a></h3>
 <p>In some cases you may want to plot only a subset of the data you are working with. You can modify the range of values that are plotted by definiing the axis ranges. Changing the plot axes can be done using the <code class="docutils literal notranslate"><span class="pre">xlim</span></code> and <code class="docutils literal notranslate"><span class="pre">ylim</span></code> parameters of the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function, where <code class="docutils literal notranslate"><span class="pre">xmin</span></code> is the minimum bound of the x-axis, <code class="docutils literal notranslate"><span class="pre">xmax</span></code> is the maximum bound, and the same goes for the y-axis with <code class="docutils literal notranslate"><span class="pre">ymin</span></code> and <code class="docutils literal notranslate"><span class="pre">ymax</span></code>. For example, adding</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="o">...</span>
@@ -582,7 +629,9 @@ document.write(`
 <p>Defining axis ranges this way is handy becaues it will adjust the range of values shown on the plot, but not alter the source data in any way. This can be quite nice when exploring your datasets.</p>
 <!-- #endregion -->
 <!-- #region -->
-<p><strong>Adding a legend</strong></p>
+</section>
+<section id="adding-a-legend">
+<h3>Adding a legend<a class="headerlink" href="#adding-a-legend" title="Link to this heading">#</a></h3>
 <p>The final example of a common plot feature we can add is a legend. The legend allows you to provide some additional information about the lines, points, or other features of a plot, and adding a legend is quite simple. To do so, we need to add two things: a <code class="docutils literal notranslate"><span class="pre">label</span></code> parameter in the plot function that lists the text that should be displayed in the legend, and a call to the <code class="docutils literal notranslate"><span class="pre">legend()</span></code> function to display the plot legend. For example, adding the following to the plot will add and display a legend.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="o">...</span>
@@ -594,7 +643,9 @@ document.write(`
 <p>This would add the label “Observed temperature” to the legend for the line formatted using the <code class="docutils literal notranslate"><span class="pre">ax.plot()</span></code> function. The legend can be displayed by adding <code class="docutils literal notranslate"><span class="pre">ax.legend()</span></code> to the code.</p>
 <p>Note that by default the legend will automatically be positioned in the top right corner of a plot, or in a location where it minimizes interference with other plot elements. The location of the legend can be controlled using the <code class="docutils literal notranslate"><span class="pre">loc</span></code> parameter in the call to the <code class="docutils literal notranslate"><span class="pre">legend()</span></code> function. The <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html">matplotlib documentation</a> <a class="footnote-reference brackets" href="#matplotlib-legend" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> contains more information about how to control the location of the plot legend.</p>
 <!-- #endregion -->
-<p><strong>The modified example plot</strong></p>
+</section>
+<section id="the-modified-example-plot">
+<h3>The modified example plot<a class="headerlink" href="#the-modified-example-plot" title="Link to this heading">#</a></h3>
 <p>Based on the additions above (changing the figure size, adding text to the plot, etc.), the modified plot can be generated using the code below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
@@ -624,8 +675,9 @@ document.write(`
 <p><em><strong>Figure 4.6</strong>. A plot of the example temperature data further modified with additional formatting and reduced axis ranges.</em></p>
 <p>As you can see, we now have a more informative plot with only a few changes in the plotting code.</p>
 </section>
+</section>
 <section id="dealing-with-datetime-axes">
-<h2>Dealing with datetime axes<a class="headerlink" href="#dealing-with-datetime-axes" title="Permalink to this heading">#</a></h2>
+<h2>Dealing with datetime axes<a class="headerlink" href="#dealing-with-datetime-axes" title="Link to this heading">#</a></h2>
 <p>One issue we will encounter both with placing text on the plot and changing the axis ranges is the datetime index for our DataFrame. In order to do either thing, we need to define x-values using a datetime object. The easiest way to do this is to use the pandas <code class="docutils literal notranslate"><span class="pre">pd.to_datetime()</span></code> function, which converts a character string date to a datetime object. For example, we can convert 13:00 on October 1, 2019 from the character string <code class="docutils literal notranslate"><span class="pre">'201910011300'</span></code> to a datetime equivalent by typing</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s2">&quot;201910011300&quot;</span><span class="p">)</span>
 </pre></div>
@@ -659,15 +711,12 @@ document.write(`
 </pre></div>
 </div>
 <p><em><strong>Figure 4.7</strong>. A plot of the example temperature data further modified with additional formatting and reduced axis ranges.</em></p>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 <section id="question-4-1">
-<h3>Question 4.1<a class="headerlink" href="#question-4-1" title="Permalink to this heading">#</a></h3>
-<p>Create a line plot similar to the examples above with the following attributes:</p>
-<ul class="simple">
-<li><p>Temperature data from 18:00-24:00 on October 1, 2019</p></li>
-<li><p>A dotted red line connecting the observations (do not show the data points)</p></li>
-<li><p>A title that reads “Evening temperatures at Helsinki-Vantaa on October 1, 2019”</p></li>
-<li><p>A text label indicating the warmest temperature in the evening</p></li>
-</ul>
+<h3>Question 4.1<a class="headerlink" href="#question-4-1" title="Link to this heading">#</a></h3>
+<p>Create a line plot similar to the examples above with the following attributes: (1) Temperature data from 18:00-24:00 on October 1, 2019, (2)
+a dotted red line connecting the observations (do not show the data points), (3) a title that reads “Evening temperatures at Helsinki-Vantaa on October 1, 2019”, and (4) a text label indicating the warmest temperature in the evening.</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
 </pre></div>
 </div>
@@ -698,7 +747,7 @@ document.write(`
 </section>
 </section>
 <section id="bar-plots-in-pandas">
-<h2>Bar plots in pandas<a class="headerlink" href="#bar-plots-in-pandas" title="Permalink to this heading">#</a></h2>
+<h2>Bar plots in pandas<a class="headerlink" href="#bar-plots-in-pandas" title="Link to this heading">#</a></h2>
 <p>In addition to line plots, there are many other options for plotting in pandas.
 Bar plots are one option, which can be used quite similarly to line plots with the addition of the <code class="docutils literal notranslate"><span class="pre">kind=bar</span></code> parameter.
 Note that it is easiest to plot our selected time range for a bar plot by selecting the dates in our data series first, rather than adjusting the plot limits. Pandas sees bar plot data as categorical, so the date range is more difficult to define for x-axis limits. For the y-axis, we can still define its range using the <code class="docutils literal notranslate"><span class="pre">ylim=[ymin,</span> <span class="pre">ymax]</span></code> parameter. Similarly, text placement on a bar plot is more difficult, and most easily done using the index value of the bar where the text should be placed.</p>
@@ -724,7 +773,7 @@ Note that it is easiest to plot our selected time range for a bar plot by select
 <!-- #region -->
 </section>
 <section id="saving-your-plots-as-image-files">
-<h2>Saving your plots as image files<a class="headerlink" href="#saving-your-plots-as-image-files" title="Permalink to this heading">#</a></h2>
+<h2>Saving your plots as image files<a class="headerlink" href="#saving-your-plots-as-image-files" title="Link to this heading">#</a></h2>
 <p>Saving plots created using pandas can be done in several ways.
 The recommendation for use outside of Jupyter notebooks is to use Matplotlib’s <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> function.
 When using <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code>, you simply give a list of commands to generate a plot and include <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> with some parameters as the last command in the Python cell.
@@ -776,14 +825,19 @@ Let’s check out an example of how to save our lovely bar plot.</p>
 <!-- #endregion -->
 </section>
 <section id="interactive-plotting-a-teaser">
-<h2>Interactive plotting, a teaser<a class="headerlink" href="#interactive-plotting-a-teaser" title="Permalink to this heading">#</a></h2>
+<h2>Interactive plotting, a teaser<a class="headerlink" href="#interactive-plotting-a-teaser" title="Link to this heading">#</a></h2>
 <p>We have seen in the previous parts of this chapter that there are many ways to configure and visualize data using Python. Up to this point, however, we have focussed on static visualizations in Jupyter notebooks or those saved as images. As you might imagine, there are numerous Python options to also create interactive visualizations that allow those viewing them to dive deeper into the data and explore. Interactive visualizations are increasingly popular online, and here we provide a brief example of how to create an interactive visualization using the data we have already plotted above. In this example, we will be using the hvPlot library <a class="footnote-reference brackets" href="#hvplot" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, which we will return to using later in Part 2 of this book.</p>
 <p>hvPlot is a high-level plotting package that can accept several different common Python data types and plot them using using the bokeh visualization library <a class="footnote-reference brackets" href="#bokeh" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>. The great thing with hvPlot is that it takes almost no effort to move from plotting in pandas to creating interactive plots. We can explore this in the following example.</p>
 <p>Let us start by importing the pandas submodule of hvPlot.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hvplot.pandas</span>
 </pre></div>
 </div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>With the submodule imported, we can simply take a slice of data from the <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame, the month of July in 2014 in this example, and create a plot just as we would in pandas. The only difference here is that we will use the <code class="docutils literal notranslate"><span class="pre">hvplot()</span></code> method rather than the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> method from pandas.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">july2014_df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="s2">&quot;201407010000&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="s2">&quot;201407310000&quot;</span><span class="p">)]</span>
 
 <span class="n">july2014_df</span><span class="o">.</span><span class="n">hvplot</span><span class="p">(</span>
@@ -794,50 +848,54 @@ Let’s check out an example of how to save our lovely bar plot.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<!-- #raw tags=["hide-cell"] -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 <p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 4.9}. An interactive plot example using hvPlot.}}, center, nofloat}{../img/hvplot-example.png}
 { \hspace*{\fill} \}</p>
 <!-- #endraw -->
 <p><em><strong>Figure 4.9</strong>. An interactive plot example using hvPlot.</em></p>
 <p>Now we have an interactive line plot where the users can place their mouse cursor above the line to see the plotted values at a given location, zoom in and/or pan the plot to areas of interest, and click on the legend items to hide or display them. And as you can see, hvPlot makes it very easy to start creating your own interactive plots from pandas DataFrames.</p>
 <p>That is all we will explore for the moment, but you are welcome to have a look at the <a class="reference external" href="https://hvplot.holoviz.org/user_guide/index.html">hvPlot User Guide</a> <a class="footnote-reference brackets" href="#hvplot-guide" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> to learn more about the types of visualizations available in hvPlot and how to use them.</p>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
 <section id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<!-- #endregion -->
 <hr class="footnotes docutils" />
-<aside class="footnote brackets" id="matplotlib" role="note">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="matplotlib" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://matplotlib.org/">https://matplotlib.org/</a></p>
 </aside>
-<aside class="footnote brackets" id="pyplot" role="note">
+<aside class="footnote brackets" id="pyplot" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://matplotlib.org/api/pyplot_api.html">https://matplotlib.org/api/pyplot_api.html</a></p>
 </aside>
-<aside class="footnote brackets" id="matlab" role="note">
+<aside class="footnote brackets" id="matlab" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.mathworks.com/products/matlab.html">https://www.mathworks.com/products/matlab.html</a></p>
 </aside>
-<aside class="footnote brackets" id="hvplot" role="note">
+<aside class="footnote brackets" id="hvplot" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id8">2</a>)</span>
 <p><a class="reference external" href="https://hvplot.holoviz.org/">https://hvplot.holoviz.org/</a></p>
 </aside>
-<aside class="footnote brackets" id="bokeh" role="note">
+<aside class="footnote brackets" id="bokeh" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id9">2</a>)</span>
 <p><a class="reference external" href="https://docs.bokeh.org/en/latest/index.html">https://docs.bokeh.org/en/latest/index.html</a></p>
 </aside>
-<aside class="footnote brackets" id="matplotlib-legend" role="note">
+<aside class="footnote brackets" id="matplotlib-legend" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html</a></p>
 </aside>
-<aside class="footnote brackets" id="pandas-docs" role="note">
+<aside class="footnote brackets" id="pandas-docs" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html</a></p>
 </aside>
-<aside class="footnote brackets" id="hvplot-guide" role="note">
+<aside class="footnote brackets" id="hvplot-guide" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">8</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://hvplot.holoviz.org/user_guide/index.html">https://hvplot.holoviz.org/user_guide/index.html</a></p>
+</aside>
 </aside>
 </section>
 </section>
@@ -850,7 +908,7 @@ Let’s check out an example of how to save our lovely bar plot.</p>
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
 </div>
@@ -874,7 +932,14 @@ Let’s check out an example of how to save our lovely bar plot.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-plot-formatting">Basic plot formatting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-and-annotating-the-figure">Formatting and annotating the figure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-formatting-the-plot-and-figure">Further formatting the plot and figure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-figure-size">Changing the figure size</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-text-to-the-figure">Adding text to the figure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-axis-ranges">Changing the axis ranges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-legend">Adding a legend</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-modified-example-plot">The modified example plot</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-datetime-axes">Dealing with datetime axes</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-4-1">Question 4.1</a></li>
 </ul>
@@ -907,7 +972,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -931,8 +996,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

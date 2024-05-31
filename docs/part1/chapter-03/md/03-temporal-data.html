@@ -1,51 +1,50 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../../" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Working with temporal data</title>
   
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css?v=b6a4faad" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part1/chapter-03/md/03-temporal-data';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -54,31 +53,27 @@
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -100,8 +95,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -136,134 +136,168 @@
   
     
     
-      
-    
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
     <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">Motivation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">Computers and programs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">Why Python?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">Writing and running Python code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">Using JupyterLab for writing code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">Quickly getting started (without installing Python)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">Installing Python and adding libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-02/index.html">2: Basic programming concepts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">Basic elements of Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">for loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">Conditional statements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/03-functions.html">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">Writing script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/05-modules.html">Loading and using modules</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">2.1 Basic elements of Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/01-for-loops.html">2.2 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/02-conditional-statements.html">2.3 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/03-functions.html">2.4 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/04-writing-scripts.html">2.5 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/05-modules.html">2.6 Loading and using modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/06-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">3: Introduction to data analysis</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../nb/00-pandas-basics.html">Getting started with data analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/01-data-manipulation.html">Common tabular operations in pandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/02-data-analysis.html">Data wrangling, grouping and aggregation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/03-temporal-data.html">Working with temporal data</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-04/index.html">4: Introduction to data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">Plotting in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">Plotting with pandas and matplotlib</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/02-subplots.html">Creating subplots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">Effective plot design: line plots</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5: Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">Motivation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">Geographic data in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6: Vector data processing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">Introduction to geographic data objects in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-introduction-to-geopandas.html">Introduction to spatial data analysis with geopandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-data-io.html">Preparing GeoDataFrames from geographic data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-geometric-manipulation.html">Geometric data manipulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-coordinate-reference-system.html">Working with Map Projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-geocoding.html">Geocoding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-operations-between-multiple-datasets.html">Operations between multiple datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-exercises.html">Exercises</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7: Raster data processing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">Introduction to raster processing with Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">Reading raster files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">Common raster operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">Raster operations between multiple layers</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-analysis.html">7.1 Introduction to raster processing with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-reading-raster.html">7.2 Reading raster files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-raster-operations-between-multiple-layers.html">7.4 Raster operations between multiple layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8: Geographic data visualization</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">Static maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">Visualizing raster layers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">Designing maps</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9: Using online geographic data sources</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">Retrieving OpenStreetMap data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">Retrieving data from Web Feature Service (WFS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">Retrieving data from Web Coverage Service (WCS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">Reading data from spatial databases</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">9.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">9.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">9.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">9.4 Reading data from spatial databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/04-exercises.html">Exercises</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10: Spatial interpolation</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11: Spatial network analysis</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12: Terrain analysis</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13: Conclusions</a></li>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendices.html">Appendices</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1.html">Version control with git</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2.html">Collaborative coding with GitHub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3.html">Using Python script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4.html">Testing and debugging your code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5.html">Solutions to questions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6.html">Exercise solutions</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
@@ -287,7 +321,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -296,7 +330,7 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
@@ -458,25 +492,28 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="working-with-temporal-data">
-<h1>Working with temporal data<a class="headerlink" href="#working-with-temporal-data" title="Permalink to this heading">#</a></h1>
+  <!-- #region editable=true slideshow={"slide_type": ""} -->
+<section class="tex2jax_ignore mathjax_ignore" id="working-with-temporal-data">
+<h1>Working with temporal data<a class="headerlink" href="#working-with-temporal-data" title="Link to this heading">#</a></h1>
 <blockquote>
-<div><p>“Ever since the dawn of civilization, people have not been content to see events as unconnected and inexplicable. They have craved an understanding of the underlying order in the world.” - Stephen Hawking (1988)</p>
+<div><p>“Ever since the dawn of civilization, people have not been content to see events as unconnected and inexplicable. They have craved an understanding of the underlying order in the world.”</p>
+<p>Stephen Hawking (1988)</p>
 </div></blockquote>
-<p>Time is one of the most fundamental ways how we humans organize things in life and what we use to find understanding of the underlying world, as Stephen <span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id3" title="Stephen Hawking. A Brief History of Time: From the Big Bang to Black Holes. Bantam, London, 1988.">Hawking, 1988</a></span> famously put it in his book “A brief history of time”. Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and pandas.</p>
+<p>Time is one of the most fundamental ways how we humans organize things in life and what we use to find understanding of the underlying world, as Stephen Hawking famously put it in his book “A brief history of time” (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id8" title="Stephen Hawking. A Brief History of Time: From the Big Bang to Black Holes. Bantam, London, 1988.">Hawking, 1988</a></span>). Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and pandas.</p>
+<!-- #endregion -->
 <section id="date-and-time-basics">
-<h2>Date and time basics<a class="headerlink" href="#date-and-time-basics" title="Permalink to this heading">#</a></h2>
+<h2>Date and time basics<a class="headerlink" href="#date-and-time-basics" title="Link to this heading">#</a></h2>
 <p>Before doing any progamming, we need to understand a few details about time conventions themselves. There are a couple of ways how the time information (commonly referred as <code class="docutils literal notranslate"><span class="pre">timestamp</span></code>) is typically represented. The first one is to represent the temporal information as text with specific format such as <code class="docutils literal notranslate"><span class="pre">&quot;2020-12-24T09:12:45Z&quot;</span></code> which follows an international ISO 8601 standard <a class="footnote-reference brackets" href="#isostandard" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. In this format, the date components (year, month, day) are separated with dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) and the time components (hour, minute, second) are separated with colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>). Typically there is a letter <code class="docutils literal notranslate"><span class="pre">T</span></code> separating the date and time components from each other (in some other formats, there could just be a space between them).</p>
 <p>The letter <code class="docutils literal notranslate"><span class="pre">Z</span></code> at the end of the string relates to time zones and means that the time here is represented as Coordinated Universal Time (UTC). Time zone information around the world are expressed using negative or positive offsets from the UTC time standard. <code class="docutils literal notranslate"><span class="pre">UTC±00:00</span></code> is the same as Greenwhich Mean Time (GMT) used e.g. in UK (during winter months), and it was chosen after a series of conferences between 1881-1884 (Ogle, 2015) as the worldwide standard for representing the zone 0 to which all other time zones in the world are relative to. For instance, the local time in Finland is two hours ahead of UTC, meaning that the time zone information is expressed as <code class="docutils literal notranslate"><span class="pre">UTC+2</span></code> or <code class="docutils literal notranslate"><span class="pre">UTC+02:00</span></code>, whereas the local time in New York is four hours behind UTC respectively (i.e. <code class="docutils literal notranslate"><span class="pre">UTC-4</span></code>).</p>
 <p>Another commonly used way to represent time in addition to ISO standardized timestamp is to use a so called <em>Unix time</em> (also known as <em>Epoch time</em> or <em>POSIX time</em>). Unix time is expressed as number of seconds since <em>Unix Epoch</em> that was on the first of January 1970 at midnight in UTC (i.e. <code class="docutils literal notranslate"><span class="pre">1970-01-01T00:00:00Z</span></code>). This system was developed to describe a point in time in numerical format, and it is widely used in computers by different operating systems. Unix time increments every second and e.g. the Unix time of December 22nd 2020 at 15:00:00 (UTC) is represented as a single number <code class="docutils literal notranslate"><span class="pre">1608649200</span></code>. Using this kind of numerical representation of time makes it much easier for computers to store and manipulate the time information compared to having the information in textual format (<code class="docutils literal notranslate"><span class="pre">2020-12-22T15:00:00Z</span></code>).</p>
 <p>Lastly, an important convention that relates to time and time zones is a concept called Daylight Saving Time (DST), also known as summer time. DST is a commonly used practice for advancing clocks typically by an hour during warmer months so that darkness falls at a later clock time. This is also the reason why e.g. the time zone information in Finland has an offset of +03:00 (summer time) instead of +02:00 which follows the official time zone specification for Finland. DST became a common practice after the global energy crisis in the 1970s and it was introduced in many countries during the following decade. However, some countries have never followed this convention, and there is an ongoing discussion to abandon the convention e.g. in EU.</p>
 </section>
 <section id="working-with-temporal-data-in-python">
-<h2>Working with temporal data in Python<a class="headerlink" href="#working-with-temporal-data-in-python" title="Permalink to this heading">#</a></h2>
+<h2>Working with temporal data in Python<a class="headerlink" href="#working-with-temporal-data-in-python" title="Link to this heading">#</a></h2>
 <p>Next we will learn how temporal data can be handled in Python in general. The most fundamental Python library for dealing with temporal data is called <code class="docutils literal notranslate"><span class="pre">datetime</span></code> that supplies functionalities to construct and manipulate dates and times. The module is one of the Python’s standard libraries, hence you do not need to install it separately. Other useful libraries for dealing with time and dates are <code class="docutils literal notranslate"><span class="pre">time</span></code> and <code class="docutils literal notranslate"><span class="pre">calendar</span></code> which provide some additional functionalities in addition to the functionalities provided by <code class="docutils literal notranslate"><span class="pre">datetime</span></code>. In addition, <code class="docutils literal notranslate"><span class="pre">pytz</span></code> library provides many useful functionalities to deal with time zone information and <code class="docutils literal notranslate"><span class="pre">dateutil</span></code> provides some handy functionalities to automate date parsing. Most often the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> module and <code class="docutils literal notranslate"><span class="pre">pytz</span></code> (in addition to pandas) provide everything you need when doing analysis with temporal data.</p>
 </section>
 <section id="constructing-datetime-objects">
-<h2>Constructing datetime objects<a class="headerlink" href="#constructing-datetime-objects" title="Permalink to this heading">#</a></h2>
+<h2>Constructing datetime objects<a class="headerlink" href="#constructing-datetime-objects" title="Link to this heading">#</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object is a representation of time in a way that Python can understand and operate with it. With the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library it is possible to construct a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object for example by <code class="docutils literal notranslate"><span class="pre">parsing</span></code> it from text following the ISO 8601 format or from the Unix timestamp (notice that the name of the library and the object are the same). Let’s see how we can construct a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object from text using a function <code class="docutils literal notranslate"><span class="pre">strptime()</span></code>. The <code class="docutils literal notranslate"><span class="pre">strptime()</span></code> function takes the variable <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> as the first argument representing the time in textual format and a second argument (“%Y-%m-%dT%H:%M:%S”) which looks quite complicated, but it is the <code class="docutils literal notranslate"><span class="pre">format</span> <span class="pre">code</span></code> that instructs the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> how the textual representation of the time should be interpreted:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
@@ -486,7 +523,7 @@ document.write(`
 </div>
 <p>As a result we get a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object in which the date has been converted into a set of numbers, in which the first one is the year, second one is month, third one day, and so on. This structure is always the same, no matter in what format the input data has been. By using the format codes (i.e. the second argument of the function), we can tell the computer that the first component in our string represents year in 4 digits. The <code class="docutils literal notranslate"><span class="pre">%Y</span></code> characters (i.e. a <em>directive</em>) is a special way to instruct the computer to do so. In a similar manner, we can instruct the computer to read the month based on numbers with two digits (<code class="docutils literal notranslate"><span class="pre">12</span></code>) using the directive <code class="docutils literal notranslate"><span class="pre">%m</span></code>. As you can see, there is always a <code class="docutils literal notranslate"><span class="pre">%</span></code> character and then some letter after it, which is the way how we determine how the date is formatted in our text. Notice that the date components are separated with dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) and the time components are separated with colons (<code class="docutils literal notranslate"><span class="pre">:</span></code>). As we can see from our format code, we can add those separator characters between the directives just as they are represented in the timestamp. Following this approach it is possible to parse basically any kind of time information represented as text. A few of the most commonly used datetime format code directives are listed in Table 3.1.</p>
 <p>: <em><strong>Table 3.1</strong>. Most commonly used datetime directives and their meaning.</em></p>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Directive</p></th>
 <th class="head text-left"><p>Description</p></th>
@@ -584,10 +621,17 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 <p>To crystallize the understanding how the timestamps can be parsed, let’s look at a few more examples where we also include time zone information and parse the date information based on a format how we typically write dates as humans (without time component). Let’s start by adding <code class="docutils literal notranslate"><span class="pre">+0200</span></code> to the end of the timestamp to express the UTC+2 time zone:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">timestamp_with_tz</span> <span class="o">=</span> <span class="s2">&quot;2020-12-22T15:00:00 +0200&quot;</span>
 <span class="n">dtz</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp_with_tz</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S %z&quot;</span><span class="p">)</span>
-<span class="n">dtz</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dtz</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">dtz</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dtz</span><span class="o">.</span><span class="n">tzinfo</span>
 </pre></div>
 </div>
 <p>As we can see, now we produced the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object having time zone information attached into the <code class="docutils literal notranslate"><span class="pre">tzinfo</span></code> attribute showing the offset (i.e. <em>timedelta</em>) from UTC represented in seconds. Having the timezone information attached can be very useful if doing analysis with temporal data that has been collected from different parts of the world (under different time zones). Let’s still take a look at an example in which we parse the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object from a textual representation that is written in a way how we humans normally write dates:</p>
@@ -617,7 +661,7 @@ document.write(`
 </div>
 </section>
 <section id="parsing-temporal-components-from-datetime-object">
-<h2>Parsing temporal components from datetime object<a class="headerlink" href="#parsing-temporal-components-from-datetime-object" title="Permalink to this heading">#</a></h2>
+<h2>Parsing temporal components from datetime object<a class="headerlink" href="#parsing-temporal-components-from-datetime-object" title="Link to this heading">#</a></h2>
 <p>There are few useful tricks that you can do with the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects. It is for example possible to parse specific temporal components directly from the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object. You can for example access the <code class="docutils literal notranslate"><span class="pre">.year</span></code>, <code class="docutils literal notranslate"><span class="pre">.month</span></code>, <code class="docutils literal notranslate"><span class="pre">.day</span></code>, <code class="docutils literal notranslate"><span class="pre">.hour</span></code>, <code class="docutils literal notranslate"><span class="pre">.minute</span></code> and <code class="docutils literal notranslate"><span class="pre">.second</span></code> attributes very easily that will return the value of the temporal element as an integer number:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
@@ -638,7 +682,7 @@ document.write(`
 </div>
 </section>
 <section id="working-with-temporal-data-in-pandas">
-<h2>Working with temporal data in pandas<a class="headerlink" href="#working-with-temporal-data-in-pandas" title="Permalink to this heading">#</a></h2>
+<h2>Working with temporal data in pandas<a class="headerlink" href="#working-with-temporal-data-in-pandas" title="Link to this heading">#</a></h2>
 <p>After learning the basics of how the temporal data can be represented as <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects, we can continue and see how temporal data can be manipulated in pandas. Pandas is extremely powerful and flexible what comes to working with temporal data. For instance, all the simple tricks that we saw earlier with <code class="docutils literal notranslate"><span class="pre">datetime</span></code> can be done also with pandas. When doing data analysis with pandas, it is typical that instead of dealing with single time observations, you actually work with time series data, such as the hourly temperature values that we analyzed in the previous section. Pandas supports many useful functionalities related to parsing, manipulating and aggregating time series data. Let’s start exploring the temporal capabilities of pandas by reading the hourly temperature observations from the same CSV file in a similar manner as we did previously. As a reminder, this is how the data look like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">USAF</span>  <span class="n">WBAN</span> <span class="n">YR</span><span class="o">--</span><span class="n">MODAHRMN</span> <span class="n">DIR</span> <span class="n">SPD</span> <span class="n">GUS</span> <span class="n">CLG</span> <span class="n">SKC</span> <span class="n">L</span> <span class="n">M</span> <span class="n">H</span>  <span class="n">VSB</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">AW</span>  <span class="o">...</span>
 <span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601010600</span> <span class="mi">090</span>   <span class="mi">7</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
@@ -686,18 +730,21 @@ document.write(`
 </pre></div>
 </div>
 <section id="handling-time-zones-in-pandas">
-<h3>Handling time zones in pandas<a class="headerlink" href="#handling-time-zones-in-pandas" title="Permalink to this heading">#</a></h3>
+<h3>Handling time zones in pandas<a class="headerlink" href="#handling-time-zones-in-pandas" title="Link to this heading">#</a></h3>
 <p>When reading time series data to pandas as we did previously, the timestamp objects are represented without time zone information. However, it is straighforward to attach time zone information to a Series with Timestamp objects by using a method called <code class="docutils literal notranslate"><span class="pre">tz_localize()</span></code>. When manipulating the data based on time information in pandas, the first step that you typically do, is to set a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-DatetimeIndex"><span class="xref std std-term">DatetimeIndex</span></a></em> for you DataFrame (here based on column ‘TIME’) with <code class="docutils literal notranslate"><span class="pre">set_index()</span></code> method. Next, we will set the index and specify appropriate time zone for our data (<em>Europe/Helsinki</em>). We will also specify the <code class="docutils literal notranslate"><span class="pre">nonexistent</span></code> parameter as “shift_forward”, due to the fact that when the clocks are adjusted when changing from winter time to summer time, there is literally one non-existing hour during the night. With this parameter we tell pandas that this is okay, and we just want to shift the time forward (by an hour in most cases) in case there are such “non-existing” time observations. With <code class="docutils literal notranslate"><span class="pre">ambiguous</span></code> parameter, we tell pandas that when adjusting the clocks backwards (moving from summer time to winter time), the observations having ambigous times (e.g. duplicate timestamps due to Daylight Saving Time) are set as <code class="docutils literal notranslate"><span class="pre">NaT</span></code> (Not-a-Time). Notice that it is up to you to decide what is appropriate way of handling such cases (there are also other options for this parameter, such as “infer”):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;TIME&quot;</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s2">&quot;Europe/Helsinki&quot;</span><span class="p">,</span> <span class="n">nonexistent</span><span class="o">=</span><span class="s2">&quot;shift_forward&quot;</span><span class="p">,</span> <span class="n">ambiguous</span><span class="o">=</span><span class="s2">&quot;NaT&quot;</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Now the TIME column is set as our index and it was moved to the left and replaced the original sequantial numbers. Notice that the <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column is no longer part of the columns in our DataFrame (we will later see how to get it back as a column). Also the time zone information was attached to the Timestamp objects as can be seen by the five last characters showing <code class="docutils literal notranslate"><span class="pre">+03:00</span></code>. From this information we can see that the time zone in Finland is +3 hours at the given date (summer time). We can easily access the values in the index by calling it as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">index</span>
+<p>Now the TIME column is set as our index and it was moved to the left and replaced the original sequantial numbers. Notice that the <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column is no longer part of the columns in our DataFrame (we will later see how to get it back as a column). Also the time zone information was attached to the Timestamp objects as can be seen by the five last characters showing <code class="docutils literal notranslate"><span class="pre">+03:00</span></code>. From this information we can see that the time zone in Finland is +3 hours at the given date (summer time). We can easily access the values in the index by calling it. Let’s check the first and last values of <code class="docutils literal notranslate"><span class="pre">data.index</span></code> and its data type.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>As we can see, the index is now a <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> which is essentially an array consisting of <code class="docutils literal notranslate"><span class="pre">Timestamp</span></code> objects armed with all the attributes and methods that we have seen in the previous examples. In addition, our array has time zone specified as “Europe/Helsinki”. Hint: If you want to know the available time zones, you can access them by <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">pytz</span> <span class="pre">import</span> <span class="pre">all_timezones</span></code> which imports them into the variable <code class="docutils literal notranslate"><span class="pre">all_timezones</span></code> as a list.</p>
@@ -706,7 +753,7 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># &#39;TIME&#39; column is returned back as a normal column</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;NY_TIME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">&quot;US/Eastern&quot;</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>Now we can see, that the timestamps were converted to represent the times in US/Eastern time zone and stored to the NY_TIME column. For example the first observation in our data that was recorded at 6 AM 1st of January in 1906 was correctly converted to a value from the last day of previous year at 11:20 PM (<code class="docutils literal notranslate"><span class="pre">1905-12-31</span> <span class="pre">23:20</span></code>). This functionality can be very useful when working with temporal data from different parts of the world. Quite often the data collected from different global services (such as tweets collected from Twitter) store the information as UTC values. Hence, it is up to the user to parse the correct local time for tweets posted in different parts of the world. Using pandas for doing these kind of manipulation with the temporal data is extremely handy and efficient. In case your data is already represented in different timezones, pandas makes your life easy because timestamps are stored under the hood always in UTC. This means that it is straightforward to do operations between the two time series without any additional timezone conversions. We can for example do simple calculations between two DataFrames that are represented in different timezones:</p>
@@ -728,8 +775,8 @@ document.write(`
 </section>
 </section>
 <section id="selecting-data-based-on-datetimeindex">
-<h2>Selecting data based on DatetimeIndex<a class="headerlink" href="#selecting-data-based-on-datetimeindex" title="Permalink to this heading">#</a></h2>
-<p>In chapter 3.3, we saw how to select observations using simple string manipulation operations applied to the timestamp. Although this worked quite well for our specific case, it is a rather glumpsy and inflexible approach to work with temporal information. A much better approach, is to take advantage of the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects stored in the time series. Let’s again first set the <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column as index for our DataFrame by using the method <code class="docutils literal notranslate"><span class="pre">set_index()</span></code>:</p>
+<h2>Selecting data based on DatetimeIndex<a class="headerlink" href="#selecting-data-based-on-datetimeindex" title="Link to this heading">#</a></h2>
+<p>In Chapter 3.3, we saw how to select observations using simple string manipulation operations applied to the timestamp. Although this worked quite well for our specific case, it is a rather glumpsy and inflexible approach to work with temporal information. A much better approach, is to take advantage of the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects stored in the time series. Let’s again first set the <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column as index for our DataFrame by using the method <code class="docutils literal notranslate"><span class="pre">set_index()</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/029820.txt&quot;</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
     <span class="n">fp</span><span class="p">,</span>
@@ -776,14 +823,22 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2018&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Combining this kind of indexing with methods such as <code class="docutils literal notranslate"><span class="pre">first()</span></code> or <code class="docutils literal notranslate"><span class="pre">last()</span></code> is extremely powerful, as you can easily retrieve for example all observations within first 6 hours and 10 minutes of a specific day (an arbitrary duration), in case you would be interested to understand temperatures during night time:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2018-01-01&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="s2">&quot;6H 10T&quot;</span><span class="p">)</span>
+<p>It is also possible to select subsets of data for specific time intervals starting from the first dates or for the last dates in the selection. For example, if you would like to select the values for the first 6 hours and 10 minutes of January 1st, 2018 you could do the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">start_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end_dt</span> <span class="o">=</span> <span class="n">start_dt</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_dt</span><span class="p">:</span><span class="n">end_dt</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">6H</span></code> stands for a duration of six hours (number of hours plus letter <code class="docutils literal notranslate"><span class="pre">H</span></code>) and the <code class="docutils literal notranslate"><span class="pre">10T</span></code> is a duration of ten minutes (number of minutes plus <code class="docutils literal notranslate"><span class="pre">T</span></code>), and you can combine those into a single duration as shown above. In a similar manner, you can specify many other <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-DateOffsets"><span class="xref std std-term">DateOffsets</span></a></em>, such as day (<code class="docutils literal notranslate"><span class="pre">D</span></code>) or second (<code class="docutils literal notranslate"><span class="pre">S</span></code>). The full list of all possible keywords (aliases) can be found from pandas documentation <a class="footnote-reference brackets" href="#dateoffsets" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<p>Here we define a starting date <code class="docutils literal notranslate"><span class="pre">start_dt</span></code> using the already familiar <code class="docutils literal notranslate"><span class="pre">datetime</span></code> function. The ending time <code class="docutils literal notranslate"><span class="pre">end_dt</span></code> is then defined as the starting time plus a time offset of 6 hours and 10 minutes using the <code class="docutils literal notranslate"><span class="pre">pd.DateOffset</span></code> function. The <code class="docutils literal notranslate"><span class="pre">pd.DateOffset</span></code> function can be used to specify a time by which another time could be shifted. Below is another example, looking at the last 8 hours and 45 minutes of data from January 31st, 2018.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">end_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">start_dt</span> <span class="o">=</span> <span class="n">end_dt</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_dt</span><span class="p">:</span><span class="n">end_dt</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Note that in this case the logic is slightly different from selecting the first values of a given day for a few reasons. First, we want to exclude midnight on February 1st, 2018 so the date value used for the end time of the selected dates is 23:59:59 on January 31st. If we had set <code class="docutils literal notranslate"><span class="pre">end_dt</span> <span class="pre">=</span> <span class="pre">datetime(2018,</span> <span class="pre">2,</span> <span class="pre">1)</span></code>, the corresponding date and time would be midnight (i.e., the start of the day) on February 1st. Second, we assign the end time first and then subtract the date offset to find the starting date and time to include in the selection. This way we get only values for January 31st. Additional useful details can be found in the  <a class="reference internal" href="#"><span class="xref myst">pandas documentation for DateOffset objects</span></a> <a class="footnote-reference brackets" href="#dateoffsets" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="shifting-or-leading-and-lagging-data">
-<h2>Shifting - or leading and lagging data<a class="headerlink" href="#shifting-or-leading-and-lagging-data" title="Permalink to this heading">#</a></h2>
+<h2>Shifting - or leading and lagging data<a class="headerlink" href="#shifting-or-leading-and-lagging-data" title="Link to this heading">#</a></h2>
 <p>One typical task when working with time series data, is to compare two consecutive values to each other. For instance, you might be interested in understanding how much warmer or colder the temperature was between different hours, or compute the percentual difference of how the value of a given stock has changed (to give a couple of examples). For these kind of operations, pandas provides a functionality called “shifting” which can be used to move (shift) data backward and forward. Next, we will see this method in action, by calculating the difference between consecutive temperature values. Let’s start by taking a small sample covering the data for 2019:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2019&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">sample</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -818,7 +873,7 @@ document.write(`
 <p>Here, we specified -7 as the first argument and passed a letter “D” for the <code class="docutils literal notranslate"><span class="pre">freq</span></code> parameter, meaning that we want shift the observations by 7 days. Then, we calculated the difference between the temperature on the following week and stored the result in a separate column <code class="docutils literal notranslate"><span class="pre">&quot;weekly_diff&quot;</span></code>. In a similar manner, you can easily calculate differences between observations taken at different times, which can be very efficient and useful to understand changes in time series.</p>
 </section>
 <section id="resampling-and-calculating-rolling-statistics">
-<h2>Resampling and calculating rolling statistics<a class="headerlink" href="#resampling-and-calculating-rolling-statistics" title="Permalink to this heading">#</a></h2>
+<h2>Resampling and calculating rolling statistics<a class="headerlink" href="#resampling-and-calculating-rolling-statistics" title="Link to this heading">#</a></h2>
 <p>Now as we know how to take advantage of the DatetimeIndex to make selections and time zone conversions as well as manipulate data by shifting observations, we are ready to explore further the functionalities of pandas for working with temporal data. One typical task when doing analysis with time series data is to <em><span class="xref std std-term">resample</span></em> the time series from one frequency to another, such as aggregating the hourly temperature observations to daily averages. This might sound familiar, as we did this process previously (in 3.3) by using specific string manipulation tricks, and then grouping and aggregating the values. Now we will learn how to use pandas resampling functionalities that allows to conduct both downsampling (i.e. aggregating values) and upsampling based on specific interpolation methods. When doing interpolation, you fill missing values between observations based on specific criteria, such as taking the average between two consecutive observations. For instance, you could interpolate hourly temperature observations into 30 minute frequencies by assuming that the temperature in the middle of two time steps, such as 14:00 and 15:00, is the average of both giving you an estimate what the temperature might be at 14:30. Notice that whenever interpolating/upsampling data, you are basically making “sophisticated guesses” and there is always uncertainty involved with your estimates.</p>
 <p>Let’s start by downsampling our observations into daily averages. To do this, we can use a <code class="docutils literal notranslate"><span class="pre">resample()</span></code> method that works in a bit similar manner as <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> but it works with <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> allowing you to easily control how the values should be grouped. Notice, that this only works with time series data, i.e. you need to make sure that you have set <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> for your DataFrame. Whenever resampling data, you typically want to combine it with a specific aggregation method, such as <code class="docutils literal notranslate"><span class="pre">mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">max()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, which will then specify how you want to aggregate the data, such as calculating the daily averages:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">daily_averages</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;1D&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -875,7 +930,7 @@ document.write(`
 </div>
 <p><em><strong>Figure 3.6</strong>. Temperature values and moving averages for 1990-2020.</em></p>
 <p>As a result, we have three different curves showing how the temperature values get smoothed by averaging. Green line is based on the moving average with 360 days; Orange line is based on the 180 days; and the blue line represents the moving average based on daily averages. As can be seen, the variance between observations is reduced (i.e. smoothed) when the size of the window gets larger.</p>
-<p>In quite a similar manner, it is possible to use exponentially weighted (EW) window functions to give more weight on more recent observations based on a decay function, such as center of mass (com) following a formula: $\alpha$ <em>= 1 / (1 + com)</em>. A method called <code class="docutils literal notranslate"><span class="pre">.ewm()</span></code> does this, and as a result the smoothing adapts faster to changes than using equally weighted observations. The higher value you pass for the <code class="docutils literal notranslate"><span class="pre">com</span></code> -parameter, the more the end result will be smoothed:</p>
+<p>In quite a similar manner, it is possible to use exponentially weighted (EW) window functions to give more weight on more recent observations based on a decay function, such as center of mass (com) following a formula: <span class="math notranslate nohighlight">\(\alpha\)</span> <em>= 1 / (1 + com)</em>. A method called <code class="docutils literal notranslate"><span class="pre">.ewm()</span></code> does this, and as a result the smoothing adapts faster to changes than using equally weighted observations. The higher value you pass for the <code class="docutils literal notranslate"><span class="pre">com</span></code> -parameter, the more the end result will be smoothed:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ewm</span><span class="p">(</span><span class="n">com</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -883,19 +938,21 @@ document.write(`
 <p>In addition to these moving window functions, pandas provides a method <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code> which increases the size of the window on each observation until it encompasses the whole series. This method basically cumulates the information on each observation and can be useful e.g. in some predictive applications where cumulative information about the given phenomena can provide more accurate results after more observations have been observed. It is also possible to apply and chain your own functions together with <code class="docutils literal notranslate"><span class="pre">.rolling()</span></code> and <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code>, such as <code class="docutils literal notranslate"><span class="pre">.rolling(20).apply(myOwnFunction)</span></code>.</p>
 </section>
 <section id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
 <hr class="footnotes docutils" />
-<aside class="footnote brackets" id="isostandard" role="note">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="isostandard" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">https://en.wikipedia.org/wiki/ISO_8601</a></p>
 </aside>
-<aside class="footnote brackets" id="dateoffsets" role="note">
+<aside class="footnote brackets" id="dateoffsets" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/timeseries.html#dateoffset-objects">https://pandas.pydata.org/docs/user_guide/timeseries.html#dateoffset-objects</a></p>
 </aside>
-<aside class="footnote brackets" id="interpolation" role="note">
+<aside class="footnote brackets" id="interpolation" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html</a></p>
+</aside>
 </aside>
 </section>
 </section>
@@ -908,7 +965,7 @@ document.write(`
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
 </div>
@@ -963,7 +1020,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2022, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -987,8 +1044,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

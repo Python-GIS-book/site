@@ -5,13 +5,14 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Creating subplots
 
 At this point you should know the basics of making plots with Matplotlib. Now we will expand on our basic plotting skills to learn how to create more advanced plots. In this section, we will show how to visualize data using pandas/Matplotlib and create multi-panel plots such as the one below.
@@ -19,7 +20,7 @@ At this point you should know the basics of making plots with Matplotlib. Now we
 ![_**Figure 4.10**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._](../img/subplots.png)
 
 _**Figure 4.10**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._
-
+<!-- #endregion -->
 
 ## Preparing the data for plotting 
 
@@ -68,17 +69,17 @@ data.dropna(subset=["TEMP_F"], inplace=True)
 print("Number of rows after removing no data values:", len(data))
 ```
 
-<!-- #region tags=[] -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 4.2
 
 How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified DataFrame to another variable name or do not use the `inplace` parameter.
 <!-- #endregion -->
 
-```python tags=["remove_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 
@@ -138,7 +139,7 @@ _**Figure 4.12**. Summer temperatures for 2012-2013._
 
 Based on the plots above it looks that the correct seasons have been plotted and the temperatures between winter and summer are quite different, as we would expect. One thing we might need to consider with this is that the y-axis range currently varies between the two plots and we may want to define axis ranges that ensure the data are plotted with the same y-axis ranges in all subplots. This will help make it easier to visually compare the temperatures between seasons.
 
-**Finding the data bounds**
+### Finding the data bounds
 
 In order to define y-axis limits that will include the data from all of the seasons and be consistent between subplots we first need to find the minimum and maximum temperatures from all of the seasons.
 In addition, we should consider that it would be beneficial to have some extra space (padding) between the y-axis limits and those values, such that, for example, the maximum y-axis limit is five degrees higher than the maximum temperature and the minimum y-axis limit is five degrees lower than the minimum temperature. We can do that below by calculating the minumum of each seasons minumum temperature and subtracting five degrees.
@@ -163,7 +164,7 @@ print(f"Maximum temperature: {max_temp}")
 
 We can now use this temperature range to standardize the y-axis ranges of our plots.
 
-**Displaying multiple subplots in a single figure**
+### Displaying multiple subplots in a single figure
 
 With the data split into seasons and y-axis range defined we can now continue to plot data from all four seasons the same figure. We will start by creating a figure containing four subplots in a 2x2 panel using Matplotlib’s `subplots()` function. In the `subplots()` function, the user can specify how many rows and columns of plots they want to have in their figure.
 We can also specify the size of our figure with `figsize()` parameter that takes the `width` and `height` values (in inches) as input.
@@ -189,6 +190,7 @@ ax22 = axs[1][1]
 Now we have four different axis variables for the different panels in our figure.
 Next we can use these axes to plot the seasonal temperature data.
 We can start by plotting the data for the different seasons with different colors for each of the lines, and we can specify the *y*-axis limits to be the same for all of the subplots.
+
 - We can use the `c` parameter to change the color of the line. You can define colors using RBG color codes, but it is often easier to use one of the [Matplotlib named colors](https://matplotlib.org/stable/gallery/color/named_colors.html) [^matplotlib_colors].
 - We can also change the line width or weight using the `lw`.
 - The `ylim` parameter can be used to define the y-axis limits.
@@ -276,8 +278,7 @@ autumn_temps.plot(
 )
 
 # Set figure title
-fig.suptitle("2012-2013 Seasonal temperature observations"
-             "- Helsinki-Vantaa airport")
+fig.suptitle("2012-2013 Seasonal temperature observations" "- Helsinki-Vantaa airport")
 
 # Rotate the x-axis labels so they don't overlap
 plt.setp(ax11.xaxis.get_majorticklabels(), rotation=20)
@@ -302,9 +303,11 @@ _**Figure 4.15**. Seasonal temperatures for 2012-2013 plotted with season names 
 The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 4.3
 
 Visualize only the winter and summer temperatures in a 1x2 panel figure. Save the resulting figure as a .png file.
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -344,8 +347,7 @@ summer_temps.plot(
 
 # Set figure title
 fig.suptitle(
-    "2012-2013 Winter and summer temperature observations"
-    "- Helsinki-Vantaa airport"
+    "2012-2013 Winter and summer temperature observations" "- Helsinki-Vantaa airport"
 )
 
 # Rotate the x-axis labels so they don't overlap
@@ -359,6 +361,8 @@ ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 plt.show()
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^matplotlib_colors]: <https://matplotlib.org/stable/gallery/color/named_colors.html>
+<!-- #endregion -->

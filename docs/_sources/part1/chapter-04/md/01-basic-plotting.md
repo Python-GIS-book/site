@@ -5,24 +5,28 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.4
+      jupytext_version: 1.15.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Plotting with pandas and matplotlib
 
 At this point we are familiar with some of the features of pandas and explored some very basic data visualizations at the [end of Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). Now, we will wade into visualizing our data in more detail, starting by using the built-in plotting options available directly in pandas. Much like the case of pandas being built upon numpy, plotting in pandas takes advantage of plotting features from the `matplotlib` [^matplotlib] plotting library. Plotting in pandas provides a basic framework for quickly visualizing our data, but as you'll see we will need to also use features from matplotlib for more advanced formatting and to enhance our plots. In particular, we will use features from the the `pyplot` [^pyplot] module in matplotlib, which provides MATLAB-like [^matlab] plotting. We will also briefly explore creating interactive plots using the `hvplot` [^hvplot] plotting library, which allows us to produce plots similar to those available in the `bokeh` plotting library [^bokeh] using plotting syntax very similar to that in pandas.
+<!-- #endregion -->
 
-<!-- #region tags=[] -->
 ## Creating a basic x-y plot
 
 The first step for creating a basic x-y plot is to import pandas and read in the data we want to plot from a file. We will be using a datetime index for our weather observation data as we [learned in Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). In this case, however, we'll include a few additional parameters in order to *read the data* with a datetime index. We will read in the data first, and then discuss what happened.
 
 Let's start by importing the libraries we will need (pandas and Matplotlib), and then read in the data.
-<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove-cell"]
+import warnings
+```
 
 ```python
 import pandas as pd
@@ -101,12 +105,13 @@ _**Figure 4.5**. A plot of the example temperature data with additional formatti
 
 Now we see that our temperature data as a black dashed line with circles indicating the temperature values from the data file. This comes from the additional parameter `style='ko--'`. In this case, `k` tells the `oct1_temps.plot()` function to use black color for the lines and symbols, `o` tells it to show circles at the data points, and `--` says to use a dashed line between points. You can use `help(oct1_temps.plot)` to find out more about formatting plots. We have also added a title using the `title` parameter, and axis labels using the `xlabel` and `ylabel` parameters.
 
-<!-- #region -->
-## Formatting and annotating the figure
+
+## Further formatting the plot and figure
 
 In addition to labeling the plot axes and adding a title, there are several other common plot attributes one might like to utilize. We briefly present some of the most common plot features here and then demonstrate how they work in a modified example plot below.
 
-**Changing the figure size**
+<!-- #region -->
+### Changing the figure size
 
 While the default plot sizes we're working with are fine, it is often helpful to be able to control the figure size. Fortunately, there is an easy way to change the figure size in pandas and matplotlib. In order to define the figure size, we simply include the `figsize` parameter with a tuple (set of values in normal parentheses) that lists the width and height of the figure (in inches!).
 
@@ -121,7 +126,7 @@ Note that it is also possible to change the default figure size for all figures 
 <!-- #endregion -->
 
 <!-- #region -->
-**Adding text to the figure**
+### Adding text to the figure
 
 It is also possible to add text that can be displayed on a plot using `ax.text()`. For example, 
 
@@ -135,7 +140,7 @@ would add the text "This is my text." aligned to the left starting from the date
 <!-- #endregion -->
 
 <!-- #region -->
-**Changing the axis ranges**
+### Changing the axis ranges
 
 In some cases you may want to plot only a subset of the data you are working with. You can modify the range of values that are plotted by definiing the axis ranges. Changing the plot axes can be done using the `xlim` and `ylim` parameters of the `plot()` function, where `xmin` is the minimum bound of the x-axis, `xmax` is the maximum bound, and the same goes for the y-axis with `ymin` and `ymax`. For example, adding
 
@@ -172,7 +177,7 @@ Defining axis ranges this way is handy becaues it will adjust the range of value
 <!-- #endregion -->
 
 <!-- #region -->
-**Adding a legend**
+### Adding a legend
 
 The final example of a common plot feature we can add is a legend. The legend allows you to provide some additional information about the lines, points, or other features of a plot, and adding a legend is quite simple. To do so, we need to add two things: a `label` parameter in the plot function that lists the text that should be displayed in the legend, and a call to the `legend()` function to display the plot legend. For example, adding the following to the plot will add and display a legend.
 
@@ -189,7 +194,7 @@ This would add the label "Observed temperature" to the legend for the line forma
 Note that by default the legend will automatically be positioned in the top right corner of a plot, or in a location where it minimizes interference with other plot elements. The location of the legend can be controlled using the `loc` parameter in the call to the `legend()` function. The [matplotlib documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html) [^matplotlib-legend] contains more information about how to control the location of the plot legend.
 <!-- #endregion -->
 
-**The modified example plot**
+### The modified example plot
 
 Based on the additions above (changing the figure size, adding text to the plot, etc.), the modified plot can be generated using the code below.
 
@@ -263,15 +268,12 @@ ax.legend()
 
 _**Figure 4.7**. A plot of the example temperature data further modified with additional formatting and reduced axis ranges._
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 4.1
 
-Create a line plot similar to the examples above with the following attributes:
-    
-- Temperature data from 18:00-24:00 on October 1, 2019
-- A dotted red line connecting the observations (do not show the data points)
-- A title that reads "Evening temperatures at Helsinki-Vantaa on October 1, 2019"
-- A text label indicating the warmest temperature in the evening
+Create a line plot similar to the examples above with the following attributes: (1) Temperature data from 18:00-24:00 on October 1, 2019, (2) 
+a dotted red line connecting the observations (do not show the data points), (3) a title that reads "Evening temperatures at Helsinki-Vantaa on October 1, 2019", and (4) a text label indicating the warmest temperature in the evening.
+<!-- #endregion -->
 
 ```python tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -401,9 +403,15 @@ Let us start by importing the pandas submodule of hvPlot.
 import hvplot.pandas
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 With the submodule imported, we can simply take a slice of data from the `data` DataFrame, the month of July in 2014 in this example, and create a plot just as we would in pandas. The only difference here is that we will use the `hvplot()` method rather than the `plot()` method from pandas.
+<!-- #endregion -->
 
-```python tags=[]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+warnings.simplefilter("ignore")
+```
+
+```python editable=true slideshow={"slide_type": ""}
 july2014_df = data.loc[(data.index >= "201407010000") & (data.index < "201407310000")]
 
 july2014_df.hvplot(
@@ -414,7 +422,7 @@ july2014_df.hvplot(
 )
 ```
 
-<!-- #raw tags=["hide-cell"] -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 4.9}. An interactive plot example using hvPlot.}}, center, nofloat}{../img/hvplot-example.png}
 { \hspace*{\fill} \\}
@@ -426,7 +434,7 @@ Now we have an interactive line plot where the users can place their mouse curso
 
 That is all we will explore for the moment, but you are welcome to have a look at the [hvPlot User Guide](https://hvplot.holoviz.org/user_guide/index.html) [^hvplot_guide] to learn more about the types of visualizations available in hvPlot and how to use them.
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^matplotlib]: <https://matplotlib.org/>
@@ -437,3 +445,4 @@ That is all we will explore for the moment, but you are welcome to have a look a
 [^hvplot]: <https://hvplot.holoviz.org/>
 [^bokeh]: <https://docs.bokeh.org/en/latest/index.html>
 [^hvplot_guide]: <https://hvplot.holoviz.org/user_guide/index.html>
+<!-- #endregion -->
