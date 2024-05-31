@@ -268,7 +268,7 @@ admin.to_crs(epsg=3857).explore()
 
 <!-- #raw tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.24}. Global map plotted in Web Mercator.}}, center, nofloat}{../img/interactive-map.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.28}. Global map plotted in Web Mercator.}}, center, nofloat}{../img/interactive-map.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
