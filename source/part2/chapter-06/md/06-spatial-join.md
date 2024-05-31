@@ -120,13 +120,13 @@ Good, now the datasets share the same coordinate reference system. As a last pre
 ```python editable=true slideshow={"slide_type": ""}
 # Plot the population data classified into 5 classes
 ax = pop_grid.plot(
-    column="inhabitants", 
-    cmap = "Greens",
-    scheme="naturalbreaks", 
-    k=5, 
-    legend=True, 
+    column="inhabitants",
+    cmap="Greens",
+    scheme="naturalbreaks",
+    k=5,
+    legend=True,
     legend_kwds={"loc": "lower right"},
-    figsize=(10, 8)
+    figsize=(10, 8),
 )
 
 # Add address points on top using blue "Diamond" markers
@@ -143,6 +143,7 @@ As we can see from the map in Figure 6.40, the Polygons representing the populat
 # This cell sets the number of lines of pandas output to a maximum of 7
 # The cell is removed when building the website/book PDF
 import pandas as pd
+
 pd.set_option("display.max_rows", 7)
 ```
 
@@ -184,12 +185,12 @@ Let's also visualize the joined output. In the following, we plot the points usi
 
 ```python
 ax = join.plot(
-    column="inhabitants", 
-    cmap="Reds", 
-    markersize=15, 
-    scheme="quantiles", 
+    column="inhabitants",
+    cmap="Reds",
+    markersize=15,
+    scheme="quantiles",
     legend=True,
-    figsize=(10,6),
+    figsize=(10, 6),
 )
 ax.set_title("Amount of inhabitants living close the the point");
 ```

@@ -93,12 +93,13 @@ As a result we got a new GeoDataFrame that includes 23 postal code areas that in
 ```python editable=true slideshow={"slide_type": ""}
 import matplotlib.pyplot as plt
 
+
 def plot_vector_overlay(gdf1, gdf2, result, title):
     """
     Creates two maps next to each other based on `gdf1`, `gdf2` and the `result` GeoDataFrames.
     """
-    
-    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2,  figsize=(8,5))
+
+    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(8, 5))
 
     ax1 = gdf1.plot(ax=ax1)
     ax1 = gdf2.plot(ax=ax1, color="red", alpha=0.3)
@@ -107,10 +108,10 @@ def plot_vector_overlay(gdf1, gdf2, result, title):
 
     # Fetch bounds and apply to axis 2
     xmin, ymin, xmax, ymax = gdf1.total_bounds
-        
+
     ax2.set_xlim(xmin, xmax)
     ax2.set_ylim(ymin, ymax)
-    
+
     fig.suptitle(title, fontsize=16)
     # Add an arrow between the plots
     fig.text(0.49, 0.5, "⇨", fontsize=30, color="red")
@@ -118,16 +119,14 @@ def plot_vector_overlay(gdf1, gdf2, result, title):
     ax2.axis("off")
     plt.tight_layout()
     return fig, ax1, ax2
-
 ```
 
 Now we can call this function to create a visualizaton that demonstrates how the intersection overlay operations behaves:
 
 ```python
-fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas, 
-                                    gdf2=station_buffer, 
-                                    result=intersection,
-                                    title="Intersection")
+fig, ax1, ax2 = plot_vector_overlay(
+    gdf1=postal_areas, gdf2=station_buffer, result=intersection, title="Intersection"
+)
 ```
 
 _**Figure 6.52**. Result after conducting vector overlay operation by intersecting the two layers._
@@ -143,11 +142,10 @@ In a similar manner as with intersection, we can conduct overlay operation using
 ```python editable=true slideshow={"slide_type": ""}
 # Union
 union = postal_areas.overlay(station_buffer, how="union")
-                
-fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas, 
-                                    gdf2=station_buffer, 
-                                    result=union,
-                                    title="Union")
+
+fig, ax1, ax2 = plot_vector_overlay(
+    gdf1=postal_areas, gdf2=station_buffer, result=union, title="Union"
+)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -172,11 +170,13 @@ Did you fully understand why the number of rows increase after doing the union o
 
 ```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Answer
-print("""
+print(
+    """
 When hovering over the buffer geometry border, the attribute values in the table change. 
 Inside the ring, the attributes of the Helsinki railway station are kept in the results, whereas outside of the ring 
 the table does not include any data for the columns associated with the railway station.
-""")
+"""
+)
 
 # Solution
 union.explore()
@@ -189,11 +189,10 @@ Sometimes it might be useful to focus extract geometries that area *outside* a g
 ```python editable=true slideshow={"slide_type": ""}
 # Difference
 difference = postal_areas.overlay(station_buffer, how="difference")
-                
-fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas, 
-                                    gdf2=station_buffer, 
-                                    result=difference,
-                                    title="Difference")
+
+fig, ax1, ax2 = plot_vector_overlay(
+    gdf1=postal_areas, gdf2=station_buffer, result=difference, title="Difference"
+)
 ```
 
 _**Figure 6.54**. Result after conducting vector overlay operation based on difference._
@@ -213,11 +212,13 @@ The symmetric difference overlay operation is an interesting one. It will keep t
 ```python editable=true slideshow={"slide_type": ""}
 # Symmetric Difference
 symmetric_difference = postal_areas.overlay(station_buffer, how="symmetric_difference")
-                
-fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas, 
-                                    gdf2=station_buffer, 
-                                    result=symmetric_difference,
-                                    title="Symmetric Difference")
+
+fig, ax1, ax2 = plot_vector_overlay(
+    gdf1=postal_areas,
+    gdf2=station_buffer,
+    result=symmetric_difference,
+    title="Symmetric Difference",
+)
 ```
 
 _**Figure 6.55**. Result after conducting vector overlay operation based on symmetric difference._
@@ -242,13 +243,12 @@ As can be seen from above, the table includes now the attributes from the `posta
 As a last overlay operation, we have the `"identity"` which computes a geometric intersection of the input features and identity features. The input features or portions thereof that overlap identity features will get the attributes of those identity features. The basic idea is very similar to `"union"` but in this case, the areas outside of `postal_areas` GeoDataFrame will not be filled with the `station_buffer` geometry as demonstrated below:
 
 ```python editable=true slideshow={"slide_type": ""}
-# Identity 
+# Identity
 identity = postal_areas.overlay(station_buffer, how="identity")
-                
-fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas, 
-                                    gdf2=station_buffer, 
-                                    result=identity,
-                                    title="Identity")
+
+fig, ax1, ax2 = plot_vector_overlay(
+    gdf1=postal_areas, gdf2=station_buffer, result=identity, title="Identity"
+)
 ```
 
 _**Figure 6.56**. Result after conducting vector overlay operation based on identity._

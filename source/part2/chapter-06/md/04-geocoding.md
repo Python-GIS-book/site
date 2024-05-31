@@ -103,8 +103,10 @@ In the above example we passed the address column to the geocoding function. [Th
 # Solution
 
 # Example list of addresses
-adress_list = ["Pietari Kalmin katu 5, Helsinki, Finland", 
-               "Konetekniikka 1, Espoo, Finland"]
+adress_list = [
+    "Pietari Kalmin katu 5, Helsinki, Finland",
+    "Konetekniikka 1, Espoo, Finland",
+]
 
 # Do the geocoding
 geo = geocode(

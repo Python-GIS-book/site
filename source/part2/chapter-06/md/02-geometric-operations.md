@@ -381,9 +381,9 @@ Combining your pandas and geopandas skills, create a 500m buffer zone around the
 ax1 = data.plot(color="grey")
 
 # Plot the buffer zone of dense areas on top
-dissolved.loc[dissolved["dense"]==1].buffer(500).plot(ax=ax1, 
-                                                      alpha=0.5, 
-                                                      color="yellow")
+dissolved.loc[dissolved["dense"] == 1].buffer(500).plot(
+    ax=ax1, alpha=0.5, color="yellow"
+)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->

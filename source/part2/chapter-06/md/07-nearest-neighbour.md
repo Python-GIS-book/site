@@ -16,18 +16,21 @@ jupyter:
 # Nearest neighbour analysis
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 The idea of neighbourhood is one of the fundamental concepts in geographic data analysis and modelling. Being able to understand how close geographic objects are to each other, or which features are neighboring a specific location is fundamental to various spatial analysis techniques, such as spatial interpolation (which we cover in Chapter 10) or understanding whether there is spatial autocorrelation (i.e. clustering) in the data (see Chapters [6](https://geographicdata.science/book/notebooks/06_spatial_autocorrelation.html) and [7](https://geographicdata.science/book/notebooks/07_local_autocorrelation.html) in {cite}`Rey_et_al_2023`). Many of these techniques rely on the idea that proximity in geographic space typically indicates also similarity in attribute space. For example, it is quite typical that a neighborhood with high population density is next to another neighborhood that also has high concentration of residents (i.e. population density tends to cluster). One of the most famous notions related to this is the *First law of geography* which states that "everything is related to everything, but near things are more related than distant things" ({cite}`Tobler1970`). Thus, being able to understand how close neighboring geographic features are, or which objects are the closest ones to specific location is an important task in GIS. 
 
 **Figure 6.43** illustrates two common ways to find nearest neighbors to specific locations. In these examples, we have two Point datasets visualized with blue circles and red rectangles that are used for doing the nearest neighbor analysis. In the first example (top row), the idea is to find the closest geometry (rectangles) for all the points in the area. Here, the nearest neighbor is determined based on distance between the points and rectangles, and the nearest neighbors are visualized with a line from every point to the closest rectangle (on the right). The bottom row shows an example in which we aim to find the closest point for each rectangle, but in this case we also apply a maximum search distance that limits the search area. Only those points that are within the search area are considered when finding the nearest neighbor, while the points outside of this area are simply ignored. As a result, the point closest to a given rectangle is visualized with a connected line (on the right). In these examples, the geographic objects are simple point like features, but similar approach can be used with any geographic features, for example by finding closest LineString or Polygon geometry to a given Point, or by finding the closest Polygon to another Polygon. In these cases, the calculations are a bit more complicated, but the basic idea is the same. 
+<!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ![_**Figure 6.43**. The basic idea of finding a nearest neighbour based on geographic distance._](../img/nearest-neighbour.png)
 
 _**Figure 6.43**. The basic idea of finding a nearest neighbour based on geographic distance._
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Quite often with very large datasets, we might want to limit the search area up to a specific maximum distance. This can be due to practical reasons as it can significantly speed up the computation time, or because we have specific reasoning that makes it sensible to limit the search area. For example, if we would aim to understand how easily accessible public transportation is to citizens living in a city, it would make sense to limit the search area e.g. up to 2 km from the homes of people, because people are not willing to walk for very long distances to reach a bus stop. It's important to notice that the distances in the calculations are commonly based on the Euclidian distance, i.e. we calculate the distances based on coordinates on a Cartesian plain, meaning that the distances do not consider changes in height (i.e. third dimension is omitted). It is of course possible also to consider 3D distances, but the most typical Python tools ignore the height information. 
-
+<!-- #endregion -->
 
 ## Nearest neighbour analysis in Python
 
@@ -91,7 +94,9 @@ The `%time` command at the beginning of the cell provides us some details about 
 
 ```python
 %time
-closest_limited = building_points.sjoin_nearest(stops, max_distance=100, distance_col="distance")
+closest_limited = building_points.sjoin_nearest(
+    stops, max_distance=100, distance_col="distance"
+)
 closest_limited
 ```
 
@@ -101,9 +106,9 @@ In some cases, you might actually want to connect the nearest neighbors to each 
 
 ```python
 stops["stop_index"] = stops.index
-closest = closest.merge(stops[["stop_index", "geometry"]], 
-                        left_on="index_right", 
-                        right_on="stop_index")
+closest = closest.merge(
+    stops[["stop_index", "geometry"]], left_on="index_right", right_on="stop_index"
+)
 closest.head()
 ```
 
@@ -111,8 +116,10 @@ As a result, we now brought two new columns into our results, namely `stop_index
 
 ```python
 from shapely import LineString
-closest["geometry"] = closest.apply(lambda row: LineString([row["geometry_x"], 
-                                                            row["geometry_y"]]), axis=1)
+
+closest["geometry"] = closest.apply(
+    lambda row: LineString([row["geometry_x"], row["geometry_y"]]), axis=1
+)
 closest = closest.set_geometry("geometry")
 closest.head()
 ```
@@ -120,7 +127,7 @@ closest.head()
 Great! Now we have created a new geometry column that contains the lines between buildings and the closest stops. To better understand the results, let's create a nice map that visualizes the buildings, stops and the connecting lines between the buildings and the closest stops in a single figure: 
 
 ```python
-ax = closest.plot(lw=0.5, figsize=(10,10))
+ax = closest.plot(lw=0.5, figsize=(10, 10))
 ax = building_points.plot(ax=ax, color="red", markersize=2)
 ax = stops.plot(ax=ax, color="black", markersize=8.5, marker="s")
 # Zoom to specific area
@@ -156,7 +163,7 @@ buildings
 
 ```python
 # Plot buildings, parks and roads
-ax = buildings.plot(color="gray", figsize=(10,10))
+ax = buildings.plot(color="gray", figsize=(10, 10))
 ax = parks.plot(ax=ax, color="green")
 ax = roads.plot(ax=ax, color="red")
 ```
@@ -186,7 +193,9 @@ As a result, we now have found the nearest road for each building. We have now 7
 
 ```python
 roads["index"] = roads.index
-nearest_roads = nearest_roads.merge(roads[["geometry", "index"]], left_on="index_right", right_on="index")
+nearest_roads = nearest_roads.merge(
+    roads[["geometry", "index"]], left_on="index_right", right_on="index"
+)
 nearest_roads.head(3)
 ```
 
@@ -196,9 +205,11 @@ Now we have the `geometry_x` column representing the building geometries and the
 from shapely.ops import nearest_points
 
 # Generate LineString between nearest points of two geometries
-connectors = nearest_roads.apply(lambda row: LineString(nearest_points(row["geometry_x"], row["geometry_y"])), axis=1)
+connectors = nearest_roads.apply(
+    lambda row: LineString(nearest_points(row["geometry_x"], row["geometry_y"])), axis=1
+)
 
-# Create a new GeoDataFrame out of these geometries 
+# Create a new GeoDataFrame out of these geometries
 connectors = gpd.GeoDataFrame({"geometry": connectors}, crs=roads.crs)
 connectors["distance"] = connectors.length
 connectors.head()
@@ -229,7 +240,6 @@ ADD A QUESTION.
 
 ```python editable=true slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
 # Solution
-
 ```
 
 ## K-Nearest Neighbor search
@@ -243,7 +253,9 @@ import geopandas as gpd
 
 # Read the files and reproject to EPSG:3067
 stops = gpd.read_file("data/Helsinki/pt_stops_helsinki.gpkg").to_crs(epsg=3067)
-building_points = gpd.read_file("data/Helsinki/building_points_helsinki.zip").to_crs(epsg=3067)
+building_points = gpd.read_file("data/Helsinki/building_points_helsinki.zip").to_crs(
+    epsg=3067
+)
 
 building_points.head(2)
 ```
@@ -316,7 +328,7 @@ k_nearest["1st_nearest_idx"] = k_nearest_ix.T[0]
 k_nearest["2nd_nearest_idx"] = k_nearest_ix.T[1]
 k_nearest["3rd_nearest_idx"] = k_nearest_ix.T[2]
 
-# Add distances 
+# Add distances
 k_nearest["1st_nearest_dist"] = k_nearest_dist.T[0]
 k_nearest["2nd_nearest_dist"] = k_nearest_dist.T[1]
 k_nearest["3rd_nearest_dist"] = k_nearest_dist.T[2]
@@ -335,19 +347,34 @@ stops["stop_index"] = stops.index
 
 ```python
 # Merge the geometries of the nearest stops to the GeoDataFrame
-k_nearest_1 = k_nearest.merge(stops[["stop_index", "geometry"]], left_on="1st_nearest_idx", right_on="stop_index", suffixes=('', '_knearest'))
+k_nearest_1 = k_nearest.merge(
+    stops[["stop_index", "geometry"]],
+    left_on="1st_nearest_idx",
+    right_on="stop_index",
+    suffixes=("", "_knearest"),
+)
 k_nearest_1.head(2)
 ```
 
 ```python
 # Merge the geometries of the 2nd nearest stops to the GeoDataFrame
-k_nearest_2 = k_nearest.merge(stops[["stop_index", "geometry"]], left_on="2nd_nearest_idx", right_on="stop_index", suffixes=('', '_knearest'))
+k_nearest_2 = k_nearest.merge(
+    stops[["stop_index", "geometry"]],
+    left_on="2nd_nearest_idx",
+    right_on="stop_index",
+    suffixes=("", "_knearest"),
+)
 k_nearest_2.head(2)
 ```
 
 ```python
 # Merge the geometries of the 3rd nearest stops to the GeoDataFrame
-k_nearest_3 = k_nearest.merge(stops[["stop_index", "geometry"]], left_on="3rd_nearest_idx", right_on="stop_index", suffixes=('', '_knearest'))
+k_nearest_3 = k_nearest.merge(
+    stops[["stop_index", "geometry"]],
+    left_on="3rd_nearest_idx",
+    right_on="stop_index",
+    suffixes=("", "_knearest"),
+)
 k_nearest_3.head(2)
 ```
 
@@ -359,9 +386,15 @@ Excellent, now we have merged the stop geometries into the `geometry_knearest` c
 from shapely import LineString
 
 # Generate LineStrings connecting the building point and K-nearest neighbor
-k_nearest_1["geometry"] = k_nearest_1.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
-k_nearest_2["geometry"] = k_nearest_2.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
-k_nearest_3["geometry"] = k_nearest_3.apply(lambda row: LineString([ row["geometry"], row["geometry_knearest"] ]), axis=1)
+k_nearest_1["geometry"] = k_nearest_1.apply(
+    lambda row: LineString([row["geometry"], row["geometry_knearest"]]), axis=1
+)
+k_nearest_2["geometry"] = k_nearest_2.apply(
+    lambda row: LineString([row["geometry"], row["geometry_knearest"]]), axis=1
+)
+k_nearest_3["geometry"] = k_nearest_3.apply(
+    lambda row: LineString([row["geometry"], row["geometry_knearest"]]), axis=1
+)
 
 k_nearest_1.head(2)
 ```
@@ -379,9 +412,11 @@ As we can see, one of the buildings is called `Hartwall Arena` which is an inter
 # Visualize 3 nearest stops to
 selected_name = "Hartwall Arena"
 
-m = k_nearest_1.loc[k_nearest_1["name"]==selected_name].explore(color="red", tiles="CartoDB Positron", max_zoom=16)
-m = k_nearest_2.loc[k_nearest_2["name"]==selected_name].explore(m=m, color="orange")
-m = k_nearest_3.loc[k_nearest_3["name"]==selected_name].explore(m=m, color="blue")
+m = k_nearest_1.loc[k_nearest_1["name"] == selected_name].explore(
+    color="red", tiles="CartoDB Positron", max_zoom=16
+)
+m = k_nearest_2.loc[k_nearest_2["name"] == selected_name].explore(m=m, color="orange")
+m = k_nearest_3.loc[k_nearest_3["name"] == selected_name].explore(m=m, color="blue")
 m = stops.explore(m=m, color="green")
 m
 ```
@@ -426,7 +461,9 @@ stops.head()
 With this information, we can for example calculate the number of buildings within 200 meters from each stop. To do this, we can create a simple `lambda` function that checks the length of the id-list and store the result into column `building_cnt`:
 
 ```python
-stops["building_cnt"] = stops["building_ids_within_range"].apply(lambda id_list: len(id_list))
+stops["building_cnt"] = stops["building_ids_within_range"].apply(
+    lambda id_list: len(id_list)
+)
 stops.head()
 ```
 
@@ -441,7 +478,9 @@ By calculating simple statistics from the `building_cnt` column, we can see that
 filter = stops["building_cnt"] == stops["building_cnt"].max()
 building_ids = stops.loc[filter].building_ids_within_range.values[0]
 
-m = stops.loc[filter].explore(tiles="CartoDB Positron", color="red", marker_kwds={"radius": 5}, max_zoom=16)
+m = stops.loc[filter].explore(
+    tiles="CartoDB Positron", color="red", marker_kwds={"radius": 5}, max_zoom=16
+)
 building_points.loc[building_ids].explore(m=m)
 ```
 
@@ -474,7 +513,9 @@ stop_buffer["geometry"] = stops.buffer(200)
 buffer_buildings = stop_buffer.sjoin(building_points, predicate="intersects")
 
 # Calculate the number of buildings per stop by grouping
-building_count = buffer_buildings.groupby("stop_id").stop_name.count().to_frame().reset_index()
+building_count = (
+    buffer_buildings.groupby("stop_id").stop_name.count().to_frame().reset_index()
+)
 
 # Now the "stop_name" column contains information about building count, rename
 building_count = building_count.rename(columns={"stop_name": "building_cnt_buffer"})

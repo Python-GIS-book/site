@@ -120,7 +120,7 @@ First, select Finland from our dataset of EU countries. Then, plot two maps of F
 # Solution
 
 # Select Finland and reproject
-finland_wgs84 = data_wgs84.loc[data_wgs84["NAME_ENGL"]=="Finland"].copy()
+finland_wgs84 = data_wgs84.loc[data_wgs84["NAME_ENGL"] == "Finland"].copy()
 finland_etrs89 = finland_wgs84.to_crs(epsg=3067)
 
 # Make subplots that are next to each other
