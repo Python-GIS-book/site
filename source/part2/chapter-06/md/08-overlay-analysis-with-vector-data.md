@@ -15,7 +15,7 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Vector overlay operations
 
-Vector overlay operations are common in GIS in which two or more vector layers are combined to produce new geometries. When working with multiple spatial datasets (especially polygon or line layers), you might need to create new shapes based on places where the layers overlap (or do not overlap) with each other. The idea of spatial overlay has been around already for very long time ({cite}`keeble_1952`), as being able to combine and analyse multiple layers of spatial data together has been an important task e.g. for various spatial planning processes, including e.g. suitability analyses, environment impact assessment, or when doign zoning and landuse plans ({cite}`masser_1999`). Typical overlay operations include union, intersection, and difference (**Figure 6.50**). These are named after the result of the combination of two or more input layers which produce at least one (or more) output layer. Being able to combine spatial data layers like this is an important feature in most GIS tools. These manipulations are also often called as set operations.
+Vector overlay operations are common in GIS in which two or more vector layers are combined to produce new geometries. When working with multiple spatial datasets (especially polygon or line layers), you might need to create new shapes based on places where the layers overlap (or do not overlap) with each other. The basic idea of spatial overlay has been around for very long time ({cite}`keeble_1952`; {cite}`steinitz_1976`), as being able to combine and analyse multiple layers of spatial data together has been an important task e.g. for various spatial planning processes, including e.g. suitability analyses, environment impact assessment, or when doign zoning and landuse plans ({cite}`masser_1999`). Typical overlay operations include union, intersection, and difference (**Figure 6.50**). These are named after the result of the combination of two or more input layers which produce at least one (or more) output layer. Being able to combine spatial data layers like this is an important feature in most GIS tools. These manipulations are also often called as set operations.
 
 The basic idea of vector overlay operations is demonstrated in **Figure 6.50** but it is good to keep in mind that overlays operate at the GeoDataFrame level, not on individual geometries, and the properties from both are retained. In effect, for every shape in the left GeoDataFrame, this operation is executed against every other shape in the right GeoDataFrame
 
@@ -23,136 +23,44 @@ The basic idea of vector overlay operations is demonstrated in **Figure 6.50** b
 
 _**Figure 6.50**. Typical vector overlay operations between two geographic layers (circle and rectangles)._
 
-
-Refs:
-
- Steinitz, Carl; Parker, Paul; Jordan, Lawrie (1976). "Hand-Drawn Overlays: Their History and Prospective Uses". Landcape Architecture. 66 (5 (September)): 444–455.
- Manning, Warren (1913). "The Billerica Town Plan". Landscape Architecture. 3: 108–118.
- Tyrwhitt, Jacqueline (1950). "Surveys for Planning". In APRR (ed.). Town and Country Planning Textbook. Architectural Press.
- McHarg, Ian (1969). Design with Nature. p. 34. ISBN 0-471-11460-X.
- Tomlinson, Roger (1968). "A Geographic Information System for Regional Planning". In Stewart, G.A. (ed.). Land Evaluation: Papers of a CSIRO Symposium. Macmillan of Australia. pp. 200–210.
- Tomlinson, Roger F.; Calkins, Hugh W.; Marble, Duane F. (1976). Computer handling of geographical data. UNESCO Press.
- Goodchild, Michael F. (1978). "Statistical aspects of the polygon overlay problem". Harvard papers on geographic information systems. 6.
- Peucker, Thomas K.; Chrisman, Nicholas (1975). "Cartographic Data Structures". The American Cartographer. 2 (1): 55–69. doi:10.1559/152304075784447289.
- Dougenik, James (1979). "WHIRLPOOL: A geometric processor for polygon coverage data" (PDF). Proceedings of the International Symposium on Cartography and Computing (Auto-Carto IV). 2: 304–311.
- Bolstad, Paul (2008). GIS Fundamentals: A First Text on Geographic Information Systems (3rd ed.). Eider Press. p. 352.
- Chrisman, Nicholas R. (2002). Exploring Geographic Information Systems (2nd ed.). Wiley. pp. 125–137.
- Lo, C.P.; Yeung, Albert K.W. (2002). Concepts and Techniques of Geographic Information Systems. Prentice Hall. p. 211. ISBN 0-13-080427-4.
- Esri. "Intersect (Analysis)". ArcGIS Pro Documentation. Retrieved 29 October 2021.
- QGIS. "Line intersections". QGIS 3.16 documentation.
- Morehouse, Scott (1985). "ARC/INFO: A geo-relational model for spatial information" (PDF). Proceedings of the International Symposium on Cartography and Computing (Auto-Carto VII): 388.
- Westervelt, James (2004). "GRASS Roots" (PDF). Proceedings of the FOSS/GRASS Users Conference. Retrieved 26 October 2021.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-In the following, we will carry out vector overlay operations to select those polygon cells of a grid dataset that lie within the city limits of Helsinki. For this exercis´e, we use two input data sets: a grid of statistical polygons with the travel time to the Helsinki railway station, covering the entire metropolitan area (helsinki_region_travel_times_to_railway_station.gpkg) and a polygon data set (with one feature) of the area the municipality of Helsinki covers (helsinki_municipality.gpkg). Both files are in logically named subfolders of the DATA_DIRECTORY.
+To demonstrate how these overlay operations work in practice, we will carry out vector overlay operations between two Polygon datasets that represent i) the postal code areas in the Helsinki city center and ii) a 3000 meter buffer around the Helsinki railway center. Let's start by reading the datasets and prepare them for analysis:
 <!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-import os
-
-os.environ["USE_PYGEOS"] = "0"
-import geopandas as gpd
-import matplotlib.pyplot as plt
-
-%matplotlib inline
-
-# File paths
-border_fp = "data/Helsinki/Helsinki_borders.shp"
-grid_fp = "data/Helsinki/TravelTimes_to_5975375_RailwayStation.shp"
-
-# Read files
-grid = gpd.read_file(grid_fp)
-hel = gpd.read_file(border_fp)
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-Let's do a quick overlay visualization of the two layers:
-<!-- #endregion -->
-
-```python
-# Plot the layers
-ax = grid.plot(facecolor="gray")
-hel.plot(ax=ax, facecolor="None", edgecolor="blue")
-```
-
-_**Figure 6.32**. ADD PROPER FIGURE CAPTION!._
-
-Here the grey area is the Travel Time Matrix - a data set that contains  13231 grid squares (13231 rows of data) that covers the Helsinki region, and the blue area represents the municipality of Helsinki. Our goal is to conduct an overlay analysis and select the geometries from the grid polygon layer that intersect with the Helsinki municipality polygon.
-
-When conducting overlay analysis, it is important to first check that the CRS of the layers match. The overlay visualization indicates that everything should be ok (the layers are plotted nicely on top of each other). However, let's still check if the crs match using Python:
-
-```python
-# Check the crs of the municipality polygon
-print(hel.crs)
-```
-
-```python
-# Ensure that the CRS matches, if not raise an AssertionError
-assert hel.crs == grid.crs, "CRS differs between layers!"
-```
-
-Indeed, they do. We are now ready to conduct an overlay analysis between these layers. 
-
-We will create a new layer based on grid polygons that `intersect` with our Helsinki layer. We can use a function called `overlay()` to conduct the overlay analysis that takes as an input 1) first GeoDataFrame, 2) second GeoDataFrame, and 3) parameter `how` that can be used to control how the overlay analysis is conducted (possible values are `'intersection'`, `'union'`, `'symmetric_difference'`, `'difference'`, and `'identity'`):
-
-```python
-intersection = gpd.overlay(grid, hel, how="intersection")
-```
-
-Let's plot our data and see what we have:
-
-```python
-intersection.plot(color="b")
-```
-
-_**Figure 6.33**. ADD PROPER FIGURE CAPTION!._
-
-As a result, we now have only those grid cells that intersect with the Helsinki borders. If you look closely, you can also observe that **the grid cells are clipped based on the boundary.**
-
-- What about the data attributes? Let's see what we have:
-
-
-```python
-intersection.head()
-```
-
-As we can see, due to the overlay analysis, the dataset contains the attributes from both input layers.
-
-Let's save our result grid as a GeoJSON file that is commonly used file format nowadays for storing spatial data.
-
-```python editable=true slideshow={"slide_type": ""}
-# Output filepath
-outfp = "data/Helsinki/TravelTimes_to_5975375_RailwayStation_Helsinki.geojson"
-
-# Use GeoJSON driver
-intersection.to_file(outfp, driver="GeoJSON")
-```
-
-There are many more examples for different types of overlay analysis in [Geopandas documentation](http://geopandas.org/set_operations.html) where you can go and learn more.
-
 
 ```python editable=true slideshow={"slide_type": ""}
 import geopandas as gpd
 
 postal_areas = gpd.read_file("data/Helsinki/Helsinki_centre_postal_areas.gpkg")
 railway_station = gpd.read_file("data/Helsinki/Helsinki_railway_station.gpkg")
-#railway_station = railway_station.to_crs(epsg=3067)
-#railway_station.to_file("data/Helsinki/Helsinki_railway_station.gpkg")
+
+# Check the data
+postal_areas.head()
 ```
 
-```python editable=true slideshow={"slide_type": ""}
-postal_areas.head()
+```python
+postal_areas.shape
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
 railway_station.head()
 ```
 
+From here we can see that the `postal_areas` include MultiPolygon geometries representing altogether thirty postal code areas, whereas the `railway_station` represents a single `Point` for the Helsinki Railway station. As vector overlay operation happens between two geographic datasets, it is necessary to ensure that they both share the same Coordinate Reference System. Hence, let's first check that the `.crs` are matching using the Python's `assert` statement that tests whether the condition is `True`. If the test fails, the `assert` will throw an `AssertionError` with the message that we provide as text like in the following:
+
+```python
+assert postal_areas.crs == railway_station.crs, "The CRS does not match!"
+```
+
+Great, the CRS matches between the layers. Hence, let's continue and create a 3 kilometer buffer around the Helsinki railway station which we will use in our vector overlay operations:
+
 ```python editable=true slideshow={"slide_type": ""}
 station_buffer = railway_station.copy()
 station_buffer["geometry"] = station_buffer.buffer(3000)
 ```
+
+Here, we first created a copy of the original GeoDataFrame and then used the `.buffer()` method to create a Polygon circle with 3000 meter radius. Let's visualize the data on a map so that we can get a better understanding of the two layers and how they overlap with each other:
 
 ```python editable=true slideshow={"slide_type": ""}
 m = postal_areas.explore(tiles="CartoDB Positron")
@@ -160,10 +68,33 @@ m = station_buffer.explore(m=m, color="red")
 m
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 6.51**. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station._
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+We are now ready to conduct an overlay analysis between these layers. We will create a new layer based postal code polygons that `intersect` with our Helsinki layer. We can use a method called `.overlay()` to conduct the overlay analysis between the given GeoDataFrame (`postal_areas`) and a second GeoDataFrame (`station_buffer`). With parameter `how` we can control how the overlay analysis is conducted. Possible values are `'intersection'`, `'union'`, `'symmetric_difference'`, `'difference'`, and `'identity'`. Let's start by doing an overlay using `"intersection"` as the overlay operation:
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Intersection
+intersection = postal_areas.overlay(station_buffer, how="intersection")
+intersection.head()
+```
+
+```python
+intersection.shape
+```
+
+As a result we got a new GeoDataFrame that includes 23 postal code areas that intersected with the `station_buffer`. As we can see, due to the overlay operation, the dataset contains the attributes from both input layers, i.e. it works in a bit similar manner as `sjoin()` demonstrated in Chapter 6.7. To make it easier to understand how different vector overlay operations work, let's create an easy helper function called `plot_vector_overlay()` that creates a comparison map based on the results before and after the overlay operation. To do this, we use `matplotlib` library and create a subplot with 2 separate plots:
+
 ```python editable=true slideshow={"slide_type": ""}
 import matplotlib.pyplot as plt
 
 def plot_vector_overlay(gdf1, gdf2, result, title):
+    """
+    Creates two maps next to each other based on `gdf1`, `gdf2` and the `result` GeoDataFrames.
+    """
     
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2,  figsize=(8,5))
 
@@ -179,6 +110,7 @@ def plot_vector_overlay(gdf1, gdf2, result, title):
     ax2.set_ylim(ymin, ymax)
     
     fig.suptitle(title, fontsize=16)
+    # Add an arrow between the plots
     fig.text(0.49, 0.5, "⇨", fontsize=30, color="red")
     ax1.axis("off")
     ax2.axis("off")
@@ -187,15 +119,18 @@ def plot_vector_overlay(gdf1, gdf2, result, title):
 
 ```
 
-```python editable=true slideshow={"slide_type": ""}
-# Intersection
-intersection = postal_areas.overlay(station_buffer, how="intersection")
+Now we can call this function to create a visualizaton that demonstrates how the intersection overlay operations behaves:
 
+```python
 fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas, 
                                     gdf2=station_buffer, 
                                     result=intersection,
                                     title="Intersection")
 ```
+
+As we can see, the `"intersection"` overlay operation keeps the postal code areas that intersect with the circle and keeps all those geometries in the result. Important thing to notice is that with `overlay()` the intersecting GeoDataFrame (`station_buffer`) will also modify the input geometries by cutting them in the border areas where they cross. This is one of the key differences between `.overlay()` and `sjoin()` methods as `sjoin()` will not modify the input geometries. As mentioned earlier, attribute data from both GeoDataFrames are kept from the features that are part of the result. 
+
+In the following, we will show one-by-one, how different overlay operations (i.e. union, difference, symmetric difference, identity) influence the results:
 
 ```python editable=true slideshow={"slide_type": ""}
 # Union
@@ -205,6 +140,38 @@ fig, ax1, ax2 = plot_vector_overlay(gdf1=postal_areas,
                                     gdf2=station_buffer, 
                                     result=union,
                                     title="Union")
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+
+<!-- #endregion -->
+
+```python
+union.shape
+```
+
+When using `"union"` overlay operation, the geometries from both GeoDataFrames are kept in the result. As you can see, the number of rows has increased quite significantly from 30 to 42 rows. This happens because the postal code geometries are again modified by the `station_buffer` in the areas where the geometries cross each other: the postal code geometry is splitted in two in areas where the buffer geometry crosses the postal code geometry. Hence, this will increase the number of rows in the final output.  
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+#### Question 6.13
+
+Did you fully understand why the number of rows increase after doing the union overlay? If not, use the `.explore()` and investigate the geometries in areas where the postal code areas and the ring (border) of the buffer geometry cross each other. When you hover over the border, what happens with the attribute values?
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# Use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
+# Solution
+print("""
+Answer:
+When hovering over the buffer geometry border, the attribute values in the table change. 
+Inside the ring, the attributes of the Helsinki railway station are kept in the results, whereas outside of the ring 
+the table does not include any data for the columns associated with the railway station.
+""")
+
+union.explore()
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -243,4 +210,8 @@ Computes a geometric intersection of the input features and identity features. T
 
 ```python editable=true slideshow={"slide_type": ""}
 identity.explore()
+```
+
+```python
+
 ```
