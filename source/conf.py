@@ -301,3 +301,6 @@ togglebutton_hint = "Show the solution"
 
 # Add math config options for new version of MyST
 myst_enable_extensions = ["dollarmath"]
+
+# Include extra files not directly related to the documentation
+html_extra_path = ["install.html"]
