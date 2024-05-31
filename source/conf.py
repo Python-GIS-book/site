@@ -28,6 +28,7 @@ from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferen
 
 # -- Project information -----------------------------------------------------
 import time
+
 current_year = time.localtime().tm_year
 
 project = "Introduction to Python for Geographic Data Analysis"
