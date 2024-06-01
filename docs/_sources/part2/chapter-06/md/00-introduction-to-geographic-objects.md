@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-# Representing geographic data in Python
+# Representing geographic data in vector format
 
 In this section, you will learn how geometric objects, such as `Point`, `LineString` and `Polygon`, are represented on a computer in vector format. Creating and representing vector-based geometric objects is most commonly done using the shapely [^shapely] library which is one of the fundamental libraries in Python GIS ecosystem when working with geographic data. Thus, basic knowledge of shapely is highly useful when using higher-level tools that depend on it, such as **geopandas**, which we will use extensively in the following sections of this book for geographic data analysis.
 

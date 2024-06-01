@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Representing geographic data in Python</title>
+    <title>Representing geographic data in vector format</title>
   
   
   
@@ -209,7 +209,7 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">6. Vector data processing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.1 Representing geographic data in Python</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.1 Representing geographic data in vector format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02-geometric-operations.html">6.3 Common geometric operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
@@ -223,7 +223,7 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-analysis.html">7.1 Introduction to raster processing with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">7.2 Reading raster files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">7.4 Raster operations between multiple layers</a></li>
@@ -488,7 +488,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Representing geographic data in Python</h1>
+    <h1>Representing geographic data in vector format</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -517,8 +517,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="representing-geographic-data-in-python">
-<h1>Representing geographic data in Python<a class="headerlink" href="#representing-geographic-data-in-python" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="representing-geographic-data-in-vector-format">
+<h1>Representing geographic data in vector format<a class="headerlink" href="#representing-geographic-data-in-vector-format" title="Link to this heading">#</a></h1>
 <p>In this section, you will learn how geometric objects, such as <code class="docutils literal notranslate"><span class="pre">Point</span></code>, <code class="docutils literal notranslate"><span class="pre">LineString</span></code> and <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>, are represented on a computer in vector format. Creating and representing vector-based geometric objects is most commonly done using the shapely <a class="footnote-reference brackets" href="#shapely" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> library which is one of the fundamental libraries in Python GIS ecosystem when working with geographic data. Thus, basic knowledge of shapely is highly useful when using higher-level tools that depend on it, such as <strong>geopandas</strong>, which we will use extensively in the following sections of this book for geographic data analysis.</p>
 <p>Under the hood shapely uses a C++ library called GEOS <a class="footnote-reference brackets" href="#geos" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> to construct the geometries. GEOS is one of the standard libraries behind various GIS software, such as PostGIS <a class="footnote-reference brackets" href="#postgis" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> and QGIS <a class="footnote-reference brackets" href="#qgis" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>. Objects and methods available in shapely adhere mainly to the Open Geospatial Consortium’s Simple Features Access Specification <a class="footnote-reference brackets" href="#ogc-sfa" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> (see Chapter 5.2), making them compatible with various GIS tools. Next, we will give a quick overview of how to create different kind of geometries using shapely.</p>
 <section id="creating-point-geometries">
