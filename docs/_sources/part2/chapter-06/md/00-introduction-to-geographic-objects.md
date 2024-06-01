@@ -15,9 +15,9 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Representing geographic data in Python
 
-In this section, we will learn how geometric objects (in vector format) are represented using the [shapely](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely] library, which is one of the core vector data processing libraries in Python as discussed in Chapter 5. Basic knowledge of shapely is important for using higher-level tools that depend on it, such as **geopandas**, which we will use extensively in the following sections of this book for geographic data analysis.
+In this section, you will learn how geometric objects, such as `Point`, `LineString` and `Polygon`, are represented on a computer in vector format. Creating and representing vector-based geometric objects is most commonly done using the shapely [^shapely] library which is one of the fundamental libraries in Python GIS ecosystem when working with geographic data. Thus, basic knowledge of shapely is highly useful when using higher-level tools that depend on it, such as **geopandas**, which we will use extensively in the following sections of this book for geographic data analysis.
 
-Under the hood shapely uses a C++ library called [GEOS](https://trac.osgeo.org/geos) [^GEOS] to construct the geometries. GEOS is one of the standard libraries behind various GIS software, such as [PostGIS](https://postgis.net/) [^PostGIS] or [QGIS](http://www.qgis.org/en/site/) [^QGIS]. Objects and methods available in shapely adhere mainly to [the Open Geospatial Consortium’s Simple Features Access Specification](https://www.ogc.org/standards/sfa) [^OGC_sfa], making them compatible with various GIS tools. In this section, we give a quick overview of creating geometries using shapely.
+Under the hood shapely uses a C++ library called GEOS [^GEOS] to construct the geometries. GEOS is one of the standard libraries behind various GIS software, such as PostGIS [^PostGIS] and QGIS [^QGIS]. Objects and methods available in shapely adhere mainly to the Open Geospatial Consortium’s Simple Features Access Specification [^OGC_sfa] (see Chapter 5.2), making them compatible with various GIS tools. Next, we will give a quick overview of how to create different kind of geometries using shapely.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -26,7 +26,7 @@ Under the hood shapely uses a C++ library called [GEOS](https://trac.osgeo.org/g
 When creating geometries with shapely, we first need to import the geometric object class which we want to create, such as `Point`, `LineString` or `Polygon`. Let's start by creating a simple `Point` object. First, we need to import the `Point` class which we can then use to create the point geometry. When creating the geometry, we need to pass the `x` and `y` coordinates (with a possible `z` -coordinate) into the `Point()` -class constructor, which will create the point geometry for us, as follows:
 <!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
+```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 from shapely import Point
 
 point = Point(2.2, 4.2)
@@ -42,7 +42,7 @@ As we can see in the online version, Jupyter Notebook is able to visualize the p
 We can use the `print()` statement to get the text representation of the point geometry as [Well Known Text (WKT)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) [^WKT]. In the output, the letter `Z` after the `POINT` indicates that the geometry contains coordinates in three dimensions (x, y, z):
 <!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
+```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 print(point)
 print(point3D)
 ```
@@ -297,11 +297,11 @@ Create examples of these shapes using your shapely skills:
 - **Circle**
 <!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide_cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 # Triangle

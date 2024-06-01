@@ -17,7 +17,7 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter six provides an overview of vector data processing in Python. You will learn how geographic objects can be represented and manipulated in Python, how coordinate reference systems can be defined and modified, and learn how to conduct common spatial analysis processes and techniques such as geocoding, spatial queries, spatial joins,nearest neighbor analysis and geographic overlay analysis. 
+Chapter six provides an overview of vector data processing in Python. You will learn how geographic objects can be represented and manipulated in Python, how coordinate reference systems can be defined and modified, and learn how to conduct common GIS techniques, such as geocoding, spatial queries, spatial join, nearest neighbor analysis and vector overlay operations. 
 
 Basic knowledge of tabular data manipulation using the pandas library introduced in Part I is a prerequisite for learning to use geopandas for spatial data analysis in this section.
 <!-- #endregion -->
@@ -35,7 +35,7 @@ At the end of this chapter, you should be able to:
 - Geocode addresses to coordinates using Python
 - Perform spatial queries and spatial join operations
 - Conduct nearest neighbor analysis
-- Perform various geographic overlay analysis
+- Perform and understand how different vector overlay operations work
 
 ```
 <!-- #endregion -->
