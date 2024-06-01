@@ -15,7 +15,7 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Spatial join
 
-Spatial join is yet another classic GIS task. Retrieving table attributes from one layer and transferring them into another layer based on their spatial relationship is something you most likely need to do on a regular basis when working with geographic data. In the previous section, we learned how to perform spatial queries, such as investigating if a Point is located within a Polygon. We can use this same logic to conduct a spatial join between two layers based on their spatial relationship and transfer the information stored in one layer into the other. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the attributes of a polygon that `intersects` with the point. 
+Spatial join is yet another classic GIS task. Retrieving table attributes from one layer and transferring them into another layer based on their spatial relationship is something you most likely need to do on a regular basis when working with geographic data. In the previous section, you learned how to perform spatial queries, such as investigating if a Point is located within a Polygon. We can use this same logic to conduct a spatial join between two layers based on their spatial relationship and transfer the information stored in one layer into the other. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the attributes of a polygon that `intersects` with the point. 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -247,7 +247,7 @@ Do the spatial join another way around, i.e. make a spatial join where you join 
 # You can use this cell to enter your solution.
 ```
 
-```python editable=true slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 # Join information from address points to the grid
