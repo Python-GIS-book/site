@@ -15,9 +15,7 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Introduction to geopandas GeoDataFrames
 
-Now that we have learned how to represent geometric objects in Python using shapely, we will continue on geographic data analysis using [geopandas](https://geopandas.org/) [^geopandas]. 
-
-**Geopandas** is a Python library designed to make working with geospatial data in Python easier. It extends the data types used by pandas (which we covered in Part I) to allow geospatial operations and the handling of coordinate reference systems. Essentially, it provides a high-level interface for vector data (like points, lines, and polygons) that integrates with the existing pandas data analysis framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5). Geopandas is one of the core libraries for GIS in Python and it is widely used in different sectors (academia, industry, etc.) for geographic data analysis.
+Now that you have seen how to create and represent geometric objects in Python using shapely, we will continue on learning various GIS techniques using **geopandas** [^geopandas]. Geopandas is a library designed to make working with geospatial data in Python easier. It extends the data types used by pandas (which we covered in Part I) to allow geospatial operations and the handling of coordinate reference systems. Essentially, it provides a high-level interface for vector data (like points, lines, and polygons) that integrates with the existing pandas data analysis framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5). Geopandas is one of the core libraries for GIS in Python and it is widely used in different sectors (academia, industry, etc.) for geographic data analysis.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -104,7 +102,7 @@ Figure out the following information from our input data using your `pandas` ski
 # You can use this cell to enter your solution.
 ```
 
-```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 print("Number of rows", len(data))
@@ -166,7 +164,7 @@ Using your `pandas` skills, create a new column `pop_density_km2` and populate i
 # Use this cell to enter your solution.
 ```
 
-```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 # Calculate population density
@@ -210,11 +208,11 @@ Now we have successfully stored the data into a file called `austin_pop_density_
 Read the output file using `geopandas` and check that the data looks ok.
 <!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 temp = gpd.read_file(output_fp)
