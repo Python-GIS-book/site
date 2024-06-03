@@ -93,7 +93,7 @@ print("Adress points CRS:", addresses.crs.name)
 print("Population grid CRS:", pop_grid.crs.name)
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 We can further verify that the crs are indeed not the same. 
 <!-- #endregion -->
 
