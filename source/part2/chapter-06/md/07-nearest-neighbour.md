@@ -253,6 +253,12 @@ m = connectors.explore(m=m, color="green")
 m
 ```
 
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.47}. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest.}}, center, nofloat}{../img/figure_6-47.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.47**. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest._
 <!-- #endregion -->
@@ -459,14 +465,23 @@ m = stops.explore(m=m, color="green")
 m
 ```
 
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.48}. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop.}}, center, nofloat}{../img/figure_6-48.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.48**. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop._
 
 From the map, we can see that the closest stops to the arena seem to be located close to a large road 100-130 meters away from the arena, while the third closest stop is closer to the rail roads 377 meters away (Euclidian distance) from the building. 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Nearest neighbors within radius
 
 As a last example related to nearest neighbors we show how to find all neighbors of a given Point geometry within a specific distance threshold. As a practical example, we aim to find and calculate the number of buildings that are within 200 meters from a given public transport stop. Doing this kind of nearest neighbor query is similar to the one that we did with `.sjoin_nearest()` using the `max_distance` parameter, but here we aim to efficiently retrieve all neighbors within the given search radius, not only the closest one which is how `sjoin_nearest()` operates. Finding all neighbors within a specific search radius can also be done using the KD-Tree spatial index. However, in this case we actually build the `KDTree` index for both datasets (buildings and stops) and then use a `.query_ball_tree()` method to find all neighbors within the radius `r`: 
+<!-- #endregion -->
 
 ```python
 from scipy.spatial import KDTree
@@ -521,6 +536,12 @@ m = stops.loc[filter].explore(
 )
 building_points.loc[building_ids].explore(m=m)
 ```
+
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.49}. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius.}}, center, nofloat}{../img/figure_6-49.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.49**. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius._
