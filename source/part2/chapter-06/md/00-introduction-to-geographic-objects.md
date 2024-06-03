@@ -105,10 +105,10 @@ line.wkt
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, the WKT representation of the `line` -variable consists of multiple coordinate-pairs. `LineString` -objects have many useful built-in attributes and methods similarly as `Point` -objects. It is for instance possible to extract the coordinates, calculate the length of the `LineString`, find out the centroid of the line, create points along the line at specific distance, calculate the closest distance from a line to specified Point, or simplify the geometry. See the [shapely documentation](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely] for full details. Most of these functionalities are directly implemented in geopandas that will be introduced in the next chapter. Hence, you seldom need to parse these information directly from the shapely geometries yourself. However, here we go through a few of them for reference. We can extract the coordinates of a LineString similarly as with `Point`:
+As we can see, the WKT representation of the `line` variable consists of multiple coordinate-pairs. `LineString` -objects have many useful built-in attributes and methods similarly as `Point` -objects. It is for instance possible to extract the coordinates, calculate the length of the `LineString`, find out the centroid of the line, create points along the line at specific distance, calculate the closest distance from a line to specified Point, or simplify the geometry. See the [shapely documentation](https://shapely.readthedocs.io/en/stable/manual.html) [^shapely] for full details. Most of these functionalities are directly implemented in geopandas that will be introduced in the next chapter. Hence, you seldom need to parse these information directly from the shapely geometries yourself. However, here we go through a few of them for reference. We can extract the coordinates of a LineString similarly as with `Point`:
 <!-- #endregion -->
 
-```python jupyter={"outputs_hidden": false}
+```python jupyter={"outputs_hidden": false} editable=true slideshow={"slide_type": ""}
 list(line.coords)
 ```
 
