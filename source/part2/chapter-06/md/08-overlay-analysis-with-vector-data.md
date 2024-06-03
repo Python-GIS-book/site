@@ -106,7 +106,8 @@ import matplotlib.pyplot as plt
 
 def plot_vector_overlay(gdf1, gdf2, result, title):
     """
-    Creates two maps next to each other based on `gdf1`, `gdf2` and the `result` GeoDataFrames.
+    Creates two maps next to each other based on `gdf1`, `gdf2` and the
+    `result` GeoDataFrames.
     """
 
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(8, 5))
