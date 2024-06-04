@@ -93,7 +93,7 @@ print("Adress points CRS:", addresses.crs.name)
 print("Population grid CRS:", pop_grid.crs.name)
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 We can further verify that the crs are indeed not the same. 
 <!-- #endregion -->
 
@@ -209,6 +209,12 @@ As we can see, there seems to be three Points that were located outside of the p
 m = pop_grid.explore(color="blue", style_kwds=dict(color="blue", stroke=False))
 addresses.explore(m=m, color="red")
 ```
+
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.42}. An interactive map of the two layers reveal that some points are located outside of the Polygons.}}, center, nofloat}{../img/figure_6-42.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.42**. An interactive map of the two layers reveal that some points are located outside of the Polygons._

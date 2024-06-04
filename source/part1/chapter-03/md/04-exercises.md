@@ -15,7 +15,7 @@ jupyter:
 # Exercises
 
 
-## Exercise 3.1
+### Exercise 3.1
 
 In this exercise your task is to open and explore a NOAA weather data file using Pandas. The data file name is 6153237444115dat.csv and it is located in the data folder (*add link*). An overview of the tasks in this exercise:
 
@@ -23,11 +23,11 @@ In this exercise your task is to open and explore a NOAA weather data file using
 - Read the data using Pandas into a variable called data
 - Calculate a number of basic statistics from the data
 
-### Problem 1 - Read the file and clean it
+#### Problem 1 - Read the file and clean it
 
 Import the pandas module and read the weather data into a variable called `data`. Print the first five rows of the data file.
 
-### Problem 2 - Basic characteristics of the data
+#### Problem 2 - Basic characteristics of the data
 
 Based on the `data` DataFrame from Problem 1, answer to following questions:
 
@@ -35,7 +35,7 @@ Based on the `data` DataFrame from Problem 1, answer to following questions:
 2. What are the column names?
 3. What are the datatypes of the columns?
 
-### Problem 3 - Descriptive statistics
+#### Problem 3 - Descriptive statistics
 
 Based on the `data` DataFrame from Problem 1, answer to following questions:
 
@@ -44,7 +44,7 @@ Based on the `data` DataFrame from Problem 1, answer to following questions:
 - How many unique stations exists in the data (use the `USAF` column)?
 
 
-## Exercise 3.2
+### Exercise 3.2
 
 In this exercise, you will clean the data from our data file by removing no-data values, convert temperature values in Fahrenheit to Celsius, and split the data into separate datasets using the weather station identification code. We will start this problem by cleaning and converting our temperature data. An overview of the tasks in this exercise:
 
@@ -54,14 +54,14 @@ In this exercise, you will clean the data from our data file by removing no-data
 - Divide the data into separate DataFrames for the Helsinki Kumpula and Rovaniemi stations
 - Save the new DataFrames to CSV files
 
-### Problem 1 - Read the data and remove NaN values
+#### Problem 1 - Read the data and remove NaN values
 
 The first step for this problem is to read the data file 6153237444115dat.csv into a variable `data` using pandas and cleaning it a bit:
 
 - Select the columns `USAF, YR--MODAHRMN, TEMP, MAX, MIN` from the `data` DataFrame and assign them to a variable `selected`
 - Remove all rows from `selected` that have NoData in the column `TEMP` using the `dropna()` function
 
-### Problem 2 - Convert temperatures to Celsius
+#### Problem 2 - Convert temperatures to Celsius
 
 Convert the temperature values from Fahrenheits to Celsius:
 
@@ -71,7 +71,7 @@ Convert the temperature values from Fahrenheits to Celsius:
 - Round the values in the `Celsius` column to have 0 decimals (do not create a new column, update the current one)
 - Convert the `Celsius` values into integers (do not create a new column, update the current one)
 
-### Problem 3 - Select data and save to disk
+#### Problem 3 - Select data and save to disk
 
 Divide the data in `selected` into two separate DataFrames:
 
@@ -83,7 +83,7 @@ Divide the data in `selected` into two separate DataFrames:
 - Repeat the same procedures and save the `rovaniemi` DataFrame into a file `Rovaniemi_temps_May_Aug_2017.csv`.
 
 
-## Exercise 3.3
+### Exercise 3.3
 
 In this Exercise, we will explore our temperature data by comparing spring temperatures between Kumpula and Rovaniemi. To do this we'll use some conditions to extract subsets of our data and then analyse these subsets using basic pandas functions. Notice that in this exercise, we will use data saved from the previous Exercise (2.2.6), hence you should finish that Exercise before this one. An overview of the tasks in this exercise:
 
@@ -91,14 +91,14 @@ In this Exercise, we will explore our temperature data by comparing spring tempe
 - Select temperatures for May and June 2017 in separate DataFrames for each location
 - Calculate descriptive statistics for each month (May, June) and location (Kumpula, Rovaniemi)
 
-### Problem 1 - Read the data and calculate basic statistics
+#### Problem 1 - Read the data and calculate basic statistics
 
 Read in the CSV files generated in Exercise 2.2.6 to the variables `kumpula` and `rovaniemi` and answer to following questions:
 
 - What was the median Celsius temperature during the observed period in Helsinki Kumpula? Store the answer in a variable `kumpula_median`.
 - What was the median Celsius temperature during the observed period in Rovaniemi? Store the answer in a variable `rovaniemi_median`.
 
-### Problem 2 - Select data and compare temperatures between months
+#### Problem 2 - Select data and compare temperatures between months
 
 The median temperatures above consider data from the entire summer (May-Aug), hence the differences might not be so clear. Let's now find out the mean temperatures from May and June 2017 in Kumpula and Rovaniemi:
 
@@ -108,7 +108,7 @@ The median temperatures above consider data from the entire summer (May-Aug), he
     - Does there seem to be a large difference in temperatures between the months?
     - Is Rovaniemi a much colder place than Kumpula?
 
-### Problem 3 - Parse daily temperatures by aggregating data 
+#### Problem 3 - Parse daily temperatures by aggregating data 
 
 In this problem, the aim is to aggregate the hourly temperature data for Kumpula and Rovaniemi weather stations to a daily level. Currently, there are at most three measurements per hour in the data, as you can see from the YR--MODAHRMN column:
 

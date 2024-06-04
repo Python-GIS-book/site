@@ -96,7 +96,7 @@ Jupyter Notebook
 
 KD-Tree
   A KD-Tree, or K-dimensional tree, is a space-partitioning data structure for organizing points in a k-dimensional space. KD-Trees are useful for making specific search tasks faster and more efficient, such as nearest neighbor search. The structure recursively divides the space into two half-spaces at each level, using one dimension at each step. This division is typically done by selecting a median value along one dimension to split the dataset, creating a binary tree. KD-Trees enable efficient querying of the space, such as finding points within a given range or nearest to a specific point, by significantly reducing the number of comparisons needed to locate them.
- 
+
 K-Nearest Neighbor search
   K-Nearest Neighbor (KNN) search is a type of algorithm used to find the "k" closest points (or neighbors) to a given query point in a dataset. In the context of spatial data, KNN search can identify the nearest geographical features based on their spatial coordinates. The algorithm calculates distances between the query point and all points in the dataset, then selects the "k" smallest distances to determine the nearest neighbors. 
 
