@@ -70,11 +70,19 @@ m = station_buffer.explore(m=m, color="red")
 m
 ```
 
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.51}. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station.}}, center, nofloat}{../img/figure_6-51.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.51**. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station._
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Intersection
+<!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 We are now ready to conduct an overlay analysis between these layers. We will create a new layer based postal code polygons that `intersect` with our Helsinki layer. We can use a method called `.overlay()` to conduct the overlay analysis between the given GeoDataFrame (`postal_areas`) and a second GeoDataFrame (`station_buffer`). With parameter `how` we can control how the overlay analysis is conducted. Possible values are `'intersection'`, `'union'`, `'symmetric_difference'`, `'difference'`, and `'identity'`. Let's start by doing an overlay using `"intersection"` as the overlay operation:
@@ -98,7 +106,8 @@ import matplotlib.pyplot as plt
 
 def plot_vector_overlay(gdf1, gdf2, result, title):
     """
-    Creates two maps next to each other based on `gdf1`, `gdf2` and the `result` GeoDataFrames.
+    Creates two maps next to each other based on `gdf1`, `gdf2` and the
+    `result` GeoDataFrames.
     """
 
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(8, 5))
@@ -200,14 +209,14 @@ fig, ax1, ax2 = plot_vector_overlay(
 _**Figure 6.54**. Result after conducting vector overlay operation based on difference._
 
 ```python
-difference.columns
+difference.columns.values
 ```
 
 ```python
 difference.shape
 ```
 
-As can be seen from the results above, the `"difference"` will keep the postal code geometries that are outside of the buffer geometry. In terms of attributes, only the columns that are present in the source GeoDataFrame (i.e. `postal_areas`) are kept. 
+As can be seen from the results above, the `"difference"` will keep the postal code geometries that are outside of the buffer geometry (note we output `difference.columns.values` here to output only the column names). In terms of attributes, only the columns that are present in the source GeoDataFrame (i.e. `postal_areas`) are kept. 
 
 The symmetric difference overlay operation is an interesting one. It will keep the geometries and attributes outside of the `station_buffer` layer, as well as create a geometry within the `station_buffer` that includes areas that are within the `station_buffer` ring but outside the `postal_areas` GeoDataFrame. I.e. in our case, it mostly contains water areas that surround the Helsinki city centre as shown below:
 

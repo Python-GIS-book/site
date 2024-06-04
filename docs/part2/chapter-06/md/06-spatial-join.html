@@ -550,7 +550,7 @@ document.write(`
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Population grid CRS:&quot;</span><span class="p">,</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
-<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>We can further verify that the crs are indeed not the same.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">addresses</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">crs</span>
@@ -649,6 +649,10 @@ document.write(`
 <span class="n">addresses</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.42}. An interactive map of the two layers reveal that some points are located outside of the Polygons.}}, center, nofloat}{../img/figure_6-42.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <p><em><strong>Figure 6.42</strong>. An interactive map of the two layers reveal that some points are located outside of the Polygons.</em></p>
 <p>From <strong>Figure 6.42</strong>, we can see that some points are located outside of polygons in the areas close to the railway lines and the motorway. Is this a problem? It depends, but in certain cases, you might want to keep the information for the points that did not get a match based on the spatial relationship. We can achieve this by changing the <code class="docutils literal notranslate"><span class="pre">how</span></code> parameter into <code class="docutils literal notranslate"><span class="pre">left</span></code>, which keeps every row from the left member of the spatial join even when no match is found from the other layer:</p>

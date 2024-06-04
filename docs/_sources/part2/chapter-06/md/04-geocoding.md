@@ -87,11 +87,10 @@ That's it. Now we have successfully geocoded those addresses into Points and mad
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.7
+
 Do another round of geocoding with your own list of addresses from anywhere in the world. Are you happy with the result?
 
-In the above example we passed the address column to the geocoding function. [The geopandas documentation of geopandas.tools.geocode](https://geopandas.org/en/stable/docs/reference/api/geopandas.tools.geocode.html#geopandas-tools-geocode)[^geopandas_geocode] confirms that we should also be able to pass a list of strings to the geocoding tool. So, you should be able to answer this question by defining a list of addresses and using this list as input strings.
-
-
+In the above example we passed the address column to the geocoding function. [The geopandas documentation of geopandas.tools.geocode](https://geopandas.org/en/stable/docs/reference/api/geopandas.tools.geocode.html#geopandas-tools-geocode) [^geopandas_geocode] confirms that we should also be able to pass a list of strings to the geocoding tool. So, you should be able to answer this question by defining a list of addresses and using this list as input strings.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
@@ -123,4 +122,4 @@ geo.explore()
 [^nominatim]: <https://nominatim.org/>
 [^nominatim_toc]: <https://operations.osmfoundation.org/policies/nominatim/>
 [^photon]: <https://photon.komoot.io/>
-[^geopandas_geocode]:<https://geopandas.org/en/stable/docs/reference/api/geopandas.tools.geocode.html#geopandas-tools-geocode>
+[^geopandas_geocode]: <https://geopandas.org/en/stable/docs/reference/api/geopandas.tools.geocode.html#geopandas-tools-geocode>

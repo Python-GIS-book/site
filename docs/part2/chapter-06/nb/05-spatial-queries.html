@@ -530,7 +530,7 @@ document.write(`
 <p><em><strong>Figure 6.31</strong>. Interior, boundary and exterior for different geometric data types. The data types can be either 0, 1 or 2-dimensional.</em></p>
 <p>We do not go into details about the mathematics of the DI-9IM here, but under the hood the model uses a specific 3x3 intersection matrix to examine the intersections of the interior, boundary and exterior of two geometric objects. This makes it possible to produce a detailed characterization of the geometries’ spatial relationship and one can for instance test whether a given Point or LineString is <em>within</em> a Polygon (returning True or False). When testing how two geometries relate to each other, the DE-9IM model gives a result which is called <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-predicate"><span class="xref std std-term">spatial predicate</span></a> (also called as <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Binary-predicate"><span class="xref std std-term">binary predicate</span></a>). <strong>Figure 6.32</strong> shows eight common spatial predicates based on the spatial relationship between the geometries (<span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id5" title="Max J. Egenhofer and Khaled K. Al-Taha. Reasoning about Gradual Changes of Topological Relationships. In A. U. Frank, I. Campari, and U. Formentini, editors, Theories and Methods of Spatio-Temporal Reasoning in Geographic Space, Lecture Notes in Computer Science, 196-219. Berlin, Heidelberg, 1992. Springer.">Egenhofer and Al-Taha, 1992</a></span>). Many of these predicates, such as <em>intersects</em>, <em>within</em>, <em>contains</em>, <em>overlaps</em> and <em>touches</em> are commonly used when selecting data for specific area of interest or when joining data from one dataset to another based on the spatial relation between the layers.</p>
 <p><img alt="Figure 6.32. Eight common spatial predicates formed based on spatial relations between two geometries. Modified after Egenhofer et al. (1992)." src="../../../_images/spatial-relations.png" /></p>
-<p><em><strong>Figure 6.32</strong>. Eight common spatial predicates formed based on spatial relations between two Polygon geometries. Modified after Egenhofer et al. (1992)</em>.</p>
+<p><em><strong>Figure 6.32</strong>. Eight common spatial predicates formed based on spatial relations between two Polygon geometries. Modified after Egenhofer et al. (1992).</em></p>
 <p>The top row of <strong>Figure 6.32</strong> shows spatial predicates in which the geometries A and B are clearly disjoint from each other, contained or within each other, or identical to each other. When the geometries have at least one point in common, the geometries are said to be <em>intersecting</em> with each other. Thus, in this figure, all the comparisons except the first one (disjoint) are True, i.e. the geometries <em>intersect</em> with each other. The bottom row shows examples of spatial relationships that are slightly “special cases” in one way or another. When two geometries <em>touch</em> each other, they have at least one point in common (at the border in this case), but their interiors do not intersect with each other. When the interiors of the geometries A and B are partially on top of each other and partially outside of each other, the geometries are <em>overlapping</em> with each other. The spatial predicate for <em>covers</em> is when the interior of geometry B is almost totally within A, but they share at least one common coordinate at the border. Similarly, if geometry A is almost totally contained by the geometry B (except at least one common coordinate at the border) the spatial predicate is called <em>covered by</em>. These eight examples represent some of the common spatial predicates based on two Polygon shapes. When other shapes are considered (e.g. Points, LineStrings), there are plenty of more topological relations: altogether 512 with 2D data.</p>
 </section>
 <section id="making-spatial-queries-in-python">
@@ -565,21 +565,20 @@ document.write(`
     <span class="p">(</span><span class="mf">24.950958</span><span class="p">,</span> <span class="mf">60.169990</span><span class="p">),</span>
 <span class="p">]</span>
 <span class="n">polygon</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span>
-
-<span class="c1"># Print the objects</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">point1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can check the contents of the new variables by printing them to the screen, for example, in which case we would see</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">point1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">point2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">polygon</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POINT (24.952242 60.1696017)
-POINT (24.976567 60.16125)
-POLYGON ((24.950899 60.169158, 24.953492 60.169158, 24.95351 60.170104, 24.950958 60.16999, 24.950899 60.169158))
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POINT</span> <span class="p">(</span><span class="mf">24.952242</span> <span class="mf">60.1696017</span><span class="p">)</span>
+<span class="n">POINT</span> <span class="p">(</span><span class="mf">24.976567</span> <span class="mf">60.16125</span><span class="p">)</span>
+<span class="n">POLYGON</span> <span class="p">((</span><span class="mf">24.950899</span> <span class="mf">60.169158</span><span class="p">,</span> <span class="mf">24.953492</span> <span class="mf">60.169158</span><span class="p">,</span> <span class="mf">24.95351</span> <span class="mf">60.170104</span><span class="p">,</span> <span class="mf">24.950</span><span class="o">...</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p>If you want to test whether these <code class="docutils literal notranslate"><span class="pre">Point</span></code> geometries stored in <code class="docutils literal notranslate"><span class="pre">point1</span></code> and <code class="docutils literal notranslate"><span class="pre">point2</span></code> are within the <code class="docutils literal notranslate"><span class="pre">polygon</span></code>, you can call the <code class="docutils literal notranslate"><span class="pre">.within()</span></code> method as follows:</p>
 <div class="cell docutils container">

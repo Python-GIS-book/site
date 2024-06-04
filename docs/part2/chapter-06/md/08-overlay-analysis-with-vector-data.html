@@ -527,11 +527,17 @@ document.write(`
 <span class="n">m</span>
 </pre></div>
 </div>
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.51}. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station.}}, center, nofloat}{../img/figure_6-51.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <p><em><strong>Figure 6.51</strong>. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station.</em></p>
 <!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="intersection">
 <h2>Intersection<a class="headerlink" href="#intersection" title="Link to this heading">#</a></h2>
+<!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>We are now ready to conduct an overlay analysis between these layers. We will create a new layer based postal code polygons that <code class="docutils literal notranslate"><span class="pre">intersect</span></code> with our Helsinki layer. We can use a method called <code class="docutils literal notranslate"><span class="pre">.overlay()</span></code> to conduct the overlay analysis between the given GeoDataFrame (<code class="docutils literal notranslate"><span class="pre">postal_areas</span></code>) and a second GeoDataFrame (<code class="docutils literal notranslate"><span class="pre">station_buffer</span></code>). With parameter <code class="docutils literal notranslate"><span class="pre">how</span></code> we can control how the overlay analysis is conducted. Possible values are <code class="docutils literal notranslate"><span class="pre">'intersection'</span></code>, <code class="docutils literal notranslate"><span class="pre">'union'</span></code>, <code class="docutils literal notranslate"><span class="pre">'symmetric_difference'</span></code>, <code class="docutils literal notranslate"><span class="pre">'difference'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'identity'</span></code>. Let’s start by doing an overlay using <code class="docutils literal notranslate"><span class="pre">&quot;intersection&quot;</span></code> as the overlay operation:</p>
 <!-- #endregion -->
@@ -549,7 +555,8 @@ document.write(`
 
 <span class="k">def</span> <span class="nf">plot_vector_overlay</span><span class="p">(</span><span class="n">gdf1</span><span class="p">,</span> <span class="n">gdf2</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates two maps next to each other based on `gdf1`, `gdf2` and the `result` GeoDataFrames.</span>
+<span class="sd">    Creates two maps next to each other based on `gdf1`, `gdf2` and the</span>
+<span class="sd">    `result` GeoDataFrames.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -636,13 +643,13 @@ document.write(`
 </pre></div>
 </div>
 <p><em><strong>Figure 6.54</strong>. Result after conducting vector overlay operation based on difference.</em></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">difference</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">difference</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">difference</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
-<p>As can be seen from the results above, the <code class="docutils literal notranslate"><span class="pre">&quot;difference&quot;</span></code> will keep the postal code geometries that are outside of the buffer geometry. In terms of attributes, only the columns that are present in the source GeoDataFrame (i.e. <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code>) are kept.</p>
+<p>As can be seen from the results above, the <code class="docutils literal notranslate"><span class="pre">&quot;difference&quot;</span></code> will keep the postal code geometries that are outside of the buffer geometry (note we output <code class="docutils literal notranslate"><span class="pre">difference.columns.values</span></code> here to output only the column names). In terms of attributes, only the columns that are present in the source GeoDataFrame (i.e. <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code>) are kept.</p>
 <p>The symmetric difference overlay operation is an interesting one. It will keep the geometries and attributes outside of the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> layer, as well as create a geometry within the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> that includes areas that are within the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> ring but outside the <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code> GeoDataFrame. I.e. in our case, it mostly contains water areas that surround the Helsinki city centre as shown below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Symmetric Difference</span>
 <span class="n">symmetric_difference</span> <span class="o">=</span> <span class="n">postal_areas</span><span class="o">.</span><span class="n">overlay</span><span class="p">(</span><span class="n">station_buffer</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;symmetric_difference&quot;</span><span class="p">)</span>

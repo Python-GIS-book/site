@@ -31,11 +31,11 @@ We do not go into details about the mathematics of the DI-9IM here, but under th
 
 ![_**Figure 6.32**. Eight common spatial predicates formed based on spatial relations between two geometries. Modified after Egenhofer et al. (1992)_.](../img/spatial-relations.png)
 
-_**Figure 6.32**. Eight common spatial predicates formed based on spatial relations between two Polygon geometries. Modified after Egenhofer et al. (1992)_.
+_**Figure 6.32**. Eight common spatial predicates formed based on spatial relations between two Polygon geometries. Modified after Egenhofer et al. (1992)._
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 The top row of **Figure 6.32** shows spatial predicates in which the geometries A and B are clearly disjoint from each other, contained or within each other, or identical to each other. When the geometries have at least one point in common, the geometries are said to be *intersecting* with each other. Thus, in this figure, all the comparisons except the first one (disjoint) are True, i.e. the geometries *intersect* with each other. The bottom row shows examples of spatial relationships that are slightly "special cases" in one way or another. When two geometries *touch* each other, they have at least one point in common (at the border in this case), but their interiors do not intersect with each other. When the interiors of the geometries A and B are partially on top of each other and partially outside of each other, the geometries are *overlapping* with each other. The spatial predicate for *covers* is when the interior of geometry B is almost totally within A, but they share at least one common coordinate at the border. Similarly, if geometry A is almost totally contained by the geometry B (except at least one common coordinate at the border) the spatial predicate is called *covered by*. These eight examples represent some of the common spatial predicates based on two Polygon shapes. When other shapes are considered (e.g. Points, LineStrings), there are plenty of more topological relations: altogether 512 with 2D data.
-
+<!-- #endregion -->
 
 ## Making spatial queries in Python
 
@@ -54,7 +54,7 @@ Now as we know the basics of topological spatial relations, we can proceed and s
 
 When you want to use Python to find out how two geometric objects are related to each other topologically, you start by creating the geometries using shapely library. In the following, we create a couple of `Point` objects and one `Polygon` object which we can use to test how they relate to each other: 
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 from shapely import Point, Polygon
 
 # Create Point objects
@@ -69,14 +69,23 @@ coordinates = [
     (24.950958, 60.169990),
 ]
 polygon = Polygon(coordinates)
+```
 
-# Print the objects
+<!-- #region deletable=true editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""} -->
+We can check the contents of the new variables by printing them to the screen, for example, in which case we would see
+
+```python
 print(point1)
 print(point2)
 print(polygon)
 ```
 
-<!-- #region deletable=true editable=true jupyter={"outputs_hidden": false} -->
+```
+POINT (24.952242 60.1696017)
+POINT (24.976567 60.16125)
+POLYGON ((24.950899 60.169158, 24.953492 60.169158, 24.95351 60.170104, 24.950...
+```
+
 If you want to test whether these `Point` geometries stored in `point1` and `point2` are within the `polygon`, you can call the `.within()` method as follows:
 <!-- #endregion -->
 

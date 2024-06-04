@@ -686,6 +686,10 @@ document.write(`
 <span class="n">m</span>
 </pre></div>
 </div>
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.47}. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest.}}, center, nofloat}{../img/figure_6-47.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <p><em><strong>Figure 6.47</strong>. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest.</em></p>
 <!-- #endregion -->
@@ -859,11 +863,19 @@ document.write(`
 <span class="n">m</span>
 </pre></div>
 </div>
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.48}. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop.}}, center, nofloat}{../img/figure_6-48.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p><em><strong>Figure 6.48</strong>. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop.</em></p>
 <p>From the map, we can see that the closest stops to the arena seem to be located close to a large road 100-130 meters away from the arena, while the third closest stop is closer to the rail roads 377 meters away (Euclidian distance) from the building.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="nearest-neighbors-within-radius">
 <h3>Nearest neighbors within radius<a class="headerlink" href="#nearest-neighbors-within-radius" title="Link to this heading">#</a></h3>
 <p>As a last example related to nearest neighbors we show how to find all neighbors of a given Point geometry within a specific distance threshold. As a practical example, we aim to find and calculate the number of buildings that are within 200 meters from a given public transport stop. Doing this kind of nearest neighbor query is similar to the one that we did with <code class="docutils literal notranslate"><span class="pre">.sjoin_nearest()</span></code> using the <code class="docutils literal notranslate"><span class="pre">max_distance</span></code> parameter, but here we aim to efficiently retrieve all neighbors within the given search radius, not only the closest one which is how <code class="docutils literal notranslate"><span class="pre">sjoin_nearest()</span></code> operates. Finding all neighbors within a specific search radius can also be done using the KD-Tree spatial index. However, in this case we actually build the <code class="docutils literal notranslate"><span class="pre">KDTree</span></code> index for both datasets (buildings and stops) and then use a <code class="docutils literal notranslate"><span class="pre">.query_ball_tree()</span></code> method to find all neighbors within the radius <code class="docutils literal notranslate"><span class="pre">r</span></code>:</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">KDTree</span>
 
 <span class="c1"># Build KDTree indices</span>
@@ -877,10 +889,21 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">k_nearest_ix</span><span class="p">)</span>
 </pre></div>
 </div>
+<!-- #region -->
 <p>Now we have found all the building points within 200 meters from the stops (n=8377). As a result, we get a list of building index values for each stop. The following shows all the indices for the first stop at index 0:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">k_nearest_ix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k_nearest_ix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1129</span><span class="p">,</span>
+ <span class="mi">1130</span><span class="p">,</span>
+ <span class="mi">1155</span><span class="p">,</span>
+ <span class="mi">2054</span><span class="p">,</span>
+ <span class="mi">2055</span><span class="p">,</span>
+ <span class="mi">2056</span><span class="p">,</span>
+<span class="o">...</span> <span class="p">(</span><span class="n">output</span> <span class="n">truncated</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #endregion -->
 <p>Now we can easily store the building indices as a new column to the <code class="docutils literal notranslate"><span class="pre">stops</span></code> GeoDataFrame:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stops</span><span class="p">[</span><span class="s2">&quot;building_ids_within_range&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">k_nearest_ix</span>
 <span class="n">stops</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -907,6 +930,10 @@ document.write(`
 <span class="n">building_points</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">building_ids</span><span class="p">]</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>
 </pre></div>
 </div>
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.49}. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius.}}, center, nofloat}{../img/figure_6-49.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <p><em><strong>Figure 6.49</strong>. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius.</em></p>
 <p>The map reveals that this stop is indeed located in a densely built neighborhood called Laurinlahti with lots of detached houses. By using similar approach, it is possible to investigate the urban design and morphology across the city regions which can reveal some interesting patterns and developments relevant to urban planning.</p>

@@ -107,7 +107,7 @@ data.to_file(outfp)
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.6
 
-One of the recommended coordinate reference systems for Finland is [ETRS89 / TM35FIN (EPSG:3067)](https://spatialreference.org/ref/epsg/3067/)[^EPSG3067]
+One of the recommended coordinate reference systems for Finland is [ETRS89 / TM35FIN (EPSG:3067)](https://spatialreference.org/ref/epsg/3067/) [^EPSG3067]
 
 First, select Finland from our dataset of EU countries. Then, plot two maps of Finland where you compare the WGS84 (EPSG:4326) representation and ETRS89 / TM35FIN (EPSG:3067). You can achieve this by modifying the previous example for the whole EU. 
 <!-- #endregion -->
