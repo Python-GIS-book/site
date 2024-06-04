@@ -209,14 +209,14 @@ fig, ax1, ax2 = plot_vector_overlay(
 _**Figure 6.54**. Result after conducting vector overlay operation based on difference._
 
 ```python
-difference.columns
+difference.columns.values
 ```
 
 ```python
 difference.shape
 ```
 
-As can be seen from the results above, the `"difference"` will keep the postal code geometries that are outside of the buffer geometry. In terms of attributes, only the columns that are present in the source GeoDataFrame (i.e. `postal_areas`) are kept. 
+As can be seen from the results above, the `"difference"` will keep the postal code geometries that are outside of the buffer geometry (note we output `difference.columns.values` here to output only the column names). In terms of attributes, only the columns that are present in the source GeoDataFrame (i.e. `postal_areas`) are kept. 
 
 The symmetric difference overlay operation is an interesting one. It will keep the geometries and attributes outside of the `station_buffer` layer, as well as create a geometry within the `station_buffer` that includes areas that are within the `station_buffer` ring but outside the `postal_areas` GeoDataFrame. I.e. in our case, it mostly contains water areas that surround the Helsinki city centre as shown below:
 
