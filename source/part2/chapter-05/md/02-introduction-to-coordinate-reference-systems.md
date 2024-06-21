@@ -65,7 +65,7 @@ When using map projections, we always make approximations and hence lose somethi
 Figure 5.11 illustrates nine different map projections, where the latitude and longitude coordinates representing the land areas of the earth have been systematically transformated into a plain surface. As you can see, there are numerous ways to represent the world in "flattened" state, and all the projections have their unique characteristics, strengths and weaknesses. In other words, there is no perfect or "correct" projection (but they are still useful), and one needs to choose a projection depending on what is the purpose of the map and the best one for your needs. Choosing an appropriate projection for your map is not always straightforward because it depends on what you actually want to represent with your map, and what is the spatial scale of your data.
 
 
-![_**Figure 5.11**. Different map projections that can be used to represent the geographic data on a two-dimensional plane._](../img/projections.jpg)
+![_**Figure 5.11**. Different map projections that can be used to represent the geographic data on a two-dimensional plane._](../img/projections.png)
 
 _**Figure 5.11**. Different map projections that can be used to represent the geographic data on a two-dimensional plane._
 
