@@ -498,11 +498,23 @@ k_nearest_ix = stop_kdt.query_ball_tree(building_kdt, r=200)
 len(k_nearest_ix)
 ```
 
+<!-- #region -->
 Now we have found all the building points within 200 meters from the stops (n=8377). As a result, we get a list of building index values for each stop. The following shows all the indices for the first stop at index 0:
 
 ```python
-print(k_nearest_ix[0])
+k_nearest_ix[0]
 ```
+
+```
+[1129,
+ 1130,
+ 1155,
+ 2054,
+ 2055,
+ 2056,
+... (output truncated)
+```
+<!-- #endregion -->
 
 Now we can easily store the building indices as a new column to the `stops` GeoDataFrame:
 
