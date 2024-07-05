@@ -12,10 +12,7 @@ jupyter:
     name: python3
 ---
 
-# Surface analysis
-
-
-**To be updated**
+# Working with data cubes
 
 ```python
 
