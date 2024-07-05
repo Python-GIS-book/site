@@ -12,9 +12,11 @@ jupyter:
     name: python3
 ---
 
-# Representing geographic data in raster format
+# Exercises
 
 **To be updated**
+
+
 
 ```python
 

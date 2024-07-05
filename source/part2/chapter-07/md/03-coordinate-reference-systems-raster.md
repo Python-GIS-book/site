@@ -12,7 +12,8 @@ jupyter:
     name: python3
 ---
 
-# Representing geographic data in raster format
+# Coordinate reference system management
+
 
 **To be updated**
 
