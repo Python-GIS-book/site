@@ -79,6 +79,9 @@ Georeferencing
 IDE
   See {term}`Integrated Development Environment`.
 
+Immutable
+  A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Mutable`.
+
 Index
   A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
 
@@ -126,8 +129,14 @@ Markdown
 Metadata
   Metadata refers to data that provides information about other data. It often describes characteristics of the data, such as its content, quality, format, and other relevant characteristics. For example, the metadata of a satellite image may include information about the image's resolution, file size, coordinate reference system, and the date it was taken. 
 
+Method
+  A function that is associated with an instance of a specific Python data type. Methods can be accessed by typing the variable name of the instance, a period, and the function name.
+
 Module
   A file containing Python definitions and statements. Module files have the `.py` file extension.
+
+Mutable
+  A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Immutable`.
 
 Program
   A detailed list of step-by-step instructions that tell the computer exactly what to do.
