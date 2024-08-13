@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -126,11 +126,11 @@ data.envelope.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-In order to get the bounding rectangle for the whole layer, we  first create an union of all geometries using `unary_union`, and then create the bounding rectangle for that polygon:
+In order to get the bounding rectangle for the whole layer, we  first create an union of all geometries using the `.union_all()` method, and then extract the bounding rectangle for that polygon using the `.envelope`:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-data.unary_union.envelope
+data.union_all().envelope
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
