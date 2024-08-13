@@ -107,7 +107,8 @@ Normal text is written without any special formatting.
 #### Inline code
 
 - variable names
-- data types
+- data types (e.g. `str`)
+- data structures (e.g. `DataFrame`)
 - function names
 - methods / attributes (e.g. `.plot()` or `.area`)
 - package / module names (e.g. `pandas`)
