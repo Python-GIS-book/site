@@ -65,5 +65,5 @@ dependencies:
   - pip:
     - nbmerge==0.0.4
     - geodatasets==2023.12.0
-    - jupyterlab_myst==2.3.1
+    - jupyterlab_myst==2.4.2
     - pysheds==0.3.5
