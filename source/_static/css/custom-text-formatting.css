@@ -8,8 +8,8 @@ body {
 }
 
 code.literal {
-    /* background-color: var(--pst-color-surface); */
-    /* border: 1px solid var(--pst-color-border); */
-    /*border-radius: .25rem; */
+    background-color: #fff;
+    border: 0px solid #fff;
+    border-radius: .0rem;
     padding: 0;
 }
