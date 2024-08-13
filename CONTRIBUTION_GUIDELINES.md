@@ -100,16 +100,40 @@ levels need to be modified, and the headings are always searched from the first 
 
 ### Text conventions
 
+#### No formatting
+
 Normal text is written without any special formatting.
-Regular text can be emphasized using **bold text**.
-Specific individual code elements should be formatted in a `monospace` font, and blocks of code should be in a code block or code cell, as shown below.
 
-```python
-# This is a code block
-print('Yay!')
-```
+#### Inline code
 
-More conventions here???
+- variable names
+- data types
+- function names
+- methods / attributes (e.g. `.plot()` or `.area`)
+- package / module names (e.g. `pandas`)
+- commands
+- keywords
+
+#### Code blocks
+
+What: Multiline code as part of the Markdown text.
+
+- Long code snippets
+- File content
+- Output from code
+- Function / method documentation + help snippets
+
+#### Bold text
+
+- emphasizing text
+- key strokes (**shift** + **enter**)
+
+#### Italics
+
+- glossary entries
+- URLS
+- file names
+- file extensions 
 
 ### Figure captions
 
