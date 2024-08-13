@@ -71,7 +71,7 @@ The list of basic arithmetic operations that can be done by default in Python ar
 |Division       | `/`    | `4 / 2`        | `2`            |
 |Exponentiation | `**`   | `2**3`         | `8`            |
 
-For anything more advanced, we need to load a *{term}`module`* or *{term}`library`*. For math operations, this module is called *math* and it can be loaded by typing `import math`.
+For anything more advanced, we need to load a *{term}`module`* or *{term}`library`*. For math operations, this module is called `math` and it can be loaded by typing `import math`.
 <!-- #endregion -->
 
 ```python deletable=true editable=true
@@ -91,7 +91,7 @@ math.sqrt(4)
 <!-- #region deletable=true editable=true -->
 Let's summarize what we've just seen with modules:
 
-1. A *{index}`module`* is a group of code items such as functions that are related to one another. Individual modules are often in a group referred to as a *library*.
+1. A {index}`module` is a group of code items such as functions that are related to one another. Individual modules are often in a group referred to as a library.
 
 2. Modules can be loaded using the `import` statement. Functions that are part of the module `modulename` can then be used by typing `modulename.functionname()`. For example, `sin()` is a function that is part of the `math` module, and used by typing `math.sin()` with some number between the parentheses.
 
@@ -145,7 +145,7 @@ A *{term}`variable`* can be used to store values calculated in expressions and u
 
 ### Variable assignment
 
-Assigning value to variables is straightforward. To assign a value, you simply type `variable_name = value`, where `variable_name` is the name of the variable you wish to define. Let's define a variable called `temp_celsius` and assign it a value of '10.0'. Note that when the variable is assigned there is no output to the screen.
+Assigning value to variables is straightforward. To assign a value, you simply type `variable_name = value`, where `variable_name` is the name of the variable you wish to define. Let's define a variable called `temp_celsius` and assign it a value of 10.0. Note that when the variable is assigned there is no output to the screen.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 temp_celsius = 10.0
@@ -216,7 +216,7 @@ Now that we have defined `tempFahrenheit`, we can run again the print statement 
 print("temperature in Celsius:", temp_celsius, "and in Fahrenheit:", tempFahrenheit)
 ```
 
-The number beside the cell, for example `In [21]`, tells you the order in which the Python cells have been executed. This way you can see a history of the order in which you have run the cells.
+The number beside the cell, for example `In [22]`, tells you the order in which the Python cells have been executed. This way you can see a history of the order in which you have run the cells.
 
 <!-- #region deletable=true editable=true -->
 ### Variable values
@@ -249,7 +249,7 @@ There are 4 basic data types in Python as shown in Table 2.2.
 |`str`          |Character strings    | `'Hot'`    |
 |`bool`         |True/false values    | `True`     |
 
-The data type can be found using the `type()` function. As you will see, the data types are important because some are not compatible with one another. Let's define a variable `weatherForecast` and assign it the value `'Hot'`. After this, we can check its data type using the `type()` function.
+The data type can be found using the `type()` function. As you will see, the data types are important because some are not compatible with one another. Let's define a variable `weatherForecast` and assign it the value "Hot". After this, we can check its data type using the `type()` function.
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -319,7 +319,7 @@ We can also check the type of the `station_names` list using the `type()` functi
 type(station_names)
 ```
 
-Here we have a list of 4 `station_name` values in a list called `station_names`. As you can see, the `type()` function recognizes this as a list. Lists can be created using the square brackets `[` and `]`, with commas separating the values in the list.
+Here we have a list of 4 station name values in a list called `station_names`. As you can see, the `type()` function recognizes this as a list. Lists can be created using the square brackets `[` and `]`, with commas separating the values in the list.
 
 
 ### Index values
@@ -424,7 +424,7 @@ cute_animals[-2]
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Modifying list values
 
-Another nice feature of lists is that they are *mutable*, meaning that the values in a list that has been defined can be modified. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
+Another nice feature of lists is that they are {term}`mutable`, meaning that the values in a list that has been defined can be modified. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
 <!-- #endregion -->
 
 ```python
@@ -446,7 +446,7 @@ station_types
 
 ### Data types in lists
 
-One of the benefits of a list is that they can be used to store more than one type of data. Let’s consider that instead of having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for a single station. In this case we will create a list of values for the ‘Helsinki Kaivopuisto’ station.
+One of the benefits of a list is that they can be used to store more than one type of data. Let’s consider that instead of having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for a single station. In this case we will create a list of values for the Helsinki Kaivopuisto station.
 
 ```python
 station_name = "Helsinki Kaivopuisto"
@@ -531,7 +531,7 @@ station_names.append("Helsinki Malmi airfield")
 station_names
 ```
 
-As you can see, we add values one at a time using `station_names.append()`. `list.append()` is called a method in Python, which is a function that works for a given data type (a list in this case).
+As you can see, we add values one at a time using `station_names.append()`. `list.append()` is called a {term}`method` in Python, which is a function that works for a given data type (a list in this case).
 
 
 ### Appending to an integer? Not so fast...
