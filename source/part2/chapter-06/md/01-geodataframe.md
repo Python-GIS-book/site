@@ -15,13 +15,13 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Introduction to data structures in geopandas
 
-Now that you have seen how to create and represent geometric objects in Python using shapely, we will continue on learning various GIS techniques using a library called **geopandas** [^geopandas]. Geopandas is a library designed to make working with geospatial data in Python easier. It extends the data types used by pandas (which we covered in Part I) to allow geospatial operations and the handling of coordinate reference systems. Essentially, it provides a high-level interface for vector data (like points, lines, and polygons) that integrates with the existing pandas data analysis framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5). Geopandas is one of the core libraries for GIS in Python and it is widely used in different sectors (academia, industry, etc.) for geographic data analysis. In the next sections, we will introduce the basic data structures that are used to work with geographic data using geopandas, namely `GeoSeries` and `GeoDataFrame`. 
+Now that you have seen how to create and represent geometric objects in Python using `shapely`, we will continue on learning various GIS techniques using a library called `geopandas` [^geopandas]. `geopandas` is a library designed to make working with geospatial data in Python easier. It extends the data types used by `pandas` (which we covered in Part I) to allow geospatial operations and the handling of coordinate reference systems. Essentially, it provides a high-level interface for vector data (like points, lines, and polygons) that integrates with the existing `pandas` data analysis framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5). `geopandas` is one of the core libraries for GIS in Python and it is widely used in different sectors (academia, industry, etc.) for geographic data analysis. In the next sections, we will introduce the basic data structures that are used to work with geographic data using `geopandas`, namely {term}`GeoSeries` and {term}`GeoDataFrame`. 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## What is a GeoDataFrame?
 
-The main data structures in geopandas are `GeoSeries` and `GeoDataFrame`. Essentially, they extend the capabilities of `Series` and `DataFrames` from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and geograpchic data. A `GeoDataFrame` is basically like a `pandas.DataFrame` that contains a dedicated column for storing geometries (see Figure 6.10). The geometry column is a `GeoSeries` which contains the geometries as shapely objects (points, lines, polygons, multipolygons etc.). As we learned in the previous section, shapely provides many useful attributes and methods to work with geometries. Luckily, these same functionalities can be directly applied to `GeoSeries` making it convenient to work with data layers that may contain thousands or even millions of geographic features. In this section, you will learn various useful techniques and tools bundled in geopandas that help you to work with geographic data in vector format.
+The main data structures in `geopandas` are `GeoSeries` and `GeoDataFrame`. Essentially, they extend the capabilities of the `Series` and `DataFrame` data structures of `pandas`. This means that we can use many familiar methods from `pandas` also when working with `geopandas` and geograpchic data. A `GeoDataFrame` is basically like a `pandas.DataFrame` that contains at least one dedicated column for storing geometries (see Figure 6.10). The geometry column is a `GeoSeries` which contains the geometries as shapely objects (points, lines, polygons, multipolygons etc.). As we learned in the previous section, `shapely` provides many useful attributes and methods to work with geometries. Luckily, these same functionalities can be directly applied to `GeoSeries` making it convenient to work with data layers that may contain thousands or even millions of geographic features. In this section, you will learn various useful techniques and tools bundled in `geopandas` that help you to work with geographic data in vector format.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -33,7 +33,7 @@ _**Figure 6.10**. Geometry column in a GeoDataFrame._
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Reading a file
 
-Like with `pandas`, a typical first step when starting to work with `geopandas` is to read data from a given file. In `geopandas`, we can use a generic function `.from_file()` for reading geospatial data from various data formats, such as the ones introduced in Chapter 5. The data folder contains census data from Austin, Texas downloaded from the [U.S Census bureau](https://www.census.gov/programs-surveys/acs/data.html) [^us_census] which we will use to introduce some of the basic data input/output functionalities of `geopandas`. Let's start by defining the path to the file that we want to access: 
+Like with `pandas`, a typical first step when starting to work with `geopandas` is to read data from a given file. In `geopandas`, we can use a generic function `.read_file()` for reading geospatial data from various data formats, such as the ones introduced in Chapter 5. The data folder contains census data from Austin, Texas downloaded from the [U.S Census bureau](https://www.census.gov/programs-surveys/acs/data.html) [^us_census] which we will use to introduce some of the basic data input/output functionalities of `geopandas`. Let's start by defining the path to the file that we want to access: 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -45,7 +45,7 @@ print(fp)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Similar to importing `pandas`, we will first import geopandas as `gpd` which allows us to start using the library. Then we will read the file by passing the filepath to `.read_file()` function of `geopandas`:
+Similar to importing `pandas`, we will first import `geopandas` as `gpd` which allows us to start using the library. Then we will read the file by passing the filepath to `.read_file()` function of `geopandas`:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -63,7 +63,7 @@ type(data)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Here we see that our `data` -variable is a `GeoDataFrame` which extends the functionalities of `DataFrame` to handle spatial data as discussed earlier. We can apply many familiar `pandas` methods to explore the contents of our `GeoDataFrame`. Let's have a closer look at the first rows of the data: 
+Here we see that our `data` -variable is a `GeoDataFrame` which extends the functionalities of a `DataFrame` to handle spatial data as discussed earlier. We can apply many familiar `pandas` methods to explore the contents of our `GeoDataFrame`. Let's have a closer look at the first rows of the data: 
 <!-- #endregion -->
 
 ```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
@@ -75,7 +75,7 @@ We can see that there are three columns in our `GeoDataFrame`. The columns `pop2
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-It is always a good idea to explore your geographic data on a map. Creating a simple map from a `GeoDataFrame` is really easy. You can use the `.plot()` function from geopandas to create a map based on the geometries of the data. `geopandas` actually uses `matplotlib` for plotting which we introduced in Part 1 of this book. Let's try it out, and do a quick visualization of our data.
+It is always a good idea to explore your geographic data on a map. Creating a simple map from a geodataframe is really easy. You can use the `.plot()` method bundled in the `GeoDataFrame` instance to create a map based on the geometries of the data. Under the hood, `geopandas` actually uses `matplotlib` for plotting which we introduced in Part 1 of this book. Let's try it out, and do a quick visualization of our data:
 <!-- #endregion -->
 
 ```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
@@ -113,19 +113,23 @@ print("Total population", data["pop2019"].sum())
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Geometries in geopandas
 
-By default, `geopandas` looks for the geometries from a column called `geometry`, which is ultimately a `GeoSeries` data structure containing shapely geometric objects. Let's have a closer look at the geometry column of our data:
+By default, `geopandas` looks for the geometries from an attribute called `.geometry`, which is ultimately a `GeoSeries` data structure containing shapely geometric objects. In practice, the `.geometry` attribute links to a specific column in the `GeoDataFrame`. By default the geometries are read from the column named `"geometry"`, when you e.g. read a file with geographic data. However, it's good to be aware that a geodataframe can have multiple columns containing geometries, and you can change which column should be considered as the "active geometry" (see Chapter 6.3.7 for details). Let's have a closer look at the `.geometry` attribute of our data:
 <!-- #endregion -->
 
 ```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
-data["geometry"].head()
+data.geometry.head()
+```
+
+```python
+type(data.geometry)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see here,  the `geometry` column contains polygon geometries. The last line above reveals that the data type (`dtype`) of this column is `geometry`. Hence, in a similar manner as `pandas` can identify automatically that specific column contains e.g. integer values, geopandas has identified that the data type of a column containing `shapely.geometry` objects is `geometry`. As we learned earlier, the `shapely.geometry` objects have various useful attributes and methods that we can use to work with geographic data. Luckily, it is possible to use these shapely methods directly in geopandas and apply them to a whole `GeoSeries` without a need to access individual geometries one by one. With this in mind, let's proceed and calculate the area of each census tract polygon. Calculating an area of all geometries in your data can be done easily by using a command `.area` that comes with the `GeoDataFrame` object. As a reminder, the census data are in a metric coordinate reference system, so the area values will be given in square meters:
+As we can see here,  the `geometry` attribute contains polygon geometries stored in a `GeoSeries` data structure. The last output line of the `.head()` command reveals that the data type (`dtype`) of this column is `geometry`, i.e. geometries have their own data type. As we learned earlier, the `shapely.geometry` objects have various useful attributes and methods that we can use to work with geographic data. Luckily, it is possible to use these `shapely` methods directly in `geopandas` and apply them to a whole `GeoSeries` without a need to access individual geometries one by one. With this in mind, let's proceed and extract information about the area of each census tract polygon. Extracting the area for all geometries in our data can be done easily by calling the attribute `.area` which is part of the `GeoDataFrame` object. As a reminder, the census data are in a metric coordinate reference system, so the area values will be given in square meters:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-data["geometry"].area
+data.geometry.area
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -187,7 +191,7 @@ data.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Writing the contents of this `GeoDataFrame` into a file can be done using the `.to_file()` method. To use the method, we only need to pass the filepath to the output file. Geopandas automatically identifies the correct format based on the file extension that have been written after the dot in the file path. For instance in the example below, the text `.gpkg` at the end of the `output_fp` variable determines that the `GeoDataFrame` will be written in GeoPackage format:
+Writing the contents of this `GeoDataFrame` into a file can be done using the `.to_file()` method. To use the method, we need to pass the filepath to the output file. For the most common geospatial file formats (e.g. GPKG, ESRI Shapefile, GeoJSON, GML, MapInfo File, FlatGeobuf), `geopandas` automatically identifies the correct file format based on the file extension that have been written after the dot in the file path. For instance in the example below, the text `.gpkg` at the end of the `output_fp` variable is sufficient to determine that the `GeoDataFrame` should be written in GeoPackage format:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -198,8 +202,21 @@ output_fp = "data/Temp/austin_pop_density_2019.gpkg"
 data.to_file(output_fp)
 ```
 
+
+
+
+Now we have successfully stored the data into a file called `austin_pop_density_2019.gpkg`. To be more explicit, you can use the `driver` parameter to specify the output file format for the data allowing you to write the data into numerous data formats (some lesser-known ones as well) supported by the GDAL. As an input, you should give the name of the `driver` as a string (see the names from [GDAL documentation](https://gdal.org/drivers/vector/index.html)[^GDAL_drivers]), such as `FlatGeobuf` which is used to write the data into a performant FlatgeoBuf file format that supports fast reading and writing of geospatial data:
+
+```python
+output_fp = "data/Temp/austin_pop_density_2019.fgb"
+
+# Write the file
+data.to_file(output_fp, driver="FlatGeobuf")
+```
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now we have successfully stored the data into a file called `austin_pop_density_2019.gpkg`. Notice, that if you have an existing file with the same name, geopandas will automatically overwrite the contents (without asking). Hence, it is good to be a bit mindful about the naming of the files whenever writing data to disk. 
+Whenever writing data, notice, that if you have an existing file with the same name, `geopandas` will automatically overwrite the contents (without asking). Hence, it is good to be a bit mindful about the naming of the files whenever writing data to disk. Some fileformats also supports appending to existing files. You can enable this functionality by using the `mode` parameter and specifying `mode='a'` which will add rows into an existing output file. Notice, that not all file formats support this functionality and if you do use this functionality, the data structure between the existing and the appended data should match. 
+
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
@@ -511,6 +528,7 @@ _**Figure 6.13**. A basic plot showing the airports from openflights.org._
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
+[^GDAL_drivers]: <https://gdal.org/drivers/vector/index.html>
 [^GeoJson]: <https://en.wikipedia.org/wiki/GeoJSON>
 [^geopandas]: <https://geopandas.org/>
 [^GPKG]: <https://en.wikipedia.org/wiki/GeoPackage>
