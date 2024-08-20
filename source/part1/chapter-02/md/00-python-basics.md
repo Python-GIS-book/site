@@ -298,7 +298,7 @@ To explore lists, we will be using data related to [Finnish Meteorological Insti
 
 ### Creating a list
 
-Let’s first create a list of some station names and print it out.
+Let’s first create a `list` of some station names and print it out.
 
 ```python
 station_names = [
@@ -319,18 +319,18 @@ We can also check the type of the `station_names` list using the `type()` functi
 type(station_names)
 ```
 
-Here we have a list of 4 station name values in a list called `station_names`. As you can see, the `type()` function recognizes this as a list. Lists can be created using the square brackets `[` and `]`, with commas separating the values in the list.
+Here we have a list of 4 station name values in a list called `station_names`. As you can see, the `type()` function recognizes this as a `list`. Lists can be created using the square brackets `[` and `]`, with commas separating the values in the list.
 
 
 ### Index values
 
-To access an individual value in the list we need to use an {term}`index` value. An index value is a number that refers to a given position in the list. Let’s check out the first value in our list as an example by printing out `station_names[1]`:
+To access an individual value in a list we need to use an {term}`index` value. An index value is a number that refers to a given position in the list. Let's check out the first value in our `list` as an example by printing out `station_names[1]`:
 
 ```python
 station_names[1]
 ```
 
-Wait, what? This is the second value in the list we’ve created, what is wrong? As it turns out, Python (and many other programming languages) start values stored in collections with the index value `0`. Thus, to get the value for the first item in the list, we must use index `0`. Let's print out the value at index `0` of `station_names`.
+Wait, what? This is the second value in the list we’ve created, what is wrong? As it turns out, Python (and many other programming languages) start values stored in collections with the index value `0`. Thus, to get the value for the first item in a list, we must use index `0`. Let's print out the value at index `0` of `station_names`.
 
 ```python
 station_names[0]
@@ -367,12 +367,12 @@ We can find the length of a list using the `len()` function.
 len(station_names)
 ```
 
-Just as expected, there are 4 values in our list and `len(station_names)` returns a value of `4`.
+Just as expected, there are 4 values in our `list` and `len(station_names)` returns a value of `4`.
 
 
 ### Index value tips
 
-If we know the length of the list, we can now use it to find the value of the last item in the list, right? What happens if you print the value from the `station_names` list at index `4`, the value of the length of the list?
+If we know the length of a list, we can now use it to find the value of the last item in the list, right? What happens if you print the value from the `station_names` list at index `4`, the value of the length of the list?
 
 ```python tags=["raises-exception"]
 station_names[4]
@@ -384,7 +384,7 @@ An `IndexError`? That’s right, since our list starts with index `0` and has 4 
 station_names
 ```
 
-To find the value at the end of the list, we can print the value at index `-1`. To go further up the list in reverse, we can simply use larger negative numbers, such as index `-4`.
+To find the value at the end of a list, we can print the value at index `-1`. To go further up a list in reverse, we can simply use larger negative numbers, such as index `-4`.
 
 ```python
 station_names[-1]
@@ -403,7 +403,7 @@ station_names[-5]
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 #### Question 2.4
 
-Which animal is at index -2 in the python list below?
+Which animal is at index -2 in the Python list below?
 
 ```python
 cute_animals = ["bunny", "chick", "duckling", "kitten", "puppy"]
@@ -424,7 +424,7 @@ cute_animals[-2]
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Modifying list values
 
-Another nice feature of lists is that they are {term}`mutable`, meaning that the values in a list that has been defined can be modified. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
+Another nice feature of lists is that they are {term}`mutable`, meaning that the values in a list that has been defined are able to be modified. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
 <!-- #endregion -->
 
 ```python
@@ -446,7 +446,7 @@ station_types
 
 ### Data types in lists
 
-One of the benefits of a list is that they can be used to store more than one type of data. Let’s consider that instead of having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for a single station. In this case we will create a list of values for the Helsinki Kaivopuisto station.
+One of the benefits of a list is that they can be used to store more than one type of data. Let’s consider that instead of having a list of each station name, FMISID, latitude, etc. we would like to have a list of all of the values for a single station. In this case we will create a new `list` for the Helsinki Kaivopuisto station.
 
 ```python
 station_name = "Helsinki Kaivopuisto"
@@ -493,12 +493,12 @@ type(station_hel_kaivo[1])  # The FMISID
 type(station_hel_kaivo[2])  # The station latitude
 ```
 
-Note that although it is possible to have different types of data in a Python list, you are encouraged to create lists containing the same data types. Data science workflows are often built around handling collections of data of the same type and having multiple data types in a list may cause problems for software you are trying to use.
+Note that although it is possible to have different types of data in a Python list, you are generally encouraged to create lists containing the same data types. Data science workflows are often built around handling collections of data of the same type and having multiple data types in a list may cause problems for software you are trying to use.
 
 
 ### Adding and removing values from lists
 
-Finally, we can add and remove values from lists to change their lengths. Let’s consider that we no longer want to include the first value in the `station_names` list. Since we have not seen that list in a bit, let's first print it out.
+Finally, we can add and remove values from lists to change their lengths. Let’s consider that we no longer want to include the first value in the `station_names` list. Since we have not seen that `list` in a bit, let's first print it out.
 
 ```python
 station_names
@@ -520,7 +520,7 @@ In addition to the `del` statement, there are two other common approaches for re
 - `demo_list.pop(index)`: Will remove the item at index `index` from the list `demo_list`
 
 
-If we would instead like to add a few more stations to the `station_names` list, we can type `station_names.append('List item to add')`, where `'List item to add'` would be the text that would be added to the list in this example. Let's add two values to our list: `'Helsinki lighthouse'` and `'Helsinki Malmi airfield'` and check the list contents after this.
+If we would instead like to add a few more stations to the `station_names` list, we can type `station_names.append('List item to add')`, where `'List item to add'` would be the text that would be added as a new item in the list in this example. Let's add two values to our `list`: `'Helsinki lighthouse'` and `'Helsinki Malmi airfield'` and check the list contents after this.
 
 ```python
 station_names.append("Helsinki lighthouse")
@@ -536,7 +536,7 @@ As you can see, we add values one at a time using `station_names.append()`. `lis
 
 ### Appending to an integer? Not so fast...
 
-Let’s consider our list `station_names`. As we know, we already have data in the list `station_names`, and we can modify that data using built-in methods such as `station_names.append()`. In this case, the method `.append()` is something that exists for lists, but not for other data types. It is intuitive that you might like to add (or append) things to a list, but perhaps it does not make sense to append to other data types. Let's create a variable `station_name_length` that we can use to store the length of the list `station_names`. We can then print the value of `station_name_length` to confirm the length is correct.
+Let’s consider our `station_names` list. As we know, we already have data in the list `station_names` and we can modify that data using built-in methods such as `station_names.append()`. In this case, the method `.append()` is something that exists for the `list` data type, but not for other data types. It is intuitive that you might like to add (or append) things to a list, but perhaps it does not make sense to append to other data types. Let's create a variable `station_name_length` that we can use to store the length of the list `station_names`. We can then print the value of `station_name_length` to confirm the length is correct.
 
 ```python
 station_name_length = len(station_names)
@@ -577,7 +577,7 @@ station_names.index("Helsinki Kumpula")
 
 The good news here is that our selected station name is only in the list once. Should we need to modify it for some reason, we also now know where it is in the list (index `2`).
 
-There are two other common methods for lists that we need to see. 
+There are two other common methods for lists that are quite useful. 
 
 
 ### Reversing a list
@@ -592,7 +592,7 @@ station_names.reverse()
 station_names
 ```
 
-Yay, it works! A common mistake when reversing lists is to do something like `station_names = station_names.reverse()`. **Do not do this!** When reversing lists with `.reverse()` the `None` value is returned (this is why there is no screen ouput when running `station_names.reverse()`). If you then assign the output of `station_names.reverse()` to `station_names` you will reverse the list, but then overwrite its contents with the returned value `None`. This means you’ve deleted the contents of your list!
+Yay, it works! A common mistake when reversing lists is to do something like `station_names = station_names.reverse()`. **Do not do this!** When reversing lists with `.reverse()` the `None` value is returned (this is why there is no screen ouput when running `station_names.reverse()`). If you then assign the output of `station_names.reverse()` to `station_names` you will reverse the list but then overwrite its contents with the returned value `None`. This means you’ve deleted the contents of your list!
 
 
 ### Sorting a list
@@ -607,7 +607,7 @@ station_names.sort()  # Notice no output here...
 station_names
 ```
 
-As you can see, the list has been sorted alphabetically using the `.sort()` method, but there is no screen output when this occurs. Again, if you were to assign that output to `station_names` the list would get sorted, but the contents would then be assigned `None`. And as you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighthouse` in the sorted list. This is because alphabetical sorting in Python places capital letters before lowercase letters.
+As you can see, the list has been sorted alphabetically using the `.sort()` method, but there is no screen output when this occurs. Again, if you were to assign that output to `station_names` the list would get sorted but the contents would then be assigned `None`. And as you may have noticed, `Helsinki Malmi airfield` comes before `Helsinki lighthouse` in the sorted list. This is because alphabetical sorting in Python places capital letters before lowercase letters.
 
 
 ## Making different data types work together
@@ -641,18 +641,18 @@ type(station_id)
 type(station_lat)
 ```
 
-As expected, we see that the `station_name` is a character string, the `station_id` is an integer, and the `station_lat` is a floating point number. Being aware of the data type of variables is important because some are not compatible with one another. Let's see what happens if we try to sum the variables `station_name` and `station_id`.
+As expected, we see that the `station_name` is a character string (type `str`), the `station_id` is an integer (type `int`), and the `station_lat` is a floating point number (type `float`). Being aware of the data type of variables is important because some are not compatible with one another. Let's see what happens if we try to sum the variables `station_name` and `station_id`.
 
 ```python tags=["raises-exception"]
 station_name + station_id
 ```
 
-Here we get a `TypeError` because Python does not know to combine a string of characters (`station_name`) with an integer value (`station_id`).
+Here we get a `TypeError` because Python does not know to sum a string of characters (`station_name`) and an integer value (`station_id`).
 
 
 ### Converting data from one type to another
 
-It is not the case that things like the `station_name` and `station_id` cannot be combined at all, but in order to combine a character string with a number we need to perform a data {term}`type conversion` to make them compatible. Let's convert `station_id` to a character string using the `str()` function. We can store the converted variable as `station_id_str`.
+It is not the case that things like the `station_name` and `station_id` cannot be combined at all, but in order to combine a character string with a number we need to perform a {term}`type conversion` to make them compatible. Let's convert `station_id` to a character string using the `str()` function. We can store the converted variable as `station_id_str`.
 
 ```python
 station_id_str = str(station_id)
@@ -668,7 +668,7 @@ type(station_id_str)
 station_id_str
 ```
 
-As you can see, `str()` converts a numerical value into a character string with the same numbers as before. Similar to using `str()` to convert numbers to character strings, `int()` can be used to convert strings or floating point numbers to integers and `float()` can be used to convert strings or integers to floating point numbers.
+As you can see, `str()` converts a numerical value into a character string with the same numbers as before. Similar to using `str()` to convert numbers to character strings, `int()` can be used to convert strings or floating point numbers to integers, and `float()` can be used to convert strings or integers to floating point numbers.
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 2.5
@@ -704,7 +704,7 @@ print(station_name + station_id_str)
 
 ### Combining text and numbers
 
-Although most mathematical operations operate on numerical values, a common way to combine character strings is using the addition operator `+`. Let's create a text string in the variable `station_name_and_id` that is the combination of the `station_name` and `station_id` variables. Once we define `station_name_and_id`, we can print it to the screen to see the result.
+Although most mathematical operations are applied to numerical values, a common way to combine character strings is using the addition operator `+`. Let's create a text string in the variable `station_name_and_id` that is the combination of the `station_name` and `station_id` variables. Once we define `station_name_and_id`, we can print it to the screen to see the result.
 
 ```python
 station_name_and_id = station_name + ": " + str(station_id)
@@ -719,9 +719,9 @@ Note that here we are converting `station_id` to a character string using the `s
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Formatting text (and numbers)
 
-The previous case showed a simple example of how it is possible to combine character strings and numbers together using the `+` operator between the different text components. Although this approach works, it can become quite laborious and error-prone when you have a more complicated set of textual and/or numerical components that you work with. Hence, next we show a few useful techniques that make manipulating strings easier and more efficient.
+The previous case showed a simple example of how it is possible to combine character strings and numbers together using the `+` operator between the different text components. Although this approach works, it can become quite laborious and error prone when you have a more complicated set of textual and/or numerical components that you work with. Hence, we next show a few useful techniques that make manipulating strings easier and more efficient.
 
-There are three approaches that can be used to manipulate strings in Python: (1) f-strings, (2) using the`.format()` method, and (3) using the % operator. We recommend using the f-string approach, but we also provide examples of the two other approaches because there are plenty of examples and code snippets on the web where these string formatting approaches are still used. Hence, it is good to be aware of them all. In addition, we show a few useful methods that make working with text in different ways possible.
+There are three approaches that can be used to manipulate strings in Python: (1) f-strings, (2) using the`.format()` method, and (3) using the `%` operator. We recommend using the f-string approach, but we also provide examples of the two other approaches because there are plenty of examples and code snippets on the web where these string formatting approaches are still used. Hence, it is good to be aware of them all. In addition, we show a few useful methods that make working with text in different ways possible.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
