@@ -182,17 +182,19 @@ class Polygon(shapely.geometry.base.BaseGeometry)
 ```
 <!-- #endregion -->
 
-If we want to create a polygon with a hole, we can do this by using parameters `shell` for the exterior and `holes` for the interiors as follows. Notice that because a `Polygon` can have multiple holes, the `hole_coords` variable below contains nested square brackets (`[[ ]]`), which is due to the possibility of having multiple holes in a single `Polygon`. First, let's define the coordinates for the exterior and interior rings:
+If we want to create a polygon with a hole, we can do this by using parameters `shell` for the exterior and `holes` for the interiors as follows. Notice that because a `Polygon` can have multiple holes, the `holes_coordinates` variable below contains nested square brackets (`[[ ]]`), which is due to the possibility of having multiple holes in a single `Polygon`. First, let's define the coordinates for the exterior and interior rings:
 
 ```python
-# Define the exterior
+# Define the exterior coordinates
 exterior = [(-180, 90), (-180, -90), (180, -90), (180, 90)]
 
-# Define the hole
-hole = [[(-170, 80), (-170, -80), (170, -80), (170, 80)]]
+# Define the hole coordinates (a single hole in this case)
+holes_coordinates = [[(-170, 80), (-170, -80), (170, -80), (170, 80)]]
 ```
 
-The attribute `exterior` contains the `x` and `y` coordinates of all the corners of the polygon as a list of tuples. For instance, the first tuple `(-180, 90)` contains coordinates for the top-left corner of the polygon. With these four coordinate tuples, we can first create a polygon without a hole:
+The attribute `exterior` contains the `x` and `y` coordinates of all the corners of the polygon as a list of tuples. For instance, the first tuple `(-180, 90)` contains coordinates for the top-left corner of the polygon. Similarly, the `holes_coordinates` variable contains the corner coordinates of a single polygon (inside the nested list) which will represent a single hole within our `Polygon`. 
+
+With the four coordinate tuples of the `exterior`, we can first create a polygon without a hole:
 
 ```python
 poly_without_hole = Polygon(shell=exterior)
@@ -202,10 +204,10 @@ poly_without_hole
 _**Figure 6.4**. A Polygon geometry (exterior)._
 
 
-In a similar manner, we can make a `Polygon` with a hole by passing the variable containing the coordinates of the hole into the parameter `holes`:
+In a similar manner, we can make a `Polygon` with holes by passing the `holes_coordinates` variable into the parameter `holes`:
 
 ```python
-poly_with_hole = Polygon(shell=exterior, holes=hole)
+poly_with_hole = Polygon(shell=exterior, holes=holes_coordinates)
 poly_with_hole
 ```
 
