@@ -21,7 +21,7 @@ In the previous section we introduced *{term}`lists <list>`* in Python, one form
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## A (bad) example
 
-Let’s consider an example using the list below:
+Let’s consider an example using the `list` below:
 <!-- #endregion -->
 
 ```python
@@ -48,9 +48,9 @@ european_cities[3]
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 But this is a bad idea. Why? Well there are two reasons.
-First, it does not scale nicely for long lists, and will take forever to type in.
+First, it does not scale nicely for long lists and will take forever to type in.
 Second, it won’t work if the length of the list has fewer than 4 cities (or more than 4 cities for that matter...).
-Let's see an example with a new list.
+Let's see an example with a new `list`.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -110,7 +110,7 @@ for city in us_cities:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### for loop format
 
-For loops in Python have the general form below.
+`for` loops in Python have the general form below.
 
 ```python
 for variable in collection:
@@ -119,12 +119,12 @@ for variable in collection:
 
 Let's break down the code above to see some essential aspect of `for` loops:
 
-- The `variable` can be any name you like.
+- The `variable` can be any valid variable name you like.
 - The statement of the `for` loop must end with a `:`
-- The code that should be executed as part of the loop must be indented beneath the `for` statement. The typical indentation is 4 spaces.
+- The code that should be executed as part of the loop must be indented beneath the `for` statement. The recommended indentation is 4 spaces.
 - There is no additional special word needed to end the loop, you simply change the indentation back to normal.
 
-In summary, `for` loops are useful to repeat some part of the code a *finite* number of times.
+In summary, `for` loops are useful to repeat some part of the code a finite number of times.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -177,13 +177,13 @@ for weather in weather_conditions:
 What is its value of `weather` after the `for` loop has completed?
 
 ```python
-print("After the loop, weather is", weather)
+print(f"After the loop, weather is {weather}")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## For loops using the range function
 
-A loop can be used to iterate over any list of values in Python. So far we have considered only iterating over lists, but we could also write a loop that performs a calculation a specified number of times by using the `range()` function. Let's consider an example where we use a for loop with `value` as the loop variable and `range(5)` as the collection. Let's see what happens if we print `value` at each iteration.
+A loop can be used to iterate over any list of values in Python. So far we have considered only iterating over lists, but we could also write a loop that performs a calculation a specified number of times by using the `range()` function. Let's consider an example where we use a `for` loop with `value` as the loop variable and `range(5)` as the collection. Let's see what happens if we print `value` at each iteration.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -192,7 +192,7 @@ for value in range(5):
 ```
 
 <!-- #region -->
-In this case, we use a special function called `range()` to give us a list of 5 numbers `[0, 1, 2, 3, 4]` and then we print each number in the list to the screen.
+In this case, we use a special function called `range()` to give us a list of 5 numbers `[0, 1, 2, 3, 4]` and then we print a number in the list to the screen during each iteration.
 When given an integer (whole number) as an argument, `range()` will produce a list of numbers with a length equal to the specified `number`.
 The list starts at `0` and ends with `number - 1`.
 You can learn a bit more about range by typing `help(range)`.
@@ -285,14 +285,14 @@ cities = ["Helsinki", "Stockholm", "Oslo", "Reykjavik", "Copenhagen"]
 countries = ["Finland", "Sweden", "Norway", "Iceland", "Denmark"]
 ```
 
-As you can see we have 5 cities and 5 corresponding counties. Let's print out each pair using a single for loop.
+As you can see we have 5 cities and 5 corresponding countries. Let's print out each pair using a single `for` loop.
 
 ```python
 for i in range(len(cities)):
     print(cities[i], "is the capital of", countries[i])
 ```
 
-Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. We'll get more practice with this kind of thing in the exercises for this week. In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
+Cool. So as you can see, the index `i` is used in this case to access each item in the two lists of cities and countries and allow us to print out the city/country pairs. In the example above, we used the length of the list `cities` in the `range()` function. We could just as easily used the list `countries` to define the values of `i` since both lists are the same length.
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 2.8

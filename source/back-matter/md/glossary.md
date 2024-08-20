@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -79,6 +79,9 @@ Georeferencing
 IDE
   See {term}`Integrated Development Environment`.
 
+Immutable
+  A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Mutable`.
+
 Index
   A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
 
@@ -126,8 +129,14 @@ Markdown
 Metadata
   Metadata refers to data that provides information about other data. It often describes characteristics of the data, such as its content, quality, format, and other relevant characteristics. For example, the metadata of a satellite image may include information about the image's resolution, file size, coordinate reference system, and the date it was taken. 
 
+Method
+  A function that is associated with an instance of a specific Python data type. Methods can be accessed by typing the variable name of the instance, a period, and the function name.
+
 Module
   A file containing Python definitions and statements. Module files have the `.py` file extension.
+
+Mutable
+  A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Immutable`.
 
 Program
   A detailed list of step-by-step instructions that tell the computer exactly what to do.
@@ -183,6 +192,9 @@ Topological spatial relations
 Tuple
   A [tuple](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences) is a Python data structure that consists of a number of values separated by commas. Coordinate pairs are often represented as a tuple, such as: `(60.192059, 24.945831)`. Tuples belong to [sequence data types](https://docs.python.org/3/library/stdtypes.html#typesseq) in Python. Other sequence data types are lists and ranges. Tuples have many similarities with lists and ranges, but they are often used for different purposes. The main difference between tuples and lists is that tuples are [immutable](https://docs.python.org/3/glossary.html#term-immutable), which means that the contents of a tuple cannot be altered (while lists are mutable; you can, for example, add and remove values from lists).
 
+Type conversion
+  Changing the data type of a Python object. For example, `float(5)`.
+
 Unary union
   The unary union operation takes multiple geometries and merges them into a single geometry. This is useful when you have a collection of shapes and you want to treat them as a single entity for analysis or visualization.
 
@@ -197,4 +209,8 @@ Well-known binary
 
 Well-known text
   Well-known text (WKT) is a text markup language for representing vector geometry objects. WKT can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m). The binary equivalent for WKT is `Well-known binary` format.
+```
+
+```python
+
 ```
