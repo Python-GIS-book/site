@@ -424,7 +424,7 @@ cute_animals[-2]
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Modifying list values
 
-Another nice feature of lists is that they are {term}`mutable`, meaning that the values in a list that has been defined are able to be modified. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
+Another nice feature of lists is that they are {term}`mutable`, meaning that the values in a list that has been defined are able to be modified. The {term}`immutable` equivalent of a list in Python is called a {term}`tuple`, which we will use later in this part of the book. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
 <!-- #endregion -->
 
 ```python
