@@ -16,7 +16,7 @@ jupyter:
 # Working with map projections
 <!-- #endregion -->
 
-In Chapter 5, we learned that the Coordinate Reference System (CRS) describes how geometries are related to the places on Earth and what are the core components of a CRS. Our main tool for managing coordinate reference systems is the [PROJ library](https://proj.org/) [^proj] which can be used through the [pyproj](https://pyproj4.github.io/pyproj/stable/) [^pyproj] Python library. Pyproj is bundled into geopandas and it can be used to access the CRS information of a given geographic dataset and also for reprojecting the data from one coordinate system to another. In the following, we will demonstrate how to work with coordinate reference systems in geopandas by using a country border dataset from Europe. We will reproject the dataset from the original WGS84 coordinate system into a Lambert Azimuthal Equal Area projection which is the projection that European Union [recommends for Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) [^EU_projection].
+In Chapter 5, we learned that the Coordinate Reference System (CRS) describes how geometries are related to the places on Earth and what are the core components of a CRS. Our main tool for managing coordinate reference systems is the [PROJ library](https://proj.org/) [^proj] which can be used through the [pyproj](https://pyproj4.github.io/pyproj/stable/) [^pyproj] Python library. `Pyproj` is bundled into `geopandas` and it can be used to access the CRS information of a given geographic dataset and also for reprojecting the data from one coordinate system to another. In the following, we will demonstrate how to work with coordinate reference systems in `geopandas` by using a country border dataset from Europe. We will reproject the dataset from the original WGS84 coordinate system into a Lambert Azimuthal Equal Area projection which is the projection that European Union [recommends for Europe](http://mapref.org/LinkedDocuments/MapProjectionsForEurope-EUR-20120.pdf) [^EU_projection].
 
 Let's start by reading the data from the `eu_countries_2022.gpkg` file. When reading the data into `GeoDataFrame` with `geopandas`, the CRS information is automatically read from the datafile and stored into the `.crs` attribute:
 
@@ -40,7 +40,7 @@ What geopandas returns here is in fact a `CRS` object from the pyproj library. T
 data["geometry"].head()
 ```
 
-As we can see, the coordinate values of the MultiPolygons here vary between 6-50 (approximately). Hence, our geometries very much look like {term}`decimal degrees` because all the coordinate values (such as `13.68400 46.43750`) are within the range of -180 to +180 (longitude) and -90 to +90 (latitude). WGS84 is one of the most typical CRS to use with datasets that cover data from different parts of the world. However, WGS84 is not really a good coordinate system for representing European borders on a map because the areas get distorted. Hence, it is a good idea to convert these geometries into [Lambert Azimuthal Equal Area projection](http://spatialreference.org/ref/epsg/etrs89-etrs-laea/) [^LAEA] (EPSG:3035) which is a good option for creating maps with country-level data in Europe.
+As we can see, the coordinate values of the MultiPolygons here vary between 6-50 (approximately). Hence, our geometries very much look like {term}`decimal degrees` because all the coordinate values (such as `13.68400 46.43750`) are within the range of -180 to +180 (longitude) and -90 to +90 (latitude). WGS84 is one of the most typical CRS to use with datasets that cover data from different parts of the world. However, WGS84 is not really a good coordinate system for representing European borders on a map because the areas get distorted, especially towards the North pole. Hence, it is a good idea to convert these geometries into [Lambert Azimuthal Equal Area projection](http://spatialreference.org/ref/epsg/etrs89-etrs-laea/) [^LAEA] (EPSG:3035) which is a good option for creating maps with country-level data in Europe.
 
 
 ## Reprojecting a GeoDataFrame
@@ -209,16 +209,16 @@ gdf = gpd.GeoDataFrame({"geometry": Point(24.950899, 60.169158)}, index=[0])
 print(gdf.crs)
 ```
 
-As we see, the `GeoDataFrame` does not have CRS specified at this stage which is a problem, because the GIS systems cannot work with this kind of dataset. The coordinates for our point are represented in decimal degrees, hence the CRS of our `GeoDataFrame` should be WGS84. We can define the CRS for our data in a few different ways, but one of the approaches is to use the `CRS.from_epsg()` method from the pyproj library, and store the information to the `.crs` attibute of the `GeoDataFrame`:
+As we see, the `GeoDataFrame` does not have CRS specified at this stage which is a problem, because the GIS systems cannot work with this kind of dataset. The coordinates for our point are represented in decimal degrees, hence the CRS of our `GeoDataFrame` should be WGS84. We can define the CRS for our data in a few different ways, but one of the approaches is to use the `CRS.from_epsg()` method from the `pyproj` library, and update the CRS information of the the `GeoDataFrame` with the `.set_crs()` method:
 
 ```python
 from pyproj import CRS
 
-gdf.crs = CRS.from_epsg(4326)
+gdf = gdf.set_crs(CRS.from_epsg(4326))
 gdf.crs
 ```
 
-As we can see, now the `.crs` attribute was updated with information about the coordinate reference system and we can for example reproject the data to another CRS if needed. Without a defined CRS, you cannot reproject the data.  You can also specify the CRS for a given `GeoDataFrame` by using `.set_crs()` method: 
+As we can see, now the `.crs` attribute was updated with information about the coordinate reference system and we can for example reproject the data to another CRS if needed. Without a defined CRS, you cannot reproject the data. You can also provide the `CRS` information using the EPSG number and pass it to the parameter `epsg` as follows:
 
 ```python
 gdf = gdf.set_crs(epsg=4326)
@@ -229,13 +229,11 @@ Naturally, you do not necessarily need to define the CRS separately after creati
 
 ```python
 # Create GeoDataFrame with one point and define the CRS
-gdf = gpd.GeoDataFrame(
-    {"geometry": Point(24.950899, 60.169158)}, index=[0], crs="EPSG:4326"
-)
+gdf = gpd.GeoDataFrame(geometry=[Point(24.950899, 60.169158)], crs="EPSG:4326")
 gdf.crs
 ```
 
-As you can see, now the dataset contains the CRS information immediately after the dataset was created. You can pass the CRS information for the `crs` parameter in various formats (e.g. as EPSG number, Proj4 or WKT text) and pyproj / geopandas libraries try to automatically set the CRS information for the data.  
+As you can see, now the dataset contains the CRS information immediately after the dataset was created. You can pass the CRS information for the `crs` parameter in various formats (e.g. as EPSG number, Proj4 or WKT text) and `pyproj` / `geopandas` libraries try to automatically set the CRS information for the data.  
 
 
 ## Defining different map projections
@@ -289,8 +287,7 @@ As the Figure 6.29 shows, the Eckert IV map projection provides a more balanced 
 
 ```python
 proj_string = "+proj=ortho +lat_0=60.00 +lon_0=24.0000"
-ortho = CRS.from_proj4(proj_string)
-admin.to_crs(ortho).plot()
+admin.to_crs(crs=proj_string).plot()
 plt.axis("off")
 plt.title("Orthographic");
 ```
