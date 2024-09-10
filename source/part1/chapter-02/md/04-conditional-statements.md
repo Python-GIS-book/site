@@ -15,20 +15,20 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Conditional statements
 
-Next, we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
+In this section, we will learn how to make choices in our code using conditional statements (`if`, `elif`, `else`) and Boolean values (`True`, `False`). 
 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Basics of conditional statements
 
-Conditional statements can change the code behaviour based on certain conditions. The idea is simple: If a condition is met, then a set of actions is performed. 
+Conditional statements can change the code behaviour based on certain conditions. The idea is simple: If a condition is met, then a set of actions will be performed. 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### A simple conditional statement
 
-Let’s look at a simple example with temperatures, and check if temperature 17 (celsius degrees) is hot or not:
+Let’s look at a simple example with temperatures, and check if a temperature of 17 degrees Celsius is hot or not.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -41,11 +41,11 @@ else:
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-What did we do here? First, we used the `if` and `else` statements to determine what parts of the code to execute. The `if` statement checks to see whether the variable value for `temperature` is greater than 25. If this condition were true, `'17 is hot'` would be written to the screen. Since 17 is smaller than 25, the `if` condition is false and thus the code beneath `else` is executed. The code under the `else` statement will run whenever the `if` condition is false.
+What did we do here? First, we used the `if` and `else` statements to determine what parts of the code to execute. The `if` statement checks to see whether the variable value for `temperature` is greater than 25. If this condition is true, `'17 is hot'` will be written to the screen. Since 17 is smaller than 25, the `if` condition is false and thus the code beneath the `else` statement is executed. The code under the `else` statement will run whenever the `if` condition is false.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Let's update `temperature` to a "hot" temperature and repeat the same process:
+Let's update `temperature` to a "hot" temperature and repeat the same process.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -58,7 +58,7 @@ else:
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-In this case, the `if` statement is true, and thus `'30 is hot'` is printed.
+In this case, the `if` statement is true and thus `'30 is hot'` is printed.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -73,7 +73,7 @@ if temperature > 25:
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Makes sense, right? Conditional statements always check if the conditional expression evaluates as `True` or `False`. If true, the codeblock under the conditional statement gets executed. Nothing is printed to the screen if temperature is smaller than 25.
+Makes sense, right? Conditional statements always check if the conditional expression evaluates as `True` or `False`. If true, the codeblock under the conditional statement gets executed. In this example, nothing is printed to the screen if temperature is smaller than 25.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -90,14 +90,14 @@ else:
     print("No raincoat needed.")
 ```
 
-Similarly as with for loops, Python uses colons (`:`) and whitespace (indentations; often four spaces) to structure conditional statements. If the condition is `True`, the indented code block after the colon (`:`) is executed. The code block may contain several lines of code, but they all must be indented identically You will receive an `IndentationError`, a `SyntaxError`, or unwanted behavior if you haven't indented your code correctly.
+As with `for` loops, Python uses colons (`:`) and white space (indentations) to structure conditional statements. If the condition is `True`, the indented code block after the colon (`:`) is executed. The code block may contain several lines of code, but they all must be indented equally. You will receive an `IndentationError`, a `SyntaxError`, or unwanted behavior if you haven't indented your code correctly.
 
-Note also that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = 'Rain'`, the comparsion `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
+Note also that the case of the text being compared (uppercase or lowercase) is important. For instance, in the example above, if we define `weather = 'Rain'`, the comparison `weather == 'rain'` would be false. One possible solution to this problem is to use the `.lower()` method for strings, which would convert the text to which it is applied to lowercase. In the example here, if we define `weather = Rain`, the comparison `weather.lower() == 'rain'` would be true!
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 2.9
 
-We might also need some other rainwear on a rainy day. Think about how you could add another instruction after the `weather == rain` condition so that the code would tell us to:
+We might also need some other rain gear on a rainy day. Think about how you could add another instruction after the `weather == rain` condition so that the code would tell us to:
 
 ``` 
 Wear a raincoat
@@ -139,7 +139,7 @@ Comparison operators such as `>` and `==` compare the values on each side of the
 
 ### Boolean values
 
-As shown in Table 2.3, comparison operations yield boolean values (`True` or `False`). In Python, the words `True` and `False` are reserved for these Boolean values, and cannot be used for anything else. 
+As shown in Table 2.3, comparison operations yield Boolean values (`True` or `False`). In Python, the words `True` and `False` are reserved for these Boolean values and cannot be used for anything else. 
 
 Let's check the current value of the conditions we used in the previous examples:
 
@@ -153,7 +153,7 @@ weather == "rain"
 
 ### if, elif and else
 
-We can link several conditions together using the "else if" -statement `elif`. Python checks the `elif` and `else` statements only if previous conditions were `False`. You can have multiple `elif` statements to check for additional conditions. Let's create a chain of `if` `elif` and `else` -statements that are able to tell us if the temperature is above freezing, exactly at freezing point or below freezing:
+We can link several conditions together using the "else if" statement `elif`. Python checks the `elif` and `else` statements only if previous conditions were `False`. You can have multiple `elif` statements to check for additional conditions. Let's create a chain of `if`, `elif`, and `else` statements that are able to tell us if the temperature is above freezing, exactly at the freezing point, or below freezing.
 
 ```python
 temperature = -3
@@ -161,17 +161,17 @@ temperature = -3
 
 ```python
 if temperature > 0:
-    print(temperature, "degrees celsius is above freezing")
+    print(f"{temperature} degrees Celsius is above freezing")
 elif temperature == 0:
-    print(temperature, "degrees celsius is at the freezing point")
+    print(f"{temperature} degrees Celsius is at the freezing point")
 else:
-    print(temperature, "degrees celsius is below freezing")
+    print(f"{temperature} degrees Celsius is below freezing")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 2.10
 
-Let's assume that yesterday it was 14°C, it is 10°C outside today, and tomorrow it will be 13°C.
+Let's assume that yesterday it was 14 °C, it is 10 °C outside today, and tomorrow it will be 13 °C.
 The following code compares these temperatures and prints something to the screen based on the comparison.
 
 ```python
@@ -204,7 +204,7 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 
 ### Combining conditions
 
-We can also use `and` and `or` to combine multiple conditions on boolean values (Table 2.4).
+We can also use `and` and `or` to combine multiple conditions on Boolean values (Table 2.4).
 
 : _**Table 2.4**. Logic for the `and` and `or` keywords in Python._
 
@@ -242,7 +242,7 @@ Later in this book we will also see how to use the bitwise operators `&` for `an
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 2.11
 
-Let's return to our example about making decisions on a rainy day. Imagine that we consider not only the rain, but also the wind speed (in meters per second). If it is windy or raining, we’ll just stay at home. If it's not windy or raining, we can go out and enjoy the weather! 
+Let's return to our example about making decisions on a rainy day. Imagine that we consider not only the rain but also the wind speed (in meters per second). If it is windy or raining, we’ll just stay at home. If it's not windy or raining, we can go out and enjoy the weather! 
 
 Let's set 10 m/s as our comfort limit in the conditional statement and see what our Python program tells us to do in these conditions:
 <!-- #endregion -->
@@ -271,7 +271,7 @@ As you can see, we better just stay home if it is windy or raining! If you don't
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Combining for loops and conditional statements
 
-Finally, we can also combine for-loops and conditional statements. Let's iterate over a list of temperatures, and check if the temperature is hot or not:
+Finally, we can also combine `for` loops and conditional statements. Let's iterate over a list of temperatures and check if the temperature is hot or not:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
