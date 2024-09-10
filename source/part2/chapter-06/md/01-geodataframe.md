@@ -320,11 +320,13 @@ data_kml.head()
 However, it easy to filter the extra columns and only keep the ones that we are interested in:
 
 ```python
-data_kml = data_kml[["pop2019", "tract", "geometry"]].copy()
-data_kml.head(2)
+data = data_kml[["pop2019", "tract", "geometry"]].copy()
+data.head(2)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
+### Reading from a ZIP file
+
 Lastly, we demonstrate how it is possible to read data directly from a ZIP file format which can be quite useful especially if you are working with large datasets or a collection of multiple files stored into a single ZIP archive. ZIP file is an archive data format where the data is compressed efficiently. For instance, after zipping Shapefiles, the disk space needed to store the data in the given format will be significantly lower. To read the data from ZIP files, we can use the built-in Python library called **zipfile** and its `ZipFile` object which makes it possible to work with compressed ZIP files. The following example shows how to read data from a compressed ZIP file. Let's start by opening the file into a variable `z` and then read the names of the files stored inside the archive with the method `.namelist()`:
 <!-- #endregion -->
 
@@ -338,9 +340,9 @@ with ZipFile(fp) as z:
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As you can see, the given `ZipFile` which is opened in variable `z` contains only a single GeoPackage called `building_points_helsinki.gpkg`. The `with ZipFile(fp) as z:` command here is a standard Python convention to open files in read-format from Zip-files. 
+As you can see, the given `ZipFile` which is opened in variable `z` contains only a single GeoPackage called `building_points_helsinki.gpkg`. The `with ZipFile(fp) as z:` command here is a standard Python convention to open files in read-format from ZIP files. 
 
-Now as we know the contents of the Zip-file, it is easy to read the contents of the `building_points_helsinki.gpkg` stored inside the file using `geopandas`. When there is only one file inside the Zip-file and there are no subfolders inside (as in this example), you can read the content directly into a `GeoDataFrame` using the `.read_file()` function:
+Now as we know the contents of the ZIP file, it is easy to read the contents of the `building_points_helsinki.gpkg` stored inside the file using `geopandas`. When there is only one file inside the ZIP archive and there are no subfolders inside (as in this example), you can read the content directly into a `GeoDataFrame` using the `.read_file()` function:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -349,9 +351,9 @@ buildings.head(2)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Ta-da! Now we have succesfully read the GeoPackage from the given Zip-file into a variable `buildings`. 
+Ta-da! Now we have succesfully read the GeoPackage from the given ZIP file into a variable `buildings`. 
 
-However, sometimes you might have multiple files and folders stored inside a Zip-archive as in the example below:
+However, sometimes you might have multiple files and folders stored inside a ZIP archive as in the example below:
 <!-- #endregion -->
 
 ```python
@@ -360,7 +362,7 @@ fp = "data/Helsinki/Kamppi_layers.zip"
 with ZipFile(fp) as z:
     print(z.namelist())
 ```
-As can be seen from here, there are two folders inside the Zip-archive, `natural/` and `built_environment` which contain three different GeoPackages (data for parks, buildings and roads). To be able to read the contents of these files, we need to create a filepath that points to a given file inside the Zip-file considering the folder structure. This can be done easily with a special syntax in which we separate the actual filepath to the Zip-file on a local disk with `!` (explanation mark) character from the folder and file structure inside the Zip-file as follows:
+As can be seen from here, there are two folders inside the ZIP archive: `natural/` and `built_environment/`. These subfolders contain three different GeoPackages (data for parks, buildings and roads). To be able to read the contents of these files, we need to create a filepath that points to a given file inside the ZIP archive considering the folder structure. This can be done easily with a special syntax in which we separate the actual filepath to the ZIP file on a local disk with `!` (explanation mark) character from the folder and file structure inside the archive as follows:
 
 
 ```python
@@ -369,13 +371,13 @@ parks_fp = "data/Helsinki/Kamppi_layers.zip!natural/Kamppi_parks.gpkg"
 parks = gpd.read_file(parks_fp)
 parks.head(2)
 ```
-Here, the `data/Helsinki/Kamppi_layers.zip` part of the filepath points to the location of the Zip-file on the disk, whereas the `!natural/Kamppi_parks.gpkg` part corresponds to the structure inside the Zip-file and points to the file that we want to read, i.e. `Kamppi_parks.gpkg`. This works similarly regardless of how many subfolders you have inside the Zip-file as long as the `!` character is used to differentiate the contents of the archive from the location of the Zip-file stored on your computer. If you don't have subfolders inside the Zip-file but have multiple files stored at the root of the archive, you would just modify the filepath accordingly without the subfolder. In the following we demonstrate this by having two files at the root of the Zip-file and one file located deeper inside the folder structure:
+Here, the `data/Helsinki/Kamppi_layers.zip` part of the filepath points to the location of the ZIP file on the disk, whereas the `!natural/Kamppi_parks.gpkg` part corresponds to the structure inside the archive and points to the file that we want to read, i.e. `Kamppi_parks.gpkg`. This works similarly regardless of how many subfolders you have inside the ZIP file as long as the `!` character is used to differentiate the contents of the archive from the location of the ZIP file stored on your computer. If you don't have subfolders inside the ZIP archive but have multiple files stored at the root of the archive, you would just modify the filepath accordingly without the subfolder. In the following we demonstrate this by having two files at the root of the ZIP file and one file located deeper inside the folder structure:
 
 - `data/My_archive.zip!My_first_datafile.gpkg`
 - `data/My_archive.zip!My_second_datafile.gpkg`
 - `data/My_arhive.zip!Subfolder/Another_folder/My_third_datafile.gpkg`
 
-Thus, in a similar manner, we can also read the two other files from the `Kamppi_layers.zip` Zip-archive:
+Thus, in a similar manner, we can also read the two other files from the `Kamppi_layers.zip` ZIP archive:
 
 ```python
 roads_fp = "data/Helsinki/Kamppi_layers.zip!built_environment/Kamppi_roads.gpkg"
@@ -392,7 +394,7 @@ buildings.head(2)
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Writing vector data
 
-We can save spatial data to various vector data formats using the `.to_file()` method of the `GeoDataFrame`. Similarly as when reading data, this functionality also relies on the fiona library under the hood. When writing a `GeoDataFrame` into a file, you basically only need to pass a filename/path to the `.to_file()` method, which will then write the data into the given file. It is possible to specify the output file format using the `driver` parameter. However, for most file formats it is not needed as the tool is able to infer the driver from the file extension (similarly as when reading data):
+We can save spatial data to various vector data formats using the `.to_file()` method of the `GeoDataFrame`. Similarly as when reading data, this functionality also relies on the `pyogrio` library under the hood. When writing a `GeoDataFrame` into a file, you basically only need to pass a filename/path to the `.to_file()` method, which will then write the data into the given file. It is possible to specify the output file format using the `driver` parameter. However, for many file formats it is not needed as the tool is able to infer the driver from the file extension (similarly as when reading data):
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -419,10 +421,6 @@ data.to_file(outfp, driver="LIBKML")
 # Write to File Geodatabase
 outfp = "data/Temp/austin_pop_2019.gdb"
 data.to_file(outfp, driver="OpenFileGDB")
-```
-
-```python
-print(data.head())
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
