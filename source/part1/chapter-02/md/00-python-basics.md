@@ -169,11 +169,11 @@ print("Temperature in Fahrenheit:", 9 / 5 * temp_celsius + 32)
 Define a variable and display its value on the screen. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name.
 <!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true tags=["remove_book_cell", "hide-cell"] slideshow={"slide_type": ""}
+```python deletable=true editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 my_variable = "Python is cool!"
@@ -384,7 +384,12 @@ Although most mathematical operations are applied to numerical values, a common 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-temp_and_forecast = "The current temperature is " + str(tempFahrenheit) + " and the forecast for today is " + weatherForecast
+temp_and_forecast = (
+    "The current temperature is "
+    + str(tempFahrenheit)
+    + " and the forecast for today is "
+    + weatherForecast
+)
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
