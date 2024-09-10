@@ -115,7 +115,7 @@ Use your Python skills to calculate the sine of pi. What value do you expect for
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
+```python deletable=true editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 math.sin(math.pi)
@@ -169,11 +169,11 @@ print("Temperature in Fahrenheit:", 9 / 5 * temp_celsius + 32)
 Define a variable and display its value on the screen. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name.
 <!-- #endregion -->
 
-```python tags=["remove_cell"]
+```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true tags=["hide_cell", "remove_book_cell"]
+```python deletable=true editable=true tags=["remove_book_cell", "hide-cell"] slideshow={"slide_type": ""}
 # Solution
 
 my_variable = "Python is cool!"
@@ -278,7 +278,7 @@ As it turns out, it is possible some math with character strings in Python. Defi
 # Use this cell to enter your solution.
 ```
 
-```python deletable=true editable=true slideshow={"slide_type": ""} tags=["hide_cell", "raises-exception", "remove_book_cell"]
+```python deletable=true editable=true slideshow={"slide_type": ""} tags=["raises-exception", "remove_book_cell", "hide-cell"]
 # Solution
 
 first_variable = "Python"
@@ -414,7 +414,7 @@ cute_animals = ["bunny", "chick", "duckling", "kitten", "puppy"]
 # Use this cell to enter your solution.
 ```
 
-```python editable=true slideshow={"slide_type": ""} tags=["hide_cell", "remove_book_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 cute_animals = ["bunny", "chick", "duckling", "kitten", "puppy"]
@@ -680,7 +680,7 @@ What output would you expect to see when you execute `print(station_id + station
 # Use this cell to enter your solution.
 ```
 
-```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 print(station_id + station_lon)
@@ -696,7 +696,7 @@ What output would you expect to see when you execute `print(station_name + stati
 # Use this cell to enter your solution.
 ```
 
-```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide_cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
 print(station_name + station_id_str)
