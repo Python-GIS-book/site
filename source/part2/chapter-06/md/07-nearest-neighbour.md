@@ -541,10 +541,10 @@ print("Average number of buildings:", stops["building_cnt"].mean().round(1))
 By calculating simple statistics from the `building_cnt` column, we can see that on average there are 32.2 buildings within 200 meters from the public transport stops and the maximum number of buildings within this distance is whopping 181 buildings. This indicates very dense neighborhood having numerous buildings in a small area. To better understand, where this kind of neighborhood is located and what does it look like, we can make a map by selecting the rows with highest number of buildings and then plotting the stop and building points within radius:
 
 ```python
-filter = stops["building_cnt"] == stops["building_cnt"].max()
-building_ids = stops.loc[filter].building_ids_within_range.values[0]
+filtered = stops["building_cnt"] == stops["building_cnt"].max()
+building_ids = stops.loc[filtered].building_ids_within_range.values[0]
 
-m = stops.loc[filter].explore(
+m = stops.loc[filtered].explore(
     tiles="CartoDB Positron", color="red", marker_kwds={"radius": 5}, max_zoom=16
 )
 building_points.loc[building_ids].explore(m=m)
