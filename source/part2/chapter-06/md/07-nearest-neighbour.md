@@ -74,7 +74,7 @@ ax2.set_title("Stops");
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.43**. Maps representing the buildings and public transport stops which we use to find the closest stop for each building._
 
-As mentioned earlier, finding the nearest geometries between two GeoDataFrames (here building and stop points) can be done easily using the `.sjoin_nearest()` method in geopandas. As the name implies, this method is actually designed to merge data between GeoDataFrames in a similar manner as with regular `.sjoin()` method. However, in this case the method is actually searching for the closest geometries instead of relying on spatial predicates, such as *within*. The `sjoin_nearest()` can be used for different geometry types, so the input geometries do not necessarily need to be Point objects as in our example. Under the hood, the method uses a *{term}`spatial index`* called `STRTree` ({cite}`leutenegger_1997`) which is an efficient implementation of the *{term}`R-tree`* dynamic index structure for spatial searching ({cite}`guttman_1984`). The STRTree is implemented in the `shapely` library (used by geopandas) and the technique makes the nearest neighbor queries very efficient. You can read more about spatial indices in Appendices section of the book. For the method to work properly, it is recommended to ensure that the both GeoDataFrames are having the same coordinate reference system (CRS), and preferably having a projected (metric) CRS because that ensures that the reported distances are meaningful (in meters) and correct. Hence, let's start by reprojecting our latitude and longitude values into a metric system using the national EUREF-FIN coordinate reference system (EPSG code 3067) for Finland:
+As mentioned earlier, finding the nearest geometries between two GeoDataFrames (here building and stop points) can be done easily using the `.sjoin_nearest()` method in geopandas. As the name implies, this method is actually designed to merge data between GeoDataFrames in a similar manner as with regular `.sjoin()` method. However, in this case the method is actually searching for the closest geometries instead of relying on spatial predicates, such as *within*. The `sjoin_nearest()` can be used for different geometry types, so the input geometries do not necessarily need to be Point objects as in our example. Under the hood, the method uses a *{term}`spatial index`* called `STRTree` ({cite}`leutenegger_1997`) which is an efficient implementation of the *{term}`R-tree`* dynamic index structure for spatial searching ({cite}`guttman_1984`). The STRTree is implemented in the `shapely` library (used by `geopandas`) and the technique makes the nearest neighbor queries very efficient. You can read more about spatial indices in Appendices section of the book. For the method to work properly, it is recommended to ensure that the both GeoDataFrames are having the same coordinate reference system (CRS), and preferably having a projected (metric) CRS because that ensures that the reported distances are meaningful (in meters) and correct. Hence, let's start by reprojecting our latitude and longitude values into a metric system using the national EUREF-FIN coordinate reference system (EPSG code 3067) for Finland:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -111,27 +111,28 @@ closest_limited
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 As we can see, there was a slight improvement in the execution time compared to the previous call without specifying the `max_distance` parameter. The difference can be more significant if you have larger datasets or more complicated geometries (e.g. Polygons). One important aspect to notice from these results is that the number of rows has decreased significantly: from 160 to 40 thousand buildings. This happens because our search distance was very low (100 meters), and as a consequence, there were many buildings that did not have any stops within 100 meter radius from them. Because the default join type in `sjoin_nearest` is `inner` join, all the records that did not have a stop within 100 meters were dropped. If you would like to keep all the records in the results, to e.g. investigate which buildings do not have any stops within the search radius, you can add parameter `how="left"`, which will retain all buildings from the original GeoDataFrame.
 
-In some cases, you might actually want to connect the nearest neighbors to each other with a straight line. For doing this, we need to merge also the Point geometries from the other layer into our results, which can then be used to create a LineString connecting the points to each other. This can be useful for many purposes, but in our case, we want to do this to be able to validate whether our results are correct. For merging the closest stop geometries into our results, we can take advantage of the `index_right` column in our table and conduct a normal table join using the `.merge()` method. Below, we first store the index of the `stops` GeoDataFrame into a column called `stop_index` and then use this to make a table join with our `closest` GeoDataFrame. Notice that we only keep the `stop_index` and `geometry` columns from the `stops` GeoDataFrame because all the other attributes already exist in our results: 
+In some cases, you might actually want to connect the nearest neighbors to each other with a straight line. For doing this, we need to merge also the Point geometries from the other layer into our results, which can then be used to create a LineString connecting the points to each other. This can be useful for many purposes, but in our case, we want to do this to be able to validate whether our results are correct. For merging the closest stop geometries into our results, we can take advantage of the `index_right` column in our table and conduct a normal table join using the `.merge()` method. Below, we create a table join between the tables using the `.merge()` and use the `"index_right"` column in the `closest` GeoDataFrame as a key on the left table while the index of the `stops` is used as the key on the right table. Notice that we only keep the `geometry` columns from the `stops` GeoDataFrame because all the other attributes already exist in our results: 
 <!-- #endregion -->
 
-```python editable=true slideshow={"slide_type": ""}
-stops["stop_index"] = stops.index
-closest = closest.merge(
-    stops[["stop_index", "geometry"]], left_on="index_right", right_on="stop_index"
-)
+```python
+closest = closest.merge(stops[[stops.active_geometry_name]], left_on="index_right", right_index=True)
 closest.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As a result, we now brought two new columns into our results, namely `stop_index` and `geometry_y`. Because there was a column called `geometry` in both GeoDataFrames, geopandas automatically renamed the columns into `geometry_x` and `geometry_y` respectively. Now we have all the data that we need to create a connecting `LineString` between the buildings and the closest stops. We can do this by looping over the rows in our `closest` GeoDataFrame using the `.apply()` method (see Chapter 3.3 for more details) and then create the line by calling the shapely's `LineString` object which takes the Point geometries as input. We store these LineStrings into a column `geometry` which we lastly set to be the active geometry of the GeoDataFrame:    
+As a result, we now brought a new column into our results, namely the `geometry_y`. Because there was a column called `geometry` in both GeoDataFrames, `geopandas` automatically renamed the columns into `geometry_x` and `geometry_y` respectively. 
+
+Now we have all the data that we need to create a connecting `LineString` between the buildings and the closest stops. We can do this by using the `linestrings()` function of the `shapely` library which is a fast (vectorized) way to create a number of `LineString` objects based on point coordinates (the function only accepts numbers as input, i.e. not `Point` objects). To extract the point coordinates from the `Point` objects stored in the `geometry_x` and `geometry_y` columns, we use the `.get_coordinates()` method of `geopandas` that returns the `x` and `y` coordinates as `Series` objects/columns. Then we convert these into `numpy` arrays using the `to_numpy()` method which we pass to the `linestrings()` function. Finally, we store the resulting `LineStrings` into a column `geometry` which we set as the active geometry of the `GeoDataFrame`:    
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-from shapely import LineString
+from shapely import linestrings
 
-closest["geometry"] = closest.apply(
-    lambda row: LineString([row["geometry_x"], row["geometry_y"]]), axis=1
+closest["geometry"] = linestrings(
+    closest.geometry_x.get_coordinates().to_numpy(),
+    closest.geometry_y.get_coordinates().to_numpy()
 )
+                                  
 closest = closest.set_geometry("geometry")
 closest.head()
 ```
@@ -217,23 +218,23 @@ As a result, we now have found the nearest road for each building. We have now 7
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-roads["index"] = roads.index
 nearest_roads = nearest_roads.merge(
-    roads[["geometry", "index"]], left_on="index_right", right_on="index"
+    roads[["geometry"]], left_on="index_right", right_index=True
 )
 nearest_roads.head(3)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now we have the `geometry_x` column representing the building geometries and the `geometry_y` column representing the road geometries (LineStrings). To visualize the connecting lines between buildings and roads, we first need to create geometries that connect the building and closest road geometry from the locations where the distance is shortest. To do this, we can take advantage of a handy function called `nearest_points()` from the `shapely` library that returns a list of Point objects representing the locations with shortest distance between geometries. By using these points as input, we can create a LineString geometries that represent the connector between a given building and the closest road. Finally, we create a new GeoDataFrame called `connectors` out of these lines and also store the length of the LineStrings as a separate column:
+Now we have the `geometry_x` column representing the building geometries and the `geometry_y` column representing the road geometries (LineStrings). To visualize the connecting lines between buildings and roads, we first need to create geometries that connect the building and closest road geometry from the locations where the distance is shortest. To do this, we can take advantage of a handy function called `shortest_line()` from the `shapely` library that returns a LineString object representing the line between locations with shortest distance between geometries. With these we can represent the connector between a given building and the closest road. Finally, we create a new `GeoDataFrame` called `connectors` out of these lines and also store the length of the LineStrings as a separate column:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-from shapely.ops import nearest_points
+from shapely import shortest_line
+
 
 # Generate LineString between nearest points of two geometries
 connectors = nearest_roads.apply(
-    lambda row: LineString(nearest_points(row["geometry_x"], row["geometry_y"])), axis=1
+    lambda row: shortest_line(row["geometry_x"], row["geometry_y"]), axis=1
 )
 
 # Create a new GeoDataFrame out of these geometries
