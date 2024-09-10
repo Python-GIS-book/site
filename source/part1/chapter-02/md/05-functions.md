@@ -181,7 +181,9 @@ def temp_in_comfort_range(temp_fahr, temp_celsius_ideal=20.0, temp_celsius_range
     temp_celsius_min = temp_celsius_ideal - temp_celsius_range
     temp_celsius_max = temp_celsius_ideal + temp_celsius_range
     # Check if temperature is in range
-    temp_in_range = temp_celsius >= temp_celsius_min and temp_celsius <= temp_celsius_max
+    temp_in_range = (
+        temp_celsius >= temp_celsius_min and temp_celsius <= temp_celsius_max
+    )
     return temp_in_range
 ```
 
@@ -226,7 +228,7 @@ temp_in_comfort_range()
 In this case we see a `TypeError` is raised because the parameter `temp_fahr` must be specified in order to use the `temp_in_comfort_range()` function. In such a situation, `temp_fahr` is a *{term}`required function parameter <required parameter>`* and must be given in order to use the function because no default value was assigned to `temp_fahr` when the function was defined. Required parameters can be used to ensure that required information for functions is always provided when they are used. When defining functions with both required and optional parameters, required (or positional) parameters must be listed before optional parameters in the function definition.
 
 ```python
-temp_in_comfort_range(temp_celsius_ideal=22.0, temp_fahr=68.0,  temp_celsius_range=4.0)
+temp_in_comfort_range(temp_celsius_ideal=22.0, temp_fahr=68.0, temp_celsius_range=4.0)
 ```
 
 ### Functions with multiple return values
@@ -241,7 +243,9 @@ def temp_in_comfort_range(temp_fahr, temp_celsius_ideal=20.0, temp_celsius_range
     temp_celsius_min = temp_celsius_ideal - temp_celsius_range
     temp_celsius_max = temp_celsius_ideal + temp_celsius_range
     # Check if temperature is in range
-    temp_in_range = temp_celsius >= temp_celsius_min and temp_celsius <= temp_celsius_max
+    temp_in_range = (
+        temp_celsius >= temp_celsius_min and temp_celsius <= temp_celsius_max
+    )
     return temp_in_range, temp_celsius
 ```
 
