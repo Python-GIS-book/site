@@ -237,7 +237,7 @@ Using the documentation that is produced when you run `help(range)`, what values
 # You can use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"]
+```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
 # Solution
 
 for i in range(2, 9, 3):

@@ -20,14 +20,14 @@ In this lesson we introduce functions as a way of making blocks of code for a sp
 
 ## What is a function?
 
-A *{term}`function`* is a block of organized, reusable code that can make your programs more effective, easier to read, and simple to manage. You can think functions as little self-contained programs that can perform a specific task that you can use repeatedly in your code. One of the basic principles in good programming is "do not to repeat yourself". In other words, you should avoid having duplicate lines of code in your scripts. Functions are a good way to avoid such situations and they can save you a lot of time and effort as you don't need to tell the computer repeatedly what to do every time it does a common task, such as converting temperatures from Fahrenheit to Celsius. During the course we have already used some functions such as the `print()` command which is actually a built-in function in Python.
+A *{term}`function`* is a block of organized, reusable code that can make your programs more effective, easier to read, and simple to manage. You can think functions as little self-contained programs for performing a specific task, and which you can use repeatedly in your code. One of the basic principles in good programming is "do not to repeat yourself". In other words, you should avoid having duplicate lines of code in your programs. Functions are a good way to avoid such situations and they can save you a lot of time and effort as you don't need to tell the computer repeatedly what to do every time it does a common task, such as converting temperatures from Fahrenheit to Celsius. During the course we have already used some functions such as the `print()` function which is a built-in function in Python.
 
 
 ## Anatomy of a function
 
-Let's consider the task from the first lesson when we converted temperatures from Celsius to Fahrenheit.
+Let's consider the task from the first section of this chapter when we converted temperatures from degrees Celsius to Fahrenheit.
 Such an operation is a fairly common task when dealing with temperature data.
-Thus we might need to repeat such calculations quite often when analysing or comparing weather or climate data between the US and Europe, for example.
+Thus, we might need to repeat such calculations quite often when analyzing or comparing weather or climate data between the US and Europe, for example.
 
 
 ### Creating a first function
@@ -46,8 +46,9 @@ _**Figure 2.4** An example function with annotation of its important elements._
 The function definition opens with the keyword `def` followed by the name of the function and a list of parameter names in parentheses.
 The body of the function — the statements that are executed when it runs — is indented below the definition line.
 
-When we call the function, the values we pass to it are assigned to the corresponding parameter variables so that we can use them inside the function (e.g., the variable `temp` in this function example).
-Inside the function, we use a `return` statement to define the value that should be given back when the function is used, or called.
+When we call a function, the values we pass to it are assigned to the corresponding parameter variables so that we can use them inside the function (e.g., the variable `temp` in this function example).
+Inside the function, we can use a `return` statement to define the value that should be given back when the function is used or called.
+Note that using a `return` statement in functions is recommended, but not required.
 
 
 ### Calling a function
@@ -55,25 +56,25 @@ Inside the function, we use a `return` statement to define the value that should
 Now let's try using our function.
 Calling our self-defined function is no different from calling any other function such as `print()`.
 You need to call it with its name and provide your value(s) as the required parameter(s) inside the parentheses.
-Here, we can define a variable `freezing_point` that is the temperature in degrees Fahrenheit we get when using our function with the temperature 0°C (the temperature at which water freezes). We can then print that value to confirm. We should get a temperature of 32°F.
+Here, we can define a variable `freezing_point` that is the temperature in degrees Fahrenheit we get when using our function with the temperature 0 °C (the temperature at which water freezes). We can then print that value to confirm. We should get a temperature of 32 °F.
 
 ```python
 freezing_point = celsius_to_fahr(0)
 ```
 
 ```python
-print("The freezing point of water in Fahrenheit is:", freezing_point)
+print(f"The freezing point of water in Fahrenheit is: {freezing_point}")
 ```
 
-We can do the same thing with the boiling point of water in degrees Celsius (100°C). Just like with other functions, we can use our new function directly within something like the `print()` function to print out the boiling point of water in degrees Fahrenheit.
+We can do the same thing with the boiling point of water in degrees Celsius (100 °C). Just like with other functions, we can use our new function directly within something like the `print()` function to print out the boiling point of water in degrees Fahrenheit.
 
 ```python
-print("The boiling point of water in Fahrenheit is:", celsius_to_fahr(100))
+print(f"The boiling point of water in Fahrenheit is: {celsius_to_fahr(100)}")
 ```
 
 ### Creating another function
 
-Now that we know how to create a function to convert Celsius to Fahrenheit, let’s create another function called `kelvins_to_celsius`. We can define this just like we did with our `celsius_to_fahr()` function, noting that the Celsius temperature is just the temperature in Kelvins minus 273.15. Just to avoid confusion this time, let's call the temperature variable used in the function `temp_kelvins`.
+Now that we know how to create a function to convert degrees Celsius to Fahrenheit, let’s create another function called `kelvins_to_celsius`. We can define this just like we did with our `celsius_to_fahr()` function, noting that the temperature in degrees Celsius is just the temperature in Kelvins minus 273.15. Just to avoid confusion this time, let's call the temperature variable used in the function `temp_kelvins`.
 
 ```python
 def kelvins_to_celsius(temp_kelvins):
@@ -87,7 +88,7 @@ absolute_zero = kelvins_to_celsius(temp_kelvins=0)
 ```
 
 ```python
-print("Absolute zero in Celsius is:", absolute_zero)
+print(f"Absolute zero in Celsius is: {absolute_zero}")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
@@ -114,7 +115,7 @@ def celsius_to_newton(temp_celsius):
 
 What about converting Kelvins to Fahrenheit?
 We could write out a new formula for it, but we don’t need to.
-Instead, we can do the conversion using the two functions we have already created and calling those from the function we are now creating. Let's create a new function `kelvins_to_fahr` that takes the temperature in Kelvins as the parameter value `temp_kelvins` and uses our `kelvins_to_celsius` and `celsius_to_fahr` functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.
+Instead, we can do the conversion using the two functions we have already created and calling those from the new function we will now create. Let's create a function `kelvins_to_fahr` that takes the temperature in Kelvins as the parameter value `temp_kelvins` and uses our `kelvins_to_celsius` and `celsius_to_fahr` functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.
 
 ```python
 def kelvins_to_fahr(temp_kelvins):
@@ -130,11 +131,97 @@ absolute_zero_fahr = kelvins_to_fahr(temp_kelvins=0)
 ```
 
 ```python
-print("Absolute zero in Fahrenheit is:", absolute_zero_fahr)
+print(f"Absolute zero in Fahrenheit is: {absolute_zero_fahr}")
+```
+
+### More function stuff
+
+- Multiple parameters
+- Required versus optional parameters
+- No return value?
+
+    - Function in a function?
+
+
+### Functions without a return value
+
+Although it is recommended to use `return` statements when defining functions, not all functions have or need to have a `return` statement. For example, let's consider a case where we would like to have a function that converts temperatures from Kelvins to degrees Celsius and prints the converted values to the screen. In this situation, we could define a new function that does not return the converted temperature value.
+
+```python
+def print_kelvins_to_celsius(temp_kelvins):
+    temp_celsius = kelvins_to_celsius(temp_kelvins)
+    print(f"{temp_kelvins} Kelvins is {temp_celsius} degrees Celsius.")
+```
+
+```python
+print_kelvins_to_celsius(0)
+```
+
+Here, we have no `return` statement because the `print()` function handles the main goal of this function: Displaying text output on the screen. So, what happens if we assign the output the function produces to a variable? Let's test that using a variable called `output` and see what is assigned to it.
+
+```python
+output = print_kelvins_to_celsius(0)
+print(output)
+```
+
+As you can see, when we assign the function output to the variable `output` the stored value is `None`. Functions with no `return` statement will automatically return `None`. In our case, this means that the variable `output` exists but does not have an assigned value. As a result, we do not get a `NameError` indicating the variable has not been defined when printing it out. Also, it is good to note that the text values from the `print_kelvins_to_celsius()` function still get written to the screen even if the return value is assigned to `output`.
+
+
+### Functions with multiple parameters
+
+In the function examples we have seen so far we have created functions with only a single parameter. Of course, it is possible to have several parameters used in functions, and functions with multiple parameters are quite common in many libraries.
+
+Let's create a new function called `convert_and_compare()`, which:
+1. Takes two temperatures in degrees Celsius as inputs (`temp_celsius1`, `temp_celsius2`)
+2. Converts the temperatures to degrees Fahrenheit
+3. Compares them to see whether their difference is smaller than a specified temperature range (`temp_range`)
+4. Can print some details of the comparison to the screen (using `verbose`), and
+5. Returns a Boolean value resulting from the comparison as well as the difference in Fahrenheit temperatures
+
+The function we describe looks similar to some of those we have used earlier, with a bit more complexity. Let's look at the function, test it, and then explore how it works.
+
+```python
+def convert_and_compare(temp_celsius1, temp_celsius2, temp_range=5.0, verbose=False):
+    temp_fahr1 = celsius_to_fahr(temp_celsius1)
+    temp_fahr2 = celsius_to_fahr(temp_celsius2)
+    temp_diff = abs(temp_fahr1 - temp_fahr2)
+    temps_in_range = temp_diff <= temp_range
+    if verbose:
+        print(f"{temp_celsius1} degrees C is {temp_fahr1} degrees F.")
+        print(f"{temp_celsius2} degrees C is {temp_fahr2} degrees F.")
+        print(f"Fahrenheit temperatures differ by {temp_diff} degrees.")
+        print(f"Temperatures within temperature range ({temp_range} degrees): {temps_in_range}")
+    return temps_in_range, temp_diff
+```
+
+Now that we have defined the function, let's test it.
+
+```python
+compared_temps = convert_and_compare(5.0, 10.0, 7.0, True)
+```
+
+Obviously, we now provide four parameter values when using the `convert_and_compare()` function, which are given in the order in which the function definition lists them: `temp_celsius1`, `temp_celsius2`, `temp_range`, `verbose`. The example above is perfectly fine, however it may be confusing to know which values are which in the function usage, so it is preferable to specify the names of the parameters when calling the function.
+
+```python
+compared_temps = convert_and_compare(temp_celsius1=5.0, temp_celsius2=10.0, temp_range=7.0, verbose=True)
+```
+
+It is now far more clear which values are which in the example above, compared to the first use of the `convert_and_compare()` function. This is obviously easier to understand and use, but it is also helpful because the order of the parameters does not need to match that of the function definition when providing the parameter names, as shown below.
+
+```python
+compared_temps = convert_and_compare(verbose=True, temp_range=7.0, temp_celsius1=5.0, temp_celsius2=10.0)
+```
+
+### Required and optional function parameters
+
+
+
+```python
+
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Functions and variable names
+## Variables defined and used in functions
 
 A common point of confusion for new programmers is understanding how variable names in functions relate to those defined elsewhere in their code (or your notebooks).
 When defining a function, the variable names given in the function definition exist and will only be used when the function is called.

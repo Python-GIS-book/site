@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -51,31 +51,31 @@ print(first_variable - second_variable)  # Fails
 ```
 <!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Question 2.4
+
+```python
+82.0
+```
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Question 2.5
+
+```python
+'Hot62.6'
+```
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Question 2.6
 
 ```python
 'kitten'
 ```
 <!-- #endregion -->
 
-<!-- #region -->
-### Question 2.5
-
-```python
-132334.96
-```
-<!-- #endregion -->
-
-<!-- #region -->
-### Question 2.6
-
-```python
-'Helsinki Kaivopuisto132310'
-```
-<!-- #endregion -->
-
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Question 2.7
 
 ```python
