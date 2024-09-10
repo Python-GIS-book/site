@@ -170,17 +170,14 @@ Let's create a new function called `temp_in_comfort_range()`, which:
 3. Checks to see whether the converted temperature is within the specified temperature range (`temp_celsius_ideal` ± `temp_celsius_range`)
 5. Returns a Boolean value resulting from the comparison
 
-The function we describe looks similar to some of those we have used earlier, with a bit more complexity. As a result, there are some line comments to explain how the function works. Let's look at the function, test it, and then explore how it works.
+The function we describe looks similar to some of those we have used earlier with a bit more complexity. Let's look at the function, test it, and then explore how it works.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 def temp_in_comfort_range(temp_fahr, temp_celsius_ideal=20.0, temp_celsius_range=5.0):
-    # Convert to Celsius
     temp_celsius = (temp_fahr - 32.0) * 5 / 9
-    # Define min and max comfort temperatures
     temp_celsius_min = temp_celsius_ideal - temp_celsius_range
     temp_celsius_max = temp_celsius_ideal + temp_celsius_range
-    # Check if temperature is in range
     temp_in_range = (
         temp_celsius >= temp_celsius_min and temp_celsius <= temp_celsius_max
     )
@@ -237,12 +234,9 @@ Although functions often return a single value it is possible to return multiple
 
 ```python
 def temp_in_comfort_range(temp_fahr, temp_celsius_ideal=20.0, temp_celsius_range=5.0):
-    # Convert to Celsius
     temp_celsius = (temp_fahr - 32.0) * 5 / 9
-    # Define min and max comfort temperatures
     temp_celsius_min = temp_celsius_ideal - temp_celsius_range
     temp_celsius_max = temp_celsius_ideal + temp_celsius_range
-    # Check if temperature is in range
     temp_in_range = (
         temp_celsius >= temp_celsius_min and temp_celsius <= temp_celsius_max
     )
