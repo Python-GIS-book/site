@@ -164,40 +164,41 @@ As you can see, when we assign the function output to the variable `output` the 
 
 In the function examples we have seen so far we have created functions with only a single parameter. Of course, it is possible to have several parameters used in functions, and functions with multiple parameters are quite common in many Python libraries.
 
-Let's create a new function called `temp_in_comfort_range()`, which:
-1. Takes a temperature in degrees Fahrenheit as an input (`temp_fahr`)
-2. Converts the temperatures to degrees Celsius
-3. Checks to see whether the converted temperature is within the specified temperature range (`temp_celsius_ideal` ± `temp_celsius_range`)
+Let's imagine a situation: You're preparing for a visit to the United States, but are unfamiliar with temperatures in Fahrenheit. A friend from the northern US suggested a temperature of 68 degrees Fahrenheit is ideal for comfort and normally you are comfortable within a range of 5 degrees above or below such a comfortable temperature. To deal with your situation you would like create a new function called `temp_in_comfort_range()`, which:
+
+1. Takes a temperature in degrees Celsius as an input (`temp_celsius`)
+2. Converts the temperatures to degrees Fahrenheit
+3. Checks to see whether the converted temperature is within the specified temperature range (`temp_fahr_ideal` ± `temp_fahr_range`)
 5. Returns a Boolean value resulting from the comparison
 
-The function we describe looks similar to some of those we have used earlier with a bit more complexity. Let's look at the function, test it, and then explore how it works.
+The function we describe looks similar to some of those we have used earlier but with a bit more complexity. Let's look at the function, test it, and then explore how it works.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-def temp_in_comfort_range(temp_fahr, temp_celsius_ideal=20.0, temp_celsius_range=5.0):
-    temp_celsius = (temp_fahr - 32.0) * 5 / 9
-    temp_celsius_min = temp_celsius_ideal - temp_celsius_range
-    temp_celsius_max = temp_celsius_ideal + temp_celsius_range
+def temp_in_comfort_range(temp_celsius, temp_fahr_ideal=68.0, temp_fahr_range=5.0):
+    temp_fahr = celsius_to_fahr(temp_celsius)
+    temp_fahr_min = temp_fahr_ideal - temp_fahr_range
+    temp_fahr_max = temp_fahr_ideal + temp_fahr_range
     temp_in_range = (
-        temp_celsius >= temp_celsius_min and temp_celsius <= temp_celsius_max
+        temp_fahr >= temp_fahr_min and temp_fahr <= temp_fahr_max
     )
     return temp_in_range
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now that we have defined the function, let's test with a Fahrenheit temperature of 68 degrees. For our test case we can also assume an ideal comfort in Celsius of 18.0 - 26.0 degrees (22.0 ± 4.0).
+Now that we have defined the function, let's test with a Celsius temperature of 21 degrees. For our test case we can also assume an ideal comfort in Fahrenheit of 63.0 - 73.0 degrees (68.0 ± 5.0).
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-temp_in_comfort_range(68.0, 22.0, 4.0)
+temp_in_comfort_range(21.0, 68.0, 5.0)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, 68 degrees Fahrenheit would be considered a comfortable temperature. However, you may notice that when we have multiple parameters it is easy to confuse what they represent. In such a case, it can be helpful to include the names of the parameters to be clearer.
+As we can see, 21 degrees Celsius would also be considered a comfortable temperature in the US!. However, you may notice that when we have multiple parameters it is easy to confuse what they represent. In such a case, it can be helpful to include the names of the parameters to be clearer.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-temp_in_comfort_range(temp_celsius_ideal=22.0, temp_fahr=68.0, temp_celsius_range=4.0)
+temp_in_comfort_range(temp_fahr_ideal=68.0, temp_celsius=21.0, temp_fahr_range=5.0)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -207,52 +208,49 @@ This does exactly the same thing as the first test of the `temp_in_comfort_range
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Required and optional parameters
 
-When using Python functions it is possible to design them such that not all parameters need to be specified to use the function. In such cases, default values will be used when no parameter value is given. In our `temp_in_comfort_range()` function definition we have provided default values for two parameters: `temp_celsius_ideal=20.0` and `temp_celsius_range=5.0`. Thus, a user could test whether a given temperature in Fahrenheit is with the default temperature range in Celsius (20.0 ± 5.0) by specifying only a single parameter value when using the `temp_in_comfort_range()` function, as shown below.
+When using Python functions it is possible to design them such that not all parameters need to be specified to use the function. In such cases, default values will be used when no parameter value is given. In our `temp_in_comfort_range()` function definition we have provided default values for two parameters: `temp_fahr_ideal=68.0` and `temp_fahr_range=5.0`. Thus, a user could test whether a given temperature in Celsius is with the default temperature range in Fahrenheit (68.0 ± 5.0) by specifying only a single parameter value when using the `temp_in_comfort_range()` function, as shown below.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-temp_in_comfort_range(86.0)
+temp_in_comfort_range(19.0)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-In this case, the function still works because `temp_celsius_ideal` and `temp_celsius_range` are *{term}`optional function parameters <optional parameter>`* with default values that will be used when no parameter value is given for them. So, what happens if no parameters are given to the function?
+In this case, the function still works because `temp_fahr_ideal` and `temp_fahr_range` are *{term}`optional function parameters <optional parameter>`* with default values that will be used when no parameter value is given for them. So, what happens if no parameters are given to the function?
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 temp_in_comfort_range()
 ```
 
-In this case we see a `TypeError` is raised because the parameter `temp_fahr` must be specified in order to use the `temp_in_comfort_range()` function. In such a situation, `temp_fahr` is a *{term}`required function parameter <required parameter>`* and must be given in order to use the function because no default value was assigned to `temp_fahr` when the function was defined. Required parameters can be used to ensure that required information for functions is always provided when they are used. When defining functions with both required and optional parameters, required (or positional) parameters must be listed before optional parameters in the function definition.
+In this case we see a `TypeError` is raised because the parameter `temp_celsius` must be specified in order to use the `temp_in_comfort_range()` function. In such a situation, `temp_celsius` is a *{term}`required function parameter <required parameter>`* and must be given in order to use the function because no default value was assigned to `temp_celsius` when the function was defined. Required parameters can be used to ensure that required information for functions is always provided when they are used. When defining functions with both required and optional parameters, required (or positional) parameters must be listed before optional parameters in the function definition.
 
-```python
-temp_in_comfort_range(temp_celsius_ideal=22.0, temp_fahr=68.0, temp_celsius_range=4.0)
-```
 
 ### Functions with multiple return values
 
-Although functions often return a single value it is possible to return multiple values in a single `return` statement in a function. Imagine that in addition to knowing whether a given Fahrenheit temperature is within the comfortable range of Celsius temperatures we would also like to know what the value of the converted temperature was. We can modify our `temp_in_comfort_range()` function to do just that by modifying the `return` statement.
+Although functions often return a single value it is possible to return multiple values in a single `return` statement in a function. Imagine that in addition to knowing whether a given Celsius temperature is within the comfortable range of Fahrenheit temperatures we would also like to know what the value of the converted temperature was so we can get familiar with comfortable temperatures in Fahrenheit. We can modify our `temp_in_comfort_range()` function to do just that by modifying the `return` statement.
 
 ```python
-def temp_in_comfort_range(temp_fahr, temp_celsius_ideal=20.0, temp_celsius_range=5.0):
-    temp_celsius = (temp_fahr - 32.0) * 5 / 9
-    temp_celsius_min = temp_celsius_ideal - temp_celsius_range
-    temp_celsius_max = temp_celsius_ideal + temp_celsius_range
+def temp_in_comfort_range(temp_celsius, temp_fahr_ideal=68.0, temp_fahr_range=5.0):
+    temp_fahr = celsius_to_fahr(temp_celsius)
+    temp_fahr_min = temp_fahr_ideal - temp_fahr_range
+    temp_fahr_max = temp_fahr_ideal + temp_fahr_range
     temp_in_range = (
-        temp_celsius >= temp_celsius_min and temp_celsius <= temp_celsius_max
+        temp_fahr >= temp_fahr_min and temp_fahr <= temp_fahr_max
     )
-    return temp_in_range, temp_celsius
+    return temp_in_range, temp_fahr
 ```
 
 ```python
-temp_in_comfort_range(86.0)
+temp_in_comfort_range(27.0)
 ```
 
-Now we can see that the temperature is outside the range and that a temperature of 86 degrees Fahrenheit is 30 degrees Celsius. Clearly this is above the upper comfort limit of 25 degrees Celsius!
+Now we can see that the temperature 27 degrees Celsius is outside the comfort range in our function and converts to 80.6 degrees Fahrenheit. Clearly this is above the default upper comfort limit of 73 degrees Fahrenheit and thus too hot to be comfortable!
 
 So, two values are returned from the `temp_in_comfort_range()` function now, but what type of data is returned? We can check this by assigning the function output (with a different input temperature) to a variable and checking its type.
 
 ```python
-comfort_range_output = temp_in_comfort_range(78.0)
+comfort_range_output = temp_in_comfort_range(27.0)
 type(comfort_range_output)
 ```
 
@@ -266,7 +264,7 @@ print(comfort_range_output[1])
 This seems easy enough, but it is worth noting that it is also possible to directly unpack the tuple values to individual variables when calling the function by providing the same number of variables for assignment as there are returned by the function. Let's see an example.
 
 ```python
-in_range, celsius_temp = temp_in_comfort_range(78.0)
+in_range, fahr_temp = temp_in_comfort_range(27.0)
 ```
 
 ```python
