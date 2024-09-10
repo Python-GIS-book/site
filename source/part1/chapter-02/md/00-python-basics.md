@@ -302,7 +302,7 @@ In the previous section we saw that not all Python data types are directly compa
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Converting data from one type to another
 
-It is not the case that things like the `tempFahrenheit` and `weatherForecast` cannot be combined at all, but in order to combine a character string with a number we need to perform a {term}`type conversion` to make them compatible. Let's convert `tempFahrenheit` to a character string using the `str()` function. We can store the converted variable as `tempFahrenheitStr`.
+It is not the case that things like the `tempFahrenheit` and `weatherForecast` cannot be combined at all, but in order to combine a character string with a number we need to perform a *{term}`type conversion`* to make them compatible. Let's convert `tempFahrenheit` to a character string using the `str()` function. We can store the converted variable as `tempFahrenheitStr`.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}

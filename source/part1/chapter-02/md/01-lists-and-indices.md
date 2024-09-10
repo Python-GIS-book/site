@@ -12,18 +12,21 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Lists and indices
 
 In the previous section, we learned a bit about variables, their values, and data types. We will now continue with a new data type called a *{term}`list`*. Using a list, we can store many related values together with a single variable. In Python, there are several different types of data that can be used to store values together in a *{term}`collection`*, and a list is the simplest type.
 
 To explore lists, we will be using data related to [Finnish Meteorological Institute (FMI) observation stations](http://en.ilmatieteenlaitos.fi/observation-stations) [^FMI_stations]. For each station, a number of pieces of information are given, including the name of the station, an FMI station ID number (FMISID), its latitude, its longitude, and the station type.
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Creating a list
 
 Let’s first create a `list` of some station names and print it out.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 station_names = [
     "Helsinki Harmaja",
     "Helsinki Kaisaniemi",
@@ -58,7 +61,7 @@ Just as expected, there are 4 values in our `list` and `len(station_names)` retu
 
 ## Index values
 
-To access an individual value in a list we need to use an {term}`index` value. An index value is a number that refers to a given position in the list. Let's check out the first value in our `list` as an example by printing out `station_names[1]`:
+To access an individual value in a list we need to use an *{term}`index`* value. An index value is a number that refers to a given position in the list. Let's check out the first value in our `list` as an example by printing out `station_names[1]`:
 
 ```python
 station_names[1]
@@ -147,7 +150,7 @@ cute_animals[-2]
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Modifying values in lists
 
-Another nice feature of lists is that they are {term}`mutable`, meaning that the values in a list that has been defined are able to be modified. The {term}`immutable` equivalent of a list in Python is called a {term}`tuple`, which we will use later in this part of the book. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
+Another nice feature of lists is that they are *{term}`mutable`*, meaning that the values in a list that has been defined are able to be modified. The *{term}`immutable`* equivalent of a list in Python is called a *{term}`tuple`*, which we will use later in this part of the book. Consider a list of the observation station types corresponding to the station names in the `station_names` list.
 <!-- #endregion -->
 
 ```python
