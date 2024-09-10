@@ -244,24 +244,27 @@ temp.head()
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Different file formats for reading and writing geographic data 
 
-There are various GIS data formats available such as [Shapefile](https://en.wikipedia.org/wiki/Shapefile) [^shp], [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) [^GeoJson], [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) [^KML], and [GeoPackage](https://en.wikipedia.org/wiki/GeoPackage) [^GPKG]. Geopandas is capable of reading data from all of these formats (plus many more). In the following, we will show some typical examples how to read (and write) data from different sources. The main point in this section is to demonstrate the basic syntax for reading and writing data using short code snippets. You can find the example datasets in the data-folder. However, most of the example databases do not exists, but you can use and modify the example syntax according to your own setup.
+There are various GIS data formats available such as [GeoPackage](https://en.wikipedia.org/wiki/GeoPackage) [^GPKG], [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) [^GeoJson], [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) [^KML], and [Shapefile](https://en.wikipedia.org/wiki/Shapefile) [^shp]. It is possible to read data from all these formats (plus many more) straight out of the box by `geopandas`. In the following, we will show some typical examples how to read (and write) data from different sources. The main point in this section is to demonstrate the basic syntax for reading and writing data using short code snippets.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Reading vector data
 
-When we use the `.from_file()` function for reading data in various formats, geopandas actually uses a library called **fiona** under the hood to read the data (in most cases). This means that you can read and write all data formats that are supported by fiona. It is easy to find out all the data formats that are supported by default by calling `fiona.supported_drivers`: 
+When we use the `.read_file()` function for reading data in various formats, `geopandas` actually uses a library called `pyogrio` under the hood to read the data. This means that you can read and write all data formats that are supported by `pyogrio`. It is easy to find out all the data formats that are supported by default by calling `pyogrio.list_drivers()`: 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 import geopandas as gpd
-import fiona
+import pyogrio
 
-fiona.supported_drivers
+available_drivers = pyogrio.list_drivers()
+
+print(available_drivers)
+len(available_drivers)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, by default there are 20 different file formats that are supported for reading data. In the list of supported drivers, `r` is for file formats that fiona/geopandas can be read, and `w` is for file formats it can write. Letter `a` marks formats for which fiona/geopandas can append new data to existing files. Let's read the same Austin census data in a Shapefile format to see the basic syntax:
+As we can see from this dictionary, by default there are 78 different file formats that are supported for reading data. In the list of supported drivers, `r` is for file formats that `pyogrio/geopandas` can be read, and `w` is for file formats it can write. Letter `a` marks formats for which `pyogrio/geopandas` can append new data to existing files. Let's read the same Austin census data in a Shapefile format to see the basic syntax:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -277,20 +280,26 @@ As you can see, nothing except the file extension at the end of the filename cha
 
 ```python editable=true slideshow={"slide_type": ""}
 # Read file from Geopackage
-fp = "data/Austin/austin_pop_2019.gpkg"
+fp = data_folder / "austin_pop_2019.gpkg"
 data = gpd.read_file(fp)
 
 # Read file from GeoJSON
-fp = "data/Austin/austin_pop_2019.geojson"
+fp = data_folder / "austin_pop_2019.geojson"
 data = gpd.read_file(fp)
 
 # Read file from Geodatabase
-fp = "data/Austin/austin_pop_2019.gdb"
+fp = data_folder / "austin_pop_2019.gdb"
 data = gpd.read_file(fp)
 
+# Read file from KML
+fp = "data/Austin/austin_pop_2019.kml"
+data_kml = gpd.read_file(fp)
+
 # Read file from MapInfo TAB
-fp = "data/Austin/austin_pop_2019.tab"
+fp = data_folder / "austin_pop_2019.tab"
 data = gpd.read_file(fp)
+
+data.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -299,54 +308,21 @@ Some file formats such as GeoPackage may contain multiple layers with different 
 
 ```python editable=true slideshow={"slide_type": ""}
 # Read spesific layer from Geopackage
-fp = "data/Austin/austin_pop_2019.gpkg"
+fp = data_folder / "austin_pop_2019.gpkg"
 data = gpd.read_file(fp, layer="austin_pop_2019")
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-In some cases, such as when reading KML file format, geopandas does not automatically support reading the data:
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""} tags=["hide-output", "skip"]
-# Read file from KML
-fp = "data/Austin/austin_pop_2019.kml"
-data = gpd.read_file(fp)
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
-![Unsupported driver error.](../img/unsupported_driver_error.png)
-<!-- #endregion -->
-
-<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
-% This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, center, nofloat}{../img/unsupported_driver_error.png}
-{ \hspace*{\fill} \\}
-<!-- #endraw -->
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-In case you receive an error that says something like `DriverError: unsupported driver: XXXXX`, it means that the given data format is not ready for reading by default. Luckily, most often you are still able to read the data after telling geopandas that it is okay to read the data from a given data format. As an example, here we tell the geopandas to support KML file format by adding `LIBKML` to supported drivers, and specify that it is possible to data read and write data with this file format (by adding `"rw"`):
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-# Enable KML driver
-gpd.io.file.fiona.drvsupport.supported_drivers["LIBKML"] = "rw"
-
-# Read file from KML
-fp = "data/Austin/austin_pop_2019.kml"
-data = gpd.read_file(fp)
-
-type(data)
-```
-
-Note that the KML file format isn't a format that is fully supported in geopandas, so there may be additional data columns read into the `data` GeoDataFrame. Thus, we will extract only the columns of interest before proceeding.
+Note that the `KML` file format is a bit of a special case as it is designed for Google Earth rendering in 3D, so there may be additional data columns read into the geodataframe:
 
 ```python
-data = data[["pop2019", "tract", "geometry"]]
+data_kml.head()
 ```
+However, it easy to filter the extra columns and only keep the ones that we are interested in:
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-After this small adjustment, geopandas is able to read the KML file into a `GeoDataFrame` without a problem. In a similar manner, you can also enable some other file formats that are not enabled by default for reading and/or writing.
-<!-- #endregion -->
+```python
+data_kml = data_kml[["pop2019", "tract", "geometry"]].copy()
+data_kml.head(2)
+```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 Lastly, we demonstrate how it is possible to read data directly from a ZIP file format which can be quite useful especially if you are working with large datasets or a collection of multiple files stored into a single ZIP archive. ZIP file is an archive data format where the data is compressed efficiently. For instance, after zipping Shapefiles, the disk space needed to store the data in the given format will be significantly lower. To read the data from ZIP files, we can use the built-in Python library called **zipfile** and its `ZipFile` object which makes it possible to work with compressed ZIP files. The following example shows how to read data from a compressed ZIP file. Let's start by opening the file into a variable `z` and then read the names of the files stored inside the archive with the method `.namelist()`:
@@ -362,30 +338,56 @@ with ZipFile(fp) as z:
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As you can see, the given `ZipFile` which is opened in variable `z` contains only a single GeoPackage called `building_points_helsinki.gpkg`. The `with ZipFile(fp) as z:` command here is a standard Python convention to open files in read-format from ZIP files. To read the contents of the GeoPackage stored inside the file, we first need use the `.read()` function of the opened `ZipFile` object to read the contents of the file into bytes. After this step, we need to pass these bytes into a `BytesIO` in-memory file buffer by using the built-in `io` library. A file buffer is an in-memory file-like object that can be used as a temporary storage or buffer for bytes-like data. Instead of writing data directly to a physical file on a disk, it allows you to write the data into a `BytesIO` object, which stores the data in computer's memory. This file buffer can then be used by geopandas to read the actual contents of the file into a `GeoDataFrame`. This might sound a bit complicated, but it actually requires only a few lines of code:
+As you can see, the given `ZipFile` which is opened in variable `z` contains only a single GeoPackage called `building_points_helsinki.gpkg`. The `with ZipFile(fp) as z:` command here is a standard Python convention to open files in read-format from Zip-files. 
+
+Now as we know the contents of the Zip-file, it is easy to read the contents of the `building_points_helsinki.gpkg` stored inside the file using `geopandas`. When there is only one file inside the Zip-file and there are no subfolders inside (as in this example), you can read the content directly into a `GeoDataFrame` using the `.read_file()` function:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-import io
-
-with ZipFile(fp) as z:
-    # Pick the first text in the name-list
-    name_of_the_file = z.namelist()[0]
-
-    # Read the data into filebuffer
-    file_buffer = io.BytesIO(z.read(name_of_the_file))
-
-    # Read the filebuffer into Geopandas
-    buildings = gpd.read_file(file_buffer)
-```
-
-```python editable=true slideshow={"slide_type": ""}
-buildings.head()
+buildings = gpd.read_file(fp)
+buildings.head(2)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Ta-da! Now we have succesfully read the GeoPackage from the given ZIP file into a variable `buildings`. In many cases you might have multiple files stored inside a ZIP archive. Following and modifying the examples above (namely the `name_of_the_file` and `fp` variables), you can easily explore the files that are stored inside a given ZIP file and read any geographic data stored in the file into geopandas.
+Ta-da! Now we have succesfully read the GeoPackage from the given Zip-file into a variable `buildings`. 
+
+However, sometimes you might have multiple files and folders stored inside a Zip-archive as in the example below:
 <!-- #endregion -->
+
+```python
+fp = "data/Helsinki/Kamppi_layers.zip"
+
+with ZipFile(fp) as z:
+    print(z.namelist())
+```
+As can be seen from here, there are two folders inside the Zip-archive, `natural/` and `built_environment` which contain three different GeoPackages (data for parks, buildings and roads). To be able to read the contents of these files, we need to create a filepath that points to a given file inside the Zip-file considering the folder structure. This can be done easily with a special syntax in which we separate the actual filepath to the Zip-file on a local disk with `!` (explanation mark) character from the folder and file structure inside the Zip-file as follows:
+
+
+```python
+parks_fp = "data/Helsinki/Kamppi_layers.zip!natural/Kamppi_parks.gpkg"
+
+parks = gpd.read_file(parks_fp)
+parks.head(2)
+```
+Here, the `data/Helsinki/Kamppi_layers.zip` part of the filepath points to the location of the Zip-file on the disk, whereas the `!natural/Kamppi_parks.gpkg` part corresponds to the structure inside the Zip-file and points to the file that we want to read, i.e. `Kamppi_parks.gpkg`. This works similarly regardless of how many subfolders you have inside the Zip-file as long as the `!` character is used to differentiate the contents of the archive from the location of the Zip-file stored on your computer. If you don't have subfolders inside the Zip-file but have multiple files stored at the root of the archive, you would just modify the filepath accordingly without the subfolder. In the following we demonstrate this by having two files at the root of the Zip-file and one file located deeper inside the folder structure:
+
+- `data/My_archive.zip!My_first_datafile.gpkg`
+- `data/My_archive.zip!My_second_datafile.gpkg`
+- `data/My_arhive.zip!Subfolder/Another_folder/My_third_datafile.gpkg`
+
+Thus, in a similar manner, we can also read the two other files from the `Kamppi_layers.zip` Zip-archive:
+
+```python
+roads_fp = "data/Helsinki/Kamppi_layers.zip!built_environment/Kamppi_roads.gpkg"
+buildings_fp = "data/Helsinki/Kamppi_layers.zip!built_environment/Kamppi_buildings.gpkg"
+
+roads = gpd.read_file(roads_fp)
+buildings = gpd.read_file(buildings_fp)
+```
+
+```python
+buildings.head(2)
+```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Writing vector data
