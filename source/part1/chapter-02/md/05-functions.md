@@ -134,7 +134,7 @@ absolute_zero_fahr = kelvins_to_fahr(temp_kelvins=0)
 print(f"Absolute zero in Fahrenheit is: {absolute_zero_fahr}")
 ```
 
-## Parameters and returned values
+## Function parameters and return values
 
 ### Functions with no return value
 
