@@ -122,7 +122,7 @@ math.sin(math.pi)
 ```
 
 <!-- #region deletable=true editable=true -->
-## Combining functions
+### Combining functions
 
 Functions can also be combined. The `print()` function returns values within the parentheses as text on the screen. Let's print the value of the square root of four.
 <!-- #endregion -->
