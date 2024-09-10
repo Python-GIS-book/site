@@ -426,7 +426,7 @@ data.to_file(outfp, driver="OpenFileGDB")
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Creating a GeoDataFrame from scratch
 
-It is possible to create spatial data from scratch by using shapely's geometric objects and geopandas. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into geospatial data layers. Let's first create a simple `GeoDataFrame` based on coordinate information that represents the outlines of the Senate square in Helsinki, Finland. The coordinates below demonstrates the corners of the Senate square, which we can use to create a `Polygon` object in a similar manner as we learned earlier in this chapter:
+It is possible to create spatial data from scratch by using shapely's geometric objects and geopandas. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into geospatial data layers. Let's first create a simple `GeoDataFrame` based on coordinate information that represents the outlines of the Senate square in Helsinki, Finland. The coordinates below demonstrates the corners of the Senate square, which we can use to create a `Polygon` object in a similar manner as we learned earlier in this chapter. The order of the coordinates should always follow longitude-latitude order (i.e. `x` and `y` coordinates):
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -443,12 +443,16 @@ poly = Polygon(coordinates)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now we can use this polygon and create a `GeoDataFrame` from scratch with geopandas. The data can be passed in as a list-like object. In our case, we will only have one row and one column of data. We can pass the polygon inside a list, and name the column as `geometry` so that geopandas will know to use the contents of that column as the source for geometries. Additionally, we could define the coordinate reference system for the data which we will learn in the next chapter.
+Now we can use this polygon and create a `GeoDataFrame` from scratch with geopandas. The data can be passed in as a list-like object. In our case, we will only have one row and one column of data. We can pass the polygon inside a list, and specify that this data is stored into a column called `geometry` so that geopandas will know to use the contents of that column as the source for geometries. Additionally, we could define the coordinate reference system for the data which we will learn in the next chapter.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-newdata = gpd.GeoDataFrame(data=[poly], columns=["geometry"])
+newdata = gpd.GeoDataFrame(geometry=[poly])
 newdata
+```
+
+```python
+newdata.plot();
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -463,7 +467,7 @@ gdf_data = {
     "year": 2023,
 }
 new_data_extended = gpd.GeoDataFrame(gdf_data)
-print(new_data_extended)
+new_data_extended
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -475,7 +479,7 @@ There it is! Now we have four columns in our data, one representing the geometry
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-One rather typical situation that you might encounter when working with your course mates or colleagues, is that you receive data that has coordinates but they are stored e.g. in a delimited textfile (or an Excel file). In this case, you cannot directly read the data into `GeoDataFrame` from the text file, but it needs to be converted into geospatial data using the coordinate information. In such a case, we can make use of the pandas, geopandas and shapely libraries for turning the data from a text file into a fully functional `GeoDataFrame`. To demonstrate this, we have some example data below that contains point coordinates of airports derived from [openflights.org](https://openflights.org/data.html) [^openflights]. The operation of turning this data into a `GeoDataFrame` begins with reading the data with pandas into a `DataFrame`. Let's read a couple of useful columns from the data for further processing:
+One rather typical situation that you might encounter when working with your course mates or colleagues, is that you receive data that has coordinates but they are stored e.g. in a delimited textfile (or an Excel file). In this case, you cannot directly read the data into `GeoDataFrame` from the text file, but it needs to be converted into geospatial data using the coordinate information. In such a case, we can make use of the `pandas`, `geopandas` and `shapely` libraries for turning the data from a text file into a fully functional `GeoDataFrame`. To demonstrate this, we have some example data below that contains point coordinates of airports derived from [openflights.org](https://openflights.org/data.html) [^openflights]. The operation of turning this data into a `GeoDataFrame` begins with reading the data with pandas into a `DataFrame`. Let's read a couple of useful columns from the data for further processing:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -497,7 +501,7 @@ len(airports)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, now the data was read from a textfile into a regular pandas `DataFrame`. In a similar manner, you can read data with coordinates from numerous file formats supported by pandas. Our data covers over 7000 airports with specific attribute information including the coordinates in the `Latitude` and `Longitude` columns. We can use this coordinate information for turning this data into a `GeoDataFrame` and ultimately visualizing the data on a map. There is a handy function in geopandas called `.points_from_xy()` for generating an array of `Point` objects based on `x` and `y` coordinates. This function assumes that x-coordinates represent longitude and the y-coordinates represent latitude. The following code snippet shows how we can create geometries for the airports based on these coordinates:
+As we can see, now the data was read from a textfile into a regular pandas `DataFrame`. In a similar manner, you can read data with coordinates from numerous file formats supported by pandas. Our data covers over 7000 airports with specific attribute information including the coordinates in the `Latitude` and `Longitude` columns. We can use this coordinate information for turning this data into a `GeoDataFrame` and ultimately visualizing the data on a map. There is a handy function in geopandas called `.points_from_xy()` for generating an array of `Point` objects based on `x` and `y` coordinates. As usual, this function assumes that x-coordinates represent longitude and the y-coordinates represent latitude. The following code snippet shows how we can create geometries for the airports based on these coordinates:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -514,11 +518,11 @@ type(airports)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-The `GeoDataFrame` was created with a couple of steps. First, we created a new column called `geometry` into the `DataFrame` and used the `.points_from_xy()` function to turn the coordinates into shapely `Point` objects. At this stage, the data is still in a `DataFrame` format, but we can easily convert the data into a `GeoDataFrame`. The second command in the code snippet converts the pandas `DataFrame` into a `GeoDataFrame` which then has all the capabilities and tools bundled with geopandas. After these two steps, we have succesfully turned the data into geospatial format and we can for example plot the data on a map:
+The `GeoDataFrame` was created with a couple of steps. First, we created a new column called `geometry` into the `DataFrame` and used the `.points_from_xy()` function to turn the coordinates into shapely `Point` objects. At this stage, the data is still in a `DataFrame` format. The second command in the code snippet converts the pandas `DataFrame` into a `GeoDataFrame` which then has all the capabilities and tools bundled with geopandas. After these two steps, we have succesfully turned the data into geospatial format and we can for example plot the data on a map:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-airports.plot(markersize=0.1)
+airports.plot(markersize=0.1);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
