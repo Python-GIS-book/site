@@ -12,6 +12,7 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Glossary
 
 ```{glossary}
@@ -20,6 +21,9 @@ Application Programming Interface
 
 API
   See {term}`Application Programming Interface`.
+
+Argument
+  The value passed to a function when it is called. Similar to a {term}`parameter`.
 
 Binary predicate
   See {term}`Spatial predicate`.
@@ -147,6 +151,12 @@ Module
 Mutable
   A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Immutable`.
 
+Optional parameter
+  A function {term}`parameter` that does not need to be provided when calling the function in order to use it. Optional parameters will use default function values that are provided in the function definition in such cases.
+
+Parameter
+  A variable listed within the parentheses of a function definition. Similar to an {term}`argument`.
+
 Program
   A detailed list of step-by-step instructions that tell the computer exactly what to do.
   
@@ -155,6 +165,9 @@ Programming language
 
 Radius query
   A radius query is a type of spatial query that retrieves all points within a specified distance (radius) from a given query point. The query is performed typically on a {term}`KD-Tree` to efficiently find points that fall within a given distance from the query point. KD-Tree supports only Point objects, i.e. it cannot be used to search other geometric types, such as LineStrings or Polygons.
+
+Required parameter
+  A function {term}`parameter` that must be defined when calling the function in order to use it. Required parameters do not have default function values given in the function definition. Also known as positional parameters.
 
 Right outer join
   Right outer join includes all the rows from the right (Geo)DataFrame and those rows from the left (Geo)DataFrame that have a matching key in the table, or that intersect or match based on the specified spatial relationship (e.g., intersects, contains, within). If there is no matching row in the left (Geo)DataFrame for a row in the right (Geo)DataFrame, the result will still include the row from the right (Geo)DataFrame, but with missing values (NaNs) in the columns from the left (Geo)DataFrame.
@@ -222,7 +235,4 @@ Well-known binary
 Well-known text
   Well-known text (WKT) is a text markup language for representing vector geometry objects. WKT can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m). The binary equivalent for WKT is `Well-known binary` format.
 ```
-
-```python
-
-```
+<!-- #endregion -->
