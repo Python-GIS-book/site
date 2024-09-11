@@ -89,7 +89,7 @@ As a first step before making a spatial join, it is always good to check that th
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-print("Adress points CRS:", addresses.crs.name)
+print("Address points CRS:", addresses.crs.name)
 print("Population grid CRS:", pop_grid.crs.name)
 ```
 
@@ -192,7 +192,7 @@ ax = join.plot(
     legend=True,
     figsize=(10, 6),
 )
-ax.set_title("Amount of inhabitants living close the the point");
+ax.set_title("Amount of inhabitants living close to the point");
 ```
 
 _**Figure 6.40**. Amount of population living close to the addresses can be visualized after a successful spatial join with the population grid._
