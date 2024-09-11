@@ -1,0 +1,1066 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction to geopandas GeoDataFrames</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/pythongis.css?v=b6a4faad" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-06/md/01-geodataframe';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part1/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">2.1 Basic elements of Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/01-for-loops.html">2.2 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/02-conditional-statements.html">2.3 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/03-functions.html">2.4 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/04-writing-scripts.html">2.5 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/05-modules.html">2.6 Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/06-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-03/index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in vector format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/09-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/01-reading-raster.html">7.2 Reading raster files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/03-raster-operations-between-multiple-layers.html">7.4 Raster operations between multiple layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/05-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-09/index.html">9. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/00-retrieving-osm-data.html">9.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/01-retrieving-data-from-wfs.html">9.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/02-retrieving-data-from-wcs.html">9.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/03-read-data-from-spatial-databases.html">9.4 Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/part2/chapter-06/md/01-geodataframe.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part2/chapter-06/md/01-geodataframe.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to geopandas GeoDataFrames</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-geodataframe">What is a GeoDataFrame?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-file">Reading a file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-6-2">Question 6.2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometries-in-geopandas">Geometries in geopandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-6-3">Question 6.3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-data-into-a-file">Writing data into a file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-6-4">Question 6.4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-file-formats-for-reading-and-writing-geographic-data">Different file formats for reading and writing geographic data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-vector-data">Reading vector data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-vector-data">Writing vector data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-geodataframe-from-scratch">Creating a GeoDataFrame from scratch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-geodataframe-from-a-text-file">Creating a GeoDataFrame from a text file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!-- #region editable=true slideshow={"slide_type": ""} -->
+<section class="tex2jax_ignore mathjax_ignore" id="introduction-to-geopandas-geodataframes">
+<h1>Introduction to geopandas GeoDataFrames<a class="headerlink" href="#introduction-to-geopandas-geodataframes" title="Link to this heading">#</a></h1>
+<p>Now that you have seen how to create and represent geometric objects in Python using shapely, we will continue on learning various GIS techniques using <strong>geopandas</strong> <a class="footnote-reference brackets" href="#geopandas" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Geopandas is a library designed to make working with geospatial data in Python easier. It extends the data types used by pandas (which we covered in Part I) to allow geospatial operations and the handling of coordinate reference systems. Essentially, it provides a high-level interface for vector data (like points, lines, and polygons) that integrates with the existing pandas data analysis framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5). Geopandas is one of the core libraries for GIS in Python and it is widely used in different sectors (academia, industry, etc.) for geographic data analysis.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="what-is-a-geodataframe">
+<h2>What is a GeoDataFrame?<a class="headerlink" href="#what-is-a-geodataframe" title="Link to this heading">#</a></h2>
+<p>The main data structures in geopandas are <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code> and <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. Essentially, they extend the capabilities of <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> from pandas. This means that we can use many familiar methods from pandas also when working with geopandas and geograpchic data. A <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> is basically like a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> that contains a dedicated column for storing geometries (see Figure 6.10). The geometry column is a <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code> which contains the geometries as shapely objects (points, lines, polygons, multipolygons etc.). As we learned in the previous section, shapely provides many useful attributes and methods to work with geometries. Luckily, these same functionalities can be directly applied to <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code> making it convenient to work with data layers that may contain thousands or even millions of geographic features. In this section, you will learn various useful techniques and tools bundled in geopandas that help you to work with geographic data in vector format.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><img alt="Figure 6.10. Geometry column in a GeoDataFrame." src="../../../_images/geodataframe.png" /></p>
+<p><em><strong>Figure 6.10</strong>. Geometry column in a GeoDataFrame.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="reading-a-file">
+<h2>Reading a file<a class="headerlink" href="#reading-a-file" title="Link to this heading">#</a></h2>
+<p>Like with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, a typical first step when starting to work with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> is to read data from a given file. In <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, we can use a generic function <code class="docutils literal notranslate"><span class="pre">.from_file()</span></code> for reading geospatial data from various data formats, such as the ones introduced in Chapter 5. The data folder contains census data from Austin, Texas downloaded from the <a class="reference external" href="https://www.census.gov/programs-surveys/acs/data.html">U.S Census bureau</a> <a class="footnote-reference brackets" href="#us-census" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> which we will use to introduce some of the basic data input/output functionalities of <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. Let’s start by defining the path to the file that we want to access:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">data_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/Austin&quot;</span><span class="p">)</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="n">data_folder</span> <span class="o">/</span> <span class="s2">&quot;austin_pop_2019.gpkg&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Similar to importing <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, we will first import geopandas as <code class="docutils literal notranslate"><span class="pre">gpd</span></code> which allows us to start using the library. Then we will read the file by passing the filepath to <code class="docutils literal notranslate"><span class="pre">.read_file()</span></code> function of <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">.read_file()</span></code> command in this way to read data from many different vector formats (GeoPackage, Shapefile, GeoJSON, etc.). Hence, it is very easy to start working with geographic data using geopandas. Let’s take a look at the data type of our <code class="docutils literal notranslate"><span class="pre">data</span></code> variable:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Here we see that our <code class="docutils literal notranslate"><span class="pre">data</span></code> -variable is a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which extends the functionalities of <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to handle spatial data as discussed earlier. We can apply many familiar <code class="docutils literal notranslate"><span class="pre">pandas</span></code> methods to explore the contents of our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. Let’s have a closer look at the first rows of the data:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>We can see that there are three columns in our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. The columns <code class="docutils literal notranslate"><span class="pre">pop2019</span></code> and <code class="docutils literal notranslate"><span class="pre">tract</span></code> represent attribute information in our data, namely the number of people living on a given census tract and a unique id-number for the tract, wherease the column <code class="docutils literal notranslate"><span class="pre">geometry</span></code> contains the geographic data (polygons) for each census tract.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>It is always a good idea to explore your geographic data on a map. Creating a simple map from a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> is really easy. You can use the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> function from geopandas to create a map based on the geometries of the data. <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> actually uses <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for plotting which we introduced in Part 1 of this book. Let’s try it out, and do a quick visualization of our data.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 6.11</strong>. Census tract polygons for Austin, Texas, USA.</em></p>
+<p>Voilá! Here is our first map created with geopandas! This map gives a quick overview of how the geometries of the cencus tracts are located in the given region. The <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axes in the plot are based on the coordinate values of the geometries which are in this case represented as meters.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<section id="question-6-2">
+<h3>Question 6.2<a class="headerlink" href="#question-6-2" title="Link to this heading">#</a></h3>
+<p>Figure out the following information from our input data using your <code class="docutils literal notranslate"><span class="pre">pandas</span></code> skills:</p>
+<ul class="simple">
+<li><p>Number of rows?</p></li>
+<li><p>Number of census tracts (based on column <code class="docutils literal notranslate"><span class="pre">tract</span></code>)?</p></li>
+<li><p>Total population (based on column <code class="docutils literal notranslate"><span class="pre">pop2019</span></code>)?</p></li>
+</ul>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of rows&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of census tract&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;tract&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total population&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop2019&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="geometries-in-geopandas">
+<h2>Geometries in geopandas<a class="headerlink" href="#geometries-in-geopandas" title="Link to this heading">#</a></h2>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> looks for the geometries from a column called <code class="docutils literal notranslate"><span class="pre">geometry</span></code>, which is ultimately a <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code> data structure containing shapely geometric objects. Let’s have a closer look at the geometry column of our data:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>As we can see here,  the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column contains polygon geometries. The last line above reveals that the data type (<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) of this column is <code class="docutils literal notranslate"><span class="pre">geometry</span></code>. Hence, in a similar manner as <code class="docutils literal notranslate"><span class="pre">pandas</span></code> can identify automatically that specific column contains e.g. integer values, geopandas has identified that the data type of a column containing <code class="docutils literal notranslate"><span class="pre">shapely.geometry</span></code> objects is <code class="docutils literal notranslate"><span class="pre">geometry</span></code>. As we learned earlier, the <code class="docutils literal notranslate"><span class="pre">shapely.geometry</span></code> objects have various useful attributes and methods that we can use to work with geographic data. Luckily, it is possible to use these shapely methods directly in geopandas and apply them to a whole <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code> without a need to access individual geometries one by one. With this in mind, let’s proceed and calculate the area of each census tract polygon. Calculating an area of all geometries in your data can be done easily by using a command <code class="docutils literal notranslate"><span class="pre">.area</span></code> that comes with the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> object. As a reminder, the census data are in a metric coordinate reference system, so the area values will be given in square meters:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">area</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>The same result can be achieved by using the syntax <code class="docutils literal notranslate"><span class="pre">data.area</span></code>. Let’s convert the area values from square meters to square kilometers and store them into a new column called <code class="docutils literal notranslate"><span class="pre">area_km2</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;area_km2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">area</span> <span class="o">/</span> <span class="mi">1000000</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>As we can see, now we added a new column into our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which contains the area of each polygon as square kilometers. Now you have succesfully conducted your first geocomputational analysis in Python! Quite easy isn’t it? We can also very easily visualize the data and make a nice choropleth map by using the area of a given geometry to determine the color for it. To do this, we can use the parameter <code class="docutils literal notranslate"><span class="pre">column</span></code> of the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method in geopandas to specify that the color for each polygon should be based on the values stored in the <code class="docutils literal notranslate"><span class="pre">area_km2</span></code> column:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;area_km2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 6.12</strong>. A map showing census tracts colored based on the size of the polygon.</em></p>
+<p>As a result, we can more easily spot the larger polygons from the map with brighter colors. There are various ways to modify the appearance of the map and colors, which we will learn later in Chapter 8.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<section id="question-6-3">
+<h3>Question 6.3<a class="headerlink" href="#question-6-3" title="Link to this heading">#</a></h3>
+<p>Using your <code class="docutils literal notranslate"><span class="pre">pandas</span></code> skills, create a new column <code class="docutils literal notranslate"><span class="pre">pop_density_km2</span></code> and populate it with population density values (population / km2) calculated based on columns <code class="docutils literal notranslate"><span class="pre">pop2019</span></code> and <code class="docutils literal notranslate"><span class="pre">area_km2</span></code>. Print out answers to the following questions:</p>
+<ul class="simple">
+<li><p>What was the average population density in 2019?</p></li>
+<li><p>What was the maximum population density per census tract?</p></li>
+</ul>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># Calculate population density</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop2019&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;area_km2&quot;</span><span class="p">]</span>
+
+<span class="c1"># Print out average and maximum values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="s2">&quot;pop/km2&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximum:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pop_density_km2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span> <span class="s2">&quot;pop/km2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="writing-data-into-a-file">
+<h2>Writing data into a file<a class="headerlink" href="#writing-data-into-a-file" title="Link to this heading">#</a></h2>
+<p>In a similar way as reading data, writing the contents of your <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> into a specific file is one of the most typical operations when working with geographic data. It is possible to export the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> into various data formats using the <code class="docutils literal notranslate"><span class="pre">.to_file()</span></code> method. Let’s start by learning how we can write data into a <code class="docutils literal notranslate"><span class="pre">GeoPackage</span></code>. Before proceeding, let’s see how the data looks like at this point:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Writing the contents of this <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> into a file can be done using the <code class="docutils literal notranslate"><span class="pre">.to_file()</span></code> method. To use the method, we only need to pass the filepath to the output file. Geopandas automatically identifies the correct format based on the file extension that have been written after the dot in the file path. For instance in the example below, the text <code class="docutils literal notranslate"><span class="pre">.gpkg</span></code> at the end of the <code class="docutils literal notranslate"><span class="pre">output_fp</span></code> variable determines that the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> will be written in GeoPackage format:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a output path for the data</span>
+<span class="n">output_fp</span> <span class="o">=</span> <span class="s2">&quot;data/Temp/austin_pop_density_2019.gpkg&quot;</span>
+
+<span class="c1"># Write the file</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_fp</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Now we have successfully stored the data into a file called <code class="docutils literal notranslate"><span class="pre">austin_pop_density_2019.gpkg</span></code>. Notice, that if you have an existing file with the same name, geopandas will automatically overwrite the contents (without asking). Hence, it is good to be a bit mindful about the naming of the files whenever writing data to disk.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<section id="question-6-4">
+<h3>Question 6.4<a class="headerlink" href="#question-6-4" title="Link to this heading">#</a></h3>
+<p>Read the output file using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and check that the data looks ok.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">temp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">output_fp</span><span class="p">)</span>
+
+<span class="c1"># Check first rows</span>
+<span class="n">temp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1"># You can also plot the data for a visual check by uncommenting the following</span>
+<span class="c1"># temp.plot()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="different-file-formats-for-reading-and-writing-geographic-data">
+<h2>Different file formats for reading and writing geographic data<a class="headerlink" href="#different-file-formats-for-reading-and-writing-geographic-data" title="Link to this heading">#</a></h2>
+<p>There are various GIS data formats available such as <a class="reference external" href="https://en.wikipedia.org/wiki/Shapefile">Shapefile</a> <a class="footnote-reference brackets" href="#shp" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, <a class="reference external" href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> <a class="footnote-reference brackets" href="#geojson" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Keyhole_Markup_Language">KML</a> <a class="footnote-reference brackets" href="#kml" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>, and <a class="reference external" href="https://en.wikipedia.org/wiki/GeoPackage">GeoPackage</a> <a class="footnote-reference brackets" href="#gpkg" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>. Geopandas is capable of reading data from all of these formats (plus many more). In the following, we will show some typical examples how to read (and write) data from different sources. The main point in this section is to demonstrate the basic syntax for reading and writing data using short code snippets. You can find the example datasets in the data-folder. However, most of the example databases do not exists, but you can use and modify the example syntax according to your own setup.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="reading-vector-data">
+<h3>Reading vector data<a class="headerlink" href="#reading-vector-data" title="Link to this heading">#</a></h3>
+<p>When we use the <code class="docutils literal notranslate"><span class="pre">.from_file()</span></code> function for reading data in various formats, geopandas actually uses a library called <strong>fiona</strong> under the hood to read the data (in most cases). This means that you can read and write all data formats that are supported by fiona. It is easy to find out all the data formats that are supported by default by calling <code class="docutils literal notranslate"><span class="pre">fiona.supported_drivers</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">fiona</span>
+
+<span class="n">fiona</span><span class="o">.</span><span class="n">supported_drivers</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>As we can see, by default there are 20 different file formats that are supported for reading data. In the list of supported drivers, <code class="docutils literal notranslate"><span class="pre">r</span></code> is for file formats that fiona/geopandas can be read, and <code class="docutils literal notranslate"><span class="pre">w</span></code> is for file formats it can write. Letter <code class="docutils literal notranslate"><span class="pre">a</span></code> marks formats for which fiona/geopandas can append new data to existing files. Let’s read the same Austin census data in a Shapefile format to see the basic syntax:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read Esri Shapefile</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="n">data_folder</span> <span class="o">/</span> <span class="s2">&quot;austin_pop_2019.shp&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>As you can see, nothing except the file extension at the end of the filename changed, from <code class="docutils literal notranslate"><span class="pre">.gpkg</span></code> into <code class="docutils literal notranslate"><span class="pre">.shp</span></code>. The same syntax works for other common vector data formats, such as GeoJSON or MapInfo TAB format:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read file from Geopackage</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Austin/austin_pop_2019.gpkg&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+
+<span class="c1"># Read file from GeoJSON</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Austin/austin_pop_2019.geojson&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+
+<span class="c1"># Read file from Geodatabase</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Austin/austin_pop_2019.gdb&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+
+<span class="c1"># Read file from MapInfo TAB</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Austin/austin_pop_2019.tab&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Some file formats such as GeoPackage may contain multiple layers with different names which can be speficied using the <code class="docutils literal notranslate"><span class="pre">layer</span></code> -parameter. Our example geopackage file has only one layer with the same name as the file, so we don’t actually need to specify it to read in the data, but we can of course:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read spesific layer from Geopackage</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Austin/austin_pop_2019.gpkg&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;austin_pop_2019&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>In some cases, such as when reading KML file format, geopandas does not automatically support reading the data:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read file from KML</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Austin/austin_pop_2019.kml&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><img alt="Unsupported driver error." src="../../../_images/unsupported_driver_error.png" /></p>
+<!-- #endregion -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, center, nofloat}{../img/unsupported_driver_error.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>In case you receive an error that says something like <code class="docutils literal notranslate"><span class="pre">DriverError:</span> <span class="pre">unsupported</span> <span class="pre">driver:</span> <span class="pre">XXXXX</span></code>, it means that the given data format is not ready for reading by default. Luckily, most often you are still able to read the data after telling geopandas that it is okay to read the data from a given data format. As an example, here we tell the geopandas to support KML file format by adding <code class="docutils literal notranslate"><span class="pre">LIBKML</span></code> to supported drivers, and specify that it is possible to data read and write data with this file format (by adding <code class="docutils literal notranslate"><span class="pre">&quot;rw&quot;</span></code>):</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable KML driver</span>
+<span class="n">gpd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s2">&quot;LIBKML&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rw&quot;</span>
+
+<span class="c1"># Read file from KML</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Austin/austin_pop_2019.kml&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+
+<span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the KML file format isn’t a format that is fully supported in geopandas, so there may be additional data columns read into the <code class="docutils literal notranslate"><span class="pre">data</span></code> GeoDataFrame. Thus, we will extract only the columns of interest before proceeding.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;pop2019&quot;</span><span class="p">,</span> <span class="s2">&quot;tract&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>After this small adjustment, geopandas is able to read the KML file into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> without a problem. In a similar manner, you can also enable some other file formats that are not enabled by default for reading and/or writing.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Lastly, we demonstrate how it is possible to read data directly from a ZIP file format which can be quite useful especially if you are working with large datasets or a collection of multiple files stored into a single ZIP archive. ZIP file is an archive data format where the data is compressed efficiently. For instance, after zipping Shapefiles, the disk space needed to store the data in the given format will be significantly lower. To read the data from ZIP files, we can use the built-in Python library called <strong>zipfile</strong> and its <code class="docutils literal notranslate"><span class="pre">ZipFile</span></code> object which makes it possible to work with compressed ZIP files. The following example shows how to read data from a compressed ZIP file. Let’s start by opening the file into a variable <code class="docutils literal notranslate"><span class="pre">z</span></code> and then read the names of the files stored inside the archive with the method <code class="docutils literal notranslate"><span class="pre">.namelist()</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Helsinki/building_points_helsinki.zip&quot;</span>
+
+<span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">namelist</span><span class="p">())</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>As you can see, the given <code class="docutils literal notranslate"><span class="pre">ZipFile</span></code> which is opened in variable <code class="docutils literal notranslate"><span class="pre">z</span></code> contains only a single GeoPackage called <code class="docutils literal notranslate"><span class="pre">building_points_helsinki.gpkg</span></code>. The <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">ZipFile(fp)</span> <span class="pre">as</span> <span class="pre">z:</span></code> command here is a standard Python convention to open files in read-format from ZIP files. To read the contents of the GeoPackage stored inside the file, we first need use the <code class="docutils literal notranslate"><span class="pre">.read()</span></code> function of the opened <code class="docutils literal notranslate"><span class="pre">ZipFile</span></code> object to read the contents of the file into bytes. After this step, we need to pass these bytes into a <code class="docutils literal notranslate"><span class="pre">BytesIO</span></code> in-memory file buffer by using the built-in <code class="docutils literal notranslate"><span class="pre">io</span></code> library. A file buffer is an in-memory file-like object that can be used as a temporary storage or buffer for bytes-like data. Instead of writing data directly to a physical file on a disk, it allows you to write the data into a <code class="docutils literal notranslate"><span class="pre">BytesIO</span></code> object, which stores the data in computer’s memory. This file buffer can then be used by geopandas to read the actual contents of the file into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. This might sound a bit complicated, but it actually requires only a few lines of code:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">io</span>
+
+<span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+    <span class="c1"># Pick the first text in the name-list</span>
+    <span class="n">name_of_the_file</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Read the data into filebuffer</span>
+    <span class="n">file_buffer</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">name_of_the_file</span><span class="p">))</span>
+
+    <span class="c1"># Read the filebuffer into Geopandas</span>
+    <span class="n">buildings</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">file_buffer</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">buildings</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Ta-da! Now we have succesfully read the GeoPackage from the given ZIP file into a variable <code class="docutils literal notranslate"><span class="pre">buildings</span></code>. In many cases you might have multiple files stored inside a ZIP archive. Following and modifying the examples above (namely the <code class="docutils literal notranslate"><span class="pre">name_of_the_file</span></code> and <code class="docutils literal notranslate"><span class="pre">fp</span></code> variables), you can easily explore the files that are stored inside a given ZIP file and read any geographic data stored in the file into geopandas.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="writing-vector-data">
+<h3>Writing vector data<a class="headerlink" href="#writing-vector-data" title="Link to this heading">#</a></h3>
+<p>We can save spatial data to various vector data formats using the <code class="docutils literal notranslate"><span class="pre">.to_file()</span></code> method of the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. Similarly as when reading data, this functionality also relies on the fiona library under the hood. When writing a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> into a file, you basically only need to pass a filename/path to the <code class="docutils literal notranslate"><span class="pre">.to_file()</span></code> method, which will then write the data into the given file. It is possible to specify the output file format using the <code class="docutils literal notranslate"><span class="pre">driver</span></code> parameter. However, for most file formats it is not needed as the tool is able to infer the driver from the file extension (similarly as when reading data):</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write to Shapefile</span>
+<span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;data/Temp/austin_pop_2019.shp&quot;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">outfp</span><span class="p">)</span>
+
+<span class="c1"># Write to MapInfo Tab</span>
+<span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;data/Temp/austin_pop_2019.tab&quot;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">outfp</span><span class="p">)</span>
+
+<span class="c1"># Write to Geopackage</span>
+<span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;data/Temp/austin_pop_2019.gpkg&quot;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">outfp</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+
+<span class="c1"># Write to GeoJSON</span>
+<span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;data/Temp/austin_pop_2019.geojson&quot;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">outfp</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>
+
+<span class="c1"># Write to KML</span>
+<span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;data/Temp/austin_pop_2019.kml&quot;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">outfp</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;LIBKML&quot;</span><span class="p">)</span>
+
+<span class="c1"># Write to File Geodatabase</span>
+<span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;data/Temp/austin_pop_2019.gdb&quot;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">outfp</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;OpenFileGDB&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="creating-a-geodataframe-from-scratch">
+<h2>Creating a GeoDataFrame from scratch<a class="headerlink" href="#creating-a-geodataframe-from-scratch" title="Link to this heading">#</a></h2>
+<p>It is possible to create spatial data from scratch by using shapely’s geometric objects and geopandas. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into geospatial data layers. Let’s first create a simple <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> based on coordinate information that represents the outlines of the Senate square in Helsinki, Finland. The coordinates below demonstrates the corners of the Senate square, which we can use to create a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> object in a similar manner as we learned earlier in this chapter:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span>
+
+<span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">24.950899</span><span class="p">,</span> <span class="mf">60.169158</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">24.953492</span><span class="p">,</span> <span class="mf">60.169158</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">24.953510</span><span class="p">,</span> <span class="mf">60.170104</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">24.950958</span><span class="p">,</span> <span class="mf">60.169990</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Now we can use this polygon and create a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> from scratch with geopandas. The data can be passed in as a list-like object. In our case, we will only have one row and one column of data. We can pass the polygon inside a list, and name the column as <code class="docutils literal notranslate"><span class="pre">geometry</span></code> so that geopandas will know to use the contents of that column as the source for geometries. Additionally, we could define the coordinate reference system for the data which we will learn in the next chapter.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">newdata</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">poly</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">])</span>
+<span class="n">newdata</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>In this way, we can easily create a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> without any attribute data. However, quite often you also want to attach attribute information along with your geometry. We can create a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> from scratch with multiple attributes by passing a Python <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> into the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> object as follows:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gdf_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">poly</span><span class="p">],</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Senate Square&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="mi">2023</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">new_data_extended</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">gdf_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_data_extended</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>There it is! Now we have four columns in our data, one representing the geometry and other columns with additional attribute information.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="creating-a-geodataframe-from-a-text-file">
+<h2>Creating a GeoDataFrame from a text file<a class="headerlink" href="#creating-a-geodataframe-from-a-text-file" title="Link to this heading">#</a></h2>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>One rather typical situation that you might encounter when working with your course mates or colleagues, is that you receive data that has coordinates but they are stored e.g. in a delimited textfile (or an Excel file). In this case, you cannot directly read the data into <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> from the text file, but it needs to be converted into geospatial data using the coordinate information. In such a case, we can make use of the pandas, geopandas and shapely libraries for turning the data from a text file into a fully functional <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. To demonstrate this, we have some example data below that contains point coordinates of airports derived from <a class="reference external" href="https://openflights.org/data.html">openflights.org</a> <a class="footnote-reference brackets" href="#openflights" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>. The operation of turning this data into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> begins with reading the data with pandas into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. Let’s read a couple of useful columns from the data for further processing:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">airports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;data/Airports/airports.txt&quot;</span><span class="p">,</span>
+    <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Airport ID&quot;</span><span class="p">,</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;City&quot;</span><span class="p">,</span> <span class="s2">&quot;Country&quot;</span><span class="p">,</span> <span class="s2">&quot;Latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;Longitude&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">airports</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">airports</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">airports</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>As we can see, now the data was read from a textfile into a regular pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. In a similar manner, you can read data with coordinates from numerous file formats supported by pandas. Our data covers over 7000 airports with specific attribute information including the coordinates in the <code class="docutils literal notranslate"><span class="pre">Latitude</span></code> and <code class="docutils literal notranslate"><span class="pre">Longitude</span></code> columns. We can use this coordinate information for turning this data into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> and ultimately visualizing the data on a map. There is a handy function in geopandas called <code class="docutils literal notranslate"><span class="pre">.points_from_xy()</span></code> for generating an array of <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects based on <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates. This function assumes that x-coordinates represent longitude and the y-coordinates represent latitude. The following code snippet shows how we can create geometries for the airports based on these coordinates:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">airports</span><span class="p">[</span><span class="s2">&quot;Longitude&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">airports</span><span class="p">[</span><span class="s2">&quot;Latitude&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">airports</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">airports</span><span class="p">)</span>
+<span class="n">airports</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">airports</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>The <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> was created with a couple of steps. First, we created a new column called <code class="docutils literal notranslate"><span class="pre">geometry</span></code> into the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and used the <code class="docutils literal notranslate"><span class="pre">.points_from_xy()</span></code> function to turn the coordinates into shapely <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects. At this stage, the data is still in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> format, but we can easily convert the data into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. The second command in the code snippet converts the pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which then has all the capabilities and tools bundled with geopandas. After these two steps, we have succesfully turned the data into geospatial format and we can for example plot the data on a map:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">markersize</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 6.13</strong>. A basic plot showing the airports from openflights.org.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<!-- #endregion -->
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="geopandas" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://geopandas.org/">https://geopandas.org/</a></p>
+</aside>
+<aside class="footnote brackets" id="us-census" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.census.gov/programs-surveys/acs/data.html">https://www.census.gov/programs-surveys/acs/data.html</a></p>
+</aside>
+<aside class="footnote brackets" id="shp" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Shapefile">https://en.wikipedia.org/wiki/Shapefile</a></p>
+</aside>
+<aside class="footnote brackets" id="geojson" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/GeoJSON">https://en.wikipedia.org/wiki/GeoJSON</a></p>
+</aside>
+<aside class="footnote brackets" id="kml" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Keyhole_Markup_Language">https://en.wikipedia.org/wiki/Keyhole_Markup_Language</a></p>
+</aside>
+<aside class="footnote brackets" id="gpkg" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/GeoPackage">https://en.wikipedia.org/wiki/GeoPackage</a></p>
+</aside>
+<aside class="footnote brackets" id="openflights" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://openflights.org/data.html">https://openflights.org/data.html</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-geodataframe">What is a GeoDataFrame?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-file">Reading a file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-6-2">Question 6.2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometries-in-geopandas">Geometries in geopandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-6-3">Question 6.3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-data-into-a-file">Writing data into a file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-6-4">Question 6.4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-file-formats-for-reading-and-writing-geographic-data">Different file formats for reading and writing geographic data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-vector-data">Reading vector data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-vector-data">Writing vector data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-geodataframe-from-scratch">Creating a GeoDataFrame from scratch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-geodataframe-from-a-text-file">Creating a GeoDataFrame from a text file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
