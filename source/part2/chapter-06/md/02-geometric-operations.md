@@ -19,7 +19,7 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 Geometric operations refer to a set of methods that can be used to process and analyze geometric features, like points, lines and polygons. In the context of geographic data analysis, these operations allow us, for instance, to ask questions about how two or more geographic objects relate to each other: Do they intersect, touch, or overlap? Are they adjacent to one another? How far apart are they? With the tools bundled in geopandas, it is easy to perform these kind of operations which is the main focus of Chapter 6. As we delve into the geometric operations, you will discover that they form the foundation of many geospatial analyses, enabling insights that are often difficult to discern from non-spatial data alone.
 
-In the following, we demonstrate some of the most common geometric manipulation functions available in geopandas. We will do this by continuing to explore the census tract data from Austin, Texas. Geometric manipulations are often useful e.g. when working with data related to administrative boundaries, as we often might need to transform or manipulate the geographic data in one way or another for further analysis and visualization purposes. Next, we will learn how to generate centroids, different outlines and buffer zones for the polygons. Let's start by reading the census tract data into `GeoDataFrame`. In this case, we use data that we already manipulated a bit in the previous section (by calculating the area and population density):
+In the following, we demonstrate some of the most common geometric manipulation functions available in geopandas. We will do this by continuing to explore the census tract data from Austin, Texas. Geometric manipulations are often useful e.g. when working with data related to administrative boundaries, as we often might need to transform or manipulate the geographic data in one way or another for further analysis and visualization purposes. Next, we will learn how to generate centroids, different outlines, and buffer zones for the polygons. Let's start by reading the census tract data into `GeoDataFrame`. In this case, we use data that we already manipulated a bit in the previous section (by calculating the area and population density):
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -73,7 +73,7 @@ _**Figure 6.14**. Basic plot of the census tracts._
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Centroid
 
-The centroid of a geometry is the geometric center of a given geometry (line, polygon or a geometry collection). Extracting the centroid of geometric features is useful in many cases. Geometric centroid can, for example, be used for locating text labels in visualizations. We can extract the center point of each polygon via the `centroid` attribute of the `geometry` column. The data should be in a projected coordinate reference system when calculating the centroids. If trying to calculate centroids based on latitude and longitude information, `geopandas` will warn us that the results are likely (slightly) incorrect. Our `GeoDataFrame` is in WGS 84 / UTM zone 14N (EPSG:32614) coordinate reference system (CRS) which is a projected one (we will learn more about these in the next section). Thus, we can directly proceed to calculating the centroids:
+The centroid of a geometry is the geometric center of a given geometry (line, polygon or a geometry collection). Extracting the centroid of geometric features is useful in many cases. Geometric centroids can, for example, be used for locating text labels in visualizations. We can extract the center point of each polygon via the `centroid` attribute of the `geometry` column. The data should be in a projected coordinate reference system when calculating the centroids. If trying to calculate centroids based on latitude and longitude information, `geopandas` will warn us that the results are likely (slightly) incorrect. Our `GeoDataFrame` is in WGS 84 / UTM zone 14N (EPSG:32614) coordinate reference system (CRS) which is a projected one (we will learn more about these in the next section). Thus, we can directly proceed to calculating the centroids:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -113,12 +113,29 @@ data.union_all()
 _**Figure 6.16**. Union of all of census tract polygon geometries._
 <!-- #endregion -->
 
+The `.union_all()` method returns a `shapely` polygon object out of the results. It is also possible to merge geometries using a method called `.dissolve()` that returns a `GeoDataFrame` as an output (with aggregated attribute information). Both the `.union_all()` and the `.dissolve()` support two different kind of algorithms to form the merged geometry: `"unary"` (the default) and `"coverage"` which is optimized for non-overlapping polygons and can be significantly faster to compute. As our data here, does not have any overlapping polygons, we can test how merging the geometries work with the `"coverage"` algorithm:
+
+```python
+# Merge geometries using coverage algorithm
+dissolved = data.dissolve(method="coverage")
+dissolved.head()
+```
+
+```python
+# Get the shapely geometry
+dissolved.geometry[0]
+```
+***Figure 6.17.** Union of all polygon geometries using the dissolve -method.*
+
+As a result, the `dissolved` variable now contains the merged geometry as well as the attribute information associated with it. When looking at the returned geometry, we can see that it is identical to the one returned by `.union_all()` method. Notice that by default the `.dissolve()` simply stores the first row of data as an attribute information. It is, however, possible to control how the attribute information should be aggregated/summarized, e.g. by summing the values. Read more information about this later from the section where we introduce more thoroughly the functionality of `.dissolve()`. 
+
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Bounding polygon
 
-A bounding polygon, often referred to as a bounding box or envelope, is the smallest rectangular polygon that encloses a given geometry or a set of geometries. In simpler terms, it's like drawing the tightest possible rectangle around a shape, capturing all of its points within this rectangle. The bounding polygon is often used in spatial operations for preliminary filtering because it provides a computationally simple way to test for possible intersections or proximities between geometries that can be used to select data. 
+A bounding polygon, often referred to as a bounding box or envelope, is the smallest rectangular polygon that encloses a given geometry or a set of geometries. In simpler terms, it's like drawing the tightest possible rectangle around a shape, capturing all of its points within this rectangle. The bounding polygon is often used in spatial operations for preliminary filtering because it provides a computationally simple way to test for possible intersections or proximities between geometries that can be used to select data. There are different ways to extract a bounding polygon for a given geometry/geometries, such as axis-aligned *envelope*, *minimum rotated rectangle*, and *minimum bounding circle* which can all be extracted with `geopandas`.
 
-In a `GeoDataFrame`, we can easily return the minimum bounding rectangle of geometires by using the `.envelope` attribute which returns the bounding rectangle for each geometry:
+In a `GeoDataFrame`, we can easily return the minimum axis-aligned bounding rectangle of geometries by using the `.envelope` attribute which returns the bounding rectangle for each geometry:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -134,7 +151,7 @@ data.union_all().envelope
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.17**. Minimum bounding box for the census tracts._
+_**Figure 6.18**. Minimum bounding box for the census tracts._
 
 Corner coordinates of the bounding box for a `GeoDataFrame` can be fetched via the `total_bounds` attribute: 
 <!-- #endregion -->
@@ -150,6 +167,24 @@ The `bounds` attribute returns the bounding coordinates of each feature:
 ```python editable=true slideshow={"slide_type": ""}
 data.bounds.head()
 ```
+
+Similarly, it is possible to get the *minimum rotated rectangle* and *minimum bounding circle*  with `geopandas` by using the `.minimum_rotated_rectangle()` and `.minimum_bounding_circle()` methods respectively. Here, we first merge all the geometries using the `.dissolve()` method as shown previously, and then use the merged geometry for getting the minimum bounding polygon:
+
+```python
+data.dissolve().minimum_rotated_rectangle().geometry[0]
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 6.19**. Minimum rotated rectangle for the census tracts._
+<!-- #endregion -->
+
+```python
+data.dissolve().minimum_bounding_circle().geometry[0]
+```
+
+_**Figure 6.20**. Minimum bounding circle for the census tracts._
+
+As can be seen from the geometries above, the *minimum rotated rectangle* can rotate around the input geometries and aims to encircle them as tightly as possible. The *minimum bounding circle* then again creates a circle around the geometries in a way that each geometry is enclosed by the circle. Depending on the use case, all of these methods may come handy when working with geographic data.
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Convex hull
@@ -172,7 +207,7 @@ data.union_all().convex_hull
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.18**. Smallest convex polygon for the census tracts._
+_**Figure 6.21**. Smallest convex polygon for the census tracts._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -197,7 +232,7 @@ concave_hull.plot();
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.19**. A concave hull applied with default settings for the census tracts produces interesting shapes._
+_**Figure 6.22**. A concave hull applied with default settings for the census tracts produces interesting shapes._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -245,7 +280,7 @@ ax3.set_title("Ratio 0.4");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.20**. A concave hull with different `ratio` settings produces a varying level of simplification of the input geometry._
+_**Figure 6.23**. A concave hull with different `ratio` settings produces a varying level of simplification of the input geometry._
 
 As we can see, by adjusting the `ratio` parameter, we can have a good control for determining how detailed geometries we get as an output of the concave hull.
 <!-- #endregion -->
@@ -263,15 +298,15 @@ data.simplify(tolerance=1000).head()
 ```
 
 <!-- #region editable=true jp-MarkdownHeadingCollapsed=true slideshow={"slide_type": ""} -->
-In a similar manner as before, we can easily apply the `.simplify()` to the extent of all geometries by first getting the unary union of the input geometries:
+In a similar manner as before, we can easily apply `.simplify()` to the extent of all geometries by first getting the unary union of the input geometries:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-data.unary_union.simplify(tolerance=1000)
+data.union_all().simplify(tolerance=1000)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.21**. Simplified union of the census tract polygons._
+_**Figure 6.24**. Simplified union of the census tract polygons._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -291,7 +326,7 @@ plt.show()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.22**. 1km buffer for each census tract._
+_**Figure 6.25**. 1km buffer for each census tract._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -300,11 +335,11 @@ If we want only one buffer for the whole area, we first need to combine the geom
 
 ```python editable=true slideshow={"slide_type": ""}
 # 1000 m buffer for each polygon
-data.unary_union.buffer(1000)
+data.union_all().buffer(1000)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.23**. 1km buffer for each census tract._
+_**Figure 6.26**. 1km buffer for each census tract._
 
 Buffer can be used with different geometry types, also with `Point` and `LineString` objects. It is good to notice that if you apply a buffer for points or polygons, the resulting geometry will always be a `Polygon`. 
 <!-- #endregion -->
@@ -312,7 +347,7 @@ Buffer can be used with different geometry types, also with `Point` and `LineStr
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Dissolving and merging geometries
 
-Spatial data aggregation refers to combining geometries into coarser spatial units based on some attributes. The process may also include the calculation of summary statistics. In Part I of the book, we learned how to group and aggregate data with `pandas` using the `.groupby`method. In `geopandas`, there is a method called `.dissolve()` that groups the data based on a specific attribute column and then produces an union of the geometries for each group in that attribute. At the same time, we can also get summary statistics of the attributes. 
+Spatial data aggregation refers to combining geometries into coarser spatial units based on some attributes. The process may also include the calculation of summary statistics. In Part I of the book, we learned how to group and aggregate data with `pandas` using the `.groupby()` method. In `geopandas`, there is a method called `.dissolve()` that groups the data based on a specific attribute column and then produces an union of the geometries for each group in that attribute. At the same time, we can also get summary statistics of the attributes. 
 
 To demonstrate how dissolve works with our sample data, let's create create a new column to our `GeoDataFrame` to indicate census tracts with above average population density. We can do this by adding a new empty column `dense` and adding values that indicate above and below average population densities per census tract:
 <!-- #endregion -->
@@ -361,7 +396,7 @@ plt.show()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.24**. Dissolved census tract geometries._
+_**Figure 6.27**. Dissolved census tract geometries._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
@@ -389,7 +424,7 @@ dissolved.loc[dissolved["dense"] == 1].buffer(500).plot(
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Changing the active geometry in a GeoDataFrame
 
-In the previous examples, we did not really store the manipulated geometries anywhere, as we mostly printed or plotted the results of the geometric operations directly to the screen. Next, we want to discuss briefly about different ways to store the results of the geometric operations into `GeoDataFrame`, and how you can change/update the active geometry of the `GeoDataFrame` for representing the geometries in your data. In some cases, such as when calculating the centroids in the previous examples, you might actually want to save the centroids into your `GeoDataFrame`. This is useful, because you can then continue processing or analysing the data based on these geometries. Storing and updating geometries in your `GeoDataFrame` can be done easily with geopandas, and in fact, you can have multiple columns that contain geometries. There are a couple of approaches to update the geometries of your 'GeoDataFrame`:
+In the previous examples, we did not really store the manipulated geometries anywhere, as we mostly printed or plotted the results of the geometric operations directly to the screen. Next, we want to discuss briefly about different ways to store the results of the geometric operations into `GeoDataFrame`, and how you can change/update the active geometry of the `GeoDataFrame` for representing the geometries in your data. In some cases, such as when calculating the centroids in the previous examples, you might actually want to save the centroids into your `GeoDataFrame`. This is useful, because you can then continue processing or analysing the data based on these geometries. Storing and updating geometries in your `GeoDataFrame` can be done easily with geopandas, and in fact, you can have multiple columns that contain geometries. There are a couple of approaches to update the geometries of your `GeoDataFrame`:
 
 1. Overwrite the existing geometries in the `geometry` column by storing the new (manipulated) geometries into it.
 2. Create a new column (e.g. `centroid`) and store the new geometries into this one. Then activate/set this column as the "active geometry" for your `GeoDataFrame`. In this way, you can have multiple simultaneous columns containing geometries in a `GeoDataFrame`, which can be very handy!
@@ -449,7 +484,7 @@ option2.plot();
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.25**. Centroids of the census tracts stored in a GeoDataFrame._
+_**Figure 6.28**. Centroids of the census tracts stored in a GeoDataFrame._
 
 By following this approach, you can easily change the active `geometry` for your `GeoDataFrame` based on data stored in different columns. This can be highly useful when manipulating geometries as you can store the geometries from different computational steps into a same `GeoDataFrame` without a need to make multiple copies of the data. However, we recommend to be a bit careful when storing multiple columns with geometries, as it is possible that you accidentally use a different column as active geometry than what you have planned to do, which can cause confusion and problems with your analyses. Always remember the name the columns intuitively which can help avoiding issues and confusion in your analyses!
 <!-- #endregion -->
