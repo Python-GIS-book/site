@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Amazon river network</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-toggle-button.css?v=14db4526" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-text-formatting.css?v=4ef71e6f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'data/Peru-data';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../part1/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part1/chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part1/chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/00-python-basics.html">2.1 Getting started with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/01-lists-and-indices.html">2.2 Lists and indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/02-text-and-numbers.html">2.3 Working with text and numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/03-for-loops.html">2.4 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/04-conditional-statements.html">2.5 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/05-functions.html">2.6 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/06-writing-scripts.html">2.7 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/07-modules.html">2.8 Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-02/nb/08-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part1/chapter-03/index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-03/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-03/nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-03/nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-03/nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-03/nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-03/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part1/chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part1/chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in vector format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/01-data-structures-xarray.html">7.2 Introduction to data structures in xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/06-surface-analysis.html">7.7 Surface analysis</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part3/chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part3/chapter-11/index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noaa-data.html">NOAA Weather data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/data/Peru-data.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/data/Peru-data.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/data/Peru-data.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Amazon river network</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="amazon-river-network">
+<h1>Amazon river network<a class="headerlink" href="#amazon-river-network" title="Link to this heading">#</a></h1>
+<p>Source: <strong>TODO</strong>: Check from Tenkanen et al. 2012.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;Peru/Amazon_river.shp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>bbox_east</th>
+      <th>bbox_north</th>
+      <th>bbox_south</th>
+      <th>bbox_west</th>
+      <th>place_name</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-49.10927</td>
+      <td>0.70653</td>
+      <td>-4.44219</td>
+      <td>-73.450126</td>
+      <td>Rio Amazonas, Microrregião de Manaus, Mesorreg...</td>
+      <td>MULTILINESTRING ((1612358.589 9508606.173, 161...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">explore</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span><iframe src="about:blank" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" data-html=%3C%21DOCTYPE%20html%3E%0A%3Chead%3E%20%20%20%20%0A%20%20%20%20%3Cmeta%20http-equiv%3D%22content-type%22%20content%3D%22text/html%3B%20charset%3DUTF-8%22%20/%3E%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%3Cscript%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20L_NO_TOUCH%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20L_DISABLE_3D%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%3C/script%3E%0A%20%20%20%20%0A%20%20%20%20%3Cstyle%3Ehtml%2C%20body%20%7Bwidth%3A%20100%25%3Bheight%3A%20100%25%3Bmargin%3A%200%3Bpadding%3A%200%3B%7D%3C/style%3E%0A%20%20%20%20%3Cstyle%3E%23map%20%7Bposition%3Aabsolute%3Btop%3A0%3Bbottom%3A0%3Bright%3A0%3Bleft%3A0%3B%7D%3C/style%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//cdn.jsdelivr.net/npm/leaflet%401.6.0/dist/leaflet.js%22%3E%3C/script%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//code.jquery.com/jquery-1.12.4.min.js%22%3E%3C/script%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js%22%3E%3C/script%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js%22%3E%3C/script%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//cdn.jsdelivr.net/npm/leaflet%401.6.0/dist/leaflet.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css%22/%3E%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20initial-scale%3D1.0%2C%20maximum-scale%3D1.0%2C%20user-scalable%3Dno%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23map_086034f872a4452fb2d32999124b39b5%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20width%3A%20100.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20height%3A%20100.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20left%3A%200.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20top%3A%200.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/style%3E%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.foliumtooltip%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.foliumtooltip%20table%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20margin%3A%20auto%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.foliumtooltip%20tr%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.foliumtooltip%20th%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20padding%3A%202px%3B%20padding-right%3A%208px%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/style%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%3C/head%3E%0A%3Cbody%3E%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22folium-map%22%20id%3D%22map_086034f872a4452fb2d32999124b39b5%22%20%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%0A%3C/body%3E%0A%3Cscript%3E%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20map_086034f872a4452fb2d32999124b39b5%20%3D%20L.map%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22map_086034f872a4452fb2d32999124b39b5%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20center%3A%20%5B-1.8678300999999977%2C%20-61.279698%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20crs%3A%20L.CRS.EPSG3857%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20zoom%3A%2010%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20zoomControl%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20preferCanvas%3A%20false%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20L.control.scale%28%29.addTo%28map_086034f872a4452fb2d32999124b39b5%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20tile_layer_de9f736be0f947a19029351487315a1b%20%3D%20L.tileLayer%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22https%3A//%7Bs%7D.tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22attribution%22%3A%20%22Data%20by%20%5Cu0026copy%3B%20%5Cu003ca%20href%3D%5C%22http%3A//openstreetmap.org%5C%22%5Cu003eOpenStreetMap%5Cu003c/a%5Cu003e%2C%20under%20%5Cu003ca%20href%3D%5C%22http%3A//www.openstreetmap.org/copyright%5C%22%5Cu003eODbL%5Cu003c/a%5Cu003e.%22%2C%20%22detectRetina%22%3A%20false%2C%20%22maxNativeZoom%22%3A%2018%2C%20%22maxZoom%22%3A%2018%2C%20%22minZoom%22%3A%200%2C%20%22noWrap%22%3A%20false%2C%20%22opacity%22%3A%201%2C%20%22subdomains%22%3A%20%22abc%22%2C%20%22tms%22%3A%20false%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_086034f872a4452fb2d32999124b39b5%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20map_086034f872a4452fb2d32999124b39b5.fitBounds%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B%5B-4.442189799999997%2C%20-73.4501259%5D%2C%20%5B0.7065296000000016%2C%20-49.1092701%5D%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20function%20geo_json_a29e1a745b794cc7808b130d99f6e175_styler%28feature%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20switch%28feature.id%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20default%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20%7B%22fillOpacity%22%3A%200.5%2C%20%22weight%22%3A%202%7D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20function%20geo_json_a29e1a745b794cc7808b130d99f6e175_highlighter%28feature%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20switch%28feature.id%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20default%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20%7B%22fillOpacity%22%3A%200.75%7D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20function%20geo_json_a29e1a745b794cc7808b130d99f6e175_pointToLayer%28feature%2C%20latlng%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20opts%20%3D%20%7B%22bubblingMouseEvents%22%3A%20true%2C%20%22color%22%3A%20%22%233388ff%22%2C%20%22dashArray%22%3A%20null%2C%20%22dashOffset%22%3A%20null%2C%20%22fill%22%3A%20true%2C%20%22fillColor%22%3A%20%22%233388ff%22%2C%20%22fillOpacity%22%3A%200.2%2C%20%22fillRule%22%3A%20%22evenodd%22%2C%20%22lineCap%22%3A%20%22round%22%2C%20%22lineJoin%22%3A%20%22round%22%2C%20%22opacity%22%3A%201.0%2C%20%22radius%22%3A%202%2C%20%22stroke%22%3A%20true%2C%20%22weight%22%3A%203%7D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20let%20style%20%3D%20geo_json_a29e1a745b794cc7808b130d99f6e175_styler%28feature%29%0A%20%20%20%20%20%20%20%20%20%20%20%20Object.assign%28opts%2C%20style%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20new%20L.CircleMarker%28latlng%2C%20opts%29%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20function%20geo_json_a29e1a745b794cc7808b130d99f6e175_onEachFeature%28feature%2C%20layer%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20layer.on%28%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mouseout%3A%20function%28e%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%28typeof%20e.target.setStyle%20%3D%3D%3D%20%22function%22%29%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20geo_json_a29e1a745b794cc7808b130d99f6e175.resetStyle%28e.target%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mouseover%3A%20function%28e%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%28typeof%20e.target.setStyle%20%3D%3D%3D%20%22function%22%29%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20const%20highlightStyle%20%3D%20geo_json_a29e1a745b794cc7808b130d99f6e175_highlighter%28e.target.feature%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20e.target.setStyle%28highlightStyle%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%20%20%20%20var%20geo_json_a29e1a745b794cc7808b130d99f6e175%20%3D%20L.geoJson%28null%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onEachFeature%3A%20geo_json_a29e1a745b794cc7808b130d99f6e175_onEachFeature%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20style%3A%20geo_json_a29e1a745b794cc7808b130d99f6e175_styler%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20pointToLayer%3A%20geo_json_a29e1a745b794cc7808b130d99f6e175_pointToLayer%0A%20%20%20%20%20%20%20%20%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20function%20geo_json_a29e1a745b794cc7808b130d99f6e175_add%20%28data%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20geo_json_a29e1a745b794cc7808b130d99f6e175%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.addData%28data%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.addTo%28map_086034f872a4452fb2d32999124b39b5%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20geo_json_a29e1a745b794cc7808b130d99f6e175_add%28%7B%22bbox%22%3A%20%5B-73.4501259%2C%20-4.442189799999997%2C%20-49.1092701%2C%200.7065296000000016%5D%2C%20%22features%22%3A%20%5B%7B%22bbox%22%3A%20%5B-73.4501259%2C%20-4.442189799999997%2C%20-49.1092701%2C%200.7065296000000016%5D%2C%20%22geometry%22%3A%20%7B%22coordinates%22%3A%20%5B%5B%5B-73.4501259%2C%20-4.442189799999997%5D%2C%20%5B-73.4432595%2C%20-4.427813399999991%5D%2C%20%5B-73.4233468%2C%20-4.406248299999984%5D%2C%20%5B-73.4198136%2C%20-4.3940872%5D%2C%20%5B-73.417167%2C%20-4.384340299999995%5D%2C%20%5B-73.4185403%2C%20-4.355584999999981%5D%2C%20%5B-73.4370797%2C%20-4.321008699999992%5D%2C%20%5B-73.4381097%2C%20-4.305603000000008%5D%2C%20%5B-73.4336465%2C%20-4.298755900000001%5D%2C%20%5B-73.4164803%2C%20-4.283692000000002%5D%2C%20%5B-73.395881%2C%20-4.271024499999996%5D%2C%20%5B-73.3759682%2C%20-4.253905799999988%5D%2C%20%5B-73.3526223%2C%20-4.188166599999997%5D%2C%20%5B-73.3375161%2C%20-4.158376800000002%5D%2C%20%5B-73.3286247%2C%20-4.121367200000004%5D%2C%20%5B-73.32063219999999%2C%20-4.110581700000001%5D%2C%20%5B-73.3127481%2C%20-4.108164899999995%5D%2C%20%5B-73.2998733%2C%20-4.1093913%5D%2C%20%5B-73.2866369%2C%20-4.115090699999988%5D%2C%20%5B-73.27831889999999%2C%20-4.124649699999997%5D%2C%20%5B-73.27477469999998%2C%20-4.1326574999999925%5D%2C%20%5B-73.2705253%2C%20-4.147547700000005%5D%2C%20%5B-73.264045%2C%20-4.178921599999999%5D%2C%20%5B-73.2479088%2C%20-4.191248300000002%5D%2C%20%5B-73.2255929%2C%20-4.191248300000002%5D%2C%20%5B-73.2043069%2C%20-4.179264000000005%5D%2C%20%5B-73.1919472%2C%20-4.155979799999979%5D%2C%20%5B-73.190337%2C%20-4.115893100000002%5D%2C%20%5B-73.18140709999999%2C%20-4.092727599999996%5D%2C%20%5B-73.1749122%2C%20-4.080809299999994%5D%2C%20%5B-73.171779%2C%20-4.075059800000002%5D%2C%20%5B-73.1576675%2C%20-4.059407699999979%5D%2C%20%5B-73.1469186%2C%20-4.043168799999987%5D%2C%20%5B-73.1467899%2C%20-4.040089600000002%5D%2C%20%5B-73.1470104%2C%20-4.035983999999993%5D%2C%20%5B-73.1497261%2C%20-4.029499300000001%5D%2C%20%5B-73.1651681%2C%20-4.00461579999999%5D%2C%20%5B-73.1797171%2C%20-3.9840852999999905%5D%2C%20%5B-73.1956077%2C%20-3.971368599999983%5D%2C%20%5B-73.2211297%2C%20-3.957694099999997%5D%2C%20%5B-73.2511372%2C%20-3.948591400000006%5D%2C%20%5B-73.2693414%2C%20-3.939968199999997%5D%2C%20%5B-73.2765882%2C%20-3.9316931999999998%5D%2C%20%5B-73.2779852%2C%20-3.923156899999995%5D%2C%20%5B-73.27636989999999%2C%20-3.9161013%5D%2C%20%5B-73.2711749%2C%20-3.9090019999999774%5D%2C%20%5B-73.2574672%2C%20-3.8994202000000064%5D%2C%20%5B-73.2437158%2C%20-3.8844808999999905%5D%2C%20%5B-73.2257734%2C%20-3.8645324999999935%5D%2C%20%5B-73.2112362%2C%20-3.8497669000000014%5D%2C%20%5B-73.16350519999999%2C%20-3.818772700000004%5D%2C%20%5B-73.1602828%2C%20-3.811093899999971%5D%2C%20%5B-73.16017739999998%2C%20-3.7791655999999967%5D%2C%20%5B-73.1658547%2C%20-3.7651848999999946%5D%2C%20%5B-73.1811862%2C%20-3.739501499999992%5D%2C%20%5B-73.2142386%2C%20-3.7152894000000067%5D%2C%20%5B-73.2202619%2C%20-3.7039403000000055%5D%2C%20%5B-73.2255507%2C%20-3.695921399999987%5D%2C%20%5B-73.2281685%2C%20-3.6819171999999956%5D%2C%20%5B-73.22722439999998%2C%20-3.666413799999977%5D%2C%20%5B-73.2232333%2C%20-3.657034500000016%5D%2C%20%5B-73.2094574%2C%20-3.644014699999995%5D%2C%20%5B-73.1859236%2C%20-3.6285239000000127%5D%2C%20%5B-73.1727212%2C%20-3.6171771%5D%2C%20%5B-73.1683649%2C%20-3.6145336999999786%5D%2C%20%5B-73.1414258%2C%20-3.598490499999989%5D%2C%20%5B-73.1328359%2C%20-3.5928383999999913%5D%2C%20%5B-73.0997756%2C%20-3.557742399999988%5D%2C%20%5B-73.0875542%2C%20-3.540922099999995%5D%2C%20%5B-73.0811506%2C%20-3.532108699999992%5D%2C%20%5B-73.0789186%2C%20-3.5290367000000065%5D%2C%20%5B-73.06764850000002%2C%20-3.518591400000011%5D%2C%20%5B-73.0512557%2C%20-3.5098259999999897%5D%2C%20%5B-73.0135667%2C%20-3.495362999999989%5D%2C%20%5B-72.9892702%2C%20-3.488715799999999%5D%2C%20%5B-72.9681936%2C%20-3.485428599999989%5D%2C%20%5B-72.94616569999998%2C%20-3.485428599999989%5D%2C%20%5B-72.9236987%2C%20-3.490468900000009%5D%2C%20%5B-72.9043786%2C%20-3.499599699999997%5D%2C%20%5B-72.8911326%2C%20-3.5093878%5D%2C%20%5B-72.8827166%2C%20-3.5111408000000033%5D%2C%20%5B-72.8700532%2C%20-3.506528800000002%5D%2C%20%5B-72.8628237%2C%20-3.503055599999992%5D%2C%20%5B-72.8590064%2C%20-3.5015356999999865%5D%2C%20%5B-72.8554224%2C%20-3.5001519000000028%5D%2C%20%5B-72.8517286%2C%20-3.498836299999995%5D%2C%20%5B-72.8479378%2C%20-3.4948468999999953%5D%2C%20%5B-72.800216%2C%20-3.4770271999999975%5D%2C%20%5B-72.7727502%2C%20-3.466746400000003%5D%2C%20%5B-72.74219439999999%2C%20-3.4677745000000004%5D%2C%20%5B-72.7393251%2C%20-3.4683753999999962%5D%2C%20%5B-72.7389584%2C%20-3.4707516000000096%5D%2C%20%5B-72.7386771%2C%20-3.4741994%5D%2C%20%5B-72.73731%2C%20-3.4792592999999963%5D%2C%20%5B-72.73636599999999%2C%20-3.4809957999999885%5D%2C%20%5B-72.7363929%2C%20-3.4831086999999967%5D%2C%20%5B-72.7353847%2C%20-3.4839090999999813%5D%2C%20%5B-72.7297977%2C%20-3.4878778999999924%5D%2C%20%5B-72.7272939%2C%20-3.489033400000002%5D%2C%20%5B-72.7246637%2C%20-3.4897152999999967%5D%2C%20%5B-72.7205723%2C%20-3.490685099999995%5D%2C%20%5B-72.717266%2C%20-3.491015499999998%5D%2C%20%5B-72.7148268%2C%20-3.490476199999992%5D%2C%20%5B-72.7128841%2C%20-3.489745199999997%5D%2C%20%5B-72.7108813%2C%20-3.4891499999999818%5D%2C%20%5B-72.7081701%2C%20-3.4888007999999955%5D%2C%20%5B-72.7056468%2C%20-3.4887282000000086%5D%2C%20%5B-72.7030861%2C%20-3.488991199999979%5D%2C%20%5B-72.70034610000002%2C%20-3.489846299999985%5D%2C%20%5B-72.6975687%2C%20-3.4910369999999924%5D%2C%20%5B-72.6947866%2C%20-3.492105499999989%5D%2C%20%5B-72.6916876%2C%20-3.493655900000004%5D%2C%20%5B-72.6897331%2C%20-3.4953777999999867%5D%2C%20%5B-72.6886708%2C%20-3.4966582000000117%5D%2C%20%5B-72.6866282%2C%20-3.49912159999999%5D%2C%20%5B-72.6833068%2C%20-3.5025631000000024%5D%2C%20%5B-72.6813916%2C%20-3.5037967000000143%5D%2C%20%5B-72.6791776%2C%20-3.5044338000000015%5D%2C%20%5B-72.67557179999999%2C%20-3.5041464999999956%5D%2C%20%5B-72.671966%2C%20-3.503299799999982%5D%2C%20%5B-72.6668579%2C%20-3.5013289999999944%5D%2C%20%5B-72.6640145%2C%20-3.499728899999998%5D%2C%20%5B-72.658623%2C%20-3.4955001999999937%5D%2C%20%5B-72.6537878%2C%20-3.4903215999999886%5D%2C%20%5B-72.6508851%2C%20-3.4871906999999958%5D%2C%20%5B-72.64910579999999%2C%20-3.4851391000000023%5D%2C%20%5B-72.6456294%2C%20-3.4795016000000025%5D%2C%20%5B-72.6350348%2C%20-3.4600209999999882%5D%2C%20%5B-72.6318599%2C%20-3.460946999999987%5D%2C%20%5B-72.5674431%2C%20-3.4701733000000017%5D%2C%20%5B-72.5375741%2C%20-3.4873077999999995%5D%2C%20%5B-72.508735%2C%20-3.4852516999999947%5D%2C%20%5B-72.475776%2C%20-3.4969030000000174%5D%2C%20%5B-72.4479668%2C%20-3.519862500000005%5D%2C%20%5B-72.4218743%2C%20-3.53733879999998%5D%2C%20%5B-72.38788529999998%2C%20-3.5455628000000123%5D%2C%20%5B-72.3538964%2C%20-3.5500174999999867%5D%2C%20%5B-72.3113244%2C%20-3.542821499999994%5D%2C%20%5B-72.2660058%2C%20-3.540422800000011%5D%2C%20%5B-72.2399991%2C%20-3.539566099999991%5D%2C%20%5B-72.2256661%2C%20-3.5353520999999946%5D%2C%20%5B-72.2034352%2C%20-3.523546300000002%5D%2C%20%5B-72.1924497%2C%20-3.512992599999991%5D%2C%20%5B-72.1824075%2C%20-3.496972299999987%5D%2C%20%5B-72.1697337%2C%20-3.4868759000000065%5D%2C%20%5B-72.1537303%2C%20-3.4767524999999972%5D%2C%20%5B-72.148246%2C%20-3.4734718000000155%5D%2C%20%5B-72.1235705%2C%20-3.466344499999994%5D%2C%20%5B-72.1071331%2C%20-3.458093299999998%5D%2C%20%5B-72.0906545%2C%20-3.440170799999973%5D%2C%20%5B-72.0839588%2C%20-3.4365888000000084%5D%2C%20%5B-72.0723725%2C%20-3.4336593999999985%5D%2C%20%5B-72.0549489%2C%20-3.4333166999999936%5D%2C%20%5B-72.0286839%2C%20-3.4373598999999926%5D%2C%20%5B-71.9994204%2C%20-3.4425664999999945%5D%2C%20%5B-71.9947808%2C%20-3.442757499999996%5D%2C%20%5B-71.9686883%2C%20-3.437274200000006%5D%2C%20%5B-71.9309228%2C%20-3.417397099999982%5D%2C%20%5B-71.8948739%2C%20-3.407115699999994%5D%2C%20%5B-71.8701546%2C%20-3.3906652000000035%5D%2C%20%5B-71.8612282%2C%20-3.3659888999999903%5D%2C%20%5B-71.8598557%2C%20-3.3559047999999927%5D%2C%20%5B-71.8553925%2C%20-3.3487930000000126%5D%2C%20%5B-71.8495346%2C%20-3.341038600000008%5D%2C%20%5B-71.8454354%2C%20-3.3384202000000065%5D%2C%20%5B-71.83035590000001%2C%20-3.3357825000000068%5D%2C%20%5B-71.8023641%2C%20-3.3500872999999842%5D%2C%20%5B-71.7833696%2C%20-3.372375699999999%5D%2C%20%5B-71.76346230000001%2C%20-3.3981950000000167%5D%2C%20%5B-71.7531681%2C%20-3.4188800999999813%5D%2C%20%5B-71.7494774%2C%20-3.4275334999999916%5D%2C%20%5B-71.7469018%2C%20-3.4431001999999964%5D%2C%20%5B-71.7476786%2C%20-3.4477523999999926%5D%2C%20%5B-71.7523949%2C%20-3.4759990999999952%5D%2C%20%5B-71.7774575%2C%20-3.5167784999999836%5D%2C%20%5B-71.7932503%2C%20-3.543164199999988%5D%2C%20%5B-71.791877%2C%20-3.5561853999999893%5D%2C%20%5B-71.7784875%2C%20-3.570577099999978%5D%2C%20%5B-71.74312520000001%2C%20-3.584625899999991%5D%2C%20%5B-71.7434685%2C%20-3.6243724999999953%5D%2C%20%5B-71.7558282%2C%20-3.6541813999999837%5D%2C%20%5B-71.7451852%2C%20-3.6894709999999837%5D%2C%20%5B-71.7249291%2C%20-3.7141386999999857%5D%2C%20%5B-71.6861336%2C%20-3.7309259999999984%5D%2C%20%5B-71.6298287%2C%20-3.7507962999999958%5D%2C%20%5B-71.5969991%2C%20-3.7605814999999962%5D%2C%20%5B-71.576957%2C%20-3.7665551999999884%5D%2C%20%5B-71.5453713%2C%20-3.7802582999999945%5D%2C%20%5B-71.5361016%2C%20-3.7922484000000027%5D%2C%20%5B-71.5330117%2C%20-3.836096400000004%5D%2C%20%5B-71.5254586%2C%20-3.854251499999983%5D%2C%20%5B-71.4928429%2C%20-3.8703510000000043%5D%2C%20%5B-71.4513009%2C%20-3.8799420999999956%5D%2C%20%5B-71.4015191%2C%20-3.8703510000000043%5D%2C%20%5B-71.3675301%2C%20-3.8614449000000075%5D%2C%20%5B-71.3362878%2C%20-3.8597322000000047%5D%2C%20%5B-71.3108819%2C%20-3.8497983999999934%5D%2C%20%5B-71.2787812%2C%20-3.8262478999999963%5D%2C%20%5B-71.2675373%2C%20-3.8239356999999896%5D%2C%20%5B-71.2257815%2C%20-3.843016700000009%5D%2C%20%5B-71.2140649%2C%20-3.871036100000001%5D%2C%20%5B-71.2065118%2C%20-3.9032341999999813%5D%2C%20%5B-71.209945%2C%20-3.9333759999999827%5D%2C%20%5B-71.2047951%2C%20-3.953241600000004%5D%2C%20%5B-71.1944096%2C%20-3.9732780000000054%5D%2C%20%5B-71.1735528%2C%20-3.991943799999992%5D%2C%20%5B-71.1491769%2C%20-4.002218400000003%5D%2C%20%5B-71.1028283%2C%20-4.016260199999985%5D%2C%20%5B-71.0502999%2C%20-4.009068100000021%5D%2C%20%5B-71.0121911%2C%20-3.9929712999999896%5D%2C%20%5B-71.0012047%2C%20-3.9779016000000054%5D%2C%20%5B-70.9768288%2C%20-3.9566666000000166%5D%2C%20%5B-70.9524529%2C%20-3.9460488999999916%5D%2C%20%5B-70.9260171%2C%20-3.9460488999999916%5D%2C%20%5B-70.8916848%2C%20-3.934061000000008%5D%2C%20%5B-70.8652489%2C%20-3.937143599999986%5D%2C%20%5B-70.83160330000001%2C%20-3.9381712000000073%5D%2C%20%5B-70.797271%2C%20-3.932348400000003%5D%2C%20%5B-70.7691186%2C%20-3.9207028999999967%5D%2C%20%5B-70.7282632%2C%20-3.8956985999999874%5D%2C%20%5B-70.6922143%2C%20-3.8761741999999986%5D%2C%20%5B-70.648269%2C%20-3.8628150999999997%5D%2C%20%5B-70.6335124%2C%20-3.8564460999999985%5D%2C%20%5B-70.6237071%2C%20-3.8509616999999965%5D%2C%20%5B-70.6182717%2C%20-3.845789099999989%5D%2C%20%5B-70.6164535%2C%20-3.8434839000000105%5D%2C%20%5B-70.6153101%2C%20-3.841654700000003%5D%2C%20%5B-70.6108117%2C%20-3.8357147999999834%5D%2C%20%5B-70.6046932%2C%20-3.8295622999999908%5D%2C%20%5B-70.5972154%2C%20-3.8217009000000117%5D%2C%20%5B-70.588715%2C%20-3.817938300000001%5D%2C%20%5B-70.5819137%2C%20-3.816909499999989%5D%2C%20%5B-70.5774927%2C%20-3.816565399999996%5D%2C%20%5B-70.5696683%2C%20-3.820318600000005%5D%2C%20%5B-70.5604816%2C%20-3.827145400000005%5D%2C%20%5B-70.5553758%2C%20-3.8343162000000146%5D%2C%20%5B-70.5502659%2C%20-3.847977700000008%5D%2C%20%5B-70.5441361%2C%20-3.860613700000022%5D%2C%20%5B-70.5403908%2C%20-3.8671019999999947%5D%2C%20%5B-70.530755%2C%20-3.8757303000000007%5D%2C%20%5B-70.52371680000002%2C%20-3.880072599999993%5D%2C%20%5B-70.5148733%2C%20-3.880750000000001%5D%2C%20%5B-70.49991%2C%20-3.8780069999999927%5D%2C%20%5B-70.4781463%2C%20-3.8728676000000024%5D%2C%20%5B-70.4717602%2C%20-3.870787299999995%5D%2C%20%5B-70.4665852%2C%20-3.8691015999999943%5D%2C%20%5B-70.4533255%2C%20-3.8629429%5D%2C%20%5B-70.445547%2C%20-3.8566047000000054%5D%2C%20%5B-70.4416245%2C%20-3.8540355999999907%5D%2C%20%5B-70.4381312%2C%20-3.851526499999999%5D%2C%20%5B-70.4341916%2C%20-3.847998199999997%5D%2C%20%5B-70.4291791%2C%20-3.8426973000000033%5D%2C%20%5B-70.4244584%2C%20-3.8375931999999744%5D%2C%20%5B-70.4199008%2C%20-3.8324292%5D%2C%20%5B-70.4148196%2C%20-3.8281986999999966%5D%2C%20%5B-70.4077986%2C%20-3.8262888999999833%5D%2C%20%5B-70.3960742%2C%20-3.8264087999999887%5D%2C%20%5B-70.3897055%2C%20-3.826434499999988%5D%2C%20%5B-70.3850707%2C%20-3.825895000000014%5D%2C%20%5B-70.378539%2C%20-3.8233599999999885%5D%2C%20%5B-70.3718553%2C%20-3.8189825999999973%5D%2C%20%5B-70.3599479%2C%20-3.805930299999993%5D%2C%20%5B-70.3598447%2C%20-3.8058209999999937%5D%2C%20%5B-70.3547467%2C%20-3.8020590999999975%5D%2C%20%5B-70.3476065%2C%20-3.8003449999999845%5D%2C%20%5B-70.3377426%2C%20-3.8023861999999777%5D%2C%20%5B-70.3311968%2C%20-3.8049086999999977%5D%2C%20%5B-70.3244753%2C%20-3.807498699999998%5D%2C%20%5B-70.3094956%2C%20-3.8112548999999727%5D%2C%20%5B-70.3023271%2C%20-3.8147709000000085%5D%2C%20%5B-70.2840035%2C%20-3.823764299999991%5D%2C%20%5B-70.268549%2C%20-3.8433419%5D%2C%20%5B-70.2633987%2C%20-3.861006899999989%5D%2C%20%5B-70.2592843%2C%20-3.875146599999999%5D%2C%20%5B-70.2542988%2C%20-3.884363199999993%5D%2C%20%5B-70.2476113%2C%20-3.896726200000008%5D%2C%20%5B-70.2204323%2C%20-3.9127591999999827%5D%2C%20%5B-70.2164855%2C%20-3.9154339999999848%5D%2C%20%5B-70.1871865%2C%20-3.9237854999999886%5D%2C%20%5B-70.18032%2C%20-3.9306359000000053%5D%2C%20%5B-70.1743637%2C%20-3.9540547000000026%5D%2C%20%5B-70.1729659%2C%20-3.959550399999996%5D%2C%20%5B-70.1609668%2C%20-3.9874468%5D%2C%20%5B-70.1403245%2C%20-4.017345799999982%5D%2C%20%5B-70.1263169%2C%20-4.035205900000013%5D%2C%20%5B-70.1134166%2C%20-4.0473807%5D%2C%20%5B-70.09985530000002%2C%20-4.056284799999993%5D%2C%20%5B-70.0916671%2C%20-4.062243600000006%5D%2C%20%5B-70.0815562%2C%20-4.068912999999992%5D%2C%20%5B-70.0724066%2C%20-4.075462499999993%5D%2C%20%5B-70.0618737%2C%20-4.0826986%5D%2C%20%5B-70.0540475%2C%20-4.100966399999987%5D%2C%20%5B-70.0517298%2C%20-4.106001199999985%5D%2C%20%5B-70.04058770000002%2C%20-4.124818999999985%5D%2C%20%5B-70.0244011%2C%20-4.143843099999987%5D%2C%20%5B-70.0085476%2C%20-4.1554045000000075%5D%2C%20%5B-69.98365930000001%2C%20-4.180906999999994%5D%2C%20%5B-69.96934000000002%2C%20-4.195528100000007%5D%2C%20%5B-69.9617038%2C%20-4.204036999999989%5D%2C%20%5B-69.9525351%2C%20-4.216870599999989%5D%2C%20%5B-69.9496948%2C%20-4.223230199999992%5D%2C%20%5B-69.9479257%2C%20-4.231687200000004%5D%2C%20%5B-69.9484518%2C%20-4.2336586000000045%5D%2C%20%5B-69.948611%2C%20-4.239167000000011%5D%2C%20%5B-69.9489295%2C%20-4.2455651000000065%5D%2C%20%5B-69.949525%2C%20-4.2508774999999925%5D%2C%20%5B-69.9500711%2C%20-4.256844999999997%5D%2C%20%5B-69.9498471%2C%20-4.262743199999992%5D%2C%20%5B-69.9413552%2C%20-4.289236899999999%5D%2C%20%5B-69.9519982%2C%20-4.311147700000004%5D%2C%20%5B-69.9725975%2C%20-4.334427200000001%5D%2C%20%5B-69.9858093%2C%20-4.347836400000005%5D%2C%20%5B-69.9918236%2C%20-4.353940399999997%5D%2C%20%5B-69.9933591%2C%20-4.358950899999982%5D%2C%20%5B-69.9956002%2C%20-4.366264200000003%5D%2C%20%5B-69.9918236%2C%20-4.374822300000001%5D%2C%20%5B-69.9832405%2C%20-4.3799570999999915%5D%2C%20%5B-69.963219%2C%20-4.387887699999987%5D%2C%20%5B-69.958178%2C%20-4.389884399999981%5D%2C%20%5B-69.9296822%2C%20-4.396388299999994%5D%2C%20%5B-69.8895134%2C%20-4.402892199999996%5D%2C%20%5B-69.8682274%2C%20-4.401180699999999%5D%2C%20%5B-69.8366417%2C%20-4.393992099999988%5D%2C%20%5B-69.793416%2C%20-4.381108399999991%5D%2C%20%5B-69.75527420000002%2C%20-4.3672912000000075%5D%2C%20%5B-69.7431968%2C%20-4.364250200000018%5D%2C%20%5B-69.72128530000002%2C%20-4.358732999999993%5D%2C%20%5B-69.697596%2C%20-4.348805399999995%5D%2C%20%5B-69.664637%2C%20-4.327237999999991%5D%2C%20%5B-69.6474709%2C%20-4.319363999999988%5D%2C%20%5B-69.6265282%2C%20-4.314228799999981%5D%2C%20%5B-69.6093621%2C%20-4.312859399999986%5D%2C%20%5B-69.588076%2C%20-4.314228799999981%5D%2C%20%5B-69.5626702%2C%20-4.307724100000017%5D%2C%20%5B-69.55691890000001%2C%20-4.303370499999996%5D%2C%20%5B-69.5156349%2C%20-4.2721185999999935%5D%2C%20%5B-69.4998421%2C%20-4.252945699999995%5D%2C%20%5B-69.4758095%2C%20-4.203984200000005%5D%2C%20%5B-69.4576134%2C%20-4.178046999999996%5D%2C%20%5B-69.4311775%2C%20-4.17830379999999%5D%2C%20%5B-69.3958153%2C%20-4.164607300000005%5D%2C%20%5B-69.3924192%2C%20-4.161392399999979%5D%2C%20%5B-69.3755593%2C%20-4.145431799999999%5D%2C%20%5B-69.3726469%2C%20-4.137809700000005%5D%2C%20%5B-69.3700661%2C%20-4.1307074%5D%2C%20%5B-69.3710961%2C%20-4.113585699999983%5D%2C%20%5B-69.3793312%2C%20-4.092278900000005%5D%2C%20%5B-69.3974414%2C%20-4.0888522999999815%5D%2C%20%5B-69.4140561%2C%20-4.094123899999994%5D%2C%20%5B-69.4337113%2C%20-4.101225299999997%5D%2C%20%5B-69.4661965%2C%20-4.120434399999984%5D%2C%20%5B-69.4925297%2C%20-4.136439199999981%5D%2C%20%5B-69.4982757%2C%20-4.139931600000012%5D%2C%20%5B-69.52052730000001%2C%20-4.141921899999986%5D%2C%20%5B-69.5267201%2C%20-4.1399552000000055%5D%2C%20%5B-69.5319128%2C%20-4.133363399999994%5D%2C%20%5B-69.5352902%2C%20-4.122167899999991%5D%2C%20%5B-69.5376934%2C%20-4.104179200000018%5D%2C%20%5B-69.537921%2C%20-4.0877334%5D%2C%20%5B-69.5307734%2C%20-4.072363599999982%5D%2C%20%5B-69.5273729%2C%20-4.06234579999999%5D%2C%20%5B-69.5259346%2C%20-4.058108700000001%5D%2C%20%5B-69.5128884%2C%20-4.044752599999989%5D%2C%20%5B-69.4851235%2C%20-4.0313159%5D%2C%20%5B-69.4782128%2C%20-4.0279714999999925%5D%2C%20%5B-69.4256844%2C%20-4.002970499999987%5D%2C%20%5B-69.4119515%2C%20-3.982078600000012%5D%2C%20%5B-69.4078316%2C%20-3.9567336999999934%5D%2C%20%5B-69.4013085%2C%20-3.935498100000015%5D%2C%20%5B-69.3937554%2C%20-3.9142619999999826%5D%2C%20%5B-69.3925755%2C%20-3.9022951000000123%5D%2C%20%5B-69.3916954%2C%20-3.8933679000000105%5D%2C%20%5B-69.3916954%2C%20-3.8663076000000047%5D%2C%20%5B-69.38860550000001%2C%20-3.8450698000000116%5D%2C%20%5B-69.3889488%2C%20-3.7977965999999967%5D%2C%20%5B-69.393412%2C%20-3.7741589999999965%5D%2C%20%5B-69.4129814%2C%20-3.7518911000000057%5D%2C%20%5B-69.4232811%2C%20-3.737844999999999%5D%2C%20%5B-69.4315209%2C%20-3.713177999999998%5D%2C%20%5B-69.42967750000001%2C%20-3.6934692999999887%5D%2C%20%5B-69.4291176%2C%20-3.687482399999989%5D%2C%20%5B-69.4140114%2C%20-3.658359900000001%5D%2C%20%5B-69.3844856%2C%20-3.637459699999998%5D%2C%20%5B-69.35770650000002%2C%20-3.613475200000009%5D%2C%20%5B-69.3474068%2C%20-3.5949723999999983%5D%2C%20%5B-69.3501534%2C%20-3.572700099999989%5D%2C%20%5B-69.3522745%2C%20-3.558145899999993%5D%2C%20%5B-69.3529%2C%20-3.553853899999991%5D%2C%20%5B-69.3498101%2C%20-3.530209800000002%5D%2C%20%5B-69.340197%2C%20-3.506907900000004%5D%2C%20%5B-69.3371071%2C%20-3.500739599999999%5D%2C%20%5B-69.3120445%2C%20-3.4825772999999938%5D%2C%20%5B-69.28904190000002%2C%20-3.475038099999983%5D%2C%20%5B-69.2684426%2C%20-3.475380799999991%5D%2C%20%5B-69.1815819%2C%20-3.475038099999983%5D%2C%20%5B-69.1633858%2C%20-3.471953899999995%5D%2C%20%5B-69.13386%2C%20-3.458588799999995%5D%2C%20%5B-69.0799584%2C%20-3.431515299999992%5D%2C%20%5B-69.0617623%2C%20-3.429459099999999%5D%2C%20%5B-69.0332665%2C%20-3.434599700000004%5D%2C%20%5B-69.0054573%2C%20-3.4424818999999993%5D%2C%20%5B-68.9766182%2C%20-3.461673099999994%5D%2C%20%5B-68.9649452%2C%20-3.461673099999994%5D%2C%20%5B-68.9388527%2C%20-3.454819099999995%5D%2C%20%5B-68.896624%2C%20-3.448307799999991%5D%2C%20%5B-68.8580505%2C%20-3.445726999999993%5D%2C%20%5B-68.8216583%2C%20-3.449154000000004%5D%2C%20%5B-68.802898%2C%20-3.4479713000000065%5D%2C%20%5B-68.7890427%2C%20-3.447097800000007%5D%2C%20%5B-68.7650101%2C%20-3.4392155999999994%5D%2C%20%5B-68.7433807%2C%20-3.427906299999989%5D%2C%20%5B-68.7159149%2C%20-3.4073435999999853%5D%2C%20%5B-68.6668198%2C%20-3.3819823000000007%5D%2C%20%5B-68.6366074%2C%20-3.370672299999997%5D%2C%20%5B-68.6173813%2C%20-3.371357699999987%5D%2C%20%5B-68.5974686%2C%20-3.3809540999999994%5D%2C%20%5B-68.5737793%2C%20-3.4004891999999938%5D%2C%20%5B-68.5645096%2C%20-3.404259099999989%5D%2C%20%5B-68.5463135%2C%20-3.403573699999982%5D%2C%20%5B-68.5154144%2C%20-3.400146500000002%5D%2C%20%5B-68.4972183%2C%20-3.390550299999989%5D%2C%20%5B-68.4742157%2C%20-3.377184100000003%5D%2C%20%5B-68.4343903%2C%20-3.362446699999995%5D%2C%20%5B-68.4144775%2C%20-3.357648499999991%5D%2C%20%5B-68.3773987%2C%20-3.353192900000004%5D%2C%20%5B-68.3626358%2C%20-3.3449673000000053%5D%2C%20%5B-68.3461563%2C%20-3.3298866999999857%5D%2C%20%5B-68.3392899%2C%20-3.3196043000000097%5D%2C%20%5B-68.3252136%2C%20-3.2784739000000056%5D%2C%20%5B-68.3207504%2C%20-3.2695620999999897%5D%2C%20%5B-68.3114502%2C%20-3.263557999999982%5D%2C%20%5B-68.3044073%2C%20-3.2609038999999966%5D%2C%20%5B-68.2961606%2C%20-3.2656391000000045%5D%2C%20%5B-68.2871358%2C%20-3.280255099999989%5D%2C%20%5B-68.2836716%2C%20-3.303495099999979%5D%2C%20%5B-68.2747452%2C%20-3.327487499999985%5D%2C%20%5B-68.2610123%2C%20-3.3422253999999803%5D%2C%20%5B-68.2356064%2C%20-3.3501082999999903%5D%2C%20%5B-68.1944077%2C%20-3.3504510999999955%5D%2C%20%5B-68.1593887%2C%20-3.337084299999987%5D%2C%20%5B-68.10720370000001%2C%20-3.3288584999999915%5D%2C%20%5B-68.0845444%2C%20-3.3302293999999883%5D%2C%20%5B-68.0508987%2C%20-3.34428180000001%5D%2C%20%5B-68.0150346%2C%20-3.3504679999999896%5D%2C%20%5B-67.9889421%2C%20-3.3525244000000067%5D%2C%20%5B-67.9679994%2C%20-3.3477261%5D%2C%20%5B-67.9460267%2C%20-3.330931899999998%5D%2C%20%5B-67.9295473%2C%20-3.292886699999994%5D%2C%20%5B-67.9226808%2C%20-3.2579249999999895%5D%2C%20%5B-67.9309205%2C%20-3.2041089999999985%5D%2C%20%5B-67.9305772%2C%20-3.1742862000000036%5D%2C%20%5B-67.9268007%2C%20-3.1448053000000034%5D%2C%20%5B-67.9257707%2C%20-3.1341782999999976%5D%2C%20%5B-67.9199342%2C%20-3.0913262999999964%5D%2C%20%5B-67.9044847%2C%20-3.0625287%5D%2C%20%5B-67.8869752%2C%20-3.035444599999992%5D%2C%20%5B-67.8550462%2C%20-3.0093884000000006%5D%2C%20%5B-67.8402833%2C%20-2.995674300000009%5D%2C%20%5B-67.8275804%2C%20-2.9829887000000004%5D%2C%20%5B-67.8056077%2C%20-2.937044799999988%5D%2C%20%5B-67.776082%2C%20-2.905500099999998%5D%2C%20%5B-67.7486162%2C%20-2.8904132999999925%5D%2C%20%5B-67.7297334%2C%20-2.8609246999999973%5D%2C%20%5B-67.7153139%2C%20-2.82560599999999%5D%2C%20%5B-67.6846947%2C%20-2.805882399999982%5D%2C%20%5B-67.6616921%2C%20-2.7880509000000004%5D%2C%20%5B-67.6232399%2C%20-2.7667897999999957%5D%2C%20%5B-67.589251%2C%20-2.7602743000000007%5D%2C%20%5B-67.5384392%2C%20-2.760617200000007%5D%2C%20%5B-67.4996437%2C%20-2.7431279999999854%5D%2C%20%5B-67.4732079%2C%20-2.7246096000000035%5D%2C%20%5B-67.4539818%2C%20-2.690315699999991%5D%2C%20%5B-67.4114098%2C%20-2.6306419000000116%5D%2C%20%5B-67.3846306%2C%20-2.5805685999999914%5D%2C%20%5B-67.359568%2C%20-2.5555311999999972%5D%2C%20%5B-67.318026%2C%20-2.5445557999999853%5D%2C%20%5B-67.2672142%2C%20-2.5445557999999853%5D%2C%20%5B-67.2450919%2C%20-2.5617342999999937%5D%2C%20%5B-67.2429438%2C%20-2.6025473999999997%5D%2C%20%5B-67.2379317%2C%20-2.6526688000000123%5D%2C%20%5B-67.2100069%2C%20-2.680593600000006%5D%2C%20%5B-67.1613176%2C%20-2.6705693000000044%5D%2C%20%5B-67.1212205%2C%20-2.6197318999999792%5D%2C%20%5B-67.0746792%2C%20-2.611139699999998%5D%2C%20%5B-67.0510505%2C%20-2.634768299999997%5D%2C%20%5B-67.0524826%2C%20-2.6884697999999827%5D%2C%20%5B-67.0467544%2C%20-2.743603299999992%5D%2C%20%5B-67.0059413%2C%20-2.7700960000000117%5D%2C%20%5B-66.9823843%2C%20-2.7756309999999793%5D%2C%20%5B-66.9629801%2C%20-2.7751081999999796%5D%2C%20%5B-66.9483953%2C%20-2.769458400000011%5D%2C%20%5B-66.9391256%2C%20-2.7612281999999784%5D%2C%20%5B-66.9278951%2C%20-2.743603299999992%5D%2C%20%5B-66.9071306%2C%20-2.6877537999999888%5D%2C%20%5B-66.8958669%2C%20-2.676179999999999%5D%2C%20%5B-66.881619%2C%20-2.6677777999999757%5D%2C%20%5B-66.8663174%2C%20-2.663409100000006%5D%2C%20%5B-66.8333822%2C%20-2.680123899999997%5D%2C%20%5B-66.8004436%2C%20-2.704938199999997%5D%2C%20%5B-66.7567664%2C%20-2.732146999999997%5D%2C%20%5B-66.6823004%2C%20-2.6984940999999973%5D%2C%20%5B-66.6171426%2C%20-2.661260999999996%5D%2C%20%5B-66.5899338%2C%20-2.6054114999999887%5D%2C%20%5B-66.5877858%2C%20-2.5517099999999826%5D%2C%20%5B-66.6300309%2C%20-2.4657875999999996%5D%2C%20%5B-66.6099662%2C%20-2.434072499999997%5D%2C%20%5B-66.6078343%2C%20-2.430702699999994%5D%2C%20%5B-66.562009%2C%20-2.419246400000013%5D%2C%20%5B-66.5190479%2C%20-2.402061899999998%5D%2C%20%5B-66.4498524%2C%20-2.390629599999987%5D%2C%20%5B-66.4367056%2C%20-2.388457500000006%5D%2C%20%5B-66.4277431%2C%20-2.3935047999999877%5D%2C%20%5B-66.4172718%2C%20-2.4043100000000033%5D%2C%20%5B-66.4083454%2C%20-2.4139145000000064%5D%2C%20%5B-66.4037687%2C%20-2.42425849999999%5D%2C%20%5B-66.4078304%2C%20-2.4439282999999885%5D%2C%20%5B-66.4073488%2C%20-2.4643556000000126%5D%2C%20%5B-66.4046054%2C%20-2.5209202000000106%5D%2C%20%5B-66.3844361%2C%20-2.5746225999999997%5D%2C%20%5B-66.3414749%2C%20-2.59538719999999%5D%2C%20%5B-66.2977977%2C%20-2.588227000000005%5D%2C%20%5B-66.272737%2C%20-2.558870199999993%5D%2C%20%5B-66.223554%2C%20-2.5091627999999955%5D%2C%20%5B-66.2111593%2C%20-2.505168699999994%5D%2C%20%5B-66.1732103%2C%20-2.5216371999999976%5D%2C%20%5B-66.1431375%2C%20-2.5187730999999873%5D%2C%20%5B-66.124521%2C%20-2.5015886000000087%5D%2C%20%5B-66.090868%2C%20-2.493712399999992%5D%2C%20%5B-66.0738652%2C%20-2.4892689999999864%5D%2C%20%5B-66.052919%2C%20-2.4844042000000033%5D%2C%20%5B-66.0108142%2C%20-2.4591805000000004%5D%2C%20%5B-65.9734408%2C%20-2.450751199999991%5D%2C%20%5B-65.8975427%2C%20-2.488700300000007%5D%2C%20%5B-65.8273727%2C%20-2.505168699999994%5D%2C%20%5B-65.8066082%2C%20-2.540253699999995%5D%2C%20%5B-65.7715232%2C%20-2.593239199999975%5D%2C%20%5B-65.7116597%2C%20-2.636064200000016%5D%2C%20%5B-65.6841688%2C%20-2.6569648999999855%5D%2C%20%5B-65.6261712%2C%20-2.664125099999987%5D%2C%20%5B-65.5574333%2C%20-2.6483726999999884%5D%2C%20%5B-65.50946%2C%20-2.6068435000000147%5D%2C%20%5B-65.4680152%2C%20-2.572306199999999%5D%2C%20%5B-65.4664988%2C%20-2.5710425000000066%5D%2C%20%5B-65.4245583%2C%20-2.5047496000000007%5D%2C%20%5B-65.4221055%2C%20-2.5008725999999957%5D%2C%20%5B-65.3948968%2C%20-2.504452700000011%5D%2C%20%5B-65.3777123%2C%20-2.5524259999999876%5D%2C%20%5B-65.3605278%2C%20-2.5875109999999895%5D%2C%20%5B-65.3614349%2C%20-2.614485700000006%5D%2C%20%5B-65.3734162%2C%20-2.6476566999999958%5D%2C%20%5B-65.3991929%2C%20-2.693481900000011%5D%2C%20%5B-65.3898847%2C%20-2.7364430999999985%5D%2C%20%5B-65.3447754%2C%20-2.773676099999987%5D%2C%20%5B-65.293938%2C%20-2.7794042999999813%5D%2C%20%5B-65.2115957%2C%20-2.740739200000001%5D%2C%20%5B-65.1765108%2C%20-2.747899399999992%5D%2C%20%5B-65.1543142%2C%20-2.782268399999983%5D%2C%20%5B-65.163637%2C%20-2.8563614999999887%5D%2C%20%5B-65.1679185%2C%20-2.8903873999999963%5D%2C%20%5B-65.1592698%2C%20-2.903243699999999%5D%2C%20%5B-65.14142580000001%2C%20-2.929768500000008%5D%2C%20%5B-65.111353%2C%20-2.94265679999999%5D%2C%20%5B-65.0715077%2C%20-2.9584097000000082%5D%2C%20%5B-65.0497753%2C%20-2.9670014999999954%5D%2C%20%5B-65.0340228%2C%20-3.026431099999985%5D%2C%20%5B-64.9956158%2C%20-3.0485283999999977%5D%2C%20%5B-64.9817534%2C%20-3.0565040000000065%5D%2C%20%5B-64.9280519%2C%20-3.0708244000000153%5D%2C%20%5B-64.8843747%2C%20-3.1187976999999867%5D%2C%20%5B-64.822081%2C%20-3.1631908999999894%5D%2C%20%5B-64.7826958%2C%20-3.1631961999999936%5D%2C%20%5B-64.7418868%2C%20-3.2025719999999964%5D%2C%20%5B-64.7032217%2C%20-3.22548459999999%5D%2C%20%5B-64.6674207%2C%20-3.271309900000004%5D%2C%20%5B-64.6280396%2C%20-3.2949384999999958%5D%2C%20%5B-64.5561714%2C%20-3.3288320999999796%5D%2C%20%5B-64.5356731%2C%20-3.338615699999999%5D%2C%20%5B-64.4748114%2C%20-3.3966133999999855%5D%2C%20%5B-64.4544118%2C%20-3.449270900000006%5D%2C%20%5B-64.4418745%2C%20-3.4825356999999997%5D%2C%20%5B-64.3910371%2C%20-3.52836099999999%5D%2C%20%5B-64.3344715%2C%20-3.5512736000000094%5D%2C%20%5B-64.2864982%2C%20-3.5963829000000076%5D%2C%20%5B-64.2320807%2C%20-3.6450722000000164%5D%2C%20%5B-64.1919836%2C%20-3.667268799999992%5D%2C%20%5B-64.1168015%2C%20-3.698057700000003%5D%2C%20%5B-64.0716922%2C%20-3.7095139999999835%5D%2C%20%5B-64.0380393%2C%20-3.7138101%5D%2C%20%5B-63.973597500000004%2C%20-3.7897081999999993%5D%2C%20%5B-63.938512599999996%2C%20-3.812620800000005%5D%2C%20%5B-63.8883912%2C%20-3.8247932000000024%5D%2C%20%5B-63.8318256%2C%20-3.857014099999992%5D%2C%20%5B-63.7237066%2C%20-3.8749145999999985%5D%2C%20%5B-63.662845%2C%20-3.873482499999999%5D%2C%20%5B-63.58121870000001%2C%20-3.8398295999999923%5D%2C%20%5B-63.53610940000001%2C%20-3.8419777000000206%5D%2C%20%5B-63.4430269%2C%20-3.872050500000015%5D%2C%20%5B-63.36784479999999%2C%20-3.9135796000000105%5D%2C%20%5B-63.32846370000001%2C%20-3.922887899999981%5D%2C%20%5B-63.22320880000001%2C%20-3.920739799999998%5D%2C%20%5B-63.1644952%2C%20-3.932196100000011%5D%2C%20%5B-63.140150500000004%2C%20-3.9565408000000097%5D%2C%20%5B-63.150890800000006%2C%20-4.000217999999994%5D%2C%20%5B-63.13943450000001%2C%20-4.033154899999995%5D%2C%20%5B-63.0649684%2C%20-4.066091799999984%5D%2C%20%5B-63.0427718%2C%20-4.062511700000005%5D%2C%20%5B-62.9847742%2C%20-4.022414599999993%5D%2C%20%5B-62.945393100000004%2C%20-3.962268999999993%5D%2C%20%5B-62.9081601%2C%20-3.943652499999982%5D%2C%20%5B-62.8802353%2C%20-3.9150117000000084%5D%2C%20%5B-62.80004110000001%2C%20-3.8885188999999856%5D%2C%20%5B-62.727723100000006%2C%20-3.8949631000000107%5D%2C%20%5B-62.638936699999995%2C%20-3.902839299999987%5D%2C%20%5B-62.5200774%2C%20-3.8426936999999897%5D%2C%20%5B-62.484986%2C%20-3.840035299999997%5D%2C%20%5B-62.4728201%2C%20-3.8391136000000037%5D%2C%20%5B-62.28099629999999%2C%20-3.76156799999999%5D%2C%20%5B-62.2709025%2C%20-3.757487300000002%5D%2C%20%5B-62.233669500000005%2C%20-3.7746718000000072%5D%2C%20%5B-62.18583799999999%2C%20-3.805467399999996%5D%2C%20%5B-62.181400000000004%2C%20-3.808324699999996%5D%2C%20%5B-62.128414600000006%2C%20-3.823361099999999%5D%2C%20%5B-62.0493451%2C%20-3.8629513999999903%5D%2C%20%5B-61.993802800000005%2C%20-3.904987399999997%5D%2C%20%5B-61.87709160000001%2C%20-3.9687131999999976%5D%2C%20%5B-61.854891800000004%2C%20-3.975300200000002%5D%2C%20%5B-61.8416738%2C%20-3.978896399999979%5D%2C%20%5B-61.8255382%2C%20-3.9801694999999855%5D%2C%20%5B-61.80802820000001%2C%20-3.977183899999988%5D%2C%20%5B-61.793317300000005%2C%20-3.9687131999999976%5D%2C%20%5B-61.783309%2C%20-3.954407600000015%5D%2C%20%5B-61.777300800000006%2C%20-3.944817400000008%5D%2C%20%5B-61.77197929999999%2C%20-3.933343300000006%5D%2C%20%5B-61.7668246%2C%20-3.9178757999999885%5D%2C%20%5B-61.7637396%2C%20-3.9023451999999996%5D%2C%20%5B-61.76030630000001%2C%20-3.8941244999999935%5D%2C%20%5B-61.755499799999996%2C%20-3.8884726999999852%5D%2C%20%5B-61.7470884%2C%20-3.8805945000000013%5D%2C%20%5B-61.73030760000001%2C%20-3.872050500000015%5D%2C%20%5B-61.6558415%2C%20-3.857014099999992%5D%2C%20%5B-61.647666%2C%20-3.853995099999987%5D%2C%20%5B-61.64371770000001%2C%20-3.8493707000000015%5D%2C%20%5B-61.6392545%2C%20-3.8447462999999904%5D%2C%20%5B-61.637225%2C%20-3.8391136000000037%5D%2C%20%5B-61.62934880000001%2C%20-3.794720299999986%5D%2C%20%5B-61.62457%2C%20-3.782110299999988%5D%2C%20%5B-61.6215734%2C%20-3.7767473999999877%5D%2C%20%5B-61.60148900000001%2C%20-3.7623590000000084%5D%2C%20%5B-61.5808897%2C%20-3.748484300000011%5D%2C%20%5B-61.5626936%2C%20-3.732382499999995%5D%2C%20%5B-61.522009800000006%2C%20-3.700863300000003%5D%2C%20%5B-61.4897249%2C%20-3.6844532999999844%5D%2C%20%5B-61.46982400000001%2C%20-3.6647954999999923%5D%2C%20%5B-61.4310113%2C%20-3.6264557000000024%5D%2C%20%5B-61.392002%2C%20-3.600096800000005%5D%2C%20%5B-61.3806723%2C%20-3.5932438999999916%5D%2C%20%5B-61.3709815%2C%20-3.5901734999999926%5D%2C%20%5B-61.3698576%2C%20-3.58981739999999%5D%2C%20%5B-61.35954970000001%2C%20-3.592333799999983%5D%2C%20%5B-61.34719830000001%2C%20-3.5961563999999964%5D%2C%20%5B-61.3278006%2C%20-3.5999255000000088%5D%2C%20%5B-61.3065146%2C%20-3.598554899999987%5D%2C%20%5B-61.2805937%2C%20-3.5971842999999857%5D%2C%20%5B-61.2586211%2C%20-3.5937578999999995%5D%2C%20%5B-61.1918607%2C%20-3.5842104999999918%5D%2C%20%5B-61.06440920000001%2C%20-3.5842104999999918%5D%2C%20%5B-60.97003380000001%2C%20-3.609609300000001%5D%2C%20%5B-60.9429358%2C%20-3.6031805999999986%5D%2C%20%5B-60.9175299%2C%20-3.5946144999999894%5D%2C%20%5B-60.9029387%2C%20-3.5869048999999964%5D%2C%20%5B-60.8838843%2C%20-3.5737128000000116%5D%2C%20%5B-60.8666087%2C%20-3.5583940000000065%5D%2C%20%5B-60.8351324%2C%20-3.5433872999999823%5D%2C%20%5B-60.8213995%2C%20-3.536876599999986%5D%2C%20%5B-60.80972659999999%2C%20-3.530879900000005%5D%2C%20%5B-60.808894300000006%2C%20-3.530146899999992%5D%2C%20%5B-60.79805360000001%2C%20-3.5205997000000004%5D%2C%20%5B-60.7641781%2C%20-3.4877864999999977%5D%2C%20%5B-60.706632899999995%2C%20-3.3925888000000044%5D%2C%20%5B-60.677533700000005%2C%20-3.3424177999999913%5D%2C%20%5B-60.6592703%2C%20-3.3306542999999946%5D%2C%20%5B-60.64399240000001%2C%20-3.326027299999989%5D%2C%20%5B-60.6280279%2C%20-3.3239707999999974%5D%2C%20%5B-60.61618330000001%2C%20-3.326369999999996%5D%2C%20%5B-60.5985021%2C%20-3.326027299999989%5D%2C%20%5B-60.542072%2C%20-3.327366499999999%5D%2C%20%5B-60.4896688%2C%20-3.335452699999992%5D%2C%20%5B-60.466837899999994%2C%20-3.336652299999996%5D%2C%20%5B-60.4470968%2C%20-3.3303115999999933%5D%2C%20%5B-60.4148245%2C%20-3.307690299999985%5D%2C%20%5B-60.3966284%2C%20-3.2980931999999954%5D%2C%20%5B-60.3588629%2C%20-3.2876390999999883%5D%2C%20%5B-60.34355450000001%2C%20-3.286386999999996%5D%2C%20%5B-60.32518670000001%2C%20-3.284844600000013%5D%2C%20%5B-60.31231210000001%2C%20-3.292042500000013%5D%2C%20%5B-60.2977209%2C%20-3.3028392999999925%5D%2C%20%5B-60.2566981%2C%20-3.3318677999999924%5D%2C%20%5B-60.2539292%2C%20-3.332527599999999%5D%2C%20%5B-60.2519162%2C%20-3.3326186000000044%5D%2C%20%5B-60.22974299999999%2C%20-3.3326583000000007%5D%2C%20%5B-60.21330280000001%2C%20-3.3340770999999774%5D%2C%20%5B-60.2027921%2C%20-3.3319727999999844%5D%2C%20%5B-60.19232079999999%2C%20-3.327174399999991%5D%2C%20%5B-60.172813500000004%2C%20-3.320342500000015%5D%2C%20%5B-60.1488384%2C%20-3.3234483999999878%5D%2C%20%5B-60.1380347%2C%20-3.323067099999987%5D%2C%20%5B-60.098119100000005%2C%20-3.3216582999999926%5D%2C%20%5B-60.0300956%2C%20-3.287049900000012%5D%2C%20%5B-59.932833800000004%2C%20-3.2673587999999905%5D%2C%20%5B-59.899048799999996%2C%20-3.238468799999989%5D%2C%20%5B-59.88282300000001%2C%20-3.197985600000005%5D%2C%20%5B-59.88094350000001%2C%20-3.1931436000000026%5D%2C%20%5B-59.8846409%2C%20-3.1849599999999993%5D%2C%20%5B-59.892855100000006%2C%20-3.1683070000000226%5D%2C%20%5B-59.8957519%2C%20-3.140190900000009%5D%2C%20%5B-59.8933401%2C%20-3.1293431000000016%5D%2C%20%5B-59.88505310000001%2C%20-3.1126374000000103%5D%2C%20%5B-59.864761699999995%2C%20-3.0998318000000116%5D%2C%20%5B-59.827697900000004%2C%20-3.084871899999987%5D%2C%20%5B-59.81995800000001%2C%20-3.0817479000000034%5D%2C%20%5B-59.758932400000006%2C%20-3.063389399999999%5D%2C%20%5B-59.6804832%2C%20-3.0650350000000004%5D%2C%20%5B-59.5977424%2C%20-3.095032300000009%5D%2C%20%5B-59.5874513%2C%20-3.100337499999989%5D%2C%20%5B-59.53405600000001%2C%20-3.1285168999999975%5D%2C%20%5B-59.479296000000005%2C%20-3.1285168999999975%5D%2C%20%5B-59.382994000000004%2C%20-3.1663967999999993%5D%2C%20%5B-59.378208900000004%2C%20-3.1688821000000083%5D%2C%20%5B-59.3153594%2C%20-3.2037012000000002%5D%2C%20%5B-59.218370699999994%2C%20-3.2337545999999877%5D%2C%20%5B-59.167559000000004%2C%20-3.267114699999979%5D%2C%20%5B-59.13494330000001%2C%20-3.2747154999999903%5D%2C%20%5B-59.0762351%2C%20-3.2623159999999842%5D%2C%20%5B-59.02531609999999%2C%20-3.2416941000000055%5D%2C%20%5B-59.01357869999999%2C%20-3.2369509000000023%5D%2C%20%5B-58.970491700000004%2C%20-3.2458631000000064%5D%2C%20%5B-58.90714870000001%2C%20-3.272427500000009%5D%2C%20%5B-58.862345%2C%20-3.3080741999999947%5D%2C%20%5B-58.7830375%2C%20-3.3359222999999947%5D%2C%20%5B-58.74758940000001%2C%20-3.3497046999999953%5D%2C%20%5B-58.68622049999999%2C%20-3.373537400000009%5D%2C%20%5B-58.6216758%2C%20-3.370795599999997%5D%2C%20%5B-58.581507%2C%20-3.3396068000000048%5D%2C%20%5B-58.56777410000001%2C%20-3.2902509999999903%5D%2C%20%5B-58.565302200000005%2C%20-3.256433200000012%5D%2C%20%5B-58.5636542%2C%20-3.2340372999999984%5D%2C%20%5B-58.500826200000006%2C%20-3.1514935999999882%5D%2C%20%5B-58.4706138%2C%20-3.146008699999999%5D%2C%20%5B-58.40957960000001%2C%20-3.169790499999987%5D%2C%20%5B-58.4029792%2C%20-3.1723357999999955%5D%2C%20%5B-58.2642768%2C%20-3.216212799999977%5D%2C%20%5B-58.22891460000001%2C%20-3.206272100000007%5D%2C%20%5B-58.1763862%2C%20-3.1558813999999953%5D%2C%20%5B-58.170893%2C%20-3.1161156000000125%5D%2C%20%5B-58.1640266%2C%20-3.03246550000001%5D%2C%20%5B-58.1587051%2C%20-3.014577499999991%5D%2C%20%5B-58.127291%2C%20-2.9073896000000032%5D%2C%20%5B-58.07785260000001%2C%20-2.8429261000000103%5D%2C%20%5B-58.054849899999994%2C%20-2.8391456%5D%2C%20%5B-57.9556297%2C%20-2.822351900000004%5D%2C%20%5B-57.9144309%2C%20-2.7976623999999974%5D%2C%20%5B-57.8059409%2C%20-2.7908041000000057%5D%2C%20%5B-57.7290366%2C%20-2.72770599999999%5D%2C%20%5B-57.6586555%2C%20-2.6058898000000013%5D%2C%20%5B-57.5941108%2C%20-2.507111300000004%5D%2C%20%5B-57.576114%2C%20-2.4643105000000003%5D%2C%20%5B-57.55188210000001%2C%20-2.4066788000000003%5D%2C%20%5B-57.5202964%2C%20-2.3792370000000083%5D%2C%20%5B-57.4801276%2C%20-2.374022899999991%5D%2C%20%5B-57.441675499999995%2C%20-2.379511399999991%5D%2C%20%5B-57.40494000000001%2C%20-2.392957999999994%5D%2C%20%5B-57.36236790000001%2C%20-2.424515699999999%5D%2C%20%5B-57.3239158%2C%20-2.4684210000000095%5D%2C%20%5B-57.30084020000001%2C%20-2.4994967999999895%5D%2C%20%5B-57.2768806%2C%20-2.5318065999999884%5D%2C%20%5B-57.2398017%2C%20-2.549641900000012%5D%2C%20%5B-57.2030662%2C%20-2.549367500000001%5D%2C%20%5B-57.1505378%2C%20-2.5290626999999968%5D%2C%20%5B-57.0684837%2C%20-2.5452517000000117%5D%2C%20%5B-57.05106%2C%20-2.546829399999999%5D%2C%20%5B-56.9325278%2C%20-2.5575990999999942%5D%2C%20%5B-56.7704795%2C%20-2.611102899999984%5D%2C%20%5B-56.6808723%2C%20-2.6045179999999895%5D%2C%20%5B-56.5837119%2C%20-2.5548551999999995%5D%2C%20%5B-56.4738486%2C%20-2.4574448000000015%5D%2C%20%5B-56.4254401%2C%20-2.3630459999999935%5D%2C%20%5B-56.4007209%2C%20-2.283460599999993%5D%2C%20%5B-56.3722251%2C%20-2.258486299999994%5D%2C%20%5B-56.3297389%2C%20-2.247396999999986%5D%2C%20%5B-56.2949775%2C%20-2.238177299999987%5D%2C%20%5B-56.1535285%2C%20-2.151723399999996%5D%2C%20%5B-56.0989402%2C%20-2.0636178000000007%5D%2C%20%5B-56.092208%2C%20-2.0272569999999903%5D%2C%20%5B-56.08349069999999%2C%20-1.9801736999999808%5D%2C%20%5B-56.0729979%2C%20-1.9476028999999868%5D%2C%20%5B-56.0460728%2C%20-1.9337063000000119%5D%2C%20%5B-56.0279067%2C%20-1.9372018999999974%5D%2C%20%5B-56.0041831%2C%20-1.9538220000000028%5D%2C%20%5B-55.8709739%2C%20-2.003231000000001%5D%2C%20%5B-55.7803367%2C%20-2.003231000000001%5D%2C%20%5B-55.7034324%2C%20-1.973036799999983%5D%2C%20%5B-55.6361411%2C%20-1.9099016999999932%5D%2C%20%5B-55.60043559999999%2C%20-1.8975488999999932%5D%2C%20%5B-55.5537437%2C%20-1.9016665000000055%5D%2C%20%5B-55.51666480000001%2C%20-1.9263719999999944%5D%2C%20%5B-55.390322%2C%20-2.0485212999999916%5D%2C%20%5B-55.3024314%2C%20-2.119885199999995%5D%2C%20%5B-55.111544%2C%20-2.170661400000009%5D%2C%20%5B-55.0974657%2C%20-2.1710281999999945%5D%2C%20%5B-54.9362777%2C%20-2.175228599999992%5D%2C%20%5B-54.861605%2C%20-2.1641472000000004%5D%2C%20%5B-54.7929404%2C%20-2.1823258999999977%5D%2C%20%5B-54.6817039%2C%20-2.411481100000004%5D%2C%20%5B-54.67543820000001%2C%20-2.417175199999991%5D%2C%20%5B-54.6377586%2C%20-2.4512706999999847%5D%2C%20%5B-54.6161292%2C%20-2.4600859999999845%5D%2C%20%5B-54.48168849999999%2C%20-2.4579961999999855%5D%2C%20%5B-54.3823535%2C%20-2.4048167999999794%5D%2C%20%5B-54.268971099999995%2C%20-2.399799899999987%5D%2C%20%5B-54.211282%2C%20-2.3880485%5D%2C%20%5B-54.1606057%2C%20-2.3777255000000044%5D%2C%20%5B-54.0959901%2C%20-2.3352728999999828%5D%2C%20%5B-54.0808535%2C%20-2.3030958999999984%5D%2C%20%5B-54.0491101%2C%20-2.235614499999996%5D%2C%20%5B-54.0351827%2C%20-2.16199789999998%5D%2C%20%5B-54.009094700000006%2C%20-2.0335648000000175%5D%2C%20%5B-53.89571230000001%2C%20-1.9673414999999892%5D%2C%20%5B-53.8452202%2C%20-1.9444479000000006%5D%2C%20%5B-53.7341675%2C%20-1.8940944000000082%5D%2C%20%5B-53.638846%2C%20-1.8961011999999748%5D%2C%20%5B-53.501023%2C%20-1.8523089999999958%5D%2C%20%5B-53.4421828%2C%20-1.839911700000002%5D%2C%20%5B-53.365925600000004%2C%20-1.7837222000000001%5D%2C%20%5B-53.2966148%2C%20-1.766596099999997%5D%2C%20%5B-53.2535466%2C%20-1.7656612999999908%5D%2C%20%5B-53.1391609%2C%20-1.763654499999987%5D%2C%20%5B-53.0408292%2C%20-1.7656612999999908%5D%2C%20%5B-53.0069156%2C%20-1.7459441999999818%5D%2C%20%5B-52.9545382%2C%20-1.7154921000000032%5D%2C%20%5B-52.9194198%2C%20-1.6442517999999886%5D%2C%20%5B-52.8481795%2C%20-1.590069099999996%5D%2C%20%5B-52.75486479999999%2C%20-1.5750183999999865%5D%2C%20%5B-52.6987714%2C%20-1.5746347999999946%5D%2C%20%5B-52.6318176%2C%20-1.5377792999999966%5D%2C%20%5B-52.5569301%2C%20-1.5396948999999909%5D%2C%20%5B-52.4086974%2C%20-1.5639810999999928%5D%2C%20%5B-52.2501627%2C%20-1.4957509999999956%5D%2C%20%5B-52.1290818%2C%20-1.4560650999999873%5D%2C%20%5B-52.0178456%2C%20-1.4319084999999974%5D%2C%20%5B-51.9892558%2C%20-1.4397415999999994%5D%2C%20%5B-51.9611576%2C%20-1.4474399999999998%5D%2C%20%5B-51.9189728%2C%20-1.488676899999988%5D%2C%20%5B-51.8464527%2C%20-1.5161681000000147%5D%2C%20%5B-51.7815165%2C%20-1.480145099999978%5D%2C%20%5B-51.7440278%2C%20-1.452402300000003%5D%2C%20%5B-51.64358630000001%2C%20-1.3777639000000106%5D%2C%20%5B-51.5165577%2C%20-1.2720648000000099%5D%2C%20%5B-51.42744319999999%2C%20-1.2198215999999948%5D%2C%20%5B-51.3421305%2C%20-1.0786779999999934%5D%2C%20%5B-51.2892371%2C%20-1.0436480999999846%5D%2C%20%5B-51.2529274%2C%20-1.0064365999999971%5D%2C%20%5B-51.2384035%2C%20-0.9764855999999841%5D%2C%20%5B-51.2352264%2C%20-0.9374581000000018%5D%2C%20%5B-51.2275106%2C%20-0.8730163999999963%5D%2C%20%5B-51.2129868%2C%20-0.8013123999999909%5D%2C%20%5B-51.1893854%2C%20-0.7491219999999956%5D%2C%20%5B-51.1585222%2C%20-0.6905772000000088%5D%2C%20%5B-51.1176648%2C%20-0.6576779999999822%5D%2C%20%5B-51.0772343%2C%20-0.6574327000000078%5D%2C%20%5B-51.0540433%2C%20-0.6536412999999908%5D%2C%20%5B-51.0302959%2C%20-0.6512519000000001%5D%2C%20%5B-50.9930207%2C%20-0.6051911000000034%5D%2C%20%5B-50.973171%2C%20-0.5823120999999947%5D%2C%20%5B-50.9304409%2C%20-0.5635238999999821%5D%2C%20%5B-50.8331619%2C%20-0.5324930999999968%5D%2C%20%5B-50.7677032%2C%20-0.503401499999993%5D%2C%20%5B-50.7357011%2C%20-0.43903580000000164%5D%2C%20%5B-50.7500143%2C%20-0.3932215999999885%5D%2C%20%5B-50.7469536%2C%20-0.353432899999986%5D%2C%20%5B-50.72348800000001%2C%20-0.2891585000000051%5D%2C%20%5B-50.6826782%2C%20-0.2197825000000021%5D%2C%20%5B-50.622460600000004%2C%20-0.15650979999999293%5D%2C%20%5B-50.5608254%2C%20-0.11766909999999783%5D%2C%20%5B-50.5077727%2C%20-0.09318330000000431%5D%2C%20%5B-50.4427445%2C%20-0.08957440000000995%5D%2C%20%5B-50.34806590000001%2C%20-0.07912710000000304%5D%2C%20%5B-50.2610186%2C%20-0.08418500000001614%5D%2C%20%5B-50.18067429999999%2C%20-0.09566269999999875%5D%2C%20%5B-50.065896800000004%2C%20-0.10331449999998787%5D%2C%20%5B-49.961013599999994%2C%20-0.10279779999998769%5D%2C%20%5B-49.8704669%2C%20-0.13340510000000994%5D%2C%20%5B-49.7709931%2C%20-0.15891109999998912%5D%2C%20%5B-49.666418%2C%20-0.18824299999998803%5D%2C%20%5B-49.536336799999994%2C%20-0.18441710000000106%5D%2C%20%5B-49.4113569%2C%20-0.14615809999999396%5D%2C%20%5B-49.3208102%2C%20-0.08239290000000017%5D%2C%20%5B-49.265921%2C%20-0.001510700000014792%5D%2C%20%5B-49.226743600000006%2C%200.06704980000001357%5D%2C%20%5B-49.172874699999994%2C%200.11928620000001845%5D%2C%20%5B-49.1092701%2C%200.1763294000000023%5D%5D%2C%20%5B%5B-51.9892558%2C%20-1.4397415999999994%5D%2C%20%5B-51.8912573%2C%20-1.3285506999999819%5D%2C%20%5B-51.9042181%2C%20-1.207456399999981%5D%2C%20%5B-51.8933172%2C%20-1.167913799999997%5D%2C%20%5B-51.8818336%2C%20-1.1618636999999878%5D%2C%20%5B-51.8199696%2C%20-1.1554794999999995%5D%2C%20%5B-51.7319556%2C%20-1.1411401000000019%5D%2C%20%5B-51.6584845%2C%20-1.0786670999999908%5D%2C%20%5B-51.7003699%2C%20-0.8946734000000053%5D%2C%20%5B-51.6804571%2C%20-0.7827622000000041%5D%2C%20%5B-51.5396948%2C%20-0.569230499999999%5D%2C%20%5B-51.43601129999999%2C%20-0.4820301999999884%5D%2C%20%5B-51.4160986%2C%20-0.4092479000000026%5D%2C%20%5B-51.3687201%2C%20-0.36393039999999977%5D%2C%20%5B-51.3309546%2C%20-0.2609350999999946%5D%2C%20%5B-51.1922522%2C%20-0.11536709999999031%5D%2C%20%5B-51.0061713%2C%20-0.019923400000005156%5D%2C%20%5B-50.872962%2C%200.10779260000001073%5D%2C%20%5B-50.5516119%2C%200.29112570000001153%5D%2C%20%5B-50.4012366%2C%200.6509152000000087%5D%2C%20%5B-49.99474239999999%2C%200.7065296000000016%5D%5D%2C%20%5B%5B-69.9413552%2C%20-4.289236899999999%5D%2C%20%5B-69.8977532%2C%20-4.305670000000012%5D%2C%20%5B-69.8836769%2C%20-4.316967600000018%5D%2C%20%5B-69.8675408%2C%20-4.3361389000000115%5D%2C%20%5B-69.849688%2C%20-4.344012699999995%5D%2C%20%5B-69.8246254%2C%20-4.351201699999984%5D%2C%20%5B-69.8095192%2C%20-4.369002800000005%5D%2C%20%5B-69.793416%2C%20-4.381108399999991%5D%5D%5D%2C%20%22type%22%3A%20%22MultiLineString%22%7D%2C%20%22id%22%3A%20%220%22%2C%20%22properties%22%3A%20%7B%22bbox_east%22%3A%20-49.1092701%2C%20%22bbox_north%22%3A%200.7065296%2C%20%22bbox_south%22%3A%20-4.4421898%2C%20%22bbox_west%22%3A%20-73.4501259%2C%20%22place_name%22%3A%20%22Rio%20Amazonas%2C%20Microrregi%5Cu00e3o%20de%20Manaus%2C%20Mesorregi%5Cu00e3o%20Centro%20Amazonense%2C%20AM%2C%20Regi%5Cu00e3o%20Norte%2C%2069100-143%2C%20Brasil%22%7D%2C%20%22type%22%3A%20%22Feature%22%7D%5D%2C%20%22type%22%3A%20%22FeatureCollection%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20geo_json_a29e1a745b794cc7808b130d99f6e175.bindTooltip%28%0A%20%20%20%20function%28layer%29%7B%0A%20%20%20%20let%20div%20%3D%20L.DomUtil.create%28%27div%27%29%3B%0A%20%20%20%20%0A%20%20%20%20let%20handleObject%20%3D%20feature%3D%3Etypeof%28feature%29%3D%3D%27object%27%20%3F%20JSON.stringify%28feature%29%20%3A%20feature%3B%0A%20%20%20%20let%20fields%20%3D%20%5B%22bbox_east%22%2C%20%22bbox_north%22%2C%20%22bbox_south%22%2C%20%22bbox_west%22%2C%20%22place_name%22%5D%3B%0A%20%20%20%20let%20aliases%20%3D%20%5B%22bbox_east%22%2C%20%22bbox_north%22%2C%20%22bbox_south%22%2C%20%22bbox_west%22%2C%20%22place_name%22%5D%3B%0A%20%20%20%20let%20table%20%3D%20%27%3Ctable%3E%27%20%2B%0A%20%20%20%20%20%20%20%20String%28%0A%20%20%20%20%20%20%20%20fields.map%28%0A%20%20%20%20%20%20%20%20%28v%2Ci%29%3D%3E%0A%20%20%20%20%20%20%20%20%60%3Ctr%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cth%3E%24%7Baliases%5Bi%5D%7D%3C/th%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ctd%3E%24%7BhandleObject%28layer.feature.properties%5Bv%5D%29%7D%3C/td%3E%0A%20%20%20%20%20%20%20%20%3C/tr%3E%60%29.join%28%27%27%29%29%0A%20%20%20%20%2B%27%3C/table%3E%27%3B%0A%20%20%20%20div.innerHTML%3Dtable%3B%0A%20%20%20%20%0A%20%20%20%20return%20div%0A%20%20%20%20%7D%0A%20%20%20%20%2C%7B%22className%22%3A%20%22foliumtooltip%22%2C%20%22sticky%22%3A%20true%7D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3C/script%3E onload="this.contentDocument.open();this.contentDocument.write(    decodeURIComponent(this.getAttribute('data-html')));this.contentDocument.close();" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

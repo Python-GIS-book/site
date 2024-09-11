@@ -1,0 +1,986 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Getting started with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part1/chapter-02/md/00-python-basics';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/00-python-basics.html">2.1 Getting started with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/01-lists-and-indices.html">2.2 Lists and indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/02-text-and-numbers.html">2.3 Working with text and numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/03-for-loops.html">2.4 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/04-conditional-statements.html">2.5 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/05-functions.html">2.6 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/06-writing-scripts.html">2.7 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/07-modules.html">2.8 Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/08-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-03/index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-03/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in vector format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-data-structures-xarray.html">7.2 Introduction to data structures in xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/06-surface-analysis.html">7.7 Surface analysis</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/part1/chapter-02/md/00-python-basics.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part1/chapter-02/md/00-python-basics.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Getting started with Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-python-math">Simple Python math</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-operations">Math operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-1">Question 2.1</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-functions">Combining functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-assignment">Variable assignment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-2">Question 2.2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-variables">Updating variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-values">Variable values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-3">Question 2.3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-different-data-types-work-together">Making different data types work together</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-data-from-one-type-to-another">Converting data from one type to another</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-4">Question 2.4</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-5">Question 2.5</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-text-and-numbers">Combining text and numbers</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!-- #region deletable=true editable=true -->
+<section class="tex2jax_ignore mathjax_ignore" id="getting-started-with-python">
+<h1>Getting started with Python<a class="headerlink" href="#getting-started-with-python" title="Link to this heading">#</a></h1>
+<p>In this section, we will introduce some basic programming concepts in Python.</p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+<section id="simple-python-math">
+<h2>Simple Python math<a class="headerlink" href="#simple-python-math" title="Link to this heading">#</a></h2>
+<p>We will start our Python introduction by learning a bit of the basic operations you can perform. Python can be used as a simple calculator. Let’s try it out with some simple math operations such as <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">*</span> <span class="pre">7</span></code>.  When using a Jupyter Notebook you can press <strong>Shift-Enter</strong> to execute the code cells.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">5</span> <span class="o">*</span> <span class="mi">7</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>If you want to edit and re-run some code, simply make changes to the Python cell and press <strong>Shift-Enter</strong> to execute the modified code.</p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h3>
+<p>You can use Python for more advanced math by using a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Function"><span class="xref std std-term">function</span></a></em>. Functions are pieces of code that perform a single action such as printing information to the screen (e.g., the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function). Functions exist for a huge number of operations in Python.</p>
+<p>Let’s try out a few simple examples using functions to find the sine or square root of a value using the <code class="docutils literal notranslate"><span class="pre">sin()</span></code> and <code class="docutils literal notranslate"><span class="pre">sqrt()</span></code> functions.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Wait, what? Python can’t calculate square roots or do basic trigonometry? Of course it can, but we need one more step.</p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+</section>
+<section id="math-operations">
+<h3>Math operations<a class="headerlink" href="#math-operations" title="Link to this heading">#</a></h3>
+<p>The list of basic arithmetic operations that can be done by default in Python are listed in Table 2.1.</p>
+<p>: <em><strong>Table 2.1</strong>. Basic math operations in Python.</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operation</p></th>
+<th class="head text-center"><p>Symbol</p></th>
+<th class="head text-center"><p>Example syntax</p></th>
+<th class="head text-center"><p>Returned value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Addition</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">2</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Subtraction</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">-</span> <span class="pre">2</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Multiplication</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">3</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Division</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">/</span> <span class="pre">2</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Exponentiation</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">**</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2**3</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">8</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For anything more advanced, we need to load a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Module"><span class="xref std std-term">module</span></a></em> or <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Library"><span class="xref std std-term">library</span></a></em>. For math operations, this module is called <code class="docutils literal notranslate"><span class="pre">math</span></code> and it can be loaded by typing <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span></code>.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+</pre></div>
+</div>
+<p>Now that we have access to functions in the math module, we can use it by typing the module name, a period (dot), and the the name of the function we want to use. For example, <code class="docutils literal notranslate"><span class="pre">math.sin(3)</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>Let’s summarize what we’ve just seen with modules:</p>
+<ol class="arabic simple">
+<li><p>A <span class="target" id="index-0"></span>module is a group of code items such as functions that are related to one another. Individual modules are often in a group referred to as a library.</p></li>
+<li><p>Modules can be loaded using the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement. Functions that are part of the module <code class="docutils literal notranslate"><span class="pre">modulename</span></code> can then be used by typing <code class="docutils literal notranslate"><span class="pre">modulename.functionname()</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">sin()</span></code> is a function that is part of the <code class="docutils literal notranslate"><span class="pre">math</span></code> module, and used by typing <code class="docutils literal notranslate"><span class="pre">math.sin()</span></code> with some number between the parentheses.</p></li>
+<li><p>In a Jupyter Notebook the variables you define earlier code cells will be available for use in the cells that follow as long as you have already executed the cells.</p></li>
+</ol>
+<p>Note that modules may also contain constants such as <code class="docutils literal notranslate"><span class="pre">math.pi</span></code>. Parentheses are not used when calling constant values.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<section id="question-2-1">
+<h4>Question 2.1<a class="headerlink" href="#question-2-1" title="Link to this heading">#</a></h4>
+<p>Use your Python skills to calculate the sine of pi. What value do you expect for this calculation? Did you get the expected result?</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note that lines starting with &quot;#&quot; are ignored in Python.</span>
+<span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+</section>
+</section>
+<section id="combining-functions">
+<h3>Combining functions<a class="headerlink" href="#combining-functions" title="Link to this heading">#</a></h3>
+<p>Functions can also be combined. The <code class="docutils literal notranslate"><span class="pre">print()</span></code> function returns values within the parentheses as text on the screen. Let’s print the value of the square root of four.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>You can also combine text with other calculated values using the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function. For example, <code class="docutils literal notranslate"><span class="pre">print('Two</span> <span class="pre">plus</span> <span class="pre">two</span> <span class="pre">is',</span> <span class="pre">2+2)</span></code> would generate text reading ‘Two plus two is 4’. Let’s combine the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function with the <code class="docutils literal notranslate"><span class="pre">math.sqrt()</span></code> function in to produce text that reads <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">square</span> <span class="pre">root</span> <span class="pre">of</span> <span class="pre">4</span> <span class="pre">is</span> <span class="pre">2.0</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The square root of 4 is&quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+</section>
+</section>
+<section id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Link to this heading">#</a></h2>
+<p>A <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Variable"><span class="xref std std-term">variable</span></a></em> can be used to store values calculated in expressions and used for other calculations.</p>
+<!-- #endregion -->
+<section id="variable-assignment">
+<h3>Variable assignment<a class="headerlink" href="#variable-assignment" title="Link to this heading">#</a></h3>
+<p>Assigning value to variables is straightforward. To assign a value, you simply type <code class="docutils literal notranslate"><span class="pre">variable_name</span> <span class="pre">=</span> <span class="pre">value</span></code>, where <code class="docutils literal notranslate"><span class="pre">variable_name</span></code> is the name of the variable you wish to define. Let’s define a variable called <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> and assign it a value of 10.0. Note that when the variable is assigned there is no output to the screen.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_celsius</span> <span class="o">=</span> <span class="mf">10.0</span>
+</pre></div>
+</div>
+<p>In order to see the value that has been assigned to the <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> variable you need to either use the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function (e.g., <code class="docutils literal notranslate"><span class="pre">print(temp_celsius)</span></code>) or simply type the name of the variable into the code cell to have its value displayed. This is a convenient way to see calculated values in code cells of Jupyter Notebooks, so for simplicity we will avoid using the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function when possible in this book. In some cases, however, the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function is needed, such as displaying output from multiple lines of a single code cell.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_celsius</span>
+</pre></div>
+</div>
+<p>It is also possible to combine text and numbers and even use some math when printing out variable values. The idea is similar to the examples of adding 2+2 or calculating the square root of four from the previous section. Next, we will print out the value of <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> in degrees Fahrenheit by multiplying <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> by 9/5 and adding 32. This should be done within the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function to produce output that reads ‘Temperature in Fahrenheit: 50.0’.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Temperature in Fahrenheit:&quot;</span><span class="p">,</span> <span class="mi">9</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">temp_celsius</span> <span class="o">+</span> <span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<section id="question-2-2">
+<h4>Question 2.2<a class="headerlink" href="#question-2-2" title="Link to this heading">#</a></h4>
+<p>Define a variable and display its value on the screen. The variable value can be anything you like, and you can even consider defining several variables and printing them out together. Consider using pothole_case_naming for your variable name.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">my_variable</span> <span class="o">=</span> <span class="s2">&quot;Python is cool!&quot;</span>
+<span class="n">my_variable</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="updating-variables">
+<h3>Updating variables<a class="headerlink" href="#updating-variables" title="Link to this heading">#</a></h3>
+<p>Values stored in variables can also be updated. Let’s redefine the value of <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> to be equal to 17.0 and print its value using the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_celsius</span> <span class="o">=</span> <span class="mf">17.0</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;temperature in Celsius is now:&quot;</span><span class="p">,</span> <span class="n">temp_celsius</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
+<p>Please note that if you try to run some code that accesses a variable that has not yet been defined you will get a <code class="docutils literal notranslate"><span class="pre">NameError</span></code> message.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Temperature in Celsius:&quot;</span><span class="p">,</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">9</span> <span class="o">*</span> <span class="p">(</span><span class="n">tempFahrenheit</span> <span class="o">-</span> <span class="mi">32</span><span class="p">))</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>When running the code in a Jupyter Notebook variables get stored in memory only after executing the code cell where the variable is defined.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tempFahrenheit</span> <span class="o">=</span> <span class="mi">9</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">temp_celsius</span> <span class="o">+</span> <span class="mi">32</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Now that we have defined <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code>, we can run again the print statement without getting a <code class="docutils literal notranslate"><span class="pre">NameError</span></code>. Let’s print out the values of <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> and <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> to check their current values.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;temperature in Celsius:&quot;</span><span class="p">,</span> <span class="n">temp_celsius</span><span class="p">,</span> <span class="s2">&quot;and in Fahrenheit:&quot;</span><span class="p">,</span> <span class="n">tempFahrenheit</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>The number beside the cell, for example <code class="docutils literal notranslate"><span class="pre">In</span> <span class="pre">[22]</span></code>, tells you the order in which the Python cells have been executed. This way you can see a history of the order in which you have run the cells.</p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true -->
+</section>
+<section id="variable-values">
+<h3>Variable values<a class="headerlink" href="#variable-values" title="Link to this heading">#</a></h3>
+<p>Changing the value of a variable does not affect other variable values. Let’s redefine <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> to be equal to 20.0, and print out the values of <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> and <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code>.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_celsius</span> <span class="o">=</span> <span class="mf">20.0</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;temperature in Celsius is now:&quot;</span><span class="p">,</span>
+    <span class="n">temp_celsius</span><span class="p">,</span>
+    <span class="s2">&quot;and temperature in Fahrenheit is still:&quot;</span><span class="p">,</span>
+    <span class="n">tempFahrenheit</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="data-types">
+<h2>Data types<a class="headerlink" href="#data-types" title="Link to this heading">#</a></h2>
+<p>A <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Data-type"><span class="xref std std-term">data type</span></a></em> determines the characteristics of data in a program.
+There are 4 basic data types in Python as shown in Table 2.2.</p>
+<p>: <em><strong>Table 2.2</strong>. Basic data types in Python.</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Data type name</p></th>
+<th class="head text-left"><p>Data type</p></th>
+<th class="head text-center"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td class="text-left"><p>Whole integer values</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-left"><p>Decimal values</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">3.1415</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Character strings</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">'Hot'</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td class="text-left"><p>True/false values</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The data type can be found using the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function. As you will see, the data types are important because some are not compatible with one another. Let’s define a variable <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> and assign it the value “Hot”. After this, we can check its data type using the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weatherForecast</span> <span class="o">=</span> <span class="s2">&quot;Hot&quot;</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">weatherForecast</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s also check the type of <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code>. What happens if you try to combine <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> in a single math equation such as <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span> <span class="pre">=</span> <span class="pre">tempFahrenheit</span> <span class="pre">+</span> <span class="pre">5.0</span> <span class="pre">*</span> <span class="pre">weatherForecast</span></code>?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">tempFahrenheit</span><span class="p">)</span>
+<span class="n">tempFahrenheit</span> <span class="o">=</span> <span class="n">tempFahrenheit</span> <span class="o">+</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">weatherForecast</span>
+</pre></div>
+</div>
+<!-- #region deletable=true editable=true -->
+<p>In this case we get at <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> because we are trying to execute a math operation with data types that are not compatible. There is no way in Python to multpily decimal values with a character string.</p>
+<!-- #endregion -->
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<section id="question-2-3">
+<h3>Question 2.3<a class="headerlink" href="#question-2-3" title="Link to this heading">#</a></h3>
+<p>As it turns out, it is possible some math with character strings in Python. Define two variables and assign them character string values. What happens if you try to add two character strings together? Can you subtract them? Which other math operations work for character strings?</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">first_variable</span> <span class="o">=</span> <span class="s2">&quot;Python&quot;</span>
+<span class="n">second_variable</span> <span class="o">=</span> <span class="s2">&quot; is cool!&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">first_variable</span> <span class="o">+</span> <span class="n">second_variable</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">first_variable</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">first_variable</span> <span class="o">-</span> <span class="n">second_variable</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="making-different-data-types-work-together">
+<h2>Making different data types work together<a class="headerlink" href="#making-different-data-types-work-together" title="Link to this heading">#</a></h2>
+<p>In the previous section we saw that not all Python data types are directly compatible with others, which may result in a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> being raised. This means that (1) it is important to be aware of the data type of variables and (2) some additional steps may be needed to make different data compatible. In the example in the previous section we had <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> (type <code class="docutils literal notranslate"><span class="pre">float</span></code>) and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> (type <code class="docutils literal notranslate"><span class="pre">str</span></code>) that were not compatible. How can we address this issue if we would like to work with those data together?</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="converting-data-from-one-type-to-another">
+<h3>Converting data from one type to another<a class="headerlink" href="#converting-data-from-one-type-to-another" title="Link to this heading">#</a></h3>
+<p>It is not the case that things like the <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> cannot be combined at all, but in order to combine a character string with a number we need to perform a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Type-conversion"><span class="xref std std-term">type conversion</span></a></em> to make them compatible. Let’s convert <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> to a character string using the <code class="docutils literal notranslate"><span class="pre">str()</span></code> function. We can store the converted variable as <code class="docutils literal notranslate"><span class="pre">tempFahrenheitStr</span></code>.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tempFahrenheitStr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempFahrenheit</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>We can confirm the type has changed by checking the type of <code class="docutils literal notranslate"><span class="pre">tempFahrenheitStr</span></code> or by checking the output of a code cell with the variable.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">tempFahrenheitStr</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tempFahrenheitStr</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>As you can see, <code class="docutils literal notranslate"><span class="pre">str()</span></code> converts a numerical value into a character string with the same numbers as before. Similar to using <code class="docutils literal notranslate"><span class="pre">str()</span></code> to convert numbers to character strings, <code class="docutils literal notranslate"><span class="pre">int()</span></code> can be used to convert strings or floating point numbers to integers, and <code class="docutils literal notranslate"><span class="pre">float()</span></code> can be used to convert strings or integers to floating point numbers. For example, we could convert <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> to an integer as follows.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tempFahrenheitInt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tempFahrenheit</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Again, we can confirm the data type and value of <code class="docutils literal notranslate"><span class="pre">tempFahrenheitInt</span></code> in below. Do you notice any issues?</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">tempFahrenheitInt</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tempFahrenheitInt</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Here we see that the data type conversion has occurred properly, but notice that the value of <code class="docutils literal notranslate"><span class="pre">tempFahrenheitInt</span></code> is <code class="docutils literal notranslate"><span class="pre">62</span></code>. This occurs because the type conversion truncates the decimal part of the number rather than rounding to the nearest whole number (for this we need the <code class="docutils literal notranslate"><span class="pre">round()</span></code> function). Thus, one must be careful when converting data types as conversion may result in unexpected results!</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<section id="question-2-4">
+<h4>Question 2.4<a class="headerlink" href="#question-2-4" title="Link to this heading">#</a></h4>
+<p>What output would you expect to see when you execute <code class="docutils literal notranslate"><span class="pre">print(tempFahrenheitInt</span> <span class="pre">+</span> <span class="pre">temp_celsius)</span></code>?</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tempFahrenheitInt</span> <span class="o">+</span> <span class="n">temp_celsius</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+</section>
+<section id="question-2-5">
+<h4>Question 2.5<a class="headerlink" href="#question-2-5" title="Link to this heading">#</a></h4>
+<p>What output would you expect to see when you execute <code class="docutils literal notranslate"><span class="pre">print(weatherForecast</span> <span class="pre">+</span> <span class="pre">tempFahrenheitStr)</span></code>?</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">weatherForecast</span> <span class="o">+</span> <span class="n">tempFahrenheitStr</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="combining-text-and-numbers">
+<h3>Combining text and numbers<a class="headerlink" href="#combining-text-and-numbers" title="Link to this heading">#</a></h3>
+<p>Although most mathematical operations are applied to numerical values, a common way to combine character strings is using the addition operator <code class="docutils literal notranslate"><span class="pre">+</span></code>. Let’s create a text string in the variable <code class="docutils literal notranslate"><span class="pre">temp_and_forecast</span></code> that is the combination of the <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> variables. Once we define <code class="docutils literal notranslate"><span class="pre">temp_and_forecast</span></code>, we can print it to the screen to see the result.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_and_forecast</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;The current temperature is &quot;</span>
+    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempFahrenheit</span><span class="p">)</span>
+    <span class="o">+</span> <span class="s2">&quot; and the forecast for today is &quot;</span>
+    <span class="o">+</span> <span class="n">weatherForecast</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_and_forecast</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Note that here we are converting <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> to a character string using the <code class="docutils literal notranslate"><span class="pre">str()</span></code> function within the assignment to the variable <code class="docutils literal notranslate"><span class="pre">temp_and_forecast</span></code>. Alternatively, we could have simply combined <code class="docutils literal notranslate"><span class="pre">tempFahrenheitStr</span></code> and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code>.</p>
+<!-- #endregion -->
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-python-math">Simple Python math</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-operations">Math operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-1">Question 2.1</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-functions">Combining functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-assignment">Variable assignment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-2">Question 2.2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-variables">Updating variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-values">Variable values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-3">Question 2.3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-different-data-types-work-together">Making different data types work together</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-data-from-one-type-to-another">Converting data from one type to another</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-4">Question 2.4</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-5">Question 2.5</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-text-and-numbers">Combining text and numbers</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

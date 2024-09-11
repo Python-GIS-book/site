@@ -17,8 +17,9 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter 1 provides the essential background information needed to get started programming in Python.
-This chapter introduces basic concepts related to computers and programming, and provides some basic information about the programming environment used in this book, including how to install Python on your own computer.
+Chapter 7 provides ...
+
+To be updated
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->

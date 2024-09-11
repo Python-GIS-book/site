@@ -1,0 +1,15 @@
+/*
+Fonts
+-----
+
+*/
+body {
+    font-size: 100%;
+}
+
+code.literal {
+    background-color: #fff;
+    border: 0px solid #fff;
+    border-radius: .0rem;
+    padding: 0;
+}
