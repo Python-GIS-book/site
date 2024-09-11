@@ -14,7 +14,7 @@ jupyter:
 
 # Representing geographic data in raster format
 
-**This section is under construction**
+**To be updated**
 
 ```python
 

@@ -100,16 +100,55 @@ levels need to be modified, and the headings are always searched from the first 
 
 ### Text conventions
 
+#### No formatting
+
 Normal text is written without any special formatting.
-Regular text can be emphasized using **bold text**.
-Specific individual code elements should be formatted in a `monospace` font, and blocks of code should be in a code block or code cell, as shown below.
 
-```python
-# This is a code block
-print('Yay!')
-```
+#### Inline code
 
-More conventions here???
+- variable names
+- data types (e.g. `str`)
+- data structures (e.g. `DataFrame`)
+- function names
+- methods / attributes (e.g. `.plot()` or `.area`)
+- package / module names (e.g. `pandas`)
+- commands
+- keywords
+
+##### Notes about inline code formatting
+
+Inline code formatting for data types and data structures should be used *only* when referencing a specific instance of the data type or structure. Otherwise, normal text formatting should be used (e.g., dataframe).
+
+> Here, we introduce {term}`pandas`, which is a common data analysis library in Python that utilizes two key data structures: {term}`DataFrame` and {term}`Series`. The dataframe structure in `pandas` is similar to the dataframe data structure in `R`. Let's begin by creating a new `DataFrame` called `my_data`.
+
+In the text above we can see that the pandas library is mentioned for the first time, and as an important library we have included a link to the glossary using the {term}`` formatting. This is similar for the first references to DataFrame and Series. After this, we refer to dataframes in general, not a specific instance, so the text is not formatted. Finally, we create a new dataframe instance, so inline code formatting is used.
+
+As another example, let's consider Python lists:
+
+> So far, we have learned a bit about variables, their values, and data types in this section. We will now continue with a new data type called a *{term}`list`*. Using a list, we can store many related values together with a single variable. ... Let’s first create a `list` of some station names and print it out.
+
+Similar to the pandas example, we link to the glossary when mentioning list for the first time. After that, general references to lists are not formatted. When creating a new list instance, we now use inline code formatting.
+
+#### Code blocks
+
+What: Multiline code as part of the Markdown text.
+
+- Long code snippets
+- File content
+- Output from code
+- Function / method documentation + help snippets
+
+#### Bold text
+
+- emphasizing text
+- key strokes (**shift** + **enter**)
+
+#### Italics
+
+- glossary entries
+- URLS
+- file names
+- file extensions 
 
 ### Figure captions
 

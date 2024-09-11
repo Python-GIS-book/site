@@ -5,13 +5,14 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Glossary
 
 ```{glossary}
@@ -20,6 +21,9 @@ Application Programming Interface
 
 API
   See {term}`Application Programming Interface`.
+
+Argument
+  The value passed to a function when it is called. Similar to a {term}`parameter`.
 
 Binary predicate
   See {term}`Spatial predicate`.
@@ -35,6 +39,9 @@ Coordinate Reference System
   
 Coordinate transformation
   See {term}`Map reprojection`.
+
+DataFrame
+  In pandas library, a DataFrame is a two-dimensional, tabular data structure with labeled rows and columns, similar to an Excel spreadsheet or SQL table. Each column can store data of different types (e.g., integers, floats, strings), and the DataFrame provides methods for data manipulation, including filtering, aggregation, and merging. It is one of the core data structures in pandas, widely used for data analysis and manipulation in Python.
   
 Data model
   A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell.    
@@ -69,15 +76,24 @@ Function
   
 Geocoding
   The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see {term}`Georeferencing`.
+
+GeoDataFrame
+  GeoDataFrame in geopandas library is similar to pandas {term}`DataFrame` but designed to handle geospatial data. Each row in a GeoDataFrame represents a geometric object (e.g., point, line, polygon) with associated attributes. `GeoDataFrame` bundles various methods that support spatial operations like geometric calculations and spatial joins, making it essential for geospatial analysis in Python.
   
 Geographic coordinate conversion
   See {term}`Map reprojection`.
   
 Georeferencing
   Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox. 
+
+GeoSeries
+  GeoSeries is used to store geospatial data, where each element is a geometric object like a point, line, or polygon. It extends the pandas {term}`Series` by supporting spatial operations, such as geometric transformations and spatial queries. A GeoSeries is often used to represent the geometry column in a {term}`GeoDataFrame`, making it a fundamental building block for geospatial analysis in Python.
   
 IDE
   See {term}`Integrated Development Environment`.
+
+Immutable
+  A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Mutable`.
 
 Index
   A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
@@ -126,8 +142,20 @@ Markdown
 Metadata
   Metadata refers to data that provides information about other data. It often describes characteristics of the data, such as its content, quality, format, and other relevant characteristics. For example, the metadata of a satellite image may include information about the image's resolution, file size, coordinate reference system, and the date it was taken. 
 
+Method
+  A function that is associated with an instance of a specific Python data type. Methods can be accessed by typing the variable name of the instance, a period, and the function name.
+
 Module
   A file containing Python definitions and statements. Module files have the `.py` file extension.
+
+Mutable
+  A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Immutable`.
+
+Optional parameter
+  A function {term}`parameter` that does not need to be provided when calling the function in order to use it. Optional parameters will use default function values that are provided in the function definition in such cases.
+
+Parameter
+  A variable listed within the parentheses of a function definition. Similar to an {term}`argument`.
 
 Program
   A detailed list of step-by-step instructions that tell the computer exactly what to do.
@@ -137,6 +165,9 @@ Programming language
 
 Radius query
   A radius query is a type of spatial query that retrieves all points within a specified distance (radius) from a given query point. The query is performed typically on a {term}`KD-Tree` to efficiently find points that fall within a given distance from the query point. KD-Tree supports only Point objects, i.e. it cannot be used to search other geometric types, such as LineStrings or Polygons.
+
+Required parameter
+  A function {term}`parameter` that must be defined when calling the function in order to use it. Required parameters do not have default function values given in the function definition. Also known as positional parameters.
 
 Right outer join
   Right outer join includes all the rows from the right (Geo)DataFrame and those rows from the left (Geo)DataFrame that have a matching key in the table, or that intersect or match based on the specified spatial relationship (e.g., intersects, contains, within). If there is no matching row in the left (Geo)DataFrame for a row in the right (Geo)DataFrame, the result will still include the row from the right (Geo)DataFrame, but with missing values (NaNs) in the columns from the left (Geo)DataFrame.
@@ -149,6 +180,9 @@ Script
 
 Semantics
   The exact meaning of a component in a programming language, such as a statement or a function. For example, the `len()` function in Python is used to determine the length of a data structure that is defined in memory.
+
+Series
+  In pandas library, a Series is a one-dimensional array-like data structure that holds a sequence of values, each associated with a unique index. It can store data of any type, such as integers, floats, or strings. A Series is essentially a single column of data and can be used as a building block for a {term}`DataFrame`. It supports various operations for data manipulation and analysis, making it a fundamental component of pandas.
 
 Software
   Another name for a {term}`program`.
@@ -183,6 +217,9 @@ Topological spatial relations
 Tuple
   A [tuple](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences) is a Python data structure that consists of a number of values separated by commas. Coordinate pairs are often represented as a tuple, such as: `(60.192059, 24.945831)`. Tuples belong to [sequence data types](https://docs.python.org/3/library/stdtypes.html#typesseq) in Python. Other sequence data types are lists and ranges. Tuples have many similarities with lists and ranges, but they are often used for different purposes. The main difference between tuples and lists is that tuples are [immutable](https://docs.python.org/3/glossary.html#term-immutable), which means that the contents of a tuple cannot be altered (while lists are mutable; you can, for example, add and remove values from lists).
 
+Type conversion
+  Changing the data type of a Python object. For example, `float(5)`.
+
 Unary union
   The unary union operation takes multiple geometries and merges them into a single geometry. This is useful when you have a collection of shapes and you want to treat them as a single entity for analysis or visualization.
 
@@ -198,3 +235,4 @@ Well-known binary
 Well-known text
   Well-known text (WKT) is a text markup language for representing vector geometry objects. WKT can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m). The binary equivalent for WKT is `Well-known binary` format.
 ```
+<!-- #endregion -->

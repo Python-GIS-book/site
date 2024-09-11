@@ -105,8 +105,9 @@ nbsphinx_allow_errors = True
 html_static_path = ["_static"]
 
 html_css_files = [
-    "css/pythongis.css",
+    "css/landing-page.css",
     "css/custom-toggle-button.css",
+    "css/custom-text-formatting.css",
 ]
 
 # The name of an image file (relative to this directory) to place at the top

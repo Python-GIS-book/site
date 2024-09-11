@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -15,15 +15,15 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Vector overlay operations
 
-Map overlay is probably the oldest analysis technique in GIS to understand relations between layers of geographic information. Already in the mid 19th century, John Snow famously identified the source of cholera outbreak in London to a specific public water pump by overlaying two point maps on top of each other ({cite}`unwin_1996`). Map overlay has been an important analytical tool for very long time, as being able to combine and analyse multiple layers of spatial data together is crucial for various spatial planning processes, including e.g. suitability analyses, environment impact assessment, or when doign zoning and landuse plans (e.g. {cite}`keeble_1952`; {cite}`masser_1999`; {cite}`steinitz_1976`). 
+Map overlay is probably the oldest analysis technique in GIS to understand relations between layers of geographic information. Already in the mid 19th century, John Snow famously identified the source of cholera outbreak in London to a specific public water pump by overlaying two point maps on top of each other ({cite}`unwin_1996`). Map overlay has been an important analytical tool for very long time, as being able to combine and analyse multiple layers of spatial data together is crucial for various spatial planning processes, including e.g. suitability analyses, environment impact assessment, or when doing zoning and landuse plans (e.g. {cite}`keeble_1952`; {cite}`masser_1999`; {cite}`steinitz_1976`). 
 
-Overlay operations can be done both with vector and raster data. Vector overlay operations are commonly used technique to produce new geometries and associated attribute data based on two or more vector layers. When working with multiple spatial datasets (especially polygon or line layers), you might need to create new shapes based on places where the layers overlap (or do not overlap) with each other. Typical overlay operations include union, intersection, and difference (**Figure 6.50**). These are named after the result of the combination of two or more input layers which produce at least one (or more) output layer. Being able to combine spatial data layers like this is an important feature in most GIS tools. These manipulations are also often called as set operations.
+Overlay operations can be done both with vector and raster data. Vector overlay operations are commonly used technique to produce new geometries and associated attribute data based on two or more vector layers. When working with multiple spatial datasets (especially polygon or line layers), you might need to create new shapes based on places where the layers overlap (or do not overlap) with each other. Typical overlay operations include union, intersection, and difference (Figure 6.52). These are named after the result of the combination of two or more input layers which produce at least one (or more) output layer. Being able to combine spatial data layers like this is an important feature in most GIS tools. These manipulations are also often called as set operations.
 
-The basic idea of vector overlay operations is demonstrated in **Figure 6.50** where the green areas represent the areas which constitute the result after the overlay operation. It is good to keep in mind that overlays operate at the GeoDataFrame level, not on individual geometries, and the properties from both are retained (often, not always). In effect, for every shape in the left GeoDataFrame, this operation is executed against every other shape in the right GeoDataFrame
+The basic idea of vector overlay operations is demonstrated in Figure 6.52 where the green areas represent the areas which constitute the result after the overlay operation. It is good to keep in mind that overlays operate at the GeoDataFrame level, not on individual geometries, and the properties from both are retained (often, not always). In effect, for every shape in the left GeoDataFrame, this operation is executed against every other shape in the right GeoDataFrame
 
-![_**Figure 6.50**. Typical vector overlay operations between two geographic layers (circle and rectangles). _](../img/vector_overlay_processes.png)
+![_**Figure 6.52**. Typical vector overlay operations between two geographic layers (circle and rectangles). _](../img/vector_overlay_processes.png)
 
-_**Figure 6.50**. Typical vector overlay operations between two geographic layers (circle and rectangles)._
+_**Figure 6.52**. Typical vector overlay operations between two geographic layers (circle and rectangles)._
 
 <!-- #endregion -->
 
@@ -72,12 +72,12 @@ m
 
 <!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.51}. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station.}}, center, nofloat}{../img/figure_6-51.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.53}. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station.}}, center, nofloat}{../img/figure_6-53.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.51**. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station._
+_**Figure 6.53**. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -140,7 +140,7 @@ fig, ax1, ax2 = plot_vector_overlay(
 )
 ```
 
-_**Figure 6.52**. Result after conducting vector overlay operation by intersecting the two layers._
+_**Figure 6.54**. Result after conducting vector overlay operation by intersecting the two layers._
 
 
 As we can see, the `"intersection"` overlay operation keeps the postal code areas that intersect with the circle and keeps all those geometries in the result. Important thing to notice is that with `overlay()` the intersecting GeoDataFrame (`station_buffer`) will also modify the input geometries by cutting them in the border areas where they cross. This is one of the key differences between `.overlay()` and `sjoin()` methods as `sjoin()` will not modify the input geometries. As mentioned earlier, attribute data from both GeoDataFrames are kept from the features that are part of the result.  In the following, we will show one-by-one, how different overlay operations (i.e. union, difference, symmetric difference, identity) influence the results.
@@ -160,7 +160,7 @@ fig, ax1, ax2 = plot_vector_overlay(
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.53**. Result after conducting vector overlay operation based on union._
+_**Figure 6.55**. Result after conducting vector overlay operation based on union._
 <!-- #endregion -->
 
 ```python
@@ -206,7 +206,7 @@ fig, ax1, ax2 = plot_vector_overlay(
 )
 ```
 
-_**Figure 6.54**. Result after conducting vector overlay operation based on difference._
+_**Figure 6.56**. Result after conducting vector overlay operation based on difference._
 
 ```python
 difference.columns.values
@@ -232,7 +232,7 @@ fig, ax1, ax2 = plot_vector_overlay(
 )
 ```
 
-_**Figure 6.55**. Result after conducting vector overlay operation based on symmetric difference._
+_**Figure 6.57**. Result after conducting vector overlay operation based on symmetric difference._
 
 ```python
 symmetric_difference.columns
@@ -262,7 +262,7 @@ fig, ax1, ax2 = plot_vector_overlay(
 )
 ```
 
-_**Figure 6.56**. Result after conducting vector overlay operation based on identity._
+_**Figure 6.58**. Result after conducting vector overlay operation based on identity._
 
 ```python editable=true slideshow={"slide_type": ""}
 identity.columns
