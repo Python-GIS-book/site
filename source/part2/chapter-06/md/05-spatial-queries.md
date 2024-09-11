@@ -20,7 +20,7 @@ When working with geospatial data, you often need to do specific GIS operations 
 
 ## Topological spatial relations
 
-Computationally, conducting queries based on topological spatial relations, such as detecting if a point is inside a polygon can be done in different ways, but most GIS software rely on something called *{term}`Dimensionally Extended 9-Intersection Model`* ([DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) [^DE-9IM]). DE-9IM is an ISO and OGC approved standard and a fundamental framework in GIS that is used to describe and analyze spatial relationships between geometric objects ({cite}`Clementini_1993`). DE-9IM defines the topological relations based on the interior, boundary, and exterior of two geometric shapes and how they intersect with each other (see **Figure 6.31 and Figure 6.32**). When doing this, the DE-9IM also considers the dimensionality of the objects. Considering the dimensionality of geometric objects is important because it determines the nature of spatial relations, influences the complexity of interactions between objects, and defines topological rules. Typically the more dimensions the geometric object has, the more complex the geometry: The Point objects are 0-dimensional, LineString and LinearRing are 1-dimensional and Polygons are 2-dimensional (see Figure **6.31**).   
+Computationally, conducting queries based on topological spatial relations, such as detecting if a point is inside a polygon can be done in different ways, but most GIS software rely on something called *{term}`Dimensionally Extended 9-Intersection Model`* ([DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) [^DE-9IM]). DE-9IM is an ISO and OGC approved standard and a fundamental framework in GIS that is used to describe and analyze spatial relationships between geometric objects ({cite}`Clementini_1993`). DE-9IM defines the topological relations based on the interior, boundary, and exterior of two geometric shapes and how they intersect with each other (see **Figure 6.31 and Figure 6.32**). When doing this, the DE-9IM also considers the dimensionality of the objects. Considering the dimensionality of geometric objects is important because it determines the nature of spatial relations, influences the complexity of interactions between objects, and defines topological rules. Typically the more dimensions the geometric object has, the more complex the geometry: The `Point` objects are 0-dimensional, `LineString` and `LinearRing` are 1-dimensional and `Polygon` objects are 2-dimensional (see Figure **6.31**).   
 
 ![_**Figure 6.31**. Interior, boundary and exterior for different geometric data types. The data types can be either 0, 1 or 2-dimensional._](../img/DE-9IM_topology_interior_boundary_exterior.png)
 
@@ -39,7 +39,7 @@ The top row of **Figure 6.32** shows spatial predicates in which the geometries 
 
 ## Making spatial queries in Python
 
-Now as we know the basics of topological spatial relations, we can proceed and see how to make such spatial queries using Python. Luckily, we do not need to worry about the exact DE-9IM implementation ourselves, as these operations are already implemented to shapely and geopandas. With these libraries, we can evaluate the topological relationship between geographical objects easily and efficiently. In Python, all the basic spatial predicates listed in **Figure 6.32** are available from shapely library, including:
+Now as we know the basics of topological spatial relations, we can proceed and see how to make such spatial queries using Python. Luckily, we do not need to worry about the exact DE-9IM implementation ourselves, as these operations are already implemented in `shapely` and `geopandas`. With these libraries, we can evaluate the topological relationship between geographical objects easily and efficiently. In Python, all the basic spatial predicates are available from `shapely` library, including:
  
  - `.intersects()`
  - `.within()`
@@ -52,7 +52,7 @@ Now as we know the basics of topological spatial relations, we can proceed and s
  - `.disjoint()`
  - `.crosses()`
 
-When you want to use Python to find out how two geometric objects are related to each other topologically, you start by creating the geometries using shapely library. In the following, we create a couple of `Point` objects and one `Polygon` object which we can use to test how they relate to each other: 
+When you want to use Python to find out how two geometric objects are related to each other topologically, you start by creating the geometries using `shapely` library. In the following, we create a couple of `Point` objects and one `Polygon` object which we can use to test how they relate to each other: 
 
 ```python editable=true slideshow={"slide_type": ""}
 from shapely import Point, Polygon
