@@ -115,7 +115,9 @@ In some cases, you might actually want to connect the nearest neighbors to each 
 <!-- #endregion -->
 
 ```python
-closest = closest.merge(stops[[stops.active_geometry_name]], left_on="index_right", right_index=True)
+closest = closest.merge(
+    stops[[stops.active_geometry_name]], left_on="index_right", right_index=True
+)
 closest.head()
 ```
 
@@ -130,9 +132,9 @@ from shapely import linestrings
 
 closest["geometry"] = linestrings(
     closest.geometry_x.get_coordinates().to_numpy(),
-    closest.geometry_y.get_coordinates().to_numpy()
+    closest.geometry_y.get_coordinates().to_numpy(),
 )
-                                  
+
 closest = closest.set_geometry("geometry")
 closest.head()
 ```
@@ -254,7 +256,7 @@ m = connectors.explore(m=m, color="green")
 m
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.49}. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest.}}, center, nofloat}{../img/figure_6-49.png}
 { \hspace*{\fill} \\}
@@ -466,7 +468,7 @@ m = stops.explore(m=m, color="green")
 m
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.50}. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop.}}, center, nofloat}{../img/figure_6-50.png}
 { \hspace*{\fill} \\}
@@ -550,7 +552,7 @@ m = stops.loc[filtered].explore(
 building_points.loc[building_ids].explore(m=m)
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.51}. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius.}}, center, nofloat}{../img/figure_6-51.png}
 { \hspace*{\fill} \\}

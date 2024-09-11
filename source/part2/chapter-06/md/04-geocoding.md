@@ -112,7 +112,9 @@ geo2 = geocode(
 )
 
 # Check if the result looks correct on a map
-geo2.explore(color="red", max_zoom=12, marker_kwds=dict(radius=8), tiles="CartoDB Positron")
+geo2.explore(
+    color="red", max_zoom=12, marker_kwds=dict(radius=8), tiles="CartoDB Positron"
+)
 ```
 ## Reverse geocoding
 
@@ -129,7 +131,9 @@ Now we have a simple `GeoDataFrame` with only point objects stored into the `geo
 ```python
 from geopandas.tools import reverse_geocode
 
-reverse_geocoded = reverse_geocode(points.geometry, provider="nominatim", user_agent="pythongis_book", timeout=10)
+reverse_geocoded = reverse_geocode(
+    points.geometry, provider="nominatim", user_agent="pythongis_book", timeout=10
+)
 reverse_geocoded.head()
 ```
 
