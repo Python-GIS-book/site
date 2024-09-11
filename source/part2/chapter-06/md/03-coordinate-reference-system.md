@@ -34,7 +34,7 @@ print(type(data.crs))
 data.crs
 ```
 
-What geopandas returns here is in fact a `CRS` object from the pyproj library. The EPSG code of our data is `4326` which refers to the WGS84 coordinate system. You will encounter this EPSG-code frequenctly in the geospatial world as it is perhaps the most commonly used coordinate reference system in the world. As we learned earlier, the EPSG number is an identification code that tells which is the coordinate system of a given dataset. In this case, we could also guess the probable CRS by looking at the coordinates values in the `geometry` column which are longitude and latitudes decimal degrees:
+What `geopandas` returns here is in fact a `CRS` object from the `pyproj` library. The EPSG code of our data is `4326` which refers to the WGS84 coordinate system. You will encounter this EPSG-code frequently in the geospatial world as it is perhaps the most commonly used coordinate reference system in the world. As we learned earlier, the EPSG number is an identification code that tells which is the coordinate system of a given dataset. In this case, we could also guess the probable CRS by looking at the coordinates values in the `geometry` column which are longitude and latitudes decimal degrees:
 
 ```python
 data["geometry"].head()
@@ -45,9 +45,9 @@ As we can see, the coordinate values of the MultiPolygons here vary between 6-50
 
 ## Reprojecting a GeoDataFrame
 
-Changing from one coordinate system to another is one of the most common tasks to do when working with geographic data. This process is commonly called as {term}`map reprojection`, {term}`coordinate transformation` or {term}`geographic coordinate conversion`. When the data is reprojected, the coordinates described in one CRS transformed to another CRS by using specific geodetic equations. Knowing how to transform coordinates is important because different coordinate systems are used for different purposes, and it is often necessary to reproject some data to make them interoparable and comparable. For example, coordinates on the Earth's surface may be represented in geographic (latitude and longitude) or projected (Cartesian) coordinates, and the same location will have different coordinate values depending on the CRS used. It is important that the layers are in the same coordinate system when analyzing the spatial relationships between the layers, such as when making a Point in Polygon -query, or other types of overlay analysis. The transformation between the coordinate systems involves both translation and rotation, and requires knowledge of the shape and size of the Earth, as well as its orientation in space.
+Changing from one coordinate system to another is one of the most common tasks to do when working with geographic data. This process is commonly called as {term}`map reprojection`, {term}`coordinate transformation`, or {term}`geographic coordinate conversion`. When the data is reprojected, the coordinates described in one CRS transformed to another CRS by using specific geodetic equations. Knowing how to transform coordinates is important because different coordinate systems are used for different purposes, and it is often necessary to reproject some data to make them interoparable and comparable. For example, coordinates on the Earth's surface may be represented in geographic (latitude and longitude) or projected (Cartesian) coordinates, and the same location will have different coordinate values depending on the CRS used. It is important that the layers are in the same coordinate system when analyzing the spatial relationships between the layers, such as when making a Point in Polygon -query, or other types of overlay analysis. The transformation between the coordinate systems involves both translation and rotation, and requires knowledge of the shape and size of the Earth, as well as its orientation in space.
 
-Reprojecting geographic data from one coordinate system to another might sound a bit tricky, but luckily we do not need to define any equations ourselves. In geopandas, the `.to_crs()` -method of a `GeoDataFrame` will perform coordinate transformations with given parameters. The method has two alternative parameters: 1) `crs` which accepts CRS information from various formats, such as proj-strings or OGS WKT text; and 2) `epgs` that accepts the EPSG-code of a given coordinate system as a number. Both of these can be used to make the coordinate transformation and reproject the data into a desired CRS. Let's try it out and reproject our data into `EPSG:3035` using the `epsg` -parameter:
+Reprojecting geographic data from one coordinate system to another might sound a bit tricky, but luckily we do not need to define any equations ourselves. In `geopandas`, the `.to_crs()` -method of a `GeoDataFrame` will perform coordinate transformations with given parameters. The method has two alternative parameters: 1) `crs` which accepts CRS information from various formats, such as proj-strings or OGS WKT text; and 2) `epgs` that accepts the EPSG-code of a given coordinate system as a number. Both of these can be used to make the coordinate transformation and reproject the data into a desired CRS. Let's try it out and reproject our data into `EPSG:3035` using the `epsg` -parameter:
 
 ```python
 # Let's make a backup copy of our data
@@ -61,7 +61,7 @@ data["geometry"].head()
 ```
 
 ```python
-# Checkthe new EPSG code
+# Check the new EPSG code
 data.crs.to_epsg()
 ```
 
