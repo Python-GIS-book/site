@@ -38,6 +38,8 @@ jobs:
         continue-on-error: false
         run: |
           make book
+          mkdir -p /tmp/book-build
+          mv docs/* /tmp/book-build/
 
       - name: Checkout gh-pages branch
         uses: actions/checkout@v2
@@ -49,7 +51,7 @@ jobs:
       - name: Copy files to gh-pages branch
         run: |
           rm -rf *  # Clean up current content
-          cp -r ../docs/* .  # Copy the built files from the previous step
+          cp -r /tmp/book-build/* .  # Copy the built files from the previous step
 
       - name: Commit files
         run: |
