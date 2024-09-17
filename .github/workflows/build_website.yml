@@ -37,12 +37,14 @@ jobs:
         shell: bash -l {0}
         continue-on-error: false
         run: |
-          git checkout gh-pages
           make book
-          mkdir temp
-          mv * temp/
-          mv temp/docs .
-          rm -rf temp
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          ref: gh-pages
+
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
