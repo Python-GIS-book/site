@@ -39,6 +39,10 @@ jobs:
         run: |
           git checkout gh-pages
           make book
+          mkdir temp
+          mv * temp/
+          mv temp/docs .
+          rm -rf temp
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
