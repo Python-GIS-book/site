@@ -37,6 +37,7 @@ jobs:
         shell: bash -l {0}
         continue-on-error: false
         run: |
+          git checkout gh-pages
           make book
       - name: Commit files
         run: |
@@ -45,7 +46,7 @@ jobs:
           git add docs
           git commit -m "GA build of book HTML" --allow-empty
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@gh-pages
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
