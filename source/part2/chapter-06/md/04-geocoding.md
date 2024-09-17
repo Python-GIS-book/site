@@ -51,7 +51,7 @@ data.head()
 ```
 
 <!-- #region deletable=true editable=true -->
-Now we have our data in a `DataFrame` and we can geocode our addresses using the the `geopandas.tools.geocode()` function in geopandas that uses `geopy` library under the hood. The function geocodes a list of addresses (strings) and returns a `GeoDataFrame` with the geocoded result. In the following, we import the `geocode()` function and geocode the addresses using Nominatim. The pass the addressess to the function from the column `addr`. As discussed earlier, we need provide a custom string (name of your application) in the `user_agent` parameter to identify ourselves. We also use the `timeout`-parameter to specify how many seconds to wait for a response from the service:
+Now we have our data in a `DataFrame` and we can geocode our addresses using the the `geopandas.tools.geocode()` function in geopandas that uses `geopy` library under the hood. The function geocodes a list of addresses (strings) and returns a `GeoDataFrame` with the geocoded result. In the following, we import the `geocode()` function and geocode the addresses using Nominatim. Then we pass the addressess to the function from the column `addr`. As discussed earlier, we need to provide a custom string (name of your application) in the `user_agent` parameter to identify ourselves. We also use the `timeout`-parameter to specify how many seconds to wait for a response from the service:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -64,14 +64,14 @@ geo.head()
 ```
 
 <!-- #region deletable=true editable=true -->
-Voilà! As a result we have a `GeoDataFrame` that contains an `address`-column with the geocoded addresses and a `geometry` column containing `Point`-objects representing the geographic locations of the addresses. Notice that these addresses are not the original addresses but those identified by Nominatim. We can join the data from the original text file to the geocoded result to get the address idss and original addresses along. In this case, we join the information using the `.join()` function that makes the table join based on index. We do this because the original data frame and the geocoded output have an identical index and an identical number of rows:
+Voilà! As a result we have a `GeoDataFrame` that contains an `address`-column with the geocoded addresses and a `geometry` column containing `Point`-objects representing the geographic locations of the addresses. Notice that these addresses are not the original addresses but those identified by Nominatim. We can join the data from the original text file to the geocoded result to get the address ids and original addresses along. In this case, we join the information using the `.join()` function that makes the table join based on index. We do this because the original data frame and the geocoded output have an identical index and an identical number of rows:
 <!-- #endregion -->
 ```python
 join = geo.join(data)
 join.head()
 ```
 
-Here we can see the geocoded address (column `address`) and original address (column `addr`) side-by side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can save the geocoded addresses to a file:
+Here we can see the geocoded address (column `address`) and original address (column `addr`) side-by-side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can save the geocoded addresses to a file:
 
 ```python deletable=true editable=true
 # Output file path
@@ -112,7 +112,9 @@ geo2 = geocode(
 )
 
 # Check if the result looks correct on a map
-geo2.explore(color="red", max_zoom=12, marker_kwds=dict(radius=8), tiles="CartoDB Positron")
+geo2.explore(
+    color="red", max_zoom=12, marker_kwds=dict(radius=8), tiles="CartoDB Positron"
+)
 ```
 ## Reverse geocoding
 
@@ -129,7 +131,9 @@ Now we have a simple `GeoDataFrame` with only point objects stored into the `geo
 ```python
 from geopandas.tools import reverse_geocode
 
-reverse_geocoded = reverse_geocode(points.geometry, provider="nominatim", user_agent="pythongis_book", timeout=10)
+reverse_geocoded = reverse_geocode(
+    points.geometry, provider="nominatim", user_agent="pythongis_book", timeout=10
+)
 reverse_geocoded.head()
 ```
 

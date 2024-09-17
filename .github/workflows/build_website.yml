@@ -38,14 +38,31 @@ jobs:
         continue-on-error: false
         run: |
           make book
+          mkdir -p /tmp/book-build
+          mv docs/* /tmp/book-build/
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          ref: gh-pages
+
+        # Copy the generated docs to gh-pages branch
+      - name: Copy files to gh-pages branch
+        run: |
+          rm -rf *  # Clean up current content
+          cp -r /tmp/book-build/* .  # Copy the built files from the previous step
+          touch .nojekyll
+
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add docs
+          git add .
           git commit -m "GA build of book HTML" --allow-empty
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
+          branch: gh-pages

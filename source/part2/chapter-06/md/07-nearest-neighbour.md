@@ -19,17 +19,17 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 The idea of neighbourhood is one of the fundamental concepts in geographic data analysis and modelling. Being able to understand how close geographic objects are to each other, or which features are neighboring a specific location is fundamental to various spatial analysis techniques, such as spatial interpolation (which we cover in Chapter 10) or understanding whether there is spatial autocorrelation (i.e. clustering) in the data (see Chapters [6](https://geographicdata.science/book/notebooks/06_spatial_autocorrelation.html) and [7](https://geographicdata.science/book/notebooks/07_local_autocorrelation.html) in {cite}`Rey_et_al_2023`). Many of these techniques rely on the idea that proximity in geographic space typically indicates also similarity in attribute space. For example, it is quite typical that a neighborhood with high population density is next to another neighborhood that also has high concentration of residents (i.e. population density tends to cluster). One of the most famous notions related to this is the *First law of geography* which states that "everything is related to everything, but near things are more related than distant things" ({cite}`Tobler1970`). Thus, being able to understand how close neighboring geographic features are, or which objects are the closest ones to specific location is an important task in GIS. 
 
-**Figure 6.43** illustrates two common ways to find nearest neighbors to specific locations. In these examples, we have two Point datasets visualized with blue circles and red rectangles that are used for doing the nearest neighbor analysis. In the first example (top row), the idea is to find the closest geometry (rectangles) for all the points in the area. Here, the nearest neighbor is determined based on distance between the points and rectangles, and the nearest neighbors are visualized with a line from every point to the closest rectangle (on the right). The bottom row shows an example in which we aim to find the closest point for each rectangle, but in this case we also apply a maximum search distance that limits the search area. Only those points that are within the search area are considered when finding the nearest neighbor, while the points outside of this area are simply ignored. As a result, the point closest to a given rectangle is visualized with a connected line (on the right). In these examples, the geographic objects are simple point like features, but similar approach can be used with any geographic features, for example by finding closest LineString or Polygon geometry to a given Point, or by finding the closest Polygon to another Polygon. In these cases, the calculations are a bit more complicated, but the basic idea is the same. 
+Figure 6.45 illustrates two common ways to find nearest neighbors to specific locations. In these examples, we have two Point datasets visualized with blue circles and red rectangles that are used for doing the nearest neighbor analysis. In the first example (top row), the idea is to find the closest geometry (rectangles) for all the points in the area. Here, the nearest neighbor is determined based on distance between the points and rectangles, and the nearest neighbors are visualized with a line from every point to the closest rectangle (on the right). The bottom row shows an example in which we aim to find the closest point for each rectangle, but in this case we also apply a maximum search distance that limits the search area. Only those points that are within the search area are considered when finding the nearest neighbor, while the points outside of this area are simply ignored. As a result, the point closest to a given rectangle is visualized with a connected line (on the right). In these examples, the geographic objects are simple point like features, but similar approach can be used with any geographic features, for example by finding closest LineString or Polygon geometry to a given Point, or by finding the closest Polygon to another Polygon. In these cases, the calculations are a bit more complicated, but the basic idea is the same. 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-![_**Figure 6.43**. The basic idea of finding a nearest neighbour based on geographic distance._](../img/nearest-neighbour.png)
+![_**Figure 6.45**. The basic idea of finding a nearest neighbour based on geographic distance._](../img/nearest-neighbour.png)
 
-_**Figure 6.43**. The basic idea of finding a nearest neighbour based on geographic distance._
+_**Figure 6.45**. The basic idea of finding a nearest neighbour based on geographic distance._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Quite often with very large datasets, we might want to limit the search area up to a specific maximum distance. This can be due to practical reasons as it can significantly speed up the computation time, or because we have specific reasoning that makes it sensible to limit the search area. For example, if we would aim to understand how easily accessible public transportation is to citizens living in a city, it would make sense to limit the search area e.g. up to 2 km from the homes of people, because people are not willing to walk for very long distances to reach a bus stop. It's important to notice that the distances in the calculations are commonly based on the Euclidian distance, i.e. we calculate the distances based on coordinates on a Cartesian plain, meaning that the distances do not consider changes in height (i.e. third dimension is omitted). It is of course possible also to consider 3D distances, but the most typical Python tools ignore the height information. 
+Quite often with very large datasets, we might want to limit the search area up to a specific maximum distance. This can be due to practical reasons as it can significantly speed up the computation time, or because we have specific reasoning that makes it sensible to limit the search area. For example, if we would aim to understand how easily accessible public transportation is to citizens living in a city, it would make sense to limit the search area e.g. up to 2 km from the homes of people, because people are not willing to walk for very long distances to reach a bus stop. It's important to notice that the distances in the calculations are commonly based on the Euclidean distance, i.e. we calculate the distances based on coordinates on a Cartesian plain, meaning that the distances do not consider changes in height (i.e. third dimension is omitted). It is of course possible also to consider 3D distances, but the most typical Python tools ignore the height information. 
 <!-- #endregion -->
 
 ## Nearest neighbour analysis in Python
@@ -72,9 +72,9 @@ ax2.set_title("Stops");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.44**. Maps representing the buildings and public transport stops which we use to find the closest stop for each building._
+_**Figure 6.46**. Maps representing the buildings and public transport stops which we use to find the closest stop for each building._
 
-As mentioned earlier, finding the nearest geometries between two GeoDataFrames (here building and stop points) can be done easily using the `.sjoin_nearest()` method in geopandas. As the name implies, this method is actually designed to merge data between GeoDataFrames in a similar manner as with regular `.sjoin()` method. However, in this case the method is actually searching for the closest geometries instead of relying on spatial predicates, such as *within*. The `sjoin_nearest()` can be used for different geometry types, so the input geometries do not necessarily need to be Point objects as in our example. Under the hood, the method uses a *{term}`spatial index`* called `STRTree` ({cite}`leutenegger_1997`) which is an efficient implementation of the *{term}`R-tree`* dynamic index structure for spatial searching ({cite}`guttman_1984`). The STRTree is implemented in the `shapely` library (used by geopandas) and the technique makes the nearest neighbor queries very efficient. You can read more about spatial indices in Appendices section of the book. For the method to work properly, it is recommended to ensure that the both GeoDataFrames are having the same coordinate reference system (CRS), and preferably having a projected (metric) CRS because that ensures that the reported distances are meaningful (in meters) and correct. Hence, let's start by reprojecting our latitude and longitude values into a metric system using the national EUREF-FIN coordinate reference system (EPSG code 3067) for Finland:
+As mentioned earlier, finding the nearest geometries between two GeoDataFrames (here building and stop points) can be done easily using the `.sjoin_nearest()` method in geopandas. As the name implies, this method is actually designed to merge data between GeoDataFrames in a similar manner as with regular `.sjoin()` method. However, in this case the method is actually searching for the closest geometries instead of relying on spatial predicates, such as *within*. The `sjoin_nearest()` can be used for different geometry types, so the input geometries do not necessarily need to be Point objects as in our example. Under the hood, the method uses a *{term}`spatial index`* called `STRTree` ({cite}`leutenegger_1997`) which is an efficient implementation of the *{term}`R-tree`* dynamic index structure for spatial searching ({cite}`guttman_1984`). The STRTree is implemented in the `shapely` library (used by `geopandas`) and the technique makes the nearest neighbor queries very efficient. You can read more about spatial indices in Appendices section of the book. For the method to work properly, it is recommended to ensure that the both GeoDataFrames are having the same coordinate reference system (CRS), and preferably having a projected (metric) CRS because that ensures that the reported distances are meaningful (in meters) and correct. Hence, let's start by reprojecting our latitude and longitude values into a metric system using the national EUREF-FIN coordinate reference system (EPSG code 3067) for Finland:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -111,27 +111,30 @@ closest_limited
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 As we can see, there was a slight improvement in the execution time compared to the previous call without specifying the `max_distance` parameter. The difference can be more significant if you have larger datasets or more complicated geometries (e.g. Polygons). One important aspect to notice from these results is that the number of rows has decreased significantly: from 160 to 40 thousand buildings. This happens because our search distance was very low (100 meters), and as a consequence, there were many buildings that did not have any stops within 100 meter radius from them. Because the default join type in `sjoin_nearest` is `inner` join, all the records that did not have a stop within 100 meters were dropped. If you would like to keep all the records in the results, to e.g. investigate which buildings do not have any stops within the search radius, you can add parameter `how="left"`, which will retain all buildings from the original GeoDataFrame.
 
-In some cases, you might actually want to connect the nearest neighbors to each other with a straight line. For doing this, we need to merge also the Point geometries from the other layer into our results, which can then be used to create a LineString connecting the points to each other. This can be useful for many purposes, but in our case, we want to do this to be able to validate whether our results are correct. For merging the closest stop geometries into our results, we can take advantage of the `index_right` column in our table and conduct a normal table join using the `.merge()` method. Below, we first store the index of the `stops` GeoDataFrame into a column called `stop_index` and then use this to make a table join with our `closest` GeoDataFrame. Notice that we only keep the `stop_index` and `geometry` columns from the `stops` GeoDataFrame because all the other attributes already exist in our results: 
+In some cases, you might actually want to connect the nearest neighbors to each other with a straight line. For doing this, we need to merge also the Point geometries from the other layer into our results, which can then be used to create a LineString connecting the points to each other. This can be useful for many purposes, but in our case, we want to do this to be able to validate whether our results are correct. For merging the closest stop geometries into our results, we can take advantage of the `index_right` column in our table and conduct a normal table join using the `.merge()` method. Below, we create a table join between the tables using the `.merge()` and use the `"index_right"` column in the `closest` GeoDataFrame as a key on the left table while the index of the `stops` is used as the key on the right table. Notice that we only keep the `geometry` columns from the `stops` GeoDataFrame because all the other attributes already exist in our results: 
 <!-- #endregion -->
 
-```python editable=true slideshow={"slide_type": ""}
-stops["stop_index"] = stops.index
+```python
 closest = closest.merge(
-    stops[["stop_index", "geometry"]], left_on="index_right", right_on="stop_index"
+    stops[[stops.active_geometry_name]], left_on="index_right", right_index=True
 )
 closest.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As a result, we now brought two new columns into our results, namely `stop_index` and `geometry_y`. Because there was a column called `geometry` in both GeoDataFrames, geopandas automatically renamed the columns into `geometry_x` and `geometry_y` respectively. Now we have all the data that we need to create a connecting `LineString` between the buildings and the closest stops. We can do this by looping over the rows in our `closest` GeoDataFrame using the `.apply()` method (see Chapter 3.3 for more details) and then create the line by calling the shapely's `LineString` object which takes the Point geometries as input. We store these LineStrings into a column `geometry` which we lastly set to be the active geometry of the GeoDataFrame:    
+As a result, we now brought a new column into our results, namely the `geometry_y`. Because there was a column called `geometry` in both GeoDataFrames, `geopandas` automatically renamed the columns into `geometry_x` and `geometry_y` respectively. 
+
+Now we have all the data that we need to create a connecting `LineString` between the buildings and the closest stops. We can do this by using the `linestrings()` function of the `shapely` library which is a fast (vectorized) way to create a number of `LineString` objects based on point coordinates (the function only accepts numbers as input, i.e. not `Point` objects). To extract the point coordinates from the `Point` objects stored in the `geometry_x` and `geometry_y` columns, we use the `.get_coordinates()` method of `geopandas` that returns the `x` and `y` coordinates as `Series` objects/columns. Then we convert these into `numpy` arrays using the `to_numpy()` method which we pass to the `linestrings()` function. Finally, we store the resulting `LineStrings` into a column `geometry` which we set as the active geometry of the `GeoDataFrame`:    
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-from shapely import LineString
+from shapely import linestrings
 
-closest["geometry"] = closest.apply(
-    lambda row: LineString([row["geometry_x"], row["geometry_y"]]), axis=1
+closest["geometry"] = linestrings(
+    closest.geometry_x.get_coordinates().to_numpy(),
+    closest.geometry_y.get_coordinates().to_numpy(),
 )
+
 closest = closest.set_geometry("geometry")
 closest.head()
 ```
@@ -150,9 +153,9 @@ ax.set_ylim(6676000, 6678000);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.45**. A map showing the buildings (red points), the stops (black rectangles) and the lines between the buildings and the closest stops._
+_**Figure 6.47**. A map showing the buildings (red points), the stops (black rectangles) and the lines between the buildings and the closest stops._
 
-As we can see from the Figure 6.45, the nearest neighbor search have worked well as planned, and each building marked with red color has been correctly connected with a line to the closest stop. The map reveals that there are multiple isolated stops that do not have any buildings connected to them. As a practical example, this information could be used e.g. for transport planning by investigating whether these isolated stops are less used by citizens to get on board of the public transport vehicles. This information could again be used by transport planners to decide whether there is a need to maintain these isolated stops. Thus, with these rather simple computations, one can already provide useful information that has relevance in real life. Finally, because we have calculated the distance between buildings and the stops, it is easy to do some descriptive analysis based on this data providing information about levels of access to public transport in the region: 
+As we can see from the Figure 6.47, the nearest neighbor search have worked well as planned, and each building marked with red color has been correctly connected with a line to the closest stop. The map reveals that there are multiple isolated stops that do not have any buildings connected to them. As a practical example, this information could be used e.g. for transport planning by investigating whether these isolated stops are less used by citizens to get on board of the public transport vehicles. This information could again be used by transport planners to decide whether there is a need to maintain these isolated stops. Thus, with these rather simple computations, one can already provide useful information that has relevance in real life. Finally, because we have calculated the distance between buildings and the stops, it is easy to do some descriptive analysis based on this data providing information about levels of access to public transport in the region: 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -188,7 +191,7 @@ ax = roads.plot(ax=ax, color="red")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.46**. A map showing the buildings with gray color and the parks (green) in the neighborhood of Kamppi, Helsinki._
+_**Figure 6.48**. A map showing the buildings with gray color and the parks (green) in the neighborhood of Kamppi, Helsinki._
 
 Similarly as finding the nearest neighbor using Points as input data, we can use the `.sjoin_nearest()` to find nearest neighbor between two Polygon datasets. Here, we find the nearest park for each building Polygon and store the distance into the column `distance`:
 <!-- #endregion -->
@@ -217,23 +220,23 @@ As a result, we now have found the nearest road for each building. We have now 7
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-roads["index"] = roads.index
 nearest_roads = nearest_roads.merge(
-    roads[["geometry", "index"]], left_on="index_right", right_on="index"
+    roads[["geometry"]], left_on="index_right", right_index=True
 )
 nearest_roads.head(3)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now we have the `geometry_x` column representing the building geometries and the `geometry_y` column representing the road geometries (LineStrings). To visualize the connecting lines between buildings and roads, we first need to create geometries that connect the building and closest road geometry from the locations where the distance is shortest. To do this, we can take advantage of a handy function called `nearest_points()` from the `shapely` library that returns a list of Point objects representing the locations with shortest distance between geometries. By using these points as input, we can create a LineString geometries that represent the connector between a given building and the closest road. Finally, we create a new GeoDataFrame called `connectors` out of these lines and also store the length of the LineStrings as a separate column:
+Now we have the `geometry_x` column representing the building geometries and the `geometry_y` column representing the road geometries (LineStrings). To visualize the connecting lines between buildings and roads, we first need to create geometries that connect the building and closest road geometry from the locations where the distance is shortest. To do this, we can take advantage of a handy function called `shortest_line()` from the `shapely` library that returns a LineString object between the input geometries showing the shortest distance between them. Based on these, we can create a connecting line between a given building and the closest road. Finally, we create a new `GeoDataFrame` called `connectors` out of these lines and also store the length of the `LineString`s as a separate column:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-from shapely.ops import nearest_points
+from shapely import shortest_line
+
 
 # Generate LineString between nearest points of two geometries
 connectors = nearest_roads.apply(
-    lambda row: LineString(nearest_points(row["geometry_x"], row["geometry_y"])), axis=1
+    lambda row: shortest_line(row["geometry_x"], row["geometry_y"]), axis=1
 )
 
 # Create a new GeoDataFrame out of these geometries
@@ -253,14 +256,14 @@ m = connectors.explore(m=m, color="green")
 m
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.47}. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest.}}, center, nofloat}{../img/figure_6-47.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.49}. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest.}}, center, nofloat}{../img/figure_6-49.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.47**. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest._
+_**Figure 6.49**. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
@@ -423,7 +426,7 @@ k_nearest_3.head(2)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Excellent, now we have merged the stop geometries into the `geometry_knearest` column of the GeoDataFrames. By comparing the values in the `stop_index` column of the GeoDataFrames `k_nearest_1`, `k_nearethe st_2` and `k_nearest_3`, we can see that the values change correctly following the values in `1st_`, `2nd_` and `3rd_nearest_index` column accordingly. The geometries stored in the `geometry_knearest` also have different values in all of the GeoDataFrames which is as should. Now we can create LineString geometries connecting these Point objects to each other which allows us to create a nice map out of our nearest neighbors and thus better understand the data:
+Excellent, now we have merged the stop geometries into the `geometry_knearest` column of the GeoDataFrames. By comparing the values in the `stop_index` column of the GeoDataFrames `k_nearest_1`, `k_nearethe st_2` and `k_nearest_3`, we can see that the values change correctly following the values in `1st_`, `2nd_` and `3rd_nearest_index` column accordingly. The geometries stored in the `geometry_knearest` also have different values in all of the GeoDataFrames which is as expected. Now we can create LineString geometries connecting these Point objects to each other which allows us to create a nice map out of our nearest neighbors and thus better understand the data:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -465,16 +468,16 @@ m = stops.explore(m=m, color="green")
 m
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.48}. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop.}}, center, nofloat}{../img/figure_6-48.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.50}. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop.}}, center, nofloat}{../img/figure_6-50.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.48**. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop._
+_**Figure 6.50**. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop._
 
-From the map, we can see that the closest stops to the arena seem to be located close to a large road 100-130 meters away from the arena, while the third closest stop is closer to the rail roads 377 meters away (Euclidian distance) from the building. 
+From the map, we can see that the closest stops to the arena seem to be located close to a large road 100-130 meters away from the arena, while the third closest stop is closer to the rail roads 377 meters away (Euclidean distance) from the building. 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -540,25 +543,25 @@ print("Average number of buildings:", stops["building_cnt"].mean().round(1))
 By calculating simple statistics from the `building_cnt` column, we can see that on average there are 32.2 buildings within 200 meters from the public transport stops and the maximum number of buildings within this distance is whopping 181 buildings. This indicates very dense neighborhood having numerous buildings in a small area. To better understand, where this kind of neighborhood is located and what does it look like, we can make a map by selecting the rows with highest number of buildings and then plotting the stop and building points within radius:
 
 ```python
-filter = stops["building_cnt"] == stops["building_cnt"].max()
-building_ids = stops.loc[filter].building_ids_within_range.values[0]
+filtered = stops["building_cnt"] == stops["building_cnt"].max()
+building_ids = stops.loc[filtered].building_ids_within_range.values[0]
 
-m = stops.loc[filter].explore(
+m = stops.loc[filtered].explore(
     tiles="CartoDB Positron", color="red", marker_kwds={"radius": 5}, max_zoom=16
 )
 building_points.loc[building_ids].explore(m=m)
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.49}. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius.}}, center, nofloat}{../img/figure_6-49.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.51}. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius.}}, center, nofloat}{../img/figure_6-51.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.49**. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius._
+_**Figure 6.51**. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius._
 
-The map reveals that this stop is indeed located in a densely built neighborhood called Laurinlahti with lots of detached houses. By using similar approach, it is possible to investigate the urban design and morphology across the city regions which can reveal some interesting patterns and developments relevant to urban planning. 
+The map reveals that this stop is indeed located in a densely built neighborhood called Laurinlahti with lots of detached houses. By using a similar approach, it is possible to investigate the urban design and morphology across the city regions which can reveal some interesting patterns and developments relevant to urban planning. 
 
 There is also an alternative approach for making a radius query by calculating a buffer around the stop points and then making a spatial join between these Polygon geometries and the buildings. This approach also allows to make queries between other type of geometries than Points.
 <!-- #endregion -->

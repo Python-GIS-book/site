@@ -182,9 +182,7 @@ def temp_in_comfort_range(temp_celsius, temp_fahr_ideal=68.0, temp_fahr_range=5.
     temp_fahr = celsius_to_fahr(temp_celsius)
     temp_fahr_min = temp_fahr_ideal - temp_fahr_range
     temp_fahr_max = temp_fahr_ideal + temp_fahr_range
-    temp_in_range = (
-        temp_fahr >= temp_fahr_min and temp_fahr <= temp_fahr_max
-    )
+    temp_in_range = temp_fahr >= temp_fahr_min and temp_fahr <= temp_fahr_max
     return temp_in_range
 ```
 
@@ -241,9 +239,7 @@ def temp_in_comfort_range(temp_celsius, temp_fahr_ideal=68.0, temp_fahr_range=5.
     temp_fahr = celsius_to_fahr(temp_celsius)
     temp_fahr_min = temp_fahr_ideal - temp_fahr_range
     temp_fahr_max = temp_fahr_ideal + temp_fahr_range
-    temp_in_range = (
-        temp_fahr >= temp_fahr_min and temp_fahr <= temp_fahr_max
-    )
+    temp_in_range = temp_fahr >= temp_fahr_min and temp_fahr <= temp_fahr_max
     return temp_in_range, temp_fahr
 ```
 

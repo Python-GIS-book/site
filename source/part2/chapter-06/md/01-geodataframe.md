@@ -21,7 +21,7 @@ Now that you have seen how to create and represent geometric objects in Python u
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## What is a GeoDataFrame?
 
-The main data structures in `geopandas` are `GeoSeries` and `GeoDataFrame`. Essentially, they extend the capabilities of the `Series` and `DataFrame` data structures of `pandas`. This means that we can use many familiar methods from `pandas` also when working with `geopandas` and geograpchic data. A `GeoDataFrame` is basically like a `pandas.DataFrame` that contains at least one dedicated column for storing geometries (see Figure 6.10). The geometry column is a `GeoSeries` which contains the geometries as shapely objects (points, lines, polygons, multipolygons etc.). As we learned in the previous section, `shapely` provides many useful attributes and methods to work with geometries. Luckily, these same functionalities can be directly applied to `GeoSeries` making it convenient to work with data layers that may contain thousands or even millions of geographic features. In this section, you will learn various useful techniques and tools bundled in `geopandas` that help you to work with geographic data in vector format.
+The main data structures in `geopandas` are `GeoSeries` and `GeoDataFrame`. Essentially, they extend the capabilities of the `Series` and `DataFrame` data structures of `pandas`. This means that we can use many familiar methods from `pandas` also when working with `geopandas` and geographic data. A `GeoDataFrame` is basically like a `pandas.DataFrame` that contains at least one dedicated column for storing geometries (see Figure 6.10). The geometry column is a `GeoSeries` which contains the geometries as shapely objects (points, lines, polygons, multipolygons etc.). As we learned in the previous section, `shapely` provides many useful attributes and methods to work with geometries. Luckily, these same functionalities can be directly applied to `GeoSeries` making it convenient to work with data layers that may contain thousands or even millions of geographic features. In this section, you will learn various useful techniques and tools bundled in `geopandas` that help you to work with geographic data in vector format.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -39,7 +39,7 @@ Like with `pandas`, a typical first step when starting to work with `geopandas` 
 ```python editable=true slideshow={"slide_type": ""}
 from pathlib import Path
 
-data_folder = Path("data/Austin")
+data_folder = Path("data", "Austin")
 fp = data_folder / "austin_pop_2019.gpkg"
 print(fp)
 ```
@@ -55,7 +55,7 @@ data = gpd.read_file(fp)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-You can use the `.read_file()` command in this way to read data from many different vector formats (GeoPackage, Shapefile, GeoJSON, etc.). Hence, it is very easy to start working with geographic data using geopandas. Let's take a look at the data type of our `data` variable:
+You can use the `.read_file()` command in this way to read data from many different vector formats (GeoPackage, Shapefile, GeoJSON, etc.). Hence, it is very easy to start working with geographic data using `geopandas`. Let's take a look at the data type of our `data` variable:
 <!-- #endregion -->
 
 ```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
@@ -85,7 +85,7 @@ data.plot()
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 6.11**. Census tract polygons for Austin, Texas, USA._
 
-Voilá! Here is our first map created with geopandas! This map gives a quick overview of how the geometries of the cencus tracts are located in the given region. The `x` and `y` axes in the plot are based on the coordinate values of the geometries which are in this case represented as meters.
+Voilá! Here is our first map created with `geopandas`! This map gives a quick overview of how the geometries of the cencus tracts are located in the given region. The `x` and `y` axes in the plot are based on the coordinate values of the geometries which are in this case represented as meters.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
@@ -113,7 +113,7 @@ print("Total population", data["pop2019"].sum())
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Geometries in geopandas
 
-By default, `geopandas` looks for the geometries from an attribute called `.geometry`, which is ultimately a `GeoSeries` data structure containing shapely geometric objects. In practice, the `.geometry` attribute links to a specific column in the `GeoDataFrame`. By default the geometries are read from the column named `"geometry"`, when you e.g. read a file with geographic data. However, it's good to be aware that a geodataframe can have multiple columns containing geometries, and you can change which column should be considered as the "active geometry" (see Chapter 6.3.7 for details). Let's have a closer look at the `.geometry` attribute of our data:
+By default, `geopandas` looks for the geometries from an attribute called `.geometry`, which is ultimately a `GeoSeries` data structure containing `shapely` geometric objects. In practice, the `.geometry` attribute links to a specific column in the `GeoDataFrame`. By default the geometries are stored into column named `"geometry"`, when you read a file with geographic data. However, it's good to be aware that a geodataframe can have multiple columns containing geometries, and you can change which column should be considered as the "active geometry" (see Chapter 6.3.7 for details). Let's have a closer look at the `.geometry` attribute of our data:
 <!-- #endregion -->
 
 ```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
@@ -142,7 +142,7 @@ data.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, now we added a new column into our `GeoDataFrame` which contains the area of each polygon as square kilometers. Now you have succesfully conducted your first geocomputational analysis in Python! Quite easy isn't it? We can also very easily visualize the data and make a nice choropleth map by using the area of a given geometry to determine the color for it. To do this, we can use the parameter `column` of the `.plot()` method in geopandas to specify that the color for each polygon should be based on the values stored in the `area_km2` column:  
+As we can see, now we added a new column into our `GeoDataFrame` which contains the area of each polygon as square kilometers. Now you have succesfully conducted your first geocomputational analysis in Python! Quite easy isn't it? We can also very easily visualize the data and make a nice choropleth map by using the area of a given geometry to determine the color for it. To do this, we can use the parameter `column` of the `.plot()` method in `geopandas` to specify that the color for each polygon should be based on the values stored in the `area_km2` column:  
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -205,7 +205,7 @@ data.to_file(output_fp)
 
 
 
-Now we have successfully stored the data into a file called `austin_pop_density_2019.gpkg`. To be more explicit, you can use the `driver` parameter to specify the output file format for the data allowing you to write the data into numerous data formats (some lesser-known ones as well) supported by the GDAL. As an input, you should give the name of the `driver` as a string (see the names from [GDAL documentation](https://gdal.org/drivers/vector/index.html)[^GDAL_drivers]), such as `FlatGeobuf` which is used to write the data into a performant FlatgeoBuf file format that supports fast reading and writing of geospatial data:
+Now we have successfully stored the data into a file called `austin_pop_density_2019.gpkg`. To be more explicit, you can use the `driver` parameter to specify the output file format for the data allowing you to write the data into numerous data formats (some lesser-known ones as well) supported by a software called `GDAL` which is used by `geopandas` under the hood for reading and writing data. As an input, you should give the name of the `driver` as a string (see the names from [GDAL documentation](https://gdal.org/drivers/vector/index.html)[^GDAL_drivers]), such as `FlatGeobuf` which is used to write the data into a performant FlatgeoBuf file format that supports fast reading and writing of geospatial data:
 
 ```python
 output_fp = "data/Temp/austin_pop_density_2019.fgb"
@@ -244,13 +244,13 @@ temp.head()
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Different file formats for reading and writing geographic data 
 
-There are various GIS data formats available such as [GeoPackage](https://en.wikipedia.org/wiki/GeoPackage) [^GPKG], [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) [^GeoJson], [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) [^KML], and [Shapefile](https://en.wikipedia.org/wiki/Shapefile) [^shp]. It is possible to read data from all these formats (plus many more) straight out of the box by `geopandas`. In the following, we will show some typical examples how to read (and write) data from different sources. The main point in this section is to demonstrate the basic syntax for reading and writing data using short code snippets.
+There exists numerous GIS data formats, such as [GeoPackage](https://en.wikipedia.org/wiki/GeoPackage) [^GPKG], [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) [^GeoJson], [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) [^KML], and [Shapefile](https://en.wikipedia.org/wiki/Shapefile) [^shp]. It is possible to read data from all these formats (plus many more) straight out of the box by `geopandas`. In the following, we will show some typical examples how to read (and write) data from different sources. The main point in this section is to demonstrate the basic syntax for reading and writing data using short code snippets.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Reading vector data
 
-When we use the `.read_file()` function for reading data in various formats, `geopandas` actually uses a library called `pyogrio` under the hood to read the data. This means that you can read and write all data formats that are supported by `pyogrio`. It is easy to find out all the data formats that are supported by default by calling `pyogrio.list_drivers()`: 
+When we use the `.read_file()` function for reading data in various formats, `geopandas` actually uses a Python library called `pyogrio` under the hood to read the data (which again depends on `GDAL` software written mostly in C++ language). This means that you can read and write all data formats that are supported by `pyogrio`. It is easy to find out all the data formats that are supported by default by calling `pyogrio.list_drivers()`: 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -327,7 +327,7 @@ data.head(2)
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Reading from a ZIP file
 
-Lastly, we demonstrate how it is possible to read data directly from a ZIP file format which can be quite useful especially if you are working with large datasets or a collection of multiple files stored into a single ZIP archive. ZIP file is an archive data format where the data is compressed efficiently. For instance, after zipping Shapefiles, the disk space needed to store the data in the given format will be significantly lower. To read the data from ZIP files, we can use the built-in Python library called **zipfile** and its `ZipFile` object which makes it possible to work with compressed ZIP files. The following example shows how to read data from a compressed ZIP file. Let's start by opening the file into a variable `z` and then read the names of the files stored inside the archive with the method `.namelist()`:
+Lastly, we demonstrate how it is possible to read data directly from a ZIP file format which can be quite useful especially if you are working with large datasets or a collection of multiple files stored into a single ZIP archive. ZIP file is an archive data format where the data is compressed efficiently. For instance, after zipping Shapefiles, the disk space needed to store the data in the given format will be significantly lower. To read the data from ZIP files, we can use the built-in Python library called `zipfile` and its `ZipFile` object which makes it possible to work with compressed ZIP files. The following example shows how to read data from a compressed ZIP file. Let's start by opening the file into a variable `z` and then read the names of the files stored inside the archive with the method `.namelist()`:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
