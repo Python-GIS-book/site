@@ -50,7 +50,8 @@ jobs:
           git add docs
           git commit -m "GA build of book HTML" --allow-empty
       - name: Push changes
-        uses: ad-m/github-push-action@gh-pages
+        uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
+          branch: gh-pages
