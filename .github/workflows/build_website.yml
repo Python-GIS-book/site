@@ -52,6 +52,7 @@ jobs:
         run: |
           rm -rf *  # Clean up current content
           cp -r /tmp/book-build/* .  # Copy the built files from the previous step
+          touch .nojekyll
 
       - name: Commit files
         run: |
