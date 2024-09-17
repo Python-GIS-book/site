@@ -45,6 +45,12 @@ jobs:
           persist-credentials: false
           ref: gh-pages
 
+        # Copy the generated docs to gh-pages branch
+      - name: Copy files to gh-pages branch
+        run: |
+          rm -rf *  # Clean up current content
+          cp -r ../docs/* .  # Copy the built files from the previous step
+
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
