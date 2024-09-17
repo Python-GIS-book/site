@@ -1,0 +1,1060 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Working with temporal data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part1/chapter-03/md/03-temporal-data';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">2.1 Getting started with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/01-lists-and-indices.html">2.2 Lists and indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/02-text-and-numbers.html">2.3 Working with text and numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/03-for-loops.html">2.4 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/04-conditional-statements.html">2.5 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/05-functions.html">2.6 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/06-writing-scripts.html">2.7 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/07-modules.html">2.8 Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/08-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in vector format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-data-structures-xarray.html">7.2 Introduction to data structures in xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/06-surface-analysis.html">7.7 Surface analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">9.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">9.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">9.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">9.4 Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/part1/chapter-03/md/03-temporal-data.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part1/chapter-03/md/03-temporal-data.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Working with temporal data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#date-and-time-basics">Date and time basics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-temporal-data-in-python">Working with temporal data in Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-datetime-objects">Constructing datetime objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parsing-temporal-components-from-datetime-object">Parsing temporal components from datetime object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-temporal-data-in-pandas">Working with temporal data in pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-time-zones-in-pandas">Handling time zones in pandas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-based-on-datetimeindex">Selecting data based on DatetimeIndex</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shifting-or-leading-and-lagging-data">Shifting - or leading and lagging data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling-and-calculating-rolling-statistics">Resampling and calculating rolling statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!-- #region editable=true slideshow={"slide_type": ""} -->
+<section class="tex2jax_ignore mathjax_ignore" id="working-with-temporal-data">
+<h1>Working with temporal data<a class="headerlink" href="#working-with-temporal-data" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>“Ever since the dawn of civilization, people have not been content to see events as unconnected and inexplicable. They have craved an understanding of the underlying order in the world.”</p>
+<p>Stephen Hawking (1988)</p>
+</div></blockquote>
+<p>Time is one of the most fundamental ways how we humans organize things in life and what we use to find understanding of the underlying world, as Stephen Hawking famously put it in his book “A brief history of time” (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id8" title="Stephen Hawking. A Brief History of Time: From the Big Bang to Black Holes. Bantam, London, 1988.">Hawking, 1988</a></span>). Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and pandas.</p>
+<!-- #endregion -->
+<section id="date-and-time-basics">
+<h2>Date and time basics<a class="headerlink" href="#date-and-time-basics" title="Link to this heading">#</a></h2>
+<p>Before doing any progamming, we need to understand a few details about time conventions themselves. There are a couple of ways how the time information (commonly referred as <code class="docutils literal notranslate"><span class="pre">timestamp</span></code>) is typically represented. The first one is to represent the temporal information as text with specific format such as <code class="docutils literal notranslate"><span class="pre">&quot;2020-12-24T09:12:45Z&quot;</span></code> which follows an international ISO 8601 standard <a class="footnote-reference brackets" href="#isostandard" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. In this format, the date components (year, month, day) are separated with dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) and the time components (hour, minute, second) are separated with colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>). Typically there is a letter <code class="docutils literal notranslate"><span class="pre">T</span></code> separating the date and time components from each other (in some other formats, there could just be a space between them).</p>
+<p>The letter <code class="docutils literal notranslate"><span class="pre">Z</span></code> at the end of the string relates to time zones and means that the time here is represented as Coordinated Universal Time (UTC). Time zone information around the world are expressed using negative or positive offsets from the UTC time standard. <code class="docutils literal notranslate"><span class="pre">UTC±00:00</span></code> is the same as Greenwhich Mean Time (GMT) used e.g. in UK (during winter months), and it was chosen after a series of conferences between 1881-1884 (Ogle, 2015) as the worldwide standard for representing the zone 0 to which all other time zones in the world are relative to. For instance, the local time in Finland is two hours ahead of UTC, meaning that the time zone information is expressed as <code class="docutils literal notranslate"><span class="pre">UTC+2</span></code> or <code class="docutils literal notranslate"><span class="pre">UTC+02:00</span></code>, whereas the local time in New York is four hours behind UTC respectively (i.e. <code class="docutils literal notranslate"><span class="pre">UTC-4</span></code>).</p>
+<p>Another commonly used way to represent time in addition to ISO standardized timestamp is to use a so called <em>Unix time</em> (also known as <em>Epoch time</em> or <em>POSIX time</em>). Unix time is expressed as number of seconds since <em>Unix Epoch</em> that was on the first of January 1970 at midnight in UTC (i.e. <code class="docutils literal notranslate"><span class="pre">1970-01-01T00:00:00Z</span></code>). This system was developed to describe a point in time in numerical format, and it is widely used in computers by different operating systems. Unix time increments every second and e.g. the Unix time of December 22nd 2020 at 15:00:00 (UTC) is represented as a single number <code class="docutils literal notranslate"><span class="pre">1608649200</span></code>. Using this kind of numerical representation of time makes it much easier for computers to store and manipulate the time information compared to having the information in textual format (<code class="docutils literal notranslate"><span class="pre">2020-12-22T15:00:00Z</span></code>).</p>
+<p>Lastly, an important convention that relates to time and time zones is a concept called Daylight Saving Time (DST), also known as summer time. DST is a commonly used practice for advancing clocks typically by an hour during warmer months so that darkness falls at a later clock time. This is also the reason why e.g. the time zone information in Finland has an offset of +03:00 (summer time) instead of +02:00 which follows the official time zone specification for Finland. DST became a common practice after the global energy crisis in the 1970s and it was introduced in many countries during the following decade. However, some countries have never followed this convention, and there is an ongoing discussion to abandon the convention e.g. in EU.</p>
+</section>
+<section id="working-with-temporal-data-in-python">
+<h2>Working with temporal data in Python<a class="headerlink" href="#working-with-temporal-data-in-python" title="Link to this heading">#</a></h2>
+<p>Next we will learn how temporal data can be handled in Python in general. The most fundamental Python library for dealing with temporal data is called <code class="docutils literal notranslate"><span class="pre">datetime</span></code> that supplies functionalities to construct and manipulate dates and times. The module is one of the Python’s standard libraries, hence you do not need to install it separately. Other useful libraries for dealing with time and dates are <code class="docutils literal notranslate"><span class="pre">time</span></code> and <code class="docutils literal notranslate"><span class="pre">calendar</span></code> which provide some additional functionalities in addition to the functionalities provided by <code class="docutils literal notranslate"><span class="pre">datetime</span></code>. In addition, <code class="docutils literal notranslate"><span class="pre">pytz</span></code> library provides many useful functionalities to deal with time zone information and <code class="docutils literal notranslate"><span class="pre">dateutil</span></code> provides some handy functionalities to automate date parsing. Most often the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> module and <code class="docutils literal notranslate"><span class="pre">pytz</span></code> (in addition to pandas) provide everything you need when doing analysis with temporal data.</p>
+</section>
+<section id="constructing-datetime-objects">
+<h2>Constructing datetime objects<a class="headerlink" href="#constructing-datetime-objects" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object is a representation of time in a way that Python can understand and operate with it. With the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library it is possible to construct a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object for example by <code class="docutils literal notranslate"><span class="pre">parsing</span></code> it from text following the ISO 8601 format or from the Unix timestamp (notice that the name of the library and the object are the same). Let’s see how we can construct a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object from text using a function <code class="docutils literal notranslate"><span class="pre">strptime()</span></code>. The <code class="docutils literal notranslate"><span class="pre">strptime()</span></code> function takes the variable <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> as the first argument representing the time in textual format and a second argument (“%Y-%m-%dT%H:%M:%S”) which looks quite complicated, but it is the <code class="docutils literal notranslate"><span class="pre">format</span> <span class="pre">code</span></code> that instructs the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> how the textual representation of the time should be interpreted:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">timestamp</span> <span class="o">=</span> <span class="s2">&quot;2020-12-22T15:00:00&quot;</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As a result we get a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object in which the date has been converted into a set of numbers, in which the first one is the year, second one is month, third one day, and so on. This structure is always the same, no matter in what format the input data has been. By using the format codes (i.e. the second argument of the function), we can tell the computer that the first component in our string represents year in 4 digits. The <code class="docutils literal notranslate"><span class="pre">%Y</span></code> characters (i.e. a <em>directive</em>) is a special way to instruct the computer to do so. In a similar manner, we can instruct the computer to read the month based on numbers with two digits (<code class="docutils literal notranslate"><span class="pre">12</span></code>) using the directive <code class="docutils literal notranslate"><span class="pre">%m</span></code>. As you can see, there is always a <code class="docutils literal notranslate"><span class="pre">%</span></code> character and then some letter after it, which is the way how we determine how the date is formatted in our text. Notice that the date components are separated with dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) and the time components are separated with colons (<code class="docutils literal notranslate"><span class="pre">:</span></code>). As we can see from our format code, we can add those separator characters between the directives just as they are represented in the timestamp. Following this approach it is possible to parse basically any kind of time information represented as text. A few of the most commonly used datetime format code directives are listed in Table 3.1.</p>
+<p>: <em><strong>Table 3.1</strong>. Most commonly used datetime directives and their meaning.</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Directive</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Examples</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%y</span></code></p></td>
+<td class="text-left"><p>Year without century as a</p></td>
+<td class="text-left"><p>00, 20, etc.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>zero-padded number</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%Y</span></code></p></td>
+<td class="text-left"><p>Year including century as a</p></td>
+<td class="text-left"><p>2000, 1920, etc.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>zero-padded number</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%m</span></code></p></td>
+<td class="text-left"><p>Month as a zero-padded number</p></td>
+<td class="text-left"><p>01, …, 12</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%b</span></code></p></td>
+<td class="text-left"><p>Month as abbreviated name</p></td>
+<td class="text-left"><p>Jan, …, Dec</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%B</span></code></p></td>
+<td class="text-left"><p>Month as full name</p></td>
+<td class="text-left"><p>January, …, December</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%d</span></code></p></td>
+<td class="text-left"><p>Day of the month as a</p></td>
+<td class="text-left"><p>01, …, 31</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>zero-padded number</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%H</span></code></p></td>
+<td class="text-left"><p>Hour (24-hour clock) as a</p></td>
+<td class="text-left"><p>00, …, 23</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>zero-padded number</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%I</span></code></p></td>
+<td class="text-left"><p>Hour (12-hour clock) as a</p></td>
+<td class="text-left"><p>01, …, 12</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>zero-padded number</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%p</span></code></p></td>
+<td class="text-left"><p>AM or PM (12-hour clock)</p></td>
+<td class="text-left"><p>am, pm, AM, PM</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%M</span></code></p></td>
+<td class="text-left"><p>Minute as a zero-padded number</p></td>
+<td class="text-left"><p>00, …, 59</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%S</span></code></p></td>
+<td class="text-left"><p>Second as a zero-padded number</p></td>
+<td class="text-left"><p>00, …, 59</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%z</span></code></p></td>
+<td class="text-left"><p>UTC offset (can be empty)</p></td>
+<td class="text-left"><p>+0000, +2000, etc.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%Z</span></code></p></td>
+<td class="text-left"><p>Time zone name (can be empty)</p></td>
+<td class="text-left"><p>UTC, GMT</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%a</span></code></p></td>
+<td class="text-left"><p>Weekday as abbreviated name</p></td>
+<td class="text-left"><p>Mon, …, Sun</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%A</span></code></p></td>
+<td class="text-left"><p>Weekday as full name</p></td>
+<td class="text-left"><p>Monday, …, Sunday</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%w</span></code></p></td>
+<td class="text-left"><p>Weekday as a number where 0 is</p></td>
+<td class="text-left"><p>0, …, 6</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>Sunday and 6 is Saturday</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To crystallize the understanding how the timestamps can be parsed, let’s look at a few more examples where we also include time zone information and parse the date information based on a format how we typically write dates as humans (without time component). Let’s start by adding <code class="docutils literal notranslate"><span class="pre">+0200</span></code> to the end of the timestamp to express the UTC+2 time zone:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">timestamp_with_tz</span> <span class="o">=</span> <span class="s2">&quot;2020-12-22T15:00:00 +0200&quot;</span>
+<span class="n">dtz</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp_with_tz</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S %z&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dtz</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">dtz</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dtz</span><span class="o">.</span><span class="n">tzinfo</span>
+</pre></div>
+</div>
+<p>As we can see, now we produced the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object having time zone information attached into the <code class="docutils literal notranslate"><span class="pre">tzinfo</span></code> attribute showing the offset (i.e. <em>timedelta</em>) from UTC represented in seconds. Having the timezone information attached can be very useful if doing analysis with temporal data that has been collected from different parts of the world (under different time zones). Let’s still take a look at an example in which we parse the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object from a textual representation that is written in a way how we humans normally write dates:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">date_written</span> <span class="o">=</span> <span class="s2">&quot;22 December 2020&quot;</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_written</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> %B %Y&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we used a bit different format for instructing the computer how to read the text by using <code class="docutils literal notranslate"><span class="pre">%B</span></code> to denote a written month name, also we changed the order of the directives and used an empty space between them. Writing the exact form of how the timestamp information is written can be quite devious work, especially if working with handwritten data where stucture of the time information can vary a lot. Luckily, Python provides a handy library <code class="docutils literal notranslate"><span class="pre">dateutil</span></code> that automates most of this work. We can use a function called <code class="docutils literal notranslate"><span class="pre">parse()</span></code> that can automatically construct the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object from various formats:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span>
+
+<span class="n">timestamp_with_tz</span> <span class="o">=</span> <span class="s2">&quot;2020-12-22T15:00:00 +0200&quot;</span>
+<span class="n">date_written</span> <span class="o">=</span> <span class="s2">&quot;22 December 2020&quot;</span>
+<span class="n">dt1</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">timestamp_with_tz</span><span class="p">)</span>
+<span class="n">dt2</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">date_written</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dt1</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dt2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All of the previous examples focused on using textual representation of time as input. Naturally it is also possible to construct a datetime object using Unix time representation. Because Unix time is a simple number, it is much more straightforward to parse a datetime object based on them. This is how would convert a Unix time <code class="docutils literal notranslate"><span class="pre">1608649200</span></code> into a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> using <code class="docutils literal notranslate"><span class="pre">fromtimestamp()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">unix_time</span> <span class="o">=</span> <span class="mi">1608649200</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">unix_time</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Wait, what? In the beginning of this chapter, we said that Unix time <code class="docutils literal notranslate"><span class="pre">1608649200</span></code> should be “December 22nd 2020 at 15:00:00 (UTC)”, but here we have the result as five o’clock (i.e. 17, 0). This is due to the fact that the computer that this code is written with is located at a Finnish time zone (UTC+02), and as the Unix time is always passed as UTC, the computer automatically returns the timestamp in local timezone (i.e. in Finnish time or whatever the local time has been specified in your computer’s settings). This is a good thing to understand because it can be rather confusing sometimes when working with temporal data. Finally, it is naturally possible to initialize the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object also directly by passing integer numbers into the object itself. Here we use the same date and time as before but add <code class="docutils literal notranslate"><span class="pre">30</span></code> seconds to the end:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">dt</span>
+</pre></div>
+</div>
+</section>
+<section id="parsing-temporal-components-from-datetime-object">
+<h2>Parsing temporal components from datetime object<a class="headerlink" href="#parsing-temporal-components-from-datetime-object" title="Link to this heading">#</a></h2>
+<p>There are few useful tricks that you can do with the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects. It is for example possible to parse specific temporal components directly from the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object. You can for example access the <code class="docutils literal notranslate"><span class="pre">.year</span></code>, <code class="docutils literal notranslate"><span class="pre">.month</span></code>, <code class="docutils literal notranslate"><span class="pre">.day</span></code>, <code class="docutils literal notranslate"><span class="pre">.hour</span></code>, <code class="docutils literal notranslate"><span class="pre">.minute</span></code> and <code class="docutils literal notranslate"><span class="pre">.second</span></code> attributes very easily that will return the value of the temporal element as an integer number:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In addition, you can parse for example the day of week by using <code class="docutils literal notranslate"><span class="pre">weekday()</span></code> function or parse only the date components from the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object by using <code class="docutils literal notranslate"><span class="pre">date()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">weekday</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>By using <code class="docutils literal notranslate"><span class="pre">strftime()</span></code> function, you can use the same directives from Table 2.1 to construct and convert the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object to any text representation of the date and time. Next, we will see how this function can be used quite nicely for creating an easily understandable text based on our date and time information:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">custom_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> %B %Y is %A. The time is %I:%M %p.&quot;</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">custom_format</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="working-with-temporal-data-in-pandas">
+<h2>Working with temporal data in pandas<a class="headerlink" href="#working-with-temporal-data-in-pandas" title="Link to this heading">#</a></h2>
+<p>After learning the basics of how the temporal data can be represented as <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects, we can continue and see how temporal data can be manipulated in pandas. Pandas is extremely powerful and flexible what comes to working with temporal data. For instance, all the simple tricks that we saw earlier with <code class="docutils literal notranslate"><span class="pre">datetime</span></code> can be done also with pandas. When doing data analysis with pandas, it is typical that instead of dealing with single time observations, you actually work with time series data, such as the hourly temperature values that we analyzed in the previous section. Pandas supports many useful functionalities related to parsing, manipulating and aggregating time series data. Let’s start exploring the temporal capabilities of pandas by reading the hourly temperature observations from the same CSV file in a similar manner as we did previously. As a reminder, this is how the data look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">USAF</span>  <span class="n">WBAN</span> <span class="n">YR</span><span class="o">--</span><span class="n">MODAHRMN</span> <span class="n">DIR</span> <span class="n">SPD</span> <span class="n">GUS</span> <span class="n">CLG</span> <span class="n">SKC</span> <span class="n">L</span> <span class="n">M</span> <span class="n">H</span>  <span class="n">VSB</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">AW</span>  <span class="o">...</span>
+<span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601010600</span> <span class="mi">090</span>   <span class="mi">7</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
+<span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601011300</span> <span class="o">***</span>   <span class="mi">0</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
+<span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601012000</span> <span class="o">***</span>   <span class="mi">0</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
+<span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601020600</span> <span class="o">***</span>   <span class="mi">0</span> <span class="o">***</span> <span class="o">***</span> <span class="n">CLR</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
+</pre></div>
+</div>
+<p>The timestamps stored in the column <code class="docutils literal notranslate"><span class="pre">YR--MODAHRMN</span></code> can be automatically converted to <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects when reading the data by using <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> parameter and providing a list of column names that should be parsed to <code class="docutils literal notranslate"><span class="pre">datetime</span></code>. We also specify with <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter that we only want to keep three columns from the file (station number, time information and temperature):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Read the data and parse dates</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/029820.txt&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">fp</span><span class="p">,</span>
+    <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;***&quot;</span><span class="p">,</span> <span class="s2">&quot;****&quot;</span><span class="p">,</span> <span class="s2">&quot;*****&quot;</span><span class="p">,</span> <span class="s2">&quot;******&quot;</span><span class="p">],</span>
+    <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;USAF&quot;</span><span class="p">,</span> <span class="s2">&quot;YR--MODAHRMN&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">],</span>
+    <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YR--MODAHRMN&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="c1"># Rename the columns</span>
+<span class="n">new_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;STATION_NUMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;TIME&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">new_cols</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As we can see, the values in <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column were automatically parsed into a format that are much easier to read than the original ones. When using pandas datetime parsing functionalities, the timestamps can be represented in different formats such as text in ISO 8601 format or Unix times (seconds since 1.1.1970). Let’s take a look how the values in our <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column look like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As we can see, pandas actually converted the timestamp values into a time series having specific data type called <code class="docutils literal notranslate"><span class="pre">datetime64</span></code>. The individual value of the time series is a specific pandas object called <code class="docutils literal notranslate"><span class="pre">Timestamp</span></code> that is a similar object as the Python’s regular <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object that we saw previously:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;TIME&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">TimeStamp</span></code> object contains all the same attributes as the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object, but in addition, it has many useful attributes and functions that can be used in a vectorized manner. For instance, you can parse different temporal components from the time series stored in a column very efficiently. Let’s parse the temporal components from <code class="docutils literal notranslate"><span class="pre">TIME</span></code> into columns <code class="docutils literal notranslate"><span class="pre">YEAR</span></code>, <code class="docutils literal notranslate"><span class="pre">MONTH</span></code>, <code class="docutils literal notranslate"><span class="pre">DAY</span></code> and <code class="docutils literal notranslate"><span class="pre">HOUR</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEAR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;MONTH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;DAY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;HOUR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now the new columns have corresponding integer values for each temporal component. We were able to access all the temporal attributes by using the <code class="docutils literal notranslate"><span class="pre">.dt</span></code> accessor that is available for all <code class="docutils literal notranslate"><span class="pre">Series</span></code> having <code class="docutils literal notranslate"><span class="pre">datetime64</span></code> data type. We can also combine the datetime functionalities with other methods from pandas. For example, we can check that we have observations from 69 years in total:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="handling-time-zones-in-pandas">
+<h3>Handling time zones in pandas<a class="headerlink" href="#handling-time-zones-in-pandas" title="Link to this heading">#</a></h3>
+<p>When reading time series data to pandas as we did previously, the timestamp objects are represented without time zone information. However, it is straighforward to attach time zone information to a Series with Timestamp objects by using a method called <code class="docutils literal notranslate"><span class="pre">tz_localize()</span></code>. When manipulating the data based on time information in pandas, the first step that you typically do, is to set a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-DatetimeIndex"><span class="xref std std-term">DatetimeIndex</span></a></em> for you DataFrame (here based on column ‘TIME’) with <code class="docutils literal notranslate"><span class="pre">set_index()</span></code> method. Next, we will set the index and specify appropriate time zone for our data (<em>Europe/Helsinki</em>). We will also specify the <code class="docutils literal notranslate"><span class="pre">nonexistent</span></code> parameter as “shift_forward”, due to the fact that when the clocks are adjusted when changing from winter time to summer time, there is literally one non-existing hour during the night. With this parameter we tell pandas that this is okay, and we just want to shift the time forward (by an hour in most cases) in case there are such “non-existing” time observations. With <code class="docutils literal notranslate"><span class="pre">ambiguous</span></code> parameter, we tell pandas that when adjusting the clocks backwards (moving from summer time to winter time), the observations having ambigous times (e.g. duplicate timestamps due to Daylight Saving Time) are set as <code class="docutils literal notranslate"><span class="pre">NaT</span></code> (Not-a-Time). Notice that it is up to you to decide what is appropriate way of handling such cases (there are also other options for this parameter, such as “infer”):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;TIME&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s2">&quot;Europe/Helsinki&quot;</span><span class="p">,</span> <span class="n">nonexistent</span><span class="o">=</span><span class="s2">&quot;shift_forward&quot;</span><span class="p">,</span> <span class="n">ambiguous</span><span class="o">=</span><span class="s2">&quot;NaT&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now the TIME column is set as our index and it was moved to the left and replaced the original sequantial numbers. Notice that the <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column is no longer part of the columns in our DataFrame (we will later see how to get it back as a column). Also the time zone information was attached to the Timestamp objects as can be seen by the five last characters showing <code class="docutils literal notranslate"><span class="pre">+03:00</span></code>. From this information we can see that the time zone in Finland is +3 hours at the given date (summer time). We can easily access the values in the index by calling it. Let’s check the first and last values of <code class="docutils literal notranslate"><span class="pre">data.index</span></code> and its data type.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see, the index is now a <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> which is essentially an array consisting of <code class="docutils literal notranslate"><span class="pre">Timestamp</span></code> objects armed with all the attributes and methods that we have seen in the previous examples. In addition, our array has time zone specified as “Europe/Helsinki”. Hint: If you want to know the available time zones, you can access them by <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">pytz</span> <span class="pre">import</span> <span class="pre">all_timezones</span></code> which imports them into the variable <code class="docutils literal notranslate"><span class="pre">all_timezones</span></code> as a list.</p>
+<p>There are a couple of important notions that we can make from the data in this array. Firstly, the Timestamps in the index from the year 1906 seem to have a quite odd time zone information attached to them (+01:40), which differs from the offset of the last observations (+03:00) by an hour and twenty minutes. This might seem a bit strange, although everything is as it should, and a couple of international conventions regarding time explain these differences. First explanation relates to a fact that representing local time following time zone specification as an offset from UTC is merely a contract between countries targeted to standardize the representation of time in different parts of the world. But as with any international contract, the standardization process typically happens at different times in different countries, and it is not unheard of to make changes to these agreements. An example of such a change can be witnessed here, as Finland changed its time zone from Helsinki Mean Time (with +01:40 offset from UTC) to Eastern European Time (with +02:00 from UTC) in May 1st 1921. Hence, all timestamps recorded before the aforementioned date have a somewhat unusual offset from UTC (100 minutes). Similar special arrangements have been quite common in the history, so it is good to be careful and aware of these situations whenever working with historical time series. Second important convention relates to the Daylight Saving Time (DST), which was introduced in Finland in 1981, and is the reason why the last values in our DatetimeIndex have an offset of +03:00 (summer time) instead of +02:00. As you might guess, all these international practices and contracts can make working with date and time information quite tricky. Luckily, pandas (and the underlying pytz library) handles these things very well, and we do not need to worry too much about the international time convensions.</p>
+<p>In some occasions, you might want to convert your time series data from one time zone to another. If you for example, would like to understand what the time was in New York when these weather observations were recorded, you could convert the time information easily with <code class="docutils literal notranslate"><span class="pre">.dt.tz_convert()</span></code> function. Before making the conversion between the time zones, we need to return the TIME Series from the index back to a normal pandas column by using <code class="docutils literal notranslate"><span class="pre">.reset_index()</span></code> method that returns the <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column back to DataFrame as a normal column. When manipulating time series, it is quite typical to set a specific column as an index for the DataFrame and then swap it back to a “normal” column for further manipulation, as in the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># &#39;TIME&#39; column is returned back as a normal column</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;NY_TIME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">&quot;US/Eastern&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Now we can see, that the timestamps were converted to represent the times in US/Eastern time zone and stored to the NY_TIME column. For example the first observation in our data that was recorded at 6 AM 1st of January in 1906 was correctly converted to a value from the last day of previous year at 11:20 PM (<code class="docutils literal notranslate"><span class="pre">1905-12-31</span> <span class="pre">23:20</span></code>). This functionality can be very useful when working with temporal data from different parts of the world. Quite often the data collected from different global services (such as tweets collected from Twitter) store the information as UTC values. Hence, it is up to the user to parse the correct local time for tweets posted in different parts of the world. Using pandas for doing these kind of manipulation with the temporal data is extremely handy and efficient. In case your data is already represented in different timezones, pandas makes your life easy because timestamps are stored under the hood always in UTC. This means that it is straightforward to do operations between the two time series without any additional timezone conversions. We can for example do simple calculations between two DataFrames that are represented in different timezones:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;TIME&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_F&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">sample1</span> <span class="o">=</span> <span class="n">sample1</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;TIME&quot;</span><span class="p">)</span>
+<span class="n">sample1</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;NY_TIME&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_F&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">sample2</span> <span class="o">=</span> <span class="n">sample2</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;NY_TIME&quot;</span><span class="p">)</span>
+<span class="n">sample2</span>
+</pre></div>
+</div>
+<p>Now we have the same temperature values in both DataFrames but these observations are represented in different time zones. Now, we can for instance sum up these temperatures, which works because the time of the observations matches:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample1</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">sample2</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>As you can see, pandas automatically converted the temporal information to UTC timezone, and the temperature values were summed up correctly.</p>
+</section>
+</section>
+<section id="selecting-data-based-on-datetimeindex">
+<h2>Selecting data based on DatetimeIndex<a class="headerlink" href="#selecting-data-based-on-datetimeindex" title="Link to this heading">#</a></h2>
+<p>In Chapter 3.3, we saw how to select observations using simple string manipulation operations applied to the timestamp. Although this worked quite well for our specific case, it is a rather glumpsy and inflexible approach to work with temporal information. A much better approach, is to take advantage of the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects stored in the time series. Let’s again first set the <code class="docutils literal notranslate"><span class="pre">TIME</span></code> column as index for our DataFrame by using the method <code class="docutils literal notranslate"><span class="pre">set_index()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/029820.txt&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">fp</span><span class="p">,</span>
+    <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;***&quot;</span><span class="p">,</span> <span class="s2">&quot;****&quot;</span><span class="p">,</span> <span class="s2">&quot;*****&quot;</span><span class="p">,</span> <span class="s2">&quot;******&quot;</span><span class="p">],</span>
+    <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;USAF&quot;</span><span class="p">,</span> <span class="s2">&quot;YR--MODAHRMN&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">],</span>
+    <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YR--MODAHRMN&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="c1"># Rename the columns</span>
+<span class="n">new_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;STATION_NUMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;TIME&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">new_cols</span>
+
+<span class="c1"># Set TIME as index</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;TIME&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now as we have equipped our DataFrame with <em>DatetimeIndex</em>, it is easy to filter the data based on specific criteria and e.g. select all observations that have been recorded in specific months of 2019. To do this, we can use <code class="docutils literal notranslate"><span class="pre">.loc</span></code> indexing in a similar manner as before, but pass the criteria for selecting the data using either <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects or strings that can be interpreted as a date. For instance, we can select the observations for January 2019 in a following manner based on datetime labels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">start_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="n">january</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_dt</span><span class="p">:</span><span class="n">end_dt</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">january</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">january</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First obs:&quot;</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Last obs:&quot;</span><span class="p">,</span> <span class="n">last</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we mentioned, pandas also provides a nice and easy way to select observations e.g. for specific month by specifying the selection criteria as a string. This approach is very convenient because we can select observations by passing a single label to the <code class="docutils literal notranslate"><span class="pre">loc</span></code> indexer and pandas automatically detects based on the string, what should be done:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">february</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2019-02&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">february</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">february</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First obs:&quot;</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Last obs:&quot;</span><span class="p">,</span> <span class="n">last</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As a result, we got all observations that were recorded during February 2019. Using this approach, called <em>partial string indexing</em>, is useful because it makes it easy for us to deal with irregular number of days in February (leap year). By passing the time window as a string that consists of the year and month information, we do not need to worry about leap years ourselves, as pandas does this automatically for us:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">leap_year</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2016-02&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">leap_year</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">leap_year</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First obs:&quot;</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Last obs:&quot;</span><span class="p">,</span> <span class="n">last</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Following the same approach, we can adjust the criteria to be a more specific time range, such as first two weeks of February:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">first_two_weeks</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2018-02-01&quot;</span><span class="p">:</span><span class="s2">&quot;2018-02-14&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">first_two_weeks</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or select data covering the whole year of 2018:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2018&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>It is also possible to select subsets of data for specific time intervals starting from the first dates or for the last dates in the selection. For example, if you would like to select the values for the first 6 hours and 10 minutes of January 1st, 2018 you could do the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">start_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end_dt</span> <span class="o">=</span> <span class="n">start_dt</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_dt</span><span class="p">:</span><span class="n">end_dt</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here we define a starting date <code class="docutils literal notranslate"><span class="pre">start_dt</span></code> using the already familiar <code class="docutils literal notranslate"><span class="pre">datetime</span></code> function. The ending time <code class="docutils literal notranslate"><span class="pre">end_dt</span></code> is then defined as the starting time plus a time offset of 6 hours and 10 minutes using the <code class="docutils literal notranslate"><span class="pre">pd.DateOffset</span></code> function. The <code class="docutils literal notranslate"><span class="pre">pd.DateOffset</span></code> function can be used to specify a time by which another time could be shifted. Below is another example, looking at the last 8 hours and 45 minutes of data from January 31st, 2018.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">end_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">start_dt</span> <span class="o">=</span> <span class="n">end_dt</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_dt</span><span class="p">:</span><span class="n">end_dt</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Note that in this case the logic is slightly different from selecting the first values of a given day for a few reasons. First, we want to exclude midnight on February 1st, 2018 so the date value used for the end time of the selected dates is 23:59:59 on January 31st. If we had set <code class="docutils literal notranslate"><span class="pre">end_dt</span> <span class="pre">=</span> <span class="pre">datetime(2018,</span> <span class="pre">2,</span> <span class="pre">1)</span></code>, the corresponding date and time would be midnight (i.e., the start of the day) on February 1st. Second, we assign the end time first and then subtract the date offset to find the starting date and time to include in the selection. This way we get only values for January 31st. Additional useful details can be found in the  <a class="reference internal" href="#"><span class="xref myst">pandas documentation for DateOffset objects</span></a> <a class="footnote-reference brackets" href="#dateoffsets" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+</section>
+<section id="shifting-or-leading-and-lagging-data">
+<h2>Shifting - or leading and lagging data<a class="headerlink" href="#shifting-or-leading-and-lagging-data" title="Link to this heading">#</a></h2>
+<p>One typical task when working with time series data, is to compare two consecutive values to each other. For instance, you might be interested in understanding how much warmer or colder the temperature was between different hours, or compute the percentual difference of how the value of a given stock has changed (to give a couple of examples). For these kind of operations, pandas provides a functionality called “shifting” which can be used to move (shift) data backward and forward. Next, we will see this method in action, by calculating the difference between consecutive temperature values. Let’s start by taking a small sample covering the data for 2019:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2019&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As we can see based on the DatetimeIndex (TIME), we have temperature observations on an hourly basis in this sample. Now, if we want to calculate what is the difference in temperature between consecutive observations, we can take advantage of the method <code class="docutils literal notranslate"><span class="pre">.shift()</span></code> which takes an integer value as an input. If you pass a positive number, the values in a given Series is shifted forward, and if you pass a negative number the values are shifted backwards:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shifting forward</span>
+<span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we shifted the values forward by one observation, which can be seen e.g. by looking at how the position of value 39.0 was moved by an hour to 01:00. Furthermore, by looking at the numeric values, you can see that the first value in the Series was replaced with NaN. This is because the temperature values were shifted forward by one observation, meaning that there is not any known temperature that could be placed as the first observation. Hence, pandas fills it with NaN. In a similar manner, when the observations are shifted backwards (with argument -1), there is NaN inserted into the Series, but in this case, at the very end of it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shifting backward</span>
+<span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Another important aspect to notice from these examples, is that in both cases, one observation was removed from the Series. In the first example, the last known temperature (46.0) was dropped from the end of the Series, and in the second example, the first temperature (39.0) was dropped. This is expected behavior, because pandas wants to ensure that the Series keeps its shape, i.e. the length of the Series does not change. This behavior is beneficial, because in this way, it is straightforward to do calculations between the two Series, or e.g. add the shifted values as a column to the same DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s2">&quot;next_hour&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now the first value in the column <code class="docutils literal notranslate"><span class="pre">next_hour</span></code> actually represents the temperature from 01:00, the second value from 02:00, etc. because we shifted the values backwards. At this point, our data is structured in such a manner that it is very easy to do calculations between these two columns and e.g. calculate the difference between consecutive hours:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s2">&quot;diff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;next_hour&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span>
+<span class="n">sample</span>
+</pre></div>
+</div>
+<p>As you can see, the last value in column <code class="docutils literal notranslate"><span class="pre">diff</span></code> is NaN, which expected as we don’t have information about the following hour on the last row.</p>
+<p>In the previous examples, we did <em>naive</em> shifts forward and backward by merely changing the position of the observations. Naturally, it is also possible to take advantage of hour DatetimeIndex, and do more sophisticated shifts based on time. We can for example compare the temperatures between consecutive days or weeks, for example. Let’s see how we can calculate the weekly differences in the temperatures using the same <code class="docutils literal notranslate"><span class="pre">.shift()</span></code> method by adding a parameter <code class="docutils literal notranslate"><span class="pre">freq</span></code> which accepts a <em>DateOffset</em> as an argument (that we already saw and used in the previous section). This time, we calculate the difference directly without storing the temperatures in a separate column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s2">&quot;weekly_diff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here, we specified -7 as the first argument and passed a letter “D” for the <code class="docutils literal notranslate"><span class="pre">freq</span></code> parameter, meaning that we want shift the observations by 7 days. Then, we calculated the difference between the temperature on the following week and stored the result in a separate column <code class="docutils literal notranslate"><span class="pre">&quot;weekly_diff&quot;</span></code>. In a similar manner, you can easily calculate differences between observations taken at different times, which can be very efficient and useful to understand changes in time series.</p>
+</section>
+<section id="resampling-and-calculating-rolling-statistics">
+<h2>Resampling and calculating rolling statistics<a class="headerlink" href="#resampling-and-calculating-rolling-statistics" title="Link to this heading">#</a></h2>
+<p>Now as we know how to take advantage of the DatetimeIndex to make selections and time zone conversions as well as manipulate data by shifting observations, we are ready to explore further the functionalities of pandas for working with temporal data. One typical task when doing analysis with time series data is to <em><span class="xref std std-term">resample</span></em> the time series from one frequency to another, such as aggregating the hourly temperature observations to daily averages. This might sound familiar, as we did this process previously (in 3.3) by using specific string manipulation tricks, and then grouping and aggregating the values. Now we will learn how to use pandas resampling functionalities that allows to conduct both downsampling (i.e. aggregating values) and upsampling based on specific interpolation methods. When doing interpolation, you fill missing values between observations based on specific criteria, such as taking the average between two consecutive observations. For instance, you could interpolate hourly temperature observations into 30 minute frequencies by assuming that the temperature in the middle of two time steps, such as 14:00 and 15:00, is the average of both giving you an estimate what the temperature might be at 14:30. Notice that whenever interpolating/upsampling data, you are basically making “sophisticated guesses” and there is always uncertainty involved with your estimates.</p>
+<p>Let’s start by downsampling our observations into daily averages. To do this, we can use a <code class="docutils literal notranslate"><span class="pre">resample()</span></code> method that works in a bit similar manner as <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> but it works with <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> allowing you to easily control how the values should be grouped. Notice, that this only works with time series data, i.e. you need to make sure that you have set <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> for your DataFrame. Whenever resampling data, you typically want to combine it with a specific aggregation method, such as <code class="docutils literal notranslate"><span class="pre">mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">max()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, which will then specify how you want to aggregate the data, such as calculating the daily averages:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">daily_averages</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;1D&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">daily_averages</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As a result we got a new DataFrame, in which all columns having numerical values were aggregated to daily averages. Notice, that averaging all numerical values in your DataFrame might not be what you want, e.g. here it does not really make any sense to take an average of the station number or any other columns expect the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> column. We can easily specify which columns should be aggregated by passing a list of column names after the <code class="docutils literal notranslate"><span class="pre">resample()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">daily_average_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;1D&quot;</span><span class="p">)[[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">daily_average_temps</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As a result, we got a new pandas DataFrame containing the average temperature for each day. It is very easy to change the resampling method, and e.g. find out the lowest temperatures for each week using the <code class="docutils literal notranslate"><span class="pre">.min()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weekly_min_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;1W&quot;</span><span class="p">)[[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">weekly_min_temps</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In a quite similar manner, it is possible to do upsampling and e.g. interpolate hourly observations to higher frequency (e.g. every 30 minute) by filling the missing values using e.g. linear interpolation which “guesses” the missing values between two known points by fitting a straight line between the observations. Thus, the interpolated temperature between two consecutive hours is the average the two (as discussed in the beginning of this section):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2018-01-01 03:00&quot;</span><span class="p">:</span><span class="s2">&quot;2018-01-01 08:00&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">selection</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;30T&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">interpolate</span><span class="p">()[[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>As a result, our hourly data was now converted to higher frequency and e.g. the temperature at 03:30 is 34.5 Fahrenheits which is the average of its neighboring values. By default, the interpolation will automatically done for all columns containing numerical values and you can select the columns that you are interested in by passing a list of column names after calling the <code class="docutils literal notranslate"><span class="pre">interpolate()</span></code> method. There are also many other interpolation methods available, see details from the pandas documentation <a class="footnote-reference brackets" href="#interpolation" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+<p><strong>Rolling statistics</strong> is yet another useful technique to deal with time series data that is “noisy” or that has gaps between observations. Moving average is one such an operation in which observations are weighted (averaged) over a sliding “window” that is an efficient way to smooth the data and reduce variance between observations. For instance, stock market data or GPS observations representing the movement / speed profiles of vehicles are good examples of datasets that typically have a lot of variance, which can make it challenging to see patterns without smoothing. Pandas supports various moving window functions that have differences in how they influence the end result. Some of them use a static window size and weights the observations equally, whereas some functions can e.g. give more weight to more recent observations. Next we will see how moving average can be calculated with pandas, and how it influences our data. Let’s start by taking a sample of our data covering the last 20 years and make a plot based on the temperature:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;1990&quot;</span><span class="p">:</span><span class="s2">&quot;2020&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 3.5</strong>. Temperature values in Fahrenheit for 1990-2020.</em></p>
+<p>In this plot we have time represented on the x-axis and the temperature in Fahrenheit on the y-axis. We can clearly see how the temperatures fluctuate over different seasons. Let’s investigate our data a bit further and take a look of the first rows of our sample:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we see, the first rows in our sample contains observations every 3 hours or so. Let’s test how we can apply rolling statistic over our tiem series and calculate a moving average based on four closest (consecutive) temperature observations. To do this, we can use a method called <code class="docutils literal notranslate"><span class="pre">.rolling()</span></code> that by default takes an integer number as an argument that specify how many observations should be grouped together (i.e. window size). By chaining the <code class="docutils literal notranslate"><span class="pre">.mean()</span></code> command after the first one, we can specify that we want to calculate the average temperature based on those four observations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">roll_a</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">roll_a</span>
+</pre></div>
+</div>
+<p>As a result, we get a Series in which the time is the index and the newly calculated average temperatures are the values. As can be seen from here, the first three temperature values are NaNs which is expected, as we specified that the average should always be based on four consecutive observations. Hence,  with the first three observations the average cannot be calculated, and in this case pandas returns NaN.</p>
+<p>An important thing to notice here, is that the temporal resolution of our data seem to vary. This can be seen by comparing the first and last five timestamps to each other: in early 90’s the frequency of the observations was 3 hours, but during 2019 the frequency has been 1 hour. This is a significant issue, because the temporal span of how the moving average is calculated differs, which can cause unwanted consequenses and errors in our analysis. Luckily, it is easy to fix this issue by passing a <em><span class="xref std std-term">DateOffset</span></em> as an argument for the <code class="docutils literal notranslate"><span class="pre">.rolling()</span></code> command, in a similar manner as we did earlier when resampling our data. Hence, we can e.g. use a fixed window size of 1 day by passing “1D” to the function, and it will always keep the time span identical, no matter how many observations there would be recorded within a single day:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">daily</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="s2">&quot;1D&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Following this approach, it is easy to calculate rolling statistics with different window sizes, such as weekly, monthly or even annual averages. The main different between <code class="docutils literal notranslate"><span class="pre">.rolling()</span></code> and <code class="docutils literal notranslate"><span class="pre">.resample()</span></code> is that the former will maintain the number of observations in the data (but change the values according neighboring values e.g. based on mean), whereas the latter will actually aggregate and reduce the number of observations that will be kept in the result. To demonstrate the influence of “smoothing” to our time series based on moving average, let’s calculate the moving average of temperatures based on window size of 180 days and 360 days (~year), and plot the results (details about plotting are discussed in the next chapter):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">half_year</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="s2">&quot;180D&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">annual</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="s2">&quot;360D&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">daily</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">half_year</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">annual</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature (Fahrenheit)&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 3.6</strong>. Temperature values and moving averages for 1990-2020.</em></p>
+<p>As a result, we have three different curves showing how the temperature values get smoothed by averaging. Green line is based on the moving average with 360 days; Orange line is based on the 180 days; and the blue line represents the moving average based on daily averages. As can be seen, the variance between observations is reduced (i.e. smoothed) when the size of the window gets larger.</p>
+<p>In quite a similar manner, it is possible to use exponentially weighted (EW) window functions to give more weight on more recent observations based on a decay function, such as center of mass (com) following a formula: <span class="math notranslate nohighlight">\(\alpha\)</span> <em>= 1 / (1 + com)</em>. A method called <code class="docutils literal notranslate"><span class="pre">.ewm()</span></code> does this, and as a result the smoothing adapts faster to changes than using equally weighted observations. The higher value you pass for the <code class="docutils literal notranslate"><span class="pre">com</span></code> -parameter, the more the end result will be smoothed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ewm</span><span class="p">(</span><span class="n">com</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 3.7</strong>. Exponentially weighted temperature values for 1990-2020.</em></p>
+<p>In addition to these moving window functions, pandas provides a method <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code> which increases the size of the window on each observation until it encompasses the whole series. This method basically cumulates the information on each observation and can be useful e.g. in some predictive applications where cumulative information about the given phenomena can provide more accurate results after more observations have been observed. It is also possible to apply and chain your own functions together with <code class="docutils literal notranslate"><span class="pre">.rolling()</span></code> and <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code>, such as <code class="docutils literal notranslate"><span class="pre">.rolling(20).apply(myOwnFunction)</span></code>.</p>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="isostandard" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">https://en.wikipedia.org/wiki/ISO_8601</a></p>
+</aside>
+<aside class="footnote brackets" id="dateoffsets" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/timeseries.html#dateoffset-objects">https://pandas.pydata.org/docs/user_guide/timeseries.html#dateoffset-objects</a></p>
+</aside>
+<aside class="footnote brackets" id="interpolation" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#date-and-time-basics">Date and time basics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-temporal-data-in-python">Working with temporal data in Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-datetime-objects">Constructing datetime objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parsing-temporal-components-from-datetime-object">Parsing temporal components from datetime object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-temporal-data-in-pandas">Working with temporal data in pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-time-zones-in-pandas">Handling time zones in pandas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-based-on-datetimeindex">Selecting data based on DatetimeIndex</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shifting-or-leading-and-lagging-data">Shifting - or leading and lagging data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling-and-calculating-rolling-statistics">Resampling and calculating rolling statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

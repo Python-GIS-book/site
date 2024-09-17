@@ -1,0 +1,3549 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Common tabular operations in pandas</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part1/chapter-03/nb/01-data-manipulation';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Data wrangling, grouping and aggregation" href="02-data-analysis.html" />
+    <link rel="prev" title="Getting started with data analysis" href="00-pandas-basics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/00-python-basics.html">2.1 Getting started with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/01-lists-and-indices.html">2.2 Lists and indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/02-text-and-numbers.html">2.3 Working with text and numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/03-for-loops.html">2.4 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/04-conditional-statements.html">2.5 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/05-functions.html">2.6 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/06-writing-scripts.html">2.7 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/07-modules.html">2.8 Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-02/nb/08-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">3. Introduction to data analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-temporal-data.html">3.4 Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in vector format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-data-structures-xarray.html">7.2 Introduction to data structures in xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/06-surface-analysis.html">7.7 Surface analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">9.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">9.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">9.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">9.4 Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-10/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part1/chapter-03/nb/01-data-manipulation.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/part1/chapter-03/nb/01-data-manipulation.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part1/chapter-03/nb/01-data-manipulation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Common tabular operations in pandas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-calculations">Basic calculations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-2">Question 3.2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-and-updating-data">Selecting and updating data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-rows-and-columns">Selecting rows and columns</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-3">Question 3.3</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-a-single-row-or-value">Selecting a single row or value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selections-based-on-index-positions">Selections based on index positions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selections-using-listed-criteria">Selections using listed criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-selections">Conditional selections</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-4">Question 3.4</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-vs-a-copy">View vs a copy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-missing-data">Dealing with missing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-type-conversions">Data type conversions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-data">Sorting data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-joins-combining-dataframes-based-on-a-common-key">Table joins: Combining DataFrames based on a common key</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-logic-of-a-table-join">The basic logic of a table join</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table-join-using-pandas-merge">Table join using pandas <code class="docutils literal notranslate"><span class="pre">.merge()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="common-tabular-operations-in-pandas">
+<h1>Common tabular operations in pandas<a class="headerlink" href="#common-tabular-operations-in-pandas" title="Link to this heading">#</a></h1>
+<p>Now you have learned the basics of pandas data structures (i.e. <em>Series</em> and <em>DataFrame</em>) and you should be familiar with basic methods for loading and exploring data. Next, we will continue exploring the pandas functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.</p>
+<section id="basic-calculations">
+<h2>Basic calculations<a class="headerlink" href="#basic-calculations" title="Link to this heading">#</a></h2>
+<p>One of the most common things to do in pandas is to create new columns based on calculations between different variables (columns). Next, we will learn how to do that using the same input data (<code class="docutils literal notranslate"><span class="pre">'Kumpula-June-2016-w-metadata.txt'</span></code>) as in the previous section. We will first load it using the <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> method. Remember, that the first 8 lines contains the metadata which we will skip. This time, let’s store the filepath into a separate variable in order to make the code more readable and easier to change afterwards (a good practice).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Define file path:</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span>
+
+<span class="c1"># Read in the data from the file (starting at row 9):</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a first step, it is always good to remember to check the data after reading it. This way we can be sure that everything looks as it should.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160604</td>
+      <td>57.5</td>
+      <td>70.9</td>
+      <td>47.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+      <td>58.3</td>
+      <td>43.2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>All good. Now we can start by creating a new column <code class="docutils literal notranslate"><span class="pre">DIFF</span></code> in our DataFrame. This can be done by specifying the name of the column and giving it some default value (in this case the decimal number <code class="docutils literal notranslate"><span class="pre">0.0</span></code>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;DIFF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160604</td>
+      <td>57.5</td>
+      <td>70.9</td>
+      <td>47.3</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+      <td>58.3</td>
+      <td>43.2</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As we can see, now we have a new column (<code class="docutils literal notranslate"><span class="pre">DIFF</span></code>) in our DataFrame that has value 0.0 for all rows. When creating a new column, you can <em>initialize</em> it with any value you want. Typically, the value could be a number 0 as in here, but it could also be <code class="docutils literal notranslate"><span class="pre">None</span></code> (i.e. nothing), some text (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;test</span> <span class="pre">text&quot;</span></code>), or more or less any other value or object that can be represented as a single item. You could even initiliaze the column by storing a function inside the cells if you like. Let’s continue by checking the datatype of our new column:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;DIFF&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;float64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, pandas created a new column and automatically recognized that the data type is float as we passed a 0.0 value to it. Great, but whatabout making those calculations with pandas as promised in the beginning? Next, we will calculate the difference between <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">MIN</span></code> columns to get an idea how much the temperatures have been varying during different days. The result will be updated into the column <code class="docutils literal notranslate"><span class="pre">DIFF</span></code> that we created earlier. A typical way of conducting calculations such as this, is to access the Series (columns) that interests us from the DataFrame and conduct the mathematical calculation using the selected columns. Typically you store the result directly into a column in the DataFrame, like following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;DIFF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;MAX&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>18.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>25.8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160604</td>
+      <td>57.5</td>
+      <td>70.9</td>
+      <td>47.3</td>
+      <td>23.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+      <td>58.3</td>
+      <td>43.2</td>
+      <td>15.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The calculations were stored into the <code class="docutils literal notranslate"><span class="pre">DIFF</span></code> column as planned. Conducting calculation like this is extremely fast in pandas because the math operations happen in <em>vectorized</em> manner. This means that instead of looping over individual values of the DataFrame and comparing them to each other, calculating the difference happens simultaneously at all rows. You can also create new columns on-the-fly when doing the calculation (i.e. the column does not have to exist before). Furthermore, it is possible to use any kind of math algebra (e.g. subtracttion, addition, multiplication, division, exponentiation, etc.) when creating new columns. We can for example convert the Fahrenheit temperatures in the <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> column into Celsius using the formula that we have seen already many times. Let’s do that and store it in a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">9</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>18.9</td>
+      <td>18.611111</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>25.8</td>
+      <td>18.777778</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+      <td>20.222222</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160604</td>
+      <td>57.5</td>
+      <td>70.9</td>
+      <td>47.3</td>
+      <td>23.6</td>
+      <td>14.166667</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+      <td>58.3</td>
+      <td>43.2</td>
+      <td>15.1</td>
+      <td>10.777778</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="question-3-2">
+<h3>Question 3.2<a class="headerlink" href="#question-3-2" title="Link to this heading">#</a></h3>
+<p>Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_KELVIN</span></code> in our dataframe. 0 Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is: <code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">=</span> <span class="pre">C</span> <span class="pre">+</span> <span class="pre">273.15</span></code></p>
+<div class="cell tag_hide-cell tag_remove_book_cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_KELVIN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">273.15</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="selecting-and-updating-data">
+<h2>Selecting and updating data<a class="headerlink" href="#selecting-and-updating-data" title="Link to this heading">#</a></h2>
+<p>We often want to make selections from our data and only use specific rows from a DataFrame in the analysis. There are multiple ways of selecting subsets of a pandas DataFrame than can be based on e.g. specific index values or using some predefined criteria to make the selection, such as “give me all rows where values in column X are larger than zero”. Next, we will go through the most useful tricks for selecting specific rows, columns and individual values.</p>
+<section id="selecting-rows-and-columns">
+<h3>Selecting rows and columns<a class="headerlink" href="#selecting-rows-and-columns" title="Link to this heading">#</a></h3>
+<p>One common way of selecting only specific rows from your DataFrame is done via a concept of slicing. Getting a slice of data in pandas can be done in a similar manner as with normal Python lists by specifying an index range inside square brackets: <code class="docutils literal notranslate"><span class="pre">dataframe[start_index:stop_index]</span></code>. Let’s select the first five rows and assign them to a variable called <code class="docutils literal notranslate"><span class="pre">selection</span></code>. Here, we will first see how selecting the data works like you would do with “normal” Python lists, based on index values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>18.9</td>
+      <td>18.611111</td>
+      <td>291.761111</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>25.8</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+      <td>20.222222</td>
+      <td>293.372222</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160604</td>
+      <td>57.5</td>
+      <td>70.9</td>
+      <td>47.3</td>
+      <td>23.6</td>
+      <td>14.166667</td>
+      <td>287.316667</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+      <td>58.3</td>
+      <td>43.2</td>
+      <td>15.1</td>
+      <td>10.777778</td>
+      <td>283.927778</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Here we have selected the first five rows (index 0-4) using the integer index. Notice that the logic here follows how Python’s list slicing (or <code class="docutils literal notranslate"><span class="pre">range</span></code> function) works, i.e. the value on the right side of the colon (here number <code class="docutils literal notranslate"><span class="pre">5</span></code>) tells when to stop, but that value is not taken into the final selection. Hence, the syntax is <code class="docutils literal notranslate"><span class="pre">start_index:stop_index</span></code> (also additional parameter <code class="docutils literal notranslate"><span class="pre">:step</span></code> could be added here to the end).</p>
+<p>Doing selections like in the previous example can be done, but there is also a better and more flexible way of selecting data using so called <code class="docutils literal notranslate"><span class="pre">.loc</span></code> label-indexing. As the name implies, <code class="docutils literal notranslate"><span class="pre">.loc</span></code> selects data based on axis labels (row and column labels). This does not necesssarily tell much to you at this point, but <code class="docutils literal notranslate"><span class="pre">.loc</span></code> makes it possible to conduct more specific selections, such as allowing you to choose which columns are chosen when selecting a subset of rows. It also makes possible to benefit from row labels that are not necessarily sequantial numbers (as with all our examples thus far), but they can represent other objects as well, such as dates or timestamps. Hence, <code class="docutils literal notranslate"><span class="pre">.loc</span></code> can become very handy when working with timeseries data (we will learn more about this later). Let’s test the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> label-indexing by selecting temperature values from column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> using rows 0-5:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select temp column values on rows 0-5</span>
+<span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    65.5
+1    65.8
+2    68.4
+3    57.5
+4    51.4
+5    52.2
+Name: TEMP, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that in this case, we get six rows of data (index 0-5)! This happens because we are now doing the selection based on axis labels instead of normal Python-kind of indexing. It is important to notice the difference between these two approaches, as mixing the two may cause confusion,  incorrect analysis results or bugs in your code, if you do not pay attention. We recommend to use <code class="docutils literal notranslate"><span class="pre">.loc</span></code> always when possible (there are specific cases when you want to use other approaches, more about this soon). Hence, the basic syntax for <code class="docutils literal notranslate"><span class="pre">.loc</span></code> is:</p>
+<p><code class="docutils literal notranslate"><span class="pre">.loc[first_included_label:last_included_label,</span> <span class="pre">columns]</span></code></p>
+<p>By looking at the syntax, you might guess that it is also possible to select multiple columns when using <code class="docutils literal notranslate"><span class="pre">.loc</span></code>. Next, we will test this by selecting the <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> and <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code> columns from a set of rows by passing them inside a list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]]</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TEMP</th>
+      <th>TEMP_CELSIUS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65.5</td>
+      <td>18.611111</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>65.8</td>
+      <td>18.777778</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>68.4</td>
+      <td>20.222222</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>57.5</td>
+      <td>14.166667</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>51.4</td>
+      <td>10.777778</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>52.2</td>
+      <td>11.222222</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As a result, we now have a new DataFrame with two columns and 6 rows (i.e. index labels ranging from 0 to 5).</p>
+<section id="question-3-3">
+<h4>Question 3.3<a class="headerlink" href="#question-3-3" title="Link to this heading">#</a></h4>
+<p>Calculate the mean temperature (in Celsius) for the last seven days of June. Do the selection using the row index values.</p>
+<div class="cell tag_hide-cell tag_remove_book_cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">23</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span> <span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(18.253968253968257)
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="selecting-a-single-row-or-value">
+<h3>Selecting a single row or value<a class="headerlink" href="#selecting-a-single-row-or-value" title="Link to this heading">#</a></h3>
+<p>You can also select an individual row from specific position using the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> indexing. Here we select all the data values using index 4 (the 5th row):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">row</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>YEARMODA        2.016060e+07
+TEMP            5.140000e+01
+MAX             5.830000e+01
+MIN             4.320000e+01
+DIFF            1.510000e+01
+TEMP_CELSIUS    1.077778e+01
+TEMP_KELVIN     2.839278e+02
+Name: 4, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">.loc</span></code> indexing returns the values from that position as a <code class="docutils literal notranslate"><span class="pre">Series</span></code> where the indices are actually the column names of those variables. Hence, you can access the value of an individual column by referring to its index using following format (both should work):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print one attribute from the selected row</span>
+<span class="n">row</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(51.4)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Sometimes it is enough to access a single value in a DataFrame directly. In this case, we can use <code class="docutils literal notranslate"><span class="pre">.at</span></code> instead of <code class="docutils literal notranslate"><span class="pre">.loc</span></code>.
+Let’s select the temperature (column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>) on the first row (index <code class="docutils literal notranslate"><span class="pre">0</span></code>) of our DataFrame:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(65.5)
+</pre></div>
+</div>
+</div>
+</div>
+<p>As an output, we got the individual value 65.5. <code class="docutils literal notranslate"><span class="pre">.at</span></code> works only when accessing a single value, whereas the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> can be used to access both a single or multiple values at the same time. The end result when fetching a single value with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> is exactly the same. The difference between the two approaches is minimal, hence we recommend using <code class="docutils literal notranslate"><span class="pre">.loc</span></code> in all cases because it is more flexible (<code class="docutils literal notranslate"><span class="pre">.at</span></code> is slightly faster but in most cases it does not make a difference):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(65.5)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="selections-based-on-index-positions">
+<h3>Selections based on index positions<a class="headerlink" href="#selections-based-on-index-positions" title="Link to this heading">#</a></h3>
+<p>As we have learned thus far, <code class="docutils literal notranslate"><span class="pre">.loc</span></code> and <code class="docutils literal notranslate"><span class="pre">.at</span></code> are based on the <em>axis labels</em> - the names of columns and rows. For positional based indexing, pandas has an <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> which is based on <em>integer value</em> indices. With <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>, it is also possible to refer to the columns based on their index value (i.e. to a positional number of a column in the DataFrame). For example,  <code class="docutils literal notranslate"><span class="pre">data.iloc[0,0]</span></code> would return <code class="docutils literal notranslate"><span class="pre">20160601</span></code> in our example DataFrame which is the value on the first row and first column in the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the first rows</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Value at position (0,0) is&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   YEARMODA  TEMP   MAX   MIN  DIFF  TEMP_CELSIUS  TEMP_KELVIN
+0  20160601  65.5  73.6  54.7  18.9     18.611111   291.761111
+1  20160602  65.8  80.8  55.0  25.8     18.777778   291.927778
+2  20160603  68.4   NaN  55.6   NaN     20.222222   293.372222
+3  20160604  57.5  70.9  47.3  23.6     14.166667   287.316667
+4  20160605  51.4  58.3  43.2  15.1     10.777778   283.927778
+
+Value at position (0,0) is 20160601
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hence, the syntax for <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start_row_position</span><span class="p">:</span><span class="n">stop_row_position</span><span class="p">,</span>
+      <span class="n">start_column_position</span><span class="p">:</span><span class="n">stop_column_position</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>By following this syntax, we can access the value on the first row and second column (<code class="docutils literal notranslate"><span class="pre">TEMP</span></code>) by calling:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(65.5)
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is also possible to get ranges of rows and columns with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>. For example, we could select <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> and <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> columns from the first five rows based on their indices (positions) in the data. Here, we will select rows from positions 0 to 5 and columns from positions 0 to 2:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160604</td>
+      <td>57.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As a result we indeed get only two columns and the first five rows. A good thing to notice, is that with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>, the behavior in terms of how many rows are returned differs from <code class="docutils literal notranslate"><span class="pre">.loc</span></code>. Here, the <code class="docutils literal notranslate"><span class="pre">0:5</span></code> returns 5 rows (following the Python list slicing behavarior), whereas using <code class="docutils literal notranslate"><span class="pre">.loc</span></code> would return 6 rows (i.e. also including the row at index 5).</p>
+<p>One handy functionality with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> is the ability to fetch data starting from the end of the DataFrame. Hence, it is possible to retrieve the last row in the DataFrame by passing a negative number to the <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>, where value -1 corresponds to the last row (or column), -2 corresponds to the second last, and so on. Following this, it is easy to see e.g. what is the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code> value (the last column) of the last row of data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(291.8722222222222)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="selections-using-listed-criteria">
+<h3>Selections using listed criteria<a class="headerlink" href="#selections-using-listed-criteria" title="Link to this heading">#</a></h3>
+<p>One common way of selecting rows from a DataFrame is to provide a list of values that are used for finding matching rows in a specific DataFrame column. For example, selecting rows that match specific dates can be done by passing a list of values used as criteria to the <code class="docutils literal notranslate"><span class="pre">.isin()</span></code> -function of pandas. This will go through each value in the selected column (in this case <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code>) and checks whether there is a match or not. As an output, the <code class="docutils literal notranslate"><span class="pre">.isin()</span></code> command returns a Series of boolean values (True or False) which can be combined with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to do the final selection that returns only rows that meet the selection criteria.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of values that will be used as basis for selecting the rows</span>
+<span class="n">selection_criteria</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20160601</span><span class="p">,</span> <span class="mi">20160608</span><span class="p">,</span> <span class="mi">20160609</span><span class="p">]</span>
+
+<span class="c1"># Do the selection based on criteria applied to YEARMODA column</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">selection_criteria</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>18.9</td>
+      <td>18.611111</td>
+      <td>291.761111</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>20160608</td>
+      <td>54.2</td>
+      <td>NaN</td>
+      <td>47.5</td>
+      <td>NaN</td>
+      <td>12.333333</td>
+      <td>285.483333</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>20160609</td>
+      <td>49.4</td>
+      <td>54.1</td>
+      <td>45.7</td>
+      <td>8.4</td>
+      <td>9.666667</td>
+      <td>282.816667</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="conditional-selections">
+<h3>Conditional selections<a class="headerlink" href="#conditional-selections" title="Link to this heading">#</a></h3>
+<p>One really useful feature in pandas is the ability to easily filter and select rows based on a conditional statement.
+The following example shows how we check if the Celsius temperature at each row on the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code> column is higher than 15 degrees:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0      True
+1      True
+2      True
+3     False
+      ...  
+26     True
+27     True
+28     True
+29     True
+Name: TEMP_CELSIUS, Length: 30, dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a result, we get a Series of booleans, where the value <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> at each row determines whether our condition was met or not. This kind of Series or numpy.array of boolean values based on some predefined criteria is typically called a <code class="docutils literal notranslate"><span class="pre">mask</span></code>. We can take advantage of this mask when doing selections with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> based on specific criteria. In the following, we will use the same criteria, and store all rows meeting the criteria into a variable <code class="docutils literal notranslate"><span class="pre">warm_temps</span></code> (warm temperatures). We can specify the criteria directly inside the <code class="docutils literal notranslate"><span class="pre">.loc</span></code> square brackets. Next, we will select rows which have higher temperature (in Celsius) than 15 degrees:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">]</span>
+<span class="n">warm_temps</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>18.9</td>
+      <td>18.611111</td>
+      <td>291.761111</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>25.8</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+      <td>20.222222</td>
+      <td>293.372222</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>20160614</td>
+      <td>59.7</td>
+      <td>67.8</td>
+      <td>47.8</td>
+      <td>20.0</td>
+      <td>15.388889</td>
+      <td>288.538889</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>20160627</td>
+      <td>60.7</td>
+      <td>70.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>15.944444</td>
+      <td>289.094444</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>20160628</td>
+      <td>65.4</td>
+      <td>73.0</td>
+      <td>55.8</td>
+      <td>17.2</td>
+      <td>18.555556</td>
+      <td>291.705556</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>20160629</td>
+      <td>65.8</td>
+      <td>73.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>20160630</td>
+      <td>65.7</td>
+      <td>72.7</td>
+      <td>59.2</td>
+      <td>13.5</td>
+      <td>18.722222</td>
+      <td>291.872222</td>
+    </tr>
+  </tbody>
+</table>
+<p>17 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>It is also possible to combine multiple criteria at the same time. Here, we select temperatures above 15 degrees that were recorded on the second half of June in 2016 (i.e. <code class="docutils literal notranslate"><span class="pre">YEARMODA</span> <span class="pre">&gt;=</span> <span class="pre">20160615</span></code>).
+Combining multiple criteria can be done with the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator (AND) or the <code class="docutils literal notranslate"><span class="pre">|</span></code> operator (OR). Notice, that it is often useful to separate the different clauses inside the parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code>. Let’s select rows having higher temperature than 15 degrees from late June 2016 (from 15th day onwards):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20160615</span><span class="p">)]</span>
+<span class="n">warm_temps</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>14</th>
+      <td>20160615</td>
+      <td>63.4</td>
+      <td>70.3</td>
+      <td>49.3</td>
+      <td>21.0</td>
+      <td>17.444444</td>
+      <td>290.594444</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>20160617</td>
+      <td>60.4</td>
+      <td>70.7</td>
+      <td>55.9</td>
+      <td>14.8</td>
+      <td>15.777778</td>
+      <td>288.927778</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20160620</td>
+      <td>59.3</td>
+      <td>69.1</td>
+      <td>52.2</td>
+      <td>16.9</td>
+      <td>15.166667</td>
+      <td>288.316667</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>20160621</td>
+      <td>62.6</td>
+      <td>71.4</td>
+      <td>50.4</td>
+      <td>21.0</td>
+      <td>17.000000</td>
+      <td>290.150000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>20160627</td>
+      <td>60.7</td>
+      <td>70.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>15.944444</td>
+      <td>289.094444</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>20160628</td>
+      <td>65.4</td>
+      <td>73.0</td>
+      <td>55.8</td>
+      <td>17.2</td>
+      <td>18.555556</td>
+      <td>291.705556</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>20160629</td>
+      <td>65.8</td>
+      <td>73.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>20160630</td>
+      <td>65.7</td>
+      <td>72.7</td>
+      <td>59.2</td>
+      <td>13.5</td>
+      <td>18.722222</td>
+      <td>291.872222</td>
+    </tr>
+  </tbody>
+</table>
+<p>13 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>Now we have a subset of our DataFrame with only rows where the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code> is above 15 and the dates in <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column start from 15th of June. Notice, that the index values (numbers on the left) are still showing the index labels from the original DataFrame. This indicates that our result is really a slice from the original data.</p>
+<p>It is possible to reset the index using <code class="docutils literal notranslate"><span class="pre">reset_index()</span></code> function which makes the index numbering to start from 0 and increase the index values in a sequantal manner. This is often a useful operation to do, because it makes it easier then to slice the data with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> or <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>. By default the <code class="docutils literal notranslate"><span class="pre">reset_index()</span></code> would make a new column called <code class="docutils literal notranslate"><span class="pre">index</span></code> to keep track on the previous index which might be useful in some cases but here not, so we can omit that by passing parameter <code class="docutils literal notranslate"><span class="pre">drop=True</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">warm_temps</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">warm_temps</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160615</td>
+      <td>63.4</td>
+      <td>70.3</td>
+      <td>49.3</td>
+      <td>21.0</td>
+      <td>17.444444</td>
+      <td>290.594444</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160617</td>
+      <td>60.4</td>
+      <td>70.7</td>
+      <td>55.9</td>
+      <td>14.8</td>
+      <td>15.777778</td>
+      <td>288.927778</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160620</td>
+      <td>59.3</td>
+      <td>69.1</td>
+      <td>52.2</td>
+      <td>16.9</td>
+      <td>15.166667</td>
+      <td>288.316667</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160621</td>
+      <td>62.6</td>
+      <td>71.4</td>
+      <td>50.4</td>
+      <td>21.0</td>
+      <td>17.000000</td>
+      <td>290.150000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>20160627</td>
+      <td>60.7</td>
+      <td>70.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>15.944444</td>
+      <td>289.094444</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>20160628</td>
+      <td>65.4</td>
+      <td>73.0</td>
+      <td>55.8</td>
+      <td>17.2</td>
+      <td>18.555556</td>
+      <td>291.705556</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>20160629</td>
+      <td>65.8</td>
+      <td>73.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>20160630</td>
+      <td>65.7</td>
+      <td>72.7</td>
+      <td>59.2</td>
+      <td>13.5</td>
+      <td>18.722222</td>
+      <td>291.872222</td>
+    </tr>
+  </tbody>
+</table>
+<p>13 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>As can be seen, now the index values goes from 0 to 12. Resetting the index has now also <em>unlinked</em> the <code class="docutils literal notranslate"><span class="pre">warm_temps</span></code> DataFrame from the <code class="docutils literal notranslate"><span class="pre">data</span></code>, meaning that it is not a view anymore but an independent Pandas object. When making selections, it is quite typical that pandas might give you warnings if you modify the selected data without first resetting the index or taking a copy of the selected data. To demonstrate this, we will make the selection again and do a small change for the first value of the <code class="docutils literal notranslate"><span class="pre">TEMP_CELSIUS</span></code> column by updating it to 17.5. Here, we can take advantage of the <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> which makes it easy to access the first row based based on position 0:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20160615</span><span class="p">)]</span>
+<span class="n">warm_temps</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">17.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Because we modified the selection which is a slice from the original data, pandas gives us a warning about a possibly invalid value assignment. In most cases, the warning can be ignored but it is a good practice to always take a copy when doing selections, especially if you continue working with the selected data and possibly modify it further:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make the selection and take a copy</span>
+<span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20160615</span><span class="p">)</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Now update the first value of the last column</span>
+<span class="n">warm_temps</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">17.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, now we did not receive any warnings, and it would be safe to continue working with this selection without needing to worry that there are some “hidden linkages” between our DataFrames that could cause issues (we discuss more about this in the next section).</p>
+<section id="question-3-4">
+<h4>Question 3.4<a class="headerlink" href="#question-3-4" title="Link to this heading">#</a></h4>
+<p>Find the mean temperatures (in Celsius) for the last seven days of June again. This time you should select the rows based on a condition for the <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column.</p>
+<div class="cell tag_hide-cell tag_remove_book_cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20160624</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(18.253968253968257)
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="view-vs-a-copy">
+<h3>View vs a copy<a class="headerlink" href="#view-vs-a-copy" title="Link to this heading">#</a></h3>
+<p>A good thing to know when doing selections, is that the end result after making the selection can sometimes result to something called a <code class="docutils literal notranslate"><span class="pre">view</span></code>. In such cases, the selection and the original data may still linked to each other. This happens e.g. if you make a selection like above but return only a single column from the original data. In a situation where you have a view, a change in the original <em>data</em> for that specific column can also change the value in the <em>selection</em>. Without going into details why and when this happens, this behavior can nevertheless be confusing and have unexpected consequences. To avoid this behavior, a good practice to follow is to always make a copy whenever doing selections (i.e. <em>unlink</em> the two DataFrames). You can make a copy easily while doing the selection by adding a <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> at the end of the command:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">selection</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TEMP</th>
+      <th>TEMP_CELSIUS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65.5</td>
+      <td>18.611111</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>65.8</td>
+      <td>18.777778</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>68.4</td>
+      <td>20.222222</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>57.5</td>
+      <td>14.166667</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>51.4</td>
+      <td>10.777778</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>52.2</td>
+      <td>11.222222</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we have the exact same data in our end result, but we have ensured that the selection is not linked to the original data anymore. To demonstrate what can happen with the view, let’s make a selection of a single column from our data (which will be a view), and modify the data a bit to see what consequences might happen if we are not careful:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp</span> <span class="o">=</span> <span class="n">selection</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+<span class="n">temp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    65.5
+1    65.8
+2    68.4
+3    57.5
+4    51.4
+5    52.2
+Name: TEMP, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now if we make a change to our original data, i.e. <em>selection</em>, it will also influence our values in <em>temp</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">30.0</span>
+<span class="n">selection</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TEMP</th>
+      <th>TEMP_CELSIUS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>30.0</td>
+      <td>18.611111</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>65.8</td>
+      <td>18.777778</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>68.4</td>
+      <td>20.222222</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>57.5</td>
+      <td>14.166667</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>51.4</td>
+      <td>10.777778</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the values in temp (which we did not touch)</span>
+<span class="n">temp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    30.0
+1    65.8
+2    68.4
+3    57.5
+4    51.4
+5    52.2
+Name: TEMP, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, now the value in our <em>temp</em> Series changed from 65.5 to 30.0 although we did not make any change to it directly. The change happened nevertheless because the data objects were still linked to each other.</p>
+</section>
+</section>
+<section id="dealing-with-missing-data">
+<h2>Dealing with missing data<a class="headerlink" href="#dealing-with-missing-data" title="Link to this heading">#</a></h2>
+<p>As you may have noticed by now, we have several missing values for the temperature minimum, maximum, and difference columns (<code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, <code class="docutils literal notranslate"><span class="pre">DIFF</span></code>, and <code class="docutils literal notranslate"><span class="pre">DIFF_MIN</span></code>). These missing values are indicated as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (not-a-number). Having missing data in your datafile is really common situation and typically you want to deal with it somehow. Common procedures to deal with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values are to either remove them from the DataFrame or fill them with some value. In Pandas both of these options are really easy to do. Let’s first start by checking whether our data has NaN values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>14</th>
+      <td>20160615</td>
+      <td>63.4</td>
+      <td>70.3</td>
+      <td>49.3</td>
+      <td>21.0</td>
+      <td>17.444444</td>
+      <td>17.500000</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>20160617</td>
+      <td>60.4</td>
+      <td>70.7</td>
+      <td>55.9</td>
+      <td>14.8</td>
+      <td>15.777778</td>
+      <td>288.927778</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20160620</td>
+      <td>59.3</td>
+      <td>69.1</td>
+      <td>52.2</td>
+      <td>16.9</td>
+      <td>15.166667</td>
+      <td>288.316667</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>20160621</td>
+      <td>62.6</td>
+      <td>71.4</td>
+      <td>50.4</td>
+      <td>21.0</td>
+      <td>17.000000</td>
+      <td>290.150000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>20160627</td>
+      <td>60.7</td>
+      <td>70.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>15.944444</td>
+      <td>289.094444</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>20160628</td>
+      <td>65.4</td>
+      <td>73.0</td>
+      <td>55.8</td>
+      <td>17.2</td>
+      <td>18.555556</td>
+      <td>291.705556</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>20160629</td>
+      <td>65.8</td>
+      <td>73.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>20160630</td>
+      <td>65.7</td>
+      <td>72.7</td>
+      <td>59.2</td>
+      <td>13.5</td>
+      <td>18.722222</td>
+      <td>291.872222</td>
+    </tr>
+  </tbody>
+</table>
+<p>13 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>As we can see, the <code class="docutils literal notranslate"><span class="pre">MIN</span></code> and <code class="docutils literal notranslate"><span class="pre">DIFF</span></code> columns are missing values at index 26. It is also possible to confirm this with pandas by accessing a specific Series attribute called <code class="docutils literal notranslate"><span class="pre">.hasnans</span></code> which can be a handy tool especially when automating some data analysis pipelines. Each Series (i.e. column) in the DataFrame has this attribute. Let’s check if <code class="docutils literal notranslate"><span class="pre">MIN</span></code> column contains any NaNs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span><span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hasnans</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a result, you get either True or False (here True), depending on whether the Series contained any NaN values, or not. Let’s now see how we can remove the NoData values (i.e. clean the data) using the <code class="docutils literal notranslate"><span class="pre">.dropna()</span></code> function. Inside the function you can pass a list of column(s) from which the <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values should found using the <code class="docutils literal notranslate"><span class="pre">subset</span></code> parameter:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span>
+<span class="n">warm_temps_clean</span> <span class="o">=</span> <span class="n">warm_temps</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">cols_to_check</span><span class="p">)</span>
+<span class="n">warm_temps_clean</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>14</th>
+      <td>20160615</td>
+      <td>63.4</td>
+      <td>70.3</td>
+      <td>49.3</td>
+      <td>21.0</td>
+      <td>17.444444</td>
+      <td>17.500000</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>20160617</td>
+      <td>60.4</td>
+      <td>70.7</td>
+      <td>55.9</td>
+      <td>14.8</td>
+      <td>15.777778</td>
+      <td>288.927778</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20160620</td>
+      <td>59.3</td>
+      <td>69.1</td>
+      <td>52.2</td>
+      <td>16.9</td>
+      <td>15.166667</td>
+      <td>288.316667</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>20160621</td>
+      <td>62.6</td>
+      <td>71.4</td>
+      <td>50.4</td>
+      <td>21.0</td>
+      <td>17.000000</td>
+      <td>290.150000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>20160625</td>
+      <td>65.7</td>
+      <td>75.4</td>
+      <td>57.9</td>
+      <td>17.5</td>
+      <td>18.722222</td>
+      <td>291.872222</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>20160626</td>
+      <td>69.6</td>
+      <td>77.7</td>
+      <td>60.3</td>
+      <td>17.4</td>
+      <td>20.888889</td>
+      <td>294.038889</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>20160628</td>
+      <td>65.4</td>
+      <td>73.0</td>
+      <td>55.8</td>
+      <td>17.2</td>
+      <td>18.555556</td>
+      <td>291.705556</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>20160630</td>
+      <td>65.7</td>
+      <td>72.7</td>
+      <td>59.2</td>
+      <td>13.5</td>
+      <td>18.722222</td>
+      <td>291.872222</td>
+    </tr>
+  </tbody>
+</table>
+<p>11 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>As you can see by looking at the table above (and the change in index values), we now have a DataFrame without the NoData values. By doing this, you naturally loose data (rows) which might not be an optimal solution in some cases. Due to this, pandas also provides an option to fill the NoData with some value using <code class="docutils literal notranslate"><span class="pre">fillna()</span></code> function. Here, we can fill the missing values in the with value -9999. Note that we are not giving the <code class="docutils literal notranslate"><span class="pre">subset</span></code> parameter this time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>14</th>
+      <td>20160615</td>
+      <td>63.4</td>
+      <td>70.3</td>
+      <td>49.3</td>
+      <td>21.0</td>
+      <td>17.444444</td>
+      <td>17.500000</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>20160617</td>
+      <td>60.4</td>
+      <td>70.7</td>
+      <td>55.9</td>
+      <td>14.8</td>
+      <td>15.777778</td>
+      <td>288.927778</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20160620</td>
+      <td>59.3</td>
+      <td>69.1</td>
+      <td>52.2</td>
+      <td>16.9</td>
+      <td>15.166667</td>
+      <td>288.316667</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>20160621</td>
+      <td>62.6</td>
+      <td>71.4</td>
+      <td>50.4</td>
+      <td>21.0</td>
+      <td>17.000000</td>
+      <td>290.150000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>20160627</td>
+      <td>60.7</td>
+      <td>70.0</td>
+      <td>-9999.0</td>
+      <td>-9999.0</td>
+      <td>15.944444</td>
+      <td>289.094444</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>20160628</td>
+      <td>65.4</td>
+      <td>73.0</td>
+      <td>55.8</td>
+      <td>17.2</td>
+      <td>18.555556</td>
+      <td>291.705556</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>20160629</td>
+      <td>65.8</td>
+      <td>73.2</td>
+      <td>-9999.0</td>
+      <td>-9999.0</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>20160630</td>
+      <td>65.7</td>
+      <td>72.7</td>
+      <td>59.2</td>
+      <td>13.5</td>
+      <td>18.722222</td>
+      <td>291.872222</td>
+    </tr>
+  </tbody>
+</table>
+<p>13 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>As a result we now have a DataFrame where all NoData values in the whole DataFrame are filled with the value -9999. If you want to fill NaN values values of only a specific column, you can do that by targeting the <code class="docutils literal notranslate"><span class="pre">fillna</span></code> function to only a specific column (or columns):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span><span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">warm_temps</span><span class="p">[</span><span class="s2">&quot;MIN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that because we already filled every NaN in the whole DataFrame in the previous step, the command above does not change anything.</p>
+<p>It is important to be aware, that in many cases filling the data with a specific value is dangerous because you end up modifying the actual data, which might affect the results of your analysis. For example, in the case above we would have dramatically changed the temperature difference columns because the -9999 values not an actual temperature difference! Hence, use caution when filling missing values. In some cases, you might have to fill in no data values for the purposes of saving the data to file in a spesific format. For example, some GIS software don’t accept missing values. Always pay attention to potential no data values when reading in data files and doing further analysis.</p>
+</section>
+<section id="data-type-conversions">
+<h2>Data type conversions<a class="headerlink" href="#data-type-conversions" title="Link to this heading">#</a></h2>
+<p>When doing data analysis, one quite typical operation that needs to be done is to convert values in a column from one datatype to another, such as from floating point to integer. Remember, that we already did data type conversions in Chapter 1 using the built-in Python functions such as <code class="docutils literal notranslate"><span class="pre">int()</span></code> or <code class="docutils literal notranslate"><span class="pre">str()</span></code>. For values stored in pandas Series, we can use <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method. Next we will continue using the same data as previously, and convert all the temperature values (floats) in column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> to integers. Let’s start by looking our original data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    65.5
+1    65.8
+2    68.4
+3    57.5
+4    51.4
+Name: TEMP, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can easily convert those decimal numbers to integers by calling <code class="docutils literal notranslate"><span class="pre">astype(int)</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    65
+1    65
+2    68
+3    57
+4    51
+Name: TEMP, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see the values were converted to integers. However, it is important to be careful with type conversions from floating point values to integers. The conversion simply drops the stuff to the right of the decimal point, so all values are rounded down to the nearest whole number. For example, the second value in our Series (65.8) was truncated to 65 as an integer, when it clearly should be rounded up to 66. Chaining the round and type conversion functions solves this issue as the <code class="docutils literal notranslate"><span class="pre">.round(0).astype(int)</span></code> command first rounds the values with zero decimals and then converts those values into integers:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    66
+1    66
+2    68
+3    58
+4    51
+Name: TEMP, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, now the integer values are correctly rounded.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method supports converting between all basic Python data types (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>), but it also knows how to convert between more specific numpy data types, such as <code class="docutils literal notranslate"><span class="pre">int64</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, <code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code> to mention a few (see <a class="footnote-reference brackets" href="#numpydtypes" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> for a full list). Using the numpy data type can useful if you need to be more specific e.g. how many bits should be reserved for storing the values. For instance, <code class="docutils literal notranslate"><span class="pre">int64</span></code> (i.e. <em>64-bit integer</em>) can store integer values ranging between -9223372036854775808 and 9223372036854775807, whereas <code class="docutils literal notranslate"><span class="pre">int16</span></code> can only store values from -32768 to 32767. If passing the “normal” <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">float</span></code> to the <code class="docutils literal notranslate"><span class="pre">astype()</span></code> function, pandas will automatically store 64-bit numeric values. The larger bits you use, the more physical memory is required to store the data. Hence, in some specific cases e.g. when dealing with extremely large datasets, it might be useful to be able to determine that the values in specific columns are stored with lower bits (to save memory).</p>
+</section>
+<section id="sorting-data">
+<h2>Sorting data<a class="headerlink" href="#sorting-data" title="Link to this heading">#</a></h2>
+<p>Quite often it is useful to be able to sort your data (descending/ascending) based on values in some column
+This can be easily done with Pandas using <code class="docutils literal notranslate"><span class="pre">sort_values(by='YourColumnName')</span></code> -function. Let’s first sort the values on ascending order based on the <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> column:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort dataframe, ascending</span>
+<span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;TEMP&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>8</th>
+      <td>20160609</td>
+      <td>49.4</td>
+      <td>54.1</td>
+      <td>45.7</td>
+      <td>8.4</td>
+      <td>9.666667</td>
+      <td>282.816667</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>20160610</td>
+      <td>49.5</td>
+      <td>55.9</td>
+      <td>43.0</td>
+      <td>12.9</td>
+      <td>9.722222</td>
+      <td>282.872222</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+      <td>58.3</td>
+      <td>43.2</td>
+      <td>15.1</td>
+      <td>10.777778</td>
+      <td>283.927778</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>20160606</td>
+      <td>52.2</td>
+      <td>59.7</td>
+      <td>42.8</td>
+      <td>16.9</td>
+      <td>11.222222</td>
+      <td>284.372222</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>25.8</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>20160629</td>
+      <td>65.8</td>
+      <td>73.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+      <td>20.222222</td>
+      <td>293.372222</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>20160626</td>
+      <td>69.6</td>
+      <td>77.7</td>
+      <td>60.3</td>
+      <td>17.4</td>
+      <td>20.888889</td>
+      <td>294.038889</td>
+    </tr>
+  </tbody>
+</table>
+<p>30 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>Of course, it is also possible to sort them in descending order with <code class="docutils literal notranslate"><span class="pre">ascending=False</span></code> parameter:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort dataframe, descending</span>
+<span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;TEMP&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>25</th>
+      <td>20160626</td>
+      <td>69.6</td>
+      <td>77.7</td>
+      <td>60.3</td>
+      <td>17.4</td>
+      <td>20.888889</td>
+      <td>294.038889</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+      <td>20.222222</td>
+      <td>293.372222</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>25.8</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>20160629</td>
+      <td>65.8</td>
+      <td>73.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>20160606</td>
+      <td>52.2</td>
+      <td>59.7</td>
+      <td>42.8</td>
+      <td>16.9</td>
+      <td>11.222222</td>
+      <td>284.372222</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+      <td>58.3</td>
+      <td>43.2</td>
+      <td>15.1</td>
+      <td>10.777778</td>
+      <td>283.927778</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>20160610</td>
+      <td>49.5</td>
+      <td>55.9</td>
+      <td>43.0</td>
+      <td>12.9</td>
+      <td>9.722222</td>
+      <td>282.872222</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>20160609</td>
+      <td>49.4</td>
+      <td>54.1</td>
+      <td>45.7</td>
+      <td>8.4</td>
+      <td>9.666667</td>
+      <td>282.816667</td>
+    </tr>
+  </tbody>
+</table>
+<p>30 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>In some situations, you might need to sort values based on multiple columns simultaneously, which is sometimes called as multi-level sorting. This can be done by passing a list of column names to the <code class="docutils literal notranslate"><span class="pre">by</span></code> parameter. When you sort the data based on multiple columns, sometimes you also might want to sort your data in a way that the first-level sorting happens in ascending order, and the second-level sorting happens in descending order. A typical situation for this kind of sorting could be e.g. when sorting the temperatures first by weekday (Monday, Tuesday, etc.) and then under each weekday ordering the values in descending order that would always show the warmest temperature of specific week first. Let’s modify our data a bit to demonstrate this. We will add a new column that has information about the weekday. The 1st of June 2016 was Wednesday, so we start from that:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a list of weekdays that matches with our data</span>
+<span class="c1"># The data covers 4 weeks + 2 days (i.e. altogether 30 days)</span>
+<span class="n">week_days</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Sat&quot;</span><span class="p">,</span> <span class="s2">&quot;Sun&quot;</span><span class="p">,</span> <span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tue&quot;</span><span class="p">]</span>
+<span class="n">day_list</span> <span class="o">=</span> <span class="n">week_days</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">week_days</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># Add the weekdays to our DataFrame</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;WEEKDAY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">day_list</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+      <th>WEEKDAY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>18.9</td>
+      <td>18.611111</td>
+      <td>291.761111</td>
+      <td>Wed</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>25.8</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+      <td>Thu</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+      <td>20.222222</td>
+      <td>293.372222</td>
+      <td>Fri</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160604</td>
+      <td>57.5</td>
+      <td>70.9</td>
+      <td>47.3</td>
+      <td>23.6</td>
+      <td>14.166667</td>
+      <td>287.316667</td>
+      <td>Sat</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>20160627</td>
+      <td>60.7</td>
+      <td>70.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>15.944444</td>
+      <td>289.094444</td>
+      <td>Mon</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>20160628</td>
+      <td>65.4</td>
+      <td>73.0</td>
+      <td>55.8</td>
+      <td>17.2</td>
+      <td>18.555556</td>
+      <td>291.705556</td>
+      <td>Tue</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>20160629</td>
+      <td>65.8</td>
+      <td>73.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+      <td>Wed</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>20160630</td>
+      <td>65.7</td>
+      <td>72.7</td>
+      <td>59.2</td>
+      <td>13.5</td>
+      <td>18.722222</td>
+      <td>291.872222</td>
+      <td>Thu</td>
+    </tr>
+  </tbody>
+</table>
+<p>30 rows × 8 columns</p>
+</div></div></div>
+</div>
+<p>Now we have a new column with information about the weekday of each row. Next, we can test how to sort the values, so that we order the data by weekday and within each weekday the temperatures are in descending order. You can adjust how the ordering works by passing a list of boolean values to <code class="docutils literal notranslate"><span class="pre">ascending</span></code> parameter:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WEEKDAY&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+      <th>WEEKDAY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+      <td>20.222222</td>
+      <td>293.372222</td>
+      <td>Fri</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>20160624</td>
+      <td>61.1</td>
+      <td>68.9</td>
+      <td>56.7</td>
+      <td>12.2</td>
+      <td>16.166667</td>
+      <td>289.316667</td>
+      <td>Fri</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>20160617</td>
+      <td>60.4</td>
+      <td>70.7</td>
+      <td>55.9</td>
+      <td>14.8</td>
+      <td>15.777778</td>
+      <td>288.927778</td>
+      <td>Fri</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>20160610</td>
+      <td>49.5</td>
+      <td>55.9</td>
+      <td>43.0</td>
+      <td>12.9</td>
+      <td>9.722222</td>
+      <td>282.872222</td>
+      <td>Fri</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>18.9</td>
+      <td>18.611111</td>
+      <td>291.761111</td>
+      <td>Wed</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>20160615</td>
+      <td>63.4</td>
+      <td>70.3</td>
+      <td>49.3</td>
+      <td>21.0</td>
+      <td>17.444444</td>
+      <td>290.594444</td>
+      <td>Wed</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>20160622</td>
+      <td>61.7</td>
+      <td>70.2</td>
+      <td>55.4</td>
+      <td>14.8</td>
+      <td>16.500000</td>
+      <td>289.650000</td>
+      <td>Wed</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>20160608</td>
+      <td>54.2</td>
+      <td>NaN</td>
+      <td>47.5</td>
+      <td>NaN</td>
+      <td>12.333333</td>
+      <td>285.483333</td>
+      <td>Wed</td>
+    </tr>
+  </tbody>
+</table>
+<p>30 rows × 8 columns</p>
+</div></div></div>
+</div>
+<p>As a result the data is now ordered first by weekday (i.e. the same weekday values are grouped) and the within these weekdays the temperature values are always in descending order showing the warmest day first. Ordering data in this manner based on multiple criteria can sometimes be very useful when analyzing your data.</p>
+</section>
+<section id="table-joins-combining-dataframes-based-on-a-common-key">
+<h2>Table joins: Combining DataFrames based on a common key<a class="headerlink" href="#table-joins-combining-dataframes-based-on-a-common-key" title="Link to this heading">#</a></h2>
+<section id="the-basic-logic-of-a-table-join">
+<h3>The basic logic of a table join<a class="headerlink" href="#the-basic-logic-of-a-table-join" title="Link to this heading">#</a></h3>
+<p>Joining data between two or several DataFrames is a common task when doing data anaysis. The minimum requirement for being able to combine data between two (or more) DataFrames (i.e. <em>tables</em>), is to have at least one common attribute (called <em>key</em>) that has identical values in both DataFrames. Figure 3.4 illustrates this logic: we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier. The common <code class="docutils literal notranslate"><span class="pre">key</span></code> in this case is the time information which is in column <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> in the left DataFrame and <code class="docutils literal notranslate"><span class="pre">DATE</span></code> column in the right DataFrame accordingly. The column names of the keys can be different (as in our case), but the actual values stored in these columns should correspond to each other, so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example.</p>
+<p><img alt="Figure 3.4. Joining precipitation data from the right DataFrame to the left based on common key." src="../../../_images/Table_join_logic.png" /></p>
+<p><em><strong>Figure 3.4</strong>. Joining precipitation data from the right DataFrame to the left based on common key.</em></p>
+</section>
+<section id="table-join-using-pandas-merge">
+<h3>Table join using pandas <code class="docutils literal notranslate"><span class="pre">.merge()</span></code><a class="headerlink" href="#table-join-using-pandas-merge" title="Link to this heading">#</a></h3>
+<p>In the following, we first read the precipitation data from Kumpula, and then join this data with the DataFrame containing the average temperature data. Merging two DataFrames together based on a common key (or multiple keys) can be done easily with pandas using the <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> -function. The column which represents the key can be specified with parameter <code class="docutils literal notranslate"><span class="pre">on</span></code>, if the key column is identical in both DataFrames. In our case, the columns containing the common values between the DataFrames are named differently. Hence, we need to specify separately the key for the left DataFrame using parameter <code class="docutils literal notranslate"><span class="pre">left_on</span></code>, and parameter <code class="docutils literal notranslate"><span class="pre">right_on</span></code> for the right DataFrame accordingly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read precipitation data and show first rows</span>
+<span class="n">rainfall</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/2902781.csv&quot;</span><span class="p">)</span>
+<span class="n">rainfall</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>STATION</th>
+      <th>NAME</th>
+      <th>DATE</th>
+      <th>PRCP</th>
+      <th>TMAX</th>
+      <th>TMIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160601</td>
+      <td>0.00</td>
+      <td>74</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160602</td>
+      <td>0.56</td>
+      <td>81</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160603</td>
+      <td>0.00</td>
+      <td>78</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160604</td>
+      <td>0.00</td>
+      <td>71</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160605</td>
+      <td>0.01</td>
+      <td>58</td>
+      <td>43</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a table join</span>
+<span class="n">join</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">rainfall</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;DATE&quot;</span><span class="p">)</span>
+<span class="n">join</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+      <th>WEEKDAY</th>
+      <th>STATION</th>
+      <th>NAME</th>
+      <th>DATE</th>
+      <th>PRCP</th>
+      <th>TMAX</th>
+      <th>TMIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>18.9</td>
+      <td>18.611111</td>
+      <td>291.761111</td>
+      <td>Wed</td>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160601</td>
+      <td>0.00</td>
+      <td>74</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>25.8</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+      <td>Thu</td>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160602</td>
+      <td>0.56</td>
+      <td>81</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+      <td>20.222222</td>
+      <td>293.372222</td>
+      <td>Fri</td>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160603</td>
+      <td>0.00</td>
+      <td>78</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160604</td>
+      <td>57.5</td>
+      <td>70.9</td>
+      <td>47.3</td>
+      <td>23.6</td>
+      <td>14.166667</td>
+      <td>287.316667</td>
+      <td>Sat</td>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160604</td>
+      <td>0.00</td>
+      <td>71</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+      <td>58.3</td>
+      <td>43.2</td>
+      <td>15.1</td>
+      <td>10.777778</td>
+      <td>283.927778</td>
+      <td>Sun</td>
+      <td>FIE00142226</td>
+      <td>HELSINKI KUMPULA, FI</td>
+      <td>20160605</td>
+      <td>0.01</td>
+      <td>58</td>
+      <td>43</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we have merged all the information from the right DataFrame into the left one and stored the result into variable <code class="docutils literal notranslate"><span class="pre">join</span></code>. By doing this, we can e.g. analyze the relationship between the daily average temperature and precipitation, to understand whether the temperature is lower when it rains. Currently, the <code class="docutils literal notranslate"><span class="pre">join</span></code> DataFrame contains many variables that are not necessarily useful for us. To make the output more concise, a useful trick to do when joining is to limit the number of columns that will be kept from the right DataFrame. This can be done by chaining a simple column selection while doing the merge as shown next. When doing this, it is important to remember that the <code class="docutils literal notranslate"><span class="pre">key</span></code> column on the right DataFrame needs to be part of the selection for the table join to work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make another join but only keep the attribute of interest</span>
+<span class="n">join2</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">rainfall</span><span class="p">[[</span><span class="s2">&quot;DATE&quot;</span><span class="p">,</span> <span class="s2">&quot;PRCP&quot;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;DATE&quot;</span><span class="p">)</span>
+<span class="n">join2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEARMODA</th>
+      <th>TEMP</th>
+      <th>MAX</th>
+      <th>MIN</th>
+      <th>DIFF</th>
+      <th>TEMP_CELSIUS</th>
+      <th>TEMP_KELVIN</th>
+      <th>WEEKDAY</th>
+      <th>DATE</th>
+      <th>PRCP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20160601</td>
+      <td>65.5</td>
+      <td>73.6</td>
+      <td>54.7</td>
+      <td>18.9</td>
+      <td>18.611111</td>
+      <td>291.761111</td>
+      <td>Wed</td>
+      <td>20160601</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20160602</td>
+      <td>65.8</td>
+      <td>80.8</td>
+      <td>55.0</td>
+      <td>25.8</td>
+      <td>18.777778</td>
+      <td>291.927778</td>
+      <td>Thu</td>
+      <td>20160602</td>
+      <td>0.56</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20160603</td>
+      <td>68.4</td>
+      <td>NaN</td>
+      <td>55.6</td>
+      <td>NaN</td>
+      <td>20.222222</td>
+      <td>293.372222</td>
+      <td>Fri</td>
+      <td>20160603</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20160604</td>
+      <td>57.5</td>
+      <td>70.9</td>
+      <td>47.3</td>
+      <td>23.6</td>
+      <td>14.166667</td>
+      <td>287.316667</td>
+      <td>Sat</td>
+      <td>20160604</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20160605</td>
+      <td>51.4</td>
+      <td>58.3</td>
+      <td>43.2</td>
+      <td>15.1</td>
+      <td>10.777778</td>
+      <td>283.927778</td>
+      <td>Sun</td>
+      <td>20160605</td>
+      <td>0.01</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As can be seen, now only the column <code class="docutils literal notranslate"><span class="pre">DATE</span></code> and the attribute of interest <code class="docutils literal notranslate"><span class="pre">PRCP</span></code> were joined and kept in the output from the right DataFrame. Similar trick can also be applied to the left DataFrame by adding the selection before the <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> call if you want to reduce the number of columns on the result.</p>
+<p>In our case, doing the table join was fairly straightforward because we had only one unique record per day in both DataFrames. However, in some cases you might have multiple records on either one of the DataFrames (e.g. hourly observations vs daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled e.g. by aggregating the hourly data to a daily average. You can learn more about these aggregation techniques in the following sections.</p>
+</section>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="numpydtypes" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://numpy.org/doc/stable/user/basics.types.html">https://numpy.org/doc/stable/user/basics.types.html</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="00-pandas-basics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Getting started with data analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02-data-analysis.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data wrangling, grouping and aggregation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-calculations">Basic calculations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-2">Question 3.2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-and-updating-data">Selecting and updating data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-rows-and-columns">Selecting rows and columns</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-3">Question 3.3</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-a-single-row-or-value">Selecting a single row or value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selections-based-on-index-positions">Selections based on index positions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selections-using-listed-criteria">Selections using listed criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-selections">Conditional selections</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-4">Question 3.4</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-vs-a-copy">View vs a copy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-missing-data">Dealing with missing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-type-conversions">Data type conversions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-data">Sorting data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-joins-combining-dataframes-based-on-a-common-key">Table joins: Combining DataFrames based on a common key</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-logic-of-a-table-join">The basic logic of a table join</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table-join-using-pandas-merge">Table join using pandas <code class="docutils literal notranslate"><span class="pre">.merge()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
