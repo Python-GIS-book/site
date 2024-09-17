@@ -120,7 +120,7 @@ station_names[-1]
 station_names[-4]
 ```
 
-Yes, in Python you can go backwards through lists by using negative index values. Index `-1` gives the last value in the list and index `-len(station_names)` would give the first. Of course, you still need to keep the index values within their ranges. What happens if you check the value at index `-5`?
+Yes, in Python you can go backwards through lists by using negative index values. Index `-1` gives the last value in the list and index `-len(list)` would give the first. Of course, you still need to keep the index values within their ranges. What happens if you check the value at index `-5`?
 
 ```python tags=["raises-exception"]
 station_names[-5]
@@ -248,7 +248,7 @@ In addition to the `del` statement, there are two other common approaches for re
 - `demo_list.pop(index)`: Will remove the item at index `index` from the list `demo_list`
 
 
-If we would instead like to add a few more stations to the `station_names` list, we can type `station_names.append('List item to add')`, where `'List item to add'` would be the text that would be added as a new item in the list in this example. Let's add two values to our `list`: `'Helsinki lighthouse'` and `'Helsinki Malmi airfield'` and check the list contents after this.
+If we would instead like to add a few more stations to the `station_names` list, we can type `station_names.append('List item to add')`, where `'List item to add'` would be the text, for example, that would be added as a new item in the list. Let's add two values to our `list`: `'Helsinki lighthouse'` and `'Helsinki Malmi airfield'` and check the list contents after this.
 
 ```python
 station_names.append("Helsinki lighthouse")

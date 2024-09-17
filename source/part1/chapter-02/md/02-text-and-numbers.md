@@ -27,6 +27,10 @@ In the following, we show how we can combine the `station_name` text, the `stati
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
+# Station information
+station_name = "Helsinki Kaivopuisto"
+station_id = 132310
+
 # An example temperature with many decimals
 temp = 18.56789876
 
@@ -136,7 +140,7 @@ Now we have accessed and stored all the characters starting from position index 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Replacing text in strings
 
-Currently in the processed text, the word `Helsinki` is repeated multiple times before the station names. We can easily remove this word by replacing the word `Helsinki` with an empty string (`""`), which will basically delete this word from the text. We can accomplish this by using a method called `.replace()` which takes an original word as the first argument and a replacement word (or character(s)) as the second argument.
+Currently in the processed text, the word `Helsinki` is repeated multiple times before the station names. We can easily remove this word by replacing the word `Helsinki` with an empty string (`""`), which will basically delete this word from the text. We can accomplish this by using a method called `.replace()` which takes an original word as the first argument and a replacement word (or character(s)) as the second argument. Note here that we also include the space after "Helsinki" in the text that will be replaced.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
