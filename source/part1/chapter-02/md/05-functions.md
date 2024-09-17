@@ -108,6 +108,7 @@ Your task here is to create a new function called `celsius_to_newton()` that (1)
 ```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""} black=false
 # Solution
 
+
 def celsius_to_newton(temp_celsius):
     return temp_celsius * 0.33
 ```
