@@ -57,7 +57,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add docs
+          git add .
           git commit -m "GA build of book HTML" --allow-empty
       - name: Push changes
         uses: ad-m/github-push-action@master
