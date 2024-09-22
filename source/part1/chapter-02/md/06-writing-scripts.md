@@ -50,7 +50,7 @@ def celsius_to_fahr(temp_celsius):
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Saving a text file as a Python file
+## Saving a Python file
 
 As it turns out, Python scripts are just regular text files with the `.py` file extension to identify them as source code for Python. By default, new Python files in JupyterLab will have the name `untitled.py`. You can rename the file by right clicking on the `untitled.py` file in the file browser and renaming it `temp_converter.py`.
 
