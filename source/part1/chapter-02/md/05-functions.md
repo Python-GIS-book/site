@@ -27,12 +27,12 @@ A *{term}`function`* is a block of organized, reusable code that can make your p
 
 Let's consider the task from the first section of this chapter when we converted temperatures from degrees Celsius to Fahrenheit.
 Such an operation is a fairly common task when dealing with temperature data.
-Thus, we might need to repeat such calculations quite often when analyzing or comparing weather or climate data between the US and Europe, for example.
+Thus, we might need to repeat such calculations frequently when analyzing or comparing weather or climate data between the US and Europe, for example.
 
 
 ### Creating a first function
 
-Let's define our first function called `celsius_to_fahr`. Figure 2.4 explains the main elements of a function.
+Let's define our first function called `celsius_to_fahr()`. Figure 2.4 explains the main elements of a function.
 
 ```python
 def celsius_to_fahr(temp):
@@ -48,7 +48,7 @@ The body of the function — the statements that are executed when it runs — i
 
 When we call a function, the values we pass to it are assigned to the corresponding parameter variables so that we can use them inside the function (e.g., the variable `temp` in this function example).
 Inside the function, we can use a `return` statement to define the value that should be given back when the function is used or called.
-Note that using a `return` statement in functions is recommended, but not required.
+Note that using a `return` statement in functions is recommended but not required.
 
 
 ### Calling a function
@@ -72,11 +72,13 @@ We can do the same thing with the boiling point of water in degrees Celsius (100
 print(f"The boiling point of water in Fahrenheit is: {celsius_to_fahr(100)}")
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Creating another function
 
-Now that we know how to create a function to convert degrees Celsius to Fahrenheit, let’s create another function called `kelvins_to_celsius`. We can define this just like we did with our `celsius_to_fahr()` function, noting that the temperature in degrees Celsius is just the temperature in Kelvins minus 273.15. Just to avoid confusion this time, let's call the temperature variable used in the function `temp_kelvins`.
+Now that we know how to create a function to convert degrees Celsius to Fahrenheit, let’s create another function called `kelvins_to_celsius()`. We can define this just like we did with our `celsius_to_fahr()` function, noting that the temperature in degrees Celsius is just the temperature in Kelvins minus 273.15. Just to avoid confusion this time, let's call the temperature variable used in the function `temp_kelvins`.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 def kelvins_to_celsius(temp_kelvins):
     return temp_kelvins - 273.15
 ```
@@ -96,14 +98,14 @@ print(f"Absolute zero in Celsius is: {absolute_zero}")
 
 Isaac Newton developed [a scale for measuring temperatures](https://en.wikipedia.org/wiki/Newton_scale) that was a precursor to the modern-day Celsius scale. In his system, water would freeze at 0 °N and boil at 33 °N (°N here indicates degrees Newton, not degrees north :D). Although it is difficult to directly convert between the two scales, if we assume that the increments of temperature change are equal between 0 °N and 33 °N we can come up with a temperature conversion equation between degrees Celsius and degrees Newton: $T_{\mathrm{Newton}} = T_{\mathrm{Celsius}} * 0.33$.
 
-Your task here is to create a new function called `celsius_to_newton` that (1) has one parameter that is the temperature in degrees Celsius to be converted to degrees Newton and (2) returns the temperature in degrees Newton.
+Your task here is to create a new function called `celsius_to_newton()` that (1) has one parameter that is the temperature in degrees Celsius to be converted to degrees Newton and (2) returns the temperature in degrees Newton.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"]
+```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""} black=false
 # Solution
 
 
@@ -111,11 +113,13 @@ def celsius_to_newton(temp_celsius):
     return temp_celsius * 0.33
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Functions within a function
 
 What about converting Kelvins to Fahrenheit?
-We could write out a new formula for it, but we don’t need to.
-Instead, we can do the conversion using the two functions we have already created and calling those from the new function we will now create. Let's create a function `kelvins_to_fahr` that takes the temperature in Kelvins as the parameter value `temp_kelvins` and uses our `kelvins_to_celsius` and `celsius_to_fahr` functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.
+We could write out a new formula for it but we don’t need to.
+Instead, we can do the conversion using the two functions we have already created and calling those from the new function we will now create. Let's create a function `kelvins_to_fahr()` that takes the temperature in Kelvins as the parameter value `temp_kelvins` and uses our `kelvins_to_celsius()` and `celsius_to_fahr()` functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.
+<!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 def kelvins_to_fahr(temp_kelvins):
@@ -162,13 +166,13 @@ As you can see, when we assign the function output to the variable `output` the 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Functions with multiple parameters
 
-In the function examples we have seen so far we have created functions with only a single parameter. Of course, it is possible to have several parameters used in functions, and functions with multiple parameters are quite common in many Python libraries.
+In the function examples we have seen so far we have created functions with only a single parameter. Of course, it is possible to have several parameters used in functions. In fact, functions with multiple parameters are quite common in many Python libraries.
 
-Let's imagine a situation: You're preparing for a visit to the United States, but are unfamiliar with temperatures in Fahrenheit. A friend from the northern US suggested a temperature of 68 degrees Fahrenheit is ideal for comfort and normally you are comfortable within a range of 5 degrees above or below such a comfortable temperature. To deal with your situation you would like create a new function called `temp_in_comfort_range()`, which:
+Let's imagine a situation: You're preparing for a visit to the United States, but are unfamiliar with temperatures in Fahrenheit. A friend from the northern US suggested a temperature of 68 degrees Fahrenheit is ideal for comfort and normally you are comfortable within a range of about 5 degrees above or below such a comfortable temperature. To deal with your situation you would like create a new function called `temp_in_comfort_range()`, which:
 
 1. Takes a temperature in degrees Celsius as an input (`temp_celsius`)
 2. Converts the temperatures to degrees Fahrenheit
-3. Checks to see whether the converted temperature is within the specified temperature range (`temp_fahr_ideal` ± `temp_fahr_range`)
+3. Checks to see whether the converted temperature is within the specified temperature range `temp_fahr_ideal` ± `temp_fahr_range`
 5. Returns a Boolean value resulting from the comparison
 
 The function we describe looks similar to some of those we have used earlier but with a bit more complexity. Let's look at the function, test it, and then explore how it works.
@@ -192,7 +196,7 @@ temp_in_comfort_range(21.0, 68.0, 5.0)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, 21 degrees Celsius would also be considered a comfortable temperature in the US!. However, you may notice that when we have multiple parameters it is easy to confuse what they represent. In such a case, it can be helpful to include the names of the parameters to be clearer.
+As we can see, 21 degrees Celsius would also be considered a comfortable temperature in the US!. However, you may notice that when we have multiple parameters it is easy to confuse what they represent. In such a case, it can be helpful to include the names of the parameters, as we have seen earlier.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -206,7 +210,7 @@ This does exactly the same thing as the first test of the `temp_in_comfort_range
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Required and optional parameters
 
-When using Python functions it is possible to design them such that not all parameters need to be specified to use the function. In such cases, default values will be used when no parameter value is given. In our `temp_in_comfort_range()` function definition we have provided default values for two parameters: `temp_fahr_ideal=68.0` and `temp_fahr_range=5.0`. Thus, a user could test whether a given temperature in Celsius is with the default temperature range in Fahrenheit (68.0 ± 5.0) by specifying only a single parameter value when using the `temp_in_comfort_range()` function, as shown below.
+When creating Python functions it is possible to design them such that not all parameters need to be specified to use the function. In such cases, default values will be used when no parameter value is given. In our `temp_in_comfort_range()` function definition we have provided default values for two parameters: `temp_fahr_ideal=68.0` and `temp_fahr_range=5.0`. Thus, a user could test whether a given temperature in Celsius is with the default temperature range in Fahrenheit (68.0 ± 5.0) by specifying only a single parameter value when using the `temp_in_comfort_range()` function, as shown below.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -221,14 +225,17 @@ In this case, the function still works because `temp_fahr_ideal` and `temp_fahr_
 temp_in_comfort_range()
 ```
 
-In this case we see a `TypeError` is raised because the parameter `temp_celsius` must be specified in order to use the `temp_in_comfort_range()` function. In such a situation, `temp_celsius` is a *{term}`required function parameter <required parameter>`* and must be given in order to use the function because no default value was assigned to `temp_celsius` when the function was defined. Required parameters can be used to ensure that required information for functions is always provided when they are used. When defining functions with both required and optional parameters, required (or positional) parameters must be listed before optional parameters in the function definition.
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+In this case we see a `TypeError` is raised because the parameter `temp_celsius` must be specified in order to use the `temp_in_comfort_range()` function. In this case, `temp_celsius` is a *{term}`required function parameter <required parameter>`* and must be given in order to use the function because no default value was assigned to `temp_celsius` when the function was defined. Required parameters can be used to ensure that required information for functions is always provided when they are used. When defining functions with both required and optional parameters, required (or positional) parameters must be listed before optional parameters in the function definition.
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Functions with multiple return values
 
 Although functions often return a single value it is possible to return multiple values in a single `return` statement in a function. Imagine that in addition to knowing whether a given Celsius temperature is within the comfortable range of Fahrenheit temperatures we would also like to know what the value of the converted temperature was so we can get familiar with comfortable temperatures in Fahrenheit. We can modify our `temp_in_comfort_range()` function to do just that by modifying the `return` statement.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 def temp_in_comfort_range(temp_celsius, temp_fahr_ideal=68.0, temp_fahr_range=5.0):
     temp_fahr = celsius_to_fahr(temp_celsius)
     temp_fahr_min = temp_fahr_ideal - temp_fahr_range
@@ -267,8 +274,8 @@ in_range, fahr_temp = temp_in_comfort_range(27.0)
 type(in_range)
 ```
 
-```python
-type(celsius_temp)
+```python editable=true slideshow={"slide_type": ""}
+type(fahr_temp)
 ```
 
 As we can see, this way the multiple values returned from the `temp_in_comfort_range()` function are assigned with their original data type to the listed variables when the function is called.
@@ -276,7 +283,7 @@ As we can see, this way the multiple values returned from the `temp_in_comfort_r
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Variables inside functions
 
-A common point of confusion for new programmers is understanding how variable names in functions relate to those defined elsewhere in their code (or your notebooks).
+A common point of confusion for new programmers is understanding how variable names in functions relate to those defined elsewhere in their code (or notebooks).
 When defining a function, the variable names given in the function definition exist and will only be used when the function is called.
 That might seem confusing, but as it turns out this is an excellent feature in Python that can save you from much suffering.
 Let's try to understand this by way of an example.
@@ -284,7 +291,7 @@ Let's try to understand this by way of an example.
 Let us define modified version of our `kelvins_to_celsius` function where the parameter value is still called `temp_kelvins`, but we now store the converted temperature as temp_celsius first and return that value.
 <!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 def kelvins_to_celsius(temp_kelvins):
     temp_celsius = temp_kelvins - 273.15
     return temp_celsius
@@ -292,11 +299,11 @@ def kelvins_to_celsius(temp_kelvins):
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 So, we have defined our function to accept `temp_kelvins` as its only parameter, calculate `temp_celsius`, and return that value.
-As you will see below, the variables defined in the function exist only in its *namespace*.
+As you will see below, the variables defined in the function exist only in its *{term}`namespace`*.
 Let's confirm that by printing each out.
 <!-- #endregion -->
 
-```python tags=["raises-exception"]
+```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
 temp_kelvins
 ```
 
@@ -305,13 +312,13 @@ temp_celsius
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Here, in the *global namespace* we get a `NameError` when trying to access the variables `temp_kelvins` and `temp_celsius` because they have only been defined within the scope of the `kelvins_to_celsius()` function.
+Here, in the global namespace we get a `NameError` when trying to access the variables `temp_kelvins` and `temp_celsius` because they have only been defined within the scope of the `kelvins_to_celsius()` function.
 
 Perhaps, however, you are thinking that we have not yet called the function, so that is why we get a `NameError`. Maybe if we use the function, then these variable values will be defined.
 Let's try that and print out `temp_kelvins` once again.
 <!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 kelvins_to_celsius(temp_kelvins=293.15)
 ```
 
@@ -319,14 +326,16 @@ kelvins_to_celsius(temp_kelvins=293.15)
 temp_kelvins
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 As you can see `temp_kelvins` is still not defined in the global namespace, where values such as `freezing_point` have been defined.
 
 Why does Python work this way?
 Well, as it turns out, the benefit of having a separate namespace for functions is that we can define a variable in the global namespace, such as `temp_kelvins` and not need to worry about its name within a function, or the use of a function changing its value.
 Inside the function, the value that is passed will be known as `temp_kelvins`, but modifying that value will not alter a variable of the same name in the global namespace.
 Let's have a look at another example using a modified `kelvins_to_celsius()` function we can call `kelvins_to_celsius2()`.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 def kelvins_to_celsius2(temperature):
     temperature = temperature - 273.15
     return temperature
@@ -356,13 +365,13 @@ As you can see, the value of the variable `temperature` in the global namespace 
 Although there is a variable inside that function with the same name as the value in the global namespace, using the function assigns the value of `temperature` inside the function and manipulates that value only inside the function.
 
 It is important to be aware that it is possible to access variable values that have been defined in the global namespace from within functions, even if the value has not been passed to the function.
-This is because Python will search for variables defined with a given name first inside the function, and then outside the function (the search domain is known as the variable's *scope*).
+This is because Python will search for variables defined with a given name first inside the function, and then outside the function (the search domain is known as the variable's *{term}`scope`*).
 If such a value is found then it can be used by the function, which could be dangerous!
 
 Let's look at an example of behavior in a function that may be unexpected. Here we can define a third version of the `kelvins_to_celsius()` function that we can call `kelvins_to_celsius3()`.
 <!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 def kelvins_to_celsius3(temp):
     temp = temperature - 273.15
     return temp
@@ -378,13 +387,13 @@ Although `temperature` was not passed to `kelvins_to_celsius3()` it is defined i
 Since `temperature = 303.15` we get a value of 30.0 returned when using `kelvins_to_celsius3()`.
 Conclusion: Be careful!
 
-For those who are interested, more information about namespaces and variables scopes can be found on the [Real Python website](https://realpython.com/python-namespaces-scope/).
+More information about namespaces and variables scopes can be found, for example, on the [Real Python website](https://realpython.com/python-namespaces-scope/) [^namespace].
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Documenting functions with docstrings
 
-A documentation string, or a *{term}`docstring`* is a block of text that describes what a specific function, library, or script does and how to use it. Surprise surprise, PEP 8 contains [more guidance about documentation strings](https://www.python.org/dev/peps/pep-0008/#documentation-strings) [^pep8_docstring], and docstrings even have [their own guide page](https://www.python.org/dev/peps/pep-0257/) [^pep257]. Let's look an an example from our of our functions above.
+A documentation string, or *{term}`docstring`*, is a block of text that describes what a specific function, library, or script does and how to use it. Although the format of docstrings can vary, there are certain elements of a docstring that are needed for it to function properly. Let's look at an example using one of our functions created earlier in this section.
 
 ```python
 def kelvins_to_celsius(temp_kelvins):
@@ -392,13 +401,13 @@ def kelvins_to_celsius(temp_kelvins):
     return temp_kelvins - 273.15
 ```
 
-Here you can see a short bit of text explaining in simple language what this function does. In this case our function is quite simple, but the docstring still helps remove uncertainty about what it can be used to do. So, what can we see in this example?
+Here you can see a short bit of text explaining in clear language what this function does. In this case our function is quite simple, but the docstring still helps remove uncertainty about what it can be used to do. So, what can we see in this example?
 
 - A docstring is always the first statement in a module or a function.
-- Docstrings are written using `"""triple double quotation marks"""`.
-- Short docstrings [can be written on a single line](https://www.python.org/dev/peps/pep-0257/#one-line-docstrings) [^pep257_one_line].
+- Docstrings are enclosed in `"""triple double quotation marks"""`.
+- Short docstrings [can be written on a single line](https://peps.python.org/pep-0257/#one-line-docstrings) [^pep257_one_line].
 
-Seems simple enough, right? We can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let's expand the docstring above to provide more information about this function.
+Seems simple enough, right? However, we can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let's expand the docstring above to provide more information about this function.
 
 ```python
 def kelvins_to_celsius(temp_kelvins):
@@ -418,12 +427,15 @@ def kelvins_to_celsius(temp_kelvins):
     return temp_kelvins - 273.15
 ```
 
-Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format is to have the quotation marks on their own separate lines.
+Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format with multiple lines in a docstring is to have the quotation marks on their own separate lines.
+
+Additional information about formatting docstrings can be found in the [Python style guide PEP 8](https://peps.python.org/pep-0008/#documentation-strings) [^pep8_docstring] and the [docstring convention guide PEP 257](https://peps.python.org/pep-0257/) [^pep257]. 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
+[^namespace]: <https://realpython.com/python-namespaces-scope/>
 [^pep8_docstring]: <https://www.python.org/dev/peps/pep-0008/#documentation-strings>
 [^pep257]: <https://www.python.org/dev/peps/pep-0257/>
 [^pep257_one_line]: <https://www.python.org/dev/peps/pep-0257/#one-line-docstrings>
