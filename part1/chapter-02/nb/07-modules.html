@@ -514,9 +514,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-available-functions-and-modules">Checking available functions and modules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-i-not-do">What should I not do?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-avoid">Things to avoid</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-x-import">from X import *</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poor-names-when-renaming-on-import">Poor names when renaming on import</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-modules-within-notebook-or-script-files">Importing modules within notebook or script files</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
@@ -533,11 +534,11 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="loading-and-using-modules">
 <h1>Loading and using modules<a class="headerlink" href="#loading-and-using-modules" title="Link to this heading">#</a></h1>
-<p>In this section we provide some additional background on loading and using <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Module"><span class="xref std std-term">modules</span></a></em> in Python. Modules are not much different from the Python script files produced in the previous section, but there are many Python modules that are freely available and this is one of the best things about using Python. You can find modules to do <em>many</em> common programming tasks in Python!</p>
+<p>In this section we provide some additional background on loading and using <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Module"><span class="xref std std-term">modules</span></a></em> in Python. Modules are actually not much different from the Python script files produced in the previous section, and there are many Python modules that are freely available. This is one of the best things about using Python; you can find modules to do <em>many</em> common programming tasks in Python!</p>
 <section id="modules-packages-and-libraries">
 <h2>Modules, packages and libraries?<a class="headerlink" href="#modules-packages-and-libraries" title="Link to this heading">#</a></h2>
 <p>A Python <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Module"><span class="xref std std-term">module</span></a></em> <a class="footnote-reference brackets" href="#module" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> refers to a piece of Python code that is designed to execute a specific task. Technically, modules are simply Python script files (with the file extension <code class="docutils literal notranslate"><span class="pre">.py</span></code>) that contain function definitions and other statements. <a class="reference external" href="https://docs.python.org/3/tutorial/modules.html#packages">Python packages</a> <a class="footnote-reference brackets" href="#package" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> are a way of organizing modules into larger entities.</p>
-<p>Modules and packages are similar to what are more generally called libraries in programming languages, which again contain code related to specific tasks such as mathematical operations. There are a <em>HUGE</em> number of Python modules/packages, and many of them greatly extend what can be done in a normal Python program. In fact, the abundance of free Python modules is one of the best reasons to learn and start using Python.</p>
+<p>Modules and packages are similar to what are more generally called libraries in programming languages, which again contain code related to specific tasks such as mathematical operations. There are a huge number of Python modules/packages, and many of them greatly extend what can be done in a normal Python program. In fact, the abundance of free Python modules is one of the best reasons to learn and start using Python.</p>
 <p>The words “module”, “package” and “<em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Library"><span class="xref std std-term">library</span></a></em>” are often used interchangeably.</p>
 </section>
 <section id="loading-modules">
@@ -615,7 +616,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Here, we imported the <code class="docutils literal notranslate"><span class="pre">math</span></code> module with the name <code class="docutils literal notranslate"><span class="pre">m</span></code> instead of <code class="docutils literal notranslate"><span class="pre">math</span></code>. We will see other examples later in the course where using an alternate name is rather useful. For example, in the next chapter we will start using the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library for data analysis. It is customary to import pandas as <code class="docutils literal notranslate"><span class="pre">pd</span></code>.</p>
+<p>Here, we imported the <code class="docutils literal notranslate"><span class="pre">math</span></code> module with the name <code class="docutils literal notranslate"><span class="pre">m</span></code> instead of <code class="docutils literal notranslate"><span class="pre">math</span></code>. We will see other examples later in the first part of this book where using an alternate name is rather useful. For example, in the next chapter we will start using the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library for data analysis. It is customary to import pandas as <code class="docutils literal notranslate"><span class="pre">pd</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -646,34 +647,39 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Though this can be useful, it has the drawback that <strong>the imported function could conflict with other built-in or imported function names</strong>, and you lose the information about which module contains the imported function. You should only do this when you truly need to.</p>
+<p>Though this can be useful, it has two major drawbacks: (1) the imported function could conflict with other built-in or imported function names, and (2) you lose the information about which module contains the imported function. Thus, you should only do this when you truly need to.</p>
 </section>
 <section id="importing-a-submodule">
 <h3>Importing a submodule<a class="headerlink" href="#importing-a-submodule" title="Link to this heading">#</a></h3>
-<p>Some modules have submodules that can also be imported without importing the entire module. We may see examples of this later when making data plots using the pyplot sub-module from the <a class="reference external" href="http://matplotlib.org/">Matplotlib module</a> <a class="footnote-reference brackets" href="#matplotlib" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>. In case you’re curious, here is an example.</p>
+<p>Some modules have submodules that can also be imported without importing the entire module. We will see examples of this in later chapters in this book when making data plots using the <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> submodule from the <a class="reference external" href="http://matplotlib.org/">Matplotlib module</a> <a class="footnote-reference brackets" href="#matplotlib" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>. In case you’re already curious, here is an example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot a simple x y line graph with the default settings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot a simple x y line graph with the default plot settings</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x1538a49b0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x143671730&gt;]
 </pre></div>
 </div>
 <img alt="../../../_images/fe6da46c44937aac21c9c9a3ccd2f97dee05b50db5024f3575fcbfeb49486e32.png" src="../../../_images/fe6da46c44937aac21c9c9a3ccd2f97dee05b50db5024f3575fcbfeb49486e32.png" />
 </div>
 </div>
 <p><em><strong>Figure 2.9</strong>. Example plot using the Matplotlib module.</em></p>
-<p>You can read more about the <code class="docutils literal notranslate"><span class="pre">plot</span></code> plotting function in the <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html">matplotlib pyplot documentation</a> <a class="footnote-reference brackets" href="#matplotdocs" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>. We will introduce matplotlib in detail in Chapter 3.</p>
+<p>You can read more about the <code class="docutils literal notranslate"><span class="pre">plot</span></code> plotting function in the <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html">Matplotlib pyplot documentation</a> <a class="footnote-reference brackets" href="#matplotdocs" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>. We will introduce Matplotlib in more detail in Chapter 4.</p>
 </section>
 </section>
 <section id="checking-available-functions-and-modules">
@@ -694,10 +700,10 @@ document.write(`
 <span class="o">...</span> <span class="p">(</span><span class="n">output</span> <span class="n">truncated</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In Jupyter notebooks you can also browse the available modules by typing in <code class="docutils literal notranslate"><span class="pre">modulename.</span></code> and then pressing the tab key:</p>
+<p>In Jupyter notebooks you can also browse the available modules by typing in <code class="docutils literal notranslate"><span class="pre">modulename.</span></code> and then pressing the <strong>tab</strong> key:</p>
 <p><img alt="Figure 2.10. Listing functions in the math module in JupyterLab." src="../../../_images/view_module_functions.png" /></p>
 <p><em><strong>Figure 2.10</strong>. Listing functions in the math module in JupyterLab.</em></p>
-<p>So that’s helpful, but what about when you don’t know what a given function does? The easiest solution is to use the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function (after importing the module). Let’s have a look at the help for the <code class="docutils literal notranslate"><span class="pre">math.sin()</span></code> function. Note that we do not include the parentheses for the target function when using the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function.</p>
+<p>This may be quite helpful, but what about when you don’t know what a given function does? The easiest solution is to use the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function (after importing the module). Let’s have a look at the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function output for the <code class="docutils literal notranslate"><span class="pre">math.sin()</span></code> function. Note that we do not include the parentheses for the target function when using the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">)</span>
@@ -713,7 +719,7 @@ sin(x, /)
 </div>
 </div>
 </div>
-<p>Another possible issue is that you may not know which modules are available for use in your Jupyter Notebook. In this case you can type <code class="docutils literal notranslate"><span class="pre">help(&quot;modules&quot;)</span></code> to see the complete list of installed Python packages. Be aware that although this works, the output can be a bit clumsy and hard to read. In addition, note that when running this command you may first see several warnings related to deprecated packages, etc.</p>
+<p>Another possible issue is that you may not know which modules are available for use in your Python environment. In this case you can type <code class="docutils literal notranslate"><span class="pre">help(&quot;modules&quot;)</span></code> to see the complete list of installed Python packages. Be aware that although this works, the output can be a bit clumsy and hard to read. In addition, note that you may first see several warnings related to deprecated packages, etc. when running this command.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">help</span><span class="p">(</span><span class="s2">&quot;modules&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -730,17 +736,20 @@ __future__          cligj               linkify_it          rvlib
 </pre></div>
 </div>
 </section>
-<section id="what-should-i-not-do">
-<h2>What should I not do?<a class="headerlink" href="#what-should-i-not-do" title="Link to this heading">#</a></h2>
-<p>Modules are very useful in Python, but there are a few things to avoid.</p>
+<section id="things-to-avoid">
+<h2>Things to avoid<a class="headerlink" href="#things-to-avoid" title="Link to this heading">#</a></h2>
+<p>Modules are very useful in Python, but there are a few things you should not do.</p>
 <section id="from-x-import">
 <h3>from X import *<a class="headerlink" href="#from-x-import" title="Link to this heading">#</a></h3>
-<p>Don’t use <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code>. This may be easier to understand by way of an example, but assuming <code class="docutils literal notranslate"><span class="pre">X</span></code> above is a Python module, <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code> will import all of the functions in module X. Though you might think this is helpful, it is much better to simply <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">X</span></code> or <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">X</span> <span class="pre">as</span> <span class="pre">Y</span></code> to keep the connection between the functions and their module. It is also much more likely you will encounter conflicting names when using <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code>.</p>
+<p>Do not import functions using <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code>. This may be easier to understand by way of an example, but assuming <code class="docutils literal notranslate"><span class="pre">X</span></code> above is a Python module, <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code> will import all of the functions in module X. Though you might think this is helpful, it is much better to simply <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">X</span></code> or <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">X</span> <span class="pre">as</span> <span class="pre">Y</span></code> to maintain the connection between the functions and their module. It is also much more likely you will encounter conflicting function names when using <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code>.</p>
 </section>
 <section id="poor-names-when-renaming-on-import">
 <h3>Poor names when renaming on import<a class="headerlink" href="#poor-names-when-renaming-on-import" title="Link to this heading">#</a></h3>
-<p>Don’t use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code> is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">m</span></code> could be confusing, especially if we used <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span> <span class="pre">as</span> <span class="pre">m</span></code> above, and might do so in other Jupyter notebooks or script files. Similarly, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">math</span></code> is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.</p>
-<p>According to the good coding practices described in <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#imports">PEP 8</a> <a class="footnote-reference brackets" href="#pep8" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>, we should always import modules at the top of the file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import requried modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.</p>
+<p>Do not use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code> is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">m</span></code> could be confusing, especially if we used <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span> <span class="pre">as</span> <span class="pre">m</span></code> above and might do so in other Jupyter notebooks or script files. Similarly, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">math</span></code> is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.</p>
+</section>
+<section id="importing-modules-within-notebook-or-script-files">
+<h3>Importing modules within notebook or script files<a class="headerlink" href="#importing-modules-within-notebook-or-script-files" title="Link to this heading">#</a></h3>
+<p>According to the good coding practices described in <a class="reference external" href="https://peps.python.org/pep-0008/#imports">PEP 8</a> <a class="footnote-reference brackets" href="#pep8" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>, we should always import modules at the top of a file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import required modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.</p>
 </section>
 </section>
 <section id="footnotes">
@@ -765,11 +774,11 @@ __future__          cligj               linkify_it          rvlib
 </aside>
 <aside class="footnote brackets" id="matplotdocs" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html">https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html</a></p>
+<p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html</a></p>
 </aside>
 <aside class="footnote brackets" id="pep8" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#imports">https://www.python.org/dev/peps/pep-0008/#imports</a></p>
+<p><a class="reference external" href="https://peps.python.org/pep-0008/#imports">https://peps.python.org/pep-0008/#imports</a></p>
 </aside>
 </aside>
 </section>
@@ -829,9 +838,10 @@ __future__          cligj               linkify_it          rvlib
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-available-functions-and-modules">Checking available functions and modules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-i-not-do">What should I not do?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-avoid">Things to avoid</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-x-import">from X import *</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poor-names-when-renaming-on-import">Poor names when renaming on import</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-modules-within-notebook-or-script-files">Importing modules within notebook or script files</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>

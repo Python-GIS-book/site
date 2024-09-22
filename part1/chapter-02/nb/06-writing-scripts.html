@@ -528,10 +528,9 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#returning-the-result">Returning the result</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-docstring">Adding a docstring</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-the-new-function">Testing the new function</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-temp-calculator-function">Using the temp_calculator function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-temp-calculator-function">Using the temp calculator function</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -555,12 +554,12 @@ Python script files traditionally use the <code class="docutils literal notransl
 <p>Because a Python script file is simply a list of commands that you might otherwise type into a Python cell in a Jupyter notebook or a Python console, we can quite easily create a basic script file and test things out.</p>
 <section id="getting-started">
 <h3>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h3>
-<p>First, we need to create a new text file by clicking on <strong>File</strong> -&gt; <strong>New</strong> -&gt; <strong>Text File</strong> in the JupyterLab menu bar.</p>
-<p><img alt="Figure 2.5. Creating a new text file in JupyterLab." src="../../../_images/new-text-file.png" /></p>
-<p><em><strong>Figure 2.5</strong>. Creating a new text file in JupyterLab.</em></p>
+<p>First, we need to create a new text file by clicking on <strong>File</strong> -&gt; <strong>New</strong> -&gt; <strong>Python File</strong> in the JupyterLab menu bar.</p>
+<p><img alt="Figure 2.5. Creating a new Python file in JupyterLab." src="../../../_images/new-python-file.png" /></p>
+<p><em><strong>Figure 2.5</strong>. Creating a new Python file in JupyterLab.</em></p>
 <p>This will create a new tab in your JupyterLab window that should look something like that below, a blank slate.</p>
-<p><img alt="Figure 2.6. The new, empty text file in JupyterLab." src="../../../_images/new-text-tab.png" /></p>
-<p><em><strong>Figure 2.6</strong>. Creating a new text file in JupyterLab.</em></p>
+<p><img alt="Figure 2.6. The new empty Python file in JupyterLab." src="../../../_images/new-python-tab.png" /></p>
+<p><em><strong>Figure 2.6</strong>. Creating a new Python file in JupyterLab.</em></p>
 <p>Start by copying and pasting the text below into your new text file editor panel.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">celsius_to_fahr</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">9</span><span class="o">/</span><span class="mi">5</span> <span class="o">*</span> <span class="n">temp_celsius</span> <span class="o">+</span> <span class="mi">32</span>
@@ -570,24 +569,24 @@ Python script files traditionally use the <code class="docutils literal notransl
 </section>
 <section id="saving-a-text-file-as-a-python-file">
 <h2>Saving a text file as a Python file<a class="headerlink" href="#saving-a-text-file-as-a-python-file" title="Link to this heading">#</a></h2>
-<p>As it turns out, Python scripts are just regular text files with the <code class="docutils literal notranslate"><span class="pre">.py</span></code> file extension to identify them as source code for Python. In order for our new text file to be detected as a Python source file in JupyterLab we thus need to rename it to have a <code class="docutils literal notranslate"><span class="pre">.py</span></code> file extension. You can rename the file by right clicking on the tab titled <code class="docutils literal notranslate"><span class="pre">untitled.txt</span></code> and renaming it as <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code>. Be sure you change the <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file extension to <code class="docutils literal notranslate"><span class="pre">.py</span></code>.</p>
-<p><img alt="Figure 2.7. Renaming a file in JupyterLab." src="../../../_images/rename-file-part-1.png" /></p>
+<p>As it turns out, Python scripts are just regular text files with the <code class="docutils literal notranslate"><span class="pre">.py</span></code> file extension to identify them as source code for Python. By default, new Python files in JupyterLab will have the name <code class="docutils literal notranslate"><span class="pre">untitled.py</span></code>. You can rename the file by right clicking on the <code class="docutils literal notranslate"><span class="pre">untitled.py</span></code> file in the file browser and renaming it <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code>.</p>
+<p><img alt="Figure 2.7. Renaming a file in JupyterLab." src="../../../_images/rename-python-file-part-1.png" /></p>
 <p><em><strong>Figure 2.7</strong>. Renaming a file in JupyterLab.</em></p>
-<p><img alt="Figure 2.8. File renaming dialog in JupyterLab." src="../../../_images/rename-file-part-2.png" /></p>
-<p><em><strong>Figure 2.8</strong>. File renaming dialog in JupyterLab.</em></p>
-<p>Be sure to save your <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file after making your changes. If all goes well, you should now see the Python syntax is highlighted in different colors in the JupyterLab editor panel. We’ll return later to some best practices for writing script files, but for now let’s continue with how to use our functions saved in the Python file we just created.</p>
+<p><img alt="Figure 2.8. File renaming dialog in JupyterLab." src="../../../_images/rename-python-file-part-2.png" /></p>
+<p><em><strong>Figure 2.8</strong>. Renaming a file in JupyterLab.</em></p>
+<p>Be sure to save your <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file after making your changes. We’ll return later to some best practices for writing script files, but for now let’s continue with how to use our functions saved in the Python file we just created.</p>
 </section>
 <section id="saving-and-loading-functions">
 <h2>Saving and loading functions<a class="headerlink" href="#saving-and-loading-functions" title="Link to this heading">#</a></h2>
 <p>Naturally, after saving functions such as the one above to a script file, it is important to know how to access those functions from within a Juypter notebook. As noted earlier, quite often it is useful to create a dedicated function library for functions that you use frequently when doing data analysis, for example. Basically this is done by listing useful functions in a single <code class="docutils literal notranslate"><span class="pre">.py</span></code> file from which you can then import and use them whenever needed.</p>
 <section id="saving-functions-in-a-script-file">
 <h3>Saving functions in a script file<a class="headerlink" href="#saving-functions-in-a-script-file" title="Link to this heading">#</a></h3>
-<p>Before we move on to discussing how to use functions in a script file, let’s add a few more functions we have been using to our script. Simply copy and paste the text below into your <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file leaving one blank line between each function.</p>
+<p>Before we move on to discussing how to use functions in a script file, let’s add a few more functions we have been using to our script. Simply copy and paste the text below into your <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file leaving two blank lines between each function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+
+
+<span class="k">def</span> <span class="nf">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
     <span class="n">temp_celsius</span> <span class="o">=</span> <span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">)</span>
     <span class="n">temp_fahr</span> <span class="o">=</span> <span class="n">celsius_to_fahr</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">temp_fahr</span>
@@ -610,11 +609,12 @@ Python script files traditionally use the <code class="docutils literal notransl
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0-learning-objectives.ipynb      04-writing-scripts.ipynb
-00-python-basics.ipynb           05-modules.ipynb
-01-for-loops.ipynb               06-exercises.ipynb
-02-conditional-statements.ipynb  <span class=" -Color -Color-Bold -Color-Bold-Cyan">data</span>/
-03-functions.ipynb               temp_converter.py
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0-learning-objectives.ipynb      05-functions.ipynb
+00-python-basics.ipynb           06-writing-scripts.ipynb
+01-lists-and-indices.ipynb       07-modules.ipynb
+02-text-and-numbers.ipynb        08-exercises.ipynb
+03-for-loops.ipynb               temp_converter.py
+04-conditional-statements.ipynb
 </pre></div>
 </div>
 </div>
@@ -622,15 +622,16 @@ Python script files traditionally use the <code class="docutils literal notransl
 <p><code class="docutils literal notranslate"><span class="pre">%ls</span></code> allows us to see the files located in the directory where we are currently working. Your output from <code class="docutils literal notranslate"><span class="pre">%ls</span></code> may look different than that above, but don’t worry. As long as you see the file <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code>, you should be all set to proceed.</p>
 <p>If you do not see the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file in the list of files from <code class="docutils literal notranslate"><span class="pre">%ls</span></code>, then you will need to take an additional few steps, which differ depending on what files you see.</p>
 <ul>
-<li><p>If you see the list of notebooks above (e.g., <code class="docutils literal notranslate"><span class="pre">00-motivation.ipynb</span></code>, <code class="docutils literal notranslate"><span class="pre">01-computers-and-programs.ipynb</span></code>, …) but do note see the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file, then you should make sure you have saved the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file in the notebooks directory for Chapter 1. The easiest way to do this would be to use the file browser in Jupyter Lab, find the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file, right click on it and select <strong>Copy</strong>, navigate to the <code class="docutils literal notranslate"><span class="pre">part1/chapter-01/nb</span></code> directory in the file browser, and right click again in the space beneath the list of files to paste a copy of the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file in that location.</p></li>
-<li><p>If you do not see the list of notebooks above, you may need to change directories to be in the Chapter 1 notebooks directory. For example, if you see</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>_static/<span class="w">          </span>back-matter/<span class="w">      </span>index.rst<span class="w">         </span>part2/
-appendices/<span class="w">       </span>conf.py<span class="w">           </span>page_builder.py<span class="w">   </span>part3/
-authors.rst<span class="w">       </span>front-matter/<span class="w">     </span>part1/<span class="w">            </span>requirements.txt
+<li><p>If you see the list of notebooks above (e.g., <code class="docutils literal notranslate"><span class="pre">00-motivation.ipynb</span></code>, <code class="docutils literal notranslate"><span class="pre">01-computers-and-programs.ipynb</span></code>, …) but do note see the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file, then you should make sure you have saved the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file in the notebooks directory for Chapter 2. The easiest way to do this would be to use the file browser in JupyterLab, find the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file, right click on it and select <strong>Copy</strong>, navigate to the <code class="docutils literal notranslate"><span class="pre">part1/chapter-02/nb</span></code> directory in the file browser, and right click again in the space beneath the list of files to paste a copy of the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file in that location.</p></li>
+<li><p>If you do not see the list of notebooks above, you may need to change directories to be in the Chapter 2 notebooks directory. For example, if you see</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>_static<span class="w">          </span>conf.py<span class="w">          </span>index.rst<span class="w">        </span>requirements.txt
+authors.rst<span class="w">      </span>data<span class="w">             </span>part1
+back-matter<span class="w">      </span>environment.rst<span class="w">  </span>part2
+bibtex.json<span class="w">      </span>front-matter<span class="w">     </span>part3
 </pre></div>
 </div>
-<p>you are working in the base <code class="docutils literal notranslate"><span class="pre">source</span></code> directory. You can change directories to the notebooks directory for Chapter 1 by typing</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> part1/chapter-01/nb
+<p>you are working in the base <code class="docutils literal notranslate"><span class="pre">source</span></code> directory. You can change directories to the notebooks directory for Chapter 2 by typing</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> part1/chapter-02/nb
 </pre></div>
 </div>
 </li>
@@ -646,11 +647,12 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0-learning-objectives.ipynb      04-writing-scripts.ipynb
-00-python-basics.ipynb           05-modules.ipynb
-01-for-loops.ipynb               06-exercises.ipynb
-02-conditional-statements.ipynb  <span class=" -Color -Color-Bold -Color-Bold-Cyan">data</span>/
-03-functions.ipynb               temp_converter.py
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0-learning-objectives.ipynb      05-functions.ipynb
+00-python-basics.ipynb           06-writing-scripts.ipynb
+01-lists-and-indices.ipynb       07-modules.ipynb
+02-text-and-numbers.ipynb        08-exercises.ipynb
+03-for-loops.ipynb               temp_converter.py
+04-conditional-statements.ipynb
 </pre></div>
 </div>
 </div>
@@ -659,7 +661,7 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 </section>
 <section id="importing-our-script-functions">
 <h3>Importing our script functions<a class="headerlink" href="#importing-our-script-functions" title="Link to this heading">#</a></h3>
-<p>Let’s now import our <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> function from the other script by adding a specific <code class="docutils literal notranslate"><span class="pre">import</span></code> statement in the Python cell below: <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">temp_converter</span> <span class="pre">import</span> <span class="pre">celsius_to_fahr</span></code></p>
+<p>Let’s now import our <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> function from the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> script file by adding a specific <code class="docutils literal notranslate"><span class="pre">import</span></code> statement in the Python cell below: <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">temp_converter</span> <span class="pre">import</span> <span class="pre">celsius_to_fahr</span></code></p>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">temp_converter</span> <span class="kn">import</span> <span class="n">celsius_to_fahr</span>
@@ -673,7 +675,7 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 <p>Let’s now use the function so that we can see that it is working. We can print the temperature in Fahrenheit at which water freezes using our <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> function in the cell below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The freezing point of water in Fahrenheit is:&quot;</span><span class="p">,</span> <span class="n">celsius_to_fahr</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The freezing point of water in Fahrenheit is: </span><span class="si">{</span><span class="n">celsius_to_fahr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -705,7 +707,7 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 <p>Just like the examples we have seen earlier with the <code class="docutils literal notranslate"><span class="pre">math</span></code> library, such as using <code class="docutils literal notranslate"><span class="pre">math.sin()</span></code>, we can now use our functions such as <code class="docutils literal notranslate"><span class="pre">tc.celsius_to_fahr()</span></code>. In the cells below, test our functions as they were used above by printing the freezing point of water in Fahrenheit, absolute zero in Celsius, and absolute zero in Fahrenheit.</p>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The freezing point of water in Fahrenheit is:&quot;</span><span class="p">,</span> <span class="n">tc</span><span class="o">.</span><span class="n">celsius_to_fahr</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The freezing point of water in Fahrenheit is: </span><span class="si">{</span><span class="n">tc</span><span class="o">.</span><span class="n">celsius_to_fahr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -717,7 +719,7 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 </div>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Absolute zero in Celsius is:&quot;</span><span class="p">,</span> <span class="n">tc</span><span class="o">.</span><span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Absolute zero in Celsius is: </span><span class="si">{</span><span class="n">tc</span><span class="o">.</span><span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -729,7 +731,7 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 </div>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Absolute zero in Fahrenheit is:&quot;</span><span class="p">,</span> <span class="n">tc</span><span class="o">.</span><span class="n">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Absolute zero in Fahrenheit is: </span><span class="si">{</span><span class="n">tc</span><span class="o">.</span><span class="n">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -743,46 +745,46 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 </section>
 <section id="creating-a-temperature-calculator">
 <h2>Creating a temperature calculator<a class="headerlink" href="#creating-a-temperature-calculator" title="Link to this heading">#</a></h2>
-<p>So far our functions have had only one parameter, but it is also possible to define a function with multiple parameters. Let’s now make a simple <code class="docutils literal notranslate"><span class="pre">temp_calculator</span></code> function that accepts temperatures in Kelvins and returns either Celsius or Fahrenheit. The new function will have two parameters:</p>
+<p>The functions above have had only one parameter, but now we will add another function with multiple parameters. In this case we will create a simple <code class="docutils literal notranslate"><span class="pre">temp_calculator()</span></code> function that accepts temperatures in Kelvins and returns either Celsius or Fahrenheit. The new function will have two parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">temp_k</span></code> = The parameter for passing temperature in Kelvins</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">convert_to</span></code> = The parameter that determines whether to output should be in Celsius or in Fahrenheit (using the letters <code class="docutils literal notranslate"><span class="pre">C</span></code> or <code class="docutils literal notranslate"><span class="pre">F</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">convert_to</span></code> = The parameter that determines whether the output should be in degrees Celsius or Fahrenheit (using the letters <code class="docutils literal notranslate"><span class="pre">C</span></code> or <code class="docutils literal notranslate"><span class="pre">F</span></code>)</p></li>
 </ul>
 <section id="defining-the-function">
 <h3>Defining the function<a class="headerlink" href="#defining-the-function" title="Link to this heading">#</a></h3>
-<p>Let’s start defining our function by giving it a name and setting the parameters.</p>
+<p>Let’s start defining our function by giving it a name and listing the parameters.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
 </pre></div>
 </div>
 </section>
 <section id="adding-some-conditional-statements">
 <h3>Adding some conditional statements<a class="headerlink" href="#adding-some-conditional-statements" title="Link to this heading">#</a></h3>
-<p>Next, we need to add conditional statements that check whether the desired output temperature should be in Celsius or Fahrenheit, and then call the corresponding function that was imported from the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file.</p>
+<p>Next, we need to add conditional statements that check whether the desired output temperature should be in degrees Celsius or Fahrenheit, and then call the corresponding function from the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> script file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
-    <span class="c1"># Check if user wants the temperature in Celsius</span>
+    <span class="c1"># Check if the user wants temperatures in Celsius</span>
     <span class="k">if</span> <span class="n">convert_to</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
         <span class="c1"># Convert the value to Celsius using the dedicated function for</span>
-        <span class="c1"># the task that we imported from another script</span>
+        <span class="c1"># the task from the temp_converter.py script file</span>
         <span class="n">converted_temp</span> <span class="o">=</span> <span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="n">temp_k</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">convert_to</span> <span class="o">==</span> <span class="s2">&quot;F&quot;</span><span class="p">:</span>
         <span class="c1"># Convert the value to Fahrenheit using the dedicated function</span>
-        <span class="c1"># for the task that we imported from another script</span>
+        <span class="c1"># for the task from the temp_converter.py script file</span>
         <span class="n">converted_temp</span> <span class="o">=</span> <span class="n">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="n">temp_k</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="returning-the-result">
 <h3>Returning the result<a class="headerlink" href="#returning-the-result" title="Link to this heading">#</a></h3>
-<p>Next, we need to add a return statement so that our function sends back the value that we are interested in.</p>
+<p>Next, we need to add a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement so that our function sends back the value that we are interested in.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
-    <span class="c1"># Check if user wants the temperature in Celsius</span>
+    <span class="c1"># Check if the user wants temperatures in Celsius</span>
     <span class="k">if</span> <span class="n">convert_to</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
         <span class="c1"># Convert the value to Celsius using the dedicated function for</span>
-        <span class="c1"># the task that we imported from another script</span>
+        <span class="c1"># the task from the temp_converter.py script file</span>
         <span class="n">converted_temp</span> <span class="o">=</span> <span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="n">temp_k</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">convert_to</span> <span class="o">==</span> <span class="s2">&quot;F&quot;</span><span class="p">:</span>
         <span class="c1"># Convert the value to Fahrenheit using the dedicated function</span>
-        <span class="c1"># for the task that we imported from another script</span>
+        <span class="c1"># for the task from the temp_converter.py script file</span>
         <span class="n">converted_temp</span> <span class="o">=</span> <span class="n">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="n">temp_k</span><span class="p">)</span>
     <span class="c1"># Return the result</span>
     <span class="k">return</span> <span class="n">converted_temp</span>
@@ -810,25 +812,29 @@ authors.rst<span class="w">       </span>front-matter/<span class="w">     </spa
 <span class="sd">        Converted temperature.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Check if user wants the temperature in Celsius</span>
+    <span class="c1"># Check if the user wants temperatures in Celsius</span>
     <span class="k">if</span> <span class="n">convert_to</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
         <span class="c1"># Convert the value to Celsius using the dedicated function for</span>
-        <span class="c1"># the task that we imported from another script</span>
+        <span class="c1"># the task from the temp_converter.py script file</span>
         <span class="n">converted_temp</span> <span class="o">=</span> <span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="n">temp_k</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">convert_to</span> <span class="o">==</span> <span class="s2">&quot;F&quot;</span><span class="p">:</span>
         <span class="c1"># Convert the value to Fahrenheit using the dedicated function</span>
-        <span class="c1"># for the task that we imported from another script</span>
+        <span class="c1"># for the task from the temp_converter.py script file</span>
         <span class="n">converted_temp</span> <span class="o">=</span> <span class="n">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="o">=</span><span class="n">temp_k</span><span class="p">)</span>
     <span class="c1"># Return the result</span>
     <span class="k">return</span> <span class="n">converted_temp</span>
 </pre></div>
 </div>
+<p>At this point, we can copy and paste the function into the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> script file and proceed to testing things out.</p>
 </section>
 <section id="testing-the-new-function">
 <h3>Testing the new function<a class="headerlink" href="#testing-the-new-function" title="Link to this heading">#</a></h3>
-<p>That’s it!
-Now we have a temperature calculator that has a simple option for the user where they can change the output using the <code class="docutils literal notranslate"><span class="pre">convert_to</span></code> parameter. As we also added the short docstring at the beginning of the function, we can use the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function in Python to see how our function should be used. You could now run the Python cell below and then try running <code class="docutils literal notranslate"><span class="pre">help(temp_calculator)</span></code> to see the docstring.</p>
-<p>When working in a Jupyter Notebook, reloading modules can be a bit challenging. The easiest option is to restart the IPython kernel by going to <strong>Kernel</strong> -&gt; <strong>Restart kernel…</strong>. Note that this will delete all variables currently stored in memory in the Jupyter notebook you’re using, so you may need to re-run some cells.</p>
+<p>Now we have a temperature calculator that has a simple option that allows the user to select the temperature unit for output using the <code class="docutils literal notranslate"><span class="pre">convert_to</span></code> parameter.</p>
+<p>At this point we need to re-import the functions from the <code class="docutils literal notranslate"><span class="pre">temp_calculator.py</span></code> script file. However, when working in a Jupyter Notebook, reloading modules can be a bit challenging. The easiest option is to restart the IPython kernel by going to <strong>Kernel</strong> -&gt; <strong>Restart kernel…</strong> in the menu bar. Note that this will delete all variables currently stored in memory in the Jupyter notebook you’re using, so you may need to re-run some cells. After restarting the kernel, you can re-import the functions from the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> script file by typing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">temp_converter</span> <span class="k">as</span> <span class="nn">tc</span>
+</pre></div>
+</div>
+<p>We can check that this step worked as expected by using the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function in Python to see how our function should be used (since we added a short docstring at the beginning of the function). Try running <code class="docutils literal notranslate"><span class="pre">help(temp_calculator)</span></code> in the cell below to see the docstring.</p>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">tc</span><span class="o">.</span><span class="n">temp_calculator</span><span class="p">)</span>
@@ -858,8 +864,8 @@ temp_calculator(temp_k, convert_to)
 </div>
 </section>
 <section id="using-the-temp-calculator-function">
-<h3>Using the temp_calculator function<a class="headerlink" href="#using-the-temp-calculator-function" title="Link to this heading">#</a></h3>
-<p>Let’s now see how our function works!</p>
+<h3>Using the temp calculator function<a class="headerlink" href="#using-the-temp-calculator-function" title="Link to this heading">#</a></h3>
+<p>Finally, let’s see how our function works!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_kelvin</span> <span class="o">=</span> <span class="mi">30</span>
@@ -887,9 +893,6 @@ temp_calculator(temp_k, convert_to)
 </div>
 </div>
 </section>
-</section>
-<section id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -961,10 +964,9 @@ temp_calculator(temp_k, convert_to)
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#returning-the-result">Returning the result</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-docstring">Adding a docstring</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-the-new-function">Testing the new function</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-temp-calculator-function">Using the temp_calculator function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-temp-calculator-function">Using the temp calculator function</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>
 
