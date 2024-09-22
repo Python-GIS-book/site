@@ -478,7 +478,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-for-loop">Introducing the for loop</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-format">for loop format</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-daily-for-loop">Your daily for loop</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-variables">for loop variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-variables">For loop variables</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loops-using-the-range-function">For loops using the range function</a><ul class="nav section-nav flex-column">
@@ -490,7 +490,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-8">Question 2.8</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -532,7 +531,7 @@ document.write(`
 <p>But this is a bad idea. Why? Well there are two reasons.
 First, it does not scale nicely for long lists and will take forever to type in.
 Second, it won’t work if the length of the list has fewer than 4 cities (or more than 4 cities for that matter…).
-Let’s see an example with a new <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
+Let’s see an example with an updated <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">european_cities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Riga&quot;</span><span class="p">,</span> <span class="s2">&quot;Rome&quot;</span><span class="p">,</span> <span class="s2">&quot;Athens&quot;</span><span class="p">]</span>
 </pre></div>
@@ -549,6 +548,7 @@ Let’s see an example with a new <code class="docutils literal notranslate"><sp
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">european_cities</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>Here we get an <code class="docutils literal notranslate"><span class="pre">IndexError</span></code> because we have only 3 values in our list and tried to access 4 values based on what had worked for the first <code class="docutils literal notranslate"><span class="pre">european_cities</span></code> list.</p>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
 <section id="introducing-the-for-loop">
@@ -619,7 +619,7 @@ Furthermore, by following this kind of list of repeating actions we’re able to
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
 <section id="for-loop-variables">
-<h3>for loop variables<a class="headerlink" href="#for-loop-variables" title="Link to this heading">#</a></h3>
+<h3>For loop variables<a class="headerlink" href="#for-loop-variables" title="Link to this heading">#</a></h3>
 <p>Note that the variable used in a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is just a normal variable. This its value still exists after the loop has been run. Let’s loop over a list of weather conditions and print them to the screen.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather_conditions</span> <span class="o">=</span> <span class="p">[</span>
@@ -646,7 +646,7 @@ Furthermore, by following this kind of list of repeating actions we’re able to
 </section>
 <section id="for-loops-using-the-range-function">
 <h2>For loops using the range function<a class="headerlink" href="#for-loops-using-the-range-function" title="Link to this heading">#</a></h2>
-<p>A loop can be used to iterate over any list of values in Python. So far we have considered only iterating over lists, but we could also write a loop that performs a calculation a specified number of times by using the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function. Let’s consider an example where we use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with <code class="docutils literal notranslate"><span class="pre">value</span></code> as the loop variable and <code class="docutils literal notranslate"><span class="pre">range(5)</span></code> as the collection. Let’s see what happens if we print <code class="docutils literal notranslate"><span class="pre">value</span></code> at each iteration.</p>
+<p>A loop can be used to iterate over any list of values in Python. So far we have considered only iterating a <code class="docutils literal notranslate"><span class="pre">list</span></code>, but we could also write a loop that performs a calculation a specified number of times by using the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function. Let’s consider an example where we use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with <code class="docutils literal notranslate"><span class="pre">value</span></code> as the loop variable and <code class="docutils literal notranslate"><span class="pre">range(5)</span></code> as the collection. Let’s see what happens if we print <code class="docutils literal notranslate"><span class="pre">value</span></code> at each iteration.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -714,9 +714,9 @@ You can learn a bit more about range by typing <code class="docutils literal not
 <p>There are several important things to observe in this <code class="docutils literal notranslate"><span class="pre">for</span></code> loop:</p>
 <ol class="arabic simple">
 <li><p>You can see that because we are using the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function, the value assigned to the loop variable <code class="docutils literal notranslate"><span class="pre">i</span></code> starts with <code class="docutils literal notranslate"><span class="pre">0</span></code> and increases by <code class="docutils literal notranslate"><span class="pre">1</span></code> each time through the loop.</p></li>
-<li><p>In order to access individual cities in the <code class="docutils literal notranslate"><span class="pre">african_cities</span></code> list, we need to include the index value (e.g., <code class="docutils literal notranslate"><span class="pre">african_cities[i]</span></code>. Here, the variable <code class="docutils literal notranslate"><span class="pre">i</span></code> will be replaced by the current value assigned from the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function.</p></li>
+<li><p>In order to access individual cities in the <code class="docutils literal notranslate"><span class="pre">african_cities</span></code> list, we need to include the index value (e.g., <code class="docutils literal notranslate"><span class="pre">african_cities[i]</span></code>). Here, the variable <code class="docutils literal notranslate"><span class="pre">i</span></code> will be replaced by the current value assigned from the <code class="docutils literal notranslate"><span class="pre">range()</span></code> function.</p></li>
 </ol>
-<p>The variable <code class="docutils literal notranslate"><span class="pre">i</span></code> is commonly used to denote the index variable in loops. Loops can sometimes occur with another loop (referred to as nested loops), in which case other index variables such as <code class="docutils literal notranslate"><span class="pre">j</span></code> or <code class="docutils literal notranslate"><span class="pre">k</span></code> may be used.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">i</span></code> is commonly used to denote the index variable in loops. Loops can sometimes occur with another loop (referred to as nested loops), in which case other index variables such as <code class="docutils literal notranslate"><span class="pre">j</span></code> or <code class="docutils literal notranslate"><span class="pre">k</span></code> are often used.</p>
 <!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
@@ -763,12 +763,7 @@ You can learn a bit more about range by typing <code class="docutils literal not
 <span class="mi">11</span>
 </pre></div>
 </div>
-<!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
-</section>
-<section id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
-<!-- #endregion -->
 </section>
 </section>
 
@@ -803,7 +798,7 @@ You can learn a bit more about range by typing <code class="docutils literal not
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-for-loop">Introducing the for loop</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-format">for loop format</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-daily-for-loop">Your daily for loop</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-variables">for loop variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-variables">For loop variables</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loops-using-the-range-function">For loops using the range function</a><ul class="nav section-nav flex-column">
@@ -815,7 +810,6 @@ You can learn a bit more about range by typing <code class="docutils literal not
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-8">Question 2.8</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>
 

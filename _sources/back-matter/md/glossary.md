@@ -151,6 +151,9 @@ Module
 Mutable
   A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Immutable`.
 
+Namespace
+  A collection of names and information about the objects to which the names refer. The objects could be variables or methods. There are four namespaces in Python (sorted here in order of {term}`scope` from broadest to narrowest): built-in, global, enclosing, and local.
+
 Optional parameter
   A function {term}`parameter` that does not need to be provided when calling the function in order to use it. Optional parameters will use default function values that are provided in the function definition in such cases.
 
@@ -174,6 +177,9 @@ Right outer join
 
 R-tree
   An R-tree is a type of data structure used as a {term}`spatial index` to efficiently query spatial objects. It organizes spatial data by grouping nearby objects and representing these groups with their minimum bounding rectangle. This hierarchical structure allows to query spatial data efficiently by eliminating groups of objects that do not intersect with the query area. R-trees are widely used in geographic information systems (GIS), databases, and for various spatial search and optimization tasks, enabling fast access and retrieval of spatial data based on their location and geometric properties.
+
+Scope
+  The region in which a name defined in a program has meaning. Python will search for names within the scope of {term}`namespaces <namespace>`; first in the local, then enclosing, then global, and finally in built-in.
 
 Script
   A Python script is a collection of commands in a file that can be executed like a program. 

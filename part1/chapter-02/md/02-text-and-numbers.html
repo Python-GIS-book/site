@@ -505,7 +505,11 @@ document.write(`
 <h2>F-String formatting<a class="headerlink" href="#f-string-formatting" title="Link to this heading">#</a></h2>
 <p>In the following, we show how we can combine the <code class="docutils literal notranslate"><span class="pre">station_name</span></code> text, the <code class="docutils literal notranslate"><span class="pre">station_id</span></code> integer number, and the <code class="docutils literal notranslate"><span class="pre">temp</span></code> floating point number together using Python’s f-string formatting approach. In addition, we will round a decimal number (<code class="docutils literal notranslate"><span class="pre">temp</span></code>) to two decimal points on the fly.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># An example temperature with many decimals</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Station information</span>
+<span class="n">station_name</span> <span class="o">=</span> <span class="s2">&quot;Helsinki Kaivopuisto&quot;</span>
+<span class="n">station_id</span> <span class="o">=</span> <span class="mi">132310</span>
+
+<span class="c1"># An example temperature with many decimals</span>
 <span class="n">temp</span> <span class="o">=</span> <span class="mf">18.56789876</span>
 
 <span class="c1"># 1. The f-string approach (recommended)</span>
@@ -594,7 +598,7 @@ The aim is to produce a list of weather station locations in Helsinki that are r
 </section>
 <section id="replacing-text-in-strings">
 <h3>Replacing text in strings<a class="headerlink" href="#replacing-text-in-strings" title="Link to this heading">#</a></h3>
-<p>Currently in the processed text, the word <code class="docutils literal notranslate"><span class="pre">Helsinki</span></code> is repeated multiple times before the station names. We can easily remove this word by replacing the word <code class="docutils literal notranslate"><span class="pre">Helsinki</span></code> with an empty string (<code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>), which will basically delete this word from the text. We can accomplish this by using a method called <code class="docutils literal notranslate"><span class="pre">.replace()</span></code> which takes an original word as the first argument and a replacement word (or character(s)) as the second argument.</p>
+<p>Currently in the processed text, the word <code class="docutils literal notranslate"><span class="pre">Helsinki</span></code> is repeated multiple times before the station names. We can easily remove this word by replacing the word <code class="docutils literal notranslate"><span class="pre">Helsinki</span></code> with an empty string (<code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>), which will basically delete this word from the text. We can accomplish this by using a method called <code class="docutils literal notranslate"><span class="pre">.replace()</span></code> which takes an original word as the first argument and a replacement word (or character(s)) as the second argument. Note here that we also include the space after “Helsinki” in the text that will be replaced.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stations_text</span> <span class="o">=</span> <span class="n">stations_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Helsinki &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="n">stations_text</span>

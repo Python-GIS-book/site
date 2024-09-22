@@ -550,10 +550,10 @@ document.write(`
 <h2>Anatomy of a function<a class="headerlink" href="#anatomy-of-a-function" title="Link to this heading">#</a></h2>
 <p>Let’s consider the task from the first section of this chapter when we converted temperatures from degrees Celsius to Fahrenheit.
 Such an operation is a fairly common task when dealing with temperature data.
-Thus, we might need to repeat such calculations quite often when analyzing or comparing weather or climate data between the US and Europe, for example.</p>
+Thus, we might need to repeat such calculations frequently when analyzing or comparing weather or climate data between the US and Europe, for example.</p>
 <section id="creating-a-first-function">
 <h3>Creating a first function<a class="headerlink" href="#creating-a-first-function" title="Link to this heading">#</a></h3>
-<p>Let’s define our first function called <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr</span></code>. Figure 2.4 explains the main elements of a function.</p>
+<p>Let’s define our first function called <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code>. Figure 2.4 explains the main elements of a function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">celsius_to_fahr</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
@@ -568,7 +568,7 @@ Thus, we might need to repeat such calculations quite often when analyzing or co
 The body of the function — the statements that are executed when it runs — is indented below the definition line.</p>
 <p>When we call a function, the values we pass to it are assigned to the corresponding parameter variables so that we can use them inside the function (e.g., the variable <code class="docutils literal notranslate"><span class="pre">temp</span></code> in this function example).
 Inside the function, we can use a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement to define the value that should be given back when the function is used or called.
-Note that using a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement in functions is recommended, but not required.</p>
+Note that using a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement in functions is recommended but not required.</p>
 </section>
 <section id="calling-a-function">
 <h3>Calling a function<a class="headerlink" href="#calling-a-function" title="Link to this heading">#</a></h3>
@@ -611,7 +611,7 @@ Here, we can define a variable <code class="docutils literal notranslate"><span 
 </section>
 <section id="creating-another-function">
 <h3>Creating another function<a class="headerlink" href="#creating-another-function" title="Link to this heading">#</a></h3>
-<p>Now that we know how to create a function to convert degrees Celsius to Fahrenheit, let’s create another function called <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius</span></code>. We can define this just like we did with our <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> function, noting that the temperature in degrees Celsius is just the temperature in Kelvins minus 273.15. Just to avoid confusion this time, let’s call the temperature variable used in the function <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code>.</p>
+<p>Now that we know how to create a function to convert degrees Celsius to Fahrenheit, let’s create another function called <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius()</span></code>. We can define this just like we did with our <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> function, noting that the temperature in degrees Celsius is just the temperature in Kelvins minus 273.15. Just to avoid confusion this time, let’s call the temperature variable used in the function <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
@@ -643,7 +643,7 @@ Here, we can define a variable <code class="docutils literal notranslate"><span 
 <section id="question-2-12">
 <h4>Question 2.12<a class="headerlink" href="#question-2-12" title="Link to this heading">#</a></h4>
 <p>Isaac Newton developed <a class="reference external" href="https://en.wikipedia.org/wiki/Newton_scale">a scale for measuring temperatures</a> that was a precursor to the modern-day Celsius scale. In his system, water would freeze at 0 °N and boil at 33 °N (°N here indicates degrees Newton, not degrees north :D). Although it is difficult to directly convert between the two scales, if we assume that the increments of temperature change are equal between 0 °N and 33 °N we can come up with a temperature conversion equation between degrees Celsius and degrees Newton: <span class="math notranslate nohighlight">\(T_{\mathrm{Newton}} = T_{\mathrm{Celsius}} * 0.33\)</span>.</p>
-<p>Your task here is to create a new function called <code class="docutils literal notranslate"><span class="pre">celsius_to_newton</span></code> that (1) has one parameter that is the temperature in degrees Celsius to be converted to degrees Newton and (2) returns the temperature in degrees Newton.</p>
+<p>Your task here is to create a new function called <code class="docutils literal notranslate"><span class="pre">celsius_to_newton()</span></code> that (1) has one parameter that is the temperature in degrees Celsius to be converted to degrees Newton and (2) returns the temperature in degrees Newton.</p>
 <div class="cell tag_hide-cell tag_remove_book_cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -666,8 +666,8 @@ Here, we can define a variable <code class="docutils literal notranslate"><span 
 <section id="functions-within-a-function">
 <h3>Functions within a function<a class="headerlink" href="#functions-within-a-function" title="Link to this heading">#</a></h3>
 <p>What about converting Kelvins to Fahrenheit?
-We could write out a new formula for it, but we don’t need to.
-Instead, we can do the conversion using the two functions we have already created and calling those from the new function we will now create. Let’s create a function <code class="docutils literal notranslate"><span class="pre">kelvins_to_fahr</span></code> that takes the temperature in Kelvins as the parameter value <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code> and uses our <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius</span></code> and <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr</span></code> functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.</p>
+We could write out a new formula for it but we don’t need to.
+Instead, we can do the conversion using the two functions we have already created and calling those from the new function we will now create. Let’s create a function <code class="docutils literal notranslate"><span class="pre">kelvins_to_fahr()</span></code> that takes the temperature in Kelvins as the parameter value <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code> and uses our <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius()</span></code> and <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
@@ -745,12 +745,12 @@ None
 </section>
 <section id="functions-with-multiple-parameters">
 <h3>Functions with multiple parameters<a class="headerlink" href="#functions-with-multiple-parameters" title="Link to this heading">#</a></h3>
-<p>In the function examples we have seen so far we have created functions with only a single parameter. Of course, it is possible to have several parameters used in functions, and functions with multiple parameters are quite common in many Python libraries.</p>
-<p>Let’s imagine a situation: You’re preparing for a visit to the United States, but are unfamiliar with temperatures in Fahrenheit. A friend from the northern US suggested a temperature of 68 degrees Fahrenheit is ideal for comfort and normally you are comfortable within a range of 5 degrees above or below such a comfortable temperature. To deal with your situation you would like create a new function called <code class="docutils literal notranslate"><span class="pre">temp_in_comfort_range()</span></code>, which:</p>
+<p>In the function examples we have seen so far we have created functions with only a single parameter. Of course, it is possible to have several parameters used in functions. In fact, functions with multiple parameters are quite common in many Python libraries.</p>
+<p>Let’s imagine a situation: You’re preparing for a visit to the United States, but are unfamiliar with temperatures in Fahrenheit. A friend from the northern US suggested a temperature of 68 degrees Fahrenheit is ideal for comfort and normally you are comfortable within a range of about 5 degrees above or below such a comfortable temperature. To deal with your situation you would like create a new function called <code class="docutils literal notranslate"><span class="pre">temp_in_comfort_range()</span></code>, which:</p>
 <ol class="arabic simple">
 <li><p>Takes a temperature in degrees Celsius as an input (<code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code>)</p></li>
 <li><p>Converts the temperatures to degrees Fahrenheit</p></li>
-<li><p>Checks to see whether the converted temperature is within the specified temperature range (<code class="docutils literal notranslate"><span class="pre">temp_fahr_ideal</span></code> ± <code class="docutils literal notranslate"><span class="pre">temp_fahr_range</span></code>)</p></li>
+<li><p>Checks to see whether the converted temperature is within the specified temperature range <code class="docutils literal notranslate"><span class="pre">temp_fahr_ideal</span></code> ± <code class="docutils literal notranslate"><span class="pre">temp_fahr_range</span></code></p></li>
 <li><p>Returns a Boolean value resulting from the comparison</p></li>
 </ol>
 <p>The function we describe looks similar to some of those we have used earlier but with a bit more complexity. Let’s look at the function, test it, and then explore how it works.</p>
@@ -779,7 +779,7 @@ None
 </div>
 </div>
 </div>
-<p>As we can see, 21 degrees Celsius would also be considered a comfortable temperature in the US!. However, you may notice that when we have multiple parameters it is easy to confuse what they represent. In such a case, it can be helpful to include the names of the parameters to be clearer.</p>
+<p>As we can see, 21 degrees Celsius would also be considered a comfortable temperature in the US!. However, you may notice that when we have multiple parameters it is easy to confuse what they represent. In such a case, it can be helpful to include the names of the parameters, as we have seen earlier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_in_comfort_range</span><span class="p">(</span><span class="n">temp_fahr_ideal</span><span class="o">=</span><span class="mf">68.0</span><span class="p">,</span> <span class="n">temp_celsius</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">temp_fahr_range</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
@@ -796,7 +796,7 @@ None
 </section>
 <section id="required-and-optional-parameters">
 <h3>Required and optional parameters<a class="headerlink" href="#required-and-optional-parameters" title="Link to this heading">#</a></h3>
-<p>When using Python functions it is possible to design them such that not all parameters need to be specified to use the function. In such cases, default values will be used when no parameter value is given. In our <code class="docutils literal notranslate"><span class="pre">temp_in_comfort_range()</span></code> function definition we have provided default values for two parameters: <code class="docutils literal notranslate"><span class="pre">temp_fahr_ideal=68.0</span></code> and <code class="docutils literal notranslate"><span class="pre">temp_fahr_range=5.0</span></code>. Thus, a user could test whether a given temperature in Celsius is with the default temperature range in Fahrenheit (68.0 ± 5.0) by specifying only a single parameter value when using the <code class="docutils literal notranslate"><span class="pre">temp_in_comfort_range()</span></code> function, as shown below.</p>
+<p>When creating Python functions it is possible to design them such that not all parameters need to be specified to use the function. In such cases, default values will be used when no parameter value is given. In our <code class="docutils literal notranslate"><span class="pre">temp_in_comfort_range()</span></code> function definition we have provided default values for two parameters: <code class="docutils literal notranslate"><span class="pre">temp_fahr_ideal=68.0</span></code> and <code class="docutils literal notranslate"><span class="pre">temp_fahr_range=5.0</span></code>. Thus, a user could test whether a given temperature in Celsius is with the default temperature range in Fahrenheit (68.0 ± 5.0) by specifying only a single parameter value when using the <code class="docutils literal notranslate"><span class="pre">temp_in_comfort_range()</span></code> function, as shown below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_in_comfort_range</span><span class="p">(</span><span class="mf">19.0</span><span class="p">)</span>
@@ -819,7 +819,7 @@ None
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">45</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">temp_in_comfort_range</span><span class="p">()</span>
 
 <span class="ne">TypeError</span>: temp_in_comfort_range() missing 1 required positional argument: &#39;temp_celsius&#39;
@@ -827,7 +827,7 @@ None
 </div>
 </div>
 </div>
-<p>In this case we see a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> is raised because the parameter <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> must be specified in order to use the <code class="docutils literal notranslate"><span class="pre">temp_in_comfort_range()</span></code> function. In such a situation, <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> is a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Required-parameter"><span class="xref std std-term">required function parameter</span></a></em> and must be given in order to use the function because no default value was assigned to <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> when the function was defined. Required parameters can be used to ensure that required information for functions is always provided when they are used. When defining functions with both required and optional parameters, required (or positional) parameters must be listed before optional parameters in the function definition.</p>
+<p>In this case we see a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> is raised because the parameter <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> must be specified in order to use the <code class="docutils literal notranslate"><span class="pre">temp_in_comfort_range()</span></code> function. In this case, <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> is a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Required-parameter"><span class="xref std std-term">required function parameter</span></a></em> and must be given in order to use the function because no default value was assigned to <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> when the function was defined. Required parameters can be used to ensure that required information for functions is always provided when they are used. When defining functions with both required and optional parameters, required (or positional) parameters must be listed before optional parameters in the function definition.</p>
 </section>
 <section id="functions-with-multiple-return-values">
 <h3>Functions with multiple return values<a class="headerlink" href="#functions-with-multiple-return-values" title="Link to this heading">#</a></h3>
@@ -908,7 +908,7 @@ None
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">celsius_temp</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">fahr_temp</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -923,7 +923,7 @@ None
 </section>
 <section id="variables-inside-functions">
 <h2>Variables inside functions<a class="headerlink" href="#variables-inside-functions" title="Link to this heading">#</a></h2>
-<p>A common point of confusion for new programmers is understanding how variable names in functions relate to those defined elsewhere in their code (or your notebooks).
+<p>A common point of confusion for new programmers is understanding how variable names in functions relate to those defined elsewhere in their code (or notebooks).
 When defining a function, the variable names given in the function definition exist and will only be used when the function is called.
 That might seem confusing, but as it turns out this is an excellent feature in Python that can save you from much suffering.
 Let’s try to understand this by way of an example.</p>
@@ -938,7 +938,7 @@ Let’s try to understand this by way of an example.</p>
 </div>
 </div>
 <p>So, we have defined our function to accept <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code> as its only parameter, calculate <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code>, and return that value.
-As you will see below, the variables defined in the function exist only in its <em>namespace</em>.
+As you will see below, the variables defined in the function exist only in its <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Namespace"><span class="xref std std-term">namespace</span></a></em>.
 Let’s confirm that by printing each out.</p>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
@@ -949,7 +949,7 @@ Let’s confirm that by printing each out.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">30</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">29</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">temp_kelvins</span>
 
 <span class="ne">NameError</span>: name &#39;temp_kelvins&#39; is not defined
@@ -966,7 +966,7 @@ Let’s confirm that by printing each out.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">31</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">30</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">temp_celsius</span>
 
 <span class="ne">NameError</span>: name &#39;temp_celsius&#39; is not defined
@@ -974,7 +974,7 @@ Let’s confirm that by printing each out.</p>
 </div>
 </div>
 </div>
-<p>Here, in the <em>global namespace</em> we get a <code class="docutils literal notranslate"><span class="pre">NameError</span></code> when trying to access the variables <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code> and <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> because they have only been defined within the scope of the <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius()</span></code> function.</p>
+<p>Here, in the global namespace we get a <code class="docutils literal notranslate"><span class="pre">NameError</span></code> when trying to access the variables <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code> and <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code> because they have only been defined within the scope of the <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius()</span></code> function.</p>
 <p>Perhaps, however, you are thinking that we have not yet called the function, so that is why we get a <code class="docutils literal notranslate"><span class="pre">NameError</span></code>. Maybe if we use the function, then these variable values will be defined.
 Let’s try that and print out <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code> once again.</p>
 <div class="cell docutils container">
@@ -998,7 +998,7 @@ Let’s try that and print out <code class="docutils literal notranslate"><span 
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">33</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">32</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">temp_kelvins</span>
 
 <span class="ne">NameError</span>: name &#39;temp_kelvins&#39; is not defined
@@ -1057,7 +1057,7 @@ This is probably not a good idea in most cases because it could cause confusion,
 <p>As you can see, the value of the variable <code class="docutils literal notranslate"><span class="pre">temperature</span></code> in the global namespace was set to 303.15 and remains 303.15 even after using the <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius2()</span></code> function.
 Although there is a variable inside that function with the same name as the value in the global namespace, using the function assigns the value of <code class="docutils literal notranslate"><span class="pre">temperature</span></code> inside the function and manipulates that value only inside the function.</p>
 <p>It is important to be aware that it is possible to access variable values that have been defined in the global namespace from within functions, even if the value has not been passed to the function.
-This is because Python will search for variables defined with a given name first inside the function, and then outside the function (the search domain is known as the variable’s <em>scope</em>).
+This is because Python will search for variables defined with a given name first inside the function, and then outside the function (the search domain is known as the variable’s <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Scope"><span class="xref std std-term">scope</span></a></em>).
 If such a value is found then it can be used by the function, which could be dangerous!</p>
 <p>Let’s look at an example of behavior in a function that may be unexpected. Here we can define a third version of the <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius()</span></code> function that we can call <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius3()</span></code>.</p>
 <div class="cell docutils container">
@@ -1085,23 +1085,23 @@ If such a value is found then it can be used by the function, which could be dan
 Although <code class="docutils literal notranslate"><span class="pre">temperature</span></code> was not passed to <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius3()</span></code> it is defined in the global namespace and thus can be used by our example function.
 Since <code class="docutils literal notranslate"><span class="pre">temperature</span> <span class="pre">=</span> <span class="pre">303.15</span></code> we get a value of 30.0 returned when using <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius3()</span></code>.
 Conclusion: Be careful!</p>
-<p>For those who are interested, more information about namespaces and variables scopes can be found on the <a class="reference external" href="https://realpython.com/python-namespaces-scope/">Real Python website</a>.</p>
+<p>More information about namespaces and variables scopes can be found, for example, on the <a class="reference external" href="https://realpython.com/python-namespaces-scope/">Real Python website</a> <a class="footnote-reference brackets" href="#namespace" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="documenting-functions-with-docstrings">
 <h2>Documenting functions with docstrings<a class="headerlink" href="#documenting-functions-with-docstrings" title="Link to this heading">#</a></h2>
-<p>A documentation string, or a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Docstring"><span class="xref std std-term">docstring</span></a></em> is a block of text that describes what a specific function, library, or script does and how to use it. Surprise surprise, PEP 8 contains <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#documentation-strings">more guidance about documentation strings</a> <a class="footnote-reference brackets" href="#pep8-docstring" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, and docstrings even have <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">their own guide page</a> <a class="footnote-reference brackets" href="#pep257" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. Let’s look an an example from our of our functions above.</p>
+<p>A documentation string, or <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Docstring"><span class="xref std std-term">docstring</span></a></em>, is a block of text that describes what a specific function, library, or script does and how to use it. Although the format of docstrings can vary, there are certain elements of a docstring that are needed for it to function properly. Let’s look at an example using one of our functions created earlier in this section.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts temperature in Kelvins to degrees Celsius.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
 </pre></div>
 </div>
-<p>Here you can see a short bit of text explaining in simple language what this function does. In this case our function is quite simple, but the docstring still helps remove uncertainty about what it can be used to do. So, what can we see in this example?</p>
+<p>Here you can see a short bit of text explaining in clear language what this function does. In this case our function is quite simple, but the docstring still helps remove uncertainty about what it can be used to do. So, what can we see in this example?</p>
 <ul class="simple">
 <li><p>A docstring is always the first statement in a module or a function.</p></li>
-<li><p>Docstrings are written using <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;triple</span> <span class="pre">double</span> <span class="pre">quotation</span> <span class="pre">marks&quot;&quot;&quot;</span></code>.</p></li>
-<li><p>Short docstrings <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/#one-line-docstrings">can be written on a single line</a> <a class="footnote-reference brackets" href="#pep257-one-line" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p></li>
+<li><p>Docstrings are enclosed in <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;triple</span> <span class="pre">double</span> <span class="pre">quotation</span> <span class="pre">marks&quot;&quot;&quot;</span></code>.</p></li>
+<li><p>Short docstrings <a class="reference external" href="https://peps.python.org/pep-0257/#one-line-docstrings">can be written on a single line</a> <a class="footnote-reference brackets" href="#pep257-one-line" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p></li>
 </ul>
-<p>Seems simple enough, right? We can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let’s expand the docstring above to provide more information about this function.</p>
+<p>Seems simple enough, right? However, we can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let’s expand the docstring above to provide more information about this function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts temperature in Kelvins to degrees Celsius.</span>
@@ -1119,23 +1119,28 @@ Conclusion: Be careful!</p>
     <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
 </pre></div>
 </div>
-<p>Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format is to have the quotation marks on their own separate lines.</p>
+<p>Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format with multiple lines in a docstring is to have the quotation marks on their own separate lines.</p>
+<p>Additional information about formatting docstrings can be found in the <a class="reference external" href="https://peps.python.org/pep-0008/#documentation-strings">Python style guide PEP 8</a> <a class="footnote-reference brackets" href="#pep8-docstring" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> and the <a class="reference external" href="https://peps.python.org/pep-0257/">docstring convention guide PEP 257</a> <a class="footnote-reference brackets" href="#pep257" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="pep8-docstring" role="doc-footnote">
+<aside class="footnote brackets" id="namespace" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://realpython.com/python-namespaces-scope/">https://realpython.com/python-namespaces-scope/</a></p>
+</aside>
+<aside class="footnote brackets" id="pep257-one-line" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0257/#one-line-docstrings">https://www.python.org/dev/peps/pep-0257/#one-line-docstrings</a></p>
+</aside>
+<aside class="footnote brackets" id="pep8-docstring" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#documentation-strings">https://www.python.org/dev/peps/pep-0008/#documentation-strings</a></p>
 </aside>
 <aside class="footnote brackets" id="pep257" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">https://www.python.org/dev/peps/pep-0257/</a></p>
-</aside>
-<aside class="footnote brackets" id="pep257-one-line" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0257/#one-line-docstrings">https://www.python.org/dev/peps/pep-0257/#one-line-docstrings</a></p>
 </aside>
 </aside>
 </section>

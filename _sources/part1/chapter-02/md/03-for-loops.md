@@ -50,7 +50,7 @@ european_cities[3]
 But this is a bad idea. Why? Well there are two reasons.
 First, it does not scale nicely for long lists and will take forever to type in.
 Second, it won’t work if the length of the list has fewer than 4 cities (or more than 4 cities for that matter...).
-Let's see an example with a new `list`.
+Let's see an example with an updated `list`.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -72,6 +72,8 @@ european_cities[2]
 ```python tags=["raises-exception"]
 european_cities[3]
 ```
+
+Here we get an `IndexError` because we have only 3 values in our list and tried to access 4 values based on what had worked for the first `european_cities` list.
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Introducing the for loop
@@ -152,7 +154,7 @@ Furthermore, by following this kind of list of repeating actions we're able to s
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-### for loop variables
+### For loop variables
 
 Note that the variable used in a `for` loop is just a normal variable. This its value still exists after the loop has been run. Let's loop over a list of weather conditions and print them to the screen. 
 <!-- #endregion -->
@@ -183,7 +185,7 @@ print(f"After the loop, weather is {weather}")
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## For loops using the range function
 
-A loop can be used to iterate over any list of values in Python. So far we have considered only iterating over lists, but we could also write a loop that performs a calculation a specified number of times by using the `range()` function. Let's consider an example where we use a `for` loop with `value` as the loop variable and `range(5)` as the collection. Let's see what happens if we print `value` at each iteration.
+A loop can be used to iterate over any list of values in Python. So far we have considered only iterating a `list`, but we could also write a loop that performs a calculation a specified number of times by using the `range()` function. Let's consider an example where we use a `for` loop with `value` as the loop variable and `range(5)` as the collection. Let's see what happens if we print `value` at each iteration.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -263,9 +265,9 @@ for i in range(len(african_cities)):
 There are several important things to observe in this `for` loop:
 
 1. You can see that because we are using the `range()` function, the value assigned to the loop variable `i` starts with `0` and increases by `1` each time through the loop. 
-2. In order to access individual cities in the `african_cities` list, we need to include the index value (e.g., `african_cities[i]`. Here, the variable `i` will be replaced by the current value assigned from the `range()` function.
+2. In order to access individual cities in the `african_cities` list, we need to include the index value (e.g., `african_cities[i]`). Here, the variable `i` will be replaced by the current value assigned from the `range()` function.
 
-The variable `i` is commonly used to denote the index variable in loops. Loops can sometimes occur with another loop (referred to as nested loops), in which case other index variables such as `j` or `k` may be used.
+The variable `i` is commonly used to denote the index variable in loops. Loops can sometimes occur with another loop (referred to as nested loops), in which case other index variables such as `j` or `k` are often used.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -320,7 +322,3 @@ for i in range(len(odd_numbers)):
 15
 11
 ```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-## Footnotes
-<!-- #endregion -->
