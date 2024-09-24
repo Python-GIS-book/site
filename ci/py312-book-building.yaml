@@ -61,6 +61,7 @@ dependencies:
   # PDF building
   - nbconvert=7.16.4
   - pip=24.2
+  - pandoc=3.1.13
   - pip:
     - nbmerge==0.0.4
     - jupyterlab_myst==2.4.2
