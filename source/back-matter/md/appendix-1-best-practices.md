@@ -30,3 +30,8 @@ It is best not to import many functions from a module using the form `from X imp
 ### Choose logical names when renaming on import
 
 Do not use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (`import pandas as pd` is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, `import matplotlib as m` could be confusing, especially if we used `import math as m` above and might do so in other Jupyter notebooks or script files. Similarly, `import matplotlib as math` is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.
+
+
+## Footnotes
+
+[^pep8]: <https://peps.python.org/pep-0008/#imports>
