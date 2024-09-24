@@ -18,11 +18,11 @@ jupyter:
 
 ## What is pandas?
 
-The [pandas Python library](https://pandas.pydata.org/) [^pandas] is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community ({cite}`McKinney2022`).
+The [`pandas` Python library](https://pandas.pydata.org/) [^pandas] is a easy-to-use, powerful data analysis toolkit. It is a mature data analytics framework that is widely used in different fields of science. The development of `pandas` started in 2008 and it is now maintained by an active developer community ({cite}`McKinney2022`).
 
-Pandas is a "high-level" package, which means that it makes use of several other packages in the background. It combines the performance of powerful Python libraries such as [NumPy](https://numpy.org/) [^numpy], [matplotlib](https://matplotlib.org/) [^matplotlib] and [SciPy](https://scipy.org/) [^scipy].
+`pandas` is a "high-level" package, which means that it makes use of several other packages in the background. It combines the performance of powerful Python libraries such as [NumPy](https://numpy.org/) [^numpy], [Matplotlib](https://matplotlib.org/) [^matplotlib] and [SciPy](https://scipy.org/) [^scipy].
 
-One of the most useful features of pandas is its ability to interact with numerous data formats. It supports reading and writing data e.g. from/to:
+One of the most useful features of pandas is its ability to interact with numerous data formats. It supports reading and writing data, for example, from/to:
 
 - CSV
 - JSON
@@ -34,7 +34,7 @@ One of the most useful features of pandas is its ability to interact with numero
 - Python Pickle format
 - SQL (Postgresql, MySQL, Oracle, MariaDB, etc.)
 
-For a full list of supported file formats and other features, see the official [pandas documentation and reference guide](https://pandas.pydata.org/pandas-docs/stable/) [^pandasdocs].
+For a full list of supported file formats and other features, see the official [`pandas` documentation and reference guide](https://pandas.pydata.org/pandas-docs/stable/) [^pandasdocs].
 
 <!-- #region deletable=true editable=true -->
 ## Pandas data structures
