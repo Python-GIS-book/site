@@ -436,10 +436,10 @@ Perhaps the most valuable thing about adding the docstring is that it provides a
 help(kelvins_to_celsius)
 ```
 
-or by typing the name of the function followed by `?`.
+or by typing `?` before or after the name of the function.
 
 ```python
-kelvins_to_celsius?
+?kelvins_to_celsius
 ```
 
 As you can see, we now have easy access to information about the function that has been included in the docstring. This means you can remind yourself about how functions you have written work, or look up information about functions from libraries, as discussed later in this chapter.
