@@ -188,7 +188,7 @@ Finally, here are a few tips for using modules in your Python programs:
 - Choose logical names when renaming on import. It is preferable to use standard names (e.g., `import pandas as pd`) or select logical shorter names (e.g., `import matplotlib as mpl`) when renaming on import.
 - Pay attention to possible name conflicts. When renaming imported modules or importing functions from modules, be careful that the names do not conflict with built-in Python functions (e.g., `import matplotlib as map` would conflict with the built-in Python function `map()`).
 
-Additional examples of best practices for using modules can be found in {doc}`Appendix A.2 <back-matter/nb/appendix-1-best-practices>`.
+Additional examples of best practices for using modules can be found in {doc}`Appendix A.2 </back-matter/nb/appendix-1-best-practices>`.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
