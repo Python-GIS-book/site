@@ -444,12 +444,13 @@ kelvins_to_celsius?
 
 As you can see, we now have easy access to information about the function that has been included in the docstring. This means you can remind yourself about how functions you have written work, or look up information about functions from libraries, as discussed later in this chapter.
 
-Additional information about formatting docstrings can be found in the [Python style guide PEP 8](https://peps.python.org/pep-0008/#documentation-strings) [^pep8_docstring] and the [docstring convention guide PEP 257](https://peps.python.org/pep-0257/) [^pep257]. 
+Additional information about formatting docstrings can be found in the [Python style guide PEP 8](https://peps.python.org/pep-0008/#documentation-strings) [^pep8_docstring] and the [docstring convention guide PEP 257](https://peps.python.org/pep-0257/) [^pep257]. Note, however, that there is not a strict requirement for formatting docstrings. In this book we follow the [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html) [^numpy].
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^namespace]: <https://realpython.com/python-namespaces-scope/>
+[^numpy]: <https://numpydoc.readthedocs.io/en/latest/format.html>
 [^pep8_docstring]: <https://www.python.org/dev/peps/pep-0008/#documentation-strings>
 [^pep257]: <https://www.python.org/dev/peps/pep-0257/>
 [^pep257_one_line]: <https://www.python.org/dev/peps/pep-0257/#one-line-docstrings>
