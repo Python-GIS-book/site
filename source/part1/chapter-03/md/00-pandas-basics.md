@@ -366,9 +366,29 @@ Notice that in this case, the result is a `Series` showing the mean values for e
 data.describe()
 ```
 
-As a result, we get the number of values that are not None for each column (`count`) as well as the basic statistics and quartiles (min, 25%, 50%, 75%, and max). It is also possible to get other `DataFrame`-specific information such as the index, columns and data types, non-null values, and memory usage by calling `.info()`.
+As a result, we get the number of values that are not None for each column (`count`) as well as the basic statistics and quartiles (min, 25%, 50%, 75%, and max).
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+#### Question 3.3
+
+It doesn’t make much sense to print out descriptive statistics for the dates contained in the `YEARMODA` column. See if you can print out the descriptive statistics again, but only for columns `TEMP1`, `TEMP2`, `MAX`, and `MIN`.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# Use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
+# Solution
+
+data[["TEMP1", "TEMP2", "MAX", "MIN"]].describe()
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+It is also possible to get other `DataFrame`-specific information such as the index, columns and data types, non-null values, and memory usage by calling `.info()`.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 data.info()
 ```
 

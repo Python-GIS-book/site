@@ -135,7 +135,7 @@ else:
 ```
 <!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Question 2.12
 ```python
 def celsius_to_newton(temp_celsius):
@@ -146,9 +146,21 @@ def celsius_to_newton(temp_celsius):
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 3
 
-3.1
+### Question 3.1
+```python
+temp_data = pd.read_csv(
+    "data/kumpula-summer-2024.txt", skiprows=8, usecols=["YEARMODA", "TEMP1"]
+)
+```
+
+### Question 3.2
 ```python
 len(data.columns)
+```
+
+### Question 3.3
+```python
+data[["TEMP1", "TEMP2", "MAX", "MIN"]].describe()
 ```
 
 3.2
@@ -172,7 +184,7 @@ data["MONTH"] = data["TIME_STR"].str.slice(start=4, stop=6)
 ```
 <!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 4
 
 4.1
