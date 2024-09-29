@@ -436,7 +436,7 @@ new_data = pd.DataFrame(data={"station": stations, "lat": latitudes, "lon": long
 new_data
 ```
 
-It is also possible to create a `pandas` `DataFrame` from a list of dictionaries. This approach is quite similar as the previous example, but we will organize the data a bit differently. Having a list of dictionaries is common if you happen to work with `JSON` files, which are commonly used when reading data from the web (e.g., via an {term}`Application Programming Interface`).
+It is also possible to create a `pandas` `DataFrame` from a list of dictionaries. This approach is quite similar as the previous example, but we will organize the data a bit differently. Having a list of dictionaries is common if you happen to work with `JSON` files, which are commonly used when reading data from the web (e.g., via an *{term}`Application Programming Interface`*).
 
 ```python
 dictionaries = [
