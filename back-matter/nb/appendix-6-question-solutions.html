@@ -283,8 +283,8 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="appendix-0-python-environments.html">Installing and managing Python environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="appendix-1-git.html">Version control with git</a></li>
-<li class="toctree-l2"><a class="reference internal" href="appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appendix-1-best-practices.html">Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appendix-2-git-github.html">Version control with git/GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="appendix-3-script-files.html">Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
 </ul>
@@ -520,7 +520,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-12">Question 2.12</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-3">Chapter 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-3">Chapter 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-1">Question 3.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-2">Question 3.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-3">Question 3.3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-4">Question 3.4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-5">Question 3.5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-6">Question 3.6</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-4">Chapter 4</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-6">Chapter 6</a></li>
 </ul>
@@ -641,26 +649,48 @@ document.write(`
 </section>
 <section id="chapter-3">
 <h2>Chapter 3<a class="headerlink" href="#chapter-3" title="Link to this heading">#</a></h2>
-<p>3.1</p>
+<section id="question-3-1">
+<h3>Question 3.1<a class="headerlink" href="#question-3-1" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;data/kumpula-summer-2024.txt&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP1&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="question-3-2">
+<h3>Question 3.2<a class="headerlink" href="#question-3-2" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>3.2</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_KELVIN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">273.15</span>
+</section>
+<section id="question-3-3">
+<h3>Question 3.3<a class="headerlink" href="#question-3-3" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[[</span><span class="s2">&quot;TEMP1&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP2&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>3.3</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">23</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span> <span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</section>
+<section id="question-3-4">
+<h3>Question 3.4<a class="headerlink" href="#question-3-4" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_KELVIN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">273.15</span>
 </pre></div>
 </div>
-<p>3.4</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_CELSIUS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20160624</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</section>
+<section id="question-3-5">
+<h3>Question 3.5<a class="headerlink" href="#question-3-5" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">85</span><span class="p">:</span><span class="mi">91</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="question-3-6">
+<h3>Question 3.6<a class="headerlink" href="#question-3-6" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20240825</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>3.5</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;MONTH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME_STR&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
 </section>
 <section id="chapter-4">
 <h2>Chapter 4<a class="headerlink" href="#chapter-4" title="Link to this heading">#</a></h2>
@@ -965,7 +995,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-12">Question 2.12</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-3">Chapter 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-3">Chapter 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-1">Question 3.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-2">Question 3.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-3">Question 3.3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-4">Question 3.4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-5">Question 3.5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-6">Question 3.6</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-4">Chapter 4</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-6">Chapter 6</a></li>
 </ul>

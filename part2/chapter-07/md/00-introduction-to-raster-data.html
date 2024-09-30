@@ -283,8 +283,8 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">Version control with git/GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
 </ul>
@@ -451,7 +451,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -467,6 +469,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-raster-data">Characteristics of raster data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-raster-data-in-python">Working with raster data in Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-simple-raster-layer-using-numpy">Creating a simple raster layer using <code class="docutils literal notranslate"><span class="pre">numpy</span></code></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -478,10 +490,65 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="representing-geographic-data-in-raster-format">
 <h1>Representing geographic data in raster format<a class="headerlink" href="#representing-geographic-data-in-raster-format" title="Link to this heading">#</a></h1>
-<p><strong>To be updated</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<p>As we introduced earlier in <a class="reference external" href="https://pythongis.org/part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html#basics-of-raster-data-and-arrays">Chapter 5.2</a>, the raster data model represents the real-world features (e.g. temperature) as arrays of cells, commonly known as pixels. Raster data is widely used to represent and store data about continuous surfaces, in which each pixel contain specific information (characteristics, radiance, reflectance, spectral signatures) about a specific area of the Earth, such as 10x10 meter area. There are various reasons why you might want to store your data in raster format:</p>
+<ul class="simple">
+<li><p>It is a simple data structure: A matrix of cells with values representing information about the observed surface/phenomena</p></li>
+<li><p>It is an efficient way to store data from large continuous surfaces</p></li>
+<li><p>It is a powerful format that can be used for various spatial and statistical analysis</p></li>
+<li><p>You can perform fast overlays with multiple layers</p></li>
+</ul>
+<section id="characteristics-of-raster-data">
+<h2>Characteristics of raster data<a class="headerlink" href="#characteristics-of-raster-data" title="Link to this heading">#</a></h2>
+<p>Different kind of sensors (e.g. remote sensing instruments or <em><span class="xref std std-term">LIDAR</span></em>) are typically used to capture and collect data about specific aspects of the surface, such as temperature, elevation, or the electromagnetic radiation (light) that the surface reflects. This information can be captured with varying level of detail, depending on the sensor. Many sensors (especially satellite sensors) measure the electromagnetic radiation at specific ranges (i.e. bands) which is why they are called <span class="xref std std-term">Multispectral sensors</span> or <span class="xref std std-term">Hyperspectral sensors</span>. Most typically the raster data produced by these sensors can vary based on their:</p>
+<ul class="simple">
+<li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-resolution"><span class="xref std std-term">spatial resolution</span></a></em>, i.e. the size of a single pixel</p></li>
+<li><p><em><span class="xref std std-term">temporal resolution</span></em>, i.e. how frequently the data is captured from the same area of the Earth</p></li>
+<li><p><em><span class="xref std std-term">spectral resolution</span></em>, i.e. the number and location of spectral bands in the electromagnetic spectrum</p></li>
+<li><p><em><span class="xref std std-term">radiometric resolution</span></em>, i.e. the range of available brightness values (bit depth), usually measured in bits (binary digits)</p></li>
+<li><p><em><span class="xref std std-term">spatial extent</span></em>, i.e. how large area of the world a single image represents</p></li>
+<li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Coordinate-Reference-System"><span class="xref std std-term">coordinate reference system</span></a></em>, i.e. in what CRS the data is represented</p></li>
+</ul>
+</section>
+<section id="working-with-raster-data-in-python">
+<h2>Working with raster data in Python<a class="headerlink" href="#working-with-raster-data-in-python" title="Link to this heading">#</a></h2>
+<p>There are a number of libraries that are widely used when working with raster data in Python:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xarray</span></code> provides a user-friendly and intuitive way to work with multidimensional raster data with coordinates and attributes (somewhat similar to <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> that is used for vector data processing),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> provides methods to conduct GIS-related operations with raster data (e.g. reading/writing, reprojecting, clipping, resampling),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> provides methods for analysing raster data (e.g. focal/zonal operations, surface analysis, path finding),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rasterio</span></code> core library for working with GIS raster data. <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> is an extension of this library that brings the same functionalities on top of <code class="docutils literal notranslate"><span class="pre">xarray</span></code> library,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> is a core Python library for numerical computing that is used for representing and working with multidimensional arrays. <code class="docutils literal notranslate"><span class="pre">numpy</span></code> has a big influence on how the other raster libraries function and can be used to generate multidimensional arrays from scratch.</p></li>
+</ul>
+<p>In addition to these ones, there are a number of other libraries that are specialized to specific types of analyses or data. We will learn about a few of them later in the book.</p>
+</section>
+<section id="creating-a-simple-raster-layer-using-numpy">
+<h2>Creating a simple raster layer using <code class="docutils literal notranslate"><span class="pre">numpy</span></code><a class="headerlink" href="#creating-a-simple-raster-layer-using-numpy" title="Link to this heading">#</a></h2>
+<p>To get a better sense of how the raster data looks like, we can start by creating a simple two-dimensional array in Python using <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. In the following, we will modify the raster layer to represent a simple terrain that has a hill in the middle of the grid. We do this by setting higher values in the center while the other values are represented with value 0. Let’s start by importing the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library which we use for visualizing our data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
+<p>Creating a simple 2D raster layer (a 2D array) with 10x10 array can be done easily by using a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> method <code class="docutils literal notranslate"><span class="pre">.zeros()</span></code> with fills the cells (pixels) with zeros. Each zero represents a default pixel value (e.g. 0 elevation). You can think of this as an empty raster grid:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raster_layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">raster_layer</span>
+</pre></div>
+</div>
+<p>Now we have a simple 2D array filled with zeros. Next, we modify the raster layer to represent a simple terrain and add larger numbers in the middle of the grid by setting higher values in the center. We can do this by <em><span class="xref std std-term">slicing</span></em> the numpy array using the indices of the array and updating the numbers on those locations to be higher. Slicing <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays happens in a similar manner as when working with Python lists and accessing the items of a list (see Chapter 2.2). However, in this case we do this in two dimensions by accessing the values stored in specific rows and columns by following the syntax: <code class="docutils literal notranslate"><span class="pre">[start-row-idx:</span> <span class="pre">end-row-idx,</span> <span class="pre">start-col-idx:</span> <span class="pre">end-col-idx]</span></code>. Thus, we can update the values in our 2D array as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raster_layer</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>   
+<span class="n">raster_layer</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">raster_layer</span>
+</pre></div>
+</div>
+<p>Here we first updated the cells between the fourth and seventh rows and columns (<code class="docutils literal notranslate"><span class="pre">[4:7,</span> <span class="pre">4:7]</span></code>) to have a value <code class="docutils literal notranslate"><span class="pre">5</span></code>, and then we updated the center of the matrix to represent the peak of the hill having a value <code class="docutils literal notranslate"><span class="pre">10</span></code>. As a result, we have a simple raster layer that simulates a simple terrain. We can also plot this raster layer, using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library and its <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code> function that can be used to visualize arrays:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">raster_layer</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;terrain&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Simple Raster Layer representing a Hill&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As a result, we have a simple map that represents the elevation of the hill with different colors. The <em><span class="xref std std-term">colormap</span></em> of the visualization was determined using the parameter <code class="docutils literal notranslate"><span class="pre">cmap</span></code>, while the <code class="docutils literal notranslate"><span class="pre">plt.colorbar()</span></code> function was used to add a legend to the right side of the image, and the <code class="docutils literal notranslate"><span class="pre">plt.title()</span></code> was used to add a simple title for the image.</p>
+<p>This example demonstrates a toy example how we can produce a simple raster layer from scratch. However, there are various aspects related to working with GIS raster data that we did not cover here, such as specifying the metadata for this layer. Basically, the data we have here is simply a two-dimensional array (matrix) that does not tell anything about the <em>spatial resolution</em> of the data (i.e. how large each cell is), nor e.g. in which area of the world this data is located (i.e. coordinates) or the <em>coordinate reference system</em> this data is represented in. In the next section, we start working with real raster data and cover more aspects that relate to spatial raster data.</p>
+</section>
 </section>
 
 
@@ -501,6 +568,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-raster-data">Characteristics of raster data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-raster-data-in-python">Working with raster data in Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-simple-raster-layer-using-numpy">Creating a simple raster layer using <code class="docutils literal notranslate"><span class="pre">numpy</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

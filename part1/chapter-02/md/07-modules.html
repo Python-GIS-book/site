@@ -283,8 +283,8 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">Version control with git/GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
 </ul>
@@ -483,12 +483,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-available-functions-and-modules">Checking available functions and modules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-avoid">Things to avoid</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-x-import">from X import *</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poor-names-when-renaming-on-import">Poor names when renaming on import</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-modules-within-notebook-or-script-files">Importing modules within notebook or script files</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-using-modules">Best practices for using modules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
@@ -634,29 +629,18 @@ __future__          cligj               linkify_it          rvlib
 <!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
-<section id="things-to-avoid">
-<h2>Things to avoid<a class="headerlink" href="#things-to-avoid" title="Link to this heading">#</a></h2>
-<p>Modules are very useful in Python, but there are a few things you should not do.</p>
+<section id="best-practices-for-using-modules">
+<h2>Best practices for using modules<a class="headerlink" href="#best-practices-for-using-modules" title="Link to this heading">#</a></h2>
+<p>Finally, here are a few tips for using modules in your Python programs:</p>
+<ul class="simple">
+<li><p>Import modules at the start of your files. The <a class="reference external" href="https://peps.python.org/pep-0008/#imports">PEP 8</a> <a class="footnote-reference brackets" href="#pep8" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> guidelines recommend always importing modules at the top of a script file (and the same can be applied to a Jupyter notebook.</p></li>
+<li><p>Avoid importing functions using wildcards. It is best not to import all functions from a module using the form <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code> (where <code class="docutils literal notranslate"><span class="pre">X</span></code> is a Python module) due to losing connections between the function and module it is sourced from.</p></li>
+<li><p>Choose logical names when renaming on import. It is preferable to use standard names (e.g., <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code>) or select logical shorter names (e.g., <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">mpl</span></code>) when renaming on import.</p></li>
+<li><p>Pay attention to possible name conflicts. When renaming imported modules or importing functions from modules, be careful that the names do not conflict with built-in Python functions (e.g., <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">map</span></code> would conflict with the built-in Python function <code class="docutils literal notranslate"><span class="pre">map()</span></code>).</p></li>
+</ul>
+<p>Additional examples of best practices for using modules can be found in <a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html"><span class="doc">Appendix A.2</span></a>.</p>
 <!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-<section id="from-x-import">
-<h3>from X import *<a class="headerlink" href="#from-x-import" title="Link to this heading">#</a></h3>
-<p>Do not import functions using <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code>. This may be easier to understand by way of an example, but assuming <code class="docutils literal notranslate"><span class="pre">X</span></code> above is a Python module, <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code> will import all of the functions in module X. Though you might think this is helpful, it is much better to simply <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">X</span></code> or <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">X</span> <span class="pre">as</span> <span class="pre">Y</span></code> to maintain the connection between the functions and their module. It is also much more likely you will encounter conflicting function names when using <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">*</span></code>.</p>
-<!-- #endregion -->
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-</section>
-<section id="poor-names-when-renaming-on-import">
-<h3>Poor names when renaming on import<a class="headerlink" href="#poor-names-when-renaming-on-import" title="Link to this heading">#</a></h3>
-<p>Do not use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code> is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">m</span></code> could be confusing, especially if we used <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span> <span class="pre">as</span> <span class="pre">m</span></code> above and might do so in other Jupyter notebooks or script files. Similarly, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">math</span></code> is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.</p>
-<!-- #endregion -->
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-</section>
-<section id="importing-modules-within-notebook-or-script-files">
-<h3>Importing modules within notebook or script files<a class="headerlink" href="#importing-modules-within-notebook-or-script-files" title="Link to this heading">#</a></h3>
-<p>According to the good coding practices described in <a class="reference external" href="https://peps.python.org/pep-0008/#imports">PEP 8</a> <a class="footnote-reference brackets" href="#pep8" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>, we should always import modules at the top of a file. In this lesson, we are demonstrating how to import different modules along the way, but in general it would be better to import required modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files by placing our imports the first code cell in the notebook.</p>
-<!-- #endregion -->
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-</section>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
@@ -727,12 +711,7 @@ __future__          cligj               linkify_it          rvlib
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-available-functions-and-modules">Checking available functions and modules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-avoid">Things to avoid</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-x-import">from X import *</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poor-names-when-renaming-on-import">Poor names when renaming on import</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-modules-within-notebook-or-script-files">Importing modules within notebook or script files</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-using-modules">Best practices for using modules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>

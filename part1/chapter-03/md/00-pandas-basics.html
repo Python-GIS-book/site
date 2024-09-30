@@ -283,8 +283,8 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">Version control with git/GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
 </ul>
@@ -475,17 +475,23 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pandas">What is pandas?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-data-structures">Pandas data structures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-tabular-data">Reading tabular data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-data-structures">pandas data structures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-tabular-data">Reading tabular data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-1">Question 3.1</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-data-to-a-file">Writing data to a file</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-properties">DataFrame properties</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-1">Question 3.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-2">Question 3.2</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-columns">Selecting columns</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-values">Unique values</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics">Descriptive statistics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-ways-of-constructing-pandas-objects">Different ways of constructing pandas objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics">Descriptive statistics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-3">Question 3.3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-ways-of-constructing-pandas-objects">Other ways of constructing pandas objects</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
@@ -504,9 +510,9 @@ document.write(`
 <!-- #endregion -->
 <section id="what-is-pandas">
 <h2>What is pandas?<a class="headerlink" href="#what-is-pandas" title="Link to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://pandas.pydata.org/">pandas Python library</a> <a class="footnote-reference brackets" href="#pandas" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is a easy-to-use but powerful data analysis toolkit. It is a mature data analytics framework that is widely used among different fields of science. The development of pandas started in 2008 and it is now maintained by an active developer community (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id15" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 3rd edition, 2022.">McKinney, 2022</a></span>).</p>
-<p>Pandas is a “high-level” package, which means that it makes use of several other packages in the background. It combines the performance of powerful Python libraries such as <a class="reference external" href="https://numpy.org/">NumPy</a> <a class="footnote-reference brackets" href="#numpy" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, <a class="reference external" href="https://matplotlib.org/">matplotlib</a> <a class="footnote-reference brackets" href="#matplotlib" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> and <a class="reference external" href="https://scipy.org/">SciPy</a> <a class="footnote-reference brackets" href="#scipy" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
-<p>One of the most useful features of pandas is its ability to interact with numerous data formats. It supports reading and writing data e.g. from/to:</p>
+<p>The <a class="reference external" href="https://pandas.pydata.org/"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> Python library</a> <a class="footnote-reference brackets" href="#pandas" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is an easy-to-use, powerful data analysis toolkit. It is a mature data analytics framework that is widely used in different fields of science. The development of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> started in 2008 and it is now maintained by an active developer community (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id15" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 3rd edition, 2022.">McKinney, 2022</a></span>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> is a “high-level” package, which means that it makes use of several other packages in the background. It combines the performance of powerful Python libraries such as <a class="reference external" href="https://numpy.org/">NumPy</a> <a class="footnote-reference brackets" href="#numpy" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> <a class="footnote-reference brackets" href="#matplotlib" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, and <a class="reference external" href="https://scipy.org/">SciPy</a> <a class="footnote-reference brackets" href="#scipy" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
+<p>One of the most useful features of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is its ability to interact with numerous data formats. It supports reading and writing data from/to formats including</p>
 <ul class="simple">
 <li><p>CSV</p></li>
 <li><p>JSON</p></li>
@@ -518,86 +524,84 @@ document.write(`
 <li><p>Python Pickle format</p></li>
 <li><p>SQL (Postgresql, MySQL, Oracle, MariaDB, etc.)</p></li>
 </ul>
-<p>For a full list of supported file formats and other features, see the official <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/">pandas documentation and reference guide</a> <a class="footnote-reference brackets" href="#pandasdocs" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p>
+<p>For a full list of supported file formats and other features, please refer to the official <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> documentation and reference guide</a> <a class="footnote-reference brackets" href="#pandasdocs" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p>
 <!-- #region deletable=true editable=true -->
 </section>
 <section id="pandas-data-structures">
-<h2>Pandas data structures<a class="headerlink" href="#pandas-data-structures" title="Link to this heading">#</a></h2>
-<p>In pandas, table-like data are stored in two-dimensional <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects with labeled rows and columns. The pandas DataFrame was originally inspired by data frames that are in-built in the R programming language. You can think of the pandas DataFrame as a programmable spreadsheet. One-dimensional sequences of values are stored in pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code>. One row or one column in a pandas DataFrame is actually a pandas Series. You can think of a pandas Series as a clever list. These pandas structures incorporate a number of things we’ve already encountered earlier in this book, such as indices, data stored in a collection, and data types.</p>
-<p><img alt="Figure 3.1. Illustration of pandas DaraFrame and pandas Series data structures. Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values." src="../../../_images/pandas-structures-annotated.png" /></p>
-<p><em><strong>Figure 3.1</strong>. Illustration of pandas DaraFrame and pandas Series data structures. Pandas DataFrame is a 2-dimensional data structure used for storing and mainpulating table-like data (data with rows and columns). Pandas Series is a 1-dimensional data structure used for storing and manipulating an sequence of values.</em></p>
-<p>As you can see from Figure 3.1, both the DataFrame and Series in pandas have an index that can be used to select values, but they also have column labels to identify columns in DataFrames. In the next sections, we will use many of these features to explore real-world data and learn some useful data analysis procedures. For a comprehensive overview of pandas data structures, we recommend you to have a look at pandas online documentation about data structures <a class="footnote-reference brackets" href="#pandas-ds" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> as well as Chapter 5 in <span id="id8"><a class="reference internal" href="../../../back-matter/nb/references.html#id15" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 3rd edition, 2022.">McKinney, 2022</a></span>.</p>
+<h2>pandas data structures<a class="headerlink" href="#pandas-data-structures" title="Link to this heading">#</a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, table-like data are stored in two-dimensional <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects with labeled rows and columns. The <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> was originally inspired by data frames that are in the R programming language. You can think of a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as a programmable spreadsheet. One-dimensional sequences of values are stored as a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code>. A single row or column in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> is actually a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code>. You can think of a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code> as a clever list. These <code class="docutils literal notranslate"><span class="pre">pandas</span></code> structures incorporate a number of things we’ve already encountered earlier in this book, such as indices, data stored in a collection, and data types.</p>
+<p><img alt="Figure 3.1. Illustration of the   and  data structures. A   is a two-dimensional data structure used for storing and manipulating table-like data (data with rows and columns). A   is a one-dimensional data structure used for storing and manipulating a sequence of values." src="../../../_images/pandas-structures-annotated.png" /></p>
+<p><em><strong>Figure 3.1</strong>. Illustration of the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> data structures. A <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> is a two-dimensional data structure used for storing and manipulating table-like data (data with rows and columns). A <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code> is a one-dimensional data structure used for storing and manipulating a sequence of values.</em></p>
+<p>As you can see from Figure 3.1, both the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> have an index that can be used to select values, but <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects also have labels to identify columns. In the following sections, we will use many of these features to explore real-world data and learn some handy data analysis procedures using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. For a comprehensive overview of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> data structures, we recommend you have a look at the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> online documentation about data structures</a> <a class="footnote-reference brackets" href="#pandas-ds" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> as well as Chapter 5 in <span id="id8"><a class="reference internal" href="../../../back-matter/nb/references.html#id15" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 3rd edition, 2022.">McKinney, 2022</a></span>.</p>
 <!-- #endregion -->
-<!-- #region -->
 </section>
 <section id="reading-tabular-data">
 <h2>Reading tabular data<a class="headerlink" href="#reading-tabular-data" title="Link to this heading">#</a></h2>
-<p>In the following sections, we will learn how to read data from a text file (“Kumpula-June-2016-w-metadata.txt”) which contains weather observations from Kumpula, Helsinki (Finland). The data were  retrieved from <a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/">NOAA climate database</a> <a class="footnote-reference brackets" href="#noaa" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> and it contains observed daily mean, minimum, and maximum temperatures from June 2016, recorded by a weather observation station in Kumpula. The file includes altogether 30 rows of observations (one per day). The first fifteen rows in the file look like following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data file contents: Daily temperatures (mean, min, max) for Kumpula, Helsinki</span>
-<span class="c1">#                     for June 1-30, 2016</span>
-<span class="c1"># Data source: https://www.ncdc.noaa.gov/cdo-web/search?datasetid=GHCND</span>
+<p>In the following sections, we will learn how to read data from a text file (<code class="docutils literal notranslate"><span class="pre">data/kumpula-summer-2024.txt</span></code>), which contains weather observations from the Kumpula neighborhood in Helsinki, Finland. The data were  retrieved from <a class="reference external" href="https://en.ilmatieteenlaitos.fi/download-observations/">Finnish Meteorlogical Institute’s data service</a> <a class="footnote-reference brackets" href="#fmi" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> and it contains observed daily temperatures recorded at two times during the day (<code class="docutils literal notranslate"><span class="pre">TEMP1</span></code>: 10 a.m.; <code class="docutils literal notranslate"><span class="pre">TEMP2</span></code>: 2:00 p.m.), as well as the minimum and maximum temperatures from Summer 2024 (June 1st - August 31st, 2024) recorded by the Kumpula weather observation station in Helsinki. The file includes 92 rows of observations (one per day). The first fifteen rows in the file look like the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data file contents: Daily temperatures (TEMP1 (10AM), TEMP2 (4PM), min, ma...</span>
+<span class="c1"># for June 1 - August 31, 2024</span>
+<span class="c1"># Data source: Finnish Meteorological Institute - downloaded from open data ...</span>
 <span class="c1"># Data processing: Extracted temperatures from raw data file, converted to</span>
-<span class="c1">#                  comma-separated format</span>
+<span class="c1"># comma-separated format - Extracted TEMP1 and TEMP2 and created YEARMODA co...</span>
 <span class="c1">#</span>
-<span class="c1"># David Whipp - 02.10.2017</span>
+<span class="c1"># Processed by Kamyar Hasanzadeh 15.09.2024</span>
 
-<span class="n">YEARMODA</span><span class="p">,</span><span class="n">TEMP</span><span class="p">,</span><span class="n">MAX</span><span class="p">,</span><span class="n">MIN</span>
-<span class="mi">20160601</span><span class="p">,</span><span class="mf">65.5</span><span class="p">,</span><span class="mf">73.6</span><span class="p">,</span><span class="mf">54.7</span>
-<span class="mi">20160602</span><span class="p">,</span><span class="mf">65.8</span><span class="p">,</span><span class="mf">80.8</span><span class="p">,</span><span class="mf">55.0</span>
-<span class="mi">20160603</span><span class="p">,</span><span class="mf">68.4</span><span class="p">,,</span><span class="mf">55.6</span>
-<span class="mi">20160604</span><span class="p">,</span><span class="mf">57.5</span><span class="p">,</span><span class="mf">70.9</span><span class="p">,</span><span class="mf">47.3</span>
-<span class="mi">20160605</span><span class="p">,</span><span class="mf">51.4</span><span class="p">,</span><span class="mf">58.3</span><span class="p">,</span><span class="mf">43.2</span>
-<span class="mi">20160606</span><span class="p">,</span><span class="mf">52.2</span><span class="p">,</span><span class="mf">59.7</span><span class="p">,</span><span class="mf">42.8</span>
+<span class="n">YEARMODA</span><span class="p">,</span><span class="n">MAX</span><span class="p">,</span><span class="n">MIN</span><span class="p">,</span><span class="n">TEMP1</span><span class="p">,</span><span class="n">TEMP2</span>
+<span class="mi">20240601</span><span class="p">,</span><span class="mf">26.2</span><span class="p">,</span><span class="mf">18.4</span><span class="p">,</span><span class="mf">24.2</span><span class="p">,</span><span class="mf">23.2</span>
+<span class="mi">20240602</span><span class="p">,</span><span class="mf">24.4</span><span class="p">,</span><span class="mf">17.1</span><span class="p">,</span><span class="mf">20.7</span><span class="p">,</span><span class="mf">24.2</span>
+<span class="mi">20240603</span><span class="p">,</span><span class="mf">25.7</span><span class="p">,</span><span class="mf">15.2</span><span class="p">,</span><span class="mf">22.5</span><span class="p">,</span><span class="mf">23.1</span>
+<span class="mi">20240604</span><span class="p">,</span><span class="mf">24.6</span><span class="p">,</span><span class="mf">15.7</span><span class="p">,</span><span class="mf">19.3</span><span class="p">,</span><span class="mf">24.6</span>
+<span class="mi">20240605</span><span class="p">,</span><span class="mf">23.4</span><span class="p">,</span><span class="mf">12.8</span><span class="p">,</span><span class="mf">20.3</span><span class="p">,</span><span class="mf">23.2</span>
+<span class="mi">20240606</span><span class="p">,</span><span class="mf">19.3</span><span class="p">,</span><span class="mf">13.6</span><span class="p">,</span><span class="mf">19.2</span><span class="p">,</span><span class="mf">14.9</span>
 </pre></div>
 </div>
-<p>Now as we have familiarized ourselves with the data, we can continue and see how to read the data using pandas. Let’s start by importing the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> module. It is customary to import pandas as <code class="docutils literal notranslate"><span class="pre">pd</span></code>:</p>
-<!-- #endregion -->
+<p>Now that we have familiarized ourselves with the data, we can continue and see how to read the data using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. Let’s start by importing the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> module. It is customary to import <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as <code class="docutils literal notranslate"><span class="pre">pd</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>Next, we will read the input data file and store the contents of that file into a variable called <code class="docutils literal notranslate"><span class="pre">data</span></code> Using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function:</p>
+<p>Next, we will read the input data file and store the contents of that file into a variable called <code class="docutils literal notranslate"><span class="pre">data</span></code> using the <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> function.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/kumpula-summer-2024.txt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Our input file is a comma-delimited file, meaning that the columns in the data are separted by commas (<code class="docutils literal notranslate"><span class="pre">,</span></code>) on each row. The <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function uses comma as the default delimiter, hence we did not need to specify it separately in the command above. If all went as planned, you should now have a new variable <code class="docutils literal notranslate"><span class="pre">data</span></code> in memory that contains the input data.</p>
-<p>It is quite common to have some other character instead of comma separating the columns from each other. The <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> in pandas is a generic function for reading text-based data files, supporting files separated by commas, spaces, or other common separators. The <code class="docutils literal notranslate"><span class="pre">sep</span></code> parameter can be used to specify which character is used as a delimiter. For instance <code class="docutils literal notranslate"><span class="pre">sep=';'</span></code>, would assume that the columns in the data file are delimited with semicolon (<code class="docutils literal notranslate"><span class="pre">;</span></code>). For a full list of available parameters, please refer to the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">pandas read_csv() documention</a> <a class="footnote-reference brackets" href="#readcsv" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>, or run <code class="docutils literal notranslate"><span class="pre">help(pd.read_csv)</span></code>.</p>
-<p>Pandas has also several functions for parsing input data from different formats. For example, reading Excel files can be easily done by using a function <code class="docutils literal notranslate"><span class="pre">read_excel()</span></code>. Another useful function is <code class="docutils literal notranslate"><span class="pre">read_pickle()</span></code> that reads data stored in the Python pickle format. Check out the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#">pandas documentation about input and output tools</a> <a class="footnote-reference brackets" href="#pandas-io" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> for more details about reading data.</p>
-<p>Let’s check the the contents of our data. You can print the contents of a DataFrame (or a snippet of it) simply by calling <code class="docutils literal notranslate"><span class="pre">data</span></code>. However, quite often you want to check only n-number of first (or last) rows in your data. For doing that, we can use the <code class="docutils literal notranslate"><span class="pre">head()</span></code> method of the pandas DataFrame object that will, by default, return the first 5 rows of the DataFrame. You can return any number of rows by adding a number inside the parentheses, such as 10 which will return the first ten rows of data.</p>
+<p>Our input file is a comma-delimited file, meaning that the columns in the data are separated by commas (<code class="docutils literal notranslate"><span class="pre">,</span></code>) on each row. The <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> function uses comma as the default delimiter, hence we did not need to specify it separately in the command above. If all went as planned, you should now have a new variable <code class="docutils literal notranslate"><span class="pre">data</span></code> in memory that contains the input data.</p>
+<p>It is quite common to have some other character instead of a comma separating the columns from each other. The <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> in pandas is a generic function for reading text-based data files, supporting files separated by commas, spaces, or other common separators. The <code class="docutils literal notranslate"><span class="pre">sep</span></code> parameter can be used to specify which character is used as a delimiter. For instance <code class="docutils literal notranslate"><span class="pre">sep=';'</span></code>, would be used when the columns in the data file are delimited with a semicolon (<code class="docutils literal notranslate"><span class="pre">;</span></code>). For a full list of available parameters for the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function, please refer to the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">pandas <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> documention</a> <a class="footnote-reference brackets" href="#readcsv" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> or run <code class="docutils literal notranslate"><span class="pre">help(pd.read_csv)</span></code>.</p>
+<p>Pandas has several other functions for parsing input data from different file formats. For example, reading Excel files can be easily done using the <code class="docutils literal notranslate"><span class="pre">.read_excel()</span></code> function. Another useful function is <code class="docutils literal notranslate"><span class="pre">.read_pickle()</span></code>, which reads data stored in the Python pickle format. Check out the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html">pandas documentation about input and output tools</a> <a class="footnote-reference brackets" href="#pandas-io" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> for more details about reading data.</p>
+<p>Let’s check the the contents of our data. You can print the contents of a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (or a snippet of it) simply by calling it by name (e.g., <code class="docutils literal notranslate"><span class="pre">data</span></code>). However, quite often you want to check only a selection of <em>n</em> rows from the start or end of the data set. For doing that, we can use the <code class="docutils literal notranslate"><span class="pre">.head()</span></code> method of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object that will, by default, return the first five rows of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. You can return any number of rows by adding that number inside the parentheses. For example, <code class="docutils literal notranslate"><span class="pre">data.head(10)</span></code> would return the first ten rows from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> called <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Similarly, <code class="docutils literal notranslate"><span class="pre">tail()</span></code> will return the last 5 rows of the DataFrame.</p>
+<p>Similarly, <code class="docutils literal notranslate"><span class="pre">.tail()</span></code> will return the last rows of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (last five rows by default).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>The first lines of the dataframe look a bit weird. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> stands for “not a number”, and might indicate some problem with reading in the contents of the file. Plus, we expected about 30 lines of data, but the index values go up to 36 when we print the last rows of the <code class="docutils literal notranslate"><span class="pre">data</span></code> variable. Looks like we need to investigate this further.</p>
+<p>Looking at the output from <code class="docutils literal notranslate"><span class="pre">data.head()</span></code> we can see that the first lines of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> look a bit weird. Several columns contain rows with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> stands for “not a number”, and might indicate some problem with reading in the contents of the file. Plus, we expected 92 lines of data, but the index values go up to 98 when we print the last rows of the <code class="docutils literal notranslate"><span class="pre">data</span></code> variable. Looks like we need to investigate this further.</p>
 <!-- #endregion -->
 <!-- #region deletable=true editable=true -->
-<p>As we can observe, there are some metadata at the top of the file giving basic information about its contents and source. This isn’t data we want to process, so we need to skip over that part of the file when we load it. Here are the 8 first rows of data in the text file (note that the 8th row is blank):</p>
+<p>As we can observe, there are some metadata at the top of the file giving basic information about its contents and source. This is not data we want to process, so we need to skip over that part of the file when we read it. Here are the 8 first rows of data in the text file (note that the 8th row is blank).</p>
 <!-- #endregion -->
 <!-- #region deletable=true editable=true -->
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data file contents: Daily temperatures (mean, min, max) for Kumpula, Helsinki</span>
-<span class="c1">#                     for June 1-30, 2016</span>
-<span class="c1"># Data source: https://www.ncdc.noaa.gov/cdo-web/search?datasetid=GHCND</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data file contents: Daily temperatures (TEMP1 (10AM), TEMP2 (4PM), min, ma...</span>
+<span class="c1"># for June 1 - August 31, 2024</span>
+<span class="c1"># Data source: Finnish Meteorological Institute - downloaded from open data ...</span>
 <span class="c1"># Data processing: Extracted temperatures from raw data file, converted to</span>
-<span class="c1">#                  comma-separated format</span>
+<span class="c1"># comma-separated format - Extracted TEMP1 and TEMP2 and created YEARMODA co...</span>
 <span class="c1">#</span>
-<span class="c1"># David Whipp - 02.10.2017</span>
+<span class="c1"># Processed by Kamyar Hasanzadeh 15.09.2024</span>
 
 </pre></div>
 </div>
 <!-- #endregion -->
 <!-- #region deletable=true editable=true -->
-<p>Fortunately, skipping over rows is easy to do when reading data with pandas. We just need to add the <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> parameter when we read the file, listing the number of rows to skip (8 in this case). Let’s try reading the datafile again, and this time defining the <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> parameter.</p>
+<p>Fortunately, skipping over rows is easy to do when reading data with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. We just need to add the <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> parameter when we read the file, listing the number of rows to skip (eight in this case). Let’s try reading the data file again, this time including the <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> parameter.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/kumpula-summer-2024.txt&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
-<!-- #region deletable=true editable=true -->
-<p>Let’s check how the data looks like now:</p>
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
+<p>Let’s see what the data looks like now.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -605,42 +609,54 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
-<!-- #region deletable=true editable=true -->
-<p>Looks good! We seem to have 30 rows of data (index running from 0 to 30), and meanigful column names and values.</p>
-<p>Note that pandas DataFrames have labelled axes (rows and columns). In our sample data, the rows labeled with an index value (<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">29</span></code>), and columns labelled <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code>, <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">MIN</span></code>. Later on, we will learn how to use these labels for selecting and updating subsets of the data.</p>
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
+<p>Looks good! We seem to have 92 rows of data (index running from 0 to 91), and meaningful column names and values.</p>
+<p>Note that a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> has labeled axes (rows and columns). In our sample data, the rows are labeled with an index value (<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">91</span></code>), and columns labeled <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">TEMP1</span></code>, and <code class="docutils literal notranslate"><span class="pre">TEMP2</span></code>. Later on, we will learn how to use these labels for selecting and updating subsets of the data.</p>
 <!-- #endregion -->
-<!-- #region deletable=true editable=true -->
-<p>It is also possible to read only specific columns from the data when using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function. You can achieve this using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter when reading the file which accepts a list of column names that will be included in the resulting DataFrame. Also positional indices (e.g. <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>) corresponding the position of the column in the file can be used to specify which columns should be read. For additional details, see the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">pandas read_csv() documention</a>. Next, we will read the file <code class="docutils literal notranslate"><span class="pre">Kumpula-June-2016-w-metadata.txt</span></code> again and store its contents into a new variable called <code class="docutils literal notranslate"><span class="pre">temp_data</span></code>. In this case, we will only read the columns <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> and <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>, meaning that the new variable <code class="docutils literal notranslate"><span class="pre">temp_data</span></code> should have 30 rows and 2 columns:</p>
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
+<p>It is also possible to read only specific columns from the data when using the <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> function. You can achieve this using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter when reading the file which accepts a list of column names that will be included in the resulting <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. In addition, columns can be selected using positional indices (e.g., <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>) corresponding the position of the column in the file that specify which columns should be read. For additional details, see the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">pandas <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> documentation</a>.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
-<span class="p">)</span>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<section id="question-3-1">
+<h3>Question 3.1<a class="headerlink" href="#question-3-1" title="Link to this heading">#</a></h3>
+<p>How would you read the file <code class="docutils literal notranslate"><span class="pre">kumpula-summer-2024.txt</span></code> in once again selecting only the <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> and <code class="docutils literal notranslate"><span class="pre">TEMP1</span></code> columns? Try reading the file into a new variable called <code class="docutils literal notranslate"><span class="pre">temp_data</span></code> and only selecting two columns. The new variable <code class="docutils literal notranslate"><span class="pre">temp_data</span></code> should have 92 rows and 2 columns.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
+<span class="n">temp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;data/kumpula-summer-2024.txt&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP1&quot;</span><span class="p">]</span>
+<span class="p">)</span>
 <span class="n">temp_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>As a result, we now have only two columns instead of the original four. Using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> function to limit the number of columns can be useful when having data files with possibly tens or even hundreds of columns. Typically you are not interested in all of them, but you want focus on only a few important ones which you can select already when reading the data.</p>
-<!-- #region editable=true -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter to limit the number of columns can be useful when working with data files that have possibly tens or even hundreds of columns. Typically you are not interested in all of them, but you want focus on only a few important ones which you can select already when reading the data.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
 </section>
 <section id="writing-data-to-a-file">
 <h2>Writing data to a file<a class="headerlink" href="#writing-data-to-a-file" title="Link to this heading">#</a></h2>
-<p>Naturally, it is also possible to write the data from pandas to a file. Pandas supports many common output formats such as CSV files, MS Excel, xml and others. For full details about supported file formats and writer functions, see the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-tools-text-csv-hdf5">pandas i/o documentation</a> <a class="footnote-reference brackets" href="#pandas-io" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>. We will store our data back into a csv-file called <code class="docutils literal notranslate"><span class="pre">Kumpula_temp_results_June_2016.csv</span></code>.</p>
+<p>Naturally, it is also possible to write the data from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to a file. <code class="docutils literal notranslate"><span class="pre">pandas</span></code> supports many common output formats such as CSV files, MS Excel, xml and more. For full details about supported file formats and writer functions, see the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html">pandas i/o documentation</a> <a class="footnote-reference brackets" href="#pandas-io" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>. As an example, let’s write the data from the <code class="docutils literal notranslate"><span class="pre">kumpula-summer-2024.txt</span></code> file to a csv-file called <code class="docutils literal notranslate"><span class="pre">kumpula_temp_results_summer_2024.csv</span></code> using the <code class="docutils literal notranslate"><span class="pre">.to_csv()</span></code> method.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># define output filename</span>
-<span class="n">output_fp</span> <span class="o">=</span> <span class="s2">&quot;Kumpula_temps_June_2016.csv&quot;</span>
+<span class="n">output_fp</span> <span class="o">=</span> <span class="s2">&quot;kumpula_temp_results_summer_2024.csv&quot;</span>
 
-<span class="c1"># Save dataframe to csv</span>
+<span class="c1"># Save DataFrame to csv</span>
 <span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_fp</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<!-- #region editable=true -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p><img alt="Figure 3.2. The output CSV file opened in JupyterLab." src="../../../_images/pandas-save-file-1.png" /></p>
 <p><em><strong>Figure 3.2</strong>. The output CSV file opened in JupyterLab.</em></p>
-<p>Figure 3.2 shows the output file. As we can see, the first column contains the index value without any column name. Also the temperature values are represented as floating point number with a presision of 1 decimal.</p>
-<p>Let’s see how we can modify these aspects of the output file using pandas and save the data again without the index, and with zero decimals. Omitting the index can be achieved using the <code class="docutils literal notranslate"><span class="pre">index=False</span></code> parameter. Decimal precision can be specified using the <code class="docutils literal notranslate"><span class="pre">float_format</span></code> parameter. Format text <code class="docutils literal notranslate"><span class="pre">&quot;%.0f&quot;</span></code> will set decimal precision to zero (while <code class="docutils literal notranslate"><span class="pre">&quot;%.2f&quot;</span></code> would set it to 2 decimals and so on).</p>
+<p>Figure 3.2 shows the content of the output file. As we can see, the first column contains the index value without any column name. Also the temperature values are represented as floating point number with a precision of one decimal place.</p>
+<p>Let’s see how we can modify some aspects of the output file using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and save the data again without the index, and with zero decimals. Omitting the index can be achieved using the <code class="docutils literal notranslate"><span class="pre">index=False</span></code> parameter. Decimal precision can be specified using the <code class="docutils literal notranslate"><span class="pre">float_format</span></code> parameter. The format text <code class="docutils literal notranslate"><span class="pre">float_format=&quot;%.0f&quot;</span></code> will set decimal precision to zero (i.e., integer values), while <code class="docutils literal notranslate"><span class="pre">&quot;%.2f&quot;</span></code> would set the precision to two decimal places, for example.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># define output filename</span>
-<span class="n">output_fp2</span> <span class="o">=</span> <span class="s2">&quot;Kumpula_temperatures_integers_June_2016.csv&quot;</span>
+<span class="n">output_fp2</span> <span class="o">=</span> <span class="s2">&quot;kumpula_temp_results_integers_summer_2024.csv&quot;</span>
 
 <span class="c1"># Save dataframe to csv</span>
 <span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_fp2</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.0f</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -649,50 +665,50 @@ document.write(`
 <!-- #region editable=true -->
 <p><img alt="Figure 3.3. The formatted output CSV file opened in JupyterLab." src="../../../_images/pandas-save-file-2.png" /></p>
 <p><em><strong>Figure 3.3</strong>. The formatted output CSV file opened in JupyterLab.</em></p>
-<p>Figure 3.3 shows the “cleaner” output file that lacks the index column and temperature values are rounded to integers.</p>
+<p>Figure 3.3 shows the “cleaner” output file that lacks the index column and has the temperature values rounded to integers.</p>
 <!-- #endregion -->
 <!-- #region deletable=true editable=true -->
 </section>
 <section id="dataframe-properties">
 <h2>DataFrame properties<a class="headerlink" href="#dataframe-properties" title="Link to this heading">#</a></h2>
-<p>Now we will continue exploring the full dataset that we have stored in the variable <code class="docutils literal notranslate"><span class="pre">data</span></code>. A normal first step when you load new data is to explore the dataset a bit to understand how the data is structured, and what kind of values are stored in there. Let’s start by checking the size of our DataFrame. We can use the <code class="docutils literal notranslate"><span class="pre">len()</span></code> function similar to the use with lists to check how many rows we have:</p>
+<p>Now we will continue exploring the data set we have stored in the variable <code class="docutils literal notranslate"><span class="pre">data</span></code>. A normal first step when you load new data is to explore the data set a bit to understand how the data is structured, and what kind of values are stored in in. Let’s start by checking the size of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. We can use the <code class="docutils literal notranslate"><span class="pre">len()</span></code> function similar to the use with lists to see how many rows we have.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>We can also get a quick sense of the size of the dataset using the <code class="docutils literal notranslate"><span class="pre">shape</span></code>. It returns a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> with the number of rows as the first element and the number of columns as the second element:</p>
+<p>We can also get a quick sense of the size of the data set using the attribute <code class="docutils literal notranslate"><span class="pre">.shape</span></code>. It returns a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> with the number of rows as the first element and the number of columns as the second element.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>Here we see that our dataset has 30 rows and 4 columns, just as we saw above when printing out the entire DataFrame. Pay attention that we do not use parentheses after the word <code class="docutils literal notranslate"><span class="pre">shape</span></code> when accessing attributes. The <code class="docutils literal notranslate"><span class="pre">shape</span></code> in here is one of the several <code class="docutils literal notranslate"><span class="pre">attributes</span></code> related to a pandas DataFrame object. Attributes are typically used to store useful information (or <em>metadata</em>) about the object at hand. We will see many more examples of these throughout the book.</p>
+<p>Here we see that our data set has 92 rows and 5 columns, just as we saw above when printing out the entire <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. Note that we do not use parentheses after the word <code class="docutils literal notranslate"><span class="pre">shape</span></code> when accessing attributes. <code class="docutils literal notranslate"><span class="pre">.shape</span></code> is one of several attributes related to a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object. Attributes are typically used to store useful information (or <em>metadata</em>) about the object at hand. We will see many more examples of attributes throughout this book.</p>
 <!-- #endregion -->
-<p>Let’s also check the column names we have in our DataFrame (yes, it is an attribute as well!). We already saw the column names when we checked the 5 first rows using <code class="docutils literal notranslate"><span class="pre">data.head()</span></code>, but often it is useful to access the column names directly. You can check the column names by calling <code class="docutils literal notranslate"><span class="pre">data.columns</span></code> (returns an index object that contains the column labels) or <code class="docutils literal notranslate"><span class="pre">data.columns.values</span></code>:</p>
+<p>Let’s also check the column names we have in our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (yes, this is an attribute as well!). We already saw the column names when we checked the 5 first rows using <code class="docutils literal notranslate"><span class="pre">data.head()</span></code>, but often it is useful to access the column names directly. You can check the column names using the <code class="docutils literal notranslate"><span class="pre">.columns</span></code> attribute, which returns an index object that contains the column labels. Alternatively, we can add the <code class="docutils literal notranslate"><span class="pre">.values</span></code> attribute to get an array of the column names. For example, we could check the column names by typing <code class="docutils literal notranslate"><span class="pre">data.columns.values</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>We can also find information about the row identifiers using the <code class="docutils literal notranslate"><span class="pre">index</span></code> attribute:</p>
+<p>We can also find information about the row identifiers using the <code class="docutils literal notranslate"><span class="pre">.index</span></code> attribute.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">index</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>Here we see how the data is indexed, starting at 0, ending at 30, and with an increment of 1 between each value. This is basically the same way in which Python lists are indexed, however, pandas allows also other ways of identifying the rows. DataFrame indices could, for example, be character strings, or date objects. We will learn more about resetting the index later. What about the data types of each column in our dataFrame? We can check the data type of all columns at once using <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.dtypes</span></code>:</p>
+<p>Here we see how the data is indexed, starting at <code class="docutils literal notranslate"><span class="pre">0</span></code>, ending at <code class="docutils literal notranslate"><span class="pre">92</span></code>, and with an increment of 1 between each value. This is basically the same way in which Python lists are indexed, however, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> allows also other ways of identifying the rows. <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> indices could, for example, be character strings or date objects. We will learn more about resetting the index later. What about the data types of each column in our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>? We can check the data type of all columns at once using the <code class="docutils literal notranslate"><span class="pre">.dtypes</span></code> attribute.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print data types</span>
 <span class="n">data</span><span class="o">.</span><span class="n">dtypes</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>Here we see that <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> is an integer value (with 64-bit precision; <code class="docutils literal notranslate"><span class="pre">int64</span></code>), while the other values are all decimal values with 64-bit precision (float64).</p>
+<p>Here we see that <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> is contains integer values with 64-bit precision (<code class="docutils literal notranslate"><span class="pre">int64</span></code>), while the other columns contain decimal values with 64-bit precision (<code class="docutils literal notranslate"><span class="pre">float64</span></code>).</p>
 <!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
-<section id="question-3-1">
-<h3>Question 3.1<a class="headerlink" href="#question-3-1" title="Link to this heading">#</a></h3>
-<p>How would you print out the number of columns in our DataFrame?</p>
+<section id="question-3-2">
+<h3>Question 3.2<a class="headerlink" href="#question-3-2" title="Link to this heading">#</a></h3>
+<p>How would you print out the number of columns in our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>?</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
 </pre></div>
@@ -706,44 +722,44 @@ document.write(`
 </section>
 <section id="selecting-columns">
 <h2>Selecting columns<a class="headerlink" href="#selecting-columns" title="Link to this heading">#</a></h2>
-<p>When conducting data analysis, it is very common that you want to choose certain columns from the data for further processing. We can select specific columns based on the column values. The basic syntax is <code class="docutils literal notranslate"><span class="pre">dataframe[value]</span></code>, where value can be a single column name, or a list of column names. Let’s start by selecting two columns, <code class="docutils literal notranslate"><span class="pre">'YEARMODA'</span></code> and <code class="docutils literal notranslate"><span class="pre">'TEMP'</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]]</span>
+<p>When performing data analysis, it is very common that you want to select certain columns from the data for further processing. We can select specific columns based on the column names, for example. The basic syntax is <code class="docutils literal notranslate"><span class="pre">DataFrame[value]</span></code>, where <code class="docutils literal notranslate"><span class="pre">value</span></code> can be a single column name as a character string, or a list of column names. Let’s start by selecting two columns: <code class="docutils literal notranslate"><span class="pre">&quot;YEARMODA&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;MAX&quot;</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">]]</span>
 <span class="n">selection</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Let’s also check the data type of this selection:</p>
+<p>Let’s also check the data type of this selection.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>As we can see, the subset is still a pandas DataFrame, and we are able to use all the methods and attributes related to a pandas DataFrame also with this subset. For example, we can check the shape:</p>
+<p>As we can see, the subset is still a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, and we are thus able to use all the related methods and attributes with this subset. For example, we can check the shape.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>We can also access a single column of the data based on the column name:</p>
+<p>We can also access a single column of the data using on the column name.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;MAX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>What about the type of the column itself?</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;MAX&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>Each column (and each row) in a pandas data frame is indeed a pandas Series. Notice that you can also retreive a column using a different syntax <code class="docutils literal notranslate"><span class="pre">data.TEMP</span></code>. This syntax works only if the column name is a valid name for a Python variable (e.g. the column name should not contain whitespace). The syntax <code class="docutils literal notranslate"><span class="pre">data[&quot;column&quot;]</span></code> works for all kinds of column names, so we recommend using this approach.</p>
+<p>Each column (and each row) in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> is indeed a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code>. Notice that you can also retrieve a column using a different syntax. For example, we can access the <code class="docutils literal notranslate"><span class="pre">MAX</span></code> column using <code class="docutils literal notranslate"><span class="pre">data.MAX</span></code>. This syntax works only if the column name is a valid name for a Python variable (e.g., the column name should not contain whitespace). The syntax <code class="docutils literal notranslate"><span class="pre">data[&quot;column&quot;]</span></code> works for all column names, so we recommend using this approach.</p>
 <!-- #endregion -->
 </section>
 <section id="unique-values">
 <h2>Unique values<a class="headerlink" href="#unique-values" title="Link to this heading">#</a></h2>
-<p>Sometimes it is useful to extract the unique values that you have in your column. We can do that by using <code class="docutils literal notranslate"><span class="pre">unique()</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<p>Sometimes it is useful to extract the unique values that you have in your column. We can do that by using <code class="docutils literal notranslate"><span class="pre">.unique()</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;MAX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>As a result we get an array of unique values in that column. We can also directly access the number of unique values using the <code class="docutils literal notranslate"><span class="pre">nunique()</span></code> method:</p>
+<p>As a result we get an array of unique values in that column. In the case of temperatures, this might not be that interesting, but in other cases this can be more useful. We can also directly access the number of unique values using the <code class="docutils literal notranslate"><span class="pre">.nunique()</span></code> method.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
     <span class="s2">&quot;There were&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span>
-    <span class="s2">&quot;days with unique mean temperatures in June 2016.&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;MAX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span>
+    <span class="s2">&quot;days with unique maximum temperatures in the summer of 2024.&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -751,57 +767,78 @@ document.write(`
 <section id="descriptive-statistics">
 <h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Link to this heading">#</a></h2>
 <!-- #region deletable=true editable=true -->
-<p>pandas DataFrame and Series contain useful methods for getting summary statistics. Available methods include <code class="docutils literal notranslate"><span class="pre">mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">median()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, <code class="docutils literal notranslate"><span class="pre">max()</span></code>, and <code class="docutils literal notranslate"><span class="pre">std()</span></code> (the standard deviation). The statistics can be calculated on a Series level (a single column) or getting the statistics for all columns at once for the whole DataFrame. To check e.g. the mean temperature in our input data, i.e. focusing on a single column (<em>Series</em>), we can do following:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> data types in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> contain useful methods for getting summary statistics. Available methods include <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">.median()</span></code>, <code class="docutils literal notranslate"><span class="pre">.min()</span></code>, <code class="docutils literal notranslate"><span class="pre">.max()</span></code>, and <code class="docutils literal notranslate"><span class="pre">.std()</span></code> (the standard deviation). The statistics can be calculated for a single column (i.e., a <code class="docutils literal notranslate"><span class="pre">Series</span></code>) or for all columns at once for the entire <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. To check the maximum temperature in our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (i.e.,  a single column or <code class="docutils literal notranslate"><span class="pre">Series</span></code>), we can do following:</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;MAX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The output in this case will be a single floating point number presenting the mean temperature, 59.73 Fahrenheits. To get the mean statistics for all columns in the DataFrame, we can call the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> in a similar manner, but without specifying the column name:</p>
+<p>The output in this case will be a single floating point number presenting the mean maximum daily temperature, 22.05 degrees Celsius. To get the mean statistic for all columns in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, we can use <code class="docutils literal notranslate"><span class="pre">.mean()</span></code> in a similar manner but without specifying the column name.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>Notice that in this case, the result is Series showing the mean values for each column. For an overview of the basic statistics for all attributes in the data, we can use the <code class="docutils literal notranslate"><span class="pre">describe()</span></code> method:</p>
+<p>Notice that in this case, the result is a <code class="docutils literal notranslate"><span class="pre">Series</span></code> showing the mean values for each column. For an overview of the basic statistics for all attributes in the data, we can use the <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> method.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>As a result, we get the number of values that are not None for each column (count) as well as the basic statistics and quartiles (min, 25%, 50%, 75% and max). It is also possible to get other DataFrame specific information, such as the index dtype and columns, non-null values and memory usage by calling <code class="docutils literal notranslate"><span class="pre">info()</span></code>:</p>
+<p>As a result, we get the number of values that are not None for each column (<code class="docutils literal notranslate"><span class="pre">count</span></code>) as well as the basic statistics and quartiles (min, 25%, 50%, 75%, and max).</p>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
+<section id="question-3-3">
+<h3>Question 3.3<a class="headerlink" href="#question-3-3" title="Link to this heading">#</a></h3>
+<p>It doesn’t make much sense to print out descriptive statistics for the dates contained in the <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column. See if you can print out the descriptive statistics again, but only for columns <code class="docutils literal notranslate"><span class="pre">TEMP1</span></code>, <code class="docutils literal notranslate"><span class="pre">TEMP2</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">MIN</span></code>.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">data</span><span class="p">[[</span><span class="s2">&quot;TEMP1&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP2&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>It is also possible to get other <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>-specific information such as the index, columns and data types, non-null values, and memory usage by calling <code class="docutils literal notranslate"><span class="pre">.info()</span></code>.</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
 </section>
-<section id="different-ways-of-constructing-pandas-objects">
-<h2>Different ways of constructing pandas objects<a class="headerlink" href="#different-ways-of-constructing-pandas-objects" title="Link to this heading">#</a></h2>
-<p>Most often we create pandas objects by reading in data from an external source, such as a text file. Here, we will briefly show different ways how you can create pandas objects from Python objects (lists and dictionaries). If you have a very long lists of numbers, creating a pandas Series (or numpy.array) will allow you to interact with these values more efficiently in terms of computing time that using and working with a pure Python list. This is how you can create a pandas Series from a list:</p>
+</section>
+<section id="other-ways-of-constructing-pandas-objects">
+<h2>Other ways of constructing pandas objects<a class="headerlink" href="#other-ways-of-constructing-pandas-objects" title="Link to this heading">#</a></h2>
+<p>Most often we create <code class="docutils literal notranslate"><span class="pre">pandas</span></code> objects by reading in data from an external source such as a text file. However, there are other ways to convert data stored in other Python data types to <code class="docutils literal notranslate"><span class="pre">pandas</span></code> objects. Here, we show how to create <code class="docutils literal notranslate"><span class="pre">pandas</span></code> objects from a Python <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> object.</p>
+<p>If you have a very long <code class="docutils literal notranslate"><span class="pre">list</span></code> of values, creating a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code> (or <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code>) will allow you to interact with these data more efficiently in terms of computing time. This is how you can create a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code> from a <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">number_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">number_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">]</span>
+<span class="n">number_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">number_list</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">number_series</span><span class="p">)</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>Note that Pandas is smart about the conversion, detecting a single floating point value (<code class="docutils literal notranslate"><span class="pre">7.0</span></code>) and assigning all values in the Series the data type float64. If needed, you can also set a custom index when creating the object:</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is smart about the conversion, detecting a single floating point value (<code class="docutils literal notranslate"><span class="pre">7.0</span></code>) and assigning all values in the <code class="docutils literal notranslate"><span class="pre">Series</span></code> the data type <code class="docutils literal notranslate"><span class="pre">float64</span></code>. If needed, you can also create a custom index when creating the object.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">number_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">number_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">]</span>
+<span class="n">index_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
+<span class="n">number_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">number_list</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index_list</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">number_series</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">number_series</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>How about combining several lists and construct a DataFrame from them? Certainly. Let’s see how we can convert lists into a pandas DataFrame. Let’s first create a few lists having the same number of items each:</p>
+<p>What about combining several lists to construct a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> from them? No problem. Let’s see how we can convert several lists into a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. Let’s first create a few lists with the same number of items in each.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Hanko&quot;</span><span class="p">,</span> <span class="s2">&quot;Heinola&quot;</span><span class="p">,</span> <span class="s2">&quot;Kaisaniemi&quot;</span><span class="p">,</span> <span class="s2">&quot;Malmi&quot;</span><span class="p">]</span>
 <span class="n">latitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">59.77</span><span class="p">,</span> <span class="mf">61.2</span><span class="p">,</span> <span class="mf">60.18</span><span class="p">,</span> <span class="mf">60.25</span><span class="p">]</span>
 <span class="n">longitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">22.95</span><span class="p">,</span> <span class="mf">26.05</span><span class="p">,</span> <span class="mf">24.94</span><span class="p">,</span> <span class="mf">25.05</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Now we can create a pandas DataFrames by using the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> constructor and passing a <em>Python dictionary</em> <code class="docutils literal notranslate"><span class="pre">{&quot;column_1&quot;:</span> <span class="pre">list_1,</span> <span class="pre">&quot;column_2&quot;:</span> <span class="pre">list_2,</span> <span class="pre">...}</span></code> to it, indicating the structure of our data:</p>
+<p>Now we can create a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> by using the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame()</span></code> constructor and passing a Python <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">{&quot;column_1&quot;:</span> <span class="pre">list_1,</span> <span class="pre">&quot;column_2&quot;:</span> <span class="pre">list_2,</span> <span class="pre">...}</span></code>) to it, showing the structure of our data.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="n">stations</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="n">latitudes</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="n">longitudes</span><span class="p">})</span>
 <span class="n">new_data</span>
 </pre></div>
 </div>
-<p>It is also possible to create pandas DataFrame from a list of dictionaries. Hence, this approach is quite similar as the previous example, but we organize the data a bit differently. Having a list of dictionaries is common if you happen to work with <code class="docutils literal notranslate"><span class="pre">JSON</span></code> files, which are commonly used when reading data from the web (e.g. via <code class="docutils literal notranslate"><span class="pre">Application</span> <span class="pre">Programming</span> <span class="pre">Interface</span></code>):</p>
+<p>It is also possible to create a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> from a list of dictionaries. This approach is quite similar as the previous example, but we will organize the data a bit differently. Having a list of dictionaries is common if you happen to work with <code class="docutils literal notranslate"><span class="pre">JSON</span></code> files, which are commonly used when reading data from the web (e.g., via an <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Application-Programming-Interface"><span class="xref std std-term">Application Programming Interface</span></a></em>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dictionaries</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span><span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="s2">&quot;Hanko&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="mf">59.77</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="mf">22.95</span><span class="p">},</span>
     <span class="p">{</span><span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="s2">&quot;Heinola&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="mf">61.2</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="mf">26.05</span><span class="p">},</span>
@@ -814,12 +851,13 @@ document.write(`
 <span class="n">new_data_2</span>
 </pre></div>
 </div>
-<p>As a result, we got an identical DataFrame as in our first example above. Notice, that sometimes you might start working with an empty DataFrame and only later “populate” it with new columns:</p>
+<p>As a result, we create a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> that is identical to our first example above.</p>
+<p>Finally, sometimes you might start working with an empty <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and only later “populate” it with new columns.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now we have an empty DataFrame, and we can add new columns to it based on the lists we created earlier. Notice that the following approach requires that the length of all the lists that you want to add are equal:</p>
+<p>Now we have an empty <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, and we can add new columns to it based on the lists we created earlier. Notice that the following approach requires that the length of all the lists that you want to add are equal.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;lon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">longitudes</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;lat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latitudes</span>
 <span class="n">df</span>
@@ -856,9 +894,9 @@ document.write(`
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">6</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html</a></p>
 </aside>
-<aside class="footnote brackets" id="noaa" role="doc-footnote">
+<aside class="footnote brackets" id="fmi" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">7</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/">https://www.ncdc.noaa.gov/cdo-web/</a></p>
+<p><a class="reference external" href="https://en.ilmatieteenlaitos.fi/download-observations/">https://en.ilmatieteenlaitos.fi/download-observations/</a></p>
 </aside>
 <aside class="footnote brackets" id="readcsv" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">8</a><span class="fn-bracket">]</span></span>
@@ -901,17 +939,23 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pandas">What is pandas?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-data-structures">Pandas data structures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-tabular-data">Reading tabular data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-data-structures">pandas data structures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-tabular-data">Reading tabular data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-1">Question 3.1</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-data-to-a-file">Writing data to a file</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-properties">DataFrame properties</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-1">Question 3.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-2">Question 3.2</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-columns">Selecting columns</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-values">Unique values</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics">Descriptive statistics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-ways-of-constructing-pandas-objects">Different ways of constructing pandas objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics">Descriptive statistics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3-3">Question 3.3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-ways-of-constructing-pandas-objects">Other ways of constructing pandas objects</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>

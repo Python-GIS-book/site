@@ -285,8 +285,8 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-git.html">Version control with git</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-github.html">Collaborative coding with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">Version control with git/GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
 </ul>
@@ -1090,10 +1090,14 @@ Conclusion: Be careful!</p>
 <section id="documenting-functions-with-docstrings">
 <h2>Documenting functions with docstrings<a class="headerlink" href="#documenting-functions-with-docstrings" title="Link to this heading">#</a></h2>
 <p>A documentation string, or <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Docstring"><span class="xref std std-term">docstring</span></a></em>, is a block of text that describes what a specific function, library, or script does and how to use it. Although the format of docstrings can vary, there are certain elements of a docstring that are needed for it to function properly. Let’s look at an example using one of our functions created earlier in this section.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts temperature in Kelvins to degrees Celsius.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
 </pre></div>
+</div>
+</div>
 </div>
 <p>Here you can see a short bit of text explaining in clear language what this function does. In this case our function is quite simple, but the docstring still helps remove uncertainty about what it can be used to do. So, what can we see in this example?</p>
 <ul class="simple">
@@ -1102,7 +1106,9 @@ Conclusion: Be careful!</p>
 <li><p>Short docstrings <a class="reference external" href="https://peps.python.org/pep-0257/#one-line-docstrings">can be written on a single line</a> <a class="footnote-reference brackets" href="#pep257-one-line" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p></li>
 </ul>
 <p>Seems simple enough, right? However, we can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let’s expand the docstring above to provide more information about this function.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts temperature in Kelvins to degrees Celsius.</span>
 
@@ -1119,8 +1125,64 @@ Conclusion: Be careful!</p>
     <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
 </pre></div>
 </div>
+</div>
+</div>
 <p>Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format with multiple lines in a docstring is to have the quotation marks on their own separate lines.</p>
-<p>Additional information about formatting docstrings can be found in the <a class="reference external" href="https://peps.python.org/pep-0008/#documentation-strings">Python style guide PEP 8</a> <a class="footnote-reference brackets" href="#pep8-docstring" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> and the <a class="reference external" href="https://peps.python.org/pep-0257/">docstring convention guide PEP 257</a> <a class="footnote-reference brackets" href="#pep257" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
+<p>Perhaps the most valuable thing about adding the docstring is that it provides a way to easily see what a function does and how it works. We can do this using the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">kelvins_to_celsius</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function kelvins_to_celsius in module __main__:
+
+kelvins_to_celsius(temp_kelvins)
+    Converts temperature in Kelvins to degrees Celsius.
+
+    Parameters
+    ----------
+    temp_kelvins: &lt;numerical&gt;
+        Temperature in Kelvins
+
+    Returns
+    -------
+    &lt;float&gt;
+        Converted temperature.
+</pre></div>
+</div>
+</div>
+</div>
+<p>or by typing <code class="docutils literal notranslate"><span class="pre">?</span></code> before or after the name of the function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">?</span>kelvins_to_celsius
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span> kelvins_to_celsius<span class=" -Color -Color-Blue">(</span>temp_kelvins<span class=" -Color -Color-Blue">)</span>
+<span class=" -Color -Color-Red">Docstring:</span>
+Converts temperature in Kelvins to degrees Celsius.
+
+Parameters
+----------
+temp_kelvins: &lt;numerical&gt;
+    Temperature in Kelvins
+
+Returns
+-------
+&lt;float&gt;
+    Converted temperature.
+<span class=" -Color -Color-Red">File:</span>      /var/folders/lp/cjwc88bd3w10sg327y_4ghg0fsk7jj/T/ipykernel_83582/3878566787.py
+<span class=" -Color -Color-Red">Type:</span>      function
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, we now have easy access to information about the function that has been included in the docstring. This means you can remind yourself about how functions you have written work, or look up information about functions from libraries, as discussed later in this chapter.</p>
+<p>Additional information about formatting docstrings can be found in the <a class="reference external" href="https://peps.python.org/pep-0008/#documentation-strings">Python style guide PEP 8</a> <a class="footnote-reference brackets" href="#pep8-docstring" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> and the <a class="reference external" href="https://peps.python.org/pep-0257/">docstring convention guide PEP 257</a> <a class="footnote-reference brackets" href="#pep257" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>. Note, however, that there is not a strict requirement for formatting docstrings. In this book we follow the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">NumPy style guide</a> <a class="footnote-reference brackets" href="#numpy" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
@@ -1141,6 +1203,10 @@ Conclusion: Be careful!</p>
 <aside class="footnote brackets" id="pep257" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">https://www.python.org/dev/peps/pep-0257/</a></p>
+</aside>
+<aside class="footnote brackets" id="numpy" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">https://numpydoc.readthedocs.io/en/latest/format.html</a></p>
 </aside>
 </aside>
 </section>
