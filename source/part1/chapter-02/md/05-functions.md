@@ -394,6 +394,7 @@ More information about namespaces and variables scopes can be found, for example
 ## Documenting functions with docstrings
 
 A documentation string, or *{term}`docstring`*, is a block of text that describes what a specific function, library, or script does and how to use it. Although the format of docstrings can vary, there are certain elements of a docstring that are needed for it to function properly. Let's look at an example using one of our functions created earlier in this section.
+<!-- #endregion -->
 
 ```python
 def kelvins_to_celsius(temp_kelvins):
@@ -429,13 +430,27 @@ def kelvins_to_celsius(temp_kelvins):
 
 Here you can now see more information about the expected values for the parameters and what will be returned when using the function. This level of documentation is not needed for every function, but clearly it can be useful, especially when you have multiple parameters. Note here that the suggested format with multiple lines in a docstring is to have the quotation marks on their own separate lines.
 
-Additional information about formatting docstrings can be found in the [Python style guide PEP 8](https://peps.python.org/pep-0008/#documentation-strings) [^pep8_docstring] and the [docstring convention guide PEP 257](https://peps.python.org/pep-0257/) [^pep257]. 
-<!-- #endregion -->
+Perhaps the most valuable thing about adding the docstring is that it provides a way to easily see what a function does and how it works. We can do this using the `help()` function,
+
+```python
+help(kelvins_to_celsius)
+```
+
+or by typing `?` before or after the name of the function.
+
+```python
+?kelvins_to_celsius
+```
+
+As you can see, we now have easy access to information about the function that has been included in the docstring. This means you can remind yourself about how functions you have written work, or look up information about functions from libraries, as discussed later in this chapter.
+
+Additional information about formatting docstrings can be found in the [Python style guide PEP 8](https://peps.python.org/pep-0008/#documentation-strings) [^pep8_docstring] and the [docstring convention guide PEP 257](https://peps.python.org/pep-0257/) [^pep257]. Note, however, that there is not a strict requirement for formatting docstrings. In this book we follow the [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html) [^numpy].
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^namespace]: <https://realpython.com/python-namespaces-scope/>
+[^numpy]: <https://numpydoc.readthedocs.io/en/latest/format.html>
 [^pep8_docstring]: <https://www.python.org/dev/peps/pep-0008/#documentation-strings>
 [^pep257]: <https://www.python.org/dev/peps/pep-0257/>
 [^pep257_one_line]: <https://www.python.org/dev/peps/pep-0257/#one-line-docstrings>
