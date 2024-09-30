@@ -163,19 +163,19 @@ len(data.columns)
 data[["TEMP1", "TEMP2", "MAX", "MIN"]].describe()
 ```
 
-3.2
+### Question 3.4
 ```python
-data["TEMP_KELVIN"] = data["TEMP_CELSIUS"] + 273.15
+data["TEMP_KELVIN"] = data["TEMP"] + 273.15
 ```
 
-3.3
+### Question 3.5
 ```python
-data.loc[23:29, "TEMP_CELSIUS"].mean()
+data.loc[85:91, "TEMP"].mean()
 ```
 
-3.4
+### Question 3.6
 ```python
-data["TEMP_CELSIUS"].loc[data["YEARMODA"] >= 20160624].mean()
+data["TEMP"].loc[data["YEARMODA"] >= 20240825].mean()
 ```
 
 3.5
