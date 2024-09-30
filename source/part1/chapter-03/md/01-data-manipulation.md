@@ -78,11 +78,11 @@ data.head()
 Calculate the temperatures in Kelvins using the Celsius values and store the result in a new column called `TEMP_KELVIN` in our `DataFrame`. Zero Kelvins is is -273.15 degrees Celsius as we learned in Chapter 2, and the formula for converting degrees Celsius (C) to Kelvins (K) is thus $T_{K} = T_{C} + 273.15$.
 <!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data["TEMP_KELVIN"] = data["TEMP"] + 273.15
@@ -144,11 +144,11 @@ As a result, we now have a new `DataFrame` with two columns and 6 rows (i.e., in
 Calculate the mean temperature (in Celsius) for the last seven days of August 2024. Do the selection using the row index values.
 <!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 data.loc[85:91, "TEMP"].mean()
@@ -314,9 +314,7 @@ In this case we have created a new column using the selection, which is a slice 
 
 ```python editable=true slideshow={"slide_type": ""}
 # Make the selection and make a copy
-warm_temps = data.loc[
-    (data["TEMP"] > 20) & (data["YEARMODA"] >= 20240715)
-].copy()
+warm_temps = data.loc[(data["TEMP"] > 20) & (data["YEARMODA"] >= 20240715)].copy()
 
 # Now update the first value of the last column
 warm_temps["HOT_TEMP"] = warm_temps["MAX"] > 25
@@ -332,11 +330,11 @@ As we can see, now we did not receive any warnings this time and it would be saf
 Calculate the mean temperature (in Celsius) for the last seven days of August 2024 again. This time you should select the rows based on a condition for the `YEARMODA` column.
 <!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Solution
 data["TEMP"].loc[data["YEARMODA"] >= 20240825].mean()
 ```
