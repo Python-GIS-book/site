@@ -183,7 +183,7 @@ number_of_stations = "3"
 
 Note that if we were working with numerical values we would need to convert them to character strings using the `str()` function. Luckily, we already have character strings, so we can proceed with creating our sentences.
 
-As you may have noticed, out date should have the day and month represented with two characters (i.e., with a leading zero). We could use the `+` operator to add together `"0"` and our day or month value (e.g., `first_day = "0" + first_day`), however adding leading zeros to text is a common operation for ensuring consistent widths of text in data files, for example. Because of this, we can use the `.zfill()` function for strings to add leading zeros to our day and month values, as shown below.
+As you may have noticed, our date should have the day and month represented with two characters (i.e., with a leading zero). We could use the `+` operator to add together `"0"` and our day or month value (e.g., `first_day = "0" + first_day`), however adding leading zeros to text is a common operation for ensuring consistent widths of text in data files, for example. Because of this, we can use the `.zfill()` function for strings to add leading zeros to our day and month values, as shown below.
 
 ```python
 first_day = first_day.zfill(2)
@@ -214,4 +214,4 @@ sentences = first_part + second_part + third_part
 sentences
 ```
 
-Nice! By simply breaking down the sentence into smaller character string segments we were able to use the `+` operator to create two sentences containing several numerical values combined in various ways. Well done!
+Nice! By simply breaking down the sentence into smaller character string segments we were able to use the `+` operator to create two sentences containing several numerical values combined in various ways. It is important to pay attention to spaces and characters such as parentheses, if you have them in your string, but otherwise string concatenation is an easy way to build more complex strings from smaller pieces.
