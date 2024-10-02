@@ -63,7 +63,7 @@ print(first_variable - second_variable)  # Fails
 ### Question 2.5
 
 ```python
-'Hot62.6'
+ValueError
 ```
 <!-- #endregion -->
 

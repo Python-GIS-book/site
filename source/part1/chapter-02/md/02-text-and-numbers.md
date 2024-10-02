@@ -86,8 +86,8 @@ To conclude, using the f-string approach is the easiest and most intuitive way t
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Manipulating character strings
 
-Here we demonstrate some of the most useful string manipulation techniques, such as splitting strings based on a given character, replacing characters with new ones, slicing strings, etc. 
-The aim is to produce a list of weather station locations in Helsinki that are represented in uppercase text (i.e., `KUMPULA, KAISANIEMI, HARMAJA`). The text that we will begin working with is below:
+Here we demonstrate some of the most useful string manipulation techniques, such as splitting strings based on a given character, replacing characters with new ones, slicing strings, concatenating strings, etc. 
+The aim is to produce the following text, which contains a list of weather station locations in Helsinki that are represented in uppercase text: `Our selection includes 3 weather stations (KUMPULA, KAISANIEMI, HARMAJA). The first observation is from 01/01/1882.`). The text that we will begin working with is below.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -167,3 +167,51 @@ print(stations_upper)
 print(stations_lower)
 print(stations_capitalize)
 ```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Concatenating strings
+
+Although most mathematical operations are applied to numerical values, a common way to combine (or concatenate) character strings is using the addition operator `+`. Let's try to complete our task of creating our target sentences by concatenating three separate character strings into one. As a reminder, the text we are aiming to produce reads `Our selection includes 3 weather stations (KUMPULA, KAISANIEMI, HARMAJA). The first observation is from 01/01/1882.`. We can first define some values we will need to create the target text.
+<!-- #endregion -->
+
+```python
+first_day = "1"
+first_month = "1"
+first_year = "1882"
+number_of_stations = "3"
+```
+
+Note that if we were working with numerical values we would need to convert them to character strings using the `str()` function. Luckily, we already have character strings, so we can proceed with creating our sentences.
+
+As you may have noticed, out date should have the day and month represented with two characters (i.e., with a leading zero). We could use the `+` operator to add together `"0"` and our day or month value (e.g., `first_day = "0" + first_day`), however adding leading zeros to text is a common operation for ensuring consistent widths of text in data files, for example. Because of this, we can use the `.zfill()` function for strings to add leading zeros to our day and month values, as shown below.
+
+```python
+first_day = first_day.zfill(2)
+first_month = first_month.zfill(2)
+```
+
+```python
+first_day
+```
+
+As you can see, the `.zfill()` function adds leading zeros before a number up to the number of characters specified when using it. In our case, we specified we want `2` characters, so one leading zero was added to our character strings. At this point, we can create a date string we can use for creating our sentences.
+
+```python
+date = first_day + "/" + first_month + "/" + first_year
+date
+```
+
+Looks good. Now we can define the remaining pieces needed to create our sentences and concatenate them to form the target sentences.
+
+```python
+first_part = "Our selection includes " + number_of_stations
+second_part = " weather stations (" + stations_upper
+third_part = "). The first observation is from " + date + "."
+```
+
+```python editable=true slideshow={"slide_type": ""}
+sentences = first_part + second_part + third_part
+sentences
+```
+
+Nice! By simply breaking down the sentence into smaller character string segments we were able to use the `+` operator to create two sentences containing several numerical values combined in various ways. Well done!
