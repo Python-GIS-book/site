@@ -87,7 +87,14 @@ To conclude, using the f-string approach is the easiest and most intuitive way t
 ## Manipulating character strings
 
 Here we demonstrate some of the most useful string manipulation techniques, such as splitting strings based on a given character, replacing characters with new ones, slicing strings, concatenating strings, etc. 
-The aim is to produce the following text, which contains a list of weather station locations in Helsinki that are represented in uppercase text: `Our selection includes 3 weather stations (KUMPULA, KAISANIEMI, HARMAJA). The first observation is from 01/01/1882.`). The text that we will begin working with is below.
+The aim is to produce two lines of text that contain a list of weather station locations in Helsinki in uppercase:
+
+```
+Our selection includes 3 weather stations (KUMPULA, KAISANIEMI, HARMAJA).
+The first observation is from 01/01/1882.
+```
+
+The text that we will begin working with is below.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -171,7 +178,14 @@ print(stations_capitalize)
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Concatenating strings
 
-Although most mathematical operations are applied to numerical values, a common way to combine (or concatenate) character strings is using the addition operator `+`. Let's try to complete our task of creating our target sentences by concatenating three separate character strings into one. As a reminder, the text we are aiming to produce reads `Our selection includes 3 weather stations (KUMPULA, KAISANIEMI, HARMAJA). The first observation is from 01/01/1882.`. We can first define some values we will need to create the target text.
+Although most mathematical operations are applied to numerical values, a common way to combine (or concatenate) character strings is using the addition operator `+`. Let's try to complete our task of creating our target sentences by concatenating three separate character strings into one. As a reminder, the text we are aiming to produce reads:
+
+```
+Our selection includes 3 weather stations (KUMPULA, KAISANIEMI, HARMAJA).
+The first observation is from 01/01/1882.
+```
+
+We can first define some values we will need to create the target text.
 <!-- #endregion -->
 
 ```python
@@ -201,17 +215,17 @@ date = first_day + "/" + first_month + "/" + first_year
 date
 ```
 
-Looks good. Now we can define the remaining pieces needed to create our sentences and concatenate them to form the target sentences.
+Looks good. Now we can define the remaining pieces needed to create our sentences and concatenate them to form the target sentences. Note that we want to have the second sentence on a separate line, which means we will need to insert a special character to split the text onto two lines. For this, we can use the newline character `\n`, which indicates the end of a line. Text that follows the newline character will appear on a separate line. In our example, we can simply include `\n` in the character string where we would like the line to be split.
 
 ```python
 first_part = "Our selection includes " + number_of_stations
-second_part = " weather stations (" + stations_upper
-third_part = "). The first observation is from " + date + "."
+second_part = " weather stations (" + stations_upper + ").\n" 
+third_part = "The first observation is from " + date + "."
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
 sentences = first_part + second_part + third_part
-sentences
+print(sentences)
 ```
 
 Nice! By simply breaking down the sentence into smaller character string segments we were able to use the `+` operator to create two sentences containing several numerical values combined in various ways. It is important to pay attention to spaces and characters such as parentheses, if you have them in your string, but otherwise string concatenation is an easy way to build more complex strings from smaller pieces.
