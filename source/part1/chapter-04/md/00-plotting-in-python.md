@@ -61,7 +61,7 @@ There are a variety of different kinds of plots (also known as graphs, charts, d
 - [Treemap](https://en.wikipedia.org/wiki/Treemap)
 - [Network chart](https://en.wikipedia.org/wiki/Network_chart)
 
-However, before starting to visualize our data on a plot our data we need to address an obvious question: **What actually is a plot?** We will not go deep into the details of different types of plots such as those listed above, as it is not the purpose of this book, but rather we will provide a brief introduction to different plots that can be created using Python and the (essential) elements of a plot.
+However, before starting to visualize our data on a plot our data we need to address an obvious question: What actually is a plot? We will not go deep into the details of different types of plots such as those listed above, as it is not the purpose of this book, but rather we will provide a brief introduction to different plots that can be created using Python and the (essential) elements of a plot.
 
 ![_**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)._](../img/basic-elements-of-plot.png)
 
