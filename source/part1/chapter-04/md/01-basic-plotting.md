@@ -20,13 +20,9 @@ At this point we are familiar with some of the features of pandas and explored s
 
 ## Creating a basic x-y plot
 
-The first step for creating a basic x-y plot is to import pandas and read in the data we want to plot from a file. We will be using a datetime index for our weather observation data as we [learned in Chapter 3](../../chapter-03/nb/03-temporal-data.ipynb). In this case, however, we'll include a few additional parameters in order to *read the data* with a datetime index. We will read in the data first, and then discuss what happened.
+The first step for creating a basic x-y plot is to import `pandas` and read in the data we want to plot from a file. We will be using a `datetime` index for our weather observation data as we [learned in Chapter 3](/part1/chapter-03/nb/03-temporal-data.ipynb). In this case, however, we'll include a few additional parameters in order to read the data with a `datetime` index. We will read in the data first and then discuss what happened.
 
-Let's start by importing the libraries we will need (pandas and Matplotlib), and then read in the data.
-
-```python editable=true slideshow={"slide_type": ""} tags=["remove-cell"]
-import warnings
-```
+Let's start by importing the libraries we will need (`pandas` and `matplotlib`) and then read in the data.
 
 ```python
 import pandas as pd
@@ -36,7 +32,7 @@ fp = "data/029740.txt"
 
 data = pd.read_csv(
     fp,
-    delim_whitespace=True,
+    sep=r"\s+",
     na_values=["*", "**", "***", "****", "*****", "******"],
     usecols=["YR--MODAHRMN", "TEMP", "MAX", "MIN"],
     parse_dates=["YR--MODAHRMN"],
@@ -44,10 +40,10 @@ data = pd.read_csv(
 )
 ```
 
-So, let us now examing what is different here compared to files read in Chapter 3. There are two significant changes in the form of two new parameters: `parse_dates` and `index_col`.
+So, let us now examining what is different here compared to files read in Chapter 3. There are two significant changes in the form of two new parameters: `parse_dates` and `index_col`.
 
-- `parse_dates` takes a Python list of column name(s) for data file columns that contain date data and pandas will parse and convert data in these column(s) to the *datetime* data type. For many common date formats pandas will automatically recognize and convert the date data.
-- `index_col` is used to state a column that should be used to index the data in the DataFrame. In this case, we end up with our date data as the DataFrame index. This is a very useful feature in pandas as we will see below.
+- `parse_dates` takes a Python list of column name(s) for data file columns that contain date data and `pandas` will parse and convert data in these column(s) to the `datetime` data type. For many common date formats `pandas` will automatically recognize and convert the date data.
+- `index_col` is used to state a column that should be used to index the data in the `DataFrame`. In this case, we end up with our date data as the `DataFrame` index. This is a very useful feature in `pandas` as we will see below.
 
 Having read in the data file, we can now have a quick look at what we have using `data.head()`.
 
@@ -55,7 +51,7 @@ Having read in the data file, we can now have a quick look at what we have using
 data.head()
 ```
 
-As mentioned above, you can now see that the index column for our DataFrame (the first column) contains date values related to each row in the DataFrame. With this we are already able to create our first plot using pandas. We will start by using the basic line plot in pandas to visualize at our temperature data.
+As mentioned above, you can now see that the index column for our `DataFrame` (the first column) contains date values related to each row in the `DataFrame`. With this we are already able to create our first plot using `pandas`. We will start by using the basic line plot in `pandas` to visualize at our temperature data.
 
 ```python
 ax = data.plot()
@@ -63,18 +59,18 @@ ax = data.plot()
 
 _**Figure 4.3**. A basic plot of the example temperature data using Matplotlib._
 
-Now, let's break down what just happened. First, we first created the plot object using the `plot()` method of the `data` DataFrame. Without any parameters given, this makes the plot of all columns in the DataFrame as lines of different color on the y-axis with the index, time in this case, on the x-axis. Second, in case we want to be able to modify the plot or add anything to it after the basic plot has been created, we assign the plot object to the variable `ax`. Why don't we check its data type below using the `type()` function.
+Now, let's break down what just happened. First, we first created the plot object using the `.plot()` method of the `data` `DataFrame`. Without any parameters given, this makes the plot of all columns in the `DataFrame` as lines of different color on the y-axis with the index, time in this case, on the x-axis. Second, in case we want to be able to modify the plot or add anything to it after the basic plot has been created, we assign the plot object to the variable `ax`. Why don't we check its data type below using the `type()` function.
 
 ```python
 type(ax)
 ```
 
-OK, so this is a data type we have not seen previously, but clearly it is part of matplotlib. In case you were skeptical before, we now have evidence that pandas is using matplotlib for generating plots.
+OK, so this is a data type we have not seen previously, but clearly it is part of `matplotlib`. In case you were skeptical before, we now have evidence that `pandas` is using `matplotlib` for generating plots.
 
 
 ### Selecting plot data based on date
 
-Now we can make a few small changes to our plot to further explore plotting with pandas. We can begin by plotting only the observed temperatures in the `data['TEMP']` column. In addition, we can restrict ourselves to observations from only the afternoon of October 1, 2019 (the last day in this dataset). We will do this by first creating a pandas series for only the desired data column and restricting the dateof interest. Once we have created the new pandas series we can plot the results.
+Now we can make a few small changes to our plot to further explore plotting with `pandas`. We can begin by plotting only the observed temperatures in the `data['TEMP']` column. In addition, we can restrict ourselves to observations from only the afternoon of October 1, 2019 (the last day in this data set). We will do this by first creating a `pandas` `Series` for only the desired data column and restricting the date of interest. Once we have created the new `pandas` `Series` we can plot the results.
 
 ```python
 # Create basic plot with subset of data
@@ -84,12 +80,12 @@ ax = oct1_temps.plot()
 
 _**Figure 4.4**. A plot of the example temperature data for the afternoon of October 1, 2019._
 
-So, what did we change this time? First, we selected only the `'TEMP'` column from the `data` DataFrame by using `data['TEMP']` instead of `data`. Second, we added a restriction to the date range using `loc[]` to select only rows where the index value `data.index` is greater than `'201910011200'`. In that case, the number in the string is in the format `'YYYYMMDDHHMM'`, where `YYYY` is the year, `MM` is the month, `DD` is the day, `HH` is the hour, and `MM` is the minute. This will result in temperatures only from noon onwards on October 1, 2019. Finally, by saving this selection to the variable `oct1_temps` we're able to now use `oct1_temps.plot()` to plot only our selection. As you can see, we are able to easily control the values plotted in pandas, but we can do even better.
+So, what did we change this time? First, we selected only the `'TEMP'` column from the `data` `DataFrame` by using `data['TEMP']` instead of `data`. Second, we added a restriction to the date range using `.loc[]` to select only rows where the index value `data.index` is greater than `'201910011200'`. In that case, the number in the string is in the format `'YYYYMMDDHHMM'`, where `YYYY` is the year, `MM` is the month, `DD` is the day, `HH` is the hour, and `MM` is the minute. This will result in temperatures only from noon onward on October 1, 2019. Finally, by saving this selection to the variable `oct1_temps` we're able to now use `oct1_temps.plot()` to plot only our selection. As you can see, we are able to easily control the values plotted in `pandas`, but we can do even better.
 
 
 ## Basic plot formatting
 
-We can control the appearance of our plots, making them look nicer and provide more information by using a few additional plotting options available in pandas and/or matplotlib. Let's start by changing the line format, adding some axis labels, and adding a title.
+We can control the appearance of our plots, making them look nicer and provide more information by using a few additional plotting options available in `pandas` and/or `matplotlib`. Let's start by changing the line format, adding some axis labels, and adding a title.
 
 ```python
 # Change line and symbol format, and add axis labels/title
@@ -113,7 +109,7 @@ In addition to labeling the plot axes and adding a title, there are several othe
 <!-- #region -->
 ### Changing the figure size
 
-While the default plot sizes we're working with are fine, it is often helpful to be able to control the figure size. Fortunately, there is an easy way to change the figure size in pandas and matplotlib. In order to define the figure size, we simply include the `figsize` parameter with a tuple (set of values in normal parentheses) that lists the width and height of the figure (in inches!).
+While the default plot sizes we're working with are fine, it is often helpful to be able to control the figure size. Fortunately, there is an easy way to change the figure size in `pandas` and `matplotlib`. In order to define the figure size, we simply include the `figsize` parameter with a tuple (set of values in normal parentheses) that lists the width and height of the figure (in inches!).
 
 For example, adding the parameter
 
@@ -122,7 +118,7 @@ figsize=(12, 6)
 ```
 to the `ax.plot()` function will increase the figure size to be 12 inches wide and 6 inches tall.
 
-Note that it is also possible to change the default figure size for all figures in a Jupyter Notebook by importing the pyplot module from matplotlib (i.e., `import matplotlib.pyplot as plt`)and then defining the default figure size using `plt.rcParams['figure.figsize'] = [12, 6]`. In this case the figure size should be given as a Python list.
+Note that it is also possible to change the default figure size for all figures in a Jupyter Notebook by importing the `pyplot` module from `matplotlib` (i.e., `import matplotlib.pyplot as plt`)and then defining the default figure size using `plt.rcParams['figure.figsize'] = [12, 6]`. In this case the figure size should be given as a Python `list`.
 <!-- #endregion -->
 
 <!-- #region -->
@@ -142,7 +138,7 @@ would add the text "This is my text." aligned to the left starting from the date
 <!-- #region -->
 ### Changing the axis ranges
 
-In some cases you may want to plot only a subset of the data you are working with. You can modify the range of values that are plotted by definiing the axis ranges. Changing the plot axes can be done using the `xlim` and `ylim` parameters of the `plot()` function, where `xmin` is the minimum bound of the x-axis, `xmax` is the maximum bound, and the same goes for the y-axis with `ymin` and `ymax`. For example, adding
+In some cases you may want to plot only a subset of the data you are working with. You can modify the range of values that are plotted by definiing the axis ranges. Changing the plot axes can be done using the `xlim` and `ylim` parameters of the `.vplot()` function, where `xmin` is the minimum bound of the x-axis, `xmax` is the maximum bound, and the same goes for the y-axis with `ymin` and `ymax`. For example, adding
 
 ```python
 ax.plot(
@@ -170,16 +166,15 @@ ax.plot(
 )
 ```
 
-In this case, 3:00 pm on October 1, 2019 is defined by `datetime(2019, 10, 1, 15)` using the datetime library. In this format we are able to specify a set of comma-separated values for the year, month, day, hour, minute, seconds, and microseconds to define a date. If only year, month, and day are given, datetime assumes the time on that day is midnight at the start of the day.
+In this case, 3:00 pm on October 1, 2019 is defined by `datetime(2019, 10, 1, 15)` using the `datetime` library. In this format we are able to specify a set of comma-separated values for the year, month, day, hour, minute, seconds, and microseconds to define a date. If only year, month, and day are given, `datetime` assumes the time on that day is midnight at the start of the day.
 
-
-Defining axis ranges this way is handy becaues it will adjust the range of values shown on the plot, but not alter the source data in any way. This can be quite nice when exploring your datasets.
+Defining axis ranges this way is handy because it will adjust the range of values shown on the plot, but not alter the source data in any way. This can be quite nice when exploring your data sets.
 <!-- #endregion -->
 
 <!-- #region -->
 ### Adding a legend
 
-The final example of a common plot feature we can add is a legend. The legend allows you to provide some additional information about the lines, points, or other features of a plot, and adding a legend is quite simple. To do so, we need to add two things: a `label` parameter in the plot function that lists the text that should be displayed in the legend, and a call to the `legend()` function to display the plot legend. For example, adding the following to the plot will add and display a legend.
+The final example of a common plot feature we can add is a legend. The legend allows you to provide some additional information about the lines, points, or other features of a plot, and adding a legend is quite simple. To do so, we need to add two things: a `label` parameter in the `.plot()` function that lists the text that should be displayed in the legend, and a call to the `.legend()` function to display the plot legend. For example, adding the following to the plot will add and display a legend.
 
 ```python
 ax.plot(
@@ -191,7 +186,7 @@ ax.legend()
 
 This would add the label "Observed temperature" to the legend for the line formatted using the `ax.plot()` function. The legend can be displayed by adding `ax.legend()` to the code.
 
-Note that by default the legend will automatically be positioned in the top right corner of a plot, or in a location where it minimizes interference with other plot elements. The location of the legend can be controlled using the `loc` parameter in the call to the `legend()` function. The [matplotlib documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html) [^matplotlib-legend] contains more information about how to control the location of the plot legend.
+Note that by default the legend will automatically be positioned in the top right corner of a plot, or in a location where it minimizes interference with other plot elements. The location of the legend can be controlled using the `loc` parameter in the call to the `.legend()` function. The [`matplotlib` documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html) [^matplotlib-legend] contains more information about how to control the location of the plot legend.
 <!-- #endregion -->
 
 ### The modified example plot
@@ -231,7 +226,7 @@ As you can see, we now have a more informative plot with only a few changes in t
 
 ## Dealing with datetime axes
 
-One issue we will encounter both with placing text on the plot and changing the axis ranges is the datetime index for our DataFrame. In order to do either thing, we need to define x-values using a datetime object. The easiest way to do this is to use the pandas `pd.to_datetime()` function, which converts a character string date to a datetime object. For example, we can convert 13:00 on October 1, 2019 from the character string `'201910011300'` to a datetime equivalent by typing
+One issue we will encounter both with placing text on the plot and changing the axis ranges is the `datetime` index for our `DataFrame`. In order to do either thing, we need to define x-values using a `datetime` object. The easiest way to do this is to use the `pandas` `pd.to_datetime()` function, which converts a character string date to a `datetime` object. For example, we can convert 13:00 on October 1, 2019 from the character string `'201910011300'` to a `datetime` equivalent by typing
 
 ```python
 pd.to_datetime("201910011300")
@@ -306,9 +301,9 @@ ax.legend(loc=4)
 
 ## Bar plots in pandas
 
-In addition to line plots, there are many other options for plotting in pandas.
+In addition to line plots, there are many other options for plotting in `pandas`.
 Bar plots are one option, which can be used quite similarly to line plots with the addition of the `kind=bar` parameter.
-Note that it is easiest to plot our selected time range for a bar plot by selecting the dates in our data series first, rather than adjusting the plot limits. Pandas sees bar plot data as categorical, so the date range is more difficult to define for x-axis limits. For the y-axis, we can still define its range using the `ylim=[ymin, ymax]` parameter. Similarly, text placement on a bar plot is more difficult, and most easily done using the index value of the bar where the text should be placed.
+Note that it is easiest to plot our selected time range for a bar plot by selecting the dates in our data `Series` first, rather than adjusting the plot limits. `pandas` sees bar plot data as categorical, so the date range is more difficult to define for x-axis limits. For the y-axis, we can still define its range using the `ylim=[ymin, ymax]` parameter. Similarly, text placement on a bar plot is more difficult, and most easily done using the index value of the bar where the text should be placed.
 
 ```python
 oct1_afternoon = oct1_temps.loc[oct1_temps.index <= "201910011500"]
@@ -330,17 +325,17 @@ ax.legend()
 
 _**Figure 4.8**. A bar plot using pandas with the example temperature data._
 
-You can find more about how to format bar charts on the [pandas documentation website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html) [^pandas-docs].
+You can find more about how to format bar charts on the [`pandas` documentation website](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.bar.html) [^pandas-docs].
 
 <!-- #region -->
 ## Saving your plots as image files
 
-Saving plots created using pandas can be done in several ways.
-The recommendation for use outside of Jupyter notebooks is to use Matplotlib's `plt.savefig()` function.
+Saving plots created using `pandas` can be done in several ways.
+The recommendation for use outside of Jupyter Notebooks is to use the `plt.savefig()` function from `matplotlib`.
 When using `plt.savefig()`, you simply give a list of commands to generate a plot and include `plt.savefig()` with some parameters as the last command in the Python cell.
 The file name is required, and the image format will be determined based on the listed file extension.
 
-Matplotlib plots can be saved in a number of useful file formats, including PNG, PDF, and EPS.
+`matplotlib` plots can be saved in a number of useful file formats, including PNG, PDF, and EPS.
 PNG is a nice format for raster images, and EPS is probably easiest to use for vector graphics.
 Let's check out an example of how to save our lovely bar plot.
 
@@ -393,23 +388,19 @@ This would save the output plot as a PDF file with a resolution of 600 dots per 
 
 ## Interactive plotting, a teaser
 
-We have seen in the previous parts of this chapter that there are many ways to configure and visualize data using Python. Up to this point, however, we have focussed on static visualizations in Jupyter notebooks or those saved as images. As you might imagine, there are numerous Python options to also create interactive visualizations that allow those viewing them to dive deeper into the data and explore. Interactive visualizations are increasingly popular online, and here we provide a brief example of how to create an interactive visualization using the data we have already plotted above. In this example, we will be using the hvPlot library [^hvplot], which we will return to using later in Part 2 of this book.
+We have seen in the previous parts of this chapter that there are many ways to configure and visualize data using Python. Up to this point, however, we have focused on static visualizations in Jupyter Notebooks or those saved as images. As you might imagine, there are numerous Python options to also create interactive visualizations that allow those viewing them to dive deeper into the data and explore. Interactive visualizations are increasingly popular online, and here we provide a brief example of how to create an interactive visualization using the data we have already plotted above. In this example, we will be using the `hvplot` library [^hvplot], which we will return to using later in Part 2 of this book.
 
-hvPlot is a high-level plotting package that can accept several different common Python data types and plot them using using the bokeh visualization library [^bokeh]. The great thing with hvPlot is that it takes almost no effort to move from plotting in pandas to creating interactive plots. We can explore this in the following example.
+`hvplot` is a high-level plotting package that can accept several different common Python data types and plot them using using the `bokeh` visualization library [^bokeh]. The great thing with `hvplot` is that it takes almost no effort to move from plotting in `pandas` to creating interactive plots. We can explore this in the following example.
 
-Let us start by importing the pandas submodule of hvPlot.
+Let us start by importing the `pandas` submodule of `hvplot`.
 
 ```python
 import hvplot.pandas
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-With the submodule imported, we can simply take a slice of data from the `data` DataFrame, the month of July in 2014 in this example, and create a plot just as we would in pandas. The only difference here is that we will use the `hvplot()` method rather than the `plot()` method from pandas.
+With the submodule imported, we can simply take a slice of data from the `data` `DataFrame`, the month of July in 2014 in this example, and create a plot just as we would in `pandas`. The only difference here is that we will use the `.hvplot()` method rather than the `.plot()` method from `pandas`.
 <!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
-warnings.simplefilter("ignore")
-```
 
 ```python editable=true slideshow={"slide_type": ""}
 july2014_df = data.loc[(data.index >= "201407010000") & (data.index < "201407310000")]
@@ -430,9 +421,9 @@ july2014_df.hvplot(
 
 _**Figure 4.9**. An interactive plot example using hvPlot._
 
-Now we have an interactive line plot where the users can place their mouse cursor above the line to see the plotted values at a given location, zoom in and/or pan the plot to areas of interest, and click on the legend items to hide or display them. And as you can see, hvPlot makes it very easy to start creating your own interactive plots from pandas DataFrames.
+Now we have an interactive line plot where the users can place their mouse cursor above the line to see the plotted values at a given location, zoom in and/or pan the plot to areas of interest, and click on the legend items to hide or display them. And as you can see, `hvplot` makes it very easy to start creating your own interactive plots from a `pandas` `DataFrame`.
 
-That is all we will explore for the moment, but you are welcome to have a look at the [hvPlot User Guide](https://hvplot.holoviz.org/user_guide/index.html) [^hvplot_guide] to learn more about the types of visualizations available in hvPlot and how to use them.
+That is all we will explore for the moment, but you are welcome to have a look at the [`hvplot` User Guide](https://hvplot.holoviz.org/user_guide/index.html) [^hvplot_guide] to learn more about the types of visualizations available in `hvplot` and how to use them.
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
