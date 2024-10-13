@@ -219,7 +219,7 @@ Looks good. Now we can define the remaining pieces needed to create our sentence
 
 ```python
 first_part = "Our selection includes " + number_of_stations
-second_part = " weather stations (" + stations_upper + ").\n" 
+second_part = " weather stations (" + stations_upper + ").\n"
 third_part = "The first observation is from " + date + "."
 ```
 
