@@ -512,6 +512,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slicing-strings">Slicing strings</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replacing-text-in-strings">Replacing text in strings</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-string-case">Changing the string case</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenating-strings">Concatenating strings</a></li>
 </ul>
 </li>
 </ul>
@@ -604,8 +605,13 @@ document.write(`
 </section>
 <section id="manipulating-character-strings">
 <h2>Manipulating character strings<a class="headerlink" href="#manipulating-character-strings" title="Link to this heading">#</a></h2>
-<p>Here we demonstrate some of the most useful string manipulation techniques, such as splitting strings based on a given character, replacing characters with new ones, slicing strings, etc.
-The aim is to produce a list of weather station locations in Helsinki that are represented in uppercase text (i.e., <code class="docutils literal notranslate"><span class="pre">KUMPULA,</span> <span class="pre">KAISANIEMI,</span> <span class="pre">HARMAJA</span></code>). The text that we will begin working with is below:</p>
+<p>Here we demonstrate some of the most useful string manipulation techniques, such as splitting strings based on a given character, replacing characters with new ones, slicing strings, concatenating strings, etc.
+The aim is to produce two lines of text that contain a list of weather station locations in Helsinki in uppercase:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Our</span> <span class="n">selection</span> <span class="n">includes</span> <span class="mi">3</span> <span class="n">weather</span> <span class="n">stations</span> <span class="p">(</span><span class="n">KUMPULA</span><span class="p">,</span> <span class="n">KAISANIEMI</span><span class="p">,</span> <span class="n">HARMAJA</span><span class="p">)</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">first</span> <span class="n">observation</span> <span class="ow">is</span> <span class="kn">from</span> <span class="mi">01</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mf">1882.</span>
+</pre></div>
+</div>
+<p>The text that we will begin working with is below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Stations: Helsinki Kumpula, Helsinki Kaisaniemi, Helsinki Harmaja&quot;</span>
@@ -717,6 +723,86 @@ Kumpula, kaisaniemi, harmaja
 </div>
 </div>
 </section>
+<section id="concatenating-strings">
+<h3>Concatenating strings<a class="headerlink" href="#concatenating-strings" title="Link to this heading">#</a></h3>
+<p>Although most mathematical operations are applied to numerical values, a common way to combine (or concatenate) character strings is using the addition operator <code class="docutils literal notranslate"><span class="pre">+</span></code>. Let’s try to complete our task of creating our target sentences by concatenating three separate character strings into one. As a reminder, the text we are aiming to produce reads:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Our</span> <span class="n">selection</span> <span class="n">includes</span> <span class="mi">3</span> <span class="n">weather</span> <span class="n">stations</span> <span class="p">(</span><span class="n">KUMPULA</span><span class="p">,</span> <span class="n">KAISANIEMI</span><span class="p">,</span> <span class="n">HARMAJA</span><span class="p">)</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">first</span> <span class="n">observation</span> <span class="ow">is</span> <span class="kn">from</span> <span class="mi">01</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mf">1882.</span>
+</pre></div>
+</div>
+<p>We can first define some values we will need to create the target text.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_day</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">first_month</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">first_year</span> <span class="o">=</span> <span class="s2">&quot;1882&quot;</span>
+<span class="n">number_of_stations</span> <span class="o">=</span> <span class="s2">&quot;3&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that if we were working with numerical values we would need to convert them to character strings using the <code class="docutils literal notranslate"><span class="pre">str()</span></code> function. Luckily, we already have character strings, so we can proceed with creating our sentences.</p>
+<p>As you may have noticed, our date should have the day and month represented with two characters (i.e., with a leading zero). We could use the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to add together <code class="docutils literal notranslate"><span class="pre">&quot;0&quot;</span></code> and our day or month value (e.g., <code class="docutils literal notranslate"><span class="pre">first_day</span> <span class="pre">=</span> <span class="pre">&quot;0&quot;</span> <span class="pre">+</span> <span class="pre">first_day</span></code>), however adding leading zeros to text is a common operation for ensuring consistent widths of text in data files, for example. Because of this, we can use the <code class="docutils literal notranslate"><span class="pre">.zfill()</span></code> function for strings to add leading zeros to our day and month values, as shown below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_day</span> <span class="o">=</span> <span class="n">first_day</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">first_month</span> <span class="o">=</span> <span class="n">first_month</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_day</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;01&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, the <code class="docutils literal notranslate"><span class="pre">.zfill()</span></code> function adds leading zeros before a number up to the number of characters specified when using it. In our case, we specified we want <code class="docutils literal notranslate"><span class="pre">2</span></code> characters, so one leading zero was added to our character strings. At this point, we can create a date string we can use for creating our sentences.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">=</span> <span class="n">first_day</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">first_month</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">first_year</span>
+<span class="n">date</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;01/01/1882&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Looks good. Now we can define the remaining pieces needed to create our sentences and concatenate them to form the target sentences. Note that we want to have the second sentence on a separate line, which means we will need to insert a special character to split the text onto two lines. For this, we can use the newline character <code class="docutils literal notranslate"><span class="pre">\n</span></code>, which indicates the end of a line. Text that follows the newline character will appear on a separate line. In our example, we can simply include <code class="docutils literal notranslate"><span class="pre">\n</span></code> in the character string where we would like the line to be split.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_part</span> <span class="o">=</span> <span class="s2">&quot;Our selection includes &quot;</span> <span class="o">+</span> <span class="n">number_of_stations</span>
+<span class="n">second_part</span> <span class="o">=</span> <span class="s2">&quot; weather stations (&quot;</span> <span class="o">+</span> <span class="n">stations_upper</span> <span class="o">+</span> <span class="s2">&quot;).</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">third_part</span> <span class="o">=</span> <span class="s2">&quot;The first observation is from &quot;</span> <span class="o">+</span> <span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">first_part</span> <span class="o">+</span> <span class="n">second_part</span> <span class="o">+</span> <span class="n">third_part</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Our selection includes 3 weather stations (KUMPULA, KAISANIEMI, HARMAJA).
+The first observation is from 01/01/1882.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nice! By simply breaking down the sentence into smaller character string segments we were able to use the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to create two sentences containing several numerical values combined in various ways. It is important to pay attention to spaces and characters such as parentheses, if you have them in your string, but otherwise string concatenation is an easy way to build more complex strings from smaller pieces.</p>
+</section>
 </section>
 </section>
 
@@ -772,6 +858,7 @@ Kumpula, kaisaniemi, harmaja
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slicing-strings">Slicing strings</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replacing-text-in-strings">Replacing text in strings</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-string-case">Changing the string case</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenating-strings">Concatenating strings</a></li>
 </ul>
 </li>
 </ul>

@@ -494,7 +494,7 @@ document.write(`
   <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section class="tex2jax_ignore mathjax_ignore" id="plotting-in-python">
 <h1>Plotting in Python<a class="headerlink" href="#plotting-in-python" title="Link to this heading">#</a></h1>
-<p>Data visualization is an essential part of understanding and interpreting data, and Python has a large number of libraries available for use in visualizing different types of data. Below we provide a bried overview of some of the Python plotting landscape as well as an introduction to the terminology commonly used to refer to different parts of a plot created using Python.</p>
+<p>Data visualization is an essential part of understanding and interpreting data, and Python has a large number of libraries available for use in visualizing different types of data. Below we provide a brief overview of some of the Python plotting landscape as well as an introduction to the terminology commonly used to refer to different parts of a plot created using Python.</p>
 <!-- #endregion -->
 <section id="python-plotting-libraries">
 <h2>Python plotting libraries<a class="headerlink" href="#python-plotting-libraries" title="Link to this heading">#</a></h2>
@@ -502,15 +502,15 @@ document.write(`
 <p><em><strong>Figure 4.1</strong>. Plotting libraries available in Python. Interactive version online at <a class="reference external" href="https://pyviz.org/overviews/index.html">https://pyviz.org/overviews/index.html</a>.</em></p>
 <p>Python has many nice, useful libraries that can be used for plotting. In the figure above, you can see a number of the available plotting library options, along with how they relate to one another. Of the options above we would like to highlight the following:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://matplotlib.org/">Matplotlib</a> <a class="footnote-reference brackets" href="#matplotlib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>: Matplotlib is one of the most widely used Python plotting libraries, sometimes referred to as “<em>the grand old man of Python plotting</em>”. Plot examples can be found in the <a class="reference external" href="https://matplotlib.org/gallery.html">Matplotlib gallery</a>.</p>
+<li><p><a class="reference external" href="https://matplotlib.org/">Matplotlib</a> <a class="footnote-reference brackets" href="#matplotlib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>: Matplotlib is one of the most widely used Python plotting libraries, sometimes referred to as “<em>the grand old man of Python plotting</em>”. Plot examples can be found in the <a class="reference external" href="https://matplotlib.org/stable/gallery/index.html">Matplotlib gallery</a>.</p>
 <ul>
-<li><p><a class="reference external" href="https://matplotlib.org/basemap/index.html">Matplotlib Basemap</a> <a class="footnote-reference brackets" href="#basemap" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>: The Matplotlib Basemap Toolkit is a plugin for visualizing maps in Python. Example plots available in the <a class="reference external" href="https://matplotlib.org/basemap/users/examples.html">Matplotlib basemap gallery</a>.</p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/basemap/stable/">Matplotlib basemap</a> <a class="footnote-reference brackets" href="#basemap" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>: The Matplotlib basemap toolkit is a plugin for visualizing maps in Python. Example plots available in the <a class="reference external" href="https://matplotlib.org/basemap/stable/users/examples.html">Matplotlib basemap gallery</a>.</p></li>
 <li><p><a class="reference external" href="https://seaborn.pydata.org/">Seaborn</a> <a class="footnote-reference brackets" href="#seaborn" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>: Seaborn is a high-level interface for drawing attractive statistical graphics that is built on top of Matplotlib. Example plots can be found in the <a class="reference external" href="https://seaborn.pydata.org/examples/index.html">Seaborn gallery</a>.</p></li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://docs.bokeh.org/en/latest/">Bokeh</a> <a class="footnote-reference brackets" href="#bokeh" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>: Bokeh is a modern plotting library for static and interactive web-based plots including graphs, maps, and charts. Examples can be found in the <a class="reference external" href="https://docs.bokeh.org/en/latest/docs/gallery.html">Bokeh gallery</a>.</p></li>
-<li><p><a class="reference external" href="https://plotly.com/python/">Plotly</a> <a class="footnote-reference brackets" href="#plotly" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>: Similar in some ways to Bokeh, Plotly is a modern plotting library for static and interactive web-based plots. Some features are commercial. Example plots are available in the <a class="reference external" href="https://plotly.com/python/basic-charts/">Plotly gallery</a>.</p></li>
-<li><p><a class="reference external" href="https://plotly.com/dash/">Dash</a> <a class="footnote-reference brackets" href="#dash" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>: Dash is a Python framework for building analytical web applications. No JavaScript required.</p></li>
+<li><p><a class="reference external" href="https://plotly.com/python/">Plotly</a> <a class="footnote-reference brackets" href="#plotly" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>: Similar in some ways to Bokeh, Plotly is a modern plotting library for static and interactive web-based plots. The Python library for Plotly is free and open source, but some Plotly features are commercial. Example plots are available in the <a class="reference external" href="https://plotly.com/python/basic-charts/">Plotly gallery</a>.</p></li>
+<li><p><a class="reference external" href="https://plotly.com/dash/">Dash</a> <a class="footnote-reference brackets" href="#dash" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>: Dash is a Python framework for building analytical web applications. No JavaScript required. Some parts of Dash are commercial.</p></li>
 <li><p><a class="reference external" href="https://yhat.github.io/ggpy/">ggplot</a> <a class="footnote-reference brackets" href="#ggplot" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>: ggplot is a Python plotting environment for those familiar with creating plots in R using ggplot2. You can use ggplot in Python too! Plot examples can be found in the <a class="reference external" href="https://yhat.github.io/ggpy/">ggplot examples</a>.</p></li>
 <li><p><a class="reference external" href="https://holoviews.org/">HoloViews</a> <a class="footnote-reference brackets" href="#holoviews" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>: and <a class="reference external" href="https://geoviews.org/">GeoViews</a> <a class="footnote-reference brackets" href="#geoviews" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>: HoloViews and GeoViews aim to let the data visualize itself. Learn more in the HoloViews introductory video at <a class="reference external" href="https://www.youtube.com/watch?v=hNsR2H7Lrg0">https://www.youtube.com/watch?v=hNsR2H7Lrg0</a>.</p>
 <ul>
@@ -521,11 +521,10 @@ document.write(`
 </li>
 </ul>
 <p>You should explore the plotting galleries and examples of different visualization libraries above to learn what’s possible to do in Python. As you will see, the plotting possibilities in Python are numerous and rich. To get started, we suggest starting by learning to use one that suits your needs best, and later extending your knowledge and skills to other visualization libraries as necessary.</p>
-<!-- #region -->
 </section>
 <section id="anatomy-of-a-plot">
 <h2>Anatomy of a plot<a class="headerlink" href="#anatomy-of-a-plot" title="Link to this heading">#</a></h2>
-<p>There are a variety of different kinds of plots (also known as graphs, charts, diagrams, etc.) available that have been designed to visually represent the characteristics of a dataset. Here is a list of several different types of plots that can be used to present different kinds of data. You can find more information about this plots online in Wikipedia, for example.</p>
+<p>There are a variety of different kinds of plots (also known as graphs, charts, diagrams, etc.) that have been designed to visually represent the characteristics of a data set. Here is a list of several different types of plots that can be used to present different kinds of data. You can find more information about this plots online in Wikipedia, for example.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Bar_chart">Bar chart</a></p></li>
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Histogram">Histogram</a></p></li>
@@ -544,7 +543,6 @@ document.write(`
 <p><img alt="Figure 4.2. The basic elements of a plot. Image source: Tenkanen (2017)." src="../../../_images/basic-elements-of-plot.png" /></p>
 <p><em><strong>Figure 4.2</strong>. The basic elements of a plot. Image source: Tenkanen (2017).</em></p>
 <p>In spite of the large variety of types of plots, there are certain elements that are common for most of them (not all). Thus, it is useful to know at least the basic terminology since it makes it easier to find help and information from the internet when you start creating or modifying your own plots. Figure 4.2 illustrates different elements of a basic line plot.</p>
-<!-- #endregion -->
 <section id="common-plotting-terminology">
 <h3>Common plotting terminology<a class="headerlink" href="#common-plotting-terminology" title="Link to this heading">#</a></h3>
 <p>The common terms in Table 4.1 may vary a bit depending on the plotting library that you use. For the list provided here we are using the typical terms for plotting in Matplotlib (see also Figure 4.2).</p>
@@ -634,7 +632,7 @@ document.write(`
 </aside>
 <aside class="footnote brackets" id="basemap" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://matplotlib.org/basemap/index.html">https://matplotlib.org/basemap/index.html</a></p>
+<p><a class="reference external" href="https://matplotlib.org/basemap/stable/">https://matplotlib.org/basemap/stable/</a></p>
 </aside>
 <aside class="footnote brackets" id="seaborn" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>

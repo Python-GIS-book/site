@@ -502,7 +502,6 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-5">Question 2.5</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-text-and-numbers">Combining text and numbers</a></li>
 </ul>
 </li>
 </ul>
@@ -770,13 +769,13 @@ There are 4 basic data types in Python as shown in Table 2.2.</p>
 <span class="nb">type</span><span class="p">(</span><span class="n">weatherForecast</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Let’s also check the type of <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code>. What happens if you try to combine <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> in a single math equation such as <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span> <span class="pre">=</span> <span class="pre">tempFahrenheit</span> <span class="pre">+</span> <span class="pre">5.0</span> <span class="pre">*</span> <span class="pre">weatherForecast</span></code>?</p>
+<p>Let’s also check the type of <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code>. What happens if you try to combine <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> in a single math equation such as <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span> <span class="pre">=</span> <span class="pre">tempFahrenheit</span> <span class="pre">+</span> <span class="pre">weatherForecast</span></code>?</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">tempFahrenheit</span><span class="p">)</span>
-<span class="n">tempFahrenheit</span> <span class="o">=</span> <span class="n">tempFahrenheit</span> <span class="o">+</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">weatherForecast</span>
+<span class="n">tempFahrenheit</span> <span class="o">=</span> <span class="n">tempFahrenheit</span> <span class="o">+</span> <span class="n">weatherForecast</span>
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>In this case we get at <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> because we are trying to execute a math operation with data types that are not compatible. There is no way in Python to multpily decimal values with a character string.</p>
+<p>In this case we get at <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> because we are trying to execute a math operation with data types that are not compatible. It is not possible to add a number directly to a character string in Python. In order for addition to work, the data types need to be compatible with one another.</p>
 <!-- #endregion -->
 <!-- #region deletable=true editable=true slideshow={"slide_type": ""} tags=["question"] -->
 <section id="question-2-3">
@@ -801,28 +800,39 @@ There are 4 basic data types in Python as shown in Table 2.2.</p>
 </section>
 <section id="making-different-data-types-work-together">
 <h2>Making different data types work together<a class="headerlink" href="#making-different-data-types-work-together" title="Link to this heading">#</a></h2>
-<p>In the previous section we saw that not all Python data types are directly compatible with others, which may result in a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> being raised. This means that (1) it is important to be aware of the data type of variables and (2) some additional steps may be needed to make different data compatible. In the example in the previous section we had <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> (type <code class="docutils literal notranslate"><span class="pre">float</span></code>) and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> (type <code class="docutils literal notranslate"><span class="pre">str</span></code>) that were not compatible. How can we address this issue if we would like to work with those data together?</p>
+<p>In the previous section we saw that not all Python data types are directly compatible with others, which may result in a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> being raised. This means that (1) it is important to be aware of the data type of variables and (2) some additional steps may be needed to make different data compatible. Let’s consider an example where we try to combine <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> (type <code class="docutils literal notranslate"><span class="pre">float</span></code>) with another temperature value. In this case, the other temperature is stored in a character string <code class="docutils literal notranslate"><span class="pre">forecastHighStr</span></code> (type <code class="docutils literal notranslate"><span class="pre">str</span></code>) with a value of <code class="docutils literal notranslate"><span class="pre">&quot;77.0&quot;</span></code>. As we know, data of type <code class="docutils literal notranslate"><span class="pre">float</span></code> and type <code class="docutils literal notranslate"><span class="pre">str</span></code> are not compatible for math operations. Let’s start by defining <code class="docutils literal notranslate"><span class="pre">forecastHighStr</span></code> and then see how we can we address this issue to make these data work together.</p>
 <!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">forecastHighStr</span> <span class="o">=</span> <span class="s2">&quot;77.0&quot;</span>
+<span class="n">forecastHighStr</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">forecastHighStr</span><span class="p">)</span>
+</pre></div>
+</div>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="converting-data-from-one-type-to-another">
 <h3>Converting data from one type to another<a class="headerlink" href="#converting-data-from-one-type-to-another" title="Link to this heading">#</a></h3>
-<p>It is not the case that things like the <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> cannot be combined at all, but in order to combine a character string with a number we need to perform a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Type-conversion"><span class="xref std std-term">type conversion</span></a></em> to make them compatible. Let’s convert <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> to a character string using the <code class="docutils literal notranslate"><span class="pre">str()</span></code> function. We can store the converted variable as <code class="docutils literal notranslate"><span class="pre">tempFahrenheitStr</span></code>.</p>
+<p>It is not the case that things like the <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> and <code class="docutils literal notranslate"><span class="pre">forecastHighStr</span></code> cannot be combined at all, but in order to combine a character string with a number we need to perform a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Type-conversion"><span class="xref std std-term">type conversion</span></a></em> to make them compatible. Let’s convert <code class="docutils literal notranslate"><span class="pre">forecastHighStr</span></code> to a floating point number using the <code class="docutils literal notranslate"><span class="pre">float()</span></code> function. We can store the converted variable as <code class="docutils literal notranslate"><span class="pre">forecastHigh</span></code>.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tempFahrenheitStr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempFahrenheit</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">forecastHigh</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">forecastHighStr</span><span class="p">)</span>
 </pre></div>
 </div>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-<p>We can confirm the type has changed by checking the type of <code class="docutils literal notranslate"><span class="pre">tempFahrenheitStr</span></code> or by checking the output of a code cell with the variable.</p>
+<p>We can confirm the type has changed by checking the type of <code class="docutils literal notranslate"><span class="pre">forecastHigh</span></code> or by checking the output of a code cell with the variable.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">tempFahrenheitStr</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">forecastHigh</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tempFahrenheitStr</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">forecastHigh</span>
 </pre></div>
 </div>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-<p>As you can see, <code class="docutils literal notranslate"><span class="pre">str()</span></code> converts a numerical value into a character string with the same numbers as before. Similar to using <code class="docutils literal notranslate"><span class="pre">str()</span></code> to convert numbers to character strings, <code class="docutils literal notranslate"><span class="pre">int()</span></code> can be used to convert strings or floating point numbers to integers, and <code class="docutils literal notranslate"><span class="pre">float()</span></code> can be used to convert strings or integers to floating point numbers. For example, we could convert <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> to an integer as follows.</p>
+<p>As you can see, <code class="docutils literal notranslate"><span class="pre">float()</span></code> converts a character string to a decimal value representing the number stored in the string. As a result, we can now easily calculate the difference between the forecast high temperature <code class="docutils literal notranslate"><span class="pre">forecastHigh</span></code> and <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> as the data are now compatible.</p>
 <!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">forecastHigh</span> <span class="o">-</span> <span class="n">tempFahrenheit</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">float()</span></code> can be used to convert strings or integers to floating point numbers, however it is important to note that <code class="docutils literal notranslate"><span class="pre">float()</span></code> can only convert strings that represent numerical values. For example, <code class="docutils literal notranslate"><span class="pre">float(&quot;Cold&quot;)</span></code> will raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> because <code class="docutils literal notranslate"><span class="pre">&quot;Cold&quot;</span></code> cannot be converted to a number directly. Similar to <code class="docutils literal notranslate"><span class="pre">float()</span></code>, <code class="docutils literal notranslate"><span class="pre">str()</span></code> can convert numbers to character strings, and <code class="docutils literal notranslate"><span class="pre">int()</span></code> can be used to convert strings or floating point numbers to integers. For example, we could convert <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> to an integer as follows.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tempFahrenheitInt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tempFahrenheit</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -855,37 +865,17 @@ There are 4 basic data types in Python as shown in Table 2.2.</p>
 </section>
 <section id="question-2-5">
 <h4>Question 2.5<a class="headerlink" href="#question-2-5" title="Link to this heading">#</a></h4>
-<p>What output would you expect to see when you execute <code class="docutils literal notranslate"><span class="pre">print(weatherForecast</span> <span class="pre">+</span> <span class="pre">tempFahrenheitStr)</span></code>?</p>
+<p>What output would you expect to see when you execute <code class="docutils literal notranslate"><span class="pre">float(weatherForecast)</span></code>?</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">weatherForecast</span> <span class="o">+</span> <span class="n">tempFahrenheitStr</span><span class="p">)</span>
+<span class="nb">float</span><span class="p">(</span><span class="n">weatherForecast</span><span class="p">)</span>
 </pre></div>
 </div>
-<!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
-</section>
-<section id="combining-text-and-numbers">
-<h3>Combining text and numbers<a class="headerlink" href="#combining-text-and-numbers" title="Link to this heading">#</a></h3>
-<p>Although most mathematical operations are applied to numerical values, a common way to combine character strings is using the addition operator <code class="docutils literal notranslate"><span class="pre">+</span></code>. Let’s create a text string in the variable <code class="docutils literal notranslate"><span class="pre">temp_and_forecast</span></code> that is the combination of the <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code> variables. Once we define <code class="docutils literal notranslate"><span class="pre">temp_and_forecast</span></code>, we can print it to the screen to see the result.</p>
-<!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_and_forecast</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;The current temperature is &quot;</span>
-    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempFahrenheit</span><span class="p">)</span>
-    <span class="o">+</span> <span class="s2">&quot; and the forecast for today is &quot;</span>
-    <span class="o">+</span> <span class="n">weatherForecast</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp_and_forecast</span>
-</pre></div>
-</div>
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-<p>Note that here we are converting <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> to a character string using the <code class="docutils literal notranslate"><span class="pre">str()</span></code> function within the assignment to the variable <code class="docutils literal notranslate"><span class="pre">temp_and_forecast</span></code>. Alternatively, we could have simply combined <code class="docutils literal notranslate"><span class="pre">tempFahrenheitStr</span></code> and <code class="docutils literal notranslate"><span class="pre">weatherForecast</span></code>.</p>
-<!-- #endregion -->
 </section>
 </section>
 </section>
@@ -945,7 +935,6 @@ There are 4 basic data types in Python as shown in Table 2.2.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2-5">Question 2.5</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-text-and-numbers">Combining text and numbers</a></li>
 </ul>
 </li>
 </ul>

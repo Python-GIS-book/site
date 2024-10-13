@@ -261,15 +261,15 @@ weatherForecast = "Hot"
 type(weatherForecast)
 ```
 
-Let's also check the type of `tempFahrenheit`. What happens if you try to combine `tempFahrenheit` and `weatherForecast` in a single math equation such as `tempFahrenheit = tempFahrenheit + 5.0 * weatherForecast`?
+Let's also check the type of `tempFahrenheit`. What happens if you try to combine `tempFahrenheit` and `weatherForecast` in a single math equation such as `tempFahrenheit = tempFahrenheit + weatherForecast`?
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false} tags=["raises-exception"]
 type(tempFahrenheit)
-tempFahrenheit = tempFahrenheit + 5.0 * weatherForecast
+tempFahrenheit = tempFahrenheit + weatherForecast
 ```
 
 <!-- #region deletable=true editable=true -->
-In this case we get at `TypeError` because we are trying to execute a math operation with data types that are not compatible. There is no way in Python to multpily decimal values with a character string.
+In this case we get at `TypeError` because we are trying to execute a math operation with data types that are not compatible. It is not possible to add a number directly to a character string in Python. In order for addition to work, the data types need to be compatible with one another.
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true slideshow={"slide_type": ""} tags=["question"] -->
@@ -296,34 +296,49 @@ print(first_variable - second_variable)
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Making different data types work together
 
-In the previous section we saw that not all Python data types are directly compatible with others, which may result in a `TypeError` being raised. This means that (1) it is important to be aware of the data type of variables and (2) some additional steps may be needed to make different data compatible. In the example in the previous section we had `tempFahrenheit` (type `float`) and `weatherForecast` (type `str`) that were not compatible. How can we address this issue if we would like to work with those data together?
+In the previous section we saw that not all Python data types are directly compatible with others, which may result in a `TypeError` being raised. This means that (1) it is important to be aware of the data type of variables and (2) some additional steps may be needed to make different data compatible. Let's consider an example where we try to combine `tempFahrenheit` (type `float`) with another temperature value. In this case, the other temperature is stored in a character string `forecastHighStr` (type `str`) with a value of `"77.0"`. As we know, data of type `float` and type `str` are not compatible for math operations. Let's start by defining `forecastHighStr` and then see how we can we address this issue to make these data work together.
 <!-- #endregion -->
+
+```python
+forecastHighStr = "77.0"
+forecastHighStr
+```
+
+```python
+type(forecastHighStr)
+```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Converting data from one type to another
 
-It is not the case that things like the `tempFahrenheit` and `weatherForecast` cannot be combined at all, but in order to combine a character string with a number we need to perform a *{term}`type conversion`* to make them compatible. Let's convert `tempFahrenheit` to a character string using the `str()` function. We can store the converted variable as `tempFahrenheitStr`.
+It is not the case that things like the `tempFahrenheit` and `forecastHighStr` cannot be combined at all, but in order to combine a character string with a number we need to perform a *{term}`type conversion`* to make them compatible. Let's convert `forecastHighStr` to a floating point number using the `float()` function. We can store the converted variable as `forecastHigh`.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-tempFahrenheitStr = str(tempFahrenheit)
+forecastHigh = float(forecastHighStr)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-We can confirm the type has changed by checking the type of `tempFahrenheitStr` or by checking the output of a code cell with the variable.
+We can confirm the type has changed by checking the type of `forecastHigh` or by checking the output of a code cell with the variable.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-type(tempFahrenheitStr)
+type(forecastHigh)
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
-tempFahrenheitStr
+forecastHigh
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As you can see, `str()` converts a numerical value into a character string with the same numbers as before. Similar to using `str()` to convert numbers to character strings, `int()` can be used to convert strings or floating point numbers to integers, and `float()` can be used to convert strings or integers to floating point numbers. For example, we could convert `tempFahrenheit` to an integer as follows.
+As you can see, `float()` converts a character string to a decimal value representing the number stored in the string. As a result, we can now easily calculate the difference between the forecast high temperature `forecastHigh` and `tempFahrenheit` as the data are now compatible.
 <!-- #endregion -->
+
+```python
+forecastHigh - tempFahrenheit
+```
+
+`float()` can be used to convert strings or integers to floating point numbers, however it is important to note that `float()` can only convert strings that represent numerical values. For example, `float("Cold")` will raise a `ValueError` because `"Cold"` cannot be converted to a number directly. Similar to `float()`, `str()` can convert numbers to character strings, and `int()` can be used to convert strings or floating point numbers to integers. For example, we could convert `tempFahrenheit` to an integer as follows.
 
 ```python editable=true slideshow={"slide_type": ""}
 tempFahrenheitInt = int(tempFahrenheit)
@@ -364,38 +379,15 @@ print(tempFahrenheitInt + temp_celsius)
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 2.5
 
-What output would you expect to see when you execute `print(weatherForecast + tempFahrenheitStr)`?
+What output would you expect to see when you execute `float(weatherForecast)`?
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell", "raises-exception"]
 # Solution
 
-print(weatherForecast + tempFahrenheitStr)
+float(weatherForecast)
 ```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-### Combining text and numbers
-
-Although most mathematical operations are applied to numerical values, a common way to combine character strings is using the addition operator `+`. Let's create a text string in the variable `temp_and_forecast` that is the combination of the `tempFahrenheit` and `weatherForecast` variables. Once we define `temp_and_forecast`, we can print it to the screen to see the result.
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-temp_and_forecast = (
-    "The current temperature is "
-    + str(tempFahrenheit)
-    + " and the forecast for today is "
-    + weatherForecast
-)
-```
-
-```python editable=true slideshow={"slide_type": ""}
-temp_and_forecast
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-Note that here we are converting `tempFahrenheit` to a character string using the `str()` function within the assignment to the variable `temp_and_forecast`. Alternatively, we could have simply combined `tempFahrenheitStr` and `weatherForecast`.
-<!-- #endregion -->

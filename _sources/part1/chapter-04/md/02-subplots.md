@@ -15,7 +15,7 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Creating subplots
 
-At this point you should know the basics of making plots with Matplotlib. Now we will expand on our basic plotting skills to learn how to create more advanced plots. In this section, we will show how to visualize data using pandas/Matplotlib and create multi-panel plots such as the one below.
+At this point you should know the basics of making plots with `matplotlib`. Now we will expand on our basic plotting skills to learn how to create more advanced plots. In this section, we will show how to visualize data using `pandas` and `matplotlib` and create multi-panel plots such as the one below.
 
 ![_**Figure 4.10**. An example of seasonal temperatures for 2012-2013 using pandas and Matplotlib._](../img/subplots.png)
 
@@ -34,7 +34,7 @@ fp = "data/029740.txt"
 
 data = pd.read_csv(
     fp,
-    delim_whitespace=True,
+    sep=r"\s+",
     na_values=["*", "**", "***", "****", "*****", "******"],
     usecols=["YR--MODAHRMN", "TEMP", "MAX", "MIN"],
     parse_dates=["YR--MODAHRMN"],
@@ -62,7 +62,7 @@ print("Number of no-data values per column: ")
 print(data.isna().sum())
 ```
 
-So, there are 1644 missing values in the TEMP_F column and we should remove those. We need not worry about the no-data values in `'MAX'` and `'MIN'` columns since we will not use them for the plots produced below. We can remove rows from our DataFrame where `'TEMP_F'` is missing values using the `dropna()` method.
+So, there are 3579 missing values in the `TEMP_F` column and we should remove those. We need not worry about the no-data values in `MAX` and `MIN` columns since we will not use them for the plots produced below. We can remove rows from our `DataFrame` where `TEMP_F` is missing values using the `.dropna()` method.
 
 ```python
 data.dropna(subset=["TEMP_F"], inplace=True)
@@ -72,7 +72,7 @@ print("Number of rows after removing no data values:", len(data))
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 4.2
 
-How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified DataFrame to another variable name or do not use the `inplace` parameter.
+How many rows of data would remain if we removed all rows with any no-data values from our data (including no-data values in the `MAX` and `MIN` columns)? If you test this, be sure to save the modified `DataFrame` with another variable name or do not use the `inplace` parameter.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
@@ -81,7 +81,6 @@ How many rows of data would remain if we removed all rows with any no-data value
 
 ```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Solution
-
 
 len(data.dropna())
 ```
@@ -92,7 +91,7 @@ Now that we have loaded the data, we can convert the temperature values from Fah
 data["TEMP_C"] = (data["TEMP_F"] - 32.0) / 1.8
 ```
 
-We can once again now check the contents of our DataFrame.
+We can once again now check the contents of our `DataFrame`.
 
 ```python
 data.head()
@@ -107,7 +106,7 @@ We can start with creating the subplots by dividing the data in the data file in
 - Winter (December 2012 - February 2013)
 - Spring (March 2013 - May 2013)
 - Summer (June 2013 - August 2013)
-- Autumn (Septempber 2013 - November 2013)
+- Autumn (September 2013 - November 2013)
 
 ```python
 winter = data.loc[(data.index >= "201212010000") & (data.index < "201303010000")]
@@ -142,7 +141,7 @@ Based on the plots above it looks that the correct seasons have been plotted and
 ### Finding the data bounds
 
 In order to define y-axis limits that will include the data from all of the seasons and be consistent between subplots we first need to find the minimum and maximum temperatures from all of the seasons.
-In addition, we should consider that it would be beneficial to have some extra space (padding) between the y-axis limits and those values, such that, for example, the maximum y-axis limit is five degrees higher than the maximum temperature and the minimum y-axis limit is five degrees lower than the minimum temperature. We can do that below by calculating the minumum of each seasons minumum temperature and subtracting five degrees.
+In addition, we should consider that it would be beneficial to have some extra space (padding) between the y-axis limits and those values, such that, for example, the maximum y-axis limit is five degrees higher than the maximum temperature and the minimum y-axis limit is five degrees lower than the minimum temperature. We can do that below by calculating the minimum of each seasons minimum temperature and subtracting five degrees.
 
 ```python
 # Find lower limit for y-axis
@@ -166,8 +165,8 @@ We can now use this temperature range to standardize the y-axis ranges of our pl
 
 ### Displaying multiple subplots in a single figure
 
-With the data split into seasons and y-axis range defined we can now continue to plot data from all four seasons the same figure. We will start by creating a figure containing four subplots in a 2x2 panel using Matplotlib’s `subplots()` function. In the `subplots()` function, the user can specify how many rows and columns of plots they want to have in their figure.
-We can also specify the size of our figure with `figsize()` parameter that takes the `width` and `height` values (in inches) as input.
+With the data split into seasons and y-axis range defined we can now continue to plot data from all four seasons the same figure. We will start by creating a figure containing four subplots in a two by two panel using the `.subplots()` function from `matplotlib`. In the `.subplots()` function, the user can specify how many rows and columns of plots they want to have in their figure.
+We can also specify the size of our figure with the `figsize` parameter that takes the `width` and `height` values (in inches) as input.
 
 ```python
 fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
@@ -176,7 +175,7 @@ axs
 
 _**Figure 4.13**. Empty figure template with a 2x2 subplot panel._
 
-We can see from the output of the code cell that we now have a list containing two nested lists, where the first nested list contains the axes for column 1 and 2 of **row 1** and the second contains the axes for columns 1 and 2 of **row 2**.
+We can see from the output of the code cell that we now have a list containing two nested lists, where the first nested list contains the axes for column 1 and 2 of row 1 and the second contains the axes for columns 1 and 2 of row 2.
 
 To make it easier to keep track of things, we can parse these axes into their own variables as follows.
 
@@ -189,10 +188,10 @@ ax22 = axs[1][1]
 
 Now we have four different axis variables for the different panels in our figure.
 Next we can use these axes to plot the seasonal temperature data.
-We can start by plotting the data for the different seasons with different colors for each of the lines, and we can specify the *y*-axis limits to be the same for all of the subplots.
+We can start by plotting the data for the different seasons with different colors for each of the lines, and we can specify the y-axis limits to be the same for all of the subplots.
 
-- We can use the `c` parameter to change the color of the line. You can define colors using RBG color codes, but it is often easier to use one of the [Matplotlib named colors](https://matplotlib.org/stable/gallery/color/named_colors.html) [^matplotlib_colors].
-- We can also change the line width or weight using the `lw`.
+- We can use the `c` parameter to change the color of the line. You can define colors using RBG color codes, but it is often easier to use one of the [`matplotlib` named colors](https://matplotlib.org/stable/gallery/color/named_colors.html) [^matplotlib_colors].
+- We can also change the line width or weight using the `lw` parameter.
 - The `ylim` parameter can be used to define the y-axis limits.
 
 Putting all of this together in a single code cell we have the following:
@@ -224,15 +223,15 @@ plt.show()
 
 _**Figure 4.14**. Seasonal temperatures for 2012-2013 plotted in a 2x2 panel._
 
-Great, now we have all the plots in same figure! However, we can see that there are some problems with our *x*-axis labels and a few other missing plot items we should add. 
+Great, now we have all the plots in same figure! However, we can see that there are some problems with our x-axis labels and a few other missing plot items we should add. 
 
-Let's re-create the plot and make some improvements. In this version of the plot we will:
+Let's recreate the plot and make some improvements. In this version of the plot we will:
 
-- Modify the x- and y-axis labels using the `xlabel` and `ylabel` parameters in the `plot()` function.
-- Enable grid lines on the plot using the `grid=True` parameter for the `plot()` function.
+- Modify the x- and y-axis labels using the `xlabel` and `ylabel` parameters in the `.plot()` function.
+- Enable grid lines on the plot using the `grid=True` parameter for the `.plot()` function.
 - Add a figure title using the `fig.suptitle()` function.
 - Rotate the x-axis labels using the `plt.setp()` function.
-- Add a text label for each plot panel using the `text()` function.
+- Add a text label for each plot panel using the `.text()` function.
 
 ```python
 # Create the figure and subplot axes
@@ -296,17 +295,14 @@ ax22.text(pd.to_datetime("20131115"), -25, "Autumn")
 plt.show()
 ```
 
-<!-- #region -->
 _**Figure 4.15**. Seasonal temperatures for 2012-2013 plotted with season names and gridlines visible._
 
-
 The new version of the figure essentially conveys the same information as the first version, but the additional plot items help to make it easier to see the plot values and immediately understand the data being presented. Not bad.
-<!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 4.3
 
-Visualize only the winter and summer temperatures in a 1x2 panel figure. Save the resulting figure as a .png file.
+Visualize only the winter and summer temperatures in a one by two panel figure. Save the resulting figure as a .png file.
 <!-- #endregion -->
 
 ```python tags=["remove_cell"]
