@@ -555,7 +555,9 @@ Now we have merged all the information from the right `DataFrame` into the left 
 
 ```python
 # Make another join but only keep the attribute of interest
-join2 = data.merge(precip[["Date", "Precipitation amount [mm]"]], left_on="YEARMODA", right_on="Date")
+join2 = data.merge(
+    precip[["Date", "Precipitation amount [mm]"]], left_on="YEARMODA", right_on="Date"
+)
 join2.head()
 ```
 
