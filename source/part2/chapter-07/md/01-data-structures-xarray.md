@@ -22,9 +22,9 @@ When working with raster data, you typically have various layers that represent 
 The two fundamental data structures provided by the `xarray` library are `DataArray` and `Dataset` (Figure 7.2). Both of them build upon and extend the strengths of `numpy` and `pandas` libraries. The `DataArray` is a labeled N-dimensional array that is similar to `pandas.Series` but works with raster data (stored as `numpy` arrays). The `Dataset` then again is a multi-dimensional in-memory array database that contains multiple `DataArray` objects. In addition to the variables containing the observations of a given phenomena, you also have the `x` and `y` coordinates of the observations stored in separate layers, as well as metadata providing relevant information about your data, such as Coordinate Reference System and/or time. Thus, a `Dataset` containing raster data is very similar to `geopandas.GeoDataFrame` and actually various `xarray` operations can feel very familiar if you have learned the basics of `pandas` and `geopandas` covered in Chapters 3 and 6. 
 
 
-![**Figure 7.2** Key `xarray` data structures. Image source: Xarray Community (2024), licensed under Apache 2.0.](../img/xarray-dataset-diagram.png)
+![***Figure 7.2.** Key `xarray` data structures. Image source: Xarray Community (2024), licensed under Apache 2.0.*](../img/xarray-dataset-diagram.png)
 
-**Figure 7.2** Key `xarray` data structures. Image source: [Xarray Community](https://tutorial.xarray.dev/fundamentals/01_data_structures.html) (2024), licensed under Apache 2.0.
+***Figure 7.2** Key `xarray` data structures. Image source: [Xarray Community](https://tutorial.xarray.dev/fundamentals/01_data_structures.html) (2024), licensed under Apache 2.0.*
 
 Some of the benefits of `xarray` include:
 
@@ -36,13 +36,14 @@ Some of the benefits of `xarray` include:
 
 ## Reading a file
 
-In the following, we start by investigating a simple elevation dataset using `xarray` that represents a Digital Elevation Model (DEM) of Kilimanjaro area in Tanzania. To be able to read a raster data file (such as GeoTIFF) using `xarray`, we can use the  `.open_dataset()` function. Here, we read a `.tif` file directly from a cloud storage space that we have created for this book:
+In the following, we start by investigating a simple elevation dataset using `xarray` that represents a Digital Elevation Model (DEM) of Kilimanjaro area in Tanzania. To read a raster data file (such as GeoTIFF) into `xarray`, we can use the  `.open_dataset()` function. Here, we read a `.tif` file directly from a cloud storage space that we have created for this book:
 
 ```python
 import xarray as xr
+#import rioxarray
 
 url = "https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif"
-data = xr.open_dataset(url)
+data = xr.open_dataset(url, engine="rasterio")
 data
 ```
 
@@ -50,17 +51,28 @@ data
 type(data)
 ```
 
-As we can see, now we have read the GeoTIFF file into an `xarray` data structure called `Dataset` that we stored into a variable `data`. The `Dataset` contains the actual data values for the raster cells, as well as other relevant attribute information related to the data:
+Now we have read the GeoTIFF file into an `xarray.Dataset` data structure which we stored into a variable `data`. The `Dataset` contains the actual data values for the raster cells, as well as other relevant attribute information related to the data:
 
-- `Dimensions` attribute shows the number of cells of the given `band`, i.e. in our case there are 3061 cells both on the `x` and `y` axis
-- `Coordinates` attribute contains the actual `x` and `y` coordinates of the cells, as well as the Coordinate Reference System information stored in the `spatial_ref` attribute
-- 
-
-
-data2 = xr.open_rasterio(url).squeeze("band", drop=True).to_dataset(name="elevation")
+- `Dimensions` show the number of cells of the given `band`, i.e. in our case there are 3061 cells both on the `x` and `y` axis
+- `Coordinates` is a container that contains the actual `x` and `y` coordinates of the cells, the Coordinate Reference System information stored in the `spatial_ref` attribute, and the `band` attribute that shows the number of bands in our data.
+- `Data variables` contains the actual data values of the cells (e.g. elevations as in our data)
 
 ```python
-data["band_data"].plot()
+data = data.squeeze("band", drop=True)
+data
+```
+
+```python
+data = data.rename({"band_data": "elevation"})
+data
+```
+
+```python
+data.data_vars
+```
+
+```python
+data["elevation"].plot()
 ```
 
 ## Dataset properties
@@ -68,44 +80,51 @@ data["band_data"].plot()
 Let's have a closer look at the properties of the file:
 
 ```python
-# Projection
-raster.crs
+data.spatial_ref.attrs
+```
+
+```python
+data.rio.crs
+```
+
+```python
+data.rio.crs.to_epsg()
+```
+
+```python
+data.rio.crs.to_wkt()
+```
+
+```python
+# Resolution
+data.rio.resolution()
 ```
 
 ```python
 # Affine transform (how raster is scaled, rotated, skewed, and/or translated)
-raster.transform
+data.rio.transform()
 ```
 
 ```python
 # Dimensions
-print(raster.width)
-print(raster.height)
+print(data.rio.shape)
+print(data.rio.width)
+print(data.rio.height)
 ```
 
 ```python
 # Number of bands
-raster.count
+#data.rio.count
 ```
 
 ```python
 # Bounds of the file
-raster.bounds
-```
-
-```python
-# Driver (data format)
-raster.driver
+data.rio.bounds()
 ```
 
 ```python
 # No data values for all channels
-raster.nodatavals
-```
-
-```python
-# All Metadata for the whole raster dataset
-raster.meta
+data.rio.vars
 ```
 
 ## Writing a file

@@ -72,6 +72,8 @@ plt.colorbar(label='Elevation')
 plt.title('Simple Raster Layer representing a Hill')
 plt.show()
 ```
+***Figure 7.1.** A simple raster layer representing elevation.*
+
 As a result, we have a simple map that represents the elevation of the hill with different colors. The *{term}`colormap`* of the visualization was determined using the parameter `cmap`, while the `plt.colorbar()` function was used to add a legend to the right side of the image, and the `plt.title()` was used to add a simple title for the image.
 
 This example demonstrates a toy example how we can produce a simple raster layer from scratch. However, there are various aspects related to working with GIS raster data that we did not cover here, such as specifying the metadata for this layer. Basically, the data we have here is simply a two-dimensional array (matrix) that does not tell anything about the *spatial resolution* of the data (i.e. how large each cell is), nor e.g. in which area of the world this data is located (i.e. coordinates) or the *coordinate reference system* this data is represented in. In the next section, we start working with real raster data and cover more aspects that relate to spatial raster data.
