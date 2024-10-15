@@ -24,16 +24,7 @@ As we introduced earlier in [Chapter 5.2](https://pythongis.org/part2/chapter-05
 
 
 
-## Characteristics of raster data
-
-Different kind of sensors (e.g. remote sensing instruments or *{term}`LIDAR`*) are typically used to capture and collect data about specific aspects of the surface, such as temperature, elevation, or the electromagnetic radiation (light) that the surface reflects. This information can be captured with varying level of detail, depending on the sensor. Many sensors (especially satellite sensors) measure the electromagnetic radiation at specific ranges (i.e. bands) which is why they are called {term}`Multispectral sensors` or {term}`Hyperspectral sensors`. Most typically the raster data produced by these sensors can vary based on their:
-
-- *{term}`spatial resolution`*, i.e. the size of a single pixel
-- *{term}`temporal resolution`*, i.e. how frequently the data is captured from the same area of the Earth
-- *{term}`spectral resolution`*, i.e. the number and location of spectral bands in the electromagnetic spectrum
-- *{term}`radiometric resolution`*, i.e. the range of available brightness values (bit depth), usually measured in bits (binary digits)
-- *{term}`spatial extent`*, i.e. how large area of the world a single image represents
-- *{term}`coordinate reference system`*, i.e. in what CRS the data is represented 
+Different kind of sensors (e.g. remote sensing instruments or *{term}`LIDAR`*) are typically used to capture and collect data about specific aspects of the surface, such as temperature, elevation, or the electromagnetic radiation (light) that the surface reflects. This information can be captured with varying level of detail, depending on the sensor. Many sensors (especially satellite sensors) measure the electromagnetic radiation at specific ranges (i.e. bands) which is why they are called {term}`Multispectral sensors` or {term}`Hyperspectral sensors`. In this chapter, we will learn how to work with different types of raster data, starting from a simple 1-band raster data representing different geographic phenomena, such as elevation or temperatures.
 
 
 ## Working with raster data in Python
