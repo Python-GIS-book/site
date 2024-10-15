@@ -15,12 +15,13 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Data wrangling, grouping and aggregation
 
-Next, we will continue working with weather data, but expand our analysis to cover longer periods of data from Finland. In the following, you will learn various useful techniques in pandas to manipulate, group and aggregate the data in different ways that are useful when extracting insights from your data. In the end, you will learn how to create an automated data analysis workflow that can be repeated with multiple input files having a similar structure. As a case study, we will investigate whether January 2020 was the warmest month on record also in Finland, as the month was the warmest one on record globally [^noaanews]. 
+Next, we will continue working with weather data, but expand our analysis to cover longer periods of data from Finland. In the following, you will learn various useful techniques in `pandas` to manipulate, group and aggregate the data in different ways that are useful when extracting information from your data. In the end, you will learn how to create an automated data analysis workflow that can be repeated with multiple input files that have a similar structure. As a case study, we will investigate whether January 2020 was the warmest month on record in Finland, as it was the warmest on record globally at the time [^noaanews]. 
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Cleaning data while reading
 
-In this section we are using weather observation data from Finland that was downloaded from NOAA (see `Datasets` chapter for further details). The input data is separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:
+In this section we are using weather observation data from Finland that was downloaded from NOAA (check out the {ref}`/data/index` section for further details). The input data are separated by varying number of spaces (i.e., fixed column widths). The first lines of the data look like following:
 
 ``` 
   USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW  ...
@@ -30,15 +31,16 @@ In this section we are using weather observation data from Finland that was down
 029440 99999 190601020600 ***   0 *** *** CLR * * *  0.0 ** ** ** ** **  ...
 ```
 
-By looking at the data, we can notice a few things that we need to consider when reading the data:
+By looking at the data, we can see a few things that we need to consider when reading the data:
 
-1. **Delimiter:** The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas `read_csv()` function
-2. **NoData values:** NaN values in the NOAA data are coded with varying number of `*` characters, hence, we need to be able to instruct pandas to interpret those as NaNs. 
-3. **Many columns**: The input data contains many columns (altogether 33). Many of those do not contain any meaningful data for our needs. Hence, we should probably ignore the unnecessary columns already at this stage. 
+1. The delimiter: The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas `read_csv()` function
+2. NoData values: `NaN` values in the NOAA data are coded with varying number of `*` characters and hence we need to be able to instruct pandas to interpret those as `NaN`. 
+3. Many columns: The input data contains many columns (33 in total). Many of those do not contain data we need. Thus, we should probably ignore the unnecessary columns already at this stage. 
 
-Handling and cleaning heterogeneous input data (such as our example here) can be done after reading in the data. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter `delim_whitespace=True` (alternatively, specifying `sep='\s+'` would work). For handling the NoData values (2), we can tell pandas to consider the `*` characters as NaNs by using a paramater `na_values` and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify `na_values=['*', '**', '***', '****', '*****', '******']` which will then convert the varying number of `*` characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the `usecols` parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis, including the station name, timestamp, and data about temperatures: `'USAF', 'YR--MODAHRMN', 'TEMP', 'MAX', 'MIN'`. Achieving all these things is pretty straightforward using the `read_csv()` function: 
+Handling and cleaning heterogeneous input data (such as in our example here) can be done after reading in the data. However, in many cases it is actually useful to do some cleaning and preprocessing when reading in the data. In fact, it is often much easier to do things this way. For our data file, we can read the data with varying number of spaces between the columns (point 1 above) by using the parameter `sep=r"\s+"`. In this case, we use a raw text string with the `sep` parameter, which is indicated by the `r` before the first quotation mark and ensures the escape character `\` is handled properly in the `sep` string. For handling the NoData values (point 2 above), we can tell `pandas` to consider the `*` characters as `NaN` by using the parameter `na_values` and specifying a list of characters that should be converted to `NaN`. For this data file we can specify `na_values=['*', '**', '***', '****', '*****', '******']`, which will then convert the varying number of `*` characters into `NaN` values. Finally, we can limit the number of columns that we read (point 3 above) by using the `usecols` parameter, which we have already used previously. In our case, we are interested in columns that might be somehow useful to our analysis, including the station name, timestamp, and data about temperatures: `'USAF', 'YR--MODAHRMN', 'TEMP', 'MAX', 'MIN'`. Achieving all these things is pretty straightforward using the `read_csv()` function, as demonstrated below.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 import pandas as pd
 
 # Define relative path to the file
@@ -49,13 +51,15 @@ fp = "data/029820.txt"
 # and selecting only specific columns from the data
 data = pd.read_csv(
     fp,
-    delim_whitespace=True,
+    sep=r"\s+",
     na_values=["*", "**", "***", "****", "*****", "******"],
     usecols=["USAF", "YR--MODAHRMN", "TEMP", "MAX", "MIN"],
 )
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Let's see now how the data looks by printing the first five rows with the `head()` function:
+<!-- #endregion -->
 
 ```python jupyter={"outputs_hidden": false}
 data.head()
