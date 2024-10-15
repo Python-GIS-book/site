@@ -16,6 +16,7 @@ jupyter:
 # Getting started with data analysis
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## What is pandas?
 
 The [`pandas` Python library](https://pandas.pydata.org/) [^pandas] is an easy-to-use, powerful data analysis toolkit. It is a mature data analytics framework that is widely used in different fields of science. The development of `pandas` started in 2008 and it is now maintained by an active developer community ({cite}`McKinney2022`).
@@ -35,6 +36,7 @@ One of the most useful features of `pandas` is its ability to interact with nume
 - SQL (Postgresql, MySQL, Oracle, MariaDB, etc.)
 
 For a full list of supported file formats and other features, please refer to the official [`pandas` documentation and reference guide](https://pandas.pydata.org/pandas-docs/stable/) [^pandasdocs].
+<!-- #endregion -->
 
 <!-- #region deletable=true editable=true -->
 ## pandas data structures
@@ -50,7 +52,7 @@ As you can see from Figure 3.1, both the `DataFrame` and `Series` in `pandas` ha
 
 ## Reading tabular data 
 
-In the following sections, we will learn how to read data from a text file (`data/kumpula-summer-2024.txt`), which contains weather observations from the Kumpula neighborhood in Helsinki, Finland. The data were  retrieved from [Finnish Meteorlogical Institute's data service](https://en.ilmatieteenlaitos.fi/download-observations/) [^fmi] and it contains observed daily temperatures recorded at two times during the day (`TEMP1`: 10 a.m.; `TEMP2`: 2:00 p.m.), as well as the minimum and maximum temperatures from Summer 2024 (June 1st - August 31st, 2024) recorded by the Kumpula weather observation station in Helsinki. The file includes 92 rows of observations (one per day). The first fifteen rows in the file look like the following:
+In the following sections, we will learn how to read data from a text file (`data/kumpula-summer-2024.txt`), which contains weather observations from the Kumpula neighborhood in Helsinki, Finland. The data were  retrieved from [Finnish Meteorlogical Institute's data service](https://en.ilmatieteenlaitos.fi/download-observations/) [^fmi] and it contains observed daily temperatures recorded at two times during the day (`TEMP1`: 10 a.m.; `TEMP2`: 2:00 p.m.), as well as the minimum and maximum temperatures from Summer 2024 (June 1st - August 31st, 2024) recorded by the Kumpula weather observation station in Helsinki. The date is stored in the `YEARMODA` column, where the first four numbers record the year, the next two represent the month, and the final two digits are for the day in the month. The file includes 92 rows of observations (one per day). The first fifteen rows in the file look like the following:
 
 ```
 # Data file contents: Daily temperatures (TEMP1 (10AM), TEMP2 (4PM), min, ma...
@@ -85,14 +87,17 @@ data = pd.read_csv("data/kumpula-summer-2024.txt")
 ```
 
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Our input file is a comma-delimited file, meaning that the columns in the data are separated by commas (`,`) on each row. The `.read_csv()` function uses comma as the default delimiter, hence we did not need to specify it separately in the command above. If all went as planned, you should now have a new variable `data` in memory that contains the input data. 
 
 It is quite common to have some other character instead of a comma separating the columns from each other. The `.read_csv()` in pandas is a generic function for reading text-based data files, supporting files separated by commas, spaces, or other common separators. The `sep` parameter can be used to specify which character is used as a delimiter. For instance `sep=';'`, would be used when the columns in the data file are delimited with a semicolon (`;`). For a full list of available parameters for the `read_csv()` function, please refer to the [pandas `.read_csv()` documention](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html) [^readcsv] or run `help(pd.read_csv)`. 
 
 Pandas has several other functions for parsing input data from different file formats. For example, reading Excel files can be easily done using the `.read_excel()` function. Another useful function is `.read_pickle()`, which reads data stored in the Python pickle format. Check out the [pandas documentation about input and output tools](https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html) [^pandas_io] for more details about reading data.
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Let's check the the contents of our data. You can print the contents of a `DataFrame` (or a snippet of it) simply by calling it by name (e.g., `data`). However, quite often you want to check only a selection of *n* rows from the start or end of the data set. For doing that, we can use the `.head()` method of the `DataFrame` object that will, by default, return the first five rows of the `DataFrame`. You can return any number of rows by adding that number inside the parentheses. For example, `data.head(10)` would return the first ten rows from the `DataFrame` called `data`.
+<!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 data.head(10)
@@ -274,11 +279,11 @@ Here we see that `YEARMODA` is contains integer values with 64-bit precision (`i
 How would you print out the number of columns in our `DataFrame`?
 <!-- #endregion -->
 
-```python tags=["remove_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 len(data.columns)
