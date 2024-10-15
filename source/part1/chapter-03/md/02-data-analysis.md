@@ -21,7 +21,7 @@ Next, we will continue working with weather data, but expand our analysis to cov
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Cleaning data while reading
 
-In this section we are using weather observation data from Finland that was downloaded from NOAA (check out the {doc}`/data/index` section for further details). The input data are separated by varying number of spaces (i.e., fixed column widths). The first lines of the data look like following:
+In this section we are using weather observation data from Finland that was downloaded from NOAA (check the {doc}`data overview </data/index>` section for more details). The input data are separated by varying number of spaces (i.e., fixed column widths). The first lines of the data look like following:
 
 ``` 
   USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW  ...
