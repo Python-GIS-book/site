@@ -119,9 +119,9 @@ Normal text is written without any special formatting.
 
 Inline code formatting for data types and data structures should be used *only* when referencing a specific instance of the data type or structure. Otherwise, normal text formatting should be used (e.g., dataframe).
 
-> Here, we introduce {term}`pandas`, which is a common data analysis library in Python that utilizes two key data structures: {term}`DataFrame` and {term}`Series`. The dataframe structure in `pandas` is similar to the dataframe data structure in `R`. Let's begin by creating a new `DataFrame` called `my_data`.
+> Here, we introduce *{term}`pandas`*, which is a common data analysis library in Python that utilizes two key data structures: *{term}`DataFrame`* and *{term}`Series`*. The dataframe structure in `pandas` is similar to the dataframe data structure in `R`. Let's begin by creating a new `DataFrame` called `my_data`.
 
-In the text above we can see that the pandas library is mentioned for the first time, and as an important library we have included a link to the glossary using the {term}`` formatting. This is similar for the first references to DataFrame and Series. After this, we refer to dataframes in general, not a specific instance, so the text is not formatted. Finally, we create a new dataframe instance, so inline code formatting is used.
+In the text above we can see that the pandas library is mentioned for the first time, and as an important library we have included a link to the glossary using the *{term}``* formatting. This is similar for the first references to DataFrame and Series. After this, we refer to dataframes in general, not a specific instance, so the text is not formatted. Finally, we create a new dataframe instance, so inline code formatting is used.
 
 As another example, let's consider Python lists:
 
