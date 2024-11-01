@@ -18,6 +18,7 @@ jupyter:
 Data visualization is an essential part of understanding and interpreting data, and Python has a large number of libraries available for use in visualizing different types of data. Below we provide a brief overview of some of the Python plotting landscape as well as an introduction to the terminology commonly used to refer to different parts of a plot created using Python.
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Python plotting libraries
 
 ![_**Figure 4.1**. Plotting libraries available in Python. Interactive version online at <https://pyviz.org/overviews/index.html>._](../img/python-plotting.png)
@@ -42,8 +43,9 @@ Python has many nice, useful libraries that can be used for plotting. In the fig
   - GeoViews is designed for creating nice and interactive maps. Examples can be found in the [GeoViews gallery](https://geoviews.org/gallery/index.html).
 
 You should explore the plotting galleries and examples of different visualization libraries above to learn what's possible to do in Python. As you will see, the plotting possibilities in Python are numerous and rich. To get started, we suggest starting by learning to use one that suits your needs best, and later extending your knowledge and skills to other visualization libraries as necessary.
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Anatomy of a plot
 
 There are a variety of different kinds of plots (also known as graphs, charts, diagrams, etc.) that have been designed to visually represent the characteristics of a data set. Here is a list of several different types of plots that can be used to present different kinds of data. You can find more information about this plots online in Wikipedia, for example.
@@ -68,7 +70,7 @@ However, before starting to visualize our data on a plot our data we need to add
 _**Figure 4.2**. The basic elements of a plot. Image source: Tenkanen (2017)._
 
 In spite of the large variety of types of plots, there are certain elements that are common for most of them (not all). Thus, it is useful to know at least the basic terminology since it makes it easier to find help and information from the internet when you start creating or modifying your own plots. Figure 4.2 illustrates different elements of a basic line plot.
-
+<!-- #endregion -->
 
 ### Common plotting terminology
 

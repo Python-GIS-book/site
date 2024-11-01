@@ -62,6 +62,9 @@ DE-9IM
 Dependency
   Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work. 
 
+Dictionary
+  A built-in Python data structure comprising one or more unique "keys" and associated "values". Dictionary keys can be used to access associated values within a dictionary, and keys are typically numbers or character strings. Python dictionaries are enclosed in curly braces (`{` `}`) and dictionary items are listed in the form `key: value` separated by commas.
+
 Dimensionally Extended 9-Intersection Model 
   Dimensionally Extended 9-Intersection Model (DE-9IM) is a fundamental framework in GIS used for describing and analyzing spatial relationships between geometric objects. DE-9IM provides a matrix-based approach where the rows and columns represent the interior, boundary, and exterior of two geometric shapes being compared. By examining the intersections of these parts, a detailed characterization of their spatial relationship can be achieved, including spatial predicates such as "touches", "overlaps", and "contains".  
 
