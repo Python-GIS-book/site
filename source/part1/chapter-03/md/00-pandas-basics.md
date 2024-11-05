@@ -340,7 +340,9 @@ data["MAX"].unique()
 As a result we get an array of unique values in that column. In the case of temperatures, this might not be that interesting, but in other cases this can be more useful. We can also directly access the number of unique values using the `.nunique()` method.
 
 ```python editable=true jupyter={"outputs_hidden": false}
-print(f"There were {data["MAX"].nunique()} days with unique maximum temperatures in the summer of 2024.")
+print(
+    f"There were {data["MAX"].nunique()} days with unique maximum temperatures in the summer of 2024."
+)
 ```
 
 ## Descriptive statistics

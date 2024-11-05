@@ -592,7 +592,7 @@ for fp in file_list:
 
     # Estimate daily average temperature as average of TMAX and TMIN
     data["TAVG_F"] = (data["TMAX_F"] + data["TMIN_F"]) / 2.0
-    
+
     # Create column
     data["TAVG_C"] = None
 
