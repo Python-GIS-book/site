@@ -178,9 +178,9 @@ data.loc[85:91, "TEMP"].mean()
 data["TEMP"].loc[data["YEARMODA"] >= 20240825].mean()
 ```
 
-3.5
+### Question 3.7
 ```python
-data["MONTH"] = data["TIME_STR"].str.slice(start=4, stop=6)
+data["MONTH"] = data["DATE_STR"].str.slice(start=4, stop=6)
 ```
 <!-- #endregion -->
 
