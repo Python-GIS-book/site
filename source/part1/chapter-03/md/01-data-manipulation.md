@@ -18,9 +18,11 @@ jupyter:
 We have new learned the basics of `pandas` data structures (i.e., `Series` and `DataFrame`) and you should be familiar with some methods for loading and exploring `pandas` data. Next, we will continue exploring the `pandas` data analysis functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Basic calculations
 
 One of the most common things to do in `pandas` is to create new columns based on calculations between different variables (columns). Next, we will learn how to do this using the same input data (`data/kumpula-summer-2024.txt`) as in the previous section. We will first load it using the `pd.read_csv()` method. Remember, that the first 8 lines contains the metadata which we will skip. This time, let's store the filepath as a separate variable in order to make the code more readable and easier to change afterwards (a good practice).
+<!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 import pandas as pd
@@ -49,7 +51,7 @@ data.head()
 As we can see, now we have a new column `DIFF` in our `DataFrame` that has value `0.0` for all rows. When creating a new column, you can initialize it with any value you want. Typically, the value could be a number (`0.0` as we use here), but it could also be `None` (i.e., nothing), some text (e.g., `"test text"`), or more or less any other value or object that can be represented as a single item. You could even initialize the column by storing a function inside the cells if you like. Let's continue by checking the data type of our new column.
 <!-- #endregion -->
 
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
+```python deletable=true editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 data["DIFF"].dtypes
 ```
 
@@ -141,7 +143,7 @@ As a result, we now have a new `DataFrame` with two columns and 6 rows (i.e., in
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.5
 
-Calculate the mean temperature (in Celsius) for the last seven days of August 2024. Do the selection using the row index values.
+Calculate the mean temperature for the last seven days of August 2024. Do the selection using the row index values.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
@@ -176,7 +178,7 @@ row["TEMP"]
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 Sometimes it is enough to access a single value in a `DataFrame` directly. In this case, we can use the [`pandas` `.at[]` indexer](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.at.html) [^at] instead of `.loc[]`.
-Let's select the temperature (column `TEMP`) on the first row (index `0`) of our `DataFrame`:
+Let's select the temperature (column `TEMP`) on the first row (index `0`) of our `DataFrame`.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -300,7 +302,7 @@ warm_temps
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As can be seen, now the index values goes from 0 to 47. Resetting the index has now also unlinked the `warm_temps` `DataFrame` from `data`, meaning that it is not a view anymore but an independent `pandas` object. When making selections, it is quite typical that `pandas` might give you warnings if you modify the selected data without first resetting the index or making a copy of the selected data. To demonstrate this, we will make the selection again and create a new column indicating days in which the temperature was "hot" (maximum temperature greater than 25 degrees Celsius).
+As can be seen, now the index values goes from 0 to 26. Resetting the index has now also unlinked the `warm_temps` `DataFrame` from `data`, meaning that it is not a view anymore but an independent `pandas` object. When making selections, it is quite typical that `pandas` might give you warnings if you modify the selected data without first resetting the index or making a copy of the selected data. To demonstrate this, we will make the selection again and create a new column indicating days in which the temperature was "hot" (maximum temperature greater than 25 degrees Celsius).
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -327,7 +329,7 @@ As we can see, now we did not receive any warnings this time and it would be saf
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 3.6
 
-Calculate the mean temperature (in Celsius) for the last seven days of August 2024 again. This time you should select the rows based on a condition for the `YEARMODA` column.
+Calculate the mean temperature for the last seven days of August 2024 again. This time you should select the rows based on a condition for the `YEARMODA` column.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
@@ -380,7 +382,7 @@ As we can see, the value in our `temp` `Series` has changed from `23.70` to `30.
 <!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
 ## Dealing with missing data
 
-As you may have noticed by now, we have several missing values for the temperature minimum, maximum, and average columns (`MIN`, `MAX`, and `TEMP`). These missing values appear as `NaN` (not-a-number). Having missing data in your data file is quite common and typically you want to deal with these values somehow. Common procedures to deal with `NaN` values are to either remove them from the `DataFrame` or replace (fill) them with some other value. In `pandas`, both of these options are easy to do. Let's first start by checking whether the data we are using has and `NaN` values.
+As you may have noticed by now, we have several missing values for the temperature minimum, maximum, and average columns (`MIN`, `MAX`, and `TEMP`). These missing values appear as `NaN` (not a number). Having missing data in your data file is quite common and typically you want to deal with these values somehow. Common procedures to deal with `NaN` values are to either remove them from the `DataFrame` or replace (fill) them with some other value. In `pandas`, both of these options are easy to do. Let's first start by checking whether the data we are using has and `NaN` values.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -521,45 +523,47 @@ As a result the data are now ordered first by weekday (i.e., the same weekday va
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Table joins: Combining DataFrames based on a common key
+## Table join: Combining DataFrames using a common key
 <!-- #endregion -->
 
-### The basic logic of a table join
+### Basic logic of a table join
 
-Joining data between two or several DataFrames is a common task when doing data anaysis. The minimum requirement for being able to combine data between two (or more) DataFrames (i.e. *tables*), is to have at least one common attribute (called *key*) that has identical values in both DataFrames. Figure 3.4 illustrates this logic: we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier. The common `key` in this case is the time information which is in column `YEARMODA` in the left DataFrame and `DATE` column in the right DataFrame accordingly. The column names of the keys can be different (as in our case), but the actual values stored in these columns should correspond to each other, so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example. 
+Joining data between two or more `DataFrame` objects is a common task when doing data analysis. The minimum requirement for being able to combine data between two (or more) `DataFrame` objects (or tables) is to have at least one common attribute (called a key) that is identical in both `DataFrame` objects. Figure 3.4 illustrates the logic of a table join. In this case, we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier in this chapter. The common key in this case is the time information in the `YEARMODA` column in the left `DataFrame` and the `Date` column in the right `DataFrame`. The column names of the keys can be different (as in our case), but the values stored in these columns should correspond to each other so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example. 
 
-![_**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._](../img/Table_join_logic.png)
+![_**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._](../img/Table-join.png)
 
 _**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._
 
 
 ### Table join using pandas `.merge()`
 
-In the following, we first read the precipitation data from Kumpula, and then join this data with the DataFrame containing the average temperature data. Merging two DataFrames together based on a common key (or multiple keys) can be done easily with pandas using the `.merge()` -function. The column which represents the key can be specified with parameter `on`, if the key column is identical in both DataFrames. In our case, the columns containing the common values between the DataFrames are named differently. Hence, we need to specify separately the key for the left DataFrame using parameter `left_on`, and parameter `right_on` for the right DataFrame accordingly. 
+In the following example, we first read some precipitation data for the Kumpula weather station and then join this data with the `DataFrame` containing the average temperature data we have worked with. Merging two `DataFrame` objects together based on a common key (or multiple keys) can be done easily with `pandas` using the `.merge()` function. The column that represents the key can be specified using the `on` parameter if the key column is identical in both `DataFrame` objects. In our case, the `DataFrame` columns containing common values have different names. Thus, we need to separately specify the key for the left `DataFrame` using the parameter `left_on` and use the parameter `right_on` for the right `DataFrame`.
 
 ```python
 # Read precipitation data and show first rows
-rainfall = pd.read_csv("data/2902781.csv")
-rainfall.head()
+precip = pd.read_csv("data/kumpula-temps-precip-summer-2024.txt")
+precip.head()
 ```
 
 ```python
 # Make a table join
-join = data.merge(rainfall, left_on="YEARMODA", right_on="DATE")
+join = data.merge(precip, left_on="YEARMODA", right_on="Date")
 join.head()
 ```
 
-Now we have merged all the information from the right DataFrame into the left one and stored the result into variable `join`. By doing this, we can e.g. analyze the relationship between the daily average temperature and precipitation, to understand whether the temperature is lower when it rains. Currently, the `join` DataFrame contains many variables that are not necessarily useful for us. To make the output more concise, a useful trick to do when joining is to limit the number of columns that will be kept from the right DataFrame. This can be done by chaining a simple column selection while doing the merge as shown next. When doing this, it is important to remember that the `key` column on the right DataFrame needs to be part of the selection for the table join to work.  
+Now we have merged all the information from the right `DataFrame` into the left one and stored the result in variable `join`. By doing this, we can analyze the relationship between the daily average temperature and precipitation, for example, to understand whether the temperature is lower when it rains. Currently, however, the `join` `DataFrame` also contains some variables that are not necessarily useful for us. A useful trick to do when joining is to limit the number of columns that will be kept from the right `DataFrame`. This can be done by chaining a simple column selection while doing the merge as shown next. When doing this, it is important to remember that the `key` column on the right `DataFrame` must be part of the selection for the table join to work.  
 
 ```python
 # Make another join but only keep the attribute of interest
-join2 = data.merge(rainfall[["DATE", "PRCP"]], left_on="YEARMODA", right_on="DATE")
+join2 = data.merge(
+    precip[["Date", "Precipitation amount [mm]"]], left_on="YEARMODA", right_on="Date"
+)
 join2.head()
 ```
 
-As can be seen, now only the column `DATE` and the attribute of interest `PRCP` were joined and kept in the output from the right DataFrame. Similar trick can also be applied to the left DataFrame by adding the selection before the `.merge()` call if you want to reduce the number of columns on the result. 
+As can be seen in the `DataFrame` above, now only the column `Date` and the attribute of interest `Precipitation amount [mm]` were joined and kept in the output from the right `DataFrame`. A similar trick can also be applied to the left `DataFrame` by adding the selection before the `.merge()` call. 
 
-In our case, doing the table join was fairly straightforward because we had only one unique record per day in both DataFrames. However, in some cases you might have multiple records on either one of the DataFrames (e.g. hourly observations vs daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled e.g. by aggregating the hourly data to a daily average. You can learn more about these aggregation techniques in the following sections. 
+In our case, doing the table join was fairly straightforward because we had only one unique record per day in both `DataFrame` objects. However, in some cases you might have multiple records in one or the other of the `DataFrame` objects (e.g., hourly observations vs. daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled by first aggregating the hourly data to a daily average, for example. You can learn more about these aggregation techniques in the following sections.
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
