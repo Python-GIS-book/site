@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -35,10 +37,11 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -49,6 +52,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -64,19 +68,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -84,7 +77,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -92,8 +84,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -111,7 +103,8 @@
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -139,21 +132,17 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -309,7 +298,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Data overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
 </ul>
 
@@ -433,24 +422,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -508,6 +489,7 @@ document.write(`
 <section class="tex2jax_ignore mathjax_ignore" id="getting-started-with-data-analysis">
 <h1>Getting started with data analysis<a class="headerlink" href="#getting-started-with-data-analysis" title="Link to this heading">#</a></h1>
 <!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="what-is-pandas">
 <h2>What is pandas?<a class="headerlink" href="#what-is-pandas" title="Link to this heading">#</a></h2>
 <p>The <a class="reference external" href="https://pandas.pydata.org/"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> Python library</a> <a class="footnote-reference brackets" href="#pandas" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is an easy-to-use, powerful data analysis toolkit. It is a mature data analytics framework that is widely used in different fields of science. The development of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> started in 2008 and it is now maintained by an active developer community (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id15" title="Wes McKinney. Python for Data Analysis. O'Reilly Media, Inc., North, Sebastopol, CA, 3rd edition, 2022.">McKinney, 2022</a></span>).</p>
@@ -525,6 +507,7 @@ document.write(`
 <li><p>SQL (Postgresql, MySQL, Oracle, MariaDB, etc.)</p></li>
 </ul>
 <p>For a full list of supported file formats and other features, please refer to the official <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> documentation and reference guide</a> <a class="footnote-reference brackets" href="#pandasdocs" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p>
+<!-- #endregion -->
 <!-- #region deletable=true editable=true -->
 </section>
 <section id="pandas-data-structures">
@@ -537,7 +520,7 @@ document.write(`
 </section>
 <section id="reading-tabular-data">
 <h2>Reading tabular data<a class="headerlink" href="#reading-tabular-data" title="Link to this heading">#</a></h2>
-<p>In the following sections, we will learn how to read data from a text file (<code class="docutils literal notranslate"><span class="pre">data/kumpula-summer-2024.txt</span></code>), which contains weather observations from the Kumpula neighborhood in Helsinki, Finland. The data were  retrieved from <a class="reference external" href="https://en.ilmatieteenlaitos.fi/download-observations/">Finnish Meteorlogical Institute’s data service</a> <a class="footnote-reference brackets" href="#fmi" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> and it contains observed daily temperatures recorded at two times during the day (<code class="docutils literal notranslate"><span class="pre">TEMP1</span></code>: 10 a.m.; <code class="docutils literal notranslate"><span class="pre">TEMP2</span></code>: 2:00 p.m.), as well as the minimum and maximum temperatures from Summer 2024 (June 1st - August 31st, 2024) recorded by the Kumpula weather observation station in Helsinki. The file includes 92 rows of observations (one per day). The first fifteen rows in the file look like the following:</p>
+<p>In the following sections, we will learn how to read data from a text file (<code class="docutils literal notranslate"><span class="pre">data/kumpula-summer-2024.txt</span></code>), which contains weather observations from the Kumpula neighborhood in Helsinki, Finland. The data were  retrieved from <a class="reference external" href="https://en.ilmatieteenlaitos.fi/download-observations/">Finnish Meteorlogical Institute’s data service</a> <a class="footnote-reference brackets" href="#fmi" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> and it contains observed daily temperatures recorded at two times during the day (<code class="docutils literal notranslate"><span class="pre">TEMP1</span></code>: 10 a.m.; <code class="docutils literal notranslate"><span class="pre">TEMP2</span></code>: 2:00 p.m.), as well as the minimum and maximum temperatures from Summer 2024 (June 1st - August 31st, 2024) recorded by the Kumpula weather observation station in Helsinki. The date is stored in the <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column, where the first four numbers record the year, the next two represent the month, and the final two digits are for the day in the month. The file includes 92 rows of observations (one per day). The first fifteen rows in the file look like the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data file contents: Daily temperatures (TEMP1 (10AM), TEMP2 (4PM), min, ma...</span>
 <span class="c1"># for June 1 - August 31, 2024</span>
 <span class="c1"># Data source: Finnish Meteorological Institute - downloaded from open data ...</span>
@@ -565,10 +548,14 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/kumpula-summer-2024.txt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>Our input file is a comma-delimited file, meaning that the columns in the data are separated by commas (<code class="docutils literal notranslate"><span class="pre">,</span></code>) on each row. The <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> function uses comma as the default delimiter, hence we did not need to specify it separately in the command above. If all went as planned, you should now have a new variable <code class="docutils literal notranslate"><span class="pre">data</span></code> in memory that contains the input data.</p>
 <p>It is quite common to have some other character instead of a comma separating the columns from each other. The <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> in pandas is a generic function for reading text-based data files, supporting files separated by commas, spaces, or other common separators. The <code class="docutils literal notranslate"><span class="pre">sep</span></code> parameter can be used to specify which character is used as a delimiter. For instance <code class="docutils literal notranslate"><span class="pre">sep=';'</span></code>, would be used when the columns in the data file are delimited with a semicolon (<code class="docutils literal notranslate"><span class="pre">;</span></code>). For a full list of available parameters for the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function, please refer to the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">pandas <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> documention</a> <a class="footnote-reference brackets" href="#readcsv" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> or run <code class="docutils literal notranslate"><span class="pre">help(pd.read_csv)</span></code>.</p>
 <p>Pandas has several other functions for parsing input data from different file formats. For example, reading Excel files can be easily done using the <code class="docutils literal notranslate"><span class="pre">.read_excel()</span></code> function. Another useful function is <code class="docutils literal notranslate"><span class="pre">.read_pickle()</span></code>, which reads data stored in the Python pickle format. Check out the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html">pandas documentation about input and output tools</a> <a class="footnote-reference brackets" href="#pandas-io" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> for more details about reading data.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>Let’s check the the contents of our data. You can print the contents of a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (or a snippet of it) simply by calling it by name (e.g., <code class="docutils literal notranslate"><span class="pre">data</span></code>). However, quite often you want to check only a selection of <em>n</em> rows from the start or end of the data set. For doing that, we can use the <code class="docutils literal notranslate"><span class="pre">.head()</span></code> method of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object that will, by default, return the first five rows of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. You can return any number of rows by adding that number inside the parentheses. For example, <code class="docutils literal notranslate"><span class="pre">data.head(10)</span></code> would return the first ten rows from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> called <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -929,7 +916,8 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1005,8 +993,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

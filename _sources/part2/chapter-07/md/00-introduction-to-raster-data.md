@@ -24,16 +24,7 @@ As we introduced earlier in [Chapter 5.2](https://pythongis.org/part2/chapter-05
 
 
 
-## Characteristics of raster data
-
-Different kind of sensors (e.g. remote sensing instruments or *{term}`LIDAR`*) are typically used to capture and collect data about specific aspects of the surface, such as temperature, elevation, or the electromagnetic radiation (light) that the surface reflects. This information can be captured with varying level of detail, depending on the sensor. Many sensors (especially satellite sensors) measure the electromagnetic radiation at specific ranges (i.e. bands) which is why they are called {term}`Multispectral sensors` or {term}`Hyperspectral sensors`. Most typically the raster data produced by these sensors can vary based on their:
-
-- *{term}`spatial resolution`*, i.e. the size of a single pixel
-- *{term}`temporal resolution`*, i.e. how frequently the data is captured from the same area of the Earth
-- *{term}`spectral resolution`*, i.e. the number and location of spectral bands in the electromagnetic spectrum
-- *{term}`radiometric resolution`*, i.e. the range of available brightness values (bit depth), usually measured in bits (binary digits)
-- *{term}`spatial extent`*, i.e. how large area of the world a single image represents
-- *{term}`coordinate reference system`*, i.e. in what CRS the data is represented 
+Different kind of sensors (e.g. remote sensing instruments or *{term}`LIDAR`*) are typically used to capture and collect data about specific aspects of the surface, such as temperature, elevation, or the electromagnetic radiation (light) that the surface reflects. This information can be captured with varying level of detail, depending on the sensor. Many sensors (especially satellite sensors) measure the electromagnetic radiation at specific ranges (i.e. bands) which is why they are called {term}`Multispectral sensors` or {term}`Hyperspectral sensors`. In this chapter, we will learn how to work with different types of raster data, starting from a simple 1-band raster data representing different geographic phenomena, such as elevation or temperatures.
 
 
 ## Working with raster data in Python
@@ -81,6 +72,8 @@ plt.colorbar(label='Elevation')
 plt.title('Simple Raster Layer representing a Hill')
 plt.show()
 ```
+***Figure 7.1.** A simple raster layer representing elevation.*
+
 As a result, we have a simple map that represents the elevation of the hill with different colors. The *{term}`colormap`* of the visualization was determined using the parameter `cmap`, while the `plt.colorbar()` function was used to add a legend to the right side of the image, and the `plt.title()` was used to add a simple title for the image.
 
 This example demonstrates a toy example how we can produce a simple raster layer from scratch. However, there are various aspects related to working with GIS raster data that we did not cover here, such as specifying the metadata for this layer. Basically, the data we have here is simply a two-dimensional array (matrix) that does not tell anything about the *spatial resolution* of the data (i.e. how large each cell is), nor e.g. in which area of the world this data is located (i.e. coordinates) or the *coordinate reference system* this data is represented in. In the next section, we start working with real raster data and cover more aspects that relate to spatial raster data.

@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -35,10 +37,11 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -51,6 +54,7 @@
     <link rel="prev" title="Common tabular operations in pandas" href="01-data-manipulation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -66,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -86,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -94,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -111,7 +103,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -139,21 +132,17 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -309,7 +298,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Data overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
 </ul>
 
@@ -464,24 +453,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -510,7 +491,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-functions-with-pandas">Using functions with pandas</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-function">Defining a function</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-by-iterating-over-rows">Using a function by iterating over rows</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-with-apply">Using a function with apply</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-with-the-apply-method">Using a function with the apply method</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-slicing">String slicing</a><ul class="nav section-nav flex-column">
@@ -542,10 +523,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="data-wrangling-grouping-and-aggregation">
 <h1>Data wrangling, grouping and aggregation<a class="headerlink" href="#data-wrangling-grouping-and-aggregation" title="Link to this heading">#</a></h1>
-<p>Next, we will continue working with weather data, but expand our analysis to cover longer periods of data from Finland. In the following, you will learn various useful techniques in pandas to manipulate, group and aggregate the data in different ways that are useful when extracting insights from your data. In the end, you will learn how to create an automated data analysis workflow that can be repeated with multiple input files having a similar structure. As a case study, we will investigate whether January 2020 was the warmest month on record also in Finland, as the month was the warmest one on record globally <a class="footnote-reference brackets" href="#noaanews" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p>Next, we will continue working with weather data, but expand our analysis to cover longer periods of data from Finland. In the following, you will learn various useful techniques in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to manipulate, group and aggregate the data in different ways that are useful when extracting information from your data. In the end, you will learn how to create an automated data analysis workflow that can be repeated with multiple input files that have a similar structure. As a case study, we will investigate whether January 2020 was the warmest month on record in Finland, as it was the warmest on record globally at the time <a class="footnote-reference brackets" href="#noaanews" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <section id="cleaning-data-while-reading">
 <h2>Cleaning data while reading<a class="headerlink" href="#cleaning-data-while-reading" title="Link to this heading">#</a></h2>
-<p>In this section we are using weather observation data from Finland that was downloaded from NOAA (see <code class="docutils literal notranslate"><span class="pre">Datasets</span></code> chapter for further details). The input data is separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:</p>
+<p>In this section we are using weather observation data from Finland that was downloaded from NOAA (check the <a class="reference internal" href="../../../data/index.html"><span class="doc">data overview</span></a> section for more details). The input data are separated by varying number of spaces (i.e., fixed column widths). The first lines of the data look like following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">USAF</span>  <span class="n">WBAN</span> <span class="n">YR</span><span class="o">--</span><span class="n">MODAHRMN</span> <span class="n">DIR</span> <span class="n">SPD</span> <span class="n">GUS</span> <span class="n">CLG</span> <span class="n">SKC</span> <span class="n">L</span> <span class="n">M</span> <span class="n">H</span>  <span class="n">VSB</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">AW</span>  <span class="o">...</span>
 <span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601010600</span> <span class="mi">090</span>   <span class="mi">7</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
 <span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601011300</span> <span class="o">***</span>   <span class="mi">0</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
@@ -553,13 +534,13 @@ document.write(`
 <span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601020600</span> <span class="o">***</span>   <span class="mi">0</span> <span class="o">***</span> <span class="o">***</span> <span class="n">CLR</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
 </pre></div>
 </div>
-<p>By looking at the data, we can notice a few things that we need to consider when reading the data:</p>
+<p>By looking at the data, we can see a few things that we need to consider when reading the data:</p>
 <ol class="arabic simple">
-<li><p><strong>Delimiter:</strong> The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function</p></li>
-<li><p><strong>NoData values:</strong> NaN values in the NOAA data are coded with varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters, hence, we need to be able to instruct pandas to interpret those as NaNs.</p></li>
-<li><p><strong>Many columns</strong>: The input data contains many columns (altogether 33). Many of those do not contain any meaningful data for our needs. Hence, we should probably ignore the unnecessary columns already at this stage.</p></li>
+<li><p>The delimiter: The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> function</p></li>
+<li><p>NoData values: <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values in the NOAA data are coded with varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters and hence we need to be able to instruct pandas to interpret those as <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p></li>
+<li><p>Many columns: The input data contains many columns (33 in total). Many of those do not contain data we need. Thus, we should probably ignore the unnecessary columns already at this stage.</p></li>
 </ol>
-<p>Handling and cleaning heterogeneous input data (such as our example here) can be done after reading in the data. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter <code class="docutils literal notranslate"><span class="pre">delim_whitespace=True</span></code> (alternatively, specifying <code class="docutils literal notranslate"><span class="pre">sep='\s+'</span></code> would work). For handling the NoData values (2), we can tell pandas to consider the <code class="docutils literal notranslate"><span class="pre">*</span></code> characters as NaNs by using a paramater <code class="docutils literal notranslate"><span class="pre">na_values</span></code> and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify <code class="docutils literal notranslate"><span class="pre">na_values=['*',</span> <span class="pre">'**',</span> <span class="pre">'***',</span> <span class="pre">'****',</span> <span class="pre">'*****',</span> <span class="pre">'******']</span></code> which will then convert the varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis, including the station name, timestamp, and data about temperatures: <code class="docutils literal notranslate"><span class="pre">'USAF',</span> <span class="pre">'YR--MODAHRMN',</span> <span class="pre">'TEMP',</span> <span class="pre">'MAX',</span> <span class="pre">'MIN'</span></code>. Achieving all these things is pretty straightforward using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function:</p>
+<p>Handling and cleaning heterogeneous input data (such as in our example here) can be done after reading in the data. However, in many cases it is actually useful to do some cleaning and preprocessing when reading in the data. In fact, it is often much easier to do things this way. For our data file, we can read the data with varying number of spaces between the columns (point 1 above) by using the parameter <code class="docutils literal notranslate"><span class="pre">sep=r&quot;\s+&quot;</span></code>. In this case, we use a raw text string with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> parameter, which is indicated by the <code class="docutils literal notranslate"><span class="pre">r</span></code> before the first quotation mark and ensures the escape character <code class="docutils literal notranslate"><span class="pre">\</span></code> is handled properly in the <code class="docutils literal notranslate"><span class="pre">sep</span></code> string. For handling the NoData values (point 2 above), we can tell <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to consider the <code class="docutils literal notranslate"><span class="pre">*</span></code> characters as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> by using the parameter <code class="docutils literal notranslate"><span class="pre">na_values</span></code> and specifying a list of characters that should be converted to <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. For this data file we can specify <code class="docutils literal notranslate"><span class="pre">na_values=['*',</span> <span class="pre">'**',</span> <span class="pre">'***',</span> <span class="pre">'****',</span> <span class="pre">'*****',</span> <span class="pre">'******']</span></code>, which will then convert the varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters into <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values. Finally, we can limit the number of columns that we read (point 3 above) by using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter, which we have already used previously. In our case, we are interested in columns that might be somehow useful to our analysis, including the station name, timestamp, and data about temperatures: <code class="docutils literal notranslate"><span class="pre">'USAF',</span> <span class="pre">'YR--MODAHRMN',</span> <span class="pre">'TEMP',</span> <span class="pre">'MAX',</span> <span class="pre">'MIN'</span></code>. Achieving all these things is pretty straightforward using the <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> function, as demonstrated below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -572,122 +553,41 @@ document.write(`
 <span class="c1"># and selecting only specific columns from the data</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
     <span class="n">fp</span><span class="p">,</span>
-    <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
     <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;***&quot;</span><span class="p">,</span> <span class="s2">&quot;****&quot;</span><span class="p">,</span> <span class="s2">&quot;*****&quot;</span><span class="p">,</span> <span class="s2">&quot;******&quot;</span><span class="p">],</span>
     <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;USAF&quot;</span><span class="p">,</span> <span class="s2">&quot;YR--MODAHRMN&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/f7/rhmqxfmx40s4yv9bhh7skq4m0000gp/T/ipykernel_67646/2184805043.py:9: FutureWarning: The &#39;delim_whitespace&#39; keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep=&#39;\s+&#39;`` instead
-  data = pd.read_csv(
-</pre></div>
 </div>
-</div>
-</div>
-<p>Let’s see now how the data looks by printing the first five rows with the <code class="docutils literal notranslate"><span class="pre">head()</span></code> function:</p>
+<p>Let’s now check the data by printing the first five rows with the <code class="docutils literal notranslate"><span class="pre">.head()</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>USAF</th>
-      <th>YR--MODAHRMN</th>
-      <th>TEMP</th>
-      <th>MAX</th>
-      <th>MIN</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>29820</td>
-      <td>190601010600</td>
-      <td>34.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>29820</td>
-      <td>190601011300</td>
-      <td>32.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>29820</td>
-      <td>190601012000</td>
-      <td>30.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>29820</td>
-      <td>190601020600</td>
-      <td>33.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>29820</td>
-      <td>190601021300</td>
-      <td>35.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
-<p>Perfect, looks good. We have skipped a bunch of unnecessary columns and also the asterisk (*) characters have been correctly converted to NaN values.</p>
+<p>Perfect, looks good. We have excluded a bunch of unnecessary columns and also the asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) characters have been correctly converted to <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values.</p>
 </section>
 <section id="renaming-columns">
 <h2>Renaming columns<a class="headerlink" href="#renaming-columns" title="Link to this heading">#</a></h2>
-<p>Let’s take a closer look at the column names of our DataFrame:</p>
+<p>Let’s take a closer look at the column names of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;USAF&#39;, &#39;YR--MODAHRMN&#39;, &#39;TEMP&#39;, &#39;MAX&#39;, &#39;MIN&#39;], dtype=&#39;object&#39;)
-</pre></div>
 </div>
-</div>
-</div>
-<p>As we see, some of the column names are a bit awkward and difficult to interpret (a description for the columns is available in the metadata <a class="reference internal" href="#data/3505doc.txt"><span class="xref myst">data/3505doc.txt</span></a>). Luckily, it is easy to alter labels in a pandas DataFrame using the <code class="docutils literal notranslate"><span class="pre">rename()</span></code> function. In order to change the column names, we need to tell pandas how we want to rename the columns using a dictionary that converts the old names to new ones. As you probably remember from Chapter 1, a <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> is a specific data structure in Python for storing key-value pairs. We can define the new column names using a dictionary where we list “<code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code>” pairs in following manner:</p>
+<p>As we see, some of the column names are a bit unclear with only their names (a description for the columns is available in the metadata <a class="reference internal" href="#data/3505doc.txt"><span class="xref myst">data/3505doc.txt</span></a>). Luckily, it is easy to change labels in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> using the <code class="docutils literal notranslate"><span class="pre">.rename()</span></code> function. In order to change the column names, we need to tell <code class="docutils literal notranslate"><span class="pre">pandas</span></code> how we want to rename the columns using a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Dictionary"><span class="xref std std-term">dictionary</span></a></em> that converts the old names to new ones. A dictionary is a specific data structure in Python for storing key-value pairs. We can define the new column names using a dictionary where we list <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code> pairs in following manner:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">USAF</span></code>: <code class="docutils literal notranslate"><span class="pre">STATION_ID</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">YR--MODAHRMN</span></code>: <code class="docutils literal notranslate"><span class="pre">TIME</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">TEMP</span></code>: <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code></p></li>
 </ul>
-<p>Hence, the original column name (e.g. <code class="docutils literal notranslate"><span class="pre">YR--MODAHRMN</span></code>) is the dictionary <code class="docutils literal notranslate"><span class="pre">key</span></code> which will be converted to a new column name <code class="docutils literal notranslate"><span class="pre">TIME</span></code> (which is the <code class="docutils literal notranslate"><span class="pre">value</span></code>). The temperature values in our data file is again represented in Fahrenheit. We will soon convert these temperatures to Celsius. Hence, in order to avoid confusion with the columns, let’s rename the column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> to <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code>. Also the station number <code class="docutils literal notranslate"><span class="pre">USAF</span></code> is much more intuitive if we call it <code class="docutils literal notranslate"><span class="pre">STATION_ID</span></code>. Let’s create a dictionary for the new column names:</p>
+<p>Hence, the original column name (e.g., <code class="docutils literal notranslate"><span class="pre">YR--MODAHRMN</span></code>) is the dictionary <code class="docutils literal notranslate"><span class="pre">key</span></code> which will be converted to a new column name <code class="docutils literal notranslate"><span class="pre">TIME</span></code> (which is the <code class="docutils literal notranslate"><span class="pre">value</span></code>). The temperature values in our data file are again represented in degrees Fahrenheit. We will soon convert these temperatures to degrees Celsius. Thus, in order to avoid confusion with the columns, let’s rename the column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> to <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code>. Also the station number <code class="docutils literal notranslate"><span class="pre">USAF</span></code> is much more intuitive if we call it <code class="docutils literal notranslate"><span class="pre">STATION_ID</span></code>. Below we can create a dictionary for the new column names.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_names</span> <span class="o">=</span> <span class="p">{</span>
@@ -699,22 +599,12 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;USAF&#39;: &#39;STATION_ID&#39;, &#39;YR--MODAHRMN&#39;: &#39;TIME&#39;, &#39;TEMP&#39;: &#39;TEMP_F&#39;}
-</pre></div>
 </div>
-</div>
-</div>
-<p>Our dictionary looks correct, so now we can change the column names by passing that dictionary using the parameter <code class="docutils literal notranslate"><span class="pre">columns</span></code> in the <code class="docutils literal notranslate"><span class="pre">rename()</span></code> function:</p>
+<p>Our dictionary format looks correct, so now we can change the column names by passing that dictionary with the parameter <code class="docutils literal notranslate"><span class="pre">columns</span></code> in the <code class="docutils literal notranslate"><span class="pre">.rename()</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">new_names</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;STATION_ID&#39;, &#39;TIME&#39;, &#39;TEMP_F&#39;, &#39;MAX&#39;, &#39;MIN&#39;], dtype=&#39;object&#39;)
 </pre></div>
 </div>
 </div>
@@ -723,7 +613,7 @@ document.write(`
 </section>
 <section id="using-functions-with-pandas">
 <h2>Using functions with pandas<a class="headerlink" href="#using-functions-with-pandas" title="Link to this heading">#</a></h2>
-<p>Now it’s time to convert those temperatures from Fahrenheit to Celsius. We have done this many times before, but this time we will learn how to apply our own functions to data in a pandas DataFrame. We will define a function for the temperature conversion, and apply this function for each Celsius value on each row of the DataFrame. Output celsius values should be stored in a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code>. But first, it is a good idea to check some basic properties of our new input data before proceeding with data analysis:</p>
+<p>Now it’s time to convert those temperatures from degrees Fahrenheit to degrees Celsius. We have done this many times before, but this time we will learn how to apply our own functions to data in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. We will define a function for the temperature conversion and then apply this function for each Fahrenheit value on each row of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. The output Celsius values will be stored in a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code>. But first, it is a good idea to check some basic properties of our input data before proceeding with data analysis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First rows</span>
@@ -731,52 +621,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>STATION_ID</th>
-      <th>TIME</th>
-      <th>TEMP_F</th>
-      <th>MAX</th>
-      <th>MIN</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>29820</td>
-      <td>190601010600</td>
-      <td>34.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>29820</td>
-      <td>190601011300</td>
-      <td>32.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -785,52 +629,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>STATION_ID</th>
-      <th>TIME</th>
-      <th>TEMP_F</th>
-      <th>MAX</th>
-      <th>MIN</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>198332</th>
-      <td>29820</td>
-      <td>201910012200</td>
-      <td>47.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>198333</th>
-      <td>29820</td>
-      <td>201910012300</td>
-      <td>46.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -839,24 +637,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 198334 entries, 0 to 198333
-Data columns (total 5 columns):
- #   Column      Non-Null Count   Dtype  
----  ------      --------------   -----  
- 0   STATION_ID  198334 non-null  int64  
- 1   TIME        198334 non-null  int64  
- 2   TEMP_F      197916 non-null  float64
- 3   MAX         29868 non-null   float64
- 4   MIN         29536 non-null   float64
-dtypes: float64(3), int64(2)
-memory usage: 7.6 MB
-</pre></div>
 </div>
-</div>
-</div>
-<p>Nothing suspicous for the first and last rows, but here with <code class="docutils literal notranslate"><span class="pre">info()</span></code> we can see that the number of observations per column seem to be varying if you compare the <code class="docutils literal notranslate"><span class="pre">Non-Null</span> <span class="pre">Count</span></code> information to the number of entries in the data (N=198334). Only station number and time seem to have data on each row. All other columns seem to have some missing values. This is not necessarily anything dangerous, but good to keep in mind. Let’s still look at the descriptive statistics:</p>
+<p>Nothing suspicious in the first and last rows, but here the <code class="docutils literal notranslate"><span class="pre">.info()</span></code> function indicates that the number of observations per column varies if you compare the <code class="docutils literal notranslate"><span class="pre">Non-Null</span> <span class="pre">Count</span></code> information to the number of entries in the data (n = 198334). Only the station number and time seem to have data for each row. All other columns appear to have some missing values. This is not necessarily anything dangerous, but good to keep in mind. Let’s now check the descriptive statistics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Descriptive stats</span>
@@ -864,105 +646,11 @@ memory usage: 7.6 MB
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>STATION_ID</th>
-      <th>TIME</th>
-      <th>TEMP_F</th>
-      <th>MAX</th>
-      <th>MIN</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>198334.0</td>
-      <td>1.983340e+05</td>
-      <td>197916.000000</td>
-      <td>29868.000000</td>
-      <td>29536.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>29820.0</td>
-      <td>1.990974e+11</td>
-      <td>43.717845</td>
-      <td>46.405852</td>
-      <td>40.537446</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>0.0</td>
-      <td>2.691914e+09</td>
-      <td>14.306138</td>
-      <td>14.446547</td>
-      <td>14.350235</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>29820.0</td>
-      <td>1.906010e+11</td>
-      <td>-28.000000</td>
-      <td>-20.000000</td>
-      <td>-28.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>29820.0</td>
-      <td>1.979011e+11</td>
-      <td>34.000000</td>
-      <td>36.000000</td>
-      <td>31.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>29820.0</td>
-      <td>1.997061e+11</td>
-      <td>43.000000</td>
-      <td>45.000000</td>
-      <td>40.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>29820.0</td>
-      <td>2.013113e+11</td>
-      <td>55.000000</td>
-      <td>59.000000</td>
-      <td>52.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>29820.0</td>
-      <td>2.019100e+11</td>
-      <td>90.000000</td>
-      <td>102.000000</td>
-      <td>77.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
-<p>By looking at the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> values (Fahrenheit temperatures), we can confirm that our measurements seems more or less valid because the value range of the temperatures makes sense, i.e. there are no outliers such as extremely high <code class="docutils literal notranslate"><span class="pre">MAX</span></code> values or low <code class="docutils literal notranslate"><span class="pre">MIN</span></code> values. It is always a good practice to critically check your data before doing any analysis, as it is possible that your data may include incorrect values, e.g. due to a sensor malfunction or human error.</p>
+<p>Looking at the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> values (Fahrenheit temperatures), we can confirm that our measurements seems more or less valid because the value range of the temperatures makes sense (i.e., there are no outliers such as extremely high <code class="docutils literal notranslate"><span class="pre">MAX</span></code> values or low <code class="docutils literal notranslate"><span class="pre">MIN</span></code> values). It is always a good practice to critically inspect your data before doing any analysis, as it is possible that your data may include incorrect values (e.g., due to a sensor malfunction or human error).</p>
 <section id="defining-a-function">
 <h3>Defining a function<a class="headerlink" href="#defining-a-function" title="Link to this heading">#</a></h3>
-<p>Now we are sure that our data looks okay, and we can start our temperature conversion process by first defining our temperature conversion function from Fahrenheit to Celsius. Pandas can use regular functions, hence you can define functions for pandas exactly in the same way as you would do normally (as we learned in Chapter 1). Hence, let’s define a function that converts Fahrenheits to Celsius:</p>
+<p>Now that we are sure that our data looks correct, and we can start our temperature conversion process by first defining our function to convert from Fahrenheit to Celsius. <code class="docutils literal notranslate"><span class="pre">pandas</span></code> can use regular functions, so you can simply define functions for <code class="docutils literal notranslate"><span class="pre">pandas</span></code> exactly the same way as you would do normally (as we learned in Chapter 2, for instance). Let’s define a function that converts from degrees Fahrenheit to Celsius.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fahr_to_celsius</span><span class="p">(</span><span class="n">temp_fahrenheit</span><span class="p">):</span>
@@ -988,25 +676,20 @@ memory usage: 7.6 MB
 </div>
 </div>
 </div>
-<p>Now we have the function defined and stored in memory. At this point it is good to test the function with some known value:</p>
+<p>Now we have the function defined and stored in memory. At this point it is good to test the function with a known value to make sure it works properly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fahr_to_celsius</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
-</pre></div>
 </div>
-</div>
-</div>
-<p>32 Fahrenheits is indeed 0 Celsius, so our function seem to be working correctly.</p>
+<p>32 degrees Fahrenheit is indeed 0 degrees Celsius, so our function seem to be working correctly.</p>
 </section>
 <section id="using-a-function-by-iterating-over-rows">
 <h3>Using a function by iterating over rows<a class="headerlink" href="#using-a-function-by-iterating-over-rows" title="Link to this heading">#</a></h3>
-<p>Next we will learn how to use our function with data stored in a pandas DataFrame. We will first apply the function row-by-row using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and then we will learn a more efficient way of applying the function to all rows at once.</p>
-<p>Looping over rows in a DataFrame can be done in a couple of different ways. A common approach is to use the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method which loops over the rows as index-Series pairs. In other words, we can use the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method together with a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to repeat a process <em>for each row in a Pandas DataFrame</em>. Please note that iterating over rows this way is a rather inefficient approach, but it is still useful to understand the logic behind how this works. When using the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method it is important to understand that <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> accesses not only the values of one row, but also the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the row. Let’s start with a simple example <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that goes through each row in our DataFrame.</p>
+<p>Next we will learn how to use our function with data stored in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. We will first apply the function row by row using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and then we will learn a more efficient way of applying the function to all rows at once.</p>
+<p>Looping over rows in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> can be done in a few different ways. A common approach is to use the <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> method which loops over the rows as index-Series pairs. In other words, we can use the <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> method together with a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to repeat a process for each row in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. Please note that iterating over rows this way is a rather inefficient approach, but it is still useful to understand the logic behind how this works. When using the <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> method it is important to understand that <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> accesses not only the values of one row, but also the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the row. Let’s start with a simple example <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that goes through each row in our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Iterate over the rows</span>
@@ -1021,16 +704,10 @@ memory usage: 7.6 MB
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index: 0
-Temp F: 34.0 
-</pre></div>
 </div>
-</div>
-</div>
-<p>We can see that the <code class="docutils literal notranslate"><span class="pre">idx</span></code> variable indeed contains the index value at position 0 (the first row) and the <code class="docutils literal notranslate"><span class="pre">row</span></code> variable contains all the data from that given row stored as a pandas Series. Also, notice that when developing a for loop you do not always need to iterate through the entire loop if you just want to test things out. Using the <code class="docutils literal notranslate"><span class="pre">break</span></code> statement in Python terminates a loop whenever it is placed inside the loop. Here we used it to check out the values on the first row of the DataFrame. This allows us to test the code logic without printing thousands of values to the screen!</p>
-<p>Next, let’s create an empty column <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code> for the Celsius temperatures and update the values in that column using the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function that we defined earlier. For updating the value in the DataFrame, we can use the <code class="docutils literal notranslate"><span class="pre">at</span></code> method that we already used earlier in this chapter. This time, however, we will use the <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> method to access the rows in the DataFrame. The <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> method works similarly to <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code>, except it returns only the row values without the <code class="docutils literal notranslate"><span class="pre">index</span></code>. In addition,  the returned values are not a pandas Series, but instead <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> returns a named tuple data type. As a result, when using <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> accessing the row values needs to be done a bit differently. Remember, a <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Tuple"><span class="xref std std-term">tuple</span></a> is like a list but <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Immutable"><span class="xref std std-term">immutable</span></a> and a “named tuple” is a special kind of tuple object that adds the ability to access the values by name instead of position index. Hence, we can access the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> value in a given row using <code class="docutils literal notranslate"><span class="pre">row.TEMP_F</span></code> (in contrast to how we accessed the value in the previous code above). We will not work with named tuples in the rest of the book, but more information can be found in the Python documentation for named tuples <a class="footnote-reference brackets" href="#namedtuple" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
-<p>Let’s see an example of how to use the <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> method.</p>
+<p>We can see that the <code class="docutils literal notranslate"><span class="pre">idx</span></code> variable indeed contains the index value <code class="docutils literal notranslate"><span class="pre">0</span></code> (the first row) and the <code class="docutils literal notranslate"><span class="pre">row</span></code> variable contains all the data from that row stored as a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code>. Also, notice that when developing a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop you do not always need to iterate through the entire loop if you just want to test things out. Using the <code class="docutils literal notranslate"><span class="pre">break</span></code> statement in Python terminates a loop wherever it is placed inside the loop. In our case we used it to check out the values on the first row of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. This saves time and allows us to test the code logic without printing thousands of values to the screen!</p>
+<p>Next, let’s create an empty column <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code> for the Celsius temperatures and update the values in that column using the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function that we defined earlier. For updating the value in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, we can use the <code class="docutils literal notranslate"><span class="pre">.at[]</span></code> indexer that we used earlier in this chapter. This time, however, we will use the <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> method to access the rows in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. The <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> method works similarly to <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code>, except it returns only the row values without the <code class="docutils literal notranslate"><span class="pre">index</span></code>. In addition,  the returned values are not a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code>, but instead <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> returns a named tuple data type. As a result, when using <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> accessing the row values needs to be done a bit differently. Remember, a <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Tuple"><span class="xref std std-term">tuple</span></a> is like a list but <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Immutable"><span class="xref std std-term">immutable</span></a> and a “named tuple” is a special kind of tuple object that adds the ability to access the values by name instead of position index. Thus, we can access the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> value in a given row using <code class="docutils literal notranslate"><span class="pre">row.TEMP_F</span></code> (in contrast to how we accessed the value in the example above). We will not work with named tuples in the rest of the book, but more information can be found in the <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.namedtuple">Python documentation for named tuples</a> <a class="footnote-reference brackets" href="#namedtuple" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<p>Let’s see an example of how to use the <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an empty column for the output values</span>
@@ -1056,82 +733,6 @@ Temp F: 34.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>STATION_ID</th>
-      <th>TIME</th>
-      <th>TEMP_F</th>
-      <th>MAX</th>
-      <th>MIN</th>
-      <th>TEMP_C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>29820</td>
-      <td>190601010600</td>
-      <td>34.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.111111</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>29820</td>
-      <td>190601011300</td>
-      <td>32.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>29820</td>
-      <td>190601012000</td>
-      <td>30.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-1.111111</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>29820</td>
-      <td>190601020600</td>
-      <td>33.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.555556</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>29820</td>
-      <td>190601021300</td>
-      <td>35.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.666667</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1140,48 +741,22 @@ Temp F: 34.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Index&#39;: 198333,
- &#39;STATION_ID&#39;: 29820,
- &#39;TIME&#39;: 201910012300,
- &#39;TEMP_F&#39;: 46.0,
- &#39;MAX&#39;: nan,
- &#39;MIN&#39;: nan,
- &#39;TEMP_C&#39;: 0.0}
-</pre></div>
 </div>
-</div>
-</div>
-<p>Okay, now we have iterated over our data and updated the temperatures in Celsius to <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code> column by using our <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function. The values look correct as 32 degrees Fahrenheit indeed is 0 Celsius degrees, as can be seen on the second row. We also have the last row of our DataFrame in the code above, which is a named tuple that has been converted to the more familiar dictionary data type using the <code class="docutils literal notranslate"><span class="pre">_asdict()</span></code> method for named tuples.</p>
-<p>Before moving to other more efficient ways to use functions with pandas DataFrames, we should note a few things about the approaches above. We demonstrated use of the <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> method for looping over the values because it is significantly faster than <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> (can be around 100x faster). We also used <code class="docutils literal notranslate"><span class="pre">.at</span></code> to assign the value to the DataFrame because it is designed to access single values more efficiently than <code class="docutils literal notranslate"><span class="pre">.loc</span></code>, which can access also groups of rows and columns. That said, you could have also simply used <code class="docutils literal notranslate"><span class="pre">data.loc[idx,</span> <span class="pre">new_column]</span> <span class="pre">=</span> <span class="pre">celsius</span></code> to achieve the same result as both examples above. It is just slower.</p>
+<p>Okay, now we have iterated over our data, converted the temperatures to degrees Celsius using our <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function, and stored the results in the <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code> column. The values look correct as 32 degrees Fahrenheit indeed is 0 degrees Celsius, which can be seen on the second row. We also have the last row of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> stored in the variable <code class="docutils literal notranslate"><span class="pre">row</span></code> from the code above, which is a named tuple that has been converted to the dictionary data type using the <code class="docutils literal notranslate"><span class="pre">._asdict()</span></code> method for named tuples.</p>
+<p>Before moving to other more efficient ways to use functions with a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, we should note a few things about the approaches above. We demonstrated use of the <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> method for looping over the values because it is significantly faster than <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> (can be around 100 times faster). We also used <code class="docutils literal notranslate"><span class="pre">.at[]</span></code> to assign the value in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> because it is designed to access single values more efficiently than the <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> indexer, which can access groups of rows and columns. That said, you could have also simply used <code class="docutils literal notranslate"><span class="pre">data.loc[idx,</span> <span class="pre">new_column]</span> <span class="pre">=</span> <span class="pre">celsius</span></code> to achieve the same result as both examples above. It is simply slower.</p>
 </section>
-<section id="using-a-function-with-apply">
-<h3>Using a function with apply<a class="headerlink" href="#using-a-function-with-apply" title="Link to this heading">#</a></h3>
-<p>Although using for loop with <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> can be fairly efficient, pandas DataFrames and Series have a dedicated method called <code class="docutils literal notranslate"><span class="pre">apply()</span></code> for applying functions on columns (or rows). <code class="docutils literal notranslate"><span class="pre">apply()</span></code> is typically faster than <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code>, especially if you have large number of rows, such as in our case. When using <code class="docutils literal notranslate"><span class="pre">apply()</span></code>, we pass the function that we want to use as an argument. Let’s start by applying the function to the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> column that contains the temperature values in Fahrenheit:</p>
+<section id="using-a-function-with-the-apply-method">
+<h3>Using a function with the apply method<a class="headerlink" href="#using-a-function-with-the-apply-method" title="Link to this heading">#</a></h3>
+<p>Although using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> can be fairly efficient, the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> data structures have a dedicated method called <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> for applying functions in columns (or rows). <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> is typically faster than <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code>, especially if you have large number of rows like in our case. When using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>, we pass the function that we want to use as an argument. Let’s start by applying our <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function to the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> column with the temperature values in Fahrenheit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fahr_to_celsius</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0         1.111111
-1         0.000000
-2        -1.111111
-3         0.555556
-4         1.666667
-            ...   
-198329    8.333333
-198330    8.333333
-198331    8.333333
-198332    8.333333
-198333    7.777778
-Name: TEMP_F, Length: 198334, dtype: float64
-</pre></div>
 </div>
-</div>
-</div>
-<p>The results look logical. Notice how we passed the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function without using the parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> after the name of the function. When using <code class="docutils literal notranslate"><span class="pre">apply</span></code>, you should always leave out the parentheses from the function that you use. Meaning that you should use <code class="docutils literal notranslate"><span class="pre">apply(fahr_to_celsius)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">apply(fahr_to_celsius())</span></code>. Why? Because the <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method will execute and use the function itself in the background when it operates with the data. If we would pass our function with the parentheses, the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function would actually be executed once before the loop with <code class="docutils literal notranslate"><span class="pre">apply()</span></code> starts (hence becoming unusable), and that is not what we want. Our previous command only returned the Series of temperatures to the screen, but naturally we can also store them permanently into a new column (overwriting the old values):</p>
+<p>The results again look logical. Notice how we passed the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function without using the parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> after the name of the function. When using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>, you should always leave out the parentheses from the function that you use. In other words, you should use <code class="docutils literal notranslate"><span class="pre">.apply(fahr_to_celsius)</span></code> not <code class="docutils literal notranslate"><span class="pre">.apply(fahr_to_celsius())</span></code>. Why? Because the <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> method will execute and use the function itself in the background when it operates with the data. If we would pass our function including the parentheses, the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function would actually be executed once before the loop with <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> starts (thus becoming unusable) and that is not what we want.</p>
+<p>Our previous command only returned the <code class="docutils literal notranslate"><span class="pre">Series</span></code> of temperatures to the screen, but naturally we can also store them permanently in a column of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (overwriting the old values).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fahr_to_celsius</span><span class="p">)</span>
@@ -1189,7 +764,7 @@ Name: TEMP_F, Length: 198334, dtype: float64
 </div>
 </div>
 </div>
-<p>A nice thing with <code class="docutils literal notranslate"><span class="pre">apply()</span></code> is that we can also apply the function on several columns at once. Below, we also sort the values in descending order based on values in <code class="docutils literal notranslate"><span class="pre">MIN</span></code> column to see that applying our function really works:</p>
+<p>A nice thing with <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> is that we can also apply the function on several columns at once. Below, we also sort the values in descending order based on values in the <code class="docutils literal notranslate"><span class="pre">MIN</span></code> column to confirm that applying our function really works.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">]</span>
@@ -1198,152 +773,19 @@ Name: TEMP_F, Length: 198334, dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>TEMP_F</th>
-      <th>MIN</th>
-      <th>MAX</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>196775</th>
-      <td>25.000000</td>
-      <td>25.000000</td>
-      <td>29.444444</td>
-    </tr>
-    <tr>
-      <th>154531</th>
-      <td>25.555556</td>
-      <td>24.444444</td>
-      <td>27.777778</td>
-    </tr>
-    <tr>
-      <th>188167</th>
-      <td>25.000000</td>
-      <td>24.444444</td>
-      <td>27.777778</td>
-    </tr>
-    <tr>
-      <th>188407</th>
-      <td>23.888889</td>
-      <td>23.888889</td>
-      <td>27.777778</td>
-    </tr>
-    <tr>
-      <th>188143</th>
-      <td>24.444444</td>
-      <td>23.888889</td>
-      <td>28.888889</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
-<p>You can also directly store the outputs to new columns <code class="docutils literal notranslate"><span class="pre">'TEMP_C'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MIN_C'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MAX_C'</span></code>:</p>
+<p>You can also directly store the outputs to the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> columns <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code>, <code class="docutils literal notranslate"><span class="pre">MIN_C</span></code>, and <code class="docutils literal notranslate"><span class="pre">MAX_C</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">]</span>
-<span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fahr_to_celsius</span><span class="p">)</span>
+<span class="n">newcols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TEMP_C&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN_C&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX_C&quot;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[</span><span class="n">newcols</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fahr_to_celsius</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>STATION_ID</th>
-      <th>TIME</th>
-      <th>TEMP_F</th>
-      <th>MAX</th>
-      <th>MIN</th>
-      <th>TEMP_C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>29820</td>
-      <td>190601010600</td>
-      <td>1.111111</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.111111</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>29820</td>
-      <td>190601011300</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>29820</td>
-      <td>190601012000</td>
-      <td>-1.111111</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-1.111111</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>29820</td>
-      <td>190601020600</td>
-      <td>0.555556</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.555556</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>29820</td>
-      <td>190601021300</td>
-      <td>1.666667</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.666667</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
-<p>In this section, we showed you a few different ways to iterate over rows in pandas and apply functions. The most important thing is that you understand the logic of how loops work and how you can use your own functions to modify the values in a pandas DataFrame. Whenever you need to loop over your data, we recommend using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> as it is typically the most efficient one in terms of execution time. However, remember that in most cases you do not actually need to use loops, but you can do calculations in a “vectorized manner” (which is the fastest way) as we learned previously when doing basic calculations in pandas.</p>
+<p>In this section, we showed you a few different ways to iterate over rows in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and apply functions. The most important thing is that you understand the logic of how loops work and how you can use your own functions to modify the values in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. Whenever you need to loop over your data, we recommend using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> as it is typically the most efficient one in terms of execution time. Remember that in most cases you do not need to use loops. Instead you can do calculations in a “vectorized manner” (which is the fastest way) as we learned previously when doing basic calculations in <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
 </section>
 </section>
 <section id="string-slicing">
@@ -1355,30 +797,10 @@ Name: TEMP_F, Length: 198334, dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    190601010600
-1    190601011300
-2    190601012000
-3    190601020600
-4    190601021300
-Name: TIME, dtype: int64
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>198329    201910011900
-198330    201910012000
-198331    201910012100
-198332    201910012200
-198333    201910012300
-Name: TIME, dtype: int64
 </pre></div>
 </div>
 </div>
@@ -1400,11 +822,6 @@ Name: TIME, dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;201910&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <p>Based on this information, we can slice the correct range of characters from the <code class="docutils literal notranslate"><span class="pre">TIME_STR</span></code> column using a specific pandas function designed for Series, called <code class="docutils literal notranslate"><span class="pre">.str.slice()</span></code>. As parameters, the function has <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">stop</span></code> which you can use to specify the positions where the slicing should start and end:</p>
 <div class="cell docutils container">
@@ -1414,94 +831,6 @@ Name: TIME, dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>STATION_ID</th>
-      <th>TIME</th>
-      <th>TEMP_F</th>
-      <th>MAX</th>
-      <th>MIN</th>
-      <th>TEMP_C</th>
-      <th>TIME_STR</th>
-      <th>YEAR_MONTH</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>29820</td>
-      <td>190601010600</td>
-      <td>1.111111</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.111111</td>
-      <td>190601010600</td>
-      <td>190601</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>29820</td>
-      <td>190601011300</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>190601011300</td>
-      <td>190601</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>29820</td>
-      <td>190601012000</td>
-      <td>-1.111111</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-1.111111</td>
-      <td>190601012000</td>
-      <td>190601</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>29820</td>
-      <td>190601020600</td>
-      <td>0.555556</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.555556</td>
-      <td>190601020600</td>
-      <td>190601</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>29820</td>
-      <td>190601021300</td>
-      <td>1.666667</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.666667</td>
-      <td>190601021300</td>
-      <td>190601</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Nice! Now we have “labeled” the rows based on information about day of the year and hour of the day.</p>
 <section id="question-3-5">
@@ -1550,12 +879,6 @@ Name: TIME, dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.groupby.generic.DataFrameGroupBy&#39;&gt;
-826
-</pre></div>
-</div>
-</div>
 </div>
 <p>We have a new object with type <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> with 826 groups. In order to understand what just happened, let’s also check the number of unique year and month combinations in our data:</p>
 <div class="cell docutils container">
@@ -1564,21 +887,11 @@ Name: TIME, dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>826
-</pre></div>
-</div>
-</div>
 </div>
 <p>Length of the grouped object should be the same as the number of unique values in the column we used for grouping (<code class="docutils literal notranslate"><span class="pre">YEAR_MONTH</span></code>). For each unique value, there is a group of data. Let’s explore our grouped data further by check the “names” of the groups (five first ones). Here, we access the <code class="docutils literal notranslate"><span class="pre">keys</span></code> of the groups and convert them to a <code class="docutils literal notranslate"><span class="pre">list</span></code> so that we can slice and print only a few of those to the sceen:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">grouped</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">5</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;190601&#39;, &#39;190602&#39;, &#39;190603&#39;, &#39;190604&#39;, &#39;190605&#39;]
 </pre></div>
 </div>
 </div>
@@ -1595,183 +908,11 @@ Name: TIME, dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>STATION_ID</th>
-      <th>TIME</th>
-      <th>TEMP_F</th>
-      <th>MAX</th>
-      <th>MIN</th>
-      <th>TEMP_C</th>
-      <th>TIME_STR</th>
-      <th>YEAR_MONTH</th>
-      <th>MONTH</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>29820</td>
-      <td>190601010600</td>
-      <td>1.111111</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.111111</td>
-      <td>190601010600</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>29820</td>
-      <td>190601011300</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>190601011300</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>29820</td>
-      <td>190601012000</td>
-      <td>-1.111111</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-1.111111</td>
-      <td>190601012000</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>29820</td>
-      <td>190601020600</td>
-      <td>0.555556</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.555556</td>
-      <td>190601020600</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>29820</td>
-      <td>190601021300</td>
-      <td>1.666667</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.666667</td>
-      <td>190601021300</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>88</th>
-      <td>29820</td>
-      <td>190601301300</td>
-      <td>-2.222222</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-2.222222</td>
-      <td>190601301300</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>89</th>
-      <td>29820</td>
-      <td>190601302000</td>
-      <td>-6.111111</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-6.111111</td>
-      <td>190601302000</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>90</th>
-      <td>29820</td>
-      <td>190601310600</td>
-      <td>-7.777778</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-7.777778</td>
-      <td>190601310600</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>91</th>
-      <td>29820</td>
-      <td>190601311300</td>
-      <td>-1.111111</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-1.111111</td>
-      <td>190601311300</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>92</th>
-      <td>29820</td>
-      <td>190601312000</td>
-      <td>-0.555556</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-0.555556</td>
-      <td>190601312000</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-  </tbody>
-</table>
-<p>93 rows × 9 columns</p>
-</div></div></div>
 </div>
 <p>As we can see, a single group contains a DataFrame with values only for that specific month. Let’s check the DataType of this group:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">group1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pandas.core.frame.DataFrame
 </pre></div>
 </div>
 </div>
@@ -1787,27 +928,6 @@ Name: TIME, dtype: int64
 
     <span class="c1"># Stop iteration with break command</span>
     <span class="k">break</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Key:
- 190601
-
-First rows of data in this group:
-    STATION_ID          TIME    TEMP_F  MAX  MIN    TEMP_C      TIME_STR  \
-0       29820  190601010600  1.111111  NaN  NaN  1.111111  190601010600   
-1       29820  190601011300  0.000000  NaN  NaN  0.000000  190601011300   
-2       29820  190601012000 -1.111111  NaN  NaN -1.111111  190601012000   
-3       29820  190601020600  0.555556  NaN  NaN  0.555556  190601020600   
-4       29820  190601021300  1.666667  NaN  NaN  1.666667  190601021300   
-
-  YEAR_MONTH MONTH  
-0     190601    01  
-1     190601    01  
-2     190601    01  
-3     190601    01  
-4     190601    01  
 </pre></div>
 </div>
 </div>
@@ -1828,13 +948,6 @@ First rows of data in this group:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TEMP_F   -0.537634
-TEMP_C   -0.537634
-dtype: float64
-</pre></div>
-</div>
-</div>
 </div>
 <p>As a result, we get a pandas Series with mean values calculated for all columns in the group. Notice that if you want to convert this Series back into a DataFrame (which can be useful if you e.g. want to merge multiple groups), you can use command <code class="docutils literal notranslate"><span class="pre">.to_frame().T</span></code> which first converts the Series into a DataFrame and then transposes the order of the axes (the label names becomes the column names):</p>
 <div class="cell docutils container">
@@ -1844,38 +957,6 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>TEMP_F</th>
-      <th>TEMP_C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-0.537634</td>
-      <td>-0.537634</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>To do a similar aggregation with all the groups in our data, we can actually combine the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> function with the aggregation step (such as taking the mean, median etc. of given columns), and finally restructure the resulting DataFrame a bit. This can be at first a bit harder to understand, but this is how you would do the grouping and aggregating the values as follows:</p>
 <div class="cell docutils container">
@@ -1889,101 +970,6 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>YEAR_MONTH</th>
-      <th>TEMP_F</th>
-      <th>TEMP_C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>190601</td>
-      <td>-0.537634</td>
-      <td>-0.537634</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>190602</td>
-      <td>-1.044974</td>
-      <td>-1.044974</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>190603</td>
-      <td>-2.485066</td>
-      <td>-2.485066</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>190604</td>
-      <td>2.740741</td>
-      <td>2.740741</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>190605</td>
-      <td>10.722820</td>
-      <td>10.722820</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>821</th>
-      <td>201906</td>
-      <td>14.990715</td>
-      <td>14.990715</td>
-    </tr>
-    <tr>
-      <th>822</th>
-      <td>201907</td>
-      <td>17.288769</td>
-      <td>17.288769</td>
-    </tr>
-    <tr>
-      <th>823</th>
-      <td>201908</td>
-      <td>17.747080</td>
-      <td>17.747080</td>
-    </tr>
-    <tr>
-      <th>824</th>
-      <td>201909</td>
-      <td>13.132371</td>
-      <td>13.132371</td>
-    </tr>
-    <tr>
-      <th>825</th>
-      <td>201910</td>
-      <td>8.750000</td>
-      <td>8.750000</td>
-    </tr>
-  </tbody>
-</table>
-<p>826 rows × 3 columns</p>
-</div></div></div>
 </div>
 <p>As we can see, aggregating the data in this way is fairly straightforward and fast process requiring merely a single command. So what did we actually do here? We i) grouped the data, ii) selected specific columns from the result (<code class="docutils literal notranslate"><span class="pre">mean_cols</span></code>), iii) calculated the mean for all of the selected columns of the groups, and finally 4) reset the index. Resetting the index at the end is not necessary, but by doing it, we turn the <code class="docutils literal notranslate"><span class="pre">YEAR_MONTH</span></code> values into a dedicated column in our data (which would be otherwise store as <code class="docutils literal notranslate"><span class="pre">index</span></code>) .</p>
 <p>What might not be obvious from this example is the fact that hidden in the background, each group is actually iterated over and the aggregation step is repeated for each group. For you to better understand what happens, we will next repeat the same process by iterating over groups and eventually creating a DataFrame that will contain the mean values for all those weather attributes that we were interested in. In this approach, we will first iterate over the groups, then calculate the mean values,  store the result into a list, and finally merge the aggregated data into a DataFrame called <code class="docutils literal notranslate"><span class="pre">monthly_data</span></code>.</p>
@@ -2013,101 +999,6 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>TEMP_F</th>
-      <th>TEMP_C</th>
-      <th>YEAR_MONTH</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-0.537634</td>
-      <td>-0.537634</td>
-      <td>190601</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>-1.044974</td>
-      <td>-1.044974</td>
-      <td>190602</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>-2.485066</td>
-      <td>-2.485066</td>
-      <td>190603</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2.740741</td>
-      <td>2.740741</td>
-      <td>190604</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>10.72282</td>
-      <td>10.72282</td>
-      <td>190605</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>14.990715</td>
-      <td>14.990715</td>
-      <td>201906</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>17.288769</td>
-      <td>17.288769</td>
-      <td>201907</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>17.74708</td>
-      <td>17.74708</td>
-      <td>201908</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>13.132371</td>
-      <td>13.132371</td>
-      <td>201909</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>8.75</td>
-      <td>8.75</td>
-      <td>201910</td>
-    </tr>
-  </tbody>
-</table>
-<p>826 rows × 3 columns</p>
-</div></div></div>
 </div>
 <p>As a result, we get identical results as with the earlier approach that was done with a single line of code (except for the position of the <code class="docutils literal notranslate"><span class="pre">YEAR_MONTH</span></code> column).</p>
 <p>So which approach should you use? From the performance point of view, we recommend using the first approach (i.e. chaining) which does not require you to create a separate for loop, and is highly performant. However, this approach might be a bit more difficult to read and comprehend (the loop might be easier). Also sometimes you want to include additional processing steps inside the loop which can be hard accomplish by chaining everything into a single command. Hence, it is useful to know both of these approaches for doing aggregations with the data.</p>
@@ -2123,70 +1014,6 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>TEMP_F</th>
-      <th>TEMP_C</th>
-      <th>YEAR_MONTH</th>
-      <th>MONTH</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-0.537634</td>
-      <td>-0.537634</td>
-      <td>190601</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>-1.044974</td>
-      <td>-1.044974</td>
-      <td>190602</td>
-      <td>02</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>-2.485066</td>
-      <td>-2.485066</td>
-      <td>190603</td>
-      <td>03</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2.740741</td>
-      <td>2.740741</td>
-      <td>190604</td>
-      <td>04</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>10.72282</td>
-      <td>10.72282</td>
-      <td>190605</td>
-      <td>05</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Now we can select the values for January from our data and store it into a new variable <code class="docutils literal notranslate"><span class="pre">january_data</span></code>. We will also check the highest temperature values by sorting the DataFrame in a descending order:</p>
 <div class="cell docutils container">
@@ -2196,70 +1023,6 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>TEMP_F</th>
-      <th>TEMP_C</th>
-      <th>YEAR_MONTH</th>
-      <th>MONTH</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1.302294</td>
-      <td>1.302294</td>
-      <td>200801</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>1.293952</td>
-      <td>1.293952</td>
-      <td>197501</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>1.273434</td>
-      <td>1.273434</td>
-      <td>198301</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>1.15491</td>
-      <td>1.15491</td>
-      <td>199201</td>
-      <td>01</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>1.069869</td>
-      <td>1.069869</td>
-      <td>198901</td>
-      <td>01</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>By looking at the order of <code class="docutils literal notranslate"><span class="pre">YEAR_MONTH</span></code> column, we can see that January 2020 indeed was on average the warmest month on record based on weather observations from Finland.</p>
 </section>
@@ -2283,22 +1046,12 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath(&#39;data/finnish_stations/028360.txt&#39;)
-</pre></div>
-</div>
-</div>
 </div>
 <p>Here, we first initialized the <code class="docutils literal notranslate"><span class="pre">Path</span></code> object and stored it in variable <code class="docutils literal notranslate"><span class="pre">input_folder</span></code> by passing a relative path as a string to directory where all our files are located. Then we created a full filepath to file <code class="docutils literal notranslate"><span class="pre">028360.txt</span></code> by adding a forward slash (<code class="docutils literal notranslate"><span class="pre">/</span></code>) character between the folder and the filename which joins them together (easy!). In this case, our end result is something called a <em><code class="docutils literal notranslate"><span class="pre">PosixPath</span></code></em> which is a filesystem path to a given file on Linux or Mac operating systems. If you would run the same commands on Windows machine, the end result would be a <em><code class="docutils literal notranslate"><span class="pre">WindowsPath</span></code></em>. Hence, the output depends on which operating system you are using. However, you do not need to worry about this, because both types of Paths work exactly the same, no matter which operating system you use.</p>
 <p>Both the <code class="docutils literal notranslate"><span class="pre">Path</span></code> object that we stored in <code class="docutils literal notranslate"><span class="pre">input_folder</span></code> variable and the <code class="docutils literal notranslate"><span class="pre">PosixPath</span></code> object that we stored in variable <code class="docutils literal notranslate"><span class="pre">fp</span></code> are actually quite versatile creatures, and we can do many useful things with them. For instance, we can find the parent folder where the file is located, extract the filename from the full path, test whether the file or directory actually exists, find various properties of the file (such as size of the file or creation time), and so on:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fp</span><span class="o">.</span><span class="n">parent</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath(&#39;data/finnish_stations&#39;)
 </pre></div>
 </div>
 </div>
@@ -2309,20 +1062,10 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;028360.txt&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fp</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
 </div>
@@ -2336,13 +1079,6 @@ dtype: float64
 <span class="nb">print</span><span class="p">(</span>
     <span class="sa">f</span><span class="s2">&quot;Size (bytes): </span><span class="si">{</span><span class="n">size_in_bytes</span><span class="si">}</span><span class="se">\n</span><span class="s2">Created (seconds since Epoch): </span><span class="si">{</span><span class="n">creation_time</span><span class="si">}</span><span class="se">\n</span><span class="s2">Modified (seconds since Epoch): </span><span class="si">{</span><span class="n">modified_time</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Size (bytes): 1347907
-Created (seconds since Epoch): 1723456869.6959033
-Modified (seconds since Epoch): 1649532851.0
 </pre></div>
 </div>
 </div>
@@ -2363,28 +1099,6 @@ Modified (seconds since Epoch): 1649532851.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of files in the list: 15
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[PosixPath(&#39;data/finnish_stations/029170.txt&#39;),
- PosixPath(&#39;data/finnish_stations/028690.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029820.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029700.txt&#39;),
- PosixPath(&#39;data/finnish_stations/028970.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029070.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029500.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029110.txt&#39;),
- PosixPath(&#39;data/finnish_stations/028750.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029720.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029440.txt&#39;),
- PosixPath(&#39;data/finnish_stations/028360.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029810.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029740.txt&#39;),
- PosixPath(&#39;data/finnish_stations/029350.txt&#39;)]
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="iterate-over-input-files-and-repeat-the-analysis">
@@ -2398,11 +1112,6 @@ Modified (seconds since Epoch): 1649532851.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/finnish_stations/029170.txt
-</pre></div>
-</div>
-</div>
 </div>
 <p>The data that we have sampled is in regular CSV format which we can read easily with <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> function:</p>
 <div class="cell docutils container">
@@ -2412,94 +1121,6 @@ Modified (seconds since Epoch): 1649532851.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>USAF</th>
-      <th>YR--MODAHRMN</th>
-      <th>DIR</th>
-      <th>SPD</th>
-      <th>GUS</th>
-      <th>TEMP</th>
-      <th>MAX</th>
-      <th>MIN</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>29170</td>
-      <td>201501010050</td>
-      <td>240.0</td>
-      <td>7.0</td>
-      <td>NaN</td>
-      <td>34.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>29170</td>
-      <td>201501010120</td>
-      <td>260.0</td>
-      <td>5.0</td>
-      <td>NaN</td>
-      <td>36.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>29170</td>
-      <td>201501010150</td>
-      <td>250.0</td>
-      <td>8.0</td>
-      <td>NaN</td>
-      <td>34.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>29170</td>
-      <td>201501010220</td>
-      <td>250.0</td>
-      <td>8.0</td>
-      <td>NaN</td>
-      <td>36.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>29170</td>
-      <td>201501010250</td>
-      <td>240.0</td>
-      <td>8.0</td>
-      <td>NaN</td>
-      <td>36.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Now we have all the file paths to our weather observation datasets in a list, and we can start iterating over them and repeat the analysis steps for each file separately. We keep all the analytical steps inside a loop so that all of them are repeated to different stations. Finally, we will store the warmest January for each station in a list called <code class="docutils literal notranslate"><span class="pre">results</span></code> using a regular Python’s <code class="docutils literal notranslate"><span class="pre">append()</span></code> method and merge the list of DataFrames into one by using <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> function:</p>
 <div class="cell docutils container">
@@ -2558,25 +1179,6 @@ Modified (seconds since Epoch): 1649532851.0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>STATION NUMBER: 29170	NUMBER OF OBSERVATIONS: 120211
-STATION NUMBER: 28690	NUMBER OF OBSERVATIONS: 119674
-STATION NUMBER: 29820	NUMBER OF OBSERVATIONS: 40264
-STATION NUMBER: 29700	NUMBER OF OBSERVATIONS: 120618
-STATION NUMBER: 28970	NUMBER OF OBSERVATIONS: 120891
-STATION NUMBER: 29070	NUMBER OF OBSERVATIONS: 40473
-STATION NUMBER: 29500	NUMBER OF OBSERVATIONS: 40405
-STATION NUMBER: 29110	NUMBER OF OBSERVATIONS: 81164
-STATION NUMBER: 28750	NUMBER OF OBSERVATIONS: 81127
-STATION NUMBER: 29720	NUMBER OF OBSERVATIONS: 81127
-STATION NUMBER: 29440	NUMBER OF OBSERVATIONS: 120947
-STATION NUMBER: 28360	NUMBER OF OBSERVATIONS: 35442
-STATION NUMBER: 29810	NUMBER OF OBSERVATIONS: 35377
-STATION NUMBER: 29740	NUMBER OF OBSERVATIONS: 121654
-STATION NUMBER: 29350	NUMBER OF OBSERVATIONS: 116220
-</pre></div>
-</div>
-</div>
 </div>
 <p>Awesome! Now we have conducted the same analysis for 15 weather stations in Finland and it did not took too many lines of code! We were able to follow how the process advances with the printed lines of information, i.e. we did some simple <code class="docutils literal notranslate"><span class="pre">logging</span></code> of the operations. Let’s finally investigate our results:</p>
 <div class="cell docutils container">
@@ -2585,170 +1187,11 @@ STATION NUMBER: 29350	NUMBER OF OBSERVATIONS: 116220
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>YEAR</th>
-      <th>MONTH</th>
-      <th>TEMP_F</th>
-      <th>TEMP_C</th>
-      <th>STATION_NUMBER</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>3</th>
-      <td>2018</td>
-      <td>1</td>
-      <td>27.705512</td>
-      <td>-2.385827</td>
-      <td>29170.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2018</td>
-      <td>1</td>
-      <td>20.855503</td>
-      <td>-6.191387</td>
-      <td>28690.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>38.708724</td>
-      <td>3.727069</td>
-      <td>29820.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>38.052815</td>
-      <td>3.362675</td>
-      <td>29700.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2018</td>
-      <td>1</td>
-      <td>25.359090</td>
-      <td>-3.689395</td>
-      <td>28970.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2017</td>
-      <td>1</td>
-      <td>33.014374</td>
-      <td>0.563541</td>
-      <td>29070.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>39.166185</td>
-      <td>3.981214</td>
-      <td>29500.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>32.306713</td>
-      <td>0.170396</td>
-      <td>29110.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>27.514236</td>
-      <td>-2.492091</td>
-      <td>28750.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>34.983254</td>
-      <td>1.657363</td>
-      <td>29720.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>32.062323</td>
-      <td>0.034624</td>
-      <td>29440.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2018</td>
-      <td>1</td>
-      <td>19.644055</td>
-      <td>-6.864414</td>
-      <td>28360.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>39.864476</td>
-      <td>4.369154</td>
-      <td>29810.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>34.405518</td>
-      <td>1.336399</td>
-      <td>29740.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>2015</td>
-      <td>1</td>
-      <td>28.617084</td>
-      <td>-1.879398</td>
-      <td>29350.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Each row in the results represents the warmest January at given <code class="docutils literal notranslate"><span class="pre">STATION_NUMBER</span></code> between the years 2015 and 2019. Based on the <code class="docutils literal notranslate"><span class="pre">YEAR</span></code> column, the warmest January in most of Finland’s weather stations during this five-year period was in 2015. We can confirm this by checking the value counts of the <code class="docutils literal notranslate"><span class="pre">YEAR</span></code> column:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;YEAR&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>YEAR
-2015    10
-2018     4
-2017     1
-Name: count, dtype: int64
 </pre></div>
 </div>
 </div>
@@ -2811,7 +1254,8 @@ Name: count, dtype: int64
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2825,7 +1269,7 @@ Name: count, dtype: int64
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-functions-with-pandas">Using functions with pandas</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-function">Defining a function</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-by-iterating-over-rows">Using a function by iterating over rows</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-with-apply">Using a function with apply</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-with-the-apply-method">Using a function with the apply method</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-slicing">String slicing</a><ul class="nav section-nav flex-column">
@@ -2892,8 +1336,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -35,10 +37,11 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -49,6 +52,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -64,19 +68,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -84,7 +77,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -92,8 +84,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -111,7 +103,8 @@
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -139,21 +132,17 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -309,7 +298,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Data overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
 </ul>
 
@@ -433,24 +422,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -479,7 +460,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-functions-with-pandas">Using functions with pandas</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-function">Defining a function</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-by-iterating-over-rows">Using a function by iterating over rows</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-with-apply">Using a function with apply</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-with-the-apply-method">Using a function with the apply method</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-slicing">String slicing</a><ul class="nav section-nav flex-column">
@@ -512,11 +493,12 @@ document.write(`
   <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section class="tex2jax_ignore mathjax_ignore" id="data-wrangling-grouping-and-aggregation">
 <h1>Data wrangling, grouping and aggregation<a class="headerlink" href="#data-wrangling-grouping-and-aggregation" title="Link to this heading">#</a></h1>
-<p>Next, we will continue working with weather data, but expand our analysis to cover longer periods of data from Finland. In the following, you will learn various useful techniques in pandas to manipulate, group and aggregate the data in different ways that are useful when extracting insights from your data. In the end, you will learn how to create an automated data analysis workflow that can be repeated with multiple input files having a similar structure. As a case study, we will investigate whether January 2020 was the warmest month on record also in Finland, as the month was the warmest one on record globally <a class="footnote-reference brackets" href="#noaanews" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p>Next, we will continue working with weather data, but expand our analysis to cover longer periods of data from Finland. In the following, you will learn various useful techniques in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to manipulate, group and aggregate the data in different ways that are useful when extracting information from your data. In the end, you will learn how to create an automated data analysis workflow that can be repeated with multiple input files that have a similar structure. As a case study, we will investigate whether January 2020 was the warmest month on record in Finland, as it was the warmest on record globally at the time <a class="footnote-reference brackets" href="#noaanews" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="cleaning-data-while-reading">
 <h2>Cleaning data while reading<a class="headerlink" href="#cleaning-data-while-reading" title="Link to this heading">#</a></h2>
-<p>In this section we are using weather observation data from Finland that was downloaded from NOAA (see <code class="docutils literal notranslate"><span class="pre">Datasets</span></code> chapter for further details). The input data is separated with varying number of spaces (i.e., fixed width). The first lines and columns of the data look like following:</p>
+<p>In this section we are using weather observation data from Finland that was downloaded from NOAA (check the <a class="reference internal" href="../../../data/index.html"><span class="doc">data overview</span></a> section for more details). The input data are separated by varying number of spaces (i.e., fixed column widths). The first lines of the data look like following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">USAF</span>  <span class="n">WBAN</span> <span class="n">YR</span><span class="o">--</span><span class="n">MODAHRMN</span> <span class="n">DIR</span> <span class="n">SPD</span> <span class="n">GUS</span> <span class="n">CLG</span> <span class="n">SKC</span> <span class="n">L</span> <span class="n">M</span> <span class="n">H</span>  <span class="n">VSB</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">MW</span> <span class="n">AW</span>  <span class="o">...</span>
 <span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601010600</span> <span class="mi">090</span>   <span class="mi">7</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
 <span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601011300</span> <span class="o">***</span>   <span class="mi">0</span> <span class="o">***</span> <span class="o">***</span> <span class="n">OVC</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
@@ -524,13 +506,14 @@ document.write(`
 <span class="mi">029440</span> <span class="mi">99999</span> <span class="mi">190601020600</span> <span class="o">***</span>   <span class="mi">0</span> <span class="o">***</span> <span class="o">***</span> <span class="n">CLR</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="mf">0.0</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span> <span class="o">**</span>  <span class="o">...</span>
 </pre></div>
 </div>
-<p>By looking at the data, we can notice a few things that we need to consider when reading the data:</p>
+<p>By looking at the data, we can see a few things that we need to consider when reading the data:</p>
 <ol class="arabic simple">
-<li><p><strong>Delimiter:</strong> The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function</p></li>
-<li><p><strong>NoData values:</strong> NaN values in the NOAA data are coded with varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters, hence, we need to be able to instruct pandas to interpret those as NaNs.</p></li>
-<li><p><strong>Many columns</strong>: The input data contains many columns (altogether 33). Many of those do not contain any meaningful data for our needs. Hence, we should probably ignore the unnecessary columns already at this stage.</p></li>
+<li><p>The delimiter: The columns are separated with a varying amount of spaces which requires using some special tricks when reading the data with pandas <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> function</p></li>
+<li><p>NoData values: <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values in the NOAA data are coded with varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters and hence we need to be able to instruct pandas to interpret those as <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p></li>
+<li><p>Many columns: The input data contains many columns (33 in total). Many of those do not contain data we need. Thus, we should probably ignore the unnecessary columns already at this stage.</p></li>
 </ol>
-<p>Handling and cleaning heterogeneous input data (such as our example here) can be done after reading in the data. However, in many cases, it is actually useful to do some cleaning and preprocessing already when reading the data. In fact, that is often much easier to do. In our case, we can read the data with varying number of spaces between the columns (1) by using a parameter <code class="docutils literal notranslate"><span class="pre">delim_whitespace=True</span></code> (alternatively, specifying <code class="docutils literal notranslate"><span class="pre">sep='\s+'</span></code> would work). For handling the NoData values (2), we can tell pandas to consider the <code class="docutils literal notranslate"><span class="pre">*</span></code> characters as NaNs by using a paramater <code class="docutils literal notranslate"><span class="pre">na_values</span></code> and specifying a list of characters that should be converted to NaNs. Hence, in this case we can specify <code class="docutils literal notranslate"><span class="pre">na_values=['*',</span> <span class="pre">'**',</span> <span class="pre">'***',</span> <span class="pre">'****',</span> <span class="pre">'*****',</span> <span class="pre">'******']</span></code> which will then convert the varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters into NaN values. Finally, we can limit the number of columns that we read (3) by using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter, which we already used previously. In our case, we are interested in columns that might be somehow useful to our analysis, including the station name, timestamp, and data about temperatures: <code class="docutils literal notranslate"><span class="pre">'USAF',</span> <span class="pre">'YR--MODAHRMN',</span> <span class="pre">'TEMP',</span> <span class="pre">'MAX',</span> <span class="pre">'MIN'</span></code>. Achieving all these things is pretty straightforward using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> function:</p>
+<p>Handling and cleaning heterogeneous input data (such as in our example here) can be done after reading in the data. However, in many cases it is actually useful to do some cleaning and preprocessing when reading in the data. In fact, it is often much easier to do things this way. For our data file, we can read the data with varying number of spaces between the columns (point 1 above) by using the parameter <code class="docutils literal notranslate"><span class="pre">sep=r&quot;\s+&quot;</span></code>. In this case, we use a raw text string with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> parameter, which is indicated by the <code class="docutils literal notranslate"><span class="pre">r</span></code> before the first quotation mark and ensures the escape character <code class="docutils literal notranslate"><span class="pre">\</span></code> is handled properly in the <code class="docutils literal notranslate"><span class="pre">sep</span></code> string. For handling the NoData values (point 2 above), we can tell <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to consider the <code class="docutils literal notranslate"><span class="pre">*</span></code> characters as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> by using the parameter <code class="docutils literal notranslate"><span class="pre">na_values</span></code> and specifying a list of characters that should be converted to <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. For this data file we can specify <code class="docutils literal notranslate"><span class="pre">na_values=['*',</span> <span class="pre">'**',</span> <span class="pre">'***',</span> <span class="pre">'****',</span> <span class="pre">'*****',</span> <span class="pre">'******']</span></code>, which will then convert the varying number of <code class="docutils literal notranslate"><span class="pre">*</span></code> characters into <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values. Finally, we can limit the number of columns that we read (point 3 above) by using the <code class="docutils literal notranslate"><span class="pre">usecols</span></code> parameter, which we have already used previously. In our case, we are interested in columns that might be somehow useful to our analysis, including the station name, timestamp, and data about temperatures: <code class="docutils literal notranslate"><span class="pre">'USAF',</span> <span class="pre">'YR--MODAHRMN',</span> <span class="pre">'TEMP',</span> <span class="pre">'MAX',</span> <span class="pre">'MIN'</span></code>. Achieving all these things is pretty straightforward using the <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code> function, as demonstrated below.</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># Define relative path to the file</span>
@@ -541,31 +524,33 @@ document.write(`
 <span class="c1"># and selecting only specific columns from the data</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
     <span class="n">fp</span><span class="p">,</span>
-    <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
     <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;***&quot;</span><span class="p">,</span> <span class="s2">&quot;****&quot;</span><span class="p">,</span> <span class="s2">&quot;*****&quot;</span><span class="p">,</span> <span class="s2">&quot;******&quot;</span><span class="p">],</span>
     <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;USAF&quot;</span><span class="p">,</span> <span class="s2">&quot;YR--MODAHRMN&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Let’s see now how the data looks by printing the first five rows with the <code class="docutils literal notranslate"><span class="pre">head()</span></code> function:</p>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Let’s now check the data by printing the first five rows with the <code class="docutils literal notranslate"><span class="pre">.head()</span></code> function.</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Perfect, looks good. We have skipped a bunch of unnecessary columns and also the asterisk (*) characters have been correctly converted to NaN values.</p>
+<p>Perfect, looks good. We have excluded a bunch of unnecessary columns and also the asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) characters have been correctly converted to <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values.</p>
 </section>
 <section id="renaming-columns">
 <h2>Renaming columns<a class="headerlink" href="#renaming-columns" title="Link to this heading">#</a></h2>
-<p>Let’s take a closer look at the column names of our DataFrame:</p>
+<p>Let’s take a closer look at the column names of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>As we see, some of the column names are a bit awkward and difficult to interpret (a description for the columns is available in the metadata <a class="reference internal" href="#data/3505doc.txt"><span class="xref myst">data/3505doc.txt</span></a>). Luckily, it is easy to alter labels in a pandas DataFrame using the <code class="docutils literal notranslate"><span class="pre">rename()</span></code> function. In order to change the column names, we need to tell pandas how we want to rename the columns using a dictionary that converts the old names to new ones. As you probably remember from Chapter 1, a <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> is a specific data structure in Python for storing key-value pairs. We can define the new column names using a dictionary where we list “<code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code>” pairs in following manner:</p>
+<p>As we see, some of the column names are a bit unclear with only their names (a description for the columns is available in the metadata <a class="reference internal" href="#data/3505doc.txt"><span class="xref myst">data/3505doc.txt</span></a>). Luckily, it is easy to change labels in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> using the <code class="docutils literal notranslate"><span class="pre">.rename()</span></code> function. In order to change the column names, we need to tell <code class="docutils literal notranslate"><span class="pre">pandas</span></code> how we want to rename the columns using a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Dictionary"><span class="xref std std-term">dictionary</span></a></em> that converts the old names to new ones. A dictionary is a specific data structure in Python for storing key-value pairs. We can define the new column names using a dictionary where we list <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code> pairs in following manner:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">USAF</span></code>: <code class="docutils literal notranslate"><span class="pre">STATION_ID</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">YR--MODAHRMN</span></code>: <code class="docutils literal notranslate"><span class="pre">TIME</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">TEMP</span></code>: <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code></p></li>
 </ul>
-<p>Hence, the original column name (e.g. <code class="docutils literal notranslate"><span class="pre">YR--MODAHRMN</span></code>) is the dictionary <code class="docutils literal notranslate"><span class="pre">key</span></code> which will be converted to a new column name <code class="docutils literal notranslate"><span class="pre">TIME</span></code> (which is the <code class="docutils literal notranslate"><span class="pre">value</span></code>). The temperature values in our data file is again represented in Fahrenheit. We will soon convert these temperatures to Celsius. Hence, in order to avoid confusion with the columns, let’s rename the column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> to <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code>. Also the station number <code class="docutils literal notranslate"><span class="pre">USAF</span></code> is much more intuitive if we call it <code class="docutils literal notranslate"><span class="pre">STATION_ID</span></code>. Let’s create a dictionary for the new column names:</p>
+<p>Hence, the original column name (e.g., <code class="docutils literal notranslate"><span class="pre">YR--MODAHRMN</span></code>) is the dictionary <code class="docutils literal notranslate"><span class="pre">key</span></code> which will be converted to a new column name <code class="docutils literal notranslate"><span class="pre">TIME</span></code> (which is the <code class="docutils literal notranslate"><span class="pre">value</span></code>). The temperature values in our data file are again represented in degrees Fahrenheit. We will soon convert these temperatures to degrees Celsius. Thus, in order to avoid confusion with the columns, let’s rename the column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> to <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code>. Also the station number <code class="docutils literal notranslate"><span class="pre">USAF</span></code> is much more intuitive if we call it <code class="docutils literal notranslate"><span class="pre">STATION_ID</span></code>. Below we can create a dictionary for the new column names.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_names</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;USAF&quot;</span><span class="p">:</span> <span class="s2">&quot;STATION_ID&quot;</span><span class="p">,</span>
     <span class="s2">&quot;YR--MODAHRMN&quot;</span><span class="p">:</span> <span class="s2">&quot;TIME&quot;</span><span class="p">,</span>
@@ -574,7 +559,7 @@ document.write(`
 <span class="n">new_names</span>
 </pre></div>
 </div>
-<p>Our dictionary looks correct, so now we can change the column names by passing that dictionary using the parameter <code class="docutils literal notranslate"><span class="pre">columns</span></code> in the <code class="docutils literal notranslate"><span class="pre">rename()</span></code> function:</p>
+<p>Our dictionary format looks correct, so now we can change the column names by passing that dictionary with the parameter <code class="docutils literal notranslate"><span class="pre">columns</span></code> in the <code class="docutils literal notranslate"><span class="pre">.rename()</span></code> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">new_names</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
@@ -583,7 +568,7 @@ document.write(`
 </section>
 <section id="using-functions-with-pandas">
 <h2>Using functions with pandas<a class="headerlink" href="#using-functions-with-pandas" title="Link to this heading">#</a></h2>
-<p>Now it’s time to convert those temperatures from Fahrenheit to Celsius. We have done this many times before, but this time we will learn how to apply our own functions to data in a pandas DataFrame. We will define a function for the temperature conversion, and apply this function for each Celsius value on each row of the DataFrame. Output celsius values should be stored in a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code>. But first, it is a good idea to check some basic properties of our new input data before proceeding with data analysis:</p>
+<p>Now it’s time to convert those temperatures from degrees Fahrenheit to degrees Celsius. We have done this many times before, but this time we will learn how to apply our own functions to data in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. We will define a function for the temperature conversion and then apply this function for each Fahrenheit value on each row of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. The output Celsius values will be stored in a new column called <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code>. But first, it is a good idea to check some basic properties of our input data before proceeding with data analysis.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># First rows</span>
 <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
@@ -596,15 +581,15 @@ document.write(`
 <span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Nothing suspicous for the first and last rows, but here with <code class="docutils literal notranslate"><span class="pre">info()</span></code> we can see that the number of observations per column seem to be varying if you compare the <code class="docutils literal notranslate"><span class="pre">Non-Null</span> <span class="pre">Count</span></code> information to the number of entries in the data (N=198334). Only station number and time seem to have data on each row. All other columns seem to have some missing values. This is not necessarily anything dangerous, but good to keep in mind. Let’s still look at the descriptive statistics:</p>
+<p>Nothing suspicious in the first and last rows, but here the <code class="docutils literal notranslate"><span class="pre">.info()</span></code> function indicates that the number of observations per column varies if you compare the <code class="docutils literal notranslate"><span class="pre">Non-Null</span> <span class="pre">Count</span></code> information to the number of entries in the data (n = 198334). Only the station number and time seem to have data for each row. All other columns appear to have some missing values. This is not necessarily anything dangerous, but good to keep in mind. Let’s now check the descriptive statistics.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Descriptive stats</span>
 <span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>By looking at the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> values (Fahrenheit temperatures), we can confirm that our measurements seems more or less valid because the value range of the temperatures makes sense, i.e. there are no outliers such as extremely high <code class="docutils literal notranslate"><span class="pre">MAX</span></code> values or low <code class="docutils literal notranslate"><span class="pre">MIN</span></code> values. It is always a good practice to critically check your data before doing any analysis, as it is possible that your data may include incorrect values, e.g. due to a sensor malfunction or human error.</p>
+<p>Looking at the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> values (Fahrenheit temperatures), we can confirm that our measurements seems more or less valid because the value range of the temperatures makes sense (i.e., there are no outliers such as extremely high <code class="docutils literal notranslate"><span class="pre">MAX</span></code> values or low <code class="docutils literal notranslate"><span class="pre">MIN</span></code> values). It is always a good practice to critically inspect your data before doing any analysis, as it is possible that your data may include incorrect values (e.g., due to a sensor malfunction or human error).</p>
 <section id="defining-a-function">
 <h3>Defining a function<a class="headerlink" href="#defining-a-function" title="Link to this heading">#</a></h3>
-<p>Now we are sure that our data looks okay, and we can start our temperature conversion process by first defining our temperature conversion function from Fahrenheit to Celsius. Pandas can use regular functions, hence you can define functions for pandas exactly in the same way as you would do normally (as we learned in Chapter 1). Hence, let’s define a function that converts Fahrenheits to Celsius:</p>
+<p>Now that we are sure that our data looks correct, and we can start our temperature conversion process by first defining our function to convert from Fahrenheit to Celsius. <code class="docutils literal notranslate"><span class="pre">pandas</span></code> can use regular functions, so you can simply define functions for <code class="docutils literal notranslate"><span class="pre">pandas</span></code> exactly the same way as you would do normally (as we learned in Chapter 2, for instance). Let’s define a function that converts from degrees Fahrenheit to Celsius.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fahr_to_celsius</span><span class="p">(</span><span class="n">temp_fahrenheit</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to convert Fahrenheit temperature into Celsius.</span>
 
@@ -626,16 +611,16 @@ document.write(`
     <span class="k">return</span> <span class="n">converted_temp</span>
 </pre></div>
 </div>
-<p>Now we have the function defined and stored in memory. At this point it is good to test the function with some known value:</p>
+<p>Now we have the function defined and stored in memory. At this point it is good to test the function with a known value to make sure it works properly.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fahr_to_celsius</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>32 Fahrenheits is indeed 0 Celsius, so our function seem to be working correctly.</p>
+<p>32 degrees Fahrenheit is indeed 0 degrees Celsius, so our function seem to be working correctly.</p>
 </section>
 <section id="using-a-function-by-iterating-over-rows">
 <h3>Using a function by iterating over rows<a class="headerlink" href="#using-a-function-by-iterating-over-rows" title="Link to this heading">#</a></h3>
-<p>Next we will learn how to use our function with data stored in a pandas DataFrame. We will first apply the function row-by-row using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and then we will learn a more efficient way of applying the function to all rows at once.</p>
-<p>Looping over rows in a DataFrame can be done in a couple of different ways. A common approach is to use the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method which loops over the rows as index-Series pairs. In other words, we can use the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method together with a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to repeat a process <em>for each row in a Pandas DataFrame</em>. Please note that iterating over rows this way is a rather inefficient approach, but it is still useful to understand the logic behind how this works. When using the <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> method it is important to understand that <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> accesses not only the values of one row, but also the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the row. Let’s start with a simple example <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that goes through each row in our DataFrame.</p>
+<p>Next we will learn how to use our function with data stored in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. We will first apply the function row by row using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and then we will learn a more efficient way of applying the function to all rows at once.</p>
+<p>Looping over rows in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> can be done in a few different ways. A common approach is to use the <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> method which loops over the rows as index-Series pairs. In other words, we can use the <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> method together with a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to repeat a process for each row in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. Please note that iterating over rows this way is a rather inefficient approach, but it is still useful to understand the logic behind how this works. When using the <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> method it is important to understand that <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> accesses not only the values of one row, but also the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the row. Let’s start with a simple example <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that goes through each row in our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Iterate over the rows</span>
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
     <span class="c1"># Print the index value</span>
@@ -647,9 +632,9 @@ document.write(`
     <span class="k">break</span>
 </pre></div>
 </div>
-<p>We can see that the <code class="docutils literal notranslate"><span class="pre">idx</span></code> variable indeed contains the index value at position 0 (the first row) and the <code class="docutils literal notranslate"><span class="pre">row</span></code> variable contains all the data from that given row stored as a pandas Series. Also, notice that when developing a for loop you do not always need to iterate through the entire loop if you just want to test things out. Using the <code class="docutils literal notranslate"><span class="pre">break</span></code> statement in Python terminates a loop whenever it is placed inside the loop. Here we used it to check out the values on the first row of the DataFrame. This allows us to test the code logic without printing thousands of values to the screen!</p>
-<p>Next, let’s create an empty column <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code> for the Celsius temperatures and update the values in that column using the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function that we defined earlier. For updating the value in the DataFrame, we can use the <code class="docutils literal notranslate"><span class="pre">at</span></code> method that we already used earlier in this chapter. This time, however, we will use the <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> method to access the rows in the DataFrame. The <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> method works similarly to <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code>, except it returns only the row values without the <code class="docutils literal notranslate"><span class="pre">index</span></code>. In addition,  the returned values are not a pandas Series, but instead <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> returns a named tuple data type. As a result, when using <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> accessing the row values needs to be done a bit differently. Remember, a <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Tuple"><span class="xref std std-term">tuple</span></a> is like a list but <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Immutable"><span class="xref std std-term">immutable</span></a> and a “named tuple” is a special kind of tuple object that adds the ability to access the values by name instead of position index. Hence, we can access the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> value in a given row using <code class="docutils literal notranslate"><span class="pre">row.TEMP_F</span></code> (in contrast to how we accessed the value in the previous code above). We will not work with named tuples in the rest of the book, but more information can be found in the Python documentation for named tuples <a class="footnote-reference brackets" href="#namedtuple" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
-<p>Let’s see an example of how to use the <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> method.</p>
+<p>We can see that the <code class="docutils literal notranslate"><span class="pre">idx</span></code> variable indeed contains the index value <code class="docutils literal notranslate"><span class="pre">0</span></code> (the first row) and the <code class="docutils literal notranslate"><span class="pre">row</span></code> variable contains all the data from that row stored as a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code>. Also, notice that when developing a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop you do not always need to iterate through the entire loop if you just want to test things out. Using the <code class="docutils literal notranslate"><span class="pre">break</span></code> statement in Python terminates a loop wherever it is placed inside the loop. In our case we used it to check out the values on the first row of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. This saves time and allows us to test the code logic without printing thousands of values to the screen!</p>
+<p>Next, let’s create an empty column <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code> for the Celsius temperatures and update the values in that column using the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function that we defined earlier. For updating the value in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, we can use the <code class="docutils literal notranslate"><span class="pre">.at[]</span></code> indexer that we used earlier in this chapter. This time, however, we will use the <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> method to access the rows in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. The <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> method works similarly to <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code>, except it returns only the row values without the <code class="docutils literal notranslate"><span class="pre">index</span></code>. In addition,  the returned values are not a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code>, but instead <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> returns a named tuple data type. As a result, when using <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> accessing the row values needs to be done a bit differently. Remember, a <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Tuple"><span class="xref std std-term">tuple</span></a> is like a list but <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Immutable"><span class="xref std std-term">immutable</span></a> and a “named tuple” is a special kind of tuple object that adds the ability to access the values by name instead of position index. Thus, we can access the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> value in a given row using <code class="docutils literal notranslate"><span class="pre">row.TEMP_F</span></code> (in contrast to how we accessed the value in the example above). We will not work with named tuples in the rest of the book, but more information can be found in the <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.namedtuple">Python documentation for named tuples</a> <a class="footnote-reference brackets" href="#namedtuple" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<p>Let’s see an example of how to use the <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> method.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an empty column for the output values</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 
@@ -672,32 +657,34 @@ document.write(`
 <span class="n">row</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Okay, now we have iterated over our data and updated the temperatures in Celsius to <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code> column by using our <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function. The values look correct as 32 degrees Fahrenheit indeed is 0 Celsius degrees, as can be seen on the second row. We also have the last row of our DataFrame in the code above, which is a named tuple that has been converted to the more familiar dictionary data type using the <code class="docutils literal notranslate"><span class="pre">_asdict()</span></code> method for named tuples.</p>
-<p>Before moving to other more efficient ways to use functions with pandas DataFrames, we should note a few things about the approaches above. We demonstrated use of the <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> method for looping over the values because it is significantly faster than <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> (can be around 100x faster). We also used <code class="docutils literal notranslate"><span class="pre">.at</span></code> to assign the value to the DataFrame because it is designed to access single values more efficiently than <code class="docutils literal notranslate"><span class="pre">.loc</span></code>, which can access also groups of rows and columns. That said, you could have also simply used <code class="docutils literal notranslate"><span class="pre">data.loc[idx,</span> <span class="pre">new_column]</span> <span class="pre">=</span> <span class="pre">celsius</span></code> to achieve the same result as both examples above. It is just slower.</p>
+<p>Okay, now we have iterated over our data, converted the temperatures to degrees Celsius using our <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function, and stored the results in the <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code> column. The values look correct as 32 degrees Fahrenheit indeed is 0 degrees Celsius, which can be seen on the second row. We also have the last row of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> stored in the variable <code class="docutils literal notranslate"><span class="pre">row</span></code> from the code above, which is a named tuple that has been converted to the dictionary data type using the <code class="docutils literal notranslate"><span class="pre">._asdict()</span></code> method for named tuples.</p>
+<p>Before moving to other more efficient ways to use functions with a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, we should note a few things about the approaches above. We demonstrated use of the <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> method for looping over the values because it is significantly faster than <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> (can be around 100 times faster). We also used <code class="docutils literal notranslate"><span class="pre">.at[]</span></code> to assign the value in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> because it is designed to access single values more efficiently than the <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> indexer, which can access groups of rows and columns. That said, you could have also simply used <code class="docutils literal notranslate"><span class="pre">data.loc[idx,</span> <span class="pre">new_column]</span> <span class="pre">=</span> <span class="pre">celsius</span></code> to achieve the same result as both examples above. It is simply slower.</p>
 </section>
-<section id="using-a-function-with-apply">
-<h3>Using a function with apply<a class="headerlink" href="#using-a-function-with-apply" title="Link to this heading">#</a></h3>
-<p>Although using for loop with <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code> can be fairly efficient, pandas DataFrames and Series have a dedicated method called <code class="docutils literal notranslate"><span class="pre">apply()</span></code> for applying functions on columns (or rows). <code class="docutils literal notranslate"><span class="pre">apply()</span></code> is typically faster than <code class="docutils literal notranslate"><span class="pre">itertuples()</span></code>, especially if you have large number of rows, such as in our case. When using <code class="docutils literal notranslate"><span class="pre">apply()</span></code>, we pass the function that we want to use as an argument. Let’s start by applying the function to the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> column that contains the temperature values in Fahrenheit:</p>
+<section id="using-a-function-with-the-apply-method">
+<h3>Using a function with the apply method<a class="headerlink" href="#using-a-function-with-the-apply-method" title="Link to this heading">#</a></h3>
+<p>Although using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> can be fairly efficient, the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> data structures have a dedicated method called <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> for applying functions in columns (or rows). <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> is typically faster than <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code>, especially if you have large number of rows like in our case. When using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>, we pass the function that we want to use as an argument. Let’s start by applying our <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function to the <code class="docutils literal notranslate"><span class="pre">TEMP_F</span></code> column with the temperature values in Fahrenheit.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fahr_to_celsius</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The results look logical. Notice how we passed the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function without using the parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> after the name of the function. When using <code class="docutils literal notranslate"><span class="pre">apply</span></code>, you should always leave out the parentheses from the function that you use. Meaning that you should use <code class="docutils literal notranslate"><span class="pre">apply(fahr_to_celsius)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">apply(fahr_to_celsius())</span></code>. Why? Because the <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method will execute and use the function itself in the background when it operates with the data. If we would pass our function with the parentheses, the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function would actually be executed once before the loop with <code class="docutils literal notranslate"><span class="pre">apply()</span></code> starts (hence becoming unusable), and that is not what we want. Our previous command only returned the Series of temperatures to the screen, but naturally we can also store them permanently into a new column (overwriting the old values):</p>
+<p>The results again look logical. Notice how we passed the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function without using the parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> after the name of the function. When using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>, you should always leave out the parentheses from the function that you use. In other words, you should use <code class="docutils literal notranslate"><span class="pre">.apply(fahr_to_celsius)</span></code> not <code class="docutils literal notranslate"><span class="pre">.apply(fahr_to_celsius())</span></code>. Why? Because the <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> method will execute and use the function itself in the background when it operates with the data. If we would pass our function including the parentheses, the <code class="docutils literal notranslate"><span class="pre">fahr_to_celsius()</span></code> function would actually be executed once before the loop with <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> starts (thus becoming unusable) and that is not what we want.</p>
+<p>Our previous command only returned the <code class="docutils literal notranslate"><span class="pre">Series</span></code> of temperatures to the screen, but naturally we can also store them permanently in a column of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (overwriting the old values).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fahr_to_celsius</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A nice thing with <code class="docutils literal notranslate"><span class="pre">apply()</span></code> is that we can also apply the function on several columns at once. Below, we also sort the values in descending order based on values in <code class="docutils literal notranslate"><span class="pre">MIN</span></code> column to see that applying our function really works:</p>
+<p>A nice thing with <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> is that we can also apply the function on several columns at once. Below, we also sort the values in descending order based on values in the <code class="docutils literal notranslate"><span class="pre">MIN</span></code> column to confirm that applying our function really works.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">]</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fahr_to_celsius</span><span class="p">)</span>
 <span class="n">result</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;MIN&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>You can also directly store the outputs to new columns <code class="docutils literal notranslate"><span class="pre">'TEMP_C'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MIN_C'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MAX_C'</span></code>:</p>
+<p>You can also directly store the outputs to the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> columns <code class="docutils literal notranslate"><span class="pre">TEMP_C</span></code>, <code class="docutils literal notranslate"><span class="pre">MIN_C</span></code>, and <code class="docutils literal notranslate"><span class="pre">MAX_C</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TEMP_F&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX&quot;</span><span class="p">]</span>
-<span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fahr_to_celsius</span><span class="p">)</span>
+<span class="n">newcols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TEMP_C&quot;</span><span class="p">,</span> <span class="s2">&quot;MIN_C&quot;</span><span class="p">,</span> <span class="s2">&quot;MAX_C&quot;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[</span><span class="n">newcols</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fahr_to_celsius</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>In this section, we showed you a few different ways to iterate over rows in pandas and apply functions. The most important thing is that you understand the logic of how loops work and how you can use your own functions to modify the values in a pandas DataFrame. Whenever you need to loop over your data, we recommend using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> as it is typically the most efficient one in terms of execution time. However, remember that in most cases you do not actually need to use loops, but you can do calculations in a “vectorized manner” (which is the fastest way) as we learned previously when doing basic calculations in pandas.</p>
+<p>In this section, we showed you a few different ways to iterate over rows in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and apply functions. The most important thing is that you understand the logic of how loops work and how you can use your own functions to modify the values in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. Whenever you need to loop over your data, we recommend using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> as it is typically the most efficient one in terms of execution time. Remember that in most cases you do not need to use loops. Instead you can do calculations in a “vectorized manner” (which is the fastest way) as we learned previously when doing basic calculations in <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
 </section>
 </section>
 <section id="string-slicing">
@@ -1023,7 +1010,8 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1037,7 +1025,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-functions-with-pandas">Using functions with pandas</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-function">Defining a function</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-by-iterating-over-rows">Using a function by iterating over rows</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-with-apply">Using a function with apply</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-function-with-the-apply-method">Using a function with the apply method</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-slicing">String slicing</a><ul class="nav section-nav flex-column">
@@ -1104,8 +1092,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

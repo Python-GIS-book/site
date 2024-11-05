@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -35,10 +37,11 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -49,6 +52,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -64,19 +68,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -84,7 +77,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -92,8 +84,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -111,7 +103,8 @@
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -139,21 +132,17 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -309,7 +298,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Data overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
 </ul>
 
@@ -433,24 +422,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -474,7 +455,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-raster-data">Characteristics of raster data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-raster-data-in-python">Working with raster data in Python</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-simple-raster-layer-using-numpy">Creating a simple raster layer using <code class="docutils literal notranslate"><span class="pre">numpy</span></code></a></li>
 </ul>
@@ -497,18 +477,7 @@ document.write(`
 <li><p>It is a powerful format that can be used for various spatial and statistical analysis</p></li>
 <li><p>You can perform fast overlays with multiple layers</p></li>
 </ul>
-<section id="characteristics-of-raster-data">
-<h2>Characteristics of raster data<a class="headerlink" href="#characteristics-of-raster-data" title="Link to this heading">#</a></h2>
-<p>Different kind of sensors (e.g. remote sensing instruments or <em><span class="xref std std-term">LIDAR</span></em>) are typically used to capture and collect data about specific aspects of the surface, such as temperature, elevation, or the electromagnetic radiation (light) that the surface reflects. This information can be captured with varying level of detail, depending on the sensor. Many sensors (especially satellite sensors) measure the electromagnetic radiation at specific ranges (i.e. bands) which is why they are called <span class="xref std std-term">Multispectral sensors</span> or <span class="xref std std-term">Hyperspectral sensors</span>. Most typically the raster data produced by these sensors can vary based on their:</p>
-<ul class="simple">
-<li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-resolution"><span class="xref std std-term">spatial resolution</span></a></em>, i.e. the size of a single pixel</p></li>
-<li><p><em><span class="xref std std-term">temporal resolution</span></em>, i.e. how frequently the data is captured from the same area of the Earth</p></li>
-<li><p><em><span class="xref std std-term">spectral resolution</span></em>, i.e. the number and location of spectral bands in the electromagnetic spectrum</p></li>
-<li><p><em><span class="xref std std-term">radiometric resolution</span></em>, i.e. the range of available brightness values (bit depth), usually measured in bits (binary digits)</p></li>
-<li><p><em><span class="xref std std-term">spatial extent</span></em>, i.e. how large area of the world a single image represents</p></li>
-<li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Coordinate-Reference-System"><span class="xref std std-term">coordinate reference system</span></a></em>, i.e. in what CRS the data is represented</p></li>
-</ul>
-</section>
+<p>Different kind of sensors (e.g. remote sensing instruments or <em><span class="xref std std-term">LIDAR</span></em>) are typically used to capture and collect data about specific aspects of the surface, such as temperature, elevation, or the electromagnetic radiation (light) that the surface reflects. This information can be captured with varying level of detail, depending on the sensor. Many sensors (especially satellite sensors) measure the electromagnetic radiation at specific ranges (i.e. bands) which is why they are called <span class="xref std std-term">Multispectral sensors</span> or <span class="xref std std-term">Hyperspectral sensors</span>. In this chapter, we will learn how to work with different types of raster data, starting from a simple 1-band raster data representing different geographic phenomena, such as elevation or temperatures.</p>
 <section id="working-with-raster-data-in-python">
 <h2>Working with raster data in Python<a class="headerlink" href="#working-with-raster-data-in-python" title="Link to this heading">#</a></h2>
 <p>There are a number of libraries that are widely used when working with raster data in Python:</p>
@@ -546,6 +515,7 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<p><em><strong>Figure 7.1.</strong> A simple raster layer representing elevation.</em></p>
 <p>As a result, we have a simple map that represents the elevation of the hill with different colors. The <em><span class="xref std std-term">colormap</span></em> of the visualization was determined using the parameter <code class="docutils literal notranslate"><span class="pre">cmap</span></code>, while the <code class="docutils literal notranslate"><span class="pre">plt.colorbar()</span></code> function was used to add a legend to the right side of the image, and the <code class="docutils literal notranslate"><span class="pre">plt.title()</span></code> was used to add a simple title for the image.</p>
 <p>This example demonstrates a toy example how we can produce a simple raster layer from scratch. However, there are various aspects related to working with GIS raster data that we did not cover here, such as specifying the metadata for this layer. Basically, the data we have here is simply a two-dimensional array (matrix) that does not tell anything about the <em>spatial resolution</em> of the data (i.e. how large each cell is), nor e.g. in which area of the world this data is located (i.e. coordinates) or the <em>coordinate reference system</em> this data is represented in. In the next section, we start working with real raster data and cover more aspects that relate to spatial raster data.</p>
 </section>
@@ -569,7 +539,8 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -578,7 +549,6 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-raster-data">Characteristics of raster data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-raster-data-in-python">Working with raster data in Python</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-simple-raster-layer-using-numpy">Creating a simple raster layer using <code class="docutils literal notranslate"><span class="pre">numpy</span></code></a></li>
 </ul>
@@ -629,8 +599,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

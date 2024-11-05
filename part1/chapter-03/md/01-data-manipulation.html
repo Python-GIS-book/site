@@ -16,29 +16,32 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -51,6 +54,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -66,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -86,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -94,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -113,7 +105,8 @@
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -141,21 +134,17 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -311,7 +300,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Data overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
 </ul>
 
@@ -435,24 +424,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -498,8 +479,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-missing-data">Dealing with missing data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-type-conversions">Data type conversions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-data">Sorting data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-joins-combining-dataframes-based-on-a-common-key">Table joins: Combining DataFrames based on a common key</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-logic-of-a-table-join">The basic logic of a table join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-join-combining-dataframes-using-a-common-key">Table join: Combining DataFrames using a common key</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-logic-of-a-table-join">Basic logic of a table join</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table-join-using-pandas-merge">Table join using pandas <code class="docutils literal notranslate"><span class="pre">.merge()</span></code></a></li>
 </ul>
 </li>
@@ -520,9 +501,11 @@ document.write(`
 <h1>Common tabular operations in pandas<a class="headerlink" href="#common-tabular-operations-in-pandas" title="Link to this heading">#</a></h1>
 <p>We have new learned the basics of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> data structures (i.e., <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>) and you should be familiar with some methods for loading and exploring <code class="docutils literal notranslate"><span class="pre">pandas</span></code> data. Next, we will continue exploring the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> data analysis functionalities, and see how it can be used for data manipulation, conducting simple calculations, and making selections based on specific criteria.</p>
 <!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="basic-calculations">
 <h2>Basic calculations<a class="headerlink" href="#basic-calculations" title="Link to this heading">#</a></h2>
 <p>One of the most common things to do in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is to create new columns based on calculations between different variables (columns). Next, we will learn how to do this using the same input data (<code class="docutils literal notranslate"><span class="pre">data/kumpula-summer-2024.txt</span></code>) as in the previous section. We will first load it using the <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> method. Remember, that the first 8 lines contains the metadata which we will skip. This time, let’s store the filepath as a separate variable in order to make the code more readable and easier to change afterwards (a good practice).</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># Define file path:</span>
@@ -618,7 +601,7 @@ document.write(`
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 <section id="question-3-5">
 <h4>Question 3.5<a class="headerlink" href="#question-3-5" title="Link to this heading">#</a></h4>
-<p>Calculate the mean temperature (in Celsius) for the last seven days of August 2024. Do the selection using the row index values.</p>
+<p>Calculate the mean temperature for the last seven days of August 2024. Do the selection using the row index values.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
 </pre></div>
@@ -648,7 +631,7 @@ document.write(`
 </div>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>Sometimes it is enough to access a single value in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> directly. In this case, we can use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.at.html"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">.at[]</span></code> indexer</a> <a class="footnote-reference brackets" href="#at" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> instead of <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code>.
-Let’s select the temperature (column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>) on the first row (index <code class="docutils literal notranslate"><span class="pre">0</span></code>) of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+Let’s select the temperature (column <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>) on the first row (index <code class="docutils literal notranslate"><span class="pre">0</span></code>) of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
 </pre></div>
@@ -748,7 +731,7 @@ Let’s select the temperature (column <code class="docutils literal notranslate
 </pre></div>
 </div>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-<p>As can be seen, now the index values goes from 0 to 47. Resetting the index has now also unlinked the <code class="docutils literal notranslate"><span class="pre">warm_temps</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> from <code class="docutils literal notranslate"><span class="pre">data</span></code>, meaning that it is not a view anymore but an independent <code class="docutils literal notranslate"><span class="pre">pandas</span></code> object. When making selections, it is quite typical that <code class="docutils literal notranslate"><span class="pre">pandas</span></code> might give you warnings if you modify the selected data without first resetting the index or making a copy of the selected data. To demonstrate this, we will make the selection again and create a new column indicating days in which the temperature was “hot” (maximum temperature greater than 25 degrees Celsius).</p>
+<p>As can be seen, now the index values goes from 0 to 26. Resetting the index has now also unlinked the <code class="docutils literal notranslate"><span class="pre">warm_temps</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> from <code class="docutils literal notranslate"><span class="pre">data</span></code>, meaning that it is not a view anymore but an independent <code class="docutils literal notranslate"><span class="pre">pandas</span></code> object. When making selections, it is quite typical that <code class="docutils literal notranslate"><span class="pre">pandas</span></code> might give you warnings if you modify the selected data without first resetting the index or making a copy of the selected data. To demonstrate this, we will make the selection again and create a new column indicating days in which the temperature was “hot” (maximum temperature greater than 25 degrees Celsius).</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20240715</span><span class="p">)]</span>
 <span class="n">warm_temps</span><span class="p">[</span><span class="s2">&quot;HOT_TEMP&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">warm_temps</span><span class="p">[</span><span class="s2">&quot;MAX&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">25</span>
@@ -770,7 +753,7 @@ Let’s select the temperature (column <code class="docutils literal notranslate
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 <section id="question-3-6">
 <h4>Question 3.6<a class="headerlink" href="#question-3-6" title="Link to this heading">#</a></h4>
-<p>Calculate the mean temperature (in Celsius) for the last seven days of August 2024 again. This time you should select the rows based on a condition for the <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column.</p>
+<p>Calculate the mean temperature for the last seven days of August 2024 again. This time you should select the rows based on a condition for the <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to enter your solution.</span>
 </pre></div>
@@ -816,7 +799,7 @@ Let’s select the temperature (column <code class="docutils literal notranslate
 </section>
 <section id="dealing-with-missing-data">
 <h2>Dealing with missing data<a class="headerlink" href="#dealing-with-missing-data" title="Link to this heading">#</a></h2>
-<p>As you may have noticed by now, we have several missing values for the temperature minimum, maximum, and average columns (<code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>). These missing values appear as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (not-a-number). Having missing data in your data file is quite common and typically you want to deal with these values somehow. Common procedures to deal with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values are to either remove them from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> or replace (fill) them with some other value. In <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, both of these options are easy to do. Let’s first start by checking whether the data we are using has and <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values.</p>
+<p>As you may have noticed by now, we have several missing values for the temperature minimum, maximum, and average columns (<code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>). These missing values appear as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (not a number). Having missing data in your data file is quite common and typically you want to deal with these values somehow. Common procedures to deal with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values are to either remove them from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> or replace (fill) them with some other value. In <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, both of these options are easy to do. Let’s first start by checking whether the data we are using has and <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm_temps</span>
 </pre></div>
@@ -928,36 +911,38 @@ Let’s select the temperature (column <code class="docutils literal notranslate
 <!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
-<section id="table-joins-combining-dataframes-based-on-a-common-key">
-<h2>Table joins: Combining DataFrames based on a common key<a class="headerlink" href="#table-joins-combining-dataframes-based-on-a-common-key" title="Link to this heading">#</a></h2>
+<section id="table-join-combining-dataframes-using-a-common-key">
+<h2>Table join: Combining DataFrames using a common key<a class="headerlink" href="#table-join-combining-dataframes-using-a-common-key" title="Link to this heading">#</a></h2>
 <!-- #endregion -->
-<section id="the-basic-logic-of-a-table-join">
-<h3>The basic logic of a table join<a class="headerlink" href="#the-basic-logic-of-a-table-join" title="Link to this heading">#</a></h3>
-<p>Joining data between two or several DataFrames is a common task when doing data anaysis. The minimum requirement for being able to combine data between two (or more) DataFrames (i.e. <em>tables</em>), is to have at least one common attribute (called <em>key</em>) that has identical values in both DataFrames. Figure 3.4 illustrates this logic: we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier. The common <code class="docutils literal notranslate"><span class="pre">key</span></code> in this case is the time information which is in column <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> in the left DataFrame and <code class="docutils literal notranslate"><span class="pre">DATE</span></code> column in the right DataFrame accordingly. The column names of the keys can be different (as in our case), but the actual values stored in these columns should correspond to each other, so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example.</p>
-<p><img alt="Figure 3.4. Joining precipitation data from the right DataFrame to the left based on common key." src="../../../_images/Table_join_logic.png" /></p>
+<section id="basic-logic-of-a-table-join">
+<h3>Basic logic of a table join<a class="headerlink" href="#basic-logic-of-a-table-join" title="Link to this heading">#</a></h3>
+<p>Joining data between two or more <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects is a common task when doing data analysis. The minimum requirement for being able to combine data between two (or more) <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects (or tables) is to have at least one common attribute (called a key) that is identical in both <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects. Figure 3.4 illustrates the logic of a table join. In this case, we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier in this chapter. The common key in this case is the time information in the <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code> column in the left <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and the <code class="docutils literal notranslate"><span class="pre">Date</span></code> column in the right <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. The column names of the keys can be different (as in our case), but the values stored in these columns should correspond to each other so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example.</p>
+<p><img alt="Figure 3.4. Joining precipitation data from the right DataFrame to the left based on common key." src="part1/chapter-03/img/Table-join.png" /></p>
 <p><em><strong>Figure 3.4</strong>. Joining precipitation data from the right DataFrame to the left based on common key.</em></p>
 </section>
 <section id="table-join-using-pandas-merge">
 <h3>Table join using pandas <code class="docutils literal notranslate"><span class="pre">.merge()</span></code><a class="headerlink" href="#table-join-using-pandas-merge" title="Link to this heading">#</a></h3>
-<p>In the following, we first read the precipitation data from Kumpula, and then join this data with the DataFrame containing the average temperature data. Merging two DataFrames together based on a common key (or multiple keys) can be done easily with pandas using the <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> -function. The column which represents the key can be specified with parameter <code class="docutils literal notranslate"><span class="pre">on</span></code>, if the key column is identical in both DataFrames. In our case, the columns containing the common values between the DataFrames are named differently. Hence, we need to specify separately the key for the left DataFrame using parameter <code class="docutils literal notranslate"><span class="pre">left_on</span></code>, and parameter <code class="docutils literal notranslate"><span class="pre">right_on</span></code> for the right DataFrame accordingly.</p>
+<p>In the following example, we first read some precipitation data for the Kumpula weather station and then join this data with the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> containing the average temperature data we have worked with. Merging two <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects together based on a common key (or multiple keys) can be done easily with <code class="docutils literal notranslate"><span class="pre">pandas</span></code> using the <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> function. The column that represents the key can be specified using the <code class="docutils literal notranslate"><span class="pre">on</span></code> parameter if the key column is identical in both <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects. In our case, the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> columns containing common values have different names. Thus, we need to separately specify the key for the left <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> using the parameter <code class="docutils literal notranslate"><span class="pre">left_on</span></code> and use the parameter <code class="docutils literal notranslate"><span class="pre">right_on</span></code> for the right <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read precipitation data and show first rows</span>
-<span class="n">rainfall</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/2902781.csv&quot;</span><span class="p">)</span>
-<span class="n">rainfall</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">precip</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/kumpula-temps-precip-summer-2024.txt&quot;</span><span class="p">)</span>
+<span class="n">precip</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a table join</span>
-<span class="n">join</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">rainfall</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;DATE&quot;</span><span class="p">)</span>
+<span class="n">join</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">precip</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
 <span class="n">join</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Now we have merged all the information from the right DataFrame into the left one and stored the result into variable <code class="docutils literal notranslate"><span class="pre">join</span></code>. By doing this, we can e.g. analyze the relationship between the daily average temperature and precipitation, to understand whether the temperature is lower when it rains. Currently, the <code class="docutils literal notranslate"><span class="pre">join</span></code> DataFrame contains many variables that are not necessarily useful for us. To make the output more concise, a useful trick to do when joining is to limit the number of columns that will be kept from the right DataFrame. This can be done by chaining a simple column selection while doing the merge as shown next. When doing this, it is important to remember that the <code class="docutils literal notranslate"><span class="pre">key</span></code> column on the right DataFrame needs to be part of the selection for the table join to work.</p>
+<p>Now we have merged all the information from the right <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> into the left one and stored the result in variable <code class="docutils literal notranslate"><span class="pre">join</span></code>. By doing this, we can analyze the relationship between the daily average temperature and precipitation, for example, to understand whether the temperature is lower when it rains. Currently, however, the <code class="docutils literal notranslate"><span class="pre">join</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> also contains some variables that are not necessarily useful for us. A useful trick to do when joining is to limit the number of columns that will be kept from the right <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. This can be done by chaining a simple column selection while doing the merge as shown next. When doing this, it is important to remember that the <code class="docutils literal notranslate"><span class="pre">key</span></code> column on the right <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> must be part of the selection for the table join to work.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make another join but only keep the attribute of interest</span>
-<span class="n">join2</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">rainfall</span><span class="p">[[</span><span class="s2">&quot;DATE&quot;</span><span class="p">,</span> <span class="s2">&quot;PRCP&quot;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;DATE&quot;</span><span class="p">)</span>
+<span class="n">join2</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">precip</span><span class="p">[[</span><span class="s2">&quot;Date&quot;</span><span class="p">,</span> <span class="s2">&quot;Precipitation amount [mm]&quot;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;YEARMODA&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span>
+<span class="p">)</span>
 <span class="n">join2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>As can be seen, now only the column <code class="docutils literal notranslate"><span class="pre">DATE</span></code> and the attribute of interest <code class="docutils literal notranslate"><span class="pre">PRCP</span></code> were joined and kept in the output from the right DataFrame. Similar trick can also be applied to the left DataFrame by adding the selection before the <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> call if you want to reduce the number of columns on the result.</p>
-<p>In our case, doing the table join was fairly straightforward because we had only one unique record per day in both DataFrames. However, in some cases you might have multiple records on either one of the DataFrames (e.g. hourly observations vs daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled e.g. by aggregating the hourly data to a daily average. You can learn more about these aggregation techniques in the following sections.</p>
+<p>As can be seen in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> above, now only the column <code class="docutils literal notranslate"><span class="pre">Date</span></code> and the attribute of interest <code class="docutils literal notranslate"><span class="pre">Precipitation</span> <span class="pre">amount</span> <span class="pre">[mm]</span></code> were joined and kept in the output from the right <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. A similar trick can also be applied to the left <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> by adding the selection before the <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> call.</p>
+<p>In our case, doing the table join was fairly straightforward because we had only one unique record per day in both <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects. However, in some cases you might have multiple records in one or the other of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects (e.g., hourly observations vs. daily observations). This can in specific cases cause issues (not always!), incorrect analysis results, and other undesired consequences if not taken into account properly. This kind of mismatch in number of records per table can be handled by first aggregating the hourly data to a daily average, for example. You can learn more about these aggregation techniques in the following sections.</p>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
 </section>
@@ -1008,7 +993,8 @@ Let’s select the temperature (column <code class="docutils literal notranslate
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1039,8 +1025,8 @@ Let’s select the temperature (column <code class="docutils literal notranslate
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-missing-data">Dealing with missing data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-type-conversions">Data type conversions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-data">Sorting data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-joins-combining-dataframes-based-on-a-common-key">Table joins: Combining DataFrames based on a common key</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-logic-of-a-table-join">The basic logic of a table join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-join-combining-dataframes-using-a-common-key">Table join: Combining DataFrames using a common key</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-logic-of-a-table-join">Basic logic of a table join</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table-join-using-pandas-merge">Table join using pandas <code class="docutils literal notranslate"><span class="pre">.merge()</span></code></a></li>
 </ul>
 </li>
@@ -1093,8 +1079,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>
