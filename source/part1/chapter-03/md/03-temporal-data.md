@@ -133,7 +133,7 @@ dt
 
 ## Parsing temporal components from datetime object
 
-There are few useful tricks that you can do with the `datetime` objects. It is for example possible to parse specific temporal components directly from the `datetime` object. You can for example access the `.year`, `.month`, `.day`, `.hour`, `.minute` and `.second` attributes very easily that will return the value of the temporal element as an integer number:
+There are few useful tricks that you can use with the `datetime` objects. It is for example possible to parse specific temporal components directly from the `datetime` object. You can, for example, access the `.year`, `.month`, `.day`, `.hour`, `.minute` and `.second` attributes easily, which will return the value of the temporal element as an integer number.
 
 ```python
 dt = datetime(2020, 12, 22, 17, 0, 30)
@@ -143,92 +143,100 @@ print(dt.day)
 print(dt.hour)
 ```
 
-In addition, you can parse for example the day of week by using `weekday()` function or parse only the date components from the `datetime` object by using `date()` function:
+In addition, you can parse the day of week, for example, using the `.weekday()` function or parse only the date components from the `datetime` object by using the `.date()` function.
 
 ```python
 print(dt.weekday())
 print(dt.date())
 ```
 
-By using `strftime()` function, you can use the same directives from Table 2.1 to construct and convert the `datetime` object to any text representation of the date and time. Next, we will see how this function can be used quite nicely for creating an easily understandable text based on our date and time information:
+By using the `.strftime()` function, you can use the same directives from Table 2.1 to construct and convert the `datetime` object to any text representation of the date and time. Below you can see how this function can be used to create an easily understandable date and time text string based on our date and time information.
 
 ```python
-custom_format = "%d %B %Y is %A. The time is %I:%M %p."
+custom_format = "%d %B %Y is a %A. The time is %I:%M %p."
 datetime.strftime(dt, custom_format)
 ```
 
 ## Working with temporal data in pandas
 
-After learning the basics of how the temporal data can be represented as `datetime` objects, we can continue and see how temporal data can be manipulated in pandas. Pandas is extremely powerful and flexible what comes to working with temporal data. For instance, all the simple tricks that we saw earlier with `datetime` can be done also with pandas. When doing data analysis with pandas, it is typical that instead of dealing with single time observations, you actually work with time series data, such as the hourly temperature values that we analyzed in the previous section. Pandas supports many useful functionalities related to parsing, manipulating and aggregating time series data. Let's start exploring the temporal capabilities of pandas by reading the hourly temperature observations from the same CSV file in a similar manner as we did previously. As a reminder, this is how the data look like:
+After learning the basics of how temporal data can be represented as `datetime` objects, we can continue and see how temporal data can be manipulated in `pandas`. `pandas` is extremely powerful and flexible when it comes to working with temporal data. For instance, all of the simple tricks that we saw earlier with `datetime` can also be done using `pandas`. When doing data analysis with `pandas`, instead of dealing with single time observations, you often work with time series data such as daily temperature values that we analyzed in the previous section. `pandas` supports many useful functionalities related to parsing, manipulating, and aggregating time series data. Let's start exploring the temporal capabilities of `pandas` by reading daily temperature observations from one of the data files we used in the previous section and following the earlier approach. As a reminder, this the format of the file data:
 
-``` 
-  USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW  ...
-029440 99999 190601010600 090   7 *** *** OVC * * *  0.0 ** ** ** ** **  ...
-029440 99999 190601011300 ***   0 *** *** OVC * * *  0.0 ** ** ** ** **  ...
-029440 99999 190601012000 ***   0 *** *** OVC * * *  0.0 ** ** ** ** **  ...
-029440 99999 190601020600 ***   0 *** *** CLR * * *  0.0 ** ** ** ** **  ...
+```
+STATION           ELEVATION  LATITUDE   LONGITUDE  DATE     PRCP     SNWD...
+----------------- ---------- ---------- ---------- -------- -------- ----...
+GHCND:FI000007501        179    67.3678    26.6328 19080101 0.00     -999...
+GHCND:FI000007501        179    67.3678    26.6328 19080102 0.00     -999...
+GHCND:FI000007501        179    67.3678    26.6328 19080103 0.12     -999...
 ```
 
-The timestamps stored in the column `YR--MODAHRMN` can be automatically converted to `datetime` objects when reading the data by using `parse_dates` parameter and providing a list of column names that should be parsed to `datetime`. We also specify with `usecols` parameter that we only want to keep three columns from the file (station number, time information and temperature):
+You may notice a few things here: First, there are some additional data columns that were not present in the `helsinki-kumpula.txt` file we had worked with most in the previous section. We will ignore these here, but it worth noting their presence. We can specify with the parameter `usecols` that we only want to keep four columns from the file (station number, date information, and temperature). Second, there are timestamps stored in the `DATE` column. These can be automatically converted to `datetime` objects when reading the data by using the `parse_dates` parameter and providing a list of column names that should be parsed by `datetime`.
 
 ```python
 import pandas as pd
 
 # Read the data and parse dates
-fp = "data/029820.txt"
+fp = "data/finnish-stations/sodankyla-aws.txt"
 data = pd.read_csv(
     fp,
-    delim_whitespace=True,
-    na_values=["*", "**", "***", "****", "*****", "******"],
-    usecols=["USAF", "YR--MODAHRMN", "TEMP"],
-    parse_dates=["YR--MODAHRMN"],
+    sep=r"\s+",
+    skiprows=[1],
+    na_values=["-9999"],
+    usecols=["STATION", "DATE", "TMAX", "TMIN"],
+    parse_dates=["DATE"],
 )
+
 # Rename the columns
-new_cols = ["STATION_NUMBER", "TIME", "TEMP_F"]
-data.columns = new_cols
+new_names = {
+    "STATION": "STATION_ID",
+    "TMAX": "TMAX_F",
+    "TMIN": "TMIN_F",
+}
+data = data.rename(columns=new_names)
 data.head()
 ```
 
-As we can see, the values in `TIME` column were automatically parsed into a format that are much easier to read than the original ones. When using pandas datetime parsing functionalities, the timestamps can be represented in different formats such as text in ISO 8601 format or Unix times (seconds since 1.1.1970). Let's take a look how the values in our `TIME` column look like:
+As we can see, the values in `DATE` column were automatically parsed into a format that is easier to read than the original one. When using `pandas` `datetime` parsing, the timestamps can be represented in different formats such as text in the ISO 8601 format or Unix times. Let's take a look at the values in our `DATE` column.
 
 ```python
-data["TIME"].head()
+data["DATE"].head()
 ```
 
-As we can see, pandas actually converted the timestamp values into a time series having specific data type called `datetime64`. The individual value of the time series is a specific pandas object called `Timestamp` that is a similar object as the Python's regular `datetime` object that we saw previously: 
+As we can see, `pandas` converted the timestamp values into a time series having a specific data type called `datetime64`. The individual value of the time series is a specific `pandas` object called a `Timestamp` that is similar to Python's regular `datetime` object that we saw previously.
 
 ```python
-data.loc[0, "TIME"]
+data.loc[0, "DATE"]
 ```
 
-The `TimeStamp` object contains all the same attributes as the `datetime` object, but in addition, it has many useful attributes and functions that can be used in a vectorized manner. For instance, you can parse different temporal components from the time series stored in a column very efficiently. Let's parse the temporal components from `TIME` into columns `YEAR`, `MONTH`, `DAY` and `HOUR`: 
+The `TimeStamp` object contains all the same attributes as the `datetime` object, but in addition it has many useful attributes and functions that can be used in a vectorized manner. For instance, you can parse different temporal components from the time series stored in a column very efficiently. Let's parse the temporal components from `DATE` into columns `YEAR`, `MONTH`, `DAY` and `HOUR`.
 
 ```python
-data["YEAR"] = data["TIME"].dt.year
-data["MONTH"] = data["TIME"].dt.month
-data["DAY"] = data["TIME"].dt.day
-data["HOUR"] = data["TIME"].dt.hour
+data["YEAR"] = data["DATE"].dt.year
+data["MONTH"] = data["DATE"].dt.month
+data["DAY"] = data["DATE"].dt.day
+data["HOUR"] = data["DATE"].dt.hour
 data.head()
 ```
 
-Now the new columns have corresponding integer values for each temporal component. We were able to access all the temporal attributes by using the `.dt` accessor that is available for all `Series` having `datetime64` data type. We can also combine the datetime functionalities with other methods from pandas. For example, we can check that we have observations from 69 years in total: 
+Now the new columns have corresponding integer values for each temporal component. We were able to access all the temporal attributes by using the `.dt` accessor that is available for all `Series` having the `datetime64` data type. This is perhaps also a good time to note that when reading in dates that lack time data (hours, minutes, and seconds), the missing times will be filled in as midnight on the associated date. For example, the `Timestamp` we saw above for January 1st, 1908 had assigned a time as follows: `Timestamp('1908-01-01 00:00:00')`.
+
+We can also combine the `datetime` functionalities with other methods from `pandas`. For example, we can check that we have observations from 117 years in total.
 
 ```python
-data["TIME"].dt.year.nunique()
+data["DATE"].dt.year.nunique()
 ```
 
 ### Handling time zones in pandas
 
 
-When reading time series data to pandas as we did previously, the timestamp objects are represented without time zone information. However, it is straighforward to attach time zone information to a Series with Timestamp objects by using a method called `tz_localize()`. When manipulating the data based on time information in pandas, the first step that you typically do, is to set a *{term}`DatetimeIndex`* for you DataFrame (here based on column 'TIME') with `set_index()` method. Next, we will set the index and specify appropriate time zone for our data (*Europe/Helsinki*). We will also specify the `nonexistent` parameter as "shift_forward", due to the fact that when the clocks are adjusted when changing from winter time to summer time, there is literally one non-existing hour during the night. With this parameter we tell pandas that this is okay, and we just want to shift the time forward (by an hour in most cases) in case there are such "non-existing" time observations. With `ambiguous` parameter, we tell pandas that when adjusting the clocks backwards (moving from summer time to winter time), the observations having ambigous times (e.g. duplicate timestamps due to Daylight Saving Time) are set as `NaT` (Not-a-Time). Notice that it is up to you to decide what is appropriate way of handling such cases (there are also other options for this parameter, such as "infer"):  
+When reading time series data with `pandas` as we did previously, the `Timestamp` objects are represented without time zone information. However, it is straightforward to attach time zone information to a `Series` with `Timestamp` objects using a method called `.tz_localize()`. When manipulating the data based on time information in `pandas`, the first step  is to specify a *{term}`DatetimeIndex`* for your `DataFrame` (here based on the `DATE` column) with the `.set_index()` method. Next, we can set the index and specify an appropriate time zone for our data (Europe/Helsinki). We can also specify the `nonexistent` parameter as "shift_forward", due to the fact that when the clocks are adjusted when changing from winter time to summer time there is literally one hour during the night that does not exist. With this parameter we tell `pandas` that this is OK, and we just want to shift the time forward (by an hour in most cases) in case there are such "non-existing" time observations. With the `ambiguous` parameter, we tell `pandas` that when adjusting the clocks backwards (moving from summer time to winter time), the observations having ambiguous times (e.g., duplicate timestamps due to DST) are set to `NaT` (Not-a-Time). Notice that it is up to you to decide the appropriate way for handling such cases (there are also other options for the `ambiguous` parameter such as "infer").
 
 ```python
-data = data.set_index("TIME")
+data = data.set_index("DATE")
 data = data.tz_localize("Europe/Helsinki", nonexistent="shift_forward", ambiguous="NaT")
 data.tail()
 ```
 
-Now the TIME column is set as our index and it was moved to the left and replaced the original sequantial numbers. Notice that the `TIME` column is no longer part of the columns in our DataFrame (we will later see how to get it back as a column). Also the time zone information was attached to the Timestamp objects as can be seen by the five last characters showing `+03:00`. From this information we can see that the time zone in Finland is +3 hours at the given date (summer time). We can easily access the values in the index by calling it. Let's check the first and last values of `data.index` and its data type.
+Now the `DATE` column has been set as our index and it was moved to the left and replaced the original sequential numbers. Notice that the `DATE` column is no longer part of the columns in our `DataFrame` (we will later see how to restore it as a regular column). Also, the time zone information has been attached to the `Timestamp` objects as can be seen by the five last characters showing `+03:00`. From this information we can see that the time zone in Finland is +3 hours for the given dates (i.e., summer time). We can easily access the index values by calling it. Let's check the first and last values of `data.index` and its data type.
 
 ```python
 data.index[0]
@@ -242,171 +250,179 @@ data.index[-1]
 type(data.index)
 ```
 
-As we can see, the index is now a `DatetimeIndex` which is essentially an array consisting of `Timestamp` objects armed with all the attributes and methods that we have seen in the previous examples. In addition, our array has time zone specified as "Europe/Helsinki". Hint: If you want to know the available time zones, you can access them by `from pytz import all_timezones` which imports them into the variable `all_timezones` as a list. 
+As we can see, the index is now a `DatetimeIndex`, which is essentially an array of `Timestamp` objects armed with all the attributes and methods that we have seen in the previous examples. In addition, our index has the time zone specified as "Europe/Helsinki". Tip: If you want to know which time zones are available, you can access them using `from pytz import all_timezones`, which stores all available time zones as a "lazy list" in the variable `all_timezones`.
 
-There are a couple of important notions that we can make from the data in this array. Firstly, the Timestamps in the index from the year 1906 seem to have a quite odd time zone information attached to them (+01:40), which differs from the offset of the last observations (+03:00) by an hour and twenty minutes. This might seem a bit strange, although everything is as it should, and a couple of international conventions regarding time explain these differences. First explanation relates to a fact that representing local time following time zone specification as an offset from UTC is merely a contract between countries targeted to standardize the representation of time in different parts of the world. But as with any international contract, the standardization process typically happens at different times in different countries, and it is not unheard of to make changes to these agreements. An example of such a change can be witnessed here, as Finland changed its time zone from Helsinki Mean Time (with +01:40 offset from UTC) to Eastern European Time (with +02:00 from UTC) in May 1st 1921. Hence, all timestamps recorded before the aforementioned date have a somewhat unusual offset from UTC (100 minutes). Similar special arrangements have been quite common in the history, so it is good to be careful and aware of these situations whenever working with historical time series. Second important convention relates to the Daylight Saving Time (DST), which was introduced in Finland in 1981, and is the reason why the last values in our DatetimeIndex have an offset of +03:00 (summer time) instead of +02:00. As you might guess, all these international practices and contracts can make working with date and time information quite tricky. Luckily, pandas (and the underlying pytz library) handles these things very well, and we do not need to worry too much about the international time convensions.     
+Looking at the `Timestamp` values, we can see that there are some interesting things in our date index. First, the `Timestamp` objects in the index range from the year 1908 seem to have unusual time zone information attached to them (+01:40), which differs from the offset of the last observations (+03:00) by an hour and twenty minutes. This might seem a bit strange, although everything is as it should be. This difference relates to the international time standards. Representing local time using a time zone specification as an offset from UTC is merely a contract between countries that aims to standardize the representation of time in different parts of the world. But as with any international contract, the standardization process can happen at different times in different countries, and it is not unheard of to make changes to these agreements. An example of such a change can be witnessed here, as Finland changed its time zone from Helsinki Mean Time (with +01:40 offset from UTC) to Eastern European Time (with +02:00 from UTC) on May 1st, 1921. Hence, all timestamps recorded before the aforementioned date have a somewhat unusual offset from UTC (100 minutes). Similar special arrangements have been quite common in history, so it is good to be careful and aware of these situations whenever working with historical time series. Another important convention relates to DST, which was introduced in Finland in 1981 and is the reason why the last values in our `DatetimeIndex` have an offset of +03:00 (summer time) instead of +02:00. As you might guess, all these international practices and contracts can make working with date and time information quite tricky. Luckily, `pandas` (and the underlying `pytz` library) handles these things very well and we do not need to worry too much about the international time conventions.     
 
-In some occasions, you might want to convert your time series data from one time zone to another. If you for example, would like to understand what the time was in New York when these weather observations were recorded, you could convert the time information easily with `.dt.tz_convert()` function. Before making the conversion between the time zones, we need to return the TIME Series from the index back to a normal pandas column by using `.reset_index()` method that returns the `TIME` column back to DataFrame as a normal column. When manipulating time series, it is quite typical to set a specific column as an index for the DataFrame and then swap it back to a "normal" column for further manipulation, as in the following: 
+On some occasions, you might want to convert your time series data from one time zone to another. If you, for example, would like to understand what the time was in New York when these weather observations were recorded, you could convert the time information easily using the `.dt.tz_convert()` function. Before making the conversion between the time zones, we need to return the `DATE` `Series` from the index back to a normal `pandas` column using the `.reset_index()` method. This method will restore the `DATE` column in the `DataFrame` as a normal column. When manipulating time series, it is quite typical to set a specific column as an index for the `DataFrame` and then swap it back to a "normal" column for further manipulation as in the following.
 
 ```python
-# 'TIME' column is returned back as a normal column
+# 'DATE' column is returned back as a normal column
 data = data.reset_index()
-data["NY_TIME"] = data["TIME"].dt.tz_convert("US/Eastern")
+data["NY_DATE"] = data["DATE"].dt.tz_convert("US/Eastern")
 print(data.head())
 ```
 
-Now we can see, that the timestamps were converted to represent the times in US/Eastern time zone and stored to the NY_TIME column. For example the first observation in our data that was recorded at 6 AM 1st of January in 1906 was correctly converted to a value from the last day of previous year at 11:20 PM (`1905-12-31 23:20`). This functionality can be very useful when working with temporal data from different parts of the world. Quite often the data collected from different global services (such as tweets collected from Twitter) store the information as UTC values. Hence, it is up to the user to parse the correct local time for tweets posted in different parts of the world. Using pandas for doing these kind of manipulation with the temporal data is extremely handy and efficient. In case your data is already represented in different timezones, pandas makes your life easy because timestamps are stored under the hood always in UTC. This means that it is straightforward to do operations between the two time series without any additional timezone conversions. We can for example do simple calculations between two DataFrames that are represented in different timezones:  
+Now we can see that the timestamps were converted to represent the times in the US/Eastern time zone and stored in the `NY_TIME` column. For example, the first observation in our data recorded at midnight on the 1st of January in 1908 was correctly converted to a value from the last day of previous year at 5:20 PM (`1907-12-31 17:20`). This functionality can be very useful when working with temporal data from different parts of the world. Quite often the data collected from different global services (such as tweets collected from Twitter/X) store date information as UTC values. Hence, it is up to the user to select the correct local time for tweets posted in different parts of the world. Using `pandas` for doing these kinds of manipulations with temporal data is extremely handy and efficient. In case your data are already stored with a different timezone, `pandas` makes your life easy because timestamps are always stored in UTC under the hood. This means that it is straightforward to do operations between the two time series without any additional timezone conversions. We can, for example, do simple calculations between two `DataFrame` objects with dates recorded in different timezones.
 
 ```python
-sample1 = data[["TIME", "TEMP_F"]].head()
-sample1 = sample1.set_index("TIME")
+sample1 = data[["DATE", "TMAX_F"]].head()
+sample1 = sample1.set_index("DATE")
 sample1
 ```
 
 ```python
-sample2 = data[["NY_TIME", "TEMP_F"]].head()
-sample2 = sample2.set_index("NY_TIME")
+sample2 = data[["NY_DATE", "TMAX_F"]].head()
+sample2 = sample2.set_index("NY_DATE")
 sample2
 ```
 
-Now we have the same temperature values in both DataFrames but these observations are represented in different time zones. Now, we can for instance sum up these temperatures, which works because the time of the observations matches:
+Now we have the same temperature values in both `DataFrame` objects but these observations are stored with different time zones. At this point, we could, for instance, sum up these temperatures, which works because the time of the observations matches.
 
 ```python
-sample1["TEMP_F"] + sample2["TEMP_F"]
+sample1["TMAX_F"] + sample2["TMAX_F"]
 ```
 
-As you can see, pandas automatically converted the temporal information to UTC timezone, and the temperature values were summed up correctly.
+As you can see, `pandas` automatically converted the temporal information to the UTC timezone and the temperature values were summed correctly.
 
 
-## Selecting data based on DatetimeIndex
+## Selecting data based on a DatetimeIndex
 
 
-In Chapter 3.3, we saw how to select observations using simple string manipulation operations applied to the timestamp. Although this worked quite well for our specific case, it is a rather glumpsy and inflexible approach to work with temporal information. A much better approach, is to take advantage of the `datetime` objects stored in the time series. Let's again first set the `TIME` column as index for our DataFrame by using the method `set_index()`:
+In Chapter 3.3, we saw how to select observations using simple string manipulation operations applied to the timestamp. Although this worked quite well for our specific case, it is a rather clumsy and inflexible approach to work with temporal information. A much better approach is to take advantage of the `datetime` objects stored in the time series. Let's again first set the `DATE` column as the index for our `DataFrame` using the `.set_index()` method.
 
 ```python
-fp = "data/029820.txt"
+fp = "data/finnish-stations/sodankyla-aws.txt"
 data = pd.read_csv(
     fp,
-    delim_whitespace=True,
-    na_values=["*", "**", "***", "****", "*****", "******"],
-    usecols=["USAF", "YR--MODAHRMN", "TEMP"],
-    parse_dates=["YR--MODAHRMN"],
+    sep=r"\s+",
+    skiprows=[1],
+    na_values=["-9999"],
+    usecols=["STATION", "DATE", "TMAX", "TMIN"],
+    parse_dates=["DATE"],
 )
-# Rename the columns
-new_cols = ["STATION_NUMBER", "TIME", "TEMP_F"]
-data.columns = new_cols
 
-# Set TIME as index
-data = data.set_index("TIME")
+# Rename the columns
+new_names = {
+    "STATION": "STATION_ID",
+    "TMAX": "TMAX_F",
+    "TMIN": "TMIN_F",
+}
+data = data.rename(columns=new_names)
+
+# Set DATE as index
+data = data.set_index("DATE")
 data.head(2)
 ```
 
-Now as we have equipped our DataFrame with *DatetimeIndex*, it is easy to filter the data based on specific criteria and e.g. select all observations that have been recorded in specific months of 2019. To do this, we can use `.loc` indexing in a similar manner as before, but pass the criteria for selecting the data using either `datetime` objects or strings that can be interpreted as a date. For instance, we can select the observations for January 2019 in a following manner based on datetime labels: 
+As we have now equipped our `DataFrame` with a `DatetimeIndex`, it is easy to filter the data based on specific criteria and select all observations that have been recorded in specific months of 2019, for example. To do this, we can use `.loc[]` indexing similar to how we did before, but pass the criteria for selecting the data using either `datetime` objects or strings that can be interpreted as a date. For instance, we can select the observations for January 2019 based on `datetime` labels.
 
 ```python
 start_dt = datetime(2019, 1, 1)
 end_dt = datetime(2019, 1, 31)
 january = data.loc[start_dt:end_dt].copy()
 first, last = january.index.min(), january.index.max()
-print("First obs:", first, "\nLast obs:", last)
+print(f"First obs: {first}\nLast obs: {last}")
 ```
 
-As we mentioned, pandas also provides a nice and easy way to select observations e.g. for specific month by specifying the selection criteria as a string. This approach is very convenient because we can select observations by passing a single label to the `loc` indexer and pandas automatically detects based on the string, what should be done: 
+As we mentioned, `pandas` also provides a nice, easy way to select observations for specific month by specifying the selection criteria as a string. This approach is convenient because we can select observations by passing a single label to the `.loc[]` indexer and `pandas` automatically detects what should be done based on the string.
 
 ```python
 february = data.loc["2019-02"].copy()
 first, last = february.index.min(), february.index.max()
-print("First obs:", first, "\nLast obs:", last)
+print(f"First obs: {first}\nLast obs: {last}")
 ```
 
-As a result, we got all observations that were recorded during February 2019. Using this approach, called *partial string indexing*, is useful because it makes it easy for us to deal with irregular number of days in February (leap year). By passing the time window as a string that consists of the year and month information, we do not need to worry about leap years ourselves, as pandas does this automatically for us:
+As a result, we selected all observations that were recorded during February 2019. Using this approach, called partial string indexing, is useful because it makes it easy for us to deal with a irregular number of days in February (such as in leap years). By passing the time window as a string that comprises the year and month information, we do not need to worry about leap years ourselves as `pandas` does this automatically for us.
 
 ```python
-leap_year = data.loc["2016-02"].copy()
+leap_year = data.loc["2020-02"].copy()
 first, last = leap_year.index.min(), leap_year.index.max()
-print("First obs:", first, "\nLast obs:", last)
+print(f"First obs: {first}\nLast obs: {last}")
 ```
 
-Following the same approach, we can adjust the criteria to be a more specific time range, such as first two weeks of February:
+Following the same approach, we can adjust the criteria to have a more specific time range such as first two weeks of February of 2018.
 
 ```python
 first_two_weeks = data.loc["2018-02-01":"2018-02-14"].copy()
 first_two_weeks.tail(2)
 ```
 
-Or select data covering the whole year of 2018: 
+Or we can select data covering the whole year of 2018.
 
 ```python
 data.loc["2018"]
 ```
 
-It is also possible to select subsets of data for specific time intervals starting from the first dates or for the last dates in the selection. For example, if you would like to select the values for the first 6 hours and 10 minutes of January 1st, 2018 you could do the following.
+It is also possible to select subsets of data for specific time intervals starting from the first dates or for the last dates in the selection. For example, if you would like to select the values for the first two weeks and three days of January 2018 you could do the following.
 
 ```python
 start_dt = datetime(2018, 1, 1)
-end_dt = start_dt + pd.DateOffset(hours=6, minutes=10)
+end_dt = start_dt + pd.DateOffset(weeks=2, days=3)
 data.loc[start_dt:end_dt]
 ```
 
-Here we define a starting date `start_dt` using the already familiar `datetime` function. The ending time `end_dt` is then defined as the starting time plus a time offset of 6 hours and 10 minutes using the `pd.DateOffset` function. The `pd.DateOffset` function can be used to specify a time by which another time could be shifted. Below is another example, looking at the last 8 hours and 45 minutes of data from January 31st, 2018.
+Here we have data for a total of 18 days produced using a combination of the `.loc[]` accessor and the `pd.DateOffset()` function. The `pd.DateOffset()` function can be used to specify the time by which another time is shifted. The selection works by defining a starting date `start_dt` using the already familiar `datetime()` function. The ending time `end_dt` is then defined as the starting time plus a time offset of two weeks and three days using the `pd.DateOffset()` function. Recall that the `.loc[]` accessor includes the end value in the selection, and thus our selection contains data from January 1st to January 18th.
+
+Below is another example, looking at the last ten days of data from February 2020.
 
 ```python
-end_dt = datetime(2018, 1, 31, 23, 59, 59)
-start_dt = end_dt - pd.DateOffset(hours=8, minutes=45)
+end_dt = datetime(2020, 3, 1) - pd.DateOffset(days=1)
+start_dt = end_dt - pd.DateOffset(days=9)
 data.loc[start_dt:end_dt]
 ```
 
-Note that in this case the logic is slightly different from selecting the first values of a given day for a few reasons. First, we want to exclude midnight on February 1st, 2018 so the date value used for the end time of the selected dates is 23:59:59 on January 31st. If we had set `end_dt = datetime(2018, 2, 1)`, the corresponding date and time would be midnight (i.e., the start of the day) on February 1st. Second, we assign the end time first and then subtract the date offset to find the starting date and time to include in the selection. This way we get only values for January 31st. Additional useful details can be found in the  [pandas documentation for DateOffset objects]() [^dateoffsets].
+Here we have a few differences compared to our first example. First off, because the last day of February is the 29th in leap years and the 28th otherwise, we find the last day in February by subtracting one day from the first day of March to find `end_dt` (i.e., `datetime(2020, 3, 1) - pd.DateOffset(days=1)`). If we had stated the last day in February as the 28th, the selection would omit February 29th in leap years. Secondly, because we want the last 10 days of the month, we subtract an offset of nine days from the starting date, yielding a selection of 10 days. Remember again that `.loc[]` includes the last value in the range in the selection. Additional useful details about date offsets can be found in the [pandas documentation for DateOffset objects](https://pandas.pydata.org/docs/user_guide/timeseries.html#dateoffset-objects) [^dateoffsets].
 
 
-## Shifting - or leading and lagging data
+## Shifting: Leading and lagging time series data
 
 
-One typical task when working with time series data, is to compare two consecutive values to each other. For instance, you might be interested in understanding how much warmer or colder the temperature was between different hours, or compute the percentual difference of how the value of a given stock has changed (to give a couple of examples). For these kind of operations, pandas provides a functionality called "shifting" which can be used to move (shift) data backward and forward. Next, we will see this method in action, by calculating the difference between consecutive temperature values. Let's start by taking a small sample covering the data for 2019:
+A typical task when working with time series data is to compare two consecutive values to each other. For instance, you might be interested in understanding how much warmer or colder temperatures were between different days, or want to compute percent differences in the value of a stock (to give a couple of examples). For these kind of operations, `pandas` provides a functionality called `{term}shifting`, which can be used to move (shift) data backward or forward in time. In the following examples we will see this method in action by calculating the difference between consecutive temperature values. Let's start by taking a small sample of data from 2023.
 
 ```python
-sample = data.loc["2019"].copy()
+sample = data.loc["2023"].copy()
 sample.head()
 ```
 
-As we can see based on the DatetimeIndex (TIME), we have temperature observations on an hourly basis in this sample. Now, if we want to calculate what is the difference in temperature between consecutive observations, we can take advantage of the method `.shift()` which takes an integer value as an input. If you pass a positive number, the values in a given Series is shifted forward, and if you pass a negative number the values are shifted backwards: 
+As we can see based on the `DatetimeIndex` (`DATE`), we have temperature observations on a daily basis in this sample. Now, if we want to calculate the difference in temperature between consecutive observations we can take advantage of the `.shift()` method, which takes an integer value as an input. If you pass a positive number, the values in a given `Series` are shifted forward, and if you pass a negative number the values are shifted backwards. Let's see an example.
 
 ```python
 # Shifting forward
-sample["TEMP_F"].shift(1)
+sample["TMAX_F"].shift(1)
 ```
 
-Here, we shifted the values forward by one observation, which can be seen e.g. by looking at how the position of value 39.0 was moved by an hour to 01:00. Furthermore, by looking at the numeric values, you can see that the first value in the Series was replaced with NaN. This is because the temperature values were shifted forward by one observation, meaning that there is not any known temperature that could be placed as the first observation. Hence, pandas fills it with NaN. In a similar manner, when the observations are shifted backwards (with argument -1), there is NaN inserted into the Series, but in this case, at the very end of it: 
+As you can see, we shifted the values forward by one observation, which you can confirm by looking at how the position of value `30.0` has been moved forward by one day to January 2nd. Furthermore, by looking at the numeric values, you can see that the first value in the `Series` was replaced by `NaN`. This is because the temperature values were shifted forward by one observation, meaning that there is no known temperature that could be filled in for the first observation. Hence, `pandas` fills it with `NaN`. In a similar manner, when the observations are shifted backwards (with the argument `-1`) `NaN` is inserted at the very end of the `Series`.
 
 ```python
 # Shifting backward
-sample["TEMP_F"].shift(-1)
+sample["TMAX_F"].shift(-1)
 ```
 
-Another important aspect to notice from these examples, is that in both cases, one observation was removed from the Series. In the first example, the last known temperature (46.0) was dropped from the end of the Series, and in the second example, the first temperature (39.0) was dropped. This is expected behavior, because pandas wants to ensure that the Series keeps its shape, i.e. the length of the Series does not change. This behavior is beneficial, because in this way, it is straightforward to do calculations between the two Series, or e.g. add the shifted values as a column to the same DataFrame:
+Another important thing to notice in these examples is that one observation is removed from the `Series` in both cases. In the first example the last known temperature (`8.0`) was dropped from the end of the `Series`, and in the second example the first temperature (`30.0`) was dropped. This is expected behavior because `pandas` wants to ensure that the `Series` keeps its shape (i.e., the length of the `Series` does not change). This behavior is beneficial because it is straightforward to do calculations between two `Series` from a single `DataFrame` in this way, or to add the shifted values as a column in the same `DataFrame`.
 
 ```python
-sample["next_hour"] = sample["TEMP_F"].shift(-1)
+sample["next_day"] = sample["TMAX_F"].shift(-1)
 sample.head(10)
 ```
 
-Now the first value in the column `next_hour` actually represents the temperature from 01:00, the second value from 02:00, etc. because we shifted the values backwards. At this point, our data is structured in such a manner that it is very easy to do calculations between these two columns and e.g. calculate the difference between consecutive hours:
+Now, the first value in the column `next_day` actually represents the temperature from January 2nd, the second value is from January 3rd, etc. because we shifted the values backwards. Thus, our data is structured such that it is very easy to do calculations between these two columns and calculate the difference in temperature between consecutive days, for example.
 
 ```python
-sample["diff"] = sample["next_hour"] - sample["TEMP_F"]
+sample["diff"] = sample["next_day"] - sample["TMAX_F"]
 sample
 ```
 
-As you can see, the last value in column `diff` is NaN, which expected as we don't have information about the following hour on the last row. 
+As you can see, the last value in the `diff` column is `NaN`, which is expected as we do not have information about the following day in the last row. 
 
-In the previous examples, we did *naive* shifts forward and backward by merely changing the position of the observations. Naturally, it is also possible to take advantage of hour DatetimeIndex, and do more sophisticated shifts based on time. We can for example compare the temperatures between consecutive days or weeks, for example. Let's see how we can calculate the weekly differences in the temperatures using the same `.shift()` method by adding a parameter `freq` which accepts a *DateOffset* as an argument (that we already saw and used in the previous section). This time, we calculate the difference directly without storing the temperatures in a separate column:
+In the previous examples, we did "naive" shifts forward and backward by merely changing the position of the observations. Naturally, it is also possible to take advantage of our `DatetimeIndex` and do more sophisticated shifts based on time. We can, for example, compare the temperatures between consecutive weeks or months, for example. Let's see how we can calculate the weekly differences in the temperatures using the same `.shift()` method and adding the `freq` parameter, which accepts a `DateOffset` as an argument (which we already saw and used in the previous section). This time we will calculate the difference directly without storing the temperatures in a separate column.
 
 ```python
-sample["weekly_diff"] = sample["TEMP_F"].shift(-7, freq="D") - sample["TEMP_F"]
+sample["weekly_diff"] = sample["TMAX_F"].shift(-7, freq="D") - sample["TMAX_F"]
 sample.head()
 ```
 
-Here, we specified -7 as the first argument and passed a letter "D" for the `freq` parameter, meaning that we want shift the observations by 7 days. Then, we calculated the difference between the temperature on the following week and stored the result in a separate column `"weekly_diff"`. In a similar manner, you can easily calculate differences between observations taken at different times, which can be very efficient and useful to understand changes in time series. 
+Here, we specified `-7` as the first argument and passed the letter `"D"` for the `freq` parameter, meaning that we want shift the observations by 7 days. Then, we calculated the difference between the temperatures for the following week and stored the result in a column called `weekly_diff`. In a similar manner, you can easily calculate differences between observations taken at different times, which can be very efficient and useful to understand changes in time series data sets. 
 
 
 ## Resampling and calculating rolling statistics
