@@ -378,7 +378,7 @@ Here we have a few differences compared to our first example. First off, because
 ## Shifting: Leading and lagging time series data
 
 
-A typical task when working with time series data is to compare two consecutive values to each other. For instance, you might be interested in understanding how much warmer or colder temperatures were between different days, or want to compute percent differences in the value of a stock (to give a couple of examples). For these kind of operations, `pandas` provides a functionality called `{term}shifting`, which can be used to move (shift) data backward or forward in time. In the following examples we will see this method in action by calculating the difference between consecutive temperature values. Let's start by taking a small sample of data from 2023.
+A typical task when working with time series data is to compare two consecutive values to each other. For instance, you might be interested in understanding how much warmer or colder temperatures were between different days, or want to compute percent differences in the value of a stock (to give a couple of examples). For these kind of operations, `pandas` provides a functionality called *{term}`shifting`*, which can be used to move (shift) data backward or forward in time. In the following examples we will see this method in action by calculating the difference between consecutive temperature values. Let's start by taking a small sample of data from 2023.
 
 ```python
 sample = data.loc["2023"].copy()
