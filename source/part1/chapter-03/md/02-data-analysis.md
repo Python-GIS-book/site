@@ -53,7 +53,7 @@ import pandas as pd
 fp = "data/helsinki-kumpula.txt"
 
 # Read data using varying amount of spaces as separator,
-# specifying '*' characters as NoData values,
+# specifying '-9999' characters as NoData values,
 # and selecting only specific columns from the data
 data = pd.read_csv(
     fp,
