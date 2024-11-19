@@ -193,6 +193,9 @@ Semantics
 Series
   In pandas library, a Series is a one-dimensional array-like data structure that holds a sequence of values, each associated with a unique index. It can store data of any type, such as integers, floats, or strings. A Series is essentially a single column of data and can be used as a building block for a {term}`DataFrame`. It supports various operations for data manipulation and analysis, making it a fundamental component of pandas.
 
+Shifting
+  The process of adjusting references in time series data forward or backward in time. For example, values could be shifted backward by one week to compare data from a given week to equivalent data from the following week.
+
 Software
   Another name for a {term}`program`.
 
