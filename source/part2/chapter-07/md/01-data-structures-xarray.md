@@ -99,6 +99,8 @@ data["elevation"].min().item()
 data["elevation"].max().item()
 ```
 
+### Dimensions of the data
+
 In addition to the summary statistics, we can explore some of the basic properties of our raster data. Majority of the geographic data related properties of a raster `Dataset` can be accessed via `.rio` {term}`accessor`. An accessor is a method or attribute added to an existing data structure, such as a `DataArray` or `Dataset` in `xarray`, to provide specialized functionality. Accessors extend the capabilities of the base object without modifying its core structure. Via the `.rio` accessor we can explore various attributes of our data, such as the `.shape`, `.width` or `.height`:
 
 ```python
@@ -107,21 +109,32 @@ print(data.rio.width)
 print(data.rio.height)
 ```
 
-From the outputs we can see that the shape of our raster data seems to be rectangular as we have 3601 X 3601 cells to each direction (x and y). To better understand the data in geographic terms, we can retrieve the {term}`spatial resolution` of the data by calling the `.rio.resolution()` method:
+### Spatial resolution
+
+
+From the outputs we can see that the shape of our raster data seems to be rectangular as we have 3601 X 3601 cells to each direction (x and y). To better understand the data in geographic terms, we can retrieve the *{term}`spatial resolution`* of the data by calling the `.rio.resolution()` method:
 
 ```python
 data.rio.resolution()
 ```
 
-As we see, the spatial resolution, i.e. the size of a single cell in our raster layer is ~0.0028. The resolution is always reported in the units of the input dataset's {term}`coordinate reference system` (CRS). Thus, in our case, this number is reported in {term}`decimal degrees` meaning that the resolution is 30 meters. We can easily access the CRS of our raster dataset via the `.rio.crs` attribute:
+As we see, the spatial resolution, i.e. the size of a single cell in our raster layer is ~0.0028. The resolution is always reported in the units of the input dataset's *{term}`coordinate reference system`* (CRS). Thus, in our case, this number is reported in *{term}`decimal degrees`* meaning that the resolution is 30 meters. 
+
+
+### Coordinate reference system
+
+We can easily access the coordinate reference system (CRS) information of our raster dataset via the `.rio.crs` attribute:
 
 ```python
 data.rio.crs
 ```
 
-The `.crs` returns the coordinate reference system information as an {term}`EPSG code` and the code `4326` stands for the WGS84 coordinate reference system in which the units are represented as latitudes and longitudes (i.e. decimal degrees). We will dive deeper into the coordinate reference system management with raster data in Chapter 7.4. 
+The `.rio.crs` returns the coordinate reference system information as an *{term}`EPSG code`* and the code `4326` stands for the WGS84 coordinate reference system in which the units are represented as latitudes and longitudes (i.e. decimal degrees). We will dive deeper into the coordinate reference system management with raster data in Chapter 7.4. 
 
-To extract information about the {term}`spatial extent` of the dataset, we can use the `.rio.bounds()` method:
+
+### Spatial extent
+
+To extract information about the *{term}`spatial extent`* of the dataset, we can use the `.rio.bounds()` method:
 
 ```python
 data.rio.bounds()
@@ -129,7 +142,10 @@ data.rio.bounds()
 
 This returns the minimum and maximum coordinates (here, in latitude and longitude) that bound our dataset, forming a minimum bounding rectangle around the data. The first two numbers represent the left-bottom (x,y) corner of the dataset, while the last two number represent the right-top corner (x,y) of the area, respectively. 
 
-Lastly, we can extract information about the {term}`radiometric resolution` (i.e. bit depth) of our `Dataset` by calling `.dtypes`:
+
+### Radiometric resolution
+
+Lastly, we can extract information about the *{term}`radiometric resolution`* (i.e. bit depth) of our `Dataset` by calling `.dtypes`:
 
 ```python
 data.dtypes
@@ -173,13 +189,44 @@ list(data.data_vars)
 Thus far we have explored some of the basic characteristics of the `xarray` data structures. However, we have not yet plotted anything on a map, which is also one of the typical things that you want to do whenever working with new data. The `xarray` library provides very similar plotting functionality as `geopandas`, i.e. you can easily create a visualization out of your `DataArray` objects by using the `.plot()` method that uses `matplotlib` library in the background. In the following, we create a simple map out of the `"relative_height"` data variable: 
 
 ```python
-data["elevation"].plot(cmap="terrain")
+data["relative_height"].plot(cmap="terrain")
 ```
 
 Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the `"terrain"` as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because there are no values that would be below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8. 
 
 
-## Writing a file
+## Writing to a file
 
-Add material about writing to most common raster file formats.
 
+
+```python
+# Save a single DataArray as a GeoTIFF file
+#data["relative_height"].rio.to_raster("data/temp/kilimanjaro_relative_height.tif")
+#data["elevation"].rio.write_nodata(None, encoded=True, inplace=True)
+import numpy as np
+data['elevation'].attrs['_FillValue'] = -9999 
+data["elevation"].rio.to_raster("data/temp/kilimanjaro_elevation.tif")
+```
+
+```python
+# Save a whole Dataset in NetCDF format
+#data['elevation'] = data['elevation'].astype('float32')
+data.to_netcdf("data/temp/kilimanjaro_dataset.nc")
+```
+
+```python
+# Check for NaN values in the 'elevation' variable
+#data['elevation'].isnull().any().item()
+```
+
+```python
+print(data["elevation"].rio.encoded_nodata)
+```
+
+```python
+
+```
+
+```python
+
+```
