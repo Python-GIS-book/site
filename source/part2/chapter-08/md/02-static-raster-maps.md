@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -163,3 +163,37 @@ show_hist(
 ```
 
 Now we can easily see how the wavelengths of different bands are distributed.
+
+
+## Modifying the color map 
+
+TODO: Add explanation. There is a reference to this section from Chapter 7.2 when the hillshade is plotted.
+
+```python
+import xarray as xr
+
+# Read the data and calculate relief
+url = "https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif"
+data = xr.open_dataset(url, engine="rasterio").squeeze("band", drop=True).rename({"band_data": "elevation"})
+data["relative_height"] = data["elevation"] - data["elevation"].min().item()
+
+```
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np 
+import matplotlib.colors as colors
+
+colors_undersea = plt.cm.terrain(np.linspace(0, 0.17, 256))
+colors_land = plt.cm.terrain(np.linspace(0.25, 1, 256))
+all_colors = np.vstack((colors_undersea, colors_land))
+terrain_map = colors.LinearSegmentedColormap.from_list(
+    'terrain_map', all_colors)
+divnorm = colors.TwoSlopeNorm(vmin=-500., vcenter=0, vmax=2200)
+
+data["relative_height"].plot(cmap=terrain_map, norm=divnorm)
+```
+
+```python
+
+```
