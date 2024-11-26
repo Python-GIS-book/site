@@ -187,7 +187,7 @@ for idx, row in data.iterrows():
     print(f"Index: {idx}")
 
     # Print the temperature from the row
-    print(f"TMIN F: {row["TMIN_F"]}\n")
+    print(f"TMIN F: {row['TMIN_F']}\n")
 
     break
 ```
