@@ -81,15 +81,15 @@ data
 Now the name of our data variable was changed to `elevation` which makes it more intuitive and convenient to use than calling the variable with a very generic name `band_data`. 
 
 
-## Extracting basic information about the raster dataset
+## Extracting basic raster dataset properties
 
-One of the typical things that you want to do when exploring a new dataset is to calculate some basic summary statistics out of the data, like finding the minimum and maximum values, as well as the mean and standard deviation of your data. To extract this information from your `Dataset`, `xarray` provides very similar functionalities as `pandas` to compute some basic statistics out of your data. For instance, we can easily extract the maximum elevation of our data by calling `.max()` method:
+One of the typical things that you want to do when exploring a new dataset is to familiarize yourself with the data at hand by examining the basic properties of the data, as well as by calculating summary statistics out of the data, such as the minimum,  maximum, or mean values of your data. To extract this information from your `Dataset`, `xarray` provides very similar functionalities as `pandas` to compute some basic statistics out of your data. For instance, we can easily extract the maximum elevation of our data by calling `.max()` method:
 
 ```python
 data["elevation"].max()
 ```
 
-Ouch! That produces quite a lot of information as it happens that the `xarray` returns by default an `DataArray` as a result. However, when we explore the output, we can see that the single value in the array is `2943` which is the highest point in our data. However, it would be more useful to get the actual single number as a result when doing operations like these. Luckily, it is easy to extract the actual numerical value from the data by adding `.item()` after the command. The `.item()` method returns the `xarray.Dataset` element as a regular Python scalar value which is more similar to what e.g. `pandas` returns when you call the `.max()` or `.min()`, as demonstrated below: 
+As we see, this produces quite a lot of information because `xarray` returns an `DataArray` as a result by default. When exploring the output, we can see that the single value in the array is `2943` which is the highest point in our data. However, typically it would be more useful to get a numerical value as a result when doing operations like these. Luckily, it is easy to extract the actual number from the data by adding `.item()` after the command. The `.item()` method returns the `xarray.Dataset` element as a regular Python scalar value which is more similar to what e.g. `pandas` returns when you call the `.max()` or `.min()`, as demonstrated below: 
 
 ```python
 data["elevation"].min().item()
@@ -99,27 +99,44 @@ data["elevation"].min().item()
 data["elevation"].max().item()
 ```
 
+In addition to the summary statistics, we can explore some of the basic properties of our raster data. Majority of the geographic data related properties of a raster `Dataset` can be accessed via `.rio` {term}`accessor`. An accessor is a method or attribute added to an existing data structure, such as a `DataArray` or `Dataset` in `xarray`, to provide specialized functionality. Accessors extend the capabilities of the base object without modifying its core structure. Via the `.rio` accessor we can explore various attributes of our data, such as the `.shape`, `.width` or `.height`:
+
 ```python
-# Dimensions
 print(data.rio.shape)
 print(data.rio.width)
 print(data.rio.height)
 ```
 
+From the outputs we can see that the shape of our raster data seems to be rectangular as we have 3601 X 3601 cells to each direction (x and y). To better understand the data in geographic terms, we can retrieve the {term}`spatial resolution` of the data by calling the `.rio.resolution()` method:
+
 ```python
-# Resolution
 data.rio.resolution()
 ```
 
+As we see, the spatial resolution, i.e. the size of a single cell in our raster layer is ~0.0028. The resolution is always reported in the units of the input dataset's {term}`coordinate reference system` (CRS). Thus, in our case, this number is reported in {term}`decimal degrees` meaning that the resolution is 30 meters. We can easily access the CRS of our raster dataset via the `.rio.crs` attribute:
+
 ```python
-# Bounds of the file
+data.rio.crs
+```
+
+The `.crs` returns the coordinate reference system information as an {term}`EPSG code` and the code `4326` stands for the WGS84 coordinate reference system in which the units are represented as latitudes and longitudes (i.e. decimal degrees). We will dive deeper into the coordinate reference system management with raster data in Chapter 7.4. 
+
+To extract information about the {term}`spatial extent` of the dataset, we can use the `.rio.bounds()` method:
+
+```python
 data.rio.bounds()
 ```
 
+This returns the minimum and maximum coordinates (here, in latitude and longitude) that bound our dataset, forming a minimum bounding rectangle around the data. The first two numbers represent the left-bottom (x,y) corner of the dataset, while the last two number represent the right-top corner (x,y) of the area, respectively. 
+
+Lastly, we can extract information about the {term}`radiometric resolution` (i.e. bit depth) of our `Dataset` by calling `.dtypes`:
+
 ```python
-# Radiometric resolution of the DataArray
-data["elevation"].dtype
+data.dtypes
 ```
+
+This returns a Python dictionary like object that provides information about the bit depth of each `DataArray` stored in our `Dataset`. In our case, we only have one data attribute (elevation) and from the result we can see that the bit depth of this data is 32 bits. The radiometric resolution is determined by the number of bits used to represent the data for each pixel, which defines the range of possible intensity values. For example, an 8-bit sensor can record 256 levels of intensity (0–255), while a 16-bit sensor can record 65,536 levels. Thus, in terms of 32-bit float, the data can be stored with high precision. 
+
 
 ## Creating a new data variable
 
