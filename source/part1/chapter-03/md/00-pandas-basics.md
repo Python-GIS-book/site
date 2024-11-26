@@ -341,9 +341,12 @@ As a result we get an array of unique values in that column. In the case of temp
 
 ```python editable=true jupyter={"outputs_hidden": false}
 print(
-    f"There were {data["MAX"].nunique()} days with unique maximum temperatures in the summer of 2024."
+    f"There were {data['MAX'].nunique()} days with unique maximum temperatures in the summer of 2024."
 )
 ```
+
+Note that in the example above, the `Series` from the `MAX` column is referenced as `data['MAX']` because the f-string is enclosed in double quotation marks (e.g., `f"..."`).
+
 
 ## Descriptive statistics
 
