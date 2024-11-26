@@ -1311,9 +1311,7 @@ Name: MAX, dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;There were&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;MAX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span>
-    <span class="s2">&quot;days with unique maximum temperatures in the summer of 2024.&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;There were </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;MAX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> days with unique maximum temperatures in the summer of 2024.&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1324,6 +1322,7 @@ Name: MAX, dtype: float64
 </div>
 </div>
 </div>
+<p>Note that in the example above, the <code class="docutils literal notranslate"><span class="pre">Series</span></code> from the <code class="docutils literal notranslate"><span class="pre">MAX</span></code> column is referenced as <code class="docutils literal notranslate"><span class="pre">data['MAX']</span></code> because the f-string is enclosed in double quotation marks (e.g., <code class="docutils literal notranslate"><span class="pre">f&quot;...&quot;</span></code>).</p>
 </section>
 <section id="descriptive-statistics">
 <h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Link to this heading">#</a></h2>

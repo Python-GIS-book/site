@@ -50,8 +50,8 @@ Data type
   An attribute defining the characteristics of a value in a program.
   For example, type `int` is an integer (whole number).
   
-DateOffsets
-  A specific pandas object that represents a duration of time following calendar duration rules, such as a week ("W"). 
+DateOffset
+  A specific `pandas` object that represents a duration of time using calendar duration standards, such as a week ("W"). 
   
 DatetimeIndex
   An immutable array of datetime64 data that is specified as the index of the DataFrame. Can be used for indexing and grouping data based on time.
@@ -106,7 +106,10 @@ Inner join
   
 Integrated Development Environment
   An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface.
-  
+
+Interpolation
+  Estimation of a value based on the known values in a data set. For example, an estimate of the mean daily temperature can be calculated from the average of the minimum and maximum temperatures that day.
+
 Interpreter
   An interpreter is a computer program that is used to execute program instructions written in Python (or other languages). The interpreter reads your statements of code and based on these instructions actually does the work that has been assigned to it. 
 
@@ -192,6 +195,9 @@ Semantics
 
 Series
   In pandas library, a Series is a one-dimensional array-like data structure that holds a sequence of values, each associated with a unique index. It can store data of any type, such as integers, floats, or strings. A Series is essentially a single column of data and can be used as a building block for a {term}`DataFrame`. It supports various operations for data manipulation and analysis, making it a fundamental component of pandas.
+
+Shifting
+  The process of adjusting references in time series data forward or backward in time. For example, values could be shifted backward by one week to compare data from a given week to equivalent data from the following week.
 
 Software
   Another name for a {term}`program`.

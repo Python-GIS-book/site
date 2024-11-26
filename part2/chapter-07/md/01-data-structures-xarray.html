@@ -455,8 +455,12 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-file">Reading a file</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-properties">Dataset properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-xarray-datastructures-dataset-and-dataarray">Key xarray datastructures: Dataset and DataArray</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-file-into-dataset">Reading a file into Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming-data-variables">Renaming data variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-basic-information-about-the-raster-dataset">Extracting basic information about the raster dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-data-variable">Creating a new data variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-data-variable">Plotting a data variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-a-file">Writing a file</a></li>
 </ul>
             </nav>
@@ -473,7 +477,9 @@
 <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-data-structures-in-xarray">
 <h1>Introduction to data structures in xarray<a class="headerlink" href="#introduction-to-data-structures-in-xarray" title="Link to this heading">#</a></h1>
 <p>Now that you have learned a bit of basics about raster data and how to create a simple 2-dimensional raster array using <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, we continue to explore in a more comprehensive manner how to work with real-world raster data using <code class="docutils literal notranslate"><span class="pre">xarray</span></code> and <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> libraries (+ other relevant libraries linked to them). The <code class="docutils literal notranslate"><span class="pre">xarray</span></code> library is a highly useful tool for storing, representing and manipulating raster data, while <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> provides various raster processing (GIS) capabilities on top of the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures, such as reading and writing several different raster formats and conducting different geocomputational tasks. Under the hood, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> uses another Python library called <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> (that works with N-dimensional <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays) but the benefit of <code class="docutils literal notranslate"><span class="pre">xarray</span></code> and <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>is that they provide easier and more intuitive way to work with raster data layers, in a bit similar manner as working with vector data using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>.</p>
-<p>When working with raster data, you typically have various layers that represent different geographical features of the world (e.g. elevation, temperature, precipitation etc.) and this data is possibly captured at different times of the year/day/hour, meaning that you have longitudinal observations from the same area, constituting time series data. More often than not, you need to combine information from these layers to be able to conduct meaningful analysis based on the data, such as do a weather forecast. One of the greatest benefits of <code class="docutils literal notranslate"><span class="pre">xarray</span></code> is that you can easily store, combine and analyze all these different layers via a single object, i.e. a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, as demonstrated in Figure 7.2.</p>
+<p>When working with raster data, you typically have various layers that represent different geographical features of the world (e.g. elevation, temperature, precipitation etc.) and this data is possibly captured at different times of the year/day/hour, meaning that you may have longitudinal (repetitive) observations from the same area, constituting time series data. More often than not, you need to combine information from these layers to be able to conduct meaningful analysis based on the data, such as do a weather forecast. One of the greatest benefits of <code class="docutils literal notranslate"><span class="pre">xarray</span></code> is that you can easily store, combine and analyze all these different layers via a single object, i.e. a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+<section id="key-xarray-datastructures-dataset-and-dataarray">
+<h2>Key xarray datastructures: Dataset and DataArray<a class="headerlink" href="#key-xarray-datastructures-dataset-and-dataarray" title="Link to this heading">#</a></h2>
 <p>The two fundamental data structures provided by the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> library are <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> (Figure 7.2). Both of them build upon and extend the strengths of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> libraries. The <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> is a labeled N-dimensional array that is similar to <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code> but works with raster data (stored as <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays). The <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> then again is a multi-dimensional in-memory array database that contains multiple <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> objects. In addition to the variables containing the observations of a given phenomena, you also have the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates of the observations stored in separate layers, as well as metadata providing relevant information about your data, such as Coordinate Reference System and/or time. Thus, a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> containing raster data is very similar to <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code> and actually various <code class="docutils literal notranslate"><span class="pre">xarray</span></code> operations can feel very familiar if you have learned the basics of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> covered in Chapters 3 and 6.</p>
 <p><img alt="Figure 7.2. Key  data structures. Image source: Xarray Community (2024), licensed under Apache 2.0." src="../../../_images/xarray-dataset-diagram.png" /></p>
 <p><em><strong>Figure 7.2</strong> Key <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures. Image source: <a class="reference external" href="https://tutorial.xarray.dev/fundamentals/01_data_structures.html">Xarray Community</a> (2024), licensed under Apache 2.0.</em></p>
@@ -484,12 +490,13 @@
 <li><p>Compatibility with a large ecosystem of Python libraries that work with arrays / raster data</p></li>
 <li><p>Tight integration of functionalities from well-known Python data analysis libraries, such as <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, and <code class="docutils literal notranslate"><span class="pre">dask</span></code></p></li>
 </ul>
+<p>In the following, we will continue by introducing some of the basic functionalities of the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures.</p>
 <!-- #endregion -->
-<section id="reading-a-file">
-<h2>Reading a file<a class="headerlink" href="#reading-a-file" title="Link to this heading">#</a></h2>
-<p>In the following, we start by investigating a simple elevation dataset using <code class="docutils literal notranslate"><span class="pre">xarray</span></code> that represents a Digital Elevation Model (DEM) of Kilimanjaro area in Tanzania. To read a raster data file (such as GeoTIFF) into <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, we can use the  <code class="docutils literal notranslate"><span class="pre">.open_dataset()</span></code> function. Here, we read a <code class="docutils literal notranslate"><span class="pre">.tif</span></code> file directly from a cloud storage space that we have created for this book:</p>
+</section>
+<section id="reading-a-file-into-dataset">
+<h2>Reading a file into Dataset<a class="headerlink" href="#reading-a-file-into-dataset" title="Link to this heading">#</a></h2>
+<p>We start by investigating a simple elevation dataset using <code class="docutils literal notranslate"><span class="pre">xarray</span></code> that represents a Digital Elevation Model (DEM) of Kilimanjaro area in Tanzania. To read a raster data file (such as GeoTIFF) into <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, we can use the  <code class="docutils literal notranslate"><span class="pre">.open_dataset()</span></code> function. Here, we read a <code class="docutils literal notranslate"><span class="pre">.tif</span></code> file directly from a cloud storage space that we have created for this book:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="c1">#import rioxarray</span>
 
 <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif&quot;</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;rasterio&quot;</span><span class="p">)</span>
@@ -501,46 +508,37 @@
 </div>
 <p>Now we have read the GeoTIFF file into an <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> data structure which we stored into a variable <code class="docutils literal notranslate"><span class="pre">data</span></code>. The <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> contains the actual data values for the raster cells, as well as other relevant attribute information related to the data:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Dimensions</span></code> show the number of cells of the given <code class="docutils literal notranslate"><span class="pre">band</span></code>, i.e. in our case there are 3061 cells both on the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axis</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dimensions</span></code> show the number of <code class="docutils literal notranslate"><span class="pre">bands</span></code> (in our case 1), and the number of cells (3601) on the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axis</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Coordinates</span></code> is a container that contains the actual <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates of the cells, the Coordinate Reference System information stored in the <code class="docutils literal notranslate"><span class="pre">spatial_ref</span></code> attribute, and the <code class="docutils literal notranslate"><span class="pre">band</span></code> attribute that shows the number of bands in our data.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">variables</span></code> contains the actual data values of the cells (e.g. elevations as in our data)</p></li>
 </ul>
+<p>Because our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> only consists of a single <code class="docutils literal notranslate"><span class="pre">band</span></code> (i.e. the elevation values), it might make sense to reduce the dimensions of our dataset by dropping the <code class="docutils literal notranslate"><span class="pre">band</span></code> attribute because it is not really providing any useful information for us. We can subset our data and remove a specific dimension from our data by using the <code class="docutils literal notranslate"><span class="pre">.squeeze()</span></code> method. In the following, we drop the <code class="docutils literal notranslate"><span class="pre">&quot;band&quot;</span></code> dimension:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="s2">&quot;band&quot;</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">data</span>
 </pre></div>
 </div>
+<p>As a result, now the <code class="docutils literal notranslate"><span class="pre">Dimensions</span></code> and <code class="docutils literal notranslate"><span class="pre">Coordinates</span></code> only shows the data for <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axis, meaning that the unnecessary data was successfully removed.</p>
+</section>
+<section id="renaming-data-variables">
+<h2>Renaming data variables<a class="headerlink" href="#renaming-data-variables" title="Link to this heading">#</a></h2>
+<p>To make the data more intuitive to use, we can also change the name of the data variable from <code class="docutils literal notranslate"><span class="pre">band_data</span></code> into <code class="docutils literal notranslate"><span class="pre">elevation</span></code>. In this way, it is more evident what our data is about. We can easily change the name of an attibute by using the <code class="docutils literal notranslate"><span class="pre">.rename()</span></code> method as follows which wants a dictionary with syntax <code class="docutils literal notranslate"><span class="pre">{&quot;old_name&quot;:</span> <span class="pre">&quot;new_name&quot;}</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;band_data&quot;</span><span class="p">:</span> <span class="s2">&quot;elevation&quot;</span><span class="p">})</span>
 <span class="n">data</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
+<p>Now the name of our data variable was changed to <code class="docutils literal notranslate"><span class="pre">elevation</span></code> which makes it more intuitive and convenient to use than calling the variable with a very generic name <code class="docutils literal notranslate"><span class="pre">band_data</span></code>.</p>
 </section>
-<section id="dataset-properties">
-<h2>Dataset properties<a class="headerlink" href="#dataset-properties" title="Link to this heading">#</a></h2>
-<p>Let’s have a closer look at the properties of the file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">spatial_ref</span><span class="o">.</span><span class="n">attrs</span>
+<section id="extracting-basic-information-about-the-raster-dataset">
+<h2>Extracting basic information about the raster dataset<a class="headerlink" href="#extracting-basic-information-about-the-raster-dataset" title="Link to this heading">#</a></h2>
+<p>One of the typical things that you want to do when exploring a new dataset is to calculate some basic summary statistics out of the data, like finding the minimum and maximum values, as well as the mean and standard deviation of your data. To extract this information from your <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> provides very similar functionalities as <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to compute some basic statistics out of your data. For instance, we can easily extract the maximum elevation of our data by calling <code class="docutils literal notranslate"><span class="pre">.max()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span>
+<p>Ouch! That produces quite a lot of information as it happens that the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> returns by default an <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> as a result. However, when we explore the output, we can see that the single value in the array is <code class="docutils literal notranslate"><span class="pre">2943</span></code> which is the highest point in our data. However, it would be more useful to get the actual single number as a result when doing operations like these. Luckily, it is easy to extract the actual numerical value from the data by adding <code class="docutils literal notranslate"><span class="pre">.item()</span></code> after the command. The <code class="docutils literal notranslate"><span class="pre">.item()</span></code> method returns the <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> element as a regular Python scalar value which is more similar to what e.g. <code class="docutils literal notranslate"><span class="pre">pandas</span></code> returns when you call the <code class="docutils literal notranslate"><span class="pre">.max()</span></code> or <code class="docutils literal notranslate"><span class="pre">.min()</span></code>, as demonstrated below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_epsg</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_wkt</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resolution</span>
-<span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">resolution</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Affine transform (how raster is scaled, rotated, skewed, and/or translated)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dimensions</span>
@@ -549,25 +547,53 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Number of bands</span>
-<span class="c1">#data.rio.count</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resolution</span>
+<span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">resolution</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bounds of the file</span>
 <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">bounds</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># No data values for all channels</span>
-<span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">vars</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Radiometric resolution of the DataArray</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
 </pre></div>
 </div>
+</section>
+<section id="creating-a-new-data-variable">
+<h2>Creating a new data variable<a class="headerlink" href="#creating-a-new-data-variable" title="Link to this heading">#</a></h2>
+<p>At the moment, we only have one data variable in our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, i.e. the <code class="docutils literal notranslate"><span class="pre">elevation</span></code>. As a reference to vector data structures in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> library which we introduced in Chapter 6, this would correspond to a situation in which you would have a single column in your <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. However, it is very easy create new data variables into your <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> e.g. based on specific calculations or data conversions. For instance, we might be interested to calculate the relative height (i.e. relief) based on our data which tells how much higher the elevations (e.g. the highest peak) are relative to the lowest elevation in the area. This can be easily calculated by subtracting the lowest elevation from the highest elevation in an area. In the following, we create a new data variable called <code class="docutils literal notranslate"><span class="pre">&quot;relative_height&quot;</span></code> into our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> based on a simple mathematical calculation. You can create new data variables into your <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> by using square brackets and the name of your variable as a string (e.g. <code class="docutils literal notranslate"><span class="pre">data[&quot;THE_NAME&quot;]</span></code>), as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">min_elevation</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+<span class="c1"># Calculate the relief</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;relative_height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_elevation</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+<p>As a result, we now can see that a new data variable called <code class="docutils literal notranslate"><span class="pre">&quot;relative_height&quot;</span></code> was created and stored into our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>. All of the data variables stored in a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> are of type <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> which is the N-dimensional array as we discussed at the beginning of this section. We can confirm the data type of our data variable by typing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Ultimately, you can store as many data variables to your dataset as you like. In case you are interested to explore all the data variables that are presented in your <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, you can do this by calling <code class="docutils literal notranslate"><span class="pre">.data_vars</span></code> attribute as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span>
+</pre></div>
+</div>
+<p>Here, we can see the names of the data variables, as well as some basic information about the data itself including the data type, size of the data in MiB, and a snippet of the actual values in the <code class="docutils literal notranslate"><span class="pre">DataArrays</span></code>. In case you are only interested to find out the names of the data variables, you can extract them as a list as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="plotting-a-data-variable">
+<h2>Plotting a data variable<a class="headerlink" href="#plotting-a-data-variable" title="Link to this heading">#</a></h2>
+<p>Thus far we have explored some of the basic characteristics of the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures. However, we have not yet plotted anything on a map, which is also one of the typical things that you want to do whenever working with new data. The <code class="docutils literal notranslate"><span class="pre">xarray</span></code> library provides very similar plotting functionality as <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, i.e. you can easily create a visualization out of your <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> objects by using the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method that uses <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library in the background. In the following, we create a simple map out of the <code class="docutils literal notranslate"><span class="pre">&quot;relative_height&quot;</span></code> data variable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the <code class="docutils literal notranslate"><span class="pre">&quot;terrain&quot;</span></code> as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because there are no values that would be below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8.</p>
 </section>
 <section id="writing-a-file">
 <h2>Writing a file<a class="headerlink" href="#writing-a-file" title="Link to this heading">#</a></h2>
 <p>Add material about writing to most common raster file formats.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </section>
 </section>
 
@@ -599,8 +625,12 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-file">Reading a file</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-properties">Dataset properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-xarray-datastructures-dataset-and-dataarray">Key xarray datastructures: Dataset and DataArray</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-file-into-dataset">Reading a file into Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming-data-variables">Renaming data variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-basic-information-about-the-raster-dataset">Extracting basic information about the raster dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-data-variable">Creating a new data variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-data-variable">Plotting a data variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-a-file">Writing a file</a></li>
 </ul>
   </nav></div>
