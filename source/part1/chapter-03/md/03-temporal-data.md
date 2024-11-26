@@ -286,7 +286,7 @@ sample1["TMAX_F"] + sample2["TMAX_F"]
 As you can see, `pandas` automatically converted the temporal information to the UTC timezone and the temperature values were summed correctly.
 
 
-## Selecting data based on a DatetimeIndex
+## Selecting data using a DatetimeIndex
 
 
 In Chapter 3.3, we saw how to select observations using simple string manipulation operations applied to the timestamp. Although this worked quite well for our specific case, it is a rather clumsy and inflexible approach to work with temporal information. A much better approach is to take advantage of the `datetime` objects stored in the time series. Let's again first set the `DATE` column as the index for our `DataFrame` using the `.set_index()` method.
@@ -354,7 +354,9 @@ Or we can select data covering the whole year of 2018.
 data.loc["2018"]
 ```
 
-It is also possible to select subsets of data for specific time intervals starting from the first dates or for the last dates in the selection. For example, if you would like to select the values for the first two weeks and three days of January 2018 you could do the following.
+### Selecting data using a DateOffset
+
+It is also possible to select subsets of data for specific time intervals starting from the first dates or for the last dates in the selection using a *{term}`DateOffset`*. A `DateOffset` is simply a duration of calendar time represented in a specific object in `pandas`. For example, if you would like to select values from the first two weeks and three days of January 2018 you could do the following.
 
 ```python
 start_dt = datetime(2018, 1, 1)
@@ -422,107 +424,101 @@ sample["weekly_diff"] = sample["TMAX_F"].shift(-7, freq="D") - sample["TMAX_F"]
 sample.head()
 ```
 
-Here, we specified `-7` as the first argument and passed the letter `"D"` for the `freq` parameter, meaning that we want shift the observations by 7 days. Then, we calculated the difference between the temperatures for the following week and stored the result in a column called `weekly_diff`. In a similar manner, you can easily calculate differences between observations taken at different times, which can be very efficient and useful to understand changes in time series data sets. 
+Here, we specified `-7` as the first argument and passed the letter `"D"` to indicate days with the `freq` parameter, meaning that we want shift the observations by 7 days. Then, we calculated the difference between the temperatures for the following week and stored the result in a column called `weekly_diff`. In a similar manner, you can easily calculate differences between observations taken at different times, which can be very efficient and useful to understand changes in time series data sets. 
 
 
-## Resampling and calculating rolling statistics
+## Resampling time series data
 
+As we now know how to take advantage of the `DatetimeIndex` to make selections, time zone conversions, and manipulate data by shifting observations, we are ready to further explore the functionalities of `pandas` for working with temporal data. One common task when doing time series data analysis is to *{term}`resample`* the time series from one frequency to another, such as aggregating daily temperature observations to monthly averages. This might sound familiar, as we did this process previously (in Chapter 3.3) using specific string manipulation tricks, and then grouping and aggregating the values. Now we will learn how to use resampling functionalities in `pandas` to conduct both downsampling (i.e., aggregating values) and upsampling based on specific *{term}`interpolation`* methods. In general, when doing interpolation values that are missing between observations can be estimated using on specific criteria, such as taking the average between two consecutive observations. For instance, you could interpolate hourly temperature observations to calculate estimates at a 30-minute frequency by assuming that the temperature between two times, such as 10:00 and 11:00, is the average of both, giving you an estimate of the temperature at 10:30. Notice that whenever interpolating/upsampling data, you are basically making an "informed guess" and there is always uncertainty involved with your estimate.  
 
-Now as we know how to take advantage of the DatetimeIndex to make selections and time zone conversions as well as manipulate data by shifting observations, we are ready to explore further the functionalities of pandas for working with temporal data. One typical task when doing analysis with time series data is to *{term}`resample`* the time series from one frequency to another, such as aggregating the hourly temperature observations to daily averages. This might sound familiar, as we did this process previously (in 3.3) by using specific string manipulation tricks, and then grouping and aggregating the values. Now we will learn how to use pandas resampling functionalities that allows to conduct both downsampling (i.e. aggregating values) and upsampling based on specific interpolation methods. When doing interpolation, you fill missing values between observations based on specific criteria, such as taking the average between two consecutive observations. For instance, you could interpolate hourly temperature observations into 30 minute frequencies by assuming that the temperature in the middle of two time steps, such as 14:00 and 15:00, is the average of both giving you an estimate what the temperature might be at 14:30. Notice that whenever interpolating/upsampling data, you are basically making "sophisticated guesses" and there is always uncertainty involved with your estimates.  
-
-Let's start by downsampling our observations into daily averages. To do this, we can use a `resample()` method that works in a bit similar manner as `groupby()` but it works with `DatetimeIndex` allowing you to easily control how the values should be grouped. Notice, that this only works with time series data, i.e. you need to make sure that you have set `DatetimeIndex` for your DataFrame. Whenever resampling data, you typically want to combine it with a specific aggregation method, such as `mean()`, `max()`, `min()`, which will then specify how you want to aggregate the data, such as calculating the daily averages:  
+Let's start by downsampling our observations into monthly averages. To do this, we can use the `.resample()` method. The `.resample()` method works somewhat similarly to `.groupby()`, but it uses the `DatetimeIndex` to allow you to easily control how the values should be grouped. Notice, however, that this only works with time series data (i.e., you need to make sure that you have a `DatetimeIndex` for your `DataFrame`). Whenever resampling data, you typically want to combine it with a specific aggregation method, such as `.mean()`, `.max()`, or `.min()`, which will then specify how you want to aggregate the data, such as calculating the monthly averages.
 
 ```python
-daily_averages = data.resample("1D").mean()
-daily_averages.head()
+monthly_averages = data.resample("MS")[["TMAX_F", "TMIN_F"]].mean()
+monthly_averages.head()
 ```
 
-As a result we got a new DataFrame, in which all columns having numerical values were aggregated to daily averages. Notice, that averaging all numerical values in your DataFrame might not be what you want, e.g. here it does not really make any sense to take an average of the station number or any other columns expect the `TEMP_F` column. We can easily specify which columns should be aggregated by passing a list of column names after the `resample()` method:
+The calculation above produces a new `DataFrame` containing numerical values that were aggregated to monthly averages. Before proceeding, however, it is good to note a few things. First, the `STATION_ID` column was not included in the aggregation because `pandas` does not know how to average a set of character strings. We can easily specify which columns should be aggregated by passing a list of column names after the `.resample()` function. Second, the attentive reader might have noticed that the monthly aggregation was stated using the string `"MS"` that was passed to the `.resample()` function. In this case, `"MS"` indicates that the monthly frequency should be used and that the associated values should be assigned to the start (or first day) of the month. Equivalently, `"ME"` would assign the values to the last day of the month. Following the example above, it is easy to calculate weekly average temperatures as well.
 
 ```python
-daily_average_temps = data.resample("1D")[["TEMP_F"]].mean()
-daily_average_temps.head()
+weekly_averages = data.resample("1W")[["TMAX_F", "TMIN_F"]].mean()
+weekly_averages.head()
 ```
 
-As a result, we got a new pandas DataFrame containing the average temperature for each day. It is very easy to change the resampling method, and e.g. find out the lowest temperatures for each week using the `.min()` function:
+As expected, this produces a new `pandas` `DataFrame` containing average weekly temperatures. Using this approach, it is very easy to change the resampling method and find the lowest temperatures for each week using the `.min()` function, for example.
 
 ```python
-weekly_min_temps = data.resample("1W")[["TEMP_F"]].min()
+weekly_min_temps = data.resample("1W")[["TMAX_F", "TMIN_F"]].min()
 weekly_min_temps.head()
 ```
 
-In a quite similar manner, it is possible to do upsampling and e.g. interpolate hourly observations to higher frequency (e.g. every 30 minute) by filling the missing values using e.g. linear interpolation which "guesses" the missing values between two known points by fitting a straight line between the observations. Thus, the interpolated temperature between two consecutive hours is the average the two (as discussed in the beginning of this section):
+Upsampling of the data and interpolating the daily observations to a higher frequency (e.g., 12 hours) can be done similarly by estimating the missing values using linear interpolation, for example. Linear interpolation estimates the missing values between known points by fitting a straight line between the observations. Thus, the interpolated temperature between two consecutive days is the average the two (similar to the case discussed at the beginning of this section). Let's have a look at an example of interpolating temperatures to a frequency of 12 hours from our daily observations. Note that we are explicitly excluding the `STATION_ID` column when making the selection of dates for this example.
 
 ```python
-selection = data.loc["2018-01-01 03:00":"2018-01-01 08:00"].copy()
-selection.resample("30T").interpolate()[["TEMP_F"]]
+selection = data.loc["2018-01-01":"2018-01-07", ["TMAX_F", "TMIN_F"]].copy()
+selection.resample("12h").interpolate()
 ```
 
-As a result, our hourly data was now converted to higher frequency and e.g. the temperature at 03:30 is 34.5 Fahrenheits which is the average of its neighboring values. By default, the interpolation will automatically done for all columns containing numerical values and you can select the columns that you are interested in by passing a list of column names after calling the `interpolate()` method. There are also many other interpolation methods available, see details from the pandas documentation [^interpolation]. 
+As a result, our daily data has been converted to a higher frequency and the temperature at noon on the first of January 2018 is estimated to be 27 degrees Fahrenheit, which is the average of the values on January first and second. By default, the interpolation will automatically done for all columns containing numerical values. In this case we have used linear interpolation, but there are many other interpolation methods available as shown in the [`pandas` interpolation documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html) [^interpolation]. 
 
 
-**Rolling statistics** is yet another useful technique to deal with time series data that is "noisy" or that has gaps between observations. Moving average is one such an operation in which observations are weighted (averaged) over a sliding "window" that is an efficient way to smooth the data and reduce variance between observations. For instance, stock market data or GPS observations representing the movement / speed profiles of vehicles are good examples of datasets that typically have a lot of variance, which can make it challenging to see patterns without smoothing. Pandas supports various moving window functions that have differences in how they influence the end result. Some of them use a static window size and weights the observations equally, whereas some functions can e.g. give more weight to more recent observations. Next we will see how moving average can be calculated with pandas, and how it influences our data. Let's start by taking a sample of our data covering the last 20 years and make a plot based on the temperature:
+## Calculating rolling statistics
+
+The calculation of rolling statistics is yet another useful technique to deal with time series data that is "noisy" or that has gaps between observations. Calculating a moving average is a typical rolling statistics operation in which observations are weighted (averaged) over a moving "window", which is an efficient way to smooth the data and reduce variance between observations. For example, stock market data or GPS observations of the movement / speed of vehicles are good examples of datasets that typically have large amounts of variance, which can make it challenging to see patterns without smoothing. `pandas` supports various moving window functions, and each have differences in how they influence the end result. Some use a static window size and weigh the observations equally, whereas others can give more weight to more recent observations, for example. In the following we will see how a moving average can be calculated with `pandas`, and how it influences the interpretations of our data. Let's start by taking a sample of our data covering 20 years and make a plot based on the maximum daily temperature.
 
 ```python
-sample = data.loc["1990":"2020"].copy()
-sample.plot(y="TEMP_F");
+sample = data.loc["1994":"2023"].copy()
+sample.plot(y="TMAX_F");
 ```
 
-_**Figure 3.5**. Temperature values in Fahrenheit for 1990-2020._
+_**Figure 3.5**. Temperature values in Fahrenheit for 1994-2023._
 
-In this plot we have time represented on the x-axis and the temperature in Fahrenheit on the y-axis. We can clearly see how the temperatures fluctuate over different seasons. Let's investigate our data a bit further and take a look of the first rows of our sample: 
+In this plot, time is on the x-axis and temperatures in Fahrenheit are on the y-axis. We can clearly see how the temperatures fluctuate throughout the year. Let's investigate our data a bit further and take a look of the first rows of our sample.
 
 ```python
-sample.head(10)
+sample.head()
 ```
 
-As we see, the first rows in our sample contains observations every 3 hours or so. Let's test how we can apply rolling statistic over our tiem series and calculate a moving average based on four closest (consecutive) temperature observations. To do this, we can use a method called `.rolling()` that by default takes an integer number as an argument that specify how many observations should be grouped together (i.e. window size). By chaining the `.mean()` command after the first one, we can specify that we want to calculate the average temperature based on those four observations:
+As we would expect, the first rows in our sample contain daily observations. Let's see how we can apply rolling statistics with our time series and calculate a moving average based on four closest (consecutive) temperature observations. To do this, we can use the `.rolling()` method, which takes an integer number as an argument by default to specify how many observations should be grouped together (i.e., the window size). By chaining the `.mean()` command after `.rolling()`, we can specify that we want to calculate the average temperature based on those four observations.
 
 ```python
-roll_a = sample["TEMP_F"].rolling(4).mean()
-roll_a
+moving_temps = sample["TMAX_F"].rolling(4).mean()
+moving_temps
 ```
 
-As a result, we get a Series in which the time is the index and the newly calculated average temperatures are the values. As can be seen from here, the first three temperature values are NaNs which is expected, as we specified that the average should always be based on four consecutive observations. Hence,  with the first three observations the average cannot be calculated, and in this case pandas returns NaN. 
+As output here, we get a `Series` in which time is the index and the newly calculated moving-window average temperatures are the values. As can be seen in this example, the first three temperature values are `NaN`, which is expected because we specified that the average should always be based on four consecutive observations. Thus, the average cannot be calculated for the first three observations, and `pandas` returns `NaN`.
 
-An important thing to notice here, is that the temporal resolution of our data seem to vary. This can be seen by comparing the first and last five timestamps to each other: in early 90's the frequency of the observations was 3 hours, but during 2019 the frequency has been 1 hour. This is a significant issue, because the temporal span of how the moving average is calculated differs, which can cause unwanted consequenses and errors in our analysis. Luckily, it is easy to fix this issue by passing a *{term}`DateOffset`* as an argument for the `.rolling()` command, in a similar manner as we did earlier when resampling our data. Hence, we can e.g. use a fixed window size of 1 day by passing "1D" to the function, and it will always keep the time span identical, no matter how many observations there would be recorded within a single day:
+In addition, it is important to note that `.rolling()` and `.resample()` work similarly, but also have differences. The main difference is that the `.rolling()` will maintain the number of observations in the data (but change the values according neighboring values, for example based on the mean), whereas `.resample()` will actually aggregate and reduce the number of observations that will be stored in the result. 
 
-```python
-daily = sample["TEMP_F"].rolling("1D").mean()
-```
+With our data set, we are fortunate that we are working with observations at regular intervals (daily), but this is not always the case. In situations where the observations are made at irregular time intervals (e.g., several times per day at irregular intervals) using a moving window with a set number of observations can result in unwanted consequences and errors in the analysis. This issue can be handled by passing a `DateOffset` as an argument in the `.rolling()` function, similar to how we did earlier when resampling our data. If the observations occur more frequently than daily, you might use a fixed window size of one day by passing `"1D"` to the function. This will keep the time span equal, no matter how many observations there would be recorded within a single day. Note, however, that the time interval being used should be equal, so values such as `"1MS"` for monthly intervals would not be consistent since the number of days in a month varies.
 
-Following this approach, it is easy to calculate rolling statistics with different window sizes, such as weekly, monthly or even annual averages. The main different between `.rolling()` and `.resample()` is that the former will maintain the number of observations in the data (but change the values according neighboring values e.g. based on mean), whereas the latter will actually aggregate and reduce the number of observations that will be kept in the result. To demonstrate the influence of "smoothing" to our time series based on moving average, let's calculate the moving average of temperatures based on window size of 180 days and 360 days (~year), and plot the results (details about plotting are discussed in the next chapter):
+In our case, we can use this approach to easily calculate rolling statistics with different window sizes, such as weekly, monthly or even annual averages. We can do this by specifying a varying number of days for the moving window. To demonstrate the influence of "smoothing" our time series based on different moving window sizes, let's calculate the moving average of temperatures based on window sizes of 180 days and 360 days (roughly one year), and plot the results (details about plotting are discussed in Chapter 4).
 
 ```python
-half_year = sample["TEMP_F"].rolling("180D").mean()
-annual = sample["TEMP_F"].rolling("360D").mean()
+half_year = sample["TMAX_F"].rolling("180D").mean()
+annual = sample["TMAX_F"].rolling("360D").mean()
 ```
 
 ```python
 # Plot
-ax = daily.plot(y="TEMP_F", figsize=(12, 8), alpha=0.5)
-ax = half_year.plot(ax=ax, y="TEMP_F", lw=2)
-ax = annual.plot(ax=ax, y="TEMP_F", lw=3)
-ax.set_ylabel("Temperature (Fahrenheit)", size=12);
+ax = sample.plot(y="TMAX_F", figsize=(12, 8), alpha=0.5, label="Daily")
+ax = half_year.plot(ax=ax, y="TMAX_F", lw=2, label="Half yearly")
+ax = annual.plot(ax=ax, y="TMAX_F", lw=3, label="Yearly")
+ax.set_ylabel("Temperature (degrees Fahrenheit)", size=12)
+ax.legend();
 ```
 
-_**Figure 3.6**. Temperature values and moving averages for 1990-2020._
+_**Figure 3.6**. Temperature values and moving averages for 1994-2023._
 
-As a result, we have three different curves showing how the temperature values get smoothed by averaging. Green line is based on the moving average with 360 days; Orange line is based on the 180 days; and the blue line represents the moving average based on daily averages. As can be seen, the variance between observations is reduced (i.e. smoothed) when the size of the window gets larger. 
+As a result, we have three different lines showing how the raw daily temperature observations (`sample`, blue line) compare to those smoothed for roughly half a year (`half_year`, orange line) or one year (`annual`, green line). The daily values show how much temperature varies day to day in our data set, while yearly values roughly show how much temperatures vary from year to year. As we can observe, the variance between observations is reduced (i.e., smoothed) when the size of the window is larger. 
 
-In quite a similar manner, it is possible to use exponentially weighted (EW) window functions to give more weight on more recent observations based on a decay function, such as center of mass (com) following a formula: $\alpha$ *= 1 / (1 + com)*. A method called `.ewm()` does this, and as a result the smoothing adapts faster to changes than using equally weighted observations. The higher value you pass for the `com` -parameter, the more the end result will be smoothed:
-
-```python
-sample["TEMP_F"].ewm(com=200).mean().plot();
-```
-
-_**Figure 3.7**. Exponentially weighted temperature values for 1990-2020._
-
-In addition to these moving window functions, pandas provides a method `.expanding()` which increases the size of the window on each observation until it encompasses the whole series. This method basically cumulates the information on each observation and can be useful e.g. in some predictive applications where cumulative information about the given phenomena can provide more accurate results after more observations have been observed. It is also possible to apply and chain your own functions together with `.rolling()` and `.expanding()`, such as `.rolling(20).apply(myOwnFunction)`. 
+It is worthwhile to note two other common rolling statistical calculations that can be done using `pandas`. First, it is possible to use exponentially weighted (EW) window functions to give more weight to observations that are closer to the center of the window (closer in time in our case) using a decay function. The `pandas` method `.ewm()` can be used for this as described in the [`pandas` documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html) ^[ewm]. Similar concepts are introduced in [a case study in Chapter 10](../../part3/chapter-10/index.rst) for predicting unknown values at specific geographic locations. Second, in addition to the moving window functions, `pandas` provides a method called `.expanding()`, which increases the size of the window for each observation until it encompasses the whole series. This method basically accumulates the information on each observation, similar to cumulative summing, and can be useful in some predictive applications where cumulative information about the given phenomena can provide more accurate results using more observations, for example. More information about the `.expanding()` method can be found in the [`pandas` documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.expanding.html) ^[expanding].
 
 
 ## Footnotes
 
-[^isostandard]: <https://en.wikipedia.org/wiki/ISO_8601>
 [^dateoffsets]: <https://pandas.pydata.org/docs/user_guide/timeseries.html#dateoffset-objects>
+[^ewm]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html>
+[^expanding]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.expanding.html>
 [^interpolation]: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html>
+[^isostandard]: <https://en.wikipedia.org/wiki/ISO_8601>
