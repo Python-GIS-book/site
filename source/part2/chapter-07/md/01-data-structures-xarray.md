@@ -66,7 +66,6 @@ Because our `Dataset` only consists of a single `band` (i.e. the elevation value
 data = data.squeeze("band", drop=True)
 data
 ```
-
 As a result, now the `Dimensions` and `Coordinates` only shows the data for `x` and `y` axis, meaning that the unnecessary data was successfully removed. 
 
 
@@ -82,7 +81,7 @@ data
 Now the name of our data variable was changed to `elevation` which makes it more intuitive and convenient to use than calling the variable with a very generic name `band_data`. 
 
 
-## Extracting summary statistics
+## Extracting basic information about the raster dataset
 
 One of the typical things that you want to do when exploring a new dataset is to calculate some basic summary statistics out of the data, like finding the minimum and maximum values, as well as the mean and standard deviation of your data. To extract this information from your `Dataset`, `xarray` provides very similar functionalities as `pandas` to compute some basic statistics out of your data. For instance, we can easily extract the maximum elevation of our data by calling `.max()` method:
 
@@ -98,6 +97,28 @@ data["elevation"].min().item()
 
 ```python
 data["elevation"].max().item()
+```
+
+```python
+# Dimensions
+print(data.rio.shape)
+print(data.rio.width)
+print(data.rio.height)
+```
+
+```python
+# Resolution
+data.rio.resolution()
+```
+
+```python
+# Bounds of the file
+data.rio.bounds()
+```
+
+```python
+# Radiometric resolution of the DataArray
+data["elevation"].dtype
 ```
 
 ## Creating a new data variable
@@ -140,81 +161,8 @@ data["elevation"].plot(cmap="terrain")
 
 Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the `"terrain"` as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because there are no values that would be below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8. 
 
-```python
-### MOVE TO CHAPTER 8 #####
-
-import matplotlib.pyplot as plt
-import numpy as np 
-import matplotlib.colors as colors
-
-colors_undersea = plt.cm.terrain(np.linspace(0, 0.17, 256))
-colors_land = plt.cm.terrain(np.linspace(0.25, 1, 256))
-all_colors = np.vstack((colors_undersea, colors_land))
-terrain_map = colors.LinearSegmentedColormap.from_list(
-    'terrain_map', all_colors)
-divnorm = colors.TwoSlopeNorm(vmin=-500., vcenter=0, vmax=2200)
-
-data["relative_height"].plot(cmap=terrain_map, norm=divnorm)
-```
 
 ## Writing a file
 
 Add material about writing to most common raster file formats.
 
-
-
-## Dataset properties
-
-Let's have a closer look at the properties of the file:
-
-```python
-data.spatial_ref.attrs
-```
-
-```python
-data.rio.crs
-```
-
-```python
-data.rio.crs.to_epsg()
-```
-
-```python
-data.rio.crs.to_wkt()
-```
-
-```python
-# Resolution
-data.rio.resolution()
-```
-
-```python
-# Affine transform (how raster is scaled, rotated, skewed, and/or translated)
-data.rio.transform()
-```
-
-```python
-# Dimensions
-print(data.rio.shape)
-print(data.rio.width)
-print(data.rio.height)
-```
-
-```python
-# Number of bands
-# data.rio.count
-```
-
-```python
-# Bounds of the file
-data.rio.bounds()
-```
-
-```python
-# No data values for all channels
-data.rio.vars
-```
-
-```python
-
-```
