@@ -145,39 +145,53 @@ def celsius_to_newton(temp_celsius):
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 3
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 3.1
 ```python
 temp_data = pd.read_csv(
     "data/kumpula-summer-2024.txt", skiprows=8, usecols=["YEARMODA", "TEMP1"]
 )
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 3.2
 ```python
 len(data.columns)
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 3.3
 ```python
 data[["TEMP1", "TEMP2", "MAX", "MIN"]].describe()
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 3.4
 ```python
 data["TEMP_KELVIN"] = data["TEMP"] + 273.15
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 3.5
 ```python
 data.loc[85:91, "TEMP"].mean()
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 3.6
 ```python
 data["TEMP"].loc[data["YEARMODA"] >= 20240825].mean()
 ```
+<!-- #endregion -->
 
+<!-- #region -->
 ### Question 3.7
 ```python
 data["MONTH"] = data["DATE_STR"].str.slice(start=4, stop=6)
