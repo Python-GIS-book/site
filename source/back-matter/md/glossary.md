@@ -16,6 +16,9 @@ jupyter:
 # Glossary
 
 ```{glossary}
+Accessor
+  In Python libraries, an *accessor* is a method or attribute added to an existing data structure, such as a `Dataset` in `xarray` library, to provide specialized functionality. Accessors extend the capabilities of the base object without modifying its core structure.
+
 Application Programming Interface
   An application programming interface or API is a set of protocols and tools that enable pieces of software to communicate and exchange information. For example, the Nominatim service has an API for accessing its geocoding service.
 
@@ -172,6 +175,9 @@ Program
 Programming language
   A set of exact and unambiguous instructions that can be understood by the computer.
 
+Radiometric resolution
+  In satellite imagery, radiometric resolution refers to the ability of a sensor to measure and distinguish differences in the intensity of the electromagnetic radiation it detects. It is determined by the number of bits used to represent the data for each pixel, which defines the range of possible intensity values. For example, an 8-bit sensor can record 256 levels of intensity (0–255), while a 16-bit sensor can record 65,536 levels. 
+
 Radius query
   A radius query is a type of spatial query that retrieves all points within a specified distance (radius) from a given query point. The query is performed typically on a {term}`KD-Tree` to efficiently find points that fall within a given distance from the query point. KD-Tree supports only Point objects, i.e. it cannot be used to search other geometric types, such as LineStrings or Polygons.
 
@@ -202,6 +208,9 @@ Shifting
 Software
   Another name for a {term}`program`.
 
+Spatial extent
+  In geographic data, spatial extent refers to the geographic area covered by a dataset or map. It is typically defined by the minimum and maximum coordinates (e.g., latitude and longitude) that bound the dataset, forming a rectangle or other boundary in geographic space.
+
 Spatial index
   A spatial index is a data structure designed to efficiently query spatial data, such as Points, LineStrings and Polygons within a multidimensional space. It optimizes the storage of spatial objects, enabling fast searches based on their geographic location and spatial relationships. Spatial indexes are crucial in geographic information systems (GIS) and spatial database management, where rapid access to spatial data is essential for tasks such as proximity searches, map rendering and spatial analysis. Common types of spatial indexes include R-trees, quad-trees, and k-d trees, each with its own method for partitioning space and organizing spatial data for efficient querying.
 
@@ -220,11 +229,17 @@ Spatial predicate
 Spatio-temporal data model
   A data model that incorporates time (t) as an additional dimension to the geographical dimension (x, y). 
 
+Spectral resolution
+  In multispectral satellite data, spectral resolution refers to the ability of a sensor to distinguish between different wavelengths of electromagnetic radiation. It is defined by the number and width of the spectral bands the sensor can capture. Higher spectral resolution means the sensor can detect finer differences in wavelength, allowing for more detailed analysis of surface materials and phenomena.
+
 Subplots
   The term used in Matplotlib to refer to individual plots when more than one plot is part of a single figure.
 
 Syntax
   The precise form of a component in a programming language. For example, the print function in Python expects the syntax `print('hello')` in order to have the word hello displayed on the screen.
+
+Temporal resolution
+   In satellite imagery, temporal resolution refers to the frequency at which a specific area on Earth's surface is revisited and imaged by a satellite sensor. It determines how often data is collected for a given location and is typically expressed as the time interval between consecutive observations (e.g., daily, weekly). Higher temporal resolution enables more frequent monitoring, while lower temporal resolution provides less frequent updates but may cover broader areas or focus on finer spatial or spectral details.
 
 Topological spatial relations
   Topological spatial relations describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as contains, touches and intersects. In GIS, these kind of topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions.
