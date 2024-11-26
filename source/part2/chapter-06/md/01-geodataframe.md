@@ -15,13 +15,13 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Introduction to data structures in geopandas
 
-Now that you have seen how to create and represent geometric objects in Python using `shapely`, we will continue on learning various GIS techniques using a library called `geopandas` [^geopandas]. `geopandas` is a library designed to make working with geospatial data in Python easier. It extends the data types used by `pandas` (which we covered in Part I) to allow geospatial operations and the handling of coordinate reference systems. Essentially, it provides a high-level interface for vector data (like points, lines, and polygons) that integrates with the existing `pandas` data analysis framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5). `geopandas` is one of the core libraries for GIS in Python and it is widely used in different sectors (academia, industry, etc.) for geographic data analysis. In the next sections, we will introduce the basic data structures that are used to work with geographic data using `geopandas`, namely {term}`GeoSeries` and {term}`GeoDataFrame`. 
+Now that you have seen how to create and represent geometric objects in Python using `shapely`, we will continue on learning various GIS techniques using a library called `geopandas` [^geopandas], which is one of the core libraries for GIS in Python and widely used in different sectors (academia, industry, etc.) for geographic data analysis. The `geopandas` library extends the data structures and data analysis tools available in the `pandas` library (which we covered in Part I) to allow geospatial operations and the handling of coordinate reference systems. Essentially, `geopandas` provides a high-level, easy-to-use interface for vector data (like points, lines, and polygons) that integrates with the existing `pandas` data analysis framework, as well as the extensive Python GIS ecosystem (see Figure 5.1 in Chapter 5). In the next sections, we will introduce the basic data structures that are used to work with geographic data using `geopandas`, namely {term}`GeoSeries` and {term}`GeoDataFrame`. 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## What is a GeoDataFrame?
 
-The main data structures in `geopandas` are `GeoSeries` and `GeoDataFrame`. Essentially, they extend the capabilities of the `Series` and `DataFrame` data structures of `pandas`. This means that we can use many familiar methods from `pandas` also when working with `geopandas` and geographic data. A `GeoDataFrame` is basically like a `pandas.DataFrame` that contains at least one dedicated column for storing geometries (see Figure 6.10). The geometry column is a `GeoSeries` which contains the geometries as shapely objects (points, lines, polygons, multipolygons etc.). As we learned in the previous section, `shapely` provides many useful attributes and methods to work with geometries. Luckily, these same functionalities can be directly applied to `GeoSeries` making it convenient to work with data layers that may contain thousands or even millions of geographic features. In this section, you will learn various useful techniques and tools bundled in `geopandas` that help you to work with geographic data in vector format.
+The main data structures in `geopandas` are `GeoSeries` and `GeoDataFrame`. Essentially, they extend the capabilities of the `Series` and `DataFrame` data structures of `pandas`. This means that we can use many familiar methods from `pandas` also when working with `geopandas` and geographic data. A `GeoDataFrame` is basically like a `pandas` `DataFrame` that contains at least one dedicated column for storing geometries (see Figure 6.10). The geometry column is a `GeoSeries` which contains the geometries as `shapely` objects (points, lines, polygons, multipolygons etc.). As we learned in the previous section, `shapely` provides many useful attributes and methods to work with geometries. Luckily, these same functionalities can be directly applied to `GeoSeries` making it convenient to work with data layers that may contain thousands or even millions of geographic features. In this section, you will learn various useful techniques and tools bundled in `geopandas` that help you to work with geographic data in vector format.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -75,7 +75,7 @@ We can see that there are three columns in our `GeoDataFrame`. The columns `pop2
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-It is always a good idea to explore your geographic data on a map. Creating a simple map from a geodataframe is really easy. You can use the `.plot()` method bundled in the `GeoDataFrame` instance to create a map based on the geometries of the data. Under the hood, `geopandas` actually uses `matplotlib` for plotting which we introduced in Part 1 of this book. Let's try it out, and do a quick visualization of our data:
+It is always a good idea to explore your geographic data on a map. When working with a `GeoDataFrame`you can easily use the `.plot()` method to create a map that shows the geometries of the data. Under the hood, `geopandas` actually uses `matplotlib` for plotting which we introduced in Part 1 of this book. Let's try it out, and do a quick visualization of our data:
 <!-- #endregion -->
 
 ```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
@@ -106,7 +106,7 @@ Figure out the following information from our input data using your `pandas` ski
 # Solution
 
 print("Number of rows", len(data))
-print("Number of census tract", data["tract"].nunique())
+print("Number of census tracts", data["tract"].nunique())
 print("Total population", data["pop2019"].sum())
 ```
 
@@ -426,7 +426,7 @@ data.to_file(outfp, driver="OpenFileGDB")
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Creating a GeoDataFrame from scratch
 
-It is possible to create spatial data from scratch by using shapely's geometric objects and geopandas. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into geospatial data layers. Let's first create a simple `GeoDataFrame` based on coordinate information that represents the outlines of the Senate square in Helsinki, Finland. The coordinates below demonstrates the corners of the Senate square, which we can use to create a `Polygon` object in a similar manner as we learned earlier in this chapter. The order of the coordinates should always follow longitude-latitude order (i.e. `x` and `y` coordinates):
+It is possible to create spatial data from scratch by using `shapely`'s geometric objects and `geopandas`. This is useful as it makes it easy to convert, for example, a text file that contains coordinates into geospatial data layers. Let's first create a simple `GeoDataFrame` based on coordinate information that represents the outlines of the Senate square in Helsinki, Finland. The coordinates below demonstrates the corners of the Senate square, which we can use to create a `Polygon` object in a similar manner as we learned earlier in this chapter. The order of the coordinates should always follow longitude-latitude order (i.e. `x` and `y` coordinates):
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -518,7 +518,7 @@ type(airports)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-The `GeoDataFrame` was created with a couple of steps. First, we created a new column called `geometry` into the `DataFrame` and used the `.points_from_xy()` function to turn the coordinates into shapely `Point` objects. At this stage, the data is still in a `DataFrame` format. The second command in the code snippet converts the pandas `DataFrame` into a `GeoDataFrame` which then has all the capabilities and tools bundled with geopandas. After these two steps, we have succesfully turned the data into geospatial format and we can for example plot the data on a map:
+The `GeoDataFrame` was created with a couple of steps. First, we created a new column called `geometry` into the `DataFrame` and used the `.points_from_xy()` function to turn the coordinates into `shapely` `Point` objects. At this stage, the data is still in a `DataFrame` format. The second command in the code snippet converts the pandas `DataFrame` into a `GeoDataFrame` which then has all the capabilities and tools bundled with geopandas. After these two steps, we have succesfully turned the data into geospatial format and we can for example plot the data on a map:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}

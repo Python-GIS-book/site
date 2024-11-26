@@ -56,7 +56,7 @@ point.wkt
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Points and other `shapely` objects have many useful built-in attributes and methods for extracting information from the geometric objects, such as the coordinates of a point. There are different approaches for extracting coordinates as numerical values from the `shapely` objects. One of them is a property called `.coords`. It returns the coordinates of the point geometry as a `CoordinateSequence` which is a dedicated data structure for storing a list of coordinates. For our purposes, we can convert the `.coords` into a list that makes the values visible and make it easy to access the contents: 
+Points and other `shapely` objects have many useful built-in attributes and methods for extracting information from the geometric objects, such as the coordinates of a point. There are different approaches for extracting coordinates as numerical values from the `shapely` objects. One of them is a property called `.coords`. It returns the coordinates of the point geometry as a `CoordinateSequence` which is a dedicated data structure for storing a list of coordinates. For our purposes, we can convert the coordinates into a list that makes the values visible and make it easy to access the contents: 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
