@@ -21,9 +21,9 @@ jupyter:
 
 Knowing how to install Python and many of its wonderful libraries is one of the first things that you want to learn. Luckily, installing Python and its libraries is very easy once you are familiar with some basic concepts and approaches to manage your Python installations. In the next paragraphs, we provide some terminology, background information and good practices on how to handle Python installations before showing in detail how to install all the libraries used in this book. Next paragraphs probably include many new terms and some technical details that you might not understand at this point, but don't worry, getting started is easy.  
 
-- **Handling dependencies:** Because Python is one of the most popular programming languages in the world, there is also a huge number of libraries available for it. Having a large ecosystem of libraries is naturally a great thing, but it also bring some challenges that needs to be considered when doing installations. Many of the libraries developed for Python take advantage of, and are strongly linked to, other Python libraries. This is very useful because developers don't need to create everything from scratch when developing libraries, allowing faster and (typically) more stable progress of the libraries. Python's libraries are also evolving and improving all the time, and developers typically publish new versions of the libraries regularly. Because of these regular updates and *`{term} dependencies <Dependency>`* between Python packages, it is important to ensure that different packages (and their different versions) work well together. Luckily, Python has good tools (package managers) to help handling these installations, which solve all the dependencies between libraries for you, and allow you to keep your libraries up-to-date easily. 
+- **Handling dependencies:** Because Python is one of the most popular programming languages in the world, there is also a huge number of libraries available for it. Having a large ecosystem of libraries is naturally a great thing, but it also bring some challenges that needs to be considered when doing installations. Many of the libraries developed for Python take advantage of, and are strongly linked to, other Python libraries. This is very useful because developers don't need to create everything from scratch when developing libraries, allowing faster and (typically) more stable progress of the libraries. Python's libraries are also evolving and improving all the time, and developers typically publish new versions of the libraries regularly. Because of these regular updates and *{term}`dependencies <Dependency>`* between Python packages, it is important to ensure that different packages (and their different versions) work well together. Luckily, Python has good tools (package managers) to help handling these installations, which solve all the dependencies between libraries for you, and allow you to keep your libraries up-to-date easily. 
 
-- **Python installation with Miniconda:** Even though it is possible to install Python from the [Python homepage](https://www.python.org/) [^Python website], we highly recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) [^miniconda] to install Python. Miniconda is a Python distribution that comes with Python interpreter and a small number of essential packages, such as package manager called `conda`, which makes it easy to install Python packages. Miniconda is professionally maintained and widely used installation package for getting started with Python. It is free to use for individual hobbyists, students, universities, non-profit organizations, or businesses with less than 200 employees (as of May, 2022). For larger businesses, we recommend to install Python using [Miniforge](https://github.com/conda-forge/miniforge) [^miniforge], which is identical to Miniconda, but does not have any commercial restrictions.
+- **Python installation with Miniconda:** Even though it is possible to install Python from the [Python homepage](https://www.python.org/) [^Python website], we recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) [^miniconda] to install Python. Miniconda is a Python distribution that comes with Python interpreter and a small number of essential packages, such as package manager called `conda`, which makes it easy to install Python packages. Miniconda is professionally maintained and widely used installation package for getting started with Python. It is free to use for individual hobbyists, students, universities, non-profit organizations, or businesses with less than 200 employees (as of November 2024). For larger businesses, we recommend to install Python using [Miniforge](https://github.com/conda-forge/miniforge) [^miniforge], which is identical to Miniconda, but does not have any commercial restrictions.
 
 - **Package managers:** Package managers, such as conda (or `mamba` which is a faster version of conda) are extremely useful tools to install Python packages. In essence, a package manager is a tool that makes life much easier when installing new packages for Python. Package managers are easy to use from terminal/command prompt, and some IDEs also provide nice graphical user interfaces for handling the installations. In addition to conda/mamba, it is good to know that there are also other package managers for Python (such as pip, Pipenv and poetry). Generally, we encourage you to use conda/mamba when installing packages, because they work reliably with all operating systems (including Windows), and they can also handle packages that contain code written in other languages. Many scientific and GIS libraries for Python include parts which are written in C, due to significant boost in performance (speed). You can also combine installations with conda/mamba and pip which might be sometimes necessary if a package is not available via conda, but can be installed with pip.
 
@@ -41,9 +41,9 @@ _**Figure 1.16**. An example of YAML configuration file used for creating a Pyth
 
 In order to follow and reproduce the examples in the rest of the book, here we show in practice how to install Python on your own computer along with all of the recommended software libraries we use. This is not strictly necessary, as it is possible to use the Binder cloud computing platform from the book website to interact with the book materials. However, if you would like to get the most out of the book and ensure you're easily able to continue with Python afterward, we strongly recommend you install Python and Jupyter on your own computer.
 
-In the sections that follow, we provide instructions for the installation of the Python using [Miniconda](https://docs.anaconda.com/free/miniconda/) [^miniconda]. for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the [Python environment file we provide](#download-the-python-environment-files) to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.
+In the sections that follow, we provide instructions for the installation of the Python using [Miniconda](https://www.anaconda.com/download/success#miniconda) [^miniconda] for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the [Python environment file we provide](#download-the-python-environment-files) to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.
 
-This book assumes you are using **Python 3**, so for all operating systems we recommend you install Miniconda based on Python 3. At the time of writing of this book, Python 3.11 is the Python version that is recommended (e.g., Figure 1.16), however future versions of Python 3.X should also be suitable. Importantly, the coding examples we present will not work with Python 2.X, so be sure to install the correct version of Miniconda!
+This book assumes you are using **Python 3**, so for all operating systems we recommend you install Miniconda based on Python 3. At the time of writing of this book, Python 3.12 is the Python version that is recommended, however future versions of Python 3.X should also be suitable. Importantly, the coding examples we present will not work with Python 2.X, so be sure to install the correct version of Miniconda!
 <!-- #endregion -->
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
@@ -53,56 +53,56 @@ This book assumes you are using **Python 3**, so for all operating systems we re
 <!-- #region pycharm={"name": "#%% md\n"} -->
 ### Windows
 
-To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer (Figure 1.17). You can find the latest installer links for Windows from the [Miniconda website](https://docs.anaconda.com/free/miniconda/miniconda-other-installer-links/#windows-installers).
+To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer (Figure 1.17). You can find the latest installer links for Windows from the [Miniconda website](https://www.anaconda.com/download/success#miniconda). Note that the installation website is updated regularly, so it may appear differently than in Figure 1.17.
 
 ![_**Figure 1.17**. Miniconda versions available for Windows._](../img/miniconda-windows.png)
 
 _**Figure 1.17**. Miniconda versions available for Windows._
 
-Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.
+Once you have downloaded the installer, double click on the installer file to install it. You can use the default options but be aware of the installation types below.
 
 - Single-user installation: Select "**Just Me**" during the installation and Miniconda will only be available for the current user. This should not require administrator rights for the installation.
 - System-wide installation: Select "**All Users**" during the installation. This will require administrator rights.
 
-After the installation has completed you can test that the `conda` package manager works by opening the Anaconda Prompt from the Start menu and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.11.0`) then everything is working correctly.
+After the installation has completed you can test that the `conda` package manager works by opening the Anaconda Prompt from the Start menu and running a command such as `conda --version`. If the command returns a version number of conda (e.g., `conda 24.11.0`) then everything is working correctly.
 
-You can find some additional tips on installing Miniconda on the [installing Miniconda web page](https://docs.anaconda.com/free/miniconda/miniconda-install/).
+You can find some additional tips on installing Miniconda on the [installing Miniconda web page](https://docs.anaconda.com/miniconda/install/).
 <!-- #endregion -->
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
 ### macOS
 
-We recommend downloading the version of Miniconda using Python 3 that offers installation using a graphical installer (Figure 1.18). If your computer is using an Apple silicon processor (e.g., M1, M2, M3) you should select the M1 installer package (e.g., `Miniconda3 macOS Apple M1 64-bit pkg`, and if your computer has an Intel processor then select the Intel installer package (e.g., `Miniconda3 macOS Intel x86 64-bit pkg`). You can find the latest installer links for macOS from the [Miniconda website](https://docs.anaconda.com/free/miniconda/miniconda-other-installer-links/#macos-installers).
+We recommend downloading the version of Miniconda using Python 3 that offers installation using a graphical installer (Figure 1.18). If your computer is using an Apple silicon processor (e.g., M1, M2, M3, M4) you should select the Apple Silicon installer, and if your computer has an Intel processor then select the Intel chip installer. You can find the latest installer links for macOS from the [Miniconda website](https://www.anaconda.com/download/success#miniconda). Note that the installation website is updated regularly, so it may appear differently than in Figure 1.18.
 
 ![_**Figure 1.18**. Miniconda versions available for macOS._](../img/miniconda-macos.png)
 
 _**Figure 1.18**. Miniconda versions available for macOS._
 
-Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.
+Once you have downloaded the installer, double click on the installer file to install it. You can use the default options but be aware of the installation types below.
 
 - Single-user installation: Select "**Just Me**" during the installation and Miniconda will only be available for the current user. This should not require administrator rights for the installation.
 - System-wide installation: Select "**All Users**" during the installation. This will require administrator rights.
 
-After the installation has completed you can test that the `conda` package manager works by opening Terminal or the Anaconda Prompt and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.11.0`) then everything is working correctly.
+After the installation has completed you can test that the `conda` package manager works by opening Terminal or the Anaconda Prompt and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 24.11.0`) then everything is working correctly.
 
-In case you have any problems with the Miniconda installation, you can find some installation tips on the [installing Miniconda web page](https://docs.anaconda.com/free/miniconda/miniconda-install/).
+In case you have any problems with the Miniconda installation, you can find some installation tips on the [installing Miniconda web page](https://docs.anaconda.com/miniconda/install/).
 <!-- #endregion -->
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
 ### Linux
 
-Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://docs.anaconda.com/free/miniconda/miniconda-other-installer-links/#linux-installers) (Figure 1.19). Be sure you download the Python 3 package.
+Start by downloading the Miniconda installer for Linux from the [Miniconda website](https://www.anaconda.com/download/success#miniconda) (Figure 1.19). Be sure you download the Python 3 package. Note that the installation website is updated regularly, so it may appear differently than in Figure 1.19.
 
 ![_**Figure 1.19**. Miniconda versions available for Linux._](../img/miniconda-linux.png)
 
 _**Figure 1.19**. Miniconda versions available for Linux._
 
-Once you have downloaded the installer, you can open a terminal window and type a command to start the installation. You should use the default installer options, but be aware that the command you run will differ depending on the installation type.
+Once you have downloaded the installer, you can open a terminal window and type a command to start the installation. You should use the default installer options but be aware that the command you run will differ depending on the installation type.
 
 - Single-user installation: For example, start by running the following:
 
     ```bash
-    $ bash Miniconda3-py311_23.11.0-2-Linux-x86_64.sh
+    $ bash Miniconda3-latest-Linux-x86_64.sh
     ```
 
    Miniconda will only be available for the current user and the installation directory must be a location where that user has write permissions. This should not require administrator rights for the installation.
@@ -110,12 +110,12 @@ Once you have downloaded the installer, you can open a terminal window and type 
 - System-wide installation: For a system-wide install, you can run, for example:
 
     ```bash
-    $ sudo bash Miniconda3-py311_23.11.0-2-Linux-x86_64.sh
+    $ sudo bash Miniconda3-latest-Linux-x86_64.sh
     ```
 
     You will be prompted for your password and must have administrator rights to install this way.
 
-After the installation has completed you can test that the `conda` package manager works by opening a terminal and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 4.11.0`) then everything is working correctly. In case you have any problems with the Miniconda installation, you can find some installation tips on the [installing Miniconda web page](https://docs.anaconda.com/free/miniconda/miniconda-install/).
+After the installation has completed you can test that the `conda` package manager works by opening a terminal and running a command such as `conda --version`. If the command returns a version number of conda (e.g. `conda 24.11.0`) then everything is working correctly. In case you have any problems with the Miniconda installation, you can find some installation tips on the [installing Miniconda web page](https://docs.anaconda.com/miniconda/install/).
 <!-- #endregion -->
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
@@ -203,6 +203,6 @@ It's a good idea to search for installation instructions for each package online
 
 [^environment]: <https://pythongis.org/environment>
 [^mamba_docs]: <https://mamba.readthedocs.io/en/latest/advanced_usage/detailed_operations.html>
-[^miniconda]: <https://docs.anaconda.com/free/miniconda/>
+[^miniconda]: <https://docs.anaconda.com/miniconda/>
 [^miniforge]: <https://github.com/conda-forge/miniforge>
 [^Python website]: <https://www.python.org>

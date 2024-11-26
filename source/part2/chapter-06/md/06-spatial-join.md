@@ -39,7 +39,7 @@ Now as we understand the basic idea behind the spatial join, let's continue to l
 
 The spatial predicates control how the spatial relationship between the geometries in the two data layers is checked. Only those cases where the spatial predicate returns `True` will be kept in the result. Thus, changing this option (parameter) can have a big influence on your final results after the join. In Figure 6.41 this difference is illustrated at the bottom when you compare the result tables *i* and *ii*: In the first table (*i*) the spatial predicate is `within` that gives us 4 rows that is shown in the table. However, on the second result table (*ii*), the spatial predicate `intersects` gives us 5 rows. Why is there a difference? This is because the Point with id-number 6 happens to lie exactly at the border of the Polygon C. As you might remember from the  Chapter 6.6, there is a certain difference between these two spatial predicates: The `within` predicate expects that the Point should be inside the Polygon (`False` in our case), whereas `intersects` returns `True` if at least one point is common between the geometries (`True` in our case). In a similar manner, you could change the spatial predicate to `contains`, `touches`, `overlaps` etc. and the result would change accordingly. 
 
-It is also important to ensure that the logic for investigating these spatial relationships makes sense when deciding which spatial predicate to use. For example, it would not make any sense to check whether Layer 1 (points) contain the Layer 2 (polygons) because Point objects do not have an interior or boundary, thus lacking the ability to contain any geometric object. Doing this kind of spatial join is possible, but the result from this type of spatial join would always return an empty GeoDataFrame.  However, if we change the spatial join criteria and join the data between layers if the Layer 2 (polygons) contain the Layer 1 (points), this would make a perfect sense, and the query would return rows that match with this criteria.   
+It is also important to ensure that the logic for investigating these spatial relationships makes sense when deciding which spatial predicate to use. For example, it would not make any sense to check whether Layer 1 (points) contain the Layer 2 (polygons) because Point objects do not have an interior or boundary, thus lacking the ability to contain any geometric object. Doing this kind of spatial join is possible, but the result from this type of spatial join would always return an empty `GeoDataFrame`.  However, if we change the spatial join criteria and join the data between layers if the Layer 2 (polygons) contain the Layer 1 (points), this would make a perfect sense, and the query would return rows that match with this criteria.   
 
 ![_**Figure 6.41**. Different approaches to join two data layers with each other based on spatial relationships._](../img/spatial-join-alternatives.png)
 
@@ -61,7 +61,7 @@ With these two parameters (spatial predicate and join type), it is possible to c
 ## Spatial join with Python
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now as we have learned the basic logic of spatial join, let's see how we can do it in Python. Spatial join can be done easily with geopandas using the `.sjoin()` method. Next, we will learn how to use this method to perform a spatial join between two layers: 1) `addresses` which are the locations that we geocoded in the Chapter 6.5, and 2) `population grid` which is a 250m x 250m grid polygon layer that contains population information from the Helsinki Region (source: Helsinki Region Environmental Services Authority). Let's start by reading the data:
+Now as we have learned the basic logic of spatial join, let's see how we can do it in Python. Spatial join can be done easily with `geopandas` using the `.sjoin()` method. Next, we will learn how to use this method to perform a spatial join between two layers: 1) `addresses` which are the locations that we geocoded in the Chapter 6.5, and 2) `population grid` which is a 250m x 250m grid polygon layer that contains population information from the Helsinki Region (source: Helsinki Region Environmental Services Authority). Let's start by reading the data:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -72,7 +72,7 @@ addresses = gpd.read_file(addr_fp)
 addresses.head(2)
 ```
 
-As we can see, the `addresses` GeoDataFrame contains address Points which represent a selection of public transport stations in the Helsinki Region.
+As we can see, the `addresses` variable contains address Points which represent a selection of public transport stations in the Helsinki Region.
 
 ```python
 pop_grid_fp = "data/Helsinki/Population_grid_2021_HSY.gpkg"
@@ -85,7 +85,7 @@ The `pop_grid` dataset contains few columns, namely a unique `id`, the number of
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Preparations for spatial join
 
-As a first step before making a spatial join, it is always good to check that the coordinate reference system (CRS) of the layers are identical. The basic requirement for a successful spatial join is that the layers should overlap with each other in space. If the geometries between the layers do not share the same CRS, it is very likely that the spatial join will fail and produces an empty GeoDataFrame. By looking at the numbers in the `geometry` column of the `addresses` and `pop_grid` GeoDataFrames above, it is fairly evident that the datasets are in different coordinate reference system as the numbers seem to differ a lot. Let's check the CRS information of each layer:
+As a first step before making a spatial join, it is always good to check that the coordinate reference system (CRS) of the layers are identical. The basic requirement for a successful spatial join is that the layers should overlap with each other in space. If the geometries between the layers do not share the same CRS, it is very likely that the spatial join will fail and produces an empty `GeoDataFrame`. By looking at the numbers in the `geometry` column of the `addresses` and `pop_grid` `GeoDataFrames` above, it is fairly evident that the datasets are in different coordinate reference system as the numbers seem to differ a lot. Let's check the CRS information of each layer:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -102,7 +102,7 @@ addresses.crs == pop_grid.crs
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-To fix this issue, let's reproject the geometries in the `addresses` GeoDataFrame to the same CRS as `pop_grid` using the `.to_crs()` method which was introduced in Chapter 6.4. To ensure that we will have exactly the same CRS in both layers, we can use the `pop_grid.crs` attribute information as the input for the `crs` parameter:
+To fix this issue, let's reproject the geometries in the `addresses` `GeoDataFrame` to the same CRS as `pop_grid` using the `.to_crs()` method which was introduced in Chapter 6.4. To ensure that we will have exactly the same CRS in both layers, we can use the `pop_grid.crs` attribute information as the input for the `crs` parameter:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -169,7 +169,7 @@ The join type, as we learned earlier, is the second option to control how the da
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Let's now join the attributes from the `pop_grid` GeoDataFrame into the `addresses` GeoDataFrame by using the `.sjoin()`. Here, the `addresses` GeoDataFrame containing the points is the one we want to use as a starting point, as this layer is the *receiving* member of the spatial join. Futhermore, we specify `predicate="within"` for the spatial predicate as we are interested to know *within* which Polygon a given Point is located. Finally, we specify the join type with `how="inner"` which means that only such rows are kept from both layers where the spatial predicate returns `True`. This means that if there are Points that are not inside of any of the Polygons, they will be dropped from the result. Thus, we formulate the command in the following form and store the result in the variable `join`:
+Let's now join the attributes from the `pop_grid` `GeoDataFrame` into the `addresses` `GeoDataFrame` by using the `.sjoin()`. Here, the `addresses` `GeoDataFrame` containing the points is the one we want to use as a starting point, as this layer is the *receiving* member of the spatial join. Futhermore, we specify `predicate="within"` for the spatial predicate as we are interested to know *within* which polygon a given point is located. Finally, we specify the join type with `how="inner"` which means that only such rows are kept from both layers where the spatial predicate returns `True`. This means that if there are points that are not inside of any of the Polygons, they will be dropped from the result. Thus, we formulate the command in the following form and store the result in the variable `join`:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -178,7 +178,7 @@ join
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Awesome! Now we have performed a successful spatial join that gave us as a result 31 rows and four new columns. Most importantly, we received information about `inhabitants` and `occupancy_rate` which correspond to the number of inhabitants and occupancy rate in the cell where the address-point is located. In addition, we got columns `index_right` and `id_right` which tell the index and id of the matching polygon in the right-side member of the spatial join (i.e. population grid). As you see, also the `id` column in the left-side member of the spatial join was renamed as `id_left`. The suffices `_left` and `_right` are appended to the column names to differentiate the columns in cases where there are identical column names present in both GeoDataFrames. 
+Awesome! Now we have performed a successful spatial join that gave us as a result 31 rows and four new columns. Most importantly, we received information about `inhabitants` and `occupancy_rate` which correspond to the number of inhabitants and occupancy rate in the cell where the address-point is located. In addition, we got columns `index_right` and `id_right` which tell the index and id of the matching polygon in the right-side member of the spatial join (i.e. population grid). As you see, also the `id` column in the left-side member of the spatial join was renamed as `id_left`. The suffices `_left` and `_right` are appended to the column names to differentiate the columns in cases where there are identical column names present in both `GeoDataFrames`. 
 
 Let's also visualize the joined output. In the following, we plot the points using the `inhabitants` column to indicate the color:
 <!-- #endregion -->
@@ -233,14 +233,14 @@ left_join = addresses.sjoin(pop_grid, predicate="within", how="left")
 left_join
 ```
 
-Now the result in the `left_join` contains all the original 34 addresses. Let's investigate a bit more to see which rows did not have a matching polygon in the population grid. After a left-join, those rows that do not have a matching geometry in the right-side member of the join are filled with NaN values. Thus, we should be able to locate them easily by searching for rows that do not have any values e.g. in the `inhabitants` column that was part of the `pop_grid` GeoDataFrame. We can do this by doing a selection using the `.isnull()` method:
+Now the result in the `left_join` contains all the original 34 addresses. Let's investigate a bit more to see which rows did not have a matching polygon in the population grid. After a left-join, those rows that do not have a matching geometry in the right-side member of the join are filled with NaN values. Thus, we should be able to locate them easily by searching for rows that do not have any values e.g. in the `inhabitants` column that was part of the `pop_grid` `GeoDataFrame`. We can do this by doing a selection using the `.isnull()` method:
 
 ```python editable=true slideshow={"slide_type": ""}
 left_join.loc[left_join["inhabitants"].isnull()]
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-The result from this query reveals the exact locations of the points that miss information in the last four columns of the GeoDataFrame. Okay, but is this all we can do? In some cases, it can be crucial that all features in the target layer would get information from the other dataset even if the spatial predicate between the geometries would not match perfectly. Sometimes fetching information from another layer based on the closest geometry up to a certain distance threshold can be considered sufficient for making a spatial join. Luckily, we can achieve this with relative ease using geopandas which we will learn next.
+The result from this query reveals the exact locations of the points that miss information in the last four columns of the `GeoDataFrame`. Okay, but is this all we can do? In some cases, it can be crucial that all features in the target layer would get information from the other dataset even if the spatial predicate between the geometries would not match perfectly. Sometimes fetching information from another layer based on the closest geometry up to a certain distance threshold can be considered sufficient for making a spatial join. Luckily, we can achieve this with relative ease using `geopandas` which we will learn next.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->

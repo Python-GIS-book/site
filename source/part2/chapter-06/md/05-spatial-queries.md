@@ -100,7 +100,7 @@ point2.within(polygon)
 As we can see, the first point seem to be located within the polygon where as the second one isn't.
 
 
-One of the most common spatial queries is to see if a geometry intersects or touches another one. Again, there are binary operations in shapely for checking these spatial relationships:
+One of the most common spatial queries is to see if a geometry intersects or touches another one. Again, there are binary operations in `shapely` for checking these spatial relationships:
 
 - `.intersects()` - Two objects intersect if the boundary or interior of one object intersect in any way with the boundary or interior of the other object.
 - `.touches()` - Two objects touch if the objects have at least one point in common and their interiors do not intersect with any part of the other object.
@@ -196,7 +196,7 @@ It is good to notice that some of these spatial predicates are closely related t
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Spatial queries using geopandas
 
-Now as we have learned how to investigate the spatial relationships between shapely geometries, we can continue and learn how to conduct spatial queries with geopandas `GeoDataFrames`. Conducting spatial queries with geopandas is handy because you can easily compare the spatial relationships between multiple geometries stored in separate `GeoDataFrames`. Next, we will run an example in which we check which points are located within specific areas of Helsinki. Let's start by reading data that contains Polygons for major districts in Helsinki Region, as well as a few point observations that represent addresses around Helsinki that we geocoded in the previous section:
+Now as we have learned how to investigate the spatial relationships between `shapely` geometries, we can continue and learn how to conduct spatial queries with `geopandas` `GeoDataFrames`. Conducting spatial queries with `geopandas` is handy because you can easily compare the spatial relationships between multiple geometries stored in separate `GeoDataFrames`. Next, we will run an example in which we check which points are located within specific areas of Helsinki. Let's start by reading data that contains Polygons for major districts in Helsinki Region, as well as a few point observations that represent addresses around Helsinki that we geocoded in the previous section:
 <!-- #endregion -->
 
 ```python deletable=true editable=true
