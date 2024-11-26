@@ -26,9 +26,9 @@ Chapter five provides and introduction to the basic concepts and core Python lib
 
 At the end of this chapter, you should be able to:
 
-- Identify sope of the core Python libraries for geographic data analysis in Python
+- Identify some of the core Python libraries for geographic data analysis in Python
 - Understand the basics of the vector and raster data models
-- Define the key elements of coordinate reference systems (CRS)
+- Define the key elements of a coordinate reference system (CRS)
 
 ```
 <!-- #endregion -->
