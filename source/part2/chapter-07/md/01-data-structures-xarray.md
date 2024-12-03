@@ -99,6 +99,19 @@ data["elevation"].min().item()
 data["elevation"].max().item()
 ```
 
+## Converting data type
+
+
+
+```python
+data["elevation"] = data["elevation"].astype("int32")
+data["elevation"].max().item()
+```
+
+```python
+data["elevation"].dtype
+```
+
 ### Dimensions of the data
 
 In addition to the summary statistics, we can explore some of the basic properties of our raster data. Majority of the geographic data related properties of a raster `Dataset` can be accessed via `.rio` {term}`accessor`. An accessor is a method or attribute added to an existing data structure, such as a `DataArray` or `Dataset` in `xarray`, to provide specialized functionality. Accessors extend the capabilities of the base object without modifying its core structure. Via the `.rio` accessor we can explore various attributes of our data, such as the `.shape`, `.width` or `.height`:
@@ -154,6 +167,14 @@ data.dtypes
 This returns a Python dictionary like object that provides information about the bit depth of each `DataArray` stored in our `Dataset`. In our case, we only have one data attribute (elevation) and from the result we can see that the bit depth of this data is 32 bits. The radiometric resolution is determined by the number of bits used to represent the data for each pixel, which defines the range of possible intensity values. For example, an 8-bit sensor can record 256 levels of intensity (0–255), while a 16-bit sensor can record 65,536 levels. Thus, in terms of 32-bit float, the data can be stored with high precision. 
 
 
+### NoData value
+
+TODO: Add description
+
+```python
+data["elevation"].rio.nodata
+```
+
 ## Creating a new data variable
 
 At the moment, we only have one data variable in our `Dataset`, i.e. the `elevation`. As a reference to vector data structures in `geopandas` library which we introduced in Chapter 6, this would correspond to a situation in which you would have a single column in your `GeoDataFrame`. However, it is very easy create new data variables into your `Dataset` e.g. based on specific calculations or data conversions. For instance, we might be interested to calculate the relative height (i.e. relief) based on our data which tells how much higher the elevations (e.g. the highest peak) are relative to the lowest elevation in the area. This can be easily calculated by subtracting the lowest elevation from the highest elevation in an area. In the following, we create a new data variable called `"relative_height"` into our `Dataset` based on a simple mathematical calculation. You can create new data variables into your `Dataset` by using square brackets and the name of your variable as a string (e.g. `data["THE_NAME"]`), as follows:
@@ -200,33 +221,22 @@ Great! Now we have a nice simple map that shows the relative height of the lands
 
 
 ```python
+# Define the NoData value
+data['elevation'].attrs['_FillValue'] = -9999
+
+data['elevation'] = data['elevation'].astype('int16')
+
 # Save a single DataArray as a GeoTIFF file
-#data["relative_height"].rio.to_raster("data/temp/kilimanjaro_relative_height.tif")
-#data["elevation"].rio.write_nodata(None, encoded=True, inplace=True)
-import numpy as np
-data['elevation'].attrs['_FillValue'] = -9999 
 data["elevation"].rio.to_raster("data/temp/kilimanjaro_elevation.tif")
 ```
 
 ```python
 # Save a whole Dataset in NetCDF format
-#data['elevation'] = data['elevation'].astype('float32')
+
 data.to_netcdf("data/temp/kilimanjaro_dataset.nc")
 ```
 
 ```python
 # Check for NaN values in the 'elevation' variable
-#data['elevation'].isnull().any().item()
-```
-
-```python
-print(data["elevation"].rio.encoded_nodata)
-```
-
-```python
-
-```
-
-```python
-
+data['elevation'].isnull().any().item()
 ```
