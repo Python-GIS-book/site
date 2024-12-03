@@ -59,7 +59,7 @@ raster_layer
 Now we have a simple 2D array filled with zeros. Next, we modify the raster layer to represent a simple terrain and add larger numbers in the middle of the grid by setting higher values in the center. We can do this by *{term}`slicing`* the numpy array using the indices of the array and updating the numbers on those locations to be higher. Slicing `numpy` arrays happens in a similar manner as when working with Python lists and accessing the items of a list (see Chapter 2.2). However, in this case we do this in two dimensions by accessing the values stored in specific rows and columns by following the syntax: `[start-row-idx: end-row-idx, start-col-idx: end-col-idx]`. Thus, we can update the values in our 2D array as follows:
 
 ```python
-raster_layer[4:7, 4:7] = 5   
+raster_layer[4:7, 4:7] = 5
 raster_layer[5, 5] = 10
 raster_layer
 ```
