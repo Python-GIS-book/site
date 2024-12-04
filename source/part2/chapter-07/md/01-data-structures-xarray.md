@@ -105,7 +105,7 @@ data["elevation"].max().item()
 
 
 ```python
-data["elevation"] = data["elevation"].astype("int32")
+data["elevation"] = data["elevation"].astype("uint16")
 data["elevation"].max().item()
 ```
 
@@ -228,15 +228,11 @@ data['elevation'] = data['elevation'].astype('int16')
 
 # Save a single DataArray as a GeoTIFF file
 data["elevation"].rio.to_raster("data/temp/kilimanjaro_elevation.tif")
+data["relative_height"].rio.to_raster("data/temp/kilimanjaro_relative_height_2.tif")
 ```
 
 ```python
 # Save a whole Dataset in NetCDF format
 
 data.to_netcdf("data/temp/kilimanjaro_dataset.nc")
-```
-
-```python
-# Check for NaN values in the 'elevation' variable
-data['elevation'].isnull().any().item()
 ```
