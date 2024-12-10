@@ -15,7 +15,7 @@ dependencies:
   - sphinxcontrib-bibtex=2.6.2
 
   # Writing environment
-  - jupyterlab=4.2.4
+  - jupyterlab=4.3.2
   - jupytext=1.16.4
   #- jupyter-book=0.15.1
   - black=24.8.0
