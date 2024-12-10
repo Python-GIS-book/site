@@ -208,6 +208,9 @@ Series
 Shifting
   The process of adjusting references in time series data forward or backward in time. For example, values could be shifted backward by one week to compare data from a given week to equivalent data from the following week.
 
+Signed integer
+  A (data) type of integer in Python that can represent both positive and negative whole numbers. The "signed" attribute means the number includes a "+" or "-" sign to indicate its value's polarity. For example, -5 and 42 are signed integers. In Python, integers are stored as signed by default and can handle very large values thanks to their dynamic size.
+
 Software
   Another name for a {term}`program`.
 
@@ -255,6 +258,9 @@ Type conversion
 
 Unary union
   The unary union operation takes multiple geometries and merges them into a single geometry. This is useful when you have a collection of shapes and you want to treat them as a single entity for analysis or visualization.
+
+Unsigned integer
+  A type of integer that represents only non-negative whole numbers, starting from zero. Unlike {term}`signed integers`, unsigned integers do not include a "+" or "-" sign, allowing them to use all their bits for positive values.
 
 Variable
   A way of storing values in the memory of the computer using specific names that you define.

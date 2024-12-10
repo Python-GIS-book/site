@@ -46,7 +46,9 @@ We start by investigating a simple elevation dataset using `xarray` that represe
 ```python
 import xarray as xr
 
-url = "https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif"
+bucket_url = "https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS"
+url = bucket_url + "/elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif"
+
 data = xr.open_dataset(url, engine="rasterio")
 data
 ```
@@ -100,19 +102,6 @@ data["elevation"].min().item()
 data["elevation"].max().item()
 ```
 
-## Converting data type
-
-
-
-```python
-data["elevation"] = data["elevation"].astype("uint16")
-data["elevation"].max().item()
-```
-
-```python
-data["elevation"].dtype
-```
-
 ### Dimensions of the data
 
 In addition to the summary statistics, we can explore some of the basic properties of our raster data. Majority of the geographic data related properties of a raster `Dataset` can be accessed via `.rio` {term}`accessor`. An accessor is a method or attribute added to an existing data structure, such as a `DataArray` or `Dataset` in `xarray`, to provide specialized functionality. Accessors extend the capabilities of the base object without modifying its core structure. Via the `.rio` accessor we can explore various attributes of our data, such as the `.shape`, `.width` or `.height`:
@@ -156,7 +145,7 @@ data.rio.bounds()
 This returns the minimum and maximum coordinates (here, in latitude and longitude) that bound our dataset, forming a minimum bounding rectangle around the data. The first two numbers represent the left-bottom (x,y) corner of the dataset, while the last two number represent the right-top corner (x,y) of the area, respectively. 
 
 
-### Radiometric resolution
+### Radiometric resolution (bit depth)
 
 Lastly, we can extract information about the *{term}`radiometric resolution`* (i.e. bit depth) of our `Dataset` by calling `.dtypes`:
 
@@ -164,8 +153,71 @@ Lastly, we can extract information about the *{term}`radiometric resolution`* (i
 data.dtypes
 ```
 
-This returns a Python dictionary like object that provides information about the bit depth of each `DataArray` stored in our `Dataset`. In our case, we only have one data attribute (elevation) and from the result we can see that the bit depth of this data is 32 bits. The radiometric resolution is determined by the number of bits used to represent the data for each pixel, which defines the range of possible intensity values. For example, an 8-bit sensor can record 256 levels of intensity (0–255), while a 16-bit sensor can record 65,536 levels. Thus, in terms of 32-bit float, the data can be stored with high precision. 
+This returns a Python dictionary like object that provides information about the bit depth of each `DataArray` stored in our `Dataset`. In our case, we only have one data attribute (elevation) and from the result we can see that the bit depth of this data is 32 bits. The radiometric resolution is determined by the number of bits used to represent the data for each pixel, which defines the range of possible intensity values. For example, an 8-bit sensor can record 256 levels of intensity (values 0-255), while a 16-bit sensor can record 65536 levels. Thus, the more bits you use to store the numbers on computer, the larger numbers you can store with a given bit depth. Notice that the more bits you use to store the numbers, the higher the memory consumption is as well. In terms of our example here (32-bit float), the data can be stored with high precision as it allows to store numbers with many decimals (approximately 7 decimal digits). 
 
+Another useful thing to understand about computer systems is that the numbers can be represented as either signed or unsigned, which determines whether negative values can be stored. Signed numbers include a "+" or "-" sign to indicate whether the value is positive or negative, while unsigned numbers are limited to non-negative values. The sign and bit depth (8-bit, 16-bit, etc.) directly affect the range of values that can be represented in the raster. For example, an 8-bit signed integer can represent values from -128 to 127, while an 8-bit unsigned integer can represent values from 0 to 255. Thus, if your data only contains positive numbers, it makes sense to store the data as unsigned because then you can store larger numbers with the same number of bits. For instance, Landsat 8 satellite sensor data are stored as unsigned 16-bit values meaning that the possible values are from 0 to 65536. The data type (signed, unsigned) can also significantly influence the memory footprint of your data which we will cover next.
+
+
+### Size of the data: Memory footprint in bytes
+
+We can extract information about the memory footprint of our `DataArray` or `Dataset` via the `.nbytes` attribute which returns the total bytes consumed by the stored data. For convenience, we convert the bytes into Megabytes (MB) with formula `<bytes> / (1000*1000)` where the value 1000 converts the bytes into kilobytes and the second one converts the kilobytes into megabytes, respectively:
+
+```python
+# Memory consumption of a single DataArray
+bytes_to_MB = 1000*1000
+footprint_MB = data["elevation"].nbytes / bytes_to_MB
+print(f"DaraArray memory consumption: {footprint_MB:.2f} MB.")
+```
+
+```python
+# Memory consumption of the whole Dataset
+footprint_MB = data.nbytes / bytes_to_MB
+print(f"Dataset memory consumption: {footprint_MB:.2f} MB.")
+```
+
+As we can see from the above, the memory consumption of the `elevation` data variable is 51.87 megabytes while the memory consumption of the whole `Dataset` is slightly larger (51.93 MB). Majority of the memory footprint of a `Dataset` goes to storing the data variables (here, elevation values) and the rest of the memory is mostly consumed by other metadata related to the data (coordinates, CRS, indices etc.). Thus, the more data variables you store in your `Dataset` the larger the overall memory footprint of the data will be. 
+
+
+### Converting data type (bit depth)
+
+Now we know that our data consumes quite a bit of memory from our computer. However, in certain cases there might be ways to optimize the memory usage by changing the data type (i.e. bit depth) into a type that is not as memory-hungry as the 32-bit float. For example our elevation data is presented with whole numbers which is evident e.g. from the minimum and maximum values of our data, which were `568.0` and `2943.0` respectively. Notice that neither of these values have any decimals (other than 0), which is due to the fact the precision of our elevation data is in full meters. Thus, the type of our elevation data could be changed to integers. In fact, we could use {term}`unsigned integer` as our data type because the elevation values in our data fall under the range of 0-65535. Notice that if our data values would exceed these limits, we could use 32-bit or 64-bit integer data types which allow to store much higher numbers in the array. 
+
+But does the bit-depth matter really? It does. For example in our case it would make a lot of sense to store the data as simple integer values because they require less disk space and memory from the computer as we demonstrate in the following. To change a data type of our elevation data variable, we can use the `.astype()` method that converts the input values into the target data type which is provided as an input argument. In the following, we will convert the elevation values (32-bit floats) into 16-bit unsigned integer numbers:
+
+```python
+# Store the original max value
+max_value_before_conversion = data["elevation"].max().item()
+
+# Convert the data into integers
+data["elevation"] = data["elevation"].astype("uint16")
+data["elevation"].max().item()
+```
+
+```python
+# Memory consumption of the updated DataArray
+footprint_MiB = data["elevation"].nbytes / bytes_to_MiB
+print(f"DaraArray memory consumption: {footprint_MiB:.2f} MiB.")
+```
+
+As we can see from the above the maximum elevation was now changed from the decimal number (2943.0) into integer (2943). Also the memory consumption improved significantly as the size of our data was cut into half when we converted the data into 16-bit unsigned integers. Thus, by choosing the data type in a smart way, you can significantly lower the memory consumption of the data on your computer which might make a big difference in terms of performance of your analysis. This is especially true in case you are analyzing very large raster datasets. In the following, we can see how changing the data type influences on the memory footprint of the data:
+
+```python
+print("Memory consumption 16-bit:", data["elevation"].astype("uint16").nbytes / bytes_to_MiB, "MB.")
+print("Memory consumption 32-bit:", data["elevation"].astype("uint32").nbytes / bytes_to_MiB, "MB.")
+print("Memory consumption 64-bit:", data["elevation"].astype("uint64").nbytes / bytes_to_MiB, "MB.")
+```
+
+As we can see, the memory consumption of the same exact data varies significantly depending on the bit-depth that we choose to use for our data. It is important to be careful when doing bit-dept conversions that you do not sabotage your data with the data conversion. For example, in our data the value range is between 568-2943. Thus, we need to use at least 16-bits to store these values in our data. However, nothing stops you from changing the data type into 8-bit integers which will significantly alter our data:
+
+```python
+broken_data = data["elevation"].astype("uint8")
+print("Min value: ", broken_data.min().item())
+print("Max value: ", broken_data.max().item())
+```
+
+```python
+broken_data.plot()
+```
 
 ### NoData value
 
