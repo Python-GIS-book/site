@@ -27,7 +27,7 @@ When creating geometries with `shapely`, we first need to import the geometric o
 <!-- #endregion -->
 
 ```python editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
-from shapely import Point
+from shapely.geometry import Point
 
 point = Point(2.2, 4.2)
 point3D = Point(9.26, -2.456, 0.57)
@@ -87,7 +87,7 @@ Creating a `LineString` -object is very similar to creating a `Point`-object. To
 <!-- #endregion -->
 
 ```python jupyter={"outputs_hidden": false}
-from shapely import Point, LineString
+from shapely.geometry import Point, LineString
 
 point1 = Point(2.2, 4.2)
 point2 = Point(7.2, -25.1)
@@ -139,7 +139,7 @@ As you can see, the centroid of the line is again a `shapely.geometry.Point` obj
 Creating a `Polygon` -object continues the same logic as when creating `Point` and `LineString` objects. A `Polygon` can be created by passing a list of `Point` objects or a list of coordinate-tuples as input for the `Polygon` class. `Polygon` needs at least three coordinate-tuples to form a surface. In the following, we use the same points from the earlier `LineString` example to create a `Polygon`.
 
 ```python jupyter={"outputs_hidden": false}
-from shapely import Polygon
+from shapely.geometry import Polygon
 
 poly = Polygon([point1, point2, point3])
 poly
