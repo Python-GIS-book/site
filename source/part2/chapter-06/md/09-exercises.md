@@ -14,82 +14,12 @@ jupyter:
 
 # Exercises
 
-### Exercise 6.1 - Geometric objects
+### Exercise 6.1 - Geometric Objects
 
-In this exercise your task is to create custom functions for creating geometries. We start with a very simple function, and proceed to creating functions that can handle invalid input values. In addition to the contents of chapter 6, you will need basic knowledge of creating functions (see Part I chapter 2.6) and using assertions (see Appendix).
+Refresh your memory about `shapely` objects and 
 
-#### Problem 1
-
-Create a simple function called `create_point_geom()` that has two parameters (`x_coord`, `y_coord`). The function should return a `shapely` `Point`  object. Demonstrate the use of the function.
-
-You can test your function with these code snippets: 
-
-```
-point1 = create_point_geom(0.0, 1.1)
-print(point1.geom_type)
-```
-
-
-#### Problem 2
-
-Create a function called `create_line_geom()` that takes a list of `shapely` `Point` objects as parameter called `points` and returns a `LineString` object based on those input points. The function should: 
-
-- Check that the parameter `points` is a list. You can do this by using the `assert` -functionality
-- If the `points` parameter is something else than a list, the function should return an Error message: `"Input should be a list!"`
-- Check that the input list contains at least two values (again, using `assert`). If not, return an Error message: `"LineString object requires at least two Points!"`
-- (optional) check that all values in the input list are truly `shapely` `Points`. If not, return an Error message: `"All list values should be Shapely Point objects!"`
-
-You can test your function with these code snippets: 
-
-```
-# Demonstrate basic usage
-line1 = create_line_geom([Point(45.2, 22.34), Point(100.22, -3.20)])
-print(line1.geom_type)
-```
-```
-# Check if the assertion error works correctly with false input
-try:
-    # Pass something else than a list
-    create_line_geom(45.2, 22.34, 100.22, -3.20)
-except AssertionError:
-    print("Found an assertion error. List check works correctly.")
-except Exception as e:
-    raise e
-```
-
-
-#### Problem 3
-
-Create a function called `create_poly_geom()` that has one parameter called `coords` which should contain a list of coordinate tuples. The function should create and return a `Polygon` object based on these coordinates. The function should:  
-
-  -  Check with `assert` -functionality that the input is a list. If something else than a list is passed for the function, you should return an Error message: `"Input should be a list!"`
-  - You should also check with `assert` that the input list contains at least three values. If not, return an Error message: `"Polygon object requires at least three Points!"`
-  - Check the data type of the objects in the input list. All values in the input list should be tuples. If not, return an error message: "All list values should be coordinate tuples!" using assert.
-  - **Optional:** Allow also an input containing a list of `shapely` `Point` objects, in which case the function should return a polygon based on these points. If the input is neither a list of tuples, nor a list of points, return an appropriate error message using `assert`.
-
-You can test your function with these code snippets:
-
-```
-# Demonstrate basic usage
-poly1 = create_poly_geom([(45.2, 22.34), (100.22, -3.20), (33.33, 0)])
-print(poly1.geom_type)
-```
-
-```
-# Check if the assertion error works correctly with false input
-try:
-    # Pass something else than a list
-    create_poly_geom("Give me a polygon")
-except AssertionError:
-    print("List check works")
-except Exception as e:
-    raise e
-```
-
-
-#### Problem 4
-
-Did you add a docstring to all the functions you defined? If not, add them now! A short one-line docstring is enough in this exercise.
+1. Create a `LineString` that goes trough at least three points. What is the length of your line?
+2. Create a `shapely` `Point` and create a buffer around it. What is the area of the buffer?
 
 
 ### Exercise 6.2 - From text file to GeoDataFrame
@@ -176,3 +106,20 @@ Now that we have the `GeoDataFrame` in a projected coordinate reference system w
 - Calculate the lenght of each route based on the `route_geom` column.
 - Add the length information into a new column `route_length`.
 - Generate descriptive statistics of route lengths. What is the median route length?
+
+
+### Exercise 6.3 - Buffer and spatial join
+
+In this exercise your task is to find out how many people live within a 500 meter buffer zone from the nearest transit station in Helsinki. We will re-use data from chapter six. Locations of transit stations is available in the file `data/Helsinki/addresses.shp`. Population information is available in the file `data/Helsinki/Population_grid_2021_HSY.gpkg`.
+
+You should join the buffers with the population information based on the spatial intersection of the buffer polygons and the population grid polygon centroids. Follow these steps to achieve the wanted result:
+
+1. Create a 500 meter buffer around each transit station
+2. Convert the population grid geometries (polygons) into points based on the grid centroid
+3. Codunct a spatial join where you find out which points are located within each buffer and join information about the buffer into each point
+4. Aggregate the results for each buffer so that you get population sum per buffer
+5. Sum up the results to get total number of people living within 500 meters from the nearest transit station.
+
+```python
+
+```
