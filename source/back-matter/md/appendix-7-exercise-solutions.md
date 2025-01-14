@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -196,5 +196,186 @@ def temp_classifier(temp_celsius):
 celsius_temps = [17, 2, 1.9, -2]
 for celsius_temp in celsius_temps:
     print(f"The temperature {celsius_temp} °C is in category {temp_classifier(celsius_temp)}.")
+```
+<!-- #endregion -->
+
+## Chapter 6
+
+<!-- #region -->
+### Exercise 6.1 - Geometric objects
+
+#### Problem 1
+
+```python
+# Import necessary Shapely geometry objects for all problems
+from shapely.geometry import Point, LineString, Polygon
+
+# Create the function and return Point
+def create_point_geom(x_coord, y_coord):
+    """Creates and Returns a Shapely Point object from x and y coordinates"""
+    return Point(x_coord, y_coord)
+```
+<!-- #endregion -->
+
+<!-- #region -->
+#### Problem 2
+
+```python
+# Create the function and return LineString
+def create_line_geom(points):
+    """Creates and returns a LineString object from Point -objects"""
+    
+    # Check that the input is a list
+    assert type(points) == list, "Input should be a list!"
+    
+    # Check that the list has more than 1 value
+    assert len(points) > 1, "LineString object requires at least two Points!"
+    
+    # Check that the list inputs are Point objects
+    for p in points:
+        assert type(p) == Point, "All list values should be Shapely Point objects, found: %s" % p
+    
+    # If all tests have passed, return a LineString
+    return LineString(points)
+
+```
+<!-- #endregion -->
+
+<!-- #region -->
+#### Problem 3
+
+```python
+# Basic solution
+def create_poly_geom(coords):
+    """Creates a Polygon object from a list of Shapely Point -objects or coordinate tuples"""
+    # Check that the input is a list
+    assert type(coords) == list, "Input should be a list!"
+    
+    # Check that the list has more than 1 value
+    assert len(coords) > 2, "LineString object requires at least two Points!"
+    
+    # Check that the list inputs are Point objects
+    for p in coords:
+        assert type(p)==tuple, "All list values should be coordinate tuples, found: %s" % p
+    
+    ##you can also do this:
+    #assert all(isinstance(value, tuple) for value in coords), "All list values should be coordinate tuples, found: %s" % p
+    
+    return Polygon(coords)
+
+# Solution, including the optional task
+def create_poly_geom(coords):
+    """Creates a Polygon object from a list of Shapely Point -objects or coordinate tuples"""
+    # Check that the input is a list
+    assert type(coords) == list, "Input should be a list!"
+    
+    # Check that the list has more than 1 value
+    assert len(coords) > 2, "LineString object requires at least two Points!"
+    
+    # Check that the list inputs are Point objects
+    for p in coords:
+        assert type(p)==Point or type(p)==tuple, "All list values should be Shapely Point objects, found: %s" % p
+    
+    # Check input list, and create a Polygon accordingly:
+    if type(coords[0]) == tuple: # or, if all(isinstance(value, tuple):
+        return Polygon(coords)
+    
+    elif  type(coords[0]) == Point: # or, if all(isinstance(value, Point):
+        return Polygon([[p.x, p.y] for p in coords])
+```
+<!-- #endregion -->
+
+#### Problem 4
+
+See example dosctrings in problems 1-3.
+
+
+### Exercise 6.2 - From text file to GeoDataFrame
+
+<!-- #region -->
+```python
+import pandas as pd
+import geopandas as gpd
+from shapely.geometry import LineString
+```
+<!-- #endregion -->
+
+<!-- #region -->
+#### Problem 1: Read the file
+
+```python
+# Define the filepath
+fp = 'data/Helsinki/travelTimes_2015_Helsinki.txt'
+
+# Read file
+data = pd.read_csv(fp, sep=';', usecols=['from_x','from_y','to_x','to_y', 'total_route_time'])
+data.head()
+```
+<!-- #endregion -->
+
+<!-- #region -->
+#### Problem 2: Create geometries
+
+```python
+data['from_geom'] = gpd.points_from_xy(data['from_x'], data['from_y'])
+data['to_geom'] = gpd.points_from_xy(data['to_x'], data['to_y'])
+
+data.head()
+```
+<!-- #endregion -->
+
+<!-- #region -->
+#### Problem 3: Create LineString geometries
+
+```python
+# Option 1: Apply a lambda function that creates the LineString objects for each row
+data['route_geom'] = data.apply(lambda x: LineString([x['from_geom'], x['to_geom']]), axis=1)
+```
+```python
+# Option 2: use zip and a for-loop
+lines = []
+
+for origin, destination in zip(data['from_geom'], data['to_geom']):
+    # Create a LineString
+    line = LineString([origin, destination])
+    lines.append(line)
+    
+data['route_geom'] = lines
+
+# Check the result
+data.head()
+```
+<!-- #endregion -->
+
+<!-- #region -->
+#### Problem 4: Convert DataFrame into a GeoDataFrame
+
+```python
+# Create GeoDataFrame and set correct geometry column and crs
+data = gpd.GeoDataFrame(data, geometry="route_geom", crs=4326)
+
+#Check crs name
+print(data.crs.name)
+```
+<!-- #endregion -->
+
+<!-- #region -->
+#### Problem 5: Re-project the data
+
+```python
+print("Old crs:", data.crs.name)
+data = data.to_crs(epsg=3067)
+print("New crs:", data.crs.name)
+data.head()
+```
+<!-- #endregion -->
+
+<!-- #region -->
+#### Problem 6: Calculate average trip distance
+
+```python
+data['route_length'] = data.length
+data['route_length'].describe()
+print("Median route length:", round(data['route_length'].median()), "meters.")
 ```
 <!-- #endregion -->
