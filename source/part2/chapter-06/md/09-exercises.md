@@ -119,7 +119,3 @@ You should join the buffers with the population information based on the spatial
 3. Codunct a spatial join where you find out which points are located within each buffer and join information about the buffer into each point
 4. Aggregate the results for each buffer so that you get population sum per buffer
 5. Sum up the results to get total number of people living within 500 meters from the nearest transit station.
-
-```python
-
-```
