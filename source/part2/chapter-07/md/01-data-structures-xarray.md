@@ -41,15 +41,17 @@ In the following, we will continue by introducing some of the basic functionalit
 
 ## Reading a file into Dataset
 
-We start by investigating a simple elevation dataset using `xarray` that represents a Digital Elevation Model (DEM) of Kilimanjaro area in Tanzania. To read a raster data file (such as GeoTIFF) into `xarray`, we can use the  `.open_dataset()` function. Here, we read a `.tif` file directly from a cloud storage space that we have created for this book:
+We start by investigating a simple elevation dataset using `xarray` that represents a Digital Elevation Model (DEM) of Kilimanjaro area in Tanzania. To read a raster data file (such as GeoTIFF) into `xarray`, we can use the  `.open_dataset()` function. Here, we read a `.tif` file directly from a cloud storage space that we have created for this book. By importing the `rioxarray` library, we can extend the functionalities of the `xarray` and use the `engine="rasterio"` parameter when reading the data. This is beneficial because it supports various GIS functionalities related to Coordinate Reference System management and metadata that would not be available otherwise. We can for example specify that the `masked` parameter is `True` which will take into consideration possible NoData values in the data and mask them out by setting the NoData values as NaN:
 
 ```python
 import xarray as xr
+import rioxarray
 
 bucket_url = "https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS"
 url = bucket_url + "/elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif"
+url = "data/temp/kilimanjaro_elevation.tif"
 
-data = xr.open_dataset(url, engine="rasterio")
+data = xr.open_dataset(url, engine="rasterio", masked=True)
 data
 ```
 
@@ -69,8 +71,11 @@ Because our `Dataset` only consists of a single `band` (i.e. the elevation value
 data = data.squeeze("band", drop=True)
 data
 ```
-As a result, now the `Dimensions` and `Coordinates` only shows the data for `x` and `y` axis, meaning that the unnecessary data was successfully removed. 
+As a result, now the `Dimensions` and `Coordinates` only shows the data for `x` and `y` axis, meaning that the unnecessary data was successfully removed. An alternative way to deal with this issue is to use `band_as_variable=True` parameter directly when reading the raster file with `xr.open_dataset()`:
 
+```python
+xr.open_dataset(url, engine="rasterio", masked=True, band_as_variable=True)
+```
 
 ## Renaming data variables
 
@@ -81,12 +86,51 @@ data = data.rename({"band_data": "elevation"})
 data
 ```
 
-Now the name of our data variable was changed to `elevation` which makes it more intuitive and convenient to use than calling the variable with a very generic name `band_data`. 
+Now the name of our data variable was changed to `elevation` which makes it more intuitive and convenient to use than calling the variable with a very generic name `band_data`.
+
+
+## Plotting a data variable
+
+Thus far, we have investigated how the `xarray` data structures look like. However, we have not yet plotted anything on a map, which is also one of the typical things that you want to do as one of the first steps whenever working with new data. The `xarray` library provides very similar plotting functionality as `geopandas`, i.e. you can easily create a visualization out of your `DataArray` objects by using the `.plot()` method that uses `matplotlib` library in the background. In the following, we create a simple map out of the `"elevation"` data variable: 
+
+```python
+import matplotlib.pyplot as plt
+
+# Plot the values
+mesh = data["elevation"].plot(cmap="terrain")
+
+# Add a title
+plt.title("Elevation in meters");
+```
+
+***Figure 7.3** A map representing the elevation values in the Kilimanjaro area.*
+
+Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the `"terrain"` as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because the land surface in this area of the world should not have any values going below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8. 
+
+Just as easily we can also plot our data in a couple of different ways and e.g. produce a contour map that represents the elevation using contour lines highlighting the hills and valleys in our data. We can do this by calling the `.plot.contour()` method in `xarray`:
+
+```python
+contours = data["elevation"].plot.contour()
+plt.title("Contour map based on the elevation");
+```
+
+***Figure 7.4** A contour map representing the elevation values in the Kilimanjaro area.*
+
+It is also possible to create a surface map that shows the elevation values in 3D. We can do this by calling the `.plot.surface()` method in `xarray`:
+
+```python
+surface = data["elevation"].plot.surface(cmap="Greens")
+plt.title("A surface map representing the elevation in 3D");
+```
+
+***Figure 7.5** A 3D surface map representing the elevation values in the Kilimanjaro area.*
+
+Now we have a nice three dimensional map that clearly shows the hills and valleys in our study region.
 
 
 ## Extracting basic raster dataset properties
 
-One of the typical things that you want to do when exploring a new dataset is to familiarize yourself with the data at hand by examining the basic properties of the data, as well as by calculating summary statistics out of the data, such as the minimum,  maximum, or mean values of your data. To extract this information from your `Dataset`, `xarray` provides very similar functionalities as `pandas` to compute some basic statistics out of your data. For instance, we can easily extract the maximum elevation of our data by calling `.max()` method:
+Now as we have explored our data visually, it is good to continue by examining the basic properties of the data, as well as by calculating summary statistics out of the data, such as the minimum,  maximum, or mean values of your data. To extract this information from your `Dataset`, `xarray` provides very similar functionalities as `pandas` to compute some basic statistics out of your data. For instance, we can easily extract the maximum elevation of our data by calling `.max()` method:
 
 ```python
 data["elevation"].max()
@@ -145,6 +189,18 @@ data.rio.bounds()
 This returns the minimum and maximum coordinates (here, in latitude and longitude) that bound our dataset, forming a minimum bounding rectangle around the data. The first two numbers represent the left-bottom (x,y) corner of the dataset, while the last two number represent the right-top corner (x,y) of the area, respectively. 
 
 
+### NoData value
+
+Did you notice a small white rectangle in the bottom-right corner in Figure 7.3? This white area most likely means that our data includes some cells that does not have any data, i.e. they are represented with `NaN` values. To investigate whether your data contains `NaN` values, you can access the NoData value of the `DataArray` as follows:
+
+```python
+data["elevation"].rio.nodata
+```
+
+```python
+data["elevation"].rio.encoded_nodata
+```
+
 ### Radiometric resolution (bit depth)
 
 Lastly, we can extract information about the *{term}`radiometric resolution`* (i.e. bit depth) of our `Dataset` by calling `.dtypes`:
@@ -195,36 +251,28 @@ data["elevation"].max().item()
 
 ```python
 # Memory consumption of the updated DataArray
-footprint_MiB = data["elevation"].nbytes / bytes_to_MiB
-print(f"DaraArray memory consumption: {footprint_MiB:.2f} MiB.")
+footprint_MB = data["elevation"].nbytes / bytes_to_MB
+print(f"DaraArray memory consumption: {footprint_MB:.2f} MB.")
 ```
 
 As we can see from the above the maximum elevation was now changed from the decimal number (2943.0) into integer (2943). Also the memory consumption improved significantly as the size of our data was cut into half when we converted the data into 16-bit unsigned integers. Thus, by choosing the data type in a smart way, you can significantly lower the memory consumption of the data on your computer which might make a big difference in terms of performance of your analysis. This is especially true in case you are analyzing very large raster datasets. In the following, we can see how changing the data type influences on the memory footprint of the data:
 
 ```python
-print("Memory consumption 16-bit:", data["elevation"].astype("uint16").nbytes / bytes_to_MiB, "MB.")
-print("Memory consumption 32-bit:", data["elevation"].astype("uint32").nbytes / bytes_to_MiB, "MB.")
-print("Memory consumption 64-bit:", data["elevation"].astype("uint64").nbytes / bytes_to_MiB, "MB.")
+print("Memory consumption 16-bit:", data["elevation"].astype("uint16").nbytes / bytes_to_MB, "MB.")
+print("Memory consumption 32-bit:", data["elevation"].astype("uint32").nbytes / bytes_to_MB, "MB.")
+print("Memory consumption 64-bit:", data["elevation"].astype("uint64").nbytes / bytes_to_MB, "MB.")
 ```
 
 As we can see, the memory consumption of the same exact data varies significantly depending on the bit-depth that we choose to use for our data. It is important to be careful when doing bit-dept conversions that you do not sabotage your data with the data conversion. For example, in our data the value range is between 568-2943. Thus, we need to use at least 16-bits to store these values in our data. However, nothing stops you from changing the data type into 8-bit integers which will significantly alter our data:
 
 ```python
-broken_data = data["elevation"].astype("uint8")
-print("Min value: ", broken_data.min().item())
-print("Max value: ", broken_data.max().item())
+low_bit_depth_data = data["elevation"].astype("uint8")
+print("Min value: ", low_bit_depth_data.min().item())
+print("Max value: ", low_bit_depth_data.max().item())
 ```
 
 ```python
-broken_data.plot()
-```
-
-### NoData value
-
-TODO: Add description
-
-```python
-data["elevation"].rio.nodata
+low_bit_depth_data.plot()
 ```
 
 ## Creating a new data variable
@@ -257,30 +305,66 @@ Here, we can see the names of the data variables, as well as some basic informat
 list(data.data_vars)
 ```
 
-## Plotting a data variable
-
-Thus far we have explored some of the basic characteristics of the `xarray` data structures. However, we have not yet plotted anything on a map, which is also one of the typical things that you want to do whenever working with new data. The `xarray` library provides very similar plotting functionality as `geopandas`, i.e. you can easily create a visualization out of your `DataArray` objects by using the `.plot()` method that uses `matplotlib` library in the background. In the following, we create a simple map out of the `"relative_height"` data variable: 
-
-```python
-data["relative_height"].plot(cmap="terrain")
-```
-
-Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the `"terrain"` as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because there are no values that would be below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8. 
-
-
 ## Writing to a file
 
 
 
 ```python
 # Define the NoData value
-data['elevation'].attrs['_FillValue'] = -9999
+import numpy as np
 
-data['elevation'] = data['elevation'].astype('int16')
+no_data_value = -999
+
+data['elevation'].attrs['_FillValue'] = no_data_value
+
+mask_rows = 100  # Number of rows to mask
+mask_cols = 100  # Number of columns to mask
+
+# Array
+data_array = data.elevation
+
+# Convert to integer
+data_array = data_array.astype("int16")
+
+# Set the specified region to None
+data_array[-100: -70, -100: -70] = no_data_value
+
+# Update the no-data value in the metadata
+data_array.rio.write_nodata(no_data_value, encoded=True, inplace=True)
 
 # Save a single DataArray as a GeoTIFF file
-data["elevation"].rio.to_raster("data/temp/kilimanjaro_elevation.tif")
-data["relative_height"].rio.to_raster("data/temp/kilimanjaro_relative_height_2.tif")
+output_filepath = "data/temp/kilimanjaro_elevation.tif"
+data_array.rio.to_raster(output_filepath)
+#data["relative_height"].rio.to_raster("data/temp/kilimanjaro_relative_height_2.tif")
+```
+
+```python
+data = xr.open_dataset(output_filepath, engine="rasterio")
+data
+```
+
+```python
+data["band_data"].min().item()
+```
+
+```python
+data["band_data"].rio.encoded_nodata
+```
+
+```python
+data["band_data"].rio.nodata
+```
+
+```python
+data["band_data"].plot()
+```
+
+```python
+data_array.plot()
+```
+
+```python
+data_array.rio.nodata
 ```
 
 ```python
