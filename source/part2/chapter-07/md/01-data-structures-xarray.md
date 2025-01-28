@@ -107,7 +107,7 @@ plt.title("Elevation in meters");
 
 Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the `"terrain"` as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because the land surface in this area of the world should not have any values going below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8. 
 
-Just as easily we can also plot our data in a couple of different ways and e.g. produce a contour map that represents the elevation using contour lines highlighting the hills and valleys in our data. We can do this by calling the `.plot.contour()` method in `xarray`:
+We can also easily plot our data in a couple of different ways and e.g. produce a contour map representing the elevation using contour lines. A contour map is a type of map that represents the three-dimensional features of a landscape in two dimensions by using contour lines  highlighting the hills and valleys in our data. Each contour line connects points of equal elevation above a reference level, such as sea level. These lines provide a way to visualize the shape, slope, and elevation of the terrain. Contour maps are widely applied to different data in various domains, such as in navigation and orienteering to visualize elevation characteristics to help activities such as hiking; in meteorology to visualize weather related phenomena (atmospheric pressure, temperature); and in hydrology to help identifying drainage patterns, watersheds, and potential flood zones.  We can create a contour map based on the input data by calling the `.plot.contour()` method in `xarray`:
 
 ```python
 contours = data["elevation"].plot.contour()
@@ -116,7 +116,7 @@ plt.title("Contour map based on the elevation");
 
 ***Figure 7.4** A contour map representing the elevation values in the Kilimanjaro area.*
 
-It is also possible to create a surface map that shows the elevation values in 3D. We can do this by calling the `.plot.surface()` method in `xarray`:
+It is also possible to create a surface map that shows the elevation values in 3D. A 3D surface map is a three-dimensional representation of a terrain or surface, created by plotting elevation or depth data as a continuous surface. The map visually depicts the topography by assigning different colors, shading, and heights to represent variations in elevation, providing a realistic and intuitive view of the terrain. Creating a 3D surface map can be done by calling the `.plot.surface()` method in `xarray`:
 
 ```python
 surface = data["elevation"].plot.surface(cmap="Greens")
@@ -125,7 +125,7 @@ plt.title("A surface map representing the elevation in 3D");
 
 ***Figure 7.5** A 3D surface map representing the elevation values in the Kilimanjaro area.*
 
-Now we have a nice three dimensional map that clearly shows the hills and valleys in our study region.
+Now we have a nice three dimensional map that clearly shows the hills and valleys in our study region that gives an intuitive view to the landscape in the given region.
 
 
 ## Extracting basic raster dataset properties
@@ -191,14 +191,24 @@ This returns the minimum and maximum coordinates (here, in latitude and longitud
 
 ### NoData value
 
-Did you notice a small white rectangle in the bottom-right corner in Figure 7.3? This white area most likely means that our data includes some cells that does not have any data, i.e. they are represented with `NaN` values. To investigate whether your data contains `NaN` values, you can access the NoData value of the `DataArray` as follows:
+Did you notice a small white rectangle in the bottom-right corner in Figure 7.3? This white area exists because our dataset includes some cells that does not have any data, i.e. they are represented with `NaN` values. To investigate whether your data contains `NaN` values, you can access the NoData value of the `DataArray` as follows:
 
 ```python
 data["elevation"].rio.nodata
 ```
 
+The `.rio.nodata` returns the value how the NaN value is represented in our `xarray.DataArray`. As we can see, the NaN value is represented with `numpy` library's `nan`. However, in many cases, the NoData value in a given raster file is actually coded with a specific numerical value that is a clear outlier compared to the rest of the data, such as `-9999` or `9999`. To find out what value has been used in the raster file to code the NoData value, we can use `rio.encoded_nodata` which returns the NoData value as it is represented in the actual source data: 
+
 ```python
 data["elevation"].rio.encoded_nodata
+```
+
+It is important to deal with possible NaN values in the data, because otherwise the NoData values would be presented as actual values in the dataset (i.e. elevation). In our case, we dealt with the NaN values already when reading the data into `xarray` with `xr.open_dataset()` by specifying `masked=True`. This ensured that all values with number `9999` in the raster were transformed into `numpy.nan` values. This ensures that they do not influence any of the calculations when using the data but they are properly treated as data that does not exist. For example, the maximum value that we extracted earlier from the data was `2943`, not `9999` which would be the case unless we mask out the NaN values when reading the data. 
+
+If a given dataset contains NoData values (it does not necessarily contain any NoData), the metadata of the dataset should always contain information about how the NoData values are encoded. With some raster files, you can also search for the NoData value by checking the `.attrs` attribute that might include information about NoData and is returned as a Python dictionary. The information about NoData can be can be stored with different keys, and you should look for values stored in keys, such as `_FillValue`, `missing_value`, `fill_value` or `nodata`. In our raster file, this metadata has not been stored as part of the file, and thus, we cannot access the `.attrs` attribute:
+
+```python
+data["elevation"].rio.attrs
 ```
 
 ### Radiometric resolution (bit depth)
@@ -236,14 +246,11 @@ As we can see from the above, the memory consumption of the `elevation` data var
 
 ### Converting data type (bit depth)
 
-Now we know that our data consumes quite a bit of memory from our computer. However, in certain cases there might be ways to optimize the memory usage by changing the data type (i.e. bit depth) into a type that is not as memory-hungry as the 32-bit float. For example our elevation data is presented with whole numbers which is evident e.g. from the minimum and maximum values of our data, which were `568.0` and `2943.0` respectively. Notice that neither of these values have any decimals (other than 0), which is due to the fact the precision of our elevation data is in full meters. Thus, the type of our elevation data could be changed to integers. In fact, we could use {term}`unsigned integer` as our data type because the elevation values in our data fall under the range of 0-65535. Notice that if our data values would exceed these limits, we could use 32-bit or 64-bit integer data types which allow to store much higher numbers in the array. 
+Now we know that our data consumes quite a bit of memory from our computer. However, in certain cases there might be ways to optimize the memory usage by changing the data type (i.e. bit depth) into a type that is not as memory-hungry as the 32-bit float. For example our elevation data is presented with whole numbers which is evident e.g. from the minimum and maximum values of our data, which were `568.0` and `2943.0` respectively. Notice that neither of these values have any decimals (other than 0), which is due to the fact the precision of our elevation data is in full meters. Thus, the type of our elevation data could be changed to integers. In fact, we could use {term}`unsigned integer` as a data type because the elevation values present in the data fall under the range of 0-65535. Notice that if our data values would exceed these limits, we could use 32-bit or 64-bit integer data types which allow to store much higher numbers in the array. 
 
-But does the bit-depth matter really? It does. For example in our case it would make a lot of sense to store the data as simple integer values because they require less disk space and memory from the computer as we demonstrate in the following. To change a data type of our elevation data variable, we can use the `.astype()` method that converts the input values into the target data type which is provided as an input argument. In the following, we will convert the elevation values (32-bit floats) into 16-bit unsigned integer numbers:
+But does the bit-depth matter really? It does. For example in our case it would make a lot of sense to store the data as simple integer values because they require less disk space and memory from the computer as we demonstrate in the following. To change a data type of our elevation data variable, we can use the `.astype()` method that converts the input values into the target data type which is provided as an input argument. In the following, we will convert the elevation values (32-bit floats) into 16-bit unsigned integer numbers by calling `.astype("uint16")`:
 
 ```python
-# Store the original max value
-max_value_before_conversion = data["elevation"].max().item()
-
 # Convert the data into integers
 data["elevation"] = data["elevation"].astype("uint16")
 data["elevation"].max().item()
@@ -263,7 +270,7 @@ print("Memory consumption 32-bit:", data["elevation"].astype("uint32").nbytes / 
 print("Memory consumption 64-bit:", data["elevation"].astype("uint64").nbytes / bytes_to_MB, "MB.")
 ```
 
-As we can see, the memory consumption of the same exact data varies significantly depending on the bit-depth that we choose to use for our data. It is important to be careful when doing bit-dept conversions that you do not sabotage your data with the data conversion. For example, in our data the value range is between 568-2943. Thus, we need to use at least 16-bits to store these values in our data. However, nothing stops you from changing the data type into 8-bit integers which will significantly alter our data:
+As we can see, the memory consumption of the same exact data varies significantly depending on the bit-depth that we choose to use for our data. It is important to be careful when doing bit-dept conversions that you do not sabotage your data with the data conversion. For example, in our data the value range is between 568-2943. Thus, we need to use at least 16-bits to store these values. However, nothing stops you from changing the data type into 8-bit integers which will significantly alter our data:
 
 ```python
 low_bit_depth_data = data["elevation"].astype("uint8")
@@ -272,8 +279,14 @@ print("Max value: ", low_bit_depth_data.max().item())
 ```
 
 ```python
-low_bit_depth_data.plot()
+low_bit_depth_data.plot(cmap="terrain")
+plt.title("Data presented with 8-bit integers");
 ```
+
+***Figure 7.6** Elevation values represented as 8-bit integers that distorts the values.*
+
+As we can see from the map, the result distorts the data significantly and ultimately makes it unusable because all the cells having a value larger than 255 (i.e. the maximum supported value with 8-bits) are incorrectly presented in the data. Thus, when doing data type conversions, it is good to be extra careful that you do not accidentally break your data and produce incorrect results when further analyzing it. 
+
 
 ## Creating a new data variable
 
@@ -307,13 +320,15 @@ list(data.data_vars)
 
 ## Writing to a file
 
+At this stage, we have learned how to read raster data and explored some of the basic properties of a raster `Dataset`. As a last thing, we will learn how to write the data from `xarray` into specific raster file formats. Similarly as with vector data, raster data can be stored in various formats, such as `GeoTIFF` (`.tif`), `netCDF` (`.nc`) `HDF5` (`.h5`), and `Zarr` (`.zarr`). Out of these, `GeoTIFF` format is widely used to store individual raster layers (i.e. a single `DataArray`) to disk, while `netCDF` is widely used for storing a whole `Dataset` that can contain multiple variables and allows to store them all in a single file. `HDF5` is both a general-purpose file format and a data model for storing information hierarchically, using groups to create a nested structure. `HDF5` supports advanced compression, chunking, and parallel reading/writing capabilities. The `Zarr` file format is a newer format designed for cloud-native, chunked, and compressed array storage. The `Zarr` file format and the associated `zarr` library also allows you to write multiple variables (arrays) into a single `.zarr` file in a similar manner as with `netCDF`. In addition, `zarr` has the ability to store arrays in various ways, including in memory, in files, and in cloud-based object storage (such as Amazon S3 buckets or Google Cloud Storage) that are often used to store very large datasets. `Zarr` is a flexible file format which means that not every dataset in `.zarr` file format can necessarily be read by `xarray`. However, `zarr` files that contain metadata describing the dataset's dimensions and coordinates (i.e. geographic data) are supported by `xarray`. When using `.zarr` file format, you can take advantage of the nice capabilities of `Zarr`, including the ability to store and analyze datasets far too large fit onto disk, particularly in combination with `dask` library that provides capabilities for parallel and distributed computing. In the following, we will see how to write data into all of these data formats. 
 
+When writing data into `GeoTIFF` format you can use the `.rio.to_raster()` method that comes with the `rioxarray` library. 
 
 ```python
 # Define the NoData value
 import numpy as np
 
-no_data_value = -999
+no_data_value = 9999
 
 data['elevation'].attrs['_FillValue'] = no_data_value
 
@@ -344,7 +359,7 @@ data
 ```
 
 ```python
-data["band_data"].min().item()
+data["band_data"].max().item()
 ```
 
 ```python
