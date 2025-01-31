@@ -318,12 +318,16 @@ Here, we can see the names of the data variables, as well as some basic informat
 list(data.data_vars)
 ```
 
+<!-- #region -->
 ## Writing to a file
 
 At this stage, we have learned how to read raster data and explored some of the basic properties of a raster `Dataset`. As a last thing, we will learn how to write the data from `xarray` into specific raster file formats. Similarly as with vector data, raster data can be stored in various formats. Table 7.1 introduces some of the popular file formats used for storing raster data. 
 
+
+: _**Table 7.1**. Common raster file formats._
+
 | Name    | Extension   | Description                                                                                              |
-|---------|-------------|----------------------------------------------------------------------------------------------------------|
+|:-------:|:-----------:|:--------------------------------------------------------------------------------------------------------:|
 | GeoTiff | .tif, .tiff | Widely used to store individual raster layers (i.e. a single `xarray.DataArray`) to disk.                |
 | netCDF  | .nc         | Widely used to store a whole `xarray.Dataset` that can contain multiple variables.                       |
 | Zarr    | .zarr       | Newer format for storing a whole `xarray.Dataset` that can also be stored in cloud-based object storage. |
@@ -331,6 +335,7 @@ At this stage, we have learned how to read raster data and explored some of the 
 The `GeoTIFF` format is one of the most widely used formats to store individual raster layers (i.e. a single `DataArray`) to disk. This is still widely used format in various GIS software. `netCDF` is widely used in geosciences for storing multiple variables into a single file which is based on  a general-purpose file format and a data model called `HDF5` (`.h5`) The `Zarr` file format is a newer format designed for cloud-native, chunked, and compressed array storage. The `Zarr` file format and the associated `zarr` library also allows you to write multiple variables (i.e. a whole `xarray.Dataset`) into a single `.zarr` file in a similar manner as with `netCDF`. In addition, `zarr` has the ability to store arrays in various ways, including in memory, in files, and in cloud-based object storage (such as Amazon S3 buckets or Google Cloud Storage) that are often used to store very large datasets. When using `.zarr` file format, you can take advantage of the nice capabilities of `Zarr`, including the ability to store and analyze datasets far too large fit onto disk, particularly in combination with `dask` library which provides capabilities for parallel and distributed computing. 
 
 In the following, we will see how to write data into all of these data formats. When writing data into `GeoTIFF` format you can use the `.rio.to_raster()` method that comes with the `rioxarray` library. As mentioned earlier, `GeoTiff` only allows you to write a single `DataArray` into a file:
+<!-- #endregion -->
 
 ```python
 # Define the NoData value
