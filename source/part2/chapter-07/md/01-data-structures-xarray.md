@@ -328,7 +328,7 @@ At this stage, we have learned how to read raster data and explored some of the 
 
 | Name    | Extension   | Description                                                                                              |
 |:-------:|:-----------:|:--------------------------------------------------------------------------------------------------------:|
-| GeoTiff | .tif, .tiff | Widely used to store individual raster layers (i.e. a single `xarray.DataArray`) to disk.                |
+| GeoTiff | .tif, .tiff | Widely used to store individual raster layers to disk (i.e. a single `xarray.DataArray`).                |
 | netCDF  | .nc         | Widely used to store a whole `xarray.Dataset` that can contain multiple variables.                       |
 | Zarr    | .zarr       | Newer format for storing a whole `xarray.Dataset` that can also be stored in cloud-based object storage. |
 
