@@ -17,9 +17,7 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter 9 provides an introduction to using various online sources of geographic information in Python. 
-
-
+Chapter 9 provides details on using various online sources of geographic information in Python, including OpenStreetMap data, Web Feature Services, Web Coverage Services and remote databases.
 
 <!-- #endregion -->
 
