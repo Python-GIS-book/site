@@ -9,7 +9,9 @@ def to_xarray(catchment):
     lat = np.unique(catchment.coords[:, 0])
     lat = np.flip(lat)
     lon = np.unique(catchment.coords[:, 1])
-    catch_xr = xr.DataArray(catchment.base, coords={"y": lat, "x": lon}, dims=["y", "x"])
+    catch_xr = xr.DataArray(
+        catchment.base, coords={"y": lat, "x": lon}, dims=["y", "x"]
+    )
     return catch_xr
 
 
@@ -33,7 +35,7 @@ def calculate_hypsometry(elevations, binsize=100.0, normalize=True):
     """Calculates a cumulative elevation histogram."""
     minbin = elevations.min() - elevations.min() % +binsize
     maxbin = elevations.max() - elevations.max() % -binsize
-    inbins = np.arange(minbin, maxbin+1.0, binsize)
+    inbins = np.arange(minbin, maxbin + 1.0, binsize)
     counts, bins = np.histogram(elevations, bins=inbins)
 
     # Normalize area distribution
