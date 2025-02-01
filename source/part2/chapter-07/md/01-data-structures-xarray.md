@@ -88,6 +88,9 @@ data
 
 Now the name of our data variable was changed to `elevation` which makes it more intuitive and convenient to use than calling the variable with a very generic name `band_data`.
 
+```python
+data["elevation"].plot()
+```
 
 ## Plotting a data variable
 
@@ -175,8 +178,11 @@ We can easily access the coordinate reference system (CRS) information of our ra
 data.rio.crs
 ```
 
-The `.rio.crs` returns the coordinate reference system information as an *{term}`EPSG code`* and the code `4326` stands for the WGS84 coordinate reference system in which the units are represented as latitudes and longitudes (i.e. decimal degrees). We will dive deeper into the coordinate reference system management with raster data in Chapter 7.4. 
+The `.rio.crs` returns the coordinate reference system information as an *{term}`EPSG code`* and the code `4326` stands for the WGS84 coordinate reference system in which the units are represented as latitudes and longitudes (i.e. decimal degrees). Another CRS-related attribute that is useful to know is *{term}`transform`*. The transform refers to the affine transformation matrix that maps pixel coordinates to geographic coordinates. It defines how the raster data is aligned in space, including information on scaling, rotation, and translation relative to a coordinate reference system. You can access the `transform` attribute as follows:
 
+```python
+data.rio.transform()
+```
 
 ### Spatial extent
 
@@ -248,26 +254,34 @@ As we can see from the above, the memory consumption of the `elevation` data var
 
 Now we know that our data consumes quite a bit of memory from our computer. However, in certain cases there might be ways to optimize the memory usage by changing the data type (i.e. bit depth) into a type that is not as memory-hungry as the 32-bit float. For example our elevation data is presented with whole numbers which is evident e.g. from the minimum and maximum values of our data, which were `568.0` and `2943.0` respectively. Notice that neither of these values have any decimals (other than 0), which is due to the fact the precision of our elevation data is in full meters. Thus, the type of our elevation data could be changed to integers. In fact, we could use {term}`unsigned integer` as a data type because the elevation values present in the data fall under the range of 0-65535. Notice that if our data values would exceed these limits, we could use 32-bit or 64-bit integer data types which allow to store much higher numbers in the array. 
 
-But does the bit-depth matter really? It does. For example in our case it would make a lot of sense to store the data as simple integer values because they require less disk space and memory from the computer as we demonstrate in the following. To change a data type of our elevation data variable, we can use the `.astype()` method that converts the input values into the target data type which is provided as an input argument. In the following, we will convert the elevation values (32-bit floats) into 16-bit unsigned integer numbers by calling `.astype("uint16")`:
+But does the bit-depth matter really? It does. For example in our case it would make a lot of sense to store the data with lower bit depth because that requires less disk space and memory from the computer as we demonstrate in the following. To change a data type of our elevation data variable, we can use the `.astype()` method that converts the input values into the target data type which is provided as an input argument. In the following, we will convert the elevation values (32-bit floats) into 16-bit unsigned integer numbers by calling `.astype("uint16")`. 
 
 ```python
 # Convert the data into integers
-data["elevation"] = data["elevation"].astype("uint16")
-data["elevation"].max().item()
+data16 = data.copy()
+data16["elevation"] = data16["elevation"].astype("uint16")
 ```
+
+Oops, the `xarray` is producing a warning for us here. The reason for the warning is because our data contains `NaN` values which are incompatible with the integer data type. NaN values are only supported by float data types, thus to get rid off this warning, you should fill the NaN values with some meaningful number before doing the conversion to integers. By default, the data type conversion will replace the NaN values with value 0. There are different approaches to deal with this issue (e.g. interpolation), but for now, we will just ignore this warning for the sake of simplicity. 
+
+We can check the memory consumption of our updated `DataArray` as follows:
 
 ```python
 # Memory consumption of the updated DataArray
-footprint_MB = data["elevation"].nbytes / bytes_to_MB
+footprint_MB = data16["elevation"].nbytes / bytes_to_MB
 print(f"DaraArray memory consumption: {footprint_MB:.2f} MB.")
 ```
 
-As we can see from the above the maximum elevation was now changed from the decimal number (2943.0) into integer (2943). Also the memory consumption improved significantly as the size of our data was cut into half when we converted the data into 16-bit unsigned integers. Thus, by choosing the data type in a smart way, you can significantly lower the memory consumption of the data on your computer which might make a big difference in terms of performance of your analysis. This is especially true in case you are analyzing very large raster datasets. In the following, we can see how changing the data type influences on the memory footprint of the data:
+```python
+data16["elevation"].max().item()
+```
+
+As we can see from the above the maximum elevation was now changed from the decimal number (2943.0) into integer (2943). Also the memory consumption improved significantly as the size of our data was cut into half when we converted the data into 16-bit unsigned integers. Thus, by choosing the data type in a smart way, you can significantly lower the memory consumption of the data on your computer which might make a big difference in terms of performance of your analysis. This is especially true in case you are analyzing very large raster datasets. In the following, we can see how changing the data type influences on the memory footprint of the data. Now we use `float` data types in the conversions so that we don't receive the "invalid value" warning as before:
 
 ```python
-print("Memory consumption 16-bit:", data["elevation"].astype("uint16").nbytes / bytes_to_MB, "MB.")
-print("Memory consumption 32-bit:", data["elevation"].astype("uint32").nbytes / bytes_to_MB, "MB.")
-print("Memory consumption 64-bit:", data["elevation"].astype("uint64").nbytes / bytes_to_MB, "MB.")
+print("Memory consumption 16-bit:", data["elevation"].astype("float16").nbytes / bytes_to_MB, "MB.")
+print("Memory consumption 32-bit:", data["elevation"].astype("float32").nbytes / bytes_to_MB, "MB.")
+print("Memory consumption 64-bit:", data["elevation"].astype("float64").nbytes / bytes_to_MB, "MB.")
 ```
 
 As we can see, the memory consumption of the same exact data varies significantly depending on the bit-depth that we choose to use for our data. It is important to be careful when doing bit-dept conversions that you do not sabotage your data with the data conversion. For example, in our data the value range is between 568-2943. Thus, we need to use at least 16-bits to store these values. However, nothing stops you from changing the data type into 8-bit integers which will significantly alter our data:
@@ -326,77 +340,102 @@ At this stage, we have learned how to read raster data and explored some of the 
 
 : _**Table 7.1**. Common raster file formats._
 
-| Name    | Extension   | Description                                                                                              |
-|:-------:|:-----------:|:--------------------------------------------------------------------------------------------------------:|
-| GeoTiff | .tif, .tiff | Widely used to store individual raster layers to disk (i.e. a single `xarray.DataArray`).                |
-| netCDF  | .nc         | Widely used to store a whole `xarray.Dataset` that can contain multiple variables.                       |
-| Zarr    | .zarr       | Newer format for storing a whole `xarray.Dataset` that can also be stored in cloud-based object storage. |
+| Name    | Extension   | Description                                                                                  |
+|:-------:|:-----------:|:--------------------------------------------------------------------------------------------:|
+| GeoTiff | .tif, .tiff | Widely used to store individual raster layers to disk (i.e. a single `xarray.DataArray`).    |
+| netCDF  | .nc         | Widely used to store a whole `xarray.Dataset` that can contain multiple variables.           |
+| Zarr    | .zarr       | Newer format for storing `xarray.Dataset`. Supports storing large data in compressed chunks. |
 
 The `GeoTIFF` format is one of the most widely used formats to store individual raster layers (i.e. a single `DataArray`) to disk. This is still widely used format in various GIS software. `netCDF` is widely used in geosciences for storing multiple variables into a single file which is based on  a general-purpose file format and a data model called `HDF5` (`.h5`) The `Zarr` file format is a newer format designed for cloud-native, chunked, and compressed array storage. The `Zarr` file format and the associated `zarr` library also allows you to write multiple variables (i.e. a whole `xarray.Dataset`) into a single `.zarr` file in a similar manner as with `netCDF`. In addition, `zarr` has the ability to store arrays in various ways, including in memory, in files, and in cloud-based object storage (such as Amazon S3 buckets or Google Cloud Storage) that are often used to store very large datasets. When using `.zarr` file format, you can take advantage of the nice capabilities of `Zarr`, including the ability to store and analyze datasets far too large fit onto disk, particularly in combination with `dask` library which provides capabilities for parallel and distributed computing. 
-
-In the following, we will see how to write data into all of these data formats. When writing data into `GeoTIFF` format you can use the `.rio.to_raster()` method that comes with the `rioxarray` library. As mentioned earlier, `GeoTiff` only allows you to write a single `DataArray` into a file:
 <!-- #endregion -->
 
-```python
-# Define the NoData value
-import numpy as np
+### GeoTIFF
 
-no_data_value = 9999
-
-data['elevation'].attrs['_FillValue'] = no_data_value
-
-mask_rows = 100  # Number of rows to mask
-mask_cols = 100  # Number of columns to mask
-
-# Array
-data_array = data.elevation
-
-# Convert to integer
-data_array = data_array.astype("int16")
-
-# Set the specified region to None
-data_array[-100: -70, -100: -70] = no_data_value
-
-# Update the no-data value in the metadata
-data_array.rio.write_nodata(no_data_value, encoded=True, inplace=True)
-
-# Save a single DataArray as a GeoTIFF file
-output_filepath = "data/temp/kilimanjaro_elevation.tif"
-data_array.rio.to_raster(output_filepath)
-#data["relative_height"].rio.to_raster("data/temp/kilimanjaro_relative_height_2.tif")
-```
+In the following, we will see how to write data into all of these data formats. When writing data into `GeoTIFF` format you can use the `.rio.to_raster()` method that comes with the `rioxarray` library. As mentioned earlier, `GeoTiff` only allows you to write a single `DataArray` at a time into a file:
 
 ```python
-data = xr.open_dataset(output_filepath, engine="rasterio")
-data
+data["elevation"].rio.to_raster("data/temp/elevation.tif")
+data["relative_height"].rio.to_raster("data/temp/relative_height.tif")
 ```
+
+As we saw at the beginnig of this section, to read a `GeoTIFF` file, you can use the `xr.open_dataset()` with engine `"rasterio"`:
 
 ```python
-data["band_data"].max().item()
+xr.open_dataset("data/temp/relative_height.tif", engine="rasterio", masked=True)
 ```
+
+### netCDF
+
+With `netCDF` format you can write (and read) a whole `xarray.Dataset` at a time which can be very convenient especially when you have multiple relevant variables that you want to store. When saving a `Dataset` to `netCDF`, you can use the `.to_netcdf()` method of `xarray`:
 
 ```python
-data["band_data"].rio.encoded_nodata
+netcdf_fp = "data/temp/kilimanjaro_dataset.nc"
+data.to_netcdf(netcdf_fp)
 ```
+
+To read the `netCDF` file, you can use `xarray.open_dataset()` method that picks the correct file format based on the file extension. Here, it is important to use the parameter `decode_coords="all"` to ensure that the metadata (CRS information) is also read appropriately:
 
 ```python
-data["band_data"].rio.nodata
+ds = xr.open_dataset(netcdf_fp, decode_coords="all")
+ds
 ```
+
+### Zarr
+
+To write the data into `Zarr` file format, you can use the `.to_zarr()` method. To be able to write to `Zarr` format you need to have `zarr` Python library. Here, we write our dataset using writing `mode="w"` which will overwrite an existing `Zarr` file if it exist:
 
 ```python
-data["band_data"].plot()
+zarr_fp = "data/temp/kilimanjaro_dataset.zarr"
+data.to_zarr(zarr_fp, mode='w')
 ```
+
+To read the `Zarr` file, you can again use the `xr.open_dataset()`. Here, we specify also the `engine` to tell the `xarray` that we want specifically to read `Zarr` file format and similarly as with `netCDF` we use `decode_coords="all" to ensure that the coordinate reference system metadata is correctly read from the data:
 
 ```python
-data_array.plot()
+ds = xr.open_dataset(zarr_fp, engine="zarr", decode_coords="all")
+ds
 ```
+
+As mentioned earlier, `Zarr` is a useful format because it allows to write a given `Dataset` into disk by dividing the data into chunks of specific size. This can be especially useful when you have a very large `Dataset` because it allows reading and writing data in parallel which makes the process faster. To write a `Dataset` into `Zarr` using chunks, we can specify specific `encoding` settings that tells how the data should be chunked. We can do this as follows:
 
 ```python
-data_array.rio.nodata
+zarr_fp = "data/temp/kilimanjaro_dataset_chunked.zarr"
+
+# Provide the size of a single chunk per variable
+encoding = {
+    "elevation": {"chunks": (256, 256)},
+    "relative_height": {"chunks": (256, 256)}
+}
+
+data.to_zarr(zarr_fp, mode='w', encoding=encoding)
 ```
+
+With the `encoding` we basically told that `.to_zarr()` method that the values in `elevation` and `relative_height` variables should be sliced into chunks where each chunk has 256 x 256 items of data (i.e. raster cells).
+
+To read the chunked `Zarr` file, we can use the `xarray.open_dataset()` function in a similar manner as before:
 
 ```python
-# Save a whole Dataset in NetCDF format
-
-data.to_netcdf("data/temp/kilimanjaro_dataset.nc")
+ds = xr.open_dataset(zarr_fp, engine="zarr", decode_coords="all")
+ds
 ```
+
+If it happens that during the reading the CRS information (`spatial_ref`) is not properly read as part of the `Coordinates` information alongside with `x` and `y` coordinates (as in our case here), you can fix this as follows:
+
+```python
+ds.coords["spatial_ref"] = ds["spatial_ref"]
+ds
+```
+
+Now the CRS information in the `spatial_ref` variable is in correct place so that the `rioxarray` functionalities work as should. We can now for example correctly access the `.crs` attribute via the `.rio` accessor:
+
+```python
+ds.rio.crs
+```
+
+`Zarr` file format supports many other useful functionalities to e.g. compress the data and store the data in cloud object storage. In case you are interested in these functionalities, we recommend you to read further details from the [`xarray` documentation](https://docs.xarray.dev/en/stable/user-guide/io.html#zarr) [^zarr-xarray] as well as from the [`zarr` documentation](https://zarr.readthedocs.io/)[^zarr]. 
+
+
+## Footnotes
+
+[^zarr-xarray]: <https://docs.xarray.dev/en/stable/user-guide/io.html#zarr>
+[^zarr]: <https://zarr.readthedocs.io/>
