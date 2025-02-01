@@ -88,9 +88,6 @@ data
 
 Now the name of our data variable was changed to `elevation` which makes it more intuitive and convenient to use than calling the variable with a very generic name `band_data`.
 
-```python
-data["elevation"].plot()
-```
 
 ## Plotting a data variable
 
