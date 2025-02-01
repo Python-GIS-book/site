@@ -20,7 +20,6 @@ jupyter:
 - Creating a raster mosaic: Merging
 - Rasterize: Vector to raster
 - Vectorize: Raster to Vector
-- Estimate bounds of the raster
 - Resample: upscaling / downscaling
 - Interpolating missing data
 
@@ -159,7 +158,7 @@ print("Mean elevation without lakes:", masked_data["elevation"].mean().round().i
 Based on this comparison, we can see that masking out the lakes increases the mean elevation in the area by approximately 30 meters. In a similar manner, you can mask any `rioxarray.Dataset` with given mask features that you want to remove from the analysis. 
 
 
-## Creating a raster mosaic by merging raster datasets
+## Creating a raster mosaic by merging datasets
 
 One very common operation when working with raster data is to combine multiple individual raster layers (also called as tiles) into a single larger raster dataset, often called as raster mosaic. This can be done easily with the `merge_datasets()` -function in `rioxarray`.
 Here, we will create a mosaic based on DEM files (altogether 4 files) covering Kilimanjaro region in Tanzania. First we will read elevation data from an S3 bucket. Let's start by creating a list of URL paths to given `GeoTiff` files that we have
@@ -237,7 +236,7 @@ mosaic["elevation"].plot(figsize=(12, 12))
 plt.title("Elevation values covering larger area in the region close to Kilimanjaro");
 ```
 
-***Figure 7.13** A raster mosaic where four raster tiles were merged together*
+***Figure 7.13** A raster mosaic where four raster tiles were merged together.*
 
 The end result looks good and we can see clearly the Mount Kilimanjaro which is the highest mountain in Africa 5895 meters above sea level and the highest volcano in the Eastern Hemisphere. 
 
