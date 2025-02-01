@@ -21,8 +21,6 @@ jupyter:
 - Rasterize: Vector to raster
 - Vectorize: Raster to Vector
 - Resample: upscaling / downscaling
-- Interpolating missing data
-
 
 
 ## Clipping raster
