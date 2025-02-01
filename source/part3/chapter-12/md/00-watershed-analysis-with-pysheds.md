@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-# Hypsometry of drainage basins
+# Watershed analysis with pysheds
 
 Blah blah...
 
