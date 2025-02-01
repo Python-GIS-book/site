@@ -172,10 +172,19 @@ Since the step above took a few minutes, let's save the current output to a file
 ```python
 if checkpoint:
     # Write dataset to file
-    grid.to_raster(pit_filled_dem, "checkpoint_data/pit_filled_dem.tif", blockxsize=16, blockysize=16)
+    grid.to_raster(
+        pit_filled_dem,
+        "checkpoint_data/pit_filled_dem.tif",
+        blockxsize=16,
+        blockysize=16,
+    )
     # NOTE: Need to use "int" for dtype to avoid write error for boolean values
     grid.to_raster(
-        depressions, "checkpoint_data/detected_depressions.tif", dtype=int, blockxsize=16, blockysize=16
+        depressions,
+        "checkpoint_data/detected_depressions.tif",
+        dtype=int,
+        blockxsize=16,
+        blockysize=16,
     )
 ```
 
@@ -196,7 +205,9 @@ assert not depressions.any()
 ```python
 if checkpoint:
     # Write dataset to file
-    grid.to_raster(flooded_dem, "checkpoint_data/flooded_dem.tif", blockxsize=16, blockysize=16)
+    grid.to_raster(
+        flooded_dem, "checkpoint_data/flooded_dem.tif", blockxsize=16, blockysize=16
+    )
 ```
 
 ```python
@@ -269,8 +280,12 @@ plt.tight_layout()
 ```python
 if checkpoint:
     # Write flow accumulation and directions to file
-    grid.to_raster(acc, "checkpoint_data/flow_accumulation.tif", blockxsize=16, blockysize=16)
-    grid.to_raster(fdir, "checkpoint_data/flow_directions.tif", blockxsize=16, blockysize=16)
+    grid.to_raster(
+        acc, "checkpoint_data/flow_accumulation.tif", blockxsize=16, blockysize=16
+    )
+    grid.to_raster(
+        fdir, "checkpoint_data/flow_directions.tif", blockxsize=16, blockysize=16
+    )
 ```
 
 ```python
@@ -477,7 +492,9 @@ strahler = grid.stream_order(fdir, acc > 100)
 fig, ax = plt.subplots(figsize=(8, 6))
 fig.patch.set_alpha(0)
 plt.grid("on", zorder=0)
-cmap = colors.ListedColormap(['white', 'tab:blue', "tab:orange", "tab:green", "tab:red"])#, "tab:purple"])
+cmap = colors.ListedColormap(
+    ["white", "tab:blue", "tab:orange", "tab:green", "tab:red"]
+)  # , "tab:purple"])
 im = ax.imshow(strahler, extent=grid.extent, cmap=cmap)
 plt.colorbar(im, ax=ax, label="Strahler stream order")
 plt.xlabel("Longitude")
@@ -530,7 +547,7 @@ catch_elev = catch_xr.values[~np.isnan(catch_xr.values)]
 binsize = 50.0
 minbin = catch_elev.min() - catch_elev.min() % +binsize
 maxbin = catch_elev.max() - catch_elev.max() % -binsize
-nbins = np.arange(minbin, maxbin+1.0, binsize)
+nbins = np.arange(minbin, maxbin + 1.0, binsize)
 counts, bins = np.histogram(catch_elev, bins=nbins)
 ```
 
@@ -563,15 +580,25 @@ print(f"Hypsometric integral: {abs(hyps_integral):.3f}")
 
 ```python
 fig, ax = plt.subplots(1, 1)
-#ax.plot(bins[:-1], counts, "k+")
+# ax.plot(bins[:-1], counts, "k+")
 ax.plot(norm_counts, bins[:-1], "r", label="Basin hypsometric curve")
 ax.set_xlabel("Area fraction above elevation")
 ax.set_ylabel("Elevation (m)")
-ax.plot([0.0, 1.0], [bins[:-1].max(), bins[:-1].min()], "--", color="gray", label="Linear reference")
+ax.plot(
+    [0.0, 1.0],
+    [bins[:-1].max(), bins[:-1].min()],
+    "--",
+    color="gray",
+    label="Linear reference",
+)
 ax.legend()
 ax.set_xlim(0.0, 1.0)
 ax.set_ylim(bins[:-1].min(), bins[:-1].max())
-ax.text(0.05, (0.05 * bins[:-1].max()) + bins[:-1].min(), f"Hypsometric integral: {abs(hyps_integral):.3f}");
+ax.text(
+    0.05,
+    (0.05 * bins[:-1].max()) + bins[:-1].min(),
+    f"Hypsometric integral: {abs(hyps_integral):.3f}",
+);
 ```
 
 ```python
@@ -615,8 +642,10 @@ for i in range(len(catchments)):
     lat = np.unique(catchment.coords[:, 0])
     lat = np.flip(lat)
     lon = np.unique(catchment.coords[:, 1])
-    catch_xr = xr.DataArray(catchment.base, coords={"y": lat, "x": lon}, dims=["y", "x"])
-    
+    catch_xr = xr.DataArray(
+        catchment.base, coords={"y": lat, "x": lon}, dims=["y", "x"]
+    )
+
     # Save elevations without NaN values
     catch_elev = catch_xr.values[~np.isnan(catch_xr.values)]
 
@@ -627,13 +656,13 @@ for i in range(len(catchments)):
     hyps_integral = calculate_hypsometric_integral(counts, bins)
 
     # Extract vector boundary of catchment
-    catch_xr.name=f"Catchment {catchment_number}"
+    catch_xr.name = f"Catchment {catchment_number}"
     catch_gdf = vectorize(catch_xr.astype("float32"))
     catch_gdf = catch_gdf.dropna(subset=f"Catchment {catchment_number}")
     catch_gdf = catch_gdf.set_crs("epsg:4326")
     dissolved = catch_gdf.dissolve(method="unary")
     dissolved = dissolved.rename(columns={"geometry": "basin_boundary"})
-    
+
     # Append catchment info to lists
     catchment_numbers.append(catchment_number)
     catchment_lons.append(pour_points[i][0])
@@ -646,23 +675,24 @@ for i in range(len(catchments)):
     catchment_boundaries.append(dissolved["basin_boundary"].values[0])
 
     # Print some crap
-    #print(f"Hypsometric  integral for catchment {i+1}: {abs(hyps_integral):.3f}")
+    # print(f"Hypsometric  integral for catchment {i+1}: {abs(hyps_integral):.3f}")
     print(".", end="", flush=True)
 print("done.")
 ```
 
 ```python
-data = {"Catchment number": catchment_numbers,
-        "River name": river_names,
-        "Outlet longitude (deg.)": catchment_lons,
-        "Outlet latitude (deg.)": catchment_lats,
-        "Area (sq. km)": catchment_areas,
-        "Min. elevation (m)": catchment_min_elevs,
-        "Max. elevation (m)": catchment_max_elevs,
-        "Relief (m)": catchment_reliefs,
-        "Hypsometric integral": catchment_his,
-        "Basin boundary": catchment_boundaries,
-       }
+data = {
+    "Catchment number": catchment_numbers,
+    "River name": river_names,
+    "Outlet longitude (deg.)": catchment_lons,
+    "Outlet latitude (deg.)": catchment_lats,
+    "Area (sq. km)": catchment_areas,
+    "Min. elevation (m)": catchment_min_elevs,
+    "Max. elevation (m)": catchment_max_elevs,
+    "Relief (m)": catchment_reliefs,
+    "Hypsometric integral": catchment_his,
+    "Basin boundary": catchment_boundaries,
+}
 
 catchment_df = pd.DataFrame(data)
 catchment_df.head()
@@ -679,17 +709,23 @@ catchment_gdf = gpd.GeoDataFrame(catchment_df, crs="epsg:4326")
 ```python
 # Read fault data from Geopackage
 bucket_fault_file = "features/new_zealand/alpine_fault.gpkg"
-bucket_dem_fp = bucket_home + bucket_fault_file
+bucket_fault_fp = bucket_home + bucket_fault_file
 
-fault_df = gpd.read_file(fault_fp)
+fault_df = gpd.read_file(bucket_fault_fp)
 ```
 
 ```python
 basin_color_field = "Hypsometric integral"
-m = fault_df.loc[fault_df["name"] == "Alpine Fault"].explore(column="name", cmap="gist_gray")
+m = fault_df.loc[fault_df["name"] == "Alpine Fault"].explore(
+    column="name", cmap="gist_gray"
+)
 catchment_gdf["Points"] = catchment_gdf["geometry"]
 catchment_gdf = catchment_gdf.set_geometry("Basin boundary")
-m = catchment_gdf.explore(m=m, column=basin_color_field, cmap="plasma", )
+m = catchment_gdf.explore(
+    m=m,
+    column=basin_color_field,
+    cmap="plasma",
+)
 catchment_gdf = catchment_gdf.set_geometry("Points")
 m = catchment_gdf.explore(m=m, color="black", marker_kwds={"radius": 2})
 m
