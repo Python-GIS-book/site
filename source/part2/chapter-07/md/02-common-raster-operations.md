@@ -17,9 +17,9 @@ jupyter:
 
 - Clipping
 - Masking
+- Creating a raster mosaic: Merging
 - Rasterize: Vector to raster
 - Vectorize: Raster to Vector
-- Creating a raster mosaic: Merging
 - Estimate bounds of the raster
 - Resample: upscaling / downscaling
 - Interpolating missing data
@@ -159,41 +159,49 @@ print("Mean elevation without lakes:", masked_data["elevation"].mean().round().i
 Based on this comparison, we can see that masking out the lakes increases the mean elevation in the area by approximately 30 meters. In a similar manner, you can mask any `rioxarray.Dataset` with given mask features that you want to remove from the analysis. 
 
 
-## Creating a raster mosaic - merging raster datasets
+## Creating a raster mosaic by merging raster datasets
 
-Quite often you need to merge multiple raster files together and create a `raster mosaic`. This can be done easily with the `merge_datasets()` -function in `rioxarray`.
-Here, we will create a mosaic based on DEM files (altogether 4 files) covering Kilimanjaro region in Tanzania. First we will read elevation data from a S3 bucket for Kilimanjaro region in Africa.
+One very common operation when working with raster data is to combine multiple individual raster layers (also called as tiles) into a single larger raster dataset, often called as raster mosaic. This can be done easily with the `merge_datasets()` -function in `rioxarray`.
+Here, we will create a mosaic based on DEM files (altogether 4 files) covering Kilimanjaro region in Tanzania. First we will read elevation data from an S3 bucket. Let's start by creating a list of URL paths to given `GeoTiff` files that we have
 
 ```python
 import xarray as xr
-import os
-import rioxarray as rxr
-from rioxarray.merge import merge_datasets
+from pathlib import Path
+import rioxarray
 
 # S3 bucket containing the data
 bucket = "https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS"
+path = Path(bucket)
 
 # Generate urls for the elevation files
 urls = [
-    os.path.join(bucket, "elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif"),
-    os.path.join(bucket, "elevation/kilimanjaro/ASTGTMV003_S03E037_dem.tif"),
-    os.path.join(bucket, "elevation/kilimanjaro/ASTGTMV003_S04E036_dem.tif"),
-    os.path.join(bucket, "elevation/kilimanjaro/ASTGTMV003_S04E037_dem.tif"),
+    path / "elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif",
+    path / "elevation/kilimanjaro/ASTGTMV003_S03E037_dem.tif",
+    path / "elevation/kilimanjaro/ASTGTMV003_S04E036_dem.tif",
+    path / "elevation/kilimanjaro/ASTGTMV003_S04E037_dem.tif",
 ]
 
-# Read the files
-datasets = [
-    xr.open_dataset(url, engine="rasterio").squeeze("band", drop=True) for url in urls
-]
+# Show the first path
+urls[0]
 ```
 
-Investigate how our data looks like:
+Now we have a list of URL paths to the files that we want to read into `xarray`. To do this, we create a nested loop where we iterate over the `urls` list one `url` at a time and read the `GeoTiff` file using the `.open_dataset()` function as we introduced in Chapter 7.2:
+
+```python
+datasets = [xr.open_dataset(url, engine="rasterio", masked=True, band_as_variable=True) for url in urls]
+```
+
+Now we have stored all the `xarray.Dataset` layers inside the list `datasets`. We can investigate the contents of the first `Dataset` in our list as follows:
 
 ```python
 datasets[0]
 ```
 
-Visualize the tiles to see how they look like separately:
+```python
+datasets[0].rio.shape
+```
+
+As we can see an individual `Dataset` has a shape with 3601 cells on each dimension (x and y) and the name of the data variable `band_1` which represents the elevation values. Let's visualize these four raster tiles in separate maps to see how they look like. To do this, we use `plt.subplots()` to initialize a figure with 2x2 subplots and then visualize the rasters one by one. We use `vmax` parameter to specify a same value scale for each layer that makes the colors in the map comparable:
 
 ```python
 import matplotlib.pyplot as plt
@@ -201,29 +209,38 @@ import matplotlib.pyplot as plt
 fig, axes = plt.subplots(2, 2, figsize=(16, 16))
 
 # Plot the tiles to see how they look separately
-datasets[0]["band_data"].plot(ax=axes[0][0], vmax=5900, add_colorbar=False)
-datasets[1]["band_data"].plot(ax=axes[0][1], vmax=5900, add_colorbar=False)
-datasets[2]["band_data"].plot(ax=axes[1][0], vmax=5900, add_colorbar=False)
-datasets[3]["band_data"].plot(ax=axes[1][1], vmax=5900, add_colorbar=False)
+datasets[0]["band_1"].plot(ax=axes[0][0], vmax=5900, add_colorbar=False)
+datasets[1]["band_1"].plot(ax=axes[0][1], vmax=5900, add_colorbar=False)
+datasets[2]["band_1"].plot(ax=axes[1][0], vmax=5900, add_colorbar=False)
+datasets[3]["band_1"].plot(ax=axes[1][1], vmax=5900, add_colorbar=False);
 ```
-As we can see we have multiple separate raster files that are actually located next to each other. Hence, we want to put them together into a single raster file that can by done by creating a raster mosaic.
-Now we can create a raster mosaic by merging these datasets with `merge_datasets()` function:
+***Figure 7.12** Four elevation raster layers plotted next to each other.*
+
+From the figure we can see that these four raster tiles seem to belong together naturally as the elevation values as well as the coordinates along the x- and y-axis continue smoothly. Hence, we can stitch them together into a single larger raster `Dataset`.
+To merge multiple `xarray.Dataset`s together, we can use the `.merge_datasets()` function from `rioxarray`:
 
 ```python
-# Create a mosaic out of the tiles
+from rioxarray.merge import merge_datasets
+
 mosaic = merge_datasets(datasets)
+mosaic
 ```
 
-Rename the data variable to more intuitive one:
+Excellent! Now we have successfully merged the individual datasets together which is evident from the shape of the new `Dataset` that has 7201 cells on x and y axis. Let's now rename our data variable to a more intuitive one and plot the result to see how the end result looks like:
 
 ```python
-# Add a more intuitive name for the data variable
-mosaic = mosaic.rename({"band_data": "elevation"})
+mosaic = mosaic.rename({"band_1": "elevation"})
 ```
 
-Plot the end result where the tiles have been merged:
-
 ```python
-# Plot the mosaic
 mosaic["elevation"].plot(figsize=(12, 12))
+plt.title("Elevation values covering larger area in the region close to Kilimanjaro");
+```
+
+***Figure 7.13** A raster mosaic where four raster tiles were merged together*
+
+The end result looks good and we can see clearly the Mount Kilimanjaro which is the highest mountain in Africa 5895 meters above sea level and the highest volcano in the Eastern Hemisphere. 
+
+```python
+
 ```
