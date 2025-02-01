@@ -14,6 +14,8 @@ jupyter:
 
 # Working with data cubes
 
+- spatio-temporal data
+
 ```python
 
 ```
