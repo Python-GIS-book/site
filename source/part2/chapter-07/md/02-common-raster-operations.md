@@ -109,7 +109,57 @@ kitumbene["relative_height"].max().item()
 We can see that the mean elevation in this area is approximately 1470 meters while the maximum relative height is ~2100 meters. We needed to recalculate the relative height because the baseline minimum elevation in the landscape changed significantly after the clipping operation.
 
 
-## Creating a raster mosaic with `rioxarray
+## Masking a raster
+
+Another commonly used approach when working with raster data is to mask the data based on certain criteria or using another geographical layer as a mask. One common reasons for doing this is for example to exclude water bodies (e.g. lakes or oceans) from the terrain when doing specific analyses. In the following, we will continue working with the same elevation data and mask out the lakes from our raster dataset that exist in our study area. 
+
+Let's start by downloading data from OpenStreetMap (OSM) about existing lakes in our study area. To do this, we first extract the bounds of our raster `Dataset` and then use `osmnx` library to fetch all OSM elements that have been tagged with key `"water"` and `"lake"` (read more about `osmnx` from Chapter 9.1):
+
+```python
+import osmnx as ox
+
+# Extract the bounding box based on the extent of the raster
+data_bounds_geom = box(*data["elevation"].rio.bounds())
+
+# Retrieve lakes from the given area
+lakes = ox.features_from_polygon(data_bounds_geom, tags={"water": ["lake"]})
+
+# Plot the raster and lakes on top of each other
+fig, ax = plt.subplots(figsize=(12, 8))
+data["elevation"].plot(ax=ax)
+lakes.plot(ax=ax, color="lightblue");
+```
+
+***Figure 7.10** Existing lakes that are present in our study area.*
+
+As we can see from the Figure 7.10, there is one large lake and multiple smaller ones in our study that we might not want to be taken into account when analyzing the terrain. Luckily, we can easily mask these areas out of our `Dataset` by using `rioxarray`. To do this, we can use the same `.rio.clip()` method which we used in the previous example. However, in this case, we do not want to totally remove those cells from our `Dataset` but only mask them out, so that the values on those areas are replaced with NaN values. By using parameters `drop=False` and `invert=True`, the cells that are intersecting with the lake geometries will be masked with NaNs: 
+
+```python
+masked_data = data.rio.clip(geometries=lakes.geometry, 
+                            drop=False,
+                            invert=True,
+                            crs=data.elevation.rio.crs, 
+                           )
+```
+
+```python
+masked_data["elevation"].plot()
+plt.title("Elevation data with a mask");
+```
+
+***Figure 7.11** A Dataset where the lakes have been masked out (shown with white color).*
+
+As a result, we now have a new `Dataset` where the elevation values overlapping with the lakes have been converted to NaNs. We can now compare whether e.g. the mean land surface elevation differs from the original one where the lakes were still included:
+
+```python
+print("Mean elevation with lakes:", data["elevation"].mean().round().item())
+print("Mean elevation without lakes:", masked_data["elevation"].mean().round().item())
+```
+
+Based on this comparison, we can see that masking out the lakes increases the mean elevation in the area by approximately 30 meters. In a similar manner, you can mask any `rioxarray.Dataset` with given mask features that you want to remove from the analysis. 
+
+
+## Creating a raster mosaic - merging raster datasets
 
 Quite often you need to merge multiple raster files together and create a `raster mosaic`. This can be done easily with the `merge_datasets()` -function in `rioxarray`.
 Here, we will create a mosaic based on DEM files (altogether 4 files) covering Kilimanjaro region in Tanzania. First we will read elevation data from a S3 bucket for Kilimanjaro region in Africa.
