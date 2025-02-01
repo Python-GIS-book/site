@@ -127,7 +127,7 @@ lakes = ox.features_from_polygon(data_bounds_geom, tags={"water": ["lake"]})
 # Plot the raster and lakes on top of each other
 fig, ax = plt.subplots(figsize=(12, 8))
 data["elevation"].plot(ax=ax)
-lakes.plot(ax=ax, color="lightblue");
+lakes.plot(ax=ax, facecolor="lightblue", edgecolor="red", alpha=0.4);
 ```
 
 ***Figure 7.10** Existing lakes that are present in our study area.*
