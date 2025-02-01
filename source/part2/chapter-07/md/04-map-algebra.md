@@ -19,6 +19,7 @@ jupyter:
 - Focal function
 - Local function
 - Zonal function (zonal statistics)
+- Interpolating missing data
 - Working with multiband data
 
 **To be updated**
