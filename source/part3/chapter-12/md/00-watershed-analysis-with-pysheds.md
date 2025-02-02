@@ -12,40 +12,17 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Watershed analysis with pysheds
 
-Blah blah...
+In this case study we will cover how to extract watersheds and perform some example analyses of the elevation data in each watershed.
+<!-- #endregion -->
 
-## Process overview
-
-1. Prepare the dataset
-    1. Create list of all DEMs and masks (?) to read.
-    2. Read all DEMs using rasterio.
-    3. Merge all DEMS into one.
-    4. Remove points at or below sea level???
-    5. Clip DEM to region of interest - **DO WE NEED ALL OF THE DEMS FOR THIS?**
-2. Condition the DEM
-    1. Read clipped DEM into Pysheds
-    2. Fill pits
-    3. Fill depressions
-    4. Resolve flats
-    5. Find flow directions
-    6. Find flow accumulation
-3. Extract catchment data
-    1. Use pour points to extract catchments
-    2. Calculate distance to outlet
-    3. Extract drainage network
-4. Analyze the resulting catchment data
-    1. Export results to (rio)xarray
-    2. Analyze hypsometry in xarray
-    3. Local relief, slope, etc.
-5. Draw conclusions and assess next steps
-
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Introduction
 
 In this case study we will explore drainage basin hypsometry. To get started, we'll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you're already familiar with delineating watersheds and hypsometry, feel free to skip ahead to the next section.
-
+<!-- #endregion -->
 
 ### What is basin hypsometry?
 
@@ -72,13 +49,15 @@ import rioxarray as rxr
 import xarray as xr
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Loading the digital elevation data
 
-A geotiff image has already been created for our use and is available online at the address listed with the variable `bucket_dem_fp`. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. We will be using this elevation data to extract and analyze river drainage basins on the western side of the New Zealand Alps.
+A mosaic of the data used for this case study has already been created and is provided as a geotiff image online at the address listed with the variable `bucket_dem_fp` below. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. The DEM data is from the [ALOS World 3D-30m digital surface model](https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm) [^alos] with approximately 30 m spatial resolution (e.g., {cite}`Tadono2014`). Information about how the data have been processed to produce the mosaic we will use can be found in the {doc}`data for New Zealand section </data/New-Zealand-data>` online. We will be using this elevation data to extract and analyze river drainage basins on the western side of the New Zealand Alps.
 
 To start, we can read in the data using `rioxarray`.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # S3 bucket containing the data
 bucket_home = "https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/"
 bucket_dem_file = "elevation/new_zealand/south_island_nz.tif"
@@ -90,13 +69,13 @@ south_island = rxr.open_rasterio(bucket_dem_fp).drop_vars("band")[0]
 
 Now we can have a look at the data in a bit more detail by printing out the `xarray` `DataArray` called `south_island`.
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 south_island
 ```
 
 As we can see above we have a dataset with around 194 million elevations (18000 longitude points and 10800 latitude points). The values at each point are the elevation of the surface or `NaN` if the points are below sea level or missing from the DEM.
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Extracting watersheds using pysheds
 
 ### Overview of watershed delineation
@@ -117,17 +96,17 @@ Once the DEM has been conditioned, there are a few additional steps needed to pr
 - Determining flow accumulation. Flow accumulation is a calculation of how many upstream cells drain into each cell in the DEM. This isn't strictly needed for watershed delineation, but can be helpful in finding river channels in the DEM if selected outlet points are not located exactly in a channel cell. We will return to this below.
 
 Once these steps have been completed, it is possible to delineate a watershed upstream of a specified outlet point.
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Reading the DEM into pysheds
 
-### Preparing a DEM for analysis
+At this stage we can begin the DEM processing steps using `pysheds`. The first step is to read in the DEM. To do this, we need to define the elevation data that will be used (`data`), the affine transformation matrix (`affine`), the coordinate reference system (`crs`), and the value used to indicate missing data (`nodata`). As a reminder, the affine transformation matrix and coordinate reference system values were introduced in Sections 7.2 and 7.4. The values used in the case are defined below.
 
-At this stage we can begin the DEM processing steps using `pysheds`. The first step is to read in the DEM.
+And it is worthwhile to note that it is also possible to read geotiff DEMs into `pysheds` directly. In this case study, the data are read in using `rioxarray` because we have seen this before and {doc}`pre-processing of the data was done to create a mosaic </data/New-Zealand-data>` using `rioxarray`. As a reminder, creating mosaics of raster data was covered in Section 7.3.
+<!-- #endregion -->
 
-```python
-checkpoint = True
-```
-
-```python
+```python editable=true slideshow={"slide_type": ""}
 data = south_island.data
 affine = south_island.rio.transform()
 crs = south_island.rio.crs
@@ -135,17 +114,35 @@ crs = south_island.rio.crs
 nodata = data.dtype.type(-9999)
 ```
 
+The values above can then be used to define the `pysheds` `ViewFinder`, which defines the spatial reference system for the DEM. After defining the `ViewFinder`, the elevation data can be read in using the `pysheds` `Raster()` function.
+
 ```python
 viewfinder = ViewFinder(affine=affine, shape=data.shape, crs=crs, nodata=nodata)
 dem = Raster(data, viewfinder=viewfinder)
 ```
+
+Finally, a `pysheds` `Grid` object is created, which allows visualization of the DEM data and the use of various `Grid` methods for processing the elevation data.
 
 ```python
 # Create grid
 grid = Grid.from_raster(dem)
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Preparing a DEM for analysis in pysheds
+
+Now we are ready to begin processing the data. As noted above, we're working with a fairly large DEM (~194 million points). The processing of the data with `pysheds` generally goes smoothly, but it is possible that the JupyterLab kernel might crash at some stage. As a result, we will use an additional variable below (`checkpoint`), which will write output to files at different stages and allow us to restart the processing from various points if the kernel crashes. If you do not want to want checkpoint output written to the `checkpoint_data` directory, set `checkpoint` to `False`.
+
+Also, we note here that some output plots and supplementary information are provided only in the online version of this book at <https://pythongis.org>. These additional materials are not presented in the print version of the book to save space (and are not needed to understand this case study).
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+checkpoint = True
+```
+
+The first step in the process is to detect any pits in the DEM, which can be done using the `.detect_pits()` `Grid` method.
+
+```python editable=true slideshow={"slide_type": ""}
 # Detect number of pits in DEM
 pits = grid.detect_pits(dem)
 npits = np.count_nonzero(pits)
@@ -154,9 +151,11 @@ npits = np.count_nonzero(pits)
 print(f"Number of pits found: {npits}")
 ```
 
-```python
-# ADD REMOVE CELL TAG
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+After detecting the pits it is possible to visualize their locations by plotting the `pits` values, as shown below. Unfortunately in this case, the number of elevations is so large that the 626,348 pits are not visible in the resulting plot. For smaller DEMs these points could be visible.
+<!-- #endregion -->
 
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 # Plot pits if more than zero
 if npits > 0:
     # Plot pits
@@ -168,19 +167,31 @@ if npits > 0:
     plt.tight_layout()
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+_Visualization of the pits detected in the raw DEM._
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+As there are clearly many pits in the DEM (626,348), it is necessary to next fill in the pits using the `.fill_pits()` method. After doing this, we can check that the pits have been filled using an `assert` statement.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 # Fill pits and check they have been filled
 pit_filled_dem = grid.fill_pits(dem)
 pits = grid.detect_pits(pit_filled_dem)
 assert not pits.any()
 ```
 
-```python
-# Detect depressions - Slow takes 5 minutes or more
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+So, now all pits have been filled, but other depressions may still exist in the DEM, which we will now detect (and fill if they exist). We can detect depressions using the `detect_depressions()` method.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Detect depressions - Slow. May take 5 minutes or more.
 depressions = grid.detect_depressions(pit_filled_dem)
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # ADD REMOVE CELL TAG
 
 # Plot depressions
@@ -733,7 +744,9 @@ catchment_df["geometry"] = gpd.points_from_xy(
 catchment_gdf = gpd.GeoDataFrame(catchment_df, crs="epsg:4326")
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Read in data for the [Alpine Fault](https://data.gns.cri.nz/af/) [^alpinefault] ({cite}`Langridge2016`).
+<!-- #endregion -->
 
 ```python
 # Read fault data from Geopackage
@@ -778,9 +791,11 @@ Perhaps some other metadata could also be exported from pysheds before going to 
 - Once the above is done, it would be good to explore calculating the basin hypsometries, hypsometric integrals, and classifying basins according to their hypsometric integral values (fluvial, glacial, etc.).
 - Finally, it would be cool to have an interactive map at the end where this info could be found by selecting basins
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
+[^alos]: <https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm>
 [^alpinefault]: <https://data.gns.cri.nz/af/>
 [^pysheds]: <https://mattbartos.com/pysheds/>
 
+<!-- #endregion -->
