@@ -251,6 +251,41 @@ _**Figure 9.5**. Streets, buildings, green spaces, restaurants and cafes from th
 
 Cool! Now we have a map where we have plotted the restaurants, buildings, streets and the boundaries of the selected region of 'Kamppi' in Helsinki. 
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
+### Alternative spatial queries
+
+If your area of interest is not represented by any existing featue in OSM, you can also query data based on custom polygon, bounding box or based on a buffer around a point or address location. Each way of querying the data is implemented in a distinct `osmnx` function. Here are the available fucntions for querying map features by:
+
+- address: [osmnx.features.features_from_address(address, tags, dist)](https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_address)
+- bounding box: [osmnx.features.features_from_bbox(bbox, tags)](https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_bbox)
+- place: [osmnx.features.features_from_place(place, tags)](https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_place)
+- point: [osmnx.features.features_from_point(center_point, tags, dist)](https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_point)
+- polygon: [osmnx.features.features_from_polygon(polygon, tags)](https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_polygon)
+
+Let's try out querying data based on a pre-defined bounding box which centers around the Cental railway station in Helsinki. Bounding box coordinates should be given in the correct order (left, bottom, right, top). 
+<!-- #endregion -->
+
+```python
+bounds = (24.9351773, 60.1641551, 24.9534055, 60.1791068)
+buildings = ox.features.features_from_bbox(bounds, {'building': True})
+buildings.plot()
+```
+
+_**Figure 9.6**. Downloaded buildings within a bounding box._
+
+
+Here is another example of querying data within a distance treshold from a geocodable address. The distance parameter is given in meters. 
+
+```python
+address = "Central railway station, Helsinki, Finland"
+tags = {'building': True}
+distance = 500 
+buildings = ox.features.features_from_address(address, tags, distance)
+buildings.plot()
+```
+
+_**Figure 9.7**. Downloaded buildings within a distance treshold from a geocoded address._
+
 
 #### Question 9.3
 
