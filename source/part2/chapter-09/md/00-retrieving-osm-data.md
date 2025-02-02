@@ -74,6 +74,15 @@ aoi = ox.geocoder.geocode_to_gdf(place)
 aoi.explore()
 ```
 
+<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 9.1}. Interactive map displaying the area of interest with a background map.}}, center, nofloat}{../img/osmnx-aoi-example.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
+
+_**Figure 9.1**. Interactive map displaying the area of interest with a background map._
+
+
 ### Street network
 
 
@@ -91,6 +100,9 @@ Let's have a closer look a the street nework using an `osmnx` function that plot
 # Plot the streets
 fig, ax = ox.plot.plot_graph(graph, figsize=(6,6))
 ```
+
+_**Figure 9.2**. Graph edges and nodes._
+
 
 From here we can see that our graph contains nodes (the points) and edges (the lines) of the network graph. There are various tools available in `osmnx` and `networkx` to continue analyzing this network graph. You can read more about the properties of the graph model and available tools in the `osmnx` online documentation.
 
@@ -131,6 +143,9 @@ Let's plot the building footprints to get an overview of the data. While plottin
 ```python
 buildings.plot(column="building", figsize=(8.2,8), cmap="tab20c", legend=True)
 ```
+
+_**Figure 9.3**. Buildings visualized by building tag values._
+
 
 Let's also fetch points of interests from our area of interest using the amenity tag:
 
@@ -202,6 +217,9 @@ The first five rows of data contain different parks, which all have a name. Let'
 parks.plot(color="green", alpha=0.5)
 ```
 
+_**Figure 9.4**. Polygons tagged with "leisure=park" or "landuse=grass"._
+
+
 ### Plotting the data
 
 Let's create a map out of the streets, buildings, restaurants in our area of interest.
@@ -227,6 +245,9 @@ amenities.plot(ax=ax, color="yellow", alpha=0.7, markersize=10)
 
 plt.tight_layout()
 ```
+
+_**Figure 9.5**. Streets, buildings, green spaces, restaurants and cafes from the Kamppi area in Helsinki._
+
 
 Cool! Now we have a map where we have plotted the restaurants, buildings, streets and the boundaries of the selected region of 'Kamppi' in Helsinki. 
 
@@ -263,9 +284,18 @@ buildings = ox.features.features_from_place(place, tags={ "building" : True})
 amenities = ox.features.features_from_place(place, tags = {"amenity" : ["restaurant", "cafe"]})
 parks = ox.features.features_from_place(place, tags = {"leisure": "park", "landuse": "grass"})
 
-# Proceed to plotting the data
+# Plot the result
+fig, ax = plt.subplots(figsize=(8.5, 8))
+
+aoi.plot(ax=ax, facecolor="black")
+edges.plot(ax=ax, linewidth=1, edgecolor="dimgray")
+buildings.plot(ax=ax, facecolor="silver", alpha=0.7)
+parks.plot(ax=ax, facecolor="green", alpha=0.7)
+amenities.plot(ax=ax, color="yellow", alpha=0.7, markersize=10)
+plt.tight_layout()
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^OSM]: <https://www.openstreetmap.org/>
@@ -276,3 +306,4 @@ parks = ox.features.features_from_place(place, tags = {"leisure": "park", "landu
 [^OSM_wiki_tags]: <https://wiki.openstreetmap.org/wiki/Map_features> 
 [^OSMnx]: <https://github.com/gboeing/osmnx>
 [^osmnx_docs]: <https://osmnx.readthedocs.io/en/stable/index.html>
+<!-- #endregion -->
