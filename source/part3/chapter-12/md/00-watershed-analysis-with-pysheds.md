@@ -69,13 +69,13 @@ south_island = rxr.open_rasterio(bucket_dem_fp).drop_vars("band")[0]
 
 Now we can have a look at the data in a bit more detail by printing out the `xarray` `DataArray` called `south_island`.
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 south_island
 ```
 
 As we can see above we have a dataset with around 194 million elevations (18000 longitude points and 10800 latitude points). The values at each point are the elevation of the surface or `NaN` if the points are below sea level or missing from the DEM.
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Extracting watersheds using pysheds
 
 ### Overview of watershed delineation
@@ -96,6 +96,7 @@ Once the DEM has been conditioned, there are a few additional steps needed to pr
 - Determining flow accumulation. Flow accumulation is a calculation of how many upstream cells drain into each cell in the DEM. This isn't strictly needed for watershed delineation, but can be helpful in finding river channels in the DEM if selected outlet points are not located exactly in a channel cell. We will return to this below.
 
 Once these steps have been completed, it is possible to delineate a watershed upstream of a specified outlet point.
+<!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Reading the DEM into pysheds
@@ -793,7 +794,6 @@ Perhaps some other metadata could also be exported from pysheds before going to 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
-[^affine]: <https://mattbartos.com/pysheds/raster.html>
 [^alos]: <https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm>
 [^alpinefault]: <https://data.gns.cri.nz/af/>
 [^pysheds]: <https://mattbartos.com/pysheds/>
