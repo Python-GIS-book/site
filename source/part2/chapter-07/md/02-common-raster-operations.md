@@ -388,6 +388,35 @@ aligned_ds["area_km2"].plot();
 
 As a result, we have now rasterized the lakes in a way that the `aligned_ds` aligns with the existing `Dataset` containing the elevation values. This technique can be very useful especially when you want to do calculations (map algebra) between multiple raster layers (more about map algebra in Chapter 7.5). 
 
+
+## Resampling raster data
+
+Finally, we will introduce a technique that allows you to resample your raster data. Resampling refers to changing the cell values due to changes in the raster grid for example due to changing the effective cell size of an existing dataset. There are two ways to resample your raster data. Upscaling (or upsampling) refers to cases in which convert the raster to higher resolution, i.e. smaller cells. Downscaling (or downsampling) is resampling to lower resolution, i.e. having larger cell sizes. 
+
+```python
+upscale_factor = 2
+new_width = data.rio.width * upscale_factor
+new_height = data.rio.height * upscale_factor
+```
+
+```python
+from rasterio.enums import Resampling
+
+data_upscaled = data.rio.reproject(
+    data.rio.crs,
+    shape=(new_height, new_width),
+    resampling=Resampling.bilinear,
+)
+```
+
+```python
+data_upscaled
+```
+
+```python
+data["elevation"].plot();
+```
+
 ```python
 
 ```
