@@ -253,7 +253,7 @@ The end result looks good and we can see clearly the Mount Kilimanjaro which is 
 
 ## Raster to vector conversion (vectorize)
 
-Another commonly used technique commonly needed when working with geographic data is to convert the data from raster to vector format and vice versa. These conversion techniques are commonly called as `vectorize` or `rasterize` operations. When we convert a raster `Dataset` to vector format the raster cells are converted into `shapely.Polygon` objects and the values of the cells are stored as an attribute (column) in the resulting `GeoDataFrame`. To convert `xarray.DataArray` into vector format, you can use the `geocube` library that helps doing these kind of data conversions. In the following, we will work with the `kitumbene` elevation data that we will convert into vector format. Let's have a quick look on our input `DataArray` before continuing:
+Another commonly used technique commonly needed when working with geographic data is to convert the data from raster to vector format and vice versa. These conversion techniques are commonly called as `vectorize` or `rasterize` operations. When we convert a raster `Dataset` to vector format the raster cells are converted into `shapely.Polygon` objects and the values of the cells are stored as an attribute (column) in the resulting `GeoDataFrame`. To convert `xarray.DataArray` into vector format, you can use the `geocube` library that helps doing these kind of data conversions. In the following, we continue work with the `kitumbene` elevation data that we created earlier by clipping the data and convert this layer into vector format. Let's have a quick look on our input `DataArray` before continuing:
 
 ```python
 kitumbene["elevation"]
@@ -292,10 +292,101 @@ gdf.plot(column="elevation");
 
 As we can see from the figure, the map looks identical to our original `DataArray` (Figure 7.9) which means that the conversion works as it should. 
 
-It is good to keep in mind that the raster data structure (i.e. arrays) is much more efficient way to process continuous surfaces. When every cell in the 2D array is converted into polygon geometries, the processing and visualization of the data typically becomes more resource intensive for the computer (making things slower). There are approaches to deal with this issue e.g. by categorizing the data values of the surface into specific elevation classes (e.g. with 5 meter intervals) and then dissolving the geometries into larger Polygon shapes (as we did earlier without categorization). It is a good idea to do a bit of preprocessing for the raster data before vectorizing it, especially if you have large raster arrays. 
+It is good to keep in mind that the raster data structure (i.e. arrays) is much more efficient way to process continuous surfaces. When every cell in the 2D array is converted into polygon geometries, the processing and visualization of the data typically becomes more resource intensive for the computer (making things slower). There are approaches to deal with this issue e.g. by categorizing the data values of the surface into specific elevation classes (e.g. with 5 meter intervals) and then dissolving the geometries into larger Polygon shapes (as we did earlier without categorization). Another technique to consider is downscaling your data into lower resolution, meaning that the size of an individual cell will be larger. Naturally, both of these techniques has an impact on the quality of the data as the data is generalized and aggregated. It is a good idea to do the preprocessing steps for the raster data before vectorizing it, especially if you have large raster arrays because the array operations in `xarray` are very efficient. 
 
 
 ## Vector to raster conversion (rasterize)
+
+Now as we have seen how to convert the data from raster to vector, let's continue and see how to do the conversion from vector to raster data format, i.e. how to rasterize a vector dataset. In this example, we aim to rasterize the lakes that we downloaded earlier from OpenStreetMap. Let's have a look how the data looks like:
+
+```python
+lakes = ox.features_from_polygon(data_bounds_geom, tags={"water": ["lake"]})
+
+lakes.plot();
+```
+
+***Figure 7.15.** Lakes represented in vector format.*
+
+```python
+lakes.shape
+```
+
+```python
+lakes.tail(2)
+```
+
+As we can see the `lakes` `GeoDataFrame` contains polygons and have various attributes associated with them, although majority of these attributes do not contain any relevant data. Thus, let's just pick a few columns that are most interesting to us:
+
+```python
+lakes = lakes[["geometry", "water", "name"]].copy().reset_index()
+lakes.shape
+#lakes.tail(3)
+```
+
+Our `GeoDataFrame` does not currently really include any useful numerical data (except `id`) that we would perhaps want to store as an attribute into our raster `DataArray`. Thus, let's create one numerical attribute into our data and calculate the area of the lakes as something we will use as values in our raster. We can use some of the vector data processing tricks to do this which were introduced in Chapter 6:
+
+```python
+# Reproject to metric system
+lakes_utm = lakes.to_crs(epsg=21037)
+
+# Calculate the area in km2
+lakes_utm["area_km2"] = lakes_utm.area / 1000000
+
+# Join the area information with the original gdf
+lakes = lakes.join(lakes_utm[["area_km2"]])
+```
+
+```python
+lakes.head(5)
+```
+
+In the previous, we first reprojected the data into EPSG:21037 (Arc 1960 / UTM zone 37S) which is a UTM (Universal Transverse Mercator) projection that covers most of Tanzania and provides accurate distance and area calculations. Then we calculated the area of the lakes into square kilometers and finally joined the information about the area into our original `GeoDataFrame`that is in WGS84 coordinate reference system. 
+
+By looking at the resulting table we can see something interesting. It appears that the `lakes` data contain some duplicate rows as the `Lake Natron` is present twice in our table (something to do with fetching data from OSM). This can cause issues when rasterizing the data because there should not be geometries that overlap with each other. Thus, we want to remove all duplicate rows from the data before continuing:
+
+```python
+lakes = lakes.drop_duplicates()
+lakes.shape
+```
+
+As a result, two duplicates were dropped from the `GeoDataFrame`. Now we are ready to rasterize our `GeoDataFrame` into `xarray`. To do this, we can use the `make_geocube()` function from the `geocube` library:
+
+```python
+from geocube.api.core import make_geocube
+
+lakes_ds = make_geocube(vector_data=lakes,
+                        measurements=["id", "area_km2"],
+                        resolution=(-0.01, 0.01),
+                        output_crs="epsg:4326"
+                       )
+lakes_ds
+```
+
+As a result, we now have an `xarray.Dataset` with two data variables. In the code above, we specified that the `lakes` `GeoDataFrame` is used as the input `vector_data` and the columns `id` and `area_km2` should be included as the `measurements`, i.e. the data that are stored into separate `xarray` variables. The `resolution` parameter defines the spatial resolution of the output grid, i.e. size of a single pixel in the raster. In our case, we specified a tuple with values `(-0.01, 0.01)` that are presented as decimal degrees because the coordinate reference system of our input data is WGS84. Thus, resolution `0.01` indicates that the size of a single pixel in our raster is approximately 1x1 kilometers (1.11km). The negative sign for x-resolution is used because raster transformations often use negative values for the y-axis in many CRS systems, where the y-coordinates decrease as you move down the raster. Finally, the `output_crs` defines the CRS for the resulting `Dataset`. Let's make a map out of our data to see how the result looks like:
+
+```python
+lakes_ds["area_km2"].plot()
+plt.title("Rasterized lakes");
+```
+
+***Figure 7.16.** Lakes that have been rasterized into `DataArray` at approximately 1 km resolution.*
+
+Quite often when rasterizing vector data, you actually want to fit the output to have identical resolution to an already existing `xarray.Dataset` and align it with the other raster layer. For example in our case, we can use the `data` raster (with elevation values) as a target so that the resolution, dimensions and alignment would fit with the existing `Dataset`. We can achieve this by using the `like` parameter in `make_geocube()` function. This will ensure that the output aligns with the existing raster having same resolution and dimensions:
+
+```python
+aligned_ds = make_geocube(vector_data=lakes,
+                          measurements=["id", "area_km2"],
+                          like=data)
+aligned_ds
+```
+
+```python
+aligned_ds["area_km2"].plot();
+```
+
+***Figure 7.17.** Lakes that have been rasterized and aligned with an existing `Dataset`.*
+
+As a result, we have now rasterized the lakes in a way that the `aligned_ds` aligns with the existing `Dataset` containing the elevation values. This technique can be very useful especially when you want to do calculations (map algebra) between multiple raster layers (more about map algebra in Chapter 7.5). 
 
 ```python
 
