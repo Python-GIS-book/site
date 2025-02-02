@@ -40,7 +40,6 @@ As we can see, we have an `id` for each row and an address on a column `addr`. L
 # Import necessary modules
 import pandas as pd
 import geopandas as gpd
-from shapely.geometry import Point
 
 # Filepath
 fp = "data/Helsinki/addresses.txt"
@@ -71,7 +70,19 @@ join = geo.join(data)
 join.head()
 ```
 
-Here we can see the geocoded address (column `address`) and original address (column `addr`) side-by-side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can save the geocoded addresses to a file:
+Here we can see the geocoded address (column `address`) and original address (column `addr`) side-by-side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can have a look how the points look on a map and save the geocoded addresses to a file:
+
+```python
+join.explore(color="red", marker_kwds={"radius": 5})
+```
+
+<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.34}. Geocoded addresses on a map.}}, center, nofloat}{../img/figure_6-34.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
+
+_**Figure 6.34**. Geocoded addresses on a map._
 
 ```python deletable=true editable=true
 # Output file path

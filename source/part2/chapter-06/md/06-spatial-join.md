@@ -21,18 +21,18 @@ Spatial join is yet another classic GIS task. Retrieving table attributes from o
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## The basic logic of spatial join
 
-In Figure 6.40, we illustrate the logic of a spatial join by showing how it is possible to combine information between spatial data layers that are located in the same area (i.e. they overlap with each other at least partially). The target here is to combine attribute information of three layers: properties, land use and buildings. Each of these three layers has their own attribute information. Transfering the information between the layers is based on how the individual points in the Properties layer intersect with these layers as shown on the left, i.e. considering different land use areas (commercial, residential, industrial, natural), as well as the building footprints containing a variety of building-related attibute information. On the right, we show the table attributes for these three layers considering the features that intersect with the four Point observations. The table at the bottom shows how the results look after all the attribute data from these layers has been combined into a single table. 
+In Figure 6.41, we illustrate the logic of a spatial join by showing how it is possible to combine information between spatial data layers that are located in the same area (i.e. they overlap with each other at least partially). The target here is to combine attribute information of three layers: properties, land use and buildings. Each of these three layers has their own attribute information. Transfering the information between the layers is based on how the individual points in the Properties layer intersect with these layers as shown on the left, i.e. considering different land use areas (commercial, residential, industrial, natural), as well as the building footprints containing a variety of building-related attibute information. On the right, we show the table attributes for these three layers considering the features that intersect with the four Point observations. The table at the bottom shows how the results look after all the attribute data from these layers has been combined into a single table. 
 
-It is good to remember that spatial join is always conducted between two layers at a time. Hence, in practice, if we want to make a spatial join between these three layers shown in **Figure 6.37**, we first need to conduct the spatial join between Properties and Land use, and then store this information into an intermediate result. After the first join, we need to make another spatial join between the intermediate result and the third layer (here, the Buildings dataset). After these two separate spatial joins, we have achieved the final result shown at the bottom, showing for each property (row) the corresponding attributes from the land use and building layers as separate columns. In a similar manner, you could also continue joining data (attributes) from other layers as long as you need.  
+It is good to remember that spatial join is always conducted between two layers at a time. Hence, in practice, if we want to make a spatial join between these three layers shown in Figure 6.41, we first need to conduct the spatial join between Properties and Land use, and then store this information into an intermediate result. After the first join, we need to make another spatial join between the intermediate result and the third layer (here, the Buildings dataset). After these two separate spatial joins, we have achieved the final result shown at the bottom, showing for each property (row) the corresponding attributes from the land use and building layers as separate columns. In a similar manner, you could also continue joining data (attributes) from other layers as long as you need.  
 
-![_**Figure 6.40**. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship._](../img/spatial-join-basic-idea.png)
+![_**Figure 6.41**. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship._](../img/spatial-join-basic-idea.png)
 
-_**Figure 6.40**. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship._
+_**Figure 6.41**. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship._
 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now as we understand the basic idea behind the spatial join, let's continue to learn a bit more about the details of spatial join. Figure 6.41 illustrates how we can do a spatial join between Point and Polygon layers, and how changing specific parameters in the way the join is conducted influence the results. In spatial join, there are two set of options that you can control, which ultimately influence how the data is transferred between the layers. You can control: 
+Now as we understand the basic idea behind the spatial join, let's continue to learn a bit more about the details of spatial join. Figure 6.42 illustrates how we can do a spatial join between Point and Polygon layers, and how changing specific parameters in the way the join is conducted influence the results. In spatial join, there are two set of options that you can control, which ultimately influence how the data is transferred between the layers. You can control: 
 
 1) How the spatial relationship between geometries should be checked (i.e. spatial predicates), and
 2) What type of table join you want to conduct (inner, left, or right outer join)
@@ -41,9 +41,9 @@ The spatial predicates control how the spatial relationship between the geometri
 
 It is also important to ensure that the logic for investigating these spatial relationships makes sense when deciding which spatial predicate to use. For example, it would not make any sense to check whether Layer 1 (points) contain the Layer 2 (polygons) because Point objects do not have an interior or boundary, thus lacking the ability to contain any geometric object. Doing this kind of spatial join is possible, but the result from this type of spatial join would always return an empty `GeoDataFrame`.  However, if we change the spatial join criteria and join the data between layers if the Layer 2 (polygons) contain the Layer 1 (points), this would make a perfect sense, and the query would return rows that match with this criteria.   
 
-![_**Figure 6.41**. Different approaches to join two data layers with each other based on spatial relationships._](../img/spatial-join-alternatives.png)
+![_**Figure 6.42**. Different approaches to join two data layers with each other based on spatial relationships._](../img/spatial-join-alternatives.png)
 
-_**Figure 6.41**. Different approaches to join two data layers with each other based on spatial relationships._
+_**Figure 6.42**. Different approaches to join two data layers with each other based on spatial relationships._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -134,7 +134,7 @@ ax = addresses.plot(ax=ax, color="blue", markersize=7, marker="D")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.42**. Prerequisite for a successful spatial join: The Polygon layer overlaps with the Point layer._
+_**Figure 6.43**. Prerequisite for a successful spatial join: The Polygon layer overlaps with the Point layer._
 
 As we can see from the map in Figure 6.42, the Polygons representing the population distribution in the area now overlap nicely with the address locations and we are ready to join information among these two layers based on their spatial relationship.   
 <!-- #endregion -->
@@ -195,7 +195,7 @@ ax = join.plot(
 ax.set_title("Amount of inhabitants living close to the point");
 ```
 
-_**Figure 6.43**. Amount of population living close to the addresses can be visualized after a successful spatial join with the population grid._
+_**Figure 6.44**. Amount of population living close to the addresses can be visualized after a successful spatial join with the population grid._
 
 As we see from the map, the number of population living close to the stations vary quite significantly ranging from 43 up to 1409 inhabitants. As a last thing after the spatial join, it is useful to investigate if we lost any data while doing the spatial join. Let's check this by comparing the number of rows in our result to how many addresses we had originally:
 
@@ -212,14 +212,14 @@ addresses.explore(m=m, color="red")
 
 <!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.44}. An interactive map of the two layers reveal that some points are located outside of the Polygons.}}, center, nofloat}{../img/figure_6-44.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.45}. An interactive map of the two layers reveal that some points are located outside of the Polygons.}}, center, nofloat}{../img/figure_6-45.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.44**. An interactive map of the two layers reveal that some points are located outside of the Polygons._
+_**Figure 6.45**. An interactive map of the two layers reveal that some points are located outside of the Polygons._
 
-From **Figure 6.44**, we can see that some points are located outside of polygons in the areas close to the railway lines and the motorway. Is this a problem? It depends, but in certain cases, you might want to keep the information for the points that did not get a match based on the spatial relationship. We can achieve this by changing the `how` parameter into `left`, which keeps every row from the left member of the spatial join even when no match is found from the other layer:
+From Figure 6.45, we can see that some points are located outside of polygons in the areas close to the railway lines and the motorway. Is this a problem? It depends, but in certain cases, you might want to keep the information for the points that did not get a match based on the spatial relationship. We can achieve this by changing the `how` parameter into `left`, which keeps every row from the left member of the spatial join even when no match is found from the other layer:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}

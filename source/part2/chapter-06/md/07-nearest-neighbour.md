@@ -23,9 +23,9 @@ Figure 6.45 illustrates two common ways to find nearest neighbors to specific lo
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-![_**Figure 6.45**. The basic idea of finding a nearest neighbour based on geographic distance._](../img/nearest-neighbour.png)
+![_**Figure 6.46**. The basic idea of finding a nearest neighbour based on geographic distance._](../img/nearest-neighbour.png)
 
-_**Figure 6.45**. The basic idea of finding a nearest neighbour based on geographic distance._
+_**Figure 6.46**. The basic idea of finding a nearest neighbour based on geographic distance._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -72,7 +72,7 @@ ax2.set_title("Stops");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.46**. Maps representing the buildings and public transport stops which we use to find the closest stop for each building._
+_**Figure 6.47**. Maps representing the buildings and public transport stops which we use to find the closest stop for each building._
 
 As mentioned earlier, finding the nearest geometries between two `GeoDataFrames` (here building and stop points) can be done easily using the `.sjoin_nearest()` method in `geopandas`. As the name implies, this method is actually designed to merge data between `GeoDataFrames` in a similar manner as with regular `.sjoin()` method. However, in this case the method is actually searching for the closest geometries instead of relying on spatial predicates, such as *within*. The `sjoin_nearest()` can be used for different geometry types, so the input geometries do not necessarily need to be Point objects as in our example. Under the hood, the method uses a *{term}`spatial index`* called `STRTree` ({cite}`leutenegger_1997`) which is an efficient implementation of the *{term}`R-tree`* dynamic index structure for spatial searching ({cite}`guttman_1984`). The STRTree is implemented in the `shapely` library (used by `geopandas`) and the technique makes the nearest neighbor queries very efficient. You can read more about spatial indices in Appendices section of the book. For the method to work properly, it is recommended to ensure that the both `GeoDataFrames` are having the same coordinate reference system (CRS), and preferably having a projected (metric) CRS because that ensures that the reported distances are meaningful (in meters) and correct. Hence, let's start by reprojecting our latitude and longitude values into a metric system using the national EUREF-FIN coordinate reference system (EPSG code 3067) for Finland:
 <!-- #endregion -->
@@ -153,9 +153,9 @@ ax.set_ylim(6676000, 6678000);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.47**. A map showing the buildings (red points), the stops (black rectangles) and the lines between the buildings and the closest stops._
+_**Figure 6.48**. A map showing the buildings (red points), the stops (black rectangles) and the lines between the buildings and the closest stops._
 
-As we can see from the Figure 6.47, the nearest neighbor search have worked well as planned, and each building marked with red color has been correctly connected with a line to the closest stop. The map reveals that there are multiple isolated stops that do not have any buildings connected to them. As a practical example, this information could be used e.g. for transport planning by investigating whether these isolated stops are less used by citizens to get on board of the public transport vehicles. This information could again be used by transport planners to decide whether there is a need to maintain these isolated stops. Thus, with these rather simple computations, one can already provide useful information that has relevance in real life. Finally, because we have calculated the distance between buildings and the stops, it is easy to do some descriptive analysis based on this data providing information about levels of access to public transport in the region: 
+As we can see from the Figure 6.48, the nearest neighbor search have worked well as planned, and each building marked with red color has been correctly connected with a line to the closest stop. The map reveals that there are multiple isolated stops that do not have any buildings connected to them. As a practical example, this information could be used e.g. for transport planning by investigating whether these isolated stops are less used by citizens to get on board of the public transport vehicles. This information could again be used by transport planners to decide whether there is a need to maintain these isolated stops. Thus, with these rather simple computations, one can already provide useful information that has relevance in real life. Finally, because we have calculated the distance between buildings and the stops, it is easy to do some descriptive analysis based on this data providing information about levels of access to public transport in the region: 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -191,7 +191,7 @@ ax = roads.plot(ax=ax, color="red")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.48**. A map showing the buildings with gray color and the parks (green) in the neighborhood of Kamppi, Helsinki._
+_**Figure 6.49**. A map showing the buildings with gray color and the parks (green) in the neighborhood of Kamppi, Helsinki._
 
 Similarly as finding the nearest neighbor using Points as input data, we can use the `.sjoin_nearest()` to find nearest neighbor between two Polygon datasets. Here, we find the nearest park for each building Polygon and store the distance into the column `distance`:
 <!-- #endregion -->
@@ -258,12 +258,12 @@ m
 
 <!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.49}. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest.}}, center, nofloat}{../img/figure_6-49.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.50}. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest.}}, center, nofloat}{../img/figure_6-50.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.49**. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest._
+_**Figure 6.50**. A map showing the closest road for each building. The LineStrings marked with green color show the exact location where the distance between a given building and the road is shortest._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
@@ -470,12 +470,12 @@ m
 
 <!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.50}. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop.}}, center, nofloat}{../img/figure_6-50.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.51}. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop.}}, center, nofloat}{../img/figure_6-51.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.50**. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop._
+_**Figure 6.51**. A map showing the three closest public transport stops to the selected building (Hartwall Arena). The LineString marked with red color show the closest stop, while the line indicated with blue color shows the 3rd closest stop._
 
 From the map, we can see that the closest stops to the arena seem to be located close to a large road 100-130 meters away from the arena, while the third closest stop is closer to the rail roads 377 meters away (Euclidean distance) from the building. 
 <!-- #endregion -->
@@ -554,12 +554,12 @@ building_points.loc[building_ids].explore(m=m)
 
 <!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.51}. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius.}}, center, nofloat}{../img/figure_6-51.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.52}. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius.}}, center, nofloat}{../img/figure_6-52.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 6.51**. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius._
+_**Figure 6.52**. A map showing the public transport stop with highest number of buildings surrounding it within 200 meter radius._
 
 The map reveals that this stop is indeed located in a densely built neighborhood called Laurinlahti with lots of detached houses. By using a similar approach, it is possible to investigate the urban design and morphology across the city regions which can reveal some interesting patterns and developments relevant to urban planning. 
 
