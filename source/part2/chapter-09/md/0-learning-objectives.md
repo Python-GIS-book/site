@@ -17,7 +17,7 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter 9 provides details on using various online sources of geographic information in Python, including OpenStreetMap data, Web Feature Services, Web Coverage Services and remote databases.
+Chapter 9 provides details on using various online sources of geographic information in Python, including OpenStreetMap data, Web Feature Services, Web Coverage Services and remote databases. These skills will allow you to fetch most up-to-date data from online sources directly into Python without having to read or write data on your local machine.
 
 <!-- #endregion -->
 
@@ -34,7 +34,3 @@ At the end of this chapter, you should be able to:
 
 ```
 <!-- #endregion -->
-
-```python
-
-```
