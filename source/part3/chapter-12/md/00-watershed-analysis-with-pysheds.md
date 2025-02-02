@@ -131,12 +131,14 @@ grid = Grid.from_raster(dem)
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Preparing a DEM for analysis in pysheds
 
-Now we are ready to begin processing the data. As noted above, we're working with a fairly large DEM (~194 million points). The processing of the data with `pysheds` generally goes smoothly, but it is possible that the JupyterLab kernel might crash at some stage. As a result, we will use an additional variable below (`checkpoint`), which will write output to files at different stages and allow us to restart the processing from various points if the kernel crashes. If you do not want to want checkpoint output written to the `checkpoint_data` directory, set `checkpoint` to `False`.
-
-Also, we note here that some output plots and supplementary information are provided only in the online version of this book at <https://pythongis.org>. These additional materials are not presented in the print version of the book to save space (and are not needed to understand this case study).
+Now we are ready to begin processing the data. As noted above, we're working with a fairly large DEM (~194 million points). Before continuing, we note here that some output plots and supplementary information are provided only in the online version of this book at <https://pythongis.org>. These additional materials are not presented in the print version of the book to save space (and are not needed to understand this case study).
 <!-- #endregion -->
 
-```python editable=true slideshow={"slide_type": ""}
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+The processing of the data with `pysheds` generally goes smoothly, but it is possible that the JupyterLab kernel might crash at some stage. As a result, we will use an additional variable below (`checkpoint`), which will write output to files at different stages and allow us to restart the processing from various points if the kernel crashes. If you do not want to want checkpoint output written to the `checkpoint_data` directory, set `checkpoint` to `False`.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 checkpoint = True
 ```
 
@@ -191,10 +193,12 @@ So, now all pits have been filled, but other depressions may still exist in the 
 depressions = grid.detect_depressions(pit_filled_dem)
 ```
 
-```python editable=true slideshow={"slide_type": ""}
-# ADD REMOVE CELL TAG
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+As was the case for the pits, it is possible to visualize the locations of depressions in the DEM. Again, however, the depressions in the DEM in this case study are too small to be visible in the plot.
+<!-- #endregion -->
 
-# Plot depressions
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
+# Plot depressions - in case you would like to do so with other DEMs
 fig, ax = plt.subplots(figsize=(8, 6))
 fig.patch.set_alpha(0)
 
@@ -203,11 +207,17 @@ plt.title("Depressions", size=14)
 plt.tight_layout()
 ```
 
-## Write output to file
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+_Visualization of the depressions detected in the pit-filled DEM._
+<!-- #endregion -->
 
-Since the step above took a few minutes, let's save the current output to a file in case there is a need to start over from this point at some stage in the future.
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+### Writing output to file
 
-```python
+Since detecting the depressions can take a few minutes, this is a good point to use the `checkpoint` variable to save the current output to a file in case there is a need to restart the notebook. We can write out the values from the DEM with pits filled (`pit_filled_dem`) and detected depressions (`depressions`) to separate files using the `.to_raster()` method of `pysheds`. Details about writing data to files in `pysheds` can be found in the `pysheds` [File I/O documentation](https://mattbartos.com/pysheds/file-io.html) [^fileio].
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 if checkpoint:
     # Write dataset to file
     grid.to_raster(
@@ -226,21 +236,37 @@ if checkpoint:
     )
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+We have now written output to files and thus it is possible to restart the analysis from this point. You can read in the output data in the cell below (if desired) by setting `continue_from_here` to be `True`.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 continue_from_here = False
 if continue_from_here:
     grid, pit_filled_dem = continue_pysheds("checkpoint_data/pit_filled_dem.tif")
     _, depressions = continue_pysheds("checkpoint_data/detected_depressions.tif")
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+### Preparing a DEM for analysis in pysheds (continued)
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+The next step in the analysis is to fill depressions. Depressions can be filled using the `.fill_depressions()` method. As above, we can use an `assert` statement to ensure there are not remaining depressions in the DEM.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 # Fill depressions - Slow, takes 5-10 minutes...
 flooded_dem = grid.fill_depressions(pit_filled_dem)
 depressions = grid.detect_depressions(flooded_dem)
 assert not depressions.any()
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+If the `checkpoint` option is being used, the cell below provides the option to write `flooded_dem` to file using the same approach as above for the pit-filled DEM.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 if checkpoint:
     # Write dataset to file
     grid.to_raster(
@@ -248,20 +274,36 @@ if checkpoint:
     )
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 continue_from_here = False
 if continue_from_here:
-    grid, flooded_dem = continue_pysheds("checkpoint_data/flooded_dem.tif")
+    grid, pit_filled_dem = continue_pysheds("checkpoint_data/pit_filled_dem.tif")
+    _, depressions = continue_pysheds("checkpoint_data/detected_depressions.tif")
+    _, flooded_dem = continue_pysheds("checkpoint_data/flooded_dem.tif")
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Now that all depressions and pits in the DEM have been filled, we can proceed to handling flow routing across flats (such as lakes) in the DEM. We will first detect if there are any flats using the `.detect_flats()` method.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 # Detect flats
 flats = grid.detect_flats(flooded_dem)
+nflats = np.count_nonzero(flats)
+
+# Check number of flats
+print(f"Number of flats found: {nflats}")
 ```
 
-```python
-# ADD REMOVE CELL TAG
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Looks like we have plenty of flat regions in the DEM! 
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+As was the case earlier, it is possible to visualize the locations of flat regions in the DEM by plotting the `flats` values. In contrast to the case for the pits and depressions above, visualizing the flat regions in the DEM clearly shows their locations.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 # Plot flats
 fig, ax = plt.subplots(figsize=(8, 6))
 fig.patch.set_alpha(0)
@@ -271,25 +313,30 @@ plt.title("Flats", size=14)
 plt.tight_layout()
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+_Visualization of the flats detected in the flooded DEM._
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Flat regions in the DEM can be handled by processing the flooded DEM to determine how water would be routed across the flat regions. In `pysheds`, this can be done using the `.resolve_flats()` method.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 # Resolve flats
 inflated_dem = grid.resolve_flats(flooded_dem)
-flats = grid.detect_flats(inflated_dem)
 ```
 
-```python
-# ADD REMOVE CELL TAG
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Now that we have resolved the flat regions it is possible to move on to the steps related to determining flow directions and flow accumulation.
+<!-- #endregion -->
 
-# Plot flats, if requested
-fig, ax = plt.subplots(figsize=(8, 6))
-fig.patch.set_alpha(0)
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Calculating values related to surface water flows
 
-plt.imshow(flats, cmap="Greys_r", zorder=1)
-plt.title("Flats", size=14)
-plt.tight_layout()
-```
+At this stage we can use the inflated DEM (with flats resolved) to determine two key things: (1) the direction water flows at all points on the surface of the DEM (flow direction), and (2) the number of cells draining into each cell in the DEM (flow accumulation). Flow directions can be calculated using the `.flowdir()` method and flow accumulation can be calculated using the `.accumulation()` method, as shown below.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Compute flow direction based on corrected DEM (D8)
 fdir = grid.flowdir(inflated_dem)
 
@@ -297,9 +344,11 @@ fdir = grid.flowdir(inflated_dem)
 acc = grid.accumulation(fdir)
 ```
 
-```python
-# ADD REMOVE CELL TAG
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+As was the case earlier, we can again check the values for the flow directions and flow accumulation by creating a plot of them. Here, we can plot the flow accumulation (`acc`) to see how things look.
+<!-- #endregion -->
 
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 # Plot flow accumulation, if requested
 fig, ax = plt.subplots(figsize=(8, 6))
 fig.patch.set_alpha(0)
@@ -315,7 +364,11 @@ plt.title("Flow Accumulation", size=14)
 plt.tight_layout()
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_Visualization of the flow accumulation calculated using the inflated DEM._
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 if checkpoint:
     # Write flow accumulation and directions to file
     grid.to_raster(
@@ -326,57 +379,37 @@ if checkpoint:
     )
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 continue_from_here = False
 if continue_from_here:
-    grid, acc = continue_pysheds("checkpoint_data/flow_accumulation.tif")
+    grid, pit_filled_dem = continue_pysheds("checkpoint_data/pit_filled_dem.tif")
+    _, depressions = continue_pysheds("checkpoint_data/detected_depressions.tif")
+    _, flooded_dem = continue_pysheds("checkpoint_data/flooded_dem.tif")
+    _, acc = continue_pysheds("checkpoint_data/flow_accumulation.tif")
     _, fdir = continue_pysheds("checkpoint_data/flow_directions.tif")
 ```
 
-```python
-pour_points = [
-    (168.723432, -44.060960),  # Big, glacial (Arawhata River)
-    (168.838838, -44.023259),  # Small, glacial (Waiatoto River)
-    (168.942363, -43.971371),  # Small, fluvial (Turnbull River)
-    (168.987365, -43.952888),  # Medium, fluvial? (Okuru River)
-    (169.144604, -43.935653),  # Big, mixed (Haast River)
-    (169.351885, -43.785118),  # Medium, glacial (Moeraki River)
-    (169.497063, -43.716472),  # Medium, mixed (Paringa River)
-    (169.593608, -43.666203),  # Medium, mixed (Mahitahi River)
-    (169.695061, -43.617701),  # Medium, mixed (Jacobs River)
-    (169.808933, -43.576726),  # Medium-big, mixed (Karangarua River)
-    (169.965037, -43.498121),  # Medium, mixed (Cook River)
-    (170.008772, -43.478192),  # Medium, mixed (Fox River, glaciers present)
-    (170.070511, -43.443732),  # Medium, fluvial? (Waikukupa River)
-    (170.102720, -43.425248),  # Small, fluvial? (Omoeroa River)
-    (170.182282, -43.394347),  # Medium, glacial (Waiho River)
-    (170.274318, -43.343211),  # Small, fluvial (Waitangitaona River)
-    (170.302801, -43.326779),  # Small, fluvial? (Darnley Creek)
-    (170.403417, -43.285756),  # Big, mixed (Whataroa River)
-    (170.525003, -43.217547),  # Medium, mixed (Poerua River)
-    (170.624160, -43.158141),  # Big, mixed (Wanganui River)
-    (170.729994, -43.107470),  # Medium, fluvial? (Waitaha River)
-    (170.820316, -43.064461),  # Small, fluvial (Kakapotahi River?)
-    (170.869467, -43.014418),  # Medium, fluvial (Mikonui River)
-    (171.012521, -42.957962),  # Big, mixed (Hokitika River)
-    (171.131477, -42.910875),  # Small, fluvial (Toaroha River)
-    (171.150106, -42.903147),  # Small, fluvial (Kokatahi River)
-    (171.165837, -42.884519),  # Medium, mixed (Styx River)
-    (171.238172, -42.840905),  # Medium, mixed (Arahura River)
-    (171.405012, -42.755411),  # Big, mixed (Taipo River)
-    (171.467475, -42.733149),  # Very big, mixed (Taramakau River)
-    (171.626527, -42.649998),  # Small, fluvial (Crooked River)
-    (171.682798, -42.618596),  # Small, fluvial (Evans River)
-    (171.733798, -42.612758),  # Medium, mixed fluvial (Haupiri River)
-    (171.886492, -42.568796),  # Medium, fluvial (Waikiti River)
-    (171.979749, -42.559885),  # Medium, mixed (Tutaekuri River)
-    (171.995805, -42.546945),  # Medium, fluvial (Waiheke River)
-    (172.012893, -42.471985),  # Medium, mixed (Robinson River)
-    (172.136101, -42.411857),  # Small, mixed (Blue Grey River)
-]
-```
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Defining and extracting watersheds
 
-```python
+With the flow directions and accumulation calculated, we can proceed to listing the locations of outlets we would like to consider in this case study. Here, we have a list of 38 rivers and creeks that drain the western side of the Southern Alps (`river_names`).
+<!-- #endregion -->
+
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+# List of river names to analyze
+# Truncated for the book format. Full list on https://pythongis.org.
+river_names = [
+    "Arawhata River",
+    "Waiatoto River",
+    "Turnbull River",
+    ...
+    "Waiheke River",
+    "Robinson River",
+    "Blue Grey River",
+]
+<!-- #endraw -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 river_names = [
     "Arawhata River",
     "Waiatoto River",
@@ -416,6 +449,67 @@ river_names = [
     "Waiheke River",
     "Robinson River",
     "Blue Grey River",
+]
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+And for each river or creek we have a corresponding outlet location or pour point (`pour_points`).
+<!-- #endregion -->
+
+<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
+# List of outlets for the rivers to analyze
+# Truncated for the book format. Full list on https://pythongis.org.
+pour_points = [
+    (168.723432, -44.060960),
+    (168.838838, -44.023259),
+    (168.942363, -43.971371),
+    ...
+    (171.995805, -42.546945),
+    (172.012893, -42.471985),
+    (172.136101, -42.411857),
+]
+<!-- #endraw -->
+
+```python editable=true slideshow={"slide_type": ""}
+pour_points = [
+    (168.723432, -44.060960),
+    (168.838838, -44.023259),
+    (168.942363, -43.971371),
+    (168.987365, -43.952888),
+    (169.144604, -43.935653),
+    (169.351885, -43.785118),
+    (169.497063, -43.716472),
+    (169.593608, -43.666203),
+    (169.695061, -43.617701),
+    (169.808933, -43.576726),
+    (169.965037, -43.498121),
+    (170.008772, -43.478192),
+    (170.070511, -43.443732),
+    (170.102720, -43.425248),
+    (170.182282, -43.394347),
+    (170.274318, -43.343211),
+    (170.302801, -43.326779),
+    (170.403417, -43.285756),
+    (170.525003, -43.217547),
+    (170.624160, -43.158141),
+    (170.729994, -43.107470),
+    (170.820316, -43.064461),
+    (170.869467, -43.014418),
+    (171.012521, -42.957962),
+    (171.131477, -42.910875),
+    (171.150106, -42.903147),
+    (171.165837, -42.884519),
+    (171.238172, -42.840905),
+    (171.405012, -42.755411),
+    (171.467475, -42.733149),
+    (171.626527, -42.649998),
+    (171.682798, -42.618596),
+    (171.733798, -42.612758),
+    (171.886492, -42.568796),
+    (171.979749, -42.559885),
+    (171.995805, -42.546945),
+    (172.012893, -42.471985),
+    (172.136101, -42.411857),
 ]
 ```
 
@@ -506,7 +600,7 @@ plt.title("Distance to outlet", size=14)
 branches = grid.extract_river_network(fdir, acc > 100)
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # ADD REMOVE CELL TAG
 
 fig, ax = plt.subplots(figsize=(8.5, 6.5))
@@ -522,25 +616,7 @@ for branch in branches["features"]:
 plt.title("Channel network (>100 accumulation)", size=14);
 ```
 
-```python
-# CUT THIS?
-
-strahler = grid.stream_order(fdir, acc > 100)
-
-fig, ax = plt.subplots(figsize=(8, 6))
-fig.patch.set_alpha(0)
-plt.grid("on", zorder=0)
-cmap = colors.ListedColormap(
-    ["white", "tab:blue", "tab:orange", "tab:green", "tab:red"]
-)  # , "tab:purple"])
-im = ax.imshow(strahler, extent=grid.extent, cmap=cmap)
-plt.colorbar(im, ax=ax, label="Strahler stream order")
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.title("Strahler stream order", size=14)
-```
-
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Convert catchment data for xarray
 catchment = dem_view
 data = catchment.data
@@ -654,6 +730,7 @@ catchment_max_elevs = []
 catchment_reliefs = []
 catchment_his = []
 catchment_boundaries = []
+catchment_number = 0
 
 print("Processing catchments", end="")
 
@@ -756,7 +833,7 @@ bucket_fault_fp = bucket_home + bucket_fault_file
 fault_df = gpd.read_file(bucket_fault_fp)
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 basin_color_field = "Hypsometric integral"
 m = fault_df.loc[fault_df["name"] == "Alpine Fault"].explore(
     column="name", cmap="gist_gray"
@@ -773,29 +850,12 @@ m = catchment_gdf.explore(m=m, color="black", marker_kwds={"radius": 2})
 m
 ```
 
-## Next steps
-
-- Clean up the crap above
-- Make things work such that you can loop over all catchments and produce an xarray dataset for each catchment containing:
-
-    - Elevation model
-    - Flow directions
-    - Flow accumulation
-    - Flow distance
-    - Rasterized river network?
-
-Perhaps some other metadata could also be exported from pysheds before going to xarray, but this needs to be looked over.
-
-## Next next steps
-
-- Once the above is done, it would be good to explore calculating the basin hypsometries, hypsometric integrals, and classifying basins according to their hypsometric integral values (fluvial, glacial, etc.).
-- Finally, it would be cool to have an interactive map at the end where this info could be found by selecting basins
-
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
 [^alos]: <https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm>
 [^alpinefault]: <https://data.gns.cri.nz/af/>
+[^fileio]: <https://mattbartos.com/pysheds/file-io.html>
 [^pysheds]: <https://mattbartos.com/pysheds/>
 
 <!-- #endregion -->
