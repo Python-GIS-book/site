@@ -250,6 +250,53 @@ plt.title("Elevation values covering larger area in the region close to Kilimanj
 
 The end result looks good and we can see clearly the Mount Kilimanjaro which is the highest mountain in Africa 5895 meters above sea level and the highest volcano in the Eastern Hemisphere. 
 
+
+## Raster to vector conversion (vectorize)
+
+Another commonly used technique commonly needed when working with geographic data is to convert the data from raster to vector format and vice versa. These conversion techniques are commonly called as `vectorize` or `rasterize` operations. When we convert a raster `Dataset` to vector format the raster cells are converted into `shapely.Polygon` objects and the values of the cells are stored as an attribute (column) in the resulting `GeoDataFrame`. To convert `xarray.DataArray` into vector format, you can use the `geocube` library that helps doing these kind of data conversions. In the following, we will work with the `kitumbene` elevation data that we will convert into vector format. Let's have a quick look on our input `DataArray` before continuing:
+
+```python
+kitumbene["elevation"]
+```
+
+To vectorize a given variable in your `xarray.Dataset`, you can use the `vectorize` function from the `geocube` library as follows:
+
+```python
+from geocube.vector import vectorize
+
+gdf = vectorize(kitumbene["elevation"])
+gdf.shape
+```
+
+```python
+gdf.head()
+```
+
+Great! Now we have converted the `DataArray` into vector format and as a result we got a `GeoDataFrame` that contains the geometries of individual cells as `shapely.Polygon` objects in the `geometry` column, and the cell values in the column `elevation`. The name of the column will be automatically added based on the name of the `DataArray`. As we can see from the `gdf.shape` all the raster cells were added as individual rows into the `GeoDataFrame` which means that our 2D array with 828 rows and 728 columns result in approximately 500 thousand rows in the `GeoDataFrame`. 
+
+When working with surface data (e.g. elevation), it is quite common that there are similar values close to each other in the raster cells and often there are specific regions where the elevation does not change. Therefore, after the vectorization operation it is a good idea to dissolve the geometries based on the data attribute which merges geometries with identical values into single geometries instead of representing all the values as separate polygons. To do this, we can use the `.dissolve()` function which we introduced in more detail in Chapter 6.3:
+
+
+```python
+gdf = gdf.dissolve(by="elevation", as_index=False)
+gdf.shape
+```
+
+As we can see, the number of rows in our `GeoDataFrame` was reduced dramatically from more than 500 thousand rows into a bit over 2000 rows. Let's finally plot our `GeoDataFrame` to see how the data looks like:
+
+```python
+gdf.plot(column="elevation");
+```
+
+***Figure 7.14.** The elevation map made from the vectorized data.*
+
+As we can see from the figure, the map looks identical to our original `DataArray` (Figure 7.9) which means that the conversion works as it should. 
+
+It is good to keep in mind that the raster data structure (i.e. arrays) is much more efficient way to process continuous surfaces. When every cell in the 2D array is converted into polygon geometries, the processing and visualization of the data typically becomes more resource intensive for the computer (making things slower). There are approaches to deal with this issue e.g. by categorizing the data values of the surface into specific elevation classes (e.g. with 5 meter intervals) and then dissolving the geometries into larger Polygon shapes (as we did earlier without categorization). It is a good idea to do a bit of preprocessing for the raster data before vectorizing it, especially if you have large raster arrays. 
+
+
+## Vector to raster conversion (rasterize)
+
 ```python
 
 ```
