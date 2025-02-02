@@ -154,7 +154,7 @@ tags = {"amenity": True}
 amenities = ox.features.features_from_place(place, tags)
 ```
 
-Again, let's only plot a couple of available columns to check the contents of the data. You can see all column names  by running `list(buildings.columns)`.
+Again, let's only plot a couple of available columns to check the contents of the data. You can see all column names  by running `list(amenities.columns)`.
 
 ```python
 amenities[['amenity', 'name', 'opening_hours', 'geometry']].head()
@@ -290,7 +290,7 @@ _**Figure 9.7**. Downloaded buildings within a distance treshold from a geocoded
 
 #### Question 9.3
 
-Check your understanding and retrieve OpenStreetMap data from some other area in the world. Use `osmnx`and download:
+Check your understanding and retrieve OpenStreetMap data from some other area in the world. Use `osmnx` and download:
 
 - Polygon of your area of interest
 - Street network
