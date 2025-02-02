@@ -74,7 +74,7 @@ import xarray as xr
 
 ## Loading the digital elevation data
 
-A geotiff image has alreaby been created for our use and is available online at the address listed with the variable `bucket_dem_fp`. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. We will be using this elevation data to extract and analyse river drainage basins on the western side of the New Zealand Alps.
+A geotiff image has already been created for our use and is available online at the address listed with the variable `bucket_dem_fp`. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. We will be using this elevation data to extract and analyze river drainage basins on the western side of the New Zealand Alps.
 
 To start, we can read in the data using `rioxarray`.
 
@@ -94,7 +94,34 @@ Now we can have a look at the data in a bit more detail by printing out the `xar
 south_island
 ```
 
-As we can see above we have a dataset witl around 194 million elevations (18000 longitude points and 10800 latitude points). The values at each point are the elevation of the surface or `NaN` if the points are below sea level or missing from the DEM.
+As we can see above we have a dataset with around 194 million elevations (18000 longitude points and 10800 latitude points). The values at each point are the elevation of the surface or `NaN` if the points are below sea level or missing from the DEM.
+
+
+## Extracting watersheds using pysheds
+
+### Overview of watershed delineation
+
+The next step in our workflow is to load the DEM into `pysheds` [^pysheds] to start working on the steps to define the boundaries of the watersheds. `pysheds` is a Python library designed for [efficient processing of DEM data and extraction of watersheds](https://mattbartos.com/pysheds/). However, before we get into using `pysheds`, it would be good to review some of the steps needed to define boundaries of watersheds.
+
+The process of watershed delineation is essentially defining the points that lie upstream (or up slope) of a specified outlet point on a digital elevation model. Outlet points can be found various ways, and in this case study they were simply selected visually from [Google Maps](https://www.google.com/maps) by finding the locations where rivers along the western side of the New Zealand Alps between roughly 42.4 °S and 44.0 °S exit their valleys. This latitude range corresponds roughly to a long, linear segment of the [Alpine Fault](https://en.wikipedia.org/wiki/Alpine_Fault), the boundary between the Australian and Pacific tectonic plates.
+
+However, once outlet points have been selected, there are still several important steps for processing a DEM such that watersheds can be defined. For instance, the DEM must be updated such that a route to the outlet points can be found using the assumption that water will flow to neighboring cells at lower elevations. The first set of steps are collectively referred to as "hydrological conditioning" of the DEM. Conditioning steps include:
+
+- Filling pits in the DEM. Pits are individual cells in the DEM that have no neighbor cell with a lower elevation (outlet). The elevations of pits must be increased to the point that their height is equal to or greater than at least one neighbor cell.
+- Filling depressions in the DEM. Similar to filling pits, groups of cells that have no outlet (depressions) must be filled (have their elevation increased) such that the elevation is equal to or greater than at least one neighbor cell.
+- Resolving flats. Water cannot flow downhill in flat regions of a DEM, such as a lake. Thus, flat regions in the DEM also need to be corrected such that water can always flow to a downstream outlet.
+
+Once the DEM has been conditioned, there are a few additional steps needed to produce the necessary information for watershed delineation, which are performed using the updated DEM. These steps include:
+
+- Determining flow directions. In order to be able to define the watershed it is necessary to identify all DEM cells where water would be routed to the defined watershed outlet. Flow directions indicate the direction in which water would be expected to flow from every cell in the DEM, which allows the directions to be traced upstream from the outlet to the point where flow directions diverge at the boundary of the watershed.
+- Determining flow accumulation. Flow accumulation is a calculation of how many upstream cells drain into each cell in the DEM. This isn't strictly needed for watershed delineation, but can be helpful in finding river channels in the DEM if selected outlet points are not located exactly in a channel cell. We will return to this below.
+
+Once these steps have been completed, it is possible to delineate a watershed upstream of a specified outlet point.
+
+
+### Preparing a DEM for analysis
+
+At this stage we can begin the DEM processing steps using `pysheds`. The first step is to read in the DEM.
 
 ```python
 checkpoint = True
@@ -706,6 +733,8 @@ catchment_df["geometry"] = gpd.points_from_xy(
 catchment_gdf = gpd.GeoDataFrame(catchment_df, crs="epsg:4326")
 ```
 
+Read in data for the [Alpine Fault](https://data.gns.cri.nz/af/) [^alpinefault] ({cite}`Langridge2016`).
+
 ```python
 # Read fault data from Geopackage
 bucket_fault_file = "features/new_zealand/alpine_fault.gpkg"
@@ -748,3 +777,10 @@ Perhaps some other metadata could also be exported from pysheds before going to 
 
 - Once the above is done, it would be good to explore calculating the basin hypsometries, hypsometric integrals, and classifying basins according to their hypsometric integral values (fluvial, glacial, etc.).
 - Finally, it would be cool to have an interactive map at the end where this info could be found by selecting basins
+
+
+## Footnotes
+
+[^alpinefault]: <https://data.gns.cri.nz/af/>
+[^pysheds]: <https://mattbartos.com/pysheds/>
+
