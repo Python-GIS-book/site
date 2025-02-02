@@ -27,7 +27,7 @@ The two fundamental data structures provided by the `xarray` library are `DataAr
 
 ![***Figure 7.2.** Key `xarray` data structures. Image source: Xarray Community (2024), licensed under Apache 2.0.*](../img/xarray-dataset-diagram.png)
 
-***Figure 7.2** Key `xarray` data structures. Image source: [Xarray Community](https://tutorial.xarray.dev/fundamentals/01_data_structures.html) (2024), licensed under Apache 2.0.*
+***Figure 7.2.** Key `xarray` data structures. Image source: [Xarray Community](https://tutorial.xarray.dev/fundamentals/01_data_structures.html) (2024), licensed under Apache 2.0.*
 
 Some of the benefits of `xarray` include:
 
@@ -103,7 +103,7 @@ mesh = data["elevation"].plot(cmap="terrain")
 plt.title("Elevation in meters");
 ```
 
-***Figure 7.3** A map representing the elevation values in the Kilimanjaro area.*
+***Figure 7.3.** A map representing the elevation values in the Kilimanjaro area.*
 
 Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the `"terrain"` as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because the land surface in this area of the world should not have any values going below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8. 
 
@@ -114,7 +114,7 @@ contours = data["elevation"].plot.contour()
 plt.title("Contour map based on the elevation");
 ```
 
-***Figure 7.4** A contour map representing the elevation values in the Kilimanjaro area.*
+***Figure 7.4.** A contour map representing the elevation values in the Kilimanjaro area.*
 
 It is also possible to create a surface map that shows the elevation values in 3D. A 3D surface map is a three-dimensional representation of a terrain or surface, created by plotting elevation or depth data as a continuous surface. The map visually depicts the topography by assigning different colors, shading, and heights to represent variations in elevation, providing a realistic and intuitive view of the terrain. Creating a 3D surface map can be done by calling the `.plot.surface()` method in `xarray`:
 
@@ -123,7 +123,7 @@ surface = data["elevation"].plot.surface(cmap="Greens")
 plt.title("A surface map representing the elevation in 3D");
 ```
 
-***Figure 7.5** A 3D surface map representing the elevation values in the Kilimanjaro area.*
+***Figure 7.5.** A 3D surface map representing the elevation values in the Kilimanjaro area.*
 
 Now we have a nice three dimensional map that clearly shows the hills and valleys in our study region that gives an intuitive view to the landscape in the given region.
 
@@ -294,7 +294,7 @@ low_bit_depth_data.plot(cmap="terrain")
 plt.title("Data presented with 8-bit integers");
 ```
 
-***Figure 7.6** Elevation values represented as 8-bit integers with distorted values.*
+***Figure 7.6.** Elevation values represented as 8-bit integers with distorted values.*
 
 As we can see from the map, the result distorts the data significantly and ultimately makes it unusable because all the cells having a value larger than 255 (i.e. the maximum supported value with 8-bits) are incorrectly presented in the data. Thus, when doing data type conversions, it is good to be extra careful that you do not accidentally break your data and produce incorrect results when further analyzing it. 
 

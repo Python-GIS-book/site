@@ -28,7 +28,7 @@ jupyter:
 
 One of the common operations when working with raster data is to clip a given raster `Dataset` by another layer. This process allows you to crop the data in a way that only the cells that are e.g. within a given Polygon are selected for further analysis. In the following, we will learn how to do this by using the `.rio.clip()` method that comes with the `rioxarray` library. Let's start by reading the `elevation` dataset that we used earlier in Chapter 7.2:
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 import xarray as xr
 import matplotlib.pyplot as plt
 
@@ -38,18 +38,22 @@ data = xr.open_dataset(fp, decode_coords="all")
 data
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Let's also plot the data to see how our values look on a map:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 data["elevation"].plot()
 plt.title("Elevation in meters");
 ```
 
-***Figure 7.7** Elevation of the landscape in North-Eastern Tanzania.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+***Figure 7.7.** Elevation of the landscape in North-Eastern Tanzania.*
 
 To be able to clip this `xarray.Dataset`, we first need to create a `geopandas.GeoDataFrame` that contains the geometry that we want to use as our clipping features. In our case, we want to create a simple bounding box that defines the area which we want to keep from the raster. To create the `GeoDataFrame`, we can specify the corner coordinates of our bounding box and utilize the `box` function of `shapely` library which can conveniently create us the geometry (as introduced in Chapter 6.1):
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 import geopandas as gpd
 from shapely.geometry import box
 
@@ -67,7 +71,13 @@ clipping_gdf = gpd.GeoDataFrame(geometry=[bbox_geometry], crs="epsg:4326")
 clipping_gdf.explore()
 ```
 
-***Figure 7.8** Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.*
+<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 7.8}. Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.}}, center, nofloat}{../img/figure_7-8.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
+
+***Figure 7.8.** Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.*
 
 Now after we have created the `GeoDataFrame` we can use it to clip the `xarray.Dataset`. To do this, we use the `.rio.clip()` method which wants as input the `geometries` that will be used for clipping the raster data. We can pass the `gpd.GeoSeries` as an input for this (i.e. the `geometry` column of our `GeoDataFrame`) and we also specify the `crs` to be the same as in out input raster data. It is important that the coordinate reference system of both layers are the same whenever doing GIS operations between multiple layers. Thus, we use a simple `assert` to check the match before doing the clipping:
 
@@ -86,11 +96,13 @@ kitumbene["elevation"].plot()
 plt.title("Elevations around Mt Kitumbene");
 ```
 
-***Figure 7.9** Elevations in the area that was clipped based on a polygon.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+***Figure 7.9.** Elevations in the area that was clipped based on a polygon.*
 
 After clipping, it is possible to continue working with the clipped `Dataset` and e.g. find the mean elevation for this area around the Mt Kitumbene. Notice that the operations clipped all the variables in our `Dataset` simultaneously. We can extract basic statistics from `elevation` and inspect the relative height in this area as follows:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Mean elevation
 kitumbene["elevation"].mean().item()
 ```
@@ -127,7 +139,7 @@ data["elevation"].plot(ax=ax)
 lakes.plot(ax=ax, facecolor="lightblue", edgecolor="red", alpha=0.4);
 ```
 
-***Figure 7.10** Existing lakes that are present in our study area.*
+***Figure 7.10.** Existing lakes that are present in our study area.*
 
 As we can see from the Figure 7.10, there is one large lake and multiple smaller ones in our study that we might not want to be taken into account when analyzing the terrain. Luckily, we can easily mask these areas out of our `Dataset` by using `rioxarray`. To do this, we can use the same `.rio.clip()` method which we used in the previous example. However, in this case, we do not want to totally remove those cells from our `Dataset` but only mask them out, so that the values on those areas are replaced with NaN values. By using parameters `drop=False` and `invert=True`, the cells that are intersecting with the lake geometries will be masked with NaNs: 
 
@@ -144,7 +156,7 @@ masked_data["elevation"].plot()
 plt.title("Elevation data with a mask");
 ```
 
-***Figure 7.11** A Dataset where the lakes have been masked out (shown with white color).*
+***Figure 7.11.** A Dataset where the lakes have been masked out (shown with white color).*
 
 As a result, we now have a new `Dataset` where the elevation values overlapping with the lakes have been converted to NaNs. We can now compare whether e.g. the mean land surface elevation differs from the original one where the lakes were still included:
 
@@ -211,7 +223,7 @@ datasets[1]["band_1"].plot(ax=axes[0][1], vmax=5900, add_colorbar=False)
 datasets[2]["band_1"].plot(ax=axes[1][0], vmax=5900, add_colorbar=False)
 datasets[3]["band_1"].plot(ax=axes[1][1], vmax=5900, add_colorbar=False);
 ```
-***Figure 7.12** Four elevation raster layers plotted next to each other.*
+***Figure 7.12.** Four elevation raster layers plotted next to each other.*
 
 From the figure we can see that these four raster tiles seem to belong together naturally as the elevation values as well as the coordinates along the x- and y-axis continue smoothly. Hence, we can stitch them together into a single larger raster `Dataset`.
 To merge multiple `xarray.Dataset`s together, we can use the `.merge_datasets()` function from `rioxarray`:
@@ -234,7 +246,7 @@ mosaic["elevation"].plot(figsize=(12, 12))
 plt.title("Elevation values covering larger area in the region close to Kilimanjaro");
 ```
 
-***Figure 7.13** A raster mosaic where four raster tiles were merged together.*
+***Figure 7.13.** A raster mosaic where four raster tiles were merged together.*
 
 The end result looks good and we can see clearly the Mount Kilimanjaro which is the highest mountain in Africa 5895 meters above sea level and the highest volcano in the Eastern Hemisphere. 
 
