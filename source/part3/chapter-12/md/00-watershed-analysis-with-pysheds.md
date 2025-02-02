@@ -101,7 +101,7 @@ As we can see above we have a dataset with around 194 million elevations (18000 
 
 ### Overview of watershed delineation
 
-The next step in our workflow is to load the DEM into `pysheds` ^[pysheds] to start working on the steps to define the boundaries of the watersheds. `pysheds` is a Python library designed for [efficient processing of DEM data and extraction of watersheds](https://mattbartos.com/pysheds/). However, before we get into using `pysheds`, it would be good to review some of the steps needed to define boundaries of watersheds.
+The next step in our workflow is to load the DEM into `pysheds` [^pysheds] to start working on the steps to define the boundaries of the watersheds. `pysheds` is a Python library designed for [efficient processing of DEM data and extraction of watersheds](https://mattbartos.com/pysheds/). However, before we get into using `pysheds`, it would be good to review some of the steps needed to define boundaries of watersheds.
 
 The process of watershed delineation is essentially defining the points that lie upstream (or up slope) of a specified outlet point on a digital elevation model. Outlet points can be found various ways, and in this case study they were simply selected visually from [Google Maps](https://www.google.com/maps) by finding the locations where rivers along the western side of the New Zealand Alps between roughly 42.4 °S and 44.0 °S exit their valleys. This latitude range corresponds roughly to a long, linear segment of the [Alpine Fault](https://en.wikipedia.org/wiki/Alpine_Fault), the boundary between the Australian and Pacific tectonic plates.
 
@@ -733,7 +733,7 @@ catchment_df["geometry"] = gpd.points_from_xy(
 catchment_gdf = gpd.GeoDataFrame(catchment_df, crs="epsg:4326")
 ```
 
-Read in data for the [Alpine Fault](https://data.gns.cri.nz/af/) ^[alpinefault] ({cite}`Langridge2016`).
+Read in data for the [Alpine Fault](https://data.gns.cri.nz/af/) [^alpinefault] ({cite}`Langridge2016`).
 
 ```python
 # Read fault data from Geopackage
@@ -781,6 +781,6 @@ Perhaps some other metadata could also be exported from pysheds before going to 
 
 ## Footnotes
 
-^[alpinefault]: <https://data.gns.cri.nz/af/>
-^[pysheds]: <https://mattbartos.com/pysheds/>
+[^alpinefault]: <https://data.gns.cri.nz/af/>
+[^pysheds]: <https://mattbartos.com/pysheds/>
 
