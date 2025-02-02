@@ -108,7 +108,7 @@ From here we can see that our graph contains nodes (the points) and edges (the l
 
 For now, we are only interested in the geometry and attributes of the street network and will convert the streets (edges of the network) into a `GeoDataFrame` using the `osmnx` function `graph_to_gdfs()`. 
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 edges = ox.convert.graph_to_gdfs(graph, nodes=False, edges=True)
 edges.head(2)
 ```
@@ -298,7 +298,7 @@ Check your understanding and retrieve OpenStreetMap data from some other area in
 - Restaurants and cafes (or why not also other amenities)
 - Green spaces
 
-Note, the larger the area you choose, the longer it takes to retrieve data from the API! When fetching the street network, you can use parameter `network_type=drive` to limit the graph query to filter out un-driveable roads.
+Note that the larger the area you choose, the longer it takes to retrieve data from the API! When fetching the street network, you can use parameter `network_type=drive` to limit the graph query to filter out un-driveable roads.
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
