@@ -426,7 +426,7 @@ print("Original resolution:", data.rio.resolution())
 print("Downscaled resolution:", data_downscaled.rio.resolution())
 ```
 
-By comparing the spatial resolution between the datasets, we can see that the new resolution of the downscaled `Dataset` is approximately 1x1 km (0.013 Decimal degrees). Let's finally visualize the downscaled `Dataset` to investigate how the result looks on a map:
+By comparing the spatial resolution between the datasets, we can see that the new resolution of the downscaled `Dataset` is slightly over 1x1 km (~0.014 decimal degrees). Let's finally visualize the downscaled `Dataset` to investigate how the result looks on a map:
 
 ```python
 data_downscaled["elevation"].plot()
