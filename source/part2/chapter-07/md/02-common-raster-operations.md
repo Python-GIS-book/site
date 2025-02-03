@@ -15,12 +15,7 @@ jupyter:
 # Common raster operations
 
 
-- Clipping
-- Masking
-- Creating a raster mosaic: Merging
-- Rasterize: Vector to raster
-- Vectorize: Raster to Vector
-- Resample: upscaling / downscaling
+Add introductory text.
 
 
 ## Clipping raster
@@ -391,17 +386,71 @@ As a result, we have now rasterized the lakes in a way that the `aligned_ds` ali
 
 ## Resampling raster data
 
-Finally, we will introduce a technique that allows you to resample your raster data. Resampling refers to changing the cell values due to changes in the raster grid for example due to changing the effective cell size of an existing dataset. There are two ways to resample your raster data. Upscaling (or upsampling) refers to cases in which convert the raster to higher resolution, i.e. smaller cells. Downscaling (or downsampling) is resampling to lower resolution, i.e. having larger cell sizes. 
+Finally, we will introduce a technique that allows you to resample your raster data. Resampling refers to changing the cell values due to changes in the raster grid for example due to changing the effective cell size of an existing dataset. There are two ways to resample your raster data. Upscaling (or upsampling) refers to cases in which convert the raster to higher resolution, i.e. smaller cells. Downscaling (or downsampling) is resampling to lower resolution, i.e. having larger cell sizes. In the following, we will see how we can resample an `xarray.Dataset` by downscaling and upscaling the data. 
 
-```python
-upscale_factor = 2
-new_width = data.rio.width * upscale_factor
-new_height = data.rio.height * upscale_factor
-```
+We can resample `xarray` data by using the `rioxarray` library that can be used to downscale and upscale raster data. Whenever downscaling data, you are ultimately aggregating the information because multiple individual cells are merged into one larger cell that is then stored in the output grid. Thus, it is important to decide the `resampling` method which determines how the data values are aggregated. Depending on the input data, you might for example calculate the `average` of the input cells which will then be stored in the output grid cell. In our case, taking the average makes sense, because our input data represents elevation. However, in some cases you might be interested to `sum` all the cell values for example if your input data would represent population counts in a given region. There are also various other ways to resample the data, such as extracting the minimum (`min`), maximum (`max`), median (`med`) or the `mode` from the input cells. The `mode` means that the value which appears most often in the input raster cells is selected to the output raster cell.  
+
+
+### Downscaling
+
+In the following, we will downscale our elevation data significantly by using a downscale factor of `50`. This means that the output raster will be 50 times smaller in terms of its dimensions compared to the input raster. To downscale the data, you need to define the new `shape` for our target raster `Dataset`. Here, we use a specific `downscale_factor` that is used to calculate the new width and height for the output `Dataset`. The width and height for the target `Dataset` need to be provided as integer values. Thus we ensure that the dimensions are integers by rounding (`round()`) and converting the number with`int()`. The `.rio.reproject()` method is then used to downscale the data using the new `shape`. The `resampling` parameter defines the resampling method which in our case will be `Resampling.average`. The `Resampling` class from `rasterio` library provides the methods for resampling:
 
 ```python
 from rasterio.enums import Resampling
 
+# Define the new shape
+downscale_factor = 50
+new_width = int(round(data.rio.width / downscale_factor))
+new_height = int(round(data.rio.height / downscale_factor))
+
+# Downscale the data
+data_downscaled = data.rio.reproject(
+    dst_crs=data.rio.crs,
+    shape=(new_height, new_width),
+    resampling=Resampling.average,
+)
+```
+
+```python
+data_downscaled
+```
+
+As we can see, now the dimensions of the new downscaled `Dataset` is 72x72 cells on x and y axis which is 50 times smaller compared to the original `data` that we used as input:
+
+```python
+data.rio.shape
+```
+
+```python
+print("Original resolution:", data.rio.resolution())
+print("Downscaled resolution:", data_downscaled.rio.resolution())
+```
+
+By comparing the spatial resolution between the datasets, we can see that the new resolution of the downscaled `Dataset` is approximately 1x1 km (0.013 Decimal degrees). Let's finally visualize the downscaled `Dataset` to investigate how the result looks on a map:
+
+```python
+data_downscaled["elevation"].plot()
+plt.title("Downscaled elevation data");
+```
+
+***Figure 7.18.** Downscaled data using a downscale factor of 50.*
+
+The downscaling operation seem to have worked well as the patterns are still clearly similar compared to the input data (Figure 7.7), although the spatial resolution is much lower. The data is downscaled so much that it is actually possible to identify individual pixels of the grid. 
+
+
+### Upscaling
+
+The process of upscaling is very similar to downscaling and we use the same methods to increase the resolution of the input raster. In the following, we will specify that the new shape of the output `Dataset` will be two times larger than the input data. When upscaling, you are ultimately estimating values to given locations based on existing raster values. In this case, 
+
+```python
+from rasterio.enums import Resampling
+
+# Define the new shape
+upscale_factor = 2
+new_width = data.rio.width * upscale_factor
+new_height = data.rio.height * upscale_factor
+
+# Upscale the data
 data_upscaled = data.rio.reproject(
     data.rio.crs,
     shape=(new_height, new_width),
