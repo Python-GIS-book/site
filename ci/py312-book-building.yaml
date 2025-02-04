@@ -35,9 +35,10 @@ dependencies:
   - geoplot=0.5.1
   - geopy=2.4.1
   - hvplot=0.10.0
-  - lonboard=0.9.3
+  - lonboard=0.10.3
   - openjdk=22.0.1
   - openpyxl=3.1.5
+  - overturemaps=0.12.0
   - owslib=0.31.0
   - palettable=3.3.3
   - pandas=2.2.2
