@@ -643,6 +643,8 @@ plt.tight_layout()
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 12.4**. Elevation histogram for the Waiho River watershed with a 50-meter bin size._
+
+The hypsometry of the watershed relies on finding the proportion of elevations above a given point from the lowest elevation to the highest in the basin. We can use the histogram data for this, but wee need to do a few things. First, a cumulative sum of the histogram elevation distribution should be calculated (and normalized). In addition, the cumulative distribution should be reversed such that the elevation fraction is 100% above the minimum elevation and 0% above the maximum.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
