@@ -52,7 +52,7 @@ import xarray as xr
 
 
 ```python
-#plt.style.use('seaborn-v0_8-whitegrid')
+# plt.style.use('seaborn-v0_8-whitegrid')
 plt.style.use("bmh")
 ```
 
@@ -443,11 +443,11 @@ axes[0, 0].set_ylabel("Latitude (°N)")
 
 # Plot watershed elevations
 im = axes[0, 1].imshow(dem_view, extent=grid.extent, zorder=1, cmap="viridis")
-axes[0, 1].set_title('Elevation')
+axes[0, 1].set_title("Elevation")
 
 # Plot watershed flow directions
 im = axes[1, 0].imshow(fdir_view, extent=grid.extent, zorder=1, cmap="viridis")
-axes[1, 0].set_title('Flow direction')
+axes[1, 0].set_title("Flow direction")
 axes[1, 0].set_xlabel("Longitude (°E)")
 axes[1, 0].set_ylabel("Latitude (°N)")
 
@@ -460,7 +460,7 @@ im = axes[1, 1].imshow(
     norm=colors.LogNorm(1, acc.max()),
     interpolation="bilinear",
 )
-axes[1, 1].set_title('Flow accumulation')
+axes[1, 1].set_title("Flow accumulation")
 axes[1, 1].set_xlabel("Longitude (°E)")
 
 # Add a figure title
@@ -564,7 +564,7 @@ We can confirm that the conversion has gone as expected by plotting the watershe
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 fig, ax = plt.subplots(1, 1, figsize=(8, 6))
 
-catch_xr.plot(ax=ax, cmap="plasma", cbar_kwargs={'label': "Elevation (m)"})
+catch_xr.plot(ax=ax, cmap="plasma", cbar_kwargs={"label": "Elevation (m)"})
 ax.set_xlabel("Longitude (°E)")
 ax.set_ylabel("Latitude (°N)")
 ax.set_title("Waiho River data in xarray");
@@ -615,7 +615,7 @@ Instead of calculating a histogram with a fixed number of elevation bins, an alt
 # Define bin elevation range
 binsize = 50.0
 
-# Determine the bounds for the minimum and maximum bins 
+# Determine the bounds for the minimum and maximum bins
 minbin = catchment_elevations.min() - catchment_elevations.min() % +binsize
 maxbin = catchment_elevations.max() - catchment_elevations.max() % -binsize
 
@@ -644,7 +644,7 @@ plt.tight_layout()
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 12.4**. Elevation histogram for the Waiho River watershed with a 50-meter bin size._
 
-The hypsometry of the watershed relies on finding the proportion of elevations above a given point from the lowest elevation to the highest in the basin. We can use the histogram data for this, but wee need to do a few things. First, a cumulative sum of the histogram elevation distribution should be calculated (and normalized). In addition, the cumulative distribution should be reversed such that the elevation fraction is 100% above the minimum elevation and 0% above the maximum.
+The hypsometry of the watershed relies on finding the proportion of elevations above a given point from the lowest elevation to the highest in the basin. We can use the histogram data for this, but we need to do a few things. First, a cumulative sum of the histogram elevation distribution should be calculated (and normalized). In addition, the cumulative distribution should be reversed such that the elevation fraction is 100% above the minimum elevation and 0% above the maximum.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -657,6 +657,8 @@ norm_counts = 1 - norm_counts
 # Normalize elevations
 norm_bins = (bins - bins.min()) / (bins.max() - bins.min())
 ```
+
+
 
 ```python
 # Calculate hypsometric integral
@@ -690,7 +692,7 @@ ax.text(
 
 ### Automating the process
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 # List of river names to analyze
 # Truncated for the book format. Full list on https://pythongis.org.
 river_names = [
@@ -751,7 +753,7 @@ river_names = [
 And for each river or creek we have a corresponding outlet location or pour point (`pour_points`).
 <!-- #endregion -->
 
-<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} -->
 # List of outlets for the rivers to analyze
 # Truncated for the book format. Full list on https://pythongis.org.
 pour_points = [
@@ -833,7 +835,9 @@ for i in range(len(pour_points)):
     x_snap, y_snap = grid.snap_to_mask(acc > 1000, pour_points[i])
 
     # Delineate the catchment
-    current_catchment = grid.catchment(x=x_snap, y=y_snap, fdir=fdir, xytype="coordinate")
+    current_catchment = grid.catchment(
+        x=x_snap, y=y_snap, fdir=fdir, xytype="coordinate"
+    )
 
     # Clip and set view extent
     grid.clip_to(current_catchment)
