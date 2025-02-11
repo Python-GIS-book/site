@@ -49,6 +49,13 @@ import rioxarray as rxr
 import xarray as xr
 ```
 
+
+
+```python
+# plt.style.use('seaborn-v0_8-whitegrid')
+plt.style.use("bmh")
+```
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Loading the digital elevation data
 
@@ -193,8 +200,12 @@ So, now all pits have been filled, but other depressions may still exist in the 
 depressions = grid.detect_depressions(pit_filled_dem)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+If we were to check the number of depressions like was done for the pits above, we would find there are zero depressions. However this is incorrect, and may be related to the large number of nodata values in the sea areas of the DEM we are working with. There are indeed some depressions that need to be filled, and we can do that below.
+<!-- #endregion -->
+
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
-As was the case for the pits, it is possible to visualize the locations of depressions in the DEM. Again, however, the depressions in the DEM in this case study are too small to be visible in the plot.
+As was the case for the pits, it is possible to visualize the locations of depressions in the DEM. Again, however, no depressions are visible in the plot.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
@@ -390,12 +401,298 @@ if continue_from_here:
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-### Defining and extracting watersheds
+### Defining and extracting a watershed
 
-With the flow directions and accumulation calculated, we can proceed to listing the locations of outlets we would like to consider in this case study. Here, we have a list of 38 rivers and creeks that drain the western side of the Southern Alps (`river_names`).
+With the flow directions and accumulation calculated, we can proceed to the steps for extracting a watershed that can be further analyzed. We will proceed through the steps for a single watershed before returning to the workflow to batch process a group of 38 rivers and creeks that drain the western side of the Southern Alps. Note that within this section the terms "watershed" and "catchment" will be used interchangeably, as some of the tools in `pysheds` use the term "catchment."
+
+In order to get started, we need to select a river outlet and specify its location. In this case we can use the Waiho River in the central part of the study area. The outlet location (170.182282 °E, 43.394347 °S) is defined as a Python tuple in the cell below.
 <!-- #endregion -->
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+```python editable=true slideshow={"slide_type": ""}
+outlet = (170.182282, -43.394347)
+```
+
+Once the `outlet` location is defined we can use the `.catchment()` function to define the area of the watershed/catchment. However, we will take one additional step here. Sometimes the location of the outlet coordinates does not fall directly within the channel location in the DEM, which can lead to defining smaller parts of the watershed (e.g., tributary streams) instead of the full desired watershed area. To help with this, `pysheds` has a `.snap_to_mask()` function that will adjust the specified `outlet` point to the nearest cell with a "high" flow accumulation (at least 1000 in this case). This will ensure that the point specified as `outlet` captures the full upstream drainage area.
+
+```python editable=true slideshow={"slide_type": ""}
+# Snap outlet point to nearby cell with high flow accumulation
+x_snap, y_snap = grid.snap_to_mask(acc > 1000, outlet)
+
+# Delineate the watershed
+catch = grid.catchment(x=x_snap, y=y_snap, fdir=fdir, xytype="coordinate")
+```
+
+Now that we have extracted the watershed we can visualize and inspect the results. For the sake of demonstration we will look at four subplots of watershed data produced from the cell below: (1) the watershed extent, (2) the watershed elevations, (3) the watershed flow directions, and (4) the watershed flow accumulation. These are plotted using the `matplotlib.pyplot` function `.imshow()`, and otherwise use plotting syntax that should be familiar from Chapter 4.
+
+```python editable=true slideshow={"slide_type": ""}
+# Clip and set view extents
+grid.clip_to(catch)
+catch_view = grid.view(catch, nodata=np.nan)
+fdir_view = grid.view(fdir, nodata=np.nan)
+acc_view = grid.view(acc, nodata=np.nan)
+dem_view = grid.view(dem, nodata=np.nan)
+
+# Create figure and plot axes
+fig, axes = plt.subplots(2, 2, figsize=(9, 7))
+fig.patch.set_alpha(0)
+
+# Plot watershed extent
+im = axes[0, 0].imshow(catch_view, extent=grid.extent, zorder=1, cmap="Greys_r")
+axes[0, 0].set_title("Extent")
+axes[0, 0].set_ylabel("Latitude (°N)")
+
+# Plot watershed elevations
+im = axes[0, 1].imshow(dem_view, extent=grid.extent, zorder=1, cmap="viridis")
+axes[0, 1].set_title("Elevation")
+
+# Plot watershed flow directions
+im = axes[1, 0].imshow(fdir_view, extent=grid.extent, zorder=1, cmap="viridis")
+axes[1, 0].set_title("Flow direction")
+axes[1, 0].set_xlabel("Longitude (°E)")
+axes[1, 0].set_ylabel("Latitude (°N)")
+
+# Plot watershed flow accumulation
+im = axes[1, 1].imshow(
+    acc_view,
+    extent=grid.extent,
+    zorder=2,
+    cmap="cubehelix",
+    norm=colors.LogNorm(1, acc.max()),
+    interpolation="bilinear",
+)
+axes[1, 1].set_title("Flow accumulation")
+axes[1, 1].set_xlabel("Longitude (°E)")
+
+# Add a figure title
+plt.suptitle("Waiho River watershed")
+plt.tight_layout()
+```
+
+_**Figure 12.1**. Waiho River watershed extent, elevations, flow directions, and flow accumulation._
+
+
+### Analyzing the watershed data
+
+Having extracted the watershed area, there are a handful of additional analyses we can perform using `pysheds`. A good place to start is by calculating the distance from each point in the watershed to the defined outlet point. This provides a measure of how many cells water must flow across to reach the outlet, which can be converted to a distance in meters. We can use the `pysheds` `.distance_to_outlet()` function for this calculation.
+
+```python
+# Compute distance to outlet
+dist = grid.distance_to_outlet(
+    x=x_snap,
+    y=y_snap,
+    fdir=fdir,
+    xytype="coordinate",
+)
+```
+
+Similar to the plot above of the catchment data, we can plot the distance to the outlet using `.imshow()`.
+
+```python
+# Create figure and axis
+fig, ax = plt.subplots(figsize=(8, 6))
+fig.patch.set_alpha(0)
+
+# Plot distance to outlet
+im = ax.imshow(dist, extent=grid.extent, zorder=2, cmap="cividis_r")
+
+# Add colorbar, axis labels, and a title
+plt.colorbar(im, ax=ax, label="Distance to outlet (cells)")
+plt.xlabel("Longitude (°E)")
+plt.ylabel("Latitude (°N)")
+plt.title("Distance to outlet", size=14)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 12.2**. Cell distances to defined outlet for the Waiho River watershed._
+
+It is also possible to extract the network of channels in the watershed using the `pysheds` function `.extract_river_network()`. This will identify all regions of the flow accumulation grid where the accumulation exceeds a given threshold (parameter `acc`). In our case, all regions with an accumulation of over 100 cells will be identified. In addition, the channel segments are plotted using different colors to indicate when there are channel segments than join (channel junctions).
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Extract river network
+branches = grid.extract_river_network(fdir, acc > 100)
+```
+
+After calculating the branches, they can be plotted using the `matplotlib` plotting function `plt.plot()`.
+
+```python editable=true slideshow={"slide_type": ""}
+# Create figure and axis
+fig, ax = plt.subplots(figsize=(8, 6))
+
+# Plot channel segments
+for branch in branches["features"]:
+    line = np.asarray(branch["geometry"]["coordinates"])
+    plt.plot(line[:, 0], line[:, 1])
+
+# Add axis labels and title
+plt.xlabel("Longitude (°E)")
+plt.ylabel("Latitude (°N)")
+plt.title("Channel network (>100 accumulation)", size=14);
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 12.3**. Channel segments for the Waiho River watershed._
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Exporting the watershed data to xarray
+
+While it is also possible to perform other watershed analyses using `pysheds` (check the [`pysheds` documentation](https://mattbartos.com/pysheds/) for more examples [^pysheds]), the next set of analyses relies on exporting our watershed elevation data from `pysheds` to `xarray`. Exporting to `xarray` will allow us to easily interact with the elevation data for the watershed, including performing analyses of the watershed elevations such as calculating the watershed hypsometry and hypsometric integral. In order to export the watershed elevations to `xarray` we need to extract the elevations themselves, as well as the latitude and longitude values for the watershed. Once those values have been extracted, an `xarray` `DataArray` can be created using the `DataArray` function, as shown below.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Convert watershed data for xarray
+catchment = dem_view
+data = catchment.data
+
+# Get latitude and longitude ranges
+lat = np.unique(catchment.coords[:, 0])
+# Get latitude points in correct order (reverse order of array values)
+lat = np.flip(lat)
+lon = np.unique(catchment.coords[:, 1])
+
+# Create DataArray
+catch_xr = xr.DataArray(catchment.base, coords={"y": lat, "x": lon}, dims=["y", "x"])
+```
+
+That was easy! We will be using this approach later in this case study when we automate the processing of all 38 watersheds in the study area, so this might be a good case for creating a function to perform the conversion steps. Just such a function is provided for you in the `basin_functions.py` file wiht the name `to_xarray()`.
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+We can confirm that the conversion has gone as expected by plotting the watershed data using the `xarray` `.plot()` function.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
+fig, ax = plt.subplots(1, 1, figsize=(8, 6))
+
+catch_xr.plot(ax=ax, cmap="plasma", cbar_kwargs={"label": "Elevation (m)"})
+ax.set_xlabel("Longitude (°E)")
+ax.set_ylabel("Latitude (°N)")
+ax.set_title("Waiho River data in xarray");
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+_Visualization of the Waiho River watershed elevations in `xarray`._
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Calculating basin hypsometry
+
+Calculating the basin hypsometry involves determining the frequency distribution of elevation within a given watershed. In other words, we want to know how frequent (in terms of the number of DEM cells) elevations occur within given elevation ranges, such as 600–800 m above sea level. The simplest way to do this us by calculating a histogram of elevations for the watershed, which can be done using the `numpy` function `numpy.histogram()`. To perform the calculation, we need both the set of elevations for the entire watershed and the number of bins to use when calculating the elevation ranges. If we use 20 bins, for example, we could calculate the elevation histogram as follows. Note: we are excluding the NoData values explicitly from the dataset using `~np.isnan(catch_xr.values)` to get only the values are are not NoData.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+catchment_elevations = catch_xr.values[~np.isnan(catch_xr.values)]
+nbins = 20
+counts, bins = np.histogram(catchment_elevations, bins=nbins)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+The resulting histogram can be plotted as well, just to see how things look. However, plotting the output from histograms calculated using `numpy` is a bit clumsy with `matplotlib`, so we can instead use the `matplotlib` `pyplot.hist()` function to check out the elevation histogram.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
+# Create figure and axis
+fig, ax = plt.subplots(1, 1)
+
+# Plot elevation histogram
+ax.hist(catchment_elevations, bins=nbins)
+
+# Add axis labels
+ax.set_xlabel("Elevation (m)")
+ax.set_ylabel("Number of occurences")
+plt.tight_layout()
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_Elevation histogram for the Waiho River watershed with 20 bins._
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Instead of calculating a histogram with a fixed number of elevation bins, an alternative is to do the calculation with a specified elevation range for each bin. To do this we need to do a few extra calculations, but will end up with better control on how the elevations are binned irrespective of the range of elevations in the watershed. Let's consider the case with a 50 meter elevation bin size (`binsize = 50.0`). We can calculate the number of bins and histogram values as follows.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Define bin elevation range
+binsize = 50.0
+
+# Determine the bounds for the minimum and maximum bins
+minbin = catchment_elevations.min() - catchment_elevations.min() % +binsize
+maxbin = catchment_elevations.max() - catchment_elevations.max() % -binsize
+
+# Calculate number of bins and histogram
+nbins = np.arange(minbin, maxbin + 1.0, binsize)
+counts, bins = np.histogram(catchment_elevations, bins=nbins)
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+The resulting histogram can be plotted using the `matplotlib` `pyplot.hist()` function. Looking at the resulting plot, it appears the 50-meter elevation binning worked as expected.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Create figure and axis
+fig, ax = plt.subplots(1, 1)
+
+# Plot elevation histogram
+ax.hist(catchment_elevations, bins=nbins)
+
+# Add axis labels
+ax.set_xlabel("Elevation (m)")
+ax.set_ylabel("Number of occurences")
+plt.tight_layout()
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 12.4**. Elevation histogram for the Waiho River watershed with a 50-meter bin size._
+
+The hypsometry of the watershed relies on finding the proportion of elevations above a given point from the lowest elevation to the highest in the basin. We can use the histogram data for this, but we need to do a few things. First, a cumulative sum of the histogram elevation distribution should be calculated (and normalized). In addition, the cumulative distribution should be reversed such that the elevation fraction is 100% above the minimum elevation and 0% above the maximum.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+# Normalize area distribution
+norm_counts = counts.cumsum() / counts.cumsum().max()
+
+# Convert to area above min elevation
+norm_counts = 1 - norm_counts
+
+# Normalize elevations
+norm_bins = (bins - bins.min()) / (bins.max() - bins.min())
+```
+
+
+
+```python
+# Calculate hypsometric integral
+bin_width = norm_bins[1] - norm_bins[0]
+hyps_integral = sum(norm_counts * bin_width)
+print(f"Hypsometric integral: {abs(hyps_integral):.3f}")
+```
+
+```python
+fig, ax = plt.subplots(1, 1)
+# ax.plot(bins[:-1], counts, "k+")
+ax.plot(norm_counts, bins[:-1], "r", label="Basin hypsometric curve")
+ax.set_xlabel("Area fraction above elevation")
+ax.set_ylabel("Elevation (m)")
+ax.plot(
+    [0.0, 1.0],
+    [bins[:-1].max(), bins[:-1].min()],
+    "--",
+    color="gray",
+    label="Linear reference",
+)
+ax.legend()
+ax.set_xlim(0.0, 1.0)
+ax.set_ylim(bins[:-1].min(), bins[:-1].max())
+ax.text(
+    0.05,
+    (0.05 * bins[:-1].max()) + bins[:-1].min(),
+    f"Hypsometric integral: {abs(hyps_integral):.3f}",
+);
+```
+
+### Automating the process
+
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 # List of river names to analyze
 # Truncated for the book format. Full list on https://pythongis.org.
 river_names = [
@@ -456,7 +753,7 @@ river_names = [
 And for each river or creek we have a corresponding outlet location or pour point (`pour_points`).
 <!-- #endregion -->
 
-<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} -->
 # List of outlets for the rivers to analyze
 # Truncated for the book format. Full list on https://pythongis.org.
 pour_points = [
@@ -514,212 +811,6 @@ pour_points = [
 ```
 
 ```python
-# Loop over river outlets and extract catchments
-
-catchments = []
-snap_points = []
-catch_number = 0
-print("Processing catchments", end="")
-for pour_point in pour_points:
-    catch_number += 1
-    print(".", end="", flush=True)
-    x_snap, y_snap = grid.snap_to_mask(acc > 1000, pour_point)
-
-    # Save snapped pour points to a list for later use
-    snap_points.append((x_snap, y_snap))
-
-    # Delineate the catchment
-    catch = grid.catchment(x=x_snap, y=y_snap, fdir=fdir, xytype="coordinate")
-
-    # Append catchment to list
-    catchments.append(catch)
-
-print("done.")
-```
-
-```python
-catchment_number = 15
-cur_catch = catchments[catchment_number]
-
-# Clip and set view extent
-grid.clip_to(cur_catch)
-catch_view = grid.view(cur_catch)
-fdir_view = grid.view(fdir)
-acc_view = grid.view(acc, nodata=np.nan)
-dem_view = grid.view(dem, nodata=np.nan)
-
-# Plot the catchment
-fig, axes = plt.subplots(2, 2, figsize=(10, 6))
-fig.patch.set_alpha(0)
-
-plt.grid("on", zorder=0)
-
-im = axes[0, 0].imshow(catch_view, extent=grid.extent, zorder=1, cmap="Greys_r")
-im = axes[0, 1].imshow(dem_view, extent=grid.extent, zorder=1, cmap="viridis")
-im = axes[1, 0].imshow(fdir_view, extent=grid.extent, zorder=1, cmap="viridis")
-im = axes[1, 1].imshow(
-    acc_view,
-    extent=grid.extent,
-    zorder=2,
-    cmap="cubehelix",
-    norm=colors.LogNorm(1, acc.max()),
-    interpolation="bilinear",
-)
-
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.suptitle("Delineated Catchment", size=14)
-plt.tight_layout()
-```
-
-```python
-# Compute distance to outlet
-dist = grid.distance_to_outlet(
-    x=snap_points[catchment_number][0],
-    y=snap_points[catchment_number][1],
-    fdir=fdir,
-    xytype="coordinate",
-)
-```
-
-```python
-# ADD REMOVE CELL TAG
-
-fig, ax = plt.subplots(figsize=(8, 6))
-fig.patch.set_alpha(0)
-plt.grid("on", zorder=0)
-im = ax.imshow(dist, extent=grid.extent, zorder=2, cmap="cubehelix_r")
-plt.colorbar(im, ax=ax, label="Distance to outlet (cells)")
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.title("Distance to outlet", size=14)
-```
-
-```python
-# Extract river network
-branches = grid.extract_river_network(fdir, acc > 100)
-```
-
-```python editable=true slideshow={"slide_type": ""}
-# ADD REMOVE CELL TAG
-
-fig, ax = plt.subplots(figsize=(8.5, 6.5))
-
-plt.xlim(grid.bbox[0], grid.bbox[2])
-plt.ylim(grid.bbox[1], grid.bbox[3])
-ax.set_aspect("equal")
-
-for branch in branches["features"]:
-    line = np.asarray(branch["geometry"]["coordinates"])
-    plt.plot(line[:, 0], line[:, 1])
-
-plt.title("Channel network (>100 accumulation)", size=14);
-```
-
-```python editable=true slideshow={"slide_type": ""}
-# Convert catchment data for xarray
-catchment = dem_view
-data = catchment.data
-
-# Get latitude and longitude ranges
-lat = np.unique(catchment.coords[:, 0])
-# Get latitude points in correct order (reverse order of array values)
-lat = np.flip(lat)
-lon = np.unique(catchment.coords[:, 1])
-
-catch_xr = xr.DataArray(catchment.base, coords={"y": lat, "x": lon}, dims=["y", "x"])
-```
-
-For convenience, the conversion to xarray has been saved as a function called `to_xarray()` in the `basin_functions.py` file.
-
-```python
-fig, ax = plt.subplots(1, 1)
-catch_xr.plot(ax=ax, cmap="plasma")
-ax.axis("equal")
-plt.show()
-```
-
-```python
-nbins = 20
-counts, bins = np.histogram(catch_xr.values[~np.isnan(catch_xr.values)], bins=nbins)
-```
-
-```python
-# ADD REMOVE CELL TAG?
-
-# Plot elevation histogram
-fig, ax = plt.subplots(1, 1)
-ax.hist(catch_xr.values[~np.isnan(catch_xr.values)], bins=nbins)
-ax.set_xlabel("Elevation (m)")
-ax.set_ylabel("Number of occurences")
-plt.tight_layout()
-```
-
-```python
-# Calculate elevation histogram
-catch_elev = catch_xr.values[~np.isnan(catch_xr.values)]
-binsize = 50.0
-minbin = catch_elev.min() - catch_elev.min() % +binsize
-maxbin = catch_elev.max() - catch_elev.max() % -binsize
-nbins = np.arange(minbin, maxbin + 1.0, binsize)
-counts, bins = np.histogram(catch_elev, bins=nbins)
-```
-
-```python
-# Plot elevation histogram
-fig, ax = plt.subplots(1, 1)
-ax.hist(catch_elev, bins=nbins)
-ax.set_xlabel("Elevation (m)")
-ax.set_ylabel("Number of occurences")
-plt.tight_layout()
-```
-
-```python
-# Normalize area distribution
-norm_counts = counts.cumsum() / counts.cumsum().max()
-
-# Convert to area above min elevation
-norm_counts = 1 - norm_counts
-
-# Normalize elevations
-norm_bins = (bins - bins.min()) / (bins.max() - bins.min())
-```
-
-```python
-# Calculate hypsometric integral
-bin_width = norm_bins[1] - norm_bins[0]
-hyps_integral = sum(norm_counts * bin_width)
-print(f"Hypsometric integral: {abs(hyps_integral):.3f}")
-```
-
-```python
-fig, ax = plt.subplots(1, 1)
-# ax.plot(bins[:-1], counts, "k+")
-ax.plot(norm_counts, bins[:-1], "r", label="Basin hypsometric curve")
-ax.set_xlabel("Area fraction above elevation")
-ax.set_ylabel("Elevation (m)")
-ax.plot(
-    [0.0, 1.0],
-    [bins[:-1].max(), bins[:-1].min()],
-    "--",
-    color="gray",
-    label="Linear reference",
-)
-ax.legend()
-ax.set_xlim(0.0, 1.0)
-ax.set_ylim(bins[:-1].min(), bins[:-1].max())
-ax.text(
-    0.05,
-    (0.05 * bins[:-1].max()) + bins[:-1].min(),
-    f"Hypsometric integral: {abs(hyps_integral):.3f}",
-);
-```
-
-```python
-# Loop over all catchments and calculate
-# 1. Flow direction, flow accumulation, distance to outlet, channel network
-# 2. Hypsometric integrals
-
 # Create empty lists for storing outputs
 catchment_numbers = []
 catchment_lons = []
@@ -734,22 +825,25 @@ catchment_number = 0
 
 print("Processing catchments", end="")
 
-for i in range(len(catchments)):
+for i in range(len(pour_points)):
+    print(".", end="", flush=True)
     catchment_number = i + 1
-    cur_catch = catchments[i]
+
+    # Reset grid extent
+    grid.clip_to(dem)
+
+    x_snap, y_snap = grid.snap_to_mask(acc > 1000, pour_points[i])
+
+    # Delineate the catchment
+    current_catchment = grid.catchment(
+        x=x_snap, y=y_snap, fdir=fdir, xytype="coordinate"
+    )
+
     # Clip and set view extent
-    grid.clip_to(cur_catch)
+    grid.clip_to(current_catchment)
     dem_view = grid.view(dem, nodata=np.nan)
     fdir_view = grid.view(fdir)
     acc_view = grid.view(acc, nodata=np.nan)
-    # Compute distance to outlet
-    dist = grid.distance_to_outlet(
-        x=snap_points[i][0],
-        y=snap_points[i][1],
-        fdir=fdir,
-        xytype="coordinate",
-    )
-    branches = grid.extract_river_network(fdir, acc > 100)
 
     # Save in xarray
     catchment = dem_view
@@ -789,11 +883,10 @@ for i in range(len(catchments)):
     catchment_his.append(round(hyps_integral, 3))
     catchment_boundaries.append(dissolved["basin_boundary"].values[0])
 
-    # Print some crap
-    # print(f"Hypsometric  integral for catchment {i+1}: {abs(hyps_integral):.3f}")
-    print(".", end="", flush=True)
 print("done.")
 ```
+
+### Plotting the results
 
 ```python
 data = {

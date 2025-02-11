@@ -86,7 +86,7 @@ _**Figure 9.1**. Interactive map displaying the area of interest with a backgrou
 ### Street network
 
 
-We can download street network data usign the `osmnx` `graph` module. We will download the street network using the place name parameter that represents our area of interest in Kamppi, Helsinki. The function downloads  the street network data from OSM and construct a `networkx` graph model that can be used for routing. 
+We can download street network data from our area of interest usign the `osmnx` `graph` module. The function downloads the street network data from OSM and construct a `networkx` graph model that can be used for routing. 
 
 ```python
 graph = ox.graph.graph_from_place(place)
@@ -114,7 +114,7 @@ edges.head(2)
 ```
 
 ### Other map features
-Downloading building footprints, points of interests such as services and other map features is possible using the `osmnx` `features` module. Same as for street networks, map features can be queried based on varying spatial input (form bounding box, polygon, place name, or around a point or an address). Here, we will demonstrate the use of a place name search for downloading and visualizing OSM data for a central urban area in Helsinki, Finland.
+Downloading building footprints, points of interests such as services and other map features is possible using the `osmnx` `features` module. As for street networks, map features can be queried based on varying spatial input (form bounding box, polygon, place name, or around a point or an address). Here, we will demonstrate the use of a place name search from our area of interest in Helsinki, Finland.
 
 ```python
 place = "Kamppi, Helsinki, Finland"
@@ -123,7 +123,7 @@ tags = { "building" : True}
 buildings = ox.features.features_from_place(place, tags)
 ```
 
-The downloaded OSM data comes with plenty of information representing various attributes of the features that OSM contributors have added. At the time of writing, the building data from central Helsinki contained 120 different columns.
+This way, we get all map features that contain the `building`-tag regardless of its value. The downloaded OSM data comes with plenty of information representing various attributes of the features that OSM contributors have added. At the time of writing, the building data from central Helsinki contained 120 different columns.
 
 ```python
 len(buildings.columns)
@@ -136,21 +136,21 @@ buildings[['building', 'name', 'addr:city', 'geometry']].head()
 ```
 
 
-From here we can tell that some, but not all of the buildings contain more specific information about the type of building (e.g., a school) and building name and address. 
+From here we can tell that some, but not all of the buildings contain more specific information about the type of building (e.g., a school) and building name and address. Notice that some buildings are tagged only with the generic tag `"building=yes"` without further information about the type of the building.
 
-Let's plot the building footprints to get an overview of the data. While plotting, we can color the features according to the building tag values to get an overview of where different types of buildings are located. Notice that some buildings are tagged only with the generic tag "building=yes" without further information about the type of the building.
+Let's plot the building footprints to get an overview of the data. While plotting, we can color the features according to the building tag values to get an overview of where different types of buildings are located. 
 
 ```python
 buildings.plot(column="building", figsize=(8.2,8), cmap="tab20c", legend=True)
 ```
 
-_**Figure 9.3**. Buildings visualized by building tag values._
+_**Figure 9.3**. OSM buildings visualized by building tag values._
 
 
 Let's also fetch points of interests from our area of interest using the amenity tag:
 
 ```python
-tags = {"amenity": True}
+tags = {"amenity" : True}
 amenities = ox.features.features_from_place(place, tags)
 ```
 
@@ -192,13 +192,13 @@ amenities = ox.features.features_from_place(place, tags)
 len(amenities)
 ```
 
-Urban green space and public open space are vital components of liveable urban areas. Let's see how we can fetch urban green space data from OSM using the `osmnx` `features` module. Fetching green spaces from OpenStreetMap requires a bit of investigation of appropriate tag values and these might vary across cities. 
+In addition to streets, buildings and amenities, OSM contains information about various land use features that can be useful for urban geospatial analysis. Let's see how we can fetch urban green space data from OSM using the `osmnx` `features` module. Fetching green spaces from OpenStreetMap requires a bit of investigation of appropriate tag values and these might vary across cities. 
 
 One common way of tagging urban parks is `leisure=park`. If wanting to capture also other green infrastructure, additional tags such as `landuse=grass` may be added. Let's proceed with these two tags that should capture most of the available greenspaces in downtown Helsinki.
 
 ```python
 # List key-value pairs for tags
-tags = {"leisure": "park", "landuse": "grass"}
+tags = {"leisure" : "park", "landuse" : "grass"}
 ```
 
 ```python
@@ -222,7 +222,7 @@ _**Figure 9.4**. Polygons tagged with "leisure=park" or "landuse=grass"._
 
 ### Plotting the data
 
-Let's create a map out of the streets, buildings, restaurants in our area of interest.
+Let's create a map that shows the data we downloaded.
 
 ```python
 import matplotlib.pyplot as plt
@@ -246,10 +246,7 @@ amenities.plot(ax=ax, color="yellow", alpha=0.7, markersize=10)
 plt.tight_layout()
 ```
 
-_**Figure 9.5**. Streets, buildings, green spaces, restaurants and cafes from the Kamppi area in Helsinki._
-
-
-Cool! Now we have a map where we have plotted the restaurants, buildings, streets and the boundaries of the selected region of 'Kamppi' in Helsinki. 
+_**Figure 9.5**. Visualization of OSM map features from the Kamppi area in Helsinki, Finland._
 
 
 ### Alternative spatial queries
@@ -264,11 +261,11 @@ If your area of interest is not represented by any existing featue in OSM, you c
 
 Similar alternative search functions exists for querying the network graph. See `osmnx` user reference for exact syntax.
 
-Let's try out querying data based on a pre-defined bounding box which centers around the Cental railway station in Helsinki. Bounding box coordinates should be given in the correct order (left, bottom, right, top). 
+Let's try out querying data based on a pre-defined bounding box around the Cental railway station in Helsinki. Bounding box coordinates should be given in the correct order (left, bottom, right, top). 
 
 ```python
 bounds = (24.9351773, 60.1641551, 24.9534055, 60.1791068)
-buildings = ox.features.features_from_bbox(bounds, {'building': True})
+buildings = ox.features.features_from_bbox(bounds, {'building' : True})
 buildings.plot()
 ```
 
@@ -279,7 +276,7 @@ Here is another example of querying data within a distance treshold from a geoco
 
 ```python
 address = "Central railway station, Helsinki, Finland"
-tags = {'building': True}
+tags = {'building' : True}
 distance = 500 
 buildings = ox.features.features_from_address(address, tags, distance)
 buildings.plot()
@@ -298,7 +295,7 @@ Check your understanding and retrieve OpenStreetMap data from some other area in
 - Restaurants and cafes (or why not also other amenities)
 - Green spaces
 
-Note that the larger the area you choose, the longer it takes to retrieve data from the API! When fetching the street network, you can use parameter `network_type=drive` to limit the graph query to filter out un-driveable roads.
+Note that the larger the area you choose, the longer it takes to retrieve data from the API! When fetching the street network, you can use parameter `network_type` to limit the graph query to only specific types of roads.
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Use this cell to enter your solution.
@@ -312,13 +309,13 @@ place = "Gamla stan, Stockholm, Sweden"
 aoi = ox.geocoder.geocode_to_gdf(place)
 
 # Street network
-graph = ox.graph.graph_from_place(place)
+graph = ox.graph.graph_from_place(place, network_type="walk")
 edges = ox.convert.graph_to_gdfs(graph, nodes=False, edges=True)
 
 # Other map features
-buildings = ox.features.features_from_place(place, tags={ "building" : True})
+buildings = ox.features.features_from_place(place, tags={"building" : True})
 amenities = ox.features.features_from_place(place, tags = {"amenity" : ["restaurant", "cafe"]})
-parks = ox.features.features_from_place(place, tags = {"leisure": "park", "landuse": "grass"})
+parks = ox.features.features_from_place(place, tags = {"leisure" : "park", "landuse" : "grass"})
 
 # Plot the result
 fig, ax = plt.subplots(figsize=(8.5, 8))
