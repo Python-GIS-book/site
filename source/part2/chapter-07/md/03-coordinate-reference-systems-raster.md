@@ -20,7 +20,7 @@ In this chapter, we focus on understanding how the coordinate reference system (
 1. the definition of the local, regional, or global system in which a raster’s pixels are located (CRS), and
 2. the parameters by which pixel coordinates are transformed into coordinates in that system.
 
-In the following, we will focus on inspecting different kinds of georeferencing metadata that is supported by `rioxarray`, as well as learn how to reproject a raster from one coordinate reference system to another which is a commonly needed GIS technique when doing geographic data analysis. 
+In the following, we will focus on inspecting different kinds of georeferencing metadata that are supported by `rioxarray`/`rasterio`, as well as learn how to reproject a raster from one coordinate reference system to another which is a commonly needed GIS technique when doing geographic data analysis. 
 
 
 ## Georeferencing raster data - Key concepts
@@ -31,13 +31,13 @@ As we have seen from the previous chapters, raster data represents spatial infor
 - The ***transform*** describes how pixel coordinates (row, column) map to real-world coordinates (e.g., meters or degrees). It defines the raster’s scale, rotation, and location.
 - The ***affine*** transformation is a mathematical model commonly used in Python to define the spatial transformation of raster data. It consists of six parameters that control translation (position), scaling (resolution), and rotation/skew. 
 
-In addition to these concepts, a raster dataset may also be georeferenced using *{term}`Ground Control Points` (GCP)* or *{term}`Rational Polynomial Coefficients` (RPCs)*. Ground Control Points are known locations on the Earth's surface with accurately measured coordinates using e.g. GPS device or derived from high-resolution reference image. They are used to improve georeferencing by linking raster pixel positions to real-world coordinates. GCPs help correct distortions in aerial or satellite images by creating polynomial transformations. Typically a dataset will have multiple GCPs distributed across the image. 
+In addition to these concepts, a raster dataset may also be georeferenced using *{term}`Ground Control Points` (GCP)* or *{term}`Rational Polynomial Coefficients` (RPCs)*. Ground Control Points are known locations on the Earth's surface with accurately measured coordinates using e.g. GPS device or derived from high-resolution reference image. They are used to improve georeferencing accuracy by linking raster pixel positions to real-world coordinates. GCPs help correct distortions in aerial or satellite images by creating polynomial transformations. Typically a dataset will have multiple GCPs distributed across the image. 
 
 Rational Polynomial Coefficients (RPCs) provide an alternative georeferencing method, often used for high-resolution satellite imagery. Instead of an affine transform, RPCs model the relationship between image coordinates and real-world coordinates using rational polynomial coefficients which are typically provided by satellite image providers. They allow for more complex transformations, especially in cases where elevation variations affect image positioning. 
 
 
 
-## Extracting Coordinate Reference System information
+## Extracting geoferencing / CRS attributes
 
 ```python
 import xarray as xr
@@ -47,10 +47,6 @@ fp = "data/temp/kilimanjaro_dataset.nc"
 
 data = xr.open_dataset(fp, decode_coords="all")
 data
-```
-
-```python
-
 ```
 
 ```python
@@ -71,8 +67,31 @@ data.rio.crs.to_wkt()
 
 ```python
 # Affine transform (how raster is scaled, rotated, skewed, and/or translated)
-data.rio.transform()
+affine = data.rio.transform()
+affine
 ```
+
+```python
+# Pixel size
+print("Pixel size x-direction (a):", affine.a)
+print("Pixel size y-direction (e):", affine.e)
+```
+
+```python
+# Rotation/skew
+print("Rotation/skew x-direction (b):", affine.b)
+print("Rotation/skew y-direction (d):", affine.d)
+```
+
+```python
+# Top-left corner's real-world coordinates
+print("X-coordinate of the top-left pixel (c):", affine.c)
+print("Y-coordinate of the top-left pixel (f):", affine.f)
+```
+
+## Reprojecting raster data
+
+
 
 ```python
 
