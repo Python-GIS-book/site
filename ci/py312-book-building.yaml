@@ -29,6 +29,7 @@ dependencies:
   - datashader=0.16.3
   - folium=0.17.0
   - fiona=1.9.6
+  - geocube=0.7.1
   - geodatasets=2024.7.0
   - geojson=3.1.0
   - geopandas=1.0.1
