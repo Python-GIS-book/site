@@ -34,6 +34,7 @@ There are a number of libraries that are widely used when working with raster da
 - `xarray` provides a user-friendly and intuitive way to work with multidimensional raster data with coordinates and attributes (somewhat similar to `geopandas` that is used for vector data processing),
 - `rioxarray` provides methods to conduct GIS-related operations with raster data (e.g. reading/writing, reprojecting, clipping, resampling),
 - `xarray-spatial` provides methods for analysing raster data (e.g. focal/zonal operations, surface analysis, path finding),
+- `geocube` provides methods for doing data conversions between raster and vector formats (rasterize, vectorize),
 - `rasterio` core library for working with GIS raster data. `rioxarray` is an extension of this library that brings the same functionalities on top of `xarray` library,
 - `numpy` is a core Python library for numerical computing that is used for representing and working with multidimensional arrays. `numpy` has a big influence on how the other raster libraries function and can be used to generate multidimensional arrays from scratch.
 
