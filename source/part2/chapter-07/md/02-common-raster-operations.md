@@ -15,7 +15,7 @@ jupyter:
 # Common raster operations
 
 
-Add introductory text.
+When working with raster data, there are various operations and techniques that might be useful when preprocessing the data for further analysis. Some typical raster operations include for example clipping or masking raster to include only pixels that are located in a given area, merging multiple raster tiles into a single raster mosaic, converting raster data into vector format (and vice versa), or resampling the raster pixels into higher or lower spatial resolution (upscaling, downscaling). In this chapter, we will learn how to conduct these kind of raster operations using `xarray`, `rioxarray`, `geocube` and `rasterio` Python libraries.
 
 
 ## Clipping raster
@@ -259,7 +259,7 @@ To vectorize a given variable in your `xarray.Dataset`, you can use the `vectori
 ```python
 from geocube.vector import vectorize
 
-gdf = vectorize(kitumbene["elevation"])
+gdf = vectorize(kitumbene["elevation"].astype("float32"))
 gdf.shape
 ```
 
@@ -315,7 +315,6 @@ As we can see the `lakes` `GeoDataFrame` contains polygons and have various attr
 ```python
 lakes = lakes[["geometry", "water", "name"]].copy().reset_index()
 lakes.shape
-#lakes.tail(3)
 ```
 
 Our `GeoDataFrame` does not currently really include any useful numerical data (except `id`) that we would perhaps want to store as an attribute into our raster `DataArray`. Thus, let's create one numerical attribute into our data and calculate the area of the lakes as something we will use as values in our raster. We can use some of the vector data processing tricks to do this which were introduced in Chapter 6:
@@ -437,10 +436,26 @@ plt.title("Downscaled elevation data");
 
 The downscaling operation seem to have worked well as the patterns are still clearly similar compared to the input data (Figure 7.7), although the spatial resolution is much lower. The data is downscaled so much that it is actually possible to identify individual pixels of the grid. 
 
-
+<!-- #region -->
 ### Upscaling
 
-The process of upscaling is very similar to downscaling and we use the same methods to increase the resolution of the input raster. In the following, we will specify that the new shape of the output `Dataset` will be two times larger than the input data. When upscaling, you are ultimately estimating values to given locations based on existing raster values. In this case, 
+The process of upscaling works very similarly to downscaling and we can use the same `rioxarray` method to increase the resolution of the input raster. In the following, we will specify that the new shape of the output `Dataset` will be two times larger than the input data. When upscaling, you are ultimately estimating values to new pixel cells based on the neighboring raster values of a given cell in the input raster. There are various ways to interpolate data which are provided in the Table 7.2. 
+
+
+: _**Table 7.2**. Different resampling methods and their descriptions._
+
+| Resampling Method    | Description                                                                                                               |
+|:--------------------:|:-------------------------------------------------------------------------------------------------------------------------:|
+| `nearest`            | Selects the value of the closest pixel without interpolation. Fast but can produce blocky artifacts.                      |
+| `bilinear`           | Performs linear interpolation using the four nearest pixels, creating a smoother result than nearest-neighbor.            |
+| `cubic`              | Uses bicubic interpolation, considering 16 surrounding pixels. Smoother output than bilinear. Higher computational cost.  |
+| `cubic_spline`       | Applies cubic spline interpolation for even smoother results, but requires more processing power.                         |
+| `lanczos`            | Uses a sinc-based interpolation over a larger pixel neighborhood, producing resampling with significant smoothing.        |
+| `average`            | Average resampling, computes the weighted average of all non-NODATA contributing pixels.                                  |
+
+<!-- #endregion -->
+
+In the following, we will take advantage of a `Resampling.bilinear` resampling method which determines the value of a new pixel by taking a weighted average of the four nearest input pixels:
 
 ```python
 from rasterio.enums import Resampling
@@ -458,14 +473,18 @@ data_upscaled = data.rio.reproject(
 )
 ```
 
-```python
-data_upscaled
-```
+Now we have successfully upscaled our data which we can confirm by comparing the shapes of the original and upscaled datasets:
 
 ```python
-data["elevation"].plot();
+print("Shape - Original:", data.rio.shape)
+print("Shape - Upscaled:", data_upscaled.rio.shape)
 ```
+
+As expected, the new `data_upscaled` raster contains twice as many pixels compared to the input which is exactly what we were after. In a similar manner, you can upscale the data into different resolutions by providing a given target `shape` to your new raster layer. Notice that there is no "correct” way to do upscaling as all resampling methods involve interpolation that introduces uncertainty to the results. Let's finally confirm that our upscaled data looks correct also on a map:
 
 ```python
-
+data_upscaled["elevation"].plot();
+plt.title("Upscaled elevation data");
 ```
+
+***Figure 7.19.** Upscaled data using a upscale factor of 2.*
