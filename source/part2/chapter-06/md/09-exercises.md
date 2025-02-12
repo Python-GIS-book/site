@@ -14,41 +14,39 @@ jupyter:
 
 # Exercises
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Exercise 6.1 - Geometric Objects
 
 Refresh your memory about `shapely` objects and 
 
 1. Create a `LineString` that goes trough at least three points. What is the length of your line?
 2. Create a `shapely` `Point` and create a buffer around it. What is the area of the buffer?
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Exercise 6.2 - From text file to GeoDataFrame
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+The goal of this exercise is to create geometries based on text file input in Python. You will combine basic knowledge of the `pandas` module (see Part I) with `geopandas` methods introduced in this chapter. 
 
-The goal of this exercise is to create geometries based on text file input in Python. You will combine basic knowledge of the `pandas` module (see Part I) with `geopandas` methods introduced in this chapter. The text file **[travelTimes_2015_Helsinki.txt](data/travelTimes_2015_Helsinki.txt)** is located in the data folder and consist of travel times between multiple origin locations and one destination location. This file is an extract of the Helsinki Region Travel Time Matrix dataset - an open data set that contains multimodal travel time information across the Helsinki Region in Finland (ref). Here, we will focus on the public transport travel times to the Helsinki railway station. 
+Input data for this exercise contains information about the public transport travel times to the main railway station in Helsinki, Finland. The input file **[travelTimes_2015_Helsinki.txt](data/travelTimes_2015_Helsinki.txt)** contains travel times infrmation from multiple origin locations to the railway station. 
 
-The first four rows of our data look like this:
+This file is an extract of the Helsinki Region Travel Time Matrix dataset - an open data set that contains multimodal travel time information across the Helsinki Region in Finland. In this exercise, we are interested in the columns listed in Table 6.1.
 
-```
-   from_id;to_id;fromid_toid;route_number;at;from_x;from_y;to_x;to_y;total_route_time;route_time;route_distance
-   5861326;5785640;5861326_5785640;1;08:10;24.9704379;60.3119173;24.8560344;60.399940599999994;125.0;99.0;22917.6
-   5861326;5785641;5861326_5785641;1;08:10;24.9704379;60.3119173;24.8605682;60.4000135;123.0;102.0;23123.5
-   5861326;5785642;5861326_5785642;1;08:10;24.9704379;60.3119173;24.865102;60.4000863;125.0;103.0;23241.3
-```
+: _**Table 6.1**. Column names and descriptions for the travel time data._
 
-In this exercise, we are interested in these columns:
+|Column           |Description                                              |
+|:----------------|:--------------------------------------------------------|
+|from_x           | x-coordinate of the **origin** location (longitude)     |
+|from_y           | y-coordinate of the **origin** location (latitude)      |
+|to_x             | x-coordinate of the **destination** location (longitude)|
+|to_y             | y-coordinate of the **destination** location (latitude) |
+|total_route_time | Travel time with public transportation at the route     |
 
-| Column | Description |
-|--------|-------------|
-| from_x | x-coordinate of the **origin** location (longitude) |
-| from_y | y-coordinate of the **origin** location (latitude) |
-| to_x   | x-coordinate of the **destination** location (longitude)|
-| to_y   | y-coordinate of the **destination** location (latitude) |
-| total_route_time | Travel time with public transportation at the route |
+Your task is to read in the file and create two new colums with `Point` objects representing the origin and destination points. Problems 1-3 will guide you through the necessary steps. Before starting, check the contents of the input file in a text editor and familiarize yourself with the data structure.
 
-Your task is to read in the file and create two new colums with `Point` objects representing the origin and destination points. Problems 1-3 will guide you through the necessary steps.
-
-
+<!-- #endregion -->
 
 #### Problem 1: Read the file
 
