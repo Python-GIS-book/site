@@ -12,8 +12,9 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Representing geographic data in raster format
-
+<!-- #endregion -->
 
 As we introduced earlier in [Chapter 5.2](https://pythongis.org/part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html#basics-of-raster-data-and-arrays), the raster data model represents the real-world features (e.g. temperature) as arrays of cells, commonly known as pixels. Raster data is widely used to represent and store data about continuous surfaces, in which each pixel contain specific information (characteristics, radiance, reflectance, spectral signatures) about a specific area of the Earth, such as 10x10 meter area. There are various reasons why you might want to store your data in raster format:
 
@@ -73,9 +74,11 @@ plt.colorbar(label='Elevation')
 plt.title('Simple Raster Layer representing a Hill')
 plt.show()
 ```
-***Figure 7.1.** A simple raster layer representing elevation.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.1.** A simple raster layer representing elevation._
 
 As a result, we have a simple map that represents the elevation of the hill with different colors. The *{term}`colormap`* of the visualization was determined using the parameter `cmap`, while the `plt.colorbar()` function was used to add a legend to the right side of the image, and the `plt.title()` was used to add a simple title for the image.
 
 This example demonstrates a toy example how we can produce a simple raster layer from scratch. However, there are various aspects related to working with GIS raster data that we did not cover here, such as specifying the metadata for this layer. Basically, the data we have here is simply a two-dimensional array (matrix) that does not tell anything about the *spatial resolution* of the data (i.e. how large each cell is), nor e.g. in which area of the world this data is located (i.e. coordinates) or the *coordinate reference system* this data is represented in. In the next section, we start working with real raster data and cover more aspects that relate to spatial raster data.
 
+<!-- #endregion -->

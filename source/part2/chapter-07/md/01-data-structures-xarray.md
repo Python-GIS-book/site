@@ -12,22 +12,23 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Introduction to data structures in xarray
-
+<!-- #endregion -->
 
 Now that you have learned a bit of basics about raster data and how to create a simple 2-dimensional raster array using `numpy`, we continue to explore in a more comprehensive manner how to work with real-world raster data using `xarray` and `rioxarray` libraries (+ other relevant libraries linked to them). The `xarray` library is a highly useful tool for storing, representing and manipulating raster data, while `rioxarray` provides various raster processing (GIS) capabilities on top of the `xarray` data structures, such as reading and writing several different raster formats and conducting different geocomputational tasks. Under the hood, `rioxarray` uses another Python library called `rasterio` (that works with N-dimensional `numpy` arrays) but the benefit of `xarray` and `rioxarray`is that they provide easier and more intuitive way to work with raster data layers, in a bit similar manner as working with vector data using `geopandas`. 
 
 When working with raster data, you typically have various layers that represent different geographical features of the world (e.g. elevation, temperature, precipitation etc.) and this data is possibly captured at different times of the year/day/hour, meaning that you may have longitudinal (repetitive) observations from the same area, constituting time series data. More often than not, you need to combine information from these layers to be able to conduct meaningful analysis based on the data, such as do a weather forecast. One of the greatest benefits of `xarray` is that you can easily store, combine and analyze all these different layers via a single object, i.e. a `Dataset`.
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Key xarray datastructures: Dataset and DataArray 
 
 The two fundamental data structures provided by the `xarray` library are `DataArray` and `Dataset` (Figure 7.2). Both of them build upon and extend the strengths of `numpy` and `pandas` libraries. The `DataArray` is a labeled N-dimensional array that is similar to `pandas.Series` but works with raster data (stored as `numpy` arrays). The `Dataset` then again is a multi-dimensional in-memory array database that contains multiple `DataArray` objects. In addition to the variables containing the observations of a given phenomena, you also have the `x` and `y` coordinates of the observations stored in separate layers, as well as metadata providing relevant information about your data, such as Coordinate Reference System and/or time. Thus, a `Dataset` containing raster data is very similar to `geopandas.GeoDataFrame` and actually various `xarray` operations can feel very familiar if you have learned the basics of `pandas` and `geopandas` covered in Chapters 3 and 6. 
 
 
-![***Figure 7.2.** Key `xarray` data structures. Image source: Xarray Community (2024), licensed under Apache 2.0.*](../img/xarray-dataset-diagram.png)
+![_**Figure 7.2.** Key `xarray` data structures. Image source: Xarray Community (2024), licensed under Apache 2.0._](../img/xarray-dataset-diagram.png)
 
-***Figure 7.2.** Key `xarray` data structures. Image source: [Xarray Community](https://tutorial.xarray.dev/fundamentals/01_data_structures.html) (2024), licensed under Apache 2.0.*
+_**Figure 7.2.** Key `xarray` data structures. Image source: [Xarray Community](https://tutorial.xarray.dev/fundamentals/01_data_structures.html) (2024), licensed under Apache 2.0._
 
 Some of the benefits of `xarray` include:
 
@@ -39,9 +40,11 @@ Some of the benefits of `xarray` include:
 In the following, we will continue by introducing some of the basic functionalities of the `xarray` data structures.
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Reading a file into Dataset
 
 We start by investigating a simple elevation dataset using `xarray` that represents a Digital Elevation Model (DEM) of Kilimanjaro area in Tanzania. To read a raster data file (such as GeoTIFF) into `xarray`, we can use the  `.open_dataset()` function. Here, we read a `.tif` file directly from a cloud storage space that we have created for this book. By importing the `rioxarray` library, we can extend the functionalities of the `xarray` and use the `engine="rasterio"` parameter when reading the data. This is beneficial because it supports various GIS functionalities related to Coordinate Reference System management and metadata that would not be available otherwise. We can for example specify that the `masked` parameter is `True` which will take into consideration possible NoData values in the data and mask them out by setting the NoData values as NaN:
+<!-- #endregion -->
 
 ```python
 import xarray as xr
@@ -103,34 +106,41 @@ mesh = data["elevation"].plot(cmap="terrain")
 plt.title("Elevation in meters");
 ```
 
-***Figure 7.3.** A map representing the elevation values in the Kilimanjaro area.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.3.** A map representing the elevation values in the Kilimanjaro area._
 
 Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the `"terrain"` as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because the land surface in this area of the world should not have any values going below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8. 
 
 We can also easily plot our data in a couple of different ways and e.g. produce a contour map representing the elevation using contour lines. A contour map is a type of map that represents the three-dimensional features of a landscape in two dimensions by using contour lines  highlighting the hills and valleys in our data. Each contour line connects points of equal elevation above a reference level, such as sea level. These lines provide a way to visualize the shape, slope, and elevation of the terrain. Contour maps are widely applied to different data in various domains, such as in navigation and orienteering to visualize elevation characteristics to help activities such as hiking; in meteorology to visualize weather related phenomena (atmospheric pressure, temperature); and in hydrology to help identifying drainage patterns, watersheds, and potential flood zones.  We can create a contour map based on the input data by calling the `.plot.contour()` method in `xarray`:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 contours = data["elevation"].plot.contour()
 plt.title("Contour map based on the elevation");
 ```
 
-***Figure 7.4.** A contour map representing the elevation values in the Kilimanjaro area.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.4.** A contour map representing the elevation values in the Kilimanjaro area._
 
 It is also possible to create a surface map that shows the elevation values in 3D. A 3D surface map is a three-dimensional representation of a terrain or surface, created by plotting elevation or depth data as a continuous surface. The map visually depicts the topography by assigning different colors, shading, and heights to represent variations in elevation, providing a realistic and intuitive view of the terrain. Creating a 3D surface map can be done by calling the `.plot.surface()` method in `xarray`:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 surface = data["elevation"].plot.surface(cmap="Greens")
 plt.title("A surface map representing the elevation in 3D");
 ```
 
-***Figure 7.5.** A 3D surface map representing the elevation values in the Kilimanjaro area.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.5.** A 3D surface map representing the elevation values in the Kilimanjaro area._
 
 Now we have a nice three dimensional map that clearly shows the hills and valleys in our study region that gives an intuitive view to the landscape in the given region.
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Extracting basic raster dataset properties
 
 Now as we have explored our data visually, it is good to continue by examining the basic properties of the data, as well as by calculating summary statistics out of the data, such as the minimum,  maximum, or mean values of your data. To extract this information from your `Dataset`, `xarray` provides very similar functionalities as `pandas` to compute some basic statistics out of your data. For instance, we can easily extract the maximum elevation of our data by calling `.max()` method:
+<!-- #endregion -->
 
 ```python
 data["elevation"].max()
@@ -294,14 +304,17 @@ low_bit_depth_data.plot(cmap="terrain")
 plt.title("Data presented with 8-bit integers");
 ```
 
-***Figure 7.6.** Elevation values represented as 8-bit integers with distorted values.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.6.** Elevation values represented as 8-bit integers with distorted values._
 
 As we can see from the map, the result distorts the data significantly and ultimately makes it unusable because all the cells having a value larger than 255 (i.e. the maximum supported value with 8-bits) are incorrectly presented in the data. Thus, when doing data type conversions, it is good to be extra careful that you do not accidentally break your data and produce incorrect results when further analyzing it. 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Creating a new data variable
 
 At the moment, we only have one data variable in our `Dataset`, i.e. the `elevation`. As a reference to vector data structures in `geopandas` library which we introduced in Chapter 6, this would correspond to a situation in which you would have a single column in your `GeoDataFrame`. However, it is very easy create new data variables into your `Dataset` e.g. based on specific calculations or data conversions. For instance, we might be interested to calculate the relative height (i.e. relief) based on our data which tells how much higher the elevations (e.g. the highest peak) are relative to the lowest elevation in the area. This can be easily calculated by subtracting the lowest elevation from the highest elevation in an area. In the following, we create a new data variable called `"relative_height"` into our `Dataset` based on a simple mathematical calculation. You can create new data variables into your `Dataset` by using square brackets and the name of your variable as a string (e.g. `data["THE_NAME"]`), as follows:
+<!-- #endregion -->
 
 ```python
 min_elevation = data["elevation"].min().item()
@@ -329,7 +342,7 @@ Here, we can see the names of the data variables, as well as some basic informat
 list(data.data_vars)
 ```
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Writing to a file
 
 At this stage, we have learned how to read raster data and explored some of the basic properties of a raster `Dataset`. As a last thing, we will learn how to write the data from `xarray` into specific raster file formats. Similarly as with vector data, raster data can be stored in various formats. Table 7.1 introduces some of the popular file formats used for storing raster data. 
@@ -337,18 +350,26 @@ At this stage, we have learned how to read raster data and explored some of the 
 
 : _**Table 7.1**. Common raster file formats._
 
-| Name    | Extension   | Description                                                                                  |
-|:-------:|:-----------:|:--------------------------------------------------------------------------------------------:|
-| GeoTiff | .tif, .tiff | Widely used to store individual raster layers to disk (i.e. a single `xarray.DataArray`).    |
-| netCDF  | .nc         | Widely used to store a whole `xarray.Dataset` that can contain multiple variables.           |
-| Zarr    | .zarr       | Newer format for storing `xarray.Dataset`. Supports storing large data in compressed chunks. |
+| Name    | Extension   | Description                            |
+|:-------:|:-----------:|:---------------------------------------|
+| GeoTiff | .tif, .tiff | Widely used to store individual raster |
+|         |             | layers to disk (i.e. a single          |
+|         |             | `xarray.DataArray`).                   |
+| netCDF  | .nc         | Widely used to store a whole           |
+|         |             | `xarray.Dataset` that can contain      |
+|         |             | multiple variables.                    |
+| Zarr    | .zarr       | Newer format for storing               |
+|         |             | `xarray.Dataset`. Supports storing     |
+|         |             | large data in compressed chunks.       |
 
 The `GeoTIFF` format is one of the most widely used formats to store individual raster layers (i.e. a single `DataArray`) to disk. This is still widely used format in various GIS software. `netCDF` is widely used in geosciences for storing multiple variables into a single file which is based on  a general-purpose file format and a data model called `HDF5` (`.h5`). The `Zarr` file format is a newer format designed for cloud-native, chunked, and compressed array storage. The `Zarr` file format and the associated `zarr` library also allows you to write multiple variables (i.e. a whole `xarray.Dataset`) into a single `.zarr` directory/file in a similar manner as with `netCDF`. In addition, `zarr` has the ability to store arrays in various ways, including in memory, in files, and in cloud-based object storage (such as Amazon S3 buckets or Google Cloud Storage) that are often used to store very large datasets. When using `.zarr` file format, you can take advantage of the nice capabilities of `Zarr`, including the ability to store and analyze datasets far too large fit onto disk, particularly in combination with `dask` library which provides capabilities for parallel and distributed computing. 
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### GeoTIFF
 
 In the following, we will see how to write data into all of these data formats. When writing data into `GeoTIFF` format you can use the `.rio.to_raster()` method that comes with the `rioxarray` library. As mentioned earlier, `GeoTiff` only allows you to write a single `DataArray` at a time into a file:
+<!-- #endregion -->
 
 ```python
 data["elevation"].rio.to_raster("data/temp/elevation.tif")

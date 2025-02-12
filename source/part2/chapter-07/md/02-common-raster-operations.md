@@ -12,8 +12,9 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Common raster operations
-
+<!-- #endregion -->
 
 When working with raster data, there are various operations and techniques that might be useful when preprocessing the data for further analysis. Some typical raster operations include for example clipping or masking raster to include only pixels that are located in a given area, merging multiple raster tiles into a single raster mosaic, converting raster data into vector format (and vice versa), or resampling the raster pixels into higher or lower spatial resolution (upscaling, downscaling). In this chapter, we will learn how to conduct these kind of raster operations using `xarray`, `rioxarray`, `geocube` and `rasterio` Python libraries.
 
@@ -43,7 +44,7 @@ plt.title("Elevation in meters");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-***Figure 7.7.** Elevation of the landscape in North-Eastern Tanzania.*
+_**Figure 7.7.** Elevation of the landscape in North-Eastern Tanzania._
 
 To be able to clip this `xarray.Dataset`, we first need to create a `geopandas.GeoDataFrame` that contains the geometry that we want to use as our clipping features. In our case, we want to create a simple bounding box that defines the area which we want to keep from the raster. To create the `GeoDataFrame`, we can specify the corner coordinates of our bounding box and utilize the `box` function of `shapely` library which can conveniently create us the geometry (as introduced in Chapter 6.1):
 <!-- #endregion -->
@@ -72,11 +73,13 @@ clipping_gdf.explore()
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
-***Figure 7.8.** Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.8.** Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset._
 
 Now after we have created the `GeoDataFrame` we can use it to clip the `xarray.Dataset`. To do this, we use the `.rio.clip()` method which wants as input the `geometries` that will be used for clipping the raster data. We can pass the `gpd.GeoSeries` as an input for this (i.e. the `geometry` column of our `GeoDataFrame`) and we also specify the `crs` to be the same as in out input raster data. It is important that the coordinate reference system of both layers are the same whenever doing GIS operations between multiple layers. Thus, we use a simple `assert` to check the match before doing the clipping:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Check that the CRS matches between layers (only continues if True)
 assert clipping_gdf.crs == data.elevation.rio.crs
 
@@ -92,7 +95,7 @@ plt.title("Elevations around Mt Kitumbene");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-***Figure 7.9.** Elevations in the area that was clipped based on a polygon.*
+_**Figure 7.9.** Elevations in the area that was clipped based on a polygon._
 
 After clipping, it is possible to continue working with the clipped `Dataset` and e.g. find the mean elevation for this area around the Mt Kitumbene. Notice that the operations clipped all the variables in our `Dataset` simultaneously. We can extract basic statistics from `elevation` and inspect the relative height in this area as follows:
 <!-- #endregion -->
@@ -112,12 +115,13 @@ kitumbene["relative_height"].max().item()
 
 We can see that the mean elevation in this area is approximately 1470 meters while the maximum relative height is ~2100 meters. We needed to recalculate the relative height because the baseline minimum elevation in the landscape changed significantly after the clipping operation.
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Masking a raster
 
 Another commonly used approach when working with raster data is to mask the data based on certain criteria or using another geographical layer as a mask. One common reasons for doing this is for example to exclude water bodies (e.g. lakes or oceans) from the terrain when doing specific analyses. In the following, we will continue working with the same elevation data and mask out the lakes from our raster dataset that exist in our study area. 
 
 Let's start by downloading data from OpenStreetMap (OSM) about existing lakes in our study area. To do this, we first extract the bounds of our raster `Dataset` and then use `osmnx` library to fetch all OSM elements that have been tagged with key `"water"` and `"lake"` (read more about `osmnx` from Chapter 9.1):
+<!-- #endregion -->
 
 ```python
 import osmnx as ox
@@ -134,11 +138,13 @@ data["elevation"].plot(ax=ax)
 lakes.plot(ax=ax, facecolor="lightblue", edgecolor="red", alpha=0.4);
 ```
 
-***Figure 7.10.** Existing lakes that are present in our study area.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.10.** Existing lakes that are present in our study area._
 
 As we can see from the Figure 7.10, there is one large lake and multiple smaller ones in our study that we might not want to be taken into account when analyzing the terrain. Luckily, we can easily mask these areas out of our `Dataset` by using `rioxarray`. To do this, we can use the same `.rio.clip()` method which we used in the previous example. However, in this case, we do not want to totally remove those cells from our `Dataset` but only mask them out, so that the values on those areas are replaced with NaN values. By using parameters `drop=False` and `invert=True`, the cells that are intersecting with the lake geometries will be masked with NaNs: 
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 masked_data = data.rio.clip(geometries=lakes.geometry, 
                             drop=False,
                             invert=True,
@@ -151,11 +157,13 @@ masked_data["elevation"].plot()
 plt.title("Elevation data with a mask");
 ```
 
-***Figure 7.11.** A Dataset where the lakes have been masked out (shown with white color).*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.11.** A Dataset where the lakes have been masked out (shown with white color)._
 
 As a result, we now have a new `Dataset` where the elevation values overlapping with the lakes have been converted to NaNs. We can now compare whether e.g. the mean land surface elevation differs from the original one where the lakes were still included:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 print("Mean elevation with lakes:", data["elevation"].mean().round().item())
 print("Mean elevation without lakes:", masked_data["elevation"].mean().round().item())
 ```
@@ -218,12 +226,14 @@ datasets[1]["band_1"].plot(ax=axes[0][1], vmax=5900, add_colorbar=False)
 datasets[2]["band_1"].plot(ax=axes[1][0], vmax=5900, add_colorbar=False)
 datasets[3]["band_1"].plot(ax=axes[1][1], vmax=5900, add_colorbar=False);
 ```
-***Figure 7.12.** Four elevation raster layers plotted next to each other.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.12.** Four elevation raster layers plotted next to each other._
 
 From the figure we can see that these four raster tiles seem to belong together naturally as the elevation values as well as the coordinates along the x- and y-axis continue smoothly. Hence, we can stitch them together into a single larger raster `Dataset`.
 To merge multiple `xarray.Dataset`s together, we can use the `.merge_datasets()` function from `rioxarray`:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 from rioxarray.merge import merge_datasets
 
 mosaic = merge_datasets(datasets)
@@ -241,14 +251,17 @@ mosaic["elevation"].plot(figsize=(12, 12))
 plt.title("Elevation values covering larger area in the region close to Kilimanjaro");
 ```
 
-***Figure 7.13.** A raster mosaic where four raster tiles were merged together.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.13.** A raster mosaic where four raster tiles were merged together._
 
 The end result looks good and we can see clearly the Mount Kilimanjaro which is the highest mountain in Africa 5895 meters above sea level and the highest volcano in the Eastern Hemisphere. 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Raster to vector conversion (vectorize)
 
 Another commonly used technique commonly needed when working with geographic data is to convert the data from raster to vector format and vice versa. These conversion techniques are commonly called as `vectorize` or `rasterize` operations. When we convert a raster `Dataset` to vector format the raster cells are converted into `shapely.Polygon` objects and the values of the cells are stored as an attribute (column) in the resulting `GeoDataFrame`. To convert `xarray.DataArray` into vector format, you can use the `geocube` library that helps doing these kind of data conversions. In the following, we continue work with the `kitumbene` elevation data that we created earlier by clipping the data and convert this layer into vector format. Let's have a quick look on our input `DataArray` before continuing:
+<!-- #endregion -->
 
 ```python
 kitumbene["elevation"]
@@ -283,16 +296,19 @@ As we can see, the number of rows in our `GeoDataFrame` was reduced dramatically
 gdf.plot(column="elevation");
 ```
 
-***Figure 7.14.** The elevation map made from the vectorized data.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.14.** The elevation map made from the vectorized data._
 
 As we can see from the figure, the map looks identical to our original `DataArray` (Figure 7.9) which means that the conversion works as it should. 
 
 It is good to keep in mind that the raster data structure (i.e. arrays) is much more efficient way to process continuous surfaces. When every cell in the 2D array is converted into polygon geometries, the processing and visualization of the data typically becomes more resource intensive for the computer (making things slower). There are approaches to deal with this issue e.g. by categorizing the data values of the surface into specific elevation classes (e.g. with 5 meter intervals) and then dissolving the geometries into larger Polygon shapes (as we did earlier without categorization). Another technique to consider is downscaling your data into lower resolution, meaning that the size of an individual cell will be larger. Naturally, both of these techniques has an impact on the quality of the data as the data is generalized and aggregated. It is a good idea to do the preprocessing steps for the raster data before vectorizing it, especially if you have large raster arrays because the array operations in `xarray` are very efficient. 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Vector to raster conversion (rasterize)
 
 Now as we have seen how to convert the data from raster to vector, let's continue and see how to do the conversion from vector to raster data format, i.e. how to rasterize a vector dataset. In this example, we aim to rasterize the lakes that we downloaded earlier from OpenStreetMap. Let's have a look how the data looks like:
+<!-- #endregion -->
 
 ```python
 lakes = ox.features_from_polygon(data_bounds_geom, tags={"water": ["lake"]})
@@ -300,9 +316,11 @@ lakes = ox.features_from_polygon(data_bounds_geom, tags={"water": ["lake"]})
 lakes.plot();
 ```
 
-***Figure 7.15.** Lakes represented in vector format.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.15.** Lakes represented in vector format._
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 lakes.shape
 ```
 
@@ -363,11 +381,13 @@ lakes_ds["area_km2"].plot()
 plt.title("Rasterized lakes");
 ```
 
-***Figure 7.16.** Lakes that have been rasterized into `DataArray` at approximately 1 km resolution.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.16.** Lakes that have been rasterized into `DataArray` at approximately 1 km resolution._
 
 Quite often when rasterizing vector data, you actually want to fit the output to have identical resolution to an already existing `xarray.Dataset` and align it with the other raster layer. For example in our case, we can use the `data` raster (with elevation values) as a target so that the resolution, dimensions and alignment would fit with the existing `Dataset`. We can achieve this by using the `like` parameter in `make_geocube()` function. This will ensure that the output aligns with the existing raster having same resolution and dimensions:
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 aligned_ds = make_geocube(vector_data=lakes,
                           measurements=["id", "area_km2"],
                           like=data)
@@ -378,17 +398,19 @@ aligned_ds
 aligned_ds["area_km2"].plot();
 ```
 
-***Figure 7.17.** Lakes that have been rasterized and aligned with an existing `Dataset`.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.17.** Lakes that have been rasterized and aligned with an existing `Dataset`._
 
 As a result, we have now rasterized the lakes in a way that the `aligned_ds` aligns with the existing `Dataset` containing the elevation values. This technique can be very useful especially when you want to do calculations (map algebra) between multiple raster layers (more about map algebra in Chapter 7.5). 
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Resampling raster data
 
 Finally, we will introduce a technique that allows you to resample your raster data. Resampling refers to changing the cell values due to changes in the raster grid for example due to changing the effective cell size of an existing dataset. There are two ways to resample your raster data. Upscaling (or upsampling) refers to cases in which convert the raster to higher resolution, i.e. smaller cells. Downscaling (or downsampling) is resampling to lower resolution, i.e. having larger cell sizes. In the following, we will see how we can resample an `xarray.Dataset` by downscaling and upscaling the data. 
 
 We can resample `xarray` data by using the `rioxarray` library that can be used to downscale and upscale raster data. Whenever downscaling data, you are ultimately aggregating the information because multiple individual cells are merged into one larger cell that is then stored in the output grid. Thus, it is important to decide the `resampling` method which determines how the data values are aggregated. Depending on the input data, you might for example calculate the `average` of the input cells which will then be stored in the output grid cell. In our case, taking the average makes sense, because our input data represents elevation. However, in some cases you might be interested to `sum` all the cell values for example if your input data would represent population counts in a given region. There are also various other ways to resample the data, such as extracting the minimum (`min`), maximum (`max`), median (`med`) or the `mode` from the input cells. The `mode` means that the value which appears most often in the input raster cells is selected to the output raster cell.  
-
+<!-- #endregion -->
 
 ### Downscaling
 
@@ -432,11 +454,13 @@ data_downscaled["elevation"].plot()
 plt.title("Downscaled elevation data");
 ```
 
-***Figure 7.18.** Downscaled data using a downscale factor of 50.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.18.** Downscaled data using a downscale factor of 50._
 
 The downscaling operation seem to have worked well as the patterns are still clearly similar compared to the input data (Figure 7.7), although the spatial resolution is much lower. The data is downscaled so much that it is actually possible to identify individual pixels of the grid. 
+<!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Upscaling
 
 The process of upscaling works very similarly to downscaling and we can use the same `rioxarray` method to increase the resolution of the input raster. In the following, we will specify that the new shape of the output `Dataset` will be two times larger than the input data. When upscaling, you are ultimately estimating values to new pixel cells based on the neighboring raster values of a given cell in the input raster. There are various ways to interpolate data which are provided in the Table 7.2. 
@@ -487,4 +511,6 @@ data_upscaled["elevation"].plot();
 plt.title("Upscaled elevation data");
 ```
 
-***Figure 7.19.** Upscaled data using a upscale factor of 2.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.19.** Upscaled data using a upscale factor of 2._
+<!-- #endregion -->
