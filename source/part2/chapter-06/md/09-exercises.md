@@ -36,13 +36,18 @@ This file is an extract of the Helsinki Region Travel Time Matrix dataset - an o
 
 : _**Table 6.1**. Column names and descriptions for the travel time data._
 
-|Column           |Description                                              |
-|:----------------|:--------------------------------------------------------|
-|from_x           | x-coordinate of the **origin** location (longitude)     |
-|from_y           | y-coordinate of the **origin** location (latitude)      |
-|to_x             | x-coordinate of the **destination** location (longitude)|
-|to_y             | y-coordinate of the **destination** location (latitude) |
-|total_route_time | Travel time with public transportation at the route     |
+| Column           | Description                                 |
+|:-----------------|:--------------------------------------------|
+| from_x           | x-coordinate of the **origin** location     |
+|                  | (longitude)                                 |
+| from_y           | y-coordinate of the **origin** location     |
+|                  | (latitude)                                  |
+| to_x             | x-coordinate of the **destination**         |
+|                  | location (longitude)                        |
+| to_y             | y-coordinate of the **destination**         |
+|                  | location (latitude)                         |
+| total_route_time | Travel time with public transportation at   |
+|                  | the route                                   |
 
 Your task is to read in the file and create two new colums with `Point` objects representing the origin and destination points. Problems 1-3 will guide you through the necessary steps. Before starting, check the contents of the input file in a text editor and familiarize yourself with the data structure.
 
