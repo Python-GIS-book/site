@@ -711,10 +711,14 @@ ax.text(
 
 _**Figure 12.7**. Hypsometric curve for the Waiho River watershed with a 50-meter bin size. HI = hypsometric integral._
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Automating the process
 
-<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+We have now gone through the process of conditioning a DEM, delineating a watershed, and analyzing the watershed data for the Waiho River watershed. Our next step is to automate this process for a larger set of 38 watersheds on the western side of the Southern Alps. In order to do this, we first need to create a pair of lists: one for the names of the watersheds, and a second for the locations of their outlets. In this case both lists were created by hand from data generated using [Google Maps](https://www.google.com/maps) [^maps].
+<!-- #endregion -->
+
+<!-- #region editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+```
 # List of river names to analyze
 # Truncated for the book format. Full list on https://pythongis.org.
 river_names = [
@@ -726,7 +730,8 @@ river_names = [
     "Robinson River",
     "Blue Grey River",
 ]
-<!-- #endraw -->
+```
+<!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 river_names = [
@@ -775,7 +780,8 @@ river_names = [
 And for each river or creek we have a corresponding outlet location or pour point (`pour_points`).
 <!-- #endregion -->
 
-<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} -->
+<!-- #region editable=true raw_mimetype="" slideshow={"slide_type": ""} -->
+```
 # List of outlets for the rivers to analyze
 # Truncated for the book format. Full list on https://pythongis.org.
 pour_points = [
@@ -787,7 +793,8 @@ pour_points = [
     (172.012893, -42.471985),
     (172.136101, -42.411857),
 ]
-<!-- #endraw -->
+```
+<!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 pour_points = [
@@ -972,6 +979,7 @@ m
 [^alpinefault]: <https://data.gns.cri.nz/af/>
 [^elevations]: <https://en.wikipedia.org/wiki/Hypsometry>
 [^fileio]: <https://mattbartos.com/pysheds/file-io.html>
+[^maps]: <https://www.google.com/maps>
 [^pysheds]: <https://mattbartos.com/pysheds/>
 
 <!-- #endregion -->
