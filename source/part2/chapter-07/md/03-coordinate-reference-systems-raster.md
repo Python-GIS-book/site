@@ -31,13 +31,16 @@ As we have seen from the previous chapters, raster data represents spatial infor
 - The ***transform*** describes how pixel coordinates (row, column) map to real-world coordinates (e.g., meters or degrees). It defines the raster’s scale, rotation, and location.
 - The ***affine*** transformation is a mathematical model commonly used in Python to define the spatial transformation of raster data. It consists of six parameters that control translation (position), scaling (resolution), and rotation/skew. 
 
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_cell"] -->
 In addition to these concepts, a raster dataset may also be georeferenced using *{term}`Ground Control Points` (GCP)* or *{term}`Rational Polynomial Coefficients` (RPCs)*. Ground Control Points are known locations on the Earth's surface with accurately measured coordinates using e.g. GPS device or derived from high-resolution reference image. They are used to improve georeferencing accuracy by linking raster pixel positions to real-world coordinates. GCPs help correct distortions in aerial or satellite images by creating polynomial transformations. Typically a dataset will have multiple GCPs distributed across the image. 
 
 Rational Polynomial Coefficients (RPCs) provide an alternative georeferencing method, often used for high-resolution satellite imagery. Instead of an affine transform, RPCs model the relationship between image coordinates and real-world coordinates using rational polynomial coefficients which are typically provided by satellite image providers. They allow for more complex transformations, especially in cases where elevation variations affect image positioning. 
+<!-- #endregion -->
 
+## Accessing metadata about coordinate reference system
 
-
-## Extracting geoferencing / CRS attributes
+Now as we know some basics about the georeferensing raster data, let's start and investigate how the coordinate reference system information is stored in `xarray` / `rioxarray`. Let's start by reading a raster dataset that we have also used in previous chapters:
 
 ```python
 import xarray as xr
@@ -49,21 +52,54 @@ data = xr.open_dataset(fp, decode_coords="all")
 data
 ```
 
-```python
-data.spatial_ref.attrs
-```
+As was already briefly shown in Chapter 7.2, we can call the `.rio.crs` to access the Coordinate Reference System information attached to our raster dataset:
 
 ```python
 data.rio.crs
 ```
 
 ```python
+type(data.rio.crs)
+```
+
+As we can see, the `.rio.crs` returns some basic information about the coordinate reference system, and in our case, reports that the EPSG code of the dataset is `4326` (i.e. WGS84). When checking the type of the object we can see that the `rio.crs` it is actually a `CRS` class object from `rasterio` library that contains some helpful functionalities related to working with CRS. For instance, if you want to extract the EPSG-code as a number, you can call the `.to_epsg()` method: 
+
+```python
 data.rio.crs.to_epsg()
 ```
+
+In addition, in casse you are interested to investigate the CRS information in Well-Known Text (WKT) format, it is easy to parse this information using the `.to_wkt()` method:
 
 ```python
 data.rio.crs.to_wkt()
 ```
+
+There are also various other useful functionalities that you can explore via the `.crs` accessor, such as:
+
+- `.is_geographic` which returns `True` if the data is in geographic CRS (`False` otherwise)
+- `.is_projected` which returns `True` if the data is in projected CRS, e.g. UTM (`False` otherwise)
+- `.units_factor` which returns information about the units of the coordinates (degree or meter)
+
+Another place to find relevant information about the coordinate reference system is to look at the contents of the `spatial_ref` attribute in the `xarray.Dataset`. We can access various key attributes of the CRS by calling `.spatial_ref.attrs` that prints a Python `dictionary` containing the information:
+
+```python
+data.spatial_ref.attrs
+```
+
+To find out the names of the CRS related attributes, you can access the `.key()` of the dictionary which returns a collection of keys available in the `spatial_ref`:
+
+```python
+data.spatial_ref.attrs.keys()
+```
+
+To access individual items from the spatial reference attributes, we can do following:
+
+```python
+print(data.spatial_ref.attrs["reference_ellipsoid_name"])
+print(data.spatial_ref.attrs["grid_mapping_name"])
+```
+
+## Accessing information about affine transformation
 
 ```python
 # Affine transform (how raster is scaled, rotated, skewed, and/or translated)
@@ -114,17 +150,56 @@ As we can see, the EPSG-code for our dataset is `32737` which belongs to UTM zon
 
 ## Reprojecting raster data
 
-To reproject, the data we can use the `.rio.reproject()` method. 
+Transforming (i.e. reprojecting) a dataset from one CRS to another can be done easily using the `.rio.reproject()` method. The reprojection can be done in various different ways, but one of the most common way to reproject a dataset to given destination CRS is to use the `dst_crs` parameter that accepts the CRS information as EPSG code, OGC WKT string or Proj4 string (see Chapters 5.3 and 6.4 for further details). In the following, we reproject our data from WGS84 into UTM zone 37S by providing the EPSG code as input, as follows:
 
 ```python
-data_utm = data.rio.reproject("EPSG:32737")
-data_utm
+data_utm = data.rio.reproject(dst_crs="EPSG:32737")
 ```
+
+```python
+# Alternatively, you can use the estimated UTM zone directly as input
+data_utm2 = data.rio.reproject(data.rio.estimate_utm_crs())
+```
+
+Now our data has been successfully reprojected into `EPSG:32737` which means that the coordinates originally represented in decimal degrees were transformed into meters. Let's investigate the coordinates of our reprojected `Dataset` and compare those against the original coordinates:
+
+```python
+print("Reprojected X-coordinates:")
+print(data_utm.x.values)
+
+print("\nReprojected Y-coordinates:")
+print(data_utm.y.values)
+```
+
+```python
+print("Original X-coordinates:")
+print(data.x.values)
+
+print("\nOriginal Y-coordinates:")
+print(data.y.values)
+```
+
+As we can see, the coordinates contain now much larger numbers compared to the original x- and y-coordinates represented as decimal degrees. This is expected because the coordinates are based on a false easting and northing in which the easting (X coordinate) represents the distance in meters from the central meridian of the given UTM zone while the northing (Y coordinate) is distance from the equator in meters. To avoid dealing with negative numbers, a false easting of 500,000 meters is added to the central meridian. Thus a point that has an easting of 400000 meters is about 100 km west of the central meridian.
+
+Let's continue and compare the shape of our reprojected raster to the original one:
+
+```python
+print("Shape of the reprojected raster:")
+data_utm.rio.shape
+```
+
+```python
+print("Shape of the original raster:")
+data.rio.shape
+```
+
+Wait. What?! As we can see, the shape of the raster has changed during the CRS transformation. This might seem weird, but it is actually quite expected. When you reproject raster data to a new coordinate reference system, like transforming from geographic WGS84 coordinate reference system to metric UTM zone 37S, a few things happen that can change the shape and size of the output raster. WGS84 is a geographic CRS that uses degrees, while UTM is a projected CRS in meters. When we transform to UTM, the curved surface of the Earth gets flattened, causing slight distortions. The grid cells, originally evenly spaced in degrees, now stretch and warp in the UTM projection, that can change the dimensions. In addition, the bounding box (extent) of the output raster might shift or expand. When projecting, `rioxarray` needs to make sure that the grid is properly aligned, so it adjusts the pixel grid to fit the new projection that aims to prevent data loss. These processes are reasons why `rioxarray` might add or remove rows/columns to preserve proper alignment when reprojecting data.
+
+Let's finally plot our reprojected data to see that the output looks similar to the original data:
 
 ```python
 data_utm["elevation"].plot()
+plt.title("Reprojected elevation data in UTM Zone 37S");
 ```
 
-```python
-
-```
+_**Figure 7.21.** Reprojected raster data in which the coordinates are represented in meters._
