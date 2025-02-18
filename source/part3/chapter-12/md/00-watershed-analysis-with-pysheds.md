@@ -621,7 +621,7 @@ ax.set_ylabel("Number of occurences")
 plt.tight_layout()
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
 _Elevation histogram for the Waiho River watershed with 20 bins._
 <!-- #endregion -->
 
@@ -839,7 +839,11 @@ pour_points = [
 ]
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Batch process the watersheds.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 # Create empty lists for storing outputs
 catchment_numbers = []
 catchment_lons = []
@@ -915,9 +919,13 @@ for i in range(len(pour_points)):
 print("done.")
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Plotting the results
 
-```python
+Create a `pandas` `DataFrame` to store the results produced in the code above.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 data = {
     "Catchment number": catchment_numbers,
     "River name": river_names,
@@ -935,7 +943,11 @@ catchment_df = pd.DataFrame(data)
 catchment_df.head()
 ```
 
-```python
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Create a `geopandas` `GeoDataFrame` from the `DataFrame` by adding x and y coordinates.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
 catchment_df["geometry"] = gpd.points_from_xy(
     x=catchment_df["Outlet longitude (deg.)"], y=catchment_df["Outlet latitude (deg.)"]
 )
@@ -947,13 +959,21 @@ catchment_gdf = gpd.GeoDataFrame(catchment_df, crs="epsg:4326")
 Read in data for the [Alpine Fault](https://data.gns.cri.nz/af/) [^alpinefault] ({cite}`Langridge2016`).
 <!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Read fault data from Geopackage
 bucket_fault_file = "features/new_zealand/alpine_fault.gpkg"
 bucket_fault_fp = bucket_home + bucket_fault_file
 
 fault_df = gpd.read_file(bucket_fault_fp)
 ```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Create plot comprising 3 layers:
+
+1. Alpine Fault
+2. Watersheds
+3. Basin outlet points
+<!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 basin_color_field = "Hypsometric integral"
@@ -971,6 +991,12 @@ catchment_gdf = catchment_gdf.set_geometry("Points")
 m = catchment_gdf.explore(m=m, color="black", marker_kwds={"radius": 2})
 m
 ```
+
+<!-- #raw -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 12.8}. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.}}, center, nofloat}{../img/south-island-watersheds.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
