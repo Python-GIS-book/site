@@ -101,11 +101,14 @@ print(data.spatial_ref.attrs["grid_mapping_name"])
 
 ## Accessing information about affine transformation
 
+As mentioned in the introduction of this chapter, the `transform` of raster data provides information how the raster is scaled, rotated, and located. The `affine` transformation then again converts this information into a mathematical model that is used by the Python tools to conduct coordinate transformations etc. To access this information, we can call the `.rio.transform()` method which returns relevant data about the transform as an `Affine` object:
+
 ```python
-# Affine transform (how raster is scaled, rotated, skewed, and/or translated)
 affine = data.rio.transform()
 affine
 ```
+
+The result here contains six different parameters telling about the scale, rotation and location of the raster data. We can also access these parameters individually. To parse information about the pixel size of our raster dataset, we can access the `.a` and `.e` attributes of the affine:
 
 ```python
 # Pixel size
@@ -113,17 +116,26 @@ print("Pixel size x-direction (a):", affine.a)
 print("Pixel size y-direction (e):", affine.e)
 ```
 
+As we can see, the pixel size is approximately 0.00028 Decimal degrees to both directions. The scale in y-direction is often reported with negative sign which is normal (as raster images are often stored top-down). 
+
+To find out whether our data is rotated or skewed to specific direction, we can access the attributes `.b` and `.d`:
+
 ```python
 # Rotation/skew
 print("Rotation/skew x-direction (b):", affine.b)
 print("Rotation/skew y-direction (d):", affine.d)
 ```
 
+These return the row and column rotation or skew, which is usually 0 for rasters facing north-up. Finally, we can find the location of our raster by accessing the attributes `.c` and `.f`:
+
 ```python
 # Top-left corner's real-world coordinates
 print("X-coordinate of the top-left pixel (c):", affine.c)
 print("Y-coordinate of the top-left pixel (f):", affine.f)
 ```
+
+The `.c` informs about the location of the X-coordinate of the top-left corner of the raster (a given pixel on that location), while `.f` informs about the Y-coordinate of the same pixel. This is ultimately the location of the pixel that is present at index `[0, 0]` of the 2D array.
+
 
 ## Estimating the UTM zone of a raster
 
