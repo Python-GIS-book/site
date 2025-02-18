@@ -992,7 +992,7 @@ m = catchment_gdf.explore(m=m, color="black", marker_kwds={"radius": 2})
 m
 ```
 
-<!-- #raw -->
+<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 12.8}. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.}}, center, nofloat}{../img/south-island-watersheds.png}
 { \hspace*{\fill} \\}
