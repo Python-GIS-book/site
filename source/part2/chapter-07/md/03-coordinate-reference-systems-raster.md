@@ -89,9 +89,41 @@ print("X-coordinate of the top-left pixel (c):", affine.c)
 print("Y-coordinate of the top-left pixel (f):", affine.f)
 ```
 
+## Estimating the UTM zone of a raster
+
+As we saw previously, our `Dataset` currently has a `WGS84` coordinate reference system (EPSG:4326) in which the coordinates are represented as decimal degrees. For various reasons, you might want to reproject your data into a metric CRS, such as national coordinate reference frames (e.g. EUREF-FIN in Finland) or Universal Transverse Mercator (UTM) coordinate system which divides the Earth into 60 zones and projects each one to a plane (Figure 7.20). Most zones in UTM span 6 degrees of longitude, and each has a designated central meridian. UTM zones are widely used in (geographically) large countries, such as in United States and Canada to represent geographic data in a metric coordinate reference system. 
+
+![_**Figure 7.20.** Universal Transverse Mercator (UTM) zones on an equirectangular world map with irregular zones labeled in red. Image source: cmglee, STyx, Wikialine and Goran tek-en (2019) via Wikimedia Commons, licensed under Creative Commons BY-SA 4.0._](../img/UTM_zones.png)
+
+_**Figure 7.20.** Universal Transverse Mercator (UTM) zones on an equirectangular world map with irregular zones labeled in red. Image source: cmglee, STyx, Wikialine and Goran tek-en (2019) via Wikimedia Commons, licensed under Creative Commons BY-SA 4.0._
+
+
+It is relatively common to use UTM coordinate reference system especially when working with raster data that covers large areas on a sub-national level. However, many datasets are typically distributed in WGS84, which means that you need to know the UTM zone for a given area that covers the raster dataset before you can reproject the data into metric system. Luckily, `rioxarray` includes a handy method called `.rio.estimate_utm_crs()` that makes it possible to make a sophisticated guess of the UTM-zone that the data falls under. In the following, we will find out the UTM-zone for our raster dataset located in Tanzania:
+
+```python
+utm_crs = data.rio.estimate_utm_crs()
+utm_crs
+```
+
+```python
+utm_crs.to_wkt()
+```
+
+As we can see, the EPSG-code for our dataset is `32737` which belongs to UTM zone 37S which is correctly identified. Notice that if your data covers large areas that span across multiple UTM zones, it might not be possible to identify the UTM zone for such data. 
+
+
 ## Reprojecting raster data
 
+To reproject, the data we can use the `.rio.reproject()` method. 
 
+```python
+data_utm = data.rio.reproject("EPSG:32737")
+data_utm
+```
+
+```python
+data_utm["elevation"].plot()
+```
 
 ```python
 
