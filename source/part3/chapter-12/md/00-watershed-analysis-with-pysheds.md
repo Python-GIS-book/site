@@ -780,7 +780,7 @@ river_names = [
 And for each river or creek we have a corresponding outlet location or pour point (`pour_points`).
 <!-- #endregion -->
 
-<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+```python editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"]
 # List of outlets for the rivers to analyze
 # Truncated for the book format. Full list on https://pythongis.org.
 pour_points = [
@@ -792,7 +792,7 @@ pour_points = [
     (172.012893, -42.471985),
     (172.136101, -42.411857),
 ]
-<!-- #endraw -->
+```
 
 ```python editable=true slideshow={"slide_type": ""}
 pour_points = [
