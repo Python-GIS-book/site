@@ -97,7 +97,16 @@ Georeferencing
 
 GeoSeries
   GeoSeries is used to store geospatial data, where each element is a geometric object like a point, line, or polygon. It extends the pandas {term}`Series` by supporting spatial operations, such as geometric transformations and spatial queries. A GeoSeries is often used to represent the geometry column in a {term}`GeoDataFrame`, making it a fundamental building block for geospatial analysis in Python.
-  
+
+Hypsometric curve
+  The distribution of area above a given elevation in an region analyzed using hypsometric analysis. This is effectively a cumulative distribution of area as a function of elevation. The areas and elevations in hypsometric curves are frequently normalized to allow comparison between regions and for calculating a {term}`hypsometric integral`.
+
+Hypsometric integral
+  The area under a {term}`hypsometric curve`. This value can be used as a metric of the volume of rock and/or soil that has been removed from a given region such as a watershed.
+
+Hypsometry
+  The measurement of the distribution of elevations of Earth's (or other planet's) surface elevations within a specified area. Also known as hypsometric analysis.
+
 IDE
   See {term}`Integrated Development Environment`.
 

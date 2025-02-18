@@ -21,15 +21,19 @@ In this case study we will cover how to extract watersheds and perform some exam
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Introduction
 
-In this case study we will explore drainage basin hypsometry. To get started, we'll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you're already familiar with delineating watersheds and hypsometry, feel free to skip ahead to the next section.
+In this case study we will analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.
+
+![_**Figure 12.1**. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)._](../img/cook-river-watershed.png)
+
+_**Figure 12.1**. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)._
+
+To get started, we'll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you're already familiar with delineating watersheds and things like basin hypsometry, feel free to skip ahead to Section 10.1.2.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-### What is basin hypsometry?
+### A brief introduction to watershed analysis
 
-A logical place to start is with defining basin hypsometry, why it is of interest, and what we need to be able to perform hypsometric analysis of a drainage basin. *{term}`Hypsometry <hypsometry>`* refers to the measurement of the distribution of elevations of Earth's (or other planet's) surface elevations within a given area. In essence, it is a means to explore how much land area is within different elevation ranges, similar to calculating a histogram of elevations. On Earth, for instance, we can observe that the majority of land area is at elevations within 800 meters of sea level, while little land area is at elevations greater than three kilometers. Drainage basin hypsometry refers to the measurement of the distribution of elevations within a river drainage basin (or watershed). Drainage basins are the land areas upstream of some point where a river flows out of its valley (the outlet). These regions are the hypothetical areas where any water flowing along Earth's surface would flow into the river being analyzed.
-
-So, why do we care about drainage basin hypsometry? There are a few reasons basin hypsometry can be of interest, with one of them being the fact that the distribution of elevations in a drainage basin can tell us something about the geological processes that have shaped the land surface in the drainage basin. Rivers and glaciers carve their valleys into the underlying soil/rock in drainage basins, eroding the landscape and altering the distribution of elevations within the basin. In a classic article, Strahler (1952) presented the essence of basin hypsometry, noting that ...
+To be added...
 <!-- #endregion -->
 
 ## Getting started
@@ -427,7 +431,7 @@ x_snap, y_snap = grid.snap_to_mask(acc > 1000, outlet)
 catch = grid.catchment(x=x_snap, y=y_snap, fdir=fdir, xytype="coordinate")
 ```
 
-Now that we have extracted the watershed we can visualize and inspect the results. For the sake of demonstration we will look at four subplots of watershed data produced from the cell below: (1) the watershed extent, (2) the watershed elevations, (3) the watershed flow directions, and (4) the watershed flow accumulation. These are plotted using the `matplotlib.pyplot` function `.imshow()`, and otherwise use plotting syntax that should be familiar from Chapter 4.
+Now that we have extracted the watershed we can visualize and inspect the results. For the sake of demonstration we will look at four subplots of watershed data (Figure 12.2) produced from the cell below: (1) the watershed extent, (2) the watershed elevations, (3) the watershed flow directions, and (4) the watershed flow accumulation. These are plotted using the `matplotlib.pyplot` function `.imshow()`, and otherwise use plotting syntax that should be familiar from Chapter 4.
 
 ```python editable=true slideshow={"slide_type": ""}
 # Clip and set view extents
@@ -474,7 +478,7 @@ plt.tight_layout()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 12.1**. Waiho River watershed extent, elevations, flow directions, and flow accumulation._
+_**Figure 12.2**. Waiho River watershed extent, elevations, flow directions, and flow accumulation._
 <!-- #endregion -->
 
 ### Analyzing the watershed data
@@ -509,7 +513,7 @@ plt.title("Distance to outlet", size=14)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 12.2**. Cell distances to defined outlet for the Waiho River watershed._
+_**Figure 12.3**. Cell distances to defined outlet for the Waiho River watershed._
 
 It is also possible to extract the network of channels in the watershed using the `pysheds` function `.extract_river_network()`. This will identify all regions of the flow accumulation grid where the accumulation exceeds a given threshold (parameter `acc`). In our case, all regions with an accumulation of over 100 cells will be identified. In addition, the channel segments are plotted using different colors to indicate when there are channel segments than join (channel junctions).
 <!-- #endregion -->
@@ -537,7 +541,7 @@ plt.title("Channel network (>100 accumulation)", size=14);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 12.3**. Channel segments for the Waiho River watershed._
+_**Figure 12.4**. Channel segments for the Waiho River watershed._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -582,6 +586,14 @@ _Visualization of the Waiho River watershed elevations in `xarray`._
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Calculating basin hypsometry
+
+Our next major step is to calculate a hypsometric integral for the basin, which can provide an estimate of the volume of material in the watershed that has been eroded by rivers and glaciers. *{term}`Hypsometry <hypsometry>`* (or hypsometric analysis) refers to the measurement of the distribution of elevations of Earth's (or other planet's) surface elevations within a given area. In essence, it is a means to explore how much land area is within different elevation ranges, similar to calculating a histogram of elevations. On Earth, for instance, we can observe that [the majority of land area is at elevations within 800 meters of sea level, while little land area is at elevations greater than three kilometers](https://en.wikipedia.org/wiki/Hypsometry) [^elevations]. Hypsometric analysis of watersheds refers to the measurement of the distribution of elevations within a watershed (or drainage basin). A common product of hypsometric analysis of a watershed is a *{term}`hypsometric curve`*, which shows the distribution of watershed area above a given elevation in the watershed (i.e., a cumulative distribution). The elevation range and areas of hypsometric curves are often normalized to allow comparison between various watersheds (e.g., Figure 12.5).
+
+![_**Figure 12.5**. Example normalized hypsometric curve for a watershed._](../img/hypsometric-curve.png)
+
+_**Figure 12.5**. Example normalized hypsometric curve for a watershed._
+
+So, why do we care about the hypsometry of a watershed? There are a few reasons. One is the fact that the distribution of elevations in a drainage basin can tell us something about the geological processes that have shaped the land surface in the drainage basin. Rivers and glaciers carve their valleys into the underlying soil/rock at the surface in watersheds, eroding the landscape and altering the distribution of elevations within the basin. However, valley glaciers tend to form broad, deep valleys and remove more mass from a watershed than rivers would, which is something that would often be reflected in the hypsometry of the watershed. In a classic article, {cite}`Strahler1952` presented the concept of the *{term}`hypsometric integral`*, which is a single value that can be calculated by integrating the normalized hypsometric curve. Glaciated watersheds often experience more erosion of the rock within the watershed than fluvial watersheds, and the decreased volume of rock in the catchment is reflected in watershed areas concentrated at lower elevations and a lower hypsometric integral. We will explore hypsometry and hypsometric integrals in greater detail below. 
 
 Calculating the basin hypsometry involves determining the frequency distribution of elevation within a given watershed. In other words, we want to know how frequent (in terms of the number of DEM cells) elevations occur within given elevation ranges, such as 600–800 m above sea level. The simplest way to do this us by calculating a histogram of elevations for the watershed, which can be done using the `numpy` function `numpy.histogram()`. To perform the calculation, we need both the set of elevations for the entire watershed and the number of bins to use when calculating the elevation ranges. If we use 20 bins, for example, we could calculate the elevation histogram as follows. Note: we are excluding the NoData values explicitly from the dataset using `~np.isnan(catch_xr.values)` to get only the values are are not NoData.
 <!-- #endregion -->
@@ -648,7 +660,7 @@ plt.tight_layout()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 12.4**. Elevation histogram for the Waiho River watershed with a 50-meter bin size._
+_**Figure 12.6**. Elevation histogram for the Waiho River watershed with a 50-meter bin size._
 
 The hypsometry of the watershed relies on finding the proportion of elevations above a given point from the lowest elevation to the highest in the basin. We can use the histogram data for this but we need to do a few things. First, a cumulative sum of the histogram elevation distribution should be calculated. In addition, the cumulative distribution should be reversed such that the elevation fraction is 1.0 (or 100%) above the minimum elevation and 0.0 (or 0%) above the maximum. Finally, the elevation distribution and ranges should be normalized to one, as this will make it easier to compare distributions for different watersheds.
 <!-- #endregion -->
@@ -663,13 +675,7 @@ norm_counts = 1 - norm_counts
 # Normalize elevation ranges
 norm_bins = (bins - bins.min()) / (bins.max() - bins.min())
 ```
-Describe hypsometric curve here first???
-
-At this point we can use the normalized elevation distribution and ranges to calculate the hypsometric integral for the watershed. The hypsometric integral ({cite}`Strahler1952`) provides a measure of how much of the volume of material within a given watershed has been removed by erosion
-
-
-
-
+At this point we can use the normalized elevation distribution and ranges to calculate the hypsometric integral for the watershed and create a plot of the hypsometric curve. Because the elevations and areas have been normalized already, we can simply sum the product of the occurrences of each area multiplied by the width of the normalized bins.
 
 ```python
 # Calculate hypsometric integral
@@ -677,6 +683,8 @@ bin_width = norm_bins[1] - norm_bins[0]
 hyps_integral = sum(norm_counts * bin_width)
 print(f"Hypsometric integral: {abs(hyps_integral):.3f}")
 ```
+
+What we can see here is that because the hypsometric integral value is lower than 0.5, a bit more than half of the volume of rock in the watershed is missing (due to erosion, for example). To help visualize this result we can plot the hypsometric curve along with a linear reference line for a hypsometric integral of 0.5, as shown below.
 
 ```python
 fig, ax = plt.subplots(1, 1)
@@ -689,7 +697,7 @@ ax.plot(
     [bins[:-1].max(), bins[:-1].min()],
     "--",
     color="gray",
-    label="Linear reference",
+    label="Linear reference (HI = 0.5)",
 )
 ax.legend()
 ax.set_xlim(0.0, 1.0)
@@ -701,9 +709,16 @@ ax.text(
 );
 ```
 
+_**Figure 12.7**. Hypsometric curve for the Waiho River watershed with a 50-meter bin size. HI = hypsometric integral._
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Automating the process
 
+We have now gone through the process of conditioning a DEM, delineating a watershed, and analyzing the watershed data for the Waiho River watershed. Our next step is to automate this process for a larger set of 38 watersheds on the western side of the Southern Alps. In order to do this, we first need to create a pair of lists: one for the names of the watersheds, and a second for the locations of their outlets. In this case both lists were created by hand from data generated using [Google Maps](https://www.google.com/maps) [^maps].
+<!-- #endregion -->
+
 <!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+\begin{verbatim}
 # List of river names to analyze
 # Truncated for the book format. Full list on https://pythongis.org.
 river_names = [
@@ -715,6 +730,7 @@ river_names = [
     "Robinson River",
     "Blue Grey River",
 ]
+\end{verbatim}
 <!-- #endraw -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
@@ -764,7 +780,8 @@ river_names = [
 And for each river or creek we have a corresponding outlet location or pour point (`pour_points`).
 <!-- #endregion -->
 
-<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+\begin{verbatim}
 # List of outlets for the rivers to analyze
 # Truncated for the book format. Full list on https://pythongis.org.
 pour_points = [
@@ -776,9 +793,10 @@ pour_points = [
     (172.012893, -42.471985),
     (172.136101, -42.411857),
 ]
+\end{verbatim}
 <!-- #endraw -->
 
-```python editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 pour_points = [
     (168.723432, -44.060960),
     (168.838838, -44.023259),
@@ -959,7 +977,9 @@ m
 
 [^alos]: <https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm>
 [^alpinefault]: <https://data.gns.cri.nz/af/>
+[^elevations]: <https://en.wikipedia.org/wiki/Hypsometry>
 [^fileio]: <https://mattbartos.com/pysheds/file-io.html>
+[^maps]: <https://www.google.com/maps>
 [^pysheds]: <https://mattbartos.com/pysheds/>
 
 <!-- #endregion -->
