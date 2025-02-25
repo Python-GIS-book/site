@@ -74,7 +74,7 @@ aoi = ox.geocoder.geocode_to_gdf(place)
 aoi.explore()
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 9.1}. Interactive map displaying the area of interest with a background map.}}, center, nofloat}{../img/osmnx-aoi-example.png}
 { \hspace*{\fill} \\}
@@ -98,7 +98,7 @@ Let's have a closer look a the street nework using an `osmnx` function that plot
 
 ```python
 # Plot the streets
-fig, ax = ox.plot.plot_graph(graph, figsize=(6,6))
+fig, ax = ox.plot.plot_graph(graph, figsize=(6, 6))
 ```
 
 _**Figure 9.2**. Graph edges and nodes._
@@ -118,7 +118,7 @@ Downloading building footprints, points of interests such as services and other 
 
 ```python
 place = "Kamppi, Helsinki, Finland"
-tags = { "building" : True}
+tags = {"building": True}
 
 buildings = ox.features.features_from_place(place, tags)
 ```
@@ -132,7 +132,7 @@ len(buildings.columns)
 You can see names of all available columns by running `list(buildings.columns)`. Let's check the contents of some of the available columns:
 
 ```python
-buildings[['building', 'name', 'addr:city', 'geometry']].head()
+buildings[["building", "name", "addr:city", "geometry"]].head()
 ```
 
 
@@ -141,7 +141,7 @@ From here we can tell that some, but not all of the buildings contain more speci
 Let's plot the building footprints to get an overview of the data. While plotting, we can color the features according to the building tag values to get an overview of where different types of buildings are located. 
 
 ```python
-buildings.plot(column="building", figsize=(8.2,8), cmap="tab20c", legend=True)
+buildings.plot(column="building", figsize=(8.2, 8), cmap="tab20c", legend=True)
 ```
 
 _**Figure 9.3**. OSM buildings visualized by building tag values._
@@ -150,14 +150,14 @@ _**Figure 9.3**. OSM buildings visualized by building tag values._
 Let's also fetch points of interests from our area of interest using the amenity tag:
 
 ```python
-tags = {"amenity" : True}
+tags = {"amenity": True}
 amenities = ox.features.features_from_place(place, tags)
 ```
 
 Again, let's only plot a couple of available columns to check the contents of the data. You can see all column names  by running `list(amenities.columns)`.
 
 ```python
-amenities[['amenity', 'name', 'opening_hours', 'geometry']].head()
+amenities[["amenity", "name", "opening_hours", "geometry"]].head()
 ```
 
 Here, we received all amenities in the area of interest ranging from restaurants, cafes and so on. The type of amenity (i.e., the value of the OSM tag) is indicated in the `amenity` column. Again, some, but not all features have additional information such as opening hours available. The downloaded data contains more than 700 individual points of interests in the data:
@@ -184,7 +184,7 @@ amenities["amenity"].nunique()
 Let's limit our query to contain only restaurants and cafes in our area of interest. We can do this by specifying one or several tag values in the dictionary.
 
 ```python
-tags = {"amenity" : ["restaurant", "cafe"]}
+tags = {"amenity": ["restaurant", "cafe"]}
 amenities = ox.features.features_from_place(place, tags)
 ```
 
@@ -198,7 +198,7 @@ One common way of tagging urban parks is `leisure=park`. If wanting to capture a
 
 ```python
 # List key-value pairs for tags
-tags = {"leisure" : "park", "landuse" : "grass"}
+tags = {"leisure": "park", "landuse": "grass"}
 ```
 
 ```python
@@ -208,7 +208,7 @@ parks = ox.features.features_from_place(place, tags)
 
 ```python
 print("Retrieved", len(parks), "objects")
-parks[['leisure', 'landuse', 'name', 'geometry']].head()
+parks[["leisure", "landuse", "name", "geometry"]].head()
 ```
 
 The first five rows of data contain different parks, which all have a name. Let's quicly plot the data to see the geometry. By adding transparency to the map with the `alpha` parameter, we can observe where some of the grass and park polygon features overlap.
@@ -265,7 +265,7 @@ Let's try out querying data based on a pre-defined bounding box around the Centa
 
 ```python
 bounds = (24.9351773, 60.1641551, 24.9534055, 60.1791068)
-buildings = ox.features.features_from_bbox(bounds, {'building' : True})
+buildings = ox.features.features_from_bbox(bounds, {"building": True})
 buildings.plot()
 ```
 
@@ -276,8 +276,8 @@ Here is another example of querying data within a distance treshold from a geoco
 
 ```python
 address = "Central railway station, Helsinki, Finland"
-tags = {'building' : True}
-distance = 500 
+tags = {"building": True}
+distance = 500
 buildings = ox.features.features_from_address(address, tags, distance)
 buildings.plot()
 ```
@@ -304,7 +304,7 @@ Note that the larger the area you choose, the longer it takes to retrieve data f
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
 # Solution
 
-# Example solution 
+# Example solution
 place = "Gamla stan, Stockholm, Sweden"
 aoi = ox.geocoder.geocode_to_gdf(place)
 
@@ -313,9 +313,13 @@ graph = ox.graph.graph_from_place(place, network_type="walk")
 edges = ox.convert.graph_to_gdfs(graph, nodes=False, edges=True)
 
 # Other map features
-buildings = ox.features.features_from_place(place, tags={"building" : True})
-amenities = ox.features.features_from_place(place, tags = {"amenity" : ["restaurant", "cafe"]})
-parks = ox.features.features_from_place(place, tags = {"leisure" : "park", "landuse" : "grass"})
+buildings = ox.features.features_from_place(place, tags={"building": True})
+amenities = ox.features.features_from_place(
+    place, tags={"amenity": ["restaurant", "cafe"]}
+)
+parks = ox.features.features_from_place(
+    place, tags={"leisure": "park", "landuse": "grass"}
+)
 
 # Plot the result
 fig, ax = plt.subplots(figsize=(8.5, 8))

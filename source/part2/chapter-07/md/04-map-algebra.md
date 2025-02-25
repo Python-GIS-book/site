@@ -75,7 +75,7 @@ To be added.
 To be added. 
 
 ```python
-a = slice(0,2)
+a = slice(0, 2)
 ```
 
 ```python

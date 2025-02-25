@@ -243,7 +243,7 @@ We can extract information about the memory footprint of our `DataArray` or `Dat
 
 ```python
 # Memory consumption of a single DataArray
-bytes_to_MB = 1000*1000
+bytes_to_MB = 1000 * 1000
 footprint_MB = data["elevation"].nbytes / bytes_to_MB
 print(f"DaraArray memory consumption: {footprint_MB:.2f} MB.")
 ```
@@ -286,9 +286,21 @@ data16["elevation"].max().item()
 As we can see from the above the maximum elevation was now changed from the decimal number (2943.0) into integer (2943). Also the memory consumption improved significantly as the size of our data was cut into half when we converted the data into 16-bit unsigned integers. Thus, by choosing the data type in a smart way, you can significantly lower the memory consumption of the data on your computer which might make a big difference in terms of performance of your analysis. This is especially true in case you are analyzing very large raster datasets. In the following, we can see how changing the data type influences on the memory footprint of the data. Now we use `float` data types in the conversions so that we don't receive the "invalid value" warning as before:
 
 ```python
-print("Memory consumption 16-bit:", data["elevation"].astype("float16").nbytes / bytes_to_MB, "MB.")
-print("Memory consumption 32-bit:", data["elevation"].astype("float32").nbytes / bytes_to_MB, "MB.")
-print("Memory consumption 64-bit:", data["elevation"].astype("float64").nbytes / bytes_to_MB, "MB.")
+print(
+    "Memory consumption 16-bit:",
+    data["elevation"].astype("float16").nbytes / bytes_to_MB,
+    "MB.",
+)
+print(
+    "Memory consumption 32-bit:",
+    data["elevation"].astype("float32").nbytes / bytes_to_MB,
+    "MB.",
+)
+print(
+    "Memory consumption 64-bit:",
+    data["elevation"].astype("float64").nbytes / bytes_to_MB,
+    "MB.",
+)
 ```
 
 As we can see, the memory consumption of the same exact data varies significantly depending on the bit-depth that we choose to use for our data. It is important to be careful when doing bit-dept conversions that you do not sabotage your data with the data conversion. For example, in our data the value range is between 568-2943. Thus, we need to use at least 16-bits to store these values. However, nothing stops you from changing the data type into 8-bit integers which will significantly alter our data:
@@ -404,7 +416,7 @@ To write the data into `Zarr` file format, you can use the `.to_zarr()` method. 
 
 ```python
 zarr_fp = "data/temp/kilimanjaro_dataset.zarr"
-data.to_zarr(zarr_fp, mode='w')
+data.to_zarr(zarr_fp, mode="w")
 ```
 
 To read the `Zarr` file, you can again use the `xr.open_dataset()`. Here, we specify also the `engine` to tell the `xarray` that we want specifically to read `Zarr` file format and similarly as with `netCDF` we use `decode_coords="all" to ensure that the coordinate reference system metadata is correctly read from the data:
@@ -422,10 +434,10 @@ zarr_fp = "data/temp/kilimanjaro_dataset_chunked.zarr"
 # Provide the size of a single chunk per variable
 encoding = {
     "elevation": {"chunks": (256, 256)},
-    "relative_height": {"chunks": (256, 256)}
+    "relative_height": {"chunks": (256, 256)},
 }
 
-data.to_zarr(zarr_fp, mode='w', encoding=encoding)
+data.to_zarr(zarr_fp, mode="w", encoding=encoding)
 ```
 
 With the `encoding` we basically told that `.to_zarr()` method that the values in `elevation` and `relative_height` variables should be sliced into chunks where each chunk has 256 x 256 items of data (i.e. raster cells).

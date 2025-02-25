@@ -67,7 +67,7 @@ selected_cell["relative_height"].item()
 Quite often when working with raster data, you are interested to select a range of values from a given raster (called slicing). To slice the data based on index ranges, we can use the same `.isel()` method and provide the information about the index range using the Python's built-in `slice()` function that can be used to specify a range of indices to be included in the selection by specifying `start` and `end` index positions. In the following, we will select the first 1000 cells in the x and y dimensions: 
 
 ```python
-selection = data.isel(x=slice(0, 1000), y=slice(0,1000))
+selection = data.isel(x=slice(0, 1000), y=slice(0, 1000))
 selection
 ```
 
@@ -160,7 +160,7 @@ clipping_gdf = gpd.GeoDataFrame(geometry=[bbox_geometry], crs="epsg:4326")
 clipping_gdf.explore()
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 7.11}. Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.}}, center, nofloat}{../img/figure_7-11.png}
 { \hspace*{\fill} \\}
@@ -238,11 +238,12 @@ As we can see from the Figure 7.10, there is one large lake and multiple smaller
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-masked_data = data.rio.clip(geometries=lakes.geometry, 
-                            drop=False,
-                            invert=True,
-                            crs=data.elevation.rio.crs, 
-                           )
+masked_data = data.rio.clip(
+    geometries=lakes.geometry,
+    drop=False,
+    invert=True,
+    crs=data.elevation.rio.crs,
+)
 ```
 
 ```python
@@ -293,7 +294,10 @@ urls[0]
 Now we have a list of URL paths to the files that we want to read into `xarray`. To do this, we create a nested loop where we iterate over the `urls` list one `url` at a time and read the `GeoTiff` file using the `.open_dataset()` function as we introduced in Chapter 7.2:
 
 ```python
-datasets = [xr.open_dataset(url, engine="rasterio", masked=True, band_as_variable=True) for url in urls]
+datasets = [
+    xr.open_dataset(url, engine="rasterio", masked=True, band_as_variable=True)
+    for url in urls
+]
 ```
 
 Now we have stored all the `xarray.Dataset` layers inside the list `datasets`. We can investigate the contents of the first `Dataset` in our list as follows:
@@ -459,11 +463,12 @@ As a result, two duplicates were dropped from the `GeoDataFrame`. Now we are rea
 ```python
 from geocube.api.core import make_geocube
 
-lakes_ds = make_geocube(vector_data=lakes,
-                        measurements=["id", "area_km2"],
-                        resolution=(-0.01, 0.01),
-                        output_crs="epsg:4326"
-                       )
+lakes_ds = make_geocube(
+    vector_data=lakes,
+    measurements=["id", "area_km2"],
+    resolution=(-0.01, 0.01),
+    output_crs="epsg:4326",
+)
 lakes_ds
 ```
 
@@ -481,9 +486,7 @@ Quite often when rasterizing vector data, you actually want to fit the output to
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-aligned_ds = make_geocube(vector_data=lakes,
-                          measurements=["id", "area_km2"],
-                          like=data)
+aligned_ds = make_geocube(vector_data=lakes, measurements=["id", "area_km2"], like=data)
 aligned_ds
 ```
 
@@ -600,7 +603,7 @@ print("Shape - Upscaled:", data_upscaled.rio.shape)
 As expected, the new `data_upscaled` raster contains twice as many pixels compared to the input which is exactly what we were after. In a similar manner, you can upscale the data into different resolutions by providing a given target `shape` to your new raster layer. Notice that there is no "correct” way to do upscaling as all resampling methods involve interpolation that introduces uncertainty to the results. Let's finally confirm that our upscaled data looks correct also on a map:
 
 ```python
-data_upscaled["elevation"].plot();
+data_upscaled["elevation"].plot()
 plt.title("Upscaled elevation data");
 ```
 
