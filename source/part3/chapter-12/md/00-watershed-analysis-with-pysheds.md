@@ -21,13 +21,13 @@ In this case study we will cover how to extract watersheds and perform some exam
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Introduction
 
-In this case study we will analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.
+The goal of this case study is to analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.
 
 ![_**Figure 12.1**. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)._](../img/cook-river-watershed.png)
 
 _**Figure 12.1**. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)._
 
-To get started, we'll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you're already familiar with delineating watersheds and things like basin hypsometry, feel free to skip ahead to Section 10.1.2.
+To get started, we'll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you're already familiar with delineating watersheds and things like basin hypsometry, feel free to skip ahead to Section 10.1.2 Getting started.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -52,6 +52,7 @@ import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from pysheds.grid import Grid
 from pysheds.view import Raster, ViewFinder
 import rioxarray as rxr
@@ -61,7 +62,6 @@ import xarray as xr
 
 
 ```python
-# plt.style.use('seaborn-v0_8-whitegrid')
 plt.style.use("bmh")
 ```
 
@@ -160,6 +160,11 @@ The processing of the data with `pysheds` generally goes smoothly, but it is pos
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 checkpoint = True
+if checkpoint:
+    # Create checkpoint_data directory if it does not exist
+    wd = Path.cwd()
+    newdir = wd / "checkpoint_data"
+    newdir.mkdir(parents=True, exist_ok=True)
 ```
 
 The first step in the process is to detect any pits in the DEM, which can be done using the `.detect_pits()` `Grid` method.
@@ -1019,7 +1024,7 @@ m = catchment_gdf.explore(m=m, color="black", marker_kwds={"radius": 2})
 m
 ```
 
-<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 12.8}. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.}}, center, nofloat}{../img/south-island-watersheds.png}
 { \hspace*{\fill} \\}
@@ -1040,9 +1045,7 @@ We can confirm this trend by looking at a plot of the hypsometric integral as a 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
-catchment_df.plot(
-    x="Outlet latitude (deg.)", y="Hypsometric integral", kind="scatter", color="black"
-);
+catchment_df.plot(x="Outlet latitude (deg.)", y="Hypsometric integral", kind="scatter", color="black");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
@@ -1060,9 +1063,7 @@ Again, if we look at this in a scatter plot we can clearly see the relationship 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
-catchment_df.plot(
-    x="Area (sq. km)", y="Hypsometric integral", kind="scatter", color="black"
-);
+catchment_df.plot(x="Area (sq. km)", y="Hypsometric integral", kind="scatter", color="black");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
@@ -1078,9 +1079,7 @@ If we look at the scatter plot for this case, we can see there is a weak negativ
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
-catchment_df.plot(
-    x="Relief (m)", y="Hypsometric integral", kind="scatter", color="black"
-);
+catchment_df.plot(x="Relief (m)", y="Hypsometric integral", kind="scatter", color="black");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
