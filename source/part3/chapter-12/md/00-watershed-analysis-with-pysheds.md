@@ -1024,7 +1024,7 @@ m = catchment_gdf.explore(m=m, color="black", marker_kwds={"radius": 2})
 m
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 12.8}. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.}}, center, nofloat}{../img/south-island-watersheds.png}
 { \hspace*{\fill} \\}
@@ -1045,7 +1045,9 @@ We can confirm this trend by looking at a plot of the hypsometric integral as a 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
-catchment_df.plot(x="Outlet latitude (deg.)", y="Hypsometric integral", kind="scatter", color="black");
+catchment_df.plot(
+    x="Outlet latitude (deg.)", y="Hypsometric integral", kind="scatter", color="black"
+);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
@@ -1063,7 +1065,9 @@ Again, if we look at this in a scatter plot we can clearly see the relationship 
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
-catchment_df.plot(x="Area (sq. km)", y="Hypsometric integral", kind="scatter", color="black");
+catchment_df.plot(
+    x="Area (sq. km)", y="Hypsometric integral", kind="scatter", color="black"
+);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
@@ -1079,7 +1083,9 @@ If we look at the scatter plot for this case, we can see there is a weak negativ
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
-catchment_df.plot(x="Relief (m)", y="Hypsometric integral", kind="scatter", color="black");
+catchment_df.plot(
+    x="Relief (m)", y="Hypsometric integral", kind="scatter", color="black"
+);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
