@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,17 +431,27 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
 </div></div>
       
     </div>
@@ -448,6 +467,24 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-1-geometric-objects">Exercise 6.1 - Geometric Objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-2-from-text-file-to-geodataframe">Exercise 6.2 - From text file to GeoDataFrame</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-read-the-file">Problem 1: Read the file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-create-point-geometries">Problem 2: Create Point geometries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-create-linestring-geometries">Problem 3: Create LineString geometries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-convert-dataframe-into-a-geodataframe">Problem 4: Convert DataFrame into a GeoDataFrame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-re-project-the-data">Problem 5: Re-project the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-6-calculate-average-trip-distance">Problem 6: Calculate average trip distance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-3-buffer-and-spatial-join">Exercise 6.3 - Buffer and spatial join</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -459,7 +496,142 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercises">
 <h1>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h1>
-<p><strong>Under construction</strong></p>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="exercise-6-1-geometric-objects">
+<h2>Exercise 6.1 - Geometric Objects<a class="headerlink" href="#exercise-6-1-geometric-objects" title="Link to this heading">#</a></h2>
+<p>Refresh your memory about <code class="docutils literal notranslate"><span class="pre">shapely</span></code> objects and</p>
+<ol class="arabic simple">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">LineString</span></code> that goes trough at least three points. What is the length of your line?</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">shapely</span></code> <code class="docutils literal notranslate"><span class="pre">Point</span></code> and create a buffer around it. What is the area of the buffer?</p></li>
+</ol>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="exercise-6-2-from-text-file-to-geodataframe">
+<h2>Exercise 6.2 - From text file to GeoDataFrame<a class="headerlink" href="#exercise-6-2-from-text-file-to-geodataframe" title="Link to this heading">#</a></h2>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>The goal of this exercise is to create geometries based on text file input in Python. You will combine basic knowledge of the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> module (see Part I) with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> methods introduced in this chapter.</p>
+<p>Input data for this exercise contains information about the public transport travel times to the main railway station in Helsinki, Finland. The input file <a class="reference internal" href="#data/travelTimes_2015_Helsinki.txt"><span class="xref myst">travelTimes_2015_Helsinki.txt</span></a> contains travel times information from multiple origin locations to the railway station.</p>
+<p>This file is an extract of the Helsinki Region Travel Time Matrix dataset - an open data set that contains multimodal travel time information across the Helsinki Region in Finland. In this exercise, we are interested in the columns listed in Table 6.1.</p>
+<p>: <em><strong>Table 6.1</strong>. Column names and descriptions for the travel time data.</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Column</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>from_x</p></td>
+<td class="text-left"><p>x-coordinate of the <strong>origin</strong> location</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>(longitude)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>from_y</p></td>
+<td class="text-left"><p>y-coordinate of the <strong>origin</strong> location</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>(latitude)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>to_x</p></td>
+<td class="text-left"><p>x-coordinate of the <strong>destination</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>location (longitude)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>to_y</p></td>
+<td class="text-left"><p>y-coordinate of the <strong>destination</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>location (latitude)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>total_route_time</p></td>
+<td class="text-left"><p>Travel time with public transportation at</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>the route</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Your task is to read in the file and create two new columns with <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects representing the origin and destination points. Problems 1-3 will guide you through the necessary steps. Before starting, check the contents of the input file in a text editor and familiarize yourself with the data structure.</p>
+<!-- #endregion -->
+<section id="problem-1-read-the-file">
+<h3>Problem 1: Read the file<a class="headerlink" href="#problem-1-read-the-file" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Import required modules.</p></li>
+<li><p>Read in the text file using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> into a variable called <code class="docutils literal notranslate"><span class="pre">data</span></code> and subset the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to contain only those columns we are interested in</p></li>
+<li><p>Check that data looks ok</p></li>
+</ul>
+</section>
+<section id="problem-2-create-point-geometries">
+<h3>Problem 2: Create Point geometries<a class="headerlink" href="#problem-2-create-point-geometries" title="Link to this heading">#</a></h3>
+<p>Continue working with the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+<ul class="simple">
+<li><p>Create new columns <code class="docutils literal notranslate"><span class="pre">from_geom</span></code> and <code class="docutils literal notranslate"><span class="pre">to_geom</span></code></p></li>
+<li><p>Populate these columns with point objects that represent the origin and destination geometries using the <code class="docutils literal notranslate"><span class="pre">points_from_xy()</span></code> function in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_geom</span></code> based on columns <code class="docutils literal notranslate"><span class="pre">from_x</span></code> and <code class="docutils literal notranslate"><span class="pre">from_y</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_geom</span></code> based on columns <code class="docutils literal notranslate"><span class="pre">to_x</span></code> and <code class="docutils literal notranslate"><span class="pre">to_y</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="problem-3-create-linestring-geometries">
+<h3>Problem 3: Create LineString geometries<a class="headerlink" href="#problem-3-create-linestring-geometries" title="Link to this heading">#</a></h3>
+<p>Continue working with the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and create <code class="docutils literal notranslate"><span class="pre">LineString</span></code> <code class="docutils literal notranslate"><span class="pre">shapely</span></code> objects based on the origin and destination point coordinates:</p>
+<ul class="simple">
+<li><p>Create new column <code class="docutils literal notranslate"><span class="pre">route_geom</span></code></p></li>
+<li><p>Populate the new columns with <code class="docutils literal notranslate"><span class="pre">LineString</span></code> objects that represent a straight line between each origin (<code class="docutils literal notranslate"><span class="pre">from_geom</span></code>) and destination (<code class="docutils literal notranslate"><span class="pre">to_geom</span></code>) coordinates.</p></li>
+<li><p>You can achieve this at least in two different ways:</p>
+<ul>
+<li><p>Option 1: Apply a lambda-function on the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> that creates a <code class="docutils literal notranslate"><span class="pre">LineString</span></code> based on <code class="docutils literal notranslate"><span class="pre">from_geom</span></code> and <code class="docutils literal notranslate"><span class="pre">to_geom</span></code> columns for each row (<code class="docutils literal notranslate"><span class="pre">axis=1</span></code>).</p></li>
+<li><p>Option 2: Use <code class="docutils literal notranslate"><span class="pre">zip()</span></code> and a <code class="docutils literal notranslate"><span class="pre">for</span></code>-loop to create the <code class="docutils literal notranslate"><span class="pre">LineString</span></code> for each coorinate pair. You can store the <code class="docutils literal notranslate"><span class="pre">LineStrings</span></code> in a list inside the loop and outside the loop insert the list into the <code class="docutils literal notranslate"><span class="pre">route_geom</span></code> column.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="problem-4-convert-dataframe-into-a-geodataframe">
+<h3>Problem 4: Convert DataFrame into a GeoDataFrame<a class="headerlink" href="#problem-4-convert-dataframe-into-a-geodataframe" title="Link to this heading">#</a></h3>
+<p>Convert the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. While doing this, you should:</p>
+<ul class="simple">
+<li><p>Define <code class="docutils literal notranslate"><span class="pre">route_geom</span></code> as the geometry column.</p></li>
+<li><p>Set a coordinate reference system for the data. Think carefully what is the correct crs definition for the input coordinates.</p></li>
+</ul>
+<p>Check the result.</p>
+</section>
+<section id="problem-5-re-project-the-data">
+<h3>Problem 5: Re-project the data<a class="headerlink" href="#problem-5-re-project-the-data" title="Link to this heading">#</a></h3>
+<p>Our data is located in the Helsinki Region, Finland and the data should be converted into a projected coordinate reference system if we want to draw maps or measure distances.</p>
+<ul class="simple">
+<li><p>Check the crs definition of the data.</p></li>
+<li><p>Re-project the data into ETRS89 / TM35FIN (EPSG:3067).</p></li>
+<li><p>Check the result. You should notice that the <code class="docutils literal notranslate"><span class="pre">route_geom</span></code> coordinate values have changed.</p></li>
+</ul>
+</section>
+<section id="problem-6-calculate-average-trip-distance">
+<h3>Problem 6: Calculate average trip distance<a class="headerlink" href="#problem-6-calculate-average-trip-distance" title="Link to this heading">#</a></h3>
+<p>Now that we have the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> in a projected coordinate reference system we can calculate some distance metrics based on the line objects.</p>
+<ul class="simple">
+<li><p>Calculate the lenght of each route based on the <code class="docutils literal notranslate"><span class="pre">route_geom</span></code> column.</p></li>
+<li><p>Add the length information into a new column <code class="docutils literal notranslate"><span class="pre">route_length</span></code>.</p></li>
+<li><p>Generate descriptive statistics of route lengths. What is the median route length?</p></li>
+</ul>
+</section>
+</section>
+<section id="exercise-6-3-buffer-and-spatial-join">
+<h2>Exercise 6.3 - Buffer and spatial join<a class="headerlink" href="#exercise-6-3-buffer-and-spatial-join" title="Link to this heading">#</a></h2>
+<p>In this exercise your task is to find out how many people live within a 500 meter buffer zone from the nearest transit station in Helsinki. We will re-use data from chapter six. Locations of transit stations is available in the file <code class="docutils literal notranslate"><span class="pre">data/Helsinki/addresses.shp</span></code>. Population information is available in the file <code class="docutils literal notranslate"><span class="pre">data/Helsinki/Population_grid_2021_HSY.gpkg</span></code>.</p>
+<p>You should join the buffers with the population information based on the spatial intersection of the buffer polygons and the population grid polygon centroids. Follow these steps to achieve the wanted result:</p>
+<ol class="arabic simple">
+<li><p>Create a 500 meter buffer around each transit station</p></li>
+<li><p>Convert the population grid geometries (polygons) into points based on the grid centroid</p></li>
+<li><p>Codunct a spatial join where you find out which points are located within each buffer and join information about the buffer into each point</p></li>
+<li><p>Aggregate the results for each buffer so that you get population sum per buffer</p></li>
+<li><p>Sum up the results to get total number of people living within 500 meters from the nearest transit station.</p></li>
+</ol>
+</section>
 </section>
 
 
@@ -480,6 +652,31 @@
             
             
               
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-1-geometric-objects">Exercise 6.1 - Geometric Objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-2-from-text-file-to-geodataframe">Exercise 6.2 - From text file to GeoDataFrame</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-read-the-file">Problem 1: Read the file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-create-point-geometries">Problem 2: Create Point geometries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-create-linestring-geometries">Problem 3: Create LineString geometries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-convert-dataframe-into-a-geodataframe">Problem 4: Convert DataFrame into a GeoDataFrame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-re-project-the-data">Problem 5: Re-project the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-6-calculate-average-trip-distance">Problem 6: Calculate average trip distance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-3-buffer-and-spatial-join">Exercise 6.3 - Buffer and spatial join</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
             
           </div>
           <footer class="bd-footer-content">
@@ -499,7 +696,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -523,8 +720,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

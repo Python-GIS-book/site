@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 
 </div></div>
       
@@ -461,85 +478,105 @@
 <h1>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h1>
 <div class="docutils container" id="id1">
 <div role="list" class="citation-list">
-<div class="citation" id="id12" role="doc-biblioentry">
+<div class="citation" id="id14" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Liukas, 2015<span class="fn-bracket">]</span></span>
 <p>Linda Liukas. <em>Hello Ruby: Adventures in Coding</em>. Feiwel &amp; Friends, 1st edition, 2015.</p>
 </div>
-<div class="citation" id="id22" role="doc-biblioentry">
+<div class="citation" id="id27" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Zelle, 2017<span class="fn-bracket">]</span></span>
 <p>John Zelle. <em>Python Programming: An Introduction to Computer Science</em>. Franklin, Beedle &amp; Associates, 3rd edition, 2017.</p>
 </div>
-<div class="citation" id="id15" role="doc-biblioentry">
+<div class="citation" id="id17" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>McKinney, 2022<span class="fn-bracket">]</span></span>
 <p>Wes McKinney. <em>Python for Data Analysis</em>. O'Reilly Media, Inc., North, Sebastopol, CA, 3rd edition, 2022.</p>
 </div>
-<div class="citation" id="id8" role="doc-biblioentry">
+<div class="citation" id="id9" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Hawking, 1988<span class="fn-bracket">]</span></span>
 <p>Stephen Hawking. <em>A Brief History of Time: From the Big Bang to Black Holes</em>. Bantam, London, 1988.</p>
 </div>
-<div class="citation" id="id19" role="doc-biblioentry">
+<div class="citation" id="id24" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Tenkanen, 2022<span class="fn-bracket">]</span></span>
 <p>Henrikki Tenkanen. Pygieons: software to visualize python os ecosystem for gis and earth observation. 2022. URL: <a class="github reference external" href="https://github.com/pygieons/pygieons">pygieons/pygieons</a>.</p>
 </div>
-<div class="citation" id="id9" role="doc-biblioentry">
+<div class="citation" id="id10" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Herring, 2011<span class="fn-bracket">]</span></span>
 <p>John R. Herring. Ogc-simple features access - part 1: common architecture. 2011. URL: <a class="reference external" href="https://www.ogc.org/docs/is">https://www.ogc.org/docs/is</a>.</p>
 </div>
-<div class="citation" id="id7" role="doc-biblioentry">
+<div class="citation" id="id8" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Hahmann &amp; Burghardt, 2013<span class="fn-bracket">]</span></span>
 <p>Stefan Hahmann and Dirk Burghardt. How much information is geospatially referenced? Networks and cognition. <em>International Journal of Geographical Information Science</em>, 27(6):1171–1189, 2013. <a class="reference external" href="https://doi.org/10.1080/13658816.2012.743664">doi:10.1080/13658816.2012.743664</a>.</p>
 </div>
-<div class="citation" id="id13" role="doc-biblioentry">
+<div class="citation" id="id15" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Longley et al., 2015<span class="fn-bracket">]</span></span>
 <p>Paul Longley, Michael Goodchild, David Maguire, and David Rhind. <em>Geographic information science &amp; systems</em>. Wiley, 4th edition, 2015.</p>
 </div>
-<div class="citation" id="id21" role="doc-biblioentry">
+<div class="citation" id="id26" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Vermeer, 2019<span class="fn-bracket">]</span></span>
 <p>Martin Vermeer. <em>Geodesy: The Science Underneath</em>. Aalto University publication series SCIENCE + TECHNOLOGY, 1st edition, 2019.</p>
 </div>
-<div class="citation" id="id4" role="doc-biblioentry">
+<div class="citation" id="id5" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Clementini et al., 1994<span class="fn-bracket">]</span></span>
 <p>Eliseo Clementini, Jayant Sharma, and Max J Egenhofer. Modeling Topological Spatial Relations: Strategies for Query Processing. <em>Computers and Graphics</em>, 18(6):815–822, 1994.</p>
 </div>
-<div class="citation" id="id3" role="doc-biblioentry">
+<div class="citation" id="id4" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Clementini et al., 1993<span class="fn-bracket">]</span></span>
 <p>Eliseo Clementini, Paolino Di Felice, and Peter van Oosterom. A Small Set of Formal Topological Relationships Suitable for End-User Interaction. In David Abel and Beng Chin Ooi, editors, <em>Advances in Spatial Databases</em>, Lecture Notes in Computer Science, 277–295. Berlin, Heidelberg, 1993. Springer.</p>
 </div>
-<div class="citation" id="id5" role="doc-biblioentry">
+<div class="citation" id="id6" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Egenhofer &amp; Al-Taha, 1992<span class="fn-bracket">]</span></span>
 <p>Max J. Egenhofer and Khaled K. Al-Taha. Reasoning about Gradual Changes of Topological Relationships. In A. U. Frank, I. Campari, and U. Formentini, editors, <em>Theories and Methods of Spatio-Temporal Reasoning in Geographic Space</em>, Lecture Notes in Computer Science, 196–219. Berlin, Heidelberg, 1992. Springer.</p>
 </div>
-<div class="citation" id="id16" role="doc-biblioentry">
+<div class="citation" id="id18" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Rey et al., 2023<span class="fn-bracket">]</span></span>
 <p>Sergio Rey, Dani Arribas-Bel, and Levi John Wolf. <em>Geographic Data Science with Python</em>. Chapman and Hall/CRC, 1st edition, 2023. ISBN 978-0-429-29250-7. <a class="reference external" href="https://doi.org/{10.1201/9780429292507}">doi:{10.1201/9780429292507}</a>.</p>
 </div>
-<div class="citation" id="id18" role="doc-biblioentry">
+<div class="citation" id="id23" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Tobler, 1970<span class="fn-bracket">]</span></span>
 <p>Waldo R. Tobler. A Computer Movie Simulating Urban Growth in the Detroit Region. <em>Economic Geography</em>, 46:234–240, 1970.</p>
 </div>
-<div class="citation" id="id11" role="doc-biblioentry">
+<div class="citation" id="id13" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Leutenegger et al., 1997<span class="fn-bracket">]</span></span>
 <p>Scott T. Leutenegger, Mario A. Lopez, and Jeffrey Edgington. Str: a simple and efficient algorithm for r-tree packing. In <em>Proceedings 13th International Conference on Data Engineering</em>, 497–506. IEEE Comput. Soc. Press, 1997. URL: <a class="reference external" href="http://ieeexplore.ieee.org/document/582015">http://ieeexplore.ieee.org/document/582015</a>, <a class="reference external" href="https://doi.org/10.1109/ICDE.1997.582015">doi:10.1109/ICDE.1997.582015</a>.</p>
 </div>
-<div class="citation" id="id6" role="doc-biblioentry">
+<div class="citation" id="id7" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Guttman, 1984<span class="fn-bracket">]</span></span>
 <p>Antonin Guttman. R-Trees - A Dynamic Index Structure for Spatial Searching. In <em>Proceedings of the 1984 ACM SIGMOD International Conference on Management of data – SIGMOD</em>, volume 14, 47–57. Association for Computing Machinery, 1984. <a class="reference external" href="https://doi.org/doi:10.1145/602259.602266">doi:doi:10.1145/602259.602266</a>.</p>
 </div>
-<div class="citation" id="id20" role="doc-biblioentry">
+<div class="citation" id="id25" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Unwin, 1996<span class="fn-bracket">]</span></span>
 <p>David Unwin. Integration through overlay analysis. In <em>Spatial Analytical Perspectives on GIS</em>, pages 129–138. Routledge, London, 1st edition, 1996.</p>
 </div>
-<div class="citation" id="id10" role="doc-biblioentry">
+<div class="citation" id="id11" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Keeble, 1952<span class="fn-bracket">]</span></span>
 <p>Lewis Keeble. <em>Principles and Practice of Town and Country Planning</em>. Estates Gazette, London, 1952.</p>
 </div>
-<div class="citation" id="id14" role="doc-biblioentry">
+<div class="citation" id="id16" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Masser &amp; Ottens, 1999<span class="fn-bracket">]</span></span>
 <p>Ian Masser and Henk Ottens. Urban Planning and Geographic Information Systems. In John Stillwell, Stan Geertman, and Stan Openshaw, editors, <em>Geographical Information and Planning: European Perspectives</em>, pages 25–42. Springer, Berlin, Heidelberg, 1999. URL: <a class="reference external" href="https://doi.org/10.1007/978-3-662-03954-0_2">https://doi.org/10.1007/978-3-662-03954-0_2</a>, <a class="reference external" href="https://doi.org/10.1007/978-3-662-03954-0_2">doi:10.1007/978-3-662-03954-0_2</a>.</p>
 </div>
-<div class="citation" id="id17" role="doc-biblioentry">
+<div class="citation" id="id19" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Steinitz et al., 1976<span class="fn-bracket">]</span></span>
 <p>Carl Steinitz, Paul Parker, and Lawrie Jordan. Hand-Drawn Overlays: Their History and Prospective Uses. <em>Landscape Architecture</em>, 66(5):444–455, 1976.</p>
+</div>
+<div class="citation" id="id2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Boeing, 2024<span class="fn-bracket">]</span></span>
+<p>Geoff Boeing. Modeling and Analyzing Urban Networks and Amenities with OSMnx. Working paper. 2024. URL: <a class="reference external" href="https://geoffboeing.com/publications/osmnx-paper/">https://geoffboeing.com/publications/osmnx-paper/</a>.</p>
+</div>
+<div class="citation" id="id22" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Tadono et al., 2014<span class="fn-bracket">]</span></span>
+<p>T. Tadono, H. Ishida, F. Oda, S. Naito, K. Minakawa, and H. Iwamoto. Precise global dem generation by alos prism. <em>ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences</em>, II-4:71–76, 2014. URL: <a class="reference external" href="https://isprs-annals.copernicus.org/articles/II-4/71/2014/">https://isprs-annals.copernicus.org/articles/II-4/71/2014/</a>, <a class="reference external" href="https://doi.org/10.5194/isprsannals-II-4-71-2014">doi:10.5194/isprsannals-II-4-71-2014</a>.</p>
+</div>
+<div class="citation" id="id21" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Strahler, 1952<span class="fn-bracket">]</span></span>
+<p>Arthur N Strahler. Hypsometric (area-altitude) analysis of erosional topography. <em>Geological society of America bulletin</em>, 63(11):1117–1142, 1952.</p>
+</div>
+<div class="citation" id="id12" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Langridge et al., 2016<span class="fn-bracket">]</span></span>
+<p>R.M. Langridge, W.F. Ries, N.J. Litchfield, P. Villamor, R.J. Van Dissen, D.J.A. Barrell, M.S. Rattenbury, D.W. Heron, S. Haubrock, D.B. Townsend, J.M. Lee, K.R. Berryman, A. Nicol, S.C. Cox, and M.W. Stirling. The New Zealand Active Faults Database. <em>New Zealand Journal of Geology and Geophysics</em>, 59:86–96, 2016. <a class="reference external" href="https://doi.org/10.1080/00288306.2015.1112818">doi:10.1080/00288306.2015.1112818</a>.</p>
+</div>
+<div class="citation" id="id20" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Sternai et al., 2011<span class="fn-bracket">]</span></span>
+<p>Pietro Sternai, Frédéric Herman, Matthew Rhys Fox, and Sébastien Castelltort. Hypsometric analysis to identify spatially variable glacial erosion. <em>Journal of Geophysical Research: Earth Surface</em>, 2011.</p>
 </div>
 </div>
 </div>
@@ -582,7 +619,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -606,8 +643,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

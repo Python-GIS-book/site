@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -472,14 +489,14 @@
   <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section class="tex2jax_ignore mathjax_ignore" id="motivation">
 <h1>Motivation<a class="headerlink" href="#motivation" title="Link to this heading">#</a></h1>
-<p>Now that you are familiar with the basics of Python programming and data analysis using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library, it is time to apply those skills to geographic data analysis. In this part of the book, you will learn how to deal with spatial data and analyze it using Python and various libraries that have been developed for geographic data and tasks related to geographic information systems (GIS).</p>
+<p>Now that you are familiar with the basics of Python programming and data analysis using the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library, it is time to apply those skills to geographic data analysis. In this part of the book, you will learn how to handle spatial data using Python and various libraries that have been developed for geographic data analysis.</p>
 <!-- #endregion -->
 <section id="why-to-use-python-for-geographic-data-analysis">
 <h2>Why to use Python for geographic data analysis?<a class="headerlink" href="#why-to-use-python-for-geographic-data-analysis" title="Link to this heading">#</a></h2>
-<p>Python is an extremely useful language to learn if you are interested in geographic data analysis (often referred to as GIS-analysis or simply GIS). Many (if not most) of the various GIS software (such as ArcGIS, QGIS, PostGIS etc.) provide an interface to do analysis using Python scripting. In this book, we will focus on doing geoprocessing and geographic data analysis without any third party software, such as ESRI’s ArcGIS. Why? There are several reasons for doing GIS using Python without any additional software:</p>
+<p>Python is an extremely useful language to learn if you are interested in geographic data analysis (“GIS analysis”) and geographic information systems (GIS). Many (if not most) of the various GIS software (such as ArcGIS, QGIS, PostGIS etc.) provide an interface to conduct analysis using Python scripting. In this book, we will focus on doing geoprocessing and geographic data analysis without any third party software. Why? There are several reasons for doing GIS using Python without any additional software:</p>
 <ul class="simple">
-<li><p><strong>Python has an extensive ecosystem of libraries and tools for GIS</strong>: you can do almost anything with spatial data. In fact, there is an enormous geospatial industry who are heavily relying on open source Python libraries.</p></li>
-<li><p><strong>Python GIS libraries are easy to learn</strong>: there are tons of good and free resources available to learn GIS with Python for free (the online version of this book is one example!).</p></li>
+<li><p><strong>Python has an extensive ecosystem of libraries and tools for GIS</strong>: you can do almost anything with spatial data. In fact, there is an enormous geospatial industry that is heavily relying on open source Python libraries.</p></li>
+<li><p><strong>Python GIS libraries are easy to learn</strong>: there are tons of good and free resources available to learn doing GIS analysis with Python for free (the online version of this book is one example!).</p></li>
 <li><p><strong>Python is highly efficient</strong>: used for analysing big (and small) geospatial data.</p></li>
 <li><p><strong>Python is highly flexible</strong>: supports hundreds of spatial data formats (most likely many which you, or us, have never heard of).</p></li>
 <li><p><strong>Python allows to mix and match various libraries</strong>: You can combine different libraries and methodological approaches together and create sophisticated analytical pipelines.</p></li>
@@ -487,22 +504,22 @@
 <li><p><strong>You will learn and understand more deeply</strong> how different geoprocessing operations work.</p></li>
 <li><p>By using Python’s open source libraries and codes, <strong>you support open science</strong> by making it possible for everyone to reproduce your work, free-of-charge.</p></li>
 <li><p><strong>You can plug-in and chain different third-party software</strong> (not necessarily written in Python) which allow you to build e.g. fancy web-GIS applications (using e.g. KeplerGL, Dask or GeoDjango for developing the user interface and having PostGIS as a back-end database).</p></li>
-<li><p><strong>Python libraries are developing fast</strong>: an active open source community is continuously improving existing libraries and adding new functionalities to them, or creating new libraries for purposes that do not yet have an existing tool to work with. However, it is good to be aware that fast development is not necessarily a guarantee of stability or quality. Hence, as for any open source library (with any programming language), it is good to investigate a bit before starting to use a new open source library whether it has been actively maintained and if it seems to have an active community of users developing the library further.</p></li>
+<li><p><strong>Python libraries are developing fast</strong>: an active open source community is continuously improving existing libraries, or creating new libraries for tasks that require new tools. However, it is good to be aware that fast development is not necessarily a guarantee of stability or quality. Hence, as for any open source library (with any programming language), it is good to investigate a bit before starting to use a new open source GIS library whether it has been actively maintained and if it seems to have an active developer community.</p></li>
 </ul>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
 <section id="core-libraries-for-geographic-data-analysis-in-python">
 <h2>Core libraries for geographic data analysis in Python<a class="headerlink" href="#core-libraries-for-geographic-data-analysis-in-python" title="Link to this heading">#</a></h2>
-<p>We have already used a few Python modules for conducting different tasks, such as <code class="docutils literal notranslate"><span class="pre">pandas</span></code> for doing some basic data analysis tasks or <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for visualizing our data. From now on, we will familiarize ourselves with a bunch of other Python modules that are useful for geographic data analysis. Python has a large ecosystem of libraries that can be used for doing analysis, visualization or geocomputation with spatial data, as shown in Figure 5.1 which shows how different Python geo-oriented libraries (n=145) are linked to each other. There is a dedicated website at ecosystem.pythongis.org <a class="footnote-reference brackets" href="#ecosystem" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> that lists and provides useful information for a large set of tools available for doing GIS and Earth Observation (remote sensing) in Python. Naturally, we won’t use all of these packages in this book, but we will explore kind many of them. Although the ecosystem is broad, there are a few core libraries that are widely used across the ecosystem:</p>
+<p>We have already used a few Python modules for conducting different tasks, such as <code class="docutils literal notranslate"><span class="pre">pandas</span></code> for doing some basic data analysis tasks or <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for visualizing our data. From now on, we will familiarize ourselves with a bunch of other Python modules that are useful for geographic data analysis. Python has a large ecosystem of libraries that can be used for doing analysis, visualization or geocomputation with spatial data, as shown in Figure 5.1 which shows how different Python geo-oriented libraries (n=145) are linked to each other. There is a dedicated website at ecosystem.pythongis.org <a class="footnote-reference brackets" href="#ecosystem" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> that lists and provides useful information for a large set of tools available for doing GIS and Earth Observation (remote sensing) in Python. Naturally, we won’t use all of these packages in this book, but we will explore many of them. Although the ecosystem is broad, there are a few core libraries that are widely used across the ecosystem:</p>
 <ul class="simple">
 <li><p>Core vector libraries: <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, <code class="docutils literal notranslate"><span class="pre">pyproj</span></code>, <code class="docutils literal notranslate"><span class="pre">shapely</span></code></p></li>
 <li><p>Core raster libraries: <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code></p></li>
 </ul>
 <p><img alt="Figure 5.1. Python ecosystem for GIS and Earth Observation ()." src="../../../_images/python-gis-ecosystem.png" /></p>
-<p><em><strong>Figure 5.1</strong>. Python ecosystem for GIS and Earth Observation (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id19" title="Henrikki Tenkanen. Pygieons: software to visualize python os ecosystem for gis and earth observation. 2022. URL: https://github.com/pygieons/pygieons.">Tenkanen, 2022</a></span>).</em></p>
+<p><em><strong>Figure 5.1</strong>. Python ecosystem for GIS and Earth Observation (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id24" title="Henrikki Tenkanen. Pygieons: software to visualize python os ecosystem for gis and earth observation. 2022. URL: https://github.com/pygieons/pygieons.">Tenkanen, 2022</a></span>).</em></p>
 <!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-<p>One drawback of such a broad open source ecosystem compared to using a specific GIS software such as ArcGIS, is that open source tools and their documentation are spread under different Python modules and created by different developers. This means that when working you need to familiarize yourself with many different tools and their  documentation, whereas in ArcGIS everything is packaged under a same module called arcpy and all the documentation can be found from a single location. However, open source libraries have many other benefits as described earlier.</p>
+<p>One drawback of such a broad open source ecosystem compared to using a specific GIS software such as ArcGIS, is that open source tools and their documentation are spread under different Python modules and created by different developers. This means that when working you need to familiarize yourself with many different tools and their documentation, whereas in ArcGIS everything is packaged under a same module called <code class="docutils literal notranslate"><span class="pre">arcpy</span></code> and all the documentation can be found from a single location. However, open source libraries have many other benefits as described earlier.</p>
 <!-- #endregion -->
 </section>
 <section id="footnotes">
@@ -535,8 +552,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -572,7 +588,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -596,8 +612,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

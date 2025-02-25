@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -491,9 +508,8 @@
 </div>
 <p>As we can see, we have an <code class="docutils literal notranslate"><span class="pre">id</span></code> for each row and an address on a column <code class="docutils literal notranslate"><span class="pre">addr</span></code>. Let’s first read the data into a pandas DataFrame using the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> -function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary modules</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 
 <span class="c1"># Filepath</span>
 <span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Helsinki/addresses.txt&quot;</span>
@@ -504,9 +520,9 @@
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p>Now we have our data in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and we can geocode our addresses using the the <code class="docutils literal notranslate"><span class="pre">geopandas.tools.geocode()</span></code> function in geopandas that uses <code class="docutils literal notranslate"><span class="pre">geopy</span></code> library under the hood. The function geocodes a list of addresses (strings) and returns a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> with the geocoded result. In the following, we import the <code class="docutils literal notranslate"><span class="pre">geocode()</span></code> function and geocode the addresses using Nominatim. Then we pass the addressess to the function from the column <code class="docutils literal notranslate"><span class="pre">addr</span></code>. As discussed earlier, we need to provide a custom string (name of your application) in the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> parameter to identify ourselves. We also use the <code class="docutils literal notranslate"><span class="pre">timeout</span></code>-parameter to specify how many seconds to wait for a response from the service:</p>
+<p>Now we have our data in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and we can geocode our addresses using the the <code class="docutils literal notranslate"><span class="pre">geopandas.tools.geocode()</span></code> function in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> that uses <code class="docutils literal notranslate"><span class="pre">geopy</span></code> library under the hood. The function geocodes a list of addresses (strings) and returns a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> with the geocoded result. In the following, we import the <code class="docutils literal notranslate"><span class="pre">geocode()</span></code> function and geocode the addresses using Nominatim. Then we pass the addressess to the function from the column <code class="docutils literal notranslate"><span class="pre">addr</span></code>. As discussed earlier, we need to provide a custom string (name of your application) in the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> parameter to identify ourselves. We also use the <code class="docutils literal notranslate"><span class="pre">timeout</span></code>-parameter to specify how many seconds to wait for a response from the service:</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geopandas.tools</span> <span class="kn">import</span> <span class="n">geocode</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">geopandas.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">geocode</span>
 
 <span class="n">geo</span> <span class="o">=</span> <span class="n">geocode</span><span class="p">(</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">],</span> <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;nominatim&quot;</span><span class="p">,</span> <span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;pythongis_book&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span>
@@ -521,7 +537,15 @@
 <span class="n">join</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Here we can see the geocoded address (column <code class="docutils literal notranslate"><span class="pre">address</span></code>) and original address (column <code class="docutils literal notranslate"><span class="pre">addr</span></code>) side-by-side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can save the geocoded addresses to a file:</p>
+<p>Here we can see the geocoded address (column <code class="docutils literal notranslate"><span class="pre">address</span></code>) and original address (column <code class="docutils literal notranslate"><span class="pre">addr</span></code>) side-by-side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can have a look how the points look on a map and save the geocoded addresses to a file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">join</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+</pre></div>
+</div>
+<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.34}. Geocoded addresses on a map.}}, center, nofloat}{../img/figure_6-34.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
+<p><em><strong>Figure 6.34</strong>. Geocoded addresses on a map.</em></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output file path</span>
 <span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;data/Helsinki/addresses.gpkg&quot;</span>
 
@@ -564,13 +588,13 @@
 </section>
 <section id="reverse-geocoding">
 <h2>Reverse geocoding<a class="headerlink" href="#reverse-geocoding" title="Link to this heading">#</a></h2>
-<p>Naturally, it is also possible to do geocoding in a reverse manner, meaning that we have a list of points / coordinates and we want to find out the address for these points. In the following, we continue using the same points that we stored previously into the <code class="docutils literal notranslate"><span class="pre">geo</span></code> geodataframe, but at this time, we do the reverse geocoding with them. Let’s start by selecting only the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column from the data:</p>
+<p>Naturally, it is also possible to do geocoding in a reverse manner, meaning that we have a list of points / coordinates and we want to find out the address for these points. In the following, we continue using the same points that we stored previously into the <code class="docutils literal notranslate"><span class="pre">geo</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, but at this time, we do the reverse geocoding with them. Let’s start by selecting only the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column from the data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">points</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Now we have a simple <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> with only point objects stored into the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column. To do the reverse geocoding, i.e. finding addresses to these points, we can use the <code class="docutils literal notranslate"><span class="pre">reverse_geocode()</span></code> function of <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. The <code class="docutils literal notranslate"><span class="pre">reverse_geocode()</span></code> works similarly as the <code class="docutils literal notranslate"><span class="pre">geocode()</span></code> function that we saw earlier, but in this case the function accepts as an input either a <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code>, or a list of <code class="docutils literal notranslate"><span class="pre">shapely</span></code> <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects. Similarly as described before, you also should specify the geocoding <code class="docutils literal notranslate"><span class="pre">provider</span></code>, the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> and the <code class="docutils literal notranslate"><span class="pre">timeout</span></code> value. In the following, we use the geometries stored in the <code class="docutils literal notranslate"><span class="pre">points</span></code> geodataframe and use those to do the reverse geocoding:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geopandas.tools</span> <span class="kn">import</span> <span class="n">reverse_geocode</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">geopandas.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reverse_geocode</span>
 
 <span class="n">reverse_geocoded</span> <span class="o">=</span> <span class="n">reverse_geocode</span><span class="p">(</span>
     <span class="n">points</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;nominatim&quot;</span><span class="p">,</span> <span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;pythongis_book&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span>
@@ -578,7 +602,7 @@
 <span class="n">reverse_geocoded</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>As a result, we now have the addresses for each point stored into the <code class="docutils literal notranslate"><span class="pre">address</span></code> column which can be useful e.g. if you want to visualize the points on a map and also show the address to these locations as an extra information.</p>
+<p>As a result, we now have the addresses for each point stored into the <code class="docutils literal notranslate"><span class="pre">address</span></code> column which can be useful, e.g., if you want to visualize the points on a map and also show the address to these locations as an extra information.</p>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
@@ -627,8 +651,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -667,7 +690,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -691,8 +714,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

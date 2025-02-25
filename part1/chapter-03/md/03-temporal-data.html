@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -489,7 +506,7 @@
 <div><p>“Ever since the dawn of civilization, people have not been content to see events as unconnected and inexplicable. They have craved an understanding of the underlying order in the world.”</p>
 <p>Stephen Hawking (1988)</p>
 </div></blockquote>
-<p>Time is one of the most fundamental ways humans organize things in life and what we use to understand of the underlying world, as Stephen Hawking famously put it in his book <em>A Brief History of Time</em> (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id8" title="Stephen Hawking. A Brief History of Time: From the Big Bang to Black Holes. Bantam, London, 1988.">Hawking, 1988</a></span>). Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<p>Time is one of the most fundamental ways humans organize things in life and what we use to understand of the underlying world, as Stephen Hawking famously put it in his book <em>A Brief History of Time</em> (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id9" title="Stephen Hawking. A Brief History of Time: From the Big Bang to Black Holes. Bantam, London, 1988.">Hawking, 1988</a></span>). Hence, it is not surprising that the time dimension is very commonly attached to almost all data that we have in the world (the other dimension is naturally space or location, which we will focus in Part II). Hence, being able to handle and work with temporal information is extremely important when doing data analysis. Time information in the data allows us to see patterns through time (trends) as well as to make predictions into the future (at varying level of confidence). In this section, we will introduce some of the core ideas and functionalities how you can work with temporal data in Python and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
 <!-- #endregion -->
 <section id="date-and-time-basics">
 <h2>Date and time basics<a class="headerlink" href="#date-and-time-basics" title="Link to this heading">#</a></h2>
@@ -505,7 +522,7 @@
 <section id="constructing-datetime-objects">
 <h2>Constructing datetime objects<a class="headerlink" href="#constructing-datetime-objects" title="Link to this heading">#</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object is a representation of time in a way that Python can understand and operate with it. With the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library it is possible to create a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object, for example by <code class="docutils literal notranslate"><span class="pre">parsing</span></code> it from text following the ISO 8601 format or from the Unix timestamp (notice that the name of the library and the object are both <code class="docutils literal notranslate"><span class="pre">datetime</span></code>). Let’s see how we can create a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object from text using the  <code class="docutils literal notranslate"><span class="pre">.strptime()</span></code> function. The <code class="docutils literal notranslate"><span class="pre">.strptime()</span></code> function takes the variable <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> as the first argument representing the time in a textual format and a second argument (<code class="docutils literal notranslate"><span class="pre">&quot;%Y-%m-%dT%H:%M:%S&quot;</span></code>) which looks quite complicated, but it is the <code class="docutils literal notranslate"><span class="pre">format</span> <span class="pre">code</span></code> that instructs <code class="docutils literal notranslate"><span class="pre">datetime</span></code> how the textual representation of time should be interpreted.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 
 <span class="n">timestamp</span> <span class="o">=</span> <span class="s2">&quot;2020-12-22T15:00:00&quot;</span>
 <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">)</span>
@@ -630,7 +647,7 @@
 </pre></div>
 </div>
 <p>Here, we used a different format for instructing the computer how to read the text by using <code class="docutils literal notranslate"><span class="pre">%B</span></code> to denote a written month name. We also changed the order of the directives and used an empty space between them. Writing the exact form of how the timestamp information is written can be quite tedious work, especially if working with handwritten data where the structure of the time information can vary considerably. Luckily, Python provides a handy library called <code class="docutils literal notranslate"><span class="pre">dateutil</span></code> that automates most of this work. We can use a function called <code class="docutils literal notranslate"><span class="pre">.parse()</span></code> to automatically construct the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object from various formats.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dateutil.parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse</span>
 
 <span class="n">timestamp_with_tz</span> <span class="o">=</span> <span class="s2">&quot;2020-12-22T15:00:00 +0200&quot;</span>
 <span class="n">written_date</span> <span class="o">=</span> <span class="s2">&quot;22 December 2020&quot;</span>
@@ -683,7 +700,7 @@
 </pre></div>
 </div>
 <p>You may notice a few things here: First, there are some additional data columns that were not present in the <code class="docutils literal notranslate"><span class="pre">helsinki-kumpula.txt</span></code> file we had worked with most in the previous section. We will ignore these here, but it worth noting their presence. We can specify with the parameter <code class="docutils literal notranslate"><span class="pre">usecols</span></code> that we only want to keep four columns from the file (station number, date information, and temperature). Second, there are timestamps stored in the <code class="docutils literal notranslate"><span class="pre">DATE</span></code> column. These can be automatically converted to <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects when reading the data by using the <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> parameter and providing a list of column names that should be parsed by <code class="docutils literal notranslate"><span class="pre">datetime</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Read the data and parse dates</span>
 <span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/finnish-stations/sodankyla-aws.txt&quot;</span>
@@ -940,7 +957,7 @@
 </div>
 <p><em><strong>Figure 3.6</strong>. Temperature values and moving averages for 1994-2023.</em></p>
 <p>As a result, we have three different lines showing how the raw daily temperature observations (<code class="docutils literal notranslate"><span class="pre">sample</span></code>, blue line) compare to those smoothed for roughly half a year (<code class="docutils literal notranslate"><span class="pre">half_year</span></code>, orange line) or one year (<code class="docutils literal notranslate"><span class="pre">annual</span></code>, green line). The daily values show how much temperature varies day to day in our data set, while yearly values roughly show how much temperatures vary from year to year. As we can observe, the variance between observations is reduced (i.e., smoothed) when the size of the window is larger.</p>
-<p>It is worthwhile to note two other common rolling statistical calculations that can be done using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. First, it is possible to use exponentially weighted (EW) window functions to give more weight to observations that are closer to the center of the window (closer in time in our case) using a decay function. The <code class="docutils literal notranslate"><span class="pre">pandas</span></code> method <code class="docutils literal notranslate"><span class="pre">.ewm()</span></code> can be used for this as described in the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> documentation</a> ^[ewm]. Similar concepts are introduced in <a class="reference internal" href="../../../part3/chapter-10/index.html"><span class="std std-doc">a case study in Chapter 10</span></a> for predicting unknown values at specific geographic locations. Second, in addition to the moving window functions, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> provides a method called <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code>, which increases the size of the window for each observation until it encompasses the whole series. This method basically accumulates the information on each observation, similar to cumulative summing, and can be useful in some predictive applications where cumulative information about the given phenomena can provide more accurate results using more observations, for example. More information about the <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code> method can be found in the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.expanding.html"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> documentation</a> ^[expanding].</p>
+<p>It is worthwhile to note two other common rolling statistical calculations that can be done using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. First, it is possible to use exponentially weighted (EW) window functions to give more weight to observations that are closer to the center of the window (closer in time in our case) using a decay function. The <code class="docutils literal notranslate"><span class="pre">pandas</span></code> method <code class="docutils literal notranslate"><span class="pre">.ewm()</span></code> can be used for this as described in the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> documentation</a> ^[ewm]. Similar concepts are introduced in <a class="reference internal" href="../../../part3/chapter-10/index.html"><span class="std std-doc">a case study in Chapter 10</span></a> for predicting unknown values at specific geographic locations. Second, in addition to the moving window functions, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> provides a method called <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code>, which increases the size of the window for each observation until it encompasses the whole series. This method basically accumulates the information on each observation, similar to cumulative summing, and can be useful in some predictive applications where cumulative information about the given phenomena can provide more accurate results using more observations, for example. More information about the <code class="docutils literal notranslate"><span class="pre">.expanding()</span></code> method can be found in the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.expanding.html"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> documentation</a> <a class="footnote-reference brackets" href="#expanding" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
@@ -957,6 +974,10 @@
 <aside class="footnote brackets" id="interpolation" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html</a></p>
+</aside>
+<aside class="footnote brackets" id="expanding" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.expanding.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.expanding.html</a></p>
 </aside>
 </aside>
 </section>
@@ -980,8 +1001,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1030,7 +1050,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -1054,8 +1074,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -456,9 +473,9 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#georeferencing">Georeferencing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-elements-of-a-coordinate-reference-system">Key elements of a Coordinate Reference System</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-elements-of-a-coordinate-reference-system-crs">Key elements of a coordinate reference system (CRS)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-projection-representing-curved-surface-in-two-dimensions">Map projection - Representing curved surface in two dimensions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#storing-coordinate-reference-system-information">Storing Coordinate Reference System information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#storing-information-about-coordinate-reference-systems">Storing information about coordinate reference systems</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
@@ -477,13 +494,13 @@
 <!-- #endregion -->
 <section id="georeferencing">
 <h2>Georeferencing<a class="headerlink" href="#georeferencing" title="Link to this heading">#</a></h2>
-<p>Majority of all the information in the world can be traced to a specific location (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id7" title="Stefan Hahmann and Dirk Burghardt. How much information is geospatially referenced? Networks and cognition. International Journal of Geographical Information Science, 27(6):1171-1189, 2013. doi:10.1080/13658816.2012.743664.">Hahmann and Burghardt, 2013</a></span>). This process of attaching information about a location to a piece of information is commonly referred as <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Georeferencing"><span class="xref std std-term">georeferencing</span></a> or <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Geocoding"><span class="xref std std-term">geocoding</span></a>. There are various commonly used systems for georeferencing that represent the data at different positional accuracy (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id13" title="Paul Longley, Michael Goodchild, David Maguire, and David Rhind. Geographic information science &amp; systems. Wiley, 4th edition, 2015.">Longley <em>et al.</em>, 2015</a></span>), such as place names (varying accuracy),  postal codes (accuracy at areal level), postal addresses (accuracy at door/mailbox level), or latitude and longitude coordinates (up to millimeter level accuracy). In this book, we will do georeferencing by converting addresses into coordinates (and vice versa), which is a common operation to do when working with data that is not directly delivered in geospatial format.</p>
+<p>Majority of all the information in the world can be traced to a specific location (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id8" title="Stefan Hahmann and Dirk Burghardt. How much information is geospatially referenced? Networks and cognition. International Journal of Geographical Information Science, 27(6):1171-1189, 2013. doi:10.1080/13658816.2012.743664.">Hahmann and Burghardt, 2013</a></span>). This process of attaching information about a location to a piece of information is commonly referred as <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Georeferencing"><span class="xref std std-term">georeferencing</span></a> or <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Geocoding"><span class="xref std std-term">geocoding</span></a>. There are various commonly used systems for georeferencing that represent the data at different positional accuracy (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id15" title="Paul Longley, Michael Goodchild, David Maguire, and David Rhind. Geographic information science &amp; systems. Wiley, 4th edition, 2015.">Longley <em>et al.</em>, 2015</a></span>), such as place names (varying accuracy),  postal codes (accuracy at areal level), postal addresses (accuracy at door/mailbox level), or latitude and longitude coordinates (up to millimeter level accuracy). In this book, we will do georeferencing by converting addresses into coordinates (and vice versa), which is a common operation to do when working with data that is not directly delivered in geospatial format.</p>
 <p>Being able to position oneself on Earth (and in the universe) has been an important task for humans for centuries. The most spatially accurate information about the location of a specific object can be obtained by using geodetic techniques. Geodesy is the science that focuses on accurately measuring and understanding different properties of the Earth, such as its shape, orientation in space and gravity. It also provides various fundamental methods that enable us to locate ourselves when using navigation services, or do spatial analysis with GIS in a meaningful manner.</p>
 </section>
-<section id="key-elements-of-a-coordinate-reference-system">
-<h2>Key elements of a Coordinate Reference System<a class="headerlink" href="#key-elements-of-a-coordinate-reference-system" title="Link to this heading">#</a></h2>
-<p>Previously, we learned how geographic data can be represented on a computer as vector, raster or network data. However, we didn’t yet touch upon one fundamental aspect of geographic data: <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Coordinate-Reference-System"><span class="xref std std-term">coordinate reference system</span></a> (also called as <span class="xref std std-term">Spatial Reference System</span>). A coordinate reference system (CRS) is important because without the CRS, the geographic data is simply a collection of coordinates in an arbitrary space. A CRS tells the GIS tools how the coordinates or geometries are related to the places on Earth. In principle, every geographic dataset should have specific CRS-related information attached to it (if not, it might be difficult or impossible to use the data in GIS). This kind of additional information is called as <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Metadata"><span class="xref std std-term">metadata</span></a>, because it provides important contextual information about the dataset, such as CRS or the timestamp when the data was created.</p>
-<p>What kind of things are described with the Coordinate Reference System? A CRS typically describes the geographic data with three main components: datum, map projection and additional parameters. These components provide information about how the geographic data can be linked to the Earth’s surface:</p>
+<section id="key-elements-of-a-coordinate-reference-system-crs">
+<h2>Key elements of a coordinate reference system (CRS)<a class="headerlink" href="#key-elements-of-a-coordinate-reference-system-crs" title="Link to this heading">#</a></h2>
+<p>Previously, we learned how geographic data can be represented on a computer as vector, raster or network data. However, we didn’t yet touch upon one fundamental aspect of geographic data: <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Coordinate-Reference-System"><span class="xref std std-term">coordinate reference system</span></a> (also called as <span class="xref std std-term">Spatial Reference System</span>). A coordinate reference system (CRS) is important because without the CRS, the geographic data is simply a collection of coordinates in an arbitrary space. A CRS tells the GIS tools how the coordinates or geometries are related to the places on Earth. In principle, every geographic dataset should have specific CRS-related information attached to it (if not, it might be difficult or impossible to use the data in GIS). This kind of additional information is called <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Metadata"><span class="xref std std-term">metadata</span></a>, because it provides important contextual information about the dataset, such as CRS or the timestamp when the data was created.</p>
+<p>What kind of things are described with the coordinate reference system? A CRS typically describes the geographic data with three main components: datum, map projection and additional parameters. These components provide information about how the geographic data can be linked to the Earth’s surface:</p>
 <ol class="arabic simple">
 <li><p><strong>Datum</strong>: A datum specification consists of a model for Earth’s size and shape, such as a reference ellipsoid or a geoid, which describes the average sea level surface of the Earth. One of the most commonly used datums is the World Geodetic System (WGS84). Datum also contains information about the origin of the coordinate system, i.e. the reference point at which the ellipsoid/geoid is tied to a known location on Earth. This is used as a reference for determining the location of other control points that have been precisely measured from the origin. Reference points are useful because they can also be used to check the accuracy of GNSS/GPS receivers. Finally, the datum includes the orientation parameters, which describe the orientation of the coordinate system with respect to the Earth’s surface. They contain information about the tilt of the axis and the position of the origin relative to the Earth’s surface.</p></li>
 <li><p><strong>Map projection</strong>: The projection defines the mathematical transformation used to map the Earth’s surface onto a two-dimensional plane. Each projection has its own strengths and weaknesses, and the choice of projection depends on the intended use of the map and the area to be mapped (see more details below).</p></li>
@@ -493,13 +510,13 @@
 </section>
 <section id="map-projection-representing-curved-surface-in-two-dimensions">
 <h2>Map projection - Representing curved surface in two dimensions<a class="headerlink" href="#map-projection-representing-curved-surface-in-two-dimensions" title="Link to this heading">#</a></h2>
-<p>As mentioned previously, one core component of the coordinate reference system is the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Map-projection"><span class="xref std std-term">map projection</span></a></em> which determines how we draw the geometries representing earth’s curved surface on a two-dimensional plane. This process uses a mathematical method to map the coordinates of a location (latitude and longitude) onto a flat surface, i.e. on a map (<span id="id3"><a class="reference internal" href="../../../back-matter/nb/references.html#id21" title="Martin Vermeer. Geodesy: The Science Underneath. Aalto University publication series SCIENCE + TECHNOLOGY, 1st edition, 2019.">Vermeer, 2019</a></span>). As it happens, transforming data from 3D to 2D is not a very straightforward process, and when we use a map projection the output will always be distorted in some way or another (Figure 5.9).</p>
+<p>As mentioned previously, one core component of the coordinate reference system is the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Map-projection"><span class="xref std std-term">map projection</span></a></em> which determines how we draw the geometries representing earth’s curved surface on a two-dimensional plane. This process uses a mathematical method to map the coordinates of a location (latitude and longitude) onto a flat surface, i.e. on a map (<span id="id3"><a class="reference internal" href="../../../back-matter/nb/references.html#id26" title="Martin Vermeer. Geodesy: The Science Underneath. Aalto University publication series SCIENCE + TECHNOLOGY, 1st edition, 2019.">Vermeer, 2019</a></span>). As it happens, transforming data from 3D to 2D is not a very straightforward process, and when we use a map projection the output will always be distorted in some way or another (Figure 5.9).</p>
 <p><img alt="Figure 5.9. When representing the curved surface of the Earth in 2D space, the output will always be somehow distorted. Modified after Vermeer (2019)." src="../../../_images/curved_surface_to_flat_plane.png" /></p>
-<p><em><strong>Figure 5.9</strong>. When representing the curved surface of the Earth in 2D space, the output will always be somehow distorted. Modified after <span id="id4">Vermeer <a class="reference internal" href="../../../back-matter/nb/references.html#id21" title="Martin Vermeer. Geodesy: The Science Underneath. Aalto University publication series SCIENCE + TECHNOLOGY, 1st edition, 2019.">2019</a></span>.</em></p>
+<p><em><strong>Figure 5.9</strong>. When representing the curved surface of the Earth in 2D space, the output will always be somehow distorted. Modified after <span id="id4">Vermeer <a class="reference internal" href="../../../back-matter/nb/references.html#id26" title="Martin Vermeer. Geodesy: The Science Underneath. Aalto University publication series SCIENCE + TECHNOLOGY, 1st edition, 2019.">2019</a></span>.</em></p>
 <p>A good way to understand the way how the map projection works, is the “orange peel analogy”. You can imagine that the Earth is a citrus fruit which you are peeling. A datum is the fruit that you choose to peal (orange, satsuma, grapefruit, lemon), and they all have a bit different shape and size. The map projection then is the approach you choose to peel the fruit and make it flat.</p>
 <p><img alt="Figure 5.10. Representing the process of map projection with an orange." src="../../../_images/orange_peel_analogy.png" /></p>
 <p><em><strong>Figure 5.10</strong>. Representing the process of map projection with an orange (<a class="reference external" href="http://profdrikageografia.blogspot.com/2010_12_01_archive.html">Source</a>).</em></p>
-<p>When using map projections, we always make approximations and hence lose something. There are no projections that would not distort anything or have the same scale throughout the map. Hence, a projection needs to be chosen according to the purpose of use, in order to preserve specific aspects of the map that are the most important to the user. These can be for example the shapes of objects, their surface areas, correct distances between locations, or the compass direction (<span id="id5"><a class="reference internal" href="../../../back-matter/nb/references.html#id21" title="Martin Vermeer. Geodesy: The Science Underneath. Aalto University publication series SCIENCE + TECHNOLOGY, 1st edition, 2019.">Vermeer, 2019</a></span>).</p>
+<p>When using map projections, we always make approximations and hence lose something. There are no projections that would not distort anything or have the same scale throughout the map. Hence, a projection needs to be chosen according to the purpose of use, in order to preserve specific aspects of the map that are the most important to the user. These can be for example the shapes of objects, their surface areas, correct distances between locations, or the compass direction (<span id="id5"><a class="reference internal" href="../../../back-matter/nb/references.html#id26" title="Martin Vermeer. Geodesy: The Science Underneath. Aalto University publication series SCIENCE + TECHNOLOGY, 1st edition, 2019.">Vermeer, 2019</a></span>).</p>
 <ul class="simple">
 <li><p>If we want to preserve angles and ratios of distances, we speak of a conformal, or angle-preserving projections (such as Mercator projection). These kind of projections has historically been important e.g. for ship navigation. With conformal map projection, both the distances and surface areas are distorted, except at some special points of the map.</p></li>
 <li><p>If we want to preserve correct area measure, we speak of an equivalent or equal-area projection (such as Mollweide or Albers equal area). Here, the angles and shapes are distorted, again with the exception of special points or lines.</p></li>
@@ -510,8 +527,8 @@
 <p><em><strong>Figure 5.11</strong>. Different map projections that can be used to represent the geographic data on a two-dimensional plane.</em></p>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
-<section id="storing-coordinate-reference-system-information">
-<h2>Storing Coordinate Reference System information<a class="headerlink" href="#storing-coordinate-reference-system-information" title="Link to this heading">#</a></h2>
+<section id="storing-information-about-coordinate-reference-systems">
+<h2>Storing information about coordinate reference systems<a class="headerlink" href="#storing-information-about-coordinate-reference-systems" title="Link to this heading">#</a></h2>
 <p>The CRS information of a geographic dataset can be stored in various different ways. Some of the most common systems to store the CRS information are EPSG, PROJ and OGC WKT. All of these basically serve the same purpose: they store the key characteristics of a given coordinate reference system in a standardized manner which is essential for being able to work with geographic data using any GIS software or library (not limited to Python). Below, you can find some basic information about the most commonly used systems to store CRS information:</p>
 <ul class="simple">
 <li><p><strong>EPSG registry</strong> (Geodetic Parameter Dataset): This is a public registry maintained by the European Petroleum Survey Group (EPSG) that contains information on a wide range of coordinate reference systems, including geographic and projected CRSs, and datums. It is widely used in GIS software and is an open and freely accessible resource. EPSG codes are numbers that identify different CRS from each other. These numbers, such as 4326 for WGS84 coordinate system, are commonly used to determine a CRS for a specific dataset or when reprojecting the data, because these simple numbers are easy to remember and use. We also refer to these EPSG codes commonly in this book.</p></li>
@@ -583,8 +600,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -594,9 +610,9 @@
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#georeferencing">Georeferencing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-elements-of-a-coordinate-reference-system">Key elements of a Coordinate Reference System</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-elements-of-a-coordinate-reference-system-crs">Key elements of a coordinate reference system (CRS)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-projection-representing-curved-surface-in-two-dimensions">Map projection - Representing curved surface in two dimensions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#storing-coordinate-reference-system-information">Storing Coordinate Reference System information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#storing-information-about-coordinate-reference-systems">Storing information about coordinate reference systems</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>
@@ -622,7 +638,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -646,8 +662,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

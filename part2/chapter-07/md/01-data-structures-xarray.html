@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -458,10 +475,26 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-xarray-datastructures-dataset-and-dataarray">Key xarray datastructures: Dataset and DataArray</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-file-into-dataset">Reading a file into Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming-data-variables">Renaming data variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-basic-information-about-the-raster-dataset">Extracting basic information about the raster dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-data-variable">Creating a new data variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-data-variable">Plotting a data variable</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-a-file">Writing a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-basic-raster-dataset-properties">Extracting basic raster dataset properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensions-of-the-data">Dimensions of the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-resolution">Spatial resolution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-reference-system">Coordinate reference system</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-extent">Spatial extent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nodata-value">NoData value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radiometric-resolution-bit-depth">Radiometric resolution (bit depth)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#size-of-the-data-memory-footprint-in-bytes">Size of the data: Memory footprint in bytes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-data-type-bit-depth">Converting data type (bit depth)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-data-variable">Creating a new data variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-to-a-file">Writing to a file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geotiff">GeoTIFF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netcdf">netCDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zarr">Zarr</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -473,16 +506,18 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <!-- #region -->
+  <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-data-structures-in-xarray">
 <h1>Introduction to data structures in xarray<a class="headerlink" href="#introduction-to-data-structures-in-xarray" title="Link to this heading">#</a></h1>
+<!-- #endregion -->
 <p>Now that you have learned a bit of basics about raster data and how to create a simple 2-dimensional raster array using <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, we continue to explore in a more comprehensive manner how to work with real-world raster data using <code class="docutils literal notranslate"><span class="pre">xarray</span></code> and <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> libraries (+ other relevant libraries linked to them). The <code class="docutils literal notranslate"><span class="pre">xarray</span></code> library is a highly useful tool for storing, representing and manipulating raster data, while <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> provides various raster processing (GIS) capabilities on top of the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures, such as reading and writing several different raster formats and conducting different geocomputational tasks. Under the hood, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> uses another Python library called <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> (that works with N-dimensional <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays) but the benefit of <code class="docutils literal notranslate"><span class="pre">xarray</span></code> and <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>is that they provide easier and more intuitive way to work with raster data layers, in a bit similar manner as working with vector data using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>.</p>
 <p>When working with raster data, you typically have various layers that represent different geographical features of the world (e.g. elevation, temperature, precipitation etc.) and this data is possibly captured at different times of the year/day/hour, meaning that you may have longitudinal (repetitive) observations from the same area, constituting time series data. More often than not, you need to combine information from these layers to be able to conduct meaningful analysis based on the data, such as do a weather forecast. One of the greatest benefits of <code class="docutils literal notranslate"><span class="pre">xarray</span></code> is that you can easily store, combine and analyze all these different layers via a single object, i.e. a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="key-xarray-datastructures-dataset-and-dataarray">
 <h2>Key xarray datastructures: Dataset and DataArray<a class="headerlink" href="#key-xarray-datastructures-dataset-and-dataarray" title="Link to this heading">#</a></h2>
 <p>The two fundamental data structures provided by the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> library are <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> (Figure 7.2). Both of them build upon and extend the strengths of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> libraries. The <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> is a labeled N-dimensional array that is similar to <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code> but works with raster data (stored as <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays). The <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> then again is a multi-dimensional in-memory array database that contains multiple <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> objects. In addition to the variables containing the observations of a given phenomena, you also have the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates of the observations stored in separate layers, as well as metadata providing relevant information about your data, such as Coordinate Reference System and/or time. Thus, a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> containing raster data is very similar to <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code> and actually various <code class="docutils literal notranslate"><span class="pre">xarray</span></code> operations can feel very familiar if you have learned the basics of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> covered in Chapters 3 and 6.</p>
 <p><img alt="Figure 7.2. Key  data structures. Image source: Xarray Community (2024), licensed under Apache 2.0." src="../../../_images/xarray-dataset-diagram.png" /></p>
-<p><em><strong>Figure 7.2</strong> Key <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures. Image source: <a class="reference external" href="https://tutorial.xarray.dev/fundamentals/01_data_structures.html">Xarray Community</a> (2024), licensed under Apache 2.0.</em></p>
+<p><em><strong>Figure 7.2.</strong> Key <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures. Image source: <a class="reference external" href="https://tutorial.xarray.dev/fundamentals/01_data_structures.html">Xarray Community</a> (2024), licensed under Apache 2.0.</em></p>
 <p>Some of the benefits of <code class="docutils literal notranslate"><span class="pre">xarray</span></code> include:</p>
 <ul class="simple">
 <li><p>A more intuitive and user-friendly interface to work with multidimensional arrays (compared e.g. to <code class="docutils literal notranslate"><span class="pre">numpy</span></code>)</p></li>
@@ -492,14 +527,20 @@
 </ul>
 <p>In the following, we will continue by introducing some of the basic functionalities of the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures.</p>
 <!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
 <section id="reading-a-file-into-dataset">
 <h2>Reading a file into Dataset<a class="headerlink" href="#reading-a-file-into-dataset" title="Link to this heading">#</a></h2>
-<p>We start by investigating a simple elevation dataset using <code class="docutils literal notranslate"><span class="pre">xarray</span></code> that represents a Digital Elevation Model (DEM) of Kilimanjaro area in Tanzania. To read a raster data file (such as GeoTIFF) into <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, we can use the  <code class="docutils literal notranslate"><span class="pre">.open_dataset()</span></code> function. Here, we read a <code class="docutils literal notranslate"><span class="pre">.tif</span></code> file directly from a cloud storage space that we have created for this book:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<p>We start by investigating a simple elevation dataset using <code class="docutils literal notranslate"><span class="pre">xarray</span></code> that represents a Digital Elevation Model (DEM) of Kilimanjaro area in Tanzania. To read a raster data file (such as GeoTIFF) into <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, we can use the  <code class="docutils literal notranslate"><span class="pre">.open_dataset()</span></code> function. Here, we read a <code class="docutils literal notranslate"><span class="pre">.tif</span></code> file directly from a cloud storage space that we have created for this book. By importing the <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> library, we can extend the functionalities of the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> and use the <code class="docutils literal notranslate"><span class="pre">engine=&quot;rasterio&quot;</span></code> parameter when reading the data. This is beneficial because it supports various GIS functionalities related to Coordinate Reference System management and metadata that would not be available otherwise. We can for example specify that the <code class="docutils literal notranslate"><span class="pre">masked</span></code> parameter is <code class="docutils literal notranslate"><span class="pre">True</span></code> which will take into consideration possible NoData values in the data and mask them out by setting the NoData values as NaN:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif&quot;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;rasterio&quot;</span><span class="p">)</span>
+<span class="n">bucket_url</span> <span class="o">=</span> <span class="s2">&quot;https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS&quot;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">bucket_url</span> <span class="o">+</span> <span class="s2">&quot;/elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif&quot;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;data/temp/kilimanjaro_elevation.tif&quot;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;rasterio&quot;</span><span class="p">,</span> <span class="n">masked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">data</span>
 </pre></div>
 </div>
@@ -517,7 +558,10 @@
 <span class="n">data</span>
 </pre></div>
 </div>
-<p>As a result, now the <code class="docutils literal notranslate"><span class="pre">Dimensions</span></code> and <code class="docutils literal notranslate"><span class="pre">Coordinates</span></code> only shows the data for <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axis, meaning that the unnecessary data was successfully removed.</p>
+<p>As a result, now the <code class="docutils literal notranslate"><span class="pre">Dimensions</span></code> and <code class="docutils literal notranslate"><span class="pre">Coordinates</span></code> only shows the data for <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axis, meaning that the unnecessary data was successfully removed. An alternative way to deal with this issue is to use <code class="docutils literal notranslate"><span class="pre">band_as_variable=True</span></code> parameter directly when reading the raster file with <code class="docutils literal notranslate"><span class="pre">xr.open_dataset()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;rasterio&quot;</span><span class="p">,</span> <span class="n">masked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">band_as_variable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="renaming-data-variables">
 <h2>Renaming data variables<a class="headerlink" href="#renaming-data-variables" title="Link to this heading">#</a></h2>
@@ -528,41 +572,190 @@
 </div>
 <p>Now the name of our data variable was changed to <code class="docutils literal notranslate"><span class="pre">elevation</span></code> which makes it more intuitive and convenient to use than calling the variable with a very generic name <code class="docutils literal notranslate"><span class="pre">band_data</span></code>.</p>
 </section>
-<section id="extracting-basic-information-about-the-raster-dataset">
-<h2>Extracting basic information about the raster dataset<a class="headerlink" href="#extracting-basic-information-about-the-raster-dataset" title="Link to this heading">#</a></h2>
-<p>One of the typical things that you want to do when exploring a new dataset is to calculate some basic summary statistics out of the data, like finding the minimum and maximum values, as well as the mean and standard deviation of your data. To extract this information from your <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> provides very similar functionalities as <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to compute some basic statistics out of your data. For instance, we can easily extract the maximum elevation of our data by calling <code class="docutils literal notranslate"><span class="pre">.max()</span></code> method:</p>
+<section id="plotting-a-data-variable">
+<h2>Plotting a data variable<a class="headerlink" href="#plotting-a-data-variable" title="Link to this heading">#</a></h2>
+<p>Thus far, we have investigated how the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures look like. However, we have not yet plotted anything on a map, which is also one of the typical things that you want to do as one of the first steps whenever working with new data. The <code class="docutils literal notranslate"><span class="pre">xarray</span></code> library provides very similar plotting functionality as <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, i.e. you can easily create a visualization out of your <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> objects by using the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method that uses <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library in the background. In the following, we create a simple map out of the <code class="docutils literal notranslate"><span class="pre">&quot;elevation&quot;</span></code> data variable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Plot the values</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add a title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation in meters&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.3.</strong> A map representing the elevation values in the Kilimanjaro area.</em></p>
+<p>Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the <code class="docutils literal notranslate"><span class="pre">&quot;terrain&quot;</span></code> as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because the land surface in this area of the world should not have any values going below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8.</p>
+<p>We can also easily plot our data in a couple of different ways and e.g. produce a contour map representing the elevation using contour lines. A contour map is a type of map that represents the three-dimensional features of a landscape in two dimensions by using contour lines  highlighting the hills and valleys in our data. Each contour line connects points of equal elevation above a reference level, such as sea level. These lines provide a way to visualize the shape, slope, and elevation of the terrain. Contour maps are widely applied to different data in various domains, such as in navigation and orienteering to visualize elevation characteristics to help activities such as hiking; in meteorology to visualize weather related phenomena (atmospheric pressure, temperature); and in hydrology to help identifying drainage patterns, watersheds, and potential flood zones.  We can create a contour map based on the input data by calling the <code class="docutils literal notranslate"><span class="pre">.plot.contour()</span></code> method in <code class="docutils literal notranslate"><span class="pre">xarray</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">contours</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">contour</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Contour map based on the elevation&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.4.</strong> A contour map representing the elevation values in the Kilimanjaro area.</em></p>
+<p>It is also possible to create a surface map that shows the elevation values in 3D. A 3D surface map is a three-dimensional representation of a terrain or surface, created by plotting elevation or depth data as a continuous surface. The map visually depicts the topography by assigning different colors, shading, and heights to represent variations in elevation, providing a realistic and intuitive view of the terrain. Creating a 3D surface map can be done by calling the <code class="docutils literal notranslate"><span class="pre">.plot.surface()</span></code> method in <code class="docutils literal notranslate"><span class="pre">xarray</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">surface</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;A surface map representing the elevation in 3D&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.5.</strong> A 3D surface map representing the elevation values in the Kilimanjaro area.</em></p>
+<p>Now we have a nice three dimensional map that clearly shows the hills and valleys in our study region that gives an intuitive view to the landscape in the given region.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="extracting-basic-raster-dataset-properties">
+<h2>Extracting basic raster dataset properties<a class="headerlink" href="#extracting-basic-raster-dataset-properties" title="Link to this heading">#</a></h2>
+<p>Now as we have explored our data visually, it is good to continue by examining the basic properties of the data, as well as by calculating summary statistics out of the data, such as the minimum,  maximum, or mean values of your data. To extract this information from your <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code> provides very similar functionalities as <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to compute some basic statistics out of your data. For instance, we can easily extract the maximum elevation of our data by calling <code class="docutils literal notranslate"><span class="pre">.max()</span></code> method:</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Ouch! That produces quite a lot of information as it happens that the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> returns by default an <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> as a result. However, when we explore the output, we can see that the single value in the array is <code class="docutils literal notranslate"><span class="pre">2943</span></code> which is the highest point in our data. However, it would be more useful to get the actual single number as a result when doing operations like these. Luckily, it is easy to extract the actual numerical value from the data by adding <code class="docutils literal notranslate"><span class="pre">.item()</span></code> after the command. The <code class="docutils literal notranslate"><span class="pre">.item()</span></code> method returns the <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> element as a regular Python scalar value which is more similar to what e.g. <code class="docutils literal notranslate"><span class="pre">pandas</span></code> returns when you call the <code class="docutils literal notranslate"><span class="pre">.max()</span></code> or <code class="docutils literal notranslate"><span class="pre">.min()</span></code>, as demonstrated below:</p>
+<p>As we see, this produces quite a lot of information because <code class="docutils literal notranslate"><span class="pre">xarray</span></code> returns an <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> as a result by default. When exploring the output, we can see that the single value in the array is <code class="docutils literal notranslate"><span class="pre">2943</span></code> which is the highest point in our data. However, typically it would be more useful to get a numerical value as a result when doing operations like these. Luckily, it is easy to extract the actual number from the data by adding <code class="docutils literal notranslate"><span class="pre">.item()</span></code> after the command. The <code class="docutils literal notranslate"><span class="pre">.item()</span></code> method returns the <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> element as a regular Python scalar value which is more similar to what e.g. <code class="docutils literal notranslate"><span class="pre">pandas</span></code> returns when you call the <code class="docutils literal notranslate"><span class="pre">.max()</span></code> or <code class="docutils literal notranslate"><span class="pre">.min()</span></code>, as demonstrated below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dimensions</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<section id="dimensions-of-the-data">
+<h3>Dimensions of the data<a class="headerlink" href="#dimensions-of-the-data" title="Link to this heading">#</a></h3>
+<p>In addition to the summary statistics, we can explore some of the basic properties of our raster data. Majority of the geographic data related properties of a raster <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> can be accessed via <code class="docutils literal notranslate"><span class="pre">.rio</span></code> <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Accessor"><span class="xref std std-term">accessor</span></a>. An accessor is a method or attribute added to an existing data structure, such as a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> or <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> in <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, to provide specialized functionality. Accessors extend the capabilities of the base object without modifying its core structure. Via the <code class="docutils literal notranslate"><span class="pre">.rio</span></code> accessor we can explore various attributes of our data, such as the <code class="docutils literal notranslate"><span class="pre">.shape</span></code>, <code class="docutils literal notranslate"><span class="pre">.width</span></code> or <code class="docutils literal notranslate"><span class="pre">.height</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resolution</span>
-<span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">resolution</span><span class="p">()</span>
+</section>
+<section id="spatial-resolution">
+<h3>Spatial resolution<a class="headerlink" href="#spatial-resolution" title="Link to this heading">#</a></h3>
+<p>From the outputs we can see that the shape of our raster data seems to be rectangular as we have 3601 X 3601 cells to each direction (x and y). To better understand the data in geographic terms, we can retrieve the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-resolution"><span class="xref std std-term">spatial resolution</span></a></em> of the data by calling the <code class="docutils literal notranslate"><span class="pre">.rio.resolution()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">resolution</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bounds of the file</span>
-<span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">bounds</span><span class="p">()</span>
+<p>As we see, the spatial resolution, i.e. the size of a single cell in our raster layer is ~0.0028. The resolution is always reported in the units of the input dataset’s <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Coordinate-Reference-System"><span class="xref std std-term">coordinate reference system</span></a></em> (CRS). Thus, in our case, this number is reported in <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Decimal-degrees"><span class="xref std std-term">decimal degrees</span></a></em> meaning that the resolution is 30 meters.</p>
+</section>
+<section id="coordinate-reference-system">
+<h3>Coordinate reference system<a class="headerlink" href="#coordinate-reference-system" title="Link to this heading">#</a></h3>
+<p>We can easily access the coordinate reference system (CRS) information of our raster dataset via the <code class="docutils literal notranslate"><span class="pre">.rio.crs</span></code> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Radiometric resolution of the DataArray</span>
-<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">.rio.crs</span></code> returns the coordinate reference system information as an <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-EPSG-code"><span class="xref std std-term">EPSG code</span></a></em> and the code <code class="docutils literal notranslate"><span class="pre">4326</span></code> stands for the WGS84 coordinate reference system in which the units are represented as latitudes and longitudes (i.e. decimal degrees). Another CRS-related attribute that is useful to know is <em><span class="xref std std-term">transform</span></em>. The transform refers to the affine transformation matrix that maps pixel coordinates to geographic coordinates. It defines how the raster data is aligned in space, including information on scaling, rotation, and translation relative to a coordinate reference system. You can access the <code class="docutils literal notranslate"><span class="pre">transform</span></code> attribute as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
 </pre></div>
 </div>
+</section>
+<section id="spatial-extent">
+<h3>Spatial extent<a class="headerlink" href="#spatial-extent" title="Link to this heading">#</a></h3>
+<p>To extract information about the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-extent"><span class="xref std std-term">spatial extent</span></a></em> of the dataset, we can use the <code class="docutils literal notranslate"><span class="pre">.rio.bounds()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">bounds</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This returns the minimum and maximum coordinates (here, in latitude and longitude) that bound our dataset, forming a minimum bounding rectangle around the data. The first two numbers represent the left-bottom (x,y) corner of the dataset, while the last two number represent the right-top corner (x,y) of the area, respectively.</p>
+</section>
+<section id="nodata-value">
+<h3>NoData value<a class="headerlink" href="#nodata-value" title="Link to this heading">#</a></h3>
+<p>Did you notice a small white rectangle in the bottom-right corner in Figure 7.3? This white area exists because our dataset includes some cells that does not have any data, i.e. they are represented with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values. To investigate whether your data contains <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values, you can access the NoData value of the <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.rio.nodata</span></code> returns the value how the NaN value is represented in our <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>. As we can see, the NaN value is represented with <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library’s <code class="docutils literal notranslate"><span class="pre">nan</span></code>. However, in many cases, the NoData value in a given raster file is actually coded with a specific numerical value that is a clear outlier compared to the rest of the data, such as <code class="docutils literal notranslate"><span class="pre">-9999</span></code> or <code class="docutils literal notranslate"><span class="pre">9999</span></code>. To find out what value has been used in the raster file to code the NoData value, we can use <code class="docutils literal notranslate"><span class="pre">rio.encoded_nodata</span></code> which returns the NoData value as it is represented in the actual source data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">encoded_nodata</span>
+</pre></div>
+</div>
+<p>It is important to deal with possible NaN values in the data, because otherwise the NoData values would be presented as actual values in the dataset (i.e. elevation). In our case, we dealt with the NaN values already when reading the data into <code class="docutils literal notranslate"><span class="pre">xarray</span></code> with <code class="docutils literal notranslate"><span class="pre">xr.open_dataset()</span></code> by specifying <code class="docutils literal notranslate"><span class="pre">masked=True</span></code>. This ensured that all values with number <code class="docutils literal notranslate"><span class="pre">9999</span></code> in the raster were transformed into <code class="docutils literal notranslate"><span class="pre">numpy.nan</span></code> values. This ensures that they do not influence any of the calculations when using the data but they are properly treated as data that does not exist. For example, the maximum value that we extracted earlier from the data was <code class="docutils literal notranslate"><span class="pre">2943</span></code>, not <code class="docutils literal notranslate"><span class="pre">9999</span></code> which would be the case unless we mask out the NaN values when reading the data.</p>
+<p>If a given dataset contains NoData values (it does not necessarily contain any NoData), the metadata of the dataset should always contain information about how the NoData values are encoded. With some raster files, you can also search for the NoData value by checking the <code class="docutils literal notranslate"><span class="pre">.attrs</span></code> attribute that might include information about NoData and is returned as a Python dictionary. The information about NoData can be can be stored with different keys, and you should look for values stored in keys, such as <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code>, <code class="docutils literal notranslate"><span class="pre">missing_value</span></code>, <code class="docutils literal notranslate"><span class="pre">fill_value</span></code> or <code class="docutils literal notranslate"><span class="pre">nodata</span></code>. In our raster file, this metadata has not been stored as part of the file, and thus, we cannot access the <code class="docutils literal notranslate"><span class="pre">.attrs</span></code> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">attrs</span>
+</pre></div>
+</div>
+</section>
+<section id="radiometric-resolution-bit-depth">
+<h3>Radiometric resolution (bit depth)<a class="headerlink" href="#radiometric-resolution-bit-depth" title="Link to this heading">#</a></h3>
+<p>Lastly, we can extract information about the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Radiometric-resolution"><span class="xref std std-term">radiometric resolution</span></a></em> (i.e. bit depth) of our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> by calling <code class="docutils literal notranslate"><span class="pre">.dtypes</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+<p>This returns a Python dictionary like object that provides information about the bit depth of each <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> stored in our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>. In our case, we only have one data attribute (elevation) and from the result we can see that the bit depth of this data is 32 bits. The radiometric resolution is determined by the number of bits used to represent the data for each pixel, which defines the range of possible intensity values. For example, an 8-bit sensor can record 256 levels of intensity (values 0-255), while a 16-bit sensor can record 65536 levels. Thus, the more bits you use to store the numbers on computer, the larger numbers you can store with a given bit depth. Notice that the more bits you use to store the numbers, the higher the memory consumption is as well. In terms of our example here (32-bit float), the data can be stored with high precision as it allows to store numbers with many decimals (approximately 7 decimal digits).</p>
+<p>Another useful thing to understand about computer systems is that the numbers can be represented as either signed or unsigned, which determines whether negative values can be stored. Signed numbers include a “+” or “-” sign to indicate whether the value is positive or negative, while unsigned numbers are limited to non-negative values. The sign and bit depth (8-bit, 16-bit, etc.) directly affect the range of values that can be represented in the raster. For example, an 8-bit signed integer can represent values from -128 to 127, while an 8-bit unsigned integer can represent values from 0 to 255. Thus, if your data only contains positive numbers, it makes sense to store the data as unsigned because then you can store larger numbers with the same number of bits. For instance, Landsat 8 satellite sensor data are stored as unsigned 16-bit values meaning that the possible values are from 0 to 65536. The data type (signed, unsigned) can also significantly influence the memory footprint of your data which we will cover next.</p>
+</section>
+<section id="size-of-the-data-memory-footprint-in-bytes">
+<h3>Size of the data: Memory footprint in bytes<a class="headerlink" href="#size-of-the-data-memory-footprint-in-bytes" title="Link to this heading">#</a></h3>
+<p>We can extract information about the memory footprint of our <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> or <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> via the <code class="docutils literal notranslate"><span class="pre">.nbytes</span></code> attribute which returns the total bytes consumed by the stored data. For convenience, we convert the bytes into Megabytes (MB) with formula <code class="docutils literal notranslate"><span class="pre">&lt;bytes&gt;</span> <span class="pre">/</span> <span class="pre">(1000*1000)</span></code> where the value 1000 converts the bytes into kilobytes and the second one converts the kilobytes into megabytes, respectively:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Memory consumption of a single DataArray</span>
+<span class="n">bytes_to_MB</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">1000</span>
+<span class="n">footprint_MB</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="n">bytes_to_MB</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DaraArray memory consumption: </span><span class="si">{</span><span class="n">footprint_MB</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Memory consumption of the whole Dataset</span>
+<span class="n">footprint_MB</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="n">bytes_to_MB</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset memory consumption: </span><span class="si">{</span><span class="n">footprint_MB</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see from the above, the memory consumption of the <code class="docutils literal notranslate"><span class="pre">elevation</span></code> data variable is 51.87 megabytes while the memory consumption of the whole <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> is slightly larger (51.93 MB). Majority of the memory footprint of a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> goes to storing the data variables (here, elevation values) and the rest of the memory is mostly consumed by other metadata related to the data (coordinates, CRS, indices etc.). Thus, the more data variables you store in your <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> the larger the overall memory footprint of the data will be.</p>
+</section>
+<section id="converting-data-type-bit-depth">
+<h3>Converting data type (bit depth)<a class="headerlink" href="#converting-data-type-bit-depth" title="Link to this heading">#</a></h3>
+<p>Now we know that our data consumes quite a bit of memory from our computer. However, in certain cases there might be ways to optimize the memory usage by changing the data type (i.e. bit depth) into a type that is not as memory-hungry as the 32-bit float. For example our elevation data is presented with whole numbers which is evident e.g. from the minimum and maximum values of our data, which were <code class="docutils literal notranslate"><span class="pre">568.0</span></code> and <code class="docutils literal notranslate"><span class="pre">2943.0</span></code> respectively. Notice that neither of these values have any decimals (other than 0), which is due to the fact the precision of our elevation data is in full meters. Thus, the type of our elevation data could be changed to integers. In fact, we could use <a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Unsigned-integer"><span class="xref std std-term">unsigned integer</span></a> as a data type because the elevation values present in the data fall under the range of 0-65535. Notice that if our data values would exceed these limits, we could use 32-bit or 64-bit integer data types which allow to store much higher numbers in the array.</p>
+<p>But does the bit-depth matter really? It does. For example in our case it would make a lot of sense to store the data with lower bit depth because that requires less disk space and memory from the computer as we demonstrate in the following. To change a data type of our elevation data variable, we can use the <code class="docutils literal notranslate"><span class="pre">.astype()</span></code> method that converts the input values into the target data type which is provided as an input argument. In the following, we will convert the elevation values (32-bit floats) into 16-bit unsigned integer numbers by calling <code class="docutils literal notranslate"><span class="pre">.astype(&quot;uint16&quot;)</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the data into integers</span>
+<span class="n">data16</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">data16</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data16</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;uint16&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Oops, the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> is producing a warning for us here. The reason for the warning is because our data contains <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values which are incompatible with the integer data type. NaN values are only supported by float data types, thus to get rid off this warning, you should fill the NaN values with some meaningful number before doing the conversion to integers. By default, the data type conversion will replace the NaN values with value 0. There are different approaches to deal with this issue (e.g. interpolation), but for now, we will just ignore this warning for the sake of simplicity.</p>
+<p>We can check the memory consumption of our updated <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Memory consumption of the updated DataArray</span>
+<span class="n">footprint_MB</span> <span class="o">=</span> <span class="n">data16</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="n">bytes_to_MB</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DaraArray memory consumption: </span><span class="si">{</span><span class="n">footprint_MB</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data16</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As we can see from the above the maximum elevation was now changed from the decimal number (2943.0) into integer (2943). Also the memory consumption improved significantly as the size of our data was cut into half when we converted the data into 16-bit unsigned integers. Thus, by choosing the data type in a smart way, you can significantly lower the memory consumption of the data on your computer which might make a big difference in terms of performance of your analysis. This is especially true in case you are analyzing very large raster datasets. In the following, we can see how changing the data type influences on the memory footprint of the data. Now we use <code class="docutils literal notranslate"><span class="pre">float</span></code> data types in the conversions so that we don’t receive the “invalid value” warning as before:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Memory consumption 16-bit:&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float16&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="n">bytes_to_MB</span><span class="p">,</span>
+    <span class="s2">&quot;MB.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Memory consumption 32-bit:&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="n">bytes_to_MB</span><span class="p">,</span>
+    <span class="s2">&quot;MB.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Memory consumption 64-bit:&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="n">bytes_to_MB</span><span class="p">,</span>
+    <span class="s2">&quot;MB.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see, the memory consumption of the same exact data varies significantly depending on the bit-depth that we choose to use for our data. It is important to be careful when doing bit-dept conversions that you do not sabotage your data with the data conversion. For example, in our data the value range is between 568-2943. Thus, we need to use at least 16-bits to store these values. However, nothing stops you from changing the data type into 8-bit integers which will significantly alter our data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">low_bit_depth_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;uint8&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Min value: &quot;</span><span class="p">,</span> <span class="n">low_bit_depth_data</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Max value: &quot;</span><span class="p">,</span> <span class="n">low_bit_depth_data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">low_bit_depth_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Data presented with 8-bit integers&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.6.</strong> Elevation values represented as 8-bit integers with distorted values.</em></p>
+<p>As we can see from the map, the result distorts the data significantly and ultimately makes it unusable because all the cells having a value larger than 255 (i.e. the maximum supported value with 8-bits) are incorrectly presented in the data. Thus, when doing data type conversions, it is good to be extra careful that you do not accidentally break your data and produce incorrect results when further analyzing it.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
 </section>
 <section id="creating-a-new-data-variable">
 <h2>Creating a new data variable<a class="headerlink" href="#creating-a-new-data-variable" title="Link to this heading">#</a></h2>
 <p>At the moment, we only have one data variable in our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, i.e. the <code class="docutils literal notranslate"><span class="pre">elevation</span></code>. As a reference to vector data structures in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> library which we introduced in Chapter 6, this would correspond to a situation in which you would have a single column in your <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. However, it is very easy create new data variables into your <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> e.g. based on specific calculations or data conversions. For instance, we might be interested to calculate the relative height (i.e. relief) based on our data which tells how much higher the elevations (e.g. the highest peak) are relative to the lowest elevation in the area. This can be easily calculated by subtracting the lowest elevation from the highest elevation in an area. In the following, we create a new data variable called <code class="docutils literal notranslate"><span class="pre">&quot;relative_height&quot;</span></code> into our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> based on a simple mathematical calculation. You can create new data variables into your <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> by using square brackets and the name of your variable as a string (e.g. <code class="docutils literal notranslate"><span class="pre">data[&quot;THE_NAME&quot;]</span></code>), as follows:</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">min_elevation</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
 <span class="c1"># Calculate the relief</span>
@@ -582,18 +775,143 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span>
 </pre></div>
 </div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
-<section id="plotting-a-data-variable">
-<h2>Plotting a data variable<a class="headerlink" href="#plotting-a-data-variable" title="Link to this heading">#</a></h2>
-<p>Thus far we have explored some of the basic characteristics of the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures. However, we have not yet plotted anything on a map, which is also one of the typical things that you want to do whenever working with new data. The <code class="docutils literal notranslate"><span class="pre">xarray</span></code> library provides very similar plotting functionality as <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, i.e. you can easily create a visualization out of your <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> objects by using the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method that uses <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library in the background. In the following, we create a simple map out of the <code class="docutils literal notranslate"><span class="pre">&quot;relative_height&quot;</span></code> data variable:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+<section id="writing-to-a-file">
+<h2>Writing to a file<a class="headerlink" href="#writing-to-a-file" title="Link to this heading">#</a></h2>
+<p>At this stage, we have learned how to read raster data and explored some of the basic properties of a raster <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>. As a last thing, we will learn how to write the data from <code class="docutils literal notranslate"><span class="pre">xarray</span></code> into specific raster file formats. Similarly as with vector data, raster data can be stored in various formats. Table 7.1 introduces some of the popular file formats used for storing raster data.</p>
+<p>: <em><strong>Table 7.1</strong>. Common raster file formats.</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Name</p></th>
+<th class="head text-center"><p>Extension</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>GeoTiff</p></td>
+<td class="text-center"><p>.tif, .tiff</p></td>
+<td class="text-left"><p>Widely used to store individual raster</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-left"><p>layers to disk (i.e. a single</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>netCDF</p></td>
+<td class="text-center"><p>.nc</p></td>
+<td class="text-left"><p>Widely used to store a whole</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> that can contain</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-left"><p>multiple variables.</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>Zarr</p></td>
+<td class="text-center"><p>.zarr</p></td>
+<td class="text-left"><p>Newer format for storing</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>. Supports storing</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-left"><p>large data in compressed chunks.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">GeoTIFF</span></code> format is one of the most widely used formats to store individual raster layers (i.e. a single <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>) to disk. This is still widely used format in various GIS software. <code class="docutils literal notranslate"><span class="pre">netCDF</span></code> is widely used in geosciences for storing multiple variables into a single file which is based on  a general-purpose file format and a data model called <code class="docutils literal notranslate"><span class="pre">HDF5</span></code> (<code class="docutils literal notranslate"><span class="pre">.h5</span></code>). The <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file format is a newer format designed for cloud-native, chunked, and compressed array storage. The <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file format and the associated <code class="docutils literal notranslate"><span class="pre">zarr</span></code> library also allows you to write multiple variables (i.e. a whole <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>) into a single <code class="docutils literal notranslate"><span class="pre">.zarr</span></code> directory/file in a similar manner as with <code class="docutils literal notranslate"><span class="pre">netCDF</span></code>. In addition, <code class="docutils literal notranslate"><span class="pre">zarr</span></code> has the ability to store arrays in various ways, including in memory, in files, and in cloud-based object storage (such as Amazon S3 buckets or Google Cloud Storage) that are often used to store very large datasets. When using <code class="docutils literal notranslate"><span class="pre">.zarr</span></code> file format, you can take advantage of the nice capabilities of <code class="docutils literal notranslate"><span class="pre">Zarr</span></code>, including the ability to store and analyze datasets far too large fit onto disk, particularly in combination with <code class="docutils literal notranslate"><span class="pre">dask</span></code> library which provides capabilities for parallel and distributed computing.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="geotiff">
+<h3>GeoTIFF<a class="headerlink" href="#geotiff" title="Link to this heading">#</a></h3>
+<p>In the following, we will see how to write data into all of these data formats. When writing data into <code class="docutils literal notranslate"><span class="pre">GeoTIFF</span></code> format you can use the <code class="docutils literal notranslate"><span class="pre">.rio.to_raster()</span></code> method that comes with the <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> library. As mentioned earlier, <code class="docutils literal notranslate"><span class="pre">GeoTiff</span></code> only allows you to write a single <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> at a time into a file:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span><span class="s2">&quot;data/temp/elevation.tif&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;relative_height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span><span class="s2">&quot;data/temp/relative_height.tif&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Great! Now we have a nice simple map that shows the relative height of the landscape where the highest peaks of the mountains are clearly visible on the bottom left corner. Notice that we used the <code class="docutils literal notranslate"><span class="pre">&quot;terrain&quot;</span></code> as a colormap for our visualization which provides a decent starting point for our visualization. However, as you can see it does not make sense that the part of the elevations are colored with blue because there are no values that would be below the sea surface (0 meters). It is possible to deal with this issue by adjusting the colormap which you can learn from Chapter 8.</p>
+<p>As we saw at the beginnig of this section, to read a <code class="docutils literal notranslate"><span class="pre">GeoTIFF</span></code> file, you can use the <code class="docutils literal notranslate"><span class="pre">xr.open_dataset()</span></code> with engine <code class="docutils literal notranslate"><span class="pre">&quot;rasterio&quot;</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;data/temp/relative_height.tif&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;rasterio&quot;</span><span class="p">,</span> <span class="n">masked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
-<section id="writing-a-file">
-<h2>Writing a file<a class="headerlink" href="#writing-a-file" title="Link to this heading">#</a></h2>
-<p>Add material about writing to most common raster file formats.</p>
+<section id="netcdf">
+<h3>netCDF<a class="headerlink" href="#netcdf" title="Link to this heading">#</a></h3>
+<p>With <code class="docutils literal notranslate"><span class="pre">netCDF</span></code> format you can write (and read) a whole <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> at a time which can be very convenient especially when you have multiple relevant variables that you want to store. When saving a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> to <code class="docutils literal notranslate"><span class="pre">netCDF</span></code>, you can use the <code class="docutils literal notranslate"><span class="pre">.to_netcdf()</span></code> method of <code class="docutils literal notranslate"><span class="pre">xarray</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">netcdf_fp</span> <span class="o">=</span> <span class="s2">&quot;data/temp/kilimanjaro_dataset.nc&quot;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">netcdf_fp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To read the <code class="docutils literal notranslate"><span class="pre">netCDF</span></code> file, you can use <code class="docutils literal notranslate"><span class="pre">xarray.open_dataset()</span></code> method that picks the correct file format based on the file extension. Here, it is important to use the parameter <code class="docutils literal notranslate"><span class="pre">decode_coords=&quot;all&quot;</span></code> to ensure that the metadata (CRS information) is also read appropriately:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">netcdf_fp</span><span class="p">,</span> <span class="n">decode_coords</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">ds</span>
+</pre></div>
+</div>
+</section>
+<section id="zarr">
+<h3>Zarr<a class="headerlink" href="#zarr" title="Link to this heading">#</a></h3>
+<p>To write the data into <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file format, you can use the <code class="docutils literal notranslate"><span class="pre">.to_zarr()</span></code> method. To be able to write to <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> format you need to have <code class="docutils literal notranslate"><span class="pre">zarr</span></code> Python library. Here, we write our dataset using writing <code class="docutils literal notranslate"><span class="pre">mode=&quot;w&quot;</span></code> which will overwrite an existing <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file if it exist:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zarr_fp</span> <span class="o">=</span> <span class="s2">&quot;data/temp/kilimanjaro_dataset.zarr&quot;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="n">zarr_fp</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To read the <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file, you can again use the <code class="docutils literal notranslate"><span class="pre">xr.open_dataset()</span></code>. Here, we specify also the <code class="docutils literal notranslate"><span class="pre">engine</span></code> to tell the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> that we want specifically to read <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file format and similarly as with <code class="docutils literal notranslate"><span class="pre">netCDF</span></code> we use `decode_coords=”all” to ensure that the coordinate reference system metadata is correctly read from the data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">zarr_fp</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span> <span class="n">decode_coords</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">ds</span>
+</pre></div>
+</div>
+<p>As mentioned earlier, <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> is a useful format because it allows to write a given <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> into disk by dividing the data into chunks of specific size. This can be especially useful when you have a very large <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> because it allows reading and writing data in parallel which makes the process faster. To write a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> into <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> using chunks, we can specify specific <code class="docutils literal notranslate"><span class="pre">encoding</span></code> settings that tells how the data should be chunked. We can do this as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zarr_fp</span> <span class="o">=</span> <span class="s2">&quot;data/temp/kilimanjaro_dataset_chunked.zarr&quot;</span>
+
+<span class="c1"># Provide the size of a single chunk per variable</span>
+<span class="n">encoding</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;elevation&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;chunks&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)},</span>
+    <span class="s2">&quot;relative_height&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;chunks&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)},</span>
+<span class="p">}</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="n">zarr_fp</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With the <code class="docutils literal notranslate"><span class="pre">encoding</span></code> we basically told that <code class="docutils literal notranslate"><span class="pre">.to_zarr()</span></code> method that the values in <code class="docutils literal notranslate"><span class="pre">elevation</span></code> and <code class="docutils literal notranslate"><span class="pre">relative_height</span></code> variables should be sliced into chunks where each chunk has 256 x 256 items of data (i.e. raster cells).</p>
+<p>To read the chunked <code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file, we can use the <code class="docutils literal notranslate"><span class="pre">xarray.open_dataset()</span></code> function in a similar manner as before:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">zarr_fp</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span> <span class="n">decode_coords</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">ds</span>
+</pre></div>
+</div>
+<p>If it happens that during the reading the CRS information (<code class="docutils literal notranslate"><span class="pre">spatial_ref</span></code>) is not properly read as part of the <code class="docutils literal notranslate"><span class="pre">Coordinates</span></code> information alongside with <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates (as in our case here), you can fix this as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;spatial_ref&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;spatial_ref&quot;</span><span class="p">]</span>
+<span class="n">ds</span>
+</pre></div>
+</div>
+<p>Now the CRS information in the <code class="docutils literal notranslate"><span class="pre">spatial_ref</span></code> variable is in correct place so that the <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> functionalities work as should. We can now for example correctly access the <code class="docutils literal notranslate"><span class="pre">.crs</span></code> attribute via the <code class="docutils literal notranslate"><span class="pre">.rio</span></code> accessor:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file format supports many other useful functionalities to e.g. compress the data and store the data in cloud object storage. In case you are interested in these functionalities, we recommend you to read further details from the <a class="reference external" href="https://docs.xarray.dev/en/stable/user-guide/io.html#zarr"><code class="docutils literal notranslate"><span class="pre">xarray</span></code> documentation</a> <a class="footnote-reference brackets" href="#zarr-xarray" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> as well as from the <a class="reference external" href="https://zarr.readthedocs.io/"><code class="docutils literal notranslate"><span class="pre">zarr</span></code> documentation</a><a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+</section>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="zarr-xarray" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://docs.xarray.dev/en/stable/user-guide/io.html#zarr">https://docs.xarray.dev/en/stable/user-guide/io.html#zarr</a></p>
+</aside>
+<aside class="footnote brackets" id="id3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://zarr.readthedocs.io/">https://zarr.readthedocs.io/</a></p>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -615,8 +933,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -628,10 +945,26 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-xarray-datastructures-dataset-and-dataarray">Key xarray datastructures: Dataset and DataArray</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-file-into-dataset">Reading a file into Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming-data-variables">Renaming data variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-basic-information-about-the-raster-dataset">Extracting basic information about the raster dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-data-variable">Creating a new data variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-data-variable">Plotting a data variable</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-a-file">Writing a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-basic-raster-dataset-properties">Extracting basic raster dataset properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensions-of-the-data">Dimensions of the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-resolution">Spatial resolution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-reference-system">Coordinate reference system</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-extent">Spatial extent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nodata-value">NoData value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radiometric-resolution-bit-depth">Radiometric resolution (bit depth)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#size-of-the-data-memory-footprint-in-bytes">Size of the data: Memory footprint in bytes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-data-type-bit-depth">Converting data type (bit depth)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-data-variable">Creating a new data variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-to-a-file">Writing to a file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geotiff">GeoTIFF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netcdf">netCDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zarr">Zarr</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>
 
@@ -656,7 +989,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -680,8 +1013,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

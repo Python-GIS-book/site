@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -54,7 +51,6 @@
     <link rel="prev" title="Quickly getting started (without installing Python)" href="05-quick-start.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,8 +66,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -79,6 +86,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -86,8 +94,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -453,16 +462,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -520,8 +537,8 @@
 <h2>Essentials for managing your Python environment<a class="headerlink" href="#essentials-for-managing-your-python-environment" title="Link to this heading">#</a></h2>
 <p>Knowing how to install Python and many of its wonderful libraries is one of the first things that you want to learn. Luckily, installing Python and its libraries is very easy once you are familiar with some basic concepts and approaches to manage your Python installations. In the next paragraphs, we provide some terminology, background information and good practices on how to handle Python installations before showing in detail how to install all the libraries used in this book. Next paragraphs probably include many new terms and some technical details that you might not understand at this point, but don’t worry, getting started is easy.</p>
 <ul class="simple">
-<li><p><strong>Handling dependencies:</strong> Because Python is one of the most popular programming languages in the world, there is also a huge number of libraries available for it. Having a large ecosystem of libraries is naturally a great thing, but it also bring some challenges that needs to be considered when doing installations. Many of the libraries developed for Python take advantage of, and are strongly linked to, other Python libraries. This is very useful because developers don’t need to create everything from scratch when developing libraries, allowing faster and (typically) more stable progress of the libraries. Python’s libraries are also evolving and improving all the time, and developers typically publish new versions of the libraries regularly. Because of these regular updates and <em><code class="docutils literal notranslate"><span class="pre">{term}</span> <span class="pre">dependencies</span> <span class="pre">&lt;Dependency&gt;</span></code></em> between Python packages, it is important to ensure that different packages (and their different versions) work well together. Luckily, Python has good tools (package managers) to help handling these installations, which solve all the dependencies between libraries for you, and allow you to keep your libraries up-to-date easily.</p></li>
-<li><p><strong>Python installation with Miniconda:</strong> Even though it is possible to install Python from the <a class="reference external" href="https://www.python.org/">Python homepage</a> [^Python website], we highly recommend using <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> <a class="footnote-reference brackets" href="#miniconda" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> to install Python. Miniconda is a Python distribution that comes with Python interpreter and a small number of essential packages, such as package manager called <code class="docutils literal notranslate"><span class="pre">conda</span></code>, which makes it easy to install Python packages. Miniconda is professionally maintained and widely used installation package for getting started with Python. It is free to use for individual hobbyists, students, universities, non-profit organizations, or businesses with less than 200 employees (as of May, 2022). For larger businesses, we recommend to install Python using <a class="reference external" href="https://github.com/conda-forge/miniforge">Miniforge</a> <a class="footnote-reference brackets" href="#miniforge" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, which is identical to Miniconda, but does not have any commercial restrictions.</p></li>
+<li><p><strong>Handling dependencies:</strong> Because Python is one of the most popular programming languages in the world, there is also a huge number of libraries available for it. Having a large ecosystem of libraries is naturally a great thing, but it also bring some challenges that needs to be considered when doing installations. Many of the libraries developed for Python take advantage of, and are strongly linked to, other Python libraries. This is very useful because developers don’t need to create everything from scratch when developing libraries, allowing faster and (typically) more stable progress of the libraries. Python’s libraries are also evolving and improving all the time, and developers typically publish new versions of the libraries regularly. Because of these regular updates and <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Dependency"><span class="xref std std-term">dependencies</span></a></em> between Python packages, it is important to ensure that different packages (and their different versions) work well together. Luckily, Python has good tools (package managers) to help handling these installations, which solve all the dependencies between libraries for you, and allow you to keep your libraries up-to-date easily.</p></li>
+<li><p><strong>Python installation with Miniconda:</strong> Even though it is possible to install Python from the <a class="reference external" href="https://www.python.org/">Python homepage</a> [^Python website], we recommend using <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> <a class="footnote-reference brackets" href="#miniconda" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> to install Python. Miniconda is a Python distribution that comes with Python interpreter and a small number of essential packages, such as package manager called <code class="docutils literal notranslate"><span class="pre">conda</span></code>, which makes it easy to install Python packages. Miniconda is professionally maintained and widely used installation package for getting started with Python. It is free to use for individual hobbyists, students, universities, non-profit organizations, or businesses with less than 200 employees (as of November 2024). For larger businesses, we recommend to install Python using <a class="reference external" href="https://github.com/conda-forge/miniforge">Miniforge</a> <a class="footnote-reference brackets" href="#miniforge" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, which is identical to Miniconda, but does not have any commercial restrictions.</p></li>
 <li><p><strong>Package managers:</strong> Package managers, such as conda (or <code class="docutils literal notranslate"><span class="pre">mamba</span></code> which is a faster version of conda) are extremely useful tools to install Python packages. In essence, a package manager is a tool that makes life much easier when installing new packages for Python. Package managers are easy to use from terminal/command prompt, and some IDEs also provide nice graphical user interfaces for handling the installations. In addition to conda/mamba, it is good to know that there are also other package managers for Python (such as pip, Pipenv and poetry). Generally, we encourage you to use conda/mamba when installing packages, because they work reliably with all operating systems (including Windows), and they can also handle packages that contain code written in other languages. Many scientific and GIS libraries for Python include parts which are written in C, due to significant boost in performance (speed). You can also combine installations with conda/mamba and pip which might be sometimes necessary if a package is not available via conda, but can be installed with pip.</p></li>
 <li><p><strong>Virtual environments:</strong> Although <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Virtual-environment"><span class="xref std std-term">virtual environments</span></a></em> are not necessarily needed when first starting to learn programming, it is a good practice to create an isolated environment for your programming project (e.g. related to a specific course, manuscript/thesis, data analysis pipeline or software project). A virtual environment is a Python programming environment which works in a way that the Python interpreter, libraries and scripts installed into it are isolated from the ones installed in other virtual environments (or used by the operating system). This ensures that all the installed packages work nicely together. You can create multiple environments on your computer for different projects (having e.g. different versions of Python and specific libraries), and you can swap easily between environments by <em>activating</em> them from the command prompt with a single command (see next section for details).</p></li>
 <li><p><strong>Configuring and documenting your environments:</strong> Installing Python packages can be done easily one by one from a command prompt. However, to document and keep track of your packages while ensuring that your installation works smoothly, we recommended to write a dedicated configuration file which lists all the packages in your environment (see Figure 1.12). Python package managers support various formats to list/write your dependencies, but conda/mamba uses a configuration file written to <code class="docutils literal notranslate"><span class="pre">environment.yaml</span></code>. YAML is a human-friendly configuration language which is easy to use and a popular approach to manage Python environments. The name of the file can be anything, but file format should be <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>. In the configuration file, you can control all the specifications of your virtual environment, including the name for your environment and the version of Python that should be used in the environment. In addition, you can specify if you want to use a specific version of a given package (e.g. a slightly older version), or go with the newest version available (which is the default). It is a good practice to install all packages (if possible) from the same conda channel (e.g. <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> which we recommend), and not to mix conda and pip for installations if not strictly necessary. A conda channel is a remote location/directory having a dedicated web address where packages are stored. The channels serve as the base for hosting packages, and the package managers (such as conda/mamba) search and download the packages from these channels.</p></li>
@@ -532,58 +549,58 @@
 <section id="installing-python-on-your-computer">
 <h2>Installing Python on your computer<a class="headerlink" href="#installing-python-on-your-computer" title="Link to this heading">#</a></h2>
 <p>In order to follow and reproduce the examples in the rest of the book, here we show in practice how to install Python on your own computer along with all of the recommended software libraries we use. This is not strictly necessary, as it is possible to use the Binder cloud computing platform from the book website to interact with the book materials. However, if you would like to get the most out of the book and ensure you’re easily able to continue with Python afterward, we strongly recommend you install Python and Jupyter on your own computer.</p>
-<p>In the sections that follow, we provide instructions for the installation of the Python using <a class="reference external" href="https://docs.anaconda.com/free/miniconda/">Miniconda</a> <a class="footnote-reference brackets" href="#miniconda" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the <a class="reference internal" href="#download-the-python-environment-files"><span class="xref myst">Python environment file we provide</span></a> to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.</p>
-<p>This book assumes you are using <strong>Python 3</strong>, so for all operating systems we recommend you install Miniconda based on Python 3. At the time of writing of this book, Python 3.11 is the Python version that is recommended (e.g., Figure 1.16), however future versions of Python 3.X should also be suitable. Importantly, the coding examples we present will not work with Python 2.X, so be sure to install the correct version of Miniconda!</p>
+<p>In the sections that follow, we provide instructions for the installation of the Python using <a class="reference external" href="https://www.anaconda.com/download/success#miniconda">Miniconda</a> <a class="footnote-reference brackets" href="#miniconda" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> for the Windows, macOS, and Linux operating systems. Miniconda is a lightweight installer for Python packages that includes a minimal Python environment. You should first install Miniconda and then you can use the <a class="reference internal" href="#download-the-python-environment-files"><span class="xref myst">Python environment file we provide</span></a> to set up a Python environment with all of the software libraries used in this book. We provide instructions for both steps below.</p>
+<p>This book assumes you are using <strong>Python 3</strong>, so for all operating systems we recommend you install Miniconda based on Python 3. At the time of writing of this book, Python 3.12 is the Python version that is recommended, however future versions of Python 3.X should also be suitable. Importantly, the coding examples we present will not work with Python 2.X, so be sure to install the correct version of Miniconda!</p>
 </section>
 <section id="installing-miniconda">
 <h2>Installing Miniconda<a class="headerlink" href="#installing-miniconda" title="Link to this heading">#</a></h2>
 <section id="windows">
 <h3>Windows<a class="headerlink" href="#windows" title="Link to this heading">#</a></h3>
-<p>To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer (Figure 1.17). You can find the latest installer links for Windows from the <a class="reference external" href="https://docs.anaconda.com/free/miniconda/miniconda-other-installer-links/#windows-installers">Miniconda website</a>.</p>
+<p>To get started, you should first download the version of Miniconda based on Python 3 that is suitable for your computer (Figure 1.17). You can find the latest installer links for Windows from the <a class="reference external" href="https://www.anaconda.com/download/success#miniconda">Miniconda website</a>. Note that the installation website is updated regularly, so it may appear differently than in Figure 1.17.</p>
 <p><img alt="Figure 1.17. Miniconda versions available for Windows." src="../../../_images/miniconda-windows.png" /></p>
 <p><em><strong>Figure 1.17</strong>. Miniconda versions available for Windows.</em></p>
-<p>Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.</p>
+<p>Once you have downloaded the installer, double click on the installer file to install it. You can use the default options but be aware of the installation types below.</p>
 <ul class="simple">
 <li><p>Single-user installation: Select “<strong>Just Me</strong>” during the installation and Miniconda will only be available for the current user. This should not require administrator rights for the installation.</p></li>
 <li><p>System-wide installation: Select “<strong>All Users</strong>” during the installation. This will require administrator rights.</p></li>
 </ul>
-<p>After the installation has completed you can test that the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager works by opening the Anaconda Prompt from the Start menu and running a command such as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>. If the command returns a version number of conda (e.g. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">4.11.0</span></code>) then everything is working correctly.</p>
-<p>You can find some additional tips on installing Miniconda on the <a class="reference external" href="https://docs.anaconda.com/free/miniconda/miniconda-install/">installing Miniconda web page</a>.</p>
+<p>After the installation has completed you can test that the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager works by opening the Anaconda Prompt from the Start menu and running a command such as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>. If the command returns a version number of conda (e.g., <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">24.11.0</span></code>) then everything is working correctly.</p>
+<p>You can find some additional tips on installing Miniconda on the <a class="reference external" href="https://docs.anaconda.com/miniconda/install/">installing Miniconda web page</a>.</p>
 </section>
 <section id="macos">
 <h3>macOS<a class="headerlink" href="#macos" title="Link to this heading">#</a></h3>
-<p>We recommend downloading the version of Miniconda using Python 3 that offers installation using a graphical installer (Figure 1.18). If your computer is using an Apple silicon processor (e.g., M1, M2, M3) you should select the M1 installer package (e.g., <code class="docutils literal notranslate"><span class="pre">Miniconda3</span> <span class="pre">macOS</span> <span class="pre">Apple</span> <span class="pre">M1</span> <span class="pre">64-bit</span> <span class="pre">pkg</span></code>, and if your computer has an Intel processor then select the Intel installer package (e.g., <code class="docutils literal notranslate"><span class="pre">Miniconda3</span> <span class="pre">macOS</span> <span class="pre">Intel</span> <span class="pre">x86</span> <span class="pre">64-bit</span> <span class="pre">pkg</span></code>). You can find the latest installer links for macOS from the <a class="reference external" href="https://docs.anaconda.com/free/miniconda/miniconda-other-installer-links/#macos-installers">Miniconda website</a>.</p>
+<p>We recommend downloading the version of Miniconda using Python 3 that offers installation using a graphical installer (Figure 1.18). If your computer is using an Apple silicon processor (e.g., M1, M2, M3, M4) you should select the Apple Silicon installer, and if your computer has an Intel processor then select the Intel chip installer. You can find the latest installer links for macOS from the <a class="reference external" href="https://www.anaconda.com/download/success#miniconda">Miniconda website</a>. Note that the installation website is updated regularly, so it may appear differently than in Figure 1.18.</p>
 <p><img alt="Figure 1.18. Miniconda versions available for macOS." src="../../../_images/miniconda-macos.png" /></p>
 <p><em><strong>Figure 1.18</strong>. Miniconda versions available for macOS.</em></p>
-<p>Once you have downloaded the installer, double click on the installer file to install it. You can use the default options, but be aware of the installation types below.</p>
+<p>Once you have downloaded the installer, double click on the installer file to install it. You can use the default options but be aware of the installation types below.</p>
 <ul class="simple">
 <li><p>Single-user installation: Select “<strong>Just Me</strong>” during the installation and Miniconda will only be available for the current user. This should not require administrator rights for the installation.</p></li>
 <li><p>System-wide installation: Select “<strong>All Users</strong>” during the installation. This will require administrator rights.</p></li>
 </ul>
-<p>After the installation has completed you can test that the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager works by opening Terminal or the Anaconda Prompt and running a command such as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>. If the command returns a version number of conda (e.g. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">4.11.0</span></code>) then everything is working correctly.</p>
-<p>In case you have any problems with the Miniconda installation, you can find some installation tips on the <a class="reference external" href="https://docs.anaconda.com/free/miniconda/miniconda-install/">installing Miniconda web page</a>.</p>
+<p>After the installation has completed you can test that the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager works by opening Terminal or the Anaconda Prompt and running a command such as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>. If the command returns a version number of conda (e.g. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">24.11.0</span></code>) then everything is working correctly.</p>
+<p>In case you have any problems with the Miniconda installation, you can find some installation tips on the <a class="reference external" href="https://docs.anaconda.com/miniconda/install/">installing Miniconda web page</a>.</p>
 </section>
 <section id="linux">
 <h3>Linux<a class="headerlink" href="#linux" title="Link to this heading">#</a></h3>
-<p>Start by downloading the Miniconda installer for Linux from the <a class="reference external" href="https://docs.anaconda.com/free/miniconda/miniconda-other-installer-links/#linux-installers">Miniconda website</a> (Figure 1.19). Be sure you download the Python 3 package.</p>
+<p>Start by downloading the Miniconda installer for Linux from the <a class="reference external" href="https://www.anaconda.com/download/success#miniconda">Miniconda website</a> (Figure 1.19). Be sure you download the Python 3 package. Note that the installation website is updated regularly, so it may appear differently than in Figure 1.19.</p>
 <p><img alt="Figure 1.19. Miniconda versions available for Linux." src="../../../_images/miniconda-linux.png" /></p>
 <p><em><strong>Figure 1.19</strong>. Miniconda versions available for Linux.</em></p>
-<p>Once you have downloaded the installer, you can open a terminal window and type a command to start the installation. You should use the default installer options, but be aware that the command you run will differ depending on the installation type.</p>
+<p>Once you have downloaded the installer, you can open a terminal window and type a command to start the installation. You should use the default installer options but be aware that the command you run will differ depending on the installation type.</p>
 <ul>
 <li><p>Single-user installation: For example, start by running the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bash<span class="w"> </span>Miniconda3-py311_23.11.0-2-Linux-x86_64.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bash<span class="w"> </span>Miniconda3-latest-Linux-x86_64.sh
 </pre></div>
 </div>
 <p>Miniconda will only be available for the current user and the installation directory must be a location where that user has write permissions. This should not require administrator rights for the installation.</p>
 </li>
 <li><p>System-wide installation: For a system-wide install, you can run, for example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>bash<span class="w"> </span>Miniconda3-py311_23.11.0-2-Linux-x86_64.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>bash<span class="w"> </span>Miniconda3-latest-Linux-x86_64.sh
 </pre></div>
 </div>
 <p>You will be prompted for your password and must have administrator rights to install this way.</p>
 </li>
 </ul>
-<p>After the installation has completed you can test that the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager works by opening a terminal and running a command such as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>. If the command returns a version number of conda (e.g. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">4.11.0</span></code>) then everything is working correctly. In case you have any problems with the Miniconda installation, you can find some installation tips on the <a class="reference external" href="https://docs.anaconda.com/free/miniconda/miniconda-install/">installing Miniconda web page</a>.</p>
+<p>After the installation has completed you can test that the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager works by opening a terminal and running a command such as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>. If the command returns a version number of conda (e.g. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">24.11.0</span></code>) then everything is working correctly. In case you have any problems with the Miniconda installation, you can find some installation tips on the <a class="reference external" href="https://docs.anaconda.com/miniconda/install/">installing Miniconda web page</a>.</p>
 </section>
 </section>
 <section id="installing-the-python-libraries-used-in-the-book">
@@ -654,7 +671,7 @@ It’s a good idea to search for installation instructions for each package onli
 <aside class="footnote brackets" id="miniconda" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
-<p><a class="reference external" href="https://docs.anaconda.com/free/miniconda/">https://docs.anaconda.com/free/miniconda/</a></p>
+<p><a class="reference external" href="https://docs.anaconda.com/miniconda/">https://docs.anaconda.com/miniconda/</a></p>
 </aside>
 <aside class="footnote brackets" id="miniforge" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
@@ -709,8 +726,7 @@ It’s a good idea to search for installation instructions for each package onli
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -760,7 +776,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -784,8 +800,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

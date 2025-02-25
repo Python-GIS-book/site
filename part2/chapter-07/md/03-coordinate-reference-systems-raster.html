@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,17 +431,27 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
 </div></div>
       
     </div>
@@ -448,6 +467,18 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#georeferencing-raster-data-key-concepts">Georeferencing raster data - Key concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-metadata-about-coordinate-reference-system">Accessing metadata about coordinate reference system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-information-about-affine-transformation">Accessing information about affine transformation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-utm-zone-of-a-raster">Estimating the UTM zone of a raster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reprojecting-raster-data">Reprojecting raster data</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -459,29 +490,158 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="coordinate-reference-system-management">
 <h1>Coordinate reference system management<a class="headerlink" href="#coordinate-reference-system-management" title="Link to this heading">#</a></h1>
-<p><strong>To be updated</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<p>In this chapter, we focus on understanding how the coordinate reference system (CRS) can be managed with raster data using <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> library. As we discussed in Chapter 5.3, the process of attaching information about a location to a piece of information is commonly referred as <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Georeferencing"><span class="xref std std-term">georeferencing</span></a></em>. When considering raster data, there are ultimately two relevant parts to the georeferencing of a raster dataset:</p>
+<ol class="arabic simple">
+<li><p>the definition of the local, regional, or global system in which a raster’s pixels are located (CRS), and</p></li>
+<li><p>the parameters by which pixel coordinates are transformed into coordinates in that system.</p></li>
+</ol>
+<p>In the following, we will focus on inspecting different kinds of georeferencing metadata that are supported by <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>/<code class="docutils literal notranslate"><span class="pre">rasterio</span></code>, as well as learn how to reproject a raster from one coordinate reference system to another which is a commonly needed GIS technique when doing geographic data analysis.</p>
+<section id="georeferencing-raster-data-key-concepts">
+<h2>Georeferencing raster data - Key concepts<a class="headerlink" href="#georeferencing-raster-data-key-concepts" title="Link to this heading">#</a></h2>
+<p>As we have seen from the previous chapters, raster data represents spatial information as a grid of pixels, commonly used for satellite imagery, elevation models, and land cover maps. However, for a raster to be meaningful in a geographic context, it must be correctly georeferenced. Georeferencing ensures that each pixel corresponds to a specific location on Earth. There are a few central concepts related to georeferencing raster data: the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Coordinate-Reference-System"><span class="xref std std-term">coordinate reference system</span></a> (CRS)</em>, the <em><span class="xref std std-term">transform</span></em> and the <em><span class="xref std std-term">affine</span></em>. Understanding these concepts is crucial for working with spatial data, as they define how a raster aligns with real-world locations.</p>
+<ul class="simple">
+<li><p>The <em><strong>CRS</strong></em> defines the spatial reference of the raster, specifying how coordinates are measured. It includes a datum (e.g. WGS84) and a projection (e.g. UTM) that determine how the Earth’s curved surface is represented in a flat raster dataset. Without a CRS, a raster lacks geographic context.</p></li>
+<li><p>The <em><strong>transform</strong></em> describes how pixel coordinates (row, column) map to real-world coordinates (e.g., meters or degrees). It defines the raster’s scale, rotation, and location.</p></li>
+<li><p>The <em><strong>affine</strong></em> transformation is a mathematical model commonly used in Python to define the spatial transformation of raster data. It consists of six parameters that control translation (position), scaling (resolution), and rotation/skew.</p></li>
+</ul>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_cell"] -->
+<p>In addition to these concepts, a raster dataset may also be georeferenced using <em><span class="xref std std-term">Ground Control Points</span> (GCP)</em> or <em><span class="xref std std-term">Rational Polynomial Coefficients</span> (RPCs)</em>. Ground Control Points are known locations on the Earth’s surface with accurately measured coordinates using e.g. GPS device or derived from high-resolution reference image. They are used to improve georeferencing accuracy by linking raster pixel positions to real-world coordinates. GCPs help correct distortions in aerial or satellite images by creating polynomial transformations. Typically a dataset will have multiple GCPs distributed across the image.</p>
+<p>Rational Polynomial Coefficients (RPCs) provide an alternative georeferencing method, often used for high-resolution satellite imagery. Instead of an affine transform, RPCs model the relationship between image coordinates and real-world coordinates using rational polynomial coefficients which are typically provided by satellite image providers. They allow for more complex transformations, especially in cases where elevation variations affect image positioning.</p>
+<!-- #endregion -->
+</section>
+<section id="accessing-metadata-about-coordinate-reference-system">
+<h2>Accessing metadata about coordinate reference system<a class="headerlink" href="#accessing-metadata-about-coordinate-reference-system" title="Link to this heading">#</a></h2>
+<p>Now as we know some basics about the georeferensing raster data, let’s start and investigate how the coordinate reference system information is stored in <code class="docutils literal notranslate"><span class="pre">xarray</span></code> / <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>. Let’s start by reading a raster dataset that we have also used in previous chapters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/temp/kilimanjaro_dataset.nc&quot;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">decode_coords</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">data</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">spatial_ref</span><span class="o">.</span><span class="n">attrs</span>
-</pre></div>
-</div>
+<p>As was already briefly shown in Chapter 7.2, we can call the <code class="docutils literal notranslate"><span class="pre">.rio.crs</span></code> to access the Coordinate Reference System information attached to our raster dataset:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span>
 </pre></div>
 </div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see, the <code class="docutils literal notranslate"><span class="pre">.rio.crs</span></code> returns some basic information about the coordinate reference system, and in our case, reports that the EPSG code of the dataset is <code class="docutils literal notranslate"><span class="pre">4326</span></code> (i.e. WGS84). When checking the type of the object we can see that the <code class="docutils literal notranslate"><span class="pre">rio.crs</span></code> it is actually a <code class="docutils literal notranslate"><span class="pre">CRS</span></code> class object from <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> library that contains some helpful functionalities related to working with CRS. For instance, if you want to extract the EPSG-code as a number, you can call the <code class="docutils literal notranslate"><span class="pre">.to_epsg()</span></code> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_epsg</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>In addition, in casse you are interested to investigate the CRS information in Well-Known Text (WKT) format, it is easy to parse this information using the <code class="docutils literal notranslate"><span class="pre">.to_wkt()</span></code> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_wkt</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Affine transform (how raster is scaled, rotated, skewed, and/or translated)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
+<p>There are also various other useful functionalities that you can explore via the <code class="docutils literal notranslate"><span class="pre">.crs</span></code> accessor, such as:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.is_geographic</span></code> which returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the data is in geographic CRS (<code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.is_projected</span></code> which returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the data is in projected CRS, e.g. UTM (<code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.units_factor</span></code> which returns information about the units of the coordinates (degree or meter)</p></li>
+</ul>
+<p>Another place to find relevant information about the coordinate reference system is to look at the contents of the <code class="docutils literal notranslate"><span class="pre">spatial_ref</span></code> attribute in the <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>. We can access various key attributes of the CRS by calling <code class="docutils literal notranslate"><span class="pre">.spatial_ref.attrs</span></code> that prints a Python <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> containing the information:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">spatial_ref</span><span class="o">.</span><span class="n">attrs</span>
 </pre></div>
 </div>
+<p>To find out the names of the CRS related attributes, you can access the <code class="docutils literal notranslate"><span class="pre">.key()</span></code> of the dictionary which returns a collection of keys available in the <code class="docutils literal notranslate"><span class="pre">spatial_ref</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">spatial_ref</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To access individual items from the spatial reference attributes, we can do following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">spatial_ref</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;reference_ellipsoid_name&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">spatial_ref</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;grid_mapping_name&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="accessing-information-about-affine-transformation">
+<h2>Accessing information about affine transformation<a class="headerlink" href="#accessing-information-about-affine-transformation" title="Link to this heading">#</a></h2>
+<p>As mentioned in the introduction of this chapter, the <code class="docutils literal notranslate"><span class="pre">transform</span></code> of raster data provides information how the raster is scaled, rotated, and located. The <code class="docutils literal notranslate"><span class="pre">affine</span></code> transformation then again converts this information into a mathematical model that is used by the Python tools to conduct coordinate transformations etc. To access this information, we can call the <code class="docutils literal notranslate"><span class="pre">.rio.transform()</span></code> method which returns relevant data about the transform as an <code class="docutils literal notranslate"><span class="pre">Affine</span></code> object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">affine</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
+<span class="n">affine</span>
+</pre></div>
+</div>
+<p>The result here contains six different parameters telling about the scale, rotation and location of the raster data. We can also access these parameters individually. To parse information about the pixel size of our raster dataset, we can access the <code class="docutils literal notranslate"><span class="pre">.a</span></code> and <code class="docutils literal notranslate"><span class="pre">.e</span></code> attributes of the affine:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pixel size</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pixel size x-direction (a):&quot;</span><span class="p">,</span> <span class="n">affine</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pixel size y-direction (e):&quot;</span><span class="p">,</span> <span class="n">affine</span><span class="o">.</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see, the pixel size is approximately 0.00028 Decimal degrees to both directions. The scale in y-direction is often reported with negative sign which is normal (as raster images are often stored top-down).</p>
+<p>To find out whether our data is rotated or skewed to specific direction, we can access the attributes <code class="docutils literal notranslate"><span class="pre">.b</span></code> and <code class="docutils literal notranslate"><span class="pre">.d</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rotation/skew</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rotation/skew x-direction (b):&quot;</span><span class="p">,</span> <span class="n">affine</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rotation/skew y-direction (d):&quot;</span><span class="p">,</span> <span class="n">affine</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These return the row and column rotation or skew, which is usually 0 for rasters facing north-up. Finally, we can find the location of our raster by accessing the attributes <code class="docutils literal notranslate"><span class="pre">.c</span></code> and <code class="docutils literal notranslate"><span class="pre">.f</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Top-left corner&#39;s real-world coordinates</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X-coordinate of the top-left pixel (c):&quot;</span><span class="p">,</span> <span class="n">affine</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Y-coordinate of the top-left pixel (f):&quot;</span><span class="p">,</span> <span class="n">affine</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.c</span></code> informs about the location of the X-coordinate of the top-left corner of the raster (a given pixel on that location), while <code class="docutils literal notranslate"><span class="pre">.f</span></code> informs about the Y-coordinate of the same pixel. This is ultimately the location of the pixel that is present at index <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0]</span></code> of the 2D array.</p>
+</section>
+<section id="estimating-the-utm-zone-of-a-raster">
+<h2>Estimating the UTM zone of a raster<a class="headerlink" href="#estimating-the-utm-zone-of-a-raster" title="Link to this heading">#</a></h2>
+<p>As we saw previously, our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> currently has a <code class="docutils literal notranslate"><span class="pre">WGS84</span></code> coordinate reference system (EPSG:4326) in which the coordinates are represented as decimal degrees. For various reasons, you might want to reproject your data into a metric CRS, such as national coordinate reference frames (e.g. EUREF-FIN in Finland) or Universal Transverse Mercator (UTM) coordinate system which divides the Earth into 60 zones and projects each one to a plane (Figure 7.20). Most zones in UTM span 6 degrees of longitude, and each has a designated central meridian. UTM zones are widely used in (geographically) large countries, such as in United States and Canada to represent geographic data in a metric coordinate reference system.</p>
+<p><img alt="Figure 7.20. Universal Transverse Mercator (UTM) zones on an equirectangular world map with irregular zones labeled in red. Image source: cmglee, STyx, Wikialine and Goran tek-en (2019) via Wikimedia Commons, licensed under Creative Commons BY-SA 4.0." src="../../../_images/UTM_zones.png" /></p>
+<p><em><strong>Figure 7.20.</strong> Universal Transverse Mercator (UTM) zones on an equirectangular world map with irregular zones labeled in red. Image source: cmglee, STyx, Wikialine and Goran tek-en (2019) via Wikimedia Commons, licensed under Creative Commons BY-SA 4.0.</em></p>
+<p>It is relatively common to use UTM coordinate reference system especially when working with raster data that covers large areas on a sub-national level. However, many datasets are typically distributed in WGS84, which means that you need to know the UTM zone for a given area that covers the raster dataset before you can reproject the data into metric system. Luckily, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> includes a handy method called <code class="docutils literal notranslate"><span class="pre">.rio.estimate_utm_crs()</span></code> that makes it possible to make a sophisticated guess of the UTM-zone that the data falls under. In the following, we will find out the UTM-zone for our raster dataset located in Tanzania:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">utm_crs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">estimate_utm_crs</span><span class="p">()</span>
+<span class="n">utm_crs</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">utm_crs</span><span class="o">.</span><span class="n">to_wkt</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As we can see, the EPSG-code for our dataset is <code class="docutils literal notranslate"><span class="pre">32737</span></code> which belongs to UTM zone 37S which is correctly identified. Notice that if your data covers large areas that span across multiple UTM zones, it might not be possible to identify the UTM zone for such data.</p>
+</section>
+<section id="reprojecting-raster-data">
+<h2>Reprojecting raster data<a class="headerlink" href="#reprojecting-raster-data" title="Link to this heading">#</a></h2>
+<p>Transforming (i.e. reprojecting) a dataset from one CRS to another can be done easily using the <code class="docutils literal notranslate"><span class="pre">.rio.reproject()</span></code> method. The reprojection can be done in various different ways, but one of the most common way to reproject a dataset to given destination CRS is to use the <code class="docutils literal notranslate"><span class="pre">dst_crs</span></code> parameter that accepts the CRS information as EPSG code, OGC WKT string or Proj4 string (see Chapters 5.3 and 6.4 for further details). In the following, we reproject our data from WGS84 into UTM zone 37S by providing the EPSG code as input, as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_utm</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">reproject</span><span class="p">(</span><span class="n">dst_crs</span><span class="o">=</span><span class="s2">&quot;EPSG:32737&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Alternatively, you can use the estimated UTM zone directly as input</span>
+<span class="n">data_utm2</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">reproject</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">estimate_utm_crs</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Now our data has been successfully reprojected into <code class="docutils literal notranslate"><span class="pre">EPSG:32737</span></code> which means that the coordinates originally represented in decimal degrees were transformed into meters. Let’s investigate the coordinates of our reprojected <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> and compare those against the original coordinates:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reprojected X-coordinates:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_utm</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Reprojected Y-coordinates:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_utm</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original X-coordinates:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Original Y-coordinates:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see, the coordinates contain now much larger numbers compared to the original x- and y-coordinates represented as decimal degrees. This is expected because the coordinates are based on a false easting and northing in which the easting (X coordinate) represents the distance in meters from the central meridian of the given UTM zone while the northing (Y coordinate) is distance from the equator in meters. To avoid dealing with negative numbers, a false easting of 500,000 meters is added to the central meridian. Thus a point that has an easting of 400000 meters is about 100 km west of the central meridian.</p>
+<p>Let’s continue and compare the shape of our reprojected raster to the original one:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of the reprojected raster:&quot;</span><span class="p">)</span>
+<span class="n">data_utm</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of the original raster:&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<p>Wait. What?! As we can see, the shape of the raster has changed during the CRS transformation. This might seem weird, but it is actually quite expected. When you reproject raster data to a new coordinate reference system, like transforming from geographic WGS84 coordinate reference system to metric UTM zone 37S, a few things happen that can change the shape and size of the output raster. WGS84 is a geographic CRS that uses degrees, while UTM is a projected CRS in meters. When we transform to UTM, the curved surface of the Earth gets flattened, causing slight distortions. The grid cells, originally evenly spaced in degrees, now stretch and warp in the UTM projection, that can change the dimensions. In addition, the bounding box (extent) of the output raster might shift or expand. When projecting, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> needs to make sure that the grid is properly aligned, so it adjusts the pixel grid to fit the new projection that aims to prevent data loss. These processes are reasons why <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> might add or remove rows/columns to preserve proper alignment when reprojecting data.</p>
+<p>Let’s finally plot our reprojected data to see that the output looks similar to the original data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_utm</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Reprojected elevation data in UTM Zone 37S&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 7.21.</strong> Reprojected raster data in which the coordinates are represented in meters.</em></p>
+</section>
 </section>
 
 
@@ -502,6 +662,25 @@
             
             
               
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#georeferencing-raster-data-key-concepts">Georeferencing raster data - Key concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-metadata-about-coordinate-reference-system">Accessing metadata about coordinate reference system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-information-about-affine-transformation">Accessing information about affine transformation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-utm-zone-of-a-raster">Estimating the UTM zone of a raster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reprojecting-raster-data">Reprojecting raster data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
             
           </div>
           <footer class="bd-footer-content">
@@ -521,7 +700,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -545,8 +724,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

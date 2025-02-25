@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -479,18 +496,18 @@
   <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section class="tex2jax_ignore mathjax_ignore" id="selecting-data-based-on-spatial-relationships">
 <h1>Selecting data based on spatial relationships<a class="headerlink" href="#selecting-data-based-on-spatial-relationships" title="Link to this heading">#</a></h1>
-<p>When working with geospatial data, you often need to do specific GIS operations based on how the data layers are located in relation to each other. For instance, finding out if a certain point is located inside an area, or whether a line intersects with another line or a polygon, are very common operations for selecting data based on spatial location. These kind of queries are commonly called as <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-queries"><span class="xref std std-term">spatial queries</span></a></em>. Spatial queries are conducted based on the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Topological-spatial-relations"><span class="xref std std-term">topological spatial relations</span></a></em> which are fundamental constructs that describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as <em>contains</em>, <em>touches</em> and <em>intersects</em> (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id4" title="Eliseo Clementini, Jayant Sharma, and Max J Egenhofer. Modeling Topological Spatial Relations: Strategies for Query Processing. Computers and Graphics, 18(6):815-822, 1994.">Clementini <em>et al.</em>, 1994</a></span>). In GIS, the topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions. For instance, regardless of their exact shape or size, a lake <em>inside</em> a forest maintains this relationship even if the forest’s boundaries or the lake’s size change slightly, as long as the lake remains enclosed by the forest. Next, we will learn a bit more details about these topological relations and how to use them for spatial queries in Python.</p>
+<p>When working with geospatial data, you often need to do specific GIS operations based on how the data layers are located in relation to each other. For instance, finding out if a certain point is located inside an area, or whether a line intersects with another line or a polygon, are very common operations for selecting data based on spatial location. These kind of queries are commonly called as <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-queries"><span class="xref std std-term">spatial queries</span></a></em>. Spatial queries are conducted based on the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Topological-spatial-relations"><span class="xref std std-term">topological spatial relations</span></a></em> which are fundamental constructs that describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as <em>contains</em>, <em>touches</em> and <em>intersects</em> (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id5" title="Eliseo Clementini, Jayant Sharma, and Max J Egenhofer. Modeling Topological Spatial Relations: Strategies for Query Processing. Computers and Graphics, 18(6):815-822, 1994.">Clementini <em>et al.</em>, 1994</a></span>). In GIS, the topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions. For instance, regardless of their exact shape or size, a lake <em>inside</em> a forest maintains this relationship even if the forest’s boundaries or the lake’s size change slightly, as long as the lake remains enclosed by the forest. Next, we will learn a bit more details about these topological relations and how to use them for spatial queries in Python.</p>
 <!-- #endregion -->
 <section id="topological-spatial-relations">
 <h2>Topological spatial relations<a class="headerlink" href="#topological-spatial-relations" title="Link to this heading">#</a></h2>
-<p>Computationally, conducting queries based on topological spatial relations, such as detecting if a point is inside a polygon can be done in different ways, but most GIS software rely on something called <em><span class="xref std std-term">Dimensionally Extended 9-Intersection Model</span></em> (<a class="reference external" href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a> <a class="footnote-reference brackets" href="#de-9im" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>). DE-9IM is an ISO and OGC approved standard and a fundamental framework in GIS that is used to describe and analyze spatial relationships between geometric objects (<span id="id3"><a class="reference internal" href="../../../back-matter/nb/references.html#id3" title="Eliseo Clementini, Paolino Di Felice, and Peter van Oosterom. A Small Set of Formal Topological Relationships Suitable for End-User Interaction. In David Abel and Beng Chin Ooi, editors, Advances in Spatial Databases, Lecture Notes in Computer Science, 277-295. Berlin, Heidelberg, 1993. Springer.">Clementini <em>et al.</em>, 1993</a></span>). DE-9IM defines the topological relations based on the interior, boundary, and exterior of two geometric shapes and how they intersect with each other (see Figure 6.34 and Figure 6.35). When doing this, the DE-9IM also considers the dimensionality of the objects. Considering the dimensionality of geometric objects is important because it determines the nature of spatial relations, influences the complexity of interactions between objects, and defines topological rules. Typically the more dimensions the geometric object has, the more complex the geometry: The <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects are 0-dimensional, <code class="docutils literal notranslate"><span class="pre">LineString</span></code> and <code class="docutils literal notranslate"><span class="pre">LinearRing</span></code> are 1-dimensional and <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> objects are 2-dimensional (see Figure <strong>6.31</strong>).</p>
-<p><img alt="Figure 6.34. Interior, boundary and exterior for different geometric data types. The data types can be either 0, 1 or 2-dimensional." src="../../../_images/DE-9IM_topology_interior_boundary_exterior.png" /></p>
-<p><em><strong>Figure 6.34</strong>. Interior, boundary and exterior for different geometric data types. The data types can be either 0, 1 or 2-dimensional.</em></p>
-<p>We do not go into details about the mathematics of the DI-9IM here, but under the hood the model uses a specific 3x3 intersection matrix to examine the intersections of the interior, boundary and exterior of two geometric objects. This makes it possible to produce a detailed characterization of the geometries’ spatial relationship and one can for instance test whether a given Point or LineString is <em>within</em> a Polygon (returning True or False). When testing how two geometries relate to each other, the DE-9IM model gives a result which is called <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-predicate"><span class="xref std std-term">spatial predicate</span></a></em> (also called as <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Binary-predicate"><span class="xref std std-term">binary predicate</span></a>)</em>. Figure 6.35 shows eight common spatial predicates based on the spatial relationship between the geometries (<span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id5" title="Max J. Egenhofer and Khaled K. Al-Taha. Reasoning about Gradual Changes of Topological Relationships. In A. U. Frank, I. Campari, and U. Formentini, editors, Theories and Methods of Spatio-Temporal Reasoning in Geographic Space, Lecture Notes in Computer Science, 196-219. Berlin, Heidelberg, 1992. Springer.">Egenhofer and Al-Taha, 1992</a></span>). Many of these predicates, such as <em>intersects</em>, <em>within</em>, <em>contains</em>, <em>overlaps</em> and <em>touches</em> are commonly used when selecting data for specific area of interest or when joining data from one dataset to another based on the spatial relation between the layers.</p>
-<p><img alt="Figure 6.35. Eight common spatial predicates formed based on spatial relations between two geometries. Modified after Egenhofer et al. (1992)." src="../../../_images/spatial-relations.png" /></p>
-<p><em><strong>Figure 6.35</strong>. Eight common spatial predicates formed based on spatial relations between two Polygon geometries. Modified after Egenhofer et al. (1992).</em></p>
+<p>Computationally, conducting queries based on topological spatial relations, such as detecting if a point is inside a polygon can be done in different ways, but most GIS software rely on something called <em><span class="xref std std-term">Dimensionally Extended 9-Intersection Model</span></em> (<a class="reference external" href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a> <a class="footnote-reference brackets" href="#de-9im" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>). DE-9IM is an ISO and OGC approved standard and a fundamental framework in GIS that is used to describe and analyze spatial relationships between geometric objects (<span id="id3"><a class="reference internal" href="../../../back-matter/nb/references.html#id4" title="Eliseo Clementini, Paolino Di Felice, and Peter van Oosterom. A Small Set of Formal Topological Relationships Suitable for End-User Interaction. In David Abel and Beng Chin Ooi, editors, Advances in Spatial Databases, Lecture Notes in Computer Science, 277-295. Berlin, Heidelberg, 1993. Springer.">Clementini <em>et al.</em>, 1993</a></span>). DE-9IM defines the topological relations based on the interior, boundary, and exterior of two geometric shapes and how they intersect with each other (see Figure 6.34 and Figure 6.35). When doing this, the DE-9IM also considers the dimensionality of the objects. Considering the dimensionality of geometric objects is important because it determines the nature of spatial relations, influences the complexity of interactions between objects, and defines topological rules. Typically the more dimensions the geometric object has, the more complex the geometry: The <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects are 0-dimensional, <code class="docutils literal notranslate"><span class="pre">LineString</span></code> and <code class="docutils literal notranslate"><span class="pre">LinearRing</span></code> are 1-dimensional and <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> objects are 2-dimensional (see Figure 6.35).</p>
+<p><img alt="Figure 6.35. Interior, boundary and exterior for different geometric data types. The data types can be either 0, 1 or 2-dimensional." src="../../../_images/DE-9IM_topology_interior_boundary_exterior.png" /></p>
+<p><em><strong>Figure 6.35</strong>. Interior, boundary and exterior for different geometric data types. The data types can be either 0, 1 or 2-dimensional.</em></p>
+<p>We do not go into details about the mathematics of the DI-9IM here, but under the hood the model uses a specific 3x3 intersection matrix to examine the intersections of the interior, boundary and exterior of two geometric objects. This makes it possible to produce a detailed characterization of the geometries’ spatial relationship and one can for instance test whether a given Point or LineString is <em>within</em> a Polygon (returning True or False). When testing how two geometries relate to each other, the DE-9IM model gives a result which is called <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-predicate"><span class="xref std std-term">spatial predicate</span></a></em> (also called as <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Binary-predicate"><span class="xref std std-term">binary predicate</span></a>)</em>. Figure 6.36 shows eight common spatial predicates based on the spatial relationship between the geometries (<span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id6" title="Max J. Egenhofer and Khaled K. Al-Taha. Reasoning about Gradual Changes of Topological Relationships. In A. U. Frank, I. Campari, and U. Formentini, editors, Theories and Methods of Spatio-Temporal Reasoning in Geographic Space, Lecture Notes in Computer Science, 196-219. Berlin, Heidelberg, 1992. Springer.">Egenhofer and Al-Taha, 1992</a></span>). Many of these predicates, such as <em>intersects</em>, <em>within</em>, <em>contains</em>, <em>overlaps</em> and <em>touches</em> are commonly used when selecting data for specific area of interest or when joining data from one dataset to another based on the spatial relation between the layers.</p>
+<p><img alt="Figure 6.36. Eight common spatial predicates formed based on spatial relations between two geometries. Modified after Egenhofer et al. (1992)." src="../../../_images/spatial-relations.png" /></p>
+<p><em><strong>Figure 6.36</strong>. Eight common spatial predicates formed based on spatial relations between two Polygon geometries. Modified after Egenhofer et al. (1992).</em></p>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-<p>The top row of Figure 6.35 shows spatial predicates in which the geometries A and B are clearly disjoint from each other, contained or within each other, or identical to each other. When the geometries have at least one point in common, the geometries are said to be <em>intersecting</em> with each other. Thus, in this figure, all the comparisons except the first one (disjoint) are True, i.e. the geometries <em>intersect</em> with each other. The bottom row shows examples of spatial relationships that are slightly “special cases” in one way or another. When two geometries <em>touch</em> each other, they have at least one point in common (at the border in this case), but their interiors do not intersect with each other. When the interiors of the geometries A and B are partially on top of each other and partially outside of each other, the geometries are <em>overlapping</em> with each other. The spatial predicate for <em>covers</em> is when the interior of geometry B is almost totally within A, but they share at least one common coordinate at the border. Similarly, if geometry A is almost totally contained by the geometry B (except at least one common coordinate at the border) the spatial predicate is called <em>covered by</em>. These eight examples represent some of the common spatial predicates based on two Polygon shapes. When other shapes are considered (e.g. Points, LineStrings), there are plenty of more topological relations: altogether 512 with 2D data.</p>
+<p>The top row of Figure 6.36 shows spatial predicates in which the geometries A and B are clearly disjoint from each other, contained or within each other, or identical to each other. When the geometries have at least one point in common, the geometries are said to be <em>intersecting</em> with each other. Thus, in this figure, all the comparisons except the first one (disjoint) are True, i.e. the geometries <em>intersect</em> with each other. The bottom row shows examples of spatial relationships that are slightly “special cases” in one way or another. When two geometries <em>touch</em> each other, they have at least one point in common (at the border in this case), but their interiors do not intersect with each other. When the interiors of the geometries A and B are partially on top of each other and partially outside of each other, the geometries are <em>overlapping</em> with each other. The spatial predicate for <em>covers</em> is when the interior of geometry B is almost totally within A, but they share at least one common coordinate at the border. Similarly, if geometry A is almost totally contained by the geometry B (except at least one common coordinate at the border) the spatial predicate is called <em>covered by</em>. These eight examples represent some of the common spatial predicates based on two Polygon shapes. When other shapes are considered (e.g. Points, LineStrings), there are plenty of more topological relations: altogether 512 with 2D data.</p>
 <!-- #endregion -->
 </section>
 <section id="making-spatial-queries-in-python">
@@ -509,7 +526,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">.crosses()</span></code></p></li>
 </ul>
 <p>When you want to use Python to find out how two geometric objects are related to each other topologically, you start by creating the geometries using <code class="docutils literal notranslate"><span class="pre">shapely</span></code> library. In the following, we create a couple of <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects and one <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> object which we can use to test how they relate to each other:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Polygon</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Polygon</span>
 
 <span class="c1"># Create Point objects</span>
 <span class="n">point1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">24.952242</span><span class="p">,</span> <span class="mf">60.1696017</span><span class="p">)</span>
@@ -546,13 +563,13 @@
 </pre></div>
 </div>
 <p>As we can see, the first point seem to be located within the polygon where as the second one isn’t.</p>
-<p>One of the most common spatial queries is to see if a geometry intersects or touches another one. Again, there are binary operations in shapely for checking these spatial relationships:</p>
+<p>One of the most common spatial queries is to see if a geometry intersects or touches another one. Again, there are binary operations in <code class="docutils literal notranslate"><span class="pre">shapely</span></code> for checking these spatial relationships:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.intersects()</span></code> - Two objects intersect if the boundary or interior of one object intersect in any way with the boundary or interior of the other object.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">.touches()</span></code> - Two objects touch if the objects have at least one point in common and their interiors do not intersect with any part of the other object.</p></li>
 </ul>
 <p>Let’s try these by creating two <code class="docutils literal notranslate"><span class="pre">LineString</span></code> geometries and test whether they intersect and touch each other:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely</span> <span class="kn">import</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">MultiLineString</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">MultiLineString</span>
 
 <span class="c1"># Create two lines</span>
 <span class="n">line_a</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
@@ -574,7 +591,7 @@
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p><em><strong>Figure 6.36</strong>. Two LineStrings that both intersect and touch each other.</em></p>
+<p><em><strong>Figure 6.37</strong>. Two LineStrings that both intersect and touch each other.</em></p>
 <p>As we can see, the lines <code class="docutils literal notranslate"><span class="pre">.touch()</span></code> each other because <code class="docutils literal notranslate"><span class="pre">line_b</span></code> continues from the same node ( (1,1) ) where the <code class="docutils literal notranslate"><span class="pre">line_a</span></code> ends.
 However, if the lines are fully overlapping with each other they don’t touch due to the spatial relationship rule in the DE-9IM. We can confirm this by checking if <code class="docutils literal notranslate"><span class="pre">line_a</span></code> touches itself:</p>
 <!-- #endregion -->
@@ -627,9 +644,9 @@ However, if the lines are fully overlapping with each other they don’t touch d
 </section>
 <section id="spatial-queries-using-geopandas">
 <h2>Spatial queries using geopandas<a class="headerlink" href="#spatial-queries-using-geopandas" title="Link to this heading">#</a></h2>
-<p>Now as we have learned how to investigate the spatial relationships between shapely geometries, we can continue and learn how to conduct spatial queries with geopandas <code class="docutils literal notranslate"><span class="pre">GeoDataFrames</span></code>. Conducting spatial queries with geopandas is handy because you can easily compare the spatial relationships between multiple geometries stored in separate <code class="docutils literal notranslate"><span class="pre">GeoDataFrames</span></code>. Next, we will run an example in which we check which points are located within specific areas of Helsinki. Let’s start by reading data that contains Polygons for major districts in Helsinki Region, as well as a few point observations that represent addresses around Helsinki that we geocoded in the previous section:</p>
+<p>Now as we have learned how to investigate the spatial relationships between <code class="docutils literal notranslate"><span class="pre">shapely</span></code> geometries, we can continue and learn how to conduct spatial queries with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrames</span></code>. Conducting spatial queries with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> is handy because you can easily compare the spatial relationships between multiple geometries stored in separate <code class="docutils literal notranslate"><span class="pre">GeoDataFrames</span></code>. Next, we will run an example in which we check which points are located within specific areas of Helsinki. Let’s start by reading data that contains Polygons for major districts in Helsinki Region, as well as a few point observations that represent addresses around Helsinki that we geocoded in the previous section:</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 
 <span class="n">points</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;data/Helsinki/addresses.shp&quot;</span><span class="p">)</span>
 <span class="n">districts</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;data/Helsinki/Major_districts.gpkg&quot;</span><span class="p">)</span>
@@ -657,7 +674,7 @@ However, if the lines are fully overlapping with each other they don’t touch d
 </pre></div>
 </div>
 <!-- #region deletable=true editable=true -->
-<p><em><strong>Figure 6.37</strong>. A map of Points and the two Polygon objects (in red) which we want to use for making the selection.</em></p>
+<p><em><strong>Figure 6.38</strong>. A map of Points and the two Polygon objects (in red) which we want to use for making the selection.</em></p>
 <p>As we can see from Figure 6.37, many points seem to be within the two selected districts. To find out which of of them are located within the Polygon, we need to conduct a Point in Polygon -query. We can do this by checking which Points in the <code class="docutils literal notranslate"><span class="pre">points</span></code> GeoDataFrame are <em>within</em> the selected polygons stored in the <code class="docutils literal notranslate"><span class="pre">selection</span></code> geodataframe. In the following, we will show how to take advantage of a method called <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code> for doing spatial queries between two GeoDataFrames. Normally, <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code> method is used for conducting a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-join"><span class="xref std std-term">spatial join</span></a></em> between two spatial datasets, meaning that specific attribute information from a given GeoDataFrame is joined to the other one based on their topological relationship (see Chapter 6.7 for more details). However, spatial join can also be used as an efficient way to conduct spatial queries in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. Consider the following example in which we use the <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code> method using <code class="docutils literal notranslate"><span class="pre">&quot;within&quot;</span></code> as the <code class="docutils literal notranslate"><span class="pre">predicate</span></code> parameter to select all points that are within the selected polygons:</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_points</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">selection</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(),</span> <span class="n">predicate</span><span class="o">=</span><span class="s2">&quot;within&quot;</span><span class="p">)</span>
@@ -669,7 +686,7 @@ However, if the lines are fully overlapping with each other they don’t touch d
 </pre></div>
 </div>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-<p><em><strong>Figure 6.38</strong>. Selecting Points within red Polygons using spatial join technique.</em></p>
+<p><em><strong>Figure 6.39</strong>. Selecting Points within red Polygons using spatial join technique.</em></p>
 <p>As a result, we have now selected only the (golden) points that are inside the red polygons which is exactly what we wanted. Notice how we used the <code class="docutils literal notranslate"><span class="pre">selection.geometry.to_frame()</span></code> when calling the <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code> method. This is a special trick to avoid attaching any extra attributes from the <code class="docutils literal notranslate"><span class="pre">selection</span></code> geodataframe to our data, which is what <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code> method would normally do (and which it is actually designed for). As we are only interested in the geometries of the right-hand-side layer to do the selection, calling the <code class="docutils literal notranslate"><span class="pre">.geometry.to_frame()</span></code> will first select the geometry column from the <code class="docutils literal notranslate"><span class="pre">selection</span></code> layer and then converts it into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> (which would otherwise be a GeoSeries). An alternative approach for doing the same thing is to use <code class="docutils literal notranslate"><span class="pre">selection[[selection.active_geometry_name]]</span></code>, which also returns a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> containing only a column with the geodataframe’s active geometry.</p>
 <p>In a similar manner, we can easily use the <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code> with other predicates to make selections based on how the geometries between two GeoDataFrames are related to each other. By default, the <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code> uses <code class="docutils literal notranslate"><span class="pre">&quot;intersects&quot;</span></code> as a spatial predicate, but it is easy to change this. For example, we can investigate which of the districts <em>contain</em> at least one point. In this case, we make a spatial join using the <code class="docutils literal notranslate"><span class="pre">disctricts</span></code> GeoDataFrame as a starting point, join the layer with the <code class="docutils literal notranslate"><span class="pre">points</span></code> and use the <code class="docutils literal notranslate"><span class="pre">&quot;contains&quot;</span></code> as a value to our <code class="docutils literal notranslate"><span class="pre">predicate</span></code> parameter:</p>
 <!-- #endregion -->
@@ -683,7 +700,7 @@ However, if the lines are fully overlapping with each other they don’t touch d
 <span class="n">ax</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 6.39</strong>. Polygons that contain at least one Point object.</em></p>
+<p><em><strong>Figure 6.40</strong>. Polygons that contain at least one Point object.</em></p>
 <p>As a result, we can now see that all the polygons marked with blue color were correctly selected as the ones which contain at least one point object. One important thing to remember whenever making spatial queries is that both layers need to share the same Coordinate Reference System for the selection to work properly. A typical reason for getting incorrect results when selecting data (likely an empty GeoDataFrame) is that one data layer is e.g. in WGS84 coordinate reference system whereas the other one is in some projected CRS, such as ETRS-LAEA. If this happens, you can easily fix the situation by defining and reprojecting both GeoDataFrames to same CRS using the <code class="docutils literal notranslate"><span class="pre">.to_crs()</span></code> method (see Chapter 6.4).</p>
 <p>Following the previous examples, you can easily test other topological relationships as well, by changing the value in <code class="docutils literal notranslate"><span class="pre">predicate</span></code> parameter. To find all possible spatial predicates for a given GeoDataFrame you can call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">districts</span><span class="o">.</span><span class="n">sindex</span><span class="o">.</span><span class="n">valid_query_predicates</span>
@@ -750,8 +767,7 @@ However, if the lines are fully overlapping with each other they don’t touch d
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -794,7 +810,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -818,8 +834,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

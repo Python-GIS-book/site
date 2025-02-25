@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -54,7 +51,6 @@
     <link rel="prev" title="Learning objectives" href="0-learning-objectives.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,8 +66,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -79,6 +86,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -86,8 +94,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -453,16 +462,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -486,19 +503,25 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-openstreetmap">What is OpenStreetMap?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#osmnx">OSMnx</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx">NetworkX</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-visualize-openstreetmap-data-with-osmnx">Download and visualize OpenStreetMap data with OSMnx</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#street-network">Street network</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-to-geodataframe">Graph to GeoDataFrame</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#place-polygon">Place polygon</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-footprints">Building footprints</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#points-of-interest">Points-of-interest</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-data">Plotting the data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-park-polygons">Extra: Park polygons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-openstreetmap">What is OpenStreetMap?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-9-1">Question 9.1</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-openstreetmap-data-with-osmnx">Downloading OpenStreetMap data with OSMnx</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-area-of-interest">Defining the area of interest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#street-network">Street network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-map-features">Other map features</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-9-2">Question 9.2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-data">Plotting the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-spatial-queries">Alternative spatial queries</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-9-3">Question 9.3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -512,66 +535,241 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="retrieving-openstreetmap-data">
 <h1>Retrieving OpenStreetMap data<a class="headerlink" href="#retrieving-openstreetmap-data" title="Link to this heading">#</a></h1>
-<p><img alt="" src="../../../_images/OSM_logo.png" /></p>
 <section id="what-is-openstreetmap">
 <h2>What is OpenStreetMap?<a class="headerlink" href="#what-is-openstreetmap" title="Link to this heading">#</a></h2>
-<p>OpenStreetMap (OSM) is a global collaborative (crowd-sourced) dataset and project that aims at creating a free editable map of the world containing a lot of information about our environment.
-It contains data for example about streets, buildings, different services, and landuse to mention a few. You can view the map at www.openstreetmap.org. You can also sign up as a contributor if you want to edit the map. More details about OpenStreetMap and its contents are available in the <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Main_Page">OpenStreetMap Wiki</a>.</p>
-<p>OSM has a large userbase with more than 4 million users and over a million contributers that update actively the OSM database with 3 million changesets per day. In total OSM contains 5 billion nodes and counting! (<a class="reference external" href="http://wiki.openstreetmap.org/wiki/Stats">stats from November 2019</a>).</p>
-<p>OpenStreetMap is used not only for integrating the <strong>OSM maps</strong> as background maps to visualizations or online maps, but also for many other purposes such as <strong>routing</strong>, <strong>geocoding</strong>, <strong>education</strong>, and <strong>research</strong>. OSM is also widely used for humanitarian response e.g. in crisis areas (e.g. after natural disasters) and for fostering economic development. Read more about humanitarian projects that use OSM data from the <a class="reference external" href="https://www.hotosm.org">Humanitarian OpenStreetMap Team (HOTOSM) website</a>.</p>
-</section>
-<section id="osmnx">
-<h2>OSMnx<a class="headerlink" href="#osmnx" title="Link to this heading">#</a></h2>
-<p>This week we will explore a Python module called <a class="reference external" href="https://github.com/gboeing/osmnx">OSMnx</a>
-that can be used to retrieve, construct, analyze, and visualize street networks from OpenStreetMap, and also retrieve data about Points of Interest such as restaurants, schools, and lots of different kind of services. It is also easy to conduct network routing based on walking, cycling or driving by combining OSMnx functionalities with a package called <a class="reference external" href="https://networkx.github.io/documentation/stable/">NetworkX</a>.</p>
-<p>To get an overview of the capabilities of the package, see an introductory video given by the lead developer of the package, Prof. Geoff Boeing: <a class="reference external" href="https://www.youtube.com/watch?v=Q0uxu25ddc4&amp;amp;list=PLs9D4XVqc6dCAhhvhZB7aHGD8fCeCC_6N">“Meet the developer: Introduction to OSMnx package by Geoff Boeing”</a>.</p>
-<p>There is also a scientific article available describing the package:</p>
+<p><a class="reference external" href="https://www.openstreetmap.org/">OpenStreetMap</a> <a class="footnote-reference brackets" href="#osm" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> (OSM) is a free, editable  map of the world that is created by a global community of mappers. OSM is often referred to as “the Wikipedia of maps” meaning that anyone can update the contents. When using OSM data, appropriate credit should be given to OpenStreetMap and its contributors (see <a class="reference external" href="https://www.openstreetmap.org/copyright">OSM Copyright and License</a> <a class="footnote-reference brackets" href="#osm-license" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>).</p>
+<p>OpenStreetMap data are increasingly used in various map-based applications and as input for geographic data analysis. In many regions, OSM is the best data available on streets, buildings and amenities, or at least the best data source that is openly available. While the map is never complete, many regions and especially urban areas are relatively well covered in OSM. Various organized mapping campaings exists to update OSM in areas that lack detailed map data (check out <a class="reference external" href="https://www.hotosm.org">Humanitarian OpenStreetMap Team</a> <a class="footnote-reference brackets" href="#hotosm" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>).</p>
+<p>OSM can be used as source data for various tasks such as routing and geocoding, and as bacground maps for visualizing analysis results. Relevant map feature categories include:</p>
 <ul class="simple">
-<li><p>Boeing, G. 2017. <a class="reference external" href="https://www.researchgate.net/publication/309738462_OSMnx_New_Methods_for_Acquiring_Constructing_Analyzing_and_Visualizing_Complex_Street_Networks">“OSMnx: New Methods for Acquiring, Constructing, Analyzing, and Visualizing Complex Street Networks.”</a> Computers, Environment and Urban Systems 65, 126-139. doi:10.1016/j.compenvurbsys.2017.05.004</p></li>
+<li><p>street networks</p></li>
+<li><p>buildings</p></li>
+<li><p>amenities</p></li>
+<li><p>landuse</p></li>
+<li><p>natural elements</p></li>
+<li><p>boundaries</p></li>
 </ul>
+<p>In OpenStreetMap, map features are labeled using tags consisting of a key that describes the category (such as “highway” or “building”) and a value that describes the type of object within the category (such as “motorway” or “aparments”). It is thus possible, for example, to fetch all available streets or limit the search only to specific types of streets. Information on various map features and their associated tags is fundamental for correctly querying the data.</p>
+<p>Excerpts of OSM data are available to download from different sources, such as the <a class="reference external" href="https://www.geofabrik.de/data/download.html">Geofabrik Download Server</a> <a class="footnote-reference brackets" href="#geofabrik" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>. Computationally,  <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Overpass_API">the Overpass API</a> <a class="footnote-reference brackets" href="#overpass-api-intro" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> can be used for querying and fetching parts of OSM data for further analysis.</p>
+<p>A good way to start working with OSM data is to view the map from an area you are familiar with. The great thing about OSM is that anyone can sign up and make edits to the map. There are various discussion forums and mapping projects that support new (and old) mappers. <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Main_Page">The OSM wiki</a> <a class="footnote-reference brackets" href="#osm-wiki" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> provides an extensive overview for anyone planning to use or produce OSM data.</p>
+<section id="question-9-1">
+<h3>Question 9.1<a class="headerlink" href="#question-9-1" title="Link to this heading">#</a></h3>
+<p>Go to <a class="reference external" href="https://www.openstreetmap.org/">www.openstreetmap.org</a> and zoom the map to an area that you are familiar with.</p>
+<ul class="simple">
+<li><p>Does the map look complete?</p></li>
+<li><p>Are there any geometric features (roads, buildings, bus stops, service locations) missing?</p></li>
+<li><p>Inspect further some of the features; are there any attribute information missing (street names, building addresses, service names or opening hours)?</p></li>
+</ul>
+<p>You can check the intended tags for various map freatures from the <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Map_features">OSM wiki</a> <a class="footnote-reference brackets" href="#osm-wiki-tags" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>. If you spotted some missing information, freel free to create an OpenStreetMap account, log in, and update the map!</p>
 </section>
-<section id="networkx">
-<h2>NetworkX<a class="headerlink" href="#networkx" title="Link to this heading">#</a></h2>
-<p>We will also use <a class="reference external" href="https://networkx.github.io/documentation/stable/">NetworkX</a> to for manipulating and analyzing the street network data retrieved from OpenSTreetMap. NetworkX is a Python package that can be used to create, manipulate, and study the structure, dynamics, and functions of complex networks. Networkx module contains algorithms that can be used to calculate <a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/algorithms.shortest_paths.html">shortest paths</a>
-along road networks using e.g. <a class="reference external" href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">Dijkstra’s</a> or <a class="reference external" href="https://en.wikipedia.org/wiki/A*_search_algorithm">A* algorithm</a>.</p>
 </section>
-<section id="download-and-visualize-openstreetmap-data-with-osmnx">
-<h2>Download and visualize OpenStreetMap data with OSMnx<a class="headerlink" href="#download-and-visualize-openstreetmap-data-with-osmnx" title="Link to this heading">#</a></h2>
-<p>One the most useful features that OSMnx provides is an easy-to-use way of retrieving <a class="reference external" href="http://www.openstreetmap.org">OpenStreetMap</a> data (using <a class="reference external" href="http://wiki.openstreetmap.org/wiki/Overpass_API">OverPass API</a>).</p>
-<p>In this tutorial, we will learn how to download and visualize OSM data covering a specified area of interest: a district of Kamppi in Helsinki, Finland.</p>
+<section id="downloading-openstreetmap-data-with-osmnx">
+<h2>Downloading OpenStreetMap data with OSMnx<a class="headerlink" href="#downloading-openstreetmap-data-with-osmnx" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/gboeing/osmnx">Osmnx</a> <a class="footnote-reference brackets" href="#osmnx" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> is a Python package that makes it easy to download, model and analyze street networks and other geospatial features from OpenSteetMap (<span id="id9"><a class="reference internal" href="../../../back-matter/nb/references.html#id2" title="Geoff Boeing. Modeling and Analyzing Urban Networks and Amenities with OSMnx. Working paper. 2024. URL: https://geoffboeing.com/publications/osmnx-paper/.">Boeing, 2024</a></span>). <code class="docutils literal notranslate"><span class="pre">Osmnx</span></code> relies on <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and another module called <code class="docutils literal notranslate"><span class="pre">networkx</span></code>, which enables network analysis. For latest updates, installation instructions, and complete user reference, see <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/index.html">osmnx  documentation</a> <a class="footnote-reference brackets" href="#osmnx-docs" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Osmnx</span></code> uses  the Overpass API for querying data from OSM. Map queries can be defined by city name, polygon, bounding box or an address or a point location and a buffer distance. There are different functions available to query data from the Overpass API using <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> depending on the way in which the spatial location is defined. In addition, a set of tags can be specified to select which map features to download. Tags are passed to these functions as a dictionary allowing querying multiple tags at the same time.</p>
+<p>Here, we will see how to fetch OSM data from a central area in downtown Helsinki. We will define our queries using a place name (“Kamppi, Helsinki, Finland”).</p>
+<section id="defining-the-area-of-interest">
+<h3>Defining the area of interest<a class="headerlink" href="#defining-the-area-of-interest" title="Link to this heading">#</a></h3>
+<p>Let’s start by importing <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> and getting the boundaries of our area of interest. <code class="docutils literal notranslate"><span class="pre">Osmnx</span></code> uses <code class="docutils literal notranslate"><span class="pre">nominatim</span></code> to geocode the place name. Notice that the place name needs to exists in OpenStreetMap, otherwise the query will fail.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+
+<span class="n">place</span> <span class="o">=</span> <span class="s2">&quot;Kamppi, Helsinki, Finland&quot;</span>
+<span class="n">aoi</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocoder</span><span class="o">.</span><span class="n">geocode_to_gdf</span><span class="p">(</span><span class="n">place</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aoi</span><span class="o">.</span><span class="n">explore</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span><iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    
+    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+    
+        &lt;script&gt;
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        &lt;/script&gt;
+    
+    &lt;style&gt;html, body {width: 100%;height: 100%;margin: 0;padding: 0;}&lt;/style&gt;
+    &lt;style&gt;#map {position:absolute;top:0;bottom:0;right:0;left:0;}&lt;/style&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/&gt;
+    
+            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
+            &lt;style&gt;
+                #map_88176427a133c6940b0c2b93582c7c01 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            &lt;/style&gt;
+        
+    
+                    &lt;style&gt;
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    &lt;/style&gt;
+            
+&lt;/head&gt;
+&lt;body&gt;
+    
+    
+            &lt;div class=&quot;folium-map&quot; id=&quot;map_88176427a133c6940b0c2b93582c7c01&quot; &gt;&lt;/div&gt;
+        
+&lt;/body&gt;
+&lt;script&gt;
+    
+    
+            var map_88176427a133c6940b0c2b93582c7c01 = L.map(
+                &quot;map_88176427a133c6940b0c2b93582c7c01&quot;,
+                {
+                    center: [60.1662719, 24.9320534],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_88176427a133c6940b0c2b93582c7c01);
+
+            
+
+        
+    
+            var tile_layer_a7d12e5fd2039179e145a15aa511c578 = L.tileLayer(
+                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            );
+        
+    
+            tile_layer_a7d12e5fd2039179e145a15aa511c578.addTo(map_88176427a133c6940b0c2b93582c7c01);
+        
+    
+            map_88176427a133c6940b0c2b93582c7c01.fitBounds(
+                [[60.1604686, 24.9206432], [60.1720752, 24.9434636]],
+                {}
+            );
+        
+    
+        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
+            }
+        }
+        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.75};
+            }
+        }
+        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_pointToLayer(feature, latlng) {
+            var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
+            
+            let style = geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                            geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        const highlightStyle = geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f = L.geoJson(null, {
+                onEachFeature: geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_onEachFeature,
+            
+                style: geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_styler,
+                pointToLayer: geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_pointToLayer,
+        });
+
+        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_add (data) {
+            geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f
+                .addData(data);
+        }
+            geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_add({&quot;bbox&quot;: [24.9206432, 60.1604686, 24.9434636, 60.1720752], &quot;features&quot;: [{&quot;bbox&quot;: [24.9206432, 60.1604686, 24.9434636, 60.1720752], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[24.9206432, 60.1648324], [24.9206934, 60.1644741], [24.9209197, 60.1628454], [24.9215704, 60.162382], [24.9216597, 60.1623737], [24.9218354, 60.1628463], [24.9224509, 60.1624646], [24.9221887, 60.1621463], [24.9226787, 60.1618937], [24.9227149, 60.1618753], [24.9250031, 60.1607359], [24.9270094, 60.1604994], [24.9272567, 60.1604686], [24.9275512, 60.1612396], [24.9287291, 60.1616478], [24.9289674, 60.1617327], [24.9296543, 60.1619472], [24.9299292, 60.1619851], [24.9311982, 60.162418], [24.931523, 60.1625321], [24.9319667, 60.1626828], [24.9322846, 60.1627942], [24.9324169, 60.1628405], [24.9324902, 60.1628662], [24.932565, 60.1628925], [24.9328559, 60.1629983], [24.933099, 60.1630836], [24.9333287, 60.1629156], [24.9333474, 60.1629057], [24.9335739, 60.1627434], [24.9336827, 60.1626655], [24.9337901, 60.1625886], [24.9339057, 60.1625058], [24.9340064, 60.1624337], [24.9341197, 60.1623526], [24.9342017, 60.1622938], [24.9342371, 60.1622685], [24.9344443, 60.1623401], [24.9347329, 60.1624373], [24.9347508, 60.1624449], [24.9349435, 60.1625112], [24.9350342, 60.1625437], [24.9352242, 60.1626091], [24.9352297, 60.162611], [24.9354244, 60.16268], [24.9356272, 60.1627577], [24.9356396, 60.162762], [24.9357643, 60.1628049], [24.9358095, 60.1628205], [24.9360088, 60.1628891], [24.9361034, 60.1629217], [24.9361898, 60.1629515], [24.9364774, 60.1630506], [24.9365367, 60.163071], [24.9365576, 60.1630782], [24.9366735, 60.1631181], [24.9368003, 60.1631618], [24.9369087, 60.1631992], [24.9369409, 60.1632103], [24.9370191, 60.1632372], [24.9371258, 60.163274], [24.9373889, 60.1633646], [24.9374713, 60.163393], [24.9379207, 60.1635478], [24.9381489, 60.1636331], [24.938568, 60.1637776], [24.9386814, 60.1638167], [24.9387874, 60.1638533], [24.9389313, 60.1639029], [24.9389724, 60.1639171], [24.9390364, 60.1639392], [24.9391173, 60.1639671], [24.939221, 60.1640028], [24.9392792, 60.1640229], [24.9393431, 60.1640449], [24.9395106, 60.1641026], [24.9397346, 60.1641798], [24.9398297, 60.1642126], [24.9400406, 60.1642853], [24.9401224, 60.1643135], [24.9402588, 60.1643605], [24.9404864, 60.1644483], [24.9406943, 60.1645202], [24.9408344, 60.1645687], [24.9408752, 60.1645828], [24.9408934, 60.1645891], [24.9409216, 60.1645988], [24.9409936, 60.1646237], [24.9411517, 60.1646784], [24.941183, 60.1646892], [24.9412386, 60.1647084], [24.9412672, 60.1647183], [24.9413724, 60.1647598], [24.9414397, 60.1647835], [24.9415696, 60.1648287], [24.9416219, 60.1648468], [24.9416508, 60.1648569], [24.9417079, 60.164877], [24.9417637, 60.1648958], [24.9420194, 60.1649851], [24.942036, 60.1649908], [24.9420753, 60.1650044], [24.9421414, 60.1650276], [24.942263, 60.1650701], [24.9424048, 60.1651192], [24.9424713, 60.1651424], [24.9424791, 60.1651451], [24.9425825, 60.1651806], [24.9427998, 60.1652552], [24.9431792, 60.1653886], [24.9434296, 60.1654744], [24.9434636, 60.1655119], [24.9434291, 60.1659304], [24.9434165, 60.1660938], [24.9434071, 60.1662065], [24.9434037, 60.1662454], [24.9433183, 60.1663068], [24.9432405, 60.1663639], [24.9429674, 60.166546], [24.9427692, 60.1666798], [24.9424899, 60.1668672], [24.9424765, 60.1668762], [24.942327, 60.1669746], [24.9422835, 60.1670032], [24.9422378, 60.1670333], [24.9420992, 60.1671292], [24.9419825, 60.1672064], [24.9419485, 60.1672283], [24.9417014, 60.1673922], [24.9415453, 60.1674959], [24.9414306, 60.1675719], [24.9412695, 60.1676787], [24.9412065, 60.1677205], [24.9410613, 60.1678147], [24.9409976, 60.1678568], [24.9409024, 60.1679197], [24.9407863, 60.1679965], [24.9407221, 60.1680384], [24.9406077, 60.168113], [24.9403901, 60.1682643], [24.9396928, 60.1687259], [24.939566, 60.1688082], [24.9395183, 60.1688392], [24.939467, 60.1688725], [24.9393799, 60.168939], [24.939344, 60.1689622], [24.9392751, 60.169005], [24.9391435, 60.1690945], [24.9390501, 60.169155], [24.9390055, 60.1691924], [24.93887, 60.1692809], [24.9386342, 60.1694403], [24.9382465, 60.1696857], [24.9380738, 60.1696244], [24.9375931, 60.1699772], [24.937472, 60.1700598], [24.9374355, 60.1700841], [24.9373965, 60.1701105], [24.9364904, 60.1707094], [24.9363191, 60.1708221], [24.936299, 60.170836], [24.9356495, 60.1712847], [24.9356612, 60.1713039], [24.9356593, 60.1713194], [24.9356505, 60.1713347], [24.9354341, 60.1715621], [24.9353767, 60.1716224], [24.9353625, 60.1716388], [24.9350143, 60.1720216], [24.9349585, 60.1720752], [24.9347193, 60.1719782], [24.9343507, 60.1720491], [24.9340759, 60.1719071], [24.9336185, 60.1716934], [24.9332588, 60.1715429], [24.9331259, 60.1714873], [24.9326811, 60.1713164], [24.9326483, 60.1713036], [24.9320089, 60.1710822], [24.9314541, 60.1709007], [24.9313635, 60.1708696], [24.9312298, 60.1708276], [24.931197, 60.1708176], [24.9311174, 60.1707817], [24.9302444, 60.1705284], [24.9301528, 60.1705011], [24.9300443, 60.1704674], [24.9300107, 60.170457], [24.9299807, 60.1704472], [24.9299148, 60.1704257], [24.9298436, 60.170403], [24.9290494, 60.1701609], [24.9290295, 60.1701548], [24.9289218, 60.1701215], [24.9288926, 60.1701125], [24.9288683, 60.1701054], [24.9287701, 60.1700746], [24.928755, 60.1700696], [24.928663, 60.1700393], [24.927437, 60.1696595], [24.9272872, 60.1696131], [24.9273008, 60.1696048], [24.9272428, 60.1695868], [24.9271351, 60.1695538], [24.9270129, 60.1695166], [24.9269715, 60.1695031], [24.9269645, 60.1695054], [24.9271074, 60.1694368], [24.9271756, 60.169399], [24.9272327, 60.1693573], [24.9253332, 60.1687384], [24.9244041, 60.168224], [24.924243, 60.1682454], [24.9242095, 60.1682108], [24.9238906, 60.1678817], [24.9237631, 60.1677483], [24.9236252, 60.1674906], [24.9236228, 60.1674862], [24.9235506, 60.1673573], [24.9231832, 60.1674041], [24.9230946, 60.1674157], [24.9226024, 60.1674861], [24.9221243, 60.1675442], [24.9215217, 60.1675241], [24.9208815, 60.1675], [24.9209312, 60.1669936], [24.9207417, 60.1669034], [24.9207454, 60.1668732], [24.9207524, 60.1667641], [24.9209238, 60.1655837], [24.920893, 60.1654531], [24.9208917, 60.1654067], [24.9209432, 60.1650724], [24.9208129, 60.164866], [24.9207877, 60.1648454], [24.9207327, 60.1648363], [24.9206432, 60.1648324]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;addresstype&quot;: &quot;suburb&quot;, &quot;bbox_east&quot;: 24.9434636, &quot;bbox_north&quot;: 60.1720752, &quot;bbox_south&quot;: 60.1604686, &quot;bbox_west&quot;: 24.9206432, &quot;class&quot;: &quot;boundary&quot;, &quot;display_name&quot;: &quot;Kamppi, Southern major district, Helsinki, Helsinki sub-region, Uusimaa, Mainland Finland, 00100, Finland&quot;, &quot;importance&quot;: 0.4669639970377807, &quot;lat&quot;: 60.1676264, &quot;lon&quot;: 24.9317093, &quot;name&quot;: &quot;Kamppi&quot;, &quot;osm_id&quot;: 184714, &quot;osm_type&quot;: &quot;relation&quot;, &quot;place_id&quot;: 155363100, &quot;place_rank&quot;: 20, &quot;type&quot;: &quot;administrative&quot;}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+
+        
+    
+    geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create(&#x27;div&#x27;);
+    
+    let handleObject = feature=&gt;typeof(feature)==&#x27;object&#x27; ? JSON.stringify(feature) : feature;
+    let fields = [&quot;bbox_west&quot;, &quot;bbox_south&quot;, &quot;bbox_east&quot;, &quot;bbox_north&quot;, &quot;place_id&quot;, &quot;osm_type&quot;, &quot;osm_id&quot;, &quot;lat&quot;, &quot;lon&quot;, &quot;class&quot;, &quot;type&quot;, &quot;place_rank&quot;, &quot;importance&quot;, &quot;addresstype&quot;, &quot;name&quot;, &quot;display_name&quot;];
+    let aliases = [&quot;bbox_west&quot;, &quot;bbox_south&quot;, &quot;bbox_east&quot;, &quot;bbox_north&quot;, &quot;place_id&quot;, &quot;osm_type&quot;, &quot;osm_id&quot;, &quot;lat&quot;, &quot;lon&quot;, &quot;class&quot;, &quot;type&quot;, &quot;place_rank&quot;, &quot;importance&quot;, &quot;addresstype&quot;, &quot;name&quot;, &quot;display_name&quot;];
+    let table = &#x27;&lt;table&gt;&#x27; +
+        String(
+        fields.map(
+        (v,i)=&gt;
+        `&lt;tr&gt;
+            &lt;th&gt;${aliases[i]}&lt;/th&gt;
+            
+            &lt;td&gt;${handleObject(layer.feature.properties[v])}&lt;/td&gt;
+        &lt;/tr&gt;`).join(&#x27;&#x27;))
+    +&#x27;&lt;/table&gt;&#x27;;
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{&quot;className&quot;: &quot;foliumtooltip&quot;, &quot;sticky&quot;: true});
+                     
+    
+            geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f.addTo(map_88176427a133c6940b0c2b93582c7c01);
+        
+&lt;/script&gt;
+&lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
+</div>
+<p><em><strong>Figure 9.1</strong>. Interactive map displaying the area of interest with a background map. Source: OpenStreetMap contributors.</em></p>
+</section>
 <section id="street-network">
 <h3>Street network<a class="headerlink" href="#street-network" title="Link to this heading">#</a></h3>
-<p>OSMnx makes it really easy to do that as it allows you to specify an address to retrieve the OpenStreetMap data around that area. In fact, OSMnx uses the same Nominatim Geocoding API tthat we used for geocoding in Lesson 2.</p>
+<p>We can download street network data from our area of interest usign the <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> <code class="docutils literal notranslate"><span class="pre">graph</span></code> module. The function downloads the street network data from OSM and construct a <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph model that can be used for routing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">osmnx</span> <span class="k">as</span> <span class="nn">ox</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Let’s start by specifying <code class="docutils literal notranslate"><span class="pre">&quot;Kamppi,</span> <span class="pre">Helsinki,</span> <span class="pre">Finland&quot;</span></code> as the place from where the data should be downloaded. The place name should be <em>geocodable</em> which means that the place name should exist in the OpenStreetMap database (you can do a test search at https://www.openstreetmap.org/ or at https://nominatim.openstreetmap.org/ to verify that the place name is valid).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify the name that is used to seach for the data</span>
-<span class="n">place_name</span> <span class="o">=</span> <span class="s2">&quot;Kamppi, Helsinki, Finland&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Next, we will read in the OSM street network using OSMnx using the <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/osmnx.html?highlight=graph%20from#osmnx.graph.graph_from_place">graph_from_place</a> function:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fetch OSM street network from the location</span>
-<span class="n">graph</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_from_place</span><span class="p">(</span><span class="n">place_name</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Check the data type of the graph:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">graph_from_place</span><span class="p">(</span><span class="n">place</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -581,37 +779,25 @@ along road networks using e.g. <a class="reference external" href="https://en.wi
 </div>
 </div>
 </div>
-<p>What we have here is a networkx <a class="reference external" href="https://networkx.org/documentation/networkx-1.10/reference/classes.multidigraph.html">MultiDiGraph</a> object.</p>
-<p>Let’s have a closer look a the street nework. OSMnx has its own function <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/osmnx.html?highlight=plot_graph#osmnx.plot.plot_graph">plot_graph()</a> for visualizing graph objects. The function utilizes Matplotlib for visualizing the data,
-hence as a result it returns a matplotlib figure and axis objects:</p>
+<p>Let’s have a closer look a the street nework using an <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> function that plots the graph:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the streets</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/a05441b7a8c2eb4dff4bf701bf4e312ff3edceb2506e8b606357011d596c41a2.png" src="../../../_images/a05441b7a8c2eb4dff4bf701bf4e312ff3edceb2506e8b606357011d596c41a2.png" />
+<img alt="../../../_images/c1e9fbd7e1de0bdb77a8d4f16ebab6fb79b64b576ff3c311c880088b6395a245.png" src="../../../_images/c1e9fbd7e1de0bdb77a8d4f16ebab6fb79b64b576ff3c311c880088b6395a245.png" />
 </div>
 </div>
-<p>Great! Now we can see that our graph contains nodes (the points) and edges (the lines) that connects those nodes to each other.</p>
-</section>
-<section id="graph-to-geodataframe">
-<h3>Graph to GeoDataFrame<a class="headerlink" href="#graph-to-geodataframe" title="Link to this heading">#</a></h3>
-<p>We can now plot all these different OSM layers by using the familiar <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function of Geopandas. As you might remember, the street network data is not a GeoDataFrame, but a graph object. Luckily, OSMnx provides a convenient function <code class="docutils literal notranslate"><span class="pre">graph_to_gdfs()</span></code> that can convert the graph into two separate GeoDataFrames where the first one contains the information about the nodes and the second one about the edge.</p>
-<p>Let’s extract the nodes and edges from the graph as GeoDataFrames:</p>
+<p><em><strong>Figure 9.2</strong>. Graph edges and nodes.</em></p>
+<p>From here we can see that our graph contains nodes (the points) and edges (the lines) of the network graph. There are various tools available in <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> and <code class="docutils literal notranslate"><span class="pre">networkx</span></code> to continue modifying and analyzing this network graph. It would also be possible to limit the search to contain only specific street segments, such as all public streets or all streets and paths that cyclists or pedestrians can use. You can read more about working with street network graphs in the <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> online documentation.</p>
+<p>For now, we are only interested in the geometry and attributes of the street network and will convert the streets (edges of the network) into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> using the <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> function <code class="docutils literal notranslate"><span class="pre">graph_to_gdfs()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retrieve nodes and edges</span>
-<span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">convert</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">nodes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">edges</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -634,118 +820,58 @@ hence as a result it returns a matplotlib figure and axis objects:</p>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>y</th>
-      <th>x</th>
+      <th></th>
+      <th></th>
       <th>osmid</th>
       <th>highway</th>
-      <th>ref</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>25216594</th>
-      <td>60.164794</td>
-      <td>24.921057</td>
-      <td>25216594</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (24.92106 60.16479)</td>
-    </tr>
-    <tr>
-      <th>25238874</th>
-      <td>60.163665</td>
-      <td>24.921028</td>
-      <td>25238874</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (24.92103 60.16366)</td>
-    </tr>
-    <tr>
-      <th>25238883</th>
-      <td>60.163452</td>
-      <td>24.921441</td>
-      <td>25238883</td>
-      <td>crossing</td>
-      <td>NaN</td>
-      <td>POINT (24.92144 60.16345)</td>
-    </tr>
-    <tr>
-      <th>25238933</th>
-      <td>60.161114</td>
-      <td>24.924529</td>
-      <td>25238933</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (24.92453 60.16111)</td>
-    </tr>
-    <tr>
-      <th>25238944</th>
-      <td>60.164631</td>
-      <td>24.921286</td>
-      <td>25238944</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (24.92129 60.16463)</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>osmid</th>
-      <th>oneway</th>
       <th>lanes</th>
-      <th>name</th>
-      <th>highway</th>
       <th>maxspeed</th>
+      <th>name</th>
+      <th>oneway</th>
+      <th>reversed</th>
       <th>length</th>
       <th>geometry</th>
-      <th>tunnel</th>
       <th>junction</th>
+      <th>width</th>
+      <th>tunnel</th>
       <th>access</th>
-      <th>bridge</th>
       <th>service</th>
-      <th>ref</th>
+      <th>bridge</th>
+    </tr>
+    <tr>
       <th>u</th>
       <th>v</th>
       <th>key</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th rowspan="2" valign="top">25216594</th>
+      <th>1372425721</th>
       <th>0</th>
       <td>23717777</td>
-      <td>True</td>
-      <td>2</td>
-      <td>Porkkalankatu</td>
       <td>primary</td>
+      <td>2</td>
       <td>40</td>
-      <td>10.404</td>
+      <td>Porkkalankatu</td>
+      <td>True</td>
+      <td>False</td>
+      <td>10.403735</td>
       <td>LINESTRING (24.92106 60.16479, 24.92087 60.16479)</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -753,19 +879,18 @@ hence as a result it returns a matplotlib figure and axis objects:</p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>25216594</td>
-      <td>1372425721</td>
-      <td>0</td>
     </tr>
     <tr>
-      <th>1</th>
+      <th>1372425714</th>
+      <th>0</th>
       <td>23856784</td>
-      <td>True</td>
-      <td>2</td>
-      <td>Mechelininkatu</td>
       <td>primary</td>
+      <td>2</td>
       <td>40</td>
-      <td>40.885</td>
+      <td>Mechelininkatu</td>
+      <td>True</td>
+      <td>False</td>
+      <td>40.885163</td>
       <td>LINESTRING (24.92106 60.16479, 24.92095 60.164...</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -773,210 +898,42 @@ hence as a result it returns a matplotlib figure and axis objects:</p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>25216594</td>
-      <td>1372425714</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>29977177</td>
-      <td>True</td>
-      <td>3</td>
-      <td>Mechelininkatu</td>
-      <td>primary</td>
-      <td>40</td>
-      <td>5.843</td>
-      <td>LINESTRING (24.92103 60.16366, 24.92104 60.16361)</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>25238874</td>
-      <td>336192701</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>122961573</td>
-      <td>True</td>
-      <td>NaN</td>
-      <td>Itämerenkatu</td>
-      <td>tertiary</td>
-      <td>40</td>
-      <td>10.879</td>
-      <td>LINESTRING (24.92103 60.16366, 24.92083 60.16366)</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>25238874</td>
-      <td>1519889266</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>58077048</td>
-      <td>True</td>
-      <td>4</td>
-      <td>Mechelininkatu</td>
-      <td>primary</td>
-      <td>40</td>
-      <td>15.388</td>
-      <td>LINESTRING (24.92144 60.16345, 24.92140 60.16359)</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>25238883</td>
-      <td>568147264</td>
-      <td>0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
-</div>
-<p>Nice! Now, as we can see, we have our graph as GeoDataFrames and we can plot them using the same functions and tools as we have used before.</p>
-<div class="alert alert-info">
-<p><strong>Note</strong></p>
-<p>There are also other ways of retrieving the data from OpenStreetMap with OSMnx such as passing a Polygon to extract the data from that area, or passing Point coordinates and retrieving data around that location with specific radius. Take a look of this <a class="reference external" href="https://github.com/gboeing/osmnx-examples/blob/master/notebooks/01-overview-osmnx.ipynb">tutorial to find out how to use those features of OSMnx</a>.</p>
-</div></section>
-<section id="place-polygon">
-<h3>Place polygon<a class="headerlink" href="#place-polygon" title="Link to this heading">#</a></h3>
-<p>Let’s also plot the Polygon that represents our area of interest (Kamppi, Helsinki). We can retrieve the Polygon geometry using the [geocode_to_gdf()](https://osmnx.readthedocs.io/en/stable/osmnx.html?highlight=geocode_to_gdf(#osmnx.geocoder.geocode_to_gdf) -function.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get place boundary related to the place name as a geodataframe</span>
-<span class="n">area</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocode_to_gdf</span><span class="p">(</span><span class="n">place_name</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>As the name of the function already tells us, <code class="docutils literal notranslate"><span class="pre">gdf_from_place()</span></code>returns a GeoDataFrame based on the specified place name query.
-Let’s still verify the data type:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the data type</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>geopandas.geodataframe.GeoDataFrame
-</pre></div>
-</div>
-</div>
-</div>
-<p>Let’s also have a look at the data:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check data values</span>
-<span class="n">area</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>geometry</th>
-      <th>place_name</th>
-      <th>bbox_north</th>
-      <th>bbox_south</th>
-      <th>bbox_east</th>
-      <th>bbox_west</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>POLYGON ((24.92064 60.16483, 24.92069 60.16447...</td>
-      <td>Kamppi, Southern major district, Helsinki, Hel...</td>
-      <td>60.172075</td>
-      <td>60.160469</td>
-      <td>24.943453</td>
-      <td>24.920642</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the area:</span>
-<span class="n">area</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../../../_images/044de9e5a846e8787681db30425c464ec59cb93ffc1459a5696ad615da7aafc3.png" src="../../../_images/044de9e5a846e8787681db30425c464ec59cb93ffc1459a5696ad615da7aafc3.png" />
-</div>
 </div>
 </section>
-<section id="building-footprints">
-<h3>Building footprints<a class="headerlink" href="#building-footprints" title="Link to this heading">#</a></h3>
-<p>It is also possible to retrieve other types of OSM data features with OSMnx such as buildings or points of interest (POIs). Let’s download the buildings with <code class="docutils literal notranslate"><span class="pre">OSMnx</span></code> <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/osmnx.html?highlight=geometries_from_place#osmnx.geometries.geometries_from_place">geometries_from_place()</a> -function and plot them on top of our street network in Kamppi.</p>
-<p><em>Note: in OSMnx versions &lt; 0.9 we used the <code class="docutils literal notranslate"><span class="pre">buildings_from_place</span></code> method to retrieve building footprints.</em></p>
-<p>When fetching spesific types of geometries from OpenStreetMap using OSMnx <code class="docutils literal notranslate"><span class="pre">geometries_from_place</span></code> we also need to specify the correct tags. For getting <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Buildings">all types of buildings</a>, we can use the tag <code class="docutils literal notranslate"><span class="pre">building=yes</span></code>.</p>
+<section id="other-map-features">
+<h3>Other map features<a class="headerlink" href="#other-map-features" title="Link to this heading">#</a></h3>
+<p>Downloading building footprints, points of interests such as services and other map features is possible using the <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> <code class="docutils literal notranslate"><span class="pre">features</span></code> module. As for street networks, map features can be queried based on varying spatial input (form bounding box, polygon, place name, or around a point or an address). Here, we will demonstrate the use of a place name search from our area of interest in Helsinki, Finland.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List key-value pairs for tags</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">place</span> <span class="o">=</span> <span class="s2">&quot;Kamppi, Helsinki, Finland&quot;</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;building&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+<span class="n">buildings</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features_from_place</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>This way, we get all map features that contain the <code class="docutils literal notranslate"><span class="pre">building</span></code>-tag regardless of its value. The downloaded OSM data comes with plenty of information representing various attributes of the features that OSM contributors have added. At the time of writing, the building data from central Helsinki contained 120 different columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buildings</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geometries_from_place</span><span class="p">(</span><span class="n">place_name</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Let’s check how many building footprints we received:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">buildings</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">buildings</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
-  and should_run_async(code)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>430
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>120
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s also have a look at the data:</p>
+<p>You can see names of all available columns by running <code class="docutils literal notranslate"><span class="pre">list(buildings.columns)</span></code>. Let’s check the contents of some of the available columns:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buildings</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buildings</span><span class="p">[[</span><span class="s2">&quot;building&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;addr:city&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -999,261 +956,92 @@ Let’s still verify the data type:</p>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>unique_id</th>
-      <th>osmid</th>
-      <th>element_type</th>
-      <th>amenity</th>
-      <th>operator</th>
+      <th></th>
+      <th>building</th>
+      <th>name</th>
+      <th>addr:city</th>
       <th>geometry</th>
-      <th>source</th>
-      <th>access</th>
-      <th>addr:housenumber</th>
-      <th>addr:street</th>
-      <th>...</th>
-      <th>outdoor_seating</th>
-      <th>toilets</th>
-      <th>addr:floor</th>
-      <th>covered</th>
-      <th>area</th>
-      <th>ways</th>
-      <th>type</th>
-      <th>brand</th>
-      <th>brand:wikidata</th>
-      <th>electrified</th>
+    </tr>
+    <tr>
+      <th>element</th>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>way/8035238</td>
-      <td>8035238</td>
-      <td>way</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <th>node</th>
+      <th>11711721042</th>
+      <td>yes</td>
+      <td>Nice Bike Pyörähuolto</td>
+      <td>Helsinki</td>
+      <td>POINT (24.92714 60.1642)</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">way</th>
+      <th>8035238</th>
+      <td>public</td>
+      <td>Lasipalatsi</td>
+      <td>Helsinki</td>
       <td>POLYGON ((24.93563 60.17045, 24.93557 60.17054...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>22-24</td>
-      <td>Mannerheimintie</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>way/8042297</td>
-      <td>8042297</td>
-      <td>way</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <th>8042297</th>
+      <td>yes</td>
+      <td>Radisson Blu Royal</td>
+      <td>Helsinki</td>
       <td>POLYGON ((24.92938 60.16795, 24.92933 60.16797...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2</td>
-      <td>Runeberginkatu</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>way/14797170</td>
-      <td>14797170</td>
-      <td>way</td>
-      <td>NaN</td>
-      <td>City of Helsinki</td>
-      <td>POLYGON ((24.92427 60.16648, 24.92427 60.16650...</td>
-      <td>survey</td>
-      <td>NaN</td>
-      <td>10</td>
-      <td>Lapinlahdenkatu</td>
-      <td>...</td>
+      <th>14797170</th>
+      <td>school</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>POLYGON ((24.92427 60.16648, 24.92427 60.1665,...</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>way/14797171</td>
-      <td>14797171</td>
-      <td>way</td>
+      <th>14797171</th>
+      <td>yes</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>POLYGON ((24.92390 60.16729, 24.92391 60.16731...</td>
-      <td>survey</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>way/14797172</td>
-      <td>14797172</td>
-      <td>way</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POLYGON ((24.92647 60.16689, 24.92648 60.16689...</td>
-      <td>survey</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>POLYGON ((24.9239 60.16729, 24.92391 60.16731,...</td>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 101 columns</p>
 </div></div></div>
 </div>
-<p>As you can see, there are several columns in the buildings-layer. Each column contains information about a spesific tag that OpenStreetMap contributors have added. Each tag consists of a key (the column name), and several potential values (for example <code class="docutils literal notranslate"><span class="pre">building=yes</span></code> or <code class="docutils literal notranslate"><span class="pre">building=school</span></code>). Read more about tags and tagging practices in the <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Tags">OpenStreetMap wiki</a>.</p>
+<p>From here we can tell that some, but not all of the buildings contain more specific information about the type of building (e.g., a school) and building name and address. Notice that some buildings are tagged only with the generic tag <code class="docutils literal notranslate"><span class="pre">&quot;building=yes&quot;</span></code> without further information about the type of the building.</p>
+<p>Let’s plot the building footprints to get an overview of the data. While plotting, we can color the features according to the building tag values to get an overview of where different types of buildings are located.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buildings</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buildings</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;building&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;tab20c&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
-  and should_run_async(code)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;unique_id&#39;, &#39;osmid&#39;, &#39;element_type&#39;, &#39;amenity&#39;, &#39;operator&#39;, &#39;geometry&#39;,
-       &#39;source&#39;, &#39;access&#39;, &#39;addr:housenumber&#39;, &#39;addr:street&#39;,
-       ...
-       &#39;outdoor_seating&#39;, &#39;toilets&#39;, &#39;addr:floor&#39;, &#39;covered&#39;, &#39;area&#39;, &#39;ways&#39;,
-       &#39;type&#39;, &#39;brand&#39;, &#39;brand:wikidata&#39;, &#39;electrified&#39;],
-      dtype=&#39;object&#39;, length=101)
-</pre></div>
+<img alt="../../../_images/75e119b05a7bd691841272031d70172238b43a2a21682ffaf331af0bddadc66c.png" src="../../../_images/75e119b05a7bd691841272031d70172238b43a2a21682ffaf331af0bddadc66c.png" />
 </div>
 </div>
-</div>
-</section>
-<section id="points-of-interest">
-<h3>Points-of-interest<a class="headerlink" href="#points-of-interest" title="Link to this heading">#</a></h3>
-<p>It is also possible to retrieve other types of geometries from OSM using the <code class="docutils literal notranslate"><span class="pre">geometries_from_place</span></code> by passing different tags. Point-of-interest (POI) is a generic concept that describes point locations that represent places of interest.</p>
-<p>In OpenStreetMap, many POIs are described using the <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Key:amenityhttps://wiki.openstreetmap.org/wiki/Key:amenity">amenity-tags</a>.
-We can, for excample, retrieve all restaurat locations by referring to the tag <code class="docutils literal notranslate"><span class="pre">amenity=restaurant</span></code>. See all available amenity categories from <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Key:amenity">OSM wiki</a>.</p>
-<p><em>Note: We used the <code class="docutils literal notranslate"><span class="pre">pois_from_place()</span></code> method to retrieve POIs in older versions of OSMnx.</em></p>
-<p>Let’s retrieve restaurants that are located in our area of interest:</p>
+<p><em><strong>Figure 9.3</strong>. OSM buildings visualized by building tag values.</em></p>
+<p>Let’s also fetch points of interests from our area of interest using the amenity tag:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List key-value pairs for tags</span>
-<span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;amenity&quot;</span><span class="p">:</span> <span class="s2">&quot;restaurant&quot;</span><span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;amenity&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+<span class="n">amenities</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features_from_place</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Again, let’s only plot a couple of available columns to check the contents of the data. You can see all column names  by running <code class="docutils literal notranslate"><span class="pre">list(amenities.columns)</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retrieve restaurants</span>
-<span class="n">restaurants</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geometries_from_place</span><span class="p">(</span><span class="n">place_name</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
-
-<span class="c1"># How many restaurants do we have?</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">restaurants</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>156
-</pre></div>
-</div>
-</div>
-</div>
-<p>As we can see, there are quite many restaurants in the area.</p>
-<p>Let’s explore what kind of attributes we have in our restaurants GeoDataFrame:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Available columns</span>
-<span class="n">restaurants</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
-  and should_run_async(code)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;unique_id&#39;, &#39;osmid&#39;, &#39;element_type&#39;, &#39;addr:city&#39;, &#39;addr:country&#39;,
-       &#39;addr:housenumber&#39;, &#39;addr:postcode&#39;, &#39;addr:street&#39;, &#39;amenity&#39;,
-       &#39;cuisine&#39;, &#39;name&#39;, &#39;phone&#39;, &#39;website&#39;, &#39;wheelchair&#39;, &#39;geometry&#39;,
-       &#39;toilets:wheelchair&#39;, &#39;opening_hours&#39;, &#39;delivery:covid19&#39;,
-       &#39;opening_hours:covid19&#39;, &#39;takeaway:covid19&#39;, &#39;diet:vegetarian&#39;,
-       &#39;name:fi&#39;, &#39;name:zh&#39;, &#39;short_name&#39;, &#39;diet:vegan&#39;, &#39;contact:phone&#39;,
-       &#39;contact:website&#39;, &#39;source&#39;, &#39;outdoor_seating&#39;, &#39;addr:housename&#39;,
-       &#39;email&#39;, &#39;level&#39;, &#39;address&#39;, &#39;access:covid19&#39;,
-       &#39;drive_through:covid19&#39;, &#39;takeaway&#39;, &#39;delivery&#39;, &#39;url&#39;, &#39;brunch&#39;,
-       &#39;lunch:menu&#39;, &#39;reservation&#39;, &#39;room&#39;, &#39;opening_hours:brunch&#39;,
-       &#39;toilets&#39;, &#39;capacity&#39;, &#39;smoking&#39;, &#39;access:dog&#39;, &#39;operator&#39;, &#39;shop&#39;,
-       &#39;alt_name&#39;, &#39;contact:email&#39;, &#39;established&#39;, &#39;description&#39;,
-       &#39;name:sv&#39;, &#39;floor&#39;, &#39;name:en&#39;, &#39;description:en&#39;, &#39;old_name&#39;,
-       &#39;highchair&#39;, &#39;lunch&#39;, &#39;was:name&#39;, &#39;website:en&#39;, &#39;brand&#39;,
-       &#39;wheelchair:description&#39;, &#39;stars&#39;, &#39;wikidata&#39;, &#39;wikipedia&#39;,
-       &#39;description:covid19&#39;, &#39;lunch:buffet&#39;, &#39;addr:place&#39;,
-       &#39;internet_access&#39;, &#39;addr:floor&#39;, &#39;image&#39;, &#39;payment:mastercard&#39;,
-       &#39;payment:visa&#39;, &#39;nodes&#39;, &#39;building&#39;], dtype=object)
-</pre></div>
-</div>
-</div>
-</div>
-<p>As you can see, there is quite a lot of (potential) information related to the amenities. Let’s subset the columns and inspect the data further. Useful columns include at least <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">address</span> <span class="pre">information</span></code> and <code class="docutils literal notranslate"><span class="pre">opening_hours</span></code> information:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select some useful cols and print</span>
-<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;name&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;opening_hours&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;addr:city&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;addr:country&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;addr:housenumber&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;addr:postcode&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;addr:street&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-
-<span class="c1"># Print only selected cols</span>
-<span class="n">restaurants</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">amenities</span><span class="p">[[</span><span class="s2">&quot;amenity&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;opening_hours&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1276,205 +1064,122 @@ We can, for excample, retrieve all restaurat locations by referring to the tag <
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th></th>
+      <th>amenity</th>
       <th>name</th>
       <th>opening_hours</th>
-      <th>addr:city</th>
-      <th>addr:country</th>
-      <th>addr:housenumber</th>
-      <th>addr:postcode</th>
-      <th>addr:street</th>
+      <th>geometry</th>
+    </tr>
+    <tr>
+      <th>element</th>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
+      <th rowspan="5" valign="top">node</th>
+      <th>60062502</th>
+      <td>restaurant</td>
       <td>Kabuki</td>
       <td>NaN</td>
-      <td>Helsinki</td>
-      <td>FI</td>
-      <td>12</td>
-      <td>00180</td>
-      <td>Lapinlahdenkatu</td>
+      <td>POINT (24.92422 60.16725)</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>Empire Plaza</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <th>60068035</th>
+      <td>cafe</td>
+      <td>Cafe Java</td>
+      <td>Mo-Tu 09:00-21:00; We-Th 09:00-22:00; Fr 09:00...</td>
+      <td>POINT (24.93752 60.16997)</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>62965963</th>
+      <td>restaurant</td>
+      <td>Restaurant &amp; Bar Fusion</td>
+      <td>Mo-Th 11-22; Fr-Sa 11-02; Su 12-20</td>
+      <td>POINT (24.93292 60.16953)</td>
+    </tr>
+    <tr>
+      <th>76617692</th>
+      <td>restaurant</td>
       <td>Johan Ludvig</td>
       <td>NaN</td>
-      <td>Helsinki</td>
-      <td>FI</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>POINT (24.92913 60.16781)</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>Ravintola Rivoletto</td>
-      <td>Mo-Th 11:00-23:00; Fr 11:00-24:00; Sa 15:00-24...</td>
-      <td>Helsinki</td>
-      <td>FI</td>
-      <td>38</td>
-      <td>00120</td>
-      <td>Albertinkatu</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Pueblo</td>
-      <td>NaN</td>
-      <td>Helsinki</td>
-      <td>FI</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Eerikinkatu</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Atabar</td>
-      <td>NaN</td>
-      <td>Helsinki</td>
-      <td>FI</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Eerikinkatu</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Papa Albert</td>
-      <td>Mo-Th 10:00-14:00, 17:30-22:00; Fr 11:00-23:00...</td>
-      <td>Helsinki</td>
-      <td>FI</td>
-      <td>30</td>
-      <td>00120</td>
-      <td>Albertinkatu</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>Ravintola China</td>
-      <td>Mo-Fr 11:00-23:00; Sa-Su 12:00-23:00; PH off</td>
-      <td>Helsinki</td>
-      <td>FI</td>
-      <td>25</td>
-      <td>00100</td>
-      <td>Annankatu</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>Tony's deli + Street Bar</td>
-      <td>NaN</td>
-      <td>Helsinki</td>
-      <td>FI</td>
-      <td>7</td>
-      <td>00120</td>
-      <td>Bulevardi</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Haru Sushi</td>
-      <td>Mo-Fr 11:00-21:00; Sa 12:00-21:00; Su 13:00-21:00</td>
-      <td>Helsinki</td>
-      <td>FI</td>
-      <td>30</td>
-      <td>00120</td>
-      <td>Fredrikinkatu</td>
+      <th>76624339</th>
+      <td>restaurant</td>
+      <td>Shinobi</td>
+      <td>We-Th 17:00-23:00; Fr-Sa 16:00-24:00</td>
+      <td>POINT (24.93194 60.16508)</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>As we can see, there is a lot of useful information about restaurants that can be retrieved easily with OSMnx. Also, if some of the information need updating, you can go over to www.openstreetmap.org and edit the source data! :)</p>
-</section>
-<section id="plotting-the-data">
-<h3>Plotting the data<a class="headerlink" href="#plotting-the-data" title="Link to this heading">#</a></h3>
-<p>Let’s create a map out of the streets, buildings, restaurants, and the area Polygon but let’s exclude the nodes (to keep the figure clearer).</p>
+<p>Here, we received all amenities in the area of interest ranging from restaurants, cafes and so on. The type of amenity (i.e., the value of the OSM tag) is indicated in the <code class="docutils literal notranslate"><span class="pre">amenity</span></code> column. Again, some, but not all features have additional information such as opening hours available. The downloaded data contains more than 700 individual points of interests in the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-
-<span class="c1"># Plot the footprint</span>
-<span class="n">area</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
-
-<span class="c1"># Plot street edges</span>
-<span class="n">edges</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;dimgray&quot;</span><span class="p">)</span>
-
-<span class="c1"># Plot buildings</span>
-<span class="n">buildings</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;silver&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-
-<span class="c1"># Plot restaurants</span>
-<span class="n">restaurants</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">amenities</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
-  and should_run_async(code)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>757
 </pre></div>
 </div>
-<img alt="../../../_images/6c14f7deca670493fa1a4ad030d8d9a0f4d9549da714786f9aa0cf44792078ae.png" src="../../../_images/6c14f7deca670493fa1a4ad030d8d9a0f4d9549da714786f9aa0cf44792078ae.png" />
 </div>
 </div>
-<p>Cool! Now we have a map where we have plotted the restaurants, buildings, streets and the boundaries of the selected region of ‘Kamppi’ in Helsinki. And all of this required only a few lines of code. Pretty neat!</p>
-<div class="alert alert-info">
-<p><strong>Check your understading</strong></p>
-<p>Retrieve OpenStreetMap data from some other area! Download these elements using OSMnx functions from your area of interest:</p>
-<ul class="simple">
-<li><p>Extent of the area using <code class="docutils literal notranslate"><span class="pre">geocode_to_gdf()</span></code></p></li>
-<li><p>Street network using <code class="docutils literal notranslate"><span class="pre">graph_from_place()</span></code>, and convert to gdf using <code class="docutils literal notranslate"><span class="pre">graph_to_gdfs()</span></code></p></li>
-<li><p>Building footprints (and other geometries) using <code class="docutils literal notranslate"><span class="pre">geometries_from_place()</span></code> and appropriate tags.</p></li>
-</ul>
-<p><em>Note, the larger the area you choose, the longer it takes to retrieve data from the API! Use parameter <code class="docutils literal notranslate"><span class="pre">network_type=drive</span></code> to limit the graph query to filter out un-driveable roads.</em></p>
-</div><div class="cell docutils container">
+<section id="question-9-2">
+<h4>Question 9.2<a class="headerlink" href="#question-9-2" title="Link to this heading">#</a></h4>
+<p>How many different amenity categories are there?</p>
+<div class="cell tag_remove_book_cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify the name that is used to seach for the data. Check that the place name is valid from https://nominatim.openstreetmap.org/ui/search.html</span>
-<span class="n">my_place</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># Get number of unique values in column `amenity`</span>
+<span class="n">amenities</span><span class="p">[</span><span class="s2">&quot;amenity&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
-  and should_run_async(code)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>63
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>Let’s limit our query to contain only restaurants and cafes in our area of interest. We can do this by specifying one or several tag values in the dictionary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;amenity&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;restaurant&quot;</span><span class="p">,</span> <span class="s2">&quot;cafe&quot;</span><span class="p">]}</span>
+<span class="n">amenities</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features_from_place</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get street network</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">amenities</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>214
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get building footprints</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the data</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="extra-park-polygons">
-<h3>Extra: Park polygons<a class="headerlink" href="#extra-park-polygons" title="Link to this heading">#</a></h3>
-<p>Notice that we can retrieve all kinds of different features from OpenStreetMap using the <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/osmnx.html?highlight=geometries_from_place#osmnx.geometries.geometries_from_place">geometries_from_place()</a> method by passing different OpenStreetMap tags.</p>
-<p>Let’s try to fetch all public parks in the Kamppi area. In OpenStreetMap, parks are often tagged as <code class="docutils literal notranslate"><span class="pre">leisure=park</span></code>. We can also add other green surfaces, such as <code class="docutils literal notranslate"><span class="pre">landuse=grass</span></code>. see OpenStreetMap, and OSM wiki for more details.</p>
-<ul class="simple">
-<li><p>We need to start by fetching all footprints from the tag <code class="docutils literal notranslate"><span class="pre">leisure</span></code>:</p></li>
-</ul>
+<p>In addition to streets, buildings and amenities, OSM contains information about various land use features that can be useful for urban geospatial analysis. Let’s see how we can fetch urban green space data from OSM using the <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> <code class="docutils literal notranslate"><span class="pre">features</span></code> module. Fetching green spaces from OpenStreetMap requires a bit of investigation of appropriate tag values and these might vary across cities.</p>
+<p>One common way of tagging urban parks is <code class="docutils literal notranslate"><span class="pre">leisure=park</span></code>. If wanting to capture also other green infrastructure, additional tags such as <code class="docutils literal notranslate"><span class="pre">landuse=grass</span></code> may be added. Let’s proceed with these two tags that should capture most of the available greenspaces in downtown Helsinki.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List key-value pairs for tags</span>
@@ -1486,29 +1191,20 @@ We can, for excample, retrieve all restaurat locations by referring to the tag <
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the data</span>
-<span class="n">parks</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geometries_from_place</span><span class="p">(</span><span class="n">place_name</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
-
-<span class="c1"># Check the result</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Retrieved&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">parks</span><span class="p">),</span> <span class="s2">&quot;objects&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieved 53 objects
+<span class="n">parks</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features_from_place</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>let’s check the first rows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parks</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Retrieved&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">parks</span><span class="p">),</span> <span class="s2">&quot;objects&quot;</span><span class="p">)</span>
+<span class="n">parks</span><span class="p">[[</span><span class="s2">&quot;leisure&quot;</span><span class="p">,</span> <span class="s2">&quot;landuse&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
-  and should_run_async(code)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieved 121 objects
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -1529,138 +1225,90 @@ We can, for excample, retrieve all restaurat locations by referring to the tag <
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>unique_id</th>
-      <th>osmid</th>
-      <th>element_type</th>
-      <th>geometry</th>
-      <th>access</th>
-      <th>source</th>
-      <th>addr:city</th>
-      <th>nodes</th>
+      <th></th>
       <th>leisure</th>
-      <th>name</th>
-      <th>name:fi</th>
-      <th>name:sv</th>
-      <th>hoitoluokitus_viheralue</th>
-      <th>wikidata</th>
-      <th>wikipedia</th>
       <th>landuse</th>
-      <th>alt_name</th>
-      <th>loc_name</th>
+      <th>name</th>
+      <th>geometry</th>
+    </tr>
+    <tr>
+      <th>element</th>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>way/8042256</td>
-      <td>8042256</td>
-      <td>way</td>
-      <td>POLYGON ((24.93566 60.17132, 24.93566 60.17130...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>[292719496, 1001543836, 1037987967, 1001544060...</td>
+      <th rowspan="5" valign="top">way</th>
+      <th>8042256</th>
       <td>park</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>Pikkuparlamentinpuisto</td>
+      <td>POLYGON ((24.93566 60.17132, 24.93566 60.1713,...</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>way/8042613</td>
-      <td>8042613</td>
-      <td>way</td>
+      <th>8042613</th>
+      <td>park</td>
+      <td>NaN</td>
+      <td>Simonpuistikko</td>
       <td>POLYGON ((24.93701 60.16947, 24.93627 60.16919...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>[552965718, 293390264, 295056669, 256264975, 1...</td>
-      <td>park</td>
-      <td>Simonpuistikko</td>
-      <td>Simonpuistikko</td>
-      <td>Simonsskvären</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>way/15218362</td>
-      <td>15218362</td>
-      <td>way</td>
-      <td>POLYGON ((24.92330 60.16499, 24.92323 60.16500...</td>
-      <td>NaN</td>
-      <td>survey</td>
-      <td>NaN</td>
-      <td>[144181223, 150532964, 150532958, 150532966, 1...</td>
+      <th>15218362</th>
       <td>park</td>
+      <td>NaN</td>
       <td>Työmiehenpuistikko</td>
-      <td>Työmiehenpuistikko</td>
-      <td>Arbetarparken</td>
-      <td>A2</td>
+      <td>POLYGON ((24.9233 60.16499, 24.92323 60.165, 2...</td>
+    </tr>
+    <tr>
+      <th>15218739</th>
+      <td>park</td>
       <td>NaN</td>
+      <td>Lastenlehto</td>
+      <td>POLYGON ((24.92741 60.16575, 24.92741 60.16574...</td>
+    </tr>
+    <tr>
+      <th>15223911</th>
+      <td>park</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>Lapinlahden puistikko</td>
+      <td>POLYGON ((24.93126 60.16589, 24.93075 60.16624...</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Check all column headers:</p>
+<p>The first five rows of data contain different parks, which all have a name. Let’s quicly plot the data to see the geometry. By adding transparency to the map with the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> parameter, we can observe where some of the grass and park polygon features overlap.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parks</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parks</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
-  and should_run_async(code)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;unique_id&#39;, &#39;osmid&#39;, &#39;element_type&#39;, &#39;geometry&#39;, &#39;access&#39;,
-       &#39;source&#39;, &#39;addr:city&#39;, &#39;nodes&#39;, &#39;leisure&#39;, &#39;name&#39;, &#39;name:fi&#39;,
-       &#39;name:sv&#39;, &#39;hoitoluokitus_viheralue&#39;, &#39;wikidata&#39;, &#39;wikipedia&#39;,
-       &#39;landuse&#39;, &#39;alt_name&#39;, &#39;loc_name&#39;], dtype=object)
-</pre></div>
+<img alt="../../../_images/8eab9060a8d1ed2931ae749e60fc97bda22a9e01916ab1b96cb84c0bd45a4b7c.png" src="../../../_images/8eab9060a8d1ed2931ae749e60fc97bda22a9e01916ab1b96cb84c0bd45a4b7c.png" />
 </div>
 </div>
-</div>
-<p>plot the parks:</p>
+<p><em><strong>Figure 9.4</strong>. Polygons tagged with “leisure=park” or “landuse=grass”.</em></p>
+</section>
+</section>
+<section id="plotting-the-data">
+<h3>Plotting the data<a class="headerlink" href="#plotting-the-data" title="Link to this heading">#</a></h3>
+<p>Let’s create a map that shows the data we downloaded.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parks</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../../../_images/0904643f77ae2489a1716ab816e89520374e1ce6f293735ffdba4fad2a398639.png" src="../../../_images/0904643f77ae2489a1716ab816e89520374e1ce6f293735ffdba4fad2a398639.png" />
-</div>
-</div>
-<p>Finally, we can add the park polygons to our map:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
 <span class="c1"># Plot the footprint</span>
-<span class="n">area</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
-
-<span class="c1"># Plot the parks</span>
-<span class="n">parks</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">aoi</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
 
 <span class="c1"># Plot street edges</span>
 <span class="n">edges</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;dimgray&quot;</span><span class="p">)</span>
@@ -1668,21 +1316,166 @@ We can, for excample, retrieve all restaurat locations by referring to the tag <
 <span class="c1"># Plot buildings</span>
 <span class="n">buildings</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;silver&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
 
+<span class="n">parks</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
 <span class="c1"># Plot restaurants</span>
-<span class="n">restaurants</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">amenities</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
-  and should_run_async(code)
+<img alt="../../../_images/f3fe9236f22ad2253feb83bd02d61329afe6a2ae4f40f790b9b5538fc79bf5fc.png" src="../../../_images/f3fe9236f22ad2253feb83bd02d61329afe6a2ae4f40f790b9b5538fc79bf5fc.png" />
+</div>
+</div>
+<p><em><strong>Figure 9.5</strong>. Visualization of OSM map features from the Kamppi area in Helsinki, Finland.</em></p>
+</section>
+<section id="alternative-spatial-queries">
+<h3>Alternative spatial queries<a class="headerlink" href="#alternative-spatial-queries" title="Link to this heading">#</a></h3>
+<p>If your area of interest is not represented by any existing featue in OSM, you can also query data based on custom polygon, bounding box or based on a buffer around a point or address location. Each way of querying the data is implemented in a distinct <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> function. Here are the available fucntions for querying map features by:</p>
+<ul class="simple">
+<li><p>address: <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_address">osmnx.features.features_from_address(address, tags, dist)</a></p></li>
+<li><p>bounding box: <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_bbox">osmnx.features.features_from_bbox(bbox, tags)</a></p></li>
+<li><p>place: <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_place">osmnx.features.features_from_place(place, tags)</a></p></li>
+<li><p>point: <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_point">osmnx.features.features_from_point(center_point, tags, dist)</a></p></li>
+<li><p>polygon: <a class="reference external" href="https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.features.features_from_polygon">osmnx.features.features_from_polygon(polygon, tags)</a></p></li>
+</ul>
+<p>Similar alternative search functions exists for querying the network graph. See <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> user reference for exact syntax.</p>
+<p>Let’s try out querying data based on a pre-defined bounding box around the Cental railway station in Helsinki. Bounding box coordinates should be given in the correct order (left, bottom, right, top).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="mf">24.9351773</span><span class="p">,</span> <span class="mf">60.1641551</span><span class="p">,</span> <span class="mf">24.9534055</span><span class="p">,</span> <span class="mf">60.1791068</span><span class="p">)</span>
+<span class="n">buildings</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features_from_bbox</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;building&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<span class="n">buildings</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../../../_images/d7e3c4c6c226ff554d392048a833d3ff40b8f6c48ef507293a4fc45da49190e3.png" src="../../../_images/d7e3c4c6c226ff554d392048a833d3ff40b8f6c48ef507293a4fc45da49190e3.png" />
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../../../_images/cdefb5c12cb32b53b2d45f510bfbf0199c9fd3626af55c832c354f40b786981a.png" src="../../../_images/cdefb5c12cb32b53b2d45f510bfbf0199c9fd3626af55c832c354f40b786981a.png" />
+</div>
+</div>
+<p><em><strong>Figure 9.6</strong>. Downloaded buildings within a bounding box.</em></p>
+<p>Here is another example of querying data within a distance treshold from a geocodable address. The distance parameter is given in meters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">address</span> <span class="o">=</span> <span class="s2">&quot;Central railway station, Helsinki, Finland&quot;</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;building&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">buildings</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features_from_address</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span>
+<span class="n">buildings</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../../../_images/15c9fdd7d80ee48736bc9288d793f1d020e752eeead179d740e82815bb0e6b55.png" src="../../../_images/15c9fdd7d80ee48736bc9288d793f1d020e752eeead179d740e82815bb0e6b55.png" />
+</div>
+</div>
+<p><em><strong>Figure 9.7</strong>. Downloaded buildings within a distance treshold from a geocoded address.</em></p>
+<section id="question-9-3">
+<h4>Question 9.3<a class="headerlink" href="#question-9-3" title="Link to this heading">#</a></h4>
+<p>Check your understanding and retrieve OpenStreetMap data from some other area in the world. Use <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> and download:</p>
+<ul class="simple">
+<li><p>Polygon of your area of interest</p></li>
+<li><p>Street network</p></li>
+<li><p>Building footprints</p></li>
+<li><p>Restaurants and cafes (or why not also other amenities)</p></li>
+<li><p>Green spaces</p></li>
+</ul>
+<p>Note that the larger the area you choose, the longer it takes to retrieve data from the API! When fetching the street network, you can use parameter <code class="docutils literal notranslate"><span class="pre">network_type</span></code> to limit the graph query to only specific types of roads.</p>
+<div class="cell tag_remove_book_cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># Example solution</span>
+<span class="n">place</span> <span class="o">=</span> <span class="s2">&quot;Gamla stan, Stockholm, Sweden&quot;</span>
+<span class="n">aoi</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocoder</span><span class="o">.</span><span class="n">geocode_to_gdf</span><span class="p">(</span><span class="n">place</span><span class="p">)</span>
+
+<span class="c1"># Street network</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">graph_from_place</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="n">network_type</span><span class="o">=</span><span class="s2">&quot;walk&quot;</span><span class="p">)</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">convert</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">nodes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Other map features</span>
+<span class="n">buildings</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features_from_place</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;building&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<span class="n">amenities</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features_from_place</span><span class="p">(</span>
+    <span class="n">place</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;amenity&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;restaurant&quot;</span><span class="p">,</span> <span class="s2">&quot;cafe&quot;</span><span class="p">]}</span>
+<span class="p">)</span>
+<span class="n">parks</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features_from_place</span><span class="p">(</span>
+    <span class="n">place</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;leisure&quot;</span><span class="p">:</span> <span class="s2">&quot;park&quot;</span><span class="p">,</span> <span class="s2">&quot;landuse&quot;</span><span class="p">:</span> <span class="s2">&quot;grass&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot the result</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">aoi</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">edges</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;dimgray&quot;</span><span class="p">)</span>
+<span class="n">buildings</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;silver&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">parks</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">amenities</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/d9feb7e33d7fd26aef83dcd59738e92a02b0a93563c21f00419a30f7d2cf4efa.png" src="../../../_images/d9feb7e33d7fd26aef83dcd59738e92a02b0a93563c21f00419a30f7d2cf4efa.png" />
+</div>
+</details>
 </div>
 </section>
+</section>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="osm" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.openstreetmap.org/">https://www.openstreetmap.org/</a></p>
+</aside>
+<aside class="footnote brackets" id="osm-license" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.openstreetmap.org/copyright">https://www.openstreetmap.org/copyright</a></p>
+</aside>
+<aside class="footnote brackets" id="hotosm" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.hotosm.org">https://www.hotosm.org</a></p>
+</aside>
+<aside class="footnote brackets" id="geofabrik" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.geofabrik.de/data/download.html">https://www.geofabrik.de/data/download.html</a></p>
+</aside>
+<aside class="footnote brackets" id="overpass-api-intro" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://wiki.openstreetmap.org/wiki/Overpass_API">https://wiki.openstreetmap.org/wiki/Overpass_API</a></p>
+</aside>
+<aside class="footnote brackets" id="osm-wiki" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://wiki.openstreetmap.org/wiki/Main_Page">https://wiki.openstreetmap.org/wiki/Main_Page</a></p>
+</aside>
+<aside class="footnote brackets" id="osm-wiki-tags" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://wiki.openstreetmap.org/wiki/Map_features">https://wiki.openstreetmap.org/wiki/Map_features</a></p>
+</aside>
+<aside class="footnote brackets" id="osmnx" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">8</a><span class="fn-bracket">]</span></span>
+<p><a class="github reference external" href="https://github.com/gboeing/osmnx">gboeing/osmnx</a></p>
+</aside>
+<aside class="footnote brackets" id="osmnx-docs" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">9</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://osmnx.readthedocs.io/en/stable/index.html">https://osmnx.readthedocs.io/en/stable/index.html</a></p>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -1722,8 +1515,7 @@ We can, for excample, retrieve all restaurat locations by referring to the tag <
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1732,19 +1524,25 @@ We can, for excample, retrieve all restaurat locations by referring to the tag <
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-openstreetmap">What is OpenStreetMap?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#osmnx">OSMnx</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx">NetworkX</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-visualize-openstreetmap-data-with-osmnx">Download and visualize OpenStreetMap data with OSMnx</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#street-network">Street network</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-to-geodataframe">Graph to GeoDataFrame</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#place-polygon">Place polygon</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-footprints">Building footprints</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#points-of-interest">Points-of-interest</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-data">Plotting the data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-park-polygons">Extra: Park polygons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-openstreetmap">What is OpenStreetMap?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-9-1">Question 9.1</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-openstreetmap-data-with-osmnx">Downloading OpenStreetMap data with OSMnx</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-area-of-interest">Defining the area of interest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#street-network">Street network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-map-features">Other map features</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-9-2">Question 9.2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-data">Plotting the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-spatial-queries">Alternative spatial queries</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-9-3">Question 9.3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>
 
@@ -1769,7 +1567,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -1793,8 +1591,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

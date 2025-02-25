@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -54,7 +51,6 @@
     <link rel="prev" title="Selecting data based on spatial relationships" href="05-spatial-queries.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,8 +66,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -79,6 +86,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -86,8 +94,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -453,16 +462,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -511,19 +528,19 @@
 <p>Spatial join is yet another classic GIS task. Retrieving table attributes from one layer and transferring them into another layer based on their spatial relationship is something you most likely need to do on a regular basis when working with geographic data. In the previous section, you learned how to perform spatial queries, such as investigating if a Point is located within a Polygon. We can use this same logic to conduct a spatial join between two layers based on their spatial relationship and transfer the information stored in one layer into the other. We could, for example, join the attributes of a polygon layer into a point layer where each point would get the attributes of a polygon that <code class="docutils literal notranslate"><span class="pre">intersects</span></code> with the point.</p>
 <section id="the-basic-logic-of-spatial-join">
 <h2>The basic logic of spatial join<a class="headerlink" href="#the-basic-logic-of-spatial-join" title="Link to this heading">#</a></h2>
-<p>In Figure 6.40, we illustrate the logic of a spatial join by showing how it is possible to combine information between spatial data layers that are located in the same area (i.e. they overlap with each other at least partially). The target here is to combine attribute information of three layers: properties, land use and buildings. Each of these three layers has their own attribute information. Transfering the information between the layers is based on how the individual points in the Properties layer intersect with these layers as shown on the left, i.e. considering different land use areas (commercial, residential, industrial, natural), as well as the building footprints containing a variety of building-related attibute information. On the right, we show the table attributes for these three layers considering the features that intersect with the four Point observations. The table at the bottom shows how the results look after all the attribute data from these layers has been combined into a single table.</p>
-<p>It is good to remember that spatial join is always conducted between two layers at a time. Hence, in practice, if we want to make a spatial join between these three layers shown in <strong>Figure 6.37</strong>, we first need to conduct the spatial join between Properties and Land use, and then store this information into an intermediate result. After the first join, we need to make another spatial join between the intermediate result and the third layer (here, the Buildings dataset). After these two separate spatial joins, we have achieved the final result shown at the bottom, showing for each property (row) the corresponding attributes from the land use and building layers as separate columns. In a similar manner, you could also continue joining data (attributes) from other layers as long as you need.</p>
-<p><img alt="Figure 6.40. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship." src="../../../_images/spatial-join-basic-idea.png" /></p>
-<p><em><strong>Figure 6.40</strong>. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship.</em></p>
-<p>Now as we understand the basic idea behind the spatial join, let’s continue to learn a bit more about the details of spatial join. Figure 6.41 illustrates how we can do a spatial join between Point and Polygon layers, and how changing specific parameters in the way the join is conducted influence the results. In spatial join, there are two set of options that you can control, which ultimately influence how the data is transferred between the layers. You can control:</p>
+<p>In Figure 6.41, we illustrate the logic of a spatial join by showing how it is possible to combine information between spatial data layers that are located in the same area (i.e. they overlap with each other at least partially). The target here is to combine attribute information of three layers: properties, land use and buildings. Each of these three layers has their own attribute information. Transfering the information between the layers is based on how the individual points in the Properties layer intersect with these layers as shown on the left, i.e. considering different land use areas (commercial, residential, industrial, natural), as well as the building footprints containing a variety of building-related attibute information. On the right, we show the table attributes for these three layers considering the features that intersect with the four Point observations. The table at the bottom shows how the results look after all the attribute data from these layers has been combined into a single table.</p>
+<p>It is good to remember that spatial join is always conducted between two layers at a time. Hence, in practice, if we want to make a spatial join between these three layers shown in Figure 6.41, we first need to conduct the spatial join between Properties and Land use, and then store this information into an intermediate result. After the first join, we need to make another spatial join between the intermediate result and the third layer (here, the Buildings dataset). After these two separate spatial joins, we have achieved the final result shown at the bottom, showing for each property (row) the corresponding attributes from the land use and building layers as separate columns. In a similar manner, you could also continue joining data (attributes) from other layers as long as you need.</p>
+<p><img alt="Figure 6.41. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship." src="../../../_images/spatial-join-basic-idea.png" /></p>
+<p><em><strong>Figure 6.41</strong>. Spatial join allows you to combine attribute information from multiple layers based on spatial relationship.</em></p>
+<p>Now as we understand the basic idea behind the spatial join, let’s continue to learn a bit more about the details of spatial join. Figure 6.42 illustrates how we can do a spatial join between Point and Polygon layers, and how changing specific parameters in the way the join is conducted influence the results. In spatial join, there are two set of options that you can control, which ultimately influence how the data is transferred between the layers. You can control:</p>
 <ol class="arabic simple">
 <li><p>How the spatial relationship between geometries should be checked (i.e. spatial predicates), and</p></li>
 <li><p>What type of table join you want to conduct (inner, left, or right outer join)</p></li>
 </ol>
 <p>The spatial predicates control how the spatial relationship between the geometries in the two data layers is checked. Only those cases where the spatial predicate returns <code class="docutils literal notranslate"><span class="pre">True</span></code> will be kept in the result. Thus, changing this option (parameter) can have a big influence on your final results after the join. In Figure 6.41 this difference is illustrated at the bottom when you compare the result tables <em>i</em> and <em>ii</em>: In the first table (<em>i</em>) the spatial predicate is <code class="docutils literal notranslate"><span class="pre">within</span></code> that gives us 4 rows that is shown in the table. However, on the second result table (<em>ii</em>), the spatial predicate <code class="docutils literal notranslate"><span class="pre">intersects</span></code> gives us 5 rows. Why is there a difference? This is because the Point with id-number 6 happens to lie exactly at the border of the Polygon C. As you might remember from the  Chapter 6.6, there is a certain difference between these two spatial predicates: The <code class="docutils literal notranslate"><span class="pre">within</span></code> predicate expects that the Point should be inside the Polygon (<code class="docutils literal notranslate"><span class="pre">False</span></code> in our case), whereas <code class="docutils literal notranslate"><span class="pre">intersects</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if at least one point is common between the geometries (<code class="docutils literal notranslate"><span class="pre">True</span></code> in our case). In a similar manner, you could change the spatial predicate to <code class="docutils literal notranslate"><span class="pre">contains</span></code>, <code class="docutils literal notranslate"><span class="pre">touches</span></code>, <code class="docutils literal notranslate"><span class="pre">overlaps</span></code> etc. and the result would change accordingly.</p>
-<p>It is also important to ensure that the logic for investigating these spatial relationships makes sense when deciding which spatial predicate to use. For example, it would not make any sense to check whether Layer 1 (points) contain the Layer 2 (polygons) because Point objects do not have an interior or boundary, thus lacking the ability to contain any geometric object. Doing this kind of spatial join is possible, but the result from this type of spatial join would always return an empty GeoDataFrame.  However, if we change the spatial join criteria and join the data between layers if the Layer 2 (polygons) contain the Layer 1 (points), this would make a perfect sense, and the query would return rows that match with this criteria.</p>
-<p><img alt="Figure 6.41. Different approaches to join two data layers with each other based on spatial relationships." src="../../../_images/spatial-join-alternatives.png" /></p>
-<p><em><strong>Figure 6.41</strong>. Different approaches to join two data layers with each other based on spatial relationships.</em></p>
+<p>It is also important to ensure that the logic for investigating these spatial relationships makes sense when deciding which spatial predicate to use. For example, it would not make any sense to check whether Layer 1 (points) contain the Layer 2 (polygons) because Point objects do not have an interior or boundary, thus lacking the ability to contain any geometric object. Doing this kind of spatial join is possible, but the result from this type of spatial join would always return an empty <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>.  However, if we change the spatial join criteria and join the data between layers if the Layer 2 (polygons) contain the Layer 1 (points), this would make a perfect sense, and the query would return rows that match with this criteria.</p>
+<p><img alt="Figure 6.42. Different approaches to join two data layers with each other based on spatial relationships." src="../../../_images/spatial-join-alternatives.png" /></p>
+<p><em><strong>Figure 6.42</strong>. Different approaches to join two data layers with each other based on spatial relationships.</em></p>
 <p>The other parameter that you can use to control how the spatial join is conducted is the spatial join type. There are three different join types that influence the outcome of the spatial join:</p>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Inner-join"><span class="xref std std-term">inner join</span></a></p></li>
@@ -535,10 +552,10 @@
 </section>
 <section id="spatial-join-with-python">
 <h2>Spatial join with Python<a class="headerlink" href="#spatial-join-with-python" title="Link to this heading">#</a></h2>
-<p>Now as we have learned the basic logic of spatial join, let’s see how we can do it in Python. Spatial join can be done easily with geopandas using the <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code> method. Next, we will learn how to use this method to perform a spatial join between two layers: 1) <code class="docutils literal notranslate"><span class="pre">addresses</span></code> which are the locations that we geocoded in the Chapter 6.5, and 2) <code class="docutils literal notranslate"><span class="pre">population</span> <span class="pre">grid</span></code> which is a 250m x 250m grid polygon layer that contains population information from the Helsinki Region (source: Helsinki Region Environmental Services Authority). Let’s start by reading the data:</p>
+<p>Now as we have learned the basic logic of spatial join, let’s see how we can do it in Python. Spatial join can be done easily with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> using the <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code> method. Next, we will learn how to use this method to perform a spatial join between two layers: 1) <code class="docutils literal notranslate"><span class="pre">addresses</span></code> which are the locations that we geocoded in the Chapter 6.5, and 2) <code class="docutils literal notranslate"><span class="pre">population</span> <span class="pre">grid</span></code> which is a 250m x 250m grid polygon layer that contains population information from the Helsinki Region (source: Helsinki Region Environmental Services Authority). Let’s start by reading the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 
 <span class="n">addr_fp</span> <span class="o">=</span> <span class="s2">&quot;data/Helsinki/addresses.shp&quot;</span>
 <span class="n">addresses</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">addr_fp</span><span class="p">)</span>
@@ -590,7 +607,7 @@
 </table>
 </div></div></div>
 </div>
-<p>As we can see, the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> GeoDataFrame contains address Points which represent a selection of public transport stations in the Helsinki Region.</p>
+<p>As we can see, the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> variable contains address Points which represent a selection of public transport stations in the Helsinki Region.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop_grid_fp</span> <span class="o">=</span> <span class="s2">&quot;data/Helsinki/Population_grid_2021_HSY.gpkg&quot;</span>
@@ -646,7 +663,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> dataset contains few columns, namely a unique <code class="docutils literal notranslate"><span class="pre">id</span></code>, the number of <code class="docutils literal notranslate"><span class="pre">inhabitants</span></code> per grid cell, and the <code class="docutils literal notranslate"><span class="pre">occupancy_rate</span></code> as percentage.</p>
 <section id="preparations-for-spatial-join">
 <h3>Preparations for spatial join<a class="headerlink" href="#preparations-for-spatial-join" title="Link to this heading">#</a></h3>
-<p>As a first step before making a spatial join, it is always good to check that the coordinate reference system (CRS) of the layers are identical. The basic requirement for a successful spatial join is that the layers should overlap with each other in space. If the geometries between the layers do not share the same CRS, it is very likely that the spatial join will fail and produces an empty GeoDataFrame. By looking at the numbers in the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column of the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> and <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> GeoDataFrames above, it is fairly evident that the datasets are in different coordinate reference system as the numbers seem to differ a lot. Let’s check the CRS information of each layer:</p>
+<p>As a first step before making a spatial join, it is always good to check that the coordinate reference system (CRS) of the layers are identical. The basic requirement for a successful spatial join is that the layers should overlap with each other in space. If the geometries between the layers do not share the same CRS, it is very likely that the spatial join will fail and produces an empty <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. By looking at the numbers in the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column of the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> and <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrames</span></code> above, it is fairly evident that the datasets are in different coordinate reference system as the numbers seem to differ a lot. Let’s check the CRS information of each layer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Address points CRS:&quot;</span><span class="p">,</span> <span class="n">addresses</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -674,7 +691,7 @@ Population grid CRS: ETRS89 / GK25FIN
 </div>
 </div>
 </div>
-<p>To fix this issue, let’s reproject the geometries in the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> GeoDataFrame to the same CRS as <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> using the <code class="docutils literal notranslate"><span class="pre">.to_crs()</span></code> method which was introduced in Chapter 6.4. To ensure that we will have exactly the same CRS in both layers, we can use the <code class="docutils literal notranslate"><span class="pre">pop_grid.crs</span></code> attribute information as the input for the <code class="docutils literal notranslate"><span class="pre">crs</span></code> parameter:</p>
+<p>To fix this issue, let’s reproject the geometries in the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> to the same CRS as <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> using the <code class="docutils literal notranslate"><span class="pre">.to_crs()</span></code> method which was introduced in Chapter 6.4. To ensure that we will have exactly the same CRS in both layers, we can use the <code class="docutils literal notranslate"><span class="pre">pop_grid.crs</span></code> attribute information as the input for the <code class="docutils literal notranslate"><span class="pre">crs</span></code> parameter:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reproject</span>
@@ -714,7 +731,7 @@ Population grid CRS: ETRS89 / GK25FIN
 <img alt="../../../_images/8ee3a9b762550601cc2bb4d0ea200f006769dc07b67705a827c01d0af181bc20.png" src="../../../_images/8ee3a9b762550601cc2bb4d0ea200f006769dc07b67705a827c01d0af181bc20.png" />
 </div>
 </div>
-<p><em><strong>Figure 6.42</strong>. Prerequisite for a successful spatial join: The Polygon layer overlaps with the Point layer.</em></p>
+<p><em><strong>Figure 6.43</strong>. Prerequisite for a successful spatial join: The Polygon layer overlaps with the Point layer.</em></p>
 <p>As we can see from the map in Figure 6.42, the Polygons representing the population distribution in the area now overlap nicely with the address locations and we are ready to join information among these two layers based on their spatial relationship.</p>
 </section>
 <section id="join-the-layers-based-on-spatial-relationship">
@@ -736,7 +753,7 @@ Population grid CRS: ETRS89 / GK25FIN
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;left&quot;</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;right&quot;</span></code></p></li>
 </ul>
-<p>Let’s now join the attributes from the <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> GeoDataFrame into the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> GeoDataFrame by using the <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code>. Here, the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> GeoDataFrame containing the points is the one we want to use as a starting point, as this layer is the <em>receiving</em> member of the spatial join. Futhermore, we specify <code class="docutils literal notranslate"><span class="pre">predicate=&quot;within&quot;</span></code> for the spatial predicate as we are interested to know <em>within</em> which Polygon a given Point is located. Finally, we specify the join type with <code class="docutils literal notranslate"><span class="pre">how=&quot;inner&quot;</span></code> which means that only such rows are kept from both layers where the spatial predicate returns <code class="docutils literal notranslate"><span class="pre">True</span></code>. This means that if there are Points that are not inside of any of the Polygons, they will be dropped from the result. Thus, we formulate the command in the following form and store the result in the variable <code class="docutils literal notranslate"><span class="pre">join</span></code>:</p>
+<p>Let’s now join the attributes from the <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> into the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> by using the <code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code>. Here, the <code class="docutils literal notranslate"><span class="pre">addresses</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> containing the points is the one we want to use as a starting point, as this layer is the <em>receiving</em> member of the spatial join. Futhermore, we specify <code class="docutils literal notranslate"><span class="pre">predicate=&quot;within&quot;</span></code> for the spatial predicate as we are interested to know <em>within</em> which polygon a given point is located. Finally, we specify the join type with <code class="docutils literal notranslate"><span class="pre">how=&quot;inner&quot;</span></code> which means that only such rows are kept from both layers where the spatial predicate returns <code class="docutils literal notranslate"><span class="pre">True</span></code>. This means that if there are points that are not inside of any of the Polygons, they will be dropped from the result. Thus, we formulate the command in the following form and store the result in the variable <code class="docutils literal notranslate"><span class="pre">join</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">join</span> <span class="o">=</span> <span class="n">addresses</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">pop_grid</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="s2">&quot;within&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
@@ -856,7 +873,7 @@ Population grid CRS: ETRS89 / GK25FIN
 <p>30 rows × 8 columns</p>
 </div></div></div>
 </div>
-<p>Awesome! Now we have performed a successful spatial join that gave us as a result 31 rows and four new columns. Most importantly, we received information about <code class="docutils literal notranslate"><span class="pre">inhabitants</span></code> and <code class="docutils literal notranslate"><span class="pre">occupancy_rate</span></code> which correspond to the number of inhabitants and occupancy rate in the cell where the address-point is located. In addition, we got columns <code class="docutils literal notranslate"><span class="pre">index_right</span></code> and <code class="docutils literal notranslate"><span class="pre">id_right</span></code> which tell the index and id of the matching polygon in the right-side member of the spatial join (i.e. population grid). As you see, also the <code class="docutils literal notranslate"><span class="pre">id</span></code> column in the left-side member of the spatial join was renamed as <code class="docutils literal notranslate"><span class="pre">id_left</span></code>. The suffices <code class="docutils literal notranslate"><span class="pre">_left</span></code> and <code class="docutils literal notranslate"><span class="pre">_right</span></code> are appended to the column names to differentiate the columns in cases where there are identical column names present in both GeoDataFrames.</p>
+<p>Awesome! Now we have performed a successful spatial join that gave us as a result 31 rows and four new columns. Most importantly, we received information about <code class="docutils literal notranslate"><span class="pre">inhabitants</span></code> and <code class="docutils literal notranslate"><span class="pre">occupancy_rate</span></code> which correspond to the number of inhabitants and occupancy rate in the cell where the address-point is located. In addition, we got columns <code class="docutils literal notranslate"><span class="pre">index_right</span></code> and <code class="docutils literal notranslate"><span class="pre">id_right</span></code> which tell the index and id of the matching polygon in the right-side member of the spatial join (i.e. population grid). As you see, also the <code class="docutils literal notranslate"><span class="pre">id</span></code> column in the left-side member of the spatial join was renamed as <code class="docutils literal notranslate"><span class="pre">id_left</span></code>. The suffices <code class="docutils literal notranslate"><span class="pre">_left</span></code> and <code class="docutils literal notranslate"><span class="pre">_right</span></code> are appended to the column names to differentiate the columns in cases where there are identical column names present in both <code class="docutils literal notranslate"><span class="pre">GeoDataFrames</span></code>.</p>
 <p>Let’s also visualize the joined output. In the following, we plot the points using the <code class="docutils literal notranslate"><span class="pre">inhabitants</span></code> column to indicate the color:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -876,7 +893,7 @@ Population grid CRS: ETRS89 / GK25FIN
 <img alt="../../../_images/c0d6bf42ab6b32cd09bd28c4144a806701028a6677b00560e20db73f7d667a53.png" src="../../../_images/c0d6bf42ab6b32cd09bd28c4144a806701028a6677b00560e20db73f7d667a53.png" />
 </div>
 </div>
-<p><em><strong>Figure 6.43</strong>. Amount of population living close to the addresses can be visualized after a successful spatial join with the population grid.</em></p>
+<p><em><strong>Figure 6.44</strong>. Amount of population living close to the addresses can be visualized after a successful spatial join with the population grid.</em></p>
 <p>As we see from the map, the number of population living close to the stations vary quite significantly ranging from 43 up to 1409 inhabitants. As a last thing after the spatial join, it is useful to investigate if we lost any data while doing the spatial join. Let’s check this by comparing the number of rows in our result to how many addresses we had originally:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1167,8 +1184,8 @@ Population grid CRS: ETRS89 / GK25FIN
 &lt;/script&gt;
 &lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
 </div>
-<p><em><strong>Figure 6.44</strong>. An interactive map of the two layers reveal that some points are located outside of the Polygons.</em></p>
-<p>From <strong>Figure 6.44</strong>, we can see that some points are located outside of polygons in the areas close to the railway lines and the motorway. Is this a problem? It depends, but in certain cases, you might want to keep the information for the points that did not get a match based on the spatial relationship. We can achieve this by changing the <code class="docutils literal notranslate"><span class="pre">how</span></code> parameter into <code class="docutils literal notranslate"><span class="pre">left</span></code>, which keeps every row from the left member of the spatial join even when no match is found from the other layer:</p>
+<p><em><strong>Figure 6.45</strong>. An interactive map of the two layers reveal that some points are located outside of the Polygons.</em></p>
+<p>From Figure 6.45, we can see that some points are located outside of polygons in the areas close to the railway lines and the motorway. Is this a problem? It depends, but in certain cases, you might want to keep the information for the points that did not get a match based on the spatial relationship. We can achieve this by changing the <code class="docutils literal notranslate"><span class="pre">how</span></code> parameter into <code class="docutils literal notranslate"><span class="pre">left</span></code>, which keeps every row from the left member of the spatial join even when no match is found from the other layer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell sets the number of lines of pandas output to a maximum of 7</span>
@@ -1297,7 +1314,7 @@ Population grid CRS: ETRS89 / GK25FIN
 <p>34 rows × 8 columns</p>
 </div></div></div>
 </div>
-<p>Now the result in the <code class="docutils literal notranslate"><span class="pre">left_join</span></code> contains all the original 34 addresses. Let’s investigate a bit more to see which rows did not have a matching polygon in the population grid. After a left-join, those rows that do not have a matching geometry in the right-side member of the join are filled with NaN values. Thus, we should be able to locate them easily by searching for rows that do not have any values e.g. in the <code class="docutils literal notranslate"><span class="pre">inhabitants</span></code> column that was part of the <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> GeoDataFrame. We can do this by doing a selection using the <code class="docutils literal notranslate"><span class="pre">.isnull()</span></code> method:</p>
+<p>Now the result in the <code class="docutils literal notranslate"><span class="pre">left_join</span></code> contains all the original 34 addresses. Let’s investigate a bit more to see which rows did not have a matching polygon in the population grid. After a left-join, those rows that do not have a matching geometry in the right-side member of the join are filled with NaN values. Thus, we should be able to locate them easily by searching for rows that do not have any values e.g. in the <code class="docutils literal notranslate"><span class="pre">inhabitants</span></code> column that was part of the <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. We can do this by doing a selection using the <code class="docutils literal notranslate"><span class="pre">.isnull()</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left_join</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">left_join</span><span class="p">[</span><span class="s2">&quot;inhabitants&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span>
@@ -1382,7 +1399,7 @@ Population grid CRS: ETRS89 / GK25FIN
 </table>
 </div></div></div>
 </div>
-<p>The result from this query reveals the exact locations of the points that miss information in the last four columns of the GeoDataFrame. Okay, but is this all we can do? In some cases, it can be crucial that all features in the target layer would get information from the other dataset even if the spatial predicate between the geometries would not match perfectly. Sometimes fetching information from another layer based on the closest geometry up to a certain distance threshold can be considered sufficient for making a spatial join. Luckily, we can achieve this with relative ease using geopandas which we will learn next.</p>
+<p>The result from this query reveals the exact locations of the points that miss information in the last four columns of the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. Okay, but is this all we can do? In some cases, it can be crucial that all features in the target layer would get information from the other dataset even if the spatial predicate between the geometries would not match perfectly. Sometimes fetching information from another layer based on the closest geometry up to a certain distance threshold can be considered sufficient for making a spatial join. Luckily, we can achieve this with relative ease using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> which we will learn next.</p>
 <section id="question-6-10">
 <h4>Question 6.10<a class="headerlink" href="#question-6-10" title="Link to this heading">#</a></h4>
 <p>Do the spatial join another way around, i.e. make a spatial join where you join information from the address points into the population grid. How does the result differ from the version where we joined information from the grids to the points? What would be the benefit of doing the join this way around?</p>
@@ -1642,8 +1659,7 @@ Population grid CRS: ETRS89 / GK25FIN
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1685,7 +1701,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -1709,8 +1725,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

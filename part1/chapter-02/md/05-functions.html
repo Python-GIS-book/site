@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -54,7 +51,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,8 +66,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -79,6 +86,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -86,8 +94,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -105,8 +113,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -134,17 +141,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -262,10 +273,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -424,16 +433,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -506,7 +523,7 @@ Thus, we might need to repeat such calculations frequently when analyzing or com
 <section id="creating-a-first-function">
 <h3>Creating a first function<a class="headerlink" href="#creating-a-first-function" title="Link to this heading">#</a></h3>
 <p>Let’s define our first function called <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code>. Figure 2.4 explains the main elements of a function.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">celsius_to_fahr</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">celsius_to_fahr</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">9</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">temp</span> <span class="o">+</span> <span class="mi">32</span>
 </pre></div>
 </div>
@@ -540,7 +557,7 @@ Here, we can define a variable <code class="docutils literal notranslate"><span 
 <h3>Creating another function<a class="headerlink" href="#creating-another-function" title="Link to this heading">#</a></h3>
 <p>Now that we know how to create a function to convert degrees Celsius to Fahrenheit, let’s create another function called <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius()</span></code>. We can define this just like we did with our <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> function, noting that the temperature in degrees Celsius is just the temperature in Kelvins minus 273.15. Just to avoid confusion this time, let’s call the temperature variable used in the function <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code>.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
 </pre></div>
 </div>
@@ -563,7 +580,7 @@ Here, we can define a variable <code class="docutils literal notranslate"><span 
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 
-<span class="k">def</span> <span class="nf">celsius_to_newton</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">celsius_to_newton</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">temp_celsius</span> <span class="o">*</span> <span class="mf">0.33</span>
 </pre></div>
 </div>
@@ -576,7 +593,7 @@ Here, we can define a variable <code class="docutils literal notranslate"><span 
 We could write out a new formula for it but we don’t need to.
 Instead, we can do the conversion using the two functions we have already created and calling those from the new function we will now create. Let’s create a function <code class="docutils literal notranslate"><span class="pre">kelvins_to_fahr()</span></code> that takes the temperature in Kelvins as the parameter value <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code> and uses our <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius()</span></code> and <code class="docutils literal notranslate"><span class="pre">celsius_to_fahr()</span></code> functions within the new function to convert temperatures from Kelvins to degrees Fahrenheit.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
     <span class="n">temp_celsius</span> <span class="o">=</span> <span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">)</span>
     <span class="n">temp_fahr</span> <span class="o">=</span> <span class="n">celsius_to_fahr</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">temp_fahr</span>
@@ -596,7 +613,7 @@ Instead, we can do the conversion using the two functions we have already create
 <section id="functions-with-no-return-value">
 <h3>Functions with no return value<a class="headerlink" href="#functions-with-no-return-value" title="Link to this heading">#</a></h3>
 <p>Although it is recommended to use <code class="docutils literal notranslate"><span class="pre">return</span></code> statements when defining functions, not all functions have or need to have a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement. For example, let’s consider a case where the function converts temperatures from Kelvins to degrees Celsius and prints the converted values to the screen. In this situation, the function does not return the converted temperature value.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">print_kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
     <span class="n">temp_celsius</span> <span class="o">=</span> <span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">temp_kelvins</span><span class="si">}</span><span class="s2"> Kelvins is </span><span class="si">{</span><span class="n">temp_celsius</span><span class="si">}</span><span class="s2"> degrees Celsius.&quot;</span><span class="p">)</span>
 </pre></div>
@@ -624,7 +641,7 @@ Instead, we can do the conversion using the two functions we have already create
 </ol>
 <p>The function we describe looks similar to some of those we have used earlier but with a bit more complexity. Let’s look at the function, test it, and then explore how it works.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_in_comfort_range</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">,</span> <span class="n">temp_fahr_ideal</span><span class="o">=</span><span class="mf">68.0</span><span class="p">,</span> <span class="n">temp_fahr_range</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">temp_in_comfort_range</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">,</span> <span class="n">temp_fahr_ideal</span><span class="o">=</span><span class="mf">68.0</span><span class="p">,</span> <span class="n">temp_fahr_range</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
     <span class="n">temp_fahr</span> <span class="o">=</span> <span class="n">celsius_to_fahr</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">)</span>
     <span class="n">temp_fahr_min</span> <span class="o">=</span> <span class="n">temp_fahr_ideal</span> <span class="o">-</span> <span class="n">temp_fahr_range</span>
     <span class="n">temp_fahr_max</span> <span class="o">=</span> <span class="n">temp_fahr_ideal</span> <span class="o">+</span> <span class="n">temp_fahr_range</span>
@@ -671,7 +688,7 @@ Instead, we can do the conversion using the two functions we have already create
 <h3>Functions with multiple return values<a class="headerlink" href="#functions-with-multiple-return-values" title="Link to this heading">#</a></h3>
 <p>Although functions often return a single value it is possible to return multiple values in a single <code class="docutils literal notranslate"><span class="pre">return</span></code> statement in a function. Imagine that in addition to knowing whether a given Celsius temperature is within the comfortable range of Fahrenheit temperatures we would also like to know what the value of the converted temperature was so we can get familiar with comfortable temperatures in Fahrenheit. We can modify our <code class="docutils literal notranslate"><span class="pre">temp_in_comfort_range()</span></code> function to do just that by modifying the <code class="docutils literal notranslate"><span class="pre">return</span></code> statement.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_in_comfort_range</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">,</span> <span class="n">temp_fahr_ideal</span><span class="o">=</span><span class="mf">68.0</span><span class="p">,</span> <span class="n">temp_fahr_range</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">temp_in_comfort_range</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">,</span> <span class="n">temp_fahr_ideal</span><span class="o">=</span><span class="mf">68.0</span><span class="p">,</span> <span class="n">temp_fahr_range</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
     <span class="n">temp_fahr</span> <span class="o">=</span> <span class="n">celsius_to_fahr</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">)</span>
     <span class="n">temp_fahr_min</span> <span class="o">=</span> <span class="n">temp_fahr_ideal</span> <span class="o">-</span> <span class="n">temp_fahr_range</span>
     <span class="n">temp_fahr_max</span> <span class="o">=</span> <span class="n">temp_fahr_ideal</span> <span class="o">+</span> <span class="n">temp_fahr_range</span>
@@ -715,7 +732,7 @@ That might seem confusing, but as it turns out this is an excellent feature in P
 Let’s try to understand this by way of an example.</p>
 <p>Let us define modified version of our <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius</span></code> function where the parameter value is still called <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code>, but we now store the converted temperature as temp_celsius first and return that value.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
     <span class="n">temp_celsius</span> <span class="o">=</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
     <span class="k">return</span> <span class="n">temp_celsius</span>
 </pre></div>
@@ -749,7 +766,7 @@ Well, as it turns out, the benefit of having a separate namespace for functions 
 Inside the function, the value that is passed will be known as <code class="docutils literal notranslate"><span class="pre">temp_kelvins</span></code>, but modifying that value will not alter a variable of the same name in the global namespace.
 Let’s have a look at another example using a modified <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius()</span></code> function we can call <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius2()</span></code>.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius2</span><span class="p">(</span><span class="n">temperature</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kelvins_to_celsius2</span><span class="p">(</span><span class="n">temperature</span><span class="p">):</span>
     <span class="n">temperature</span> <span class="o">=</span> <span class="n">temperature</span> <span class="o">-</span> <span class="mf">273.15</span>
     <span class="k">return</span> <span class="n">temperature</span>
 </pre></div>
@@ -776,7 +793,7 @@ This is because Python will search for variables defined with a given name first
 If such a value is found then it can be used by the function, which could be dangerous!</p>
 <p>Let’s look at an example of behavior in a function that may be unexpected. Here we can define a third version of the <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius()</span></code> function that we can call <code class="docutils literal notranslate"><span class="pre">kelvins_to_celsius3()</span></code>.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius3</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kelvins_to_celsius3</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
     <span class="n">temp</span> <span class="o">=</span> <span class="n">temperature</span> <span class="o">-</span> <span class="mf">273.15</span>
     <span class="k">return</span> <span class="n">temp</span>
 </pre></div>
@@ -797,7 +814,7 @@ Conclusion: Be careful!</p>
 <h2>Documenting functions with docstrings<a class="headerlink" href="#documenting-functions-with-docstrings" title="Link to this heading">#</a></h2>
 <p>A documentation string, or <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Docstring"><span class="xref std std-term">docstring</span></a></em>, is a block of text that describes what a specific function, library, or script does and how to use it. Although the format of docstrings can vary, there are certain elements of a docstring that are needed for it to function properly. Let’s look at an example using one of our functions created earlier in this section.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts temperature in Kelvins to degrees Celsius.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
 </pre></div>
@@ -809,7 +826,7 @@ Conclusion: Be careful!</p>
 <li><p>Short docstrings <a class="reference external" href="https://peps.python.org/pep-0257/#one-line-docstrings">can be written on a single line</a> <a class="footnote-reference brackets" href="#pep257-one-line" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p></li>
 </ul>
 <p>Seems simple enough, right? However, we can also provide more detailed docstrings, which can be particularly helpful when using functions with multiple parameters. Let’s expand the docstring above to provide more information about this function.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts temperature in Kelvins to degrees Celsius.</span>
 
@@ -886,8 +903,7 @@ Conclusion: Be careful!</p>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -941,7 +957,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -965,8 +981,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -54,7 +51,6 @@
     <link rel="prev" title="Nearest neighbour analysis" href="07-nearest-neighbour.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,8 +66,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -79,6 +86,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -86,8 +94,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -453,16 +462,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -506,15 +523,15 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="vector-overlay-operations">
 <h1>Vector overlay operations<a class="headerlink" href="#vector-overlay-operations" title="Link to this heading">#</a></h1>
-<p>Map overlay is probably the oldest analysis technique in GIS to understand relations between layers of geographic information. Already in the mid 19th century, John Snow famously identified the source of cholera outbreak in London to a specific public water pump by overlaying two point maps on top of each other (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id20" title="David Unwin. Integration through overlay analysis. In Spatial Analytical Perspectives on GIS, pages 129-138. Routledge, London, 1st edition, 1996.">Unwin, 1996</a></span>). Map overlay has been an important analytical tool for very long time, as being able to combine and analyse multiple layers of spatial data together is crucial for various spatial planning processes, including e.g. suitability analyses, environment impact assessment, or when doing zoning and landuse plans (e.g. <span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id10" title="Lewis Keeble. Principles and Practice of Town and Country Planning. Estates Gazette, London, 1952.">Keeble, 1952</a></span>; <span id="id3"><a class="reference internal" href="../../../back-matter/nb/references.html#id14" title="Ian Masser and Henk Ottens. Urban Planning and Geographic Information Systems. In John Stillwell, Stan Geertman, and Stan Openshaw, editors, Geographical Information and Planning: European Perspectives, pages 25-42. Springer, Berlin, Heidelberg, 1999. URL: https://doi.org/10.1007/978-3-662-03954-0_2, doi:10.1007/978-3-662-03954-0_2.">Masser and Ottens, 1999</a></span>; <span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id17" title="Carl Steinitz, Paul Parker, and Lawrie Jordan. Hand-Drawn Overlays: Their History and Prospective Uses. Landscape Architecture, 66(5):444–455, 1976.">Steinitz <em>et al.</em>, 1976</a></span>).</p>
+<p>Map overlay is probably the oldest analysis technique in GIS to understand relations between layers of geographic information. Already in the mid 19th century, John Snow famously identified the source of cholera outbreak in London to a specific public water pump by overlaying two point maps on top of each other (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id25" title="David Unwin. Integration through overlay analysis. In Spatial Analytical Perspectives on GIS, pages 129-138. Routledge, London, 1st edition, 1996.">Unwin, 1996</a></span>). Map overlay has been an important analytical tool for very long time, as being able to combine and analyse multiple layers of spatial data together is crucial for various spatial planning processes, including e.g. suitability analyses, environment impact assessment, or when doing zoning and landuse plans (e.g. <span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id11" title="Lewis Keeble. Principles and Practice of Town and Country Planning. Estates Gazette, London, 1952.">Keeble, 1952</a></span>; <span id="id3"><a class="reference internal" href="../../../back-matter/nb/references.html#id16" title="Ian Masser and Henk Ottens. Urban Planning and Geographic Information Systems. In John Stillwell, Stan Geertman, and Stan Openshaw, editors, Geographical Information and Planning: European Perspectives, pages 25-42. Springer, Berlin, Heidelberg, 1999. URL: https://doi.org/10.1007/978-3-662-03954-0_2, doi:10.1007/978-3-662-03954-0_2.">Masser and Ottens, 1999</a></span>; <span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id19" title="Carl Steinitz, Paul Parker, and Lawrie Jordan. Hand-Drawn Overlays: Their History and Prospective Uses. Landscape Architecture, 66(5):444–455, 1976.">Steinitz <em>et al.</em>, 1976</a></span>).</p>
 <p>Overlay operations can be done both with vector and raster data. Vector overlay operations are commonly used technique to produce new geometries and associated attribute data based on two or more vector layers. When working with multiple spatial datasets (especially polygon or line layers), you might need to create new shapes based on places where the layers overlap (or do not overlap) with each other. Typical overlay operations include union, intersection, and difference (Figure 6.52). These are named after the result of the combination of two or more input layers which produce at least one (or more) output layer. Being able to combine spatial data layers like this is an important feature in most GIS tools. These manipulations are also often called as set operations.</p>
-<p>The basic idea of vector overlay operations is demonstrated in Figure 6.52 where the green areas represent the areas which constitute the result after the overlay operation. It is good to keep in mind that overlays operate at the GeoDataFrame level, not on individual geometries, and the properties from both are retained (often, not always). In effect, for every shape in the left GeoDataFrame, this operation is executed against every other shape in the right GeoDataFrame</p>
-<p><img alt="_Figure 6.52. Typical vector overlay operations between two geographic layers (circle and rectangles). _" src="../../../_images/vector_overlay_processes.png" /></p>
-<p><em><strong>Figure 6.52</strong>. Typical vector overlay operations between two geographic layers (circle and rectangles).</em></p>
+<p>The basic idea of vector overlay operations is demonstrated in Figure 6.53 where the green areas represent the areas which constitute the result after the overlay operation. It is good to keep in mind that overlays operate at the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> level, not on individual geometries, and the properties from both are retained (often, not always). In effect, for every shape in the left <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, this operation is executed against every other shape in the right <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code></p>
+<p><img alt="_Figure 6.53. Typical vector overlay operations between two geographic layers (circle and rectangles). _" src="../../../_images/vector_overlay_processes.png" /></p>
+<p><em><strong>Figure 6.53</strong>. Typical vector overlay operations between two geographic layers (circle and rectangles).</em></p>
 <p>To demonstrate how these overlay operations work in practice, we will carry out vector overlay operations between two Polygon datasets that represent i) the postal code areas in the Helsinki city center and ii) a 3000 meter buffer around the Helsinki railway center. Let’s start by reading the datasets and prepare them for analysis:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 
 <span class="n">postal_areas</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;data/Helsinki/Helsinki_centre_postal_areas.gpkg&quot;</span><span class="p">)</span>
 <span class="n">railway_station</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;data/Helsinki/Helsinki_railway_station.gpkg&quot;</span><span class="p">)</span>
@@ -665,7 +682,7 @@
 </div>
 </div>
 </div>
-<p>Here, we first created a copy of the original GeoDataFrame and then used the <code class="docutils literal notranslate"><span class="pre">.buffer()</span></code> method to create a Polygon circle with 3000 meter radius. Let’s visualize the data on a map so that we can get a better understanding of the two layers and how they overlap with each other:</p>
+<p>Here, we first created a copy of the original <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> and then used the <code class="docutils literal notranslate"><span class="pre">.buffer()</span></code> method to create a Polygon circle with 3000 meter radius. Let’s visualize the data on a map so that we can get a better understanding of the two layers and how they overlap with each other:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">postal_areas</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">tiles</span><span class="o">=</span><span class="s2">&quot;CartoDB Positron&quot;</span><span class="p">)</span>
@@ -943,10 +960,10 @@
 &lt;/script&gt;
 &lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
 </div>
-<p><em><strong>Figure 6.53</strong>. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station.</em></p>
+<p><em><strong>Figure 6.54</strong>. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station.</em></p>
 <section id="intersection">
 <h2>Intersection<a class="headerlink" href="#intersection" title="Link to this heading">#</a></h2>
-<p>We are now ready to conduct an overlay analysis between these layers. We will create a new layer based postal code polygons that <code class="docutils literal notranslate"><span class="pre">intersect</span></code> with our Helsinki layer. We can use a method called <code class="docutils literal notranslate"><span class="pre">.overlay()</span></code> to conduct the overlay analysis between the given GeoDataFrame (<code class="docutils literal notranslate"><span class="pre">postal_areas</span></code>) and a second GeoDataFrame (<code class="docutils literal notranslate"><span class="pre">station_buffer</span></code>). With parameter <code class="docutils literal notranslate"><span class="pre">how</span></code> we can control how the overlay analysis is conducted. Possible values are <code class="docutils literal notranslate"><span class="pre">'intersection'</span></code>, <code class="docutils literal notranslate"><span class="pre">'union'</span></code>, <code class="docutils literal notranslate"><span class="pre">'symmetric_difference'</span></code>, <code class="docutils literal notranslate"><span class="pre">'difference'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'identity'</span></code>. Let’s start by doing an overlay using <code class="docutils literal notranslate"><span class="pre">&quot;intersection&quot;</span></code> as the overlay operation:</p>
+<p>We are now ready to conduct an overlay analysis between these layers. We will create a new layer based postal code polygons that <code class="docutils literal notranslate"><span class="pre">intersect</span></code> with our Helsinki layer. We can use a method called <code class="docutils literal notranslate"><span class="pre">.overlay()</span></code> to conduct the overlay analysis between the given <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> (<code class="docutils literal notranslate"><span class="pre">postal_areas</span></code>) and a second <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> (<code class="docutils literal notranslate"><span class="pre">station_buffer</span></code>). With parameter <code class="docutils literal notranslate"><span class="pre">how</span></code> we can control how the overlay analysis is conducted. Possible values are <code class="docutils literal notranslate"><span class="pre">'intersection'</span></code>, <code class="docutils literal notranslate"><span class="pre">'union'</span></code>, <code class="docutils literal notranslate"><span class="pre">'symmetric_difference'</span></code>, <code class="docutils literal notranslate"><span class="pre">'difference'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'identity'</span></code>. Let’s start by doing an overlay using <code class="docutils literal notranslate"><span class="pre">&quot;intersection&quot;</span></code> as the overlay operation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Intersection</span>
@@ -1050,13 +1067,13 @@
 </div>
 </div>
 </div>
-<p>As a result we got a new GeoDataFrame that includes 23 postal code areas that intersected with the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code>. As we can see, due to the overlay operation, the dataset contains the attributes from both input layers, i.e. it works in a bit similar manner as <code class="docutils literal notranslate"><span class="pre">sjoin()</span></code> demonstrated in Chapter 6.7. To make it easier to understand how different vector overlay operations work, let’s create an easy helper function called <code class="docutils literal notranslate"><span class="pre">plot_vector_overlay()</span></code> that creates a comparison map based on the results before and after the overlay operation. To do this, we use <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library and create a subplot with 2 separate plots:</p>
+<p>As a result we got a new <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> that includes 23 postal code areas that intersected with the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code>. As we can see, due to the overlay operation, the dataset contains the attributes from both input layers, i.e. it works in a bit similar manner as <code class="docutils literal notranslate"><span class="pre">sjoin()</span></code> demonstrated in Chapter 6.7. To make it easier to understand how different vector overlay operations work, let’s create an easy helper function called <code class="docutils literal notranslate"><span class="pre">plot_vector_overlay()</span></code> that creates a comparison map based on the results before and after the overlay operation. To do this, we use <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library and create a subplot with 2 separate plots:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 
-<span class="k">def</span> <span class="nf">plot_vector_overlay</span><span class="p">(</span><span class="n">gdf1</span><span class="p">,</span> <span class="n">gdf2</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_vector_overlay</span><span class="p">(</span><span class="n">gdf1</span><span class="p">,</span> <span class="n">gdf2</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates two maps next to each other based on `gdf1`, `gdf2` and the</span>
 <span class="sd">    `result` GeoDataFrames.</span>
@@ -1099,8 +1116,8 @@
 <img alt="../../../_images/ab9ce126588f859853125ad41359b48845ebc9b7a49367e72095f0add86cf90c.png" src="../../../_images/ab9ce126588f859853125ad41359b48845ebc9b7a49367e72095f0add86cf90c.png" />
 </div>
 </div>
-<p><em><strong>Figure 6.54</strong>. Result after conducting vector overlay operation by intersecting the two layers.</em></p>
-<p>As we can see, the <code class="docutils literal notranslate"><span class="pre">&quot;intersection&quot;</span></code> overlay operation keeps the postal code areas that intersect with the circle and keeps all those geometries in the result. Important thing to notice is that with <code class="docutils literal notranslate"><span class="pre">overlay()</span></code> the intersecting GeoDataFrame (<code class="docutils literal notranslate"><span class="pre">station_buffer</span></code>) will also modify the input geometries by cutting them in the border areas where they cross. This is one of the key differences between <code class="docutils literal notranslate"><span class="pre">.overlay()</span></code> and <code class="docutils literal notranslate"><span class="pre">sjoin()</span></code> methods as <code class="docutils literal notranslate"><span class="pre">sjoin()</span></code> will not modify the input geometries. As mentioned earlier, attribute data from both GeoDataFrames are kept from the features that are part of the result.  In the following, we will show one-by-one, how different overlay operations (i.e. union, difference, symmetric difference, identity) influence the results.</p>
+<p><em><strong>Figure 6.55</strong>. Result after conducting vector overlay operation by intersecting the two layers.</em></p>
+<p>As we can see, the <code class="docutils literal notranslate"><span class="pre">&quot;intersection&quot;</span></code> overlay operation keeps the postal code areas that intersect with the circle and keeps all those geometries in the result. Important thing to notice is that with <code class="docutils literal notranslate"><span class="pre">overlay()</span></code> the intersecting <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> (<code class="docutils literal notranslate"><span class="pre">station_buffer</span></code>) will also modify the input geometries by cutting them in the border areas where they cross. This is one of the key differences between <code class="docutils literal notranslate"><span class="pre">.overlay()</span></code> and <code class="docutils literal notranslate"><span class="pre">sjoin()</span></code> methods as <code class="docutils literal notranslate"><span class="pre">sjoin()</span></code> will not modify the input geometries. As mentioned earlier, attribute data from both <code class="docutils literal notranslate"><span class="pre">GeoDataFrames</span></code> are kept from the features that are part of the result.  In the following, we will show one-by-one, how different overlay operations (i.e. union, difference, symmetric difference, identity) influence the results.</p>
 </section>
 <section id="union">
 <h2>Union<a class="headerlink" href="#union" title="Link to this heading">#</a></h2>
@@ -1120,7 +1137,7 @@
 <img alt="../../../_images/7fafbb0c3a6b69c651097715cae187977eef1824d645591f9728d3cf4d31043e.png" src="../../../_images/7fafbb0c3a6b69c651097715cae187977eef1824d645591f9728d3cf4d31043e.png" />
 </div>
 </div>
-<p><em><strong>Figure 6.55</strong>. Result after conducting vector overlay operation based on union.</em></p>
+<p><em><strong>Figure 6.56</strong>. Result after conducting vector overlay operation based on union.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">union</span><span class="o">.</span><span class="n">shape</span>
@@ -1133,7 +1150,7 @@
 </div>
 </div>
 </div>
-<p>When using <code class="docutils literal notranslate"><span class="pre">&quot;union&quot;</span></code> overlay operation, the geometries from both GeoDataFrames are kept in the result. As you can see, the number of rows has increased quite significantly from 30 to 42 rows. This happens because the postal code geometries are again modified by the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> in the areas where the geometries cross each other: the postal code geometry is splitted in two in areas where the buffer geometry crosses the postal code geometry. Hence, this will increase the number of rows in the final output.</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">&quot;union&quot;</span></code> overlay operation, the geometries from both <code class="docutils literal notranslate"><span class="pre">GeoDataFrames</span></code> are kept in the result. As you can see, the number of rows has increased quite significantly from 30 to 42 rows. This happens because the postal code geometries are again modified by the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> in the areas where the geometries cross each other: the postal code geometry is splitted in two in areas where the buffer geometry crosses the postal code geometry. Hence, this will increase the number of rows in the final output.</p>
 <section id="question-6-13">
 <h3>Question 6.13<a class="headerlink" href="#question-6-13" title="Link to this heading">#</a></h3>
 <p>Did you fully understand why the number of rows increase after doing the union overlay? If not, use the <code class="docutils literal notranslate"><span class="pre">.explore()</span></code> and investigate the geometries in areas where the postal code areas and the ring (border) of the buffer geometry cross each other. When you hover over the border, what happens with the attribute values?</p>
@@ -1359,7 +1376,7 @@ the table does not include any data for the columns associated with the railway 
 <img alt="../../../_images/05f86fdc147f176e5bedf380c18d0776aaa32a8a970eb1d0652860ec43417b4f.png" src="../../../_images/05f86fdc147f176e5bedf380c18d0776aaa32a8a970eb1d0652860ec43417b4f.png" />
 </div>
 </div>
-<p><em><strong>Figure 6.56</strong>. Result after conducting vector overlay operation based on difference.</em></p>
+<p><em><strong>Figure 6.57</strong>. Result after conducting vector overlay operation based on difference.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">difference</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
@@ -1385,8 +1402,8 @@ the table does not include any data for the columns associated with the railway 
 </div>
 </div>
 </div>
-<p>As can be seen from the results above, the <code class="docutils literal notranslate"><span class="pre">&quot;difference&quot;</span></code> will keep the postal code geometries that are outside of the buffer geometry (note we output <code class="docutils literal notranslate"><span class="pre">difference.columns.values</span></code> here to output only the column names). In terms of attributes, only the columns that are present in the source GeoDataFrame (i.e. <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code>) are kept.</p>
-<p>The symmetric difference overlay operation is an interesting one. It will keep the geometries and attributes outside of the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> layer, as well as create a geometry within the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> that includes areas that are within the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> ring but outside the <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code> GeoDataFrame. I.e. in our case, it mostly contains water areas that surround the Helsinki city centre as shown below:</p>
+<p>As can be seen from the results above, the <code class="docutils literal notranslate"><span class="pre">&quot;difference&quot;</span></code> will keep the postal code geometries that are outside of the buffer geometry (note we output <code class="docutils literal notranslate"><span class="pre">difference.columns.values</span></code> here to output only the column names). In terms of attributes, only the columns that are present in the source <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> (i.e. <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code>) are kept.</p>
+<p>The symmetric difference overlay operation is an interesting one. It will keep the geometries and attributes outside of the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> layer, as well as create a geometry within the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> that includes areas that are within the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> ring but outside the <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. I.e. in our case, it mostly contains water areas that surround the Helsinki city centre as shown below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Symmetric Difference</span>
@@ -1405,7 +1422,7 @@ the table does not include any data for the columns associated with the railway 
 <img alt="../../../_images/15c8bc4a5a645cd1965f57f8a42ce57654f8d5819ed30a26c317a0d24b4b48f0.png" src="../../../_images/15c8bc4a5a645cd1965f57f8a42ce57654f8d5819ed30a26c317a0d24b4b48f0.png" />
 </div>
 </div>
-<p><em><strong>Figure 6.57</strong>. Result after conducting vector overlay operation based on symmetric difference.</em></p>
+<p><em><strong>Figure 6.58</strong>. Result after conducting vector overlay operation based on symmetric difference.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">symmetric_difference</span><span class="o">.</span><span class="n">columns</span>
@@ -1521,11 +1538,11 @@ the table does not include any data for the columns associated with the railway 
 </table>
 </div></div></div>
 </div>
-<p>As can be seen from above, the table includes now the attributes from the <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code> GeoDataFrame as well as the attributes from <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> in the last row of the resulting GeoDataFrame.</p>
+<p>As can be seen from above, the table includes now the attributes from the <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> as well as the attributes from <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> in the last row of the resulting <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>.</p>
 </section>
 <section id="identity">
 <h2>Identity<a class="headerlink" href="#identity" title="Link to this heading">#</a></h2>
-<p>As a last overlay operation, we have the <code class="docutils literal notranslate"><span class="pre">&quot;identity&quot;</span></code> which computes a geometric intersection of the input features and identity features. The input features or portions thereof that overlap identity features will get the attributes of those identity features. The basic idea is very similar to <code class="docutils literal notranslate"><span class="pre">&quot;union&quot;</span></code> but in this case, the areas outside of <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code> GeoDataFrame will not be filled with the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> geometry as demonstrated below:</p>
+<p>As a last overlay operation, we have the <code class="docutils literal notranslate"><span class="pre">&quot;identity&quot;</span></code> which computes a geometric intersection of the input features and identity features. The input features or portions thereof that overlap identity features will get the attributes of those identity features. The basic idea is very similar to <code class="docutils literal notranslate"><span class="pre">&quot;union&quot;</span></code> but in this case, the areas outside of <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> will not be filled with the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> geometry as demonstrated below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Identity</span>
@@ -1541,7 +1558,7 @@ the table does not include any data for the columns associated with the railway 
 <img alt="../../../_images/d27719a6dc1c1672bf87852c96dcadd4fc466292936fea9f9fcc3394f09165a8.png" src="../../../_images/d27719a6dc1c1672bf87852c96dcadd4fc466292936fea9f9fcc3394f09165a8.png" />
 </div>
 </div>
-<p><em><strong>Figure 6.58</strong>. Result after conducting vector overlay operation based on identity.</em></p>
+<p><em><strong>Figure 6.59</strong>. Result after conducting vector overlay operation based on identity.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">identity</span><span class="o">.</span><span class="n">columns</span>
@@ -1667,7 +1684,7 @@ the table does not include any data for the columns associated with the railway 
 </table>
 </div></div></div>
 </div>
-<p>As can be seen from the results above, the output now includes attribute information from both GeoDataFrames and the geometries in the <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code> are split into multiple parts in places where the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> cuts them. However, the geometry of the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> itself is not included at all in the results.</p>
+<p>As can be seen from the results above, the output now includes attribute information from both <code class="docutils literal notranslate"><span class="pre">GeoDataFrames</span></code> and the geometries in the <code class="docutils literal notranslate"><span class="pre">postal_areas</span></code> are split into multiple parts in places where the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> cuts them. However, the geometry of the <code class="docutils literal notranslate"><span class="pre">station_buffer</span></code> itself is not included at all in the results.</p>
 </section>
 </section>
 
@@ -1707,8 +1724,7 @@ the table does not include any data for the columns associated with the railway 
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1748,7 +1764,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -1772,8 +1788,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

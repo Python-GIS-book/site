@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -486,7 +503,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="geographic-data-in-python">
 <h1>Geographic data in Python<a class="headerlink" href="#geographic-data-in-python" title="Link to this heading">#</a></h1>
-<p>How can we represent geographic features such as roads, buildings, lakes or mountains on a computer? How can we read an image taken with a satellite sensor and use that in our analyses? How can we create a spatial network that can be used for navigation and finding the fastest route from A to B? This chapter introduces you to the fundamental data structures and formats that are most commonly used when working with Geographic Information Systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.</p>
+<p>How can we represent geographic features such as roads, buildings, lakes or mountains on a computer? How can we read an image taken with a satellite sensor and use that in our analyses? How can we create a spatial network that can be used for navigation and finding the fastest route from A to B? This chapter introduces you to the fundamental data structures and formats that are most commonly used when working with geographic information systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.</p>
 <section id="ways-to-represent-spatial-data-on-a-computer">
 <h2>Ways to represent spatial data on a computer<a class="headerlink" href="#ways-to-represent-spatial-data-on-a-computer" title="Link to this heading">#</a></h2>
 <p>To be able to work with real world geographic objects (such as roads or lakes) on a computer, we need to represented them in a format that the computer can understand and work with. These representations are simplifications of the real world which are typically represented either with <strong>vector</strong> or <strong>raster</strong> <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Data-model"><span class="xref std std-term">data model</span></a></em>. Vector and raster data formats are very different by nature. Figure 5.2 shows how physical objects, such as roads and buildings, can be represented as vectors or rasters. In addition, there are other models which <em>extend</em> the previous ones, such as <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatio-temporal-data-model"><span class="xref std std-term">spatio-temporal data model</span></a></em> which incorporates time as one additional dimension to the geographic dimension. There are also models that <em>integrate</em> vector or raster data models, such as <em><span class="xref std std-term">topological data model</span></em> which is typically build around vector data. This model can be used to represent e.g. street <strong>networks</strong> in a way that the topological relationships are incorporated in the core model design, which happens to be very useful for example when aiming to find a shortest route between two locations.</p>
@@ -499,7 +516,7 @@
 <section id="geometry-types">
 <h3>Geometry types<a class="headerlink" href="#geometry-types" title="Link to this heading">#</a></h3>
 <p>The most fundamental geometric objects when working with spatial data in vector format are <strong>points</strong>, <strong>lines</strong> and <strong>areas</strong>. Figure 5.3 represents the vector data model and illustrates the variety of geometric objects that are available. <code class="docutils literal notranslate"><span class="pre">Point</span></code> -object represents a single point in geographic space and the location of the point in space is determined with coordinates. Points can be either two-dimensional (with x, y -coordinates) or three dimensional (with x, y, and z coordinates). A single pair of coordinates forming a point is commonly called as a <em><code class="docutils literal notranslate"><span class="pre">coordinate</span></code></em> <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Tuple"><span class="xref std std-term">tuple</span></a></em>. <code class="docutils literal notranslate"><span class="pre">LineString</span></code> -object (i.e. a line) represents a sequence of points joined together to form a line. Hence, a line consist of a list of at least two coordinate tuples. <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> -object represents a filled area that consists of a list of at least three coordinate tuples that forms the outerior ring (called <code class="docutils literal notranslate"><span class="pre">LinearRing</span></code>) and a possible list of holes (as seen in the last plot of Figure 5.3) It is also possible to have a collection of geometric objects (i.e. multiple points, lines or areas) represented as <code class="docutils literal notranslate"><span class="pre">MultiPoint</span></code>, <code class="docutils literal notranslate"><span class="pre">MultiLineString</span></code> and <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code> as shown in the bottom row of Figure 5.3. Geometry collections can be useful for example when you want to present multiple building polygons belonging to the same property as a single entity (like a Finnish summer house that typically has a separate sauna building). In addition to these, you might sometimes hear about other geometry objects, such as <code class="docutils literal notranslate"><span class="pre">Curve</span></code>, <code class="docutils literal notranslate"><span class="pre">Surface</span></code> or <code class="docutils literal notranslate"><span class="pre">GeometryCollection</span></code>, but these are basically implemented by the same <code class="docutils literal notranslate"><span class="pre">Point</span></code>, <code class="docutils literal notranslate"><span class="pre">LineString</span></code> and <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> geometry types, hence we don’t really use them in practice.</p>
-<p>All of these geometries are defined in <em>Simple Features Access Specification</em> (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id9" title="John R. Herring. Ogc-simple features access - part 1: common architecture. 2011. URL: https://www.ogc.org/docs/is.">Herring, 2011</a></span>), which is a standard (ISO 19125-1) formalized by the <em>Open Geospatial Consortium</em> and <em>International Organization for Standardization</em>. Most (if not all) programming languages follow this same standard to represent spatial data. The text underneath each geometry (e.g. <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">(25</span> <span class="pre">60.5)</span></code>) shows how each of these geometries can be represented as text (Figure 5.3). The way the text is formatted follows a specification called <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Well-known-text"><span class="xref std std-term">Well-known text</span></a> (WKT)</em> which is also defined in the Simple Features Access Specification. The geometries can also be represented in binary format, which is called  <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Well-known-binary"><span class="xref std std-term">Well-known binary</span></a> (WKB)</em>. WKB is useful for storing the geometries in a more compact form, but it is not human-readable. Most often, you don’t need to worry about these technical details when working with spatial data in Python, but it is useful to know the foundations underlying most (if not all) GIS libraries.</p>
+<p>All of these geometries are defined in <em>Simple Features Access Specification</em> (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id10" title="John R. Herring. Ogc-simple features access - part 1: common architecture. 2011. URL: https://www.ogc.org/docs/is.">Herring, 2011</a></span>), which is a standard (ISO 19125-1) formalized by the <em>Open Geospatial Consortium</em> and <em>International Organization for Standardization</em>. Most (if not all) programming languages follow this same standard to represent spatial data. The text underneath each geometry (e.g. <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">(25</span> <span class="pre">60.5)</span></code>) shows how each of these geometries can be represented as text (Figure 5.3). The way the text is formatted follows a specification called <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Well-known-text"><span class="xref std std-term">Well-known text</span></a> (WKT)</em> which is also defined in the Simple Features Access Specification. The geometries can also be represented in binary format, which is called  <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Well-known-binary"><span class="xref std std-term">Well-known binary</span></a> (WKB)</em>. WKB is useful for storing the geometries in a more compact form, but it is not human-readable. Most often, you don’t need to worry about these technical details when working with spatial data in Python, but it is useful to know the foundations underlying most (if not all) GIS libraries.</p>
 <p><img alt="Figure 5.3. Vector data model following the Simple Features Access Specification." src="../../../_images/vector_data_model.png" /></p>
 <p><em><strong>Figure 5.3.</strong> Vector data model following the Simple Features Access Specification.</em></p>
 </section>
@@ -547,16 +564,16 @@
 <p>Most typically the raster data produced by different sensors can vary based on their:</p>
 <ul class="simple">
 <li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-resolution"><span class="xref std std-term">spatial resolution</span></a></em>, i.e. the size of a single pixel</p></li>
-<li><p><em><span class="xref std std-term">temporal resolution</span></em>, i.e. how frequently the data is captured from the same area of the Earth</p></li>
-<li><p><em><span class="xref std std-term">spectral resolution</span></em>, i.e. the number and location of spectral bands in the electromagnetic spectrum</p></li>
-<li><p><em><span class="xref std std-term">radiometric resolution</span></em>, i.e. the range of available brightness values (bit depth), usually measured in bits (binary digits)</p></li>
-<li><p><em><span class="xref std std-term">spatial extent</span></em>, i.e. how large area of the world a single image represents</p></li>
+<li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Temporal-resolution"><span class="xref std std-term">temporal resolution</span></a></em>, i.e. how frequently the data is captured from the same area of the Earth</p></li>
+<li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spectral-resolution"><span class="xref std std-term">spectral resolution</span></a></em>, i.e. the number and location of spectral bands in the electromagnetic spectrum</p></li>
+<li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Radiometric-resolution"><span class="xref std std-term">radiometric resolution</span></a></em>, i.e. the range of available brightness values (bit depth), usually measured in bits (binary digits)</p></li>
+<li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-extent"><span class="xref std std-term">spatial extent</span></a></em>, i.e. how large area of the world a single image represents</p></li>
 <li><p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Coordinate-Reference-System"><span class="xref std std-term">coordinate reference system</span></a></em>, i.e. in what CRS the data is represented</p></li>
 </ul>
 <p>Each cell in the raster dataset typically contains a value as shown on the left in Figure 5.4 (although the cell value can also be <code class="docutils literal notranslate"><span class="pre">NoData</span></code>). This is different compared to vector data, in which the geometries (observations) can be unevenly distributed across space, although it is possible to also represent a regular grid with polygons, it is just much less efficient computationally. Each cell value also has an index (i.e. position) that can be accessed based on row and column numbers. For instance, the value (<em>11</em>) from the bottom-left corner cell can be accessed at index <code class="docutils literal notranslate"><span class="pre">(3,0)</span></code> in which the first number is the row number and the second is the column number. Cell values can be plotted by given a color according a specific <em><span class="xref std std-term">colormap</span></em> (see the legend on the right) which turns the data into more understandable format, making it possible to detect patterns or trends from the data. For example in Figure 5.4, it is easy to detect that there is a cluster of high values on the bottom right corner. Detecting this pattern just by looking at cell values on the left is much more difficult task, especially if you would have much bigger raster than what we have here (4x4 grid). Also a basic feature of raster data is that the cell size of the grid can vary. For example, the Figure 5.4 and the top-right subplot in Figure 5.2 represents the data with 10 meter <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Spatial-resolution"><span class="xref std std-term">spatial resolution</span></a></em>, i.e. the size of an individual cell is 10 by 10 meters. However, the bottom-right subplot in Figure 5.2 represents the buildings with 1 meter spatial resolution. This is an important aspect when working with raster data, because the spatial resolution determines how accurately the real-world entities, such as buildings or topographic features, can be represented or identified from the data. Raster data is commonly used to represent e.g. satellite imagery, digital elevation models and other type of data, in which the spatial extent of the data is large (covering e.g. whole countries, continents or the world) with continuous measurements across the space. It is good to be awere though, that it is also possible to store discrete or categorical data to a raster, such as landuse classification data. Raster data is commonly used e.g. for environmental monitoring, meteorology and cartography.</p>
 <p><img alt="Figure 5.4. Raster data model." src="../../../_images/raster_data_model.png" /></p>
 <p><em><strong>Figure 5.4.</strong> Raster data model.</em></p>
-<p>One fundamental way to characterize a raster dataset is based on their <em><span class="xref std std-term">bit depth</span></em> (also called as <em><span class="xref std std-term">pixel depth</span></em>) that provides information about the <em><span class="xref std std-term">radiometric resolution</span></em> of the data. The bit depth defines the range of distinct values that the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1, whereas 8-bit raster can have 256 different values that range between 0 to 255, as shown in Figure 5.5.</p>
+<p>One fundamental way to characterize a raster dataset is based on their <em><span class="xref std std-term">bit depth</span></em> (also called as <em><span class="xref std std-term">pixel depth</span></em>) that provides information about the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Radiometric-resolution"><span class="xref std std-term">radiometric resolution</span></a></em> of the data. The bit depth defines the range of distinct values that the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1, whereas 8-bit raster can have 256 different values that range between 0 to 255, as shown in Figure 5.5.</p>
 <p><img alt="Figure 5.5. Examples of raster bit depths." src="../../../_images/raster_bit_depths.png" /></p>
 <p><em><strong>Figure 5.5</strong>. Examples of raster bit depths.</em></p>
 <section id="commonly-used-raster-data-formats">
@@ -693,8 +710,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -745,7 +761,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -769,8 +785,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

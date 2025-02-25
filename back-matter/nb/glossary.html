@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -54,7 +51,6 @@
     <link rel="prev" title="Acknowledgements" href="acknowledgements.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,8 +66,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -79,6 +86,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -86,8 +94,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -453,16 +462,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 
 </div></div>
       
@@ -491,6 +508,8 @@
   <section class="tex2jax_ignore mathjax_ignore" id="glossary">
 <h1>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h1>
 <dl class="simple glossary">
+<dt id="term-Accessor">Accessor<a class="headerlink" href="#term-Accessor" title="Link to this term">#</a></dt><dd><p>In Python libraries, an <em>accessor</em> is a method or attribute added to an existing data structure, such as a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> in <code class="docutils literal notranslate"><span class="pre">xarray</span></code> library, to provide specialized functionality. Accessors extend the capabilities of the base object without modifying its core structure.</p>
+</dd>
 <dt id="term-Application-Programming-Interface">Application Programming Interface<a class="headerlink" href="#term-Application-Programming-Interface" title="Link to this term">#</a></dt><dd><p>An application programming interface or API is a set of protocols and tools that enable pieces of software to communicate and exchange information. For example, the Nominatim service has an API for accessing its geocoding service.</p>
 </dd>
 <dt id="term-API">API<a class="headerlink" href="#term-API" title="Link to this term">#</a></dt><dd><p>See <a class="reference internal" href="#term-Application-Programming-Interface"><span class="xref std std-term">Application Programming Interface</span></a>.</p>
@@ -501,7 +520,7 @@
 </dd>
 <dt id="term-Collection">Collection<a class="headerlink" href="#term-Collection" title="Link to this term">#</a></dt><dd><p>A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.</p>
 </dd>
-<dt id="term-Computer">Computer<a class="headerlink" href="#term-Computer" title="Link to this term">#</a></dt><dd><p>We use the definition of a computer given by <span id="id1"><a class="reference internal" href="references.html#id22" title="John Zelle. Python Programming: An Introduction to Computer Science. Franklin, Beedle &amp; Associates, 3rd edition, 2017.">Zelle, 2017</a></span>: “A machine that stores and manipulates information under the control of a changeable program.”</p>
+<dt id="term-Computer">Computer<a class="headerlink" href="#term-Computer" title="Link to this term">#</a></dt><dd><p>We use the definition of a computer given by <span id="id1"><a class="reference internal" href="references.html#id27" title="John Zelle. Python Programming: An Introduction to Computer Science. Franklin, Beedle &amp; Associates, 3rd edition, 2017.">Zelle, 2017</a></span>: “A machine that stores and manipulates information under the control of a changeable program.”</p>
 </dd>
 <dt id="term-Coordinate-Reference-System">Coordinate Reference System<a class="headerlink" href="#term-Coordinate-Reference-System" title="Link to this term">#</a></dt><dd><p>A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth’s surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.</p>
 </dd>
@@ -520,6 +539,8 @@ For example, type <code class="docutils literal notranslate"><span class="pre">i
 </dd>
 <dt id="term-DE-9IM">DE-9IM<a class="headerlink" href="#term-DE-9IM" title="Link to this term">#</a></dt><dd><p>See <span class="xref std std-term">Dimensionally Extended 9-Intersection Model</span>.</p>
 </dd>
+<dt id="term-Decimal-degrees">Decimal degrees<a class="headerlink" href="#term-Decimal-degrees" title="Link to this term">#</a></dt><dd><p>A decimal degree is a method of expressing latitude and longitude geographic coordinates as decimal fractions instead of degrees, minutes, and seconds. It represents the angle between a point on the earth’s surface and the equator or prime meridian, respectively, in units of decimal degrees. Decimal degrees provide a more convenient representation of geographic coordinates and make it easier to perform calculations with them.</p>
+</dd>
 <dt id="term-Dependency">Dependency<a class="headerlink" href="#term-Dependency" title="Link to this term">#</a></dt><dd><p>Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work.</p>
 </dd>
 <dt id="term-Dictionary">Dictionary<a class="headerlink" href="#term-Dictionary" title="Link to this term">#</a></dt><dd><p>A built-in Python data structure comprising one or more unique “keys” and associated “values”. Dictionary keys can be used to access associated values within a dictionary, and keys are typically numbers or character strings. Python dictionaries are enclosed in curly braces (<code class="docutils literal notranslate"><span class="pre">{</span></code> <code class="docutils literal notranslate"><span class="pre">}</span></code>) and dictionary items are listed in the form <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code> separated by commas.</p>
@@ -528,7 +549,7 @@ For example, type <code class="docutils literal notranslate"><span class="pre">i
 </dd>
 <dt id="term-Docstring">Docstring<a class="headerlink" href="#term-Docstring" title="Link to this term">#</a></dt><dd><p>A text string used to document a section of code. Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs. You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.</p>
 </dd>
-<dt id="term-Decimal-degrees">Decimal degrees<a class="headerlink" href="#term-Decimal-degrees" title="Link to this term">#</a></dt><dd><p>A decimal degree is a method of expressing latitude and longitude geographic coordinates as decimal fractions instead of degrees, minutes, and seconds. It represents the angle between a point on the earth’s surface and the equator or prime meridian, respectively, in units of decimal degrees. Decimal degrees provide a more convenient representation of geographic coordinates and make it easier to perform calculations with them.</p>
+<dt id="term-EPSG-code">EPSG code<a class="headerlink" href="#term-EPSG-code" title="Link to this term">#</a></dt><dd><p>An EPSG code is a unique identifier assigned to a specific coordinate reference system (CRS) or a spatial data transformation standard, as defined by the EPSG (European Petroleum Survey Group) registry. These codes, such as 4326 for WGS84 or 3857 for Web Mercator, simplify the process of referencing CRSs in geographic data processing.</p>
 </dd>
 <dt id="term-Function">Function<a class="headerlink" href="#term-Function" title="Link to this term">#</a></dt><dd><p>A reusable piece of code that performs a single action.</p>
 </dd>
@@ -541,6 +562,12 @@ For example, type <code class="docutils literal notranslate"><span class="pre">i
 <dt id="term-Georeferencing">Georeferencing<a class="headerlink" href="#term-Georeferencing" title="Link to this term">#</a></dt><dd><p>Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox.</p>
 </dd>
 <dt id="term-GeoSeries">GeoSeries<a class="headerlink" href="#term-GeoSeries" title="Link to this term">#</a></dt><dd><p>GeoSeries is used to store geospatial data, where each element is a geometric object like a point, line, or polygon. It extends the pandas <a class="reference internal" href="#term-Series"><span class="xref std std-term">Series</span></a> by supporting spatial operations, such as geometric transformations and spatial queries. A GeoSeries is often used to represent the geometry column in a <a class="reference internal" href="#term-GeoDataFrame"><span class="xref std std-term">GeoDataFrame</span></a>, making it a fundamental building block for geospatial analysis in Python.</p>
+</dd>
+<dt id="term-Hypsometric-curve">Hypsometric curve<a class="headerlink" href="#term-Hypsometric-curve" title="Link to this term">#</a></dt><dd><p>The distribution of area above a given elevation in an region analyzed using hypsometric analysis. This is effectively a cumulative distribution of area as a function of elevation. The areas and elevations in hypsometric curves are frequently normalized to allow comparison between regions and for calculating a <a class="reference internal" href="#term-Hypsometric-integral"><span class="xref std std-term">hypsometric integral</span></a>.</p>
+</dd>
+<dt id="term-Hypsometric-integral">Hypsometric integral<a class="headerlink" href="#term-Hypsometric-integral" title="Link to this term">#</a></dt><dd><p>The area under a <a class="reference internal" href="#term-Hypsometric-curve"><span class="xref std std-term">hypsometric curve</span></a>. This value can be used as a metric of the volume of rock and/or soil that has been removed from a given region such as a watershed.</p>
+</dd>
+<dt id="term-Hypsometry">Hypsometry<a class="headerlink" href="#term-Hypsometry" title="Link to this term">#</a></dt><dd><p>The measurement of the distribution of elevations of Earth’s (or other planet’s) surface elevations within a specified area. Also known as hypsometric analysis.</p>
 </dd>
 <dt id="term-IDE">IDE<a class="headerlink" href="#term-IDE" title="Link to this term">#</a></dt><dd><p>See <a class="reference internal" href="#term-Integrated-Development-Environment"><span class="xref std std-term">Integrated Development Environment</span></a>.</p>
 </dd>
@@ -596,6 +623,8 @@ More information can be found at <a class="reference external" href="https://en.
 </dd>
 <dt id="term-Programming-language">Programming language<a class="headerlink" href="#term-Programming-language" title="Link to this term">#</a></dt><dd><p>A set of exact and unambiguous instructions that can be understood by the computer.</p>
 </dd>
+<dt id="term-Radiometric-resolution">Radiometric resolution<a class="headerlink" href="#term-Radiometric-resolution" title="Link to this term">#</a></dt><dd><p>In satellite imagery, radiometric resolution refers to the ability of a sensor to measure and distinguish differences in the intensity of the electromagnetic radiation it detects. It is determined by the number of bits used to represent the data for each pixel, which defines the range of possible intensity values. For example, an 8-bit sensor can record 256 levels of intensity (0–255), while a 16-bit sensor can record 65,536 levels.</p>
+</dd>
 <dt id="term-Radius-query">Radius query<a class="headerlink" href="#term-Radius-query" title="Link to this term">#</a></dt><dd><p>A radius query is a type of spatial query that retrieves all points within a specified distance (radius) from a given query point. The query is performed typically on a <a class="reference internal" href="#term-KD-Tree"><span class="xref std std-term">KD-Tree</span></a> to efficiently find points that fall within a given distance from the query point. KD-Tree supports only Point objects, i.e. it cannot be used to search other geometric types, such as LineStrings or Polygons.</p>
 </dd>
 <dt id="term-Required-parameter">Required parameter<a class="headerlink" href="#term-Required-parameter" title="Link to this term">#</a></dt><dd><p>A function <a class="reference internal" href="#term-Parameter"><span class="xref std std-term">parameter</span></a> that must be defined when calling the function in order to use it. Required parameters do not have default function values given in the function definition. Also known as positional parameters.</p>
@@ -614,7 +643,11 @@ More information can be found at <a class="reference external" href="https://en.
 </dd>
 <dt id="term-Shifting">Shifting<a class="headerlink" href="#term-Shifting" title="Link to this term">#</a></dt><dd><p>The process of adjusting references in time series data forward or backward in time. For example, values could be shifted backward by one week to compare data from a given week to equivalent data from the following week.</p>
 </dd>
+<dt id="term-Signed-integer">Signed integer<a class="headerlink" href="#term-Signed-integer" title="Link to this term">#</a></dt><dd><p>A (data) type of integer in Python that can represent both positive and negative whole numbers. The “signed” attribute means the number includes a “+” or “-” sign to indicate its value’s polarity. For example, -5 and 42 are signed integers. In Python, integers are stored as signed by default and can handle very large values thanks to their dynamic size.</p>
+</dd>
 <dt id="term-Software">Software<a class="headerlink" href="#term-Software" title="Link to this term">#</a></dt><dd><p>Another name for a <a class="reference internal" href="#term-Program"><span class="xref std std-term">program</span></a>.</p>
+</dd>
+<dt id="term-Spatial-extent">Spatial extent<a class="headerlink" href="#term-Spatial-extent" title="Link to this term">#</a></dt><dd><p>In geographic data, spatial extent refers to the geographic area covered by a dataset or map. It is typically defined by the minimum and maximum coordinates (e.g., latitude and longitude) that bound the dataset, forming a rectangle or other boundary in geographic space.</p>
 </dd>
 <dt id="term-Spatial-index">Spatial index<a class="headerlink" href="#term-Spatial-index" title="Link to this term">#</a></dt><dd><p>A spatial index is a data structure designed to efficiently query spatial data, such as Points, LineStrings and Polygons within a multidimensional space. It optimizes the storage of spatial objects, enabling fast searches based on their geographic location and spatial relationships. Spatial indexes are crucial in geographic information systems (GIS) and spatial database management, where rapid access to spatial data is essential for tasks such as proximity searches, map rendering and spatial analysis. Common types of spatial indexes include R-trees, quad-trees, and k-d trees, each with its own method for partitioning space and organizing spatial data for efficient querying.</p>
 </dd>
@@ -628,9 +661,13 @@ More information can be found at <a class="reference external" href="https://en.
 </dd>
 <dt id="term-Spatio-temporal-data-model">Spatio-temporal data model<a class="headerlink" href="#term-Spatio-temporal-data-model" title="Link to this term">#</a></dt><dd><p>A data model that incorporates time (t) as an additional dimension to the geographical dimension (x, y).</p>
 </dd>
+<dt id="term-Spectral-resolution">Spectral resolution<a class="headerlink" href="#term-Spectral-resolution" title="Link to this term">#</a></dt><dd><p>In multispectral satellite data, spectral resolution refers to the ability of a sensor to distinguish between different wavelengths of electromagnetic radiation. It is defined by the number and width of the spectral bands the sensor can capture. Higher spectral resolution means the sensor can detect finer differences in wavelength, allowing for more detailed analysis of surface materials and phenomena.</p>
+</dd>
 <dt id="term-Subplots">Subplots<a class="headerlink" href="#term-Subplots" title="Link to this term">#</a></dt><dd><p>The term used in Matplotlib to refer to individual plots when more than one plot is part of a single figure.</p>
 </dd>
 <dt id="term-Syntax">Syntax<a class="headerlink" href="#term-Syntax" title="Link to this term">#</a></dt><dd><p>The precise form of a component in a programming language. For example, the print function in Python expects the syntax <code class="docutils literal notranslate"><span class="pre">print('hello')</span></code> in order to have the word hello displayed on the screen.</p>
+</dd>
+<dt id="term-Temporal-resolution">Temporal resolution<a class="headerlink" href="#term-Temporal-resolution" title="Link to this term">#</a></dt><dd><p>In satellite imagery, temporal resolution refers to the frequency at which a specific area on Earth’s surface is revisited and imaged by a satellite sensor. It determines how often data is collected for a given location and is typically expressed as the time interval between consecutive observations (e.g., daily, weekly). Higher temporal resolution enables more frequent monitoring, while lower temporal resolution provides less frequent updates but may cover broader areas or focus on finer spatial or spectral details.</p>
 </dd>
 <dt id="term-Topological-spatial-relations">Topological spatial relations<a class="headerlink" href="#term-Topological-spatial-relations" title="Link to this term">#</a></dt><dd><p>Topological spatial relations describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as contains, touches and intersects. In GIS, these kind of topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions.</p>
 </dd>
@@ -640,9 +677,13 @@ More information can be found at <a class="reference external" href="https://en.
 </dd>
 <dt id="term-Unary-union">Unary union<a class="headerlink" href="#term-Unary-union" title="Link to this term">#</a></dt><dd><p>The unary union operation takes multiple geometries and merges them into a single geometry. This is useful when you have a collection of shapes and you want to treat them as a single entity for analysis or visualization.</p>
 </dd>
+<dt id="term-Unsigned-integer">Unsigned integer<a class="headerlink" href="#term-Unsigned-integer" title="Link to this term">#</a></dt><dd><p>A type of integer that represents only non-negative whole numbers, starting from zero. Unlike <span class="xref std std-term">signed integers</span>, unsigned integers do not include a “+” or “-” sign, allowing them to use all their bits for positive values.</p>
+</dd>
 <dt id="term-Variable">Variable<a class="headerlink" href="#term-Variable" title="Link to this term">#</a></dt><dd><p>A way of storing values in the memory of the computer using specific names that you define.</p>
 </dd>
 <dt id="term-Virtual-environment">Virtual environment<a class="headerlink" href="#term-Virtual-environment" title="Link to this term">#</a></dt><dd><p>A virtual environment is a Python programming environment which works in a way that the Python interpreter, libraries and scripts installed into it are isolated from the ones installed in other virtual environments, as well as from (possible) system Python, i.e., one which is installed as part of your operating system.</p>
+</dd>
+<dt id="term-Watershed">Watershed<a class="headerlink" href="#term-Watershed" title="Link to this term">#</a></dt><dd><p>An area of land where all surface water drains to a common outlet, such as a river, lake, or ocean.</p>
 </dd>
 <dt id="term-Well-known-binary">Well-known binary<a class="headerlink" href="#term-Well-known-binary" title="Link to this term">#</a></dt><dd><p>Well-known binary (WKB) is a format for representing vector geometry objects in compressed binary format which is useful for computer processing. The human-readable equivalent for WKB is <code class="docutils literal notranslate"><span class="pre">Well-known</span> <span class="pre">text</span></code> format. WKB can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m).</p>
 </dd>
@@ -706,7 +747,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -730,8 +771,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

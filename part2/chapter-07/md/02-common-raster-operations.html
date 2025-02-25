@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -455,8 +472,23 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-raster-mosaic-with-rioxarray">Creating a raster mosaic with <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data">Selecting data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-by-index-values">Selecting data by index values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-based-on-coordinates">Selecting data based on coordinates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-based-on-logical-conditions">Selecting data based on logical conditions</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clipping-raster">Clipping raster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-a-raster">Masking a raster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-raster-mosaic-by-merging-datasets">Creating a raster mosaic by merging datasets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raster-to-vector-conversion-vectorize">Raster to vector conversion (vectorize)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-to-raster-conversion-rasterize">Vector to raster conversion (rasterize)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling-raster-data">Resampling raster data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downscaling">Downscaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upscaling">Upscaling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-data">Handling missing data</a></li>
 </ul>
             </nav>
         </div>
@@ -468,100 +500,502 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="common-raster-operations">
+  <!-- #region editable=true slideshow={"slide_type": ""} -->
+<section class="tex2jax_ignore mathjax_ignore" id="common-raster-operations">
 <h1>Common raster operations<a class="headerlink" href="#common-raster-operations" title="Link to this heading">#</a></h1>
-<p><strong>To be updated</strong></p>
-<section id="creating-a-raster-mosaic-with-rioxarray">
-<h2>Creating a raster mosaic with <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code><a class="headerlink" href="#creating-a-raster-mosaic-with-rioxarray" title="Link to this heading">#</a></h2>
-<p>Quite often you need to merge multiple raster files together and create a <code class="docutils literal notranslate"><span class="pre">raster</span> <span class="pre">mosaic</span></code>. This can be done easily with the <code class="docutils literal notranslate"><span class="pre">merge_datasets()</span></code> -function in <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>.
-Here, we will create a mosaic based on DEM files (altogether 4 files) covering Kilimanjaro region in Tanzania. First we will read elevation data from a S3 bucket for Kilimanjaro region in Africa.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">rioxarray</span> <span class="k">as</span> <span class="nn">rxr</span>
-<span class="kn">from</span> <span class="nn">rioxarray.merge</span> <span class="kn">import</span> <span class="n">merge_datasets</span>
+<!-- #endregion -->
+<p>When working with raster data, there are various operations and techniques that might be useful when preprocessing the data for further analysis. Some typical raster operations include for example selecting, clipping or masking raster to include only pixels that are located in a given area or at given indices, merging multiple raster tiles into a single raster mosaic, converting raster data into vector format (and vice versa), or resampling the raster pixels into higher or lower spatial resolution (upscaling, downscaling). In this chapter, we will learn how to conduct these kind of raster operations using <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>, <code class="docutils literal notranslate"><span class="pre">geocube</span></code> and <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> Python libraries.</p>
+<section id="selecting-data">
+<h2>Selecting data<a class="headerlink" href="#selecting-data" title="Link to this heading">#</a></h2>
+<p>Being able to select data based on indices or certain criteria (e.g. all values above specific threshold) is one of the most common operations that you need to do when working with any kind of data (raster, vector, as well as non-geographical data). When working with raster data, we can take advantage of <code class="docutils literal notranslate"><span class="pre">xarray</span></code>’s flexible indexing routines that combine the best features of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> for data selection.</p>
+<p>There are various ways how you can select data from <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, but some of the most commonly used methods include <code class="docutils literal notranslate"><span class="pre">.isel()</span></code>, <code class="docutils literal notranslate"><span class="pre">.sel()</span></code> and <code class="docutils literal notranslate"><span class="pre">.where()</span></code> which we will introduce in the following. Let’s start by reading the <code class="docutils literal notranslate"><span class="pre">elevation</span></code> dataset that we used earlier in Chapter 7.2:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="c1"># S3 bucket containing the data</span>
-<span class="n">bucket</span> <span class="o">=</span> <span class="s2">&quot;https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS&quot;</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/temp/kilimanjaro_dataset.nc&quot;</span>
 
-<span class="c1"># Generate urls for the elevation files</span>
-<span class="n">urls</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="s2">&quot;elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif&quot;</span><span class="p">),</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="s2">&quot;elevation/kilimanjaro/ASTGTMV003_S03E037_dem.tif&quot;</span><span class="p">),</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="s2">&quot;elevation/kilimanjaro/ASTGTMV003_S04E036_dem.tif&quot;</span><span class="p">),</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="s2">&quot;elevation/kilimanjaro/ASTGTMV003_S04E037_dem.tif&quot;</span><span class="p">),</span>
-<span class="p">]</span>
-
-<span class="c1"># Read the files</span>
-<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;rasterio&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="s2">&quot;band&quot;</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span>
-<span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">decode_coords</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">data</span>
 </pre></div>
 </div>
-<p>Investigate how our data looks like:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<p>Let’s also plot the data to see how our values and coordinates (x and y) distribute over a map:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation in meters&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Visualize the tiles to see how they look like separately:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
-
-<span class="c1"># Plot the tiles to see how they look separately</span>
-<span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;band_data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5900</span><span class="p">,</span> <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">datasets</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;band_data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5900</span><span class="p">,</span> <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">datasets</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s2">&quot;band_data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5900</span><span class="p">,</span> <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">datasets</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="s2">&quot;band_data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5900</span><span class="p">,</span> <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<p><em><strong>Figure 7.7.</strong> Elevation of the landscape in North-Eastern Tanzania.</em></p>
+<section id="selecting-data-by-index-values">
+<h3>Selecting data by index values<a class="headerlink" href="#selecting-data-by-index-values" title="Link to this heading">#</a></h3>
+<p>The logic for selecting data from a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> values works quite similarly as we have learned earlier in this book using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> (for <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects), except that the returned object in <code class="docutils literal notranslate"><span class="pre">xarray</span></code> is always another <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>. To select data based on specific index values, we can take advantage of the <code class="docutils literal notranslate"><span class="pre">.isel()</span></code> method that can be used similarly with <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> and <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> objects. For instance, we might be interested to select a cell at index <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0]</span></code> in the array which corresponds to the cell that is located at the very top-left corner of the raster. To do this, we specify that the index value for both <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> dimension is <code class="docutils literal notranslate"><span class="pre">0</span></code> when calling the <code class="docutils literal notranslate"><span class="pre">.isel()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_cell</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">selected_cell</span>
 </pre></div>
 </div>
-<p>As we can see we have multiple separate raster files that are actually located next to each other. Hence, we want to put them together into a single raster file that can by done by creating a raster mosaic.
-Now we can create a raster mosaic by merging these datasets with <code class="docutils literal notranslate"><span class="pre">merge_datasets()</span></code> function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a mosaic out of the tiles</span>
-<span class="n">mosaic</span> <span class="o">=</span> <span class="n">merge_datasets</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span>
+<p>As we can see, the output is always returned as an <code class="docutils literal notranslate"><span class="pre">xarray</span></code> object, which in our case is a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>. To access the <code class="docutils literal notranslate"><span class="pre">elevation</span></code> or <code class="docutils literal notranslate"><span class="pre">relative_height</span></code> value at this given position, we can use the <code class="docutils literal notranslate"><span class="pre">.item()</span></code> which will return the value as a regular number (as learned in Chapter 7.2):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_cell</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Rename the data variable to more intuitive one:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a more intuitive name for the data variable</span>
-<span class="n">mosaic</span> <span class="o">=</span> <span class="n">mosaic</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;band_data&quot;</span><span class="p">:</span> <span class="s2">&quot;elevation&quot;</span><span class="p">})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_cell</span><span class="p">[</span><span class="s2">&quot;relative_height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Plot the end result where the tiles have been merged:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the mosaic</span>
-<span class="n">mosaic</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<p>Quite often when working with raster data, you are interested to select a range of values from a given raster (called slicing). To slice the data based on index ranges, we can use the same <code class="docutils literal notranslate"><span class="pre">.isel()</span></code> method and provide the information about the index range using the Python’s built-in <code class="docutils literal notranslate"><span class="pre">slice()</span></code> function that can be used to specify a range of indices to be included in the selection by specifying <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code> index positions. In the following, we will select the first 1000 cells in the x and y dimensions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">selection</span>
 </pre></div>
 </div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation in meters for the selected cells&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 7.8.</strong> Elevation values in the cells that were selected based on indices.</em></p>
+<p>As we can see, now the shape of our output <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> is 1000x1000 cells and the selection covers to top-left corner of our input <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+</section>
+<section id="selecting-data-based-on-coordinates">
+<h3>Selecting data based on coordinates<a class="headerlink" href="#selecting-data-based-on-coordinates" title="Link to this heading">#</a></h3>
+<p>While selecting data based on index positions might be useful in certain situations, quite often you want to select data based on coordinates. To do this, we can take advantage of the coordinate labels using <code class="docutils literal notranslate"><span class="pre">.sel()</span></code> method, which allows for more intuitive selection by providing the actual coordinates for you area of interest. Next, we will do the selection for an area that covers the following area:</p>
+<ul class="simple">
+<li><p>x-coordinates: <code class="docutils literal notranslate"><span class="pre">36.4</span></code> - <code class="docutils literal notranslate"><span class="pre">36.6</span></code></p></li>
+<li><p>y-coordinates: <code class="docutils literal notranslate"><span class="pre">-2.4</span></code> - <code class="docutils literal notranslate"><span class="pre">-2.6</span></code></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">area_of_interest</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mf">36.4</span><span class="p">,</span> <span class="mf">36.6</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="mf">2.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.6</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">area_of_interest</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation in meters for the selected area of interest&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 7.9.</strong> Elevation values in the cells that were selected based on coordinates.</em></p>
+<p>Nice! Now we have selected the data for a given area of interest that we specified using the coordinates. In a similar manner, you can select data for any specific area of interest. Couple of important things to remember when selecting data based on coordinates: 1) The coordinate values provided for the selection need to be within the extent of a given input raster dataset. 2) The coordinates provided for the selection need to be in the same coordinate reference system (CRS) as the input raster. For example, here we provided the coordinates as Decimal Degrees because our input data contains coordinates as latitudes and longitudes. However, if your coordinates are represented e.g. in a metric coordinate reference system (e.g. UTM), then your selection should be based on coordinates in a metric system.</p>
+</section>
+<section id="selecting-data-based-on-logical-conditions">
+<h3>Selecting data based on logical conditions<a class="headerlink" href="#selecting-data-based-on-logical-conditions" title="Link to this heading">#</a></h3>
+<p>A third way to select data from a given raster is based on a specific criteria. To select data based on specific conditions, we can use the <code class="docutils literal notranslate"><span class="pre">.where()</span></code> method which is a handy tool to make conditional selections. For instance, we might be interested to select only such pixels from the raster where the elevation is above 2000 meters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">moderate_altitudes</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">moderate_altitudes</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Moderate altitude areas in the region&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 7.10.</strong> Elevation values in the cells that were above a specific criteria (2000 meters).</em></p>
+<p>As a result, we now have a map that highlights the areas where the elevation is above 2 kilometers. In a similar manner, we can also combine multiple conditions to a single selection. In the following, we will select all pixels where the elevation is above 1000 meters and below or equal to 1500 meters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">condition</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1500</span><span class="p">)</span>
+<span class="n">low_altitudes</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">low_altitudes</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Low altitude areas in the region&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 7.11.</strong> Elevation values in the cells that are between 1000-1500 meters.</em></p>
+<p>Excellent, now we have a map that highlights the elevations between specific elevation range. In a similar manner, you can conduct selections by combining selection criteria over a single data variable or even combine conditions over multiple different variables.</p>
+</section>
 </section>
 <section id="clipping-raster">
 <h2>Clipping raster<a class="headerlink" href="#clipping-raster" title="Link to this heading">#</a></h2>
-<p>Create a GeoDataFrame with bounding box that we can use for clipping the raster:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">box</span>
+<p>In the previous section we learned how to select data based on given criteria or by specifying an area of interest based on coordinates. However, quite often you actually have another geographic dataset that should be used to crop or select the data for your analysis. Clipping is one of the common raster operations in which you clip a given raster <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> by another layer. This process allows you to crop the data in a way that only the cells that are e.g. within a given Polygon are selected for further analysis. In the following, we will learn how to do this by using the <code class="docutils literal notranslate"><span class="pre">.rio.clip()</span></code> method that comes with the <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> library.</p>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>To be able to clip this <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>, we first need to create a <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code> that contains the geometry that we want to use as our clipping features. In our case, we want to create a simple bounding box that defines the area which we want to keep from the raster. To create the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, we can specify the corner coordinates of our bounding box and utilize the <code class="docutils literal notranslate"><span class="pre">box</span></code> function of <code class="docutils literal notranslate"><span class="pre">shapely</span></code> library which can conveniently create us the geometry (as introduced in Chapter 6.1):</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span>
 
 <span class="c1"># Bounding box coordinates</span>
-<span class="n">minx</span> <span class="o">=</span> <span class="mf">37.1</span>
-<span class="n">miny</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.3</span>
-<span class="n">maxx</span> <span class="o">=</span> <span class="mf">37.6</span>
-<span class="n">maxy</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.85</span>
+<span class="n">minx</span> <span class="o">=</span> <span class="mf">36.1</span>
+<span class="n">miny</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
+<span class="n">maxx</span> <span class="o">=</span> <span class="mf">36.3</span>
+<span class="n">maxy</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.77</span>
 
 <span class="c1"># Create a GeoDataFrame that will be used to clip the raster</span>
-<span class="n">geom</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span><span class="p">)</span>
-<span class="n">clipping_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">geom</span><span class="p">]},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;epsg:4326&quot;</span><span class="p">)</span>
+<span class="n">bbox_geometry</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span><span class="p">)</span>
+<span class="n">clipping_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">bbox_geometry</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;epsg:4326&quot;</span><span class="p">)</span>
 
 <span class="c1"># Explore the extent on a map</span>
 <span class="n">clipping_gdf</span><span class="o">.</span><span class="n">explore</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Clip the mosaic with GeoDataFrame:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clip the Mosaic with GeoDataFrame and specify CRS</span>
-<span class="n">kilimanjaro</span> <span class="o">=</span> <span class="n">mosaic</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">clipping_gdf</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">mosaic</span><span class="o">.</span><span class="n">elevation</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-<span class="n">kilimanjaro</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 7.11}. Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.}}, center, nofloat}{../img/figure_7-11.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.11.</strong> Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.</em></p>
+<p>Now after we have created the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> we can use it to clip the <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>. To do this, we use the <code class="docutils literal notranslate"><span class="pre">.rio.clip()</span></code> method which wants as input the <code class="docutils literal notranslate"><span class="pre">geometries</span></code> that will be used for clipping the raster data. We can pass the <code class="docutils literal notranslate"><span class="pre">gpd.GeoSeries</span></code> as an input for this (i.e. the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column of our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>) and we also specify the <code class="docutils literal notranslate"><span class="pre">crs</span></code> to be the same as in out input raster data. It is important that the coordinate reference system of both layers are the same whenever doing GIS operations between multiple layers. Thus, we use a simple <code class="docutils literal notranslate"><span class="pre">assert</span></code> to check the match before doing the clipping:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that the CRS matches between layers (only continues if True)</span>
+<span class="k">assert</span> <span class="n">clipping_gdf</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">data</span><span class="o">.</span><span class="n">elevation</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span>
+
+<span class="c1"># Clip the raster</span>
+<span class="n">kitumbene</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">geometries</span><span class="o">=</span><span class="n">clipping_gdf</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">elevation</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kilimanjaro</span>
+<p>Perfect! Now we have succesfully clipped the raster with our bounding box. Let’s make a map out of our results to see how our data looks like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kitumbene</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevations around Mt Kitumbene&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Now we have a ready raster mosaic and we can save the raster to a GeoTIFF file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save file to GeoTIFF</span>
-<span class="n">kilimanjaro</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span><span class="s2">&quot;data/kilimanjaro.tif&quot;</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="s2">&quot;LZMA&quot;</span><span class="p">,</span> <span class="n">tiled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.12.</strong> Elevations in the area that was clipped based on a polygon.</em></p>
+<p>After clipping, it is possible to continue working with the clipped <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> and e.g. find the mean elevation for this area around the Mt Kitumbene. Notice that the operations clipped all the variables in our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> simultaneously. We can extract basic statistics from <code class="docutils literal notranslate"><span class="pre">elevation</span></code> and inspect the relative height in this area as follows:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mean elevation</span>
+<span class="n">kitumbene</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update the relative height considering the minimum elevation on this area</span>
+<span class="n">kitumbene</span><span class="p">[</span><span class="s2">&quot;relative_height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kitumbene</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">kitumbene</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+<span class="c1"># Mean of the relative height</span>
+<span class="n">kitumbene</span><span class="p">[</span><span class="s2">&quot;relative_height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We can see that the mean elevation in this area is approximately 1470 meters while the maximum relative height is ~2100 meters. We needed to recalculate the relative height because the baseline minimum elevation in the landscape changed significantly after the clipping operation.</p>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="masking-a-raster">
+<h2>Masking a raster<a class="headerlink" href="#masking-a-raster" title="Link to this heading">#</a></h2>
+<p>Another commonly used approach when working with raster data is to mask the data based on certain criteria or using another geographical layer as a mask. One common reasons for doing this is for example to exclude water bodies (e.g. lakes or oceans) from the terrain when doing specific analyses. In the following, we will continue working with the same elevation data and mask out the lakes from our raster dataset that exist in our study area.</p>
+<p>Let’s start by downloading data from OpenStreetMap (OSM) about existing lakes in our study area. To do this, we first extract the bounds of our raster <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> and then use <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> library to fetch all OSM elements that have been tagged with key <code class="docutils literal notranslate"><span class="pre">&quot;water&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;lake&quot;</span></code> (read more about <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> from Chapter 9.1):</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+
+<span class="c1"># Extract the bounding box based on the extent of the raster</span>
+<span class="n">data_bounds_geom</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">bounds</span><span class="p">())</span>
+
+<span class="c1"># Retrieve lakes from the given area</span>
+<span class="n">lakes</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features_from_polygon</span><span class="p">(</span><span class="n">data_bounds_geom</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;water&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;lake&quot;</span><span class="p">]})</span>
+
+<span class="c1"># Plot the raster and lakes on top of each other</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">lakes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.13.</strong> Existing lakes that are present in our study area.</em></p>
+<p>As we can see from the Figure 7.10, there is one large lake and multiple smaller ones in our study that we might not want to be taken into account when analyzing the terrain. Luckily, we can easily mask these areas out of our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> by using <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>. To do this, we can use the same <code class="docutils literal notranslate"><span class="pre">.rio.clip()</span></code> method which we used in the previous example. However, in this case, we do not want to totally remove those cells from our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> but only mask them out, so that the values on those areas are replaced with NaN values. By using parameters <code class="docutils literal notranslate"><span class="pre">drop=False</span></code> and <code class="docutils literal notranslate"><span class="pre">invert=True</span></code>, the cells that are intersecting with the lake geometries will be masked with NaNs:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">masked_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+    <span class="n">geometries</span><span class="o">=</span><span class="n">lakes</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span>
+    <span class="n">drop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">elevation</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">masked_data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation data with a mask&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.14.</strong> A Dataset where the lakes have been masked out (shown with white color).</em></p>
+<p>As a result, we now have a new <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> where the elevation values overlapping with the lakes have been converted to NaNs. We can now compare whether e.g. the mean land surface elevation differs from the original one where the lakes were still included:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean elevation with lakes:&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean elevation without lakes:&quot;</span><span class="p">,</span> <span class="n">masked_data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Based on this comparison, we can see that masking out the lakes increases the mean elevation in the area by approximately 30 meters. In a similar manner, you can mask any <code class="docutils literal notranslate"><span class="pre">rioxarray.Dataset</span></code> with given mask features that you want to remove from the analysis.</p>
+</section>
+<section id="creating-a-raster-mosaic-by-merging-datasets">
+<h2>Creating a raster mosaic by merging datasets<a class="headerlink" href="#creating-a-raster-mosaic-by-merging-datasets" title="Link to this heading">#</a></h2>
+<p>One very common operation when working with raster data is to combine multiple individual raster layers (also called as tiles) into a single larger raster dataset, often called as raster mosaic. This can be done easily with the <code class="docutils literal notranslate"><span class="pre">merge_datasets()</span></code> -function in <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>.
+Here, we will create a mosaic based on DEM files (altogether 4 files) covering Kilimanjaro region in Tanzania. First we will read elevation data from an S3 bucket. Let’s start by creating a list of URL paths to given <code class="docutils literal notranslate"><span class="pre">GeoTiff</span></code> files that we have</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span>
+
+<span class="c1"># S3 bucket containing the data</span>
+<span class="n">bucket</span> <span class="o">=</span> <span class="s2">&quot;https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">bucket</span><span class="p">)</span>
+
+<span class="c1"># Generate urls for the elevation files</span>
+<span class="n">urls</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;elevation/kilimanjaro/ASTGTMV003_S03E036_dem.tif&quot;</span><span class="p">,</span>
+    <span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;elevation/kilimanjaro/ASTGTMV003_S03E037_dem.tif&quot;</span><span class="p">,</span>
+    <span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;elevation/kilimanjaro/ASTGTMV003_S04E036_dem.tif&quot;</span><span class="p">,</span>
+    <span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;elevation/kilimanjaro/ASTGTMV003_S04E037_dem.tif&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Show the first path</span>
+<span class="n">urls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Now we have a list of URL paths to the files that we want to read into <code class="docutils literal notranslate"><span class="pre">xarray</span></code>. To do this, we create a nested loop where we iterate over the <code class="docutils literal notranslate"><span class="pre">urls</span></code> list one <code class="docutils literal notranslate"><span class="pre">url</span></code> at a time and read the <code class="docutils literal notranslate"><span class="pre">GeoTiff</span></code> file using the <code class="docutils literal notranslate"><span class="pre">.open_dataset()</span></code> function as we introduced in Chapter 7.2:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;rasterio&quot;</span><span class="p">,</span> <span class="n">masked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">band_as_variable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Now we have stored all the <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> layers inside the list <code class="docutils literal notranslate"><span class="pre">datasets</span></code>. We can investigate the contents of the first <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> in our list as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<p>As we can see an individual <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> has a shape with 3601 cells on each dimension (x and y) and the name of the data variable <code class="docutils literal notranslate"><span class="pre">band_1</span></code> which represents the elevation values. Let’s visualize these four raster tiles in separate maps to see how they look like. To do this, we use <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> to initialize a figure with 2x2 subplots and then visualize the rasters one by one. We use <code class="docutils literal notranslate"><span class="pre">vmax</span></code> parameter to specify a same value scale for each layer that makes the colors in the map comparable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+
+<span class="c1"># Plot the tiles to see how they look separately</span>
+<span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;band_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5900</span><span class="p">,</span> <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">datasets</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;band_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5900</span><span class="p">,</span> <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">datasets</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s2">&quot;band_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5900</span><span class="p">,</span> <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">datasets</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="s2">&quot;band_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5900</span><span class="p">,</span> <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.15.</strong> Four elevation raster layers plotted next to each other.</em></p>
+<p>From the figure we can see that these four raster tiles seem to belong together naturally as the elevation values as well as the coordinates along the x- and y-axis continue smoothly. Hence, we can stitch them together into a single larger raster <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.
+To merge multiple <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>s together, we can use the <code class="docutils literal notranslate"><span class="pre">.merge_datasets()</span></code> function from <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rioxarray.merge</span><span class="w"> </span><span class="kn">import</span> <span class="n">merge_datasets</span>
+
+<span class="n">mosaic</span> <span class="o">=</span> <span class="n">merge_datasets</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span>
+<span class="n">mosaic</span>
+</pre></div>
+</div>
+<p>Excellent! Now we have successfully merged the individual datasets together which is evident from the shape of the new <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> that has 7201 cells on x and y axis. Let’s now rename our data variable to a more intuitive one and plot the result to see how the end result looks like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mosaic</span> <span class="o">=</span> <span class="n">mosaic</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;band_1&quot;</span><span class="p">:</span> <span class="s2">&quot;elevation&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mosaic</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation values covering larger area in the region close to Kilimanjaro&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.16.</strong> A raster mosaic where four raster tiles were merged together.</em></p>
+<p>The end result looks good and we can see clearly the Mount Kilimanjaro which is the highest mountain in Africa 5895 meters above sea level and the highest volcano in the Eastern Hemisphere.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="raster-to-vector-conversion-vectorize">
+<h2>Raster to vector conversion (vectorize)<a class="headerlink" href="#raster-to-vector-conversion-vectorize" title="Link to this heading">#</a></h2>
+<p>Another commonly used technique commonly needed when working with geographic data is to convert the data from raster to vector format and vice versa. These conversion techniques are commonly called as <code class="docutils literal notranslate"><span class="pre">vectorize</span></code> or <code class="docutils literal notranslate"><span class="pre">rasterize</span></code> operations. When we convert a raster <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> to vector format the raster cells are converted into <code class="docutils literal notranslate"><span class="pre">shapely.Polygon</span></code> objects and the values of the cells are stored as an attribute (column) in the resulting <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. To convert <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> into vector format, you can use the <code class="docutils literal notranslate"><span class="pre">geocube</span></code> library that helps doing these kind of data conversions. In the following, we continue work with the <code class="docutils literal notranslate"><span class="pre">kitumbene</span></code> elevation data that we created earlier by clipping the data and convert this layer into vector format. Let’s have a quick look on our input <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> before continuing:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kitumbene</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>To vectorize a given variable in your <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>, you can use the <code class="docutils literal notranslate"><span class="pre">vectorize</span></code> function from the <code class="docutils literal notranslate"><span class="pre">geocube</span></code> library as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">geocube.vector</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectorize</span>
+
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">vectorize</span><span class="p">(</span><span class="n">kitumbene</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span>
+<span class="n">gdf</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Great! Now we have converted the <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> into vector format and as a result we got a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> that contains the geometries of individual cells as <code class="docutils literal notranslate"><span class="pre">shapely.Polygon</span></code> objects in the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column, and the cell values in the column <code class="docutils literal notranslate"><span class="pre">elevation</span></code>. The name of the column will be automatically added based on the name of the <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>. As we can see from the <code class="docutils literal notranslate"><span class="pre">gdf.shape</span></code> all the raster cells were added as individual rows into the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which means that our 2D array with 828 rows and 728 columns result in approximately 500 thousand rows in the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>.</p>
+<p>When working with surface data (e.g. elevation), it is quite common that there are similar values close to each other in the raster cells and often there are specific regions where the elevation does not change. Therefore, after the vectorization operation it is a good idea to dissolve the geometries based on the data attribute which merges geometries with identical values into single geometries instead of representing all the values as separate polygons. To do this, we can use the <code class="docutils literal notranslate"><span class="pre">.dissolve()</span></code> function which we introduced in more detail in Chapter 6.3:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">dissolve</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;elevation&quot;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gdf</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<p>As we can see, the number of rows in our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> was reduced dramatically from more than 500 thousand rows into a bit over 2000 rows. Let’s finally plot our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> to see how the data looks like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;elevation&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.17.</strong> The elevation map made from the vectorized data.</em></p>
+<p>As we can see from the figure, the map looks identical to our original <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> (Figure 7.9) which means that the conversion works as it should.</p>
+<p>It is good to keep in mind that the raster data structure (i.e. arrays) is much more efficient way to process continuous surfaces. When every cell in the 2D array is converted into polygon geometries, the processing and visualization of the data typically becomes more resource intensive for the computer (making things slower). There are approaches to deal with this issue e.g. by categorizing the data values of the surface into specific elevation classes (e.g. with 5 meter intervals) and then dissolving the geometries into larger Polygon shapes (as we did earlier without categorization). Another technique to consider is downscaling your data into lower resolution, meaning that the size of an individual cell will be larger. Naturally, both of these techniques has an impact on the quality of the data as the data is generalized and aggregated. It is a good idea to do the preprocessing steps for the raster data before vectorizing it, especially if you have large raster arrays because the array operations in <code class="docutils literal notranslate"><span class="pre">xarray</span></code> are very efficient.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="vector-to-raster-conversion-rasterize">
+<h2>Vector to raster conversion (rasterize)<a class="headerlink" href="#vector-to-raster-conversion-rasterize" title="Link to this heading">#</a></h2>
+<p>Now as we have seen how to convert the data from raster to vector, let’s continue and see how to do the conversion from vector to raster data format, i.e. how to rasterize a vector dataset. In this example, we aim to rasterize the lakes that we downloaded earlier from OpenStreetMap. Let’s have a look how the data looks like:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lakes</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features_from_polygon</span><span class="p">(</span><span class="n">data_bounds_geom</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;water&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;lake&quot;</span><span class="p">]})</span>
+
+<span class="n">lakes</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.18.</strong> Lakes represented in vector format.</em></p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lakes</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lakes</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see the <code class="docutils literal notranslate"><span class="pre">lakes</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> contains polygons and have various attributes associated with them, although majority of these attributes do not contain any relevant data. Thus, let’s just pick a few columns that are most interesting to us:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lakes</span> <span class="o">=</span> <span class="n">lakes</span><span class="p">[[</span><span class="s2">&quot;geometry&quot;</span><span class="p">,</span> <span class="s2">&quot;water&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">lakes</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<p>Our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> does not currently really include any useful numerical data (except <code class="docutils literal notranslate"><span class="pre">id</span></code>) that we would perhaps want to store as an attribute into our raster <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>. Thus, let’s create one numerical attribute into our data and calculate the area of the lakes as something we will use as values in our raster. We can use some of the vector data processing tricks to do this which were introduced in Chapter 6:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reproject to metric system</span>
+<span class="n">lakes_utm</span> <span class="o">=</span> <span class="n">lakes</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">21037</span><span class="p">)</span>
+
+<span class="c1"># Calculate the area in km2</span>
+<span class="n">lakes_utm</span><span class="p">[</span><span class="s2">&quot;area_km2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lakes_utm</span><span class="o">.</span><span class="n">area</span> <span class="o">/</span> <span class="mi">1000000</span>
+
+<span class="c1"># Join the area information with the original gdf</span>
+<span class="n">lakes</span> <span class="o">=</span> <span class="n">lakes</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lakes_utm</span><span class="p">[[</span><span class="s2">&quot;area_km2&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lakes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the previous, we first reprojected the data into EPSG:21037 (Arc 1960 / UTM zone 37S) which is a UTM (Universal Transverse Mercator) projection that covers most of Tanzania and provides accurate distance and area calculations. Then we calculated the area of the lakes into square kilometers and finally joined the information about the area into our original <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>that is in WGS84 coordinate reference system.</p>
+<p>By looking at the resulting table we can see something interesting. It appears that the <code class="docutils literal notranslate"><span class="pre">lakes</span></code> data contain some duplicate rows as the <code class="docutils literal notranslate"><span class="pre">Lake</span> <span class="pre">Natron</span></code> is present twice in our table (something to do with fetching data from OSM). This can cause issues when rasterizing the data because there should not be geometries that overlap with each other. Thus, we want to remove all duplicate rows from the data before continuing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lakes</span> <span class="o">=</span> <span class="n">lakes</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">lakes</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<p>As a result, two duplicates were dropped from the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>. Now we are ready to rasterize our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> into <code class="docutils literal notranslate"><span class="pre">xarray</span></code>. To do this, we can use the <code class="docutils literal notranslate"><span class="pre">make_geocube()</span></code> function from the <code class="docutils literal notranslate"><span class="pre">geocube</span></code> library:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">geocube.api.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_geocube</span>
+
+<span class="n">lakes_ds</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="n">lakes</span><span class="p">,</span>
+    <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;area_km2&quot;</span><span class="p">],</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span>
+    <span class="n">output_crs</span><span class="o">=</span><span class="s2">&quot;epsg:4326&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">lakes_ds</span>
+</pre></div>
+</div>
+<p>As a result, we now have an <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> with two data variables. In the code above, we specified that the <code class="docutils literal notranslate"><span class="pre">lakes</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> is used as the input <code class="docutils literal notranslate"><span class="pre">vector_data</span></code> and the columns <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">area_km2</span></code> should be included as the <code class="docutils literal notranslate"><span class="pre">measurements</span></code>, i.e. the data that are stored into separate <code class="docutils literal notranslate"><span class="pre">xarray</span></code> variables. The <code class="docutils literal notranslate"><span class="pre">resolution</span></code> parameter defines the spatial resolution of the output grid, i.e. size of a single pixel in the raster. In our case, we specified a tuple with values <code class="docutils literal notranslate"><span class="pre">(-0.01,</span> <span class="pre">0.01)</span></code> that are presented as decimal degrees because the coordinate reference system of our input data is WGS84. Thus, resolution <code class="docutils literal notranslate"><span class="pre">0.01</span></code> indicates that the size of a single pixel in our raster is approximately 1x1 kilometers (1.11km). The negative sign for x-resolution is used because raster transformations often use negative values for the y-axis in many CRS systems, where the y-coordinates decrease as you move down the raster. Finally, the <code class="docutils literal notranslate"><span class="pre">output_crs</span></code> defines the CRS for the resulting <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>. Let’s make a map out of our data to see how the result looks like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lakes_ds</span><span class="p">[</span><span class="s2">&quot;area_km2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Rasterized lakes&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.19.</strong> Lakes that have been rasterized into <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> at approximately 1 km resolution.</em></p>
+<p>Quite often when rasterizing vector data, you actually want to fit the output to have identical resolution to an already existing <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> and align it with the other raster layer. For example in our case, we can use the <code class="docutils literal notranslate"><span class="pre">data</span></code> raster (with elevation values) as a target so that the resolution, dimensions and alignment would fit with the existing <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>. We can achieve this by using the <code class="docutils literal notranslate"><span class="pre">like</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">make_geocube()</span></code> function. This will ensure that the output aligns with the existing raster having same resolution and dimensions:</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aligned_ds</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span><span class="n">vector_data</span><span class="o">=</span><span class="n">lakes</span><span class="p">,</span> <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;area_km2&quot;</span><span class="p">],</span> <span class="n">like</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">aligned_ds</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aligned_ds</span><span class="p">[</span><span class="s2">&quot;area_km2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.20.</strong> Lakes that have been rasterized and aligned with an existing <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.</em></p>
+<p>As a result, we have now rasterized the lakes in a way that the <code class="docutils literal notranslate"><span class="pre">aligned_ds</span></code> aligns with the existing <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> containing the elevation values. This technique can be very useful especially when you want to do calculations (map algebra) between multiple raster layers (more about map algebra in Chapter 7.5).</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="resampling-raster-data">
+<h2>Resampling raster data<a class="headerlink" href="#resampling-raster-data" title="Link to this heading">#</a></h2>
+<p>In the following section, we will introduce a technique that allows you to resample your raster data. Resampling refers to changing the cell values due to changes in the raster grid for example due to changing the effective cell size of an existing dataset. There are two ways to resample your raster data. Upscaling (or upsampling) refers to cases in which convert the raster to higher resolution, i.e. smaller cells. Downscaling (or downsampling) is resampling to lower resolution, i.e. having larger cell sizes. In the following, we will see how we can resample an <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> by downscaling and upscaling the data.</p>
+<p>We can resample <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data by using the <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> library that can be used to downscale and upscale raster data. Whenever downscaling data, you are ultimately aggregating the information because multiple individual cells are merged into one larger cell that is then stored in the output grid. Thus, it is important to decide the <code class="docutils literal notranslate"><span class="pre">resampling</span></code> method which determines how the data values are aggregated. Depending on the input data, you might for example calculate the <code class="docutils literal notranslate"><span class="pre">average</span></code> of the input cells which will then be stored in the output grid cell. In our case, taking the average makes sense, because our input data represents elevation. However, in some cases you might be interested to <code class="docutils literal notranslate"><span class="pre">sum</span></code> all the cell values for example if your input data would represent population counts in a given region. There are also various other ways to resample the data, such as extracting the minimum (<code class="docutils literal notranslate"><span class="pre">min</span></code>), maximum (<code class="docutils literal notranslate"><span class="pre">max</span></code>), median (<code class="docutils literal notranslate"><span class="pre">med</span></code>) or the <code class="docutils literal notranslate"><span class="pre">mode</span></code> from the input cells. The <code class="docutils literal notranslate"><span class="pre">mode</span></code> means that the value which appears most often in the input raster cells is selected to the output raster cell.</p>
+<!-- #endregion -->
+<section id="downscaling">
+<h3>Downscaling<a class="headerlink" href="#downscaling" title="Link to this heading">#</a></h3>
+<p>In the following, we will downscale our elevation data significantly by using a downscale factor of <code class="docutils literal notranslate"><span class="pre">50</span></code>. This means that the output raster will be 50 times smaller in terms of its dimensions compared to the input raster. To downscale the data, you need to define the new <code class="docutils literal notranslate"><span class="pre">shape</span></code> for our target raster <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>. Here, we use a specific <code class="docutils literal notranslate"><span class="pre">downscale_factor</span></code> that is used to calculate the new width and height for the output <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>. The width and height for the target <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> need to be provided as integer values. Thus we ensure that the dimensions are integers by rounding (<code class="docutils literal notranslate"><span class="pre">round()</span></code>) and converting the number with<code class="docutils literal notranslate"><span class="pre">int()</span></code>. The <code class="docutils literal notranslate"><span class="pre">.rio.reproject()</span></code> method is then used to downscale the data using the new <code class="docutils literal notranslate"><span class="pre">shape</span></code>. The <code class="docutils literal notranslate"><span class="pre">resampling</span></code> parameter defines the resampling method which in our case will be <code class="docutils literal notranslate"><span class="pre">Resampling.average</span></code>. The <code class="docutils literal notranslate"><span class="pre">Resampling</span></code> class from <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> library provides the methods for resampling:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.enums</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resampling</span>
+
+<span class="c1"># Define the new shape</span>
+<span class="n">downscale_factor</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">new_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">downscale_factor</span><span class="p">))</span>
+<span class="n">new_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">downscale_factor</span><span class="p">))</span>
+
+<span class="c1"># Downscale the data</span>
+<span class="n">data_downscaled</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">reproject</span><span class="p">(</span>
+    <span class="n">dst_crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">new_height</span><span class="p">,</span> <span class="n">new_width</span><span class="p">),</span>
+    <span class="n">resampling</span><span class="o">=</span><span class="n">Resampling</span><span class="o">.</span><span class="n">average</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_downscaled</span>
+</pre></div>
+</div>
+<p>As we can see, now the dimensions of the new downscaled <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> is 72x72 cells on x and y axis which is 50 times smaller compared to the original <code class="docutils literal notranslate"><span class="pre">data</span></code> that we used as input:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original resolution:&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">resolution</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downscaled resolution:&quot;</span><span class="p">,</span> <span class="n">data_downscaled</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">resolution</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>By comparing the spatial resolution between the datasets, we can see that the new resolution of the downscaled <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> is slightly over 1x1 km (~0.014 decimal degrees). Let’s finally visualize the downscaled <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> to investigate how the result looks on a map:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_downscaled</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Downscaled elevation data&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.21.</strong> Downscaled data using a downscale factor of 50.</em></p>
+<p>The downscaling operation seem to have worked well as the patterns are still clearly similar compared to the input data (Figure 7.7), although the spatial resolution is much lower. The data is downscaled so much that it is actually possible to identify individual pixels of the grid.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="upscaling">
+<h3>Upscaling<a class="headerlink" href="#upscaling" title="Link to this heading">#</a></h3>
+<p>The process of upscaling works very similarly to downscaling and we can use the same <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> method to increase the resolution of the input raster. In the following, we will specify that the new shape of the output <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> will be two times larger than the input data. When upscaling, you are ultimately estimating values to new pixel cells based on the neighboring raster values of a given cell in the input raster. There are various ways to interpolate data which are provided in the Table 7.2.</p>
+<p>: <em><strong>Table 7.2</strong>. Different resampling methods and their descriptions.</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Resampling Method</p></th>
+<th class="head text-center"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">nearest</span></code></p></td>
+<td class="text-center"><p>Selects the value of the closest pixel without interpolation. Fast but can produce blocky artifacts.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">bilinear</span></code></p></td>
+<td class="text-center"><p>Performs linear interpolation using the four nearest pixels, creating a smoother result than nearest-neighbor.</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">cubic</span></code></p></td>
+<td class="text-center"><p>Uses bicubic interpolation, considering 16 surrounding pixels. Smoother output than bilinear. Higher computational cost.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">cubic_spline</span></code></p></td>
+<td class="text-center"><p>Applies cubic spline interpolation for even smoother results, but requires more processing power.</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">lanczos</span></code></p></td>
+<td class="text-center"><p>Uses a sinc-based interpolation over a larger pixel neighborhood, producing resampling with significant smoothing.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">average</span></code></p></td>
+<td class="text-center"><p>Average resampling, computes the weighted average of all non-NODATA contributing pixels.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- #endregion -->
+<p>In the following, we will take advantage of a <code class="docutils literal notranslate"><span class="pre">Resampling.bilinear</span></code> resampling method which determines the value of a new pixel by taking a weighted average of the four nearest input pixels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.enums</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resampling</span>
+
+<span class="c1"># Define the new shape</span>
+<span class="n">upscale_factor</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">new_width</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">upscale_factor</span>
+<span class="n">new_height</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">upscale_factor</span>
+
+<span class="c1"># Upscale the data</span>
+<span class="n">data_upscaled</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">reproject</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">new_height</span><span class="p">,</span> <span class="n">new_width</span><span class="p">),</span>
+    <span class="n">resampling</span><span class="o">=</span><span class="n">Resampling</span><span class="o">.</span><span class="n">bilinear</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we have successfully upscaled our data which we can confirm by comparing the shapes of the original and upscaled datasets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape - Original:&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape - Upscaled:&quot;</span><span class="p">,</span> <span class="n">data_upscaled</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As expected, the new <code class="docutils literal notranslate"><span class="pre">data_upscaled</span></code> raster contains twice as many pixels compared to the input which is exactly what we were after. In a similar manner, you can upscale the data into different resolutions by providing a given target <code class="docutils literal notranslate"><span class="pre">shape</span></code> to your new raster layer. Notice that there is no “correct” way to do upscaling as all resampling methods involve interpolation that introduces uncertainty to the results. Let’s finally confirm that our upscaled data looks correct also on a map:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_upscaled</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Upscaled elevation data&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 7.22.</strong> Upscaled data using a upscale factor of 2.</em></p>
+<!-- #endregion -->
+</section>
+</section>
+<section id="handling-missing-data">
+<h2>Handling missing data<a class="headerlink" href="#handling-missing-data" title="Link to this heading">#</a></h2>
+<p>To be added.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </section>
@@ -585,8 +1019,7 @@ Now we can create a raster mosaic by merging these datasets with <code class="do
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -595,8 +1028,23 @@ Now we can create a raster mosaic by merging these datasets with <code class="do
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-raster-mosaic-with-rioxarray">Creating a raster mosaic with <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data">Selecting data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-by-index-values">Selecting data by index values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-based-on-coordinates">Selecting data based on coordinates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data-based-on-logical-conditions">Selecting data based on logical conditions</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clipping-raster">Clipping raster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-a-raster">Masking a raster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-raster-mosaic-by-merging-datasets">Creating a raster mosaic by merging datasets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raster-to-vector-conversion-vectorize">Raster to vector conversion (vectorize)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-to-raster-conversion-rasterize">Vector to raster conversion (rasterize)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling-raster-data">Resampling raster data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downscaling">Downscaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upscaling">Upscaling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-data">Handling missing data</a></li>
 </ul>
   </nav></div>
 
@@ -621,7 +1069,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -645,8 +1093,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

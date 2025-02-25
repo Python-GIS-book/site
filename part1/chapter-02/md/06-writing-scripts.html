@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -52,7 +49,6 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -68,8 +64,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -77,6 +84,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -84,8 +92,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -422,16 +431,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -514,7 +531,7 @@ Python script files traditionally use the <code class="docutils literal notransl
 <p><img alt="Figure 2.6. The new empty Python file in JupyterLab." src="../../../_images/new-python-tab.png" /></p>
 <p><em><strong>Figure 2.6</strong>. Creating a new Python file in JupyterLab.</em></p>
 <p>Start by copying and pasting the text below into your new text file editor panel.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">celsius_to_fahr</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">celsius_to_fahr</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">9</span><span class="o">/</span><span class="mi">5</span> <span class="o">*</span> <span class="n">temp_celsius</span> <span class="o">+</span> <span class="mi">32</span>
 </pre></div>
 </div>
@@ -541,11 +558,11 @@ Python script files traditionally use the <code class="docutils literal notransl
 <section id="saving-functions-in-a-script-file">
 <h3>Saving functions in a script file<a class="headerlink" href="#saving-functions-in-a-script-file" title="Link to this heading">#</a></h3>
 <p>Before we move on to discussing how to use functions in a script file, let’s add a few more functions we have been using to our script. Simply copy and paste the text below into your <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> file leaving two blank lines between each function.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">temp_kelvins</span> <span class="o">-</span> <span class="mf">273.15</span>
 
 
-<span class="k">def</span> <span class="nf">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">kelvins_to_fahr</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">):</span>
     <span class="n">temp_celsius</span> <span class="o">=</span> <span class="n">kelvins_to_celsius</span><span class="p">(</span><span class="n">temp_kelvins</span><span class="p">)</span>
     <span class="n">temp_fahr</span> <span class="o">=</span> <span class="n">celsius_to_fahr</span><span class="p">(</span><span class="n">temp_celsius</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">temp_fahr</span>
@@ -605,7 +622,7 @@ bibtex.json<span class="w">      </span>front-matter<span class="w">     </span>
 <span class="o">%</span><span class="n">cd</span> <span class="o">../../../</span><span class="n">_static</span><span class="o">/</span><span class="n">part1</span><span class="o">/</span><span class="n">chapter</span><span class="o">-</span><span class="mi">02</span><span class="o">/</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">temp_converter</span> <span class="kn">import</span> <span class="n">celsius_to_fahr</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">temp_converter</span><span class="w"> </span><span class="kn">import</span> <span class="n">celsius_to_fahr</span>
 </pre></div>
 </div>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -628,12 +645,12 @@ bibtex.json<span class="w">      </span>front-matter<span class="w">     </span>
 <section id="other-ways-of-importing-functions">
 <h3>Other ways of importing functions<a class="headerlink" href="#other-ways-of-importing-functions" title="Link to this heading">#</a></h3>
 <p>It is also possible to import more than one function at a time by listing and separating them with a comma.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">my_script</span> <span class="kn">import</span> <span class="n">func1</span><span class="p">,</span> <span class="n">func2</span><span class="p">,</span> <span class="n">func3</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">my_script</span><span class="w"> </span><span class="kn">import</span> <span class="n">func1</span><span class="p">,</span> <span class="n">func2</span><span class="p">,</span> <span class="n">func3</span>
 </pre></div>
 </div>
 <p>Additionally, it is sometimes useful to import the whole script and all of its functions at once. This can be done using a different <code class="docutils literal notranslate"><span class="pre">import</span></code> statement, which we can use and then test that all of the imported functions work. This time we can type <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">temp_converter</span> <span class="pre">as</span> <span class="pre">tc</span></code>.</p>
 <!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">temp_converter</span> <span class="k">as</span> <span class="nn">tc</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">temp_converter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tc</span>
 </pre></div>
 </div>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -663,7 +680,7 @@ bibtex.json<span class="w">      </span>front-matter<span class="w">     </span>
 <section id="defining-the-function">
 <h3>Defining the function<a class="headerlink" href="#defining-the-function" title="Link to this heading">#</a></h3>
 <p>Let’s start defining our function by giving it a name and listing the parameters.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
 </pre></div>
 </div>
 <!-- #endregion -->
@@ -672,7 +689,7 @@ bibtex.json<span class="w">      </span>front-matter<span class="w">     </span>
 <section id="adding-some-conditional-statements">
 <h3>Adding some conditional statements<a class="headerlink" href="#adding-some-conditional-statements" title="Link to this heading">#</a></h3>
 <p>Next, we need to add conditional statements that check whether the desired output temperature should be in degrees Celsius or Fahrenheit, and then call the corresponding function from the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> script file.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
     <span class="c1"># Check if the user wants temperatures in Celsius</span>
     <span class="k">if</span> <span class="n">convert_to</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
         <span class="c1"># Convert the value to Celsius using the dedicated function for</span>
@@ -690,7 +707,7 @@ bibtex.json<span class="w">      </span>front-matter<span class="w">     </span>
 <section id="returning-the-result">
 <h3>Returning the result<a class="headerlink" href="#returning-the-result" title="Link to this heading">#</a></h3>
 <p>Next, we need to add a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement so that our function sends back the value that we are interested in.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
     <span class="c1"># Check if the user wants temperatures in Celsius</span>
     <span class="k">if</span> <span class="n">convert_to</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
         <span class="c1"># Convert the value to Celsius using the dedicated function for</span>
@@ -710,7 +727,7 @@ bibtex.json<span class="w">      </span>front-matter<span class="w">     </span>
 <section id="adding-a-docstring">
 <h3>Adding a docstring<a class="headerlink" href="#adding-a-docstring" title="Link to this heading">#</a></h3>
 <p>Finally, since we want to be good programmers, we should add a short docstring at the beginning of our function that explains what the function does and how the parameters work.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">temp_calculator</span><span class="p">(</span><span class="n">temp_k</span><span class="p">,</span> <span class="n">convert_to</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts temperature in Kelvins to Celsius or Fahrenheit.</span>
 
@@ -749,7 +766,7 @@ bibtex.json<span class="w">      </span>front-matter<span class="w">     </span>
 <h3>Testing the new function<a class="headerlink" href="#testing-the-new-function" title="Link to this heading">#</a></h3>
 <p>Now we have a temperature calculator that has a simple option that allows the user to select the temperature unit for output using the <code class="docutils literal notranslate"><span class="pre">convert_to</span></code> parameter.</p>
 <p>At this point we need to re-import the functions from the <code class="docutils literal notranslate"><span class="pre">temp_calculator.py</span></code> script file. However, when working in a Jupyter Notebook, reloading modules can be a bit challenging. The easiest option is to restart the IPython kernel by going to <strong>Kernel</strong> -&gt; <strong>Restart kernel…</strong> in the menu bar. Note that this will delete all variables currently stored in memory in the Jupyter notebook you’re using, so you may need to re-run some cells. After restarting the kernel, you can re-import the functions from the <code class="docutils literal notranslate"><span class="pre">temp_converter.py</span></code> script file by typing:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">temp_converter</span> <span class="k">as</span> <span class="nn">tc</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">temp_converter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tc</span>
 </pre></div>
 </div>
 <p>We can check that this step worked as expected by using the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function in Python to see how our function should be used (since we added a short docstring at the beginning of the function). Try running <code class="docutils literal notranslate"><span class="pre">help(temp_calculator)</span></code> in the cell below to see the docstring.</p>
@@ -794,8 +811,7 @@ bibtex.json<span class="w">      </span>front-matter<span class="w">     </span>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -854,7 +870,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -878,8 +894,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

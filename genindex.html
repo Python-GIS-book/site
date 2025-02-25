@@ -15,32 +15,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -51,7 +48,6 @@
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -67,8 +63,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -76,6 +83,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -83,8 +91,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -102,8 +110,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -131,17 +138,21 @@
     
     
     <img src="_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -259,10 +270,8 @@
 <li class="toctree-l2"><a class="reference internal" href="part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -358,16 +367,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 
 </div></div>
       
@@ -401,8 +418,10 @@
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
  | <a href="#K"><strong>K</strong></a>
@@ -422,6 +441,8 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Accessor"><strong>Accessor</strong></a>, <a href="back-matter/nb/glossary.html#term-Accessor"><strong>[1]</strong></a>
+</li>
       <li><a href="back-matter/md/glossary.html#term-API"><strong>API</strong></a>, <a href="back-matter/nb/glossary.html#term-API"><strong>[1]</strong></a>
 </li>
   </ul></td>
@@ -487,6 +508,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-EPSG-code"><strong>EPSG code</strong></a>, <a href="back-matter/nb/glossary.html#term-EPSG-code"><strong>[1]</strong></a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -509,6 +538,20 @@
       <li><a href="back-matter/md/glossary.html#term-Georeferencing"><strong>Georeferencing</strong></a>, <a href="back-matter/nb/glossary.html#term-Georeferencing"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-GeoSeries"><strong>GeoSeries</strong></a>, <a href="back-matter/nb/glossary.html#term-GeoSeries"><strong>[1]</strong></a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Hypsometric-curve"><strong>Hypsometric curve</strong></a>, <a href="back-matter/nb/glossary.html#term-Hypsometric-curve"><strong>[1]</strong></a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Hypsometric-integral"><strong>Hypsometric integral</strong></a>, <a href="back-matter/nb/glossary.html#term-Hypsometric-integral"><strong>[1]</strong></a>
+</li>
+      <li><a href="back-matter/md/glossary.html#term-Hypsometry"><strong>Hypsometry</strong></a>, <a href="back-matter/nb/glossary.html#term-Hypsometry"><strong>[1]</strong></a>
 </li>
   </ul></td>
 </tr></table>
@@ -630,10 +673,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="back-matter/md/glossary.html#term-R-tree"><strong>R-tree</strong></a>, <a href="back-matter/nb/glossary.html#term-R-tree"><strong>[1]</strong></a>
 </li>
-      <li><a href="back-matter/md/glossary.html#term-Radius-query"><strong>Radius query</strong></a>, <a href="back-matter/nb/glossary.html#term-Radius-query"><strong>[1]</strong></a>
+      <li><a href="back-matter/md/glossary.html#term-Radiometric-resolution"><strong>Radiometric resolution</strong></a>, <a href="back-matter/nb/glossary.html#term-Radiometric-resolution"><strong>[1]</strong></a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Radius-query"><strong>Radius query</strong></a>, <a href="back-matter/nb/glossary.html#term-Radius-query"><strong>[1]</strong></a>
+</li>
       <li><a href="back-matter/md/glossary.html#term-Required-parameter"><strong>Required parameter</strong></a>, <a href="back-matter/nb/glossary.html#term-Required-parameter"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-Right-outer-join"><strong>Right outer join</strong></a>, <a href="back-matter/nb/glossary.html#term-Right-outer-join"><strong>[1]</strong></a>
@@ -654,12 +699,16 @@
 </li>
       <li><a href="back-matter/md/glossary.html#term-Shifting"><strong>Shifting</strong></a>, <a href="back-matter/nb/glossary.html#term-Shifting"><strong>[1]</strong></a>
 </li>
+      <li><a href="back-matter/md/glossary.html#term-Signed-integer"><strong>Signed integer</strong></a>, <a href="back-matter/nb/glossary.html#term-Signed-integer"><strong>[1]</strong></a>
+</li>
       <li><a href="back-matter/md/glossary.html#term-Software"><strong>Software</strong></a>, <a href="back-matter/nb/glossary.html#term-Software"><strong>[1]</strong></a>
 </li>
-      <li><a href="back-matter/md/glossary.html#term-Spatial-index"><strong>Spatial index</strong></a>, <a href="back-matter/nb/glossary.html#term-Spatial-index"><strong>[1]</strong></a>
+      <li><a href="back-matter/md/glossary.html#term-Spatial-extent"><strong>Spatial extent</strong></a>, <a href="back-matter/nb/glossary.html#term-Spatial-extent"><strong>[1]</strong></a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Spatial-index"><strong>Spatial index</strong></a>, <a href="back-matter/nb/glossary.html#term-Spatial-index"><strong>[1]</strong></a>
+</li>
       <li><a href="back-matter/md/glossary.html#term-Spatial-join"><strong>Spatial join</strong></a>, <a href="back-matter/nb/glossary.html#term-Spatial-join"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-Spatial-predicate"><strong>Spatial predicate</strong></a>, <a href="back-matter/nb/glossary.html#term-Spatial-predicate"><strong>[1]</strong></a>
@@ -669,6 +718,8 @@
       <li><a href="back-matter/md/glossary.html#term-Spatial-resolution"><strong>Spatial resolution</strong></a>, <a href="back-matter/nb/glossary.html#term-Spatial-resolution"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-Spatio-temporal-data-model"><strong>Spatio-temporal data model</strong></a>, <a href="back-matter/nb/glossary.html#term-Spatio-temporal-data-model"><strong>[1]</strong></a>
+</li>
+      <li><a href="back-matter/md/glossary.html#term-Spectral-resolution"><strong>Spectral resolution</strong></a>, <a href="back-matter/nb/glossary.html#term-Spectral-resolution"><strong>[1]</strong></a>
 </li>
       <li><a href="back-matter/md/glossary.html#term-Subplots"><strong>Subplots</strong></a>, <a href="back-matter/nb/glossary.html#term-Subplots"><strong>[1]</strong></a>
 </li>
@@ -680,6 +731,8 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Temporal-resolution"><strong>Temporal resolution</strong></a>, <a href="back-matter/nb/glossary.html#term-Temporal-resolution"><strong>[1]</strong></a>
+</li>
       <li><a href="back-matter/md/glossary.html#term-Topological-spatial-relations"><strong>Topological spatial relations</strong></a>, <a href="back-matter/nb/glossary.html#term-Topological-spatial-relations"><strong>[1]</strong></a>
 </li>
   </ul></td>
@@ -695,6 +748,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="back-matter/md/glossary.html#term-Unary-union"><strong>Unary union</strong></a>, <a href="back-matter/nb/glossary.html#term-Unary-union"><strong>[1]</strong></a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Unsigned-integer"><strong>Unsigned integer</strong></a>, <a href="back-matter/nb/glossary.html#term-Unsigned-integer"><strong>[1]</strong></a>
 </li>
   </ul></td>
 </tr></table>
@@ -714,10 +771,12 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="back-matter/md/glossary.html#term-Well-known-binary"><strong>Well-known binary</strong></a>, <a href="back-matter/nb/glossary.html#term-Well-known-binary"><strong>[1]</strong></a>
+      <li><a href="back-matter/md/glossary.html#term-Watershed"><strong>Watershed</strong></a>, <a href="back-matter/nb/glossary.html#term-Watershed"><strong>[1]</strong></a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="back-matter/md/glossary.html#term-Well-known-binary"><strong>Well-known binary</strong></a>, <a href="back-matter/nb/glossary.html#term-Well-known-binary"><strong>[1]</strong></a>
+</li>
       <li><a href="back-matter/md/glossary.html#term-Well-known-text"><strong>Well-known text</strong></a>, <a href="back-matter/nb/glossary.html#term-Well-known-text"><strong>[1]</strong></a>
 </li>
   </ul></td>
@@ -761,7 +820,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -785,8 +844,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

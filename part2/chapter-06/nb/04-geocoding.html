@@ -16,32 +16,29 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -54,7 +51,6 @@
     <link rel="prev" title="Working with map projections" href="03-coordinate-reference-system.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -70,8 +66,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -79,6 +86,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -86,8 +94,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,17 +139,21 @@
     
     
     <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
-    <img src="../../../_static/pythongis-logo.png" class="logo__image only-dark pst-js-only" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
@@ -260,10 +271,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/03-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Terrain analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-introduction-to-terrain-analysis.html">Introduction to terrain analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/01-interpreting-topographic-features.html">Interpreting topographic features from raster data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/02-exercises.html">Exercises</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
@@ -453,16 +462,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -522,9 +539,8 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary modules</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 
 <span class="c1"># Filepath</span>
 <span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Helsinki/addresses.txt&quot;</span>
@@ -588,10 +604,10 @@
 </table>
 </div></div></div>
 </div>
-<p>Now we have our data in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and we can geocode our addresses using the the <code class="docutils literal notranslate"><span class="pre">geopandas.tools.geocode()</span></code> function in geopandas that uses <code class="docutils literal notranslate"><span class="pre">geopy</span></code> library under the hood. The function geocodes a list of addresses (strings) and returns a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> with the geocoded result. In the following, we import the <code class="docutils literal notranslate"><span class="pre">geocode()</span></code> function and geocode the addresses using Nominatim. Then we pass the addressess to the function from the column <code class="docutils literal notranslate"><span class="pre">addr</span></code>. As discussed earlier, we need to provide a custom string (name of your application) in the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> parameter to identify ourselves. We also use the <code class="docutils literal notranslate"><span class="pre">timeout</span></code>-parameter to specify how many seconds to wait for a response from the service:</p>
+<p>Now we have our data in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and we can geocode our addresses using the the <code class="docutils literal notranslate"><span class="pre">geopandas.tools.geocode()</span></code> function in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> that uses <code class="docutils literal notranslate"><span class="pre">geopy</span></code> library under the hood. The function geocodes a list of addresses (strings) and returns a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> with the geocoded result. In the following, we import the <code class="docutils literal notranslate"><span class="pre">geocode()</span></code> function and geocode the addresses using Nominatim. Then we pass the addressess to the function from the column <code class="docutils literal notranslate"><span class="pre">addr</span></code>. As discussed earlier, we need to provide a custom string (name of your application) in the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> parameter to identify ourselves. We also use the <code class="docutils literal notranslate"><span class="pre">timeout</span></code>-parameter to specify how many seconds to wait for a response from the service:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geopandas.tools</span> <span class="kn">import</span> <span class="n">geocode</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">geopandas.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">geocode</span>
 
 <span class="n">geo</span> <span class="o">=</span> <span class="n">geocode</span><span class="p">(</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">],</span> <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;nominatim&quot;</span><span class="p">,</span> <span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;pythongis_book&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span>
@@ -631,22 +647,22 @@
     </tr>
     <tr>
       <th>1</th>
-      <td>POINT (24.93166 60.16905)</td>
-      <td>Kamppi, 1, Kampinkuja, Kamppi, Eteläinen suurp...</td>
+      <td>POINT (24.93009 60.16846)</td>
+      <td>1, Kampinkuja, Kamppi, Eteläinen suurpiiri, He...</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>POINT (24.94153 60.17016)</td>
-      <td>Espresso House, 8, Kaivokatu, Keskusta, Kluuvi...</td>
+      <td>POINT (24.94178 60.16989)</td>
+      <td>Tokmanni, 8, Kaivokatu, Keskusta, Kluuvi, Etel...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>POINT (24.97753 60.18819)</td>
-      <td>Hermannin rantatie, Verkkosaari, Kalasatama, S...</td>
+      <td>POINT (24.97409 60.19561)</td>
+      <td>Hermannin rantatie, Hermanninranta, Hermanni, ...</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>POINT (24.9216 60.1565)</td>
+      <td>POINT (24.92151 60.15662)</td>
       <td>9, Tyynenmerenkatu, Jätkäsaari, Länsisatama, E...</td>
     </tr>
   </tbody>
@@ -703,21 +719,21 @@
     </tr>
     <tr>
       <th>2</th>
-      <td>POINT (24.94153 60.17016)</td>
-      <td>Espresso House, 8, Kaivokatu, Keskusta, Kluuvi...</td>
+      <td>POINT (24.94178 60.16989)</td>
+      <td>Tokmanni, 8, Kaivokatu, Keskusta, Kluuvi, Etel...</td>
       <td>1002</td>
       <td>Kaivokatu 8, 00101 Helsinki, Finland</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>POINT (24.97853 60.1905)</td>
-      <td>Hermannin rantatie, Verkkosaari, Kalasatama, S...</td>
+      <td>POINT (24.97409 60.19561)</td>
+      <td>Hermannin rantatie, Hermanninranta, Hermanni, ...</td>
       <td>1003</td>
       <td>Hermannin rantatie 1, 00580 Helsinki, Finland</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>POINT (24.92169 60.15667)</td>
+      <td>POINT (24.92151 60.15662)</td>
       <td>9, Tyynenmerenkatu, Jätkäsaari, Länsisatama, E...</td>
       <td>1005</td>
       <td>Tyynenmerenkatu 9, 00220 Helsinki, Finland</td>
@@ -726,7 +742,189 @@
 </table>
 </div></div></div>
 </div>
-<p>Here we can see the geocoded address (column <code class="docutils literal notranslate"><span class="pre">address</span></code>) and original address (column <code class="docutils literal notranslate"><span class="pre">addr</span></code>) side-by-side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can save the geocoded addresses to a file:</p>
+<p>Here we can see the geocoded address (column <code class="docutils literal notranslate"><span class="pre">address</span></code>) and original address (column <code class="docutils literal notranslate"><span class="pre">addr</span></code>) side-by-side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can have a look how the points look on a map and save the geocoded addresses to a file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">join</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span><iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    
+    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+    
+        &lt;script&gt;
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        &lt;/script&gt;
+    
+    &lt;style&gt;html, body {width: 100%;height: 100%;margin: 0;padding: 0;}&lt;/style&gt;
+    &lt;style&gt;#map {position:absolute;top:0;bottom:0;right:0;left:0;}&lt;/style&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/&gt;
+    
+            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
+            &lt;style&gt;
+                #map_58486836bb9ef7441fbd9127e1a0326f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            &lt;/style&gt;
+        
+    
+                    &lt;style&gt;
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    &lt;/style&gt;
+            
+&lt;/head&gt;
+&lt;body&gt;
+    
+    
+            &lt;div class=&quot;folium-map&quot; id=&quot;map_58486836bb9ef7441fbd9127e1a0326f&quot; &gt;&lt;/div&gt;
+        
+&lt;/body&gt;
+&lt;script&gt;
+    
+    
+            var map_58486836bb9ef7441fbd9127e1a0326f = L.map(
+                &quot;map_58486836bb9ef7441fbd9127e1a0326f&quot;,
+                {
+                    center: [60.21220077037492, 24.99449645],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_58486836bb9ef7441fbd9127e1a0326f);
+
+            
+
+        
+    
+            var tile_layer_39ce23ac7a933ad7a9fa7c8d83367cd6 = L.tileLayer(
+                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            );
+        
+    
+            tile_layer_39ce23ac7a933ad7a9fa7c8d83367cd6.addTo(map_58486836bb9ef7441fbd9127e1a0326f);
+        
+    
+            map_58486836bb9ef7441fbd9127e1a0326f.fitBounds(
+                [[60.1566206, 24.8535727], [60.26778094074985, 25.1354202]],
+                {}
+            );
+        
+    
+        function geo_json_29bdc2526b3d62acd3c93e5c1100b70c_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;color&quot;: &quot;red&quot;, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
+            }
+        }
+        function geo_json_29bdc2526b3d62acd3c93e5c1100b70c_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.75};
+            }
+        }
+        function geo_json_29bdc2526b3d62acd3c93e5c1100b70c_pointToLayer(feature, latlng) {
+            var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 5, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
+            
+            let style = geo_json_29bdc2526b3d62acd3c93e5c1100b70c_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_29bdc2526b3d62acd3c93e5c1100b70c_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                            geo_json_29bdc2526b3d62acd3c93e5c1100b70c.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        const highlightStyle = geo_json_29bdc2526b3d62acd3c93e5c1100b70c_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_29bdc2526b3d62acd3c93e5c1100b70c = L.geoJson(null, {
+                onEachFeature: geo_json_29bdc2526b3d62acd3c93e5c1100b70c_onEachFeature,
+            
+                style: geo_json_29bdc2526b3d62acd3c93e5c1100b70c_styler,
+                pointToLayer: geo_json_29bdc2526b3d62acd3c93e5c1100b70c_pointToLayer,
+        });
+
+        function geo_json_29bdc2526b3d62acd3c93e5c1100b70c_add (data) {
+            geo_json_29bdc2526b3d62acd3c93e5c1100b70c
+                .addData(data);
+        }
+            geo_json_29bdc2526b3d62acd3c93e5c1100b70c_add({&quot;bbox&quot;: [24.8535727, 60.1566206, 25.1354202, 60.26778094074985], &quot;features&quot;: [{&quot;bbox&quot;: [24.9155624, 60.1632015, 24.9155624, 60.1632015], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9155624, 60.1632015], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;It\u00e4merenkatu 14, 00101 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Ruoholahti, 14, It\u00e4merenkatu, Ruoholahti, L\u00e4nsisatama, Etel\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00180, Suomi / Finland&quot;, &quot;id&quot;: 1000}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.930089779513946, 60.168464, 24.930089779513946, 60.168464], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.930089779513946, 60.168464], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;1&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Kampinkuja 1, 00100 Helsinki, Finland&quot;, &quot;address&quot;: &quot;1, Kampinkuja, Kamppi, Etel\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00100, Suomi / Finland&quot;, &quot;id&quot;: 1001}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.9417839, 60.1698911, 24.9417839, 60.1698911], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9417839, 60.1698911], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;2&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Kaivokatu 8, 00101 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Tokmanni, 8, Kaivokatu, Keskusta, Kluuvi, Etel\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00101, Suomi / Finland&quot;, &quot;id&quot;: 1002}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.9740943, 60.1956129, 24.9740943, 60.1956129], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9740943, 60.1956129], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;3&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Hermannin rantatie 1, 00580 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Hermannin rantatie, Hermanninranta, Hermanni, Keskinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00580, Suomi / Finland&quot;, &quot;id&quot;: 1003}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.92151309902428, 60.1566206, 24.92151309902428, 60.1566206], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.92151309902428, 60.1566206], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;4&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Tyynenmerenkatu 9, 00220 Helsinki, Finland&quot;, &quot;address&quot;: &quot;9, Tyynenmerenkatu, J\u00e4tk\u00e4saari, L\u00e4nsisatama, Etel\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00220, Suomi / Finland&quot;, &quot;id&quot;: 1005}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.081738772360573, 60.23521665, 25.081738772360573, 60.23521665], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.081738772360573, 60.23521665], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;5&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Kontulantie 18, 00940 Helsinki, Finland&quot;, &quot;address&quot;: &quot;18, Kontulantie, Kontula, Mellunkyl\u00e4, It\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00940, Suomi / Finland&quot;, &quot;id&quot;: 1006}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.1101739, 60.2214223, 25.1101739, 60.2214223], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.1101739, 60.2214223], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;6&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;It\u00e4v\u00e4yl\u00e4 3, 00950 Helsinki, Finland&quot;, &quot;address&quot;: &quot;It\u00e4v\u00e4yl\u00e4, Vartioharju, Vartiokyl\u00e4, It\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00950, Suomi / Finland&quot;, &quot;id&quot;: 1007}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.032204977317814, 60.26778094074985, 25.032204977317814, 60.26778094074985], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.032204977317814, 60.26778094074985], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;7&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Tapulikaupungintie 3, 00750 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Tapulikaupungintie, Fallkullan kiila, Tapulikaupunki, Tapaninkyl\u00e4, Koillinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00750, Suomi / Finland&quot;, &quot;id&quot;: 1008}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.029041, 60.2634689, 25.029041, 60.2634689], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.029041, 60.2634689], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;8&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Sompionpolku 2, 00730 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Sompionpolku, Fallkullan kiila, Tapanila, Tapaninkyl\u00e4, Koillinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00730, Suomi / Finland&quot;, &quot;id&quot;: 1009}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.871972035474723, 60.22243925, 24.871972035474723, 60.22243925], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.871972035474723, 60.22243925], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;9&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Atomitie 5, 00370 Helsinki, Finland&quot;, &quot;address&quot;: &quot;5, Atomitie, Str\u00f6mberg, Pit\u00e4j\u00e4nm\u00e4en teollisuusalue, Pit\u00e4j\u00e4nm\u00e4ki, L\u00e4ntinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00370, Suomi / Finland&quot;, &quot;id&quot;: 1010}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.9426236, 60.1710034, 24.9426236, 60.1710034], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9426236, 60.1710034], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;10&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Rautatientori 1, 00100 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Rautatientori, Keskusta, Kluuvi, Etel\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00014, Suomi / Finland&quot;, &quot;id&quot;: 1011}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.8844201, 60.2307403, 24.8844201, 60.2307403], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.8844201, 60.2307403], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;11&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Kuparitie 8, 00440 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Kuparitie, Lassila, Haaga, L\u00e4ntinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00440, Suomi / Finland&quot;, &quot;id&quot;: 1012}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.87528710856538, 60.23812196714629, 24.87528710856538, 60.23812196714629], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.87528710856538, 60.23812196714629], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;12&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Rumpupolku 8, 00420 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Rumpupolku, Kannelm\u00e4ki, Kaarela, L\u00e4ntinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00420, Suomi / Finland&quot;, &quot;id&quot;: 1013}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.9485436, 60.2219646, 24.9485436, 60.2219646], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9485436, 60.2219646], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;13&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;M\u00e4kitorpantie 1, 00620 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Otto. automaatti (ATM), 1, M\u00e4kitorpantie, Patola, Oulunkyl\u00e4, Pohjoinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00620, Suomi / Finland&quot;, &quot;id&quot;: 1014}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.0129502, 60.2510722, 25.0129502, 60.2510722], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.0129502, 60.2510722], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;14&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Malminkaari 15, 00700 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Yliopiston Apteekki, 15, Malminkaari, Ala-Malmi, Malmi, Koillinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00700, Suomi / Finland&quot;, &quot;id&quot;: 1015}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.894180681709653, 60.21721545, 24.894180681709653, 60.21721545], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.894180681709653, 60.21721545], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;15&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Kyl\u00e4tie 23, 00320 Helsinki, Finland&quot;, &quot;address&quot;: &quot;23, Kyl\u00e4tie, Etel\u00e4-Haaga, Haaga, L\u00e4ntinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00320, Suomi / Finland&quot;, &quot;id&quot;: 1016}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.8535727, 60.2468174, 24.8535727, 60.2468174], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.8535727, 60.2468174], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;16&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Malminkartanontie 17, 00410 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Malminkartanontie, Malminkartano, Kaarela, L\u00e4ntinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00410, Suomi / Finland&quot;, &quot;id&quot;: 1017}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.96563809460605, 60.22982848246951, 24.96563809460605, 60.22982848246951], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.96563809460605, 60.22982848246951], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;17&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Oulunkyl\u00e4n tori 2b, 00640 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Oulunkyl\u00e4n tori, Patola, Oulunkyl\u00e4, Pohjoinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00645, Suomi / Finland&quot;, &quot;id&quot;: 1018}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.9343517, 60.1985716, 24.9343517, 60.1985716], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9343517, 60.1985716], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;18&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Ratapihantie 6, 00101 Helsinki, Finland&quot;, &quot;address&quot;: &quot;6, Ratapihantie, It\u00e4-Pasila, Pasila, Keskinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00077, Suomi / Finland&quot;, &quot;id&quot;: 1019}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.860858461570245, 60.22406825, 24.860858461570245, 60.22406825], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.860858461570245, 60.22406825], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;19&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Pit\u00e4j\u00e4nm\u00e4entie 15, 00370 Helsinki, Finland&quot;, &quot;address&quot;: &quot;15, Pit\u00e4j\u00e4nm\u00e4entie, Reimarla, Pit\u00e4j\u00e4nm\u00e4ki, L\u00e4ntinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00370, Suomi / Finland&quot;, &quot;id&quot;: 1020}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.9937615, 60.2438015, 24.9937615, 60.2438015], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9937615, 60.2438015], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;20&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Eskolantie 2, 00720 Helsinki, Finland&quot;, &quot;address&quot;: &quot;2, Eskolantie, Savela, Pukinm\u00e4ki, Koillinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00720, Suomi / Finland&quot;, &quot;id&quot;: 1021}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.0325802, 60.2433109, 25.0325802, 60.2433109], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.0325802, 60.2433109], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;21&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Tattariharjuntie, 00700 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Tattariharjuntie, Sep\u00e4nm\u00e4ki, Ala-Malmi, Malmi, Koillinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00700, Suomi / Finland&quot;, &quot;id&quot;: 1022}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.0784226, 60.2098418, 25.0784226, 60.2098418], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.0784226, 60.2098418], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;22&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Tallinnanaukio 1, 00930 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Otto. pankkiautomaatti, 1, Tallinnanaukio, It\u00e4keskus, Vartiokyl\u00e4, It\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00930, Suomi / Finland&quot;, &quot;id&quot;: 1023}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.1354202, 60.2072289, 25.1354202, 60.2072289], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.1354202, 60.2072289], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;23&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Tyynylaavantie 7, 00980 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Tyynylaavantie, Keski-Vuosaari, Vuosaari, It\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00980, Suomi / Finland&quot;, &quot;id&quot;: 1024}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.0765168, 60.2242145, 25.0765168, 60.2242145], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.0765168, 60.2242145], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;24&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Myllypurontie 5, 00920 Helsinki, Finland&quot;, &quot;address&quot;: &quot;R-Kioski, 5, Myllypurontie, Myllypuro, Vartiokyl\u00e4, It\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00920, Suomi / Finland&quot;, &quot;id&quot;: 1025}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.1097043, 60.2376275, 25.1097043, 60.2376275], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.1097043, 60.2376275], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;25&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Mellunm\u00e4enraitio 6, 00970 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Mellunm\u00e4enraitio, Mellunm\u00e4ki, Mellunkyl\u00e4, It\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00970, Suomi / Finland&quot;, &quot;id&quot;: 1026}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.9606386, 60.1882735, 24.9606386, 60.1882735], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9606386, 60.1882735], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;26&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Vaasanpolku 2, 00101 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Vaasanpolku, Kurvi, Harju, Alppiharju, Keskinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00500, Suomi / Finland&quot;, &quot;id&quot;: 1027}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.0283195, 60.1944206, 25.0283195, 60.1944206], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.0283195, 60.1944206], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;27&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Hiiht\u00e4j\u00e4ntie 2, 00810 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Alko, 2, Hiiht\u00e4j\u00e4ntie, L\u00e4nsi-Herttoniemi, Herttoniemi, Kaakkoinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00810, Suomi / Finland&quot;, &quot;id&quot;: 1028}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [25.006759, 60.1887103, 25.006759, 60.1887103], &quot;geometry&quot;: {&quot;coordinates&quot;: [25.006759, 60.1887103], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;28&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Ukko-Pekan porras 2, 00570 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Metro Kulosaari, 2, Ukko-Pekan porras, Kulosaari, Kaakkoinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00570, Suomi / Finland&quot;, &quot;id&quot;: 1029}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.949466, 60.1792723, 24.949466, 60.1792723], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.949466, 60.1792723], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;29&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Siltasaarenkatu 16, 00530 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Hakaniementorin apteekki, 16, Siltasaarenkatu, Siltasaari, Kallio, Keskinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00530, Suomi / Finland&quot;, &quot;id&quot;: 1030}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.933074569992705, 60.1690773, 24.933074569992705, 60.1690773], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.933074569992705, 60.1690773], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;30&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Urho Kekkosen katu 1, 00100 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Kampin keskus, 1, Urho Kekkosen katu, Kamppi, Etel\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00100, Suomi / Finland&quot;, &quot;id&quot;: 1031}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.930393, 60.166409, 24.930393, 60.166409], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.930393, 60.166409], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;31&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Ruoholahdenkatu 17, 00101 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Ruoholahdenkatu, Kamppi, Etel\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00100, Suomi / Finland&quot;, &quot;id&quot;: 1032}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.9212065, 60.1587845, 24.9212065, 60.1587845], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9212065, 60.1587845], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;32&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Tyynenmerenkatu 3, 00220 Helsinki, Finland&quot;, &quot;address&quot;: &quot;3, Tyynenmerenkatu, J\u00e4tk\u00e4saari, L\u00e4nsisatama, Etel\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00220, Suomi / Finland&quot;, &quot;id&quot;: 1033}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.9470863, 60.1719054, 24.9470863, 60.1719054], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9470863, 60.1719054], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;33&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;addr&quot;: &quot;Vilhonkatu 4, 00101 Helsinki, Finland&quot;, &quot;address&quot;: &quot;Oluthuone Kaisla, 4, Vilhonkatu, Kaisaniemi, Kluuvi, Etel\u00e4inen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00100, Suomi / Finland&quot;, &quot;id&quot;: 1034}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+
+        
+    
+    geo_json_29bdc2526b3d62acd3c93e5c1100b70c.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create(&#x27;div&#x27;);
+    
+    let handleObject = feature=&gt;typeof(feature)==&#x27;object&#x27; ? JSON.stringify(feature) : feature;
+    let fields = [&quot;address&quot;, &quot;id&quot;, &quot;addr&quot;];
+    let aliases = [&quot;address&quot;, &quot;id&quot;, &quot;addr&quot;];
+    let table = &#x27;&lt;table&gt;&#x27; +
+        String(
+        fields.map(
+        (v,i)=&gt;
+        `&lt;tr&gt;
+            &lt;th&gt;${aliases[i]}&lt;/th&gt;
+            
+            &lt;td&gt;${handleObject(layer.feature.properties[v])}&lt;/td&gt;
+        &lt;/tr&gt;`).join(&#x27;&#x27;))
+    +&#x27;&lt;/table&gt;&#x27;;
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{&quot;className&quot;: &quot;foliumtooltip&quot;, &quot;sticky&quot;: true});
+                     
+    
+            geo_json_29bdc2526b3d62acd3c93e5c1100b70c.addTo(map_58486836bb9ef7441fbd9127e1a0326f);
+        
+&lt;/script&gt;
+&lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
+</div>
+<p><em><strong>Figure 6.34</strong>. Geocoded addresses on a map.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output file path</span>
@@ -798,7 +996,7 @@
             &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
             &lt;style&gt;
-                #map_b27b2c00ac2d281733d7f3a69f4f033b {
+                #map_598fe7e03596324309ca66d408e16067 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -828,95 +1026,95 @@
 &lt;body&gt;
     
     
-            &lt;div class=&quot;folium-map&quot; id=&quot;map_b27b2c00ac2d281733d7f3a69f4f033b&quot; &gt;&lt;/div&gt;
+            &lt;div class=&quot;folium-map&quot; id=&quot;map_598fe7e03596324309ca66d408e16067&quot; &gt;&lt;/div&gt;
         
 &lt;/body&gt;
 &lt;script&gt;
     
     
-            var map_b27b2c00ac2d281733d7f3a69f4f033b = L.map(
-                &quot;map_b27b2c00ac2d281733d7f3a69f4f033b&quot;,
+            var map_598fe7e03596324309ca66d408e16067 = L.map(
+                &quot;map_598fe7e03596324309ca66d408e16067&quot;,
                 {
-                    center: [60.195882375, 24.8941336183885],
+                    center: [60.195792425, 24.893991768388503],
                     crs: L.CRS.EPSG3857,
                     zoom: 10,
                     zoomControl: true,
                     preferCanvas: false,
                 }
             );
-            L.control.scale().addTo(map_b27b2c00ac2d281733d7f3a69f4f033b);
+            L.control.scale().addTo(map_598fe7e03596324309ca66d408e16067);
 
             
 
         
     
-            var tile_layer_f0963ca97cf561bfd66d45fb614a4d48 = L.tileLayer(
+            var tile_layer_41262e2b9618249ad071d301cea84837 = L.tileLayer(
                 &quot;https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\&quot;https://carto.com/attributions\&quot;\u003eCARTO\u003c/a\u003e&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 12, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_f0963ca97cf561bfd66d45fb614a4d48.addTo(map_b27b2c00ac2d281733d7f3a69f4f033b);
+            tile_layer_41262e2b9618249ad071d301cea84837.addTo(map_598fe7e03596324309ca66d408e16067);
         
     
-            map_b27b2c00ac2d281733d7f3a69f4f033b.fitBounds(
-                [[60.18734485, 24.826497936777006], [60.2044199, 24.9617693]],
+            map_598fe7e03596324309ca66d408e16067.fitBounds(
+                [[60.18734485, 24.826497936777006], [60.20424, 24.9614856]],
                 {}
             );
         
     
-        function geo_json_245a3321edcbe3cb60ab29c712a6bad6_styler(feature) {
+        function geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_styler(feature) {
             switch(feature.id) {
                 default:
                     return {&quot;color&quot;: &quot;red&quot;, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
             }
         }
-        function geo_json_245a3321edcbe3cb60ab29c712a6bad6_highlighter(feature) {
+        function geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_highlighter(feature) {
             switch(feature.id) {
                 default:
                     return {&quot;fillOpacity&quot;: 0.75};
             }
         }
-        function geo_json_245a3321edcbe3cb60ab29c712a6bad6_pointToLayer(feature, latlng) {
+        function geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_pointToLayer(feature, latlng) {
             var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 8, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
             
-            let style = geo_json_245a3321edcbe3cb60ab29c712a6bad6_styler(feature)
+            let style = geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_styler(feature)
             Object.assign(opts, style)
             
             return new L.CircleMarker(latlng, opts)
         }
 
-        function geo_json_245a3321edcbe3cb60ab29c712a6bad6_onEachFeature(feature, layer) {
+        function geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_onEachFeature(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if(typeof e.target.setStyle === &quot;function&quot;){
-                            geo_json_245a3321edcbe3cb60ab29c712a6bad6.resetStyle(e.target);
+                            geo_json_ef39c6632f0e12d4b39c3bbc6e53996c.resetStyle(e.target);
                     }
                 },
                 mouseover: function(e) {
                     if(typeof e.target.setStyle === &quot;function&quot;){
-                        const highlightStyle = geo_json_245a3321edcbe3cb60ab29c712a6bad6_highlighter(e.target.feature)
+                        const highlightStyle = geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_highlighter(e.target.feature)
                         e.target.setStyle(highlightStyle);
                     }
                 },
             });
         };
-        var geo_json_245a3321edcbe3cb60ab29c712a6bad6 = L.geoJson(null, {
-                onEachFeature: geo_json_245a3321edcbe3cb60ab29c712a6bad6_onEachFeature,
+        var geo_json_ef39c6632f0e12d4b39c3bbc6e53996c = L.geoJson(null, {
+                onEachFeature: geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_onEachFeature,
             
-                style: geo_json_245a3321edcbe3cb60ab29c712a6bad6_styler,
-                pointToLayer: geo_json_245a3321edcbe3cb60ab29c712a6bad6_pointToLayer,
+                style: geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_styler,
+                pointToLayer: geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_pointToLayer,
         });
 
-        function geo_json_245a3321edcbe3cb60ab29c712a6bad6_add (data) {
-            geo_json_245a3321edcbe3cb60ab29c712a6bad6
+        function geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_add (data) {
+            geo_json_ef39c6632f0e12d4b39c3bbc6e53996c
                 .addData(data);
         }
-            geo_json_245a3321edcbe3cb60ab29c712a6bad6_add({&quot;bbox&quot;: [24.826497936777006, 60.18734485, 24.9617693, 60.2044199], &quot;features&quot;: [{&quot;bbox&quot;: [24.9617693, 60.2044199, 24.9617693, 60.2044199], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9617693, 60.2044199], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;address&quot;: &quot;Unicafe, 5, Pietari Kalmin katu, Kumpulan kampus, Kumpula, Keskinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Etel\u00e4-Suomen aluehallintovirasto, Manner-Suomi, 00560, Suomi / Finland&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.826497936777006, 60.18734485, 24.826497936777006, 60.18734485], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.826497936777006, 60.18734485], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;1&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;address&quot;: &quot;Aalto-yliopisto Konetekniikka 1, 4, Otakaari, Teekkarikyl\u00e4, Otaniemi, Suur-Tapiola, Espoo, Helsingin seutukunta, Uusimaa, Etel\u00e4-Suomen aluehallintovirasto, Manner-Suomi, 02150, Suomi / Finland&quot;}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+            geo_json_ef39c6632f0e12d4b39c3bbc6e53996c_add({&quot;bbox&quot;: [24.826497936777006, 60.18734485, 24.9614856, 60.20424], &quot;features&quot;: [{&quot;bbox&quot;: [24.9614856, 60.20424, 24.9614856, 60.20424], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.9614856, 60.20424], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;address&quot;: &quot;Gurula, 5, Pietari Kalmin katu, Kumpulan kampus, Kumpula, Keskinen suurpiiri, Helsinki, Helsingin seutukunta, Uusimaa, Manner-Suomi, 00560, Suomi / Finland&quot;}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [24.826497936777006, 60.18734485, 24.826497936777006, 60.18734485], &quot;geometry&quot;: {&quot;coordinates&quot;: [24.826497936777006, 60.18734485], &quot;type&quot;: &quot;Point&quot;}, &quot;id&quot;: &quot;1&quot;, &quot;properties&quot;: {&quot;__folium_color&quot;: &quot;red&quot;, &quot;address&quot;: &quot;Aalto-yliopisto Konetekniikka 1, 4, Otakaari, Teekkarikyl\u00e4, Otaniemi, Suur-Tapiola, Espoo, Helsingin seutukunta, Uusimaa, Manner-Suomi, 02150, Suomi / Finland&quot;}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
 
         
     
-    geo_json_245a3321edcbe3cb60ab29c712a6bad6.bindTooltip(
+    geo_json_ef39c6632f0e12d4b39c3bbc6e53996c.bindTooltip(
     function(layer){
     let div = L.DomUtil.create(&#x27;div&#x27;);
     
@@ -940,7 +1138,7 @@
     ,{&quot;className&quot;: &quot;foliumtooltip&quot;, &quot;sticky&quot;: true});
                      
     
-            geo_json_245a3321edcbe3cb60ab29c712a6bad6.addTo(map_b27b2c00ac2d281733d7f3a69f4f033b);
+            geo_json_ef39c6632f0e12d4b39c3bbc6e53996c.addTo(map_598fe7e03596324309ca66d408e16067);
         
 &lt;/script&gt;
 &lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
@@ -950,7 +1148,7 @@
 </section>
 <section id="reverse-geocoding">
 <h2>Reverse geocoding<a class="headerlink" href="#reverse-geocoding" title="Link to this heading">#</a></h2>
-<p>Naturally, it is also possible to do geocoding in a reverse manner, meaning that we have a list of points / coordinates and we want to find out the address for these points. In the following, we continue using the same points that we stored previously into the <code class="docutils literal notranslate"><span class="pre">geo</span></code> geodataframe, but at this time, we do the reverse geocoding with them. Let’s start by selecting only the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column from the data:</p>
+<p>Naturally, it is also possible to do geocoding in a reverse manner, meaning that we have a list of points / coordinates and we want to find out the address for these points. In the following, we continue using the same points that we stored previously into the <code class="docutils literal notranslate"><span class="pre">geo</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, but at this time, we do the reverse geocoding with them. Let’s start by selecting only the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column from the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -987,19 +1185,19 @@
     </tr>
     <tr>
       <th>1</th>
-      <td>POINT (24.93166 60.16905)</td>
+      <td>POINT (24.93009 60.16846)</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>POINT (24.94153 60.17016)</td>
+      <td>POINT (24.94178 60.16989)</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>POINT (24.97753 60.18819)</td>
+      <td>POINT (24.97409 60.19561)</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>POINT (24.9216 60.1565)</td>
+      <td>POINT (24.92151 60.15662)</td>
     </tr>
   </tbody>
 </table>
@@ -1008,7 +1206,7 @@
 <p>Now we have a simple <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> with only point objects stored into the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column. To do the reverse geocoding, i.e. finding addresses to these points, we can use the <code class="docutils literal notranslate"><span class="pre">reverse_geocode()</span></code> function of <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. The <code class="docutils literal notranslate"><span class="pre">reverse_geocode()</span></code> works similarly as the <code class="docutils literal notranslate"><span class="pre">geocode()</span></code> function that we saw earlier, but in this case the function accepts as an input either a <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code>, or a list of <code class="docutils literal notranslate"><span class="pre">shapely</span></code> <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects. Similarly as described before, you also should specify the geocoding <code class="docutils literal notranslate"><span class="pre">provider</span></code>, the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> and the <code class="docutils literal notranslate"><span class="pre">timeout</span></code> value. In the following, we use the geometries stored in the <code class="docutils literal notranslate"><span class="pre">points</span></code> geodataframe and use those to do the reverse geocoding:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geopandas.tools</span> <span class="kn">import</span> <span class="n">reverse_geocode</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">geopandas.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reverse_geocode</span>
 
 <span class="n">reverse_geocoded</span> <span class="o">=</span> <span class="n">reverse_geocode</span><span class="p">(</span>
     <span class="n">points</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;nominatim&quot;</span><span class="p">,</span> <span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;pythongis_book&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span>
@@ -1048,29 +1246,29 @@
     </tr>
     <tr>
       <th>1</th>
-      <td>POINT (24.93166 60.16905)</td>
-      <td>Kamppi, 1, Kampinkuja, Kamppi, Eteläinen suurp...</td>
+      <td>POINT (24.93009 60.16846)</td>
+      <td>1, Kampinkuja, Kamppi, Eteläinen suurpiiri, He...</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>POINT (24.94153 60.17016)</td>
-      <td>Espresso House, 8, Kaivokatu, Keskusta, Kluuvi...</td>
+      <td>POINT (24.94178 60.16989)</td>
+      <td>Tokmanni, 8, Kaivokatu, Keskusta, Kluuvi, Etel...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>POINT (24.97722 60.18824)</td>
-      <td>2, Hermannin rantatie, Verkkosaari, Kalasatama...</td>
+      <td>POINT (24.97409 60.19561)</td>
+      <td>Hermannin rantatie, Hermanninranta, Hermanni, ...</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>POINT (24.9216 60.1565)</td>
+      <td>POINT (24.92151 60.15662)</td>
       <td>9, Tyynenmerenkatu, Jätkäsaari, Länsisatama, E...</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>As a result, we now have the addresses for each point stored into the <code class="docutils literal notranslate"><span class="pre">address</span></code> column which can be useful e.g. if you want to visualize the points on a map and also show the address to these locations as an extra information.</p>
+<p>As a result, we now have the addresses for each point stored into the <code class="docutils literal notranslate"><span class="pre">address</span></code> column which can be useful, e.g., if you want to visualize the points on a map and also show the address to these locations as an extra information.</p>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
@@ -1137,8 +1335,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1177,7 +1374,7 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
       <br/>
     
   </p>
@@ -1201,8 +1398,8 @@ By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

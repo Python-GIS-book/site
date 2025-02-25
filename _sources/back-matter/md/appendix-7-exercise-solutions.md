@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -196,5 +196,143 @@ def temp_classifier(temp_celsius):
 celsius_temps = [17, 2, 1.9, -2]
 for celsius_temp in celsius_temps:
     print(f"The temperature {celsius_temp} °C is in category {temp_classifier(celsius_temp)}.")
+```
+<!-- #endregion -->
+
+## Chapter 6
+
+<!-- #region -->
+### Exercise 6.1
+
+```python
+from shapely.geometry import Point, LineString
+```
+```python
+#1. Line and line length (example values)
+line = LineString([(0.0, 0.0), (3.0, 4.0), (1.5, 5.5)])
+print("Line length:", line.length)
+
+#Print out the variable for quick visualization
+line
+```
+```python
+#2. Point and buffer area (example values)
+point = Point([3,3])
+buffer = point.buffer(100)
+print("Buffer area:", buffer.area)
+
+#Print out the variable for quick visualization
+buffer
+```
+<!-- #endregion -->
+
+<!-- #region -->
+### Exercise 6.2
+```python
+import pandas as pd
+import geopandas as gpd
+from shapely.geometry import LineString
+```
+```python
+# Problem 1: Read the file
+fp = 'data/Helsinki/travelTimes_2015_Helsinki.txt'
+data = pd.read_csv(fp, sep=';', usecols=['from_x','from_y','to_x','to_y', 'total_route_time'])
+data.head()
+```
+```python
+# Problem 2: Create geometries
+data['from_geom'] = gpd.points_from_xy(data['from_x'], data['from_y'])
+data['to_geom'] = gpd.points_from_xy(data['to_x'], data['to_y'])
+
+data.head()
+
+```
+```python
+
+# Problem 3: Create LineString geometries
+
+# Option 1: Apply a lambda function that creates the LineString objects for each row
+data['route_geom'] = data.apply(lambda x: LineString([x['from_geom'], x['to_geom']]), axis=1)
+
+# Option 2: use zip and a for-loop
+lines = []
+
+for origin, destination in zip(data['from_geom'], data['to_geom']):
+    # Create a LineString
+    line = LineString([origin, destination])
+    lines.append(line)
+    
+data['route_geom'] = lines
+
+# Check the result
+data.head()
+```
+```python
+# Problem 4: Convert DataFrame into a GeoDataFrame. Set correct geometry column and crs.
+data = gpd.GeoDataFrame(data, geometry="route_geom", crs=4326)
+
+#Check crs name
+print(data.crs.name)
+```
+```python
+#Problem 5: Re-project the data
+print("Old crs:", data.crs.name)
+data = data.to_crs(epsg=3067)
+print("New crs:", data.crs.name)
+data.head()
+```
+```python
+#Problem 6: Calculate average trip distance
+data['route_length'] = data.length
+data['route_length'].describe()
+print("Median route length:", round(data['route_length'].median()), "meters.")
+```
+<!-- #endregion -->
+
+### Exercise 6.3 - Buffer and spatial join
+
+<!-- #region -->
+```python
+#1. Import needed modules and read in the data
+import geopandas as gpd
+
+addr_fp = "data/Helsinki/addresses.shp"
+addresses = gpd.read_file(addr_fp)
+
+pop_grid_fp = "data/Helsinki/Population_grid_2021_HSY.gpkg"
+pop_grid = gpd.read_file(pop_grid_fp)
+```
+
+```python
+#2. Check coordinate reference systems and re-project
+print("Address points CRS:", addresses.crs.name)
+print("Population grid CRS:", pop_grid.crs.name)
+print("Same CRS?:", addresses.crs == pop_grid.crs)
+
+# Re-project ot the metric CRS
+addresses = addresses.to_crs(pop_grid.crs)
+print("Same CRS?:", addresses.crs == pop_grid.crs)
+```
+
+```python
+#3. Create a 500 meter buffer around each transit station.
+addresses["geometry"] = addresses.buffer(500)
+```
+
+```python
+#4. Convert the population grid geometries (polygons) into centroid points 
+pop_grid["geometry"] = pop_grid.centroid
+```
+```python
+#5. Join information about the buffer into each intersecting point
+joined = gpd.sjoin(pop_grid, addresses, how="inner", predicate="intersects")
+```
+```python
+#6. Aggregate the results for each buffer so that you get population sum per buffer
+pop_per_station = joined.groupby("id").inhabitants.sum()
+```
+```python
+# 7. Get total number of people living within 500 meters from the nearest transit station.
+pop_per_station.sum()
 ```
 <!-- #endregion -->

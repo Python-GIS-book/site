@@ -1,0 +1,1633 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Watershed analysis with pysheds</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part3/chapter-12/md/00-watershed-analysis-with-pysheds';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part1/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">2.1 Getting started with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/01-lists-and-indices.html">2.2 Lists and indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/02-text-and-numbers.html">2.3 Working with text and numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/03-for-loops.html">2.4 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/04-conditional-statements.html">2.5 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/05-functions.html">2.6 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/06-writing-scripts.html">2.7 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/07-modules.html">2.8 Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/08-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-03/index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in vector format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-data-structures-xarray.html">7.2 Introduction to data structures in xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/06-surface-analysis.html">7.7 Surface analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-retrieving-osm-data.html">9.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-retrieving-data-from-wfs.html">9.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-retrieving-data-from-wcs.html">9.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/03-read-data-from-spatial-databases.html">9.4 Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-10/index.html">10. Spatial interpolation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/00-introduction-to-spatial-interpolation.html">Introduction to spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/01-inverse-distance-weighting.html">Inverse Distance Weighting interpolation with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-11/index.html">11. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-11/nb/00-introduction-to-spatial-network-analysis.html">Introduction to spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-11/nb/02-multimodal-spatial-accessibility-modelling.html">Multimodal spatial accessibility analysis with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-11/nb/03-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">Version control with git/GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Data overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/part3/chapter-12/md/00-watershed-analysis-with-pysheds.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part3/chapter-12/md/00-watershed-analysis-with-pysheds.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Watershed analysis with pysheds</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Watershed analysis with pysheds</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-introduction-to-watershed-analysis">A brief introduction to watershed analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-digital-elevation-data">Loading the digital elevation data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-watersheds-using-pysheds">Extracting watersheds using pysheds</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-watershed-delineation">Overview of watershed delineation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-dem-into-pysheds">Reading the DEM into pysheds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-dem-for-analysis-in-pysheds">Preparing a DEM for analysis in pysheds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-output-to-file">Writing output to file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-dem-for-analysis-in-pysheds-continued">Preparing a DEM for analysis in pysheds (continued)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-values-related-to-surface-water-flows">Calculating values related to surface water flows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-and-extracting-a-watershed">Defining and extracting a watershed</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzing-the-watershed-data">Analyzing the watershed data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-the-watershed-data-to-xarray">Exporting the watershed data to xarray</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-basin-hypsometry">Calculating basin hypsometry</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automating-the-process">Automating the process</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-river-names-to-analyze">List of river names to analyze</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#truncated-for-the-book-format-full-list-on-https-pythongis-org">Truncated for the book format. Full list on https://pythongis.org.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-outlets-for-the-rivers-to-analyze">List of outlets for the rivers to analyze</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Truncated for the book format. Full list on https://pythongis.org.</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-results">Plotting the results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!-- #region editable=true slideshow={"slide_type": ""} -->
+<section class="tex2jax_ignore mathjax_ignore" id="watershed-analysis-with-pysheds">
+<h1>Watershed analysis with pysheds<a class="headerlink" href="#watershed-analysis-with-pysheds" title="Link to this heading">#</a></h1>
+<p>In this case study we will cover how to extract watersheds and perform some example analyses of the elevation data in each watershed.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In this case study we will analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.</p>
+<p><img alt="Figure 12.1. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)." src="../../../_images/cook-river-watershed.png" /></p>
+<p><em><strong>Figure 12.1</strong>. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line).</em></p>
+<p>To get started, we’ll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you’re already familiar with delineating watersheds and things like basin hypsometry, feel free to skip ahead to Section 10.1.2.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="a-brief-introduction-to-watershed-analysis">
+<h3>A brief introduction to watershed analysis<a class="headerlink" href="#a-brief-introduction-to-watershed-analysis" title="Link to this heading">#</a></h3>
+<p>Watershed analysis is the process of analyzing the landscape and hydrology of <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Watershed"><span class="xref std std-term">watersheds</span></a></em> – land areas where surface water drains to a common outlet, such as a river, lake, or ocean. In our case we are interested in understanding how various factors, such as the area and/or topographic relief, vary within a set of river watersheds in the Southern Alps to be able to explore relationships related to landscape uplift and erosion. Thus, we will calculate a series of values for each watershed and then investigate how they vary within the study area.</p>
+<p>In order to perform our analysis, we will need to complete a series of steps including loading the digital elevation data for the study region, defining the areas of the watersheds of interest, analyzing the landscapes in each watershed, and visualizing the results. In the following sections we will explore each of these topics in more detail and demonstrate how to perform watershed analysis using Python.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<p>We can start by importing the libraries we need for this analysis. In this case, we will be using <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>, <code class="docutils literal notranslate"><span class="pre">pysheds</span></code>, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, and <code class="docutils literal notranslate"><span class="pre">geocube</span></code> in addition to more familiar packages such as <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. We will also use some custom functions from the <code class="docutils literal notranslate"><span class="pre">basin_functions.py</span></code> file, which you are welcome to check out if you want to know more about how the functions work.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">basin_functions</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geocube.vector</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectorize</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">colors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pysheds.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pysheds.view</span><span class="w"> </span><span class="kn">import</span> <span class="n">Raster</span><span class="p">,</span> <span class="n">ViewFinder</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rxr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># plt.style.use(&#39;seaborn-v0_8-whitegrid&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;bmh&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="loading-the-digital-elevation-data">
+<h3>Loading the digital elevation data<a class="headerlink" href="#loading-the-digital-elevation-data" title="Link to this heading">#</a></h3>
+<p>A mosaic of the data used for this case study has already been created and is provided as a geotiff image online at the address listed with the variable <code class="docutils literal notranslate"><span class="pre">bucket_dem_fp</span></code> below. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. The DEM data is from the <a class="reference external" href="https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm">ALOS World 3D-30m digital surface model</a> <a class="footnote-reference brackets" href="#alos" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> with approximately 30 m spatial resolution (e.g., <span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id22" title="T. Tadono, H. Ishida, F. Oda, S. Naito, K. Minakawa, and H. Iwamoto. Precise global dem generation by alos prism. ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, II-4:71–76, 2014. URL: https://isprs-annals.copernicus.org/articles/II-4/71/2014/, doi:10.5194/isprsannals-II-4-71-2014.">Tadono <em>et al.</em>, 2014</a></span>). Information about how the data have been processed to produce the mosaic we will use can be found in the <a class="reference internal" href="../../../data/New-Zealand-data.html"><span class="doc">data for New Zealand section</span></a> online. We will be using this elevation data to extract and analyze river drainage basins on the western side of the New Zealand Alps.</p>
+<p>To start, we can read in the data using <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># S3 bucket containing the data</span>
+<span class="n">bucket_home</span> <span class="o">=</span> <span class="s2">&quot;https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/&quot;</span>
+<span class="n">bucket_dem_file</span> <span class="o">=</span> <span class="s2">&quot;elevation/new_zealand/south_island_nz.tif&quot;</span>
+<span class="n">bucket_dem_fp</span> <span class="o">=</span> <span class="n">bucket_home</span> <span class="o">+</span> <span class="n">bucket_dem_file</span>
+
+<span class="c1"># Read the input data file</span>
+<span class="n">south_island</span> <span class="o">=</span> <span class="n">rxr</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span><span class="n">bucket_dem_fp</span><span class="p">)</span><span class="o">.</span><span class="n">drop_vars</span><span class="p">(</span><span class="s2">&quot;band&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Now we can have a look at the data in a bit more detail by printing out the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> called <code class="docutils literal notranslate"><span class="pre">south_island</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">south_island</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>As we can see above we have a dataset with around 194 million elevations (18000 longitude points and 10800 latitude points). The values at each point are the elevation of the surface or <code class="docutils literal notranslate"><span class="pre">NaN</span></code> if the points are below sea level or missing from the DEM.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="extracting-watersheds-using-pysheds">
+<h2>Extracting watersheds using pysheds<a class="headerlink" href="#extracting-watersheds-using-pysheds" title="Link to this heading">#</a></h2>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="overview-of-watershed-delineation">
+<h3>Overview of watershed delineation<a class="headerlink" href="#overview-of-watershed-delineation" title="Link to this heading">#</a></h3>
+<p>The next step in our workflow is to load the DEM into <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> <a class="footnote-reference brackets" href="#pysheds" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> to start working on the steps to define the boundaries of the watersheds. <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> is a Python library designed for <a class="reference external" href="https://mattbartos.com/pysheds/">efficient processing of DEM data and extraction of watersheds</a>. However, before we get into using <code class="docutils literal notranslate"><span class="pre">pysheds</span></code>, it would be good to review some of the steps needed to define boundaries of watersheds.</p>
+<p>The process of watershed delineation is essentially defining the points that lie upstream (or up slope) of a specified outlet point on a digital elevation model. Outlet points can be found various ways, and in this case study they were simply selected visually from <a class="reference external" href="https://www.google.com/maps">Google Maps</a> by finding the locations where rivers along the western side of the New Zealand Alps between roughly 42.4 °S and 44.0 °S exit their valleys. This latitude range corresponds roughly to a long, linear segment of the <a class="reference external" href="https://en.wikipedia.org/wiki/Alpine_Fault">Alpine Fault</a>, the boundary between the Australian and Pacific tectonic plates.</p>
+<p>However, once outlet points have been selected, there are still several important steps for processing a DEM such that watersheds can be defined. For instance, the DEM must be updated such that a route to the outlet points can be found using the assumption that water will flow to neighboring cells at lower elevations. The first set of steps are collectively referred to as “hydrological conditioning” of the DEM. Conditioning steps include:</p>
+<ul class="simple">
+<li><p>Filling pits in the DEM. Pits are individual cells in the DEM that have no neighbor cell with a lower elevation (outlet). The elevations of pits must be increased to the point that their height is equal to or greater than at least one neighbor cell.</p></li>
+<li><p>Filling depressions in the DEM. Similar to filling pits, groups of cells that have no outlet (depressions) must be filled (have their elevation increased) such that the elevation is equal to or greater than at least one neighbor cell.</p></li>
+<li><p>Resolving flats. Water cannot flow downhill in flat regions of a DEM, such as a lake. Thus, flat regions in the DEM also need to be corrected such that water can always flow to a downstream outlet.</p></li>
+</ul>
+<p>Once the DEM has been conditioned, there are a few additional steps needed to produce the necessary information for watershed delineation, which are performed using the updated DEM. These steps include:</p>
+<ul class="simple">
+<li><p>Determining flow directions. In order to be able to define the watershed it is necessary to identify all DEM cells where water would be routed to the defined watershed outlet. Flow directions indicate the direction in which water would be expected to flow from every cell in the DEM, which allows the directions to be traced upstream from the outlet to the point where flow directions diverge at the boundary of the watershed.</p></li>
+<li><p>Determining flow accumulation. Flow accumulation is a calculation of how many upstream cells drain into each cell in the DEM. This isn’t strictly needed for watershed delineation, but can be helpful in finding river channels in the DEM if selected outlet points are not located exactly in a channel cell. We will return to this below.</p></li>
+</ul>
+<p>Once these steps have been completed, it is possible to delineate a watershed upstream of a specified outlet point.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="reading-the-dem-into-pysheds">
+<h3>Reading the DEM into pysheds<a class="headerlink" href="#reading-the-dem-into-pysheds" title="Link to this heading">#</a></h3>
+<p>At this stage we can begin the DEM processing steps using <code class="docutils literal notranslate"><span class="pre">pysheds</span></code>. The first step is to read in the DEM. To do this, we need to define the elevation data that will be used (<code class="docutils literal notranslate"><span class="pre">data</span></code>), the affine transformation matrix (<code class="docutils literal notranslate"><span class="pre">affine</span></code>), the coordinate reference system (<code class="docutils literal notranslate"><span class="pre">crs</span></code>), and the value used to indicate missing data (<code class="docutils literal notranslate"><span class="pre">nodata</span></code>). As a reminder, the affine transformation matrix and coordinate reference system values were introduced in Sections 7.2 and 7.4. The values used in the case are defined below.</p>
+<p>And it is worthwhile to note that it is also possible to read geotiff DEMs into <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> directly. In this case study, the data are read in using <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> because we have seen this before and <a class="reference internal" href="../../../data/New-Zealand-data.html"><span class="doc">pre-processing of the data was done to create a mosaic</span></a> using <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>. As a reminder, creating mosaics of raster data was covered in Section 7.3.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">south_island</span><span class="o">.</span><span class="n">data</span>
+<span class="n">affine</span> <span class="o">=</span> <span class="n">south_island</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
+<span class="n">crs</span> <span class="o">=</span> <span class="n">south_island</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span>
+<span class="c1"># Keep same data type as DEM values for nodata</span>
+<span class="n">nodata</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The values above can then be used to define the <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> <code class="docutils literal notranslate"><span class="pre">ViewFinder</span></code>, which defines the spatial reference system for the DEM. After defining the <code class="docutils literal notranslate"><span class="pre">ViewFinder</span></code>, the elevation data can be read in using the <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> <code class="docutils literal notranslate"><span class="pre">Raster()</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewfinder</span> <span class="o">=</span> <span class="n">ViewFinder</span><span class="p">(</span><span class="n">affine</span><span class="o">=</span><span class="n">affine</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">crs</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="n">nodata</span><span class="p">)</span>
+<span class="n">dem</span> <span class="o">=</span> <span class="n">Raster</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">viewfinder</span><span class="o">=</span><span class="n">viewfinder</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, a <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> <code class="docutils literal notranslate"><span class="pre">Grid</span></code> object is created, which allows visualization of the DEM data and the use of various <code class="docutils literal notranslate"><span class="pre">Grid</span></code> methods for processing the elevation data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create grid</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="o">.</span><span class="n">from_raster</span><span class="p">(</span><span class="n">dem</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="preparing-a-dem-for-analysis-in-pysheds">
+<h3>Preparing a DEM for analysis in pysheds<a class="headerlink" href="#preparing-a-dem-for-analysis-in-pysheds" title="Link to this heading">#</a></h3>
+<p>Now we are ready to begin processing the data. As noted above, we’re working with a fairly large DEM (~194 million points). Before continuing, we note here that some output plots and supplementary information are provided only in the online version of this book at <a class="reference external" href="https://pythongis.org">https://pythongis.org</a>. These additional materials are not presented in the print version of the book to save space (and are not needed to understand this case study).</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>The processing of the data with <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> generally goes smoothly, but it is possible that the JupyterLab kernel might crash at some stage. As a result, we will use an additional variable below (<code class="docutils literal notranslate"><span class="pre">checkpoint</span></code>), which will write output to files at different stages and allow us to restart the processing from various points if the kernel crashes. If you do not want to want checkpoint output written to the <code class="docutils literal notranslate"><span class="pre">checkpoint_data</span></code> directory, set <code class="docutils literal notranslate"><span class="pre">checkpoint</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">checkpoint</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>The first step in the process is to detect any pits in the DEM, which can be done using the <code class="docutils literal notranslate"><span class="pre">.detect_pits()</span></code> <code class="docutils literal notranslate"><span class="pre">Grid</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detect number of pits in DEM</span>
+<span class="n">pits</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">detect_pits</span><span class="p">(</span><span class="n">dem</span><span class="p">)</span>
+<span class="n">npits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">pits</span><span class="p">)</span>
+
+<span class="c1"># Check number of pits</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of pits found: </span><span class="si">{</span><span class="n">npits</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>After detecting the pits it is possible to visualize their locations by plotting the <code class="docutils literal notranslate"><span class="pre">pits</span></code> values, as shown below. Unfortunately in this case, the number of elevations is so large that the 626,348 pits are not visible in the resulting plot. For smaller DEMs these points could be visible.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot pits if more than zero</span>
+<span class="k">if</span> <span class="n">npits</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># Plot pits</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pits</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Pits&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><em>Visualization of the pits detected in the raw DEM.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>As there are clearly many pits in the DEM (626,348), it is necessary to next fill in the pits using the <code class="docutils literal notranslate"><span class="pre">.fill_pits()</span></code> method. After doing this, we can check that the pits have been filled using an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill pits and check they have been filled</span>
+<span class="n">pit_filled_dem</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">fill_pits</span><span class="p">(</span><span class="n">dem</span><span class="p">)</span>
+<span class="n">pits</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">detect_pits</span><span class="p">(</span><span class="n">pit_filled_dem</span><span class="p">)</span>
+<span class="k">assert</span> <span class="ow">not</span> <span class="n">pits</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>So, now all pits have been filled, but other depressions may still exist in the DEM, which we will now detect (and fill if they exist). We can detect depressions using the <code class="docutils literal notranslate"><span class="pre">detect_depressions()</span></code> method.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detect depressions - Slow. May take 5 minutes or more.</span>
+<span class="n">depressions</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">detect_depressions</span><span class="p">(</span><span class="n">pit_filled_dem</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>If we were to check the number of depressions like was done for the pits above, we would find there are zero depressions. However this is incorrect, and may be related to the large number of nodata values in the sea areas of the DEM we are working with. There are indeed some depressions that need to be filled, and we can do that below.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>As was the case for the pits, it is possible to visualize the locations of depressions in the DEM. Again, however, no depressions are visible in the plot.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot depressions - in case you would like to do so with other DEMs</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">depressions</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Depressions&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><em>Visualization of the depressions detected in the pit-filled DEM.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+</section>
+<section id="writing-output-to-file">
+<h3>Writing output to file<a class="headerlink" href="#writing-output-to-file" title="Link to this heading">#</a></h3>
+<p>Since detecting the depressions can take a few minutes, this is a good point to use the <code class="docutils literal notranslate"><span class="pre">checkpoint</span></code> variable to save the current output to a file in case there is a need to restart the notebook. We can write out the values from the DEM with pits filled (<code class="docutils literal notranslate"><span class="pre">pit_filled_dem</span></code>) and detected depressions (<code class="docutils literal notranslate"><span class="pre">depressions</span></code>) to separate files using the <code class="docutils literal notranslate"><span class="pre">.to_raster()</span></code> method of <code class="docutils literal notranslate"><span class="pre">pysheds</span></code>. Details about writing data to files in <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> can be found in the <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> <a class="reference external" href="https://mattbartos.com/pysheds/file-io.html">File I/O documentation</a> <a class="footnote-reference brackets" href="#fileio" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">checkpoint</span><span class="p">:</span>
+    <span class="c1"># Write dataset to file</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span>
+        <span class="n">pit_filled_dem</span><span class="p">,</span>
+        <span class="s2">&quot;checkpoint_data/pit_filled_dem.tif&quot;</span><span class="p">,</span>
+        <span class="n">blockxsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">blockysize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># NOTE: Need to use &quot;int&quot; for dtype to avoid write error for boolean values</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span>
+        <span class="n">depressions</span><span class="p">,</span>
+        <span class="s2">&quot;checkpoint_data/detected_depressions.tif&quot;</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">blockxsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">blockysize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>We have now written output to files and thus it is possible to restart the analysis from this point. You can read in the output data in the cell below (if desired) by setting <code class="docutils literal notranslate"><span class="pre">continue_from_here</span></code> to be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">continue_from_here</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="n">continue_from_here</span><span class="p">:</span>
+    <span class="n">grid</span><span class="p">,</span> <span class="n">pit_filled_dem</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/pit_filled_dem.tif&quot;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">depressions</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/detected_depressions.tif&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+</section>
+<section id="preparing-a-dem-for-analysis-in-pysheds-continued">
+<h3>Preparing a DEM for analysis in pysheds (continued)<a class="headerlink" href="#preparing-a-dem-for-analysis-in-pysheds-continued" title="Link to this heading">#</a></h3>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>The next step in the analysis is to fill depressions. Depressions can be filled using the <code class="docutils literal notranslate"><span class="pre">.fill_depressions()</span></code> method. As above, we can use an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement to ensure there are not remaining depressions in the DEM.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill depressions - Slow, takes 5-10 minutes...</span>
+<span class="n">flooded_dem</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">fill_depressions</span><span class="p">(</span><span class="n">pit_filled_dem</span><span class="p">)</span>
+<span class="n">depressions</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">detect_depressions</span><span class="p">(</span><span class="n">flooded_dem</span><span class="p">)</span>
+<span class="k">assert</span> <span class="ow">not</span> <span class="n">depressions</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>If the <code class="docutils literal notranslate"><span class="pre">checkpoint</span></code> option is being used, the cell below provides the option to write <code class="docutils literal notranslate"><span class="pre">flooded_dem</span></code> to file using the same approach as above for the pit-filled DEM.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">checkpoint</span><span class="p">:</span>
+    <span class="c1"># Write dataset to file</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span>
+        <span class="n">flooded_dem</span><span class="p">,</span> <span class="s2">&quot;checkpoint_data/flooded_dem.tif&quot;</span><span class="p">,</span> <span class="n">blockxsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">blockysize</span><span class="o">=</span><span class="mi">16</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">continue_from_here</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="n">continue_from_here</span><span class="p">:</span>
+    <span class="n">grid</span><span class="p">,</span> <span class="n">pit_filled_dem</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/pit_filled_dem.tif&quot;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">depressions</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/detected_depressions.tif&quot;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">flooded_dem</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/flooded_dem.tif&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Now that all depressions and pits in the DEM have been filled, we can proceed to handling flow routing across flats (such as lakes) in the DEM. We will first detect if there are any flats using the <code class="docutils literal notranslate"><span class="pre">.detect_flats()</span></code> method.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detect flats</span>
+<span class="n">flats</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">detect_flats</span><span class="p">(</span><span class="n">flooded_dem</span><span class="p">)</span>
+<span class="n">nflats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">flats</span><span class="p">)</span>
+
+<span class="c1"># Check number of flats</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of flats found: </span><span class="si">{</span><span class="n">nflats</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Looks like we have plenty of flat regions in the DEM!</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>As was the case earlier, it is possible to visualize the locations of flat regions in the DEM by plotting the <code class="docutils literal notranslate"><span class="pre">flats</span></code> values. In contrast to the case for the pits and depressions above, visualizing the flat regions in the DEM clearly shows their locations.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot flats</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">flats</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Flats&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><em>Visualization of the flats detected in the flooded DEM.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Flat regions in the DEM can be handled by processing the flooded DEM to determine how water would be routed across the flat regions. In <code class="docutils literal notranslate"><span class="pre">pysheds</span></code>, this can be done using the <code class="docutils literal notranslate"><span class="pre">.resolve_flats()</span></code> method.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resolve flats</span>
+<span class="n">inflated_dem</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">resolve_flats</span><span class="p">(</span><span class="n">flooded_dem</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Now that we have resolved the flat regions it is possible to move on to the steps related to determining flow directions and flow accumulation.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="calculating-values-related-to-surface-water-flows">
+<h3>Calculating values related to surface water flows<a class="headerlink" href="#calculating-values-related-to-surface-water-flows" title="Link to this heading">#</a></h3>
+<p>At this stage we can use the inflated DEM (with flats resolved) to determine two key things: (1) the direction water flows at all points on the surface of the DEM (flow direction), and (2) the number of cells draining into each cell in the DEM (flow accumulation). Flow directions can be calculated using the <code class="docutils literal notranslate"><span class="pre">.flowdir()</span></code> method and flow accumulation can be calculated using the <code class="docutils literal notranslate"><span class="pre">.accumulation()</span></code> method, as shown below.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute flow direction based on corrected DEM (D8)</span>
+<span class="n">fdir</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">flowdir</span><span class="p">(</span><span class="n">inflated_dem</span><span class="p">)</span>
+
+<span class="c1"># Compute flow accumulation based on computed flow direction</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">accumulation</span><span class="p">(</span><span class="n">fdir</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>As was the case earlier, we can again check the values for the flow directions and flow accumulation by creating a plot of them. Here, we can plot the flow accumulation (<code class="docutils literal notranslate"><span class="pre">acc</span></code>) to see how things look.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot flow accumulation, if requested</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+    <span class="n">acc</span><span class="p">,</span>
+    <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cubehelix&quot;</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">acc</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+    <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;bilinear&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Upstream Cells&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Flow Accumulation&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><em>Visualization of the flow accumulation calculated using the inflated DEM.</em></p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">checkpoint</span><span class="p">:</span>
+    <span class="c1"># Write flow accumulation and directions to file</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span>
+        <span class="n">acc</span><span class="p">,</span> <span class="s2">&quot;checkpoint_data/flow_accumulation.tif&quot;</span><span class="p">,</span> <span class="n">blockxsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">blockysize</span><span class="o">=</span><span class="mi">16</span>
+    <span class="p">)</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span>
+        <span class="n">fdir</span><span class="p">,</span> <span class="s2">&quot;checkpoint_data/flow_directions.tif&quot;</span><span class="p">,</span> <span class="n">blockxsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">blockysize</span><span class="o">=</span><span class="mi">16</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">continue_from_here</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="n">continue_from_here</span><span class="p">:</span>
+    <span class="n">grid</span><span class="p">,</span> <span class="n">pit_filled_dem</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/pit_filled_dem.tif&quot;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">depressions</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/detected_depressions.tif&quot;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">flooded_dem</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/flooded_dem.tif&quot;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/flow_accumulation.tif&quot;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">fdir</span> <span class="o">=</span> <span class="n">continue_pysheds</span><span class="p">(</span><span class="s2">&quot;checkpoint_data/flow_directions.tif&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="defining-and-extracting-a-watershed">
+<h3>Defining and extracting a watershed<a class="headerlink" href="#defining-and-extracting-a-watershed" title="Link to this heading">#</a></h3>
+<p>With the flow directions and accumulation calculated, we can proceed to the steps for extracting a watershed that can be further analyzed. We will proceed through the steps for a single watershed before returning to the workflow to batch process a group of 38 rivers and creeks that drain the western side of the Southern Alps. Note that within this section the terms “watershed” and “catchment” will be used interchangeably, as some of the tools in <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> use the term “catchment.”</p>
+<p>In order to get started, we need to select a river outlet and specify its location. In this case we can use the Waiho River in the central part of the study area. The outlet location (170.182282 °E, 43.394347 °S) is defined as a Python tuple in the cell below.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outlet</span> <span class="o">=</span> <span class="p">(</span><span class="mf">170.182282</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.394347</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once the <code class="docutils literal notranslate"><span class="pre">outlet</span></code> location is defined we can use the <code class="docutils literal notranslate"><span class="pre">.catchment()</span></code> function to define the area of the watershed/catchment. However, we will take one additional step here. Sometimes the location of the outlet coordinates does not fall directly within the channel location in the DEM, which can lead to defining smaller parts of the watershed (e.g., tributary streams) instead of the full desired watershed area. To help with this, <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> has a <code class="docutils literal notranslate"><span class="pre">.snap_to_mask()</span></code> function that will adjust the specified <code class="docutils literal notranslate"><span class="pre">outlet</span></code> point to the nearest cell with a “high” flow accumulation (at least 1000 in this case). This will ensure that the point specified as <code class="docutils literal notranslate"><span class="pre">outlet</span></code> captures the full upstream drainage area.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Snap outlet point to nearby cell with high flow accumulation</span>
+<span class="n">x_snap</span><span class="p">,</span> <span class="n">y_snap</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">snap_to_mask</span><span class="p">(</span><span class="n">acc</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">outlet</span><span class="p">)</span>
+
+<span class="c1"># Delineate the watershed</span>
+<span class="n">catch</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">catchment</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_snap</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_snap</span><span class="p">,</span> <span class="n">fdir</span><span class="o">=</span><span class="n">fdir</span><span class="p">,</span> <span class="n">xytype</span><span class="o">=</span><span class="s2">&quot;coordinate&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now that we have extracted the watershed we can visualize and inspect the results. For the sake of demonstration we will look at four subplots of watershed data (Figure 12.2) produced from the cell below: (1) the watershed extent, (2) the watershed elevations, (3) the watershed flow directions, and (4) the watershed flow accumulation. These are plotted using the <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> function <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code>, and otherwise use plotting syntax that should be familiar from Chapter 4.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clip and set view extents</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">clip_to</span><span class="p">(</span><span class="n">catch</span><span class="p">)</span>
+<span class="n">catch_view</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">catch</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">fdir_view</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">fdir</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">acc_view</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">dem_view</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">dem</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+<span class="c1"># Create figure and plot axes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Plot watershed extent</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">catch_view</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Extent&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude (°N)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot watershed elevations</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dem_view</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Elevation&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot watershed flow directions</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">fdir_view</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Flow direction&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude (°E)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude (°N)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot watershed flow accumulation</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+    <span class="n">acc_view</span><span class="p">,</span>
+    <span class="n">extent</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span>
+    <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cubehelix&quot;</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">acc</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+    <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;bilinear&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Flow accumulation&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude (°E)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add a figure title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Waiho River watershed&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 12.2</strong>. Waiho River watershed extent, elevations, flow directions, and flow accumulation.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="analyzing-the-watershed-data">
+<h2>Analyzing the watershed data<a class="headerlink" href="#analyzing-the-watershed-data" title="Link to this heading">#</a></h2>
+<p>Having extracted the watershed area, there are a handful of additional analyses we can perform using <code class="docutils literal notranslate"><span class="pre">pysheds</span></code>. A good place to start is by calculating the distance from each point in the watershed to the defined outlet point. This provides a measure of how many cells water must flow across to reach the outlet, which can be converted to a distance in meters. We can use the <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> <code class="docutils literal notranslate"><span class="pre">.distance_to_outlet()</span></code> function for this calculation.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute distance to outlet</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">distance_to_outlet</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">x_snap</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">y_snap</span><span class="p">,</span>
+    <span class="n">fdir</span><span class="o">=</span><span class="n">fdir</span><span class="p">,</span>
+    <span class="n">xytype</span><span class="o">=</span><span class="s2">&quot;coordinate&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Similar to the plot above of the catchment data, we can plot the distance to the outlet using <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create figure and axis</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Plot distance to outlet</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cividis_r&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add colorbar, axis labels, and a title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Distance to outlet (cells)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude (°E)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude (°N)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distance to outlet&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 12.3</strong>. Cell distances to defined outlet for the Waiho River watershed.</em></p>
+<p>It is also possible to extract the network of channels in the watershed using the <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> function <code class="docutils literal notranslate"><span class="pre">.extract_river_network()</span></code>. This will identify all regions of the flow accumulation grid where the accumulation exceeds a given threshold (parameter <code class="docutils literal notranslate"><span class="pre">acc</span></code>). In our case, all regions with an accumulation of over 100 cells will be identified. In addition, the channel segments are plotted using different colors to indicate when there are channel segments than join (channel junctions).</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract river network</span>
+<span class="n">branches</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">extract_river_network</span><span class="p">(</span><span class="n">fdir</span><span class="p">,</span> <span class="n">acc</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After calculating the branches, they can be plotted using the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> plotting function <code class="docutils literal notranslate"><span class="pre">plt.plot()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create figure and axis</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot channel segments</span>
+<span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]:</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">branch</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">][</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">line</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Add axis labels and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude (°E)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude (°N)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Channel network (&gt;100 accumulation)&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 12.4</strong>. Channel segments for the Waiho River watershed.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="exporting-the-watershed-data-to-xarray">
+<h3>Exporting the watershed data to xarray<a class="headerlink" href="#exporting-the-watershed-data-to-xarray" title="Link to this heading">#</a></h3>
+<p>While it is also possible to perform other watershed analyses using <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> (check the <a class="reference external" href="https://mattbartos.com/pysheds/"><code class="docutils literal notranslate"><span class="pre">pysheds</span></code> documentation</a> for more examples <a class="footnote-reference brackets" href="#pysheds" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>), the next set of analyses relies on exporting our watershed elevation data from <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> to <code class="docutils literal notranslate"><span class="pre">xarray</span></code>. Exporting to <code class="docutils literal notranslate"><span class="pre">xarray</span></code> will allow us to easily interact with the elevation data for the watershed, including performing analyses of the watershed elevations such as calculating the watershed hypsometry and hypsometric integral. In order to export the watershed elevations to <code class="docutils literal notranslate"><span class="pre">xarray</span></code> we need to extract the elevations themselves, as well as the latitude and longitude values for the watershed. Once those values have been extracted, an <code class="docutils literal notranslate"><span class="pre">xarray</span></code> <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> can be created using the <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> function, as shown below.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert watershed data for xarray</span>
+<span class="n">catchment</span> <span class="o">=</span> <span class="n">dem_view</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">catchment</span><span class="o">.</span><span class="n">data</span>
+
+<span class="c1"># Get latitude and longitude ranges</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">catchment</span><span class="o">.</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="c1"># Get latitude points in correct order (reverse order of array values)</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">catchment</span><span class="o">.</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Create DataArray</span>
+<span class="n">catch_xr</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">catchment</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">lat</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">lon</span><span class="p">},</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>That was easy! We will be using this approach later in this case study when we automate the processing of all 38 watersheds in the study area, so this might be a good case for creating a function to perform the conversion steps. Just such a function is provided for you in the <code class="docutils literal notranslate"><span class="pre">basin_functions.py</span></code> file wiht the name <code class="docutils literal notranslate"><span class="pre">to_xarray()</span></code>.</p>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>We can confirm that the conversion has gone as expected by plotting the watershed data using the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> function.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">catch_xr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;plasma&quot;</span><span class="p">,</span> <span class="n">cbar_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Elevation (m)&quot;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude (°E)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude (°N)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Waiho River data in xarray&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><em>Visualization of the Waiho River watershed elevations in <code class="docutils literal notranslate"><span class="pre">xarray</span></code>.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="calculating-basin-hypsometry">
+<h3>Calculating basin hypsometry<a class="headerlink" href="#calculating-basin-hypsometry" title="Link to this heading">#</a></h3>
+<p>Our next major step is to calculate a hypsometric integral for the basin, which can provide an estimate of the volume of material in the watershed that has been eroded by rivers and glaciers. <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Hypsometry"><span class="xref std std-term">Hypsometry</span></a></em> (or hypsometric analysis) refers to the measurement of the distribution of elevations of Earth’s (or other planet’s) surface elevations within a given area. In essence, it is a means to explore how much land area is within different elevation ranges, similar to calculating a histogram of elevations. On Earth, for instance, we can observe that <a class="reference external" href="https://en.wikipedia.org/wiki/Hypsometry">the majority of land area is at elevations within 800 meters of sea level, while little land area is at elevations greater than three kilometers</a> <a class="footnote-reference brackets" href="#elevations" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>. Hypsometric analysis of watersheds refers to the measurement of the distribution of elevations within a watershed (or drainage basin). A common product of hypsometric analysis of a watershed is a <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Hypsometric-curve"><span class="xref std std-term">hypsometric curve</span></a></em>, which shows the distribution of watershed area above a given elevation in the watershed (i.e., a cumulative distribution). The elevation range and areas of hypsometric curves are often normalized to allow comparison between various watersheds (e.g., Figure 12.5).</p>
+<p><img alt="Figure 12.5. Example normalized hypsometric curve for a watershed." src="../../../_images/hypsometric-curve.png" /></p>
+<p><em><strong>Figure 12.5</strong>. Example normalized hypsometric curve for a watershed.</em></p>
+<p>So, why do we care about the hypsometry of a watershed? There are a few reasons. One is the fact that the distribution of elevations in a drainage basin can tell us something about the geological processes that have shaped the land surface in the drainage basin. Rivers and glaciers carve their valleys into the underlying soil/rock at the surface in watersheds, eroding the landscape and altering the distribution of elevations within the basin. However, valley glaciers tend to form broad, deep valleys and remove more mass from a watershed than rivers would, which is something that would often be reflected in the hypsometry of the watershed. In a classic article, <span id="id7"><a class="reference internal" href="../../../back-matter/nb/references.html#id21" title="Arthur N Strahler. Hypsometric (area-altitude) analysis of erosional topography. Geological society of America bulletin, 63(11):1117–1142, 1952.">Strahler, 1952</a></span> presented the concept of the <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Hypsometric-integral"><span class="xref std std-term">hypsometric integral</span></a></em>, which is a single value that can be calculated by integrating the normalized hypsometric curve. Glaciated watersheds often experience more erosion of the rock within the watershed than fluvial watersheds, and the decreased volume of rock in the catchment is reflected in watershed areas concentrated at lower elevations and a lower hypsometric integral. We will explore hypsometry and hypsometric integrals in greater detail below.</p>
+<p>Calculating the basin hypsometry involves determining the frequency distribution of elevation within a given watershed. In other words, we want to know how frequent (in terms of the number of DEM cells) elevations occur within given elevation ranges, such as 600–800 m above sea level. The simplest way to do this us by calculating a histogram of elevations for the watershed, which can be done using the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> function <code class="docutils literal notranslate"><span class="pre">numpy.histogram()</span></code>. To perform the calculation, we need both the set of elevations for the entire watershed and the number of bins to use when calculating the elevation ranges. If we use 20 bins, for example, we could calculate the elevation histogram as follows. Note: we are excluding the NoData values explicitly from the dataset using <code class="docutils literal notranslate"><span class="pre">~np.isnan(catch_xr.values)</span></code> to get only the values are are not NoData.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">catchment_elevations</span> <span class="o">=</span> <span class="n">catch_xr</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">catch_xr</span><span class="o">.</span><span class="n">values</span><span class="p">)]</span>
+<span class="n">nbins</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">catchment_elevations</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">nbins</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>The resulting histogram can be plotted as well, just to see how things look. However, plotting the output from histograms calculated using <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is a bit clumsy with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, so we can instead use the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <code class="docutils literal notranslate"><span class="pre">pyplot.hist()</span></code> function to check out the elevation histogram.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create figure and axis</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Plot elevation histogram</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">catchment_elevations</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">nbins</span><span class="p">)</span>
+
+<span class="c1"># Add axis labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Elevation (m)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Number of occurences&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><em>Elevation histogram for the Waiho River watershed with 20 bins.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Instead of calculating a histogram with a fixed number of elevation bins, an alternative is to do the calculation with a specified elevation range for each bin. To do this we need to do a few extra calculations, but will end up with better control on how the elevations are binned irrespective of the range of elevations in the watershed. Let’s consider the case with a 50 meter elevation bin size (<code class="docutils literal notranslate"><span class="pre">binsize</span> <span class="pre">=</span> <span class="pre">50.0</span></code>). We can calculate the number of bins and histogram values as follows.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define bin elevation range</span>
+<span class="n">binsize</span> <span class="o">=</span> <span class="mf">50.0</span>
+
+<span class="c1"># Determine the bounds for the minimum and maximum bins</span>
+<span class="n">minbin</span> <span class="o">=</span> <span class="n">catchment_elevations</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="n">catchment_elevations</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">%</span> <span class="o">+</span><span class="n">binsize</span>
+<span class="n">maxbin</span> <span class="o">=</span> <span class="n">catchment_elevations</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">catchment_elevations</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">%</span> <span class="o">-</span><span class="n">binsize</span>
+
+<span class="c1"># Calculate number of bins and histogram</span>
+<span class="n">nbins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">minbin</span><span class="p">,</span> <span class="n">maxbin</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">binsize</span><span class="p">)</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">catchment_elevations</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">nbins</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>The resulting histogram can be plotted using the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <code class="docutils literal notranslate"><span class="pre">pyplot.hist()</span></code> function. Looking at the resulting plot, it appears the 50-meter elevation binning worked as expected.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create figure and axis</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Plot elevation histogram</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">catchment_elevations</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">nbins</span><span class="p">)</span>
+
+<span class="c1"># Add axis labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Elevation (m)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Number of occurences&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p><em><strong>Figure 12.6</strong>. Elevation histogram for the Waiho River watershed with a 50-meter bin size.</em></p>
+<p>The hypsometry of the watershed relies on finding the proportion of elevations above a given point from the lowest elevation to the highest in the basin. We can use the histogram data for this but we need to do a few things. First, a cumulative sum of the histogram elevation distribution should be calculated. In addition, the cumulative distribution should be reversed such that the elevation fraction is 1.0 (or 100%) above the minimum elevation and 0.0 (or 0%) above the maximum. Finally, the elevation distribution and ranges should be normalized to one, as this will make it easier to compare distributions for different watersheds.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate (normalized) cumulative distribution</span>
+<span class="n">norm_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span> <span class="o">/</span> <span class="n">counts</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="c1"># Convert to area above min elevation</span>
+<span class="n">norm_counts</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">norm_counts</span>
+
+<span class="c1"># Normalize elevation ranges</span>
+<span class="n">norm_bins</span> <span class="o">=</span> <span class="p">(</span><span class="n">bins</span> <span class="o">-</span> <span class="n">bins</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">bins</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">bins</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>At this point we can use the normalized elevation distribution and ranges to calculate the hypsometric integral for the watershed and create a plot of the hypsometric curve. Because the elevations and areas have been normalized already, we can simply sum the product of the occurrences of each area multiplied by the width of the normalized bins.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate hypsometric integral</span>
+<span class="n">bin_width</span> <span class="o">=</span> <span class="n">norm_bins</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">norm_bins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">hyps_integral</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">norm_counts</span> <span class="o">*</span> <span class="n">bin_width</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hypsometric integral: </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">hyps_integral</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>What we can see here is that because the hypsometric integral value is lower than 0.5, a bit more than half of the volume of rock in the watershed is missing (due to erosion, for example). To help visualize this result we can plot the hypsometric curve along with a linear reference line for a hypsometric integral of 0.5, as shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># ax.plot(bins[:-1], counts, &quot;k+&quot;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">norm_counts</span><span class="p">,</span> <span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Basin hypsometric curve&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Area fraction above elevation&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Elevation (m)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()],</span>
+    <span class="s2">&quot;--&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Linear reference (HI = 0.5)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="mf">0.05</span><span class="p">,</span>
+    <span class="p">(</span><span class="mf">0.05</span> <span class="o">*</span> <span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">+</span> <span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+    <span class="sa">f</span><span class="s2">&quot;Hypsometric integral: </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">hyps_integral</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 12.7</strong>. Hypsometric curve for the Waiho River watershed with a 50-meter bin size. HI = hypsometric integral.</em></p>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+</section>
+<section id="automating-the-process">
+<h2>Automating the process<a class="headerlink" href="#automating-the-process" title="Link to this heading">#</a></h2>
+<p>We have now gone through the process of conditioning a DEM, delineating a watershed, and analyzing the watershed data for the Waiho River watershed. Our next step is to automate this process for a larger set of 38 watersheds in the hanging wall of the Alpine Fault along the western side of the Southern Alps. In order to do this, we first need to create a pair of lists: one for the names of the watersheds, and a second for the locations of their outlets. In this case both lists were created by hand from selecting outlet point coordinates using <a class="reference external" href="https://www.google.com/maps">Google Maps</a> <a class="footnote-reference brackets" href="#maps" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p>
+<!-- #endregion -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+<p>\begin{verbatim}</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="list-of-river-names-to-analyze">
+<h1>List of river names to analyze<a class="headerlink" href="#list-of-river-names-to-analyze" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="truncated-for-the-book-format-full-list-on-https-pythongis-org">
+<h1>Truncated for the book format. Full list on https://pythongis.org.<a class="headerlink" href="#truncated-for-the-book-format-full-list-on-https-pythongis-org" title="Link to this heading">#</a></h1>
+<p>river_names = [
+“Arawhata River”,
+“Waiatoto River”,
+“Turnbull River”,
+…
+“Waiheke River”,
+“Robinson River”,
+“Blue Grey River”,
+]
+\end{verbatim}</p>
+<!-- #endraw -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">river_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Arawhata River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Waiatoto River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Turnbull River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Okuru River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Haast River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Moeraki River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Paringa River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Mahitahi River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Jacobs River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Karangarua River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Cook River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Fox River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Waikukupa River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Omoeroa River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Waiho River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Waitangitaona River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Darnley Creek&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Whataroa River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Poerua River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Wanganui River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Waitaha River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Kakapotahi River?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Mikonui River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Hokitika River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Toaroha River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Kokatahi River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Styx River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Arahura River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Taipo River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Taramakau River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Crooked River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Evans River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Haupiri River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Waikiti River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Tutaekuri River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Waiheke River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Robinson River&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Blue Grey River&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>And for each river or creek we have a corresponding outlet location or pour point (<code class="docutils literal notranslate"><span class="pre">pour_points</span></code>).</p>
+<!-- #endregion -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+<p>\begin{verbatim}</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="list-of-outlets-for-the-rivers-to-analyze">
+<h1>List of outlets for the rivers to analyze<a class="headerlink" href="#list-of-outlets-for-the-rivers-to-analyze" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id9">
+<h1>Truncated for the book format. Full list on https://pythongis.org.<a class="headerlink" href="#id9" title="Link to this heading">#</a></h1>
+<p>pour_points = [
+(168.723432, -44.060960),
+(168.838838, -44.023259),
+(168.942363, -43.971371),
+…
+(171.995805, -42.546945),
+(172.012893, -42.471985),
+(172.136101, -42.411857),
+]
+\end{verbatim}</p>
+<!-- #endraw -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pour_points</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">168.723432</span><span class="p">,</span> <span class="o">-</span><span class="mf">44.060960</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">168.838838</span><span class="p">,</span> <span class="o">-</span><span class="mf">44.023259</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">168.942363</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.971371</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">168.987365</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.952888</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">169.144604</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.935653</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">169.351885</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.785118</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">169.497063</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.716472</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">169.593608</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.666203</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">169.695061</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.617701</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">169.808933</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.576726</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">169.965037</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.498121</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.008772</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.478192</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.070511</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.443732</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.102720</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.425248</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.182282</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.394347</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.274318</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.343211</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.302801</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.326779</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.403417</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.285756</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.525003</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.217547</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.624160</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.158141</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.729994</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.107470</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.820316</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.064461</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">170.869467</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.014418</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.012521</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.957962</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.131477</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.910875</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.150106</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.903147</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.165837</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.884519</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.238172</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.840905</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.405012</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.755411</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.467475</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.733149</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.626527</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.649998</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.682798</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.618596</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.733798</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.612758</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.886492</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.568796</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.979749</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.559885</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">171.995805</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.546945</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">172.012893</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.471985</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">172.136101</span><span class="p">,</span> <span class="o">-</span><span class="mf">42.411857</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>With our lists of river/creek names and outlet locations ready, we can proceed to automating the watershed delineation and analysis steps presented earlier in this chapter for each watershed. To do this we will essentially perform the same steps presented earlier with a few minor modifications. First, because we want to store the outputs of the analysis steps separately, we will need to create a set of empty Python lists where output can be added for each watershed. We can also initialize a counter variable that will be updated with the catchment number each time a new watershed is processed.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create empty lists for storing outputs</span>
+<span class="n">catchment_numbers</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">catchment_lons</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">catchment_lats</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">catchment_areas</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">catchment_min_elevs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">catchment_max_elevs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">catchment_reliefs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">catchment_his</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">catchment_boundaries</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Initialize catchment number for batch processing</span>
+<span class="n">catchment_number</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Next, we can create a large <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that will be used to iterate over each watershed. We can use the length of the <code class="docutils literal notranslate"><span class="pre">pour_points</span></code> list to determine how many iterations to perform. Within each iteration we will execute the steps presented earlier. A summary of the steps is given below.</p>
+<ol class="arabic simple">
+<li><p>Set the grid extent to the extent of the full DEM</p></li>
+<li><p>Snap the pour point to the nearest high-discharge cell</p></li>
+<li><p>Delineate the watershed</p></li>
+<li><p>Set the grid extent to that of the delineated watershed</p></li>
+<li><p>Export the watershed data to <code class="docutils literal notranslate"><span class="pre">xarray</span></code></p></li>
+<li><p>Store the watershed elevations without the <code class="docutils literal notranslate"><span class="pre">nan</span></code> values and calculate the hypsometric integral</p></li>
+<li><p>Extract a vector boundary of the watershed for plotting</p></li>
+<li><p>Store the watershed data in the lists created above</p>
+<ul class="simple">
+<li><p>Note: There are some functions from the <code class="docutils literal notranslate"><span class="pre">basin_functions.py</span></code> function that are used when appending values to the lists.</p></li>
+</ul>
+</li>
+</ol>
+<p>Now that we know the process, we can have a look at the code that is used for batch processing the watershed data.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Processing watersheds&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pour_points</span><span class="p">)):</span>
+    <span class="c1"># Print a progress dot and increment catchment number</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">catchment_number</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># Reset grid extent</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">clip_to</span><span class="p">(</span><span class="n">dem</span><span class="p">)</span>
+
+    <span class="c1"># Delineate the watershed</span>
+    <span class="n">x_snap</span><span class="p">,</span> <span class="n">y_snap</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">snap_to_mask</span><span class="p">(</span><span class="n">acc</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">pour_points</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">current_catchment</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">catchment</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x_snap</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_snap</span><span class="p">,</span> <span class="n">fdir</span><span class="o">=</span><span class="n">fdir</span><span class="p">,</span> <span class="n">xytype</span><span class="o">=</span><span class="s2">&quot;coordinate&quot;</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Clip and set view extent</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">clip_to</span><span class="p">(</span><span class="n">current_catchment</span><span class="p">)</span>
+    <span class="n">dem_view</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">dem</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="c1"># Save watershed elevations in xarray</span>
+    <span class="n">catchment</span> <span class="o">=</span> <span class="n">dem_view</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">catchment</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">catchment</span><span class="o">.</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">catchment</span><span class="o">.</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">catch_xr</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+        <span class="n">catchment</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">lat</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">lon</span><span class="p">},</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Store elevations minus NaN values, calculate elevation histogram</span>
+    <span class="c1"># and hypsometric integral</span>
+    <span class="n">catch_elev</span> <span class="o">=</span> <span class="n">catch_xr</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">catch_xr</span><span class="o">.</span><span class="n">values</span><span class="p">)]</span>
+    <span class="n">counts</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">calculate_hypsometry</span><span class="p">(</span><span class="n">catch_elev</span><span class="p">)</span>
+    <span class="n">hyps_integral</span> <span class="o">=</span> <span class="n">calculate_hypsometric_integral</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+
+    <span class="c1"># Extract vector boundary of watershed</span>
+    <span class="n">catch_xr</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Watershed </span><span class="si">{</span><span class="n">catchment_number</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">catch_gdf</span> <span class="o">=</span> <span class="n">vectorize</span><span class="p">(</span><span class="n">catch_xr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span>
+    <span class="n">catch_gdf</span> <span class="o">=</span> <span class="n">catch_gdf</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Watershed </span><span class="si">{</span><span class="n">catchment_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">catch_gdf</span> <span class="o">=</span> <span class="n">catch_gdf</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="s2">&quot;epsg:4326&quot;</span><span class="p">)</span>
+    <span class="n">dissolved</span> <span class="o">=</span> <span class="n">catch_gdf</span><span class="o">.</span><span class="n">dissolve</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;unary&quot;</span><span class="p">)</span>
+    <span class="n">dissolved</span> <span class="o">=</span> <span class="n">dissolved</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;basin_boundary&quot;</span><span class="p">})</span>
+
+    <span class="c1"># Append watershed info to lists</span>
+    <span class="n">catchment_numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">catchment_number</span><span class="p">)</span>
+    <span class="n">catchment_lons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pour_points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">catchment_lats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pour_points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">catchment_areas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">calculate_area</span><span class="p">(</span><span class="n">catch_elev</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">catchment_min_elevs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">catch_elev</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">catchment_max_elevs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">catch_elev</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">catchment_reliefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calculate_relief</span><span class="p">(</span><span class="n">catch_elev</span><span class="p">))</span>
+    <span class="n">catchment_his</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">hyps_integral</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">catchment_boundaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dissolved</span><span class="p">[</span><span class="s2">&quot;basin_boundary&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;done.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>After completing the steps above we have nine lists full of catchment data that we will explore and visualize below.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<section id="plotting-the-results">
+<h2>Plotting the results<a class="headerlink" href="#plotting-the-results" title="Link to this heading">#</a></h2>
+<p>In order to be able to interact with and explore our watershed data we will create an interactive map using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. To get started with that process, we first need to take all of the data from the lists created in the previous section and assemble them in a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. We can do so similar to how we introduced earlier in Section 3.1.9. After creating the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> we can check the first rows of it using the <code class="docutils literal notranslate"><span class="pre">.head()</span></code> method.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Watershed number&quot;</span><span class="p">:</span> <span class="n">catchment_numbers</span><span class="p">,</span>
+    <span class="s2">&quot;River name&quot;</span><span class="p">:</span> <span class="n">river_names</span><span class="p">,</span>
+    <span class="s2">&quot;Outlet longitude (deg.)&quot;</span><span class="p">:</span> <span class="n">catchment_lons</span><span class="p">,</span>
+    <span class="s2">&quot;Outlet latitude (deg.)&quot;</span><span class="p">:</span> <span class="n">catchment_lats</span><span class="p">,</span>
+    <span class="s2">&quot;Area (sq. km)&quot;</span><span class="p">:</span> <span class="n">catchment_areas</span><span class="p">,</span>
+    <span class="s2">&quot;Min. elevation (m)&quot;</span><span class="p">:</span> <span class="n">catchment_min_elevs</span><span class="p">,</span>
+    <span class="s2">&quot;Max. elevation (m)&quot;</span><span class="p">:</span> <span class="n">catchment_max_elevs</span><span class="p">,</span>
+    <span class="s2">&quot;Relief (m)&quot;</span><span class="p">:</span> <span class="n">catchment_reliefs</span><span class="p">,</span>
+    <span class="s2">&quot;Hypsometric integral&quot;</span><span class="p">:</span> <span class="n">catchment_his</span><span class="p">,</span>
+    <span class="s2">&quot;Basin boundary&quot;</span><span class="p">:</span> <span class="n">catchment_boundaries</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">catchment_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">catchment_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Everything looks good so far, so we can now move on to creating a <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> from the <code class="docutils literal notranslate"><span class="pre">catchment_df</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> by explicitly assigning x and y coordinates and providing a coordinate reference system (WGS 84 in this case: <code class="docutils literal notranslate"><span class="pre">epsg:4326</span></code>).</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">catchment_df</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">catchment_df</span><span class="p">[</span><span class="s2">&quot;Outlet longitude (deg.)&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">catchment_df</span><span class="p">[</span><span class="s2">&quot;Outlet latitude (deg.)&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">catchment_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">catchment_df</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;epsg:4326&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>The only remaining thing to do before creating the interact map is to load in data for the location of the <a class="reference external" href="https://data.gns.cri.nz/af/">Alpine Fault</a> <a class="footnote-reference brackets" href="#alpinefault" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> (<span id="id11"><a class="reference internal" href="../../../back-matter/nb/references.html#id12" title="R.M. Langridge, W.F. Ries, N.J. Litchfield, P. Villamor, R.J. Van Dissen, D.J.A. Barrell, M.S. Rattenbury, D.W. Heron, S. Haubrock, D.B. Townsend, J.M. Lee, K.R. Berryman, A. Nicol, S.C. Cox, and M.W. Stirling. The New Zealand Active Faults Database. New Zealand Journal of Geology and Geophysics, 59:86-96, 2016. doi:10.1080/00288306.2015.1112818.">Langridge <em>et al.</em>, 2016</a></span>). The data in this case comes from GNS Science, Te Pū Ao, New Zealand. For simplicity, we have created a <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <code class="docutils literal notranslate"><span class="pre">GeoPackage</span></code> containing the data that is available online.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read fault data from Geopackage</span>
+<span class="n">bucket_fault_file</span> <span class="o">=</span> <span class="s2">&quot;features/new_zealand/alpine_fault.gpkg&quot;</span>
+<span class="n">bucket_fault_fp</span> <span class="o">=</span> <span class="n">bucket_home</span> <span class="o">+</span> <span class="n">bucket_fault_file</span>
+
+<span class="n">fault_df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">bucket_fault_fp</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Now we are ready to plot the data and create an interactive map using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. As we have several different things to plot, we will plot the data in three separate layers: (1) the Alpine Fault data, (2) the watersheds, and (3) the basin outlet points. For each layer we can use the <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <code class="docutils literal notranslate"><span class="pre">.explore()</span></code> function to create a map of the layer. Note that because we want to plot both the watershed boundaries and outlet points in separate layers, we need to specify the active geometry layer for <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> before plotting each one.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot Alpine Fault</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">fault_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fault_df</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Alpine Fault&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gist_gray&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Set active geometry layer and plot watersheds</span>
+<span class="n">catchment_gdf</span><span class="p">[</span><span class="s2">&quot;Points&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">catchment_gdf</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span>
+<span class="n">catchment_gdf</span> <span class="o">=</span> <span class="n">catchment_gdf</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s2">&quot;Basin boundary&quot;</span><span class="p">)</span>
+<span class="n">basin_color_field</span> <span class="o">=</span> <span class="s2">&quot;Hypsometric integral&quot;</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">catchment_gdf</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span>
+    <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+    <span class="n">column</span><span class="o">=</span><span class="n">basin_color_field</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;plasma&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Set active geometry layer and plot outlet points</span>
+<span class="n">catchment_gdf</span> <span class="o">=</span> <span class="n">catchment_gdf</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s2">&quot;Points&quot;</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">catchment_gdf</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">marker_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="n">m</span>
+</pre></div>
+</div>
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
+<p>\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 12.8}. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.}}, center, nofloat}{../img/south-island-watersheds.png}
+{ \hspace*{\fill} \}</p>
+<!-- #endraw -->
+<p><em><strong>Figure 12.8</strong>. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.</em></p>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p>So now we have seen how to process and extract watersheds from digital elevation data, how to perform various analyses on the watershed data, and how to create an interactive map of the resulting outputs. This template can be used as it is, or easily augmented to fit your interests by changing the source data, types of analysis, or the formatting of the output map. And although there are a number of steps needed to perform such an analysis, automating the processing can allow the analysis to be scaled to large numbers of watersheds.</p>
+<p>First, in terms of the output we have produced, we can perhaps also take a moment to observe a few things. First, the values of the hypsometric integral range from 0.33 to 0.54. Although the exact values of the hypsometric integral should be interpreted carefully, a lower value of the hypsometric integral is associated with more removal of mass from a watershed by erosional processes and often lower values within a given region reflect a larger impact of glacial erosion on the landscape (e.g., <span id="id12"><a class="reference internal" href="../../../back-matter/nb/references.html#id20" title="Pietro Sternai, Frédéric Herman, Matthew Rhys Fox, and Sébastien Castelltort. Hypsometric analysis to identify spatially variable glacial erosion. Journal of Geophysical Research: Earth Surface, 2011.">Sternai <em>et al.</em>, 2011</a></span>). Within the study region, we can observe that in general the values of the hypsometric integral decrease towards the southwest towards the heavily glaciated landscapes of the Fiordland National Park.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>We can confirm this trend by looking at a plot of the hypsometric integral as a function of latitude.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">catchment_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Outlet latitude (deg.)&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Hypsometric integral&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><em>Hypsometric integral values as a function of latitude.</em></p>
+<p>Although there is a relationship between the hypsometric integral values and latitude, the correlation appears rather weak (feel free to confirm by your own regression analysis!).</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Second, it is clear that smaller watersheds generally have higher hypsometric integral values. This relationship is perhaps not a huge surprise in the rapidly uplifted landscape of the Southern Alps, where smaller watersheds have less power for erosion due to less total discharge in the rivers. Thus, the uplift of the landscape may outpace the river’s erosion, resulting in a higher hypsometric integral value in small watersheds.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>Again, if we look at this in a scatter plot we can clearly see the relationship between the watershed area and the hypsometric integral. In this case the correlation is stronger than that observed for latitude (again, feel free to confirm this!).</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">catchment_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Area (sq. km)&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Hypsometric integral&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><em>Hypsometric integral values as a function of watershed area.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>Third, we can consider the hypsometric integral values as a function of relief in the watershed. Here too we can see that watersheds with greater relief values generally have lower hypsometric integral values. This is perhaps not a total surprise, as the watersheds with the largest relief values are also generally larger in area.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p>If we look at the scatter plot for this case, we can see there is a weak negative correlation between relief and hypsometric integral, but it is perhaps not as strong as the correlation for watershed area.</p>
+<!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">catchment_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Relief (m)&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Hypsometric integral&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<p><em>Hypsometric integral values as a function of watershed relief.</em></p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+<p>In closing, we invite you to further explore the analysis of watersheds based on the case study presented here, to add your own watershed analysis approaches or functions, and to create your own maps presenting your results in an interactive and engaging format.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<!-- #endregion -->
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="alos" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm">https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm</a></p>
+</aside>
+<aside class="footnote brackets" id="pysheds" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<p><a class="reference external" href="https://mattbartos.com/pysheds/">https://mattbartos.com/pysheds/</a></p>
+</aside>
+<aside class="footnote brackets" id="fileio" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://mattbartos.com/pysheds/file-io.html">https://mattbartos.com/pysheds/file-io.html</a></p>
+</aside>
+<aside class="footnote brackets" id="elevations" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Hypsometry">https://en.wikipedia.org/wiki/Hypsometry</a></p>
+</aside>
+<aside class="footnote brackets" id="maps" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.google.com/maps">https://www.google.com/maps</a></p>
+</aside>
+<aside class="footnote brackets" id="alpinefault" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">6</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://data.gns.cri.nz/af/">https://data.gns.cri.nz/af/</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Watershed analysis with pysheds</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-introduction-to-watershed-analysis">A brief introduction to watershed analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-digital-elevation-data">Loading the digital elevation data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-watersheds-using-pysheds">Extracting watersheds using pysheds</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-watershed-delineation">Overview of watershed delineation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-dem-into-pysheds">Reading the DEM into pysheds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-dem-for-analysis-in-pysheds">Preparing a DEM for analysis in pysheds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-output-to-file">Writing output to file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-dem-for-analysis-in-pysheds-continued">Preparing a DEM for analysis in pysheds (continued)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-values-related-to-surface-water-flows">Calculating values related to surface water flows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-and-extracting-a-watershed">Defining and extracting a watershed</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzing-the-watershed-data">Analyzing the watershed data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-the-watershed-data-to-xarray">Exporting the watershed data to xarray</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-basin-hypsometry">Calculating basin hypsometry</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automating-the-process">Automating the process</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-river-names-to-analyze">List of river names to analyze</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#truncated-for-the-book-format-full-list-on-https-pythongis-org">Truncated for the book format. Full list on https://pythongis.org.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-outlets-for-the-rivers-to-analyze">List of outlets for the rivers to analyze</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Truncated for the book format. Full list on https://pythongis.org.</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-results">Plotting the results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2025, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
