@@ -19,91 +19,73 @@ jupyter:
 - Focal function
 - Local function
 - Zonal function (zonal statistics)
-- Interpolating missing data
-- Working with multiband data
 
 **To be updated**
 
 Conducting calculations between bands or raster is another common GIS task. Here, we will be calculating `NDVI` (Normalized difference vegetation index) based on the Landsat dataset that we have downloaded from Helsinki region. Conducting calculations with rasterio is fairly straightforward if the extent etc. matches because the values of the rasters are stored as `numpy` arrays (similar to the columns stored in Geo/Pandas, i.e. `Series`).
 
-## Calculating NDVI 
 
-In this tutorial, we will see how to calculate the NDVI (Normalized difference vegetation index) based on two bands: band-4 which is the Red channel and band-5 which is the Near Infrared (NIR).
+## Reclassify
 
-- Let's start by importing the necessary modules `rasterio` and `numpy` and reading the raster file that we masked for Helsinki Region:
+To be added. 
 
 
-```python
-import rasterio
-import numpy as np
-from rasterio.plot import show
-import os
-import matplotlib.pyplot as plt
+## Local functions
 
-%matplotlib inline
+To be added. 
 
-# Data dir
-data_dir = "data"
 
-# Filepath
-fp = os.path.join(data_dir, "Helsinki_masked_p188r018_7t20020529_z34__LV-FIN.tif")
+## Focal functions
 
-# Open the raster file in read mode
-raster = rasterio.open(fp)
-```
+A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood.
 
-- Let's read the red and NIR bands from our raster source ([ref](https://etsin.avointiede.fi/storage/f/paituli/latuviitta/Landsat_kanavat.pdf)):
+### Focal mean
 
-```python
-# Read red channel (channel number 3)
-red = raster.read(3)
-# Read NIR channel (channel number 4)
-nir = raster.read(4)
+### Focal majority
 
-# Calculate some stats to check the data
-print(red.mean())
-print(nir.mean())
-print(type(nir))
+### Focal range
 
-# Visualize
-show(nir, cmap="terrain")
-```
 
-As we can see the values are stored as `numpy.ndarray`. From the map we can see that NIR channel reflects stronly (light green) in areas outside the Helsinki urban areas.
+### Slope
 
-- Let's change the data type from uint8 to float so that we can have floating point numbers stored in our arrays:
+### Aspect
 
-```python
-# Convert to floats
-red = red.astype("f4")
-nir = nir.astype("f4")
-nir
-```
+### Curvature
 
-Now we can see that the numbers changed to decimal numbers (there is a dot after the zero).
+### Hillshade
 
-Next we need to tweak the behaviour of numpy a little bit. By default numpy will complain about dividing with zero values. We need to change that behaviour because we have a lot of 0 values in our data.
 
+## Global functions
+
+In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. They are essential for modeling cumulative effects, spatial dependencies, and large-scale patterns in fields like hydrology, transportation, and environmental science.
+
+- Statistical summaries: global mean, max, min etc.
+- Viewshed analysis
+- Cost distance and least-cost path
+- Proximity (distance, allocation, direction)
+
+
+## Zonal functions
+
+To be added. 
+
+
+## Incremental functions
+
+To be added. 
 
 ```python
-np.seterr(divide="ignore", invalid="ignore")
+a = slice(0,2)
 ```
-
-- Now we are ready to calculate the NDVI. This can be done easily with simple map algebra and using the NDVI formula and passing our numpy arrays into it:
 
 ```python
-# Calculate NDVI using numpy arrays
-ndvi = (nir - red) / (nir + red)
+b = "Testing"
 ```
-
-- Let's plot the results so we can see how the index worked out:
 
 ```python
-%matplotlib inline
-# Plot the NDVI
-plt.imshow(ndvi, cmap="terrain_r")
-# Add colorbar to show the index
-plt.colorbar()
+b[a]
 ```
 
-As we can see from the map, now the really low NDVI indices are located in water and urban areas (middle of the map) whereas the areas colored with green have a lot of vegetation according our NDVI index. 
+```python
+
+```
