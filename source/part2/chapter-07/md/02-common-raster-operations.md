@@ -16,13 +16,14 @@ jupyter:
 # Common raster operations
 <!-- #endregion -->
 
-When working with raster data, there are various operations and techniques that might be useful when preprocessing the data for further analysis. Some typical raster operations include for example clipping or masking raster to include only pixels that are located in a given area, merging multiple raster tiles into a single raster mosaic, converting raster data into vector format (and vice versa), or resampling the raster pixels into higher or lower spatial resolution (upscaling, downscaling). In this chapter, we will learn how to conduct these kind of raster operations using `xarray`, `rioxarray`, `geocube` and `rasterio` Python libraries.
+When working with raster data, there are various operations and techniques that might be useful when preprocessing the data for further analysis. Some typical raster operations include for example selecting, clipping or masking raster to include only pixels that are located in a given area or at given indices, merging multiple raster tiles into a single raster mosaic, converting raster data into vector format (and vice versa), or resampling the raster pixels into higher or lower spatial resolution (upscaling, downscaling). In this chapter, we will learn how to conduct these kind of raster operations using `xarray`, `rioxarray`, `geocube` and `rasterio` Python libraries.
 
 
-## Clipping raster
+## Selecting data
 
+Being able to select data based on indices or certain criteria (e.g. all values above specific threshold) is one of the most common operations that you need to do when working with any kind of data (raster, vector, as well as non-geographical data). When working with raster data, we can take advantage of `xarray`'s flexible indexing routines that combine the best features of `numpy` and `pandas` for data selection.
 
-One of the common operations when working with raster data is to clip a given raster `Dataset` by another layer. This process allows you to crop the data in a way that only the cells that are e.g. within a given Polygon are selected for further analysis. In the following, we will learn how to do this by using the `.rio.clip()` method that comes with the `rioxarray` library. Let's start by reading the `elevation` dataset that we used earlier in Chapter 7.2:
+There are various ways how you can select data from `DataArray` and `Dataset`, but some of the most commonly used methods include `.isel()`, `.sel()` and `.where()` which we will introduce in the following. Let's start by reading the `elevation` dataset that we used earlier in Chapter 7.2:
 
 ```python editable=true slideshow={"slide_type": ""}
 import xarray as xr
@@ -34,18 +35,110 @@ data = xr.open_dataset(fp, decode_coords="all")
 data
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-Let's also plot the data to see how our values look on a map:
-<!-- #endregion -->
+Let's also plot the data to see how our values and coordinates (x and y) distribute over a map:
 
 ```python editable=true slideshow={"slide_type": ""}
 data["elevation"].plot()
 plt.title("Elevation in meters");
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
 _**Figure 7.7.** Elevation of the landscape in North-Eastern Tanzania._
 
+
+### Selecting data by index values
+
+The logic for selecting data from a `DataArray` values works quite similarly as we have learned earlier in this book using `pandas` (for `Series` and `DataFrame` objects), except that the returned object in `xarray` is always another `DataArray`. To select data based on specific index values, we can take advantage of the `.isel()` method that can be used similarly with `Dataset` and `DataArray` objects. For instance, we might be interested to select a cell at index `[0, 0]` in the array which corresponds to the cell that is located at the very top-left corner of the raster. To do this, we specify that the index value for both `x` and `y` dimension is `0` when calling the `.isel()` method:
+
+```python
+selected_cell = data.isel(x=0, y=0)
+selected_cell
+```
+
+As we can see, the output is always returned as an `xarray` object, which in our case is a `Dataset`. To access the `elevation` or `relative_height` value at this given position, we can use the `.item()` which will return the value as a regular number (as learned in Chapter 7.2):
+
+```python
+selected_cell["elevation"].item()
+```
+
+```python
+selected_cell["relative_height"].item()
+```
+
+Quite often when working with raster data, you are interested to select a range of values from a given raster (called slicing). To slice the data based on index ranges, we can use the same `.isel()` method and provide the information about the index range using the Python's built-in `slice()` function that can be used to specify a range of indices to be included in the selection by specifying `start` and `end` index positions. In the following, we will select the first 1000 cells in the x and y dimensions: 
+
+```python
+selection = data.isel(x=slice(0, 1000), y=slice(0,1000))
+selection
+```
+
+```python
+selection["elevation"].plot()
+plt.title("Elevation in meters for the selected cells");
+```
+
+_**Figure 7.8.** Elevation values in the cells that were selected based on indices._
+
+As we can see, now the shape of our output `Dataset` is 1000x1000 cells and the selection covers to top-left corner of our input `Dataset`. 
+
+
+### Selecting data based on coordinates
+
+While selecting data based on index positions might be useful in certain situations, quite often you want to select data based on coordinates. To do this, we can take advantage of the coordinate labels using `.sel()` method, which allows for more intuitive selection by providing the actual coordinates for you area of interest. Next, we will do the selection for an area that covers the following area: 
+- x-coordinates: `36.4` - `36.6`
+- y-coordinates: `-2.4` - `-2.6`
+
+```python
+area_of_interest = data.sel(x=slice(36.4, 36.6), y=slice(-2.4, -2.6))
+```
+
+```python
+area_of_interest["elevation"].plot()
+plt.title("Elevation in meters for the selected area of interest");
+```
+
+_**Figure 7.9.** Elevation values in the cells that were selected based on coordinates._
+
+Nice! Now we have selected the data for a given area of interest that we specified using the coordinates. In a similar manner, you can select data for any specific area of interest. Couple of important things to remember when selecting data based on coordinates: 1) The coordinate values provided for the selection need to be within the extent of a given input raster dataset. 2) The coordinates provided for the selection need to be in the same coordinate reference system (CRS) as the input raster. For example, here we provided the coordinates as Decimal Degrees because our input data contains coordinates as latitudes and longitudes. However, if your coordinates are represented e.g. in a metric coordinate reference system (e.g. UTM), then your selection should be based on coordinates in a metric system. 
+
+
+### Selecting data based on logical conditions
+
+A third way to select data from a given raster is based on a specific criteria. To select data based on specific conditions, we can use the `.where()` method which is a handy tool to make conditional selections. For instance, we might be interested to select only such pixels from the raster where the elevation is above 2000 meters:
+
+```python
+moderate_altitudes = data.where(data["elevation"] > 2000)
+```
+
+```python
+moderate_altitudes["elevation"].plot()
+plt.title("Moderate altitude areas in the region");
+```
+
+_**Figure 7.10.** Elevation values in the cells that were above a specific criteria (2000 meters)._
+
+As a result, we now have a map that highlights the areas where the elevation is above 2 kilometers. In a similar manner, we can also combine multiple conditions to a single selection. In the following, we will select all pixels where the elevation is above 1000 meters and below or equal to 1500 meters:
+
+```python
+condition = (data["elevation"] > 1000) & (data["elevation"] <= 1500)
+low_altitudes = data.where(condition)
+```
+
+```python
+low_altitudes["elevation"].plot()
+plt.title("Low altitude areas in the region");
+```
+
+_**Figure 7.11.** Elevation values in the cells that are between 1000-1500 meters._
+
+Excellent, now we have a map that highlights the elevations between specific elevation range. In a similar manner, you can conduct selections by combining selection criteria over a single data variable or even combine conditions over multiple different variables. 
+
+
+## Clipping raster
+
+
+In the previous section we learned how to select data based on given criteria or by specifying an area of interest based on coordinates. However, quite often you actually have another geographic dataset that should be used to crop or select the data for your analysis. Clipping is one of the common raster operations in which you clip a given raster `Dataset` by another layer. This process allows you to crop the data in a way that only the cells that are e.g. within a given Polygon are selected for further analysis. In the following, we will learn how to do this by using the `.rio.clip()` method that comes with the `rioxarray` library. 
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 To be able to clip this `xarray.Dataset`, we first need to create a `geopandas.GeoDataFrame` that contains the geometry that we want to use as our clipping features. In our case, we want to create a simple bounding box that defines the area which we want to keep from the raster. To create the `GeoDataFrame`, we can specify the corner coordinates of our bounding box and utilize the `box` function of `shapely` library which can conveniently create us the geometry (as introduced in Chapter 6.1):
 <!-- #endregion -->
 
@@ -69,12 +162,12 @@ clipping_gdf.explore()
 
 <!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 7.8}. Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.}}, center, nofloat}{../img/figure_7-8.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 7.11}. Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.}}, center, nofloat}{../img/figure_7-11.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.8.** Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset._
+_**Figure 7.11.** Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset._
 
 Now after we have created the `GeoDataFrame` we can use it to clip the `xarray.Dataset`. To do this, we use the `.rio.clip()` method which wants as input the `geometries` that will be used for clipping the raster data. We can pass the `gpd.GeoSeries` as an input for this (i.e. the `geometry` column of our `GeoDataFrame`) and we also specify the `crs` to be the same as in out input raster data. It is important that the coordinate reference system of both layers are the same whenever doing GIS operations between multiple layers. Thus, we use a simple `assert` to check the match before doing the clipping:
 <!-- #endregion -->
@@ -95,7 +188,7 @@ plt.title("Elevations around Mt Kitumbene");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.9.** Elevations in the area that was clipped based on a polygon._
+_**Figure 7.12.** Elevations in the area that was clipped based on a polygon._
 
 After clipping, it is possible to continue working with the clipped `Dataset` and e.g. find the mean elevation for this area around the Mt Kitumbene. Notice that the operations clipped all the variables in our `Dataset` simultaneously. We can extract basic statistics from `elevation` and inspect the relative height in this area as follows:
 <!-- #endregion -->
@@ -139,7 +232,7 @@ lakes.plot(ax=ax, facecolor="lightblue", edgecolor="red", alpha=0.4);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.10.** Existing lakes that are present in our study area._
+_**Figure 7.13.** Existing lakes that are present in our study area._
 
 As we can see from the Figure 7.10, there is one large lake and multiple smaller ones in our study that we might not want to be taken into account when analyzing the terrain. Luckily, we can easily mask these areas out of our `Dataset` by using `rioxarray`. To do this, we can use the same `.rio.clip()` method which we used in the previous example. However, in this case, we do not want to totally remove those cells from our `Dataset` but only mask them out, so that the values on those areas are replaced with NaN values. By using parameters `drop=False` and `invert=True`, the cells that are intersecting with the lake geometries will be masked with NaNs: 
 <!-- #endregion -->
@@ -158,7 +251,7 @@ plt.title("Elevation data with a mask");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.11.** A Dataset where the lakes have been masked out (shown with white color)._
+_**Figure 7.14.** A Dataset where the lakes have been masked out (shown with white color)._
 
 As a result, we now have a new `Dataset` where the elevation values overlapping with the lakes have been converted to NaNs. We can now compare whether e.g. the mean land surface elevation differs from the original one where the lakes were still included:
 <!-- #endregion -->
@@ -227,7 +320,7 @@ datasets[2]["band_1"].plot(ax=axes[1][0], vmax=5900, add_colorbar=False)
 datasets[3]["band_1"].plot(ax=axes[1][1], vmax=5900, add_colorbar=False);
 ```
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.12.** Four elevation raster layers plotted next to each other._
+_**Figure 7.15.** Four elevation raster layers plotted next to each other._
 
 From the figure we can see that these four raster tiles seem to belong together naturally as the elevation values as well as the coordinates along the x- and y-axis continue smoothly. Hence, we can stitch them together into a single larger raster `Dataset`.
 To merge multiple `xarray.Dataset`s together, we can use the `.merge_datasets()` function from `rioxarray`:
@@ -252,7 +345,7 @@ plt.title("Elevation values covering larger area in the region close to Kilimanj
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.13.** A raster mosaic where four raster tiles were merged together._
+_**Figure 7.16.** A raster mosaic where four raster tiles were merged together._
 
 The end result looks good and we can see clearly the Mount Kilimanjaro which is the highest mountain in Africa 5895 meters above sea level and the highest volcano in the Eastern Hemisphere. 
 <!-- #endregion -->
@@ -297,7 +390,7 @@ gdf.plot(column="elevation");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.14.** The elevation map made from the vectorized data._
+_**Figure 7.17.** The elevation map made from the vectorized data._
 
 As we can see from the figure, the map looks identical to our original `DataArray` (Figure 7.9) which means that the conversion works as it should. 
 
@@ -317,7 +410,7 @@ lakes.plot();
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.15.** Lakes represented in vector format._
+_**Figure 7.18.** Lakes represented in vector format._
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -382,7 +475,7 @@ plt.title("Rasterized lakes");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.16.** Lakes that have been rasterized into `DataArray` at approximately 1 km resolution._
+_**Figure 7.19.** Lakes that have been rasterized into `DataArray` at approximately 1 km resolution._
 
 Quite often when rasterizing vector data, you actually want to fit the output to have identical resolution to an already existing `xarray.Dataset` and align it with the other raster layer. For example in our case, we can use the `data` raster (with elevation values) as a target so that the resolution, dimensions and alignment would fit with the existing `Dataset`. We can achieve this by using the `like` parameter in `make_geocube()` function. This will ensure that the output aligns with the existing raster having same resolution and dimensions:
 <!-- #endregion -->
@@ -399,7 +492,7 @@ aligned_ds["area_km2"].plot();
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.17.** Lakes that have been rasterized and aligned with an existing `Dataset`._
+_**Figure 7.20.** Lakes that have been rasterized and aligned with an existing `Dataset`._
 
 As a result, we have now rasterized the lakes in a way that the `aligned_ds` aligns with the existing `Dataset` containing the elevation values. This technique can be very useful especially when you want to do calculations (map algebra) between multiple raster layers (more about map algebra in Chapter 7.5). 
 <!-- #endregion -->
@@ -407,7 +500,7 @@ As a result, we have now rasterized the lakes in a way that the `aligned_ds` ali
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Resampling raster data
 
-Finally, we will introduce a technique that allows you to resample your raster data. Resampling refers to changing the cell values due to changes in the raster grid for example due to changing the effective cell size of an existing dataset. There are two ways to resample your raster data. Upscaling (or upsampling) refers to cases in which convert the raster to higher resolution, i.e. smaller cells. Downscaling (or downsampling) is resampling to lower resolution, i.e. having larger cell sizes. In the following, we will see how we can resample an `xarray.Dataset` by downscaling and upscaling the data. 
+In the following section, we will introduce a technique that allows you to resample your raster data. Resampling refers to changing the cell values due to changes in the raster grid for example due to changing the effective cell size of an existing dataset. There are two ways to resample your raster data. Upscaling (or upsampling) refers to cases in which convert the raster to higher resolution, i.e. smaller cells. Downscaling (or downsampling) is resampling to lower resolution, i.e. having larger cell sizes. In the following, we will see how we can resample an `xarray.Dataset` by downscaling and upscaling the data. 
 
 We can resample `xarray` data by using the `rioxarray` library that can be used to downscale and upscale raster data. Whenever downscaling data, you are ultimately aggregating the information because multiple individual cells are merged into one larger cell that is then stored in the output grid. Thus, it is important to decide the `resampling` method which determines how the data values are aggregated. Depending on the input data, you might for example calculate the `average` of the input cells which will then be stored in the output grid cell. In our case, taking the average makes sense, because our input data represents elevation. However, in some cases you might be interested to `sum` all the cell values for example if your input data would represent population counts in a given region. There are also various other ways to resample the data, such as extracting the minimum (`min`), maximum (`max`), median (`med`) or the `mode` from the input cells. The `mode` means that the value which appears most often in the input raster cells is selected to the output raster cell.  
 <!-- #endregion -->
@@ -455,7 +548,7 @@ plt.title("Downscaled elevation data");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.18.** Downscaled data using a downscale factor of 50._
+_**Figure 7.21.** Downscaled data using a downscale factor of 50._
 
 The downscaling operation seem to have worked well as the patterns are still clearly similar compared to the input data (Figure 7.7), although the spatial resolution is much lower. The data is downscaled so much that it is actually possible to identify individual pixels of the grid. 
 <!-- #endregion -->
@@ -512,5 +605,13 @@ plt.title("Upscaled elevation data");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.19.** Upscaled data using a upscale factor of 2._
+_**Figure 7.22.** Upscaled data using a upscale factor of 2._
 <!-- #endregion -->
+
+## Handling missing data
+
+To be added. 
+
+```python
+
+```
