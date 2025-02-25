@@ -6,9 +6,7 @@ import rioxarray as rxr
 from rioxarray.merge import merge_arrays
 
 
-def make_dem_mosiac(
-    lat_min=-44.8, lat_max=-41.8, lon_min=167.5, lon_max=172.5
-):
+def make_dem_mosiac(lat_min=-44.8, lat_max=-41.8, lon_min=167.5, lon_max=172.5):
     """Creates a mosiac of DEM tiles."""
     # Initialize the Path
     input_folder = Path(Path.cwd(), "dem")
