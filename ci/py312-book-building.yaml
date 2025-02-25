@@ -15,7 +15,7 @@ dependencies:
   - sphinxcontrib-bibtex=2.6.2
 
   # Writing environment
-  - jupyterlab=4.2.4
+  - jupyterlab=4.3.2
   - jupytext=1.16.4
   #- jupyter-book=0.15.1
   - black=24.8.0
@@ -29,15 +29,17 @@ dependencies:
   - datashader=0.16.3
   - folium=0.17.0
   - fiona=1.9.6
+  - geocube=0.7.1
   - geodatasets=2024.7.0
   - geojson=3.1.0
   - geopandas=1.0.1
   - geoplot=0.5.1
   - geopy=2.4.1
   - hvplot=0.10.0
-  - lonboard=0.9.3
+  - lonboard=0.10.3
   - openjdk=22.0.1
   - openpyxl=3.1.5
+  - overturemaps=0.12.0
   - owslib=0.31.0
   - palettable=3.3.3
   - pandas=2.2.2
@@ -57,7 +59,7 @@ dependencies:
   - xarray=2024.7.0
   - xarray_leaflet=0.2.3
   - xarray-spatial=0.4.0
-
+  - zarr=2.18.4
   # PDF building
   - nbconvert=7.16.4
   - pip=24.2

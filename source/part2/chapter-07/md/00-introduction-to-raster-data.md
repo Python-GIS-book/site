@@ -12,8 +12,9 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Representing geographic data in raster format
-
+<!-- #endregion -->
 
 As we introduced earlier in [Chapter 5.2](https://pythongis.org/part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html#basics-of-raster-data-and-arrays), the raster data model represents the real-world features (e.g. temperature) as arrays of cells, commonly known as pixels. Raster data is widely used to represent and store data about continuous surfaces, in which each pixel contain specific information (characteristics, radiance, reflectance, spectral signatures) about a specific area of the Earth, such as 10x10 meter area. There are various reasons why you might want to store your data in raster format:
 
@@ -34,6 +35,7 @@ There are a number of libraries that are widely used when working with raster da
 - `xarray` provides a user-friendly and intuitive way to work with multidimensional raster data with coordinates and attributes (somewhat similar to `geopandas` that is used for vector data processing),
 - `rioxarray` provides methods to conduct GIS-related operations with raster data (e.g. reading/writing, reprojecting, clipping, resampling),
 - `xarray-spatial` provides methods for analysing raster data (e.g. focal/zonal operations, surface analysis, path finding),
+- `geocube` provides methods for doing data conversions between raster and vector formats (rasterize, vectorize),
 - `rasterio` core library for working with GIS raster data. `rioxarray` is an extension of this library that brings the same functionalities on top of `xarray` library,
 - `numpy` is a core Python library for numerical computing that is used for representing and working with multidimensional arrays. `numpy` has a big influence on how the other raster libraries function and can be used to generate multidimensional arrays from scratch.
 
@@ -59,7 +61,7 @@ raster_layer
 Now we have a simple 2D array filled with zeros. Next, we modify the raster layer to represent a simple terrain and add larger numbers in the middle of the grid by setting higher values in the center. We can do this by *{term}`slicing`* the numpy array using the indices of the array and updating the numbers on those locations to be higher. Slicing `numpy` arrays happens in a similar manner as when working with Python lists and accessing the items of a list (see Chapter 2.2). However, in this case we do this in two dimensions by accessing the values stored in specific rows and columns by following the syntax: `[start-row-idx: end-row-idx, start-col-idx: end-col-idx]`. Thus, we can update the values in our 2D array as follows:
 
 ```python
-raster_layer[4:7, 4:7] = 5   
+raster_layer[4:7, 4:7] = 5
 raster_layer[5, 5] = 10
 raster_layer
 ```
@@ -72,9 +74,11 @@ plt.colorbar(label='Elevation')
 plt.title('Simple Raster Layer representing a Hill')
 plt.show()
 ```
-***Figure 7.1.** A simple raster layer representing elevation.*
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 7.1.** A simple raster layer representing elevation._
 
 As a result, we have a simple map that represents the elevation of the hill with different colors. The *{term}`colormap`* of the visualization was determined using the parameter `cmap`, while the `plt.colorbar()` function was used to add a legend to the right side of the image, and the `plt.title()` was used to add a simple title for the image.
 
 This example demonstrates a toy example how we can produce a simple raster layer from scratch. However, there are various aspects related to working with GIS raster data that we did not cover here, such as specifying the metadata for this layer. Basically, the data we have here is simply a two-dimensional array (matrix) that does not tell anything about the *spatial resolution* of the data (i.e. how large each cell is), nor e.g. in which area of the world this data is located (i.e. coordinates) or the *coordinate reference system* this data is represented in. In the next section, we start working with real raster data and cover more aspects that relate to spatial raster data.
 
+<!-- #endregion -->

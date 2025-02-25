@@ -17,9 +17,9 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Geometric operations refer to a set of methods that can be used to process and analyze geometric features, like points, lines and polygons. In the context of geographic data analysis, these operations allow us, for instance, to ask questions about how two or more geographic objects relate to each other: Do they intersect, touch, or overlap? Are they adjacent to one another? How far apart are they? With the tools bundled in geopandas, it is easy to perform these kind of operations which is the main focus of Chapter 6. As we delve into the geometric operations, you will discover that they form the foundation of many geospatial analyses, enabling insights that are often difficult to discern from non-spatial data alone.
+Geometric operations refer to a set of methods that can be used to process and analyze geometric features, like points, lines and polygons. In the context of geographic data analysis, these operations allow us, for instance, to ask questions about how two or more geographic objects relate to each other: Do they intersect, touch, or overlap? Are they adjacent to one another? How far apart are they? With the tools bundled in `geopandas`, it is easy to perform these kind of operations which is the main focus of Chapter 6. As we delve into the geometric operations, you will discover that they form the foundation of many geospatial analyses, enabling insights that are often difficult to discern from non-spatial data alone.
 
-In the following, we demonstrate some of the most common geometric manipulation functions available in geopandas. We will do this by continuing to explore the census tract data from Austin, Texas. Geometric manipulations are often useful e.g. when working with data related to administrative boundaries, as we often might need to transform or manipulate the geographic data in one way or another for further analysis and visualization purposes. Next, we will learn how to generate centroids, different outlines, and buffer zones for the polygons. Let's start by reading the census tract data into `GeoDataFrame`. In this case, we use data that we already manipulated a bit in the previous section (by calculating the area and population density):
+In the following, we demonstrate some of the most common geometric manipulation functions available in `geopandas`. We will do this by continuing to explore the census tract data from Austin, Texas. Geometric manipulations are often useful e.g. when working with data related to administrative boundaries, as we often might need to transform or manipulate the geographic data in one way or another for further analysis and visualization purposes. Next, we will learn how to generate centroids, different outlines, and buffer zones for the polygons. Let's start by reading the census tract data into `GeoDataFrame`. In this case, we use data that we already manipulated a bit in the previous section (by calculating the area and population density):
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -36,7 +36,7 @@ data.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-For the purposes of geometric manipulations, we are mainly interested in the geometry column which contains the polygon geometries. Remember, that the data type of the geometry-column is `GeoSeries`. As we have mentioned earlier, the individual geometries are ultimately shapely geometric objects (e.g. `Point`, `LineString`, `Polygon`), and we can use all of `shapely`'s tools for geometric manipulations directly via `geopandas`. The following shows that the geometries in the `GeoSeries` are stored as `MultiPolygon` objects:
+For the purposes of geometric manipulations, we are mainly interested in the geometry column which contains the polygon geometries. Remember, that the data type of the geometry-column is `GeoSeries`. As we have mentioned earlier, the individual geometries are ultimately `shapely` geometric objects (e.g. `Point`, `LineString`, `Polygon`), and we can use all of `shapely`'s tools for geometric manipulations directly via `geopandas`. The following shows that the geometries in the `GeoSeries` are stored as `MultiPolygon` objects:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -54,7 +54,7 @@ type(data["geometry"].values[0])
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Let's first plot the original geometries. We can use the built-in `.plot()` function in geopandas to plot the geometries, and `matplotlib.pyplot` to turn off axis lines and labels:
+Let's first plot the original geometries. We can use the built-in `.plot()` function in `geopandas` to plot the geometries, and `matplotlib.pyplot` to turn off axis lines and labels:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -191,7 +191,7 @@ As can be seen from the geometries above, the *minimum rotated rectangle* can ro
 
 A bit more detailed delineation of the data extent can be extracted using a convex hull which represents the smalles possible polygon that contains all points in an object. To illustrate this, imagine stretching a rubber band around a set of points. Once released, the rubber band would snap into the shape of the convex hull, which wraps around the outermost points. Thus, it excludes points that are "indentations" in the shape. In geocomputation, the convex hull is used for various tasks as it can be used to easily provide a simplified representation of a set of points or a more complex geometry. 
 
-In geopandas, we can use an attribute `.convex_hull` to return the convex hull of geometries. Similarly as with unary union, if we apply the convex hull method on the whole `GeoDataFrame`, we will get a GeoSeries containing a convex hull for each polygon separately:
+In `geopandas`, we can use an attribute `.convex_hull` to return the convex hull of geometries. Similarly as with unary union, if we apply the convex hull method on the whole `GeoDataFrame`, we will get a GeoSeries containing a convex hull for each polygon separately:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -215,7 +215,7 @@ _**Figure 6.21**. Smallest convex polygon for the census tracts._
 
 A concave hull is a polygon that encloses a set of points but, unlike the convex hull, is allowed to have concavities. In simpler terms, while a convex hull wraps around the outermost points in the tightest convex manner (like a stretched rubber band), a concave hull can bend inward to more closely follow the distribution of the points, providing a boundary that might be more representative of the actual shape of the dataset.
 
-In geopandas, we can create a concave hull of a `GeoDataFrame` by calling `.concave_hull()` method. Again, if we apply the concave hull method on the whole `GeoDataFrame`, we will get a `GeoSeries` containing a concave hull for each polygon separately:
+In `geopandas`, we can create a concave hull of a `GeoDataFrame` by calling `.concave_hull()` method. Again, if we apply the concave hull method on the whole `GeoDataFrame`, we will get a `GeoSeries` containing a concave hull for each polygon separately:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -236,7 +236,7 @@ _**Figure 6.22**. A concave hull applied with default settings for the census tr
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, the exact shape of a concave hull has been simplified but the shape looks quite weird and has gaps between the shapes. Because calculating the concave hull is a much more complicated operation than the previous ones, there are actually a couple of parameters which we can use to control the shape of the output. Parameters `ratio` and `allow_holes` can be used in situations where the convex hull is too general or doesn't provide a realistic boundary for a set of points, like when capturing the outline of irregularly shaped clusters. In geopandas, the hull is constructed by removing border triangles of a process called Delaunay Triangulation of the points based on specific criteria. We can very easily improve the shape of the convex hull by adjusting the `ratio` parameter which accepts a value between 0.0 - 1.0. The higher the number, the fewer the number of vertices will be kept in the output. In the following, we can see how changing this value influences the end result. Let's first calculate the concave hull by passing different values for the `ratio` parameter:
+As we can see, the exact shape of a concave hull has been simplified but the shape looks quite weird and has gaps between the shapes. Because calculating the concave hull is a much more complicated operation than the previous ones, there are actually a couple of parameters which we can use to control the shape of the output. Parameters `ratio` and `allow_holes` can be used in situations where the convex hull is too general or doesn't provide a realistic boundary for a set of points, like when capturing the outline of irregularly shaped clusters. In `geopandas`, the hull is constructed by removing border triangles of a process called Delaunay Triangulation of the points based on specific criteria. We can very easily improve the shape of the convex hull by adjusting the `ratio` parameter which accepts a value between 0.0 - 1.0. The higher the number, the fewer the number of vertices will be kept in the output. In the following, we can see how changing this value influences the end result. Let's first calculate the concave hull by passing different values for the `ratio` parameter:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -288,7 +288,7 @@ As we can see, by adjusting the `ratio` parameter, we can have a good control fo
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Simplifying geometries
 
-The previous example with concave hull showed the basic idea of how we can simplify the shape of a given Polygon. Geometric simplification is a useful process especially when visualizing data that contains very detailed geometries. Geopandas provides a function called `.simplify()` which is another way to simplify geometries. In comparison to the concave hull, this function also works with `LineString` geometries in addition to polygons. The `tolerance` parameter can be used to control the level of simplification. The units for this parameter follow the input coordinates. This means that e.g. with `tolerance=1000` the tolerance stands for 1000 meters because our input data is in a projected (metric) coordinate refence system (which we covered in Chapter 5.3). However, in case the input data would have lat/lon coordinates, the tolerance should be passed in as decimal degrees. 
+The previous example with concave hull showed the basic idea of how we can simplify the shape of a given Polygon. Geometric simplification is a useful process especially when visualizing data that contains very detailed geometries. An function in `geopandas` called `.simplify()` can also be used to simplify geometries. In comparison to the concave hull, this function also works with `LineString` geometries in addition to polygons. The `tolerance` parameter can be used to control the level of simplification. The units for this parameter follow the input coordinates. This means that e.g. with `tolerance=1000` the tolerance stands for 1000 meters because our input data is in a projected (metric) coordinate refence system (which we covered in Chapter 5.3). However, in case the input data would have lat/lon coordinates, the tolerance should be passed in as decimal degrees. 
 
 Under the hood, the `.simplify()` uses a Douglas-Peucker algorithm to recursively split the original line into smaller parts and connects these parts’ endpoints by a straight line. Then, it removes all points whose distance to the straight line is smaller than the tolerance. It does not move any points and it always preserves endpoints of the original line or polygon. The following shows how we can generate a simplified version of the polygons of the Austin cencus data, first applied to individual polygons, and then to the outline extent of the whole dataset:
 <!-- #endregion -->
@@ -314,7 +314,7 @@ _**Figure 6.24**. Simplified union of the census tract polygons._
 
 A buffer refers to a geometric operation that creates a zone around a given geometry (or geometries), usually representing a certain distance from the shape. This zone/buffer can be visualized as an expanded area around the original shape, or conversely, a contracted area inside the shape if the buffer distance is negative. Buffering is a common spatial operation that has a multitude of use cases in spatial analyses. For example, in transport network analyses, it is good to fetch the transport network also from outside the study area in order to capture routes that go beyond the study area border. 
 
-In geopandas, we can easily create buffers using the method `.buffer()` that can be applied to all geometries at once in a similar manner as our previous examples. The `distance` parameter in the `.buffer()` function defines the radius of the buffer (according to the coordinate reference system of the data). In the following, we will apply a 1000 meter buffer on the entire 'GeoDataFrame` which will produce separate buffers for each census tract:
+In `geopandas`, we can easily create buffers using the method `.buffer()` that can be applied to all geometries at once in a similar manner as our previous examples. The `distance` parameter in the `.buffer()` function defines the radius of the buffer (according to the coordinate reference system of the data). In the following, we will apply a 1000 meter buffer on the entire 'GeoDataFrame` which will produce separate buffers for each census tract:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -402,7 +402,7 @@ _**Figure 6.27**. Dissolved census tract geometries._
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 6.5
 
-Combining your pandas and geopandas skills, create a 500m buffer zone around the dense areas in Austin and plot a simple map of this zone.
+Combining your `pandas` and `geopandas` skills, create a 500m buffer zone around the dense areas in Austin and plot a simple map of this zone.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
@@ -424,7 +424,7 @@ dissolved.loc[dissolved["dense"] == 1].buffer(500).plot(
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Changing the active geometry in a GeoDataFrame
 
-In the previous examples, we did not really store the manipulated geometries anywhere, as we mostly printed or plotted the results of the geometric operations directly to the screen. Next, we want to discuss briefly about different ways to store the results of the geometric operations into `GeoDataFrame`, and how you can change/update the active geometry of the `GeoDataFrame` for representing the geometries in your data. In some cases, such as when calculating the centroids in the previous examples, you might actually want to save the centroids into your `GeoDataFrame`. This is useful, because you can then continue processing or analysing the data based on these geometries. Storing and updating geometries in your `GeoDataFrame` can be done easily with geopandas, and in fact, you can have multiple columns that contain geometries. There are a couple of approaches to update the geometries of your `GeoDataFrame`:
+In the previous examples, we did not really store the manipulated geometries anywhere, as we mostly printed or plotted the results of the geometric operations directly to the screen. Next, we want to discuss briefly about different ways to store the results of the geometric operations into `GeoDataFrame`, and how you can change/update the active geometry of the `GeoDataFrame` for representing the geometries in your data. In some cases, such as when calculating the centroids in the previous examples, you might actually want to save the centroids into your `GeoDataFrame`. This is useful, because you can then continue processing or analysing the data based on these geometries. Storing and updating geometries in your `GeoDataFrame` can be done easily with `geopandas`, and in fact, you can have multiple columns that contain geometries. There are a couple of approaches to update the geometries of your `GeoDataFrame`:
 
 1. Overwrite the existing geometries in the `geometry` column by storing the new (manipulated) geometries into it.
 2. Create a new column (e.g. `centroid`) and store the new geometries into this one. Then activate/set this column as the "active geometry" for your `GeoDataFrame`. In this way, you can have multiple simultaneous columns containing geometries in a `GeoDataFrame`, which can be very handy!

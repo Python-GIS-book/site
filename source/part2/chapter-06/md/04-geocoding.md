@@ -40,7 +40,6 @@ As we can see, we have an `id` for each row and an address on a column `addr`. L
 # Import necessary modules
 import pandas as pd
 import geopandas as gpd
-from shapely.geometry import Point
 
 # Filepath
 fp = "data/Helsinki/addresses.txt"
@@ -51,7 +50,7 @@ data.head()
 ```
 
 <!-- #region deletable=true editable=true -->
-Now we have our data in a `DataFrame` and we can geocode our addresses using the the `geopandas.tools.geocode()` function in geopandas that uses `geopy` library under the hood. The function geocodes a list of addresses (strings) and returns a `GeoDataFrame` with the geocoded result. In the following, we import the `geocode()` function and geocode the addresses using Nominatim. Then we pass the addressess to the function from the column `addr`. As discussed earlier, we need to provide a custom string (name of your application) in the `user_agent` parameter to identify ourselves. We also use the `timeout`-parameter to specify how many seconds to wait for a response from the service:
+Now we have our data in a `DataFrame` and we can geocode our addresses using the the `geopandas.tools.geocode()` function in `geopandas` that uses `geopy` library under the hood. The function geocodes a list of addresses (strings) and returns a `GeoDataFrame` with the geocoded result. In the following, we import the `geocode()` function and geocode the addresses using Nominatim. Then we pass the addressess to the function from the column `addr`. As discussed earlier, we need to provide a custom string (name of your application) in the `user_agent` parameter to identify ourselves. We also use the `timeout`-parameter to specify how many seconds to wait for a response from the service:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -71,7 +70,19 @@ join = geo.join(data)
 join.head()
 ```
 
-Here we can see the geocoded address (column `address`) and original address (column `addr`) side-by-side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can save the geocoded addresses to a file:
+Here we can see the geocoded address (column `address`) and original address (column `addr`) side-by-side and verify that the result looks correct for the first five rows. Note that in some cases, Nominatim has identified a specific point-of-interest, such as a restaurant, as the exact location. Finally, we can have a look how the points look on a map and save the geocoded addresses to a file:
+
+```python
+join.explore(color="red", marker_kwds={"radius": 5})
+```
+
+<!-- #raw editable=true slideshow={"slide_type": ""} raw_mimetype="" tags=["hide-cell"] -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.34}. Geocoded addresses on a map.}}, center, nofloat}{../img/figure_6-34.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
+
+_**Figure 6.34**. Geocoded addresses on a map._
 
 ```python deletable=true editable=true
 # Output file path
@@ -118,7 +129,7 @@ geo2.explore(
 ```
 ## Reverse geocoding
 
-Naturally, it is also possible to do geocoding in a reverse manner, meaning that we have a list of points / coordinates and we want to find out the address for these points. In the following, we continue using the same points that we stored previously into the `geo` geodataframe, but at this time, we do the reverse geocoding with them. Let's start by selecting only the `geometry` column from the data:
+Naturally, it is also possible to do geocoding in a reverse manner, meaning that we have a list of points / coordinates and we want to find out the address for these points. In the following, we continue using the same points that we stored previously into the `geo` `GeoDataFrame`, but at this time, we do the reverse geocoding with them. Let's start by selecting only the `geometry` column from the data:
 
 
 ```python
@@ -137,7 +148,7 @@ reverse_geocoded = reverse_geocode(
 reverse_geocoded.head()
 ```
 
-As a result, we now have the addresses for each point stored into the `address` column which can be useful e.g. if you want to visualize the points on a map and also show the address to these locations as an extra information. 
+As a result, we now have the addresses for each point stored into the `address` column which can be useful, e.g., if you want to visualize the points on a map and also show the address to these locations as an extra information. 
 
 
 ## Footnotes

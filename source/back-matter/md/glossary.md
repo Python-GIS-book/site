@@ -16,6 +16,9 @@ jupyter:
 # Glossary
 
 ```{glossary}
+Accessor
+  In Python libraries, an *accessor* is a method or attribute added to an existing data structure, such as a `Dataset` in `xarray` library, to provide specialized functionality. Accessors extend the capabilities of the base object without modifying its core structure.
+
 Application Programming Interface
   An application programming interface or API is a set of protocols and tools that enable pieces of software to communicate and exchange information. For example, the Nominatim service has an API for accessing its geocoding service.
 
@@ -58,6 +61,9 @@ DatetimeIndex
 
 DE-9IM
   See {term}`Dimensionally Extended 9-Intersection Model`.
+
+Decimal degrees
+  A decimal degree is a method of expressing latitude and longitude geographic coordinates as decimal fractions instead of degrees, minutes, and seconds. It represents the angle between a point on the earth's surface and the equator or prime meridian, respectively, in units of decimal degrees. Decimal degrees provide a more convenient representation of geographic coordinates and make it easier to perform calculations with them.
   
 Dependency
   Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work. 
@@ -70,9 +76,9 @@ Dimensionally Extended 9-Intersection Model
 
 Docstring
   A text string used to document a section of code. Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs. You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.
-  
-Decimal degrees
-  A decimal degree is a method of expressing latitude and longitude geographic coordinates as decimal fractions instead of degrees, minutes, and seconds. It represents the angle between a point on the earth's surface and the equator or prime meridian, respectively, in units of decimal degrees. Decimal degrees provide a more convenient representation of geographic coordinates and make it easier to perform calculations with them.
+
+EPSG code
+  An EPSG code is a unique identifier assigned to a specific coordinate reference system (CRS) or a spatial data transformation standard, as defined by the EPSG (European Petroleum Survey Group) registry. These codes, such as 4326 for WGS84 or 3857 for Web Mercator, simplify the process of referencing CRSs in geographic data processing.
 
 Function
   A reusable piece of code that performs a single action.
@@ -91,7 +97,16 @@ Georeferencing
 
 GeoSeries
   GeoSeries is used to store geospatial data, where each element is a geometric object like a point, line, or polygon. It extends the pandas {term}`Series` by supporting spatial operations, such as geometric transformations and spatial queries. A GeoSeries is often used to represent the geometry column in a {term}`GeoDataFrame`, making it a fundamental building block for geospatial analysis in Python.
-  
+
+Hypsometric curve
+  The distribution of area above a given elevation in an region analyzed using hypsometric analysis. This is effectively a cumulative distribution of area as a function of elevation. The areas and elevations in hypsometric curves are frequently normalized to allow comparison between regions and for calculating a {term}`hypsometric integral`.
+
+Hypsometric integral
+  The area under a {term}`hypsometric curve`. This value can be used as a metric of the volume of rock and/or soil that has been removed from a given region such as a watershed.
+
+Hypsometry
+  The measurement of the distribution of elevations of Earth's (or other planet's) surface elevations within a specified area. Also known as hypsometric analysis.
+
 IDE
   See {term}`Integrated Development Environment`.
 
@@ -172,6 +187,9 @@ Program
 Programming language
   A set of exact and unambiguous instructions that can be understood by the computer.
 
+Radiometric resolution
+  In satellite imagery, radiometric resolution refers to the ability of a sensor to measure and distinguish differences in the intensity of the electromagnetic radiation it detects. It is determined by the number of bits used to represent the data for each pixel, which defines the range of possible intensity values. For example, an 8-bit sensor can record 256 levels of intensity (0–255), while a 16-bit sensor can record 65,536 levels. 
+
 Radius query
   A radius query is a type of spatial query that retrieves all points within a specified distance (radius) from a given query point. The query is performed typically on a {term}`KD-Tree` to efficiently find points that fall within a given distance from the query point. KD-Tree supports only Point objects, i.e. it cannot be used to search other geometric types, such as LineStrings or Polygons.
 
@@ -199,8 +217,14 @@ Series
 Shifting
   The process of adjusting references in time series data forward or backward in time. For example, values could be shifted backward by one week to compare data from a given week to equivalent data from the following week.
 
+Signed integer
+  A (data) type of integer in Python that can represent both positive and negative whole numbers. The "signed" attribute means the number includes a "+" or "-" sign to indicate its value's polarity. For example, -5 and 42 are signed integers. In Python, integers are stored as signed by default and can handle very large values thanks to their dynamic size.
+
 Software
   Another name for a {term}`program`.
+
+Spatial extent
+  In geographic data, spatial extent refers to the geographic area covered by a dataset or map. It is typically defined by the minimum and maximum coordinates (e.g., latitude and longitude) that bound the dataset, forming a rectangle or other boundary in geographic space.
 
 Spatial index
   A spatial index is a data structure designed to efficiently query spatial data, such as Points, LineStrings and Polygons within a multidimensional space. It optimizes the storage of spatial objects, enabling fast searches based on their geographic location and spatial relationships. Spatial indexes are crucial in geographic information systems (GIS) and spatial database management, where rapid access to spatial data is essential for tasks such as proximity searches, map rendering and spatial analysis. Common types of spatial indexes include R-trees, quad-trees, and k-d trees, each with its own method for partitioning space and organizing spatial data for efficient querying.
@@ -220,11 +244,17 @@ Spatial predicate
 Spatio-temporal data model
   A data model that incorporates time (t) as an additional dimension to the geographical dimension (x, y). 
 
+Spectral resolution
+  In multispectral satellite data, spectral resolution refers to the ability of a sensor to distinguish between different wavelengths of electromagnetic radiation. It is defined by the number and width of the spectral bands the sensor can capture. Higher spectral resolution means the sensor can detect finer differences in wavelength, allowing for more detailed analysis of surface materials and phenomena.
+
 Subplots
   The term used in Matplotlib to refer to individual plots when more than one plot is part of a single figure.
 
 Syntax
   The precise form of a component in a programming language. For example, the print function in Python expects the syntax `print('hello')` in order to have the word hello displayed on the screen.
+
+Temporal resolution
+   In satellite imagery, temporal resolution refers to the frequency at which a specific area on Earth's surface is revisited and imaged by a satellite sensor. It determines how often data is collected for a given location and is typically expressed as the time interval between consecutive observations (e.g., daily, weekly). Higher temporal resolution enables more frequent monitoring, while lower temporal resolution provides less frequent updates but may cover broader areas or focus on finer spatial or spectral details.
 
 Topological spatial relations
   Topological spatial relations describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as contains, touches and intersects. In GIS, these kind of topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions.
@@ -238,11 +268,17 @@ Type conversion
 Unary union
   The unary union operation takes multiple geometries and merges them into a single geometry. This is useful when you have a collection of shapes and you want to treat them as a single entity for analysis or visualization.
 
+Unsigned integer
+  A type of integer that represents only non-negative whole numbers, starting from zero. Unlike {term}`signed integers`, unsigned integers do not include a "+" or "-" sign, allowing them to use all their bits for positive values.
+
 Variable
   A way of storing values in the memory of the computer using specific names that you define.
   
 Virtual environment
   A virtual environment is a Python programming environment which works in a way that the Python interpreter, libraries and scripts installed into it are isolated from the ones installed in other virtual environments, as well as from (possible) system Python, i.e., one which is installed as part of your operating system.
+
+Watershed
+  An area of land where all surface water drains to a common outlet, such as a river, lake, or ocean.
   
 Well-known binary
   Well-known binary (WKB) is a format for representing vector geometry objects in compressed binary format which is useful for computer processing. The human-readable equivalent for WKB is `Well-known text` format. WKB can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m).

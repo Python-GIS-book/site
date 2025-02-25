@@ -398,15 +398,15 @@ It is also possible to get other `DataFrame`-specific information such as the in
 data.info()
 ```
 
-<!-- #region deletable=true editable=true -->
-## Other ways of constructing pandas objects
+<!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
+## Creating a pandas Series or DataFrame from scratch
 
 Most often we create `pandas` objects by reading in data from an external source such as a text file. However, there are other ways to convert data stored in other Python data types to `pandas` objects. Here, we show how to create `pandas` objects from a Python `list` or `dictionary` object.
 
 If you have a very long `list` of values, creating a `pandas` `Series` (or `numpy.array`) will allow you to interact with these data more efficiently in terms of computing time. This is how you can create a `pandas` `Series` from a `list`.
 <!-- #endregion -->
 
-```python deletable=true editable=true jupyter={"outputs_hidden": false}
+```python deletable=true editable=true jupyter={"outputs_hidden": false} slideshow={"slide_type": ""}
 number_list = [4, 5, 6, 7.0]
 number_series = pd.Series(number_list)
 print(number_series)
