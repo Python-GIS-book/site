@@ -970,7 +970,7 @@ catchment_df.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Everything looks good so far, so we can now move on to creating a `geopandas` `GeoDataFrame` from the `catchment_df` `DataFrame` by explicitly assigning x and y coordinates and providing a coordinate reference system (WGS 84 in this case: `epsg:4326`.
+Everything looks good so far, so we can now move on to creating a `geopandas` `GeoDataFrame` from the `catchment_df` `DataFrame` by explicitly assigning x and y coordinates and providing a coordinate reference system (WGS 84 in this case: `epsg:4326`).
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
