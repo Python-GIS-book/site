@@ -21,7 +21,7 @@ In this case study we will cover how to extract watersheds and perform some exam
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Introduction
 
-In this case study we will analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.
+In this case study we will analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.
 
 ![_**Figure 12.1**. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)._](../img/cook-river-watershed.png)
 
@@ -33,12 +33,16 @@ To get started, we'll present a quick overview of some of the key background top
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### A brief introduction to watershed analysis
 
-To be added...
+Watershed analysis is the process of analyzing the landscape and hydrology of *{term}`watersheds <watershed>`* – land areas where surface water drains to a common outlet, such as a river, lake, or ocean. In our case we are interested in understanding how various factors, such as the area and/or topographic relief, vary within a set of river watersheds in the Southern Alps to be able to explore relationships related to landscape uplift and erosion. Thus, we will calculate a series of values for each watershed and then investigate how they vary within the study area.
+
+In order to perform our analysis, we will need to complete a series of steps including loading the digital elevation data for the study region, defining the areas of the watersheds of interest, analyzing the landscapes in each watershed, and visualizing the results. In the following sections we will explore each of these topics in more detail and demonstrate how to perform watershed analysis using Python.
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Getting started
 
 We can start by importing the libraries we need for this analysis. In this case, we will be using `xarray`, `rioxarray`, `pysheds`, `geopandas`, and `geocube` in addition to more familiar packages such as `matplotlib` and `numpy`. We will also use some custom functions from the `basin_functions.py` file, which you are welcome to check out if you want to know more about how the functions work.
+<!-- #endregion -->
 
 ```python
 from basin_functions import *
@@ -62,7 +66,7 @@ plt.style.use("bmh")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Loading the digital elevation data
+### Loading the digital elevation data
 
 A mosaic of the data used for this case study has already been created and is provided as a geotiff image online at the address listed with the variable `bucket_dem_fp` below. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. The DEM data is from the [ALOS World 3D-30m digital surface model](https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm) [^alos] with approximately 30 m spatial resolution (e.g., {cite}`Tadono2014`). Information about how the data have been processed to produce the mosaic we will use can be found in the {doc}`data for New Zealand section </data/New-Zealand-data>` online. We will be using this elevation data to extract and analyze river drainage basins on the western side of the New Zealand Alps.
 
@@ -481,9 +485,11 @@ plt.tight_layout()
 _**Figure 12.2**. Waiho River watershed extent, elevations, flow directions, and flow accumulation._
 <!-- #endregion -->
 
-### Analyzing the watershed data
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Analyzing the watershed data
 
 Having extracted the watershed area, there are a handful of additional analyses we can perform using `pysheds`. A good place to start is by calculating the distance from each point in the watershed to the defined outlet point. This provides a measure of how many cells water must flow across to reach the outlet, which can be converted to a distance in meters. We can use the `pysheds` `.distance_to_outlet()` function for this calculation.
+<!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 # Compute distance to outlet
@@ -712,9 +718,9 @@ ax.text(
 _**Figure 12.7**. Hypsometric curve for the Waiho River watershed with a 50-meter bin size. HI = hypsometric integral._
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-### Automating the process
+## Automating the process
 
-We have now gone through the process of conditioning a DEM, delineating a watershed, and analyzing the watershed data for the Waiho River watershed. Our next step is to automate this process for a larger set of 38 watersheds on the western side of the Southern Alps. In order to do this, we first need to create a pair of lists: one for the names of the watersheds, and a second for the locations of their outlets. In this case both lists were created by hand from data generated using [Google Maps](https://www.google.com/maps) [^maps].
+We have now gone through the process of conditioning a DEM, delineating a watershed, and analyzing the watershed data for the Waiho River watershed. Our next step is to automate this process for a larger set of 38 watersheds in the hanging wall of the Alpine Fault along the western side of the Southern Alps. In order to do this, we first need to create a pair of lists: one for the names of the watersheds, and a second for the locations of their outlets. In this case both lists were created by hand from selecting outlet point coordinates using [Google Maps](https://www.google.com/maps) [^maps].
 <!-- #endregion -->
 
 <!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
@@ -840,7 +846,7 @@ pour_points = [
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Batch process the watersheds.
+With our lists of river/creek names and outlet locations ready, we can proceed to automating the watershed delineation and analysis steps presented earlier in this chapter for each watershed. To do this we will essentially perform the same steps presented earlier with a few minor modifications. First, because we want to store the outputs of the analysis steps separately, we will need to create a set of empty Python lists where output can be added for each watershed. We can also initialize a counter variable that will be updated with the catchment number each time a new watershed is processed.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -854,20 +860,41 @@ catchment_max_elevs = []
 catchment_reliefs = []
 catchment_his = []
 catchment_boundaries = []
-catchment_number = 0
 
-print("Processing catchments", end="")
+# Initialize catchment number for batch processing
+catchment_number = 0
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Next, we can create a large `for` loop that will be used to iterate over each watershed. We can use the length of the `pour_points` list to determine how many iterations to perform. Within each iteration we will execute the steps presented earlier. A summary of the steps is given below.
+
+1. Set the grid extent to the extent of the full DEM
+2. Snap the pour point to the nearest high-discharge cell
+3. Delineate the watershed
+4. Set the grid extent to that of the delineated watershed
+5. Export the watershed data to `xarray`
+6. Store the watershed elevations without the `nan` values and calculate the hypsometric integral
+7. Extract a vector boundary of the watershed for plotting
+8. Store the watershed data in the lists created above
+
+    - Note: There are some functions from the `basin_functions.py` function that are used when appending values to the lists.
+  
+Now that we know the process, we can have a look at the code that is used for batch processing the watershed data.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+print("Processing watersheds", end="")
 
 for i in range(len(pour_points)):
+    # Print a progress dot and increment catchment number
     print(".", end="", flush=True)
     catchment_number = i + 1
 
     # Reset grid extent
     grid.clip_to(dem)
 
+    # Delineate the watershed
     x_snap, y_snap = grid.snap_to_mask(acc > 1000, pour_points[i])
-
-    # Delineate the catchment
     current_catchment = grid.catchment(
         x=x_snap, y=y_snap, fdir=fdir, xytype="coordinate"
     )
@@ -875,10 +902,8 @@ for i in range(len(pour_points)):
     # Clip and set view extent
     grid.clip_to(current_catchment)
     dem_view = grid.view(dem, nodata=np.nan)
-    fdir_view = grid.view(fdir)
-    acc_view = grid.view(acc, nodata=np.nan)
 
-    # Save in xarray
+    # Save watershed elevations in xarray
     catchment = dem_view
     data = catchment.data
     lat = np.unique(catchment.coords[:, 0])
@@ -888,24 +913,21 @@ for i in range(len(pour_points)):
         catchment.base, coords={"y": lat, "x": lon}, dims=["y", "x"]
     )
 
-    # Save elevations without NaN values
+    # Store elevations minus NaN values, calculate elevation histogram
+    # and hypsometric integral
     catch_elev = catch_xr.values[~np.isnan(catch_xr.values)]
-
-    # Calculate elevation histogram
     counts, bins = calculate_hypsometry(catch_elev)
-
-    # Calculate hypsometric integral
     hyps_integral = calculate_hypsometric_integral(counts, bins)
 
-    # Extract vector boundary of catchment
-    catch_xr.name = f"Catchment {catchment_number}"
+    # Extract vector boundary of watershed
+    catch_xr.name = f"Watershed {catchment_number}"
     catch_gdf = vectorize(catch_xr.astype("float32"))
-    catch_gdf = catch_gdf.dropna(subset=f"Catchment {catchment_number}")
+    catch_gdf = catch_gdf.dropna(subset=f"Watershed {catchment_number}")
     catch_gdf = catch_gdf.set_crs("epsg:4326")
     dissolved = catch_gdf.dissolve(method="unary")
     dissolved = dissolved.rename(columns={"geometry": "basin_boundary"})
 
-    # Append catchment info to lists
+    # Append watershed info to lists
     catchment_numbers.append(catchment_number)
     catchment_lons.append(pour_points[i][0])
     catchment_lats.append(pour_points[i][1])
@@ -920,14 +942,18 @@ print("done.")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
+After completing the steps above we have nine lists full of catchment data that we will explore and visualize below.
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Plotting the results
 
-Create a `pandas` `DataFrame` to store the results produced in the code above.
+In order to be able to interact with and explore our watershed data we will create an interactive map using `geopandas`. To get started with that process, we first need to take all of the data from the lists created in the previous section and assemble them in a `pandas` `DataFrame`. We can do so similar to how we introduced earlier in Section 3.1.9. After creating the `DataFrame` we can check the first rows of it using the `.head()` method.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 data = {
-    "Catchment number": catchment_numbers,
+    "Watershed number": catchment_numbers,
     "River name": river_names,
     "Outlet longitude (deg.)": catchment_lons,
     "Outlet latitude (deg.)": catchment_lats,
@@ -944,7 +970,7 @@ catchment_df.head()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Create a `geopandas` `GeoDataFrame` from the `DataFrame` by adding x and y coordinates.
+Everything looks good so far, so we can now move on to creating a `geopandas` `GeoDataFrame` from the `catchment_df` `DataFrame` by explicitly assigning x and y coordinates and providing a coordinate reference system (WGS 84 in this case: `epsg:4326`).
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -956,7 +982,7 @@ catchment_gdf = gpd.GeoDataFrame(catchment_df, crs="epsg:4326")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Read in data for the [Alpine Fault](https://data.gns.cri.nz/af/) [^alpinefault] ({cite}`Langridge2016`).
+The only remaining thing to do before creating the interact map is to load in data for the location of the [Alpine Fault](https://data.gns.cri.nz/af/) [^alpinefault] ({cite}`Langridge2016`). The data in this case comes from GNS Science, Te Pū Ao, New Zealand. For simplicity, we have created a `geopandas` `GeoPackage` containing the data that is available online.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -968,25 +994,26 @@ fault_df = gpd.read_file(bucket_fault_fp)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Create plot comprising 3 layers:
-
-1. Alpine Fault
-2. Watersheds
-3. Basin outlet points
+Now we are ready to plot the data and create an interactive map using `geopandas`. As we have several different things to plot, we will plot the data in three separate layers: (1) the Alpine Fault data, (2) the watersheds, and (3) the basin outlet points. For each layer we can use the `geopandas` `.explore()` function to create a map of the layer. Note that because we want to plot both the watershed boundaries and outlet points in separate layers, we need to specify the active geometry layer for `geopandas` before plotting each one.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-basin_color_field = "Hypsometric integral"
+# Plot Alpine Fault
 m = fault_df.loc[fault_df["name"] == "Alpine Fault"].explore(
     column="name", cmap="gist_gray"
 )
+
+# Set active geometry layer and plot watersheds
 catchment_gdf["Points"] = catchment_gdf["geometry"]
 catchment_gdf = catchment_gdf.set_geometry("Basin boundary")
+basin_color_field = "Hypsometric integral"
 m = catchment_gdf.explore(
     m=m,
     column=basin_color_field,
     cmap="plasma",
 )
+
+# Set active geometry layer and plot outlet points
 catchment_gdf = catchment_gdf.set_geometry("Points")
 m = catchment_gdf.explore(m=m, color="black", marker_kwds={"radius": 2})
 m
@@ -997,6 +1024,66 @@ m
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 12.8}. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.}}, center, nofloat}{../img/south-island-watersheds.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
+
+_**Figure 12.8**. An interactive map of watersheds along the western side of the Southern Alps, New Zealand._
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Summary
+
+So now we have seen how to process and extract watersheds from digital elevation data, how to perform various analyses on the watershed data, and how to create an interactive map of the resulting outputs. This template can be used as it is, or easily augmented to fit your interests by changing the source data, types of analysis, or the formatting of the output map. And although there are a number of steps needed to perform such an analysis, automating the processing can allow the analysis to be scaled to large numbers of watersheds.
+
+First, in terms of the output we have produced, we can perhaps also take a moment to observe a few things. First, the values of the hypsometric integral range from 0.33 to 0.54. Although the exact values of the hypsometric integral should be interpreted carefully, a lower value of the hypsometric integral is associated with more removal of mass from a watershed by erosional processes and often lower values within a given region reflect a larger impact of glacial erosion on the landscape (e.g., {cite}`Sternai2011`). Within the study region, we can observe that in general the values of the hypsometric integral decrease towards the southwest towards the heavily glaciated landscapes of the Fiordland National Park.
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+We can confirm this trend by looking at a plot of the hypsometric integral as a function of latitude.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
+catchment_df.plot(x="Outlet latitude (deg.)", y="Hypsometric integral", kind="scatter", color="black");
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+_Hypsometric integral values as a function of latitude._
+
+Although there is a relationship between the hypsometric integral values and latitude, the correlation appears rather weak (feel free to confirm by your own regression analysis!).
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Second, it is clear that smaller watersheds generally have higher hypsometric integral values. This relationship is perhaps not a huge surprise in the rapidly uplifted landscape of the Southern Alps, where smaller watersheds have less power for erosion due to less total discharge in the rivers. Thus, the uplift of the landscape may outpace the river's erosion, resulting in a higher hypsometric integral value in small watersheds.
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+Again, if we look at this in a scatter plot we can clearly see the relationship between the watershed area and the hypsometric integral. In this case the correlation is stronger than that observed for latitude (again, feel free to confirm this!).
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
+catchment_df.plot(x="Area (sq. km)", y="Hypsometric integral", kind="scatter", color="black");
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+_Hypsometric integral values as a function of watershed area._
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Third, we can consider the hypsometric integral values as a function of relief in the watershed. Here too we can see that watersheds with greater relief values generally have lower hypsometric integral values. This is perhaps not a total surprise, as the watersheds with the largest relief values are also generally larger in area.
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+If we look at the scatter plot for this case, we can see there is a weak negative correlation between relief and hypsometric integral, but it is perhaps not as strong as the correlation for watershed area.
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
+catchment_df.plot(x="Relief (m)", y="Hypsometric integral", kind="scatter", color="black");
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+_Hypsometric integral values as a function of watershed relief._
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+In closing, we invite you to further explore the analysis of watersheds based on the case study presented here, to add your own watershed analysis approaches or functions, and to create your own maps presenting your results in an interactive and engaging format.
+<!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
