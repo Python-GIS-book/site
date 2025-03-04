@@ -92,7 +92,7 @@ The book consists of 4 parts:
    :titlesonly:
    :hidden:
 
-   .. front-matter/index
+   front-matter/index
 
 .. toctree::
    :maxdepth: 2
