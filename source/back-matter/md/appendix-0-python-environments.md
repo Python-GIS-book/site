@@ -15,7 +15,7 @@ jupyter:
 # Tips for maintaining Python environments 
 
 
-Here we present some useful tips for maintaining and/or updating Python environments. Note that we introduced how to install Python and to create the Python environment for this book in {doc}`Chapter 1.7 </part1/nb/06-installation>`.
+Here we present some useful tips for maintaining and/or updating Python environments. Note that we introduced how to install Python and to create the Python environment for this book in {doc}`Chapter 1.7 </part1/chapter-01/nb/06-installation>`.
 
 Tips and tricks for working with Python installations and managing the conda environments. 
 
