@@ -17,7 +17,7 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter eight provides an introduction to visualizing geographic information using Python. Previous sections of the book have already featured simple exploratory visualizations of geographic objects. This chapter will dive deeper into basic techniques of creating static and interactive visualizations and to making justified cartographic choices when creating maps in Python. Before diving in to this chapter, you should be familiar with basics of data visualization using `matplotlib` introduced in Part I and basics of `geopandas` introduced in Part II in the book.
+Chapter eight provides an introduction to visualizing geographic information using Python. Previous sections of the book have already featured simple exploratory visualizations of geographic objects. This chapter will dive deeper into basic techniques of creating static and interactive visualizations and to making justified cartographic choices when creating maps in Python. Before diving in to this chapter, you should be familiar with basics of data visualization using `matplotlib` introduced in Part I and basics of `geopandas` and coordinate reference systems introduced in Part II in the book.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
@@ -27,9 +27,13 @@ Chapter eight provides an introduction to visualizing geographic information usi
 At the end of this chapter, you should be able to:
 
 - Understand basic cartographic principles related to visualizing geographic information
-- Create static maps with relevatn cartographic features
+- Create static maps with relevant cartographic features
 - Create simple interactive maps 
 
 
 ```
 <!-- #endregion -->
+
+```python
+
+```
