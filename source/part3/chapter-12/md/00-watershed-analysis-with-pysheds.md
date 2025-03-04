@@ -15,7 +15,7 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Watershed analysis with pysheds
 
-In this case study we will cover how to extract watersheds and perform some example analyses of the elevation data in each watershed.
+In this case study we will cover how to extract watersheds and perform some example analyses using the elevation data in each watershed.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -44,7 +44,10 @@ In order to perform our analysis, we will need to complete a series of steps inc
 We can start by importing the libraries we need for this analysis. In this case, we will be using `xarray`, `rioxarray`, `pysheds`, `geopandas`, and `geocube` in addition to more familiar packages such as `matplotlib` and `numpy`. We will also use some custom functions from the `basin_functions.py` file, which you are welcome to check out if you want to know more about how the functions work.
 <!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# Note that we import everything here but have a "fake import" Markdown cell below.
+# This is because a warning is raised by importing from pysheds.grid
+# and suppressing the warning message did not work.
 from basin_functions import *
 from geocube.vector import vectorize
 import geopandas as gpd
@@ -59,9 +62,24 @@ import rioxarray as rxr
 import xarray as xr
 ```
 
-
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ```python
+from basin_functions import *
+from geocube.vector import vectorize
+import geopandas as gpd
+import matplotlib.colors as colors
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from pathlib import Path
+from pysheds.grid import Grid
+from pysheds.view import Raster, ViewFinder
+import rioxarray as rxr
+import xarray as xr
+```
+<!-- #endregion -->
+```python editable=true slideshow={"slide_type": ""}
+# Set plotting style
 plt.style.use("bmh")
 ```
 
@@ -1033,7 +1051,7 @@ m
 _**Figure 12.8**. An interactive map of watersheds along the western side of the Southern Alps, New Zealand._
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Summary
+## Concluding remarks
 
 So now we have seen how to process and extract watersheds from digital elevation data, how to perform various analyses on the watershed data, and how to create an interactive map of the resulting outputs. This template can be used as it is, or easily augmented to fit your interests by changing the source data, types of analysis, or the formatting of the output map. And although there are a number of steps needed to perform such an analysis, automating the processing can allow the analysis to be scaled to large numbers of watersheds.
 
