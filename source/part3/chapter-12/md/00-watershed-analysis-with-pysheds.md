@@ -78,6 +78,8 @@ import rioxarray as rxr
 import xarray as xr
 ```
 <!-- #endregion -->
+We can also set the plotting style for the visualizations using [`matplotlib` style sheets](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html).
+
 ```python editable=true slideshow={"slide_type": ""}
 # Set plotting style
 plt.style.use("bmh")
