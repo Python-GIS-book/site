@@ -9,4 +9,3 @@ The appendices include information for working efficiently with Python: how to d
 
     appendix-a
     appendix-b
-    appendix-c
