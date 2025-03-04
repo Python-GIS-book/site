@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -19,3 +19,5 @@ The following people (listed by name or GitHub username) assisted with proofread
 - Nicolás Ordax Sommer, hmhann, tyjonthomas, Frontnerd, ...
 
 This section is under construction.
+
+To add: Software carpentry, Geo-Python team, CSC, Git-SCM, GitHub Skills, ...
