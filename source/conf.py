@@ -69,7 +69,7 @@ html_theme_options = {
     # "twitter_url": "https://twitter.com/pythongis",
     "google_analytics_id": "UA-159257488-1",
     "use_edit_page_button": True,
-    "path_to_docs": "source/"
+    "path_to_docs": "source/",
     "launch_buttons": {
         "binderhub_url": "https://mybinder.org",
         "thebe": True,
