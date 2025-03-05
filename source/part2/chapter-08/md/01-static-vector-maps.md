@@ -24,7 +24,7 @@ data_dir = Path("../data")
 roads_fp = data_dir / "roads.shp"
 roads = gpd.read_file(roads_fp)
 
-roads.plot(color="black", linewidth=.5)
+roads.plot(color="black", linewidth=0.5)
 ```
 
 The power of geographic information often relies on overlaying multiple features and exploring their spatial interactions, and static maps help to get a quick overview of the available data.  In order to plot multiple layers in the same figure, the first thing is to check the coordinate reference system of the data. Let's elaborate our static map by adding some information about 
