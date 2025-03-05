@@ -1,5 +1,5 @@
-B. Spatial index efficiency
-===========================
+B. Solutions to questions and exercises
+=======================================
 
 TEXT DESCRIPTION GOES HERE...
 
@@ -7,4 +7,5 @@ TEXT DESCRIPTION GOES HERE...
     :maxdepth: 1
     :caption: Contents:
 
-    nb/appendix-5-spatial-index.ipynb
+    nb/appendix-5-question-solutions.ipynb
+    nb/appendix-6-exercise-solutions.ipynb

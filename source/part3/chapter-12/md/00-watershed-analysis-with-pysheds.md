@@ -15,19 +15,19 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Watershed analysis with pysheds
 
-In this case study we will cover how to extract watersheds and perform some example analyses of the elevation data in each watershed.
+In this case study we will cover how to extract watersheds and perform some example analyses using the elevation data in each watershed.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Introduction
 
-In this case study we will analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.
+The goal of this case study is to analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.
 
 ![_**Figure 12.1**. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)._](../img/cook-river-watershed.png)
 
 _**Figure 12.1**. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)._
 
-To get started, we'll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you're already familiar with delineating watersheds and things like basin hypsometry, feel free to skip ahead to Section 10.1.2.
+To get started, we'll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you're already familiar with delineating watersheds and things like basin hypsometry, feel free to skip ahead to Section 10.1.2 Getting started.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -44,6 +44,25 @@ In order to perform our analysis, we will need to complete a series of steps inc
 We can start by importing the libraries we need for this analysis. In this case, we will be using `xarray`, `rioxarray`, `pysheds`, `geopandas`, and `geocube` in addition to more familiar packages such as `matplotlib` and `numpy`. We will also use some custom functions from the `basin_functions.py` file, which you are welcome to check out if you want to know more about how the functions work.
 <!-- #endregion -->
 
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# Note that we import everything here but have a "fake import" Markdown cell below.
+# This is because a warning is raised by importing from pysheds.grid
+# and suppressing the warning message did not work.
+from basin_functions import *
+from geocube.vector import vectorize
+import geopandas as gpd
+import matplotlib.colors as colors
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from pathlib import Path
+from pysheds.grid import Grid
+from pysheds.view import Raster, ViewFinder
+import rioxarray as rxr
+import xarray as xr
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ```python
 from basin_functions import *
 from geocube.vector import vectorize
@@ -52,16 +71,17 @@ import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from pysheds.grid import Grid
 from pysheds.view import Raster, ViewFinder
 import rioxarray as rxr
 import xarray as xr
 ```
+<!-- #endregion -->
+We can also set the plotting style for the visualizations using [`matplotlib` style sheets](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html).
 
-
-
-```python
-# plt.style.use('seaborn-v0_8-whitegrid')
+```python editable=true slideshow={"slide_type": ""}
+# Set plotting style
 plt.style.use("bmh")
 ```
 
@@ -160,6 +180,11 @@ The processing of the data with `pysheds` generally goes smoothly, but it is pos
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 checkpoint = True
+if checkpoint:
+    # Create checkpoint_data directory if it does not exist
+    wd = Path.cwd()
+    newdir = wd / "checkpoint_data"
+    newdir.mkdir(parents=True, exist_ok=True)
 ```
 
 The first step in the process is to detect any pits in the DEM, which can be done using the `.detect_pits()` `Grid` method.
@@ -1028,7 +1053,7 @@ m
 _**Figure 12.8**. An interactive map of watersheds along the western side of the Southern Alps, New Zealand._
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Summary
+## Concluding remarks
 
 So now we have seen how to process and extract watersheds from digital elevation data, how to perform various analyses on the watershed data, and how to create an interactive map of the resulting outputs. This template can be used as it is, or easily augmented to fit your interests by changing the source data, types of analysis, or the formatting of the output map. And although there are a number of steps needed to perform such an analysis, automating the processing can allow the analysis to be scaled to large numbers of watersheds.
 

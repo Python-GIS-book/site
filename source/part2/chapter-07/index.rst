@@ -12,6 +12,5 @@
     7.4 Coordinate reference system management <nb/03-coordinate-reference-systems-raster.ipynb>
     7.5 Map algebra <nb/04-map-algebra.ipynb>
     7.6 Working with data cubes <nb/05-data-cubes.ipynb>
-    7.7 Surface analysis <nb/06-surface-analysis.ipynb>
     nb/06-exercises.ipynb
     

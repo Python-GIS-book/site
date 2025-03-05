@@ -611,10 +611,51 @@ plt.title("Upscaled elevation data");
 _**Figure 7.22.** Upscaled data using a upscale factor of 2._
 <!-- #endregion -->
 
-## Handling missing data
+## Filling missing data
 
-To be added. 
+Previously on this chapter we have learned that it is possible to deal with missing data in your raster by masking them out which is a way to ignore the NaN values in your analysis. However, there can be situations in which you cannot simply ignore the missing values but you need to fill those empty pixels somehow. There are different ways to fill missing data. For instance, you can fill the pixels with specific predefined value (e.g. 0 or average value of the whole dataset). This approach can be problematic as the outcome does not necessarily reflect very well the reality. Problems may arise especially if the data has significant variation which is quite often the case when representing any natural phenomena, such as elevation. Thus, another widely used approach is to predict the values for missing cells based on the neighboring values which is a process called interpolation. We already saw various interpolation methods in the previous section about resampling methods (Table 7.2). In the following, we will see how to fill missing data in a `Dataset` using `rioxarray`.
+
+You might have noticed already earlier that the bottom right corner of our elevation data (e.g. Figure 7.22) contains a white spot that contains various pixels that do not have any data in them. Let's select a slice out of our dataset to investigate more closely this part of our `Dataset`:
 
 ```python
-
+data_missing = data.sel(x=slice(36.8, 37.0), y=slice(-2.9, -3.0))
+data_missing["elevation"].plot()
+plt.title("Missing elevation values");
 ```
+
+_**Figure 7.23.** Pixels with NoData are shown with white colour._
+
+As we can see, there is a small region missing that does not contain any pixel values. To fill these pixels, we can use `rioxarray` and take advantage of the `.rio.interpolate_na()` method that can be used to predict values to locations that do not have data. By default, it predicts the values based on data observations that are nearest to the given NoData-pixel:
+
+```python
+filled = data_missing.rio.interpolate_na()
+```
+
+```python
+filled["elevation"].plot()
+plt.title("Filled NoData values based on 'nearest' method");
+```
+
+_**Figure 7.24.** Filled NoData values predicted based on nearest observations._
+
+As a result, the missing pixels were interpolated based on the nearest observation and we have a quite nicely looking map as a result. However, it is good to remember that whenever filling data like this, you are ultimately predicting values to unknown locations and this process includes some level of uncertainty. Thus, it is important to evaluate carefully the correctness of the output and possibly cross check the prediction against other information if possible. 
+
+The interpolation can be done with three different approaches, `"nearest"` (default), `"linear"` and `"cubic"`, which are the methods supported by `scipy` library which is used under the hood to conduct the [interpolation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.griddata.html)[^scipy-interpolation]. Out of these, the `nearest` is the fastest option which is used by default. However, the `"linear"` method can produce more accurate results, although it is much slower to compute because the `linear` method uses a more sophisticated method (*{term}`Delanay triangulation`*) to predict the value to a given cell based on the input data. To interpolate with `linear` method, you should use the `method` parameter to specify the interpolation approach:
+
+```python
+filled_linear = data_missing.rio.interpolate_na(method="linear")
+```
+
+```python
+filled_linear["elevation"].plot()
+plt.title("Filled NoData values based on 'linear' method");
+```
+
+_**Figure 7.25.** Filled NoData values predicted based on linear interpolation._
+
+As we can see, the result based on linear interpolation looks quite different (smoother) compared to the nearest method. In addition, to these there are other approaches to conduct spatial interpolation which we will cover more in Chapter 11. 
+
+
+## Footnotes
+
+[^scipy-interpolation]: <https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.griddata.html>

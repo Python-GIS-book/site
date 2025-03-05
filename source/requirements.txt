@@ -7,3 +7,4 @@ nbsphinx
 sphinxcontrib-bibtex
 MyST-NB
 nbconvert
+sphinx-thebe

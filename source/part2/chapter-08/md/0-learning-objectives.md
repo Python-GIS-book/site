@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -17,8 +17,7 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter 1 provides the essential background information needed to get started programming in Python.
-This chapter introduces basic concepts related to computers and programming, and provides some basic information about the programming environment used in this book, including how to install Python on your own computer.
+Chapter eight provides an introduction to visualizing geographic information using Python. Previous sections of the book have already featured simple exploratory visualizations of geographic objects. This chapter will dive deeper into basic techniques of creating static and interactive visualizations and to making justified cartographic choices when creating maps in Python. Before diving in to this chapter, you should be familiar with basics of data visualization using `matplotlib` introduced in Part I and basics of `geopandas` and coordinate reference systems introduced in Part II in the book.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
@@ -27,10 +26,14 @@ This chapter introduces basic concepts related to computers and programming, and
 
 At the end of this chapter, you should be able to:
 
-- Explain the fundamental elements of computers and programming languages
-- Describe why Python is a useful programming language to learn
-- Explain different ways to run Python programs and why we use Jupyter notebooks in this book
-- Use Jupyter notebooks online and install Python on your own computer
+- Understand basic cartographic principles related to visualizing geographic information
+- Create static maps with relevant cartographic features
+- Create simple interactive maps 
+
 
 ```
 <!-- #endregion -->
+
+```python
+
+```
