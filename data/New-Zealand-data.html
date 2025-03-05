@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-text-formatting.css?v=4ef71e6f" />
@@ -44,6 +45,9 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'data/New-Zealand-data';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -234,7 +238,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/06-surface-analysis.html">7.7 Surface analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../part2/chapter-07/nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -280,21 +284,26 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-1-best-practices.html">Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-2-git-github.html">Version control with git/GitHub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
 
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../back-matter/appendix-b.html">B. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-5-question-solutions.html">B.1 Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../back-matter/nb/appendix-6-exercise-solutions.html">B.2 Exercise solutions</a></li>
 </ul>
 </details></li>
 </ul>
@@ -363,7 +372,7 @@
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/data/New-Zealand-data.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/source/data/New-Zealand-data.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -378,12 +387,30 @@
 </a>
 </li>
       
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
   </ul>
 </div>
 
 
 
-<a href="https://github.com/Python-GIS-book/site/edit/main/data/New-Zealand-data.ipynb" target="_blank"
+<a href="https://github.com/Python-GIS-book/site/edit/main/source/data/New-Zealand-data.ipynb" target="_blank"
    class="btn btn-sm btn-source-edit-button"
    title="Suggest edit"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -503,8 +530,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-elevation-data">Digital elevation data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fault-data">Fault data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-elevation-data">Digital elevation data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-pre-processing">Data pre-processing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fault-data">Fault data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Data pre-processing</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -518,47 +551,60 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="datasets-for-new-zealand">
 <h1>Datasets for New Zealand<a class="headerlink" href="#datasets-for-new-zealand" title="Link to this heading">#</a></h1>
-<p>Description and pre-processing steps to be added.</p>
-<ol class="arabic simple">
-<li><p>Extract downloaded files in this directory (<code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code>).</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">preprocessing.py</span></code> script functions.</p></li>
-</ol>
+<p>The datasets for New Zealand comprise two types of data: (1) digital elevation model (DEM) data in GeoTIFF format, and (2) fault trace data in Esri Shapefile format. Details about how each dataset has been processed can be found below. Information about the sources of the data can be found in the associated <code class="docutils literal notranslate"><span class="pre">README.md</span></code> files for each data type.</p>
 <section id="digital-elevation-data">
 <h2>Digital elevation data<a class="headerlink" href="#digital-elevation-data" title="Link to this heading">#</a></h2>
-<p>Data available online at <a class="reference external" href="https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/new_zealand/dem.zip">https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/new_zealand/dem.zip</a>.</p>
-<p>Ensure you are in the <code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code> directory (i.e., <code class="docutils literal notranslate"><span class="pre">pwd</span></code> returns <code class="docutils literal notranslate"><span class="pre">.../data/New-Zealand</span></code> and then run the following cell.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">New</span><span class="o">-</span><span class="n">Zealand</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_dem_mosiac</span>
-
-<span class="n">make_dem_mosiac</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
+<p>The DEM data comprise a set of GeoTIFF files from the <a class="reference external" href="https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm">ALOS World 3D-30m digital surface model</a> with approximately 30 m spatial resolution. The original source data are available online at <a class="reference external" href="https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/new_zealand/dem.zip">https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/new_zealand/dem.zip</a>.</p>
+<section id="data-pre-processing">
+<h3>Data pre-processing<a class="headerlink" href="#data-pre-processing" title="Link to this heading">#</a></h3>
+<p>These data are used in a case study in Chapter 12, and the source file used in that case study is a mosiac GeoTIFF file created from a set of the original data files. The mosaic file can be created from the original files as follows:</p>
+<ol class="arabic simple">
+<li><p>Download the source data files from <a class="reference external" href="https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/new_zealand/dem.zip">https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/elevation/new_zealand/dem.zip</a>.</p></li>
+<li><p>Move the downloaded file in the the <code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code> directory.</p></li>
+<li><p>Extract the downloaded files in the <code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code> directory. This can be done using the <code class="docutils literal notranslate"><span class="pre">unzip</span></code> command on macOS or Linux (e.g., <code class="docutils literal notranslate"><span class="pre">unzip</span> <span class="pre">dem.zip</span></code> or however you like otherwise. If you extract the files using the <code class="docutils literal notranslate"><span class="pre">unzip</span></code> command, be sure you are in the <code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code> directory (i.e., <code class="docutils literal notranslate"><span class="pre">pwd</span></code> returns <code class="docutils literal notranslate"><span class="pre">.../data/New-Zealand</span></code>.</p></li>
+<li><p>In a Python interpreter window or JupyterLab change directories into the <code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code> directory.</p></li>
+<li><p>Import the <code class="docutils literal notranslate"><span class="pre">make_dem_mosaic</span></code> function from the <code class="docutils literal notranslate"><span class="pre">preprocesing.py</span></code> file (i.e., <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">preprocessing</span> <span class="pre">import</span> <span class="pre">make_dem_mosiac</span></code>).</p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">make_dem_mosaic()</span></code> function to create the mosaic.</p></li>
+</ol>
+</section>
 </section>
 <section id="fault-data">
 <h2>Fault data<a class="headerlink" href="#fault-data" title="Link to this heading">#</a></h2>
-<p>Data available online at <a class="reference external" href="https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/features/new_zealand/shp.zip">https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/features/new_zealand/shp.zip</a>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_fault_to_gpkg</span>
-
-<span class="n">convert_fault_to_gpkg</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
+<p>The fault data comprise Esri Shapefiles from the <a class="reference external" href="https://data.gns.cri.nz/af/">New Zealand active fault datasets (NZAFD) website</a> from GNS Science, Te Pū Ao, New Zealand. The original data files are available online at <a class="reference external" href="https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/features/new_zealand/shp.zip">https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/features/new_zealand/shp.zip</a>.</p>
+<section id="id1">
+<h3>Data pre-processing<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>These data are also used in the case study in Chapter 12 and the Shapefile data were converted to a <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <code class="docutils literal notranslate"><span class="pre">GeoPackage</span></code> to make it easier to load and work with. The pre-processing steps are listed below:</p>
+<ol class="arabic simple">
+<li><p>Download the source data files from <a class="reference external" href="https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/features/new_zealand/shp.zip">https://a3s.fi/swift/v1/AUTH_0914d8aff9684df589041a759b549fc2/PythonGIS/features/new_zealand/shp.zip</a>.</p></li>
+<li><p>Move the downloaded file in the the <code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code> directory.</p></li>
+<li><p>Extract the downloaded files in the <code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code> directory. This can be done using the <code class="docutils literal notranslate"><span class="pre">unzip</span></code> command on macOS or Linux (e.g., <code class="docutils literal notranslate"><span class="pre">unzip</span> <span class="pre">shp.zip</span></code> or however you like otherwise. If you extract the files using the <code class="docutils literal notranslate"><span class="pre">unzip</span></code> command, be sure you are in the <code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code> directory (i.e., <code class="docutils literal notranslate"><span class="pre">pwd</span></code> returns <code class="docutils literal notranslate"><span class="pre">.../data/New-Zealand</span></code>.</p></li>
+<li><p>In a Python interpreter window or JupyterLab change directories into the <code class="docutils literal notranslate"><span class="pre">New-Zealand</span></code> directory.</p></li>
+<li><p>Import the <code class="docutils literal notranslate"><span class="pre">convert_fault_to_gpkg</span></code> function from the <code class="docutils literal notranslate"><span class="pre">preprocesing.py</span></code> file (i.e., <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">preprocessing</span> <span class="pre">import</span> <span class="pre">convert_fault_to_gpkg</span></code>).</p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">convert_fault_to_gpkg()</span></code> function to create the <code class="docutils literal notranslate"><span class="pre">GeoPackage</span></code>.</p></li>
+</ol>
 </section>
 </section>
+</section>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Python-GIS-book/site",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./data"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -586,8 +632,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-elevation-data">Digital elevation data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fault-data">Fault data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-elevation-data">Digital elevation data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-pre-processing">Data pre-processing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fault-data">Fault data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Data pre-processing</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

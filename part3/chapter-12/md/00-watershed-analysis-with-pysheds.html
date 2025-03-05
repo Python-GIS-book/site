@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
@@ -44,6 +45,9 @@
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part3/chapter-12/md/00-watershed-analysis-with-pysheds';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -234,7 +238,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/06-surface-analysis.html">7.7 Surface analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -280,21 +284,26 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">Version control with git/GitHub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
 
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-question-solutions.html">B.1 Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-exercise-solutions.html">B.2 Exercise solutions</a></li>
 </ul>
 </details></li>
 </ul>
@@ -352,7 +361,7 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/Python-GIS-book/site/edit/main/part3/chapter-12/md/00-watershed-analysis-with-pysheds.md" target="_blank"
+<a href="https://github.com/Python-GIS-book/site/edit/main/source/part3/chapter-12/md/00-watershed-analysis-with-pysheds.md" target="_blank"
    class="btn btn-sm btn-source-edit-button"
    title="Suggest edit"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -504,7 +513,7 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-outlets-for-the-rivers-to-analyze">List of outlets for the rivers to analyze</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Truncated for the book format. Full list on https://pythongis.org.</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-results">Plotting the results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concluding-remarks">Concluding remarks</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
 </li>
@@ -523,15 +532,15 @@ document.write(`
   <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section class="tex2jax_ignore mathjax_ignore" id="watershed-analysis-with-pysheds">
 <h1>Watershed analysis with pysheds<a class="headerlink" href="#watershed-analysis-with-pysheds" title="Link to this heading">#</a></h1>
-<p>In this case study we will cover how to extract watersheds and perform some example analyses of the elevation data in each watershed.</p>
+<p>In this case study we will cover how to extract watersheds and perform some example analyses using the elevation data in each watershed.</p>
 <!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
-<p>In this case study we will analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.</p>
+<p>The goal of this case study is to analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.</p>
 <p><img alt="Figure 12.1. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)." src="../../../_images/cook-river-watershed.png" /></p>
 <p><em><strong>Figure 12.1</strong>. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line).</em></p>
-<p>To get started, we’ll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you’re already familiar with delineating watersheds and things like basin hypsometry, feel free to skip ahead to Section 10.1.2.</p>
+<p>To get started, we’ll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you’re already familiar with delineating watersheds and things like basin hypsometry, feel free to skip ahead to Section 10.1.2 Getting started.</p>
 <!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="a-brief-introduction-to-watershed-analysis">
@@ -546,6 +555,24 @@ document.write(`
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
 <p>We can start by importing the libraries we need for this analysis. In this case, we will be using <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>, <code class="docutils literal notranslate"><span class="pre">pysheds</span></code>, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, and <code class="docutils literal notranslate"><span class="pre">geocube</span></code> in addition to more familiar packages such as <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. We will also use some custom functions from the <code class="docutils literal notranslate"><span class="pre">basin_functions.py</span></code> file, which you are welcome to check out if you want to know more about how the functions work.</p>
 <!-- #endregion -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note that we import everything here but have a &quot;fake import&quot; Markdown cell below.</span>
+<span class="c1"># This is because a warning is raised by importing from pysheds.grid</span>
+<span class="c1"># and suppressing the warning message did not work.</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">basin_functions</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geocube.vector</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectorize</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">colors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pysheds.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pysheds.view</span><span class="w"> </span><span class="kn">import</span> <span class="n">Raster</span><span class="p">,</span> <span class="n">ViewFinder</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rxr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+</pre></div>
+</div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">basin_functions</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">geocube.vector</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectorize</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
@@ -553,13 +580,16 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pysheds.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pysheds.view</span><span class="w"> </span><span class="kn">import</span> <span class="n">Raster</span><span class="p">,</span> <span class="n">ViewFinder</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rxr</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># plt.style.use(&#39;seaborn-v0_8-whitegrid&#39;)</span>
+<!-- #endregion -->
+<p>We can also set the plotting style for the visualizations using <a class="reference external" href="https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html"><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> style sheets</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set plotting style</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;bmh&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -643,6 +673,11 @@ document.write(`
 <p>The processing of the data with <code class="docutils literal notranslate"><span class="pre">pysheds</span></code> generally goes smoothly, but it is possible that the JupyterLab kernel might crash at some stage. As a result, we will use an additional variable below (<code class="docutils literal notranslate"><span class="pre">checkpoint</span></code>), which will write output to files at different stages and allow us to restart the processing from various points if the kernel crashes. If you do not want to want checkpoint output written to the <code class="docutils literal notranslate"><span class="pre">checkpoint_data</span></code> directory, set <code class="docutils literal notranslate"><span class="pre">checkpoint</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">checkpoint</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">checkpoint</span><span class="p">:</span>
+    <span class="c1"># Create checkpoint_data directory if it does not exist</span>
+    <span class="n">wd</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+    <span class="n">newdir</span> <span class="o">=</span> <span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;checkpoint_data&quot;</span>
+    <span class="n">newdir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The first step in the process is to detect any pits in the DEM, which can be done using the <code class="docutils literal notranslate"><span class="pre">.detect_pits()</span></code> <code class="docutils literal notranslate"><span class="pre">Grid</span></code> method.</p>
@@ -1428,8 +1463,8 @@ document.write(`
 <p><em><strong>Figure 12.8</strong>. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.</em></p>
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
-<section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<section id="concluding-remarks">
+<h2>Concluding remarks<a class="headerlink" href="#concluding-remarks" title="Link to this heading">#</a></h2>
 <p>So now we have seen how to process and extract watersheds from digital elevation data, how to perform various analyses on the watershed data, and how to create an interactive map of the resulting outputs. This template can be used as it is, or easily augmented to fit your interests by changing the source data, types of analysis, or the formatting of the output map. And although there are a number of steps needed to perform such an analysis, automating the processing can allow the analysis to be scaled to large numbers of watersheds.</p>
 <p>First, in terms of the output we have produced, we can perhaps also take a moment to observe a few things. First, the values of the hypsometric integral range from 0.33 to 0.54. Although the exact values of the hypsometric integral should be interpreted carefully, a lower value of the hypsometric integral is associated with more removal of mass from a watershed by erosional processes and often lower values within a given region reflect a larger impact of glacial erosion on the landscape (e.g., <span id="id12"><a class="reference internal" href="../../../back-matter/nb/references.html#id20" title="Pietro Sternai, Frédéric Herman, Matthew Rhys Fox, and Sébastien Castelltort. Hypsometric analysis to identify spatially variable glacial erosion. Journal of Geophysical Research: Earth Surface, 2011.">Sternai <em>et al.</em>, 2011</a></span>). Within the study region, we can observe that in general the values of the hypsometric integral decrease towards the southwest towards the heavily glaciated landscapes of the Fiordland National Park.</p>
 <!-- #endregion -->
@@ -1512,6 +1547,25 @@ document.write(`
 </section>
 </section>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Python-GIS-book/site",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./part3/chapter-12/md"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -1571,7 +1625,7 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-outlets-for-the-rivers-to-analyze">List of outlets for the rivers to analyze</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Truncated for the book format. Full list on https://pythongis.org.</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-results">Plotting the results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concluding-remarks">Concluding remarks</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
 </li>

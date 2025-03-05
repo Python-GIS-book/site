@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
@@ -44,6 +45,9 @@
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-08/nb/01-static-vector-maps';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -234,7 +238,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/06-surface-analysis.html">7.7 Surface analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">8. Geographic data visualization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
@@ -280,21 +284,26 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">Version control with git/GitHub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
 
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-question-solutions.html">B.1 Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-exercise-solutions.html">B.2 Exercise solutions</a></li>
 </ul>
 </details></li>
 </ul>
@@ -363,7 +372,7 @@
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/part2/chapter-08/nb/01-static-vector-maps.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/source/part2/chapter-08/nb/01-static-vector-maps.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -378,12 +387,30 @@
 </a>
 </li>
       
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
   </ul>
 </div>
 
 
 
-<a href="https://github.com/Python-GIS-book/site/edit/main/part2/chapter-08/nb/01-static-vector-maps.ipynb" target="_blank"
+<a href="https://github.com/Python-GIS-book/site/edit/main/source/part2/chapter-08/nb/01-static-vector-maps.ipynb" target="_blank"
    class="btn btn-sm btn-source-edit-button"
    title="Suggest edit"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -503,7 +530,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-maps-in-geopandas">Static maps in geopandas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-legend">Adding a legend</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-basemap-from-external-source">Adding basemap from external source</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reclassification">Data reclassification</a></li>
@@ -527,11 +553,28 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="static-maps">
 <h1>Static maps<a class="headerlink" href="#static-maps" title="Link to this heading">#</a></h1>
-<section id="static-maps-in-geopandas">
-<h2>Static maps in geopandas<a class="headerlink" href="#static-maps-in-geopandas" title="Link to this heading">#</a></h2>
-<p>We have already plotted basic static maps using geopandas during the previous weeks of this course. Remember that when using the <a class="reference external" href="http://geopandas.org/mapping.html#mapping-tools">plot() method in geopandas</a>, we are actually using the tools available from <a class="reference external" href="https://matplotlib.org/api/pyplot_api.html#pyplot">matplotlib pyplot</a>.</p>
-<p>Let’s refresh our memory about the basics of plotting maps by creating a static accessibility map with roads and metro line on it (three layers on top of each other in the same figure). Before plotting the layers, we need to check that they are in the same coordinate reference system.</p>
-<p>As usual, we start by importing the useful modules and reading in the input files:</p>
+<p>Static maps that represent real world phenomena are a common part of any geographic data analysis process either for data exploration purposes of for communicating the results. <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mapping.html">Mapping tools in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code></a> allow creating simple static maps easily. In the bacground, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> uses <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for creating the plots. Let’s start by a simple example representing a road network. We can, for example, control the line color and line width directly through <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+
+<span class="n">data_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data&quot;</span><span class="p">)</span>
+<span class="n">roads_fp</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;roads.shp&quot;</span>
+<span class="n">roads</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">roads_fp</span><span class="p">)</span>
+
+<span class="n">roads</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../../../_images/1f39c4085e26f7a0ad6cade14e417a8581833ada851fdf125d37b59cad8f2a5d.png" src="../../../_images/1f39c4085e26f7a0ad6cade14e417a8581833ada851fdf125d37b59cad8f2a5d.png" />
+</div>
+</div>
+<p>The power of geographic information often relies on overlaying multiple features and exploring their spatial interactions, and static maps help to get a quick overview of the available data.  In order to plot multiple layers in the same figure, the first thing is to check the coordinate reference system of the data. Let’s elaborate our static map by adding some information about</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
@@ -669,7 +712,6 @@ Grid crs:  ETRS89 / TM35FIN(E,N)
 <img alt="../../../_images/ccb111d7dab6d742662e4056fbcadad7d97da9b179760a4a423c98010fc2b6b8.png" src="../../../_images/ccb111d7dab6d742662e4056fbcadad7d97da9b179760a4a423c98010fc2b6b8.png" />
 </div>
 </div>
-</section>
 <section id="adding-a-legend">
 <h2>Adding a legend<a class="headerlink" href="#adding-a-legend" title="Link to this heading">#</a></h2>
 <p>It is possible to enable legend for a geopandas plot by setting <code class="docutils literal notranslate"><span class="pre">legend=True</span></code> in the plotting parameters.
@@ -2005,6 +2047,25 @@ eastern part from the city center. Actually, those locations are along the metro
 </section>
 </section>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Python-GIS-book/site",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./part2/chapter-08/nb"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -2050,7 +2111,6 @@ eastern part from the city center. Actually, those locations are along the metro
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-maps-in-geopandas">Static maps in geopandas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-legend">Adding a legend</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-basemap-from-external-source">Adding basemap from external source</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reclassification">Data reclassification</a></li>

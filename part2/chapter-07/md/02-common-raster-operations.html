@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
@@ -44,6 +45,9 @@
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-07/md/02-common-raster-operations';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -234,7 +238,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/04-map-algebra.html">7.5 Map algebra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/06-surface-analysis.html">7.7 Surface analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -280,21 +284,26 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">Installing and managing Python environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">Version control with git/GitHub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">Using Python script files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">Testing and debugging your code</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Spatial index efficiency</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-spatial-index.html">Spatial index - How to boost spatial queries?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
 
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-c.html">C. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-question-solutions.html">Question solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-7-exercise-solutions.html">Exercise solutions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-question-solutions.html">B.1 Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-exercise-solutions.html">B.2 Exercise solutions</a></li>
 </ul>
 </details></li>
 </ul>
@@ -352,7 +361,7 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/Python-GIS-book/site/edit/main/part2/chapter-07/md/02-common-raster-operations.md" target="_blank"
+<a href="https://github.com/Python-GIS-book/site/edit/main/source/part2/chapter-07/md/02-common-raster-operations.md" target="_blank"
    class="btn btn-sm btn-source-edit-button"
    title="Suggest edit"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -488,7 +497,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upscaling">Upscaling</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-data">Handling missing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-missing-data">Filling missing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -992,15 +1002,68 @@ To merge multiple <code class="docutils literal notranslate"><span class="pre">x
 <!-- #endregion -->
 </section>
 </section>
-<section id="handling-missing-data">
-<h2>Handling missing data<a class="headerlink" href="#handling-missing-data" title="Link to this heading">#</a></h2>
-<p>To be added.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<section id="filling-missing-data">
+<h2>Filling missing data<a class="headerlink" href="#filling-missing-data" title="Link to this heading">#</a></h2>
+<p>Previously on this chapter we have learned that it is possible to deal with missing data in your raster by masking them out which is a way to ignore the NaN values in your analysis. However, there can be situations in which you cannot simply ignore the missing values but you need to fill those empty pixels somehow. There are different ways to fill missing data. For instance, you can fill the pixels with specific predefined value (e.g. 0 or average value of the whole dataset). This approach can be problematic as the outcome does not necessarily reflect very well the reality. Problems may arise especially if the data has significant variation which is quite often the case when representing any natural phenomena, such as elevation. Thus, another widely used approach is to predict the values for missing cells based on the neighboring values which is a process called interpolation. We already saw various interpolation methods in the previous section about resampling methods (Table 7.2). In the following, we will see how to fill missing data in a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> using <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>.</p>
+<p>You might have noticed already earlier that the bottom right corner of our elevation data (e.g. Figure 7.22) contains a white spot that contains various pixels that do not have any data in them. Let’s select a slice out of our dataset to investigate more closely this part of our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_missing</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mf">36.8</span><span class="p">,</span> <span class="mf">37.0</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="mf">2.9</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">))</span>
+<span class="n">data_missing</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Missing elevation values&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
+<p><em><strong>Figure 7.23.</strong> Pixels with NoData are shown with white colour.</em></p>
+<p>As we can see, there is a small region missing that does not contain any pixel values. To fill these pixels, we can use <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> and take advantage of the <code class="docutils literal notranslate"><span class="pre">.rio.interpolate_na()</span></code> method that can be used to predict values to locations that do not have data. By default, it predicts the values based on data observations that are nearest to the given NoData-pixel:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filled</span> <span class="o">=</span> <span class="n">data_missing</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">interpolate_na</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filled</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Filled NoData values based on &#39;nearest&#39; method&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 7.24.</strong> Filled NoData values predicted based on nearest observations.</em></p>
+<p>As a result, the missing pixels were interpolated based on the nearest observation and we have a quite nicely looking map as a result. However, it is good to remember that whenever filling data like this, you are ultimately predicting values to unknown locations and this process includes some level of uncertainty. Thus, it is important to evaluate carefully the correctness of the output and possibly cross check the prediction against other information if possible.</p>
+<p>The interpolation can be done with three different approaches, <code class="docutils literal notranslate"><span class="pre">&quot;nearest&quot;</span></code> (default), <code class="docutils literal notranslate"><span class="pre">&quot;linear&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;cubic&quot;</span></code>, which are the methods supported by <code class="docutils literal notranslate"><span class="pre">scipy</span></code> library which is used under the hood to conduct the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.griddata.html">interpolation</a><a class="footnote-reference brackets" href="#scipy-interpolation" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Out of these, the <code class="docutils literal notranslate"><span class="pre">nearest</span></code> is the fastest option which is used by default. However, the <code class="docutils literal notranslate"><span class="pre">&quot;linear&quot;</span></code> method can produce more accurate results, although it is much slower to compute because the <code class="docutils literal notranslate"><span class="pre">linear</span></code> method uses a more sophisticated method (<em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Delanay-Triangulation"><span class="xref std std-term">Delanay triangulation</span></a></em>) to predict the value to a given cell based on the input data. To interpolate with <code class="docutils literal notranslate"><span class="pre">linear</span></code> method, you should use the <code class="docutils literal notranslate"><span class="pre">method</span></code> parameter to specify the interpolation approach:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filled_linear</span> <span class="o">=</span> <span class="n">data_missing</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">interpolate_na</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filled_linear</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Filled NoData values based on &#39;linear&#39; method&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 7.25.</strong> Filled NoData values predicted based on linear interpolation.</em></p>
+<p>As we can see, the result based on linear interpolation looks quite different (smoother) compared to the nearest method. In addition, to these there are other approaches to conduct spatial interpolation which we will cover more in Chapter 11.</p>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="scipy-interpolation" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.griddata.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.griddata.html</a></p>
+</aside>
+</aside>
 </section>
 </section>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Python-GIS-book/site",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./part2/chapter-07/md"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -1044,7 +1107,8 @@ To merge multiple <code class="docutils literal notranslate"><span class="pre">x
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upscaling">Upscaling</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-data">Handling missing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-missing-data">Filling missing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>
 

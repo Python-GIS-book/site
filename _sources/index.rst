@@ -138,7 +138,6 @@ The book consists of 4 parts:
 
    back-matter/appendix-a
    back-matter/appendix-b
-   back-matter/appendix-c
 
 .. toctree::
    :maxdepth: 2

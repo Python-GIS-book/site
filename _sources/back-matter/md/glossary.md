@@ -64,6 +64,9 @@ DE-9IM
 
 Decimal degrees
   A decimal degree is a method of expressing latitude and longitude geographic coordinates as decimal fractions instead of degrees, minutes, and seconds. It represents the angle between a point on the earth's surface and the equator or prime meridian, respectively, in units of decimal degrees. Decimal degrees provide a more convenient representation of geographic coordinates and make it easier to perform calculations with them.
+
+Delanay Triangulation
+  Delaunay triangulation is a way of dividing a set of points into non-overlapping triangles (in 2D) or tetrahedra (in 3D) such that no point lies inside the circumcircle of any triangle. Delanay triangulation is widely used e.g. in interpolation and computer graphics for creating structured meshes from unstructured points.
   
 Dependency
   Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work. 
