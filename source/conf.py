@@ -44,6 +44,7 @@ author = "Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp"
 extensions = [
     "myst_nb",
     "sphinxcontrib.bibtex",
+    "sphinx_thebe",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -68,9 +69,10 @@ html_theme_options = {
     # "twitter_url": "https://twitter.com/pythongis",
     "google_analytics_id": "UA-159257488-1",
     "use_edit_page_button": True,
+    "path_to_docs": "source/",
     "launch_buttons": {
         "binderhub_url": "https://mybinder.org",
-        "thebelab": True,
+        "thebe": True,
         "notebook_interface": "jupyterlab",
     },
 }
