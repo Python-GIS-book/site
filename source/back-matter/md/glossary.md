@@ -30,12 +30,9 @@ Argument
 
 Binary predicate
   See {term}`Spatial predicate`.
-  
+
 Collection
   A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.
-
-Commit
-  Verb: The process of writing or merging changes made in the working copy of files in a {term}`repository{term}` of a {term}`version control` system. Noun: Informally used to refer to a specific instance of changes to files in a {term}`repository` of a {term}`version control` system. Similar to {term}`revision` and {term}`version`.
 
 Computer
   We use the definition of a computer given by {cite}`Zelle2017`: "A machine that stores and manipulates information under the control of a changeable program."
@@ -105,10 +102,25 @@ GeoSeries
   GeoSeries is used to store geospatial data, where each element is a geometric object like a point, line, or polygon. It extends the pandas {term}`Series` by supporting spatial operations, such as geometric transformations and spatial queries. A GeoSeries is often used to represent the geometry column in a {term}`GeoDataFrame`, making it a fundamental building block for geospatial analysis in Python.
 
 Git
-  A free and open-source {term}`version control` system developed by Linus Torvalds.
+  A free and open-source distributed {term}`version control` system that tracks changes in {term}`source code`. Git allows multiple users to work on a project at the same time while maintaining a complete version history. Developed by Linus Torvalds.
+
+Git clone
+  The command in {term}`Git` used to create a copy of an existing {term}`repository`. Cloning downloads the files, commit history, and branches from the repository.
+
+Git commit
+  Verb: The process of writing or {term}`merging <Git merge>` changes made in the working copy of files in a {term}`repository{term}` of a {term}`version control` system. Noun: A specific instance of changes to files in a {term}`repository` of a {term}`version control` system. Each commit includes a unique ID and a message describing the changes. Similar to {term}`revision` and {term}`version`.
+
+Git merge
+  The command in {term}`Git` used to integrate changes from multiple {term}`commits <Git commit>` or branches. Merging combines commit histories and preserves changes both branches. If changes have been made to the same sections of the same file, merging may result in a merge conflict.
+
+Git pull
+  The command in {term}`Git` used to fetch updates from a remote {term}`repository` and merge them into the current branch. Pulling ensures the local repository is up to date with the latest changes in the remote repository.
+
+Git push
+  The command in {term}`Git` used to upload local {term}`commits <Git commit>` to a remote {term}`repository`. Pushing makes the latest changes available to others with access to the repository.
 
 GitHub
-  An online platform for collaborative development of {term}`software` based around the {term}`Git` {term}`version control` system.
+  An online platform for collaborative development of {term}`software` based around the {term}`Git` {term}`version control` system. GitHub provides tools for collaboration, version control, issue tracking, and code review.
 
 Hypsometric curve
   The distribution of area above a given elevation in an region analyzed using hypsometric analysis. This is effectively a cumulative distribution of area as a function of elevation. The areas and elevations in hypsometric curves are frequently normalized to allow comparison between regions and for calculating a {term}`hypsometric integral`.
@@ -299,7 +311,7 @@ Version
   A specific instance of changes to files in a {term}`repository` of a {term}`version control` system. Also referred to as a {term}`revision`.
 
 Version control
-  The practice of tracking changes to computer files, typically {term}`source code` files for {term}`computer programs <Program>`.
+  The practice of tracking changes to computer files, typically {term}`source code` files for {term}`computer programs <Program>`. Version control allows users to easily collaborate and revert to previous versions.
 
 Virtual environment
   A virtual environment is a Python programming environment which works in a way that the Python interpreter, libraries and scripts installed into it are isolated from the ones installed in other virtual environments, as well as from (possible) system Python, i.e., one which is installed as part of your operating system.
