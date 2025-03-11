@@ -28,6 +28,15 @@ Conducting calculations between bands or raster is another common GIS task.
 
 To be added. 
 
+```python
+import xarray as xr
+import matplotlib.pyplot as plt
+
+fp = "data/temp/kilimanjaro_dataset.nc"
+
+data = xr.open_dataset(fp, decode_coords="all")
+data
+```
 
 ## Local functions
 
