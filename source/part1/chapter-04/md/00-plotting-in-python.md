@@ -77,6 +77,7 @@ In spite of the large variety of types of plots, there are certain elements that
 The common terms in Table 4.1 may vary a bit depending on the plotting library that you use. For the list provided here we are using the typical terms for plotting in Matplotlib (see also Figure 4.2).
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 : _**Table 4.1**. Common terminology for plot features in Matplotlib._
 
 | Term       | Description                                                                                                               |
