@@ -14,6 +14,7 @@
     - [Add a citation](#add-a-citation)
     - [Allow errors to be included in the docs](#allow-an-error-to-happen-in-code-blocks)
     - [Hide cells on the website or in the book](#hide-cells)
+    - [Lint Notebooks](#lint-notebooks)
 
 ## Objectives
 
