@@ -172,6 +172,12 @@ List
 
 Loop
   A programming construct that allows a section of code to be repeated a finite number of times or until a given condition is met.
+
+Lossless compression
+  Lossless compression is a data compression approach that is used to reduce the file size of a raster dataset when writing without compromising the data quality. Some commonly used lossless compression methods include `LZD` and `DEFLATE`.
+
+Lossy compression
+  Lossy compression is a data compression approach that can significantly reduce the file size of a raster dataset with some loss of data quality and precision. Some commonly used lossy compression methods include `JPEG` and `JPEG2000`.
   
 Map projection
   A map projection is a mathematical method to draw a graphical representation of the Earth's surface on a flat surface, i.e. a map. 
