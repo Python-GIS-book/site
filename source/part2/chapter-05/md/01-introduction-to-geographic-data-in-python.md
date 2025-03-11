@@ -14,7 +14,7 @@ jupyter:
 
 # Geographic data in Python
 
-How can we represent geographic features such as roads, buildings, lakes or mountains on a computer? How can we read an image taken with a satellite sensor and use that in our analyses? How can we create a spatial network that can be used for navigation and finding the fastest route from A to B? This chapter introduces you to the fundamental data structures and formats that are most commonly used when working with geographic information systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understad the approached presented in this part of the book.
+How can we represent geographic features such as roads, buildings, lakes or mountains on a computer? How can we read an image taken with a satellite sensor and use that in our analyses? How can we create a spatial network that can be used for navigation and finding the fastest route from A to B? This chapter introduces you to the fundamental data structures and formats that are most commonly used when working with geographic information systems (GIS) and spatial data analysis. Geographers and GIS professionals might already be familiar with most of these concepts, but we hope this section helps beginners to grasp the basic concepts essential to understand the approach presented in this part of the book.
 
 
 ## Ways to represent spatial data on a computer
@@ -49,10 +49,10 @@ The geometry of a feature is one aspect of geospatial data which tells us about 
 
 ### Vector data formats
 
-Spatial vector data can be stored in different ways. Two of the most widely used approaches is to either store the data into a spatial data file that is stored to disk, or store the data into a spatially-aware database, such as PostGIS database that supports storing spatial data. When storing data to a data file there are multiple options to choose from in terms of data formats. You can easily read and write spatial vector data to approximately eighty different file formats which are supported by the [Geospatial Data Abstraction Library](https://gdal.org/) (GDAL) [^GDAL]. `GDAL` is a computer software library for reading and writing raster and vector geospatial data formats, and it is used under the hood by hundreds of GIS software and libraries in different programming languages (including Python). Below, we will provide information about a few selected spatial vector data formats that are commonly used for storing spatial data.  
+Spatial vector data can be stored in different ways. Two of the most widely used approaches are to either store the data in a spatial data file saved to disk, or store the data into a spatially-aware database, such as PostGIS database that supports storing spatial data. When storing data to a data file there are multiple data formats to choose from. You can easily read and write spatial vector data to around eighty different file formats which are supported by the [Geospatial Data Abstraction Library](https://gdal.org/) (GDAL) [^GDAL]. `GDAL` is a computer software library for reading and writing raster and vector geospatial data formats, and it is used under the hood by hundreds of GIS software applications and libraries in many programming languages (including Python). Below, we will provide information about a few selected spatial vector data formats that are commonly used for storing spatial data.  
 
 
-- **Shapefile:** The shapefile is still widely used data format for storing geospatial vector data, although the file format was developed and introduced by ESRI already in the early 1990s. The filename extension for the Shapefile is `.shp`. Shapefile is not actually only a single file, but it is made of multiple separate files. The three mandatory files that are associated to a valid shapefile dataset are: `.shp` containing the feature geometries, `.shx` containing a positional index for the feature geometries, and `.dbf` containing the attribute information. In addition to these, a shapefile dataset typically includes a `.prj` file which contains information about the coordinate reference system of the dataset. 
+- **Shapefile:** The shapefile is still a widely used data format for storing geospatial vector data, although the file format was developed and introduced by ESRI in the early 1990s. The filename extension for the Shapefile is `.shp`. Shapefile is not actually a single file, but multiple separate files. The three mandatory files that are associated with a valid shapefile dataset are: `.shp` containing the feature geometries, `.shx` containing a positional index for the feature geometries, and `.dbf` containing the attribute information. In addition to these, a shapefile dataset typically includes a `.prj` file which contains information about the coordinate reference system of the dataset. 
 
 
 - **GeoJSON**: GeoJSON [^geojson] is an open standard format for encoding a variety of geographic data structures along with their attribute data which can be stored into a simple text file. The filename extension for GeoJSON is `.geojson`. The data format extends the widely used JSON format. GeoJSON is human readible and the data is not compressed, hence the files can get large when storing more complex geometries. Because of this, another variation of GeoJSON was developed called `TopoJSON` which is a more compact format. TopoJSON stores the geometries in a way that they can be referenced multiple times in the file, e.g. when two polygons share a common border between them. An example of GeoJSON data structure:
@@ -78,15 +78,14 @@ Spatial vector data can be stored in different ways. Two of the most widely used
 ```
 
 
-- **GeoPackage:** A GeoPackage (GPKG) is an open, non-proprietary, platform-independent, portable and standards-based data format for storing spatial data. In the background, GeoPackage uses a SQLite database container to store the data. GeoPackage was introduced in 2014 by Open Geospatial Consortium and it can be used to store spatial vector data as well as raster data. However, the GeoPackage raster support is limited as it supports only `Byte` data type. The file extension of GeoPackage is `.gpkg`.
+- **GeoPackage:** A GeoPackage (GPKG) is an open, non-proprietary, platform-independent, portable and standards-based data format for storing spatial data. In the background, GeoPackage uses a SQLite database container to store the data. GeoPackage was introduced in 2014 by Open Geospatial Consortium and it can be used to store spatial vector data as well as raster data. However, the GeoPackage raster support is limited as it supports only the `Byte` data type. The file extension of GeoPackage is `.gpkg`.
+
+- **GeoParquet:** [GeoParquet](https://github.com/opengeospatial/geoparquet) [^GeoParquet] is one of the newest file formats to store geographic data. In this format, the data is stored in [Apache Parquet](https://parquet.apache.org/) [^Parquet] which is a popular open source, column-oriented data file format designed for efficient data storage and retrieval. It provides efficient data compression and encoding schemes with enhanced performance to handle complex data in bulk. GeoParquet is rapidly maturing, with a number of new software libraries and tools coming online, and many major companies are involved in implementing and developing this file format in addition to the open source community. The file extension of GeoParquet is `.parquet`.
 
 - **GML**: [Geography Markup Language](https://www.ogc.org/standards/gml) (GML) [^GML] is an XML based data format defined by the Open Geospatial Consortium (OGC) to express geographical features. GML serves as a modeling language for geographic systems as well as an open interchange format for geographic transactions on the Internet. Key to GML's utility is its ability to integrate all forms of geographic information, including not only conventional "vector" or discrete objects, but also coverages and sensor data. There are various extensions to GML, such as [CityGML](https://www.ogc.org/standards/citygml) [^CityGML] focusing on 3D city models and [IndoorGML](https://www.ogc.org/standards/citygml) [^IndoorGML] focusing on indoor spatial information. The file extension of GML is `.gml`. 
 
 
-These are some of the most widely used file formats to store spatial data in vector format. However, there are numerous other file formats in addition to these, such as *{term}`Keyhole Markup Language` (KML)* that is commonly used file format to place geographic data on top of [Google Earth](https://en.wikipedia.org/wiki/Google_Earth) [^Google_Earth]. One file format which is still in the making, but a very promising one, is [GeoParquet](https://github.com/opengeospatial/geoparquet) [^GeoParquet] which stores spatial data in [Apache Parquet](https://parquet.apache.org/) [^Parquet]. Apache Parquet is a popular open source, column-oriented data file format designed for efficient data storage and retrieval. It provides efficient data compression and encoding schemes with enhanced performance to handle complex data in bulk.
-
-
-Now you should have a basic understanding about the basic building blocks of vector data. In the following parts of the book, you will learn many useful geocomputational and analytical techniques that you can use when working with vector data.  
+These are some of the most widely used file formats to store spatial data in vector format. However, there are numerous other file formats in addition to these, such as *{term}`Keyhole Markup Language` (KML)* that is a commonly used file format to place geographic data on top of [Google Earth](https://en.wikipedia.org/wiki/Google_Earth) [^Google_Earth]. Now you should have a basic understanding about the basic building blocks of vector data. In the following parts of the book, you will learn many useful geocomputational and analytical techniques that you can use when working with vector data.  
 
 
 ## Basics of raster data and arrays
@@ -109,7 +108,7 @@ Each cell in the raster dataset typically contains a value as shown on the left 
 _**Figure 5.4.** Raster data model._
 
 
-One fundamental way to characterize a raster dataset is based on their *{term}`bit depth`* (also called as *{term}`pixel depth`*) that provides information about the *{term}`radiometric resolution`* of the data. The bit depth defines the range of distinct values that the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1, whereas 8-bit raster can have 256 different values that range between 0 to 255, as shown in Figure 5.5. 
+One fundamental way to characterize a raster dataset is based on their *{term}`bit depth`* (also called *{term}`pixel depth`*) that provides information about the *{term}`radiometric resolution`* of the data. The bit depth defines the range of distinct values that the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1, whereas 8-bit raster can have 256 different values that range between 0 to 255, as shown in Figure 5.5. 
 
 ![_**Figure 5.5**. Examples of raster bit depths._](../img/raster_bit_depths.png)
 
@@ -118,28 +117,28 @@ _**Figure 5.5**. Examples of raster bit depths._
 
 ### Commonly used raster data formats
 
-Similarly as with vector data, also raster data can be stored in various different formats. Below we list a few of the most commonly used ones.
+Similar to vector data, also raster data can also be stored in various different formats. Below we list a few of the most commonly used ones.
 
 - **GeoTIFF**: GeoTIFF is a popular open, non-proprietary raster data format based on `TIFF format` originally developed at NASA in the early 90's. It is portable and platform independent. The file extension of GeoTIFF is `.tif`. 
 - **COG**: A Cloud Optimized GeoTIFF (COG) is a file format based on GeoTIFF. COG files are typically hosted on HTTP file servers. The format can enable more efficient workflows with large data files by leveraging the ability of users to retrieve just the parts of the file that they need, instead of downloading the whole file every time. The file extension of COG is `.tif` (i.e. the same as with GeoTIFF). 
-- **NetCDF**: Network Common Data Form (NetCDF) is a portable, self-describing and scalable file format for storing array-oriented multidimensional scientific data, commonly used for storing earch science data. Variables stored in NetCDF are often measured multiple times per day over large (e.g. continental) areas. The file extension of NetCDF is `.nc4`. 
+- **NetCDF**: Network Common Data Form (NetCDF) is a portable, self-describing and scalable file format for storing array-oriented multidimensional scientific data, commonly used for storing earth science data. Variables stored in NetCDF are often measured multiple times per day over large (e.g. continental) areas. The file extension of NetCDF is `.nc4`. 
 - **ASCII Grid**: The ASCII Raster File format is a simple format that can be used to transfer raster data between various applications. The file format was originally developed by ESRI and it is also known as Arc/Info ASCII grid. The file extension of ASCII Raster File is `.asc`. 
-- **IMG**: The ERDAS Imagine file format (IMG) is proprietary file format that was originally created by an image processing software company called ERDAS. The file can be accompanied with an .xml file which stores metadata information about the raster layer. The file extension of Imagine file format is `.img`. 
+- **IMG**: The ERDAS Imagine file format (IMG) is a proprietary file format that was originally created by an image processing software company called ERDAS. The file can be accompanied with an .xml file which stores metadata information about the raster layer. The file extension of Imagine file format is `.img`. 
 
 
-Now you should know the basics raster data, and in Chapters 7-9 as well as in Chapter 12, you will learn many useful techniques that you can use when working with raster data. 
+Now you should know the basics of raster data, and in Chapters 7-9 as well as in Chapter 12, you will learn many useful techniques that you can use when working with raster grids. 
 
 <!-- #region -->
 ## Representing spatial networks
 
-Networks are everywhere. Social networks, telecommunication networks, neural networks, and transportation networks are all familiar examples how the networks surround us and are very essential to our everyday life. No surprise then, that studying complex networks based on `graph theory` has grown to be a very important topic in various fields of science including biology, medical sciences, social science, engineering, geography and many others. In this book, we will focus on spatial networks that can represent for example street networks (one of the most typical examples). In addition to these, network is actually a very useful data structure because it allows to define and construct neighborhood relationships that are central to geographic data science / GIScience. In this book, we won't cover much of these topics but you can take a look at [geographicdata.science](https://geographicdata.science/book/intro.html) [^GDS] open online book to learn much more about these topics. 
+Networks are everywhere. Social networks, telecommunication networks, neural networks, and transportation networks are all familiar examples of how networks surround us and are very essential to our everyday life. No surprise then, that studying complex networks based on `graph theory` has grown to be a very important topic in various fields of science including biology, medicine, social science, engineering, geography and many others. In this book, we will focus on spatial networks that can represent for example street networks (one of the most typical examples). In addition to these, network is actually a very useful data structure because it allows to define and construct neighborhood relationships that are central to geographic data science / GIScience. In this book, we won't cover much of these topics but you can take a look at [geographicdata.science](https://geographicdata.science/book/intro.html) [^GDS] open online book to learn much more about these topics. 
 
-Graphs are, in principle, very simple data structures. In Figure 5.2, we saw a simple street network represented as a collection of `LineStrings`. Although this representation can already be used to visualize a network, it does not yet allow to do any useful network analysis with it. For this, we need to create a `network` data stucture with topology (also commonly called as graphs). A network basically consists of couple of core elements:
+Graphs are, in principle, very simple data structures. In Figure 5.2, we saw a simple street network represented as a collection of `LineStrings`. Although this representation can already be used to visualize a network, it does not yet allow to do any useful network analysis with it. For this, we need to create a `network` data structure with topology (also commonly called as graphs). A network basically consists of couple of core elements:
 
  1. **nodes** (e.g. intersections on a street, or a person in social network), and
  2. **edges** (a link that connects the nodes to each other)
  
-A simple graph could look like the one shown in Figure 5.6 in which the letters `A, B, C, D, and E` are nodes and the lines that goes between them are the network edges (also called as links or arcs). 
+A simple graph could look like the one shown in Figure 5.6 in which the letters `A, B, C, D, and E` are nodes and the lines that go between them are the network edges (also called links or arcs). 
 
 
 ![_**Figure 5.6.** A simple graph._](../img/graph_elements.png)
@@ -177,13 +176,13 @@ _**Figure 5.8.** Directed graph._
 
 As with everything in life, there are also many flavors when it comes to storing network data in a file. Below we list a couple of commonly used data formats for storing network data. 
 
-- **GML**: Graph Modelling Language (GML) is a file format supporting network data with a very easy syntax. GML’s key features are portability, simple syntax, extensibility and flexibility. A GML file consists of a hierarchical key-value lists. The file extension of GML is `.gml`. Notice, that there is a spatial data file format for Geography Markup Language (GML) that has the same file extension.  
+- **GML**: Graph Modelling Language (GML) is a file format supporting network data with a very easy syntax. GML’s key features are portability, simple syntax, extensibility and flexibility. A GML file consists of hierarchical key-value lists. The file extension of GML is `.gml`. Notice, that there is a spatial data file format for Geography Markup Language (GML) that has the same file extension.  
 - **GraphML**: GraphML is a comprehensive and easy-to-use file format for graphs based on XML. It consists of a language core to describe the structural properties of a graph and extension mechanism to add application-specific data. The file extension of GraphML is `.graphml`.
 
-In addition to these ones, there are multiple other data formats not listed here. Lastly, it is good to know that networks (such as networks representing streets) are often constructed from spatial vector data stored e.g. in a Shapefile or a GeoPackage. In these cases, the line features representing the network don't directly have the needed network data structure in place, but they are build from the line features. Additionally, simple networks can be build from edge lists or adjacency lists that are stored in a text file.
+In addition to these ones, there are multiple other data formats not listed here. Lastly, it is good to know that networks (such as networks representing streets) are often constructed from spatial vector data stored e.g. in a Shapefile or a GeoPackage. In these cases, the line features representing the network don't directly have the needed network data structure in place, but they are built from the line features. Additionally, simple networks can be built from edge lists or adjacency lists that are stored in a text file.
 
 
-Now you should have a basic understanding about the elements of a (spatial) network. In chapter 11, we will see how to create a spatial network in practice using a library called `networkx`, and how to do simple network analyses in Python.  
+Now you should have a basic understanding of the elements of a (spatial) network. In chapter 11, we will see how to create a spatial network in practice using a library called `networkx`, and how to do simple network analyses in Python.  
 
 
 ## Footnotes
@@ -193,7 +192,7 @@ Now you should have a basic understanding about the elements of a (spatial) netw
 [^GDS]: <https://geographicdata.science/book/intro.html>
 [^GML]: <https://www.ogc.org/standards/gml>
 [^geojson]: <https://en.wikipedia.org/wiki/GeoJSON>
-[^GeoParquet]: <https://github.com/opengeospatial/geoparquet>
+[^GeoParquet]: <https://geoparquet.org>
 [^GEOS]: <https://trac.osgeo.org/geos>
 [^Google_Earth]: <https://en.wikipedia.org/wiki/Google_Earth>
 [^IndoorGML]: <https://www.ogc.org/standards/citygml>

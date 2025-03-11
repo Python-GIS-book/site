@@ -559,23 +559,60 @@ The downscaling operation seem to have worked well as the patterns are still cle
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Upscaling
 
-The process of upscaling works very similarly to downscaling and we can use the same `rioxarray` method to increase the resolution of the input raster. In the following, we will specify that the new shape of the output `Dataset` will be two times larger than the input data. When upscaling, you are ultimately estimating values to new pixel cells based on the neighboring raster values of a given cell in the input raster. There are various ways to interpolate data which are provided in the Table 7.2. 
+The process of upscaling works very similarly to downscaling and we can use the same `rioxarray` method to increase the resolution of the input raster. In the following, we will specify that the new shape of the output `Dataset` will be two times larger than the input data. When upscaling, you are ultimately estimating values to new pixel cells based on the neighboring raster values of a given cell in the input raster. There are various ways to interpolate data which are provided in the Table 7.2.
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
 : _**Table 7.2**. Different resampling methods and their descriptions._
 
 | Resampling Method    | Description                                                                                                               |
-|:--------------------:|:-------------------------------------------------------------------------------------------------------------------------:|
+|:---------------------|:--------------------------------------------------------------------------------------------------------------------------|
 | `nearest`            | Selects the value of the closest pixel without interpolation. Fast but can produce blocky artifacts.                      |
 | `bilinear`           | Performs linear interpolation using the four nearest pixels, creating a smoother result than nearest-neighbor.            |
 | `cubic`              | Uses bicubic interpolation, considering 16 surrounding pixels. Smoother output than bilinear. Higher computational cost.  |
 | `cubic_spline`       | Applies cubic spline interpolation for even smoother results, but requires more processing power.                         |
 | `lanczos`            | Uses a sinc-based interpolation over a larger pixel neighborhood, producing resampling with significant smoothing.        |
 | `average`            | Average resampling, computes the weighted average of all non-NODATA contributing pixels.                                  |
-
 <!-- #endregion -->
 
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+\begin{longtable}[]{@{}ll@{}}
+\caption{\emph{\textbf{Table 7.2}. Different resampling methods and
+their descriptions.}}\tabularnewline
+\toprule\noalign{}
+Resampling Method & Description \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Resampling Method & Description \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{nearest} & Selects the value of the closest pixel \\
+& without interpolation. Fast but can \\
+& produce blocky artifacts. \\
+\texttt{bilinear} & Performs linear interpolation using the \\
+& four nearest pixels, creating a smoother \\
+& result than nearest-neighbor. \\
+\texttt{cubic} & Uses bicubic interpolation, considering \\
+& 16 surrounding pixels. Smoother output \\
+& than bilinear. Higher computational cost. \\
+\texttt{cubic\_spline} & Applies cubic spline interpolation for \\
+& even smoother results, but requires more \\
+& processing power. \\
+\texttt{lanczos} & Uses a sinc-based interpolation over a \\
+& larger pixel neighborhood, producing \\
+& resampling with significant smoothing. \\
+\texttt{average} & Average resampling, computes the weighted \\
+& average of all non-NODATA contributing \\
+& pixels. \\
+\end{longtable}
+<!-- #endraw -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 In the following, we will take advantage of a `Resampling.bilinear` resampling method which determines the value of a new pixel by taking a weighted average of the four nearest input pixels:
+<!-- #endregion -->
 
 ```python
 from rasterio.enums import Resampling
