@@ -297,7 +297,7 @@ If you wish for the cell output to be visible in the book, but not on the websit
 
 We are using `black` library for linting the Notebooks, so that the formatting of all the codes is done systematically.
 
-You need to lint all Notebooks before commits to `develop` branch can be merged to `main` branch. To do this:
+You need to lint all Notebooks before commits from `develop` branch can be merged to `main` branch. To do this:
 
 1. Ensure that the `python-gis-book` environment is activated and your terminal is located inside the `source` -folder.
 2. To check which Notebooks require linting, you can run following command: `black . --check`
