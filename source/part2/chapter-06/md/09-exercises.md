@@ -12,7 +12,9 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Exercises
+<!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Exercise 6.1 - Geometric Objects
@@ -30,35 +32,63 @@ Refresh your memory about `shapely` objects and
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 The goal of this exercise is to create geometries based on text file input in Python. You will combine basic knowledge of the `pandas` module (see Part I) with `geopandas` methods introduced in this chapter. 
 
-Input data for this exercise contains information about the public transport travel times to the main railway station in Helsinki, Finland. The input file [travelTimes_2015_Helsinki.txt](data/travelTimes_2015_Helsinki.txt) contains travel times information from multiple origin locations to the railway station. 
+Input data for this exercise contains information about the public transport travel times to the main railway station in Helsinki, Finland. The input file [travelTimes-2015-Helsinki.txt](data/Helsinki/travelTimes_2015_Helsinki.txt) contains travel times information from multiple origin locations to the railway station. 
 
 This file is an extract of the Helsinki Region Travel Time Matrix dataset - an open data set that contains multimodal travel time information across the Helsinki Region in Finland. In this exercise, we are interested in the columns listed in Table 6.1.
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 : _**Table 6.1**. Column names and descriptions for the travel time data._
 
-| Column           | Description                                 |
-|:-----------------|:--------------------------------------------|
-| from_x           | x-coordinate of the **origin** location     |
-|                  | (longitude)                                 |
-| from_y           | y-coordinate of the **origin** location     |
-|                  | (latitude)                                  |
-| to_x             | x-coordinate of the **destination**         |
-|                  | location (longitude)                        |
-| to_y             | y-coordinate of the **destination**         |
-|                  | location (latitude)                         |
-| total_route_time | Travel time with public transportation at   |
-|                  | the route                                   |
+| Column           | Description                                              |
+|:-----------------|:---------------------------------------------------------|
+| from_x           | x-coordinate of the **origin** location (longitude)      |
+| from_y           | y-coordinate of the **origin** location (latitude)       |
+| to_x             | x-coordinate of the **destination** location (longitude) |
+| to_y             | y-coordinate of the **destination** location (latitude)  |
+| total_route_time | Travel time with public transportation at the route      |
+<!-- #endregion -->
 
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+\begin{longtable}[]{@{}ll@{}}
+\caption{\emph{\textbf{Table 6.1}. Column names and descriptions for the
+travel time data.}}\tabularnewline
+\toprule\noalign{}
+Column & Description \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Column & Description \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+from\_x & x-coordinate of the \textbf{origin} location \\
+& (longitude) \\
+from\_y & y-coordinate of the \textbf{origin} location \\
+& (latitude) \\
+to\_x & x-coordinate of the \textbf{destination} \\
+& location (longitude) \\
+to\_y & y-coordinate of the \textbf{destination} \\
+& location (latitude) \\
+total\_route\_time & Travel time with public transportation at \\
+& the route \\
+\end{longtable}
+<!-- #endraw -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 Your task is to read in the file and create two new columns with `Point` objects representing the origin and destination points. Problems 1-3 will guide you through the necessary steps. Before starting, check the contents of the input file in a text editor and familiarize yourself with the data structure.
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 #### Problem 1: Read the file
 
 - Import required modules.
 - Read in the text file using `pandas` into a variable called `data` and subset the `DataFrame` to contain only those columns we are interested in
 - Check that data looks ok
 
-
+<!-- #endregion -->
 
 #### Problem 2: Create Point geometries
 

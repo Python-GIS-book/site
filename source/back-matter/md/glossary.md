@@ -30,7 +30,7 @@ Argument
 
 Binary predicate
   See {term}`Spatial predicate`.
-  
+
 Collection
   A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.
 
@@ -101,6 +101,27 @@ Georeferencing
 GeoSeries
   GeoSeries is used to store geospatial data, where each element is a geometric object like a point, line, or polygon. It extends the pandas {term}`Series` by supporting spatial operations, such as geometric transformations and spatial queries. A GeoSeries is often used to represent the geometry column in a {term}`GeoDataFrame`, making it a fundamental building block for geospatial analysis in Python.
 
+Git
+  A free and open-source distributed {term}`version control` system that tracks changes in {term}`source code`. Git allows multiple users to work on a project at the same time while maintaining a complete version history. Developed by Linus Torvalds.
+
+Git clone
+  The command in {term}`Git` used to create a copy of an existing {term}`repository`. Cloning downloads the files, commit history, and branches from the repository.
+
+Git commit
+  Verb: The process of writing or {term}`merging <Git merge>` changes made in the working copy of files in a {term}`repository{term}` of a {term}`version control` system. Noun: A specific instance of changes to files in a {term}`repository` of a {term}`version control` system. Each commit includes a unique ID and a message describing the changes. Similar to {term}`revision` and {term}`version`.
+
+Git merge
+  The command in {term}`Git` used to integrate changes from multiple {term}`commits <Git commit>` or branches. Merging combines commit histories and preserves changes both branches. If changes have been made to the same sections of the same file, merging may result in a merge conflict.
+
+Git pull
+  The command in {term}`Git` used to fetch updates from a remote {term}`repository` and merge them into the current branch. Pulling ensures the local repository is up to date with the latest changes in the remote repository.
+
+Git push
+  The command in {term}`Git` used to upload local {term}`commits <Git commit>` to a remote {term}`repository`. Pushing makes the latest changes available to others with access to the repository.
+
+GitHub
+  An online platform for collaborative development of {term}`software` based around the {term}`Git` {term}`version control` system. GitHub provides tools for collaboration, version control, issue tracking, and code review.
+
 Hypsometric curve
   The distribution of area above a given elevation in an region analyzed using hypsometric analysis. This is effectively a cumulative distribution of area as a function of elevation. The areas and elevations in hypsometric curves are frequently normalized to allow comparison between regions and for calculating a {term}`hypsometric integral`.
 
@@ -151,6 +172,12 @@ List
 
 Loop
   A programming construct that allows a section of code to be repeated a finite number of times or until a given condition is met.
+
+Lossless compression
+  Lossless compression is a data compression approach that is used to reduce the file size of a raster dataset when writing without compromising the data quality. Some commonly used lossless compression methods include `LZD` and `DEFLATE`.
+
+Lossy compression
+  Lossy compression is a data compression approach that can significantly reduce the file size of a raster dataset with some loss of data quality and precision. Some commonly used lossy compression methods include `JPEG` and `JPEG2000`.
   
 Map projection
   A map projection is a mathematical method to draw a graphical representation of the Earth's surface on a flat surface, i.e. a map. 
@@ -196,8 +223,14 @@ Radiometric resolution
 Radius query
   A radius query is a type of spatial query that retrieves all points within a specified distance (radius) from a given query point. The query is performed typically on a {term}`KD-Tree` to efficiently find points that fall within a given distance from the query point. KD-Tree supports only Point objects, i.e. it cannot be used to search other geometric types, such as LineStrings or Polygons.
 
+Repository
+  A collection of files, in {term}`Git` for example, and the history of their changes. Often referred to informally as a "repo."
+
 Required parameter
   A function {term}`parameter` that must be defined when calling the function in order to use it. Required parameters do not have default function values given in the function definition. Also known as positional parameters.
+
+Revision
+  Another name for a {term}`version`.
 
 Right outer join
   Right outer join includes all the rows from the right (Geo)DataFrame and those rows from the left (Geo)DataFrame that have a matching key in the table, or that intersect or match based on the specified spatial relationship (e.g., intersects, contains, within). If there is no matching row in the left (Geo)DataFrame for a row in the right (Geo)DataFrame, the result will still include the row from the right (Geo)DataFrame, but with missing values (NaNs) in the columns from the left (Geo)DataFrame.
@@ -225,6 +258,9 @@ Signed integer
 
 Software
   Another name for a {term}`program`.
+
+Source code
+  The list of instructions in a {term}`computer` {term}`programming language` that define what a {term}`program` should do.
 
 Spatial extent
   In geographic data, spatial extent refers to the geographic area covered by a dataset or map. It is typically defined by the minimum and maximum coordinates (e.g., latitude and longitude) that bound the dataset, forming a rectangle or other boundary in geographic space.
@@ -276,7 +312,13 @@ Unsigned integer
 
 Variable
   A way of storing values in the memory of the computer using specific names that you define.
-  
+
+Version
+  A specific instance of changes to files in a {term}`repository` of a {term}`version control` system. Also referred to as a {term}`revision`.
+
+Version control
+  The practice of tracking changes to computer files, typically {term}`source code` files for {term}`computer programs <Program>`. Version control allows users to easily collaborate and revert to previous versions.
+
 Virtual environment
   A virtual environment is a Python programming environment which works in a way that the Python interpreter, libraries and scripts installed into it are isolated from the ones installed in other virtual environments, as well as from (possible) system Python, i.e., one which is installed as part of your operating system.
 

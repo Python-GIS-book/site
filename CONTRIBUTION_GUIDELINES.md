@@ -14,6 +14,7 @@
     - [Add a citation](#add-a-citation)
     - [Allow errors to be included in the docs](#allow-an-error-to-happen-in-code-blocks)
     - [Hide cells on the website or in the book](#hide-cells)
+    - [Lint Notebooks](#lint-notebooks)
 
 ## Objectives
 
@@ -291,6 +292,23 @@ Cells can be removed from being shown in the book and have their output hidden o
 #### Hiding cell output
 
 If you wish for the cell output to be visible in the book, but not on the website, you can set the cell type to `Raw` and then use the `hide-cell` tag. This will include the text from the cell in the book, but show nothing on the website. This can be useful for adding book figures in cases where the normal figure output is not visible in the book.
+
+### Lint Notebooks?
+
+We are using `black` library for linting the Notebooks, so that the formatting of all the codes is done systematically.
+
+You need to lint all Notebooks before commits from `develop` branch can be merged to `main` branch. To do this:
+
+1. Ensure that the `python-gis-book` environment is activated and your terminal is located inside the `source` -folder.
+2. To check which Notebooks require linting, you can run following command: `black . --check`
+3. To check how the Notebooks will be formatted by `black`, you can run following command: `black . --diff`
+4. To format the Notebooks with `black`, you can run following command: `black .`
+   - This command will auto-format all the Notebook cells where the code is not formatted appropriately.
+5. **Important**: Once you have formatted the Notebooks, you still need to sync the Markdown versions with the changes because `black` does not touch the .md files. To do this:
+   1. Check which Notebooks were changed
+   2. Remove the Markdown files associated with the changed Notebooks from the given `md` folder(s)
+   3. Open and save the linted Notebooks which will create a synced Markdown-version of the Notebook.
+   4. Commit + Push all the changes to Github
 
 ## Build PDF of the book
 

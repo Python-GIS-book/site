@@ -357,24 +357,45 @@ list(data.data_vars)
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Writing to a file
 
-At this stage, we have learned how to read raster data and explored some of the basic properties of a raster `Dataset`. As a last thing, we will learn how to write the data from `xarray` into specific raster file formats. Similarly as with vector data, raster data can be stored in various formats. Table 7.1 introduces some of the popular file formats used for storing raster data. 
+At this stage, we have learned how to read raster data and explored some of the basic properties of a raster `Dataset`. As a last thing, we will learn how to write the data from `xarray` into specific raster file formats. Similarly as with vector data, raster data can be stored in various formats. 
+<!-- #endregion -->
+
+<!-- #region -->
+### Raster file formats
+
+Table 7.1 introduces some of the popular file formats used for storing raster data. The `GeoTIFF` format is one of the most widely used formats to store individual raster layers (i.e. a single `DataArray`) to disk which is widely used format in various GIS software. One flavor of `GeoTIFF` that is useful to know is a `Cloud Optimized GeoTIFF` (`COG`) which is a regular `GeoTIFF` file with an internal organization that enables more efficient workflows on the cloud (useful with large datasets). With `COG` files you can stream just the portion of data that is needed that can significantly reduce processing times and allow working with a single large `GeoTIFF` file instead of multiple tiles. 
 
 
 : _**Table 7.1**. Common raster file formats._
 
-| Name    | Extension   | Description                            |
-|:-------:|:-----------:|:---------------------------------------|
-| GeoTiff | .tif, .tiff | Widely used to store individual raster |
-|         |             | layers to disk (i.e. a single          |
-|         |             | `xarray.DataArray`).                   |
-| netCDF  | .nc         | Widely used to store a whole           |
-|         |             | `xarray.Dataset` that can contain      |
-|         |             | multiple variables.                    |
-| Zarr    | .zarr       | Newer format for storing               |
-|         |             | `xarray.Dataset`. Supports storing     |
-|         |             | large data in compressed chunks.       |
+| Name    | Extension   | Description                                                                                        |
+|:-------:|:-----------:|:---------------------------------------------------------------------------------------------------|
+| GeoTiff | .tif, .tiff | Widely used to store individual raster layers to disk (i.e. a single `xarray.DataArray`).          |
+| netCDF  | .nc         | Widely used to store a whole `xarray.Dataset` that can contain multiple variables.                 |
+| Zarr    | .zarr       | Newer format for storing `xarray.Dataset`. Supports storing large data in compressed chunks.       |
 
-The `GeoTIFF` format is one of the most widely used formats to store individual raster layers (i.e. a single `DataArray`) to disk. This is still widely used format in various GIS software. `netCDF` is widely used in geosciences for storing multiple variables into a single file which is based on  a general-purpose file format and a data model called `HDF5` (`.h5`). The `Zarr` file format is a newer format designed for cloud-native, chunked, and compressed array storage. The `Zarr` file format and the associated `zarr` library also allows you to write multiple variables (i.e. a whole `xarray.Dataset`) into a single `.zarr` directory/file in a similar manner as with `netCDF`. In addition, `zarr` has the ability to store arrays in various ways, including in memory, in files, and in cloud-based object storage (such as Amazon S3 buckets or Google Cloud Storage) that are often used to store very large datasets. When using `.zarr` file format, you can take advantage of the nice capabilities of `Zarr`, including the ability to store and analyze datasets far too large fit onto disk, particularly in combination with `dask` library which provides capabilities for parallel and distributed computing. 
+
+The `netCDF` format is also widely used in geosciences for storing multiple variables into a single file which is based on a general-purpose file format and a data model called `HDF5` (`.h5`). The `Zarr` file format is a newer format designed for cloud-native, chunked, and compressed array storage. The `Zarr` file format and the associated `zarr` library also allows you to write multiple variables (i.e. a whole `xarray.Dataset`) into a single `.zarr` directory/file in a similar manner as with `netCDF`. In addition, `zarr` has the ability to store arrays in various ways, including in memory, in files, and in cloud-based object storage (such as Amazon S3 buckets or Google Cloud Storage) that are often used to store very large datasets. When using `.zarr` file format, you can take advantage of the nice capabilities of `Zarr`, including the ability to store and analyze datasets far too large fit onto disk, particularly in combination with `dask` library which provides capabilities for parallel and distributed computing. 
+<!-- #endregion -->
+
+<!-- #region -->
+### Raster compression methods
+
+When working with large raster datasets, managing storage space and improving performance are essential. Raster compression methods can help you to reduce the file size of raster data which can often take up significant disk space. Compression can also speed up your analysis process because compressed files are faster to read, download and transfer (online). Thus, when working with `rioxarray` and writing data to different file formats, it is useful to compress the data. Thus, knowing which compression method to choose when saving raster data in formats like `GeoTIFF` is essential. 
+
+The data compression can be *{term}`lossless <lossless compression>`* or *{term}`lossy <lossy compression>`*. Lossless compression means that the file size is reduced without losing or changing any data, while lossy compression achieves higher compression rate (i.e. smaller file size) with some loss in data quality / precision. Table 7.2 introduces some of the most widely used compression methods that can be used when writing raster data. Choosing the "right" compression method depends on different factors. If you need lossless compression, `LZW` or `ZSTD` is a good balance between size and speed. If storage space is a top priority, you can consider using `JPEG` or `JPEG2000` but it is good to be aware of the potential data loss. For cloud-based workflows, `ZSTD` or `DEFLATE` are good choices for compression.
+
+
+: _**Table 7.2**. Common raster compression methods._
+
+| Name      | Type        | Compress Ratio | Encoding Speed | Decoding Speed | Common Raster Formats   | Best For                                     |
+|-----------|-------------|----------------|----------------|----------------|-------------------------|----------------------------------------------|
+|`LZW`      | Lossless    | Moderate       | Medium         | Fast           | GeoTIFF, PNG            | General-purpose datasets, GIS workflows      |
+|`DEFLATE`  | Lossless    | High           | Slow           | Medium         | GeoTIFF, PNG            | Archival storage, cloud-based processing     |
+|`ZSTD`     | Lossless    | High           | Fast           | Fast           | Cloud-optimized GeoTIFF | Cloud storage, high-performance applications |
+|`JPEG`     | Lossy       | Very High      | Fast           | Fast           | JPEG, GeoTIFF (YCbCr)   | Web visualization, aerial imagery            |
+|`JPEG2000` | Both avail. | Very High      | Slow           | Medium         | JP2, GeoTIFF (JP2)      | High-resolution satellite imagery            |
+
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -392,6 +413,22 @@ As we saw at the beginnig of this section, to read a `GeoTIFF` file, you can use
 
 ```python
 xr.open_dataset("data/temp/relative_height.tif", engine="rasterio", masked=True)
+```
+
+### Cloud Optimized GeoTIFF (COG)
+
+Writing a cloud optimized `GeoTIFF` (`COG`) can be done in a similar manner as writing a regular `GeoTIFF` file, but here we define that the `driver` for our output dataset is `"COG"`. Here, we also compress our data using the `LZW` compression method that reduces the file size of the output:
+
+```python
+data["elevation"].rio.to_raster(
+    "data/temp/elevation_cog.tif", driver="COG", compress="LZW"
+)
+```
+
+To read the `COG` file, we can use the `xr.open_dataset()` method in a similar way as before:
+
+```python
+xr.open_dataset("data/temp/elevation_cog.tif", engine="rasterio", masked=True)
 ```
 
 ### netCDF
