@@ -76,33 +76,62 @@ In spite of the large variety of types of plots, there are certain elements that
 
 The common terms in Table 4.1 may vary a bit depending on the plotting library that you use. For the list provided here we are using the typical terms for plotting in Matplotlib (see also Figure 4.2).
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
 : _**Table 4.1**. Common terminology for plot features in Matplotlib._
 
-| Term       | Description                                       |
-|:-----------|:--------------------------------------------------|
-| Axis       | Axis of the graph that are typically x, y and z   |
-|            | (for 3D plots).                                   |
-| Title      | Title of the whole plot.                          |
-| Label      | Name for the whole axis (e.g. xlabel or ylabel).  |
-| Legend     | Legend for the plot.                              |
-| Tick label | Text or values that are represented on the axis.  |
-| Symbol     | Symbol for data point(s) (on a scatter plot) that |
-|            | can be presented with different symbol shapes or  |
-|            | colors.                                           |
-| Size       | Size of, for example, a point on a scatter plot.  |
-|            | Also used for referring to text sizes on a plot.  |
-| Linestyle  | The style how the line should be drawn. Can be    |
-|            | solid or dashed, for example.                     |
-| Linewidth  | The width of a line in a plot.                    |
-| Alpha      | Transparency level of a filled element in a plot  |
-|            | (values range between 0.0 (fully transparent) to  |
-|            | 1.0 (no trasnparency)).                           |
-| Tick(s)    | Refers to the tick marks on a plot.               |
-| Annotation | Refers to the text added to a plot.               |
-| Padding    | The distance between a (axis/tick) label and the  |
-|            | axis.                                             |
+| Term       | Description                                                                                                               |
+|:-----------|:--------------------------------------------------------------------------------------------------------------------------|
+| Axis       | Axis of the graph that are typically x, y and z (for 3D plots).                                                           |
+| Title      | Title of the whole plot.                                                                                                  |
+| Label      | Name for the whole axis (e.g. xlabel or ylabel).                                                                          |
+| Legend     | Legend for the plot.                                                                                                      |
+| Tick label | Text or values that are represented on the axis.                                                                          |
+| Symbol     | Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes or colors.                |
+| Size       | Size of, for example, a point on a scatter plot. Also used for referring to text sizes on a plot.                         |
+| Linestyle  | The style how the line should be drawn. Can be solid or dashed, for example.                                              |
+| Linewidth  | The width of a line in a plot.                                                                                            |
+| Alpha      | Transparency level of a filled element in a plot (values range between 0.0 (fully transparent) to 1.0 (no trasnparency)). |
+| Tick(s)    | Refers to the tick marks on a plot.                                                                                       |
+| Annotation | Refers to the text added to a plot.                                                                                       |
+| Padding    | The distance between a (axis/tick) label and the axis.                                                                    |
+<!-- #endregion -->
 
-
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+\begin{longtable}[]{@{}ll@{}}
+\caption{\emph{\textbf{Table 4.1}. Common terminology for plot features in Matplotlib.}}\tabularnewline
+\toprule\noalign{}
+Term & Description \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Term & Description \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Axis & Axis of the graph that are typically x, y and z \\
+& (for 3D plots). \\
+Title & Title of the whole plot. \\
+Label & Name for the whole axis (e.g.~xlabel or ylabel). \\
+Legend & Legend for the plot. \\
+Tick label & Text or values that are represented on the axis. \\
+Symbol & Symbol for data point(s) (on a scatter plot) that \\
+& can be presented with different symbol shapes or \\
+& colors. \\
+Size & Size of, for example, a point on a scatter plot. \\
+& Also used for referring to text sizes on a plot. \\
+Linestyle & The style how the line should be drawn. Can be \\
+& solid or dashed, for example. \\
+Linewidth & The width of a line in a plot. \\
+Alpha & Transparency level of a filled element in a plot \\
+& (values range between 0.0 (fully transparent) to \\
+& 1.0 (no trasnparency)). \\
+Tick(s) & Refers to the tick marks on a plot. \\
+Annotation & Refers to the text added to a plot. \\
+Padding & The distance between a (axis/tick) label and the \\
+& axis. \\
+\end{longtable}
+<!-- #endraw -->
 
 ## Footnotes
 

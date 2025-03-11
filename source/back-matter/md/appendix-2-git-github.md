@@ -80,11 +80,11 @@ There are, however, also other graphical user interfaces for Git that come with 
 Here are a few basic terms that are used often when using git and GitHub (not exhaustive).
 
 - *{term}`Repository`*: A location where all the files for a particular project are stored, often referred to as a "repo." Each project will have its own repo, which is usually located on a server and can be accessed by a unique URL (e.g., a link to GitHub page).
-- *{term}`Commit`*: To commit is to write or merge the changes made in the working copy back to the repository. When you commit, you are basically taking a "snapshot" of your repository at that point in time, giving you a checkpoint to which you can reevaluate or restore your project to any previous state. The terms 'commit' or 'checkin' can also be used as nouns to describe the new revision that is created as a result of committing.
+- *{term}`Commit <Git commit>`*: To commit is to write or merge the changes made in the working copy back to the repository. When you commit, you are basically taking a "snapshot" of your repository at that point in time, giving you a checkpoint to which you can reevaluate or restore your project to any previous state. The terms 'commit' or 'checkin' can also be used as nouns to describe the new revision that is created as a result of committing.
 - *{term}`Revision`* / *{term}`Version`*: A revision or a version is any change in made in any form to a document(s).
-- *{term}`Clone`*: Cloning means creating a repository containing the revisions from another repository. This is equivalent to pushing or pulling into an empty (newly initialized) repository. As a noun, two repositories can be said to be clones if they are kept synchronized, and contain the same revisions.
-- *{term}`Pull` / *{term}`Push`*: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.
-- *{term}`Merge`*: A merge or integration is an operation in which two sets of changes are applied to a file or set of files.
+- *{term}`Clone <Git clone>`*: Cloning means creating a repository containing the revisions from another repository. This is equivalent to pushing or pulling into an empty (newly initialized) repository. As a noun, two repositories can be said to be clones if they are kept synchronized, and contain the same revisions.
+- *{term}`Pull <Git pull>` / *{term}`Push <Git push>`*: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.
+- *{term}`Merge <Git merge>`*: A merge or integration is an operation in which two sets of changes are applied to a file or set of files.
 
 
 ## Using Git and GitHub
