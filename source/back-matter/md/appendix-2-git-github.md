@@ -31,7 +31,7 @@ We've all been in this situation before, and it seems ridiculous to have multipl
 
 ## What is version control?
 
-[Version control](https://en.wikipedia.org/wiki/Version_control) [^versioncontrol] is used to track and store changes in your files without losing the history of your previous changes. Version control systems start with a base version of a document and then save only the changes you make at each step of the way. You can think of it as a tape: if you rewind the tape and start at the base document, then you can play back each change and end up with your latest version.
+*{term}`Version control`* [^versioncontrol] is used to track and store changes in your files without losing the history of your previous changes. Version control systems start with a base version of a document and then save only the changes you make at each step of the way. You can think of it as a tape: if you rewind the tape and start at the base document, then you can play back each change and end up with your latest version.
 
 ![_**Figure A.X**. Illustration of committing changes. Source: <https://swcarpentry.github.io/git-novice/01-basics.html>._](../img/play-changes.png)
 
@@ -79,12 +79,12 @@ There are, however, also other graphical user interfaces for Git that come with 
 
 Here are a few basic terms that are used often when using git and GitHub (not exhaustive).
 
-- Repository: A location where all the files for a particular project are stored, ofter referred to as a "repo." Each project will have its own repo, which is usually located on a server and can be accessed by a unique URL (e.g., a link to GitHub page).
-- Commit: To commit is to write or merge the changes made in the working copy back to the repository. When you commit, you are basically taking a "snapshot" of your repository at that point in time, giving you a checkpoint to which you can reevaluate or restore your project to any previous state. The terms 'commit' or 'checkin' can also be used as nouns to describe the new revision that is created as a result of committing.
-- Revision / version: A revision or a version is any change in made in any form to a document(s).
-- Clone: Cloning means creating a repository containing the revisions from another repository. This is equivalent to pushing or pulling into an empty (newly initialized) repository. As a noun, two repositories can be said to be clones if they are kept synchronized, and contain the same revisions.
-- Pull / push: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.
-- Merge: A merge or integration is an operation in which two sets of changes are applied to a file or set of files.
+- *{term}`Repository`*: A location where all the files for a particular project are stored, often referred to as a "repo." Each project will have its own repo, which is usually located on a server and can be accessed by a unique URL (e.g., a link to GitHub page).
+- *{term}`Commit`*: To commit is to write or merge the changes made in the working copy back to the repository. When you commit, you are basically taking a "snapshot" of your repository at that point in time, giving you a checkpoint to which you can reevaluate or restore your project to any previous state. The terms 'commit' or 'checkin' can also be used as nouns to describe the new revision that is created as a result of committing.
+- *{term}`Revision`* / *{term}`Version`*: A revision or a version is any change in made in any form to a document(s).
+- *{term}`Clone`*: Cloning means creating a repository containing the revisions from another repository. This is equivalent to pushing or pulling into an empty (newly initialized) repository. As a noun, two repositories can be said to be clones if they are kept synchronized, and contain the same revisions.
+- *{term}`Pull` / *{term}`Push`*: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.
+- *{term}`Merge`*: A merge or integration is an operation in which two sets of changes are applied to a file or set of files.
 
 
 ## Using Git and GitHub
@@ -118,27 +118,24 @@ The version control history consists of snapshots of all the files in your proje
 
 _**Figure A.X**. Version control steps using Git (adapted from <https://git-scm.com/about/staging-area>)._
 
-<!-- #region -->
+
 ## Preparations
 
 With a general sense of how Git and GitHub work, we can now go through the basics of using Git with a hands-on example. For this we will use the student version of the notebooks for this book, which can be found on GitHub at <https://github.com/Python-GIS-book/student-notebooks>. In order to do this, we assume:
 
-1. You have installed the Python environment for this course using {doc}`the instructions from Chapter 1.7 </part1/chapter-01/nb/06-installation>`. Note: Finnish university students can use the [CSC Noppe platform](https://noppe.csc.fi) without installing Python on their own computers.
+1. You have installed the Python environment for this course using {doc}`the instructions from Chapter 1.7 </part1/chapter-01/nb/06-installation>`.
 2. You have an account on [GitHub.com](https://github.com) If not, now is a good time to create one.
 
-Before we start, open a new JupyterLab session if you do not already have one open.
+Before we continue, open a new JupyterLab session if you do not already have one open.
 
-# Create a Personal Access Token
+<!-- #region -->
+## Create a Personal Access Token
 
-Before we start cloning our repository from GitHub, we need to create a
-Personal Access Token for us to be able to interact with GitHub. We will
-go through the basic setup here, but you can find more detailed
-instructions in the [GitHub
-documentation](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+Although we will be working with a public GitHub repository for our example case, we will start by creating a Personal Access Token for our GitHub account. A Personal Access Token can be used for many things, but it is required when trying to access files in private repositories to which you have access, for example. The token will enable you to both push and pull files to/from GitHub.
 
-1.  If you have not already verified your email address, make sure to do
-    so in your GitHub settings ([GitHub email
-    verification](https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address)).
+We will go through the essential steps here and you can find more detailed instructions in the [GitHub documentation](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+1. If you have not already verified your email address for your GitHub account, make sure to do so in your GitHub settings (see [GitHub email verification](https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address)).
     On GitHub, go into your settings.
 
     ![image](https://docs.github.com/assets/images/help/settings/userbar-account-settings.png){width="200px"}
