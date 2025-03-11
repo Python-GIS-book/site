@@ -306,7 +306,7 @@ You need to lint all Notebooks before commits to `develop` branch can be merged 
    - This command will auto-format all the Notebook cells where the code is not formatted appropriately.
 5. **Important**: Once you have formatted the Notebooks, you still need to sync the Markdown versions with the changes because `black` does not touch the .md files. To do this:
    1. Check which Notebooks were changed
-   2. Remove the Markdown files associated with the changed Notebooks from the `md` given folder(s)
+   2. Remove the Markdown files associated with the changed Notebooks from the given `md` folder(s)
    3. Open and save the linted Notebooks which will create a synced Markdown-version of the Notebook.
    4. Commit + Push all the changes to Github
 
