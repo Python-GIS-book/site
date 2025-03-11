@@ -420,7 +420,9 @@ xr.open_dataset("data/temp/relative_height.tif", engine="rasterio", masked=True)
 Writing a cloud optimized `GeoTIFF` (`COG`) can be done in a similar manner as writing a regular `GeoTIFF` file, but here we define that the `driver` for our output dataset is `"COG"`. Here, we also compress our data using the `LZW` compression method that reduces the file size of the output:
 
 ```python
-data["elevation"].rio.to_raster("data/temp/elevation_cog.tif", driver="COG", compress="LZW")
+data["elevation"].rio.to_raster(
+    "data/temp/elevation_cog.tif", driver="COG", compress="LZW"
+)
 ```
 
 To read the `COG` file, we can use the `xr.open_dataset()` method in a similar way as before:

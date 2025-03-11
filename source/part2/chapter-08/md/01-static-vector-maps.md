@@ -39,8 +39,8 @@ grid = gpd.read_file(grid_fp)
 transport = gpd.read_file(transport_fp)
 
 # Filtering out some useful transport features for our map
-metro = transport.loc[transport["JL_LAJI"]=="06"]
-train = transport.loc[transport["JL_LAJI"]=="12"]
+metro = transport.loc[transport["JL_LAJI"] == "06"]
+train = transport.loc[transport["JL_LAJI"] == "12"]
 ```
 
 The travel time data contains multiple columns with information on travel times and distances from each statistical grid square to the central railway station in Helsinki. 
@@ -58,7 +58,7 @@ grid = grid.replace(-1, np.nan)
 We can use `geopandas` for visualizing a simple map representing the travel times. Let's visualize the rush hour public transport travel times (column `'pt_r_t'`) for our map. We can speficy the column that we want to visualize through the `plot()` method parameters:
 
 ```python
-grid.plot(column='pt_r_t')
+grid.plot(column="pt_r_t")
 ```
 
 What we have here is a `choropleth map` where the colors of each grid square polygon are based on values from the column `pt_r_t`. We will see later how to change the classification scheme that determines the assignment of values to each class for the visualization. 
@@ -121,7 +121,7 @@ Now our layers are nicely aligned, but the map needs some further improvement re
 # Create one subplot. Control figure size in here.
 fig, ax = plt.subplots(figsize=(6, 4))
 
-# Visualize the travel times 
+# Visualize the travel times
 grid.plot(ax=ax, column="car_r_t", cmap="Spectral", legend=True)
 
 # Add roads on top of the grid
@@ -142,8 +142,8 @@ plt.axis("off")
 plt.tight_layout()
 
 # Save the figure as png file with resolution of 300 dpi
-#outfp = "static_map.png"
-#plt.savefig(outfp, dpi=300)
+# outfp = "static_map.png"
+# plt.savefig(outfp, dpi=300)
 ```
 
 ## Classification schemes
@@ -171,13 +171,14 @@ Let's continue working with the gridded travel time data and try out different c
 
 ```python jupyter={"outputs_hidden": false}
 # Plot using 9 classes and classify the values using "Natural Breaks" classification
-grid.plot(figsize=(6, 4),
+grid.plot(
+    figsize=(6, 4),
     column="pt_r_t",
     cmap="RdYlBu",
     linewidth=0,
     scheme="Natural_Breaks",
-    k=9, 
-    legend=True
+    k=9,
+    legend=True,
 )
 
 # Set axis off (remove the frame and labels from x and y axis)
@@ -185,7 +186,6 @@ plt.axis("off")
 
 # Remove the empty white-space around the axes
 plt.tight_layout()
-
 ```
 
 In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station. 
@@ -200,13 +200,14 @@ We can control the position and title of the legend using `matplotlib` tools tro
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Visualize the travel times into 9 classes using "Quantiles" classification scheme
-grid.plot(ax=ax, 
+grid.plot(
+    ax=ax,
     column="pt_r_t",
     cmap="RdYlBu",
     linewidth=0,
     scheme="Natural_Breaks",
-    k=9, 
-    legend=True
+    k=9,
+    legend=True,
 )
 
 # Re-position the legend and set a title
@@ -266,13 +267,14 @@ Select another column from the data (for example, travel times by car: `car_r_t`
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Visualize the travel times into 9 classes using "Quantiles" classification scheme
-grid.plot(ax=ax, 
+grid.plot(
+    ax=ax,
     column="car_r_t",
     cmap="RdYlBu",
     linewidth=0,
     scheme="Quantiles",
-    k=9, 
-    legend=True
+    k=9,
+    legend=True,
 )
 
 # Re-position the legend and set a title
@@ -306,12 +308,13 @@ Map tiles are typically distributed in [Web Mercator projection (EPSG:3857)](htt
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Plot the data
-grid.plot(ax=ax,
+grid.plot(
+    ax=ax,
     column="pt_r_t",
     cmap="RdYlBu",
     linewidth=0,
     scheme="Natural_Breaks",
-    k=9, 
+    k=9,
     alpha=0.6,
 )
 
@@ -332,13 +335,14 @@ We can change the background map easily using the `source` -parameter when addin
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Plot the data
-grid.plot(ax=ax,
+grid.plot(
+    ax=ax,
     column="pt_r_t",
     cmap="RdYlBu",
     linewidth=0,
     scheme="Natural_Breaks",
     k=9,
-    alpha=0.6
+    alpha=0.6,
 )
 
 # Set axis off (remove the frame and labels from x and y axis)
@@ -361,13 +365,14 @@ fig, ax = plt.subplots(figsize=(6, 4))
 subset = grid.loc[(grid["pt_r_t"] >= 0) & (grid["pt_r_t"] <= 15)].copy()
 
 # Plot the data from subset
-subset.plot(ax=ax,
+subset.plot(
+    ax=ax,
     column="pt_r_t",
     cmap="RdYlBu",
     linewidth=0,
     scheme="Natural_Breaks",
     k=4,
-    alpha=0.6
+    alpha=0.6,
 )
 
 # Set axis off (remove the frame and labels from x and y axis)
@@ -388,12 +393,7 @@ Now our map has much more details as the zoom level of the background map is lar
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Plot the data from subset
-subset.plot(ax=ax,
-    column="pt_r_t",
-    cmap="RdYlBu",
-    linewidth=0,
-    alpha=0.6
-)
+subset.plot(ax=ax, column="pt_r_t", cmap="RdYlBu", linewidth=0, alpha=0.6)
 
 # Set axis off (remove the frame and labels from x and y axis)
 plt.axis("off")
@@ -418,7 +418,8 @@ credits = "Travel time data by Tenkanen & Toivonen (2020), Map Data © OpenStree
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Plot the data
-grid.plot(ax=ax,
+grid.plot(
+    ax=ax,
     column="pt_r_t",
     cmap="RdYlBu",
     linewidth=0,
@@ -438,7 +439,6 @@ plt.tight_layout()
 ctx.add_basemap(
     ax, attribution=credits, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs
 )
-
 ```
 
 It is also possible to use many other map tiles from different [Tile Map Services](https://en.m.wikipedia.org/wiki/Tile_Map_Service) as the background map. A good list of different available sources can be found from in [leaflet-providers](http://leaflet-extras.github.io/leaflet-providers/preview/). When using map tiles from different sources, it is necessary to parse a url address to the tile provider following a format defined by the provider. 
@@ -474,13 +474,7 @@ style = "rastertiles/voyager"
 cartodb_url = "https://a.basemaps.cartocdn.com/%s/{z}/{x}/{y}.png" % style
 
 # Plot the data from subset
-subset.plot(
-    ax=ax,
-    column="pt_r_t",
-    cmap="RdYlBu",
-    linewidth=0,
-    alpha=0.6
-)
+subset.plot(ax=ax, column="pt_r_t", cmap="RdYlBu", linewidth=0, alpha=0.6)
 
 # Add basemap with `OSM_A` style using zoom level of 14
 ctx.add_basemap(ax, zoom=14, source=cartodb_url, crs=grid.crs)
@@ -492,8 +486,8 @@ plt.axis("off")
 plt.tight_layout()
 
 # Crop the figure
-#ax.set_xlim(2770000, 2785000)
-#.set_ylim(8435000, 8442500)
+# ax.set_xlim(2770000, 2785000)
+# .set_ylim(8435000, 8442500)
 ```
 
 As we can see now we have yet again different kind of background map, now coming from CartoDB. 
