@@ -12,8 +12,9 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Exercises
-
+<!-- #endregion -->
 
 ### Exercise 2.1 - Getting started with Python
 
@@ -102,22 +103,49 @@ For this exercise you should:
      'Station_20.txt']
     ```
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Exercise 2.5 - Classifying temperatures
 
 Data classification is another useful data analysis concept, where data values are sorted into different groups that help you to interpret the data. Your goal in this exercise is to sort a list of temperatures into four categories using a Python list for each category (Table 2.7):
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 : _**Table 2.7**. Temperature categories and ranges for Exercise 2.5 and 2.7._
 
-|Category    |Temperature range                  | List name     |
-|:-----------|:----------------------------------|:-------------:|
-|Cold        |Less than -2 deg. C                | `cold`        |
-|Slippery    |Greater than or equal to -2 deg. C | `slippery`    |
-|            |and less than +2 deg. C            |               |
-|Comfortable |Greater than or equal to +2 deg. C | `comfortable` |
-|            |and less than +15 deg. C           |               |
-|Warm        |Greater than or equal to +2 deg. C | `warm`        |
+|Category    |Temperature range                                           | List name     |
+|:-----------|:-----------------------------------------------------------|:-------------:|
+|Cold        |Less than -2 deg. C                                         | `cold`        |
+|Slippery    |Greater than or equal to -2 deg. C and less than +2 deg. C  | `slippery`    |
+|Comfortable |Greater than or equal to +2 deg. C and less than +15 deg. C | `comfortable` |
+|Warm        |Greater than or equal to +2 deg. C                          | `warm`        |
+<!-- #endregion -->
 
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+\begin{longtable}[]{@{}llc@{}}
+\caption{\emph{\textbf{Table 2.7}. Temperature categories and ranges for
+Exercise 2.5 and 2.7.}}\tabularnewline
+\toprule\noalign{}
+Category & Temperature range & List name \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Category & Temperature range & List name \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Cold & Less than -2 deg. C & \texttt{cold} \\
+Slippery & Greater than or equal to -2 deg. C & \texttt{slippery} \\
+& and less than +2 deg. C & \\
+Comfortable & Greater than or equal to +2 deg. C &
+\texttt{comfortable} \\
+& and less than +15 deg. C & \\
+Warm & Greater than or equal to +2 deg. C & \texttt{warm} \\
+\end{longtable}
+<!-- #endraw -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 The list of temperatures below were measured at the Helsinki Malmi Airport in April 2013 with night, day, and evening temperatures recorded for each day.
 
 ```python
@@ -141,6 +169,7 @@ For this exercise you should:
     - Was it ever warm?
 <!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Exercise 2.6 - A temperature conversion function
 
 Functions are commonly used for small calculations that occur frequently within a program, such as converting between units.
@@ -154,15 +183,16 @@ For this problem you should:
     - 68 °F
     - 91 °F
     - -17 °F
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Exercise 2.7 - A temperature classifier function
 
 This exercise uses the same logic presented in Exercise 2.5 to classify temperatures, but now using a function.
 
 In this exercise you should:
 
-- Create a function that classifies temperatures based on Table 2.8.
+- Create a function that classifies temperatures based on Table 2.7.
     - The function should return the following values for the different categories
         - `0`: Cold
         - `1`: Slippery
@@ -173,3 +203,4 @@ In this exercise you should:
     - +2 °C
     - +1.9 °C
     - -2 °C
+<!-- #endregion -->

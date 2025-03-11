@@ -202,22 +202,53 @@ Which of the letters `A`, `B`, `C`, and `D` would be printed out?
 "B"
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Combining conditions
 
 We can also use the `and` and `or` operators to combine multiple conditions that use Boolean values (Table 2.4).
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 : _**Table 2.4**. Logic for the `and`, `or`, and `not` operators in Python._
 
-| Operator | Description            | Comparison example | Result  |
-|:--------:|:-----------------------|:------------------:|:-------:|
-| `and`    | True only if both      | `2 > 1 and 1 < 0`  | `False` |
-|          | comparisons are true   |                    |         |
-| `or`     | True if either         | `2 > 1 or 1 < 0`   | `True`  |
-|          | comparison is true     |                    |         |
-| `not`    | False if comparison is | `not 2 > 1`        | `False` |
-|          | true and vice versa    |                    |         |
+| Operator | Description                                | Comparison example | Result  |
+|:--------:|:-------------------------------------------|:------------------:|:-------:|
+| `and`    | True only if both comparisons are true     | `2 > 1 and 1 < 0`  | `False` |
+| `or`     | True if either comparison is true          | `2 > 1 or 1 < 0`   | `True`  |
+| `not`    | False if comparison is true and vice versa | `not 2 > 1`        | `False` |
+<!-- #endregion -->
 
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+\begin{longtable}[]{@{}clcc@{}}
+\caption{\emph{\textbf{Table 2.4}. Logic for the \texttt{and},
+\texttt{or}, and \texttt{not} operators in Python.}}\tabularnewline
+\toprule\noalign{}
+Operator & Description & Comparison example & Result \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Operator & Description & Comparison example & Result \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+~\texttt{and} & True only if both &
+\texttt{2\ \textgreater{}\ 1\ and\ 1\ \textless{}\ 0} &
+\texttt{False} \\
+& comparisons are true & & \\
+~\texttt{or} & True if either &
+\texttt{2\ \textgreater{}\ 1\ or\ 1\ \textless{}\ 0} & \texttt{True} \\
+& comparison is true & & \\
+~\texttt{not} & False if comparison is &
+\texttt{not\ 2\ \textgreater{}\ 1} & \texttt{False} \\
+& true and vice versa & & \\
+\end{longtable}
+<!-- #endraw -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 With Table 2.4 in mind, let's consider a few examples.
+<!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 hot_temperature = 35.0
