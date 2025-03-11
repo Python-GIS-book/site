@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -600,6 +599,7 @@ document.write(`
 <section id="common-plotting-terminology">
 <h3>Common plotting terminology<a class="headerlink" href="#common-plotting-terminology" title="Link to this heading">#</a></h3>
 <p>The common terms in Table 4.1 may vary a bit depending on the plotting library that you use. For the list provided here we are using the typical terms for plotting in Matplotlib (see also Figure 4.2).</p>
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 <p>: <em><strong>Table 4.1</strong>. Common terminology for plot features in Matplotlib.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -609,67 +609,43 @@ document.write(`
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-left"><p>Axis</p></td>
-<td class="text-left"><p>Axis of the graph that are typically x, y and z</p></td>
+<td class="text-left"><p>Axis of the graph that are typically x, y and z (for 3D plots).</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>(for 3D plots).</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>Title</p></td>
+<tr class="row-odd"><td class="text-left"><p>Title</p></td>
 <td class="text-left"><p>Title of the whole plot.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>Label</p></td>
+<tr class="row-even"><td class="text-left"><p>Label</p></td>
 <td class="text-left"><p>Name for the whole axis (e.g. xlabel or ylabel).</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>Legend</p></td>
+<tr class="row-odd"><td class="text-left"><p>Legend</p></td>
 <td class="text-left"><p>Legend for the plot.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>Tick label</p></td>
+<tr class="row-even"><td class="text-left"><p>Tick label</p></td>
 <td class="text-left"><p>Text or values that are represented on the axis.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>Symbol</p></td>
-<td class="text-left"><p>Symbol for data point(s) (on a scatter plot) that</p></td>
+<tr class="row-odd"><td class="text-left"><p>Symbol</p></td>
+<td class="text-left"><p>Symbol for data point(s) (on a scatter plot) that can be presented with different symbol shapes or colors.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>can be presented with different symbol shapes or</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>colors.</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Size</p></td>
-<td class="text-left"><p>Size of, for example, a point on a scatter plot.</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>Also used for referring to text sizes on a plot.</p></td>
+<tr class="row-even"><td class="text-left"><p>Size</p></td>
+<td class="text-left"><p>Size of, for example, a point on a scatter plot. Also used for referring to text sizes on a plot.</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Linestyle</p></td>
-<td class="text-left"><p>The style how the line should be drawn. Can be</p></td>
+<td class="text-left"><p>The style how the line should be drawn. Can be solid or dashed, for example.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>solid or dashed, for example.</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Linewidth</p></td>
+<tr class="row-even"><td class="text-left"><p>Linewidth</p></td>
 <td class="text-left"><p>The width of a line in a plot.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>Alpha</p></td>
-<td class="text-left"><p>Transparency level of a filled element in a plot</p></td>
+<tr class="row-odd"><td class="text-left"><p>Alpha</p></td>
+<td class="text-left"><p>Transparency level of a filled element in a plot (values range between 0.0 (fully transparent) to 1.0 (no trasnparency)).</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>(values range between 0.0 (fully transparent) to</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>1.0 (no trasnparency)).</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Tick(s)</p></td>
+<tr class="row-even"><td class="text-left"><p>Tick(s)</p></td>
 <td class="text-left"><p>Refers to the tick marks on a plot.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>Annotation</p></td>
+<tr class="row-odd"><td class="text-left"><p>Annotation</p></td>
 <td class="text-left"><p>Refers to the text added to a plot.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>Padding</p></td>
-<td class="text-left"><p>The distance between a (axis/tick) label and the</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>axis.</p></td>
+<tr class="row-even"><td class="text-left"><p>Padding</p></td>
+<td class="text-left"><p>The distance between a (axis/tick) label and the axis.</p></td>
 </tr>
 </tbody>
 </table>

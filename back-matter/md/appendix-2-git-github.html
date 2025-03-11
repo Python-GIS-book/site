@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -491,9 +490,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-and-github">Using Git and GitHub</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key concepts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparations">Preparations</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-personal-access-token">Create a Personal Access Token</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-personal-access-token">Create a Personal Access Token</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab-git-plugin">JupyterLab git plugin</a></li>
 </ul>
 </li>
@@ -538,7 +535,7 @@ document.write(`
 </section>
 <section id="what-is-version-control">
 <h2>What is version control?<a class="headerlink" href="#what-is-version-control" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Version_control">Version control</a> <a class="footnote-reference brackets" href="#versioncontrol" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is used to track and store changes in your files without losing the history of your previous changes. Version control systems start with a base version of a document and then save only the changes you make at each step of the way. You can think of it as a tape: if you rewind the tape and start at the base document, then you can play back each change and end up with your latest version.</p>
+<p><em><a class="reference internal" href="../nb/glossary.html#term-Version-control"><span class="xref std std-term">Version control</span></a></em> <a class="footnote-reference brackets" href="#versioncontrol" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is used to track and store changes in your files without losing the history of your previous changes. Version control systems start with a base version of a document and then save only the changes you make at each step of the way. You can think of it as a tape: if you rewind the tape and start at the base document, then you can play back each change and end up with your latest version.</p>
 <p><img alt="Figure A.X. Illustration of committing changes. Source: https://swcarpentry.github.io/git-novice/01-basics.html." src="../../_images/play-changes.png" /></p>
 <p><em><strong>Figure A.X</strong>. Illustration of committing changes. Source: <a class="reference external" href="https://swcarpentry.github.io/git-novice/01-basics.html">https://swcarpentry.github.io/git-novice/01-basics.html</a>.</em></p>
 <p>A version control system is a tool that keeps track of these changes for us and helps us version our files (<a class="reference external" href="https://en.wikipedia.org/wiki/Merge_(version_control)">and even merge different versions, a more advanced topic</a>). It allows you to decide which changes should be included the next version, called a commit, and keeps useful metadata about those changes. The complete history of commits for a particular project and their metadata make up a repository (such as our <a class="reference external" href="https://github.com/Python-GIS-book/site">book material repository</a>). Repositories can be kept in sync between different computers and users facilitating collaboration among different people.</p>
@@ -574,12 +571,12 @@ There are, however, also other graphical user interfaces for Git that come with 
 <h2>Basic vocabulary<a class="headerlink" href="#basic-vocabulary" title="Link to this heading">#</a></h2>
 <p>Here are a few basic terms that are used often when using git and GitHub (not exhaustive).</p>
 <ul class="simple">
-<li><p>Repository: A location where all the files for a particular project are stored, ofter referred to as a “repo.” Each project will have its own repo, which is usually located on a server and can be accessed by a unique URL (e.g., a link to GitHub page).</p></li>
-<li><p>Commit: To commit is to write or merge the changes made in the working copy back to the repository. When you commit, you are basically taking a “snapshot” of your repository at that point in time, giving you a checkpoint to which you can reevaluate or restore your project to any previous state. The terms ‘commit’ or ‘checkin’ can also be used as nouns to describe the new revision that is created as a result of committing.</p></li>
-<li><p>Revision / version: A revision or a version is any change in made in any form to a document(s).</p></li>
-<li><p>Clone: Cloning means creating a repository containing the revisions from another repository. This is equivalent to pushing or pulling into an empty (newly initialized) repository. As a noun, two repositories can be said to be clones if they are kept synchronized, and contain the same revisions.</p></li>
-<li><p>Pull / push: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.</p></li>
-<li><p>Merge: A merge or integration is an operation in which two sets of changes are applied to a file or set of files.</p></li>
+<li><p><em><a class="reference internal" href="../nb/glossary.html#term-Repository"><span class="xref std std-term">Repository</span></a></em>: A location where all the files for a particular project are stored, often referred to as a “repo.” Each project will have its own repo, which is usually located on a server and can be accessed by a unique URL (e.g., a link to GitHub page).</p></li>
+<li><p><em><a class="reference internal" href="../nb/glossary.html#term-Git-commit"><span class="xref std std-term">Commit</span></a></em>: To commit is to write or merge the changes made in the working copy back to the repository. When you commit, you are basically taking a “snapshot” of your repository at that point in time, giving you a checkpoint to which you can reevaluate or restore your project to any previous state. The terms ‘commit’ or ‘checkin’ can also be used as nouns to describe the new revision that is created as a result of committing.</p></li>
+<li><p><em><a class="reference internal" href="../nb/glossary.html#term-Revision"><span class="xref std std-term">Revision</span></a></em> / <em><a class="reference internal" href="../nb/glossary.html#term-Version"><span class="xref std std-term">Version</span></a></em>: A revision or a version is any change in made in any form to a document(s).</p></li>
+<li><p><em><a class="reference internal" href="../nb/glossary.html#term-Git-clone"><span class="xref std std-term">Clone</span></a></em>: Cloning means creating a repository containing the revisions from another repository. This is equivalent to pushing or pulling into an empty (newly initialized) repository. As a noun, two repositories can be said to be clones if they are kept synchronized, and contain the same revisions.</p></li>
+<li><p>*<a class="reference internal" href="../nb/glossary.html#term-Git-pull"><span class="xref std std-term">Pull</span></a> / <em><a class="reference internal" href="../nb/glossary.html#term-Git-push"><span class="xref std std-term">Push</span></a></em>: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.</p></li>
+<li><p><em><a class="reference internal" href="../nb/glossary.html#term-Git-merge"><span class="xref std std-term">Merge</span></a></em>: A merge or integration is an operation in which two sets of changes are applied to a file or set of files.</p></li>
 </ul>
 </section>
 <section id="using-git-and-github">
@@ -605,29 +602,23 @@ any local changes to GitHub. You can find more information about interacting wit
 <p>The version control history consists of snapshots of all the files in your project. In order record changes to your files, we first add changes to a so called staging area (using the command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>). The idea is that you can have a (sometimes messy) working directory, and by using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> you tell Git exactly which files to include in the next committed snapshot. After this, the command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> can be used to record a permanent snapshot of the staged changes. You can find more information about snapshotting on the <a class="reference external" href="https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Basic-Snapshotting">Git Source Control Management site</a>.</p>
 <p><img alt="Figure A.X. Version control steps using Git (adapted from https://git-scm.com/about/staging-area)." src="../../_images/Git_illustration.png" /></p>
 <p><em><strong>Figure A.X</strong>. Version control steps using Git (adapted from <a class="reference external" href="https://git-scm.com/about/staging-area">https://git-scm.com/about/staging-area</a>).</em></p>
-<!-- #region -->
 </section>
 <section id="preparations">
 <h2>Preparations<a class="headerlink" href="#preparations" title="Link to this heading">#</a></h2>
 <p>With a general sense of how Git and GitHub work, we can now go through the basics of using Git with a hands-on example. For this we will use the student version of the notebooks for this book, which can be found on GitHub at <a class="github reference external" href="https://github.com/Python-GIS-book/student-notebooks">Python-GIS-book/student-notebooks</a>. In order to do this, we assume:</p>
 <ol class="arabic simple">
-<li><p>You have installed the Python environment for this course using <a class="reference internal" href="../../part1/chapter-01/nb/06-installation.html"><span class="doc">the instructions from Chapter 1.7</span></a>. Note: Finnish university students can use the <a class="reference external" href="https://noppe.csc.fi">CSC Noppe platform</a> without installing Python on their own computers.</p></li>
+<li><p>You have installed the Python environment for this course using <a class="reference internal" href="../../part1/chapter-01/nb/06-installation.html"><span class="doc">the instructions from Chapter 1.7</span></a>.</p></li>
 <li><p>You have an account on <a class="reference external" href="https://github.com">GitHub.com</a> If not, now is a good time to create one.</p></li>
 </ol>
-<p>Before we start, open a new JupyterLab session if you do not already have one open.</p>
+<p>Before we continue, open a new JupyterLab session if you do not already have one open.</p>
+<!-- #region -->
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="create-a-personal-access-token">
-<h1>Create a Personal Access Token<a class="headerlink" href="#create-a-personal-access-token" title="Link to this heading">#</a></h1>
-<p>Before we start cloning our repository from GitHub, we need to create a
-Personal Access Token for us to be able to interact with GitHub. We will
-go through the basic setup here, but you can find more detailed
-instructions in the <a class="reference external" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">GitHub
-documentation</a>.</p>
+<section id="create-a-personal-access-token">
+<h2>Create a Personal Access Token<a class="headerlink" href="#create-a-personal-access-token" title="Link to this heading">#</a></h2>
+<p>Although we will be working with a public GitHub repository for our example case, we will start by creating a Personal Access Token for our GitHub account. A Personal Access Token can be used for many things, but it is required when trying to access files in private repositories to which you have access, for example. The token will enable you to both push and pull files to/from GitHub.</p>
+<p>We will go through the essential steps here and you can find more detailed instructions in the <a class="reference external" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">GitHub documentation</a>.</p>
 <ol class="arabic">
-<li><p>If you have not already verified your email address, make sure to do
-so in your GitHub settings (<a class="reference external" href="https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address">GitHub email
-verification</a>).
+<li><p>If you have not already verified your email address for your GitHub account, make sure to do so in your GitHub settings (see <a class="reference external" href="https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address">GitHub email verification</a>).
 On GitHub, go into your settings.</p>
 <p><img alt="image" src="https://docs.github.com/assets/images/help/settings/userbar-account-settings.png" />{width=”200px”}</p>
 </li>
@@ -680,6 +671,7 @@ Exercise-1 repository.</strong></p>
 <a class="github reference external" href="https://github.com/Geo-Python-2024/exercise-1-davewhipp.git">Geo-Python-2024/exercise-1-davewhipp.git</a> but with
 your own username or team name.</p>
 <p><img alt="" src="back-matter/md/img/git-copy-url.png" /></p>
+</section>
 <section id="jupyterlab-git-plugin">
 <h2>JupyterLab git plugin<a class="headerlink" href="#jupyterlab-git-plugin" title="Link to this heading">#</a></h2>
 </section>
@@ -1027,9 +1019,7 @@ href="https://xkcd.com/1597/">https://xkcd.com/1597/</a></figcaption>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-and-github">Using Git and GitHub</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key concepts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparations">Preparations</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-personal-access-token">Create a Personal Access Token</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-personal-access-token">Create a Personal Access Token</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab-git-plugin">JupyterLab git plugin</a></li>
 </ul>
 </li>

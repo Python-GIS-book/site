@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -702,6 +701,7 @@ Based on the factors above, my happiness rating is 8.5 out of 10 or 85.0 %!
 <section id="exercise-2-5-classifying-temperatures">
 <h2>Exercise 2.5 - Classifying temperatures<a class="headerlink" href="#exercise-2-5-classifying-temperatures" title="Link to this heading">#</a></h2>
 <p>Data classification is another useful data analysis concept, where data values are sorted into different groups that help you to interpret the data. Your goal in this exercise is to sort a list of temperatures into four categories using a Python list for each category (Table 2.7):</p>
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 <p>: <em><strong>Table 2.7</strong>. Temperature categories and ranges for Exercise 2.5 and 2.7.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -716,20 +716,12 @@ Based on the factors above, my happiness rating is 8.5 out of 10 or 85.0 %!
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">cold</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Slippery</p></td>
-<td class="text-left"><p>Greater than or equal to -2 deg. C</p></td>
+<td class="text-left"><p>Greater than or equal to -2 deg. C and less than +2 deg. C</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">slippery</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>and less than +2 deg. C</p></td>
-<td class="text-center"><p></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Comfortable</p></td>
-<td class="text-left"><p>Greater than or equal to +2 deg. C</p></td>
+<tr class="row-even"><td class="text-left"><p>Comfortable</p></td>
+<td class="text-left"><p>Greater than or equal to +2 deg. C and less than +15 deg. C</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">comfortable</span></code></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>and less than +15 deg. C</p></td>
-<td class="text-center"><p></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Warm</p></td>
 <td class="text-left"><p>Greater than or equal to +2 deg. C</p></td>
@@ -790,7 +782,7 @@ Based on the factors above, my happiness rating is 8.5 out of 10 or 85.0 %!
 <p>This exercise uses the same logic presented in Exercise 2.5 to classify temperatures, but now using a function.</p>
 <p>In this exercise you should:</p>
 <ul class="simple">
-<li><p>Create a function that classifies temperatures based on Table 2.8.</p>
+<li><p>Create a function that classifies temperatures based on Table 2.7.</p>
 <ul>
 <li><p>The function should return the following values for the different categories</p>
 <ul>

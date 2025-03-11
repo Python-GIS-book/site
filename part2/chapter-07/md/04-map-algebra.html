@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -510,17 +509,25 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="map-algebra">
 <h1>Map algebra<a class="headerlink" href="#map-algebra" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p>Basic calculations</p></li>
-<li><p>Reclassify</p></li>
+<li><p>Reclassify (Basic calculations)</p></li>
 <li><p>Focal function</p></li>
 <li><p>Local function</p></li>
 <li><p>Zonal function (zonal statistics)</p></li>
 </ul>
 <p><strong>To be updated</strong></p>
-<p>Conducting calculations between bands or raster is another common GIS task. Here, we will be calculating <code class="docutils literal notranslate"><span class="pre">NDVI</span></code> (Normalized difference vegetation index) based on the Landsat dataset that we have downloaded from Helsinki region. Conducting calculations with rasterio is fairly straightforward if the extent etc. matches because the values of the rasters are stored as <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays (similar to the columns stored in Geo/Pandas, i.e. <code class="docutils literal notranslate"><span class="pre">Series</span></code>).</p>
+<p>Conducting calculations between bands or raster is another common GIS task.</p>
 <section id="reclassify">
 <h2>Reclassify<a class="headerlink" href="#reclassify" title="Link to this heading">#</a></h2>
 <p>To be added.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/temp/kilimanjaro_dataset.nc&quot;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">decode_coords</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
 </section>
 <section id="local-functions">
 <h2>Local functions<a class="headerlink" href="#local-functions" title="Link to this heading">#</a></h2>

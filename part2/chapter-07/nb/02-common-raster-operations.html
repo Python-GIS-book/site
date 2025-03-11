@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -5331,28 +5330,28 @@ Downscaled resolution: (0.013892746913580308, -0.013892746913580263)
 <p>: <em><strong>Table 7.2</strong>. Different resampling methods and their descriptions.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p>Resampling Method</p></th>
-<th class="head text-center"><p>Description</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Resampling Method</p></th>
+<th class="head text-left"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">nearest</span></code></p></td>
-<td class="text-center"><p>Selects the value of the closest pixel without interpolation. Fast but can produce blocky artifacts.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">nearest</span></code></p></td>
+<td class="text-left"><p>Selects the value of the closest pixel without interpolation. Fast but can produce blocky artifacts.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">bilinear</span></code></p></td>
-<td class="text-center"><p>Performs linear interpolation using the four nearest pixels, creating a smoother result than nearest-neighbor.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bilinear</span></code></p></td>
+<td class="text-left"><p>Performs linear interpolation using the four nearest pixels, creating a smoother result than nearest-neighbor.</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">cubic</span></code></p></td>
-<td class="text-center"><p>Uses bicubic interpolation, considering 16 surrounding pixels. Smoother output than bilinear. Higher computational cost.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">cubic</span></code></p></td>
+<td class="text-left"><p>Uses bicubic interpolation, considering 16 surrounding pixels. Smoother output than bilinear. Higher computational cost.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">cubic_spline</span></code></p></td>
-<td class="text-center"><p>Applies cubic spline interpolation for even smoother results, but requires more processing power.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">cubic_spline</span></code></p></td>
+<td class="text-left"><p>Applies cubic spline interpolation for even smoother results, but requires more processing power.</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">lanczos</span></code></p></td>
-<td class="text-center"><p>Uses a sinc-based interpolation over a larger pixel neighborhood, producing resampling with significant smoothing.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lanczos</span></code></p></td>
+<td class="text-left"><p>Uses a sinc-based interpolation over a larger pixel neighborhood, producing resampling with significant smoothing.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">average</span></code></p></td>
-<td class="text-center"><p>Average resampling, computes the weighted average of all non-NODATA contributing pixels.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">average</span></code></p></td>
+<td class="text-left"><p>Average resampling, computes the weighted average of all non-NODATA contributing pixels.</p></td>
 </tr>
 </tbody>
 </table>

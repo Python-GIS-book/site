@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -702,11 +701,15 @@ The following code compares these temperatures and prints something to the scree
 <span class="s2">&quot;B&quot;</span>
 </pre></div>
 </div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
 </section>
 <section id="combining-conditions">
 <h3>Combining conditions<a class="headerlink" href="#combining-conditions" title="Link to this heading">#</a></h3>
 <p>We can also use the <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> operators to combine multiple conditions that use Boolean values (Table 2.4).</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 <p>: <em><strong>Table 2.4</strong>. Logic for the <code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, and <code class="docutils literal notranslate"><span class="pre">not</span></code> operators in Python.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -718,39 +721,53 @@ The following code compares these temperatures and prints something to the scree
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">and</span></code></p></td>
-<td class="text-left"><p>True only if both</p></td>
+<td class="text-left"><p>True only if both comparisons are true</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">&gt;</span> <span class="pre">1</span> <span class="pre">and</span> <span class="pre">1</span> <span class="pre">&lt;</span> <span class="pre">0</span></code></p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-left"><p>comparisons are true</p></td>
-<td class="text-center"><p></p></td>
-<td class="text-center"><p></p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">or</span></code></p></td>
-<td class="text-left"><p>True if either</p></td>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">or</span></code></p></td>
+<td class="text-left"><p>True if either comparison is true</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">&gt;</span> <span class="pre">1</span> <span class="pre">or</span> <span class="pre">1</span> <span class="pre">&lt;</span> <span class="pre">0</span></code></p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-left"><p>comparison is true</p></td>
-<td class="text-center"><p></p></td>
-<td class="text-center"><p></p></td>
-</tr>
 <tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">not</span></code></p></td>
-<td class="text-left"><p>False if comparison is</p></td>
+<td class="text-left"><p>False if comparison is true and vice versa</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">2</span> <span class="pre">&gt;</span> <span class="pre">1</span></code></p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-left"><p>true and vice versa</p></td>
-<td class="text-center"><p></p></td>
-<td class="text-center"><p></p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<!-- #endregion -->
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<p>\begin{longtable}[]{&#64;{}clcc&#64;{}}
+\caption{\emph{\textbf{Table 2.4}. Logic for the \texttt{and},
+\texttt{or}, and \texttt{not} operators in Python.}}\tabularnewline
+\toprule\noalign{}
+Operator &amp; Description &amp; Comparison example &amp; Result \
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Operator &amp; Description &amp; Comparison example &amp; Result \
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+~\texttt{and} &amp; True only if both &amp;
+\texttt{2\ \textgreater{}\ 1\ and\ 1\ \textless{}\ 0} &amp;
+\texttt{False} \
+&amp; comparisons are true &amp; &amp; \
+~\texttt{or} &amp; True if either &amp;
+\texttt{2\ \textgreater{}\ 1\ or\ 1\ \textless{}\ 0} &amp; \texttt{True} \
+&amp; comparison is true &amp; &amp; \
+~\texttt{not} &amp; False if comparison is &amp;
+\texttt{not\ 2\ \textgreater{}\ 1} &amp; \texttt{False} \
+&amp; true and vice versa &amp; &amp; \
+\end{longtable}</p>
+<!-- #endraw -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>With Table 2.4 in mind, let’s consider a few examples.</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hot_temperature</span> <span class="o">=</span> <span class="mf">35.0</span>
 <span class="n">warm_temperature</span> <span class="o">=</span> <span class="mf">24.0</span>
 <span class="n">cold_temperature</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.0</span>

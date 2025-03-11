@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -941,37 +940,75 @@ To merge multiple <code class="docutils literal notranslate"><span class="pre">x
 <section id="upscaling">
 <h3>Upscaling<a class="headerlink" href="#upscaling" title="Link to this heading">#</a></h3>
 <p>The process of upscaling works very similarly to downscaling and we can use the same <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> method to increase the resolution of the input raster. In the following, we will specify that the new shape of the output <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> will be two times larger than the input data. When upscaling, you are ultimately estimating values to new pixel cells based on the neighboring raster values of a given cell in the input raster. There are various ways to interpolate data which are provided in the Table 7.2.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
 <p>: <em><strong>Table 7.2</strong>. Different resampling methods and their descriptions.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p>Resampling Method</p></th>
-<th class="head text-center"><p>Description</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Resampling Method</p></th>
+<th class="head text-left"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">nearest</span></code></p></td>
-<td class="text-center"><p>Selects the value of the closest pixel without interpolation. Fast but can produce blocky artifacts.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">nearest</span></code></p></td>
+<td class="text-left"><p>Selects the value of the closest pixel without interpolation. Fast but can produce blocky artifacts.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">bilinear</span></code></p></td>
-<td class="text-center"><p>Performs linear interpolation using the four nearest pixels, creating a smoother result than nearest-neighbor.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bilinear</span></code></p></td>
+<td class="text-left"><p>Performs linear interpolation using the four nearest pixels, creating a smoother result than nearest-neighbor.</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">cubic</span></code></p></td>
-<td class="text-center"><p>Uses bicubic interpolation, considering 16 surrounding pixels. Smoother output than bilinear. Higher computational cost.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">cubic</span></code></p></td>
+<td class="text-left"><p>Uses bicubic interpolation, considering 16 surrounding pixels. Smoother output than bilinear. Higher computational cost.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">cubic_spline</span></code></p></td>
-<td class="text-center"><p>Applies cubic spline interpolation for even smoother results, but requires more processing power.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">cubic_spline</span></code></p></td>
+<td class="text-left"><p>Applies cubic spline interpolation for even smoother results, but requires more processing power.</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">lanczos</span></code></p></td>
-<td class="text-center"><p>Uses a sinc-based interpolation over a larger pixel neighborhood, producing resampling with significant smoothing.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lanczos</span></code></p></td>
+<td class="text-left"><p>Uses a sinc-based interpolation over a larger pixel neighborhood, producing resampling with significant smoothing.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">average</span></code></p></td>
-<td class="text-center"><p>Average resampling, computes the weighted average of all non-NODATA contributing pixels.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">average</span></code></p></td>
+<td class="text-left"><p>Average resampling, computes the weighted average of all non-NODATA contributing pixels.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <!-- #endregion -->
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<p>\begin{longtable}[]{&#64;{}ll&#64;{}}
+\caption{\emph{\textbf{Table 7.2}. Different resampling methods and
+their descriptions.}}\tabularnewline
+\toprule\noalign{}
+Resampling Method &amp; Description \
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Resampling Method &amp; Description \
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{nearest} &amp; Selects the value of the closest pixel \
+&amp; without interpolation. Fast but can \
+&amp; produce blocky artifacts. \
+\texttt{bilinear} &amp; Performs linear interpolation using the \
+&amp; four nearest pixels, creating a smoother \
+&amp; result than nearest-neighbor. \
+\texttt{cubic} &amp; Uses bicubic interpolation, considering \
+&amp; 16 surrounding pixels. Smoother output \
+&amp; than bilinear. Higher computational cost. \
+\texttt{cubic_spline} &amp; Applies cubic spline interpolation for \
+&amp; even smoother results, but requires more \
+&amp; processing power. \
+\texttt{lanczos} &amp; Uses a sinc-based interpolation over a \
+&amp; larger pixel neighborhood, producing \
+&amp; resampling with significant smoothing. \
+\texttt{average} &amp; Average resampling, computes the weighted \
+&amp; average of all non-NODATA contributing \
+&amp; pixels. \
+\end{longtable}</p>
+<!-- #endraw -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>In the following, we will take advantage of a <code class="docutils literal notranslate"><span class="pre">Resampling.bilinear</span></code> resampling method which determines the value of a new pixel by taking a weighted average of the four nearest input pixels:</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.enums</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resampling</span>
 
 <span class="c1"># Define the new shape</span>

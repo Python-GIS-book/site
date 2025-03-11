@@ -49,36 +49,72 @@ timestamp = "2020-12-22T15:00:00"
 datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 As a result we get a `datetime` object in which the date has been converted into a set of numbers, where the first is the year, the second is the month, the third is the day, and so on. This structure is always the same, no matter which format the input data has been provided. By using format codes (i.e., the second argument of the function), we can tell the computer that the first component in our string represents year in 4 digits. For example, the `%Y` characters (i.e., a directive) are a special way to instruct the computer how to interpret the starting characters in the timestamp. In a similar manner, we can instruct the computer to read the month based on numbers with two digits (`12`) using the directive `%m`. As you can see, there is always a `%` character and then some letter after it, which is the way how we determine how the date is formatted in our text. Notice that the date components are separated with dashes (`-`) and the time components are separated with colons (`:`). As we can see from our format code, we can add those separator characters between the directives just as they are recorded in the timestamp. Following this approach it is possible to parse basically any kind of time information represented as text. A few of the most commonly used `datetime` format code directives are listed in Table 3.1.
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 : _**Table 3.1**. Most commonly used `datetime` directives and their meaning._
 
-|Directive |Description                    |Examples               |
-|:---------|:------------------------------|:----------------------|
-|`%y`      |Year without century as a      |00, 20, etc.           |
-|          |zero-padded number             |                       |
-|`%Y`      |Year including century as a    |2000, 1920, etc.       |
-|          |zero-padded number             |                       |
-|`%m`      |Month as a zero-padded number  |01, ..., 12            |
-|`%b`      |Month as abbreviated name      |Jan, ..., Dec          |
-|`%B`      |Month as full name             |January, ..., December |
-|`%d`      |Day of the month as a          |01, ..., 31            |
-|          |zero-padded number             |                       |
-|`%H`      |Hour (24-hour clock) as a      |00, ..., 23            |
-|          |zero-padded number             |                       |
-|`%I`      |Hour (12-hour clock) as a      |01, ..., 12            |
-|          |zero-padded number             |                       |
-|`%p`      |AM or PM (12-hour clock)       |am, pm, AM, PM         |
-|`%M`      |Minute as a zero-padded number |00, ..., 59            |
-|`%S`      |Second as a zero-padded number |00, ..., 59            |
-|`%z`      |UTC offset (can be empty)      |+0000, +2000, etc.     |
-|`%Z`      |Time zone name (can be empty)  |UTC, GMT               |
-|`%a`      |Weekday as abbreviated name    |Mon, ..., Sun          |
-|`%A`      |Weekday as full name           |Monday, ..., Sunday    |
-|`%w`      |Weekday as a number where 0 is |0, ..., 6              |
-|          |Sunday and 6 is Saturday       |                       |
+|Directive |Description                                             |Examples               |
+|:---------|:-------------------------------------------------------|:----------------------|
+|`%y`      |Year without century as a zero-padded number            |00, 20, etc.           |
+|`%Y`      |Year including century as a zero-padded number          |2000, 1920, etc.       |
+|`%m`      |Month as a zero-padded number                           |01, ..., 12            |
+|`%b`      |Month as abbreviated name                               |Jan, ..., Dec          |
+|`%B`      |Month as full name                                      |January, ..., December |
+|`%d`      |Day of the month as a zero-padded number                |01, ..., 31            |
+|`%H`      |Hour (24-hour clock) as a zero-padded number            |00, ..., 23            |
+|`%I`      |Hour (12-hour clock) as a zero-padded number            |01, ..., 12            |
+|`%p`      |AM or PM (12-hour clock)                                |am, pm, AM, PM         |
+|`%M`      |Minute as a zero-padded number                          |00, ..., 59            |
+|`%S`      |Second as a zero-padded number                          |00, ..., 59            |
+|`%z`      |UTC offset (can be empty)                               |+0000, +2000, etc.     |
+|`%Z`      |Time zone name (can be empty)                           |UTC, GMT               |
+|`%a`      |Weekday as abbreviated name                             |Mon, ..., Sun          |
+|`%A`      |Weekday as full name                                    |Monday, ..., Sunday    |
+|`%w`      |Weekday as a number where 0 is Sunday and 6 is Saturday |0, ..., 6              |
+<!-- #endregion -->
 
-
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+\begin{longtable}[]{@{}lll@{}}
+\caption{\emph{\textbf{Table 3.1}. Most commonly used \texttt{datetime}
+directives and their meaning.}}\tabularnewline
+\toprule\noalign{}
+Directive & Description & Examples \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Directive & Description & Examples \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{\%y} & Year without century as a & 00, 20, etc. \\
+& zero-padded number & \\
+\texttt{\%Y} & Year including century as a & 2000, 1920, etc. \\
+& zero-padded number & \\
+\texttt{\%m} & Month as a zero-padded number & 01, \ldots, 12 \\
+\texttt{\%b} & Month as abbreviated name & Jan, \ldots, Dec \\
+\texttt{\%B} & Month as full name & January, \ldots, December \\
+\texttt{\%d} & Day of the month as a & 01, \ldots, 31 \\
+& zero-padded number & \\
+\texttt{\%H} & Hour (24-hour clock) as a & 00, \ldots, 23 \\
+& zero-padded number & \\
+\texttt{\%I} & Hour (12-hour clock) as a & 01, \ldots, 12 \\
+& zero-padded number & \\
+\texttt{\%p} & AM or PM (12-hour clock) & am, pm, AM, PM \\
+\texttt{\%M} & Minute as a zero-padded number & 00, \ldots, 59 \\
+\texttt{\%S} & Second as a zero-padded number & 00, \ldots, 59 \\
+\texttt{\%z} & UTC offset (can be empty) & +0000, +2000, etc. \\
+\texttt{\%Z} & Time zone name (can be empty) & UTC, GMT \\
+\texttt{\%a} & Weekday as abbreviated name & Mon, \ldots, Sun \\
+\texttt{\%A} & Weekday as full name & Monday, \ldots, Sunday \\
+\texttt{\%w} & Weekday as a number where 0 is & 0, \ldots, 6 \\
+& Sunday and 6 is Saturday & \\
+\end{longtable}
+<!-- #endraw -->
 
 To further solidify your understanding of how the timestamps can be parsed, let's look at a few more examples where we also include time zone information and parse the date information based on a format that we might typically use to record dates as humans (without the time component). Let's start by adding `+0200` to the end of the timestamp to express the UTC+2 time zone.
 
@@ -150,13 +186,16 @@ print(dt.weekday())
 print(dt.date())
 ```
 
-By using the `.strftime()` function, you can use the same directives from Table 2.1 to construct and convert the `datetime` object to any text representation of the date and time. Below you can see how this function can be used to create an easily understandable date and time text string based on our date and time information.
+<!-- #region editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
+By using the `.strftime()` function, you can use the same directives from Table 3.1 to construct and convert the `datetime` object to any text representation of the date and time. Below you can see how this function can be used to create an easily understandable date and time text string based on our date and time information.
+<!-- #endregion -->
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 custom_format = "%d %B %Y is a %A. The time is %I:%M %p."
 datetime.strftime(dt, custom_format)
 ```
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Working with temporal data in pandas
 
 After learning the basics of how temporal data can be represented as `datetime` objects, we can continue and see how temporal data can be manipulated in `pandas`. `pandas` is extremely powerful and flexible when it comes to working with temporal data. For instance, all of the simple tricks that we saw earlier with `datetime` can also be done using `pandas`. When doing data analysis with `pandas`, instead of dealing with single time observations, you often work with time series data such as daily temperature values that we analyzed in the previous section. `pandas` supports many useful functionalities related to parsing, manipulating, and aggregating time series data. Let's start exploring the temporal capabilities of `pandas` by reading daily temperature observations from one of the data files we used in the previous section and following the earlier approach. As a reminder, this the format of the file data:
@@ -170,6 +209,7 @@ GHCND:FI000007501        179    67.3678    26.6328 19080103 0.12     -999...
 ```
 
 You may notice a few things here: First, there are some additional data columns that were not present in the `helsinki-kumpula.txt` file we had worked with most in the previous section. We will ignore these here, but it worth noting their presence. We can specify with the parameter `usecols` that we only want to keep four columns from the file (station number, date information, and temperature). Second, there are timestamps stored in the `DATE` column. These can be automatically converted to `datetime` objects when reading the data by using the `parse_dates` parameter and providing a list of column names that should be parsed by `datetime`.
+<!-- #endregion -->
 
 ```python
 import pandas as pd

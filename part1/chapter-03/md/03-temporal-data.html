@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -537,7 +536,11 @@ document.write(`
 <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>As a result we get a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object in which the date has been converted into a set of numbers, where the first is the year, the second is the month, the third is the day, and so on. This structure is always the same, no matter which format the input data has been provided. By using format codes (i.e., the second argument of the function), we can tell the computer that the first component in our string represents year in 4 digits. For example, the <code class="docutils literal notranslate"><span class="pre">%Y</span></code> characters (i.e., a directive) are a special way to instruct the computer how to interpret the starting characters in the timestamp. In a similar manner, we can instruct the computer to read the month based on numbers with two digits (<code class="docutils literal notranslate"><span class="pre">12</span></code>) using the directive <code class="docutils literal notranslate"><span class="pre">%m</span></code>. As you can see, there is always a <code class="docutils literal notranslate"><span class="pre">%</span></code> character and then some letter after it, which is the way how we determine how the date is formatted in our text. Notice that the date components are separated with dashes (<code class="docutils literal notranslate"><span class="pre">-</span></code>) and the time components are separated with colons (<code class="docutils literal notranslate"><span class="pre">:</span></code>). As we can see from our format code, we can add those separator characters between the directives just as they are recorded in the timestamp. Following this approach it is possible to parse basically any kind of time information represented as text. A few of the most commonly used <code class="docutils literal notranslate"><span class="pre">datetime</span></code> format code directives are listed in Table 3.1.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 <p>: <em><strong>Table 3.1</strong>. Most commonly used <code class="docutils literal notranslate"><span class="pre">datetime</span></code> directives and their meaning.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -548,20 +551,12 @@ document.write(`
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%y</span></code></p></td>
-<td class="text-left"><p>Year without century as a</p></td>
+<td class="text-left"><p>Year without century as a zero-padded number</p></td>
 <td class="text-left"><p>00, 20, etc.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>zero-padded number</p></td>
-<td class="text-left"><p></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%Y</span></code></p></td>
-<td class="text-left"><p>Year including century as a</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%Y</span></code></p></td>
+<td class="text-left"><p>Year including century as a zero-padded number</p></td>
 <td class="text-left"><p>2000, 1920, etc.</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>zero-padded number</p></td>
-<td class="text-left"><p></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%m</span></code></p></td>
 <td class="text-left"><p>Month as a zero-padded number</p></td>
@@ -576,68 +571,91 @@ document.write(`
 <td class="text-left"><p>January, …, December</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%d</span></code></p></td>
-<td class="text-left"><p>Day of the month as a</p></td>
+<td class="text-left"><p>Day of the month as a zero-padded number</p></td>
 <td class="text-left"><p>01, …, 31</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>zero-padded number</p></td>
-<td class="text-left"><p></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%H</span></code></p></td>
-<td class="text-left"><p>Hour (24-hour clock) as a</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%H</span></code></p></td>
+<td class="text-left"><p>Hour (24-hour clock) as a zero-padded number</p></td>
 <td class="text-left"><p>00, …, 23</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>zero-padded number</p></td>
-<td class="text-left"><p></p></td>
-</tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%I</span></code></p></td>
-<td class="text-left"><p>Hour (12-hour clock) as a</p></td>
+<td class="text-left"><p>Hour (12-hour clock) as a zero-padded number</p></td>
 <td class="text-left"><p>01, …, 12</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>zero-padded number</p></td>
-<td class="text-left"><p></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%p</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%p</span></code></p></td>
 <td class="text-left"><p>AM or PM (12-hour clock)</p></td>
 <td class="text-left"><p>am, pm, AM, PM</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%M</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%M</span></code></p></td>
 <td class="text-left"><p>Minute as a zero-padded number</p></td>
 <td class="text-left"><p>00, …, 59</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%S</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%S</span></code></p></td>
 <td class="text-left"><p>Second as a zero-padded number</p></td>
 <td class="text-left"><p>00, …, 59</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%z</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%z</span></code></p></td>
 <td class="text-left"><p>UTC offset (can be empty)</p></td>
 <td class="text-left"><p>+0000, +2000, etc.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%Z</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%Z</span></code></p></td>
 <td class="text-left"><p>Time zone name (can be empty)</p></td>
 <td class="text-left"><p>UTC, GMT</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%a</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%a</span></code></p></td>
 <td class="text-left"><p>Weekday as abbreviated name</p></td>
 <td class="text-left"><p>Mon, …, Sun</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%A</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%A</span></code></p></td>
 <td class="text-left"><p>Weekday as full name</p></td>
 <td class="text-left"><p>Monday, …, Sunday</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%w</span></code></p></td>
-<td class="text-left"><p>Weekday as a number where 0 is</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%w</span></code></p></td>
+<td class="text-left"><p>Weekday as a number where 0 is Sunday and 6 is Saturday</p></td>
 <td class="text-left"><p>0, …, 6</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>Sunday and 6 is Saturday</p></td>
-<td class="text-left"><p></p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<!-- #endregion -->
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<p>\begin{longtable}[]{&#64;{}lll&#64;{}}
+\caption{\emph{\textbf{Table 3.1}. Most commonly used \texttt{datetime}
+directives and their meaning.}}\tabularnewline
+\toprule\noalign{}
+Directive &amp; Description &amp; Examples \
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Directive &amp; Description &amp; Examples \
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{%y} &amp; Year without century as a &amp; 00, 20, etc. \
+&amp; zero-padded number &amp; \
+\texttt{%Y} &amp; Year including century as a &amp; 2000, 1920, etc. \
+&amp; zero-padded number &amp; \
+\texttt{%m} &amp; Month as a zero-padded number &amp; 01, \ldots, 12 \
+\texttt{%b} &amp; Month as abbreviated name &amp; Jan, \ldots, Dec \
+\texttt{%B} &amp; Month as full name &amp; January, \ldots, December \
+\texttt{%d} &amp; Day of the month as a &amp; 01, \ldots, 31 \
+&amp; zero-padded number &amp; \
+\texttt{%H} &amp; Hour (24-hour clock) as a &amp; 00, \ldots, 23 \
+&amp; zero-padded number &amp; \
+\texttt{%I} &amp; Hour (12-hour clock) as a &amp; 01, \ldots, 12 \
+&amp; zero-padded number &amp; \
+\texttt{%p} &amp; AM or PM (12-hour clock) &amp; am, pm, AM, PM \
+\texttt{%M} &amp; Minute as a zero-padded number &amp; 00, \ldots, 59 \
+\texttt{%S} &amp; Second as a zero-padded number &amp; 00, \ldots, 59 \
+\texttt{%z} &amp; UTC offset (can be empty) &amp; +0000, +2000, etc. \
+\texttt{%Z} &amp; Time zone name (can be empty) &amp; UTC, GMT \
+\texttt{%a} &amp; Weekday as abbreviated name &amp; Mon, \ldots, Sun \
+\texttt{%A} &amp; Weekday as full name &amp; Monday, \ldots, Sunday \
+\texttt{%w} &amp; Weekday as a number where 0 is &amp; 0, \ldots, 6 \
+&amp; Sunday and 6 is Saturday &amp; \
+\end{longtable}</p>
+<!-- #endraw -->
 <p>To further solidify your understanding of how the timestamps can be parsed, let’s look at a few more examples where we also include time zone information and parse the date information based on a format that we might typically use to record dates as humans (without the time component). Let’s start by adding <code class="docutils literal notranslate"><span class="pre">+0200</span></code> to the end of the timestamp to express the UTC+2 time zone.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">timestamp_with_tz</span> <span class="o">=</span> <span class="s2">&quot;2020-12-22T15:00:00 +0200&quot;</span>
 <span class="n">dtz</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp_with_tz</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S %z&quot;</span><span class="p">)</span>
@@ -692,11 +710,14 @@ document.write(`
 <span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>By using the <code class="docutils literal notranslate"><span class="pre">.strftime()</span></code> function, you can use the same directives from Table 2.1 to construct and convert the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object to any text representation of the date and time. Below you can see how this function can be used to create an easily understandable date and time text string based on our date and time information.</p>
+<!-- #region editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
+<p>By using the <code class="docutils literal notranslate"><span class="pre">.strftime()</span></code> function, you can use the same directives from Table 3.1 to construct and convert the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object to any text representation of the date and time. Below you can see how this function can be used to create an easily understandable date and time text string based on our date and time information.</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">custom_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> %B %Y is a %A. The time is %I:%M %p.&quot;</span>
 <span class="n">datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">custom_format</span><span class="p">)</span>
 </pre></div>
 </div>
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 </section>
 <section id="working-with-temporal-data-in-pandas">
 <h2>Working with temporal data in pandas<a class="headerlink" href="#working-with-temporal-data-in-pandas" title="Link to this heading">#</a></h2>
@@ -709,6 +730,7 @@ document.write(`
 </pre></div>
 </div>
 <p>You may notice a few things here: First, there are some additional data columns that were not present in the <code class="docutils literal notranslate"><span class="pre">helsinki-kumpula.txt</span></code> file we had worked with most in the previous section. We will ignore these here, but it worth noting their presence. We can specify with the parameter <code class="docutils literal notranslate"><span class="pre">usecols</span></code> that we only want to keep four columns from the file (station number, date information, and temperature). Second, there are timestamps stored in the <code class="docutils literal notranslate"><span class="pre">DATE</span></code> column. These can be automatically converted to <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects when reading the data by using the <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> parameter and providing a list of column names that should be parsed by <code class="docutils literal notranslate"><span class="pre">datetime</span></code>.</p>
+<!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Read the data and parse dates</span>

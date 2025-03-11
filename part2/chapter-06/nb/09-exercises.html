@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -565,8 +564,9 @@ document.write(`
 <section id="exercise-6-2-from-text-file-to-geodataframe">
 <h2>Exercise 6.2 - From text file to GeoDataFrame<a class="headerlink" href="#exercise-6-2-from-text-file-to-geodataframe" title="Link to this heading">#</a></h2>
 <p>The goal of this exercise is to create geometries based on text file input in Python. You will combine basic knowledge of the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> module (see Part I) with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> methods introduced in this chapter.</p>
-<p>Input data for this exercise contains information about the public transport travel times to the main railway station in Helsinki, Finland. The input file <a class="reference internal" href="#data/travelTimes_2015_Helsinki.txt"><span class="xref myst">travelTimes_2015_Helsinki.txt</span></a> contains travel times information from multiple origin locations to the railway station.</p>
+<p>Input data for this exercise contains information about the public transport travel times to the main railway station in Helsinki, Finland. The input file <a class="reference download internal" download="" href="../../../_downloads/f1f658136f49c9f4a0d3c57049fdafd9/travelTimes_2015_Helsinki.txt"><span class="xref download myst">travelTimes-2015-Helsinki.txt</span></a> contains travel times information from multiple origin locations to the railway station.</p>
 <p>This file is an extract of the Helsinki Region Travel Time Matrix dataset - an open data set that contains multimodal travel time information across the Helsinki Region in Finland. In this exercise, we are interested in the columns listed in Table 6.1.</p>
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 <p>: <em><strong>Table 6.1</strong>. Column names and descriptions for the travel time data.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -576,34 +576,19 @@ document.write(`
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-left"><p>from_x</p></td>
-<td class="text-left"><p>x-coordinate of the <strong>origin</strong> location</p></td>
+<td class="text-left"><p>x-coordinate of the <strong>origin</strong> location (longitude)</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>(longitude)</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>from_y</p></td>
-<td class="text-left"><p>y-coordinate of the <strong>origin</strong> location</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>(latitude)</p></td>
+<tr class="row-odd"><td class="text-left"><p>from_y</p></td>
+<td class="text-left"><p>y-coordinate of the <strong>origin</strong> location (latitude)</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>to_x</p></td>
-<td class="text-left"><p>x-coordinate of the <strong>destination</strong></p></td>
+<td class="text-left"><p>x-coordinate of the <strong>destination</strong> location (longitude)</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>location (longitude)</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>to_y</p></td>
-<td class="text-left"><p>y-coordinate of the <strong>destination</strong></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>location (latitude)</p></td>
+<tr class="row-odd"><td class="text-left"><p>to_y</p></td>
+<td class="text-left"><p>y-coordinate of the <strong>destination</strong> location (latitude)</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>total_route_time</p></td>
-<td class="text-left"><p>Travel time with public transportation at</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>the route</p></td>
+<td class="text-left"><p>Travel time with public transportation at the route</p></td>
 </tr>
 </tbody>
 </table>

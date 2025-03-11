@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -504,6 +503,7 @@ document.write(`
 </div>
 <section id="working-with-multiband-data">
 <h2>Working with multiband data<a class="headerlink" href="#working-with-multiband-data" title="Link to this heading">#</a></h2>
+<p>Here, we will be calculating <code class="docutils literal notranslate"><span class="pre">NDVI</span></code> (Normalized difference vegetation index) based on the Landsat dataset that we have downloaded from Helsinki region. Conducting calculations with rasterio is fairly straightforward if the extent etc. matches because the values of the rasters are stored as <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays (similar to the columns stored in Geo/Pandas, i.e. <code class="docutils literal notranslate"><span class="pre">Series</span></code>).</p>
 <p>In this tutorial, we will see how to calculate the NDVI (Normalized difference vegetation index) based on two bands: band-4 which is the Red channel and band-5 which is the Near Infrared (NIR).</p>
 <ul class="simple">
 <li><p>Let’s start by importing the necessary modules <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and reading the raster file that we masked for Helsinki Region:</p></li>

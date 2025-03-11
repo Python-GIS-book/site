@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -503,8 +502,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="exercises">
+  <!-- #region editable=true slideshow={"slide_type": ""} -->
+<section class="tex2jax_ignore mathjax_ignore" id="exercises">
 <h1>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h1>
+<!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="exercise-6-1-geometric-objects">
 <h2>Exercise 6.1 - Geometric Objects<a class="headerlink" href="#exercise-6-1-geometric-objects" title="Link to this heading">#</a></h2>
@@ -521,8 +522,11 @@ document.write(`
 <!-- #endregion -->
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>The goal of this exercise is to create geometries based on text file input in Python. You will combine basic knowledge of the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> module (see Part I) with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> methods introduced in this chapter.</p>
-<p>Input data for this exercise contains information about the public transport travel times to the main railway station in Helsinki, Finland. The input file <a class="reference internal" href="#data/travelTimes_2015_Helsinki.txt"><span class="xref myst">travelTimes_2015_Helsinki.txt</span></a> contains travel times information from multiple origin locations to the railway station.</p>
+<p>Input data for this exercise contains information about the public transport travel times to the main railway station in Helsinki, Finland. The input file <a class="reference internal" href="#data/Helsinki/travelTimes_2015_Helsinki.txt"><span class="xref myst">travelTimes-2015-Helsinki.txt</span></a> contains travel times information from multiple origin locations to the railway station.</p>
 <p>This file is an extract of the Helsinki Region Travel Time Matrix dataset - an open data set that contains multimodal travel time information across the Helsinki Region in Finland. In this exercise, we are interested in the columns listed in Table 6.1.</p>
+<!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 <p>: <em><strong>Table 6.1</strong>. Column names and descriptions for the travel time data.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -532,40 +536,54 @@ document.write(`
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-left"><p>from_x</p></td>
-<td class="text-left"><p>x-coordinate of the <strong>origin</strong> location</p></td>
+<td class="text-left"><p>x-coordinate of the <strong>origin</strong> location (longitude)</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>(longitude)</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>from_y</p></td>
-<td class="text-left"><p>y-coordinate of the <strong>origin</strong> location</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>(latitude)</p></td>
+<tr class="row-odd"><td class="text-left"><p>from_y</p></td>
+<td class="text-left"><p>y-coordinate of the <strong>origin</strong> location (latitude)</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>to_x</p></td>
-<td class="text-left"><p>x-coordinate of the <strong>destination</strong></p></td>
+<td class="text-left"><p>x-coordinate of the <strong>destination</strong> location (longitude)</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>location (longitude)</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>to_y</p></td>
-<td class="text-left"><p>y-coordinate of the <strong>destination</strong></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>location (latitude)</p></td>
+<tr class="row-odd"><td class="text-left"><p>to_y</p></td>
+<td class="text-left"><p>y-coordinate of the <strong>destination</strong> location (latitude)</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>total_route_time</p></td>
-<td class="text-left"><p>Travel time with public transportation at</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>the route</p></td>
+<td class="text-left"><p>Travel time with public transportation at the route</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<!-- #endregion -->
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<p>\begin{longtable}[]{&#64;{}ll&#64;{}}
+\caption{\emph{\textbf{Table 6.1}. Column names and descriptions for the
+travel time data.}}\tabularnewline
+\toprule\noalign{}
+Column &amp; Description \
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Column &amp; Description \
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+from_x &amp; x-coordinate of the \textbf{origin} location \
+&amp; (longitude) \
+from_y &amp; y-coordinate of the \textbf{origin} location \
+&amp; (latitude) \
+to_x &amp; x-coordinate of the \textbf{destination} \
+&amp; location (longitude) \
+to_y &amp; y-coordinate of the \textbf{destination} \
+&amp; location (latitude) \
+total_route_time &amp; Travel time with public transportation at \
+&amp; the route \
+\end{longtable}</p>
+<!-- #endraw -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <p>Your task is to read in the file and create two new columns with <code class="docutils literal notranslate"><span class="pre">Point</span></code> objects representing the origin and destination points. Problems 1-3 will guide you through the necessary steps. Before starting, check the contents of the input file in a text editor and familiarize yourself with the data structure.</p>
 <!-- #endregion -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 <section id="problem-1-read-the-file">
 <h3>Problem 1: Read the file<a class="headerlink" href="#problem-1-read-the-file" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -573,6 +591,7 @@ document.write(`
 <li><p>Read in the text file using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> into a variable called <code class="docutils literal notranslate"><span class="pre">data</span></code> and subset the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to contain only those columns we are interested in</p></li>
 <li><p>Check that data looks ok</p></li>
 </ul>
+<!-- #endregion -->
 </section>
 <section id="problem-2-create-point-geometries">
 <h3>Problem 2: Create Point geometries<a class="headerlink" href="#problem-2-create-point-geometries" title="Link to this heading">#</a></h3>

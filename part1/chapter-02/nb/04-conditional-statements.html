@@ -296,7 +296,6 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -821,6 +820,7 @@ The following code compares these temperatures and prints something to the scree
 <section id="combining-conditions">
 <h3>Combining conditions<a class="headerlink" href="#combining-conditions" title="Link to this heading">#</a></h3>
 <p>We can also use the <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> operators to combine multiple conditions that use Boolean values (Table 2.4).</p>
+<!-- WARNING: If you update the contents of this cell, you must also update the LaTeX table in the following cell! -->
 <p>: <em><strong>Table 2.4</strong>. Logic for the <code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, and <code class="docutils literal notranslate"><span class="pre">not</span></code> operators in Python.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -832,34 +832,19 @@ The following code compares these temperatures and prints something to the scree
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">and</span></code></p></td>
-<td class="text-left"><p>True only if both</p></td>
+<td class="text-left"><p>True only if both comparisons are true</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">&gt;</span> <span class="pre">1</span> <span class="pre">and</span> <span class="pre">1</span> <span class="pre">&lt;</span> <span class="pre">0</span></code></p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-left"><p>comparisons are true</p></td>
-<td class="text-center"><p></p></td>
-<td class="text-center"><p></p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">or</span></code></p></td>
-<td class="text-left"><p>True if either</p></td>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">or</span></code></p></td>
+<td class="text-left"><p>True if either comparison is true</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">&gt;</span> <span class="pre">1</span> <span class="pre">or</span> <span class="pre">1</span> <span class="pre">&lt;</span> <span class="pre">0</span></code></p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-left"><p>comparison is true</p></td>
-<td class="text-center"><p></p></td>
-<td class="text-center"><p></p></td>
-</tr>
 <tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">not</span></code></p></td>
-<td class="text-left"><p>False if comparison is</p></td>
+<td class="text-left"><p>False if comparison is true and vice versa</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">2</span> <span class="pre">&gt;</span> <span class="pre">1</span></code></p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-left"><p>true and vice versa</p></td>
-<td class="text-center"><p></p></td>
-<td class="text-center"><p></p></td>
 </tr>
 </tbody>
 </table>
