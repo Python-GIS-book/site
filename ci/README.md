@@ -33,7 +33,7 @@ This Python environment is used by Binder for users interacting with the book co
 
 ## Readthedocs environment
 
-Filename and location: `site/source/requirements.txt` (referenced by `site/.readthedocs.yml`)
+Filename and location: `site/readthedocs/requirements.txt` (referenced by `site/.readthedocs.yml`)
 
 This environment file is used for building the web version of the book on <https://readthedocs.org/>.
 
