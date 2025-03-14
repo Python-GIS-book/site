@@ -27,13 +27,9 @@ This is the Python environment file that allows users to create a local Python e
 
 ## Binder environment
 
-Filename and location: `site/environment.yml`
+Filename and location: `site/binder/environment.yml`
 
 This Python environment is used by Binder for users interacting with the book content online.
-
-### Future plans
-
-This file could be moved into the `.binder` folder so it is more clear what its purpose is.
 
 ## Readthedocs environment
 
