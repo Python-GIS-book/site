@@ -14,13 +14,13 @@ jupyter:
 
 # Static maps
 
-Creating static maps is an integral part of any geographic data analysis process. Visualizing geographic information as maps is useful not only as an end result for communicating the results but also during the data analysis process for data exploration and visual analysis. Static maps can be exported to various image formats and integrated, for example, in reports and scientific articles just like any other figures. In this section, we will practice plotting static maps using sample data from Helsinki, Finland. We will visualize information about travel times across the region from the Helsinki Region Travel Time Matrix dataset (Tenkanen & Toivonen 2020). In addition, we can add additional spatial context to the map through adding information about the transport network using [open data from Helsinki Region Transport](https://www.avoindata.fi/data/en_GB/dataset/hsl-n-linjat) [^HSL_opendata] and bacground maps from various sources.
+Creating static maps is an integral part of any geographic data analysis process. Visualizing geographic information as maps is useful not only as an end result for communicating the results but also during the data analysis process for data exploration and visual analysis. Static maps can be exported to various image formats and integrated, for example, in reports and scientific articles just like any other figures. In this section, we will practice plotting static maps using sample data from Helsinki, Finland. 
 
-[Mapping tools in `geopandas`](https://geopandas.org/en/stable/docs/user_guide/mapping.html) allow creating simple static maps easily. In the background, `geopandas` uses `matplotlib` for creating the plots and we can use [`matplotlib.pyplot`](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html) tools for further customizing our figures. Later, we will use `contextily` for adding spatial context through basemaps.
+[Mapping tools in `geopandas`](https://geopandas.org/en/stable/docs/user_guide/mapping.html) allow creating simple static maps easily. In the background, `geopandas` uses `matplotlib` for creating the plots and we can use [`matplotlib.pyplot`](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html) tools for further customizing our figures. We will also learn how to use `contextily` for adding basemaps.
 
 ## Plotting a simple map with multiple layers
 
- Let's start by importing the required modules and defining our data sources.
+ Let's start by importing the required modules and defining our data sources. We will visualize information about travel times across the region from the Helsinki Region Travel Time Matrix dataset ({cite} `Tenkanen2020`). In addition, we can add additional spatial context to the map through adding information about the transport network using [open data from Helsinki Region Transport](https://www.avoindata.fi/data/en_GB/dataset/hsl-n-linjat) [^HSL_opendata].
 
 
 ```python
@@ -43,7 +43,7 @@ metro = transport.loc[transport["JL_LAJI"] == "06"]
 train = transport.loc[transport["JL_LAJI"] == "12"]
 ```
 
-The travel time data contains multiple columns with information on travel times and distances from each statistical grid square to the central railway station in Helsinki. 
+The travel time data contains multiple columns with information on travel times and distances from each statistical grid square to the central railway station in Helsinki. See Table 3 in ({cite} `Tenkanen2020`) for detailed description of each column. Here, we will use the column `'pt_r_t'` which contains information about ravel time in minutes to the central railway station by public transportation in rush hour traffic.
 
 ```python
 grid.columns
