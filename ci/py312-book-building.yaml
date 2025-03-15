@@ -13,6 +13,7 @@ dependencies:
   - sphinx-book-theme=1.1.4
   - sphinxcontrib-bibtex=2.6.3
   - boto3=1.35.95
+  - git=2.48.1
 
   # Writing environment
   - jupyterlab=4.3.6

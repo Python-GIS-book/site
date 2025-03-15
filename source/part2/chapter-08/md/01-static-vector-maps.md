@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.16.7
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -17,7 +17,7 @@ jupyter:
 
 Static visualizations of geographic information are useful for many purposes during a data analysis process and for communicating the end result. Static maps can be exported to various image formats and integrated, for example, in reports and scientific articles. In this section, we will practice plotting static maps using sample data from Helsinki, Finland. 
 
-[Mapping tools in `geopandas`](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] allow creating simple static maps easily. In the background, `geopandas` uses `matplotlib` for creating the plots and we can use [`matplotlib.pyplot`](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html) [^matplotlib_pyplot] tools for further customizing our figures. We covered basic `matplotlib` plotting techniques already in Part I chapter 4 and will apply some of them for plotting our static maps. Additionally, we will explore how to enhance our maps by adding basemaps with `contextily`.
+[Mapping tools in `geopandas`](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] allow creating simple static maps easily. In the background, `geopandas` uses `matplotlib` for creating the plots and we can use [`matplotlib.pyplot`](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html) [^matplotlib_pyplot] tools for further customizing our figures. We covered basics of `matplotlib` already in Part I chapter 4 and will apply some of these techniques for plotting our static maps. Additionally, we will explore how to enhance our maps by adding basemaps with [`contextily`](https://github.com/darribas/contextily) [^contextily].
 
 ## Creating a simple multi-layer map
 
@@ -138,12 +138,6 @@ grid.plot(ax=ax,
           cmap="Spectral"
           )
 
-# Add roads and change the color, linewidth and and transparency
-train.plot(ax=ax, color="grey", linewidth=1, alpha=0.1)
-
-# Add metro and change the color, linewidth and and transparency
-metro.plot(ax=ax, color="red", linewidth=2, alpha=0.1)
-
 # Set axis view limits based on the total bounds of the grid layer
 ax.set_xlim(grid.total_bounds[0], grid.total_bounds[2])
 ax.set_ylim(grid.total_bounds[1], grid.total_bounds[3])
@@ -162,10 +156,18 @@ plt.savefig(outfp, dpi=300)
 _**Figure 8.4**. Static map with multiple layers with adjusted extent and colors. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
 
-## Adding a legend
+### Adding a legend and a scalebar
 
 
-Our map is currently lacking information about the values being presented. We can add a map legend directly when plotting the `GeoDataFrame` through setting `legend=True`.  Additional keywords can be added through `legend_kwds`. For additional options, have a look at [`geopandas` mapping tools](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] and [`matplotlib` legend guide](https://matplotlib.org/tutorials/intermediate/legend_guide.html) [^matplotlib_legend].
+Legend and scalebar are basic elements of an informative map. You don't necessarily always need neither of them, but here both legend and a scalebar would add informative value to our map and help to understand the value range and geographic scale. 
+
+We can add a map legend directly when plotting the `GeoDataFrame` through setting `legend=True`.  Additional keywords can be added through `legend_kwds`. Here, our legend is a [colorbar object](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html) [^matplotlib_colorbar] and the legend keyword arguments will control how the colorbar looks. For example, we can add a `label` for our colorbar legend. For additional legend options, have a look at [`geopandas` mapping tools](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] and [`matplotlib` legend guide](https://matplotlib.org/tutorials/intermediate/legend_guide.html) [^matplotlib_legend].
+
+A scalebar can be added using the `maplotlib-scalebar` library, which needs to be installed separately in addition to `matplotlib`. Adding a scalebar is easy as long as the data are in a projected metric coordinate reference system. The ScaleBar object only requires one parameter, `dx`, which indicates a size of one pixel in real world units. For a metric crs, we can simply set `dx=1`. For tips on how to customize the scalebar, have a look at [`geopandas` examples gallery](https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html#Adding-a-scale-bar-to-a-matplotlib-plot) [^geopandas_scalebar_examples]
+
+```python
+from matplotlib_scalebar.scalebar import ScaleBar
+```
 
 ```python
 # Create one subplot. Control figure size in here.
@@ -179,9 +181,18 @@ grid.plot(ax=ax,
           legend_kwds={"label": "Travel times by public transport (min)"},
           )
 
+# Add roads and change the color, linewidth and and transparency
+train.plot(ax=ax, color="grey", linewidth=1, alpha=0.1)
+
+# Add metro and change the color, linewidth and and transparency
+metro.plot(ax=ax, color="red", linewidth=2, alpha=0.1)
+
 # Set axis view limits based on the total bounds of the grid layer
 ax.set_xlim(grid.total_bounds[0], grid.total_bounds[2])
 ax.set_ylim(grid.total_bounds[1], grid.total_bounds[3])
+
+# Add scalebar
+ax.add_artist(ScaleBar(dx=1, location="lower right"))
 
 # Set the x and y axis off 
 plt.axis("off")
@@ -192,12 +203,10 @@ plt.tight_layout()
 
 _**Figure 8.5**. Static map with multiple layers and a scale bar. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
-Here, our legend is a [colorbar object](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html) [^matplotlib_colorbar] and the legend keyword arguments will control how the colorbar looks. Next, we will see how we can further control the way in which the travel time values and the associated scalebar are displayed using classification schemes.
-
 
 ## Classification schemes
 
-With choropleth maps, it is essential to pay attention to the classification scheme that is used to display the values. We will now learn how to use classification schemes from the [PySAL](https://pysal.org/) [mapclassify library](https://pysal.org/mapclassify/) [^mapclassify] to classify quantitative data into multiple classes for visualization purposes. These classification schemes can be used directly when plotting data in `geopandas` as long as `mapclassify` package is also installed.  Available classification schemes include: 
+Next, we will see how we can further control the way in which the travel time values are displayed using classification schemes. With choropleth maps, it is essential to pay attention to the classification scheme that is used to display the values. We will now learn how to use classification schemes from the [PySAL](https://pysal.org/) [^pysal] [`mapclassify` library](https://pysal.org/mapclassify/) [^mapclassify] to classify quantitative data into multiple classes for visualization purposes. These classification schemes can be used directly when plotting data in `geopandas` as long as `mapclassify` package is also installed.  Available classification schemes include: 
 
 - box_plot
 - equal_interval
@@ -219,6 +228,8 @@ Each classification scheme partitions the data into mutually exclusive groups th
 
 ### Explore the classifiers
 
+When visualizing travel times we want our map to show regional differences in the travel times in an intuitive way while avoiding excess detail. We might want to, e.g., highlight more the differences in relatively short travel times versus very long travel times. To help us choose an adequate classification scheme, let's have a look at the distribution of the public transport travel times through checking the histogram and descriptive statistics. A histogram is a graphic representation of the distribution of the data. Descriptive statistics summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding `NaN` values. While looking at the histogram, remember that each observation is one 250 m x 250 m grid square in the Helsinki region and the histogram shows the distribution of travel times to the central railway station across the whole region. 
+
 For exploring the different classification schemes, let's create a `pandas` `Series` without `NaN` values.
 
 ```python
@@ -226,7 +237,7 @@ For exploring the different classification schemes, let's create a `pandas` `Ser
 travel_times = grid.loc[grid["pt_r_t"].notnull(), "pt_r_t"]
 ```
 
-When visualizing travel times we want our map to show regional differences in the travel times in an intuitive way while avoiding excess detail. We might want to, e.g., highlight more the differences in relatively short travel times versus very long travel times. Let's have a look at the distribution of the public transport travel times through checking the histogram and descriptive statistics. A histogram is a graphic representation of the distribution of the data. Descriptive statistics summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding `NaN` values. While looking at the histogram, remember that each observation is one 250 m x 250 m grid square in the Helsinki region and the histogram shows the distribution of travel times to the central railway station across the whole region. 
+
 
 ```python
 travel_times.plot.hist(bins=50, color="lightgray")
@@ -238,26 +249,24 @@ _**Figure 8.6**. Histogram of the travel time values. Data source: Tenkanen & To
 travel_times.describe()
 ```
 
-The maximum travel time to the central railway station by public transport (including time for walking) is 181 minutes, i.e. over three hours. Most of the travel times range between 38 and 65 minutes with an average travel time of 53 minutes. Looking at the histogram (Figure 8.5), we can tell than only a handful of grid squares have more than two hour travel times to the central railway station. These grid squares are most likely located in rather inaccessible places in terms of public transport accessibility. 
+The maximum travel time to the central railway station by public transport (including time for walking) is 181 minutes, i.e. over three hours. Most of the travel times range between 38 and 65 minutes with an average travel time of 53 minutes. Looking at the histogram (Figure 8.6), we can tell than only a handful of grid squares have more than two hour travel times to the central railway station. These grid squares are most likely located in rather inaccessible places in terms of public transport accessibility. 
 
 Let's have a closer look at how these `mapclassify` classifiers work and try out different classification schemes for visualizing the public transport traveltimes. In the interactive version of this book, you can try out different numbers of classes and different classification schemes.
 
-```python
-import mapclassify
-```
 
 #### Natural breaks
 
-Natural Breaks tries to split the values into natural clusters. The number of observations per bin may vary according to the distribution of the data.
+First, let's try out natural breaks classifier that tries to split the values into natural clusters. The number of observations per bin may vary according to the distribution of the data.
 
 ```python jupyter={"outputs_hidden": false}
-mapclassify.NaturalBreaks(y=travel_times, k=6)
+import mapclassify
+mapclassify.NaturalBreaks(y=travel_times, k=10)
 ```
 
 It's possible to extract the threshold values into an array:
 
 ```python jupyter={"outputs_hidden": false}
-mapclassify.Quantiles(y=travel_times, k=9).bins
+mapclassify.NaturalBreaks(y=travel_times, k=10).bins
 ```
 
 We can further explore the classification on top of the histogram:
@@ -279,12 +288,42 @@ for break_point in classifier.bins:
 _**Figure 8.7**. Histogram of the travel time values with natural breaks classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
 
 
-#### Quantiles 
-
-Quantiles classification splits the data so that each class as an equal number of observations. 
+Finally, we can visualize our data using the classification scheme through adding the `scheme` option, while the parameter `k` defines the number of classess to use. Note that the syntax via `geopandas` differs a bit from `mapclassify`. We can control the position and title of the legend using `matplotlib` tools trough changing the properties of the legend object. 
 
 ```python jupyter={"outputs_hidden": false}
-mapclassify.Quantiles(y=travel_times, k=5)
+# Plot the data using "Natural Breaks" classification
+ax = grid.plot(
+    figsize=(6, 4),
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="Natural_Breaks",
+    k=9,
+    legend=True,
+    legend_kwds={"title": "Travel times (min)",
+                 "bbox_to_anchor": (1.4, 1)
+                },
+)
+
+# Add scalebar
+ax.add_artist(ScaleBar(1, location="lower right"))
+
+# Set the x and y axis off and adjust padding around the subplot
+plt.axis("off")
+plt.tight_layout()
+```
+
+_**Figure 8.8**. Static map of travel times visualized using the natural breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
+
+In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station. Notice also that we now have a different type of map legend that shows the associated class bins, now that we used a classification scheme. Here, we set the title and location of the legend using `legend_kwds` at the same time when plotting the map. We use `bbox_to_anchor` to position the legend item so that it does not overlap and cover our map extent.  An alternative way to achieve the same thing would be to add `ax.get_legend().set_bbox_to_anchor((1.4, 1))` after plotting the data via `geopandas`. For further tips on customizing choropleth map legends, have a look at [`geopandas examples gallery`](https://geopandas.org/en/stable/gallery/choro_legends.html) [^geopandas_choro_legends].
+
+
+#### Quantiles 
+
+Next, let's explore the quantiles classification that splits the data so that each class as an equal number of observations. 
+
+```python jupyter={"outputs_hidden": false}
+mapclassify.Quantiles(y=travel_times, k=10)
 ```
 
 Notice that the numerical range of the groups created using the quantiles classification scheme may vary greatly depending on the distribution of the data. In our example, some classes have more than 30 min interval, while others less than 10 minutes. The default number of classes is five (quintiles), but you can set the desired number of classes using the `k` parameter. In the interactive version of the book, you can try increasing the number of classes and see what happens. 
@@ -303,19 +342,40 @@ for break_point in classifier.bins:
     plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
-<!-- #region -->
-_**Figure 8.8**. Histogram of the travel time values with Quantile classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
+_**Figure 8.9**. Histogram of the travel time values with Quantile classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
 
 If comparing the histograms of natural breaks and quantile classifications, we can observe that natural breaks might work better to display differences in the data values across the whole data range, while quantiles would help distinguishing differences around the central peak of the data distribution. However, neither of the classification schemes display differences in short, less than 25 minute travel times which might be important for making an informative map. Also, we might want to have round numbers for our class values to facilitate quick and intuitive interpretation. 
+
+```python
+# Plot the data using "Natural Breaks" classification
+ax = grid.plot(
+    figsize=(6, 4),
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="quantiles",
+    k=10,
+    legend=True,
+    legend_kwds={"title": "Travel times (min)",
+                 "bbox_to_anchor": (1.4, 1)
+                },
+)
+
+# Add scalebar
+ax.add_artist(ScaleBar(1, location="lower right"))
+
+# Set the x and y axis off and adjust padding around the subplot
+plt.axis("off")
+plt.tight_layout()
+```
 
 
 #### Pretty breaks
 
-The pretty breaks classification shceme rounds the class break values and divides the range equally to creat nice and pretty intervals.
-<!-- #endregion -->
+The pretty breaks classification shceme rounds the class break values and divides the range equally to creat nice and pretty intervals. 
 
 ```python
-mapclassify.PrettyBreaks(y=travel_times, k=8)
+mapclassify.PrettyBreaks(y=travel_times, k=10)
 ```
 
 ```python
@@ -332,34 +392,36 @@ for break_point in classifier.bins:
     plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
-### Using the classification schemes via geopandas
+_**Figure 8.10**. Histogram of the travel time values with 10 pretty breaks. Data source: Tenkanen & Toivonen 2020._
 
-We can continue exploring the available classification schemes on a map through adding the `scheme` option, while the parameter `k` defines the number of classess to use. Note that the syntax via `geopandas` differs a bit from `mapclassify`. We can control the position and title of the legend using `matplotlib` tools trough changing the properties of the legend object. It is easy to add a label for the legend using `legend_kwds`. You can read more about creating a legend via geopandas [in here](https://geopandas.org/mapping.html#creating-a-legend).
-
-```python jupyter={"outputs_hidden": false}
-# Plot using 9 classes and classify the values using "Natural Breaks" classification
+```python
+# Plot the data using "Natural Breaks" classification
 ax = grid.plot(
     figsize=(6, 4),
     column="pt_r_t",
     cmap="RdYlBu",
     linewidth=0,
-    scheme="Natural_Breaks",
-    k=9,
+    scheme="prettybreaks",
+    k=10,
     legend=True,
+    legend_kwds={"title": "Travel times (min)",
+                 "bbox_to_anchor": (1.4, 1)
+                },
 )
 
-# Re-position the legend and set a title
-ax.get_legend().set_bbox_to_anchor((1.4, 1))
-ax.get_legend().set_title("Travel time (min)")
+# Add scalebar
+ax.add_artist(ScaleBar(1, location="lower right"))
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
 plt.tight_layout()
 ```
 
-_**Figure 8.9**. Static map of travel times visualized using the natural breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
+<!-- #region -->
 
-In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station. Notice also that we now have a different type of map legend that shows the associated class bins.  
+
+Regardless of the number of classes, pretty breaks is not ideal for our data as it fails to capture the variation in the data. Compared to this map, the previous two versions using natural breaks and quantiles provide a more informative view of the travel times.
+<!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 8.1
@@ -378,19 +440,20 @@ Select another column from the data (for example, travel times by car: `car_r_t`
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Visualize the travel times into 9 classes using "Quantiles" classification scheme
-grid.plot(
-    ax=ax,
-    column="car_r_t",
-    cmap="RdYlBu",
-    linewidth=0,
-    scheme="Quantiles",
-    k=9,
-    legend=True,
-)
+grid.plot(ax=ax,
+          column="car_r_t",
+          cmap="RdYlBu",
+          linewidth=0,
+          scheme="FisherJenks",
+          k=9,
+          legend=True,
+          legend_kwds={"title": "Travel times (min)",
+                 "bbox_to_anchor": (1.4, 1)}
+         )
 
-# Re-position the legend and set a title
-ax.get_legend().set_bbox_to_anchor((1.4, 1))
-ax.get_legend().set_title("Travel time by car (min)")
+
+# Add scalebar
+ax.add_artist(ScaleBar(1, location="lower right"))
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
@@ -401,10 +464,9 @@ outfp = "static_map2.png"
 plt.savefig(outfp, dpi=300)
 ```
 
-### Defining our own intervals
+### Custom map classification
 
-For our travel time data, one intuitive way to display the values is to  is to visualize the increasing travel time in fixed intervals, for example changing the color at each 10 minute interval.
-We can acheive something like this susing the pretty breaks classifier and a large number of classes, or we can create our own intervals using `mapclassify`for better contro. We can, for example choose to display differences until 1,h hours (90 minutes), after which all values will be categorized in the highest interval.
+For travel time data, having fixed intervals with gradually increasing travel times is an intuitive way of displaying the phenomena. The pretty breaks classification scheme achieves something like this, but it did not work perfectly for our data. Using `mapclassify`, we can create a custom classification and select which class interval values to use. This way, we can try to better capture the variation in the data while using rounded-up intuitive class break values. It would be meaningful to show differences between the typical travel times, but avoid having classes distinguishing between long travel times. To achieve this, we'll create a custom classifier with fixed 10-minute intervals up to 90 minutes, allowing us to emphasize variations around the central peak of the distribution.
 
 ```python
 break_values = [10, 20, 30, 40, 50, 60, 70, 80, 90]
@@ -426,36 +488,53 @@ for break_point in classifier.bins:
     plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
-_**Figure 8.10**. Histogram of the travel time values with user defined class breaks. Data source: Tenkanen & Toivonen 2020._
+_**Figure 8.11**. Histogram of the travel time values with user defined class breaks. Data source: Tenkanen & Toivonen 2020._
+
+
+When plotting the map, we can pass the break values using `classification_kwds`. For a final touch, we can plot two subplots side by side displaying travel times by different modes of transport using our custom classifier:
 
 ```python
 # Create one subplot. Control figure size in here.
-fig, ax = plt.subplots(figsize=(6, 4))
-
+fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
 
 # Visualize the travel times into 9 classes using "Quantiles" classification scheme
-grid.plot(
-    ax=ax,
-    column="car_r_t",
-    cmap="RdYlBu",
-    linewidth=0,
-    scheme="UserDefined",
-    classification_kwds={'bins': break_values},
-    legend=True,
-    legend_kwds={"loc": "center left", "bbox_to_anchor": (1, 0.5), "interval": True}
-)
+grid.plot(ax=axs[0],
+          column="car_r_t",
+          cmap="RdYlBu",
+          linewidth=0,
+          scheme="UserDefined",
+          classification_kwds={'bins': break_values},
+        )
+
+grid.plot(ax=axs[1],
+          column="pt_r_t",
+          cmap="RdYlBu",
+          linewidth=0,
+          scheme="UserDefined",
+          classification_kwds={'bins': break_values},
+          legend=True,
+          legend_kwds={"title": "Travel times (min)",
+                       "bbox_to_anchor": (1.4, 1),
+                       "interval": True},
+          label="Travel times by public transport"
+        )
+
+axs[0].set_title("Travel times by public car")
+axs[1].set_title("Travel times by public transport")
 
 # Set the x and y axis off and adjust padding around the subplot
-plt.axis("off")
+axs[0].axis("off")
+axs[1].axis("off")
+
 plt.tight_layout()
 ```
 
-_**Figure 8.11**. Static map of travel times visualized using our own classification scheme. Data source: Tenkanen & Toivonen 2020._
+_**Figure 8.12**. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 
 ## Adding a basemap
 
-Let's now forget about separate transport network layers we used previously and add spatial context using basemaps from online sources. Basemaps might feature satellite imagery or a readily visualized bacground maps displaying various essential features such as streets, administrative boundaries, water bodies and so on.  We can use [contextily](https://github.com/darribas/contextily) together with `geopandas` and `matplotlib` to fetch map tiles as basemaps for our static maps. Bacground maps are available via `contextily` from various providers: 
+Let's now forget about separate transport network layers we used previously and add spatial context using basemaps from online sources. Basemaps might feature satellite imagery or a readily visualized bacground maps displaying various essential features such as streets, administrative boundaries, water bodies and so on.  We can use `contextily` together with `geopandas` and `matplotlib` to fetch map tiles as basemaps for our static maps. Bacground maps are available via `contextily` from various providers: 
 
 ```python jupyter={"outputs_hidden": false}
 print(list(ctx.providers))
@@ -493,14 +572,12 @@ plt.tight_layout()
 ctx.add_basemap(ax, crs=grid.crs)
 ```
 
-_**Figure 8.11**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 8.13**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
-We can change the background map easily using the `source` -parameter when adding the basemap:
-
-As you can see, `contextily` automatically adds credits for the bacground map. We can modify the credits text and add attribution also to the travel time data (Tenkanen & Toivonen 2020) in addition to the credits to OpenStreetMap contributors.
+We can change the background map easily using the `source` -parameter when adding the basemap. At the same time we can customize the credits that are displayed on the map. `Contextily` automatically adds credits for the bacground map. We can modify the credits text and add attribution also to the travel time data (Tenkanen & Toivonen 2020) in addition to the credits to OpenStreetMap contributors.
 
 ```python jupyter={"outputs_hidden": false} pycharm={"name": "#%%\n"}
-credits = "Travel time data by Tenkanen & Toivonen (2020), Map Data © OpenStreetMap contributors"
+credits = "Travel time data by Tenkanen & Toivonen (2020),\n Map Data © OpenStreetMap contributors"
 ```
 
 ```python jupyter={"outputs_hidden": false}
@@ -508,14 +585,13 @@ credits = "Travel time data by Tenkanen & Toivonen (2020), Map Data © OpenStree
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Plot the data
-grid.plot(
-    ax=ax,
-    column="pt_r_t",
-    cmap="RdYlBu",
-    linewidth=0,
-    scheme="Natural_Breaks",
-    k=9,
-    alpha=0.6,
+grid.plot(ax=ax,
+          column="pt_r_t",
+          cmap="RdYlBu",
+          linewidth=0,
+          scheme="Natural_Breaks",
+          k=9,
+          alpha=0.6,
 )
 
 # Set the x and y axis off and adjust padding around the subplot
@@ -526,28 +602,17 @@ plt.tight_layout()
 ctx.add_basemap(ax, attribution=credits, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs)
 ```
 
-_**Figure 8.13**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 8.14**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 
  Let's take a subset of our data to see a bit better the background map characteristics. We can, for example, visualize grid squares from where the central railway station can be reached in less than 15 minutes to get a zoomed-in view of the map:
-
-```python
-
-```
 
 ```python jupyter={"outputs_hidden": false}
 # Control figure size in here
 fig, ax = plt.subplots(figsize=(6, 4))
 
 #  Plot only a subset of the data
-grid.loc[(grid["pt_r_t"] < 20)].plot(ax=ax,
-                                    column="pt_r_t",
-                                    cmap="RdYlBu",
-                                    linewidth=0,
-                                    scheme="Quantiles",
-                                    k=5,
-                                    alpha=0.6
-                                    )
+grid.loc[(grid["pt_r_t"] <=15)].plot(ax=ax, column="pt_r_t", cmap="RdYlBu", linewidth=0, alpha=0.6)
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
@@ -557,10 +622,12 @@ plt.tight_layout()
 ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs)
 ```
 
-_**Figure 8.14**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 8.15**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 
-Now our map has much more details as the zoom level of the background map is larger. `Contextily` sets the zoom level automatically but it is also possible to control the zoom level manually. The zoom level is by default specified as `auto` and it can be changed by passing in a specified [zoom level](https://wiki.openstreetmap.org/wiki/Zoom_levels) as numbers ranging typically from 1 to 19 (the larger the number, the more details your basemap will have). Let's try reducing the level of detail from our map by passing `zoom=11`:
+Now our map has much more details as the zoom level of the background map is larger. This type of map might be useful for quick data exploration purposes. For example, we can observe that most of the short travel times are located in the city center, while the central railway station is also accessible within 20 minutes public transport travel times from individual locations a bit further away along the train and metro lines.
+
+`Contextily` sets the zoom level automatically but it is also possible to control the zoom level manually. The zoom level is by default specified as `auto` and it can be changed by passing in a specified [zoom level](https://wiki.openstreetmap.org/wiki/Zoom_levels) as numbers ranging typically from 1 to 19 (the larger the number, the more details your basemap will have). Let's try reducing the level of detail from our map by passing `zoom=12`:
 
 
 ```python jupyter={"outputs_hidden": false}
@@ -568,34 +635,24 @@ Now our map has much more details as the zoom level of the background map is lar
 fig, ax = plt.subplots(figsize=(6, 4))
 
 #  Plot only a subset of the data
-grid.loc[(grid["pt_r_t"] < 20)].plot(ax=ax,
-                                    column="pt_r_t",
-                                    cmap="RdYlBu",
-                                    linewidth=0,
-                                    scheme="Quantiles",
-                                    k=5,
-                                    alpha=0.6
-                                    )
+grid.loc[(grid["pt_r_t"] <=15)].plot(ax=ax, column="pt_r_t", cmap="RdYlBu", linewidth=0, alpha=0.6)
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
 plt.tight_layout()
 
 # Add basemap with `OSM_A` style
-ctx.add_basemap(ax, zoom=11, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs)
+ctx.add_basemap(ax, zoom=12, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs)
 ```
 
-_**Figure 8.14**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 8.16**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
-With this zoom setting, the map has now less detail. For example, there are less place names visible which makes the map easier to read. 
-
-
+With this zoom setting, place names in the bacground map become larger and more readable. 
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
 #### Question 8.2
 
 Explore different background map options and make a final visualization of our travel time data with a basemap.
-
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
@@ -606,7 +663,7 @@ Explore different background map options and make a final visualization of our t
 # Solution
 
 # Control figure size in here
-fig, ax = plt.subplots(figsize=(12, 8))
+fig, ax = plt.subplots(figsize=(6, 4))
 
 # Plot the data
 grid.plot(
@@ -614,9 +671,11 @@ grid.plot(
     column="pt_r_t",
     cmap="RdYlBu",
     linewidth=0,
-    scheme="Natural_Breaks",
+    scheme="FisherJenks",
     k=9,
     alpha=0.6,
+    legend_kwds={"title": "Travel times (min)",
+    "bbox_to_anchor": (1.4, 1)}
 )
 
 # Set the x and y axis off and adjust padding around the subplot
@@ -630,13 +689,13 @@ ctx.add_basemap(ax, attribution=credits, source=ctx.providers.OpenStreetMap.Mapn
 ## Footnotes
 [^geopandas_mappingtools]: <https://geopandas.org/en/stable/docs/user_guide/mapping.html> 
 [^matplotlib_pyplot]: <https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html> 
+[^contextily]: <https://github.com/darribas/contextily>
 [^HSL_opendata]: <https://www.avoindata.fi/data/en_GB/dataset/hsl-n-linjat>
 [^matplotlib_colormaps]: <https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib>
-[^matplotlib_legend]: <https://matplotlib.org/tutorials/intermediate/legend_guide.html>
 [^matplotlib_colors]: <https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors>
 [^matplotlib_colorbar]: <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html>
+[^matplotlib_legend]: <https://matplotlib.org/tutorials/intermediate/legend_guide.html>
+[^geopandas_scalebar_examples] <https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html#Adding-a-scale-bar-to-a-matplotlib-plot>
+[^pysal]: <https://pysal.org/> 
 [^mapclassify]: <https://pysal.org/mapclassify/>
-
-```python
-
-```
+[^geopandas_choro_legends]: <https://geopandas.org/en/stable/gallery/choro_legends.html>
