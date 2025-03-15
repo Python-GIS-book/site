@@ -152,9 +152,9 @@ In order to make a copy of the book notebooks that you can access and edit, we w
 
 _**Figure A.X**. Creating a for in GitHub._
 
-After clicking on the **Fork** button, you can leave everything as it is on the Create a new fork page and simply click **Create fork**. This will create your personal copy, which can be found in GitHub at `https://github.com/<your GitHub username>/student-notebooks`. For example, `https://github.com/davewhipp/student-notebooks`.
+After clicking on the **Fork** button, you can leave everything as it is on the Create a new fork page and simply click **Create fork**. This will create your personal copy, which can be found in GitHub at `https://github.com/[your GitHub username]/student-notebooks`. For example, `https://github.com/davewhipp/student-notebooks`.
 
-Now that your personal fork has been created, you can go to the URL of your fork (e.g., `https://github.com/davewhipp/student-notebooks`), click on the **Code** button, and copy the URL listed there under HTTPS. Be sure you go to your personal copy of the book materials at `https://github.com/<your GitHub username>/student-notebooks`!
+Now that your personal fork has been created, you can go to the URL of your fork (e.g., `https://github.com/davewhipp/student-notebooks`), click on the **Code** button, and copy the URL listed there under HTTPS. Be sure you go to your personal copy of the book materials at `https://github.com/[your GitHub username]/student-notebooks`!
 
 
 ## Using Git with the JupyterLab Git plugin
@@ -236,98 +236,42 @@ If you now visit your repository in GitHub, you should find your changed have be
 <!-- #region -->
 ## Using Git from the command line
 
-There are many different ways of using Git, and you might want to try
-out using Git from the command line at some point.
+Although it is likely easiest to use Git from the JupyterLab Git plugin, we also provide a brief overview of how to use Git from the command line (or terminal) here.
 
-# Terminal
+### Essential command line tools
 
-:::: note
-::: title
-Note
-:::
+You will need to know a couple of basic command-line commands in order to use Git from the command line. Code Academy's [list of command line commands](https://www.codecademy.com/articles/command-line-commands) [^command_line] provides a good overview of commonly used commands for navigating through files on the command line. For using Git on the command line, you should at least be familiar with the following commands.
 
-You will need to know a couple of basic command line commands in order
-to use Git from the command line. Code Academy\'s [list of command line
-commands](https://www.codecademy.com/articles/command-line-commands)
-provides a good overview of commonly used commands for navigating trough
-files on the command line. For using Git on the command line, you should
-at least be familiar with these commands:
+- `ls`: List the contents of the current directory.
+- `ls -a`: List the contents of the current directory including hidden files.
+- `cd`: Change directories. For example, `cd student-notebooks`.
+- `cd ..`: Change to the parent directory (up one directory level).
 
--   `ls` - list contents of the current directory
--   `ls -a` - list contents of the current directory including hidden
-    files
--   `cd` - change directory. For example, `cd exercises`
--   `cd ..` - move one directory up
-::::
+### Opening a terminal window in JuptyerLab
 
-**Start a new Terminal session in JupyterLab** using the icon on the
-Launcher, or from *File* \> *New* \> *Terminal*.
+You can open a terminal window in JuptyerLab by going to **File** -> **New** -> **Terminal** in the menu bar or clicking on the **Terminal** button in the JuptyerLab Launcher tab. You can confirm that Git is working from the Terminal by typing `git --version` and pressing Enter. You should see the Git version information.
 
-![](img/terminal-icon.png)
+### Configuring your Git credentials
 
-**Check if you have git installed** by typing `git --version` in the
-terminal window:
-
-``` bash
-git --version
-```
-
-Anything above version 2 is just fine.
-
-:::: note
-::: title
-Note
-:::
-
-You can paste text on the terminal using `Ctrl + V` or
-`Shift + Right Click --> paste`
-::::
-
-# Configuring Git credentials
-
-Configure Git to remember your identity using the `git config` tools.
-You (hopefully) only need to do this once if working on your own
-computer, or on a cloud computer with persistent storage on CSC
-notebooks.
+You can configure Git to remember your identity using the `git config` command. You (hopefully) only need to do this once if working on your own computer. The basic credential commands to define your Git username and email address are:
 
 ``` bash
 git config --global user.name "[firstname lastname]"
 git config --global user.email "[email@example.com]"
 ```
 
-# Basic commands
+### Basic Git commands
 
-The basic workflow of cloning a repository, adding changes to the
-staging area, committing and pushing the changes can be completed using
-these command line commands:
+The basic workflow of cloning a repository, adding changes to the staging area, committing, and pushing the changes can be completed using these command-line commands below:
 
--   `git clone [url]` - retrieve a repository from a remote location
-    (often from GitHub)
--   `git status`- review the status of your repository (use this command
-    often!)
--   `git add [file]` - add files to the next commit (add files to the
-    staging area)
--   `git commit -m "[descriptive message]"` - commit staged files as a
-    new snapshot
--   `git pull` - bring the local branch up to date (fetch and merge
-    changes from the remote)
--   `git push` - transmit local branch commits to the remote repository
+- `git clone [URL]`: Retrieve a repository from a remote location (often from GitHub).
+- `git status`: Check the status of your repository (use this command often!).
+- `git add [file(s)]`: Add files to the staging area (so they are ready for the next commit).
+- `git commit -m "[descriptive message]"`: Commit staged files as a new snapshot.
+- `git pull`: Bring the local branch up to date (fetch and merge changes from the remote).
+- `git push`: Transmit local commits to the remote repository.
 
-:::: note
-::: title
-Note
-:::
-
-Remember to use `git status` often to check the status of our
-repository.
-::::
-
-::: admonition
-Other useful Git commands
-
-Check out other commonly used git commands from [the GIT CHEAT
-SHEET](https://education.github.com/git-cheat-sheet-education.pdf)
-:::
+You can find some other useful Git commands from the [GitHub GIT CHEAT SHEET](https://education.github.com/git-cheat-sheet-education.pdf) [^cheat_sheet].
 
 ::: admonition
 Remote repository
@@ -399,6 +343,8 @@ href="https://xkcd.com/1597/">https://xkcd.com/1597/</a></figcaption>
 
 ## Footnotes
 
+[^cheat_sheet]: <https://education.github.com/git-cheat-sheet-education.pdf>
+[command_line]: <https://www.codecademy.com/articles/command-line-commands>
 [^email]: <https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address>
 [^token]: <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token>
 [^versioncontrol]: <https://en.wikipedia.org/wiki/Version_control>
