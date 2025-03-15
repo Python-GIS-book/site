@@ -149,7 +149,7 @@ data["smoothed_elevation"] = xrspatial.focal.focal_stats(data["elevation"], kern
 data["smoothed_elevation"].plot(cmap="RdYlBu_r", figsize=(6,4));
 ```
 
-## Reclassify
+### Reclassification
 
 The goal in the following section is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. so think of a scenario where all of these can be utilized. The criteria for finding a suitable place for a summer cottage will be based on following preferences:
 
