@@ -671,7 +671,7 @@ grid.plot(
     column="pt_r_t",
     cmap="RdYlBu",
     linewidth=0,
-    scheme="Natural_Breaks",
+    scheme="FisherJenks",
     k=9,
     alpha=0.6,
     legend_kwds={"title": "Travel times (min)",
