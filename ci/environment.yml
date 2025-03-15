@@ -6,6 +6,7 @@ channels:
 dependencies:
   - python=3.12.9
   - myst-nb=1.2.0
+  - git=2.48.1
   - jupyterlab=4.3.6
   - jupyterlab-git=0.51.0
   - jupyterlab-myst=2.4.2
