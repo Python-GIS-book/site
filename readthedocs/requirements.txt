@@ -1,10 +1,8 @@
-jupyter-book
 sphinx-book-theme
 sphinx
 ipython
 jupyter-sphinx
 nbsphinx
 sphinxcontrib-bibtex
-MyST-NB
-nbconvert
+myst-nb
 sphinx-thebe
