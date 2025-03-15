@@ -21,6 +21,7 @@ dependencies:
   - black=24.8.0
   - black-jupyter=24.8.0
   - jupyterlab-spellchecker=0.8.4
+  - jupyterlab-git=0.51.0
 
   # GIS environment
   - contextily=1.6.0
