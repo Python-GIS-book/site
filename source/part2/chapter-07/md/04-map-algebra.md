@@ -88,6 +88,13 @@ data["curvature"] = xrspatial.curvature(data["elevation"])
 data["curvature"].plot()
 ```
 
+### Hot and cold spots
+
+```python
+data["hot_cold"] = xrspatial.focal.hotspots(data["elevation"], kernel)
+data["hot_cold"].plot(cmap="RdYlBu_r", figsize=(6,4));
+```
+
 ### Hillshade
 
 ```python
@@ -133,9 +140,23 @@ sm.set_array([])  # Needed for colorbar creation
 cbar = fig.colorbar(sm, ax=ax, orientation="vertical", label="Relative Height (m)")
 ```
 
+### Smoothing and focal statistics
 
+```python
+# Kernel size
+k = 15
 
+# Generate a kernel (basically produces a boolean matrix full with numbers 1 and 0)
+kernel = xrspatial.convolution.circle_kernel(1, 1, k)
+```
 
+```python
+# Smoothen the surface
+data["smoothed_elevation"] = xrspatial.focal.focal_stats(data["elevation"], kernel, stats_funcs=["mean"])
+
+# Plot the result
+data["smoothed_elevation"].plot(cmap="RdYlBu_r", figsize=(6,4));
+```
 
 ## Reclassify
 
@@ -212,11 +233,153 @@ data["smoothed_suitability_index"].plot(cmap="RdYlBu_r", figsize=(6,4));
 
 In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. They are essential for modeling cumulative effects, spatial dependencies, and large-scale patterns in fields like hydrology, transportation, and environmental science.
 
-- Statistical summaries: global mean, max, min etc.
 - Viewshed analysis
 - Cost distance and least-cost path
 - Proximity (distance, allocation, direction)
 
+
+### Statistical summaries
+
+```python
+data["elevation"].min().item()
+```
+
+```python
+data["elevation"].max().item()
+```
+
+```python
+data["elevation"].mean().item()
+```
+
+```python
+data["elevation"].median().item()
+```
+
+```python
+data["elevation"].std().item()
+```
+
+### Viewshed
+
+```python
+from shapely import box, Point
+import geopandas as gpd
+
+# Extract the center coordinates of the raster
+bbox = box(*data.rio.bounds())
+xcoord = bbox.centroid.x
+ycoord = bbox.centroid.y
+
+# Create a GeoDataFrame of the centroid
+observer_location = gpd.GeoDataFrame(geometry=[Point(xcoord, ycoord)], 
+                                     crs=data.rio.crs
+                                    )
+```
+
+```python
+# Observer elevation at a given point
+observer_elevation = data["elevation"].interp(x=xcoord, y=ycoord).item()
+print("Observer's elevation:", observer_elevation, "meters.")
+```
+
+```python
+# Calculate viewshed
+data["viewshed"] = xrspatial.viewshed(data["elevation"], 
+                                      x=xcoord, 
+                                      y=ycoord,
+                                      observer_elev=observer_elevation
+                                     )
+```
+
+```python
+fig, ax = plt.subplots()
+
+# Plot hillshade that was calculated earlier
+data["hillshade"].plot(ax=ax, cmap="Greys")
+
+# Plot viewshed
+data["viewshed"].plot(ax=ax, cmap="RdYlBu_r", alpha=0.6)
+
+# Observer location
+observer_location.plot(ax=ax, color="black", marker="x", markersize=15, label="Observer location")
+
+# Add legend and title
+ax.legend(loc="upper left")
+ax.set_title("Visible areas from the observer location");
+```
+
+### Path finding based on raster cost surface
+
+```python
+origin = gpd.GeoDataFrame(geometry=[Point(3691000, 6942000)], crs=data.rio.crs)
+destination = gpd.GeoDataFrame(geometry=[Point(3698500, 6948000)], crs=data.rio.crs)
+```
+
+```python
+fig, ax = plt.subplots()
+
+data["hillshade"].plot(ax=ax, cmap="Greys")
+origin.plot(ax=ax, color="red", markersize=58, label="Origin")
+destination.plot(ax=ax, color="blue", markersize=58, label="Destination")
+ax.legend(loc="upper left")
+plt.title("Origin and destination");
+```
+
+```python
+barriers = list(range(1400,1580))
+barriers += list(range(2000,2200))
+
+origin_latlon = (origin.geometry.y.item(), origin.geometry.x.item())
+destination_latlon = (destination.geometry.y.item(), destination.geometry.x.item())
+```
+
+```python
+least_cost_path = xrspatial.a_star_search(data["elevation"], origin_latlon, destination_latlon, barriers)
+```
+
+```python
+route = xr.where(~np.isnan(least_cost_path), 1, least_cost_path)
+```
+
+```python
+fig, ax = plt.subplots()
+
+origin.plot(ax=ax, color="red", markersize=58, label="Origin")
+destination.plot(ax=ax, color="blue", markersize=58, label="Destination")
+route.plot(ax=ax, cmap="gist_heat")
+ax.legend(loc="upper left")
+plt.title("Origin and destination");
+```
+
+```python
+from shapely import LineString
+
+# Convert (row, col) path to geographic coordinates
+transform = data.rio.transform()
+
+# Extract (row, col) indices where path is not NaN
+path_indices = np.argwhere(~np.isnan(least_cost_path.values)) 
+
+coords = [transform * (int(col), int(row)) for row, col in path_indices] 
+
+# Create a LineString from the path
+line = LineString(coords)
+
+# Convert to a GeoDataFrame
+shortest_path = gpd.GeoDataFrame({"geometry": [line]}, crs=data.rio.crs)
+```
+
+```python
+fig, ax = plt.subplots()
+
+data["elevation"].plot(ax=ax, cmap="terrain")
+shortest_path.plot(ax=ax, color="red", label="Least cost path")
+origin.plot(ax=ax, color="red", markersize=58, label="Origin")
+destination.plot(ax=ax, color="blue", markersize=58, label="Destination")
+ax.legend(loc="upper left")
+plt.title("Least cost path between origin and destination");
+```
 
 ## Zonal functions
 
