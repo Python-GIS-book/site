@@ -15,11 +15,6 @@ jupyter:
 <!-- #region -->
 # Map algebra
 
-- Reclassify (Basic calculations)
-- Focal function
-- Local function
-- Zonal function (zonal statistics)
-
 **To be updated**
 
 Conducting calculations between bands or raster is another common GIS task. 
@@ -28,7 +23,7 @@ Conducting calculations between bands or raster is another common GIS task.
 In the following, we will cover some of the basic DEM analysis approaches using `xarray` and `xarray-spatial` libraries in order to gain knowledge of topography of an area. 
 <!-- #endregion -->
 
-## Focal functions
+## Focal operations
 
 A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood.
 
@@ -202,9 +197,9 @@ fig, ax = plt.subplots(figsize=(6,4))
 data["aspect_points"].plot(ax=ax, cmap="RdYlBu_r", alpha=0.7);
 ```
 
-## Local functions
+## Local operations
 
-To be added. 
+A local function operates ..
 
 ```python
 # Calculate the suitability index by weighting the "points" given for different layers
@@ -230,7 +225,7 @@ data["smoothed_suitability_index"] = xrspatial.focal.focal_stats(data["suitabili
 data["smoothed_suitability_index"].plot(cmap="RdYlBu_r", figsize=(6,4));
 ```
 
-## Global functions
+## Global operations
 
 In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. They are essential for modeling cumulative effects, spatial dependencies, and large-scale patterns in fields like hydrology, transportation, and environmental science.
 
@@ -310,6 +305,79 @@ ax.legend(loc="upper left")
 ax.set_title("Visible areas from the observer location");
 ```
 
+## Zonal operations
+
+To be added. 
+
+```python
+import osmnx as ox
+from shapely import box
+
+# Fetch lake "Riuttanen" from OSM
+lake = ox.geocode_to_gdf("Riuttanen, Joensuu")
+lake = gdf1.to_crs(crs=data.rio.crs)
+
+# Fetch peak Riuttavaara based on OSM Node ID
+peak = ox.geocode_to_gdf("N11034739930", by_osmid=True)
+peak = peak.to_crs(crs=data.rio.crs)
+
+# Create a buffer around the peak
+peak["geometry"] = peak.buffer(200)
+
+# Plot
+fig, ax = plt.subplots()
+
+data["elevation"].plot(ax=ax, cmap="terrain")
+lake.plot(ax=ax, facecolor="None")
+peak.plot(ax=ax, edgecolor="red", facecolor="None")
+ax.set_title("Lake and Peak polygons");
+```
+
+```python
+# Merge zones into a single GeoDataFrame
+zones = pd.concat([peak, lake]).reset_index(drop=True)
+```
+
+```python
+import rasterstats
+import pandas as pd
+
+elevation_array = data["elevation"].to_numpy()
+affine = data.rio.transform()
+
+# Run the zonal statistics
+stats = rasterstats.zonal_stats(
+    zones,  
+    elevation_array,  
+    affine=affine,  
+    stats=["mean", "min", "max", "std"],  # Statistics to calculate
+    nodata=data["elevation"].rio.nodata  # Handle nodata values
+)
+
+stats
+```
+
+```python
+stats = pd.DataFrame(stats)
+stats
+```
+
+```python
+zones = zones.join(stats)
+zones
+```
+
+```python
+# What is the maximum difference in elevation between peak and lake?
+difference = zones.at[0, "mean"] - zones.at[1, "mean"]
+print(f"Elevation difference between the peak and lake: {difference:.0f} m.")
+```
+
+## Incremental operations
+
+Incremental operations ..
+
+
 ### Path finding based on raster cost surface
 
 ```python
@@ -381,75 +449,3 @@ destination.plot(ax=ax, color="blue", markersize=58, label="Destination")
 ax.legend(loc="upper left")
 plt.title("Least cost path between origin and destination");
 ```
-
-## Zonal functions
-
-To be added. 
-
-```python
-import osmnx as ox
-from shapely import box
-
-# Fetch lake "Riuttanen" from OSM
-lake = ox.geocode_to_gdf("Riuttanen, Joensuu")
-lake = gdf1.to_crs(crs=data.rio.crs)
-
-# Fetch peak Riuttavaara based on OSM Node ID
-peak = ox.geocode_to_gdf("N11034739930", by_osmid=True)
-peak = peak.to_crs(crs=data.rio.crs)
-
-# Create a buffer around the peak
-peak["geometry"] = peak.buffer(200)
-
-# Plot
-fig, ax = plt.subplots()
-
-data["elevation"].plot(ax=ax, cmap="terrain")
-lake.plot(ax=ax, facecolor="None")
-peak.plot(ax=ax, edgecolor="red", facecolor="None")
-ax.set_title("Lake and Peak polygons");
-```
-
-```python
-# Merge zones into a single GeoDataFrame
-zones = pd.concat([peak, lake]).reset_index(drop=True)
-```
-
-```python
-import rasterstats
-import pandas as pd
-
-elevation_array = data["elevation"].to_numpy()
-affine = data.rio.transform()
-
-# Run the zonal statistics
-stats = rasterstats.zonal_stats(
-    zones,  
-    elevation_array,  
-    affine=affine,  
-    stats=["mean", "min", "max", "std"],  # Statistics to calculate
-    nodata=data["elevation"].rio.nodata  # Handle nodata values
-)
-
-stats
-```
-
-```python
-stats = pd.DataFrame(stats)
-stats
-```
-
-```python
-zones = zones.join(stats)
-zones
-```
-
-```python
-# What is the maximum difference in elevation between peak and lake?
-difference = zones.at[0, "mean"] - zones.at[1, "mean"]
-print(f"Elevation difference between the peak and lake: {difference:.0f} m.")
-```
-
-## Incremental functions
-
-To be added. 
