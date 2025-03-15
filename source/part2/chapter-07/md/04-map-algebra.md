@@ -24,44 +24,181 @@ jupyter:
 Conducting calculations between bands or raster is another common GIS task. 
 
 
-## Reclassify
+## Focal functions
 
-To be added. 
+A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood.
+
 
 ```python
 import xarray as xr
+import xrspatial
 import matplotlib.pyplot as plt
 
-fp = "data/temp/kilimanjaro_dataset.nc"
-
+fp = "data/Tuupovaara_DEM.nc"
 data = xr.open_dataset(fp, decode_coords="all")
 data
+```
+
+```python
+# Plot the elevation values and contours
+fig, ax = plt.subplots(figsize=(9,7))
+data["elevation"].plot(ax=ax)
+cs = data["elevation"].plot.contour(ax=ax, colors="red", linewidths=0.5)
+
+# Label contours
+ax.clabel(cs, cs.levels, inline=True, fontsize=6);
+plt.title("Elevation in Tuupovaara, Finland");
+```
+
+### Slope
+
+```python
+# Calculate slope 
+data["slope"] = xrspatial.slope(data["elevation"])
+```
+
+```python
+data["slope"].plot(cmap="Greens")
+plt.title("Slope (degrees)");
+```
+
+### Aspect
+
+```python
+# Calculate aspect
+data["aspect"] = xrspatial.aspect(data["elevation"])
+# Filter values that are below 0 (areas without aspect defined)
+data["aspect"] = data["aspect"].where(data["aspect"] >=0)
+data["aspect"].plot(cmap="jet")
+plt.title("Aspect (degree between 0-360)\n0 faces North");
+```
+
+### Curvature
+
+```python
+data["curvature"] = xrspatial.curvature(data["elevation"])
+data["curvature"].plot()
+```
+
+### Hillshade
+
+```python
+data["hillshade"] = xrspatial.hillshade(data["elevation"])
+data["hillshade"].plot(cmap="Greys")
+```
+
+```python
+# Calculate relative height
+data["relative_height"] = data["elevation"] - data["elevation"].min().item()
+```
+
+```python
+from matplotlib.colors import LightSource, Normalize
+import matplotlib.colorbar as cbar
+import matplotlib.cm as cm
+import numpy as np
+
+fig, ax = plt.subplots()
+
+# Specify the colormap to use
+colormap = plt.cm.terrain
+
+# Specify the light source
+ls = LightSource(azdeg=225, altdeg=25)
+
+# Convert DataArray into numpy array
+array = data["relative_height"].to_numpy()
+
+# Normalize elevation for color mapping
+norm = Normalize(vmin=np.min(array), vmax=np.max(array))
+
+# Create hillshade based on elevation
+hillshade = ls.shade(array, cmap=colormap, vert_exag=1, blend_mode="overlay")
+ax.imshow(hillshade)
+ax.set_title("Hillshade with color blending");
+
+# Create a ScalarMappable for colorbar
+sm = cm.ScalarMappable(cmap=colormap, norm=norm)
+sm.set_array([])  # Needed for colorbar creation
+
+# Add colorbar
+cbar = fig.colorbar(sm, ax=ax, orientation="vertical", label="Relative Height (m)")
+```
+
+
+
+
+
+## Reclassify
+
+
+```python
+# Take 20 % sample to reduce the time it takes to classify
+percentage = 0.2
+
+# The sample size
+n = int(round(int(data["elevation"].count()) * percentage, 0))
+
+# Reclassify elevation into 5 classes and add number 1 to the result to make the scale from 1-5
+data["elevation_points"] = xrspatial.classify.natural_breaks(data["elevation"], k=5, num_sample=n) + 1
+
+# Plot the result
+fig, ax = plt.subplots(figsize=(8,5))
+data["elevation"].plot(ax=ax);
+data["elevation_points"].plot(ax=ax);
+```
+
+```python
+bins = [1,2,3,4,5]
+new_values = [4,5,3,2,1]
+
+data["slope_nb"] = xrspatial.classify.natural_breaks(data["slope"], k=5, num_sample=n) + 1
+data["slope_points"] = xrspatial.classify.reclassify(data["slope_nb"], bins=bins, new_values=new_values)
+
+# Plot
+fig, ax = plt.subplots(figsize=(14,12))
+data["slope_points"].plot(ax=ax, cmap="Greens");
+```
+
+```python
+bins = [90, 150, 210, 270, 360]
+new_values = [1, 3, 5, 3, 1]
+
+# Classify
+data["aspect_points"] = xrspatial.classify.reclassify(data["aspect"], bins=bins, new_values=new_values) 
+
+# Make a plot
+fig, ax = plt.subplots(figsize=(14,12))
+data["aspect_points"].plot(ax=ax, cmap="RdYlBu_r", alpha=0.7);
 ```
 
 ## Local functions
 
 To be added. 
 
+```python
+# Calculate the suitability index by weighting the "points" given for different layers
+data["suitability_index"] = data["elevation_points"]*0.2 + data["aspect_points"]*0.6 + data["slope_points"]*0.2
 
-## Focal functions
+# Plot the suitability index
+data["suitability_index"].plot(cmap="RdYlBu_r", figsize=(12,12));
+```
 
-A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood.
+```python
+from xrspatial.convolution import circle_kernel
 
-### Focal mean
+# Kernel size
+k = 15
 
-### Focal majority
+# Generate a kernel (basically produces a boolean matrix full with numbers 1 and 0)
+kernel = circle_kernel(1, 1, k)
 
-### Focal range
+# Smoothen the surface
+data["smoothed_suitability_index"] = xrspatial.focal.focal_stats(data["suitability_index"], kernel, stats_funcs=["mean"])
 
-
-### Slope
-
-### Aspect
-
-### Curvature
-
-### Hillshade
-
+# Plot the result
+data["smoothed_suitability_index"].plot(cmap="RdYlBu_r", figsize=(12,12));
+```
 
 ## Global functions
 
