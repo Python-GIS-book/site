@@ -375,10 +375,10 @@ print(f"Elevation difference between the peak and lake: {difference:.0f} m.")
 
 ## Incremental operations
 
-Incremental operations ..
+Incremental operations .. 
 
 
-### Path finding based on raster cost surface
+### Least-cost path calculation based on raster surface
 
 ```python
 origin = gpd.GeoDataFrame(geometry=[Point(3691000, 6942000)], crs=data.rio.crs)
@@ -449,3 +449,7 @@ destination.plot(ax=ax, color="blue", markersize=58, label="Destination")
 ax.legend(loc="upper left")
 plt.title("Least cost path between origin and destination");
 ```
+
+### Flow accumulation
+
+Flow accumulation for example related to watershed analysis is another example of incremental operation. **ADD MORE INFO**. Chapter 12 will cover examples how incremental operations are used to calculate watersheds based in digital elevation model in New Zealand.
