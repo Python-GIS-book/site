@@ -120,7 +120,7 @@ _**Figure A.X**. Version control steps using Git (adapted from <https://git-scm.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-### Preparations
+## Preparations
 
 With a general sense of how Git and GitHub work, we can now go through the basics of using Git with a hands-on example. For this we will use the "student" version of the notebooks for this book, which can be found on GitHub at <https://github.com/Python-GIS-book/student-notebooks>. In order to do this, we assume:
 
@@ -130,7 +130,7 @@ With a general sense of how Git and GitHub work, we can now go through the basic
 Before we continue, open a new JupyterLab session if you do not already have one open.
 <!-- #endregion -->
 
-## Create a Personal Access Token
+### Creating a Personal Access Token
 
 We will start by creating a Personal Access Token for our GitHub account that will allow you to save changes you make to files in GitHub. A Personal Access Token can be used for many things, but it is required when trying to push changes or access files in private repositories to which you have access rights, for example. For our use, the token will enable us to both push and pull files to/from GitHub.
 
@@ -144,112 +144,68 @@ You can find detailed instructions about how to create a Personal Access Token i
 - **Important**: Your token will only be visible to you once, so we recommend saving a copy in a secure location, such as with a password manager. Remember, anyone with the token can access, edit, or even delete repositories within the scope of that token!
 
 
-## Create a fork of the book notebooks
+### Creating a fork of the book notebooks
 
-In order to make a copy of the book notebooks that you can access and edit, we will create a *{term}`fork`* of the student version of the book materials. You can create your fork by visiting <https://github.com/Python-GIS-book/student-notebooks> and clicking on the **Fork** button on the top left side of the page.
+In order to make a copy of the book notebooks that you can access and edit, we will create a *{term}`fork`* of the student version of the book materials. You can create your fork by visiting <https://github.com/Python-GIS-book/student-notebooks> and clicking on the **Fork** button on the top left side of the page (Figure A.X).
 
 ![_**Figure A.X**. Creating a for in GitHub._](../img/fork-repo.png)
 
 _**Figure A.X**. Creating a for in GitHub._
 
-After clicking on the **Fork** button, you can leave everything as it is on the Create a new fork page and simply click **Create fork**. This will create your personal copy, which can be found in GitHub at `https://github.com/<your GitHub username>/student-notebooks`. For example, <https://github.com/davewhipp/student-notebooks>.
+After clicking on the **Fork** button, you can leave everything as it is on the Create a new fork page and simply click **Create fork**. This will create your personal copy, which can be found in GitHub at `https://github.com/<your GitHub username>/student-notebooks`. For example, `https://github.com/davewhipp/student-notebooks`.
 
-Now that your personal fork has been created, you can go to the URL of your fork (e.g., https://github.com/davewhipp/student-notebooks), click on the **Code** button, and copy the URL listed there under HTTPS. Be sure you go to your personal copy of the book materials at `https://github.com/<your GitHub username>/student-notebooks`!
+Now that your personal fork has been created, you can go to the URL of your fork (e.g., `https://github.com/davewhipp/student-notebooks`), click on the **Code** button, and copy the URL listed there under HTTPS. Be sure you go to your personal copy of the book materials at `https://github.com/<your GitHub username>/student-notebooks`!
 
 <!-- #region -->
-## JupyterLab git plugin
+## Using Git with the JupyterLab Git plugin
 
-# Clone a repository from GitHub
+Our next task is to create a copy of your fork on your own computer by cloning the files from GitHub. To do this, we will use the Git plugin for JupyterLab, as that will make it easy to both pull and push changes to any files as you work with them.
 
-During this course, we will most often start working with the exercises
-using an existing repository from GitHub. In order to get a copy of the
-exercise repository on our own computer (or the cloud computer), we need
-to `clone` it.
+### Cloning a repository
 
-Navigate to the **my-work** folder in JupyterLab, create a new folder
-inside it called **exercises**, and double-click to enter that folder.
-Next, activate the git-plugin. The plugin will tell you that
-**exercises** is not a Git repository and gives you some options.
+You can start by navigating to a directory in the JupyterLab file browser, where you would like to store your copy of the book materials. Once there, create a directory for the book materials, such as `PythonGIS`. Double click on the new directory to enter it in the JupyterLab file browser. Next, click on the Git plugin button to activate it, and then click on **Clone a repository** (Figure A.X).
 
-In our case, we want to **Clone a Repository**:
+![_**Figure A.X**. Using the JupyterLab Git plugin._](../img/git-plugin.png)
 
-![](img/git-plugin-start-cloning.png)
+_**Figure A.X**. Using the JupyterLab Git plugin._
 
-Go ahead and paste your exercise repository URL into the pop-up window:
+Once the Clone a repo dialog box appears, paste in the URL to your fork of the book materials and click **Clone**. You can leave the checkboxes ticked as they are. This is equivalent to the `git clone` command in a terminal.
 
-![](img/git-plugin-clone.png)
+If cloning was successful you should now see a directory titled `student-notebooks` in the JupyterLab file browser.
 
-On the command line this action is equivalent to the `git clone`
-command.
+### Checking the Git status
 
-:::: note
-::: title
-Note
-:::
+You can now double click on the `student-notebooks` directory to enter it, and then activate the Git plugin once again to view some basic information. This includes which repository you're working in, the branch you are in within the repository, and whether any files have changed or are ready to be committed in Git, for example (Figure A.X). This is the equivalent of running the `git status` command in a terminal.
 
-**Pay attention to which folder you are in!** Git will create a new
-folder under the folder you are located in when cloning a repo.
-::::
+![_**Figure A.X**. Checking the repository status in the JupyterLab Git plugin._](../img/git-status.png)
 
-# Credentials
+_**Figure A.X**. Checking the repository status in the JupyterLab Git plugin._
 
-Git needs to know who you are in order to give you access to remote
-repositories.
+### Making changes
 
-**Insert your GitHub username and personal access token**:
+Now we can make our first change to one of the repository files. Return to the JupyterLab file browser and double click to open the `README.md` file. In the tab that opens in JupyterLab, make a small change to the file, such as adding the text "I like Python!" at the end of the document. Once you finish editing, save your changes.
 
-![](img/git-plugin-credentials.png)
+![_**Figure A.X**. Making a change to a file._](../img/changing-a-file.png)
 
-Now you should see a new folder in JupyterLab that is identical to the
-repository on GitHub.
+_**Figure A.X**. Making a change to a file._
 
-On the command line, credentials can be managed using `git config`.
+After saving, return to the Git plugin to check the status of the repository. You should see `README.md` listed under **Changed** files. Note that you can ignore temporary checkpoint files, such as `README-checkpoint.md`, which are automatically generated backup copies of files in JupyterLab.
 
-# Git status
+![_**Figure A.X**. Changed file status in the JupyterLab plugin._](../img/changed-file.png)
 
-Navigate to the new folder in JupyterLab and activate the Git plugin.
-You should now see some basic info about your repository:
+_**Figure A.X**. Changed file status in the JupyterLab plugin._
 
-![](img/git-plugin-status1.png)
+### Staging changed file(s)
 
-On the command line `git status` shows the status of the repository.
+These changes are not yet staged for commit, which means that we need to add them first to the list of files we intend to save in a permanent snapshot in Git (i.e., the staging area). To add a file to the staging area, right click on the file in the JupyterLab Git plugin and then click **+ Stage**. You should now see the file under **Staged** files. This is the equivalent of running the `git add` command in a terminal.
 
-# Add changes
+![_**Figure A.X**. Staging a file in the JupyterLab plugin._](../img/stage-file.png)
 
-Let\'s start making changes in the repository! Open the `README.md` file
-and make some edits. For example, add some text at the end of the file:
+_**Figure A.X**. Staging a file in the JupyterLab plugin._
 
-<figure>
-<img src="img/edit-readme.png" width="750" alt="img/edit-readme.png" />
-<figcaption>Edit a file in JupyterLab</figcaption>
-</figure>
+If you accidentally stage a file or wish to remove it for any reason, simply right click on a staged file and select **- Unstage** to return it to the **Changed** list.
 
-After saving your changes, check the status of the repository. You
-should see `README.md` listed under **Changed** files:
-
-<figure>
-<img src="img/git-plugin-changed.png" width="350"
-alt="img/git-plugin-changed.png" />
-<figcaption>Changes visible in the Git plugin</figcaption>
-</figure>
-
-These changes are not yet \"staged for commit\", which means that we
-need to add them first to the staging area if we want to make a
-permanent snapshot of these changes.
-
-![](img/git-plugin-stage-changes.png){width="350px"}
-
-After adding the changes, you should see the changed file under
-**Staged** in the Git plugin.
-
-Note that you can also **unstage** and **discard changes** using the
-plugin. For now, we are happy with the changes made, and are ready to
-commit them.
-
-On the command line, `git add` is the command for adding changes to the
-staging area.
-
-# Commit changes
+### Committing changes
 
 Once the changed files are in the staging area, we can create a
 permanent snapshot by committing the changes. Always remember to write
@@ -340,7 +296,28 @@ remote repository, and `git pull` publishes local changes.
 
 That\'s all you need to know about Git for now :)
 
-## Git from the command line
+
+
+
+### Credentials
+
+
+
+Git needs to know who you are in order to give you access to remote
+repositories.
+
+**Insert your GitHub username and personal access token**:
+
+![](img/git-plugin-credentials.png)
+
+Now you should see a new folder in JupyterLab that is identical to the
+repository on GitHub.
+
+On the command line, credentials can be managed using `git config`.
+<!-- #endregion -->
+
+<!-- #region -->
+## Using Git from the command line
 
 There are many different ways of using Git, and you might want to try
 out using Git from the command line at some point.
