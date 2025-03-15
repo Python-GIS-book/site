@@ -25,11 +25,7 @@ jupyter:
 Conducting calculations between bands or raster is another common GIS task. 
 
 
-In the following, we will cover some of the basic DEM analysis approaches using `xarray` and `xarray-spatial` libraries in order to gain knowledge of topography of an area. The goal in the following section is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. so think of a scenario where all of these can be utilized. The criteria for finding a suitable place for a summer cottage will be based on following preferences:
-
-- The higher the elevation, the better
-- Some slope is good but not too steep
-- The ridge should be pointing South (who wouldn't like more sun on their patio..)
+In the following, we will cover some of the basic DEM analysis approaches using `xarray` and `xarray-spatial` libraries in order to gain knowledge of topography of an area. 
 <!-- #endregion -->
 
 ## Focal functions
@@ -160,6 +156,11 @@ data["smoothed_elevation"].plot(cmap="RdYlBu_r", figsize=(6,4));
 
 ## Reclassify
 
+The goal in the following section is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. so think of a scenario where all of these can be utilized. The criteria for finding a suitable place for a summer cottage will be based on following preferences:
+
+- The higher the elevation, the better
+- Some slope is good but not too steep
+- The ridge should be pointing South (who wouldn't like more sun on their patio..)
 
 ```python
 # Take 20 % sample to reduce the time it takes to classify
@@ -385,6 +386,69 @@ plt.title("Least cost path between origin and destination");
 
 To be added. 
 
+```python
+import osmnx as ox
+from shapely import box
+
+# Fetch lake "Riuttanen" from OSM
+lake = ox.geocode_to_gdf("Riuttanen, Joensuu")
+lake = gdf1.to_crs(crs=data.rio.crs)
+
+# Fetch peak Riuttavaara based on OSM Node ID
+peak = ox.geocode_to_gdf("N11034739930", by_osmid=True)
+peak = peak.to_crs(crs=data.rio.crs)
+
+# Create a buffer around the peak
+peak["geometry"] = peak.buffer(200)
+
+# Plot
+fig, ax = plt.subplots()
+
+data["elevation"].plot(ax=ax, cmap="terrain")
+lake.plot(ax=ax, facecolor="None")
+peak.plot(ax=ax, edgecolor="red", facecolor="None")
+ax.set_title("Lake and Peak polygons");
+```
+
+```python
+# Merge zones into a single GeoDataFrame
+zones = pd.concat([peak, lake]).reset_index(drop=True)
+```
+
+```python
+import rasterstats
+import pandas as pd
+
+elevation_array = data["elevation"].to_numpy()
+affine = data.rio.transform()
+
+# Run the zonal statistics
+stats = rasterstats.zonal_stats(
+    zones,  
+    elevation_array,  
+    affine=affine,  
+    stats=["mean", "min", "max", "std"],  # Statistics to calculate
+    nodata=data["elevation"].rio.nodata  # Handle nodata values
+)
+
+stats
+```
+
+```python
+stats = pd.DataFrame(stats)
+stats
+```
+
+```python
+zones = zones.join(stats)
+zones
+```
+
+```python
+# What is the maximum difference in elevation between peak and lake?
+difference = zones.at[0, "mean"] - zones.at[1, "mean"]
+print(f"Elevation difference between the peak and lake: {difference:.0f} m.")
+```
 
 ## Incremental functions
 
