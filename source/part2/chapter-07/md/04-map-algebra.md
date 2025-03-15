@@ -12,6 +12,7 @@ jupyter:
     name: python3
 ---
 
+<!-- #region -->
 # Map algebra
 
 - Reclassify (Basic calculations)
@@ -23,6 +24,13 @@ jupyter:
 
 Conducting calculations between bands or raster is another common GIS task. 
 
+
+In the following, we will cover some of the basic DEM analysis approaches using `xarray` and `xarray-spatial` libraries in order to gain knowledge of topography of an area. The goal in the following section is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. so think of a scenario where all of these can be utilized. The criteria for finding a suitable place for a summer cottage will be based on following preferences:
+
+- The higher the elevation, the better
+- Some slope is good but not too steep
+- The ridge should be pointing South (who wouldn't like more sun on their patio..)
+<!-- #endregion -->
 
 ## Focal functions
 
@@ -218,19 +226,3 @@ To be added.
 ## Incremental functions
 
 To be added. 
-
-```python
-a = slice(0, 2)
-```
-
-```python
-b = "Testing"
-```
-
-```python
-b[a]
-```
-
-```python
-
-```
