@@ -156,7 +156,7 @@ After clicking on the **Fork** button, you can leave everything as it is on the 
 
 Now that your personal fork has been created, you can go to the URL of your fork (e.g., `https://github.com/davewhipp/student-notebooks`), click on the **Code** button, and copy the URL listed there under HTTPS. Be sure you go to your personal copy of the book materials at `https://github.com/<your GitHub username>/student-notebooks`!
 
-<!-- #region -->
+
 ## Using Git with the JupyterLab Git plugin
 
 Our next task is to create a copy of your fork on your own computer by cloning the files from GitHub. To do this, we will use the Git plugin for JupyterLab, as that will make it easy to both pull and push changes to any files as you work with them.
@@ -207,114 +207,31 @@ If you accidentally stage a file or wish to remove it for any reason, simply rig
 
 ### Committing changes
 
-Once the changed files are in the staging area, we can create a
-permanent snapshot by committing the changes. Always remember to write
-an informative commit message to accompany your changes:
+Now that the changed file is in the staging area, we can create we can create a permanent snapshot by committing the changes. It is important to always remember to write a short, informative commit message to accompany your changes so you document how the file(s) have changed! Type a message into the commit message text box and then click **COMMIT** to save a permanent snapshot of your changes. This is the equivalent of running `git commit -m "commit message"` in a terminal.
 
-![](img/git-plugin-commit.png){width="300px"}
+![_**Figure A.X**. Committing a change in the JupyterLab plugin._](../img/commit-change.png)
 
-Once you hit the commit button, the plugin will most likely ask your
-name and email.
+_**Figure A.X**. Committing a change in the JupyterLab plugin._
 
-![](img/git-commit-credentials.png)
+Once you click **COMMIT**, the plugin will most likely ask you to enter your name and email address. This is because every commit in Git needs to record not only what has changed, but also who made the change (including their email address!). You can use the same information you used when creating your GitHub account.
 
-You can insert the same details you used when signing up to GitHub.
+Once the commit succeeds, you should see the latest set of changes in the History tab of the JupyterLab Git plugin. The output here is the equivalent of running `git log` in a terminal.
 
-![](img/git-plugin-commit-ok.png)
+![_**Figure A.X**. Repository history in the JupyterLab plugin._](../img/commit-history.png)
 
-Once the commit succeeds, you should see the latest set of changes under
-the History tab in the Git plugin:
+_**Figure A.X**. Repository history in the JupyterLab plugin._
 
-![](img/git-plugin-history1.png)
+Note that you will also see earlier changes that have been made to the files in your repository. Remember, Git will record all changes since the Git repository was created!
 
-*Note: You might also see some previous changes by the course
-instructors. These changes have been generated automatically and you can
-ignore them.*
+### Pushing changes to GitHub
 
-On the command line the syntax for committing is
-`git commit -m "commit message"`. After committing, it is good practice
-to check the repository status using `git status`.
+Our last step is to synchronize our local changes with the remote repository hosted on GitHub. To do this we will first pull changes from GitHub and then push our modified files to GitHub. It is always good to pull changes before pushing to ensure that any remote changes do not conflict with the changes you are trying to push. You may have already noticed that there is an orange dot that appears in the JuptyerLab git plugin indicating we have changes that have not yet been pushed (e.g., Figure A.X).
 
-:::: note
-::: title
-Note
-:::
+We can pull any changes from GitHub by clicking on the cloud icon with an arrow pointing downwards (Figure A.X). If everything is OK, you should see "Successfully pulled" in the bottom right corner of the JupyterLab window shortly after clicking. Now you can push the changes to GitHub by clicking the cloud icon with an arrow pointing upwards (Figure A.X). This is the equivalent of running the `git push` command in a terminal.
 
-We can **tell Git to remember our GitHub username and access token** to
-avoid typing them in all the time. Open up a Terminal window and type in
-this command:
+Most likely, you will now be prompted to enter your GitHub user credentials. When the Git credentials required dialog box appears, enter your GitHub username, your Personal Access Token, and then click **Ok**. You GitHub credentials can be managed in a terminal using the command `git config`.
 
-`git config --global credential.helper 'store --file /home/jovyan/my-work/.git-credentials'`
-
-Then change the folder you are in by typing (with your username):
-
-`cd exercises/exercise-1-davewhipp/`
-
-We then pull from our GitHub repository:
-
-`git pull`
-
-Type your username, press enter, and go to the text file with your
-access token, copy it, and paste into your terminal with **Ctrl** +
-**v** and press **Enter**. Then your username and access token should be
-stored and you can pull and push to and from GitHub without having to
-type your access token every time.
-::::
-
-# Push changes to GitHub
-
-Next, we want to synchronize our local changes with the remote
-repository on GitHub.
-
-<figure>
-<img src="img/git-plugin-pull-push-buttons.png"
-alt="img/git-plugin-pull-push-buttons.png" />
-<figcaption>Buttons for Pulling and Pushing changes between the local
-and remote repositories</figcaption>
-</figure>
-
-First, it\'s good to use `git pull` (button with arrow down) to double
-check for remote changes before contributing your own changes.
-
-![](img/git-plugin-pull-ok.png)
-
-In this case, the repository is probably up-to-date and no new changes
-are downloaded. However, it is good practice to always use git pull
-before publishing your local changes in case someone made changes in the
-remote repository in the meanwhile!
-
-Now we are ready to push the local changes to GitHub using `git push`
-(button with arrow up):
-
-![](img/git-plugin-push-ok.png)
-
-Now you should see the updates in GitHub! Go and have a look at your
-personal repository in <https://github.com/Geo-Python-2024/> .
-
-On the command line, `git pull` fetches and merges changes from the
-remote repository, and `git pull` publishes local changes.
-
-That\'s all you need to know about Git for now :)
-
-
-
-
-### Credentials
-
-
-
-Git needs to know who you are in order to give you access to remote
-repositories.
-
-**Insert your GitHub username and personal access token**:
-
-![](img/git-plugin-credentials.png)
-
-Now you should see a new folder in JupyterLab that is identical to the
-repository on GitHub.
-
-On the command line, credentials can be managed using `git config`.
-<!-- #endregion -->
+If you now visit your repository in GitHub, you should find your changed have been pushed from JupyterLab!
 
 <!-- #region -->
 ## Using Git from the command line
