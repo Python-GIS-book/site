@@ -164,7 +164,7 @@ data["slope_nb"] = xrspatial.classify.natural_breaks(data["slope"], k=5, num_sam
 data["slope_points"] = xrspatial.classify.reclassify(data["slope_nb"], bins=bins, new_values=new_values)
 
 # Plot
-fig, ax = plt.subplots(figsize=(14,12))
+fig, ax = plt.subplots(figsize=(6,4))
 data["slope_points"].plot(ax=ax, cmap="Greens");
 ```
 
@@ -176,7 +176,7 @@ new_values = [1, 3, 5, 3, 1]
 data["aspect_points"] = xrspatial.classify.reclassify(data["aspect"], bins=bins, new_values=new_values) 
 
 # Make a plot
-fig, ax = plt.subplots(figsize=(14,12))
+fig, ax = plt.subplots(figsize=(6,4))
 data["aspect_points"].plot(ax=ax, cmap="RdYlBu_r", alpha=0.7);
 ```
 
@@ -189,7 +189,7 @@ To be added.
 data["suitability_index"] = data["elevation_points"]*0.2 + data["aspect_points"]*0.6 + data["slope_points"]*0.2
 
 # Plot the suitability index
-data["suitability_index"].plot(cmap="RdYlBu_r", figsize=(12,12));
+data["suitability_index"].plot(cmap="RdYlBu_r", figsize=(6,4));
 ```
 
 ```python
@@ -205,7 +205,7 @@ kernel = circle_kernel(1, 1, k)
 data["smoothed_suitability_index"] = xrspatial.focal.focal_stats(data["suitability_index"], kernel, stats_funcs=["mean"])
 
 # Plot the result
-data["smoothed_suitability_index"].plot(cmap="RdYlBu_r", figsize=(12,12));
+data["smoothed_suitability_index"].plot(cmap="RdYlBu_r", figsize=(6,4));
 ```
 
 ## Global functions
