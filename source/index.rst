@@ -15,6 +15,55 @@ This is an online version of the book *"Introduction to Python for Geographic Da
 
 The book consists of 4 parts:
 
+.. grid:: 2
+    :gutter: 2
+
+    .. grid-item-card:: Part 1: Python essentials
+         :link: part1/index.html
+         :columns: 12 12 5 5
+         :text-align: center
+
+         .. figure:: _static/gis-intro.svg
+            :class: sd-avatar-xl
+        
+         New to Python? This part will teach you the fundamental concepts of programming using Python. No previous experience required!
+
+    .. grid-item-card:: Prof. Grant McKenzie, |br| McGill University
+        :link: pages/keynote_speakers.html#grant-mckenzie
+        :columns: 12 12 5 5
+        :text-align: center
+
+        .. figure:: img/Grant_McKenzie_avatar_BW.jpeg
+           :class: sd-avatar-xl
+
+    .. grid-item-card:: Prof. Heidi Kuusniemi, |br| University of Vaasa
+         :link: pages/keynote_speakers.html#heidi-kuusniemi
+         :columns: 12 12 5 5
+         :text-align: center
+
+         .. figure:: img/Heidi_Kuusniemi_avatar_BW.jpeg
+            :class: sd-avatar-xl
+
+    .. grid-item-card:: Antti Vuorela, |br| Helsinki Region Transport (HSL)
+         :link: pages/keynote_speakers.html#antti-vuorela
+         :columns: 12 12 5 5
+         :text-align: center
+
+         .. figure:: img/Antti_Vuorela_avatar_BW.jpeg
+            :class: sd-avatar-xl
+
+
+
+
+
+
+
+
+
+
+
+
+
 .. raw:: html
 
     <div class="container">
