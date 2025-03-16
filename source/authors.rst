@@ -16,10 +16,5 @@ Vuokko Heikinheimo
 David Whipp
 ^^^^^^^^^^^
 
-- Dave's online CV: `https://davewhipp.github.io/markdown-cv/ <https://davewhipp.github.io/markdown-cv/>`_
 - Dave's group website: `https://helsinki.fi/geodynamics <https://helsinki.fi/geodynamics>`_
 - Dave on Bluesky: `@davewhipp.bsky.social <https://bsky.app/profile/davewhipp.bsky.social>`_
-
-
-
-
