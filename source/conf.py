@@ -108,7 +108,6 @@ nbsphinx_allow_errors = True
 html_static_path = ["_static"]
 
 html_css_files = [
-    "css/landing-page.css",
     "css/custom-toggle-button.css",
     "css/custom-text-formatting.css",
 ]
