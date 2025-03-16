@@ -49,6 +49,9 @@ ax.clabel(cs, cs.levels, inline=True, fontsize=6);
 plt.title("Elevation in Tuupovaara, Finland");
 ```
 
+_**Figure 7.X.** Elevation surface with contour lines._
+
+
 ### Slope
 
 ```python
@@ -61,6 +64,9 @@ data["slope"].plot(cmap="Greens")
 plt.title("Slope (degrees)");
 ```
 
+_**Figure 7.X.** Slope in degrees calculated from the elevation data._
+
+
 ### Aspect
 
 ```python
@@ -72,19 +78,35 @@ data["aspect"].plot(cmap="jet")
 plt.title("Aspect (degree between 0-360)\n0 faces North");
 ```
 
+_**Figure 7.X.** Aspect surface shows the direction of the slope in degrees._
+
+
 ### Curvature
 
 ```python
 data["curvature"] = xrspatial.curvature(data["elevation"])
 data["curvature"].plot()
+plt.title("Curvature");
 ```
 
+_**Figure 7.X.** Curvature describes the rate of change in the slope._
+
+Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell. A curvature of 0 means the surface is straight and constant in whatever angle it is sloped towards.
+
+
 ### Hot and cold spots
+
+
+Hot and cold spots identify statistically significant hot spots and cold spots in an input raster. To be a statistically significant hot spot, a feature will have a high value and be surrounded by other features with high values as well. Thus, it is a similar measure to local spatial autocorrelation (LISA) although hot/cold spot analysis focuses on identifying only high-high and low-low areas, where as LISA also identify outliers (high values surrounded by low values). 
 
 ```python
 data["hot_cold"] = xrspatial.focal.hotspots(data["elevation"], kernel)
 data["hot_cold"].plot(cmap="RdYlBu_r", figsize=(6,4));
+plt.title("Identified hot and cold spots based the elevation");
 ```
+
+_**Figure 7.X.** Hot spots are clusters with high values surrounded by other high values._
+
 
 ### Hillshade
 
@@ -92,6 +114,8 @@ data["hot_cold"].plot(cmap="RdYlBu_r", figsize=(6,4));
 data["hillshade"] = xrspatial.hillshade(data["elevation"])
 data["hillshade"].plot(cmap="Greys")
 ```
+
+_**Figure 7.X.** Hillshade is a shaded relief based on the surface raster considering the illumination source angle and shadows._
 
 ```python
 # Calculate relative height
@@ -131,6 +155,9 @@ sm.set_array([])  # Needed for colorbar creation
 cbar = fig.colorbar(sm, ax=ax, orientation="vertical", label="Relative Height (m)")
 ```
 
+_**Figure 7.X.** Hillshade with color blending can give a more realistic appearance of the landscape_
+
+
 ### Smoothing and focal statistics
 
 ```python
@@ -145,9 +172,12 @@ kernel = xrspatial.convolution.circle_kernel(1, 1, k)
 # Smoothen the surface
 data["smoothed_elevation"] = xrspatial.focal.focal_stats(data["elevation"], kernel, stats_funcs=["mean"])
 
-# Plot the result
-data["smoothed_elevation"].plot(cmap="RdYlBu_r", figsize=(6,4));
+data["smoothed_elevation"].plot(cmap="RdYlBu_r", figsize=(6,4))
+plt.title("Kernel smoothing with kernel size 15");
 ```
+
+_**Figure 7.X.** Smoothed surface based on the average elevation of 15 neighboring cells at each pixel._
+
 
 ### Reclassification
 
@@ -170,8 +200,11 @@ data["elevation_points"] = xrspatial.classify.natural_breaks(data["elevation"], 
 # Plot the result
 fig, ax = plt.subplots(figsize=(8,5))
 data["elevation"].plot(ax=ax);
-data["elevation_points"].plot(ax=ax);
+data["elevation_points"].plot(ax=ax)
+plt.title("Elevation categories");
 ```
+
+_**Figure 7.X.** Elevation categories (k=5) based on natural breaks classification scheme._
 
 ```python
 bins = [1,2,3,4,5]
@@ -182,8 +215,11 @@ data["slope_points"] = xrspatial.classify.reclassify(data["slope_nb"], bins=bins
 
 # Plot
 fig, ax = plt.subplots(figsize=(6,4))
-data["slope_points"].plot(ax=ax, cmap="Greens");
+data["slope_points"].plot(ax=ax, cmap="Greens")
+plt.title("Slope categories");
 ```
+
+_**Figure 7.X.** Slope categories (k=5) based on natural breaks classification scheme._
 
 ```python
 bins = [90, 150, 210, 270, 360]
@@ -194,8 +230,12 @@ data["aspect_points"] = xrspatial.classify.reclassify(data["aspect"], bins=bins,
 
 # Make a plot
 fig, ax = plt.subplots(figsize=(6,4))
-data["aspect_points"].plot(ax=ax, cmap="RdYlBu_r", alpha=0.7);
+data["aspect_points"].plot(ax=ax, cmap="RdYlBu_r", alpha=0.7)
+plt.title("Aspect categories based on custom classifier");
 ```
+
+_**Figure 7.X.** Aspect categories based on a custom a custom classification scheme._
+
 
 ## Local operations
 
@@ -206,32 +246,16 @@ A local function operates ..
 data["suitability_index"] = data["elevation_points"]*0.2 + data["aspect_points"]*0.6 + data["slope_points"]*0.2
 
 # Plot the suitability index
-data["suitability_index"].plot(cmap="RdYlBu_r", figsize=(6,4));
+data["suitability_index"].plot(cmap="RdYlBu_r", figsize=(6,4))
+plt.title("Suitability index");
 ```
 
-```python
-from xrspatial.convolution import circle_kernel
+_**Figure 7.X.** Suitability index calculated based on elevation, aspect and slope._
 
-# Kernel size
-k = 15
-
-# Generate a kernel (basically produces a boolean matrix full with numbers 1 and 0)
-kernel = circle_kernel(1, 1, k)
-
-# Smoothen the surface
-data["smoothed_suitability_index"] = xrspatial.focal.focal_stats(data["suitability_index"], kernel, stats_funcs=["mean"])
-
-# Plot the result
-data["smoothed_suitability_index"].plot(cmap="RdYlBu_r", figsize=(6,4));
-```
 
 ## Global operations
 
 In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. They are essential for modeling cumulative effects, spatial dependencies, and large-scale patterns in fields like hydrology, transportation, and environmental science.
-
-- Viewshed analysis
-- Cost distance and least-cost path
-- Proximity (distance, allocation, direction)
 
 
 ### Statistical summaries
@@ -274,12 +298,17 @@ observer_location = gpd.GeoDataFrame(geometry=[Point(xcoord, ycoord)],
 ```
 
 ```python
-# Observer elevation at a given point
-observer_elevation = data["elevation"].interp(x=xcoord, y=ycoord).item()
-print("Observer's elevation:", observer_elevation, "meters.")
+# Elevation at a given point
+elevation = data["elevation"].interp(x=xcoord, y=ycoord).item()
+print("Elevation in the location of observer:", elevation, "meters.")
 ```
 
+Let's imagine that there is a bird watching tower that rises 10 meters above the ground. In the following, we assume that a person is viewing the landscape on top of this tower to improve the visibility of the landscape. To calculate viewshed from this observation point, we can use `.viewshed()` function from the `xrspatial` library as follows:
+
 ```python
+# Observer elevation
+observer_elevation = 10
+
 # Calculate viewshed
 data["viewshed"] = xrspatial.viewshed(data["elevation"], 
                                       x=xcoord, 
@@ -304,6 +333,9 @@ observer_location.plot(ax=ax, color="black", marker="x", markersize=15, label="O
 ax.legend(loc="upper left")
 ax.set_title("Visible areas from the observer location");
 ```
+
+_**Figure 7.X.** Visible areas from the observer location based on the viewshed analysis._
+
 
 ## Zonal operations
 
@@ -332,6 +364,8 @@ lake.plot(ax=ax, facecolor="None")
 peak.plot(ax=ax, edgecolor="red", facecolor="None")
 ax.set_title("Lake and Peak polygons");
 ```
+
+_**Figure 7.X.** Two zones that are used for comparison and calculating zonal statistics._
 
 ```python
 # Merge zones into a single GeoDataFrame
@@ -395,6 +429,8 @@ ax.legend(loc="upper left")
 plt.title("Origin and destination");
 ```
 
+_**Figure 7.X.** Origin and destination points that are used to find the least-cost path across the surface._
+
 ```python
 barriers = list(range(1400,1580))
 barriers += list(range(2000,2200))
@@ -420,6 +456,8 @@ route.plot(ax=ax, cmap="gist_heat")
 ax.legend(loc="upper left")
 plt.title("Origin and destination");
 ```
+
+_**Figure 7.X.** The calculated least-cost path from origin to destination based on A\* algorithm._
 
 ```python
 from shapely import LineString
@@ -449,6 +487,9 @@ destination.plot(ax=ax, color="blue", markersize=58, label="Destination")
 ax.legend(loc="upper left")
 plt.title("Least cost path between origin and destination");
 ```
+
+_**Figure 7.X.** Vectorized least-cost path (LineString) across the terrain._
+
 
 ### Flow accumulation
 
