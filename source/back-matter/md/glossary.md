@@ -107,6 +107,9 @@ GeoSeries
 Git
   A free and open-source distributed {term}`version control` system that tracks changes in {term}`source code`. Git allows multiple users to work on a project at the same time while maintaining a complete version history. Developed by Linus Torvalds.
 
+Git branch
+  An parallel copy of files in a Git repository starting from a specific snapshot that allows for independent development without affecting the original files from which the branch was created. Branches can be useful for adding new features or experimenting without worrying that the changes will affect the original files or code functionality.
+
 Git clone
   The command in {term}`Git` used to create a copy of an existing {term}`repository`. Cloning downloads the files, commit history, and branches from the repository.
 
@@ -116,11 +119,17 @@ Git commit
 Git merge
   The command in {term}`Git` used to integrate changes from multiple {term}`commits <Git commit>` or branches. Merging combines commit histories and preserves changes both branches. If changes have been made to the same sections of the same file, merging may result in a merge conflict.
 
+Git merge conflict
+  A situation in which Git cannot automatically combine changes from different commits or branches because similar sections of the same files have been modified. This could occur in GitHub if you change similar sections of the same file locally and directly on GitHub. In such cases, the conflict must be resolved manually by editing together the changes and making a new commit.
+
 Git pull
   The command in {term}`Git` used to fetch updates from a remote {term}`repository` and merge them into the current branch. Pulling ensures the local repository is up to date with the latest changes in the remote repository.
 
 Git push
   The command in {term}`Git` used to upload local {term}`commits <Git commit>` to a remote {term}`repository`. Pushing makes the latest changes available to others with access to the repository.
+
+Git remote
+  A reference to a repository stored on a server or hosting service like GitHub. Remotes are often useful for keeping project files in sync when multiple users are working in the same code repository.
 
 GitHub
   An online platform for collaborative development of {term}`software` based around the {term}`Git` {term}`version control` system. GitHub provides tools for collaboration, version control, issue tracking, and code review.
