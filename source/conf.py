@@ -45,6 +45,7 @@ extensions = [
     "myst_nb",
     "sphinxcontrib.bibtex",
     "sphinx_thebe",
+    "sphinx_design",
 ]
 
 # Add any paths that contain templates here, relative to this directory.

@@ -6,3 +6,4 @@ nbsphinx
 sphinxcontrib-bibtex
 myst-nb
 sphinx-thebe
+sphinx-design
