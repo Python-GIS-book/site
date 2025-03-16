@@ -36,7 +36,7 @@ The book consists of 4 parts:
         .. figure:: _static/gis-intro.svg
            :class: sd-avatar-xl
         
-        This part provides essential building blocks for processing, analyzing and visualizing geographic data using open source Python packages.
+         This part provides essential building blocks for processing, analyzing and visualizing geographic data using open source Python packages.
 
     .. grid-item-card:: Part 3: Geographic data analysis applications
          :link: part3/index.html
@@ -46,7 +46,7 @@ The book consists of 4 parts:
          .. figure:: _static/gis-applications.svg
             :class: sd-avatar-xl
 
-        This part of the book will introduce several real-world examples of how to apply geographic data analysis in Python. It assumes that you understand the key concepts presented in previous parts.
+         This part of the book will introduce several real-world examples of how to apply geographic data analysis in Python. It assumes that you understand the key concepts presented in previous parts.
 
     .. grid-item-card:: Appendices: Working efficiently with Python
          :link: appendices/index.html
@@ -56,7 +56,7 @@ The book consists of 4 parts:
          .. figure:: _static/appendices.svg
             :class: sd-avatar-xl
 
-        The appendices include information for working efficiently with Python: how to develop software with git, how to write and use Python script files, and tips for testing and debugging code.
+         The appendices include information for working efficiently with Python: how to develop software with git, how to write and use Python script files, and tips for testing and debugging code.
 
 .. toctree::
    :maxdepth: 2
