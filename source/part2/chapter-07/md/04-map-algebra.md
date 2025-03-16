@@ -12,7 +12,6 @@ jupyter:
     name: python3
 ---
 
-<!-- #region -->
 # Map algebra
 
 Map algebra is often used as an umbrella term for conducting various mathematical and logical operations, as well as spatial analysis operations, based on raster data. These techniques were first developed by Dana Tomlin in the 1970's ({cite}`Tomlin1990`) and they have since then been a fundamental part of raster data analysis in GIS. Map algebra provides a set of operators that can be applied to a single or multiple raster layers to produce a new raster layer. For instance, you can do basic mathematical calculations (multiply, sum, divide, etc.) between multiple raster layers that are central operations for map overlay analysis, or conduct mathematical operations on a single raster to compute values based on a given neighborhood. The latter can be used e.g. to detect hot spots based on the pixel values, in which high values are surrounded by other high values. Map algebra is widely used in terrain analysis, land suitability modeling, hydrological modeling, and environmental assessments. By integrating spatial data with mathematical functions, it enables powerful spatial decision-making.
@@ -23,11 +22,10 @@ The operations of map algebra can be divided into different categories:
 - **Local operations** apply functions on a cell-by-cell basis between multiple raster layers.
 - **Global operations** use all raster cells in computations to calculate e.g. statistical summaries.
 - **Zonal operations** analyze values within defined zones, such as calculating average elevation within a watershed.
-- **Incremental operations** apply iterative calculations or cumulative functions over space or time (e.g. cumulative cost surfaces, time-step modeling in environmental simulations).
-
+- **Incremental operations** apply iterative calculations or cumulative functions over space or time (e.g. cumulative cost surfaces).
 
 There are various Python libraries that can be used for map algebra. In here, we are focusing on `xarray`, `xarray-spatial` and `rasterstats` libraries that provide numerous useful functionalities to conduct focal, local, global, zonal and incremental operations using raster data. In the following, we will apply map algebra to Digital Elevation Model (DEM) raster data obtained from Eastern Finland to gain knowledge of the topography in this area. In addition, we will learn how it is possible to conduct suitability analysis to find an optimal location to build a new summer house based on specific criteria, and how to conduct path finding on raster data to find least-cost route between two locations across the raster cost surface. 
-<!-- #endregion -->
+
 
 ## Focal operations
 
