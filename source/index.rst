@@ -24,7 +24,7 @@ The book consists of 4 parts:
          :text-align: center
 
          .. figure:: _static/python-essentials.svg
-            :figwidth: 200px
+            :figwidth: 150px
         
          New to Python? This part will teach you the fundamental concepts of programming using Python. No previous experience required!
 
@@ -34,7 +34,7 @@ The book consists of 4 parts:
          :text-align: center
 
          .. figure:: _static/gis-intro.svg
-            :class: sd-avatar-xl
+            :figwidth: 150px
         
          This part provides essential building blocks for processing, analyzing and visualizing geographic data using open source Python packages.
 
@@ -44,7 +44,7 @@ The book consists of 4 parts:
          :text-align: center
 
          .. figure:: _static/gis-applications.svg
-            :class: sd-avatar-xl
+            :figwidth: 150px
 
          This part of the book will introduce several real-world examples of how to apply geographic data analysis in Python. It assumes that you understand the key concepts presented in previous parts.
 
@@ -54,7 +54,7 @@ The book consists of 4 parts:
          :text-align: center
 
          .. figure:: _static/appendices.svg
-            :class: sd-avatar-xl
+            :figwidth: 150px
 
          The appendices include information for working efficiently with Python: how to develop software with git, how to write and use Python script files, and tips for testing and debugging code.
 
