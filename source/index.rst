@@ -23,8 +23,8 @@ The book consists of 4 parts:
          :columns: 12 12 5 5
          :text-align: center
 
-         .. figure:: _static/python-essentials.svg
-            :figwidth: 150px
+         .. image:: _static/python-essentials.svg
+            :height: 100px
         
          New to Python? This part will teach you the fundamental concepts of programming using Python. No previous experience required!
 
