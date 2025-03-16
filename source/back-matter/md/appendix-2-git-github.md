@@ -285,7 +285,7 @@ You can find some other useful Git commands from the [GitHub GIT CHEAT SHEET](ht
 
 ### Branches
 
-*{term}`Branches <Git branch>`* are parallel versions of code in a repository that start from a specific snapshot and can develop independently without affecting the original files used to make the branch. In the repositories that we are using most of the time, the base branch is called `main`, so you may see references to that under "Current branch" in the JupyterLab Git extension, for example. When pushing changes to the `main` branch of a Git repository in a terminal, we can type `git push`, however the complete syntax for the command is actually `git push origin main`. The complete command indicates changes should be pushed to the remote repository `origin` and to the branch `main`. The remote called `origin` would typically be the one shown when checking the remotes using the command `git remote -v`. You can find more about branches in Git in the [Git Source Control Management documentation](https://git-scm.com/docs/git-branch) [^branches].
+*{term}`Branches <Git branch>`* are parallel versions of code in a repository that start from a specific snapshot and can develop independently without affecting the original files used to make the branch. In the repositories that we are using most of the time, the base branch is called `main`, so you may see references to that under "Current branch" in the JupyterLab Git extension, for example. When pushing changes to the `main` branch of a Git repository in a terminal, we can type `git push`, however the complete syntax for the command is actually `git push origin main`. The complete command indicates changes should be pushed to the remote repository `origin` and to the branch `main`. The remote called `origin` would typically be the one shown when checking the remotes using the command `git remote -v`. You can find more about branches in Git in the [Git Source Control Management documentation](https://git-scm.com/docs/git-branch) [^branch].
 
 ### Resolving conflicts
 
@@ -312,7 +312,7 @@ More information about using Git and GitHub can be found at the following links:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
-[^branches]: <https://git-scm.com/docs/git-branch>
+[^branch]: <https://git-scm.com/docs/git-branch>
 [^cheat_sheet]: <https://education.github.com/git-cheat-sheet-education.pdf>
 [^command_line]: <https://www.codecademy.com/articles/command-line-commands>
 [^email]: <https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address>
