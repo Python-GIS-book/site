@@ -445,7 +445,7 @@ Select another column from the data (for example, travel times by car: `car_r_t`
 # Create one subplot. Control figure size in here.
 fig, ax = plt.subplots(figsize=(6, 4))
 
-# Visualize the travel times into 9 classes using "Quantiles" classification scheme
+# Visualize the travel times using a classification scheme and add a legend
 grid.plot(ax=ax,
           column="car_r_t",
           cmap="RdYlBu",
@@ -672,7 +672,7 @@ Explore different background map options and make a final visualization of our t
 # Control figure size in here
 fig, ax = plt.subplots(figsize=(8, 5))
 
-# Plot the data
+# Visualize the travel times using a classification scheme and add a legend
 grid.plot(ax=ax,
           column="pt_r_t",
           cmap="RdYlBu",
