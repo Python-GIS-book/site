@@ -314,7 +314,7 @@ More information about using Git and GitHub can be found at the following links:
 
 [^branches]: <https://git-scm.com/docs/git-branch>
 [^cheat_sheet]: <https://education.github.com/git-cheat-sheet-education.pdf>
-[command_line]: <https://www.codecademy.com/articles/command-line-commands>
+[^command_line]: <https://www.codecademy.com/articles/command-line-commands>
 [^email]: <https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address>
 [^merge_conflicts]: <https://git-scm.com/docs/git-merge#_how_to_resolve_conflicts>
 [^remotes]: <https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes>
