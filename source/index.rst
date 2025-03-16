@@ -29,12 +29,12 @@ The book consists of 4 parts:
          New to Python? This part will teach you the fundamental concepts of programming using Python. No previous experience required!
 
     .. grid-item-card:: Part 2: Introduction to GIS with Python
-        :link: part2/index.html
-        :columns: 12 12 5 5
-        :text-align: center
+         :link: part2/index.html
+         :columns: 12 12 5 5
+         :text-align: center
 
-        .. figure:: _static/gis-intro.svg
-           :class: sd-avatar-xl
+         .. figure:: _static/gis-intro.svg
+            :class: sd-avatar-xl
         
          This part provides essential building blocks for processing, analyzing and visualizing geographic data using open source Python packages.
 
