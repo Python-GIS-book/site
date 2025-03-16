@@ -427,18 +427,24 @@ result.explore()
 
 ```
 How does the result differ from the version where we joined information from the grids to the points? 
-- this result has polygon geometry in stead of points
-- order of the columns is different
+- This result has polygon geometry in stead of points.
+- Order of the columns is different.
   
 What would be the benefit of doing the join this way around?
 - If your research question is related to the population grid, then it might make more sense to join additional information to those statistical units.
-- If the point data would be somehow sensitive, joining the information to a coarser spatial unit might be meaningful
+- If the point data would be somehow sensitive, joining the information to a coarser spatial unit might be meaningful.
 
 
 6.11
 
 ```python
-#insert solution here
+
+# Find the nearest road
+nearest_park_roads = parks.sjoin_nearest(roads, distance_col="distance")
+
+# What is the maximum distance?
+max_dist = nearest_park_roads["distance"].max()
+print(f"Maximum distance is {max_dist:.2f} meters.")
 ```
 
 6.12
@@ -464,6 +470,17 @@ stop_buffer = stop_buffer.merge(building_count, on="stop_id")
 # As a result, we should have identical number of buildings identified per stop (see the last two columns)
 stop_buffer.head()
 ```
+6.13
+
+```python
+union.explore()
+```
+
+When hovering over the buffer geometry border, the attribute values in the table change. 
+Inside the ring, the attributes of the Helsinki railway station are kept in the results, whereas outside of the ring 
+the table does not include any data for the columns associated with the railway station.
+
+
 <!-- #endregion -->
 
 <!-- #region -->
