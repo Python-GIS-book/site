@@ -33,8 +33,8 @@ The book consists of 4 parts:
          :columns: 12 12 5 5
          :text-align: center
 
-         .. figure:: _static/gis-intro.svg
-            :figwidth: 150px
+         .. image:: _static/gis-intro.svg
+            :height: 100px
         
          This part provides essential building blocks for processing, analyzing and visualizing geographic data using open source Python packages.
 
@@ -43,8 +43,8 @@ The book consists of 4 parts:
          :columns: 12 12 5 5
          :text-align: center
 
-         .. figure:: _static/gis-applications.svg
-            :figwidth: 150px
+         .. image:: _static/gis-applications.svg
+            :height: 100px
 
          This part of the book will introduce several real-world examples of how to apply geographic data analysis in Python. It assumes that you understand the key concepts presented in previous parts.
 
@@ -53,8 +53,8 @@ The book consists of 4 parts:
          :columns: 12 12 5 5
          :text-align: center
 
-         .. figure:: _static/appendices.svg
-            :figwidth: 150px
+         .. image:: _static/appendices.svg
+            :height: 100px
 
          The appendices include information for working efficiently with Python: how to develop software with git, how to write and use Python script files, and tips for testing and debugging code.
 
