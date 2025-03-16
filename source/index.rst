@@ -18,7 +18,7 @@ The book consists of 4 parts:
 .. grid:: 2
     :gutter: 2
 
-    .. grid-item-card:: Part 1: Python essentials|br|
+    .. grid-item-card:: Part 1: Python essentials |br|
          :link: part1/index.html
          :columns: 12 12 5 5
          :text-align: center
