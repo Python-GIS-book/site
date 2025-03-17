@@ -44,12 +44,12 @@ data
 
 ```python
 # Plot the elevation values and contours
-fig, ax = plt.subplots(figsize=(9,7))
+fig, ax = plt.subplots(figsize=(9, 7))
 data["elevation"].plot(ax=ax)
 cs = data["elevation"].plot.contour(ax=ax, colors="red", linewidths=0.5)
 
 # Label contours
-ax.clabel(cs, cs.levels, inline=True, fontsize=6);
+ax.clabel(cs, cs.levels, inline=True, fontsize=6)
 plt.title("Elevation in Tuupovaara, Finland");
 ```
 
@@ -59,7 +59,7 @@ _**Figure 7.X.** Elevation surface with contour lines._
 ### Slope
 
 ```python
-# Calculate slope 
+# Calculate slope
 data["slope"] = xrspatial.slope(data["elevation"])
 ```
 
@@ -77,7 +77,7 @@ _**Figure 7.X.** Slope in degrees calculated from the elevation data._
 # Calculate aspect
 data["aspect"] = xrspatial.aspect(data["elevation"])
 # Filter values that are below 0 (areas without aspect defined)
-data["aspect"] = data["aspect"].where(data["aspect"] >=0)
+data["aspect"] = data["aspect"].where(data["aspect"] >= 0)
 data["aspect"].plot(cmap="jet")
 plt.title("Aspect (degree between 0-360)\n0 faces North");
 ```
@@ -105,7 +105,7 @@ Hot and cold spots identify statistically significant hot spots and cold spots i
 
 ```python
 data["hot_cold"] = xrspatial.focal.hotspots(data["elevation"], kernel)
-data["hot_cold"].plot(cmap="RdYlBu_r", figsize=(6,4));
+data["hot_cold"].plot(cmap="RdYlBu_r", figsize=(6, 4))
 plt.title("Identified hot and cold spots based the elevation");
 ```
 
@@ -149,7 +149,7 @@ norm = Normalize(vmin=np.min(array), vmax=np.max(array))
 # Create hillshade based on elevation
 hillshade = ls.shade(array, cmap=colormap, vert_exag=1, blend_mode="overlay")
 ax.imshow(hillshade)
-ax.set_title("Hillshade with color blending");
+ax.set_title("Hillshade with color blending")
 
 # Create a ScalarMappable for colorbar
 sm = cm.ScalarMappable(cmap=colormap, norm=norm)
@@ -174,9 +174,11 @@ kernel = xrspatial.convolution.circle_kernel(1, 1, k)
 
 ```python
 # Smoothen the surface
-data["smoothed_elevation"] = xrspatial.focal.focal_stats(data["elevation"], kernel, stats_funcs=["mean"])
+data["smoothed_elevation"] = xrspatial.focal.focal_stats(
+    data["elevation"], kernel, stats_funcs=["mean"]
+)
 
-data["smoothed_elevation"].plot(cmap="RdYlBu_r", figsize=(6,4))
+data["smoothed_elevation"].plot(cmap="RdYlBu_r", figsize=(6, 4))
 plt.title("Kernel smoothing with kernel size 15");
 ```
 
@@ -199,11 +201,13 @@ percentage = 0.2
 n = int(round(int(data["elevation"].count()) * percentage, 0))
 
 # Reclassify elevation into 5 classes and add number 1 to the result to make the scale from 1-5
-data["elevation_points"] = xrspatial.classify.natural_breaks(data["elevation"], k=5, num_sample=n) + 1
+data["elevation_points"] = (
+    xrspatial.classify.natural_breaks(data["elevation"], k=5, num_sample=n) + 1
+)
 
 # Plot the result
-fig, ax = plt.subplots(figsize=(8,5))
-data["elevation"].plot(ax=ax);
+fig, ax = plt.subplots(figsize=(8, 5))
+data["elevation"].plot(ax=ax)
 data["elevation_points"].plot(ax=ax)
 plt.title("Elevation categories");
 ```
@@ -211,14 +215,18 @@ plt.title("Elevation categories");
 _**Figure 7.X.** Elevation categories (k=5) based on natural breaks classification scheme._
 
 ```python
-bins = [1,2,3,4,5]
-new_values = [4,5,3,2,1]
+bins = [1, 2, 3, 4, 5]
+new_values = [4, 5, 3, 2, 1]
 
-data["slope_nb"] = xrspatial.classify.natural_breaks(data["slope"], k=5, num_sample=n) + 1
-data["slope_points"] = xrspatial.classify.reclassify(data["slope_nb"], bins=bins, new_values=new_values)
+data["slope_nb"] = (
+    xrspatial.classify.natural_breaks(data["slope"], k=5, num_sample=n) + 1
+)
+data["slope_points"] = xrspatial.classify.reclassify(
+    data["slope_nb"], bins=bins, new_values=new_values
+)
 
 # Plot
-fig, ax = plt.subplots(figsize=(6,4))
+fig, ax = plt.subplots(figsize=(6, 4))
 data["slope_points"].plot(ax=ax, cmap="Greens")
 plt.title("Slope categories");
 ```
@@ -230,10 +238,12 @@ bins = [90, 150, 210, 270, 360]
 new_values = [1, 3, 5, 3, 1]
 
 # Classify
-data["aspect_points"] = xrspatial.classify.reclassify(data["aspect"], bins=bins, new_values=new_values) 
+data["aspect_points"] = xrspatial.classify.reclassify(
+    data["aspect"], bins=bins, new_values=new_values
+)
 
 # Make a plot
-fig, ax = plt.subplots(figsize=(6,4))
+fig, ax = plt.subplots(figsize=(6, 4))
 data["aspect_points"].plot(ax=ax, cmap="RdYlBu_r", alpha=0.7)
 plt.title("Aspect categories based on custom classifier");
 ```
@@ -247,10 +257,14 @@ A local function operates .. Chapter 7.6 includes many more examples of using lo
 
 ```python
 # Calculate the suitability index by weighting the "points" given for different layers
-data["suitability_index"] = data["elevation_points"]*0.2 + data["aspect_points"]*0.6 + data["slope_points"]*0.2
+data["suitability_index"] = (
+    data["elevation_points"] * 0.2
+    + data["aspect_points"] * 0.6
+    + data["slope_points"] * 0.2
+)
 
 # Plot the suitability index
-data["suitability_index"].plot(cmap="RdYlBu_r", figsize=(6,4))
+data["suitability_index"].plot(cmap="RdYlBu_r", figsize=(6, 4))
 plt.title("Suitability index");
 ```
 
@@ -296,9 +310,7 @@ xcoord = bbox.centroid.x
 ycoord = bbox.centroid.y
 
 # Create a GeoDataFrame of the centroid
-observer_location = gpd.GeoDataFrame(geometry=[Point(xcoord, ycoord)], 
-                                     crs=data.rio.crs
-                                    )
+observer_location = gpd.GeoDataFrame(geometry=[Point(xcoord, ycoord)], crs=data.rio.crs)
 ```
 
 ```python
@@ -314,11 +326,9 @@ Let's imagine that there is a bird watching tower that rises 10 meters above the
 observer_elevation = 10
 
 # Calculate viewshed
-data["viewshed"] = xrspatial.viewshed(data["elevation"], 
-                                      x=xcoord, 
-                                      y=ycoord,
-                                      observer_elev=observer_elevation
-                                     )
+data["viewshed"] = xrspatial.viewshed(
+    data["elevation"], x=xcoord, y=ycoord, observer_elev=observer_elevation
+)
 ```
 
 ```python
@@ -331,7 +341,9 @@ data["hillshade"].plot(ax=ax, cmap="Greys")
 data["viewshed"].plot(ax=ax, cmap="RdYlBu_r", alpha=0.6)
 
 # Observer location
-observer_location.plot(ax=ax, color="black", marker="x", markersize=15, label="Observer location")
+observer_location.plot(
+    ax=ax, color="black", marker="x", markersize=15, label="Observer location"
+)
 
 # Add legend and title
 ax.legend(loc="upper left")
@@ -385,11 +397,11 @@ affine = data.rio.transform()
 
 # Run the zonal statistics
 stats = rasterstats.zonal_stats(
-    zones,  
-    elevation_array,  
-    affine=affine,  
+    zones,
+    elevation_array,
+    affine=affine,
     stats=["mean", "min", "max", "std"],  # Statistics to calculate
-    nodata=data["elevation"].rio.nodata  # Handle nodata values
+    nodata=data["elevation"].rio.nodata,  # Handle nodata values
 )
 
 stats
@@ -436,15 +448,17 @@ plt.title("Origin and destination");
 _**Figure 7.X.** Origin and destination points that are used to find the least-cost path across the surface._
 
 ```python
-barriers = list(range(1400,1580))
-barriers += list(range(2000,2200))
+barriers = list(range(1400, 1580))
+barriers += list(range(2000, 2200))
 
 origin_latlon = (origin.geometry.y.item(), origin.geometry.x.item())
 destination_latlon = (destination.geometry.y.item(), destination.geometry.x.item())
 ```
 
 ```python
-least_cost_path = xrspatial.a_star_search(data["elevation"], origin_latlon, destination_latlon, barriers)
+least_cost_path = xrspatial.a_star_search(
+    data["elevation"], origin_latlon, destination_latlon, barriers
+)
 ```
 
 ```python
@@ -470,9 +484,9 @@ from shapely import LineString
 transform = data.rio.transform()
 
 # Extract (row, col) indices where path is not NaN
-path_indices = np.argwhere(~np.isnan(least_cost_path.values)) 
+path_indices = np.argwhere(~np.isnan(least_cost_path.values))
 
-coords = [transform * (int(col), int(row)) for row, col in path_indices] 
+coords = [transform * (int(col), int(row)) for row, col in path_indices]
 
 # Create a LineString from the path
 line = LineString(coords)
