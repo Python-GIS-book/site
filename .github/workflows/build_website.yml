@@ -27,7 +27,7 @@ jobs:
         with:
           miniforge-version: latest
           auto-activate-base: false
-          python-version: '3.10'
+          python-version: '3.12'
           environment-file: ci/build-website.yaml
           activate-environment: build-web-book
 

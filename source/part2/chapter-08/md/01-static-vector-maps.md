@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.7
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -134,16 +134,13 @@ Finally, we can save the figure as PNG image.
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Visualize the travel times
-grid.plot(ax=ax, 
-          column="car_r_t", 
-          cmap="Spectral"
-          )
+grid.plot(ax=ax, column="car_r_t", cmap="Spectral")
 
 # Set axis view limits based on the total bounds of the grid layer
 ax.set_xlim(grid.total_bounds[0], grid.total_bounds[2])
 ax.set_ylim(grid.total_bounds[1], grid.total_bounds[3])
 
-# Set the x and y axis off 
+# Set the x and y axis off
 plt.axis("off")
 
 # Adjust padding around the subplot
@@ -175,12 +172,13 @@ from matplotlib_scalebar.scalebar import ScaleBar
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Visualize the travel times
-grid.plot(ax=ax, 
-          column="car_r_t", 
-          cmap="Spectral",
-          legend=True,
-          legend_kwds={"label": "Travel times by public transport (min)"},
-          )
+grid.plot(
+    ax=ax,
+    column="car_r_t",
+    cmap="Spectral",
+    legend=True,
+    legend_kwds={"label": "Travel times by public transport (min)"},
+)
 
 # Add roads and change the color, linewidth and and transparency
 train.plot(ax=ax, color="grey", linewidth=1, alpha=0.1)
@@ -195,7 +193,7 @@ ax.set_ylim(grid.total_bounds[1], grid.total_bounds[3])
 # Add scalebar
 ax.add_artist(ScaleBar(dx=1, location="lower right"))
 
-# Set the x and y axis off 
+# Set the x and y axis off
 plt.axis("off")
 
 # Adjust padding around the subplot
@@ -261,6 +259,7 @@ First, let's try out natural breaks classifier that tries to split the values in
 
 ```python jupyter={"outputs_hidden": false}
 import mapclassify
+
 mapclassify.NaturalBreaks(y=travel_times, k=10)
 ```
 
@@ -283,7 +282,7 @@ grid["pt_r_t"].plot.hist(bins=50, color="lightgray", title="Natural Breaks")
 
 # Add vertical lines for class breaks
 for break_point in classifier.bins:
-    plt.axvline(break_point,  linestyle="dashed", linewidth=1)
+    plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
 _**Figure 8.7**. Histogram of the travel time values with natural breaks classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
@@ -301,10 +300,8 @@ ax = grid.plot(
     scheme="Natural_Breaks",
     k=9,
     legend=True,
-    legend_kwds={"title": "Travel times (min)",
-                 "bbox_to_anchor": (1.4, 1)
-                },
-    )
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
+)
 
 # Add scalebar
 ax.add_artist(ScaleBar(1, location="lower right"))
@@ -357,9 +354,7 @@ ax = grid.plot(
     scheme="quantiles",
     k=10,
     legend=True,
-    legend_kwds={"title": "Travel times (min)",
-                 "bbox_to_anchor": (1.4, 1)
-                },
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
 )
 
 # Add scalebar
@@ -408,9 +403,7 @@ ax = grid.plot(
     scheme="prettybreaks",
     k=10,
     legend=True,
-    legend_kwds={"title": "Travel times (min)",
-                 "bbox_to_anchor": (1.4, 1)
-                },
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
 )
 
 # Add scalebar
@@ -446,16 +439,16 @@ Select another column from the data (for example, travel times by car: `car_r_t`
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Visualize the travel times using a classification scheme and add a legend
-grid.plot(ax=ax,
-          column="car_r_t",
-          cmap="RdYlBu",
-          linewidth=0,
-          scheme="FisherJenks",
-          k=9,
-          legend=True,
-          legend_kwds={"title": "Travel times (min)",
-                 "bbox_to_anchor": (1.4, 1)}
-         )
+grid.plot(
+    ax=ax,
+    column="car_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="FisherJenks",
+    k=9,
+    legend=True,
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
+)
 
 
 # Add scalebar
@@ -504,27 +497,31 @@ When plotting the map, we can pass the break values using `classification_kwds`.
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
 
 # Visualize the travel times into 9 classes using "Quantiles" classification scheme
-grid.plot(ax=axs[0],
-          column="car_r_t",
-          cmap="RdYlBu",
-          linewidth=0,
-          scheme="UserDefined",
-          classification_kwds={'bins': break_values},
-        )
+grid.plot(
+    ax=axs[0],
+    column="car_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="UserDefined",
+    classification_kwds={"bins": break_values},
+)
 
-grid.plot(ax=axs[1],
-          column="pt_r_t",
-          cmap="RdYlBu",
-          linewidth=0,
-          scheme="UserDefined",
-          classification_kwds={'bins': break_values},
-          legend=True,
-          legend_kwds={"title": "Travel times (min)",
-                       "bbox_to_anchor": (1.4, 1),
-                       "interval": True,
-                       "frameon": False},
-          label="Travel times by public transport"
-        )
+grid.plot(
+    ax=axs[1],
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="UserDefined",
+    classification_kwds={"bins": break_values},
+    legend=True,
+    legend_kwds={
+        "title": "Travel times (min)",
+        "bbox_to_anchor": (1.4, 1),
+        "interval": True,
+        "frameon": False,
+    },
+    label="Travel times by public transport",
+)
 
 axs[0].set_title("Travel times by public car")
 axs[1].set_title("Travel times by public transport")
@@ -592,13 +589,14 @@ credits = "Travel time data by Tenkanen & Toivonen (2020),\n Map Data © OpenStr
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Plot the data
-grid.plot(ax=ax,
-          column="pt_r_t",
-          cmap="RdYlBu",
-          linewidth=0,
-          scheme="Natural_Breaks",
-          k=9,
-          alpha=0.6,
+grid.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="Natural_Breaks",
+    k=9,
+    alpha=0.6,
 )
 
 # Set the x and y axis off and adjust padding around the subplot
@@ -606,7 +604,9 @@ plt.axis("off")
 plt.tight_layout()
 
 # Add basemap with basic OpenStreetMap visualization
-ctx.add_basemap(ax, attribution=credits, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs)
+ctx.add_basemap(
+    ax, attribution=credits, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs
+)
 ```
 
 _**Figure 8.16**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
@@ -619,7 +619,9 @@ _**Figure 8.16**. Static map of travel times visualized on top of a basemap. Dat
 fig, ax = plt.subplots(figsize=(6, 4))
 
 #  Plot only a subset of the data
-grid.loc[(grid["pt_r_t"] <=15)].plot(ax=ax, column="pt_r_t", cmap="RdYlBu", linewidth=0, alpha=0.6)
+grid.loc[(grid["pt_r_t"] <= 15)].plot(
+    ax=ax, column="pt_r_t", cmap="RdYlBu", linewidth=0, alpha=0.6
+)
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
@@ -642,7 +644,9 @@ Now our map has much more details as the zoom level of the background map is lar
 fig, ax = plt.subplots(figsize=(6, 4))
 
 #  Plot only a subset of the data
-grid.loc[(grid["pt_r_t"] <=15)].plot(ax=ax, column="pt_r_t", cmap="RdYlBu", linewidth=0, alpha=0.6)
+grid.loc[(grid["pt_r_t"] <= 15)].plot(
+    ax=ax, column="pt_r_t", cmap="RdYlBu", linewidth=0, alpha=0.6
+)
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
@@ -673,19 +677,22 @@ Explore different background map options and make a final visualization of our t
 fig, ax = plt.subplots(figsize=(8, 5))
 
 # Visualize the travel times using a classification scheme and add a legend
-grid.plot(ax=ax,
-          column="pt_r_t",
-          cmap="RdYlBu",
-          linewidth=0,
-          scheme="user_defined",
-          classification_kwds={'bins': break_values},
-          k=9,
-          alpha=0.5,
-          legend=True,
-          legend_kwds={"title": "Travel times (min)",
-                       "bbox_to_anchor": (1.27, 1),
-                      "frameon": False}
-         )
+grid.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="RdYlBu",
+    linewidth=0,
+    scheme="user_defined",
+    classification_kwds={"bins": break_values},
+    k=9,
+    alpha=0.5,
+    legend=True,
+    legend_kwds={
+        "title": "Travel times (min)",
+        "bbox_to_anchor": (1.27, 1),
+        "frameon": False,
+    },
+)
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
@@ -695,7 +702,9 @@ plt.tight_layout()
 ax.add_artist(ScaleBar(1, location="lower right", box_alpha=0.5))
 
 # Add basemap with basic OpenStreetMap visualization
-ctx.add_basemap(ax, attribution=credits, source=ctx.providers.CartoDB.Voyager, crs=grid.crs)
+ctx.add_basemap(
+    ax, attribution=credits, source=ctx.providers.CartoDB.Voyager, crs=grid.crs
+)
 ```
 
 ## Footnotes

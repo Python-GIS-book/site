@@ -9,7 +9,6 @@ import time
 
 
 def main():
-
     def backup_env(env_file="environment.yml"):
         """Creates a backup copy of the current environment file."""
         # Create filename for backup file
