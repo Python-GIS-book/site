@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.16.7
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -464,4 +464,76 @@ stop_buffer = stop_buffer.merge(building_count, on="stop_id")
 # As a result, we should have identical number of buildings identified per stop (see the last two columns)
 stop_buffer.head()
 ```
+<!-- #endregion -->
+
+<!-- #region -->
+## Chapter 8
+
+
+8.1
+
+```python
+
+# Example solution:
+
+# Create one subplot. Control figure size in here.
+fig, ax = plt.subplots(figsize=(6, 4))
+
+# Visualize the travel times using a classification scheme and add a legend
+grid.plot(ax=ax,
+          column="car_r_t",
+          cmap="RdYlBu",
+          linewidth=0,
+          scheme="FisherJenks",
+          k=9,
+          legend=True,
+          legend_kwds={"title": "Travel times (min)",
+                 "bbox_to_anchor": (1.4, 1)}
+         )
+
+# Add scalebar
+ax.add_artist(ScaleBar(1, location="lower right"))
+
+# Set the x and y axis off and adjust padding around the subplot
+plt.axis("off")
+plt.tight_layout()
+
+# Save the figure as png file with resolution of 300 dpi
+outfp = "static_map2.png"
+plt.savefig(outfp, dpi=300)
+```
+
+8.2
+
+```python
+# Example solution: 
+
+# Control figure size in here
+fig, ax = plt.subplots(figsize=(8, 5))
+
+# Visualize the travel times using a classification scheme and add a legend
+grid.plot(ax=ax,
+          column="pt_r_t",
+          cmap="RdYlBu",
+          linewidth=0,
+          scheme="user_defined",
+          classification_kwds={'bins': break_values},
+          k=9,
+          alpha=0.5,
+          legend=True,
+          legend_kwds={"title": "Travel times (min)",
+                       "bbox_to_anchor": (1.27, 1),
+                      "frameon": False}
+         )
+
+# Set the x and y axis off and adjust padding around the subplot
+plt.axis("off")
+plt.tight_layout()
+
+# Add scalebar
+ax.add_artist(ScaleBar(1, location="lower right", box_alpha=0.5))
+
+# Add basemap with basic OpenStreetMap visualization
+ctx.add_basemap(ax, source=ctx.providers.CartoDB.Voyager, crs=grid.crs)
+
 <!-- #endregion -->

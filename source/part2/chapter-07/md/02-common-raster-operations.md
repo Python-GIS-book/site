@@ -559,11 +559,11 @@ The downscaling operation seem to have worked well as the patterns are still cle
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Upscaling
 
-The process of upscaling works very similarly to downscaling and we can use the same `rioxarray` method to increase the resolution of the input raster. In the following, we will specify that the new shape of the output `Dataset` will be two times larger than the input data. When upscaling, you are ultimately estimating values to new pixel cells based on the neighboring raster values of a given cell in the input raster. There are various ways to interpolate data which are provided in the Table 7.2.
+The process of upscaling works very similarly to downscaling and we can use the same `rioxarray` method to increase the resolution of the input raster. In the following, we will specify that the new shape of the output `Dataset` will be two times larger than the input data. When upscaling, you are ultimately estimating values to new pixel cells based on the neighboring raster values of a given cell in the input raster. There are various ways to interpolate data which are provided in the Table 7.3.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
-: _**Table 7.2**. Different resampling methods and their descriptions._
+: _**Table 7.3**. Different resampling methods and their descriptions._
 
 | Resampling Method    | Description                                                                                                               |
 |:---------------------|:--------------------------------------------------------------------------------------------------------------------------|
@@ -577,7 +577,7 @@ The process of upscaling works very similarly to downscaling and we can use the 
 
 <!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
 \begin{longtable}[]{@{}ll@{}}
-\caption{\emph{\textbf{Table 7.2}. Different resampling methods and
+\caption{\emph{\textbf{Table 7.3}. Different resampling methods and
 their descriptions.}}\tabularnewline
 \toprule\noalign{}
 Resampling Method & Description \\

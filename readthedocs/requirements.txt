@@ -1,0 +1,9 @@
+sphinx-book-theme
+sphinx
+ipython
+jupyter-sphinx
+nbsphinx
+sphinxcontrib-bibtex
+myst-nb
+sphinx-thebe
+sphinx-design

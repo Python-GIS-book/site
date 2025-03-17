@@ -1,0 +1,53 @@
+name: pythongis
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.12.9
+  - myst-nb=1.2.0
+  - git=2.48.1
+  - jupyterlab=4.3.6
+  - jupyterlab-git=0.51.0
+  - jupyterlab-myst=2.4.2
+  - contextily=1.6.2
+  - dask=2025.2.0
+  - dask-geopandas=0.4.3
+  - datashader=0.17.0
+  - folium=0.19.5
+  - fiona=1.10.1
+  - geocube=0.7.1
+  - geodatasets=2024.8.0
+  - geojson=3.2.0
+  - geopandas=1.0.1
+  - geoplot=0.5.1
+  - geopy=2.4.1
+  - hvplot=0.11.2
+  - lonboard=0.10.4
+  - matplotlib=3.10.1
+  - matplotlib-scalebar=0.9.0
+  - numpy=1.26.4
+  - openjdk=23.0.2
+  - openpyxl=3.1.5
+  - osmnx=2.0.1
+  - overturemaps=0.12.0
+  - owslib=0.32.1
+  - palettable=3.3.3
+  - pandas=2.2.3
+  - pyinterpolate=0.4.2
+  - pyrosm=0.6.2
+  - pysal=25.1
+  - pysheds=0.4
+  - rasterio=1.4.3
+  - r5py=1.0.1
+  - r5py.sampledata.helsinki>=0.1.1dev2
+  - r5py.sampledata.sao_paulo>=0.1.1dev2
+  - rasterstats=0.20.0
+  - rioxarray=0.18.2
+  - scipy=1.15.2
+  - seaborn=0.13.2
+  - shapely=2.0.7
+  - xarray=2025.1.2
+  - xarray_leaflet=0.2.3
+  - xarray-spatial=0.4.0
+  - zarr=2.18.4

@@ -45,6 +45,7 @@ extensions = [
     "myst_nb",
     "sphinxcontrib.bibtex",
     "sphinx_thebe",
+    "sphinx_design",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -107,7 +108,6 @@ nbsphinx_allow_errors = True
 html_static_path = ["_static"]
 
 html_css_files = [
-    "css/landing-page.css",
     "css/custom-toggle-button.css",
     "css/custom-text-formatting.css",
 ]
