@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.16.7
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -371,7 +371,7 @@ _**Figure 8.10**. Static map of travel times visualized using the quantiles clas
 
 #### Pretty breaks
 
-The pretty breaks classification shceme rounds the class break values and divides the range equally to creat nice and pretty intervals. This classification scheme might be tempting to use as the break values of the class intervals are intuitive. However, depending on the distribution of the data, the group sizes might vary greatly which might lead to misleading visualizations.
+The pretty breaks classification shceme rounds the class break values and divides the range equally to create intervals that look nice and that are easy to read. This classification scheme might be tempting to use as it creates intuitive and visually appealing intervals. However, depending on the distribution of the data, the group sizes might vary greatly which might lead to misleading visualizations.
 
 ```python
 mapclassify.PrettyBreaks(y=travel_times, k=10)
@@ -490,7 +490,9 @@ for break_point in classifier.bins:
 _**Figure 8.13**. Histogram of the travel time values with user defined class breaks. Data source: Tenkanen & Toivonen 2020._
 
 
-When plotting the map, we can pass the break values using `classification_kwds`. For a final touch, we can plot two subplots side by side displaying travel times by different modes of transport using our custom classifier. As the two maps use an identical classification it is enough to plot only one legend.
+When plotting the map, we can pass the break values using `classification_kwds`. For a final touch, we can plot two subplots side by side displaying travel times by different modes of transport using our custom classifier. 
+
+We can plot only one legend, as the two maps use an identical classification. We can add interval brackets on our legend to denote open and closed intervals. An open interval is denoted with parentheses and it does not inlcude the endpoint values. A closed interval is denoted with square brackets and it includes both endpoints. Most of the intervals in our classificaion scheme are half-open (for example, `(10, 20]`) so that the lower bound is not included in the interval, but the upper bound is. 
 
 ```python
 # Create one subplot. Control figure size in here.
@@ -523,7 +525,7 @@ grid.plot(
     label="Travel times by public transport",
 )
 
-axs[0].set_title("Travel times by public car")
+axs[0].set_title("Travel times by car")
 axs[1].set_title("Travel times by public transport")
 
 # Set the x and y axis off and adjust padding around the subplot
@@ -690,6 +692,7 @@ grid.plot(
     legend_kwds={
         "title": "Travel times (min)",
         "bbox_to_anchor": (1.27, 1),
+        "interval":True,
         "frameon": False,
     },
 )
