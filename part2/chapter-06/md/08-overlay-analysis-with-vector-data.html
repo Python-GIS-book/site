@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
@@ -42,12 +42,12 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-06/md/08-overlay-analysis-with-vector-data';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -286,16 +286,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -501,7 +492,7 @@ document.write(`
   <!-- #region editable=true slideshow={"slide_type": ""} -->
 <section class="tex2jax_ignore mathjax_ignore" id="vector-overlay-operations">
 <h1>Vector overlay operations<a class="headerlink" href="#vector-overlay-operations" title="Link to this heading">#</a></h1>
-<p>Map overlay is probably the oldest analysis technique in GIS to understand relations between layers of geographic information. Already in the mid 19th century, John Snow famously identified the source of cholera outbreak in London to a specific public water pump by overlaying two point maps on top of each other (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id25" title="David Unwin. Integration through overlay analysis. In Spatial Analytical Perspectives on GIS, pages 129-138. Routledge, London, 1st edition, 1996.">Unwin, 1996</a></span>). Map overlay has been an important analytical tool for very long time, as being able to combine and analyse multiple layers of spatial data together is crucial for various spatial planning processes, including e.g. suitability analyses, environment impact assessment, or when doing zoning and landuse plans (e.g. <span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id11" title="Lewis Keeble. Principles and Practice of Town and Country Planning. Estates Gazette, London, 1952.">Keeble, 1952</a></span>; <span id="id3"><a class="reference internal" href="../../../back-matter/nb/references.html#id16" title="Ian Masser and Henk Ottens. Urban Planning and Geographic Information Systems. In John Stillwell, Stan Geertman, and Stan Openshaw, editors, Geographical Information and Planning: European Perspectives, pages 25-42. Springer, Berlin, Heidelberg, 1999. URL: https://doi.org/10.1007/978-3-662-03954-0_2, doi:10.1007/978-3-662-03954-0_2.">Masser and Ottens, 1999</a></span>; <span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id19" title="Carl Steinitz, Paul Parker, and Lawrie Jordan. Hand-Drawn Overlays: Their History and Prospective Uses. Landscape Architecture, 66(5):444–455, 1976.">Steinitz <em>et al.</em>, 1976</a></span>).</p>
+<p>Map overlay is probably the oldest analysis technique in GIS to understand relations between layers of geographic information. Already in the mid 19th century, John Snow famously identified the source of cholera outbreak in London to a specific public water pump by overlaying two point maps on top of each other (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id27" title="David Unwin. Integration through overlay analysis. In Spatial Analytical Perspectives on GIS, pages 129-138. Routledge, London, 1st edition, 1996.">Unwin, 1996</a></span>). Map overlay has been an important analytical tool for very long time, as being able to combine and analyse multiple layers of spatial data together is crucial for various spatial planning processes, including e.g. suitability analyses, environment impact assessment, or when doing zoning and landuse plans (e.g. <span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id11" title="Lewis Keeble. Principles and Practice of Town and Country Planning. Estates Gazette, London, 1952.">Keeble, 1952</a></span>; <span id="id3"><a class="reference internal" href="../../../back-matter/nb/references.html#id16" title="Ian Masser and Henk Ottens. Urban Planning and Geographic Information Systems. In John Stillwell, Stan Geertman, and Stan Openshaw, editors, Geographical Information and Planning: European Perspectives, pages 25-42. Springer, Berlin, Heidelberg, 1999. URL: https://doi.org/10.1007/978-3-662-03954-0_2, doi:10.1007/978-3-662-03954-0_2.">Masser and Ottens, 1999</a></span>; <span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id19" title="Carl Steinitz, Paul Parker, and Lawrie Jordan. Hand-Drawn Overlays: Their History and Prospective Uses. Landscape Architecture, 66(5):444–455, 1976.">Steinitz <em>et al.</em>, 1976</a></span>).</p>
 <p>Overlay operations can be done both with vector and raster data. Vector overlay operations are commonly used technique to produce new geometries and associated attribute data based on two or more vector layers. When working with multiple spatial datasets (especially polygon or line layers), you might need to create new shapes based on places where the layers overlap (or do not overlap) with each other. Typical overlay operations include union, intersection, and difference (Figure 6.52). These are named after the result of the combination of two or more input layers which produce at least one (or more) output layer. Being able to combine spatial data layers like this is an important feature in most GIS tools. These manipulations are also often called as set operations.</p>
 <p>The basic idea of vector overlay operations is demonstrated in Figure 6.53 where the green areas represent the areas which constitute the result after the overlay operation. It is good to keep in mind that overlays operate at the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> level, not on individual geometries, and the properties from both are retained (often, not always). In effect, for every shape in the left <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, this operation is executed against every other shape in the right <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code></p>
 <p><img alt="_Figure 6.53. Typical vector overlay operations between two geographic layers (circle and rectangles). _" src="../../../_images/vector_overlay_processes.png" /></p>

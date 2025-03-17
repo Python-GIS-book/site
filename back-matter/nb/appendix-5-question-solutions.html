@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
@@ -42,12 +42,12 @@
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'back-matter/nb/appendix-5-question-solutions';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -286,16 +286,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -556,6 +547,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-4">Chapter 4</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-6">Chapter 6</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-8">Chapter 8</a></li>
 </ul>
             </nav>
         </div>
@@ -960,6 +952,72 @@ document.write(`
 </pre></div>
 </div>
 </section>
+<section id="chapter-8">
+<h2>Chapter 8<a class="headerlink" href="#chapter-8" title="Link to this heading">#</a></h2>
+<p>8.1</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Example solution:</span>
+
+<span class="c1"># Create one subplot. Control figure size in here.</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Visualize the travel times using a classification scheme and add a legend</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+          <span class="n">column</span><span class="o">=</span><span class="s2">&quot;car_r_t&quot;</span><span class="p">,</span>
+          <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
+          <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+          <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;FisherJenks&quot;</span><span class="p">,</span>
+          <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+          <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times (min)&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+         <span class="p">)</span>
+
+<span class="c1"># Add scalebar</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">ScaleBar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">))</span>
+
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Save the figure as png file with resolution of 300 dpi</span>
+<span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;static_map2.png&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfp</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>8.2</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example solution: </span>
+
+<span class="c1"># Control figure size in here</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Visualize the travel times using a classification scheme and add a legend</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+          <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
+          <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
+          <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+          <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;user_defined&quot;</span><span class="p">,</span>
+          <span class="n">classification_kwds</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;bins&#39;</span><span class="p">:</span> <span class="n">break_values</span><span class="p">},</span>
+          <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+          <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+          <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times (min)&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.27</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                      <span class="s2">&quot;frameon&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+         <span class="p">)</span>
+
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Add scalebar</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">ScaleBar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">,</span> <span class="n">box_alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+
+<span class="c1"># Add basemap with basic OpenStreetMap visualization</span>
+<span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">CartoDB</span><span class="o">.</span><span class="n">Voyager</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1053,6 +1111,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-4">Chapter 4</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-6">Chapter 6</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-8">Chapter 8</a></li>
 </ul>
   </nav></div>
 

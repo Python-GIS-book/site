@@ -4,18 +4,17 @@ About the authors
 Henrikki Tenkanen
 ^^^^^^^^^^^^^^^^^
 
-- Web: `https://www.researchgate.net/profile/Henrikki_Tenkanen/ <https://www.researchgate.net/profile/Henrikki_Tenkanen/>`_
-- Twitter: `@tenkahen <https://twitter.com/tenkahen>`_
+- Henrikki's group website: `https://gistlab.science/ <https://gistlab.science/>`_
+- Henrikki on Bluesky: `@htenkanen.bsky.social <https://bsky.app/profile/htenkanen.bsky.social>`_
 
 Vuokko Heikinheimo
 ^^^^^^^^^^^^^^^^^^
 
-- Web: `https://researchportal.helsinki.fi/en/persons/vuokko-vilhelmiina-heikinheimo <https://researchportal.helsinki.fi/en/persons/vuokko-vilhelmiina-heikinheimo>`_
-- Twitter: `@Vuoggis <https://twitter.com/vuoggis>`_
+- Vuokko's reserach profile: `https://researchportal.helsinki.fi/en/persons/vuokko-vilhelmiina-heikinheimo <https://researchportal.helsinki.fi/en/persons/vuokko-vilhelmiina-heikinheimo>`_
+- Vuokko on Bluesky: `@vuoggis.bsky.social <https://bsky.app/profile/vuoggis.bsky.social>`_
 
 David Whipp
 ^^^^^^^^^^^
 
-- Web: `https://davewhipp.github.io/markdown-cv/ <https://davewhipp.github.io/markdown-cv/>`_
-- Twitter: `@dave_whipp <https://twitter.com/dave_whipp>`_
-
+- Dave's group website: `https://helsinki.fi/geodynamics <https://helsinki.fi/geodynamics>`_
+- Dave on Bluesky: `@davewhipp.bsky.social <https://bsky.app/profile/davewhipp.bsky.social>`_

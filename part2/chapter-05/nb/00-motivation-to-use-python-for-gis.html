@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
@@ -42,12 +42,12 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-05/nb/00-motivation-to-use-python-for-gis';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -286,16 +286,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -570,11 +561,13 @@ document.write(`
 <li><p>Core raster libraries: <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code></p></li>
 </ul>
 <p><img alt="Figure 5.1. Python ecosystem for GIS and Earth Observation ()." src="../../../_images/python-gis-ecosystem.png" /></p>
-<p><em><strong>Figure 5.1</strong>. Python ecosystem for GIS and Earth Observation (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id24" title="Henrikki Tenkanen. Pygieons: software to visualize python os ecosystem for gis and earth observation. 2022. URL: https://github.com/pygieons/pygieons.">Tenkanen, 2022</a></span>).</em></p>
+<p><em><strong>Figure 5.1</strong>. Python ecosystem for GIS and Earth Observation (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id26" title="Henrikki Tenkanen. Pygieons: software to visualize python os ecosystem for gis and earth observation. 2022. URL: https://github.com/pygieons/pygieons.">Tenkanen, 2022</a></span>).</em></p>
 <p>One drawback of such a broad open source ecosystem compared to using a specific GIS software such as ArcGIS, is that open source tools and their documentation are spread under different Python modules and created by different developers. This means that when working you need to familiarize yourself with many different tools and their documentation, whereas in ArcGIS everything is packaged under a same module called <code class="docutils literal notranslate"><span class="pre">arcpy</span></code> and all the documentation can be found from a single location. However, open source libraries have many other benefits as described earlier.</p>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+</section>
+</section>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="ecosystem" role="doc-footnote">
@@ -582,8 +575,6 @@ document.write(`
 <p><a class="reference external" href="https://ecosystem.pythongis.org/">https://ecosystem.pythongis.org/</a></p>
 </aside>
 </aside>
-</section>
-</section>
 
     <script type="text/x-thebe-config">
     {

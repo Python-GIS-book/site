@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
@@ -42,12 +42,12 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-08/nb/01-static-vector-maps';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -286,16 +286,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -529,9 +520,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-simple-map-with-multiple-layers">Plotting a simple map with multiple layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-simple-multi-layer-map">Creating a simple multi-layer map</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-simple-map">Plotting a simple map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-multiple-layers">Adding multiple layers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-our-map">Customizing our map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-legend-and-a-scalebar">Adding a legend and a scalebar</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-schemes">Classification schemes</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-8-1">Question 8.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-classifiers">Explore the classifiers</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#natural-breaks">Natural breaks</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles">Quantiles</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pretty-breaks">Pretty breaks</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-8-1">Question 8.1</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-map-classification">Custom map classification</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-basemap">Adding a basemap</a><ul class="nav section-nav flex-column">
@@ -552,11 +556,12 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="static-maps">
 <h1>Static maps<a class="headerlink" href="#static-maps" title="Link to this heading">#</a></h1>
-<p>Creating static maps is an integral part of any geographic data analysis process. Visualizing geographic information as maps is useful not only as an end result for communicating the results but also during the data analysis process for data exploration and visual analysis. Static maps can be exported to various image formats and integrated, for example, in reports and scientific articles just like any other figures. In this section, we will practice plotting static maps using sample data from Helsinki, Finland. We will visualize information about travel times across the region from the Helsinki Region Travel Time Matrix dataset (Tenkanen &amp; Toivonen 2020). In addition, we can add additional spatial context to the map through adding information about the transport network using <a class="reference external" href="https://www.avoindata.fi/data/en_GB/dataset/hsl-n-linjat">open data from Helsinki Region Transport</a> <a class="footnote-reference brackets" href="#hsl-opendata" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and bacground maps from various sources.</p>
-<p><a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mapping.html">Mapping tools in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code></a> allow creating simple static maps easily. In the background, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> uses <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for creating the plots and we can use <a class="reference external" href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html"><code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a> tools for further customizing our figures. Later, we will use <code class="docutils literal notranslate"><span class="pre">contextily</span></code> for adding spatial context through basemaps.</p>
-<section id="plotting-a-simple-map-with-multiple-layers">
-<h2>Plotting a simple map with multiple layers<a class="headerlink" href="#plotting-a-simple-map-with-multiple-layers" title="Link to this heading">#</a></h2>
-<p>Let’s start by importing the required modules and defining our data sources.</p>
+<p>Static visualizations of geographic information are useful for many purposes during a data analysis process and for communicating the end result. Static maps can be exported to various image formats and integrated, for example, in reports and scientific articles. In this section, we will practice plotting static maps using sample data from Helsinki, Finland.</p>
+<p><a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mapping.html">Mapping tools in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code></a> <a class="footnote-reference brackets" href="#geopandas-mappingtools" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> allow creating simple static maps easily. In the background, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> uses <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for creating the plots and we can use <a class="reference external" href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html"><code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a> <a class="footnote-reference brackets" href="#matplotlib-pyplot" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> tools for further customizing our figures. We covered basics of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> already in Part I chapter 4 and will apply some of these techniques for plotting our static maps. Additionally, we will explore how to enhance our maps by adding basemaps with <a class="reference external" href="https://github.com/darribas/contextily"><code class="docutils literal notranslate"><span class="pre">contextily</span></code></a> <a class="footnote-reference brackets" href="#contextily" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+<section id="creating-a-simple-multi-layer-map">
+<h2>Creating a simple multi-layer map<a class="headerlink" href="#creating-a-simple-multi-layer-map" title="Link to this heading">#</a></h2>
+<p>We will visualize information about travel times across the region from the Helsinki Region Travel Time Matrix dataset (<span id="id4"><a class="reference internal" href="../../../back-matter/nb/references.html#id25" title="Henrikki Tenkanen and Tuuli Toivonen. Longitudinal spatial dataset on travel times and distances by different travel modes in helsinki region. Scientific data, 7(1):77, 2020. doi:https://doi.org/10.1038/s41597-020-0413-y.">Tenkanen and Toivonen, 2020</a></span>).
+We will also incorporate <a class="reference external" href="https://www.avoindata.fi/data/en_GB/dataset/hsl-n-linjat">transport network data from Helsinki Region Transport</a> <a class="footnote-reference brackets" href="#hsl-opendata" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> to add spatial context. Let’s start by importing the required modules and defining our data sources.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -580,7 +585,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>The travel time data contains multiple columns with information on travel times and distances from each statistical grid square to the central railway station in Helsinki.</p>
+<p>The travel time data contains multiple columns with information about travel times and distances from each statistical grid square to the central railway station in Helsinki.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">columns</span>
@@ -596,7 +601,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>The NoData values in the data are presented with value -1. Let’s set the nodata values as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> before proceeding:</p>
+<p>For a detailed description of each column, see Table 3 in <span id="id6"><a class="reference internal" href="../../../back-matter/nb/references.html#id25" title="Henrikki Tenkanen and Tuuli Toivonen. Longitudinal spatial dataset on travel times and distances by different travel modes in helsinki region. Scientific data, 7(1):77, 2020. doi:https://doi.org/10.1038/s41597-020-0413-y.">Tenkanen and Toivonen, 2020</a></span>. We will use column <code class="docutils literal notranslate"><span class="pre">'pt_r_t'</span></code> which contains information about travel time in minutes to the central railway station by public transportation in rush hour traffic. Missing data are presented with value -1. Let’s set the missing values as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> before proceeding:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
@@ -604,7 +609,9 @@ document.write(`
 </div>
 </div>
 </div>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> for visualizing a simple map representing the travel times. Let’s visualize the rush hour public transport travel times (column <code class="docutils literal notranslate"><span class="pre">'pt_r_t'</span></code>) for our map. We can speficy the column that we want to visualize through the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> method parameters:</p>
+<section id="plotting-a-simple-map">
+<h3>Plotting a simple map<a class="headerlink" href="#plotting-a-simple-map" title="Link to this heading">#</a></h3>
+<p>Now we can use <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> for visualizing a simple map representing the rush hour public transport travel times (<code class="docutils literal notranslate"><span class="pre">'pt_r_t'</span></code>). We can specify the column which we want to visualize creating a color gradient of the  values with the <code class="docutils literal notranslate"><span class="pre">column</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">)</span>
@@ -615,11 +622,15 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../../_images/b25874079d77280d94b17a94d41d8033fa04227545e65a2b2398cfc82d9db849.png" src="../../../_images/b25874079d77280d94b17a94d41d8033fa04227545e65a2b2398cfc82d9db849.png" />
+<img alt="../../../_images/32f5445f4c036c530d959f74f71c98cb3a80c0321bd0acb318968f8ba31d9a1e.png" src="../../../_images/32f5445f4c036c530d959f74f71c98cb3a80c0321bd0acb318968f8ba31d9a1e.png" />
 </div>
 </div>
+<p><em><strong>Figure 8.1</strong>. Simple static map plotted using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. The color gradient represents travel times by public transport to the central railway station in Helsinki. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
 <p>What we have here is a <code class="docutils literal notranslate"><span class="pre">choropleth</span> <span class="pre">map</span></code> where the colors of each grid square polygon are based on values from the column <code class="docutils literal notranslate"><span class="pre">pt_r_t</span></code>. We will see later how to change the classification scheme that determines the assignment of values to each class for the visualization.</p>
-<p>The power of geographic information often relies on overlaying multiple features and exploring their spatial relations. Here, we can visualize the transport network data on top of the travel time information to add spatial context in our map. In order to plot multiple layers in the same figure, the first thing is to check the coordinate reference system (CRS) of the data. Before proceeding, let’s check that the input layers have a defined CRS and see if they match:</p>
+</section>
+<section id="adding-multiple-layers">
+<h3>Adding multiple layers<a class="headerlink" href="#adding-multiple-layers" title="Link to this heading">#</a></h3>
+<p>The power of geographic information often relies on overlaying multiple features and exploring their spatial relations. Here, we can visualize the transport network data on top of the travel time information to add spatial context in our map. In order to plot multiple layers in the same figure, the first thing is to check the coordinate reference system (CRS) of each layer and check that they match:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the crs of each layer</span>
@@ -641,8 +652,8 @@ EPSG:4326
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">)</span>
-<span class="n">train</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;brown&quot;</span><span class="p">)</span>
-<span class="n">metro</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">train</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">metro</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -650,9 +661,10 @@ EPSG:4326
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../../_images/adec485ca83e219dec2d147c59740cdd78285b734979eaaaa67b312433fb66ee.png" src="../../../_images/adec485ca83e219dec2d147c59740cdd78285b734979eaaaa67b312433fb66ee.png" />
+<img alt="../../../_images/ee3b67bd7b3597c798a3ac609b94cd4316c5b85d4260f9c7ad990249f6674cd8.png" src="../../../_images/ee3b67bd7b3597c798a3ac609b94cd4316c5b85d4260f9c7ad990249f6674cd8.png" />
 </div>
 </div>
+<p><em><strong>Figure 8.2</strong>. Failed attempt to plot a static map with multiple layers.</em></p>
 <p>We need to re-project the data in order to get the layers in the same coordinate space. Here, we can re-project the linear features (train and metro) from WGS 84 to ETRS89 / TM35FIN (EPSG:3067). While doing this, we can get the crs definition based on the grid layer ensuring that the crs definitions will be identical.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -663,7 +675,7 @@ EPSG:4326
 </div>
 </div>
 </div>
-<p>Now the layers should be in the same crs</p>
+<p>Now the layers should be in the same coordinate reference system:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the crs of each layer</span>
@@ -681,7 +693,7 @@ EPSG:3067
 </div>
 </div>
 </div>
-<p>Once the data are in the same projection, we can plot them on a map. First, we plot one of the layers and store that plot object in the variable <code class="docutils literal notranslate"><span class="pre">ax</span></code> (referring to the subplot object) and use this for plotting the other layers in the same subplot:</p>
+<p>Once the data share the same projection, we can finally create a multi-layer map. We start by plotting the grid layer and storing the plot object in the variable <code class="docutils literal notranslate"><span class="pre">ax</span></code>.  Then we can plot the train and metro line in the same subplot:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">)</span>
@@ -694,159 +706,185 @@ EPSG:3067
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../../_images/55e5c7357adae1d64886955e66264b526d7968d80a2efc11f91f4997a939abfd.png" src="../../../_images/55e5c7357adae1d64886955e66264b526d7968d80a2efc11f91f4997a939abfd.png" />
+<img alt="../../../_images/4c85eed5b38638d554062bfcb09e33a26ba18248234461a9a3f46994b1f4662a.png" src="../../../_images/4c85eed5b38638d554062bfcb09e33a26ba18248234461a9a3f46994b1f4662a.png" />
 </div>
 </div>
-<p>Now our layers are nicely aligned, but the map needs some further improvement regarding the layout. For better control of the plot features, we can start using <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code>. Some map elements such as color and linewidth are still easy to configure directly when plotting data via <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, but we need <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for controlling other features related to the layout. Some useful plotting options include:</p>
+<p><em><strong>Figure 8.3</strong>. Static map with multiple layers displaying the original data extent. Data source: Tenkanen &amp; Toivonen 2020; Helsinki Region Transport 2024.</em></p>
+</section>
+<section id="customizing-our-map">
+<h3>Customizing our map<a class="headerlink" href="#customizing-our-map" title="Link to this heading">#</a></h3>
+<p>Now our layers are nicely aligned, but the map needs some further improvement. Some map elements such as color and linewidth are still easy to configure directly via <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, but we need <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> for controlling other features related to the layout. Let’s apply the following changes to our plot:</p>
 <ul class="simple">
-<li><p>Changing the colors of the choropleth map using the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> parameter. See available <a class="reference external" href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib">colormap options from matplotlib documentation</a> <a class="footnote-reference brackets" href="#matplotlib-colormaps" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p></li>
-<li><p>Adding a legend. You can read more info about adjusting legends in the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <a class="reference external" href="https://matplotlib.org/tutorials/intermediate/legend_guide.html">legend guide</a> <a class="footnote-reference brackets" href="#matplotlib-legend" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p></li>
-<li><p>Changing line colors using the <code class="docutils literal notranslate"><span class="pre">color</span></code> parameter. See <a class="reference external" href="https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors">color options from matplotlib pyplot documentation</a> <a class="footnote-reference brackets" href="#matplotlib-colors" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p></li>
-<li><p>Changing <code class="docutils literal notranslate"><span class="pre">linewidth</span></code></p></li>
-<li><p>Adding transparency using the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> parameter (ranges from 0 to 1 where 0 is fully transparent)</p></li>
-<li><p>Define the classification scheme using the <code class="docutils literal notranslate"><span class="pre">scheme</span></code> parameter</p></li>
-<li><p>Cropping the figure by adjusting the view limit of each axis</p></li>
-<li><p>Using <code class="docutils literal notranslate"><span class="pre">maptlotlib</span></code> <code class="docutils literal notranslate"><span class="pre">tight_layout</span></code>to adjust the subplot to fit in the figure area.</p></li>
-<li><p>Setting x- and y- axis on or off using <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code>.</p></li>
+<li><p>Changing the colors of the choropleth map using the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> parameter. See available <a class="reference external" href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib">colormap options from <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> documentation</a> <a class="footnote-reference brackets" href="#matplotlib-colormaps" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p></li>
+<li><p>Changing line colors using the <code class="docutils literal notranslate"><span class="pre">color</span></code> parameter. See <a class="reference external" href="https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors">color options from <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> documentation</a> <a class="footnote-reference brackets" href="#matplotlib-colors" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.</p></li>
+<li><p>Changing the <code class="docutils literal notranslate"><span class="pre">linewidth</span></code> of line features.</p></li>
+<li><p>Adding transparency using the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> parameter (this parameter ranges from 0 to 1 where 0 is fully transparent).</p></li>
+<li><p>Cropping the figure by adjusting the view limit of each axis. We can get the desired plot extent from the <code class="docutils literal notranslate"><span class="pre">total_bounds</span></code> of the grid layer. This way we don’t need to separately crop the train line that goes outside the extent of the grid data.</p></li>
+<li><p>Using a <code class="docutils literal notranslate"><span class="pre">tight_layout</span></code>to adjust the subplot to fit in the figure area via <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p></li>
+<li><p>Removing the frame and and axis labels through setting x- and y- axis on or off via <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p></li>
 </ul>
+<p>Finally, we can save the figure as PNG image.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create one subplot. Control figure size in here.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="c1"># Visualize the travel times</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;car_r_t&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Add roads on top of the grid</span>
-<span class="c1"># (use ax parameter to define the map on top of which the second items are plotted)</span>
-<span class="n">train</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># Add metro on top of the previous map</span>
-<span class="n">metro</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;car_r_t&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">)</span>
 
 <span class="c1"># Set axis view limits based on the total bounds of the grid layer</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">grid</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">grid</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
 
-<span class="c1"># Set axis off (remove the frame and labels from x and y axis)</span>
+<span class="c1"># Set the x and y axis off</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 
-<span class="c1"># Remove the empty white-space around the axes</span>
+<span class="c1"># Adjust padding around the subplot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
 <span class="c1"># Save the figure as png file with resolution of 300 dpi</span>
-<span class="c1"># outfp = &quot;static_map.png&quot;</span>
-<span class="c1"># plt.savefig(outfp, dpi=300)</span>
+<span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;static_map.png&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfp</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/9c8406b2474e6b5dfa43a32d6b1fa7d540e68271bac0f201c90a7786eabc6eca.png" src="../../../_images/9c8406b2474e6b5dfa43a32d6b1fa7d540e68271bac0f201c90a7786eabc6eca.png" />
+<img alt="../../../_images/4c22f82da2c2a42830679d600a3bb6f808c86b115ba47e475fd6e46fc1e345c0.png" src="../../../_images/4c22f82da2c2a42830679d600a3bb6f808c86b115ba47e475fd6e46fc1e345c0.png" />
 </div>
 </div>
+<p><em><strong>Figure 8.4</strong>. Static map with multiple layers with adjusted extent and colors. Data source: Tenkanen &amp; Toivonen 2020; Helsinki Region Transport 2024.</em></p>
 </section>
-<section id="classification-schemes">
-<h2>Classification schemes<a class="headerlink" href="#classification-schemes" title="Link to this heading">#</a></h2>
-<p>With choropleth maps, it is essential to pay attention to the classification scheme that is used to display the values. We will now learn how to use classification schemes from the <a class="reference external" href="https://pysal.org/">PySAL</a> <a class="reference external" href="https://pysal.org/mapclassify/">mapclassify library</a> to classify values into multiple classes for visualization purposes. These classification schemes can be used directly when plotting data in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> as long as <code class="docutils literal notranslate"><span class="pre">mapclassify</span></code> package is also installed.  Available classification schemes include:</p>
-<ul class="simple">
-<li><p>Box_Plot</p></li>
-<li><p>Equal_Interval</p></li>
-<li><p>Fisher_Jenks</p></li>
-<li><p>Fisher_Jenks_Sampled</p></li>
-<li><p>HeadTail_Breaks</p></li>
-<li><p>Jenks_Caspall</p></li>
-<li><p>Jenks_Caspall_Forced</p></li>
-<li><p>Jenks_Caspall_Sampled</p></li>
-<li><p>Max_P_Classifier</p></li>
-<li><p>Maximum_Breaks</p></li>
-<li><p>Natural_Breaks</p></li>
-<li><p>Quantiles</p></li>
-<li><p>Percentiles</p></li>
-<li><p>Std_Mean</p></li>
-<li><p>User_Defined</p></li>
-</ul>
-<p>Let’s continue working with the gridded travel time data and try out different classification schemes for visualizing the public transport traveltimes. We can start exploring the available classification schemes through adding the <code class="docutils literal notranslate"><span class="pre">scheme</span></code> option, while the parameter <code class="docutils literal notranslate"><span class="pre">k</span></code> defines the number of classess to use:</p>
+<section id="adding-a-legend-and-a-scalebar">
+<h3>Adding a legend and a scalebar<a class="headerlink" href="#adding-a-legend-and-a-scalebar" title="Link to this heading">#</a></h3>
+<p>Legend and scalebar are essential elements of an informative map. While they aren’t always necessary, including both into our travel time map adds value by clarifying the data range and geographic scale.</p>
+<p>We can add a map legend directly when plotting the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> through setting <code class="docutils literal notranslate"><span class="pre">legend=True</span></code>.  Additional keywords can be added through <code class="docutils literal notranslate"><span class="pre">legend_kwds</span></code>. When plotting the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> using basic settings, the legend will be a <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html">colorbar object</a> <a class="footnote-reference brackets" href="#matplotlib-colorbar" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> and the legend keyword arguments will control how the colorbar looks. For example, we can add a <code class="docutils literal notranslate"><span class="pre">label</span></code> for our colorbar legend. For additional legend options, have a look at <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mapping.html"><code class="docutils literal notranslate"><span class="pre">geopandas</span></code> mapping tools</a> <a class="footnote-reference brackets" href="#geopandas-mappingtools" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and <a class="reference external" href="https://matplotlib.org/tutorials/intermediate/legend_guide.html"><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> legend guide</a> <a class="footnote-reference brackets" href="#matplotlib-legend" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>.</p>
+<p>A scalebar can be added using the <code class="docutils literal notranslate"><span class="pre">maplotlib-scalebar</span></code> library, which needs to be installed separately in addition to <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. Adding a scalebar is easy as long as the data are in a projected metric coordinate reference system. The <code class="docutils literal notranslate"><span class="pre">ScaleBar</span></code> object only requires one parameter, <code class="docutils literal notranslate"><span class="pre">dx</span></code>, which indicates a size of one pixel in real world units. For a metric CRS, we can simply set <code class="docutils literal notranslate"><span class="pre">dx=1</span></code>. For tips on how to customize the scalebar, have a look at <a class="reference external" href="https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html#Adding-a-scale-bar-to-a-matplotlib-plot"><code class="docutils literal notranslate"><span class="pre">geopandas</span></code> examples gallery</a> <a href="#id19"><span class="problematic" id="id12">[^geopandas_scalebar_examples]</span></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot using 9 classes and classify the values using &quot;Natural Breaks&quot; classification</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
-    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;Natural_Breaks&quot;</span><span class="p">,</span>
-    <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
-    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Set axis off (remove the frame and labels from x and y axis)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-
-<span class="c1"># Remove the empty white-space around the axes</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib_scalebar.scalebar</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScaleBar</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../../_images/c3364a906722447951194e9c314102873dc48eaeef0bf74d05bad260e79550cc.png" src="../../../_images/c3364a906722447951194e9c314102873dc48eaeef0bf74d05bad260e79550cc.png" />
 </div>
-</div>
-<p>In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station.</p>
-<p>Notice also that we now have a different type of map legend in comparison to the colorbar legend we got earlier. When using a classification shceme, the plot automatically shows the  associated class bins.</p>
-<p>We can control the position and title of the legend using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> tools trough changing the properties of the legend object. It is easy to add a label for the legend using <code class="docutils literal notranslate"><span class="pre">legend_kwds</span></code>. You can read more about creating a legend via geopandas <a class="reference external" href="https://geopandas.org/mapping.html#creating-a-legend">in here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create one subplot. Control figure size in here.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-<span class="c1"># Visualize the travel times into 9 classes using &quot;Quantiles&quot; classification scheme</span>
+<span class="c1"># Visualize the travel times</span>
 <span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
-    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;Natural_Breaks&quot;</span><span class="p">,</span>
-    <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;car_r_t&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">,</span>
     <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times by public transport (min)&quot;</span><span class="p">},</span>
 <span class="p">)</span>
 
-<span class="c1"># Re-position the legend and set a title</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">set_bbox_to_anchor</span><span class="p">((</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Travel time (min)&quot;</span><span class="p">)</span>
+<span class="c1"># Add roads and change the color, linewidth and and transparency</span>
+<span class="n">train</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 
-<span class="c1"># Remove the empty white-space around the axes</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1"># Add metro and change the color, linewidth and and transparency</span>
+<span class="n">metro</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># Set axis view limits based on the total bounds of the grid layer</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">grid</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">grid</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Add scalebar</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">ScaleBar</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">))</span>
+
+<span class="c1"># Set the x and y axis off</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="c1"># Adjust padding around the subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(359387.50014083955),
- np.float64(405862.5001315461),
- np.float64(6663612.500044225),
- np.float64(6699637.500037726))
-</pre></div>
-</div>
-<img alt="../../../_images/3cc438cf926c385451de33665c79651acdafd459a3a053a4955e662b75b2c881.png" src="../../../_images/3cc438cf926c385451de33665c79651acdafd459a3a053a4955e662b75b2c881.png" />
+<img alt="../../../_images/614fcea2199c099dd15fc00a33fed2c2254eb5ebcb4048103092377f5ebdfde3.png" src="../../../_images/614fcea2199c099dd15fc00a33fed2c2254eb5ebcb4048103092377f5ebdfde3.png" />
 </div>
 </div>
-<p>Let’s have a closer look at how these <code class="docutils literal notranslate"><span class="pre">mapclassify</span></code> classifiers work. For this purpose, let’s create a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code> without <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values.</p>
+<p><em><strong>Figure 8.5</strong>. Static map with multiple layers and a scale bar. Data source: Tenkanen &amp; Toivonen 2020; Helsinki Region Transport 2024.</em></p>
+</section>
+</section>
+<section id="classification-schemes">
+<h2>Classification schemes<a class="headerlink" href="#classification-schemes" title="Link to this heading">#</a></h2>
+<p>Next, we will see how we can further control the way in which the travel time values are displayed using classification schemes. With choropleth maps, it is essential to pay attention to the classification scheme that is used to display the values. We will now learn how to use classification schemes from the <a class="reference external" href="https://pysal.org/">PySAL</a> <a class="footnote-reference brackets" href="#pysal" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> <a class="reference external" href="https://pysal.org/mapclassify/"><code class="docutils literal notranslate"><span class="pre">mapclassify</span></code> library</a> <a class="footnote-reference brackets" href="#mapclassify" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a> to classify quantitative data into multiple classes for visualization purposes. These classification schemes can be used directly when plotting data in <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> as long as <code class="docutils literal notranslate"><span class="pre">mapclassify</span></code> package is also installed.  Available classification schemes include:</p>
+<ul class="simple">
+<li><p>box_plot</p></li>
+<li><p>equal_interval</p></li>
+<li><p>fisher_jenks</p></li>
+<li><p>fisher_jenks_sampled</p></li>
+<li><p>headtail_breaks</p></li>
+<li><p>jenks_caspall</p></li>
+<li><p>jenks_caspall_forced</p></li>
+<li><p>jenks_caspall_sampled</p></li>
+<li><p>max_p_classifier</p></li>
+<li><p>maximum_breaks</p></li>
+<li><p>natural_breaks</p></li>
+<li><p>quantiles</p></li>
+<li><p>percentiles</p></li>
+<li><p>std_mean</p></li>
+<li><p>user_defined</p></li>
+</ul>
+<p>Each classification scheme partitions the data into mutually exclusive groups that define how the values are displayed on the map. See <span id="id15"><a class="reference internal" href="../../../back-matter/nb/references.html#id18" title="Sergio Rey, Dani Arribas-Bel, and Levi John Wolf. Geographic Data Science with Python. Chapman and Hall/CRC, 1st edition, 2023. ISBN 978-0-429-29250-7. URL: https://geographicdata.science/book/intro.html, doi:10.1201/9780429292507.">Rey <em>et al.</em>, 2023</a></span> for a thorough introduction on the mathematics behind each classification scheme. Choosing an adequate classification scheme and number of classes depends on the message we want to convey with our map and the underlying distribution of the data.</p>
+<section id="explore-the-classifiers">
+<h3>Explore the classifiers<a class="headerlink" href="#explore-the-classifiers" title="Link to this heading">#</a></h3>
+<p>When visualizing travel times we want our map to show regional differences in an intuitive way while avoiding excess detail. To help us choose an adequate classification scheme, let’s have a look at the distribution of the public transport travel times through checking the histogram and descriptive statistics. A histogram is a graphic representation of the distribution of the data. Descriptive statistics summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values. While looking at the histogram, remember that each observation is one 250 meter x 250 meter grid square in the Helsinki region and the histogram shows the distribution of travel times to the central railway station across the whole region.</p>
+<p>For exploring the different classification schemes, let’s create a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code> without <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mapclassify</span>
-
-<span class="c1"># Getting a data Series withouth NaN values</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a data Series withouth NaN values</span>
 <span class="n">travel_times</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>Natural Breaks</p></li>
-</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapclassify</span><span class="o">.</span><span class="n">NaturalBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">travel_times</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;Frequency&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../../_images/26c76ecf7649156e90a78607af8834678faf35521fc13a554c23558b59ef6f1a.png" src="../../../_images/26c76ecf7649156e90a78607af8834678faf35521fc13a554c23558b59ef6f1a.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.6</strong>. Histogram of the travel time values. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">travel_times</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    13020.000000
+mean        53.124654
+std         21.295944
+min          0.000000
+25%         38.000000
+50%         49.000000
+75%         65.000000
+max        181.000000
+Name: pt_r_t, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The maximum travel time to the central railway station by public transport (including time for walking) is 181 minutes, i.e. over three hours. Most of the travel times range between 38 and 65 minutes with an average travel time of 53 minutes. Looking at the histogram (Figure 8.6), we can tell than only a handful of grid squares have more than two hour travel times to the central railway station. These grid squares are most likely located in rather inaccessible places in terms of public transport accessibility.</p>
+<p>Let’s have a closer look at how these <code class="docutils literal notranslate"><span class="pre">mapclassify</span></code> classifiers work and try out different classification schemes for visualizing the public transport traveltimes. In the interactive version of this book, you can try out different numbers of classes and different classification schemes.</p>
+<section id="natural-breaks">
+<h4>Natural breaks<a class="headerlink" href="#natural-breaks" title="Link to this heading">#</a></h4>
+<p>First, let’s try out natural breaks classifier that tries to split the values into natural clusters. The number of observations per bin may vary according to the distribution of the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mapclassify</span>
+
+<span class="n">mapclassify</span><span class="o">.</span><span class="n">NaturalBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -855,25 +893,92 @@ EPSG:3067
 
     Interval       Count
 ------------------------
-[  0.00,  25.00] |   713
-( 25.00,  36.00] |  2129
-( 36.00,  45.00] |  2668
-( 45.00,  54.00] |  2185
-( 54.00,  63.00] |  1760
-( 63.00,  73.00] |  1478
-( 73.00,  87.00] |  1153
-( 87.00, 107.00] |   689
-(107.00, 181.00] |   245
+[  0.00,  23.00] |   524
+( 23.00,  34.00] |  1769
+( 34.00,  42.00] |  2360
+( 42.00,  51.00] |  2363
+( 51.00,  60.00] |  1890
+( 60.00,  71.00] |  1770
+( 71.00,  82.00] |  1123
+( 82.00,  95.00] |   636
+( 95.00, 113.00] |   423
+(113.00, 181.00] |   162
 </pre></div>
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>Quantiles (default is 5 classes):</p></li>
-</ul>
+<p>It’s possible to extract the threshold values into an array:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapclassify</span><span class="o">.</span><span class="n">Quantiles</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapclassify</span><span class="o">.</span><span class="n">NaturalBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">bins</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 24.,  34.,  42.,  49.,  58.,  67.,  79.,  93., 113., 181.])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can further explore the classification on top of the histogram:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Define classifier</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">NaturalBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Plot histogram for public transport rush hour travel time</span>
+<span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Natural Breaks&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add vertical lines for class breaks</span>
+<span class="k">for</span> <span class="n">break_point</span> <span class="ow">in</span> <span class="n">classifier</span><span class="o">.</span><span class="n">bins</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">break_point</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/0c42514ba848709606f156a103e3c2c041e2134a56c26b56b7f7c8ed552b7d96.png" src="../../../_images/0c42514ba848709606f156a103e3c2c041e2134a56c26b56b7f7c8ed552b7d96.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.7</strong>. Histogram of the travel time values with natural breaks classification into 10 groups. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
+<p>Finally, we can visualize our data using the classification scheme through adding the <code class="docutils literal notranslate"><span class="pre">scheme</span></code> option, while the parameter <code class="docutils literal notranslate"><span class="pre">k</span></code> defines the number of classess to use. Note that the syntax via <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> differs a bit from <code class="docutils literal notranslate"><span class="pre">mapclassify</span></code>. We can control the position and title of the legend using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> tools trough changing the properties of the legend object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the data using natural breaks</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;Natural_Breaks&quot;</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times (min)&quot;</span><span class="p">,</span> <span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)},</span>
+<span class="p">)</span>
+
+<span class="c1"># Add scalebar</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">ScaleBar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">))</span>
+
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/49787afe252bdb8b82432ff6f4ce667ec3b548296aabc29adfd3b098f547d8ad.png" src="../../../_images/49787afe252bdb8b82432ff6f4ce667ec3b548296aabc29adfd3b098f547d8ad.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.8</strong>. Static map of travel times visualized using the natural breaks classification scheme. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
+<p>In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station. Notice also that we now have a different type of map legend that shows the associated class bins, now that we used a classification scheme. Here, we set the title and location of the legend using <code class="docutils literal notranslate"><span class="pre">legend_kwds</span></code> at the same time when plotting the map. We use <code class="docutils literal notranslate"><span class="pre">bbox_to_anchor</span></code> to position the legend item so that it does not overlap and cover our map extent.  An alternative way to achieve the same thing would be to add <code class="docutils literal notranslate"><span class="pre">ax.get_legend().set_bbox_to_anchor((1.4,</span> <span class="pre">1))</span></code> after plotting the data via <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. For further tips on customizing choropleth map legends, have a look at <a class="reference external" href="https://geopandas.org/en/stable/gallery/choro_legends.html"><code class="docutils literal notranslate"><span class="pre">geopandas</span> <span class="pre">examples</span> <span class="pre">gallery</span></code></a> <a class="footnote-reference brackets" href="#geopandas-choro-legends" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a>.</p>
+</section>
+<section id="quantiles">
+<h4>Quantiles<a class="headerlink" href="#quantiles" title="Link to this heading">#</a></h4>
+<p>Next, let’s explore the quantiles classification that splits the data so that each class has an equal number of observations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapclassify</span><span class="o">.</span><span class="n">Quantiles</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -882,56 +987,154 @@ EPSG:3067
 
     Interval       Count
 ------------------------
-[  0.00,  36.00] |  2842
-( 36.00,  44.00] |  2377
-( 44.00,  55.00] |  2711
-( 55.00,  70.00] |  2607
-( 70.00, 181.00] |  2483
+[  0.00,  30.00] |  1406
+( 30.00,  36.00] |  1436
+( 36.00,  40.00] |  1242
+( 40.00,  44.00] |  1135
+( 44.00,  49.00] |  1319
+( 49.00,  55.00] |  1392
+( 55.00,  62.00] |  1342
+( 62.00,  70.00] |  1265
+( 70.00,  81.00] |  1190
+( 81.00, 181.00] |  1293
 </pre></div>
 </div>
 </div>
 </div>
+<p>Notice that the numerical range of the groups created using the quantiles classification scheme may vary greatly depending on the distribution of the data. In our example, some classes have more than 30 min interval, while others less than 10 minutes. The default number of classes is five (quintiles), but you can set the desired number of classes using the <code class="docutils literal notranslate"><span class="pre">k</span></code> parameter. In the interactive version of the book, you can try changing the number of classes and see what happens to the class intervals; more classes get added around the central peak of the histogram if increasing the number of classes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapclassify</span><span class="o">.</span><span class="n">EqualInterval</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Define classifier</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">Quantiles</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Plot histogram for public transport rush hour travel time</span>
+<span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Quantiles&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add vertical lines for class breaks</span>
+<span class="k">for</span> <span class="n">break_point</span> <span class="ow">in</span> <span class="n">classifier</span><span class="o">.</span><span class="n">bins</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">break_point</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EqualInterval
+<img alt="../../../_images/3c75c259c442ab7a0b716c8ffadd6035c0b43ae442f8f11688a3907c63c0059e.png" src="../../../_images/3c75c259c442ab7a0b716c8ffadd6035c0b43ae442f8f11688a3907c63c0059e.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.9</strong>. Histogram of the travel time values with Quantile classification into 10 groups. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
+<p>If comparing the histograms of natural breaks and quantile classifications, we can observe that natural breaks might work better to display differences in the data values across the whole data range, while quantiles would help distinguishing differences around the central peak of the data distribution. However, neither of the classification schemes display differences in short, less than 25 minute travel times which might be important for making an informative map. Also, we might want to have round numbers for our class values to facilitate quick and intuitive interpretation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the data using quantiles</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times (min)&quot;</span><span class="p">,</span> <span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)},</span>
+<span class="p">)</span>
+
+<span class="c1"># Add scalebar</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">ScaleBar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">))</span>
+
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/6fe8f2e2704701056ecdbbb6f21db45cbd28969e970f0c5e1ff776f5328cd78e.png" src="../../../_images/6fe8f2e2704701056ecdbbb6f21db45cbd28969e970f0c5e1ff776f5328cd78e.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.10</strong>. Static map of travel times visualized using the quantiles classification scheme. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
+</section>
+<section id="pretty-breaks">
+<h4>Pretty breaks<a class="headerlink" href="#pretty-breaks" title="Link to this heading">#</a></h4>
+<p>The pretty breaks classification shceme rounds the class break values and divides the range equally to creat nice and pretty intervals. This classification scheme might be tempting to use as the break values of the class intervals are intuitive. However, depending on the distribution of the data, the group sizes might vary greatly which might lead to misleading visualizations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapclassify</span><span class="o">.</span><span class="n">PrettyBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pretty
 
     Interval       Count
 ------------------------
-[  0.00,  18.10] |   259
-( 18.10,  36.20] |  2583
-( 36.20,  54.30] |  4853
-( 54.30,  72.40] |  3111
-( 72.40,  90.50] |  1443
-( 90.50, 108.60] |   547
-(108.60, 126.70] |   180
-(126.70, 144.80] |    38
-(144.80, 162.90] |     0
-(162.90, 181.00] |     6
+[  0.00,  20.00] |   335
+( 20.00,  40.00] |  3749
+( 40.00,  60.00] |  4822
+( 60.00,  80.00] |  2740
+( 80.00, 100.00] |   933
+(100.00, 120.00] |   351
+(120.00, 140.00] |    84
+(140.00, 160.00] |     0
+(160.00, 180.00] |     5
+(180.00, 200.00] |     1
 </pre></div>
 </div>
 </div>
 </div>
-<p>It’s possible to extract the threshold values into an array:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapclassify</span><span class="o">.</span><span class="n">NaturalBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">bins</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Define classifier</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">PrettyBreaks</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Plot histogram for public transport rush hour travel time</span>
+<span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Pretty breaks&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add vertical lines for class breaks</span>
+<span class="k">for</span> <span class="n">break_point</span> <span class="ow">in</span> <span class="n">classifier</span><span class="o">.</span><span class="n">bins</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">break_point</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 23.,  34.,  44.,  55.,  66.,  78.,  93., 113., 181.])
+<img alt="../../../_images/d4a6fc64710a0fb1ef3edbc7c288e9626c57e52365e59774bcd4decc7988a6e6.png" src="../../../_images/d4a6fc64710a0fb1ef3edbc7c288e9626c57e52365e59774bcd4decc7988a6e6.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.11</strong>. Histogram of the travel time values with 10 pretty breaks. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the data using pretty breaks</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;prettybreaks&quot;</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times (min)&quot;</span><span class="p">,</span> <span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)},</span>
+<span class="p">)</span>
+
+<span class="c1"># Add scalebar</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">ScaleBar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">))</span>
+
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/6415d0c7bce0144da1f02863d9d6638f86f72bc7ea43132152f1d450e5d5fd8a.png" src="../../../_images/6415d0c7bce0144da1f02863d9d6638f86f72bc7ea43132152f1d450e5d5fd8a.png" />
 </div>
+</div>
+<p><em><strong>Figure 8.12</strong>. Static map of travel times visualized using the pretty breaks classification scheme. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
+<p>Regardless of the number of classes, pretty breaks is not ideal for our data as it fails to capture the variation in the data. Compared to this map, the previous two versions using natural breaks and quantiles provide a more informative view of the travel times.</p>
+</section>
 <section id="question-8-1">
-<h3>Question 8.1<a class="headerlink" href="#question-8-1" title="Link to this heading">#</a></h3>
-<p>Select another column from the data (for example, travel times by car: <code class="docutils literal notranslate"><span class="pre">car_r_t</span></code>). Visualize a thematic map using one of the classification schemes available from <a class="reference external" href="https://github.com/pysal/mapclassify">pysal/mapclassify</a>.</p>
+<h4>Question 8.1<a class="headerlink" href="#question-8-1" title="Link to this heading">#</a></h4>
+<p>Select another column from the data (for example, travel times by car: <code class="docutils literal notranslate"><span class="pre">car_r_t</span></code>) and visualize a thematic map using one of the available classification schemes and save it as a PNG image file.</p>
 <div class="cell tag_remove_book_cell tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -944,43 +1147,144 @@ EPSG:3067
 <span class="c1"># Create one subplot. Control figure size in here.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-<span class="c1"># Visualize the travel times into 9 classes using &quot;Quantiles&quot; classification scheme</span>
+<span class="c1"># Visualize the travel times using a classification scheme and add a legend</span>
 <span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
     <span class="n">column</span><span class="o">=</span><span class="s2">&quot;car_r_t&quot;</span><span class="p">,</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
     <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;Quantiles&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;FisherJenks&quot;</span><span class="p">,</span>
     <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
     <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times (min)&quot;</span><span class="p">,</span> <span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)},</span>
 <span class="p">)</span>
 
-<span class="c1"># Re-position the legend and set a title</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">set_bbox_to_anchor</span><span class="p">((</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Travel time by car (min)&quot;</span><span class="p">)</span>
 
-<span class="c1"># Remove the empty white-space around the axes</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1"># Add scalebar</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">ScaleBar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">))</span>
+
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Save the figure as png file with resolution of 300 dpi</span>
+<span class="n">outfp</span> <span class="o">=</span> <span class="s2">&quot;static_map2.png&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfp</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(359387.50014083955),
- np.float64(405862.5001315461),
- np.float64(6663612.500044225),
- np.float64(6699637.500037726))
-</pre></div>
-</div>
-<img alt="../../../_images/fbe1ad4a3519897a486513f5b3cd1528b1f6708cd3533779f0f580ecbb347a3e.png" src="../../../_images/fbe1ad4a3519897a486513f5b3cd1528b1f6708cd3533779f0f580ecbb347a3e.png" />
+<img alt="../../../_images/ad8de49f4f8cd05460ef9cd8a8b40ba7d23d7f5ceaa1e52739539baf6f2e5055.png" src="../../../_images/ad8de49f4f8cd05460ef9cd8a8b40ba7d23d7f5ceaa1e52739539baf6f2e5055.png" />
 </div>
 </details>
 </div>
 </section>
 </section>
+<section id="custom-map-classification">
+<h3>Custom map classification<a class="headerlink" href="#custom-map-classification" title="Link to this heading">#</a></h3>
+<p>In case none of the existing classification schemes produce a desired output, we can also create a custom classification scheme using <code class="docutils literal notranslate"><span class="pre">mapclassify</span></code> and select which class interval values to use. Fixed intervals with gradually increasing travel times provide an intuitive way to display travel time data. While the pretty breaks classification scheme follows this approach, it didn’t work perfectly for our data. With our own classification scheme, we can show differences among the typical travel times, but avoid having classes distinguishing between long travel times. We’ll create a custom classifier with fixed 10-minute intervals up to 90 minutes to achieve this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">break_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">UserDefined</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">break_values</span><span class="p">)</span>
+<span class="n">classifier</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UserDefined
+
+    Interval       Count
+------------------------
+[  0.00,  10.00] |    49
+( 10.00,  20.00] |   286
+( 20.00,  30.00] |  1071
+( 30.00,  40.00] |  2678
+( 40.00,  50.00] |  2697
+( 50.00,  60.00] |  2125
+( 60.00,  70.00] |  1631
+( 70.00,  80.00] |  1109
+( 80.00,  90.00] |   603
+( 90.00, 181.00] |   771
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Define classifier</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">UserDefined</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">travel_times</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">break_values</span><span class="p">)</span>
+
+<span class="c1"># Plot histogram for public transport rush hour travel time</span>
+<span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;User defined classes&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add vertical lines for class breaks</span>
+<span class="k">for</span> <span class="n">break_point</span> <span class="ow">in</span> <span class="n">classifier</span><span class="o">.</span><span class="n">bins</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">break_point</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/392c2782fdb1f2223f138bbc433eea32f839beccadf08c621e58b6d44e583c57.png" src="../../../_images/392c2782fdb1f2223f138bbc433eea32f839beccadf08c621e58b6d44e583c57.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.13</strong>. Histogram of the travel time values with user defined class breaks. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
+<p>When plotting the map, we can pass the break values using <code class="docutils literal notranslate"><span class="pre">classification_kwds</span></code>. For a final touch, we can plot two subplots side by side displaying travel times by different modes of transport using our custom classifier. As the two maps use an identical classification it is enough to plot only one legend.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create one subplot. Control figure size in here.</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Visualize the travel times into 9 classes using &quot;Quantiles&quot; classification scheme</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;car_r_t&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;UserDefined&quot;</span><span class="p">,</span>
+    <span class="n">classification_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;bins&quot;</span><span class="p">:</span> <span class="n">break_values</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;UserDefined&quot;</span><span class="p">,</span>
+    <span class="n">classification_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;bins&quot;</span><span class="p">:</span> <span class="n">break_values</span><span class="p">},</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times (min)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;interval&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;frameon&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Travel times by public transport&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Travel times by public car&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Travel times by public transport&quot;</span><span class="p">)</span>
+
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/064b7c52ad03aa88f3bc1105b3ca7396d5b8d43eb7052c28f19b34bcea08cbe6.png" src="../../../_images/064b7c52ad03aa88f3bc1105b3ca7396d5b8d43eb7052c28f19b34bcea08cbe6.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.14</strong>. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen &amp; Toivonen 2020.</em></p>
+</section>
+</section>
 <section id="adding-a-basemap">
 <h2>Adding a basemap<a class="headerlink" href="#adding-a-basemap" title="Link to this heading">#</a></h2>
-<p>Let’s now forget about separate transport network layers we used previously and add spatial context using basemaps from online sources. Basemaps might feature satellite imagery or a readily visualized bacground maps displaying various essential features such as streets, administrative boundaries, water bodies and so on.  We can use <a class="reference external" href="https://github.com/darribas/contextily">contextily</a> together with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> to fetch map tiles as basemaps for our static maps. Bacground maps are available via <code class="docutils literal notranslate"><span class="pre">contextily</span></code> from various providers:</p>
+<p>Let’s now add spatial context using basemaps from online sources. Basemaps might feature satellite imagery or a readily visualized bacground maps displaying various essential features such as streets, administrative boundaries, water bodies and so on.  We can use <code class="docutils literal notranslate"><span class="pre">contextily</span></code> together with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> to fetch map tiles as basemaps for our static maps. Bacground maps are available via <code class="docutils literal notranslate"><span class="pre">contextily</span></code> from various providers:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">providers</span><span class="p">))</span>
@@ -1001,12 +1305,12 @@ EPSG:3067
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;Mapnik&#39;, &#39;DE&#39;, &#39;CH&#39;, &#39;France&#39;, &#39;HOT&#39;, &#39;BZH&#39;, &#39;BlackAndWhite&#39;])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;Mapnik&#39;, &#39;DE&#39;, &#39;CH&#39;, &#39;France&#39;, &#39;HOT&#39;, &#39;BZH&#39;, &#39;CAT&#39;])
 </pre></div>
 </div>
 </div>
 </div>
-<p>Map tiles are typically distributed in <a class="reference external" href="http://spatialreference.org/ref/sr-org/epsg3857-wgs84-web-mercator-auxiliary-sphere/">Web Mercator projection (EPSG:3857)</a>. We either need to re-project our data before plotting, or set the desired coordinate reference system directly when adding the basemap using contextily. Let’s plot our data using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and add a default basemap for our plot using <code class="docutils literal notranslate"><span class="pre">contextily</span></code> using in the local EPSG:3067 projection:</p>
+<p>Map tiles are typically distributed in <a class="reference external" href="http://spatialreference.org/ref/sr-org/epsg3857-wgs84-web-mercator-auxiliary-sphere/">Web Mercator projection (EPSG:3857)</a>. We either need to re-project our data before plotting, or set the desired coordinate reference system directly when adding the basemap using <code class="docutils literal notranslate"><span class="pre">contextily</span></code>. Let’s plot our data using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and add a default basemap for our plot using <code class="docutils literal notranslate"><span class="pre">contextily</span></code> using in the local EPSG:3067 projection which is the CRS of our grid layer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Control figure size in here</span>
@@ -1023,22 +1327,28 @@ EPSG:3067
     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Set axis off (remove the frame and labels from x and y axis)</span>
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-
-<span class="c1"># Remove the empty white-space around the axes</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
-<span class="c1"># Add basemap and set crs</span>
+<span class="c1"># Add basemap and set crs based on the grid layer</span>
 <span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/2a3b33a787f761a98a160b7e9932b86cecc6b410935ef68ccc1e06fa5bf90e83.png" src="../../../_images/2a3b33a787f761a98a160b7e9932b86cecc6b410935ef68ccc1e06fa5bf90e83.png" />
+<img alt="../../../_images/13a931ec764a2f684a82314e16920c9a35c9fe77041b292da452f1a5587f7c85.png" src="../../../_images/13a931ec764a2f684a82314e16920c9a35c9fe77041b292da452f1a5587f7c85.png" />
 </div>
 </div>
-<p>We can change the background map easily using the <code class="docutils literal notranslate"><span class="pre">source</span></code> -parameter when adding the basemap:</p>
+<p><em><strong>Figure 8.15</strong>. Static map of travel times visualized on top of a basemap. Data source: Tenkanen &amp; Toivonen 2020; OpenStreetMap contributors 2025.</em></p>
+<p>We can change the background map easily using the <code class="docutils literal notranslate"><span class="pre">source</span></code> parameter when adding the basemap. We can also customize the map’s credits. <code class="docutils literal notranslate"><span class="pre">Contextily</span></code> automatically adds attribution for the background map, and we can modify this text to include credits for the travel time data alongside OpenStreetMap contributors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">credits</span> <span class="o">=</span> <span class="s2">&quot;Travel time data by Tenkanen &amp; Toivonen (2020),</span><span class="se">\n</span><span class="s2"> Map Data © OpenStreetMap contributors&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Control figure size in here</span>
@@ -1055,45 +1365,35 @@ EPSG:3067
     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Set axis off (remove the frame and labels from x and y axis)</span>
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-
-<span class="c1"># Remove the empty white-space around the axes</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
 <span class="c1"># Add basemap with basic OpenStreetMap visualization</span>
-<span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span>
+    <span class="n">ax</span><span class="p">,</span> <span class="n">attribution</span><span class="o">=</span><span class="n">credits</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/b44b805337472ff050a7de9079a6582ada9a1b26506687c050f91c89ce894d80.png" src="../../../_images/b44b805337472ff050a7de9079a6582ada9a1b26506687c050f91c89ce894d80.png" />
+<img alt="../../../_images/3ef0147a6c61835b08b11653eb5e30dc155ca74ef08d94e9acc2e72fc951c6ad.png" src="../../../_images/3ef0147a6c61835b08b11653eb5e30dc155ca74ef08d94e9acc2e72fc951c6ad.png" />
 </div>
 </div>
-<p>Let’s take a subset of our data to see a bit better the background map characteristics:</p>
+<p><em><strong>Figure 8.16</strong>. Static map of travel times visualized on top of a basemap. Data source: Tenkanen &amp; Toivonen 2020; OpenStreetMap contributors 2025.</em></p>
+<p>Let’s take a subset of our data to see a bit better the background map characteristics. We can, for example, visualize grid squares from where the central railway station can be reached in less than 15 minutes to get a zoomed-in view of the map:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Control figure size in here</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-<span class="c1"># Subset the data to seel only grid squares near the destination</span>
-<span class="n">subset</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">15</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="c1"># Plot the data from subset</span>
-<span class="n">subset</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
-    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;Natural_Breaks&quot;</span><span class="p">,</span>
-    <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+<span class="c1">#  Plot only a subset of the data</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">15</span><span class="p">)]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span>
 <span class="p">)</span>
 
-<span class="c1"># Set axis off (remove the frame and labels from x and y axis)</span>
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-
-<span class="c1"># Remove the empty white-space around the axes</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
 <span class="c1"># Add basemap with `OSM_A` style</span>
@@ -1102,139 +1402,40 @@ EPSG:3067
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Hyapp\Miniconda3\envs\python-gis-book\Lib\site-packages\sklearn\cluster\_kmeans.py:1429: UserWarning: KMeans is known to have a memory leak on Windows with MKL, when there are less chunks than available threads. You can avoid it by setting the environment variable OMP_NUM_THREADS=1.
-  warnings.warn(
-</pre></div>
-</div>
-<img alt="../../../_images/76ed985132167d1e35cea9f2969aa3852d49467cd41197eb346dcc1924e18b77.png" src="../../../_images/76ed985132167d1e35cea9f2969aa3852d49467cd41197eb346dcc1924e18b77.png" />
+<img alt="../../../_images/d1f30139ed743761674f356b7f64133eef0c86ceedb780e6f93022e492a1aba1.png" src="../../../_images/d1f30139ed743761674f356b7f64133eef0c86ceedb780e6f93022e492a1aba1.png" />
 </div>
 </div>
-<p>Now our map has much more details as the zoom level of the background map is larger. <code class="docutils literal notranslate"><span class="pre">Contextily</span></code> sets the zoom level automatically but it is also possible to control the zoom level manually. The zoom level is by default specified as <code class="docutils literal notranslate"><span class="pre">auto</span></code> and it can be changed by passing in a specified <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Zoom_levels">zoom level</a> as numbers ranging typically from 1 to 19 (the larger the number, the more details your basemap will have). Let’s try reducing the level of detail from our map by passing <code class="docutils literal notranslate"><span class="pre">zoom=11</span></code>:</p>
+<p><em><strong>Figure 8.17</strong>. Static map of travel times visualized on top of a basemap. Data source: Tenkanen &amp; Toivonen 2020; OpenStreetMap contributors 2025.</em></p>
+<p>Now our map has much more details as the zoom level of the background map is larger. This type of map might be useful for quick data exploration purposes. For example, we can observe that most of the short travel times are located in the city center, while the central railway station is also accessible within 15 minutes by public transport from individual locations a bit further away along the train and metro lines (Pasila, Kulosaari and Herttoniemi).</p>
+<p><code class="docutils literal notranslate"><span class="pre">Contextily</span></code> sets the zoom level automatically but it is also possible to control the zoom level manually. The zoom level is by default specified as <code class="docutils literal notranslate"><span class="pre">auto</span></code> and it can be changed by passing in a specified <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Zoom_levels">zoom level</a> as numbers ranging typically from 1 to 19 (the larger the number, the more details your basemap will have). Let’s try reducing the level of detail from our map by passing <code class="docutils literal notranslate"><span class="pre">zoom=12</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Control figure size in here</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-<span class="c1"># Plot the data from subset</span>
-<span class="n">subset</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-
-<span class="c1"># Set axis off (remove the frame and labels from x and y axis)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-
-<span class="c1"># Remove the empty white-space around the axes</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-
-<span class="c1"># Add basemap with `OSM_A` style using zoom level of 11</span>
-<span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../../_images/89e66feb14e1b33132d09b4a8c67e5b8bcc794efdee6d628bcdbb836238fbc05.png" src="../../../_images/89e66feb14e1b33132d09b4a8c67e5b8bcc794efdee6d628bcdbb836238fbc05.png" />
-</div>
-</div>
-<p>With this zoom setting, the map has now less detail (a bit too blurry for such a small area).</p>
-<p>As you can see, <code class="docutils literal notranslate"><span class="pre">contextily</span></code> automatically adds credits for the bacground map. We can modify the credits text and add attribution also to the travel time data (Tenkanen &amp; Toivonen 2020) in addition to the credits to OpenStreetMap contributors.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">credits</span> <span class="o">=</span> <span class="s2">&quot;Travel time data by Tenkanen &amp; Toivonen (2020), Map Data © OpenStreetMap contributors&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Control figure size in here</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-
-<span class="c1"># Plot the data</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
-    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
-    <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+<span class="c1">#  Plot only a subset of the data</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">15</span><span class="p">)]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span>
 <span class="p">)</span>
 
-<span class="c1"># Set axis off (remove the frame and labels from x and y axis)</span>
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-
-<span class="c1"># Remove the empty white-space around the axes</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
-<span class="c1"># Add basemap with `OSM_A` style using zoom level of 11</span>
-<span class="c1"># Modify the attribution</span>
-<span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span>
-    <span class="n">ax</span><span class="p">,</span> <span class="n">attribution</span><span class="o">=</span><span class="n">credits</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span>
-<span class="p">)</span>
+<span class="c1"># Add basemap with `OSM_A` style</span>
+<span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/205cc87351ac95a87fdca8a58646b54d9018690698b6c935181cab973d7aa3fd.png" src="../../../_images/205cc87351ac95a87fdca8a58646b54d9018690698b6c935181cab973d7aa3fd.png" />
+<img alt="../../../_images/429ca794e56208b154f58c383173519044517bf2c2c5e0ac346afcf332bf811b.png" src="../../../_images/429ca794e56208b154f58c383173519044517bf2c2c5e0ac346afcf332bf811b.png" />
 </div>
 </div>
-<p>It is also possible to use many other map tiles from different <a class="reference external" href="https://en.m.wikipedia.org/wiki/Tile_Map_Service">Tile Map Services</a> as the background map. A good list of different available sources can be found from in <a class="reference external" href="http://leaflet-extras.github.io/leaflet-providers/preview/">leaflet-providers</a>. When using map tiles from different sources, it is necessary to parse a url address to the tile provider following a format defined by the provider.</p>
-<p>Next, we will see how to use map tiles provided by CartoDB. To do that we need to parse the url address following their <a class="reference external" href="https://github.com/CartoDB/basemap-styles#1-web-raster-basemaps">definition</a> <code class="docutils literal notranslate"><span class="pre">'https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{scale}.png'</span></code> where:</p>
-<ul class="simple">
-<li><p>{s}: one of the available subdomains, either [a,b,c,d]</p></li>
-<li><p>{z} : Zoom level. We support from 0 to 20 zoom levels in OSM tiling system.</p></li>
-<li><p>{x},{y}: Tile coordinates in OSM tiling system</p></li>
-<li><p>{scale}: OPTIONAL “&#64;2x” for double resolution tiles</p></li>
-<li><p>{style}: Map style, possible value is one of:</p>
-<ul>
-<li><p>light_all,</p></li>
-<li><p>dark_all,</p></li>
-<li><p>light_nolabels,</p></li>
-<li><p>light_only_labels,</p></li>
-<li><p>dark_nolabels,</p></li>
-<li><p>dark_only_labels,</p></li>
-<li><p>rastertiles/voyager,</p></li>
-<li><p>rastertiles/voyager_nolabels,</p></li>
-<li><p>rastertiles/voyager_only_labels,</p></li>
-<li><p>rastertiles/voyager_labels_under</p></li>
-</ul>
-</li>
-</ul>
-<p>We will use this information to parse the parameters in a way that contextily wants them:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Control figure size in here</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-
-<span class="c1"># The formatting should follow: &#39;https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{scale}.png&#39;</span>
-<span class="c1"># Specify the style to use</span>
-<span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;rastertiles/voyager&quot;</span>
-<span class="n">cartodb_url</span> <span class="o">=</span> <span class="s2">&quot;https://a.basemaps.cartocdn.com/</span><span class="si">%s</span><span class="s2">/</span><span class="si">{z}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">.png&quot;</span> <span class="o">%</span> <span class="n">style</span>
-
-<span class="c1"># Plot the data from subset</span>
-<span class="n">subset</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-
-<span class="c1"># Add basemap with `OSM_A` style using zoom level of 14</span>
-<span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">cartodb_url</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-
-<span class="c1"># Set axis off (remove the frame and labels from x and y axis)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-
-<span class="c1"># Remove the empty white-space around the axes</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-
-<span class="c1"># Crop the figure</span>
-<span class="c1"># ax.set_xlim(2770000, 2785000)</span>
-<span class="c1"># .set_ylim(8435000, 8442500)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../../_images/d210424a5383b5a420a2ca8bc7b1885c5b8b468bace6545462cba7356f9faacd.png" src="../../../_images/d210424a5383b5a420a2ca8bc7b1885c5b8b468bace6545462cba7356f9faacd.png" />
-</div>
-</div>
-<p>As we can see now we have yet again different kind of background map, now coming from CartoDB.</p>
+<p><em><strong>Figure 8.18</strong>. Static map of travel times visualized on top of a basemap. Data source: Tenkanen &amp; Toivonen 2020; OpenStreetMap contributors 2025.</em></p>
+<p>With this zoom setting, place names in the bacground map become larger and more readable.</p>
 <section id="question-8-2">
 <h3>Question 8.2<a class="headerlink" href="#question-8-2" title="Link to this heading">#</a></h3>
-<p>Plot the grid data using CartoDB style <code class="docutils literal notranslate"><span class="pre">'dark_all'</span></code> as basemap.</p>
+<p>Explore different background map options and make a final visualization of our travel time data with a basemap, legend and scalebar.</p>
 <div class="cell tag_remove_book_cell tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1245,31 +1446,42 @@ EPSG:3067
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="c1"># Control figure size in here</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
-<span class="c1"># The formatting should follow: &#39;https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{r}.png&#39;</span>
-<span class="c1"># Specify the style to use</span>
-<span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;dark_all&quot;</span>
-<span class="n">cartodb_url</span> <span class="o">=</span> <span class="s2">&quot;https://a.basemaps.cartocdn.com/</span><span class="si">%s</span><span class="s2">/</span><span class="si">{z}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">.png&quot;</span> <span class="o">%</span> <span class="n">style</span>
-
-<span class="c1"># Plot the data from subset</span>
+<span class="c1"># Visualize the travel times using a classification scheme and add a legend</span>
 <span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
     <span class="n">column</span><span class="o">=</span><span class="s2">&quot;pt_r_t&quot;</span><span class="p">,</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu&quot;</span><span class="p">,</span>
     <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
-    <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;user_defined&quot;</span><span class="p">,</span>
+    <span class="n">classification_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;bins&quot;</span><span class="p">:</span> <span class="n">break_values</span><span class="p">},</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times (min)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.27</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;frameon&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">},</span>
 <span class="p">)</span>
 
-<span class="c1"># Add basemap with `OSM_A` style using zoom level of 14</span>
-<span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">cartodb_url</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Add scalebar</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">ScaleBar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">,</span> <span class="n">box_alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+
+<span class="c1"># Add basemap with basic OpenStreetMap visualization</span>
+<span class="n">ctx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span>
+    <span class="n">ax</span><span class="p">,</span> <span class="n">attribution</span><span class="o">=</span><span class="n">credits</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">CartoDB</span><span class="o">.</span><span class="n">Voyager</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">crs</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/0fec92b041a77472817fe5a3eabab33c809449086ab874ca0137bf23c4a10a91.png" src="../../../_images/0fec92b041a77472817fe5a3eabab33c809449086ab874ca0137bf23c4a10a91.png" />
+<img alt="../../../_images/5183834ce5d2fee9af27128a142d7d4cc086af1636f83e12240e7d5e59737066.png" src="../../../_images/5183834ce5d2fee9af27128a142d7d4cc086af1636f83e12240e7d5e59737066.png" />
 </div>
 </details>
 </div>
@@ -1277,27 +1489,57 @@ EPSG:3067
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+</section>
+</section>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
+<aside class="footnote brackets" id="geopandas-mappingtools" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id10">2</a>)</span>
+<p><a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mapping.html">https://geopandas.org/en/stable/docs/user_guide/mapping.html</a></p>
+</aside>
+<aside class="footnote brackets" id="matplotlib-pyplot" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html">https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html</a></p>
+</aside>
+<aside class="footnote brackets" id="contextily" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p><a class="github reference external" href="https://github.com/darribas/contextily">darribas/contextily</a></p>
+</aside>
 <aside class="footnote brackets" id="hsl-opendata" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">4</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.avoindata.fi/data/en_GB/dataset/hsl-n-linjat">https://www.avoindata.fi/data/en_GB/dataset/hsl-n-linjat</a></p>
 </aside>
 <aside class="footnote brackets" id="matplotlib-colormaps" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">5</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib">https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib</a></p>
 </aside>
-<aside class="footnote brackets" id="matplotlib-legend" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://matplotlib.org/tutorials/intermediate/legend_guide.html">https://matplotlib.org/tutorials/intermediate/legend_guide.html</a></p>
-</aside>
 <aside class="footnote brackets" id="matplotlib-colors" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">6</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors">https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors</a></p>
 </aside>
+<aside class="footnote brackets" id="matplotlib-colorbar" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">7</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html</a></p>
 </aside>
-</section>
-</section>
+<aside class="footnote brackets" id="matplotlib-legend" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">8</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://matplotlib.org/tutorials/intermediate/legend_guide.html">https://matplotlib.org/tutorials/intermediate/legend_guide.html</a>
+<a href="#id20"><span class="problematic" id="id17">[^geopandas_scalebar_examples]</span></a> <a class="reference external" href="https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html#Adding-a-scale-bar-to-a-matplotlib-plot">https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html#Adding-a-scale-bar-to-a-matplotlib-plot</a></p>
+</aside>
+<aside class="footnote brackets" id="pysal" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">9</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://pysal.org/">https://pysal.org/</a></p>
+</aside>
+<aside class="footnote brackets" id="mapclassify" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">10</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://pysal.org/mapclassify/">https://pysal.org/mapclassify/</a></p>
+</aside>
+<aside class="footnote brackets" id="geopandas-choro-legends" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id16">11</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://geopandas.org/en/stable/gallery/choro_legends.html">https://geopandas.org/en/stable/gallery/choro_legends.html</a></p>
+</aside>
+</aside>
 
     <script type="text/x-thebe-config">
     {
@@ -1363,9 +1605,22 @@ EPSG:3067
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-simple-map-with-multiple-layers">Plotting a simple map with multiple layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-simple-multi-layer-map">Creating a simple multi-layer map</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-simple-map">Plotting a simple map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-multiple-layers">Adding multiple layers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-our-map">Customizing our map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-legend-and-a-scalebar">Adding a legend and a scalebar</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-schemes">Classification schemes</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-8-1">Question 8.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-classifiers">Explore the classifiers</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#natural-breaks">Natural breaks</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles">Quantiles</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pretty-breaks">Pretty breaks</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question-8-1">Question 8.1</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-map-classification">Custom map classification</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-basemap">Adding a basemap</a><ul class="nav section-nav flex-column">

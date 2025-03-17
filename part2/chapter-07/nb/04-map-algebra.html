@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
@@ -42,12 +42,12 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-07/nb/04-map-algebra';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -286,16 +286,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -529,21 +520,28 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reclassify">Reclassify</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-functions">Local functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-functions">Focal functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-mean">Focal mean</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-majority">Focal majority</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-range">Focal range</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-operations">Focal operations</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slope">Slope</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aspect">Aspect</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#curvature">Curvature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hot-and-cold-spots">Hot and cold spots</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hillshade">Hillshade</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing-and-focal-statistics">Smoothing and focal statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reclassification">Reclassification</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-functions">Global functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-functions">Zonal functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-functions">Incremental functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-operations">Local operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-operations">Global operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-summaries">Statistical summaries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewshed">Viewshed</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-operations">Zonal operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-operations">Incremental operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-cost-path-calculation-based-on-raster-surface">Least-cost path calculation based on raster surface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-accumulation">Flow accumulation</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -557,24 +555,26 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="map-algebra">
 <h1>Map algebra<a class="headerlink" href="#map-algebra" title="Link to this heading">#</a></h1>
+<p>Map algebra is often used as an umbrella term for conducting various mathematical and logical operations, as well as spatial analysis operations, based on raster data. These techniques were first developed by Dana Tomlin in the 1970’s (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id24" title="C. Dana Tomlin. Geographic information systems and cartographic modeling. Prentice Hall, 1990. ISBN 978-0-13-350927-4.">Tomlin, 1990</a></span>) and they have since then been a fundamental part of raster data analysis in GIS. Map algebra provides a set of operators that can be applied to a single or multiple raster layers to produce a new raster layer. For instance, you can do basic mathematical calculations (multiply, sum, divide, etc.) between multiple raster layers that are central operations for map overlay analysis, or conduct mathematical operations on a single raster to compute values based on a given neighborhood. The latter can be used e.g. to detect hot spots based on the pixel values, in which high values are surrounded by other high values. Map algebra is widely used in terrain analysis, land suitability modeling, hydrological modeling, and environmental assessments. By integrating spatial data with mathematical functions, it enables powerful spatial decision-making.</p>
+<p>The operations of map algebra can be divided into different categories:</p>
 <ul class="simple">
-<li><p>Reclassify (Basic calculations)</p></li>
-<li><p>Focal function</p></li>
-<li><p>Local function</p></li>
-<li><p>Zonal function (zonal statistics)</p></li>
+<li><p><strong>Focal operations</strong> compute values based on a specified neighborhood (e.g. 3x3 window) on a given raster layer.</p></li>
+<li><p><strong>Local operations</strong> apply functions on a cell-by-cell basis between multiple raster layers.</p></li>
+<li><p><strong>Global operations</strong> use all raster cells in computations to calculate e.g. statistical summaries.</p></li>
+<li><p><strong>Zonal operations</strong> analyze values within defined zones, such as calculating average elevation within a watershed.</p></li>
+<li><p><strong>Incremental operations</strong> apply iterative calculations or cumulative functions over space or time (e.g. cumulative cost surfaces).</p></li>
 </ul>
-<p><strong>To be updated</strong></p>
-<p>Conducting calculations between bands or raster is another common GIS task.</p>
-<section id="reclassify">
-<h2>Reclassify<a class="headerlink" href="#reclassify" title="Link to this heading">#</a></h2>
-<p>To be added.</p>
+<p>There are various Python libraries that can be used for map algebra. Here, we are focusing on <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> and <code class="docutils literal notranslate"><span class="pre">rasterstats</span></code> libraries that provide numerous useful functionalities to conduct focal, local, global, zonal and incremental operations using raster data. In the following, we will apply map algebra to Digital Elevation Model (DEM) raster data obtained from Eastern Finland to gain knowledge of the topography in this area. In addition, we will learn how it is possible to conduct suitability analysis to find an optimal location to build a new summer house based on specific criteria, and how to conduct path finding on raster data to find least-cost route between two locations across the raster cost surface.</p>
+<section id="focal-operations">
+<h2>Focal operations<a class="headerlink" href="#focal-operations" title="Link to this heading">#</a></h2>
+<p>A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xrspatial</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/temp/kilimanjaro_dataset.nc&quot;</span>
-
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">&quot;data/Tuupovaara_DEM.nc&quot;</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">decode_coords</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
 <span class="n">data</span>
 </pre></div>
@@ -945,107 +945,827 @@ dl.xr-attrs {
   stroke: currentColor;
   fill: currentColor;
 }
-</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt; Size: 156MB
-Dimensions:          (x: 3601, y: 3601)
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt; Size: 1MB
+Dimensions:      (x: 400, y: 400)
 Coordinates:
-  * x                (x) float64 29kB 36.0 36.0 36.0 36.0 ... 37.0 37.0 37.0
-  * y                (y) float64 29kB -2.0 -2.0 -2.001 ... -2.999 -3.0 -3.0
-    spatial_ref      int64 8B ...
+  * x            (x) float64 3kB 3.69e+06 3.69e+06 3.69e+06 ... 3.7e+06 3.7e+06
+  * y            (y) float64 3kB 6.95e+06 6.95e+06 ... 6.94e+06 6.94e+06
+    spatial_ref  int64 8B ...
 Data variables:
-    elevation        (y, x) float64 104MB ...
-    relative_height  (y, x) float32 52MB ...</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-970c915f-6a19-437e-8683-395cb3e653e9' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-970c915f-6a19-437e-8683-395cb3e653e9' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>x</span>: 3601</li><li><span class='xr-has-index'>y</span>: 3601</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-956bd888-9d39-4913-a652-d597a48ce680' class='xr-section-summary-in' type='checkbox'  checked><label for='section-956bd888-9d39-4913-a652-d597a48ce680' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>36.0 36.0 36.0 ... 37.0 37.0 37.0</div><input id='attrs-fa22a962-bbd2-4615-9bb6-85d2fee47616' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-fa22a962-bbd2-4615-9bb6-85d2fee47616' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-229937b0-c012-4276-a02f-c456bca1a390' class='xr-var-data-in' type='checkbox'><label for='data-229937b0-c012-4276-a02f-c456bca1a390' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([36.      , 36.000278, 36.000556, ..., 36.999444, 36.999722, 37.      ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-2.0 -2.0 -2.001 ... -3.0 -3.0</div><input id='attrs-2c98bcf1-d39f-473a-a737-007ff1b4c0d9' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-2c98bcf1-d39f-473a-a737-007ff1b4c0d9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-1220101e-5472-46d9-8886-21d18317c960' class='xr-var-data-in' type='checkbox'><label for='data-1220101e-5472-46d9-8886-21d18317c960' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([-2.      , -2.000278, -2.000556, ..., -2.999444, -2.999722, -3.      ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>spatial_ref</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-f26b130b-d4cc-4664-bbc8-bf67c8cb5996' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-f26b130b-d4cc-4664-bbc8-bf67c8cb5996' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-90631418-c960-4a81-ac60-856d6d3ba4b1' class='xr-var-data-in' type='checkbox'><label for='data-90631418-c960-4a81-ac60-856d6d3ba4b1' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>crs_wkt :</span></dt><dd>GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;WGS_1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],PRIMEM[&quot;Greenwich&quot;,0,AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AXIS[&quot;Latitude&quot;,NORTH],AXIS[&quot;Longitude&quot;,EAST],AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;WGS_1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],PRIMEM[&quot;Greenwich&quot;,0,AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AXIS[&quot;Latitude&quot;,NORTH],AXIS[&quot;Longitude&quot;,EAST],AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</dd><dt><span>GeoTransform :</span></dt><dd>35.9998611111111 0.0002777777777777778 0.0 -1.99986111111111 0.0 -0.0002777777777777781</dd></dl></div><div class='xr-var-data'><pre>[1 values with dtype=int64]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-30a0407c-0adb-4389-a61d-ebcb91a9e1d7' class='xr-section-summary-in' type='checkbox'  checked><label for='section-30a0407c-0adb-4389-a61d-ebcb91a9e1d7' class='xr-section-summary' >Data variables: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>elevation</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-518b254b-4243-45e6-9ecb-f684fc908d55' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-518b254b-4243-45e6-9ecb-f684fc908d55' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b7280e50-fe2a-4bb9-82c0-5a50738c79a8' class='xr-var-data-in' type='checkbox'><label for='data-b7280e50-fe2a-4bb9-82c0-5a50738c79a8' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>Band_1 :</span></dt><dd>Band 1</dd><dt><span>long_name :</span></dt><dd>Band 1</dd><dt><span>AREA_OR_POINT :</span></dt><dd>Area</dd></dl></div><div class='xr-var-data'><pre>[12967201 values with dtype=float64]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>relative_height</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-0de34adc-a942-41ea-8433-a6fcb474004e' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-0de34adc-a942-41ea-8433-a6fcb474004e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-38f2251e-3e33-4c4b-8c7c-550342a8b6d9' class='xr-var-data-in' type='checkbox'><label for='data-38f2251e-3e33-4c4b-8c7c-550342a8b6d9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>[12967201 values with dtype=float32]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-426de411-7e88-45b2-864f-94045be1ed1e' class='xr-section-summary-in' type='checkbox'  ><label for='section-426de411-7e88-45b2-864f-94045be1ed1e' class='xr-section-summary' >Indexes: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>x</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-6adbf53e-42f3-40af-9320-ddd748ca4279' class='xr-index-data-in' type='checkbox'/><label for='index-6adbf53e-42f3-40af-9320-ddd748ca4279' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([ 35.99999999999999,  36.00027777777777,  36.00055555555555,
-       36.000833333333325,   36.0011111111111,  36.00138888888888,
-        36.00166666666666,  36.00194444444444, 36.002222222222215,
-        36.00249999999999,
+    elevation    (y, x) float64 1MB ...
+Attributes:
+    AREA_OR_POINT:  Area</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-5b2f7982-f0d9-4ffe-99b7-9599bc9d3f4a' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-5b2f7982-f0d9-4ffe-99b7-9599bc9d3f4a' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>x</span>: 400</li><li><span class='xr-has-index'>y</span>: 400</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-b2d547e5-6a51-4c60-af4e-4d64a67e2d84' class='xr-section-summary-in' type='checkbox'  checked><label for='section-b2d547e5-6a51-4c60-af4e-4d64a67e2d84' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>3.69e+06 3.69e+06 ... 3.7e+06</div><input id='attrs-30c6871a-6973-40ea-9a31-6282c7d7a7e0' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-30c6871a-6973-40ea-9a31-6282c7d7a7e0' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e2165357-cc5c-44ca-91dd-2526eaa42107' class='xr-var-data-in' type='checkbox'><label for='data-e2165357-cc5c-44ca-91dd-2526eaa42107' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([3690012.5, 3690037.5, 3690062.5, ..., 3699937.5, 3699962.5, 3699987.5])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>6.95e+06 6.95e+06 ... 6.94e+06</div><input id='attrs-818ab5ad-4672-48f0-b240-d3488e921234' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-818ab5ad-4672-48f0-b240-d3488e921234' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7a44882b-c0e0-443d-a7d6-1243cffcc9b4' class='xr-var-data-in' type='checkbox'><label for='data-7a44882b-c0e0-443d-a7d6-1243cffcc9b4' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([6949987.5, 6949962.5, 6949937.5, ..., 6940062.5, 6940037.5, 6940012.5])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>spatial_ref</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-a703fd74-12ce-4160-9d24-f6aa30a23311' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-a703fd74-12ce-4160-9d24-f6aa30a23311' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f948ac88-2e87-43f9-ad80-662838f15644' class='xr-var-data-in' type='checkbox'><label for='data-f948ac88-2e87-43f9-ad80-662838f15644' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>crs_wkt :</span></dt><dd>PROJCS[&quot;KKJ / Finland Uniform Coordinate System&quot;,GEOGCS[&quot;KKJ&quot;,DATUM[&quot;Kartastokoordinaattijarjestelma_1966&quot;,SPHEROID[&quot;International 1924&quot;,6378388,297.000000000005,AUTHORITY[&quot;EPSG&quot;,&quot;7022&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6123&quot;]],PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;4123&quot;]],PROJECTION[&quot;Transverse_Mercator&quot;],PARAMETER[&quot;latitude_of_origin&quot;,0],PARAMETER[&quot;central_meridian&quot;,27],PARAMETER[&quot;scale_factor&quot;,1],PARAMETER[&quot;false_easting&quot;,3500000],PARAMETER[&quot;false_northing&quot;,0],UNIT[&quot;metre&quot;,1,AUTHORITY[&quot;EPSG&quot;,&quot;9001&quot;]],AXIS[&quot;Easting&quot;,EAST],AXIS[&quot;Northing&quot;,NORTH],AUTHORITY[&quot;EPSG&quot;,&quot;2393&quot;]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378388.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356911.9461279465</dd><dt><span>inverse_flattening :</span></dt><dd>297.000000000005</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>International 1924</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>KKJ</dd><dt><span>horizontal_datum_name :</span></dt><dd>Kartastokoordinaattijarjestelma (1966)</dd><dt><span>projected_crs_name :</span></dt><dd>KKJ / Finland Uniform Coordinate System</dd><dt><span>grid_mapping_name :</span></dt><dd>transverse_mercator</dd><dt><span>latitude_of_projection_origin :</span></dt><dd>0.0</dd><dt><span>longitude_of_central_meridian :</span></dt><dd>27.0</dd><dt><span>false_easting :</span></dt><dd>3500000.0</dd><dt><span>false_northing :</span></dt><dd>0.0</dd><dt><span>scale_factor_at_central_meridian :</span></dt><dd>1.0</dd><dt><span>spatial_ref :</span></dt><dd>PROJCS[&quot;KKJ / Finland Uniform Coordinate System&quot;,GEOGCS[&quot;KKJ&quot;,DATUM[&quot;Kartastokoordinaattijarjestelma_1966&quot;,SPHEROID[&quot;International 1924&quot;,6378388,297.000000000005,AUTHORITY[&quot;EPSG&quot;,&quot;7022&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6123&quot;]],PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;4123&quot;]],PROJECTION[&quot;Transverse_Mercator&quot;],PARAMETER[&quot;latitude_of_origin&quot;,0],PARAMETER[&quot;central_meridian&quot;,27],PARAMETER[&quot;scale_factor&quot;,1],PARAMETER[&quot;false_easting&quot;,3500000],PARAMETER[&quot;false_northing&quot;,0],UNIT[&quot;metre&quot;,1,AUTHORITY[&quot;EPSG&quot;,&quot;9001&quot;]],AXIS[&quot;Easting&quot;,EAST],AXIS[&quot;Northing&quot;,NORTH],AUTHORITY[&quot;EPSG&quot;,&quot;2393&quot;]]</dd><dt><span>GeoTransform :</span></dt><dd>3690000.0 25.0 0.0 6950000.0 0.0 -25.0</dd></dl></div><div class='xr-var-data'><pre>[1 values with dtype=int64]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-e0cc7a88-8607-4257-bbe9-e69f061fed50' class='xr-section-summary-in' type='checkbox'  checked><label for='section-e0cc7a88-8607-4257-bbe9-e69f061fed50' class='xr-section-summary' >Data variables: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>elevation</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-2737299e-55f4-4980-a1c9-dc90a7d8b51e' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-2737299e-55f4-4980-a1c9-dc90a7d8b51e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-17511c7d-538b-4321-a047-1f4b992580f2' class='xr-var-data-in' type='checkbox'><label for='data-17511c7d-538b-4321-a047-1f4b992580f2' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>RepresentationType :</span></dt><dd>ATHEMATIC</dd><dt><span>STATISTICS_MAXIMUM :</span></dt><dd>2294</dd><dt><span>STATISTICS_MEAN :</span></dt><dd>1663.44648125</dd><dt><span>STATISTICS_MINIMUM :</span></dt><dd>1342</dd><dt><span>STATISTICS_SKIPFACTORX :</span></dt><dd>1</dd><dt><span>STATISTICS_SKIPFACTORY :</span></dt><dd>1</dd><dt><span>STATISTICS_STDDEV :</span></dt><dd>147.37855258057</dd><dt><span>STATISTICS_VALID_PERCENT :</span></dt><dd>100</dd></dl></div><div class='xr-var-data'><pre>[160000 values with dtype=float64]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-32d12380-c83c-4a58-8a5f-c643d4376bc4' class='xr-section-summary-in' type='checkbox'  ><label for='section-32d12380-c83c-4a58-8a5f-c643d4376bc4' class='xr-section-summary' >Indexes: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>x</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-18d00195-ab44-4e5d-a2b1-4a1f34d7670c' class='xr-index-data-in' type='checkbox'/><label for='index-18d00195-ab44-4e5d-a2b1-4a1f34d7670c' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([3690012.5, 3690037.5, 3690062.5, 3690087.5, 3690112.5, 3690137.5,
+       3690162.5, 3690187.5, 3690212.5, 3690237.5,
        ...
-       36.997499999999995,  36.99777777777777, 36.998055555555545,
-        36.99833333333333,   36.9986111111111, 36.998888888888885,
-        36.99916666666666, 36.999444444444435,  36.99972222222222,
-        36.99999999999999],
-      dtype=&#x27;float64&#x27;, name=&#x27;x&#x27;, length=3601))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>y</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-0040306d-d2e9-4055-85da-2e2ec3c2cbc7' class='xr-index-data-in' type='checkbox'/><label for='index-0040306d-d2e9-4055-85da-2e2ec3c2cbc7' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([ -1.999999999999999, -2.0002777777777765, -2.0005555555555543,
-        -2.000833333333332,   -2.00111111111111, -2.0013888888888878,
-       -2.0016666666666656, -2.0019444444444434, -2.0022222222222212,
-        -2.002499999999999,
+       3699762.5, 3699787.5, 3699812.5, 3699837.5, 3699862.5, 3699887.5,
+       3699912.5, 3699937.5, 3699962.5, 3699987.5],
+      dtype=&#x27;float64&#x27;, name=&#x27;x&#x27;, length=400))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>y</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-620a1b8a-4e25-453d-9fe3-39f16b2eae3d' class='xr-index-data-in' type='checkbox'/><label for='index-620a1b8a-4e25-453d-9fe3-39f16b2eae3d' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([6949987.5, 6949962.5, 6949937.5, 6949912.5, 6949887.5, 6949862.5,
+       6949837.5, 6949812.5, 6949787.5, 6949762.5,
        ...
-                   -2.9975,  -2.997777777777778, -2.9980555555555557,
-       -2.9983333333333335,  -2.998611111111111, -2.9988888888888887,
-       -2.9991666666666665, -2.9994444444444444,  -2.999722222222222,
-                      -3.0],
-      dtype=&#x27;float64&#x27;, name=&#x27;y&#x27;, length=3601))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-f65172aa-78d1-44a1-9842-60b12c7ac0d6' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-f65172aa-78d1-44a1-9842-60b12c7ac0d6' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
-</div>
-</section>
-<section id="local-functions">
-<h2>Local functions<a class="headerlink" href="#local-functions" title="Link to this heading">#</a></h2>
-<p>To be added.</p>
-</section>
-<section id="focal-functions">
-<h2>Focal functions<a class="headerlink" href="#focal-functions" title="Link to this heading">#</a></h2>
-<p>A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood.</p>
-<section id="focal-mean">
-<h3>Focal mean<a class="headerlink" href="#focal-mean" title="Link to this heading">#</a></h3>
-</section>
-<section id="focal-majority">
-<h3>Focal majority<a class="headerlink" href="#focal-majority" title="Link to this heading">#</a></h3>
-</section>
-<section id="focal-range">
-<h3>Focal range<a class="headerlink" href="#focal-range" title="Link to this heading">#</a></h3>
-</section>
-<section id="slope">
-<h3>Slope<a class="headerlink" href="#slope" title="Link to this heading">#</a></h3>
-</section>
-<section id="aspect">
-<h3>Aspect<a class="headerlink" href="#aspect" title="Link to this heading">#</a></h3>
-</section>
-<section id="curvature">
-<h3>Curvature<a class="headerlink" href="#curvature" title="Link to this heading">#</a></h3>
-</section>
-<section id="hillshade">
-<h3>Hillshade<a class="headerlink" href="#hillshade" title="Link to this heading">#</a></h3>
-</section>
-</section>
-<section id="global-functions">
-<h2>Global functions<a class="headerlink" href="#global-functions" title="Link to this heading">#</a></h2>
-<p>In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. They are essential for modeling cumulative effects, spatial dependencies, and large-scale patterns in fields like hydrology, transportation, and environmental science.</p>
-<ul class="simple">
-<li><p>Statistical summaries: global mean, max, min etc.</p></li>
-<li><p>Viewshed analysis</p></li>
-<li><p>Cost distance and least-cost path</p></li>
-<li><p>Proximity (distance, allocation, direction)</p></li>
-</ul>
-</section>
-<section id="zonal-functions">
-<h2>Zonal functions<a class="headerlink" href="#zonal-functions" title="Link to this heading">#</a></h2>
-<p>To be added.</p>
-</section>
-<section id="incremental-functions">
-<h2>Incremental functions<a class="headerlink" href="#incremental-functions" title="Link to this heading">#</a></h2>
-<p>To be added.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+       6940237.5, 6940212.5, 6940187.5, 6940162.5, 6940137.5, 6940112.5,
+       6940087.5, 6940062.5, 6940037.5, 6940012.5],
+      dtype=&#x27;float64&#x27;, name=&#x27;y&#x27;, length=400))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-8631c7ca-f2fe-4318-8ca5-4a7ae17aa7c0' class='xr-section-summary-in' type='checkbox'  checked><label for='section-8631c7ca-f2fe-4318-8ca5-4a7ae17aa7c0' class='xr-section-summary' >Attributes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>AREA_OR_POINT :</span></dt><dd>Area</dd></dl></div></li></ul></div></div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="s2">&quot;Testing&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the elevation values and contours</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Label contours</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">levels</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation in Tuupovaara, Finland&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Te&#39;
+<img alt="../../../_images/b0cd2ccc641a2deea6c3761bd75fa066da8300be1ced64ffad4f8c78f98eca97.png" src="../../../_images/b0cd2ccc641a2deea6c3761bd75fa066da8300be1ced64ffad4f8c78f98eca97.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Elevation surface with contour lines.</em></p>
+<section id="slope">
+<h3>Slope<a class="headerlink" href="#slope" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate slope</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">slope</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Slope (degrees)&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/ebe918e3af44460f0ecd8109230f074dfab4d577b862b422cb04852d83f7fa3d.png" src="../../../_images/ebe918e3af44460f0ecd8109230f074dfab4d577b862b422cb04852d83f7fa3d.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Slope in degrees calculated from the elevation data.</em></p>
+</section>
+<section id="aspect">
+<h3>Aspect<a class="headerlink" href="#aspect" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate aspect</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">aspect</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">])</span>
+<span class="c1"># Filter values that are below 0 (areas without aspect defined)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;jet&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Aspect (degree between 0-360)</span><span class="se">\n</span><span class="s2">0 faces North&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/fa15854aab7fe40df6ab8af6600ba392dab24eb91b3ad65ea6e071cc5377966f.png" src="../../../_images/fa15854aab7fe40df6ab8af6600ba392dab24eb91b3ad65ea6e071cc5377966f.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Aspect surface shows the direction of the slope in degrees.</em></p>
+</section>
+<section id="curvature">
+<h3>Curvature<a class="headerlink" href="#curvature" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;curvature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">curvature</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">])</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;curvature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Curvature&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/8171b3d4449e3e21940bb866f723447f317950a4c97d30b72217ef0e32cc5f36.png" src="../../../_images/8171b3d4449e3e21940bb866f723447f317950a4c97d30b72217ef0e32cc5f36.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Curvature describes the rate of change in the slope.</em></p>
+<p>Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell. A curvature of 0 means the surface is straight and constant in whatever angle it is sloped towards.</p>
+</section>
+<section id="hot-and-cold-spots">
+<h3>Hot and cold spots<a class="headerlink" href="#hot-and-cold-spots" title="Link to this heading">#</a></h3>
+<p>Hot and cold spots identify statistically significant hot spots and cold spots in an input raster. To be a statistically significant hot spot, a feature will have a high value and be surrounded by other features with high values as well. Thus, it is a similar measure to local spatial autocorrelation (LISA) although hot/cold spot analysis focuses on identifying only high-high and low-low areas, where as LISA also identify outliers (high values surrounded by low values).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;hot_cold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">focal</span><span class="o">.</span><span class="n">hotspots</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">kernel</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;hot_cold&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu_r&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Identified hot and cold spots based the elevation&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/daa76bfba56e4b9358551503989f7536fa3f931e8cfcaf14c9baa97f53b5014c.png" src="../../../_images/daa76bfba56e4b9358551503989f7536fa3f931e8cfcaf14c9baa97f53b5014c.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Hot spots are clusters with high values surrounded by other high values.</em></p>
+</section>
+<section id="hillshade">
+<h3>Hillshade<a class="headerlink" href="#hillshade" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">hillshade</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">])</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x33bcc5d90&gt;
+</pre></div>
+</div>
+<img alt="../../../_images/9b83695fcad94f40cf869d47a646a82f6d380748ddea552679961696874bdbec.png" src="../../../_images/9b83695fcad94f40cf869d47a646a82f6d380748ddea552679961696874bdbec.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Hillshade is a shaded relief based on the surface raster considering the illumination source angle and shadows.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate relative height</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;relative_height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LightSource</span><span class="p">,</span> <span class="n">Normalize</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colorbar</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cbar</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.cm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Specify the colormap to use</span>
+<span class="n">colormap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">terrain</span>
+
+<span class="c1"># Specify the light source</span>
+<span class="n">ls</span> <span class="o">=</span> <span class="n">LightSource</span><span class="p">(</span><span class="n">azdeg</span><span class="o">=</span><span class="mi">225</span><span class="p">,</span> <span class="n">altdeg</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+
+<span class="c1"># Convert DataArray into numpy array</span>
+<span class="n">array</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;relative_height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># Normalize elevation for color mapping</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">array</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
+
+<span class="c1"># Create hillshade based on elevation</span>
+<span class="n">hillshade</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">shade</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span> <span class="n">vert_exag</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">blend_mode</span><span class="o">=</span><span class="s2">&quot;overlay&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hillshade</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Hillshade with color blending&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a ScalarMappable for colorbar</span>
+<span class="n">sm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">set_array</span><span class="p">([])</span>  <span class="c1"># Needed for colorbar creation</span>
+
+<span class="c1"># Add colorbar</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Relative Height (m)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/0eb8be474231841a8585decabb356ed348134593ee729824735641513ffc4f74.png" src="../../../_images/0eb8be474231841a8585decabb356ed348134593ee729824735641513ffc4f74.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Hillshade with color blending can give a more realistic appearance of the landscape</em></p>
+</section>
+<section id="smoothing-and-focal-statistics">
+<h3>Smoothing and focal statistics<a class="headerlink" href="#smoothing-and-focal-statistics" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kernel size</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">15</span>
+
+<span class="c1"># Generate a kernel (basically produces a boolean matrix full with numbers 1 and 0)</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">circle_kernel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Smoothen the surface</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;smoothed_elevation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">focal</span><span class="o">.</span><span class="n">focal_stats</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stats_funcs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;smoothed_elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu_r&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Kernel smoothing with kernel size 15&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/54c668d7ec6af5a95d02b76b8b9dbe0fcd5851bfbb6ba4c980438f47dcd6fcdd.png" src="../../../_images/54c668d7ec6af5a95d02b76b8b9dbe0fcd5851bfbb6ba4c980438f47dcd6fcdd.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Smoothed surface based on the average elevation of 15 neighboring cells at each pixel.</em></p>
+</section>
+<section id="reclassification">
+<h3>Reclassification<a class="headerlink" href="#reclassification" title="Link to this heading">#</a></h3>
+<p>The goal in the following section is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. so think of a scenario where all of these can be utilized. The criteria for finding a suitable place for a summer cottage will be based on following preferences:</p>
+<ul class="simple">
+<li><p>The higher the elevation, the better</p></li>
+<li><p>Some slope is good but not too steep</p></li>
+<li><p>The ridge should be pointing South (who wouldn’t like more sun on their patio..)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Take 20 % sample to reduce the time it takes to classify</span>
+<span class="n">percentage</span> <span class="o">=</span> <span class="mf">0.2</span>
+
+<span class="c1"># The sample size</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">())</span> <span class="o">*</span> <span class="n">percentage</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="c1"># Reclassify elevation into 5 classes and add number 1 to the result to make the scale from 1-5</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation_points&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">xrspatial</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">natural_breaks</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_sample</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot the result</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation_points&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation categories&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/508ebcd164ab12e51bafdff7d74e9db671de2dbebda0fe0d21dbf251b6e95d7d.png" src="../../../_images/508ebcd164ab12e51bafdff7d74e9db671de2dbebda0fe0d21dbf251b6e95d7d.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Elevation categories (k=5) based on natural breaks classification scheme.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">new_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_nb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">xrspatial</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">natural_breaks</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_sample</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_points&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">reclassify</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_nb&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">new_values</span><span class="o">=</span><span class="n">new_values</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_points&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Slope categories&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/e5a070435b2ca0b025895cd46a19aff90b796cf643635d84831d0a8c3d46028a.png" src="../../../_images/e5a070435b2ca0b025895cd46a19aff90b796cf643635d84831d0a8c3d46028a.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Slope categories (k=5) based on natural breaks classification scheme.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">360</span><span class="p">]</span>
+<span class="n">new_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Classify</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect_points&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">reclassify</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">new_values</span><span class="o">=</span><span class="n">new_values</span>
+<span class="p">)</span>
+
+<span class="c1"># Make a plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect_points&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu_r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Aspect categories based on custom classifier&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/1beefacb54ac1ee55ae57a86164e12e43ed7db12bf705ddefbda70d2e1eb51c4.png" src="../../../_images/1beefacb54ac1ee55ae57a86164e12e43ed7db12bf705ddefbda70d2e1eb51c4.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Aspect categories based on a custom a custom classification scheme.</em></p>
+</section>
+</section>
+<section id="local-operations">
+<h2>Local operations<a class="headerlink" href="#local-operations" title="Link to this heading">#</a></h2>
+<p>A local function operates .. Chapter 7.6 includes many more examples of using local operations related to working with multiband satellite data and geospatial timeseries data spanning multiple years.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the suitability index by weighting the &quot;points&quot; given for different layers</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;suitability_index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation_points&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span>
+    <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect_points&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.6</span>
+    <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_points&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot the suitability index</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;suitability_index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu_r&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Suitability index&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/e17fb7a8500e886426f5153d311cb5686a790d8f8bb848e9ae0bb4fd4c452f8f.png" src="../../../_images/e17fb7a8500e886426f5153d311cb5686a790d8f8bb848e9ae0bb4fd4c452f8f.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Suitability index calculated based on elevation, aspect and slope.</em></p>
+</section>
+<section id="global-operations">
+<h2>Global operations<a class="headerlink" href="#global-operations" title="Link to this heading">#</a></h2>
+<p>In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. They are essential for modeling cumulative effects, spatial dependencies, and large-scale patterns in fields like hydrology, transportation, and environmental science.</p>
+<section id="statistical-summaries">
+<h3>Statistical summaries<a class="headerlink" href="#statistical-summaries" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1342.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2294.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1663.44648125
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1649.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>147.3785525805685
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="viewshed">
+<h3>Viewshed<a class="headerlink" href="#viewshed" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+
+<span class="c1"># Extract the center coordinates of the raster</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">bounds</span><span class="p">())</span>
+<span class="n">xcoord</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span>
+<span class="n">ycoord</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">y</span>
+
+<span class="c1"># Create a GeoDataFrame of the centroid</span>
+<span class="n">observer_location</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">xcoord</span><span class="p">,</span> <span class="n">ycoord</span><span class="p">)],</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Elevation at a given point</span>
+<span class="n">elevation</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xcoord</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ycoord</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elevation in the location of observer:&quot;</span><span class="p">,</span> <span class="n">elevation</span><span class="p">,</span> <span class="s2">&quot;meters.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elevation in the location of observer: 1509.25 meters.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s imagine that there is a bird watching tower that rises 10 meters above the ground. In the following, we assume that a person is viewing the landscape on top of this tower to improve the visibility of the landscape. To calculate viewshed from this observation point, we can use <code class="docutils literal notranslate"><span class="pre">.viewshed()</span></code> function from the <code class="docutils literal notranslate"><span class="pre">xrspatial</span></code> library as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Observer elevation</span>
+<span class="n">observer_elevation</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Calculate viewshed</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;viewshed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">viewshed</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">xcoord</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ycoord</span><span class="p">,</span> <span class="n">observer_elev</span><span class="o">=</span><span class="n">observer_elevation</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Plot hillshade that was calculated earlier</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot viewshed</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;viewshed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu_r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="c1"># Observer location</span>
+<span class="n">observer_location</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Observer location&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Add legend and title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Visible areas from the observer location&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/602be6c3c351694aacc8f0b49b667007a527a06fce7314e4cb71c6339950e1fc.png" src="../../../_images/602be6c3c351694aacc8f0b49b667007a527a06fce7314e4cb71c6339950e1fc.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Visible areas from the observer location based on the viewshed analysis.</em></p>
+</section>
+</section>
+<section id="zonal-operations">
+<h2>Zonal operations<a class="headerlink" href="#zonal-operations" title="Link to this heading">#</a></h2>
+<p>To be added.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span>
+
+<span class="c1"># Fetch lake &quot;Riuttanen&quot; from OSM</span>
+<span class="n">lake</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocode_to_gdf</span><span class="p">(</span><span class="s2">&quot;Riuttanen, Joensuu&quot;</span><span class="p">)</span>
+<span class="n">lake</span> <span class="o">=</span> <span class="n">gdf1</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+<span class="c1"># Fetch peak Riuttavaara based on OSM Node ID</span>
+<span class="n">peak</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocode_to_gdf</span><span class="p">(</span><span class="s2">&quot;N11034739930&quot;</span><span class="p">,</span> <span class="n">by_osmid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">peak</span> <span class="o">=</span> <span class="n">peak</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+<span class="c1"># Create a buffer around the peak</span>
+<span class="n">peak</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+<span class="n">lake</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+<span class="n">peak</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Lake and Peak polygons&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/a208713cce136284f140242b10a91199744f9f67c5cb29eadddd72ace8e6ce19.png" src="../../../_images/a208713cce136284f140242b10a91199744f9f67c5cb29eadddd72ace8e6ce19.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Two zones that are used for comparison and calculating zonal statistics.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge zones into a single GeoDataFrame</span>
+<span class="n">zones</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">peak</span><span class="p">,</span> <span class="n">lake</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rasterstats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">elevation_array</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">affine</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
+
+<span class="c1"># Run the zonal statistics</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">rasterstats</span><span class="o">.</span><span class="n">zonal_stats</span><span class="p">(</span>
+    <span class="n">zones</span><span class="p">,</span>
+    <span class="n">elevation_array</span><span class="p">,</span>
+    <span class="n">affine</span><span class="o">=</span><span class="n">affine</span><span class="p">,</span>
+    <span class="n">stats</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;std&quot;</span><span class="p">],</span>  <span class="c1"># Statistics to calculate</span>
+    <span class="n">nodata</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">,</span>  <span class="c1"># Handle nodata values</span>
+<span class="p">)</span>
+
+<span class="n">stats</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;min&#39;: 1650.0,
+  &#39;max&#39;: 1800.0,
+  &#39;mean&#39;: 1727.7313432835822,
+  &#39;std&#39;: 44.88168484486737},
+ {&#39;min&#39;: 1408.0,
+  &#39;max&#39;: 1471.0,
+  &#39;mean&#39;: 1409.546827794562,
+  &#39;std&#39;: 3.8168113458094}]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+<span class="n">stats</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1650.0</td>
+      <td>1800.0</td>
+      <td>1727.731343</td>
+      <td>44.881685</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1408.0</td>
+      <td>1471.0</td>
+      <td>1409.546828</td>
+      <td>3.816811</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zones</span> <span class="o">=</span> <span class="n">zones</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+<span class="n">zones</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geometry</th>
+      <th>bbox_west</th>
+      <th>bbox_south</th>
+      <th>bbox_east</th>
+      <th>bbox_north</th>
+      <th>place_id</th>
+      <th>osm_type</th>
+      <th>osm_id</th>
+      <th>lat</th>
+      <th>lon</th>
+      <th>...</th>
+      <th>type</th>
+      <th>place_rank</th>
+      <th>importance</th>
+      <th>addresstype</th>
+      <th>name</th>
+      <th>display_name</th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>POLYGON ((3695077.073 6942292.381, 3695076.11 ...</td>
+      <td>30.783790</td>
+      <td>62.534025</td>
+      <td>30.783890</td>
+      <td>62.534125</td>
+      <td>155389184</td>
+      <td>node</td>
+      <td>11034739930</td>
+      <td>62.534075</td>
+      <td>30.783840</td>
+      <td>...</td>
+      <td>peak</td>
+      <td>18</td>
+      <td>0.160063</td>
+      <td>peak</td>
+      <td>Riuttavaara</td>
+      <td>Riuttavaara, Joensuu, Joensuu sub-region, Nort...</td>
+      <td>1650.0</td>
+      <td>1800.0</td>
+      <td>1727.731343</td>
+      <td>44.881685</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>POLYGON ((3693801.983 6941952.076, 3693802.445...</td>
+      <td>30.762616</td>
+      <td>62.521290</td>
+      <td>30.791158</td>
+      <td>62.538771</td>
+      <td>155368181</td>
+      <td>relation</td>
+      <td>8774094</td>
+      <td>62.530008</td>
+      <td>30.774021</td>
+      <td>...</td>
+      <td>water</td>
+      <td>22</td>
+      <td>0.106730</td>
+      <td>water</td>
+      <td>Riuttanen</td>
+      <td>Riuttanen, Joensuu, Joensuu sub-region, North ...</td>
+      <td>1408.0</td>
+      <td>1471.0</td>
+      <td>1409.546828</td>
+      <td>3.816811</td>
+    </tr>
+  </tbody>
+</table>
+<p>2 rows × 21 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># What is the maximum difference in elevation between peak and lake?</span>
+<span class="n">difference</span> <span class="o">=</span> <span class="n">zones</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">zones</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elevation difference between the peak and lake: </span><span class="si">{</span><span class="n">difference</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> m.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elevation difference between the peak and lake: 318 m.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="incremental-operations">
+<h2>Incremental operations<a class="headerlink" href="#incremental-operations" title="Link to this heading">#</a></h2>
+<p>Incremental operations ..</p>
+<section id="least-cost-path-calculation-based-on-raster-surface">
+<h3>Least-cost path calculation based on raster surface<a class="headerlink" href="#least-cost-path-calculation-based-on-raster-surface" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">origin</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">3691000</span><span class="p">,</span> <span class="mi">6942000</span><span class="p">)],</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="n">destination</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">3698500</span><span class="p">,</span> <span class="mi">6948000</span><span class="p">)],</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">)</span>
+<span class="n">origin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Origin&quot;</span><span class="p">)</span>
+<span class="n">destination</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Destination&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Origin and destination&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/4dd500fc354667b7705da663f1125d69ff9fb164c69f88461bc25477e1de6f9f.png" src="../../../_images/4dd500fc354667b7705da663f1125d69ff9fb164c69f88461bc25477e1de6f9f.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Origin and destination points that are used to find the least-cost path across the surface.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">barriers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1400</span><span class="p">,</span> <span class="mi">1580</span><span class="p">))</span>
+<span class="n">barriers</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">2200</span><span class="p">))</span>
+
+<span class="n">origin_latlon</span> <span class="o">=</span> <span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">origin</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+<span class="n">destination_latlon</span> <span class="o">=</span> <span class="p">(</span><span class="n">destination</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">destination</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">least_cost_path</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">a_star_search</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">origin_latlon</span><span class="p">,</span> <span class="n">destination_latlon</span><span class="p">,</span> <span class="n">barriers</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">route</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">least_cost_path</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">least_cost_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">origin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Origin&quot;</span><span class="p">)</span>
+<span class="n">destination</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Destination&quot;</span><span class="p">)</span>
+<span class="n">route</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gist_heat&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Origin and destination&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/98584b608bd52927de4a7edb9a3a96d475407b0aa0edd6c9ee7bf2d262a73f6b.png" src="../../../_images/98584b608bd52927de4a7edb9a3a96d475407b0aa0edd6c9ee7bf2d262a73f6b.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> The calculated least-cost path from origin to destination based on A* algorithm.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineString</span>
+
+<span class="c1"># Convert (row, col) path to geographic coordinates</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
+
+<span class="c1"># Extract (row, col) indices where path is not NaN</span>
+<span class="n">path_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">least_cost_path</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+
+<span class="n">coords</span> <span class="o">=</span> <span class="p">[</span><span class="n">transform</span> <span class="o">*</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">col</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">))</span> <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">path_indices</span><span class="p">]</span>
+
+<span class="c1"># Create a LineString from the path</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+
+<span class="c1"># Convert to a GeoDataFrame</span>
+<span class="n">shortest_path</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">line</span><span class="p">]},</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+<span class="n">shortest_path</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Least cost path&quot;</span><span class="p">)</span>
+<span class="n">origin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Origin&quot;</span><span class="p">)</span>
+<span class="n">destination</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Destination&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Least cost path between origin and destination&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/9d193b5602373b212e994a7b708292e7ef2bf2d53eea95591a4cb90fa192b94b.png" src="../../../_images/9d193b5602373b212e994a7b708292e7ef2bf2d53eea95591a4cb90fa192b94b.png" />
+</div>
+</div>
+<p><em><strong>Figure 7.X.</strong> Vectorized least-cost path (LineString) across the terrain.</em></p>
+</section>
+<section id="flow-accumulation">
+<h3>Flow accumulation<a class="headerlink" href="#flow-accumulation" title="Link to this heading">#</a></h3>
+<p>Flow accumulation for example related to watershed analysis is another example of incremental operation. <strong>ADD MORE INFO</strong>. Chapter 12 will cover examples how incremental operations are used to calculate watersheds based in digital elevation model in New Zealand.</p>
+</section>
 </section>
 </section>
 
@@ -1113,21 +1833,28 @@ Data variables:
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reclassify">Reclassify</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-functions">Local functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-functions">Focal functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-mean">Focal mean</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-majority">Focal majority</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-range">Focal range</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-operations">Focal operations</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slope">Slope</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aspect">Aspect</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#curvature">Curvature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hot-and-cold-spots">Hot and cold spots</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hillshade">Hillshade</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing-and-focal-statistics">Smoothing and focal statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reclassification">Reclassification</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-functions">Global functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-functions">Zonal functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-functions">Incremental functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-operations">Local operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-operations">Global operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-summaries">Statistical summaries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewshed">Viewshed</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-operations">Zonal operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-operations">Incremental operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-cost-path-calculation-based-on-raster-surface">Least-cost path calculation based on raster surface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-accumulation">Flow accumulation</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

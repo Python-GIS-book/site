@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
@@ -42,12 +42,12 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-07/nb/01-data-structures-xarray';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -286,16 +286,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -3437,21 +3428,21 @@ Data variables:
 <p>: <em><strong>Table 7.1</strong>. Common raster file formats.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p>Name</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Name</p></th>
 <th class="head text-center"><p>Extension</p></th>
 <th class="head text-left"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p>GeoTiff</p></td>
+<tr class="row-even"><td class="text-left"><p>GeoTIFF</p></td>
 <td class="text-center"><p>.tif, .tiff</p></td>
 <td class="text-left"><p>Widely used to store individual raster layers to disk (i.e. a single <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>netCDF</p></td>
+<tr class="row-odd"><td class="text-left"><p>netCDF</p></td>
 <td class="text-center"><p>.nc</p></td>
 <td class="text-left"><p>Widely used to store a whole <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> that can contain multiple variables.</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>Zarr</p></td>
+<tr class="row-even"><td class="text-left"><p>Zarr</p></td>
 <td class="text-center"><p>.zarr</p></td>
 <td class="text-left"><p>Newer format for storing <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>. Supports storing large data in compressed chunks.</p></td>
 </tr>
@@ -3467,55 +3458,43 @@ Data variables:
 <p>: <em><strong>Table 7.2</strong>. Common raster compression methods.</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Compress Ratio</p></th>
-<th class="head"><p>Encoding Speed</p></th>
-<th class="head"><p>Decoding Speed</p></th>
-<th class="head"><p>Common Raster Formats</p></th>
-<th class="head"><p>Best For</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Name</p></th>
+<th class="head text-center"><p>Type</p></th>
+<th class="head text-center"><p>Compress Ratio</p></th>
+<th class="head text-center"><p>Encoding / Decoding Speed</p></th>
+<th class="head text-left"><p>Common Raster Formats</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LZW</span></code></p></td>
-<td><p>Lossless</p></td>
-<td><p>Moderate</p></td>
-<td><p>Medium</p></td>
-<td><p>Fast</p></td>
-<td><p>GeoTIFF, PNG</p></td>
-<td><p>General-purpose datasets, GIS workflows</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">LZW</span></code></p></td>
+<td class="text-center"><p>Lossless</p></td>
+<td class="text-center"><p>Moderate</p></td>
+<td class="text-center"><p>Medium / Fast</p></td>
+<td class="text-left"><p>GeoTIFF, PNG</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DEFLATE</span></code></p></td>
-<td><p>Lossless</p></td>
-<td><p>High</p></td>
-<td><p>Slow</p></td>
-<td><p>Medium</p></td>
-<td><p>GeoTIFF, PNG</p></td>
-<td><p>Archival storage, cloud-based processing</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">DEFLATE</span></code></p></td>
+<td class="text-center"><p>Lossless</p></td>
+<td class="text-center"><p>High</p></td>
+<td class="text-center"><p>Slow / Medium</p></td>
+<td class="text-left"><p>GeoTIFF, PNG</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ZSTD</span></code></p></td>
-<td><p>Lossless</p></td>
-<td><p>High</p></td>
-<td><p>Fast</p></td>
-<td><p>Fast</p></td>
-<td><p>Cloud-optimized GeoTIFF</p></td>
-<td><p>Cloud storage, high-performance applications</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ZSTD</span></code></p></td>
+<td class="text-center"><p>Lossless</p></td>
+<td class="text-center"><p>High</p></td>
+<td class="text-center"><p>Fast / Fast</p></td>
+<td class="text-left"><p>Cloud-optimized GeoTIFF</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">JPEG</span></code></p></td>
-<td><p>Lossy</p></td>
-<td><p>Very High</p></td>
-<td><p>Fast</p></td>
-<td><p>Fast</p></td>
-<td><p>JPEG, GeoTIFF (YCbCr)</p></td>
-<td><p>Web visualization, aerial imagery</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">JPEG</span></code></p></td>
+<td class="text-center"><p>Lossy</p></td>
+<td class="text-center"><p>Very High</p></td>
+<td class="text-center"><p>Fast / Fast</p></td>
+<td class="text-left"><p>JPEG, GeoTIFF (YCbCr)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">JPEG2000</span></code></p></td>
-<td><p>Both avail.</p></td>
-<td><p>Very High</p></td>
-<td><p>Slow</p></td>
-<td><p>Medium</p></td>
-<td><p>JP2, GeoTIFF (JP2)</p></td>
-<td><p>High-resolution satellite imagery</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">JPEG2000</span></code></p></td>
+<td class="text-center"><p>Both avail.</p></td>
+<td class="text-center"><p>Very High</p></td>
+<td class="text-center"><p>Slow / Medium</p></td>
+<td class="text-left"><p>JP2, GeoTIFF (JP2)</p></td>
 </tr>
 </tbody>
 </table>
@@ -6013,24 +5992,20 @@ Data variables:
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file format supports many other useful functionalities to e.g. compress the data and store the data in cloud object storage. In case you are interested in these functionalities, we recommend you to read further details from the <a class="reference external" href="https://docs.xarray.dev/en/stable/user-guide/io.html#zarr"><code class="docutils literal notranslate"><span class="pre">xarray</span></code> documentation</a> <a class="footnote-reference brackets" href="#zarr-xarray" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> as well as from the <a class="reference external" href="https://zarr.readthedocs.io/"><code class="docutils literal notranslate"><span class="pre">zarr</span></code> documentation</a><a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Zarr</span></code> file format supports many other useful functionalities to e.g. compress the data and store the data in cloud object storage. In case you are interested in these functionalities, we recommend you to read further details from the <a class="reference external" href="https://docs.xarray.dev/en/stable/user-guide/io.html#zarr"><code class="docutils literal notranslate"><span class="pre">xarray</span></code> documentation</a> <a class="footnote-reference brackets" href="#zarr-xarray" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> as well as from the <a class="reference external" href="https://zarr.readthedocs.io/"><code class="docutils literal notranslate"><span class="pre">zarr</span></code> documentation</a><a class="footnote-reference brackets" href="#zarr" id="id2" role="doc-noteref"><span class="fn-bracket">[</span><span class="fn-bracket">]</span></a>.</p>
 </section>
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+</section>
+</section>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="zarr-xarray" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://docs.xarray.dev/en/stable/user-guide/io.html#zarr">https://docs.xarray.dev/en/stable/user-guide/io.html#zarr</a></p>
 </aside>
-<aside class="footnote brackets" id="id3" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://zarr.readthedocs.io/">https://zarr.readthedocs.io/</a></p>
 </aside>
-</aside>
-</section>
-</section>
 
     <script type="text/x-thebe-config">
     {

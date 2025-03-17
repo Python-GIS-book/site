@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/landing-page.css?v=ca7933c4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
   
@@ -42,12 +42,12 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-09/nb/00-retrieving-osm-data';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -286,16 +286,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using git and GitHub</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
 </ul>
@@ -640,7 +631,7 @@ document.write(`
             &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
             &lt;style&gt;
-                #map_88176427a133c6940b0c2b93582c7c01 {
+                #map_a1af2caea90a7b18a088720ec53371ec {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -670,95 +661,111 @@ document.write(`
 &lt;body&gt;
     
     
-            &lt;div class=&quot;folium-map&quot; id=&quot;map_88176427a133c6940b0c2b93582c7c01&quot; &gt;&lt;/div&gt;
+            &lt;div class=&quot;folium-map&quot; id=&quot;map_a1af2caea90a7b18a088720ec53371ec&quot; &gt;&lt;/div&gt;
         
 &lt;/body&gt;
 &lt;script&gt;
     
     
-            var map_88176427a133c6940b0c2b93582c7c01 = L.map(
-                &quot;map_88176427a133c6940b0c2b93582c7c01&quot;,
+            var map_a1af2caea90a7b18a088720ec53371ec = L.map(
+                &quot;map_a1af2caea90a7b18a088720ec53371ec&quot;,
                 {
                     center: [60.1662719, 24.9320534],
                     crs: L.CRS.EPSG3857,
-                    zoom: 10,
-                    zoomControl: true,
-                    preferCanvas: false,
+                    ...{
+  &quot;zoom&quot;: 10,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
                 }
             );
-            L.control.scale().addTo(map_88176427a133c6940b0c2b93582c7c01);
+            L.control.scale().addTo(map_a1af2caea90a7b18a088720ec53371ec);
 
             
 
         
     
-            var tile_layer_a7d12e5fd2039179e145a15aa511c578 = L.tileLayer(
+            var tile_layer_77cff7e5bc9131325f6c7ffa381229c7 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 19,
+  &quot;maxNativeZoom&quot;: 19,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_a7d12e5fd2039179e145a15aa511c578.addTo(map_88176427a133c6940b0c2b93582c7c01);
+            tile_layer_77cff7e5bc9131325f6c7ffa381229c7.addTo(map_a1af2caea90a7b18a088720ec53371ec);
         
     
-            map_88176427a133c6940b0c2b93582c7c01.fitBounds(
+            map_a1af2caea90a7b18a088720ec53371ec.fitBounds(
                 [[60.1604686, 24.9206432], [60.1720752, 24.9434636]],
                 {}
             );
         
     
-        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_styler(feature) {
+        function geo_json_88a6540140272e1843e177562acecf21_styler(feature) {
             switch(feature.id) {
                 default:
                     return {&quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
             }
         }
-        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_highlighter(feature) {
+        function geo_json_88a6540140272e1843e177562acecf21_highlighter(feature) {
             switch(feature.id) {
                 default:
                     return {&quot;fillOpacity&quot;: 0.75};
             }
         }
-        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_pointToLayer(feature, latlng) {
+        function geo_json_88a6540140272e1843e177562acecf21_pointToLayer(feature, latlng) {
             var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
             
-            let style = geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_styler(feature)
+            let style = geo_json_88a6540140272e1843e177562acecf21_styler(feature)
             Object.assign(opts, style)
             
             return new L.CircleMarker(latlng, opts)
         }
 
-        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_onEachFeature(feature, layer) {
+        function geo_json_88a6540140272e1843e177562acecf21_onEachFeature(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if(typeof e.target.setStyle === &quot;function&quot;){
-                            geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f.resetStyle(e.target);
+                            geo_json_88a6540140272e1843e177562acecf21.resetStyle(e.target);
                     }
                 },
                 mouseover: function(e) {
                     if(typeof e.target.setStyle === &quot;function&quot;){
-                        const highlightStyle = geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_highlighter(e.target.feature)
+                        const highlightStyle = geo_json_88a6540140272e1843e177562acecf21_highlighter(e.target.feature)
                         e.target.setStyle(highlightStyle);
                     }
                 },
             });
         };
-        var geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f = L.geoJson(null, {
-                onEachFeature: geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_onEachFeature,
+        var geo_json_88a6540140272e1843e177562acecf21 = L.geoJson(null, {
+                onEachFeature: geo_json_88a6540140272e1843e177562acecf21_onEachFeature,
             
-                style: geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_styler,
-                pointToLayer: geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_pointToLayer,
+                style: geo_json_88a6540140272e1843e177562acecf21_styler,
+                pointToLayer: geo_json_88a6540140272e1843e177562acecf21_pointToLayer,
+            ...{
+}
         });
 
-        function geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_add (data) {
-            geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f
+        function geo_json_88a6540140272e1843e177562acecf21_add (data) {
+            geo_json_88a6540140272e1843e177562acecf21
                 .addData(data);
         }
-            geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f_add({&quot;bbox&quot;: [24.9206432, 60.1604686, 24.9434636, 60.1720752], &quot;features&quot;: [{&quot;bbox&quot;: [24.9206432, 60.1604686, 24.9434636, 60.1720752], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[24.9206432, 60.1648324], [24.9206934, 60.1644741], [24.9209197, 60.1628454], [24.9215704, 60.162382], [24.9216597, 60.1623737], [24.9218354, 60.1628463], [24.9224509, 60.1624646], [24.9221887, 60.1621463], [24.9226787, 60.1618937], [24.9227149, 60.1618753], [24.9250031, 60.1607359], [24.9270094, 60.1604994], [24.9272567, 60.1604686], [24.9275512, 60.1612396], [24.9287291, 60.1616478], [24.9289674, 60.1617327], [24.9296543, 60.1619472], [24.9299292, 60.1619851], [24.9311982, 60.162418], [24.931523, 60.1625321], [24.9319667, 60.1626828], [24.9322846, 60.1627942], [24.9324169, 60.1628405], [24.9324902, 60.1628662], [24.932565, 60.1628925], [24.9328559, 60.1629983], [24.933099, 60.1630836], [24.9333287, 60.1629156], [24.9333474, 60.1629057], [24.9335739, 60.1627434], [24.9336827, 60.1626655], [24.9337901, 60.1625886], [24.9339057, 60.1625058], [24.9340064, 60.1624337], [24.9341197, 60.1623526], [24.9342017, 60.1622938], [24.9342371, 60.1622685], [24.9344443, 60.1623401], [24.9347329, 60.1624373], [24.9347508, 60.1624449], [24.9349435, 60.1625112], [24.9350342, 60.1625437], [24.9352242, 60.1626091], [24.9352297, 60.162611], [24.9354244, 60.16268], [24.9356272, 60.1627577], [24.9356396, 60.162762], [24.9357643, 60.1628049], [24.9358095, 60.1628205], [24.9360088, 60.1628891], [24.9361034, 60.1629217], [24.9361898, 60.1629515], [24.9364774, 60.1630506], [24.9365367, 60.163071], [24.9365576, 60.1630782], [24.9366735, 60.1631181], [24.9368003, 60.1631618], [24.9369087, 60.1631992], [24.9369409, 60.1632103], [24.9370191, 60.1632372], [24.9371258, 60.163274], [24.9373889, 60.1633646], [24.9374713, 60.163393], [24.9379207, 60.1635478], [24.9381489, 60.1636331], [24.938568, 60.1637776], [24.9386814, 60.1638167], [24.9387874, 60.1638533], [24.9389313, 60.1639029], [24.9389724, 60.1639171], [24.9390364, 60.1639392], [24.9391173, 60.1639671], [24.939221, 60.1640028], [24.9392792, 60.1640229], [24.9393431, 60.1640449], [24.9395106, 60.1641026], [24.9397346, 60.1641798], [24.9398297, 60.1642126], [24.9400406, 60.1642853], [24.9401224, 60.1643135], [24.9402588, 60.1643605], [24.9404864, 60.1644483], [24.9406943, 60.1645202], [24.9408344, 60.1645687], [24.9408752, 60.1645828], [24.9408934, 60.1645891], [24.9409216, 60.1645988], [24.9409936, 60.1646237], [24.9411517, 60.1646784], [24.941183, 60.1646892], [24.9412386, 60.1647084], [24.9412672, 60.1647183], [24.9413724, 60.1647598], [24.9414397, 60.1647835], [24.9415696, 60.1648287], [24.9416219, 60.1648468], [24.9416508, 60.1648569], [24.9417079, 60.164877], [24.9417637, 60.1648958], [24.9420194, 60.1649851], [24.942036, 60.1649908], [24.9420753, 60.1650044], [24.9421414, 60.1650276], [24.942263, 60.1650701], [24.9424048, 60.1651192], [24.9424713, 60.1651424], [24.9424791, 60.1651451], [24.9425825, 60.1651806], [24.9427998, 60.1652552], [24.9431792, 60.1653886], [24.9434296, 60.1654744], [24.9434636, 60.1655119], [24.9434291, 60.1659304], [24.9434165, 60.1660938], [24.9434071, 60.1662065], [24.9434037, 60.1662454], [24.9433183, 60.1663068], [24.9432405, 60.1663639], [24.9429674, 60.166546], [24.9427692, 60.1666798], [24.9424899, 60.1668672], [24.9424765, 60.1668762], [24.942327, 60.1669746], [24.9422835, 60.1670032], [24.9422378, 60.1670333], [24.9420992, 60.1671292], [24.9419825, 60.1672064], [24.9419485, 60.1672283], [24.9417014, 60.1673922], [24.9415453, 60.1674959], [24.9414306, 60.1675719], [24.9412695, 60.1676787], [24.9412065, 60.1677205], [24.9410613, 60.1678147], [24.9409976, 60.1678568], [24.9409024, 60.1679197], [24.9407863, 60.1679965], [24.9407221, 60.1680384], [24.9406077, 60.168113], [24.9403901, 60.1682643], [24.9396928, 60.1687259], [24.939566, 60.1688082], [24.9395183, 60.1688392], [24.939467, 60.1688725], [24.9393799, 60.168939], [24.939344, 60.1689622], [24.9392751, 60.169005], [24.9391435, 60.1690945], [24.9390501, 60.169155], [24.9390055, 60.1691924], [24.93887, 60.1692809], [24.9386342, 60.1694403], [24.9382465, 60.1696857], [24.9380738, 60.1696244], [24.9375931, 60.1699772], [24.937472, 60.1700598], [24.9374355, 60.1700841], [24.9373965, 60.1701105], [24.9364904, 60.1707094], [24.9363191, 60.1708221], [24.936299, 60.170836], [24.9356495, 60.1712847], [24.9356612, 60.1713039], [24.9356593, 60.1713194], [24.9356505, 60.1713347], [24.9354341, 60.1715621], [24.9353767, 60.1716224], [24.9353625, 60.1716388], [24.9350143, 60.1720216], [24.9349585, 60.1720752], [24.9347193, 60.1719782], [24.9343507, 60.1720491], [24.9340759, 60.1719071], [24.9336185, 60.1716934], [24.9332588, 60.1715429], [24.9331259, 60.1714873], [24.9326811, 60.1713164], [24.9326483, 60.1713036], [24.9320089, 60.1710822], [24.9314541, 60.1709007], [24.9313635, 60.1708696], [24.9312298, 60.1708276], [24.931197, 60.1708176], [24.9311174, 60.1707817], [24.9302444, 60.1705284], [24.9301528, 60.1705011], [24.9300443, 60.1704674], [24.9300107, 60.170457], [24.9299807, 60.1704472], [24.9299148, 60.1704257], [24.9298436, 60.170403], [24.9290494, 60.1701609], [24.9290295, 60.1701548], [24.9289218, 60.1701215], [24.9288926, 60.1701125], [24.9288683, 60.1701054], [24.9287701, 60.1700746], [24.928755, 60.1700696], [24.928663, 60.1700393], [24.927437, 60.1696595], [24.9272872, 60.1696131], [24.9273008, 60.1696048], [24.9272428, 60.1695868], [24.9271351, 60.1695538], [24.9270129, 60.1695166], [24.9269715, 60.1695031], [24.9269645, 60.1695054], [24.9271074, 60.1694368], [24.9271756, 60.169399], [24.9272327, 60.1693573], [24.9253332, 60.1687384], [24.9244041, 60.168224], [24.924243, 60.1682454], [24.9242095, 60.1682108], [24.9238906, 60.1678817], [24.9237631, 60.1677483], [24.9236252, 60.1674906], [24.9236228, 60.1674862], [24.9235506, 60.1673573], [24.9231832, 60.1674041], [24.9230946, 60.1674157], [24.9226024, 60.1674861], [24.9221243, 60.1675442], [24.9215217, 60.1675241], [24.9208815, 60.1675], [24.9209312, 60.1669936], [24.9207417, 60.1669034], [24.9207454, 60.1668732], [24.9207524, 60.1667641], [24.9209238, 60.1655837], [24.920893, 60.1654531], [24.9208917, 60.1654067], [24.9209432, 60.1650724], [24.9208129, 60.164866], [24.9207877, 60.1648454], [24.9207327, 60.1648363], [24.9206432, 60.1648324]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;addresstype&quot;: &quot;suburb&quot;, &quot;bbox_east&quot;: 24.9434636, &quot;bbox_north&quot;: 60.1720752, &quot;bbox_south&quot;: 60.1604686, &quot;bbox_west&quot;: 24.9206432, &quot;class&quot;: &quot;boundary&quot;, &quot;display_name&quot;: &quot;Kamppi, Southern major district, Helsinki, Helsinki sub-region, Uusimaa, Mainland Finland, 00100, Finland&quot;, &quot;importance&quot;: 0.4669639970377807, &quot;lat&quot;: 60.1676264, &quot;lon&quot;: 24.9317093, &quot;name&quot;: &quot;Kamppi&quot;, &quot;osm_id&quot;: 184714, &quot;osm_type&quot;: &quot;relation&quot;, &quot;place_id&quot;: 155363100, &quot;place_rank&quot;: 20, &quot;type&quot;: &quot;administrative&quot;}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+            geo_json_88a6540140272e1843e177562acecf21_add({&quot;bbox&quot;: [24.9206432, 60.1604686, 24.9434636, 60.1720752], &quot;features&quot;: [{&quot;bbox&quot;: [24.9206432, 60.1604686, 24.9434636, 60.1720752], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[24.9206432, 60.1648324], [24.9206934, 60.1644741], [24.9209197, 60.1628454], [24.9215704, 60.162382], [24.9216597, 60.1623737], [24.9218354, 60.1628463], [24.9224509, 60.1624646], [24.9221887, 60.1621463], [24.9226787, 60.1618937], [24.9227149, 60.1618753], [24.9250031, 60.1607359], [24.9270094, 60.1604994], [24.9272567, 60.1604686], [24.9275512, 60.1612396], [24.9287291, 60.1616478], [24.9289674, 60.1617327], [24.9296543, 60.1619472], [24.9299292, 60.1619851], [24.9311982, 60.162418], [24.931523, 60.1625321], [24.9319667, 60.1626828], [24.9322846, 60.1627942], [24.9324169, 60.1628405], [24.9324902, 60.1628662], [24.932565, 60.1628925], [24.9328559, 60.1629983], [24.933099, 60.1630836], [24.9333287, 60.1629156], [24.9333474, 60.1629057], [24.9335739, 60.1627434], [24.9336827, 60.1626655], [24.9337901, 60.1625886], [24.9339057, 60.1625058], [24.9340064, 60.1624337], [24.9341197, 60.1623526], [24.9342017, 60.1622938], [24.9342371, 60.1622685], [24.9344443, 60.1623401], [24.9347329, 60.1624373], [24.9347508, 60.1624449], [24.9349435, 60.1625112], [24.9350342, 60.1625437], [24.9352242, 60.1626091], [24.9352297, 60.162611], [24.9354244, 60.16268], [24.9356272, 60.1627577], [24.9356396, 60.162762], [24.9357643, 60.1628049], [24.9358095, 60.1628205], [24.9360088, 60.1628891], [24.9361034, 60.1629217], [24.9361898, 60.1629515], [24.9364774, 60.1630506], [24.9365367, 60.163071], [24.9365576, 60.1630782], [24.9366735, 60.1631181], [24.9368003, 60.1631618], [24.9369087, 60.1631992], [24.9369409, 60.1632103], [24.9370191, 60.1632372], [24.9371258, 60.163274], [24.9373889, 60.1633646], [24.9374713, 60.163393], [24.9379207, 60.1635478], [24.9381489, 60.1636331], [24.938568, 60.1637776], [24.9386814, 60.1638167], [24.9387874, 60.1638533], [24.9389313, 60.1639029], [24.9389724, 60.1639171], [24.9390364, 60.1639392], [24.9391173, 60.1639671], [24.939221, 60.1640028], [24.9392792, 60.1640229], [24.9393431, 60.1640449], [24.9395106, 60.1641026], [24.9397346, 60.1641798], [24.9398297, 60.1642126], [24.9400406, 60.1642853], [24.9401224, 60.1643135], [24.9402588, 60.1643605], [24.9404864, 60.1644483], [24.9406943, 60.1645202], [24.9408344, 60.1645687], [24.9408752, 60.1645828], [24.9408934, 60.1645891], [24.9409216, 60.1645988], [24.9409936, 60.1646237], [24.9411517, 60.1646784], [24.941183, 60.1646892], [24.9412386, 60.1647084], [24.9412672, 60.1647183], [24.9413724, 60.1647598], [24.9414397, 60.1647835], [24.9415696, 60.1648287], [24.9416219, 60.1648468], [24.9416508, 60.1648569], [24.9417079, 60.164877], [24.9417637, 60.1648958], [24.9420194, 60.1649851], [24.942036, 60.1649908], [24.9420753, 60.1650044], [24.9421414, 60.1650276], [24.942263, 60.1650701], [24.9424048, 60.1651192], [24.9424713, 60.1651424], [24.9424791, 60.1651451], [24.9425825, 60.1651806], [24.9427998, 60.1652552], [24.9431792, 60.1653886], [24.9434296, 60.1654744], [24.9434636, 60.1655119], [24.9434291, 60.1659304], [24.9434165, 60.1660938], [24.9434071, 60.1662065], [24.9434037, 60.1662454], [24.9433183, 60.1663068], [24.9432405, 60.1663639], [24.9429674, 60.166546], [24.9427692, 60.1666798], [24.9424899, 60.1668672], [24.9424765, 60.1668762], [24.942327, 60.1669746], [24.9422835, 60.1670032], [24.9422378, 60.1670333], [24.9420992, 60.1671292], [24.9419825, 60.1672064], [24.9419485, 60.1672283], [24.9417014, 60.1673922], [24.9415453, 60.1674959], [24.9414306, 60.1675719], [24.9412695, 60.1676787], [24.9412065, 60.1677205], [24.9410613, 60.1678147], [24.9409976, 60.1678568], [24.9409024, 60.1679197], [24.9407863, 60.1679965], [24.9407221, 60.1680384], [24.9406077, 60.168113], [24.9403901, 60.1682643], [24.9396928, 60.1687259], [24.939566, 60.1688082], [24.9395183, 60.1688392], [24.939467, 60.1688725], [24.9393799, 60.168939], [24.939344, 60.1689622], [24.9392751, 60.169005], [24.9391435, 60.1690945], [24.9390501, 60.169155], [24.9390055, 60.1691924], [24.93887, 60.1692809], [24.9386342, 60.1694403], [24.9382465, 60.1696857], [24.9380738, 60.1696244], [24.9375931, 60.1699772], [24.937472, 60.1700598], [24.9374355, 60.1700841], [24.9373965, 60.1701105], [24.9364904, 60.1707094], [24.9363191, 60.1708221], [24.936299, 60.170836], [24.9356495, 60.1712847], [24.9356612, 60.1713039], [24.9356593, 60.1713194], [24.9356505, 60.1713347], [24.9354341, 60.1715621], [24.9353767, 60.1716224], [24.9353625, 60.1716388], [24.9350143, 60.1720216], [24.9349585, 60.1720752], [24.9347193, 60.1719782], [24.9343507, 60.1720491], [24.9340759, 60.1719071], [24.9336185, 60.1716934], [24.9332588, 60.1715429], [24.9331259, 60.1714873], [24.9326811, 60.1713164], [24.9326483, 60.1713036], [24.9320089, 60.1710822], [24.9314541, 60.1709007], [24.9313635, 60.1708696], [24.9312298, 60.1708276], [24.931197, 60.1708176], [24.9311174, 60.1707817], [24.9302444, 60.1705284], [24.9301528, 60.1705011], [24.9300443, 60.1704674], [24.9300107, 60.170457], [24.9299807, 60.1704472], [24.9299148, 60.1704257], [24.9298436, 60.170403], [24.9290494, 60.1701609], [24.9290295, 60.1701548], [24.9289218, 60.1701215], [24.9288926, 60.1701125], [24.9288683, 60.1701054], [24.9287701, 60.1700746], [24.928755, 60.1700696], [24.928663, 60.1700393], [24.927437, 60.1696595], [24.9272872, 60.1696131], [24.9273008, 60.1696048], [24.9272428, 60.1695868], [24.9271351, 60.1695538], [24.9270129, 60.1695166], [24.9269715, 60.1695031], [24.9269645, 60.1695054], [24.9271074, 60.1694368], [24.9271756, 60.169399], [24.9272327, 60.1693573], [24.9253332, 60.1687384], [24.9244041, 60.168224], [24.924243, 60.1682454], [24.9242095, 60.1682108], [24.9238906, 60.1678817], [24.9237631, 60.1677483], [24.9236252, 60.1674906], [24.9236228, 60.1674862], [24.9235506, 60.1673573], [24.9231832, 60.1674041], [24.9230946, 60.1674157], [24.9226024, 60.1674861], [24.9221243, 60.1675442], [24.9215217, 60.1675241], [24.9208815, 60.1675], [24.9209312, 60.1669936], [24.9207417, 60.1669034], [24.9207454, 60.1668732], [24.9207524, 60.1667641], [24.9209238, 60.1655837], [24.920893, 60.1654531], [24.9208917, 60.1654067], [24.9209432, 60.1650724], [24.9208129, 60.164866], [24.9207877, 60.1648454], [24.9207327, 60.1648363], [24.9206432, 60.1648324]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;addresstype&quot;: &quot;suburb&quot;, &quot;bbox_east&quot;: 24.9434636, &quot;bbox_north&quot;: 60.1720752, &quot;bbox_south&quot;: 60.1604686, &quot;bbox_west&quot;: 24.9206432, &quot;class&quot;: &quot;boundary&quot;, &quot;display_name&quot;: &quot;Kamppi, Southern major district, Helsinki, Helsinki sub-region, Uusimaa, Mainland Finland, 00100, Finland&quot;, &quot;importance&quot;: 0.4669639970377807, &quot;lat&quot;: 60.1676264, &quot;lon&quot;: 24.9317093, &quot;name&quot;: &quot;Kamppi&quot;, &quot;osm_id&quot;: 184714, &quot;osm_type&quot;: &quot;relation&quot;, &quot;place_id&quot;: 155363100, &quot;place_rank&quot;: 20, &quot;type&quot;: &quot;administrative&quot;}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
 
         
     
-    geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f.bindTooltip(
+    geo_json_88a6540140272e1843e177562acecf21.bindTooltip(
     function(layer){
     let div = L.DomUtil.create(&#x27;div&#x27;);
     
@@ -779,10 +786,13 @@ document.write(`
     
     return div
     }
-    ,{&quot;className&quot;: &quot;foliumtooltip&quot;, &quot;sticky&quot;: true});
+    ,{
+  &quot;sticky&quot;: true,
+  &quot;className&quot;: &quot;foliumtooltip&quot;,
+});
                      
     
-            geo_json_08de2f43397d3e57c5bacdf0d2bbcc2f.addTo(map_88176427a133c6940b0c2b93582c7c01);
+            geo_json_88a6540140272e1843e177562acecf21.addTo(map_a1af2caea90a7b18a088720ec53371ec);
         
 &lt;/script&gt;
 &lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
@@ -814,7 +824,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/c1e9fbd7e1de0bdb77a8d4f16ebab6fb79b64b576ff3c311c880088b6395a245.png" src="../../../_images/c1e9fbd7e1de0bdb77a8d4f16ebab6fb79b64b576ff3c311c880088b6395a245.png" />
+<img alt="../../../_images/4e53f59f572305b0f4ccdd0823a3e73d58844d170ce80b5f307d64ccbeb7626b.png" src="../../../_images/4e53f59f572305b0f4ccdd0823a3e73d58844d170ce80b5f307d64ccbeb7626b.png" />
 </div>
 </div>
 <p><em><strong>Figure 9.2</strong>. Graph edges and nodes.</em></p>
@@ -1007,33 +1017,33 @@ document.write(`
       <td>POINT (24.92714 60.1642)</td>
     </tr>
     <tr>
-      <th rowspan="4" valign="top">way</th>
-      <th>8035238</th>
-      <td>public</td>
-      <td>Lasipalatsi</td>
-      <td>Helsinki</td>
-      <td>POLYGON ((24.93563 60.17045, 24.93557 60.17054...</td>
-    </tr>
-    <tr>
-      <th>8042297</th>
-      <td>yes</td>
-      <td>Radisson Blu Royal</td>
-      <td>Helsinki</td>
-      <td>POLYGON ((24.92938 60.16795, 24.92933 60.16797...</td>
-    </tr>
-    <tr>
-      <th>14797170</th>
-      <td>school</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POLYGON ((24.92427 60.16648, 24.92427 60.1665,...</td>
-    </tr>
-    <tr>
-      <th>14797171</th>
+      <th rowspan="4" valign="top">relation</th>
+      <th>4701</th>
       <td>yes</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>POLYGON ((24.9239 60.16729, 24.92391 60.16731,...</td>
+      <td>POLYGON ((24.93219 60.16342, 24.93209 60.16349...</td>
+    </tr>
+    <tr>
+      <th>5603</th>
+      <td>yes</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POLYGON ((24.93696 60.16574, 24.93791 60.16607...</td>
+    </tr>
+    <tr>
+      <th>5605</th>
+      <td>apartments</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POLYGON ((24.93758 60.16662, 24.93788 60.16672...</td>
+    </tr>
+    <tr>
+      <th>5606</th>
+      <td>hotel</td>
+      <td>Suomitalo</td>
+      <td>NaN</td>
+      <td>POLYGON ((24.9396 60.16731, 24.93964 60.16729,...</td>
     </tr>
   </tbody>
 </table>
@@ -1051,7 +1061,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../../_images/75e119b05a7bd691841272031d70172238b43a2a21682ffaf331af0bddadc66c.png" src="../../../_images/75e119b05a7bd691841272031d70172238b43a2a21682ffaf331af0bddadc66c.png" />
+<img alt="../../../_images/493176e0f1512b7712170ead81aa8e344cbfc112639556a59695dea5f0768316.png" src="../../../_images/493176e0f1512b7712170ead81aa8e344cbfc112639556a59695dea5f0768316.png" />
 </div>
 </div>
 <p><em><strong>Figure 9.3</strong>. OSM buildings visualized by building tag values.</em></p>
@@ -1268,7 +1278,15 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th rowspan="5" valign="top">way</th>
+      <th>relation</th>
+      <th>9102643</th>
+      <td>park</td>
+      <td>NaN</td>
+      <td>Ruoholahdenpuisto</td>
+      <td>MULTIPOLYGON (((24.91408 60.16148, 24.91408 60...</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">way</th>
       <th>8042256</th>
       <td>park</td>
       <td>NaN</td>
@@ -1296,13 +1314,6 @@ document.write(`
       <td>Lastenlehto</td>
       <td>POLYGON ((24.92741 60.16575, 24.92741 60.16574...</td>
     </tr>
-    <tr>
-      <th>15223911</th>
-      <td>park</td>
-      <td>NaN</td>
-      <td>Lapinlahden puistikko</td>
-      <td>POLYGON ((24.93126 60.16589, 24.93075 60.16624...</td>
-    </tr>
   </tbody>
 </table>
 </div></div></div>
@@ -1318,7 +1329,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../../_images/8eab9060a8d1ed2931ae749e60fc97bda22a9e01916ab1b96cb84c0bd45a4b7c.png" src="../../../_images/8eab9060a8d1ed2931ae749e60fc97bda22a9e01916ab1b96cb84c0bd45a4b7c.png" />
+<img alt="../../../_images/3f0774231ec339d330eef4ac01b4028410a2b54713db24589e67aaa0bbd7196e.png" src="../../../_images/3f0774231ec339d330eef4ac01b4028410a2b54713db24589e67aaa0bbd7196e.png" />
 </div>
 </div>
 <p><em><strong>Figure 9.4</strong>. Polygons tagged with “leisure=park” or “landuse=grass”.</em></p>
@@ -1352,7 +1363,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/f3fe9236f22ad2253feb83bd02d61329afe6a2ae4f40f790b9b5538fc79bf5fc.png" src="../../../_images/f3fe9236f22ad2253feb83bd02d61329afe6a2ae4f40f790b9b5538fc79bf5fc.png" />
+<img alt="../../../_images/a5f8c1d6e949044694f96c1dcc8d39647f2280c6be4c06371d99742245b86230.png" src="../../../_images/a5f8c1d6e949044694f96c1dcc8d39647f2280c6be4c06371d99742245b86230.png" />
 </div>
 </div>
 <p><em><strong>Figure 9.5</strong>. Visualization of OSM map features from the Kamppi area in Helsinki, Finland.</em></p>
@@ -1381,7 +1392,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../../_images/cdefb5c12cb32b53b2d45f510bfbf0199c9fd3626af55c832c354f40b786981a.png" src="../../../_images/cdefb5c12cb32b53b2d45f510bfbf0199c9fd3626af55c832c354f40b786981a.png" />
+<img alt="../../../_images/53c44bca2db73d903017fd560fab120e13cd8140f77c8b81f3dd6530f3862646.png" src="../../../_images/53c44bca2db73d903017fd560fab120e13cd8140f77c8b81f3dd6530f3862646.png" />
 </div>
 </div>
 <p><em><strong>Figure 9.6</strong>. Downloaded buildings within a bounding box.</em></p>
@@ -1400,7 +1411,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../../_images/15c9fdd7d80ee48736bc9288d793f1d020e752eeead179d740e82815bb0e6b55.png" src="../../../_images/15c9fdd7d80ee48736bc9288d793f1d020e752eeead179d740e82815bb0e6b55.png" />
+<img alt="../../../_images/9fe27b8d95b31e9efbaf409b60611cd9384ebeb42367982a4f90621b9065d717.png" src="../../../_images/9fe27b8d95b31e9efbaf409b60611cd9384ebeb42367982a4f90621b9065d717.png" />
 </div>
 </div>
 <p><em><strong>Figure 9.7</strong>. Downloaded buildings within a distance treshold from a geocoded address.</em></p>
@@ -1454,7 +1465,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/d9feb7e33d7fd26aef83dcd59738e92a02b0a93563c21f00419a30f7d2cf4efa.png" src="../../../_images/d9feb7e33d7fd26aef83dcd59738e92a02b0a93563c21f00419a30f7d2cf4efa.png" />
+<img alt="../../../_images/a850ae3786c62459afbe5b1463466f4140ef18fd6b70fa6688b34b2d684b8717.png" src="../../../_images/a850ae3786c62459afbe5b1463466f4140ef18fd6b70fa6688b34b2d684b8717.png" />
 </div>
 </details>
 </div>
@@ -1463,6 +1474,8 @@ document.write(`
 </section>
 <section id="footnotes">
 <h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+</section>
+</section>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="osm" role="doc-footnote">
@@ -1502,8 +1515,6 @@ document.write(`
 <p><a class="reference external" href="https://osmnx.readthedocs.io/en/stable/index.html">https://osmnx.readthedocs.io/en/stable/index.html</a></p>
 </aside>
 </aside>
-</section>
-</section>
 
     <script type="text/x-thebe-config">
     {
