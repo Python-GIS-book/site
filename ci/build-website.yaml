@@ -13,3 +13,4 @@ dependencies:
   - sphinx-book-theme
   - sphinxcontrib-bibtex
   - sphinx-design
+  - sphinx-thebe
