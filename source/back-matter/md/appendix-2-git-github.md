@@ -23,7 +23,7 @@ This appendix provides an introduction to version control using Git and some ste
 <!-- #region editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
 ## The problem
 
-![_**Figure A.X**. An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>._](../img/phd101212s.gif)
+![_**Figure A.X**. An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>._](../img/phd101212s.png)
 
 _**Figure A.X**. An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>._
 
