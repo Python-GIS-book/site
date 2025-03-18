@@ -15,8 +15,73 @@ jupyter:
 # Python programming best practices
 
 
-Content to be added.
+This book aims to introduce you to programming in Python, but also to good programming practices. These comprise practical tips based on practices used by professional programmers that help them write better programs that are easier to understand and share with others. To say it differently, there are many ways to learn to program and we want to help you learn how to program the right way!
 
+<!-- #region -->
+## Selecting variable names
+
+The selection of variable names might seem insignificant in some ways, but poorly chosen variable names can be confusing, unclear, or even misleading. Thus, we provide some examples of both poorly and well chosen variable names below along with some tips for formatting of your variables.
+
+### Some "not-so-good" variable names
+
+Let's first consider some examples of problematic variable names.
+
+```python
+s = "101533"
+sid = "101533"
+```
+
+Here we have two variable names that are nice and short, but it is not particularly clear what kind of value they are being used to store. The variables `s` and `sid` are simply too short and cannot communicate what they should be used for in the code. You might think you know what they are for at the moment, but imagine not looking at the code for a few months. Would you know then? What about if you share the code with a friend? Would they know? Probably not.
+
+Let's consider another example.
+
+```python
+finnishmeteorlogicalinstituteobservationstationidentificationnumber = "101533"
+```
+
+Here we have the opposite problem. The variable name `finnishmeteorologicalinstituteobservationstationidentificationnumber` potentially provides more information about what the variable represents (the identification number of a Finnish Meteorological Institute observation station), but it does so in a format that is not easy to read nor something you're likely to want to type more than once. The previous examples were too short, but now we have a variable name that is too long (and hard to read as a result).
+<!-- #endregion -->
+
+### Selecting "good" variable names
+
+A good variable name should:
+
+1. Be clear and concise. 
+
+2. Be written in English. A general coding practice is to write code with variable names in English, as that is the most likely common language between programmers. Thus, variable names such as `muuttuja`, the word for "variable" in Finnish should be avoided. Note that `muuttuja` is not a good name for other reasons as well.
+
+3. Not contain special characters. Python supports use of special characters by way of various encoding options that can be given in a program. That said, it is better to avoid variables such as `lämpötila` (the Finnish word for temperature) because encoding issues can arise in some cases. It is recommended to stick to the [standard printable ASCII character set](https://en.wikipedia.org/wiki/ASCII#Printable_characters) [^ascii] to be safe.
+
+4. Not conflict with any [Python keywords](https://www.geeksforgeeks.org/python-keywords/) [^keywords], such as `for`, `True`, `False`, `and`, `if`, or `else`. These are reserved for special operations in Python and cannot be used as variable names.
+
+With this in mind, let's now consider two formats commonly used for formatting Python variables.
+
+<!-- #region -->
+### Recommended variable format 1: pothole_case naming
+
+*{term}`pothole_case naming <Pothole case>`* uses lowercase words separated by underscores `_`. This is our suggested format as the underscores make it easy to read the variable and do not add much to the length of the variable name. As an example, consider the variable `temp_celsius`. Considering our earlier examples of poor variable names, we could instead write the following.
+
+```python
+fmi_station_id = "101533"
+```
+
+Here, our variable name conveys all of the essential information we need, while remaining easy to read.
+
+### Recommended variable format 1: camelCase naming
+
+*{term}`camelCase or CamelCase naming <Camel case>`* uses capitalization of the first letter of words in a variable name to make it easier to read. In some cases the first letter of the variable may be capitalized. The variable `tempFahrenheit` is one example of camelCase. Considering the earlier examples, we could use camelCase to write the following.
+
+```python
+fmiStationID = "101533"
+stationID = "101533"
+```
+
+Again, this variable name is clear and easy to read.
+
+### General recommendation
+
+The choice from the formatting options above is yours, but as you may have seen, we tend to utilize pothole_case naming most often in this book. This is because we feel it is the easiest to read and seems to be most common amongst Python programmers. You are welcome to use either option, as long as you are consistent in the use. It might take an extra second of thought, but selecting and formatting your variables can make a big difference in the ease of use of your Python programs!
+<!-- #endregion -->
 
 ## Using modules
 
@@ -35,4 +100,6 @@ Do not use confusing names when renaming on import. Be smart when you import mod
 
 ## Footnotes
 
+[^ascii]: <https://en.wikipedia.org/wiki/ASCII#Printable_character_table>
+[^keywords]: <https://www.geeksforgeeks.org/python-keywords/>
 [^pep8]: <https://peps.python.org/pep-0008/#imports>
