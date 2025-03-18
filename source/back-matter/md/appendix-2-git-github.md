@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-# A.3 Version control with using Git and GitHub
+# Version control with using Git and GitHub
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
