@@ -31,6 +31,9 @@ Argument
 Binary predicate
   See {term}`Spatial predicate`.
 
+Camel case
+  A variable naming convention in which words are joined without spaces by capitalizing the first letter of each word that follows the first. For example, `gpsStationId`.
+
 Collection
   A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.
 
@@ -222,6 +225,9 @@ Optional parameter
 
 Parameter
   A variable listed within the parentheses of a function definition. Similar to an {term}`argument`.
+
+Pothole case
+  A variable naming convention that utilzes underscore characters (`_`) to separate words in the variable name. For example, `gps_station_id`. Also known as snake case.
 
 Program
   A detailed list of step-by-step instructions that tell the computer exactly what to do.

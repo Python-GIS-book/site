@@ -18,7 +18,7 @@ jupyter:
 This book aims to introduce you to programming in Python, but also to good programming practices. These comprise practical tips based on practices used by professional programmers that help them write better programs that are easier to understand and share with others. To say it differently, there are many ways to learn to program and we want to help you learn how to program the right way!
 
 <!-- #region -->
-## Selecting variable names
+## Best practice 1: Selecting variable names
 
 The selection of variable names might seem insignificant in some ways, but poorly chosen variable names can be confusing, unclear, or even misleading. Thus, we provide some examples of both poorly and well chosen variable names below along with some tips for formatting of your variables.
 
@@ -67,7 +67,7 @@ fmi_station_id = "101533"
 
 Here, our variable name conveys all of the essential information we need, while remaining easy to read.
 
-### Recommended variable format 1: camelCase naming
+### Recommended variable format 2: camelCase naming
 
 *{term}`camelCase or CamelCase naming <Camel case>`* uses capitalization of the first letter of words in a variable name to make it easier to read. In some cases the first letter of the variable may be capitalized. The variable `tempFahrenheit` is one example of camelCase. Considering the earlier examples, we could use camelCase to write the following.
 
@@ -81,6 +81,201 @@ Again, this variable name is clear and easy to read.
 ### General recommendation
 
 The choice from the formatting options above is yours, but as you may have seen, we tend to utilize pothole_case naming most often in this book. This is because we feel it is the easiest to read and seems to be most common amongst Python programmers. You are welcome to use either option, as long as you are consistent in the use. It might take an extra second of thought, but selecting and formatting your variables can make a big difference in the ease of use of your Python programs!
+<!-- #endregion -->
+
+## Best practice 2: Describing your code
+
+You code ultimately decides what will be executed by a program, but providing some descriptive text is important for helping users (including you) understand what the code is used for and how certain sections work. In a Jupyter notebook, this text can take two basic forms:
+
+- Code comments: Text within your Python programs that does not get executed when the software is run. This text is mixed within the code and often used to describe how some or all of the code works. There are several styles of code comments in Python, which are described in more detail later in this appendix.
+- Markdown text: Text written as plain text with a simple syntax that can be rendered with rich formatting (bold, italics, different font sizes, colors, etc.). In Jupyter notebooks this text is written in Markdown cells and displayed as rich text when the cells are executed. In contrast to code comments, this text is generally intended to provide a broader description of the code or other things needed to understand what you code does.
+
+Below you can find some examples of both below code comments and Markdown text, along with some tips.
+
+
+### Do I need to describe my code?
+
+Absolutely! Providing comments or Markdown text to describe your code is essential for a number of reasons:
+
+1. Code descriptions make it easier to understand your code. Although good variable names can help you and other users better understand what you code does, your Jupyter notebooks and/or script files are seldom short enough for you to be able to read over the entire code at once and fully understand what is going on. For this reason, comments and Markdown text are essential parts of making sure your notebooks are easy to use and understand section by section.
+2. Code descriptions make it easier for other users to use your code. Even when writing simple software it is worthwhile to take the time to include some extra documentation about how it works. Everyone has their own tendencies in how they write their software and by including a few comments and/or Markdown text you can make it much easier for people to understand and use your work.
+3. Writing code descriptions can help you debug your code. Over time you will gain more experience with understanding why some piece of code does not work the way it should. One way to help fix (or debug) your code is to add comments stating what each line does. By taking things step by step, you may find that your code actually does not do what you thought, and this can help you be able to find and fix issues.
+4. Code descriptions are a big part of why Jupyter notebooks are so powerful. Code comments are quite helpful in general, but one of the biggest features of a Jupyter notebook is the ability to mix rich text with your code. With this platform you can even write scientific texts with embedded code cells to be able to perform calculations, analyze data, and visualize your results. This powerful platform is an excellent open science tool that provides a clear means to reproduce your results on demand.
+
+Below we review the main forms of code descriptions we recommend using in your Jupyter notebooks and Python script files.
+
+
+### But the Internet says I should not comment my code...
+
+Some programmers advocate that people should not need to comment their code if it is easily understood. In essence, the argument is that if you need comments to understand what the code does, it is not good code. The advice is not that you should never comment in your code, but rather that comments are really only needed to describe why something is done a given way (not what is done). While this is true to a degree, this advice does not apply to most of us.
+
+Most of us are only just getting started with programming, and our comments serve a bit different purpose. For new programmers, comments make sure we understand what each line of our code does and helps others who you share your code with understand as well. In addition, writing comments can make you pause, look at your code, and then come up with a way to describe what you have done. For new programmers, this makes for excellent practice!
+
+<!-- #region -->
+### Code comments - single-line comments
+
+Single-line comments begin with the `#` character, typically as the first character on the line, and everything to the right of that character will be ignored by the Python interpreter. These comments are most frequently used to describe individual lines of code or a small group of related lines. Let's have a look at an example.
+
+```python
+# This is a line comment. It will be ignored when this cell is run
+```
+
+If you were to run the cell above, nothing would happen. The `#` character indicates the line contains a comment and the Python interpreter simply skips over this line (the only line in that cell).
+
+Let's have a look at a few more examples.
+
+```python
+# This list has the names of FMI observation stations in Helsinki
+station_names = [
+    "Helsinki Harmaja",
+    "Helsinki Kaisaniemi",
+    "Helsinki Kaivopuisto",
+    "Helsinki Kumpula",
+]
+```
+
+```python
+# Print the last station name
+print(station_names[-1])  
+```
+
+In the examples above you can see some of the ways in which single-line comments can be used in Python. We encourage you to add line comments within your Python cells to help explain what your code does, especially if there are several lines within a given code cell.
+<!-- #endregion -->
+
+<!-- #region -->
+## Code comments - block comments
+
+Block comments are somewhat similar to single line comments in format, but comprise several lines of consecutive comments rather than just one. These can be useful in situations where a single line comment is not sufficient to describe the code below it or when commenting out several lines of code during debugging, for example. Let's have a look at a few examples of block comments below.
+
+```python
+# This doesn't work, so I'm commenting it out for now
+# my_life.append(lots_of_money)
+```
+
+```python
+# Produce a set of subplots showing data from the:
+# - Helsinki Harmaja station
+# - Helsinki Kaisaniemi station
+# - Helsinki Kaivopuisto station
+# - Helsinki Kumpula station
+fig, ax = plt.subplots(2, 2)
+...
+```
+
+As you can see, the syntax is familiar for block comments and using them can make sense for helping make your code easier to understand. However, it can become quite tedious to write many lines of block comments, so we'll consider another option below.
+<!-- #endregion -->
+
+<!-- #region -->
+### Code comments - inline comments
+
+Finally, it is also possible to have inline comments in Python that are formatted similarly to single-line comments but located on the same line as some Python code (typically with at least two spaces after the code). We can see some examples below, but note that inline comments should be used sparingly as single-line comments are generally preferable.
+
+```python
+# NO: Unnecessary inline comment example below
+print(f"station_names[0]"  # Print the name of the first station
+```
+
+```python
+# OK: This is a case where an inline comment could be OK
+ax2.axis([xmin, xmax, -max_depth / 1000, 0])  # Plot depth in km rather than meters
+```
+<!-- #endregion -->
+
+<!-- #region -->
+### Code comments - multi-line comments
+
+Multi-line comments are similar to both the single line and block comments described earlier; they are embedded within your code and are not executed when a code cell is run. You can begin a multi-line comment with three quotation marks `"""` and end it with the same thing, three quotation marks `"""`. Although it is possible to also create multi-line comments using single quotes (`'''`), use of double quotes (`"""`) is recommended [to be consistent with PEP 257](https://peps.python.org/pep-0257/) [^pep257] about {term}`docstrings <Docstring>`. Everything between the groups of quotation marks will be ignored. Let's see some examples.
+
+```python
+"""This text will also be ignored.
+Even if it is spread across multiple lines.
+Cool! 
+"""
+```
+
+```python
+"""The list below contains names of FMI observation stations in Helsinki.
+More information and a complete list of stations can be found at 
+https://en.ilmatieteenlaitos.fi/observation-stations.
+"""
+station_names = [
+    "Helsinki Harmaja",
+    "Helsinki Kaisaniemi",
+    "Helsinki Kaivopuisto",
+    "Helsinki Kumpula",
+]
+```
+
+```python
+"""None of the code below works, commenting this out for now.
+step_one = learn_to_code()
+step_two = become_programmer()
+step_three = ???
+step_four = profit()
+"""
+```
+
+As you may recognize, multi-line comments are recommended to be formatted similarly to docstrings and can be a convenient way to have longer code descriptions or comment out larger numbers of lines of code.
+<!-- #endregion -->
+
+<!-- #region -->
+## Markdown text
+
+
+
+**Here it would be good to show both the source code and rich text to be clear**.
+
+
+
+Finally, as noted at the start of this best practice topic, we can also use Markdown text cells to provide information about how our code works. The Markdown text is not a replacement for line or block comments in the code cells, but rather a place to provide a broader description of the code. Let's see an example of the use of a Markdown cell below under the heading "Data source". We can first see the Markdown syntax, then the rich-text rendered result. The Markdown syntax is below.
+
+```markdown
+### Data source
+
+Data used in this example comprises observation station:
+
+- names
+- locations
+- types
+- identification codes
+
+These data are sourced from the [Finnish Meterological Institute website](https://en.ilmatieteenlaitos.fi/observation-stations) and are freely available.
+The data be easily merged into Python lists manually for further analysis.
+An example Python cell with select observation station names in Helsinki is below.
+**NOTE**: These are only some of the observation stations in Helsinki.
+
+    station_names = [
+        "Helsinki Harmaja",
+        "Helsinki Kaisaniemi",
+        "Helsinki Kaivopuisto",
+        "Helsinki Kumpula",
+    ]
+```
+
+And when that Markdown code is executed, the resulting rich text is shown below.
+
+### Data source
+
+Data used in this example comprises observation station:
+
+- names
+- locations
+- types
+- identification codes
+
+These data are sourced from the [Finnish Meterological Institute website](https://en.ilmatieteenlaitos.fi/observation-stations) and are freely available.
+The data be easily merged into Python lists manually for further analysis.
+An example Python cell with select observation station names in Helsinki is below.
+**NOTE**: These are only some of the observation stations in Helsinki.
+
+    station_names = [
+        "Helsinki Harmaja",
+        "Helsinki Kaisaniemi",
+        "Helsinki Kaivopuisto",
+        "Helsinki Kumpula",
+    ]
+
+In the example above, you clearly see the benefit of the Markdown cells for providing nicely formatted text to support the code block beneath it. We can also embed images and other features that make the Jupyter notebook document a powerful tool for studying and learning. You can find more about the capabilities of Markdown on the [Markdown Guide Basic Syntax](https://www.markdownguide.org/basic-syntax/) [^markdown_basic] and [Extended Syntax](https://www.markdownguide.org/extended-syntax/) [^markdown_extended] guides.
 <!-- #endregion -->
 
 ## Using modules
@@ -102,4 +297,7 @@ Do not use confusing names when renaming on import. Be smart when you import mod
 
 [^ascii]: <https://en.wikipedia.org/wiki/ASCII#Printable_character_table>
 [^keywords]: <https://www.geeksforgeeks.org/python-keywords/>
+[^markdown_basic]: <https://www.markdownguide.org/basic-syntax/>
+[^markdown_extended]: <https://www.markdownguide.org/extended-syntax/>
 [^pep8]: <https://peps.python.org/pep-0008/#imports>
+[^pep257]: <https://peps.python.org/pep-0257/>
