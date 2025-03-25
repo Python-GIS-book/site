@@ -219,12 +219,12 @@ As you may recognize, multi-line comments are recommended to be formatted simila
 <!-- #endregion -->
 
 <!-- #region -->
-## Markdown text
+### Markdown text
 
 Finally, as noted at the start of this best practice topic, we can also use Markdown text cells to provide information about how our code works. The Markdown text is not a replacement for line or block comments in the code cells, but rather a place to provide a broader description of the code. Let's see an example of the use of a Markdown cell below under the heading "Data source". We can first see the Markdown syntax, then the rich-text rendered result. The Markdown syntax is below.
 
 ```markdown
-### Data source
+#### Data source
 
 Data used in this example comprises observation station:
 
@@ -242,7 +242,7 @@ An example Python cell with select observation station names in Helsinki is belo
 
 And when that Markdown code is executed, the resulting rich text is shown below.
 
-### Data source
+#### Data source
 
 Data used in this example comprises observation station:
 
@@ -260,11 +260,199 @@ An example Python cell with select observation station names in Helsinki is belo
 In the example above, you clearly see the benefit of the Markdown cells for providing nicely formatted text to support the code block beneath it. We can also embed images and other features that make the Jupyter notebook document a powerful tool for studying and learning. You can find more about the capabilities of Markdown on the [Markdown Guide Basic Syntax](https://www.markdownguide.org/basic-syntax/) [^markdown_basic] and [Extended Syntax](https://www.markdownguide.org/extended-syntax/) [^markdown_extended] guides.
 
 
+## Best practice 3: Writing readable code
+
+This best practice focuses on writing code that is easy to read. The basic idea here is that well formatted Python code is easier to read and understand.
+
+
+### Working code vs readable code
+
+As you may have noticed, Python forces you to indent your code when writing loops and conditional statements. Without the indentation the code simply will not work and you will likely see an `IndentationError`.
+
+However, there are many cases in which you are able to write code that runs without errors, but you (or others!) might have a difficult time reading it and understanding what the code actually does. 
+
+Ideally, our Python code would be understandable both for the computer and for humans reading it. [Coding conventions](https://en.wikipedia.org/wiki/Coding_conventions) [^coding_conventions] are a set of generally agreed guidelines for writing code in a specific programming language. Coding conventions help programmers to write code with formatting that is consistent and easy to read. Consistency and readability are important for sharing your code with others, and also for helping your own brain to follow along!
+
+![_**Figure A.X**. The dangers of coding without coding conventions. Source: <https://xkcd.com/1513/>._](../img/code_quality.png)
+
+_**Figure A.X**. The dangers of coding without coding conventions. Source: <https://xkcd.com/1513/>._
+
+
+### The PEP 8 Style Guide
+
+[The PEP 8 Style Guide for Python Code](https://peps.python.org/pep-0008/) [^pep8] gives coding conventions that help us write code that is readable (by humans!) and consistent with code written by others.
+
+PEP 8 goes far beyond the scope of what you might learn in this book, so we recommend that you re-visit the guidelines every now and then when learning new things. Here, we will summarize some of the most relevant highlights that you can start applying to your code right away!
+
+
+### Maximum line length
+
+The PEP 8 guide states all lines should be limited to [79 characters max](https://peps.python.org/pep-0008/#maximum-line-length). Comments (single-line, block, or multi-line) should be limited to 72 characters. Note that we use a line length limit of 88 characters on the online version of this book and 74 characters for the printed book. The character limit according to PEP 8 is 79 characters, but often a slightly longer line (up to 90 characters) helps with readability (and sometimes formats, such as the printed book only allow so many characters to fit on a given line).
+
+One of the guiding principles of Python is that ["Simple is better than complex"](https://peps.python.org/pep-0020/#the-zen-of-python), but sometimes you might end up having a line of code that exceeds 79 characters, for example, when defining lists. 
+
+Fortunately, Python is able to interpret the code correctly from multiple lines within parentheses, brackets and braces, allowing you to avoid excessively long lines in many cases.
+
+```python
+# Implicit line continuation inside brackets
+us_cities = ["Detroit", "Chicago", "Denver", "Boston", 
+            "Portland", "San Francisco", "Houston", "Orlando"]
+```
+
+Note that the backslash character `\` might be required to break a line when using more complicated statements such as the `with` statement. You can find more examples of how to handle such situations in the [PEP 8 documentation](https://peps.python.org/pep-0008/#maximum-line-length) [^pep8_length].
+
+
+### Indentation
+
+Indentation is an essential part of the Python code layout. As you may have seen with `for` loops and conditional statements, some things in Python will not work correctly without consistent indentation. PEP 8 recommends using [4 spaces per indentation level](https://peps.python.org/pep-0008/#indentation). 
+
+Let's have a look at an example with `if` statements. The indented line tells Python what to do if the condition is `True`. Notice the 4 spaces for the indentation.
+
+```python
+weather = "Rain"
+wind = "Windy"
+
+if (weather == "Rain") and (wind == "Windy"):
+    print('Just stay at home')
+```
+
+Following PEP 8, it is also possible to break the conditional expression into multiple lines if needed. Notice the extra parentheses in this case.
+
+```python
+if ((weather == "Rain") 
+    and (wind == "Windy")):
+    print("Just stay at home")
+```
+
+To increase readability of this `if` statement, we could add extra indentation to the continuation line of the conditional statement. This is valid Python syntax in line with PEP 8. As you might expect, it is recommended that the additional indendation be 4 spaces.
+
+```python
+if ((weather == "Rain") 
+        and (wind == "Windy")):
+    print("Just stay at home")
+```
+
+In the cases above, the first option with the conditional expression on a single line is probably best, as it is not that long after all.
+
+In addition, indentation is needed when breaking one command onto multiple lines, such as in our example with the list `us_cities` in the section about maximum line length. In that case we used the implied line continuation inside the brackets. Following the PEP 8 indentation guidelines, we can define `us_cities` also using a [hanging indent](https://peps.python.org/pep-0008/#fn-hi). Note that there is no value on the first line of a list formatted this way.
+
+```python
+# Hanging indentation:
+us_cities = [
+    "Detroit", "Chicago", "Denver", "Boston", 
+    "Portland", "San Francisco", "Houston", "Orlando"]
+```
+
+You can find more examples of indentation in the [PEP 8 documentation](https://peps.python.org/pep-0008/#indentation) [^pep8_indentation].
+
+
+### Whitespace and binary operators
+
+PEP 8 states that binary operators should be [surrounded by a single space on either side](https://peps.python.org/pep-0008/#other-recommendations).
+
+We should always do this with:
+
+- assignment (`=`)
+- augmented assignment (`+=`, `-=`, etc.)
+- comparisons (`==`, `<`, `>`, `!=`, `<>`, `<=`, `>=`, `in`, `not in`, `is`, `is not`)
+- Booleans (`and`, `or`, `not`)
+
+```python
+# yes
+i = 1
+i = i + 1
+i += 1
+```
+
+```python
+# no
+i=1
+i=i+1
+i +=1
+```
+
+If using operators with different priorities you can also do this.
+
+```python
+# yes
+a = 1
+b = 2
+c = (a+b) * (a-b)
+```
+
+### Avoid extraneous whitespace
+
+PEP 8 also recommends avoiding [having a space between the function name and parentheses when calling a function](https://peps.python.org/pep-0008/#whitespace-in-expressions-and-statements).
+
+```python
+# yes
+print("Hello")
+```
+
+```python
+# no
+print ("Hello")
+```
+
+### Write one statement per line    
+
+For readability, it is advised in PEP 8 to [avoid writing multiple statements on the same line](https://peps.python.org/pep-0008/#other-recommendations).
+
+```python
+# yes
+print("Hello")
+print("world")
+```
+
+```python
+# no
+print("Hello"); print("world")
+```
+
+```python
+# yes
+temperature = 17
+if temperature > 25: 
+    print(f"{temperature} is greater than 25")
+```
+
+```python
+# no
+temperature = 17
+if temperature > 25: print(f"{temperature} is greater than 25")
+```
+
+### Code readability versus code length?
+
+You often have to find a balance between code readability and code length when writing efficient and readable code. [Compound statements](https://docs.python.org/3/reference/compound_stmts.html#compound-statements) [^compound_statements] are a way of writing multiple statements on the same line to make the code shorter but they can be more difficult to read, especially for less experienced programmers. Thus, [PEP 8 recommends avoiding compound statements in general](https://peps.python.org/pep-0008/#other-recommendations). However, sometimes squeezing multiple statements might your best option. You you just have to judge for yourself which option makes the code most readable and use that.
+
+<!-- #region -->
+### List comprehensions
+
+One puzzling example regarding the number of statements per line is the use of list comprehensions when defining lists. [List comprehensions](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions) [^list_comprehensions] are a useful approach for creating lists in a concise way. We do not cover list comprehensions in this book, but below is a short example from the [Python documentation](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions). In some cases, list comprehensions might make your code more readable and concise. In other cases, you might end up writing an excessively long statement that is difficult to read. Below we can compare two options that both produce the same output.
+
+The first option iterates over a `range` using a `for` loop, squares all values, and appends them to a `list`.
+
+```python
+squares = []
+for x in range(10):
+    squares.append(x**2)
+```
+
+The second option does the same thing using a list comprehension.
+
+```python
+squares = [x**2 for x in range(10)]
+```
+
+Both approaches are fine and you are free to choose the option that you think makes your code more readable.
+<!-- #endregion -->
+
 ## Using modules
 
 ### Import modules at the start of your files
 
-According to the good coding practices described in [PEP 8](https://peps.python.org/pep-0008/#imports) [^pep8], we should always import modules at the top of a file. In this section, we have demonstrated how to import different modules along the way, but in general it is better to import required modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files as well by placing `import` statements in the first code cell of the notebook.
+According to the good coding practices described in [PEP 8](https://peps.python.org/pep-0008/#imports) [^pep8_imports], we should always import modules at the top of a file. In this section, we have demonstrated how to import different modules along the way, but in general it is better to import required modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files as well by placing `import` statements in the first code cell of the notebook.
 
 ### Avoid importing functions using wildcards
 
@@ -278,8 +466,14 @@ Do not use confusing names when renaming on import. Be smart when you import mod
 ## Footnotes
 
 [^ascii]: <https://en.wikipedia.org/wiki/ASCII#Printable_character_table>
+[^coding_conventions]: <https://en.wikipedia.org/wiki/Coding_conventions>
+[^compound_statements]: <https://docs.python.org/3/reference/compound_stmts.html#compound-statements>
 [^keywords]: <https://www.geeksforgeeks.org/python-keywords/>
+[^list_comprehensions]: <>
 [^markdown_basic]: <https://www.markdownguide.org/basic-syntax/>
 [^markdown_extended]: <https://www.markdownguide.org/extended-syntax/>
-[^pep8]: <https://peps.python.org/pep-0008/#imports>
+[^pep8]: <https://peps.python.org/pep-0008/>
+[^pep8_imports]: <https://peps.python.org/pep-0008/#imports>
+[^pep8_indentation]: <https://peps.python.org/pep-0008/#indentation>
+[^pep8_length]: <https://peps.python.org/pep-0008/#maximum-line-length>
 [^pep257]: <https://peps.python.org/pep-0257/>
