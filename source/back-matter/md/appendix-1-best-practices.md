@@ -143,7 +143,7 @@ In the examples above you can see some of the ways in which single-line comments
 <!-- #endregion -->
 
 <!-- #region -->
-## Code comments - block comments
+### Code comments - block comments
 
 Block comments are somewhat similar to single line comments in format, but comprise several lines of consecutive comments rather than just one. These can be useful in situations where a single line comment is not sufficient to describe the code below it or when commenting out several lines of code during debugging, for example. Let's have a look at a few examples of block comments below.
 
@@ -448,7 +448,7 @@ squares = [x**2 for x in range(10)]
 Both approaches are fine and you are free to choose the option that you think makes your code more readable.
 
 
-## Using modules
+## Best practice 4: Using modules
 
 ### Import modules at the start of your files
 
@@ -461,6 +461,9 @@ It is best not to import many functions from a module using the form `from X imp
 ### Choose logical names when renaming on import
 
 Do not use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (`import pandas as pd` is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, `import matplotlib as m` could be confusing, especially if we used `import math as m` above and might do so in other Jupyter notebooks or script files. Similarly, `import matplotlib as math` is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.
+
+
+## Best practice 5: Using assertions
 
 
 ## Footnotes
