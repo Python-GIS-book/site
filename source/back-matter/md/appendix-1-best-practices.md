@@ -426,7 +426,7 @@ if temperature > 25: print(f"{temperature} is greater than 25")
 
 You often have to find a balance between code readability and code length when writing efficient and readable code. [Compound statements](https://docs.python.org/3/reference/compound_stmts.html#compound-statements) [^compound_statements] are a way of writing multiple statements on the same line to make the code shorter but they can be more difficult to read, especially for less experienced programmers. Thus, [PEP 8 recommends avoiding compound statements in general](https://peps.python.org/pep-0008/#other-recommendations). However, sometimes squeezing multiple statements might your best option. You you just have to judge for yourself which option makes the code most readable and use that.
 
-<!-- #region -->
+
 ### List comprehensions
 
 One puzzling example regarding the number of statements per line is the use of list comprehensions when defining lists. [List comprehensions](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions) [^list_comprehensions] are a useful approach for creating lists in a concise way. We do not cover list comprehensions in this book, but below is a short example from the [Python documentation](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions). In some cases, list comprehensions might make your code more readable and concise. In other cases, you might end up writing an excessively long statement that is difficult to read. Below we can compare two options that both produce the same output.
@@ -446,7 +446,7 @@ squares = [x**2 for x in range(10)]
 ```
 
 Both approaches are fine and you are free to choose the option that you think makes your code more readable.
-<!-- #endregion -->
+
 
 ## Using modules
 
