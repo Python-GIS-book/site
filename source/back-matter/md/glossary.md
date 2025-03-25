@@ -28,6 +28,9 @@ API
 Argument
   The value passed to a function when it is called. Similar to a {term}`parameter`.
 
+Assertion
+  A statement used in a Python program to check whether a given condition evaluates as `True` when the code is executed. When the condition is not `True`, an `AssertionError` is raised. Assertions are typically used for debugging and testing code.
+
 Binary predicate
   See {term}`Spatial predicate`.
 

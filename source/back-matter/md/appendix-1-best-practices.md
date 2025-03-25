@@ -447,8 +447,14 @@ squares = [x**2 for x in range(10)]
 
 Both approaches are fine and you are free to choose the option that you think makes your code more readable.
 
-
+<!-- #region -->
 ## Best practice 4: Using modules
+
+**What should be added here???**
+
+
+
+The use of modules is introduced in Chapter 2.8 including some essential  
 
 ### Import modules at the start of your files
 
@@ -461,9 +467,132 @@ It is best not to import many functions from a module using the form `from X imp
 ### Choose logical names when renaming on import
 
 Do not use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (`import pandas as pd` is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, `import matplotlib as m` could be confusing, especially if we used `import math as m` above and might do so in other Jupyter notebooks or script files. Similarly, `import matplotlib as math` is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.
-
+<!-- #endregion -->
 
 ## Best practice 5: Using assertions
+
+[Defensive programming](https://en.wikipedia.org/wiki/Defensive_programming) aims to maximize the reliability and overall quality of a piece of software. For us, this means that we should take steps to handle unexpected input values in our code, and to provide helpful error messages that provide meaningful guidance to the user when a program raises an exception. We can take steps toward writing more reliable software by utilizing a helpful features in Python: Assertions.
+
+### Assertions
+
+{term}`Assertions <Assertion>` are a way to assert, or ensure, that the values being used in your scripts are going to be suitable for what the code does. Let's start by considering the function `convert_kph_ms()` that converts wind speeds from kilometers per hour to meters per second. We can define and use the function in the cell below.
+
+```python
+def convert_kph_ms(speed):
+    """Converts velocity (speed) in km/hr to m/s"""
+    return speed * 1000 / 3600
+
+
+wind_speed_km = 9
+wind_speed_ms = convert_kph_ms(wind_speed_km)
+
+print(f"A wind speed of {wind_speed_km} km/hr is {wind_speed_ms} m/s.")
+```
+
+This all seems fine but you might want to ensure that the values for the wind speed are not negative numbers, since speed is the magnitude of the wind velocity and should always be positive or zero. An assertion can be used to enforce this condition by adding an `assert` statement to the function.
+
+```python
+def convert_kph_ms(speed):
+    """Converts velocity (speed) in km/hr to m/s"""
+    assert speed >= 0.0
+    return speed * 1000 / 3600
+
+
+wind_speed_km = 9
+wind_speed_ms = convert_kph_ms(wind_speed_km)
+
+print(f"A wind speed of {wind_speed_km} km/hr is {wind_speed_ms} m/s.")
+```
+
+OK, so everything still works when using a positive value for `speed` but what happens if a negative value is given for the wind speed?
+
+```python
+wind_speed_km = -27
+wind_speed_ms = convert_kph_ms(wind_speed_km)
+
+print(f"A wind speed of {wind_speed_km} km/hr is {wind_speed_ms} m/s.")
+```
+
+Now we get an `AssertionError` when a negative value is provided. This `AssertionError` is produced because of the `assert` statement in the function definition. If the condition listed after `assert` is `False`, an `AssertionError` will be raised when the code is executed.
+
+This is a definite improvement compared to the first example using the `convert_kph_ms()` function, however it would be much better to provide the user with some information about why this assertion exists. Fortunately, we can do this simply by adding some text after the condition in the assertion.
+
+```python
+def convert_kph_ms(speed):
+    """Converts velocity (speed) in km/hr to m/s"""
+    assert speed >= 0.0, "Wind speed values must be positive or zero"
+    return speed * 1000 / 3600
+
+
+wind_speed_km = -27
+wind_speed_ms = convert_kph_ms(wind_speed_km)
+
+print(f"A wind speed of {wind_speed_km} km/hr is {wind_speed_ms} m/s.")
+```
+
+<!-- #region -->
+Nice! Now we see that when the `AssertionError` is raised, the message informs us about why it happened without having to interpret the code. The message also makes it easy to fix our value for `wind_speed_km` to work with the `convert_kph_ms()` function.
+
+In general, assertions take the following form:
+
+```python
+assert <some condition>, "Error message to display"
+```
+
+So they start with an `assert` statement, then list a logical test for some condition, and optionally have a text string that follows the condition, separated by a comma. If the test evaluates as `True` then nothing happens and the code continues. Otherwise, the code stops, an `AssertionError` is displayed, and any included text is written to the screen.
+<!-- #endregion -->
+
+### Multiple assertions - a bad example
+
+Of course, you may want to have several assertions in a function in order to ensure it works as expected and provides meaningful output. In our case, we might first want to check that the value provided for conversion from km/hr to m/s is a number. If it is not, we would not be able to convert the units properly. Let's add a second assertion to make sure our function is "safe".
+
+```python
+def convert_kph_ms(speed):
+    """Converts velocity (speed) in km/hr to m/s"""
+    assert (
+        type(speed) == int or type(speed) == float
+    ), "Wind speed values must be numbers"
+    assert speed >= 0.0, "Wind speed values must be positive or zero"
+    return speed * 1000 / 3600
+
+
+wind_speed_km = "dog"
+wind_speed_ms = convert_kph_ms(wind_speed_km)
+
+print(f"A wind speed of {wind_speed_km} km/hr is {wind_speed_ms} m/s.")
+```
+
+OK, so that works. Now, if the user attempts to give a data type that is not `int` or `float`, the function will raise an `AssertionError` indicating a number is expected for the function to work. This is fine, but there are reasons why you may not want to include assertions of this type in a function.
+
+You might think that it would be useful to use an assertion to check the type of `speed` in our function in order to avoid getting a `TypeError` if an incompatible data type is provided. However, this is not really a good idea. The reason is that a `TypeError` is designed to indicate you have incompatible data types. Thus is makes no sense to raise an `AssertionError` that does the same thing. Thus, it is better to allow the code to fail with a `TypeError` in such cases and reserve the assertions for testing values that should be used or produced by the code.
+
+
+### Multiple assertions - a better example
+
+So we might not want to check our data type compatibility using assertions, but we can include a second assertion to ensure the input wind speed is a reasonable number. In this case, we can assume that the wind speed being converted was measured on Earth, and thus should be lower than [the fastest wind speed ever measured](https://en.wikipedia.org/wiki/Wind_speed#Highest_speed), 408 km/hr. Let's add that condition.
+
+```python
+def convert_kph_ms(speed):
+    """Converts velocity (speed) in km/hr to m/s"""
+    assert speed >= 0.0, "Wind speed values must be positive or zero"
+    assert speed <= 408.0, "Wind speed exceeds fastest winds ever measured"
+    return speed * 1000 / 3600
+
+
+wind_speed_km = "409"
+wind_speed_ms = convert_kph_ms(wind_speed_km)
+
+print(f"A wind speed of {wind_speed_km} km/hr is {wind_speed_ms} m/s.")
+```
+
+This is a better example for two reasons:
+
+1. We now allow a `TypeError` when incompatible data types are used in our function, which is a clear and familiar error message.
+2. We use assertions to check the values used in the function make sense for its intended use. If we want to help users convert wind speeds on Earth, we provide bounds that make sure they are using reasonable input values. Thus, we help them use our function the correct way.
+
+Combined, these assertions ensure our function handles common mistakes and provide the user with helpful feedback to be able to use the function properly.
+
+One thing that is important to note about assertions is that although we use them here to check that our function input values are reasonable, this is not generally the suggested use. Instead, more advanced programmers recommend using assertions only to test that your code is working properly internally. For example, you would use assertions to check for things that should not happen, such as functions that duplicate values in lists when they should not. The reason it is not recommended to use assertions for testing user input values or the existence of files is that assertions can be disabled using flags when running a Python program. Thus, it is possible they could be ignored entirely. This is fine when debugging code, but obviously not desired when users are running your programs. If you're interested in more details, you can find more in [an article on using assertions in the Python wiki](https://wiki.python.org/moin/UsingAssertionsEffectively) [^wiki_assertions] or on the [Software Carpentry website](https://swcarpentry.github.io/python-novice-inflammation/10-defensive.html) [^swc_assertions].
 
 
 ## Footnotes
@@ -480,3 +609,5 @@ Do not use confusing names when renaming on import. Be smart when you import mod
 [^pep8_indentation]: <https://peps.python.org/pep-0008/#indentation>
 [^pep8_length]: <https://peps.python.org/pep-0008/#maximum-line-length>
 [^pep257]: <https://peps.python.org/pep-0257/>
+[^swc_assertions]: <https://swcarpentry.github.io/python-novice-inflammation/10-defensive.html>
+[^wiki_assertions]: <https://wiki.python.org/moin/UsingAssertionsEffectively>
