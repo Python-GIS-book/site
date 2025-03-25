@@ -592,6 +592,8 @@ This is a better example for two reasons:
 
 Combined, these assertions ensure our function handles common mistakes and provide the user with helpful feedback to be able to use the function properly.
 
+### A final note about assertions
+
 One thing that is important to note about assertions is that although we use them here to check that our function input values are reasonable, this is not generally the suggested use. Instead, more advanced programmers recommend using assertions only to test that your code is working properly internally. For example, you would use assertions to check for things that should not happen, such as functions that duplicate values in lists when they should not. The reason it is not recommended to use assertions for testing user input values or the existence of files is that assertions can be disabled using flags when running a Python program. Thus, it is possible they could be ignored entirely. This is fine when debugging code, but obviously not desired when users are running your programs. If you're interested in more details, you can find more in [an article on using assertions in the Python wiki](https://wiki.python.org/moin/UsingAssertionsEffectively) [^wiki_assertions] or on the [Software Carpentry website](https://swcarpentry.github.io/python-novice-inflammation/10-defensive.html) [^swc_assertions].
 
 
