@@ -237,14 +237,8 @@ These data are sourced from the [Finnish Meterological Institute website](https:
 The data be easily merged into Python lists manually for further analysis.
 An example Python cell with select observation station names in Helsinki is below.
 **NOTE**: These are only some of the observation stations in Helsinki.
-
-    station_names = [
-        "Helsinki Harmaja",
-        "Helsinki Kaisaniemi",
-        "Helsinki Kaivopuisto",
-        "Helsinki Kumpula",
-    ]
 ```
+<!-- #endregion -->
 
 And when that Markdown code is executed, the resulting rich text is shown below.
 
@@ -262,15 +256,9 @@ The data be easily merged into Python lists manually for further analysis.
 An example Python cell with select observation station names in Helsinki is below.
 **NOTE**: These are only some of the observation stations in Helsinki.
 
-    station_names = [
-        "Helsinki Harmaja",
-        "Helsinki Kaisaniemi",
-        "Helsinki Kaivopuisto",
-        "Helsinki Kumpula",
-    ]
 
 In the example above, you clearly see the benefit of the Markdown cells for providing nicely formatted text to support the code block beneath it. We can also embed images and other features that make the Jupyter notebook document a powerful tool for studying and learning. You can find more about the capabilities of Markdown on the [Markdown Guide Basic Syntax](https://www.markdownguide.org/basic-syntax/) [^markdown_basic] and [Extended Syntax](https://www.markdownguide.org/extended-syntax/) [^markdown_extended] guides.
-<!-- #endregion -->
+
 
 ## Using modules
 
