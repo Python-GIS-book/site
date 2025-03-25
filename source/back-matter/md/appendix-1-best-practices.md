@@ -603,7 +603,7 @@ One thing that is important to note about assertions is that although we use the
 [^coding_conventions]: <https://en.wikipedia.org/wiki/Coding_conventions>
 [^compound_statements]: <https://docs.python.org/3/reference/compound_stmts.html#compound-statements>
 [^keywords]: <https://www.geeksforgeeks.org/python-keywords/>
-[^list_comprehensions]: <>
+[^list_comprehensions]: <https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions>
 [^markdown_basic]: <https://www.markdownguide.org/basic-syntax/>
 [^markdown_extended]: <https://www.markdownguide.org/extended-syntax/>
 [^pep8]: <https://peps.python.org/pep-0008/>
