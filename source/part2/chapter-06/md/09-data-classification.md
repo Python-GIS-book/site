@@ -12,12 +12,15 @@ jupyter:
     name: python3
 ---
 
-# Data reclassification
+# Data classification
 
 
-Data reclassification is a common geospatial data analysis task. Classifying original values into categories may help simplify the data for further analysis or communicating the results. Here, we will use classification schemes from the [PySAL](https://pysal.org/) [^pysal] [`mapclassify` library](https://pysal.org/mapclassify/) [^mapclassify]. We will also learn how to classify data values based on pre-defined threshold values. 
+Data classification is a common task in geospatial data analysis that determines the assignment of values to distinct classes.
+Classifying original values into categories may help simplify the data for further analysis or communicating the results. Data classification is central when visualizing geographic information to correctly represent the distribution of the data. 
 
-Our sample data contains information from the Helsinki Region Travel Time Matrix.
+Here, we will get familiar with classification schemes from the [PySAL](https://pysal.org/) [^pysal] [`mapclassify` library](https://pysal.org/mapclassify/) [^mapclassify] that is intended to be used when visualizing thematic maps. Further details of geographic data visualization will be covered in chapter 8. We will also learn how to classify data values based on pre-defined threshold values and conditional statements directly in `geopandas`. 
+
+Our sample data is an extract from the  Helsinki Region Travel Time Matrix ({cite}`Tenkanen2020`) that represents travel times to the central railway station across 250 m x 250 m statistical grid squares covering the Helsinki region. Let's read in the data and check the first rows of data: 
 
 ```python
 from pathlib import Path
@@ -25,20 +28,15 @@ import numpy as np
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
-data_dir = Path("../data")
-grid_fp = data_dir / "TravelTimes_to_5975375_RailwayStation.shp"
+data_dir = Path("data")
+grid_fp = data_dir / "Helsinki" / "TravelTimes_to_5975375_RailwayStation.shp"
 
 # Read files
 grid = gpd.read_file(grid_fp)
+grid.head()
 ```
 
-The input file contains multiple columns with information about travel times and distances from each statistical grid square to the central railway station in Helsinki. 
-
-```python
-grid.columns
-```
-
-For a detailed description of each column, see Table 3 in {cite}`Tenkanen2020`. We will use column `'pt_r_t'` which contains information about travel time in minutes to the central railway station by public transportation in rush hour traffic. Missing data are presented with value -1. Let's set the missing values as `NaN` before proceeding:
+Detailed column descriptions are available in Table 3, {cite}`Tenkanen2020`. We will use column `'pt_r_t'` which contains information about travel time in minutes to the central railway station by public transportation in rush hour traffic. Missing data are presented with value -1. Let's set the missing values as `NaN` to exclude no data from further analysis:
 
 ```python
 grid = grid.replace(-1, np.nan)
@@ -46,7 +44,7 @@ grid = grid.replace(-1, np.nan)
 
 ## Classification schemes
 
-We will now learn how to use classification schemes from the [PySAL](https://pysal.org/) [^pysal] [`mapclassify` library](https://pysal.org/mapclassify/) [^mapclassify] to classify quantitative data into multiple classes for visualization purposes. These classification schemes can be used directly when plotting data in `geopandas` as long as `mapclassify` package is also installed.  Available classification schemes include: 
+We will now learn how to use `mapclassify`to assing the data vaules into distinct classes. `Mapclassify` allows applying various classification schemes on our data that partition the attribute values into mutually exclusive groups. Choosing an adequate classification scheme and number of classes depends on the message we want to convey with our map and the underlying distribution of the data. Available classification schemes include: 
 
 - box_plot
 - equal_interval
@@ -64,13 +62,13 @@ We will now learn how to use classification schemes from the [PySAL](https://pys
 - std_mean
 - user_defined
   
-Each classification scheme partitions the data into mutually exclusive groups that define how the values are displayed on the map. See {cite}`Rey_et_al_2023` for a thorough introduction on the mathematics behind each classification scheme.  
+See {cite}`Rey_et_al_2023` for a thorough introduction on the mathematics behind each classification scheme. These classification schemes can be used directly when plotting data in `geopandas` as long as `mapclassify` package is also installed.
 
 
 
 ### Choosing a classification scheme
 
-Choosing an adequate classification scheme and number of classes depends on the message we want to convey with our map and the underlying distribution of the data. Let's have a look at the distribution of the public transport travel times through checking the histogram and descriptive statistics. A histogram is a graphic representation of the distribution of the data. Descriptive statistics summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding `NaN` values. While looking at the histogram, remember that each observation is one 250 meter x 250 meter grid square in the Helsinki region and the histogram shows the distribution of travel times to the central railway station across the whole region. 
+Let's have a look at the distribution of the public transport travel times through checking the histogram and descriptive statistics. A histogram is a graphic representation of the distribution of the data. Descriptive statistics summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding `NaN` values. While looking at the histogram, remember that each observation is one 250 meter x 250 meter grid square in the Helsinki region and the histogram shows the distribution of travel times to the central railway station across the whole region. 
 
 For exploring the different classification schemes, let's create a `pandas` `Series` without `NaN` values.
 
@@ -82,6 +80,7 @@ travel_times = grid.loc[grid["pt_r_t"].notnull(), "pt_r_t"]
 
 
 ```python
+# Plot a histogram
 travel_times.plot.hist(bins=50, color="lightgray")
 ```
 
@@ -131,23 +130,17 @@ for break_point in classifier.bins:
 _**Figure 6.61**. Histogram of the travel time values with natural breaks classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
 
 
-Finally, we can visualize our data using the classification scheme through adding the `scheme` option, while the parameter `k` defines the number of classess to use. Note that the syntax via `geopandas` differs a bit from `mapclassify`. We can control the position and title of the legend using `matplotlib` tools trough changing the properties of the legend object. 
+Finally, we can visualize our data using the classification scheme through adding the `scheme` option, while the parameter `k` defines the number of classess to use. Note that the syntax via `geopandas` differs a bit from `mapclassify`. 
 
 ```python jupyter={"outputs_hidden": false}
 # Plot the data using natural breaks
 ax = grid.plot(
     figsize=(6, 4),
     column="pt_r_t",
-    cmap="RdYlBu",
     linewidth=0,
     scheme="Natural_Breaks",
     k=9,
-    legend=True,
-    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
 )
-
-# Add scalebar
-ax.add_artist(ScaleBar(1, location="lower right"))
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
@@ -192,16 +185,12 @@ If comparing the histograms of natural breaks and quantile classifications, we c
 ax = grid.plot(
     figsize=(6, 4),
     column="pt_r_t",
-    cmap="RdYlBu",
     linewidth=0,
     scheme="quantiles",
     k=10,
     legend=True,
     legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
 )
-
-# Add scalebar
-ax.add_artist(ScaleBar(1, location="lower right"))
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
@@ -241,16 +230,12 @@ _**Figure 6.65**. Histogram of the travel time values with 10 pretty breaks. Dat
 ax = grid.plot(
     figsize=(6, 4),
     column="pt_r_t",
-    cmap="RdYlBu",
     linewidth=0,
     scheme="prettybreaks",
     k=10,
     legend=True,
     legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
 )
-
-# Add scalebar
-ax.add_artist(ScaleBar(1, location="lower right"))
 
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
@@ -266,9 +251,9 @@ Regardless of the number of classes, pretty breaks is not ideal for our data as 
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
-#### Question 8.1
+#### Question 6.14
 
-Select another column from the data (for example, travel times by car: `car_r_t`) and visualize a thematic map using one of the available classification schemes and save it as a PNG image file.
+Select another column from the data (for example, travel times by car: `car_r_t`) and visualize a thematic map using one of the available classification schemes.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
@@ -285,7 +270,6 @@ fig, ax = plt.subplots(figsize=(6, 4))
 grid.plot(
     ax=ax,
     column="car_r_t",
-    cmap="RdYlBu",
     linewidth=0,
     scheme="FisherJenks",
     k=9,
@@ -293,17 +277,9 @@ grid.plot(
     legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
 )
 
-
-# Add scalebar
-ax.add_artist(ScaleBar(1, location="lower right"))
-
 # Set the x and y axis off and adjust padding around the subplot
 plt.axis("off")
 plt.tight_layout()
-
-# Save the figure as png file with resolution of 300 dpi
-outfp = "static_map2.png"
-plt.savefig(outfp, dpi=300)
 ```
 
 ### Custom map classification
@@ -345,7 +321,6 @@ fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
 grid.plot(
     ax=axs[0],
     column="car_r_t",
-    cmap="RdYlBu",
     linewidth=0,
     scheme="UserDefined",
     classification_kwds={"bins": break_values},
@@ -354,7 +329,6 @@ grid.plot(
 grid.plot(
     ax=axs[1],
     column="pt_r_t",
-    cmap="RdYlBu",
     linewidth=0,
     scheme="UserDefined",
     classification_kwds={"bins": break_values},
@@ -383,9 +357,9 @@ _**Figure 6.68**. Static map of travel times by car and public transport using a
 
 ## Rule-based classification
 
-Sometimes our analysis task benefits from combining multiple criteria for classifying data. For example, we might want to find out locations that are located outside the city center within a reasonable public transport travel time. We can use conditional statements to define two rules; one describing what is "outside the city center" measured as walking distance and another describing "a reasonable public transport travel time". 
+Sometimes our analysis task benefits from combining multiple criteria for classifying data. For example, we might want to find out locations that are located outside the city center within a reasonable public transport travel time.
 
-In other words, we want to find grid squares where public transport travel time (column `pt_r_tt`) is less than a selected threshold value in minutes, and where walking distance (`walk_d`) is more than a selected threshold value in meters. If we test these rules, we can see a binary True/False result for each row of data:
+To implement this, we can use conditional statements to find grid squares where public transport travel time (column `pt_r_tt`) is less than a selected threshold value in minutes, and where walking distance (`walk_d`) is more than a selected threshold value in meters. Each rule will give a binary result (`True`/`False`) and we can further combine these rules to find those locations that meet both requirements.
 
 ```python
 # Public transport travel time less than 20 minutes
@@ -404,11 +378,7 @@ grid["rule1"] = (grid["pt_r_tt"] < 30) & (grid["walk_d"] > 4000)
 ```
 
 ```python
-grid["rule1"]
-```
-
-```python
-suitable_areas.plot()
+grid.loc[grid["rule1"]==True].explore()
 ```
 
 _**Figure 6.68**. Grid squares that meet the selection criteria._
