@@ -15,9 +15,9 @@ jupyter:
 # Static maps
 
 
-Static visualizations of geographic information are useful for many purposes during a data analysis process and for communicating the end result. Static maps can be exported to various image formats and integrated, for example, in reports and scientific articles. In this section, we will practice plotting static maps using sample data from Helsinki, Finland. 
+Static visualizations of geographic information are useful for many purposes during a data analysis process, for example, during data exploration and communicating the results. Maps produced in Python can be exported to various image formats and integrated in reports and scientific articles. In this section, we will practice plotting static maps using sample data from Helsinki, Finland. 
 
-[Mapping tools in `geopandas`](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] allow creating simple static maps easily. In the background, `geopandas` uses `matplotlib` for creating the plots and we can use [`matplotlib.pyplot`](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html) [^matplotlib_pyplot] tools for further customizing our figures. We covered basics of `matplotlib` already in Part I chapter 4 and will apply some of these techniques for plotting our static maps. Additionally, we will explore how to enhance our maps by adding basemaps with [`contextily`](https://github.com/darribas/contextily) [^contextily].
+[Mapping tools in `geopandas`](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] allow creating simple static maps easily. In the background, `geopandas` uses `matplotlib` for creating the plots and we can use [`matplotlib.pyplot`](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html) [^matplotlib_pyplot] tools for further customizing our figures. This book covers the basics of `matplotlib` in Part I chapter 4 and we will apply some of these techniques for plotting our static maps. Additionally, we will explore how to enhance our maps by adding basemaps with [`contextily`](https://github.com/darribas/contextily) [^contextily].
 
 ## Creating a simple multi-layer map
 
@@ -66,7 +66,17 @@ grid.plot(column="pt_r_t")
 
 _**Figure 8.1**. Simple static map plotted using `geopandas`. The color gradient represents travel times by public transport to the central railway station in Helsinki. Data source: Tenkanen & Toivonen 2020._
 
-What we have here is a `choropleth map` where the colors of each grid square polygon are based on values from the column `pt_r_t`. We will see later how to change the classification scheme that determines the assignment of values to each class for the visualization. 
+What we have here is a `choropleth map` where the colors of each grid square polygon are based on values from the column `pt_r_t`. Such a simple map is helpful for getting a quick overview of the underlying data. However, we can further enhance the visualization to better communicate the patterns and to create an effective visualization. 
+
+### Adding a classification scheme
+
+Next, we can change the classification scheme to determine the assignment of values to distinct classes for the visualization. 
+
+
+
+```python
+grid.plot(column="pt_r_t", scheme="NaturalBreaks")
+```
 
 ### Adding multiple layers
 
@@ -116,16 +126,21 @@ metro.plot(ax=ax)
 
 _**Figure 8.3**. Static map with multiple layers displaying the original data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
-### Customizing our map
-Now our layers are nicely aligned, but the map needs some further improvement. Some map elements such as color and linewidth are still easy to configure directly via `geopandas`, but we need `matplotlib.pyplot` for controlling other features related to the layout. Let's apply the following changes to our plot: 
+Now our layers are nicely aligned, but the map needs some further improvement.
 
-- Changing the colors of the choropleth map using the `cmap` parameter. See available [colormap options from `matplotlib` documentation](https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib) [^matplotlib_colormaps].
-- Changing line colors using the `color` parameter. See [color options from `matplotlib` `pyplot` documentation](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors) [^matplotlib_colors].
-- Changing the `linewidth` of line features.
-- Adding transparency using the `alpha` parameter (this parameter ranges from 0 to 1 where 0 is fully transparent).
-- Cropping the figure by adjusting the view limit of each axis. We can get the desired plot extent from the `total_bounds` of the grid layer. This way we don't need to separately crop the train line that goes outside the extent of the grid data.
-- Using a `tight_layout`to adjust the subplot to fit in the figure area via `matplotlib`.
-- Removing the frame and and axis labels through setting x- and y- axis on or off via `matplotlib`.
+### Choosing colors and customizing our map
+
+ Colors are an important component of any cartographic visualization. Display settings for map features, such as color and linewidth are easy to configure directly when plotting the data via `geopandas`. For changing the colors of the choropleth map, we can use the `cmap` parameter. There are various [colormap options via `matplotlib` ](https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib) [^matplotlib_colormaps]. For line features, we can change the colors using the `color` parameter using the various [color options via `matplotlib` ](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors) [^matplotlib_colors]. Transparency can be added using the `alpha` parameter (this parameter ranges from 0 to 1 where 0 is fully transparent).
+
+For controlling other features related to the layout, such as the x- and y-axis, we need to use `matplotlib.pyplot` directly. For example, we can crop the figure on-the-fly by adjusting the view limit of each axis.  This way we don't need to separately crop the train line that goes outside the extent of the grid data. Let's apply the following changes to our plot: 
+
+- Changing the choropleth map color
+- Changing line colors.
+- Changing the linewidth of line features.
+- Adding transparency.
+- Cropping the figure. We can get the desired plot extent from the `total_bounds` of the grid layer. This way we don't need to separately crop the train line that goes outside the extent of the grid data.
+- Using a `tight_layout`to adjust the subplot to fit in the figure.
+- Removing the frame and and axis labels through setting x- and y- axis off.
 
 Finally, we can save the figure as PNG image.
 
@@ -201,293 +216,6 @@ plt.tight_layout()
 ```
 
 _**Figure 8.5**. Static map with multiple layers and a scale bar. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
-
-
-## Classification schemes
-
-Next, we will see how we can further control the way in which the travel time values are displayed using classification schemes. With choropleth maps, it is essential to pay attention to the classification scheme that is used to display the values. We will now learn how to use classification schemes from the [PySAL](https://pysal.org/) [^pysal] [`mapclassify` library](https://pysal.org/mapclassify/) [^mapclassify] to classify quantitative data into multiple classes for visualization purposes. These classification schemes can be used directly when plotting data in `geopandas` as long as `mapclassify` package is also installed.  Available classification schemes include: 
-
-- box_plot
-- equal_interval
-- fisher_jenks
-- fisher_jenks_sampled
-- headtail_breaks
-- jenks_caspall
-- jenks_caspall_forced
-- jenks_caspall_sampled
-- max_p_classifier
-- maximum_breaks
-- natural_breaks
-- quantiles
-- percentiles
-- std_mean
-- user_defined
-  
-Each classification scheme partitions the data into mutually exclusive groups that define how the values are displayed on the map. See {cite}`Rey_et_al_2023` for a thorough introduction on the mathematics behind each classification scheme. Choosing an adequate classification scheme and number of classes depends on the message we want to convey with our map and the underlying distribution of the data. 
-
-### Explore the classifiers
-
-When visualizing travel times we want our map to show regional differences in an intuitive way while avoiding excess detail. To help us choose an adequate classification scheme, let's have a look at the distribution of the public transport travel times through checking the histogram and descriptive statistics. A histogram is a graphic representation of the distribution of the data. Descriptive statistics summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding `NaN` values. While looking at the histogram, remember that each observation is one 250 meter x 250 meter grid square in the Helsinki region and the histogram shows the distribution of travel times to the central railway station across the whole region. 
-
-For exploring the different classification schemes, let's create a `pandas` `Series` without `NaN` values.
-
-```python
-# Creating a data Series withouth NaN values
-travel_times = grid.loc[grid["pt_r_t"].notnull(), "pt_r_t"]
-```
-
-
-
-```python
-travel_times.plot.hist(bins=50, color="lightgray")
-```
-
-_**Figure 8.6**. Histogram of the travel time values. Data source: Tenkanen & Toivonen 2020._
-
-```python
-travel_times.describe()
-```
-
-The maximum travel time to the central railway station by public transport (including time for walking) is 181 minutes, i.e. over three hours. Most of the travel times range between 38 and 65 minutes with an average travel time of 53 minutes. Looking at the histogram (Figure 8.6), we can tell than only a handful of grid squares have more than two hour travel times to the central railway station. These grid squares are most likely located in rather inaccessible places in terms of public transport accessibility. 
-
-Let's have a closer look at how these `mapclassify` classifiers work and try out different classification schemes for visualizing the public transport traveltimes. In the interactive version of this book, you can try out different numbers of classes and different classification schemes.
-
-
-#### Natural breaks
-
-First, let's try out natural breaks classifier that tries to split the values into natural clusters. The number of observations per bin may vary according to the distribution of the data.
-
-```python jupyter={"outputs_hidden": false}
-import mapclassify
-
-mapclassify.NaturalBreaks(y=travel_times, k=10)
-```
-
-It's possible to extract the threshold values into an array:
-
-```python jupyter={"outputs_hidden": false}
-mapclassify.NaturalBreaks(y=travel_times, k=10).bins
-```
-
-We can further explore the classification on top of the histogram:
-
-```python
-import matplotlib.pyplot as plt
-
-# Define classifier
-classifier = mapclassify.NaturalBreaks(y=travel_times, k=10)
-
-# Plot histogram for public transport rush hour travel time
-grid["pt_r_t"].plot.hist(bins=50, color="lightgray", title="Natural Breaks")
-
-# Add vertical lines for class breaks
-for break_point in classifier.bins:
-    plt.axvline(break_point, linestyle="dashed", linewidth=1)
-```
-
-_**Figure 8.7**. Histogram of the travel time values with natural breaks classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
-
-
-Finally, we can visualize our data using the classification scheme through adding the `scheme` option, while the parameter `k` defines the number of classess to use. Note that the syntax via `geopandas` differs a bit from `mapclassify`. We can control the position and title of the legend using `matplotlib` tools trough changing the properties of the legend object. 
-
-```python jupyter={"outputs_hidden": false}
-# Plot the data using natural breaks
-ax = grid.plot(
-    figsize=(6, 4),
-    column="pt_r_t",
-    cmap="RdYlBu",
-    linewidth=0,
-    scheme="Natural_Breaks",
-    k=9,
-    legend=True,
-    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
-)
-
-# Add scalebar
-ax.add_artist(ScaleBar(1, location="lower right"))
-
-# Set the x and y axis off and adjust padding around the subplot
-plt.axis("off")
-plt.tight_layout()
-```
-
-_**Figure 8.8**. Static map of travel times visualized using the natural breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
-
-In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station. Notice also that we now have a different type of map legend that shows the associated class bins, now that we used a classification scheme. Here, we set the title and location of the legend using `legend_kwds` at the same time when plotting the map. We use `bbox_to_anchor` to position the legend item so that it does not overlap and cover our map extent.  An alternative way to achieve the same thing would be to add `ax.get_legend().set_bbox_to_anchor((1.4, 1))` after plotting the data via `geopandas`. For further tips on customizing choropleth map legends, have a look at [`geopandas examples gallery`](https://geopandas.org/en/stable/gallery/choro_legends.html) [^geopandas_choro_legends].
-
-
-#### Quantiles 
-
-Next, let's explore the quantiles classification that splits the data so that each class has an equal number of observations. 
-
-```python jupyter={"outputs_hidden": false}
-mapclassify.Quantiles(y=travel_times, k=10)
-```
-
-Notice that the numerical range of the groups created using the quantiles classification scheme may vary greatly depending on the distribution of the data. In our example, some classes have more than 30 min interval, while others less than 10 minutes. The default number of classes is five (quintiles), but you can set the desired number of classes using the `k` parameter. In the interactive version of the book, you can try changing the number of classes and see what happens to the class intervals; more classes get added around the central peak of the histogram if increasing the number of classes.
-
-```python
-import matplotlib.pyplot as plt
-
-# Define classifier
-classifier = mapclassify.Quantiles(y=travel_times, k=10)
-
-# Plot histogram for public transport rush hour travel time
-grid["pt_r_t"].plot.hist(bins=50, color="lightgray", title="Quantiles")
-
-# Add vertical lines for class breaks
-for break_point in classifier.bins:
-    plt.axvline(break_point, linestyle="dashed", linewidth=1)
-```
-
-_**Figure 8.9**. Histogram of the travel time values with Quantile classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
-
-If comparing the histograms of natural breaks and quantile classifications, we can observe that natural breaks might work better to display differences in the data values across the whole data range, while quantiles would help distinguishing differences around the central peak of the data distribution. However, neither of the classification schemes display differences in short, less than 25 minute travel times which might be important for making an informative map. Also, we might want to have round numbers for our class values to facilitate quick and intuitive interpretation. 
-
-```python
-# Plot the data using quantiles
-ax = grid.plot(
-    figsize=(6, 4),
-    column="pt_r_t",
-    cmap="RdYlBu",
-    linewidth=0,
-    scheme="quantiles",
-    k=10,
-    legend=True,
-    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
-)
-
-# Add scalebar
-ax.add_artist(ScaleBar(1, location="lower right"))
-
-# Set the x and y axis off and adjust padding around the subplot
-plt.axis("off")
-plt.tight_layout()
-```
-
-
-_**Figure 8.10**. Static map of travel times visualized using the quantiles classification scheme. Data source: Tenkanen & Toivonen 2020._
-
-
-#### Pretty breaks
-
-The pretty breaks classification shceme rounds the class break values and divides the range equally to create intervals that look nice and that are easy to read. This classification scheme might be tempting to use as it creates intuitive and visually appealing intervals. However, depending on the distribution of the data, the group sizes might vary greatly which might lead to misleading visualizations.
-
-```python
-mapclassify.PrettyBreaks(y=travel_times, k=10)
-```
-
-```python
-import matplotlib.pyplot as plt
-
-# Define classifier
-classifier = mapclassify.PrettyBreaks(y=travel_times, k=10)
-
-# Plot histogram for public transport rush hour travel time
-grid["pt_r_t"].plot.hist(bins=50, color="lightgray", title="Pretty breaks")
-
-# Add vertical lines for class breaks
-for break_point in classifier.bins:
-    plt.axvline(break_point, linestyle="dashed", linewidth=1)
-```
-
-_**Figure 8.11**. Histogram of the travel time values with 10 pretty breaks. Data source: Tenkanen & Toivonen 2020._
-
-```python
-# Plot the data using pretty breaks
-ax = grid.plot(
-    figsize=(6, 4),
-    column="pt_r_t",
-    cmap="RdYlBu",
-    linewidth=0,
-    scheme="prettybreaks",
-    k=10,
-    legend=True,
-    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
-)
-
-# Add scalebar
-ax.add_artist(ScaleBar(1, location="lower right"))
-
-# Set the x and y axis off and adjust padding around the subplot
-plt.axis("off")
-plt.tight_layout()
-```
-
-_**Figure 8.12**. Static map of travel times visualized using the pretty breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
-
-<!-- #region -->
-
-
-Regardless of the number of classes, pretty breaks is not ideal for our data as it fails to capture the variation in the data. Compared to this map, the previous two versions using natural breaks and quantiles provide a more informative view of the travel times.
-<!-- #endregion -->
-
-<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
-#### Question 8.1
-
-Select another column from the data (for example, travel times by car: `car_r_t`) and visualize a thematic map using one of the available classification schemes and save it as a PNG image file.
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
-# Use this cell to enter your solution.
-```
-
-```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
-# Solution
-
-# Create one subplot. Control figure size in here.
-fig, ax = plt.subplots(figsize=(6, 4))
-
-# Visualize the travel times using a classification scheme and add a legend
-grid.plot(
-    ax=ax,
-    column="car_r_t",
-    cmap="RdYlBu",
-    linewidth=0,
-    scheme="FisherJenks",
-    k=9,
-    legend=True,
-    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
-)
-
-
-# Add scalebar
-ax.add_artist(ScaleBar(1, location="lower right"))
-
-# Set the x and y axis off and adjust padding around the subplot
-plt.axis("off")
-plt.tight_layout()
-
-# Save the figure as png file with resolution of 300 dpi
-outfp = "static_map2.png"
-plt.savefig(outfp, dpi=300)
-```
-
-### Custom map classification
-
-In case none of the existing classification schemes produce a desired output, we can also create a custom classification scheme using `mapclassify` and select which class interval values to use. Fixed intervals with gradually increasing travel times provide an intuitive way to display travel time data. While the pretty breaks classification scheme follows this approach, it didn’t work perfectly for our data. With our own classification scheme, we can show differences among the typical travel times, but avoid having classes distinguishing between long travel times. We'll create a custom classifier with fixed 10-minute intervals up to 90 minutes to achieve this. 
-
-```python
-break_values = [10, 20, 30, 40, 50, 60, 70, 80, 90]
-classifier = mapclassify.UserDefined(y=travel_times, bins=break_values)
-classifier
-```
-
-```python
-import matplotlib.pyplot as plt
-
-# Define classifier
-classifier = mapclassify.UserDefined(y=travel_times, bins=break_values)
-
-# Plot histogram for public transport rush hour travel time
-grid["pt_r_t"].plot.hist(bins=50, title="User defined classes", color="lightgray")
-
-# Add vertical lines for class breaks
-for break_point in classifier.bins:
-    plt.axvline(break_point, linestyle="dashed", linewidth=1)
-```
-
-_**Figure 8.13**. Histogram of the travel time values with user defined class breaks. Data source: Tenkanen & Toivonen 2020._
 
 
 When plotting the map, we can pass the break values using `classification_kwds`. For a final touch, we can plot two subplots side by side displaying travel times by different modes of transport using our custom classifier. 
