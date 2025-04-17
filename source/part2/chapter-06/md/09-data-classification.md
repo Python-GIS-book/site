@@ -130,7 +130,15 @@ for break_point in classifier.bins:
 _**Figure 6.61**. Histogram of the travel time values with natural breaks classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
 
 
-Finally, we can visualize our data using the classification scheme through adding the `scheme` option, while the parameter `k` defines the number of classess to use. Note that the syntax via `geopandas` differs a bit from `mapclassify`. 
+We can apply the classifier on our data and store the result in a new column.
+
+```python
+# Classify the data
+grid["pt_r_t_nb"] = grid[["pt_r_t"]].apply(classifier)
+grid["pt_r_t_nb"].head()
+```
+
+Finally, we can visualize our data using the classification scheme when plotting the data in `geopandas` through adding the `scheme` option, while the parameter `k` defines the number of classess to use. 
 
 ```python jupyter={"outputs_hidden": false}
 # Plot the data using natural breaks
@@ -138,8 +146,8 @@ ax = grid.plot(
     figsize=(6, 4),
     column="pt_r_t",
     linewidth=0,
-    scheme="Natural_Breaks",
-    k=9,
+    scheme="natural_breaks",
+    k=10,
 )
 
 # Set the x and y axis off and adjust padding around the subplot
@@ -147,9 +155,7 @@ plt.axis("off")
 plt.tight_layout()
 ```
 
-_**Figure 6.62**. Static map of travel times visualized using the natural breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
-
-In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station. Notice also that we now have a different type of map legend that shows the associated class bins, now that we used a classification scheme. Here, we set the title and location of the legend using `legend_kwds` at the same time when plotting the map. We use `bbox_to_anchor` to position the legend item so that it does not overlap and cover our map extent.  An alternative way to achieve the same thing would be to add `ax.get_legend().set_bbox_to_anchor((1.4, 1))` after plotting the data via `geopandas`. For further tips on customizing choropleth map legends, have a look at [`geopandas examples gallery`](https://geopandas.org/en/stable/gallery/choro_legends.html) [^geopandas_choro_legends].
+_**Figure 6.62**. Travel times visualized using the natural breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 
 #### Quantiles 
@@ -200,6 +206,26 @@ plt.tight_layout()
 
 _**Figure 6.64**. Static map of travel times visualized using the quantiles classification scheme. Data source: Tenkanen & Toivonen 2020._
 
+```python
+# Store the class index numbers 
+grid["pt_r_t_q10"] = grid[["pt_r_t"]].apply(classifier)
+grid["pt_r_t_q10"].head()
+```
+
+The quantile classification allows us to extract, for example the best 10 % of all grid squares in terms of travel times to the central railway station. Now that we divided the data into quintiles, we can get the top 10 % of the data through extracting the first category of our classified values. 
+
+```python
+grid[grid["pt_r_t_q10"]==0].explore()
+```
+
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.65}. Top 10 % out of all statistical grid squares in the Helsinki Region in terms of public transport travel times to the Helsinki.}}, center, nofloat}{../img/figure_6-65.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
+
+_**Figure 6.65**. Top 10 % out of all statistical grid squares in the Helsinki Region in terms of public transport travel times to the Helsinki. Data source: Tenkanen & Toivonen 2020._
+
 
 #### Pretty breaks
 
@@ -223,7 +249,7 @@ for break_point in classifier.bins:
     plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
-_**Figure 6.65**. Histogram of the travel time values with 10 pretty breaks. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.66**. Histogram of the travel time values with 10 pretty breaks. Data source: Tenkanen & Toivonen 2020._
 
 ```python
 # Plot the data using pretty breaks
@@ -242,7 +268,7 @@ plt.axis("off")
 plt.tight_layout()
 ```
 
-_**Figure 6.66**. Static map of travel times visualized using the pretty breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.67**. Static map of travel times visualized using the pretty breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 <!-- #region -->
 
@@ -250,43 +276,11 @@ _**Figure 6.66**. Static map of travel times visualized using the pretty breaks 
 Regardless of the number of classes, pretty breaks is not ideal for our data as it fails to capture the variation in the data. Compared to this map, the previous two versions using natural breaks and quantiles provide a more informative view of the travel times.
 <!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
-#### Question 6.14
-
-Select another column from the data (for example, travel times by car: `car_r_t`) and visualize a thematic map using one of the available classification schemes.
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
-# Use this cell to enter your solution.
-```
-
-```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
-# Solution
-
-# Create one subplot. Control figure size in here.
-fig, ax = plt.subplots(figsize=(6, 4))
-
-# Visualize the travel times using a classification scheme and add a legend
-grid.plot(
-    ax=ax,
-    column="car_r_t",
-    linewidth=0,
-    scheme="FisherJenks",
-    k=9,
-    legend=True,
-    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
-)
-
-# Set the x and y axis off and adjust padding around the subplot
-plt.axis("off")
-plt.tight_layout()
-```
-
 ### Custom map classification
 
 In case none of the existing classification schemes produce a desired output, we can also create a custom classification scheme using `mapclassify` and select which class interval values to use. Fixed intervals with gradually increasing travel times provide an intuitive way to display travel time data. While the pretty breaks classification scheme follows this approach, it didn’t work perfectly for our data. With our own classification scheme, we can show differences among the typical travel times, but avoid having classes distinguishing between long travel times. We'll create a custom classifier with fixed 10-minute intervals up to 90 minutes to achieve this. 
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 break_values = [10, 20, 30, 40, 50, 60, 70, 80, 90]
 classifier = mapclassify.UserDefined(y=travel_times, bins=break_values)
 classifier
@@ -306,54 +300,63 @@ for break_point in classifier.bins:
     plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
-_**Figure 6.67**. Histogram of the travel time values with user defined class breaks. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.68**. Histogram of the travel time values with user defined class breaks. Data source: Tenkanen & Toivonen 2020._
 
 
-When plotting the map, we can pass the break values using `classification_kwds`. For a final touch, we can plot two subplots side by side displaying travel times by different modes of transport using our custom classifier. 
-
-We can plot only one legend, as the two maps use an identical classification. We can add interval brackets on our legend to denote open and closed intervals. An open interval is denoted with parentheses and it does not inlcude the endpoint values. A closed interval is denoted with square brackets and it includes both endpoints. Most of the intervals in our classificaion scheme are half-open (for example, `(10, 20]`) so that the lower bound is not included in the interval, but the upper bound is. 
+When plotting the map, we can pass the break values using `classification_kwds`. 
 
 ```python
 # Create one subplot. Control figure size in here.
-fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
-
-# Visualize the travel times into 9 classes using "Quantiles" classification scheme
-grid.plot(
-    ax=axs[0],
-    column="car_r_t",
-    linewidth=0,
-    scheme="UserDefined",
-    classification_kwds={"bins": break_values},
-)
+fig, ax = plt.subplots(figsize=(6, 4))
 
 grid.plot(
-    ax=axs[1],
+    ax=ax,
     column="pt_r_t",
     linewidth=0,
     scheme="UserDefined",
     classification_kwds={"bins": break_values},
     legend=True,
-    legend_kwds={
-        "title": "Travel times (min)",
-        "bbox_to_anchor": (1.4, 1),
-        "interval": True,
-        "frameon": False,
-    },
-    label="Travel times by public transport",
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
 )
 
-axs[0].set_title("Travel times by car")
-axs[1].set_title("Travel times by public transport")
-
 # Set the x and y axis off and adjust padding around the subplot
-axs[0].axis("off")
-axs[1].axis("off")
-
+plt.axis("off")
 plt.tight_layout()
 ```
 
-_**Figure 6.68**. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.69**. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen & Toivonen 2020._
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+#### Question 6.14
+
+Select another column from the data (for example, travel times by car: `car_r_t`) and visualize a thematic map using our custom classification scheme. 
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
+# Use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""}
+# Solution
+
+# Create one subplot. Control figure size in here.
+fig, ax = plt.subplots(figsize=(6, 4))
+
+# Visualize the travel times using a classification scheme and add a legend
+grid.plot(
+    ax=ax,
+    column="car_r_t",
+    linewidth=0,
+    scheme="UserDefined",
+    classification_kwds={"bins": break_values},
+    legend=True,
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
+)
+
+# Set the x and y axis off and adjust padding around the subplot
+plt.axis("off")
+plt.tight_layout()
+```
 
 ## Rule-based classification
 
@@ -361,10 +364,10 @@ Sometimes our analysis task benefits from combining multiple criteria for classi
 
 To implement this, we can use conditional statements to find grid squares where public transport travel time (column `pt_r_tt`) is less than a selected threshold value in minutes, and where walking distance (`walk_d`) is more than a selected threshold value in meters. Each rule will give a binary result (`True`/`False`) and we can further combine these rules to find those locations that meet both requirements.
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 # Threhsold values
 pt_maximum = 30
-walk_minimum = 2000
+walk_minimum = 2500
 ```
 
 ```python
@@ -377,30 +380,36 @@ grid["walk_d"] > walk_minimum
 
 We can then use our `pandas` skills to combine these rules. Notice that you need parentheses around each set of condition.
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 grid["rule1"] = (grid["pt_r_tt"] < pt_maximum) & (grid["walk_d"] > walk_minimum)
 ```
 
-```python
+Finally, now that we have our rule-based classification stored in one of our `GeoDataFrame`columns, we can use this information to visualize the areas that meet our criteria:
+
+```python editable=true slideshow={"slide_type": ""}
 grid.loc[grid["rule1"]==True].explore()
 ```
 
-_**Figure 6.68**. Grid squares that meet the selection criteria._
+<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+% This cell is only needed to produce a figure for display in the hard copy of the book.
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.70}. Grid squares that meet the selection criteria.}}, center, nofloat}{../img/figure_6-70.png}
+{ \hspace*{\fill} \\}
+<!-- #endraw -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+_**Figure 6.70**. Grid squares that meet the selection criteria._
+<!-- #endregion -->
 
-The map shows grid squares that meet the selection criteria. You can change the threshold values and see how the map changes in the online version of this book!
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+#### Question 6.15
 
+Change the threshold values above and see how the map changes!
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
-[^geopandas_mappingtools]: <https://geopandas.org/en/stable/docs/user_guide/mapping.html> 
-[^matplotlib_pyplot]: <https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html> 
-[^contextily]: <https://github.com/darribas/contextily>
-[^HSL_opendata]: <https://www.avoindata.fi/data/en_GB/dataset/hsl-n-linjat>
-[^matplotlib_colormaps]: <https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib>
-[^matplotlib_colors]: <https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors>
-[^matplotlib_colorbar]: <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html>
-[^matplotlib_legend]: <https://matplotlib.org/tutorials/intermediate/legend_guide.html>
-[^geopandas_scalebar_examples] <https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html#Adding-a-scale-bar-to-a-matplotlib-plot>
+
 [^pysal]: <https://pysal.org/> 
 [^mapclassify]: <https://pysal.org/mapclassify/>
-[^geopandas_choro_legends]: <https://geopandas.org/en/stable/gallery/choro_legends.html>
+
+<!-- #endregion -->
