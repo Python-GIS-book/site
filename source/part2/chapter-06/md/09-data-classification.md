@@ -357,24 +357,28 @@ _**Figure 6.68**. Static map of travel times by car and public transport using a
 
 ## Rule-based classification
 
-Sometimes our analysis task benefits from combining multiple criteria for classifying data. For example, we might want to find out locations that are located outside the city center within a reasonable public transport travel time.
+Sometimes our analysis task benefits from combining multiple criteria for classifying data. For example, we might want to find out locations that are outside the city center within a reasonable public transport travel time. Such a selection could help us classify the statistical grid squares based on the potential for finding apartments with good public transport connections while avoiding the most expensive areas in the city center.
 
 To implement this, we can use conditional statements to find grid squares where public transport travel time (column `pt_r_tt`) is less than a selected threshold value in minutes, and where walking distance (`walk_d`) is more than a selected threshold value in meters. Each rule will give a binary result (`True`/`False`) and we can further combine these rules to find those locations that meet both requirements.
 
 ```python
-# Public transport travel time less than 20 minutes
-grid["pt_r_tt"] < 20
+# Threhsold values
+pt_maximum = 30
+walk_minimum = 2000
 ```
 
 ```python
-# Walking distance more than 4000 meters.
-grid["walk_d"] > 4000
+grid["pt_r_tt"] < pt_maximum
+```
+
+```python
+grid["walk_d"] > walk_minimum
 ```
 
 We can then use our `pandas` skills to combine these rules. Notice that you need parentheses around each set of condition.
 
 ```python
-grid["rule1"] = (grid["pt_r_tt"] < 30) & (grid["walk_d"] > 4000)
+grid["rule1"] = (grid["pt_r_tt"] < pt_maximum) & (grid["walk_d"] > walk_minimum)
 ```
 
 ```python
@@ -382,6 +386,9 @@ grid.loc[grid["rule1"]==True].explore()
 ```
 
 _**Figure 6.68**. Grid squares that meet the selection criteria._
+
+
+The map shows grid squares that meet the selection criteria. You can change the threshold values and see how the map changes in the online version of this book!
 
 
 ## Footnotes
