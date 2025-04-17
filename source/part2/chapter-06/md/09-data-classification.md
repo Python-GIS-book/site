@@ -85,7 +85,7 @@ travel_times = grid.loc[grid["pt_r_t"].notnull(), "pt_r_t"]
 travel_times.plot.hist(bins=50, color="lightgray")
 ```
 
-_**Figure 8.x**. Histogram of the travel time values. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.60**. Histogram of the travel time values. Data source: Tenkanen & Toivonen 2020._
 
 ```python
 travel_times.describe()
@@ -128,7 +128,7 @@ for break_point in classifier.bins:
     plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
-_**Figure 8.x**. Histogram of the travel time values with natural breaks classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.61**. Histogram of the travel time values with natural breaks classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
 
 
 Finally, we can visualize our data using the classification scheme through adding the `scheme` option, while the parameter `k` defines the number of classess to use. Note that the syntax via `geopandas` differs a bit from `mapclassify`. We can control the position and title of the legend using `matplotlib` tools trough changing the properties of the legend object. 
@@ -154,7 +154,7 @@ plt.axis("off")
 plt.tight_layout()
 ```
 
-_**Figure 8.x**. Static map of travel times visualized using the natural breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.62**. Static map of travel times visualized using the natural breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station. Notice also that we now have a different type of map legend that shows the associated class bins, now that we used a classification scheme. Here, we set the title and location of the legend using `legend_kwds` at the same time when plotting the map. We use `bbox_to_anchor` to position the legend item so that it does not overlap and cover our map extent.  An alternative way to achieve the same thing would be to add `ax.get_legend().set_bbox_to_anchor((1.4, 1))` after plotting the data via `geopandas`. For further tips on customizing choropleth map legends, have a look at [`geopandas examples gallery`](https://geopandas.org/en/stable/gallery/choro_legends.html) [^geopandas_choro_legends].
 
@@ -183,7 +183,7 @@ for break_point in classifier.bins:
     plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
-_**Figure 8.9**. Histogram of the travel time values with Quantile classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.63**. Histogram of the travel time values with Quantile classification into 10 groups. Data source: Tenkanen & Toivonen 2020._
 
 If comparing the histograms of natural breaks and quantile classifications, we can observe that natural breaks might work better to display differences in the data values across the whole data range, while quantiles would help distinguishing differences around the central peak of the data distribution. However, neither of the classification schemes display differences in short, less than 25 minute travel times which might be important for making an informative map. Also, we might want to have round numbers for our class values to facilitate quick and intuitive interpretation. 
 
@@ -209,7 +209,7 @@ plt.tight_layout()
 ```
 
 
-_**Figure 8.x**. Static map of travel times visualized using the quantiles classification scheme. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.64**. Static map of travel times visualized using the quantiles classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 
 #### Pretty breaks
@@ -234,7 +234,7 @@ for break_point in classifier.bins:
     plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
-_**Figure 8.x**. Histogram of the travel time values with 10 pretty breaks. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.65**. Histogram of the travel time values with 10 pretty breaks. Data source: Tenkanen & Toivonen 2020._
 
 ```python
 # Plot the data using pretty breaks
@@ -257,7 +257,7 @@ plt.axis("off")
 plt.tight_layout()
 ```
 
-_**Figure 8.x**. Static map of travel times visualized using the pretty breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.66**. Static map of travel times visualized using the pretty breaks classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 <!-- #region -->
 
@@ -330,7 +330,7 @@ for break_point in classifier.bins:
     plt.axvline(break_point, linestyle="dashed", linewidth=1)
 ```
 
-_**Figure 8.x**. Histogram of the travel time values with user defined class breaks. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.67**. Histogram of the travel time values with user defined class breaks. Data source: Tenkanen & Toivonen 2020._
 
 
 When plotting the map, we can pass the break values using `classification_kwds`. For a final touch, we can plot two subplots side by side displaying travel times by different modes of transport using our custom classifier. 
@@ -378,7 +378,7 @@ axs[1].axis("off")
 plt.tight_layout()
 ```
 
-_**Figure 8.x**. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen & Toivonen 2020._
+_**Figure 6.68**. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 
 ## Rule-based classification
@@ -410,6 +410,9 @@ grid["rule1"]
 ```python
 suitable_areas.plot()
 ```
+
+_**Figure 6.68**. Grid squares that meet the selection criteria._
+
 
 ## Footnotes
 [^geopandas_mappingtools]: <https://geopandas.org/en/stable/docs/user_guide/mapping.html> 
