@@ -15,13 +15,13 @@ jupyter:
 # Static maps
 
 
-Static visualizations of geographic information are useful for many purposes during a data analysis process, for example, during data exploration and communicating the results. Maps produced in Python can be exported to various image formats and integrated in reports and scientific articles. In this section, we will practice plotting static maps using sample data from Helsinki, Finland. 
+Static visualizations of geographic information are useful for many purposes during a data analysis process, for example, data exploration and communicating the results. Maps produced in Python can be exported to various image formats and integrated in reports and scientific articles. 
 
 [Mapping tools in `geopandas`](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] allow creating simple static maps easily. In the background, `geopandas` uses `matplotlib` for creating the plots and we can use [`matplotlib.pyplot`](https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html) [^matplotlib_pyplot] tools for further customizing our figures. This book covers the basics of `matplotlib` in Part I chapter 4 and we will apply some of these techniques for plotting our static maps. Additionally, we will explore how to enhance our maps by adding basemaps with [`contextily`](https://github.com/darribas/contextily) [^contextily].
 
 ## Creating a simple multi-layer map
 
-We will visualize information about travel times across the region from the Helsinki Region Travel Time Matrix dataset ({cite}`Tenkanen2020`). 
+We will practice plotting static maps using sample data from Helsinki, Finland. The sample data contains information about travel times across the region from the Helsinki Region Travel Time Matrix dataset ({cite}`Tenkanen2020`). 
 We will also incorporate [transport network data from Helsinki Region Transport](https://www.avoindata.fi/data/en_GB/dataset/hsl-n-linjat) [^HSL_opendata] to add spatial context. Let's start by importing the required modules and defining our data sources.
 
 ```python
@@ -56,27 +56,22 @@ For a detailed description of each column, see Table 3 in {cite}`Tenkanen2020`. 
 grid = grid.replace(-1, np.nan)
 ```
 
-### Plotting a simple map
+### Plotting a simple map 
 
-Now we can use `geopandas` for visualizing a simple map representing the rush hour public transport travel times (`'pt_r_t'`). We can specify the column which we want to visualize creating a color gradient of the  values with the `column` parameter in the `plot()` method: 
+Now we can use `geopandas` for visualizing a simple map representing the rush hour public transport travel times (`'pt_r_t'`). 
+
+Let's also add a map legend to add information about what is displayed. We can add a map legend directly when plotting the `GeoDataFrame` through setting `legend=True`.  Additional keywords can be added through `legend_kwds`. When plotting the `GeoDataFrame` using basic settings, the legend will be a [colorbar object](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html) [^matplotlib_colorbar] and the legend keyword arguments will control how the colorbar looks. For example, we can add a `label` for our colorbar legend. For additional legend options, have a look at [`geopandas` mapping tools](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] and [`matplotlib` legend guide](https://matplotlib.org/tutorials/intermediate/legend_guide.html) [^matplotlib_legend].
 
 ```python
-grid.plot(column="pt_r_t")
+grid.plot(column="pt_r_t", legend=True, legend_kwds={"label": "Travel times (min)"})
 ```
 
 _**Figure 8.1**. Simple static map plotted using `geopandas`. The color gradient represents travel times by public transport to the central railway station in Helsinki. Data source: Tenkanen & Toivonen 2020._
 
 What we have here is a `choropleth map` where the colors of each grid square polygon are based on values from the column `pt_r_t`. Such a simple map is helpful for getting a quick overview of the underlying data. However, we can further enhance the visualization to better communicate the patterns and to create an effective visualization. 
 
-### Adding a classification scheme
-
-Next, we can change the classification scheme to determine the assignment of values to distinct classes for the visualization. 
 
 
-
-```python
-grid.plot(column="pt_r_t", scheme="NaturalBreaks")
-```
 
 ### Adding multiple layers
 
@@ -126,57 +121,75 @@ metro.plot(ax=ax)
 
 _**Figure 8.3**. Static map with multiple layers displaying the original data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
-Now our layers are nicely aligned, but the map needs some further improvement.
-
-### Choosing colors and customizing our map
-
- Colors are an important component of any cartographic visualization. Display settings for map features, such as color and linewidth are easy to configure directly when plotting the data via `geopandas`. For changing the colors of the choropleth map, we can use the `cmap` parameter. There are various [colormap options via `matplotlib` ](https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib) [^matplotlib_colormaps]. For line features, we can change the colors using the `color` parameter using the various [color options via `matplotlib` ](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors) [^matplotlib_colors]. Transparency can be added using the `alpha` parameter (this parameter ranges from 0 to 1 where 0 is fully transparent).
-
-For controlling other features related to the layout, such as the x- and y-axis, we need to use `matplotlib.pyplot` directly. For example, we can crop the figure on-the-fly by adjusting the view limit of each axis.  This way we don't need to separately crop the train line that goes outside the extent of the grid data. Let's apply the following changes to our plot: 
-
-- Changing the choropleth map color
-- Changing line colors.
-- Changing the linewidth of line features.
-- Adding transparency.
-- Cropping the figure. We can get the desired plot extent from the `total_bounds` of the grid layer. This way we don't need to separately crop the train line that goes outside the extent of the grid data.
-- Using a `tight_layout`to adjust the subplot to fit in the figure.
-- Removing the frame and and axis labels through setting x- and y- axis off.
-
-Finally, we can save the figure as PNG image.
+Now our layers are nicely aligned, but the map needs some further improvement. The transport network data extends beyond the grid data. In stead of cropping the train line geometry, we can crop the figure using `matplolib`. First, we can get the desired plot extent from the `total_bounds` of the grid layer and then limit the x- and y-axis based on this information. 
 
 ```python
-# Create one subplot. Control figure size in here.
-fig, ax = plt.subplots(figsize=(6, 4))
-
-# Visualize the travel times
-grid.plot(ax=ax, column="car_r_t", cmap="Spectral")
+# Plot the data layers
+ax = grid.plot(column="pt_r_t")
+train.plot(ax=ax)
+metro.plot(ax=ax)
 
 # Set axis view limits based on the total bounds of the grid layer
 ax.set_xlim(grid.total_bounds[0], grid.total_bounds[2])
 ax.set_ylim(grid.total_bounds[1], grid.total_bounds[3])
-
-# Set the x and y axis off
-plt.axis("off")
-
-# Adjust padding around the subplot
-plt.tight_layout()
-
-# Save the figure as png file with resolution of 300 dpi
-outfp = "static_map.png"
-plt.savefig(outfp, dpi=300)
 ```
 
-_**Figure 8.4**. Static map with multiple layers with adjusted extent and colors. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
+_**Figure 8.4**. Static map with multiple layers displaying the grid data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
 
-### Adding a legend and a scalebar
+### Adding a classification scheme
+
+Next, we can change the classification scheme to determine the assignment of values to distinct classes for the visualization. For doing this, we need to have `mapclassify` package installed. See chapter 6.1 for more information about `mapclassify` and different classification schemes. 
+
+One intuitive way to visaulize travel times is to use equal intervals for travel times that are within a reasonable travel time distance, and to classify relatively long distances all in one category. We can achieve this by creating our own user-defined classification scheme with manually selected break values. 
+
+Now that we are using `mapclassify` to render the values, the map legend will look bit different in comparison to the previous map. We can control the position and title of the legend through legend keywords arguments (`legend_kwds`). We can use `bbox_to_anchor` to position the legend item so that it does not overlap and cover our map extent.  An alternative way to achieve the same thing would be to add `ax.get_legend().set_bbox_to_anchor((1.4, 1))` after plotting the data via `geopandas`. For further tips on customizing choropleth map legends, have a look at [`geopandas examples gallery`](https://geopandas.org/en/stable/gallery/choro_legends.html) [^geopandas_choro_legends].
+
+```python
+break_values = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+
+ax = grid.plot(column="pt_r_t", 
+          scheme="UserDefined",
+          classification_kwds={"bins": break_values}, 
+          legend=True,
+          legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)}
+         )
+
+train.plot(ax=ax)
+metro.plot(ax=ax)
+
+# Set axis view limits based on the total bounds of the grid layer
+ax.set_xlim(grid.total_bounds[0], grid.total_bounds[2])
+ax.set_ylim(grid.total_bounds[1], grid.total_bounds[3])
+```
+
+_**Figure 8.5**. Static map with multiple layers displaying the grid data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
 
-Legend and scalebar are essential elements of an informative map. While they aren’t always necessary, including both into our travel time map adds value by clarifying the data range and geographic scale.
+In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station. Notice also that we now have a different type of map legend that shows the associated class bins, now that we used a classification scheme. 
 
-We can add a map legend directly when plotting the `GeoDataFrame` through setting `legend=True`.  Additional keywords can be added through `legend_kwds`. When plotting the `GeoDataFrame` using basic settings, the legend will be a [colorbar object](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html) [^matplotlib_colorbar] and the legend keyword arguments will control how the colorbar looks. For example, we can add a `label` for our colorbar legend. For additional legend options, have a look at [`geopandas` mapping tools](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] and [`matplotlib` legend guide](https://matplotlib.org/tutorials/intermediate/legend_guide.html) [^matplotlib_legend].
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+### Choosing colors and customizing our map
 
-A scalebar can be added using the `maplotlib-scalebar` library, which needs to be installed separately in addition to `matplotlib`. Adding a scalebar is easy as long as the data are in a projected metric coordinate reference system. The `ScaleBar` object only requires one parameter, `dx`, which indicates a size of one pixel in real world units. For a metric CRS, we can simply set `dx=1`. For tips on how to customize the scalebar, have a look at [`geopandas` examples gallery](https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html#Adding-a-scale-bar-to-a-matplotlib-plot) [^geopandas_scalebar_examples].
+Colors are an important component of any cartographic visualization. Display settings for map features, such as color and linewidth are easy to configure directly when plotting the data via `geopandas`. For changing the colors of the choropleth map, we can use the `cmap` parameter. There are various [colormap options via `matplotlib` ](https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html#choosing-colormaps-in-matplotlib) [^matplotlib_colormaps]. For line features, we can change the colors using the `color` parameter using the various [color options via `matplotlib` ](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.colors) [^matplotlib_colors]. Transparency can be added using the `alpha` parameter (this parameter ranges from 0 to 1 where 0 is fully transparent). Finally, we can apply some final adjustments on the figure layout, such as `tight_layout` that automatically adjusts the map elements to fit the figure extent. 
+
+### Adding a scalebar
+
+A scalebar is an essential element of an informative map. While a scalebar isn't always necessary, it often adds value by clarifying the data range and geographic scale. A scalebar can be added using the `maplotlib-scalebar` library, which needs to be installed separately in addition to `matplotlib`. Adding a scalebar is easy as long as the data are in a projected metric coordinate reference system. The `ScaleBar` object only requires one parameter, `dx`, which indicates a size of one pixel in real world units. For a metric CRS, we can simply set `dx=1`. For tips on how to customize the scalebar, have a look at [`geopandas` examples gallery](https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html#Adding-a-scale-bar-to-a-matplotlib-plot) [^geopandas_scalebar_examples].
+
+In sum, let's apply all these customizations when visualizing our data: 
+
+- Changing the choropleth map color.
+- Changing line colors.
+- Changing the linewidth of line features.
+- Adding transparency.
+- Adding a legend.
+- Cropping the figure by limiting x- and y-axis. 
+- Using a `tight_layout` to adjust the subplot to fit in the figure.
+- Removing the frame and and axis labels through setting x- and y- axis off.
+
+Finally, we can save the figure as PNG image.
+<!-- #endregion -->
 
 ```python
 from matplotlib_scalebar.scalebar import ScaleBar
@@ -187,19 +200,18 @@ from matplotlib_scalebar.scalebar import ScaleBar
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Visualize the travel times
-grid.plot(
-    ax=ax,
-    column="car_r_t",
-    cmap="Spectral",
-    legend=True,
-    legend_kwds={"label": "Travel times by public transport (min)"},
-)
+grid.plot(ax=ax, column="pt_r_t", 
+          scheme="UserDefined",
+          classification_kwds={"bins": break_values}, 
+          legend=True,
+          legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)}
+         )
 
 # Add roads and change the color, linewidth and and transparency
-train.plot(ax=ax, color="grey", linewidth=1, alpha=0.1)
+train.plot(ax=ax, color="grey", linewidth=1, alpha=0.2)
 
 # Add metro and change the color, linewidth and and transparency
-metro.plot(ax=ax, color="red", linewidth=2, alpha=0.1)
+metro.plot(ax=ax, color="darkblue", linewidth=2, alpha=0.1)
 
 # Set axis view limits based on the total bounds of the grid layer
 ax.set_xlim(grid.total_bounds[0], grid.total_bounds[2])
@@ -213,14 +225,16 @@ plt.axis("off")
 
 # Adjust padding around the subplot
 plt.tight_layout()
+
+# Save the figure as png file with resolution of 300 dpi
+outfp = "static_map.png"
+plt.savefig(outfp, dpi=300)
 ```
 
-_**Figure 8.5**. Static map with multiple layers and a scale bar. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
+_**Figure 8.6**.  Static map with multiple layers and a scale bar. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
 
-When plotting the map, we can pass the break values using `classification_kwds`. For a final touch, we can plot two subplots side by side displaying travel times by different modes of transport using our custom classifier. 
-
-We can plot only one legend, as the two maps use an identical classification. We can add interval brackets on our legend to denote open and closed intervals. An open interval is denoted with parentheses and it does not inlcude the endpoint values. A closed interval is denoted with square brackets and it includes both endpoints. Most of the intervals in our classificaion scheme are half-open (for example, `(10, 20]`) so that the lower bound is not included in the interval, but the upper bound is. 
+Finally, we can plot two subplots side by side displaying travel times by different modes of transport using our custom classification scheme. We can plot only one legend, as the two maps use an identical classification. We can add interval brackets on our legend to denote open and closed intervals. An open interval is denoted with parentheses and it does not inlcude the endpoint values. A closed interval is denoted with square brackets and it includes both endpoints. Most of the intervals in our classificaion scheme are half-open (for example, `(10, 20]`) so that the lower bound is not included in the interval, but the upper bound is. 
 
 ```python
 # Create one subplot. Control figure size in here.
@@ -263,7 +277,7 @@ axs[1].axis("off")
 plt.tight_layout()
 ```
 
-_**Figure 8.14**. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen & Toivonen 2020._
+_**Figure 8.7**. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 
 ## Adding a basemap
@@ -306,7 +320,7 @@ plt.tight_layout()
 ctx.add_basemap(ax, crs=grid.crs)
 ```
 
-_**Figure 8.15**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 8.8**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 We can change the background map easily using the `source` parameter when adding the basemap. We can also customize the map's credits. `Contextily` automatically adds attribution for the background map, and we can modify this text to include credits for the travel time data alongside OpenStreetMap contributors.
 
@@ -339,7 +353,7 @@ ctx.add_basemap(
 )
 ```
 
-_**Figure 8.16**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 8.9**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 
  Let's take a subset of our data to see a bit better the background map characteristics. We can, for example, visualize grid squares from where the central railway station can be reached in less than 15 minutes to get a zoomed-in view of the map:
@@ -361,7 +375,7 @@ plt.tight_layout()
 ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs)
 ```
 
-_**Figure 8.17**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 8.10**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 
 Now our map has much more details as the zoom level of the background map is larger. This type of map might be useful for quick data exploration purposes. For example, we can observe that most of the short travel times are located in the city center, while the central railway station is also accessible within 15 minutes by public transport from individual locations a bit further away along the train and metro lines (Pasila, Kulosaari and Herttoniemi).
@@ -386,7 +400,7 @@ plt.tight_layout()
 ctx.add_basemap(ax, zoom=12, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs)
 ```
 
-_**Figure 8.18**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 8.11**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 With this zoom setting, place names in the bacground map become larger and more readable. 
 
