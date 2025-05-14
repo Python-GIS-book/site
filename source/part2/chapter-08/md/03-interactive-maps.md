@@ -26,7 +26,7 @@ points = gpd.read_file(points_fp)
 points.explore()
 ```
 
-This interactive map allows us to zoom in and out to explore the locations of our point data. Furthermore, we can hover over the point features to view attribute information. This map is useful for quick data exploration purposes. However, if we want to further control the elements of our interactive map, we need to start using more specified tools. 
+This interactive map allows us to zoom in and out to explore the locations of our point data. Furthermore, we can hover over the point features to view attribute information. Such map is useful for quick data exploration purposes. However, if we want to control further the elements of our interactive map, we need to start using more specified tools. 
 
 ## Folium
 
@@ -43,7 +43,7 @@ from pyproj import crs
 import matplotlib.pyplot as plt
 ```
 
-We will start by creating a simple interactive web-map without any data on it. All we need to do is to define a location for our map when creating a [a Folium map instance](https://python-visualization.github.io/folium/modules.html#folium.folium.Map):
+Let's start by creating a simple interactive web-map without any data on it. We will create [a Folium map instance](https://python-visualization.github.io/folium/modules.html#folium.folium.Map) and define the initial location for the interactive map. Furthermore, we can adjusts the initial zoom-level for the map (the higher the number the closer the zoom is) using the `zoom_start` parameter, and display the scalebar using the `control_scale` parameter.
 
 ```python deletable=true editable=true
 # Create a Map instance
@@ -51,7 +51,7 @@ m = folium.Map(location=[60.25, 24.8], zoom_start=10, control_scale=True)
 ```
 
 <!-- #region deletable=true editable=true -->
-The first parameter ``location`` takes a pair of lat, lon values as list as an input which will determine where the map will be positioned when user opens up the map. ``zoom_start`` -parameter adjusts the default zoom-level for the map (the higher the number the closer the zoom is). ``control_scale`` defines if map should have a scalebar or not. Let's see what our map looks like: 
+Let's see what our map looks like: 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
