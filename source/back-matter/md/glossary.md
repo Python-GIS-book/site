@@ -28,6 +28,9 @@ API
 Argument
   The value passed to a function when it is called. Similar to a {term}`parameter`.
 
+Aspect
+  Aspect shows the (compass) direction that a slope faces, derived from elevation data. It is usually measured in degrees from 0° (north) to 360°.
+
 Assertion
   A statement used in a Python program to check whether a given condition evaluates as `True` when the code is executed. When the condition is not `True`, an `AssertionError` is raised. Assertions are typically used for debugging and testing code.
 
@@ -279,6 +282,9 @@ Shifting
 
 Signed integer
   A (data) type of integer in Python that can represent both positive and negative whole numbers. The "signed" attribute means the number includes a "+" or "-" sign to indicate its value's polarity. For example, -5 and 42 are signed integers. In Python, integers are stored as signed by default and can handle very large values thanks to their dynamic size.
+
+Slope
+  Slope is a measure of the steepness or incline of the terrain. Slope is commonly calculated from elevation values in a raster and it represents the rate of change in elevation over distance and is typically expressed in degrees or percent.
 
 Software
   Another name for a {term}`program`.

@@ -31,12 +31,14 @@ There are various Python libraries that can be used for map algebra. Here, we ar
 
 A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood. **Figure 7.xx** shows an example of a *focal sum* that is summing the input layer values to produce the pixel value in the output layer based on 3x3 window. For instance at the highlighted position (circled) on the right, the pixel will get a value 50 after summing the center pixel and the surrounding pixels in the input layer (left). In a similar manner, the 3x3 moving window is applied to all pixels in the images which creates the output raster seen on the right. Do you notice how the values at the edges of the output layer tend to be smaller? This happens because at the edges of the raster the 3x3 moving window moves "outside" of the raster area and thus has fewer input pixels that can be taken into account when doing the calculation. This kind of *{term}`edge effect`* is very typical when working with geographic data and you can deal with the issue by ensuring that the input data covers a bit of extra buffer (i.e. additional pixels) around the area of interest where you conduct the analysis. 
 
-In addition to sum operation, you can apply any mathematical operator to calculate the pixel values, such as `mean`, `median`, `max`, `min`, `std`. Focal operations can be used also to conduct more complex calculations, such as doing edge detection or determining the slope of a terrain at a given position which we will learn next.
+In addition to sum operation, you can apply any mathematical operator to calculate the pixel values, such as `mean`, `median`, `max`, `min`, `std`. Focal operations can be used also to conduct more complex calculations, such as doing edge detection or determining the slope of a terrain which we will learn next.
 
 
 ![_**Figure 7.XX.** Focal operation based on 3x3 window that considers the neighboring cells to all directions to define the cell value in the output raster._In this case, the output value is a sum of all input pixels](../img/focal-sum.png)
 _**Figure 7.XX.** Focal operation based on 3x3 window that considers the neighboring cells to all directions to define the cell value in the output raster. In this case, the output value is a sum of all input pixels._
 <!-- #endregion -->
+
+Now as we have learned the basic idea of focal operation, we can move forward to see how we can take advantage of different kind of focal operations to extract relevant information about the landscape (terrain) that can help us to find a suitable place to build a new summer house. Let's start by reading the Digital Elevation Model from a NetCDF file using `xarray`: 
 
 ```python
 import xarray as xr
@@ -47,6 +49,8 @@ fp = "data/Tuupovaara_DEM.nc"
 data = xr.open_dataset(fp, decode_coords="all")
 data
 ```
+
+The dimensions of our data is 400x400 pixels and there is one data variable (`elevation`) that we can use to calculate various topography related indicators. Let's first plot our data with contour lines to get a sense of how the landscape looks like in Eastern Finland close to Tuupovaara:
 
 ```python
 # Plot the elevation values and contours
@@ -64,10 +68,15 @@ _**Figure 7.X.** Elevation surface with contour lines._
 
 ### Slope
 
+One of the most useful ways to characterize and get a sense of a given landscape or terrain is to calculate *{term}`slope`*. Slope is a measure of the steepness or incline of the terrain which represents the rate of change in elevation over distance and is typically expressed in degrees or percent. Calculating slope can be done easily using the `xarray-spatial` library's `.slope()` function that takes the `elevation` values as input:
+
 ```python
 # Calculate slope
 data["slope"] = xrspatial.slope(data["elevation"])
+data["slope"].values
 ```
+
+As output, we have an array where the slope for given pixel is represented in degrees. Slope is a focal operation that is calculated based on a moving window which is the reason that there are some `None` values as well at the edges of the array (i.e. the edge effect is present here). Let's finally visualize the slope to see how the steepness of the terrain varies in our study region:
 
 ```python
 data["slope"].plot(cmap="Greens")
@@ -76,12 +85,17 @@ plt.title("Slope (degrees)");
 
 _**Figure 7.X.** Slope in degrees calculated from the elevation data._
 
+As we can see the western areas of the terrain include steep slopes highlighted with dark green color, while the central and eastern areas are more flat which are indicated with lighter tones. 
+
 
 ### Aspect
+
+*{term}`Aspect`* shows the direction that a slope faces. It is measured in degrees from 0° (North) to 360°, and it helps to determine e.g. sunlight exposure, vegetation patterns, and microclimate conditions. Aspect can only be determined for areas that have some level of slope, i.e. flat areas that do not have any degree of change in elevation cannot have aspect either. To calculate aspect, we can use the `.aspect()` function that takes the elevation data as input:
 
 ```python
 # Calculate aspect
 data["aspect"] = xrspatial.aspect(data["elevation"])
+
 # Filter values that are below 0 (areas without aspect defined)
 data["aspect"] = data["aspect"].where(data["aspect"] >= 0)
 data["aspect"].plot(cmap="jet")
@@ -90,8 +104,23 @@ plt.title("Aspect (degree between 0-360)\n0 faces North");
 
 _**Figure 7.X.** Aspect surface shows the direction of the slope in degrees._
 
+In the code above, we filtered out values that were below 0 as those indicate flat areas in the terrain (having value -1). The rather wild and colorful map that was produced based on the aspect values shows the direction of the slope for every pixel in the raster where the dark blue and red tones face North. To be more specific, the values can be decoded into different directions approximately as follows (following clockwise direction starting from the North):
+
+- Values from 0 to 22.5 = North
+- Values from 22.5 to 67.5 = Northeast
+- Values from 67.5 to 112.5 = East
+- Values from 112.5 to 157.5 = Southeast
+- Values from 157.5 to 202.5 = South
+- Values from 202.5 to 247.5 = West
+- Values from 247.5 to 292.5 = Northwest
+- Values from 337.5 to 360 = North
+
+
+
 
 ### Curvature
+
+Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell. A curvature of 0 means the surface is straight and constant in whatever angle it is sloped towards. 
 
 ```python
 data["curvature"] = xrspatial.curvature(data["elevation"])
@@ -101,7 +130,6 @@ plt.title("Curvature");
 
 _**Figure 7.X.** Curvature describes the rate of change in the slope._
 
-Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell. A curvature of 0 means the surface is straight and constant in whatever angle it is sloped towards.
 
 
 ### Hot and cold spots
