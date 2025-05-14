@@ -480,10 +480,55 @@ When hovering over the buffer geometry border, the attribute values in the table
 Inside the ring, the attributes of the Helsinki railway station are kept in the results, whereas outside of the ring 
 the table does not include any data for the columns associated with the railway station.
 
+6.14
+
+```python
+# Solution
+
+break_values = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+
+# Create one subplot. Control figure size in here.
+fig, ax = plt.subplots(figsize=(6, 4))
+
+# Visualize the travel times using a classification scheme and add a legend
+grid.plot(
+    ax=ax,
+    column="car_r_t",
+    linewidth=0,
+    scheme="UserDefined",
+    classification_kwds={"bins": break_values},
+    legend=True,
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
+)
+
+# Set the x and y axis off and adjust padding around the subplot
+plt.axis("off")
+plt.tight_layout()
+```
+
+6.15
+
+The results differ based on the selected thresholds. Here is one potential solution: 
+
+```python
+
+# Threhsold values
+pt_maximum = 40
+walk_minimum = 5000
+
+# Applying the rule and storing the classification into a new column
+grid["rule2"] = (grid["pt_r_tt"] < pt_maximum) & (grid["walk_d"] > walk_minimum)
+
+grid.loc[grid["rule2"]==True].explore()
+```
+
+This map would show areas further away from the Central railway station.
+
+
 
 <!-- #endregion -->
 
-<!-- #region -->
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 8
 
 
@@ -554,3 +599,7 @@ ax.add_artist(ScaleBar(1, location="lower right", box_alpha=0.5))
 ctx.add_basemap(ax, source=ctx.providers.CartoDB.Voyager, crs=grid.crs)
 
 <!-- #endregion -->
+
+```python
+
+```

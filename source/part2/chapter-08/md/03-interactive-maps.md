@@ -15,29 +15,35 @@ jupyter:
 # Interactive maps
 
 <!-- #region deletable=true editable=true -->
+Interactive maps allow users to engage with the map content through, for example, zooming, panning, clicking, and searching. In previous chapters, we have already created simple examples of interactive maps via `geopandas` to explore our data interactively on top of a basemap. 
+<!-- #endregion -->
 
-Interactive maps allow users to engage with the map content trough, for example, zooming, panning, clicking, and searching. In previous chapters, we have already created simple examples of interactive maps via `geopandas` to explore our data interactively on top of a basemap. 
+```python
+import geopandas as gpd
+
+points_fp = "./../data/addresses.shp"
+points = gpd.read_file(points_fp)
+points.explore()
+```
+
+This interactive map allows us to zoom in and out to explore the locations of our point data. Furthermore, we can hover over the point features to view attribute information. This map is useful for quick data exploration purposes. However, if we want to further control the elements of our interactive map, we need to start using more specified tools. 
+
+## Folium
 
 We will explore how to create interactive maps using the [`Folium` library](https://python-visualization.github.io/folium/)[^folium]  library in Python. Folium makes it easy to visualize geographic data by integrating with [Leaflet.js](http://leafletjs.com/) [^leaflet], a powerful JavaScript library for interactive mapping. JavaScript (JS) is a programming language commonly used to add dynamic and interactive elements to webpages, and Leaflet is one of the many JavaScript libraries designed specifically for rendering interactive maps. By using Folium, we can leverage the capabilities of Leaflet.js without needing to write JavaScript code, making it accessible for Python users who want to integrate dynamic map content in their data analysis workflows.
-<!-- #endregion -->
+
 
 ### Creating a simple interactive web-map
 
-Import folium and other useful packages:
+Import `folium` and other useful packages:
 
 ```python
 import folium
-```
-
-```python
 from pyproj import crs
-import geopandas as gpd
 import matplotlib.pyplot as plt
 ```
 
-We will start by creating a simple interactive web-map without any data on it. We just visualize OpenStreetMap on a specific location of the world.
-
-First thing that we need to do is to create [a Map instance](https://python-visualization.github.io/folium/modules.html#folium.folium.Map) and define a location for zooming in the data: 
+We will start by creating a simple interactive web-map without any data on it. All we need to do is to define a location for our map when creating a [a Folium map instance](https://python-visualization.github.io/folium/modules.html#folium.folium.Map):
 
 ```python deletable=true editable=true
 # Create a Map instance
@@ -45,11 +51,7 @@ m = folium.Map(location=[60.25, 24.8], zoom_start=10, control_scale=True)
 ```
 
 <!-- #region deletable=true editable=true -->
-The first parameter ``location`` takes a pair of lat, lon values as list as an input which will determine where the map will be positioned when user opens up the map. ``zoom_start`` -parameter adjusts the default zoom-level for the map (the higher the number the closer the zoom is). ``control_scale`` defines if map should have a scalebar or not.
-<!-- #endregion -->
-
-<!-- #region deletable=true editable=true -->
-Let's see what our map looks like: 
+The first parameter ``location`` takes a pair of lat, lon values as list as an input which will determine where the map will be positioned when user opens up the map. ``zoom_start`` -parameter adjusts the default zoom-level for the map (the higher the number the closer the zoom is). ``control_scale`` defines if map should have a scalebar or not. Let's see what our map looks like: 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -118,21 +120,6 @@ Let's see how we can plot data from a geodataframe using folium.
 
 
 <!-- #endregion -->
-
-```python
-# File path
-points_fp = "data/addresses.shp"
-
-# Read the data
-points = gpd.read_file(points_fp)
-
-# Check input data
-points.head()
-```
-
-```python
-points.head()
-```
 
 - conver the points to GeoJSON features using folium:
 
