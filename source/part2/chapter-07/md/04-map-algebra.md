@@ -232,6 +232,11 @@ plt.title("Kernel smoothing with kernel size 15");
 _**Figure 7.X.** Smoothed surface based on the average elevation of 15 neighboring cells at each pixel._
 
 
+## Local operations
+
+A local function operates .. Chapter 7.6 includes many more examples of using local operations related to working with multiband satellite data and geospatial timeseries data spanning multiple years.
+
+
 ### Reclassification
 
 The goal in the following section is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. so think of a scenario where all of these can be utilized. The criteria for finding a suitable place for a summer cottage will be based on following preferences:
@@ -296,11 +301,6 @@ plt.title("Aspect categories based on custom classifier");
 ```
 
 _**Figure 7.X.** Aspect categories based on a custom a custom classification scheme._
-
-
-## Local operations
-
-A local function operates .. Chapter 7.6 includes many more examples of using local operations related to working with multiband satellite data and geospatial timeseries data spanning multiple years.
 
 ```python
 # Calculate the suitability index by weighting the "points" given for different layers
