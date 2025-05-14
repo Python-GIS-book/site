@@ -80,6 +80,9 @@ Dimensionally Extended 9-Intersection Model
 Docstring
   A text string used to document a section of code. Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs. You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.
 
+Edge effect
+  Edge effect is spatial distortion (bias) that occurs at the boundaries of a geographic datasets (raster and vector), often due to incomplete data or the influence of neighboring areas not included in the analysis. It can affect the accuracy of calculations like filtering, classification, or spatial modeling near the dataset's edges.
+
 EPSG code
   An EPSG code is a unique identifier assigned to a specific coordinate reference system (CRS) or a spatial data transformation standard, as defined by the EPSG (European Petroleum Survey Group) registry. These codes, such as 4326 for WGS84 or 3857 for Web Mercator, simplify the process of referencing CRSs in geographic data processing.
 
