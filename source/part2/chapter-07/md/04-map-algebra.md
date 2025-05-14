@@ -156,7 +156,7 @@ plt.title("Identified hot and cold spots based on the elevation");
 
 _**Figure 7.X.** Hot spots are clusters with high values surrounded by other high values._
 
-The output map reveals that the statistically significant hot spots are located dominantly on the West and North-West areas of the study region having areas with high elevation values while statistically significant cold spot areas are located on the South-West. 
+The output map reveals that the statistically significant hot spots are located dominantly on the West and Northwest areas of the study region having areas with high elevation values while statistically significant cold spot areas are located on the Southwest. 
 
 
 ### Hillshade
