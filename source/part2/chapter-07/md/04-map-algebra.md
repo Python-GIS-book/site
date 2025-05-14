@@ -90,7 +90,7 @@ As we can see the western areas of the terrain include steep slopes highlighted 
 
 ### Aspect
 
-*{term}`Aspect`* shows the direction that a slope faces. It is measured in degrees from 0° (North) to 360°, and it helps to determine e.g. sunlight exposure, vegetation patterns, and microclimate conditions. Aspect can only be determined for areas that have some level of slope, i.e. flat areas that do not have any degree of change in elevation cannot have aspect either. To calculate aspect, we can use the `.aspect()` function that takes the elevation data as input:
+*{term}`Aspect`* shows the direction that a slope faces. It is measured in degrees from 0° (North) to 360°, and it helps to determine e.g. sunlight exposure, vegetation patterns, and microclimate conditions. Aspect can only be determined for areas that have some level of slope, i.e. flat areas that do not have any degree of change in elevation cannot have aspect either. To calculate aspect, we can use the `.aspect()` function of `xarray-spatial` that takes the elevation data as input:
 
 ```python
 # Calculate aspect
@@ -120,7 +120,7 @@ In the code above, we filtered out values that were below 0 as those indicate fl
 
 ### Curvature
 
-Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell. A curvature of 0 means the surface is straight and constant in whatever angle it is sloped towards. 
+*{term}`Curvature`* describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell. A curvature of 0 means the surface is straight and constant in whatever angle it is sloped towards. Similarly as with the slope and aspect, we can calculate the curvature based on the elevation values using the `.curvature()` function:
 
 ```python
 data["curvature"] = xrspatial.curvature(data["elevation"])
@@ -129,6 +129,8 @@ plt.title("Curvature");
 ```
 
 _**Figure 7.X.** Curvature describes the rate of change in the slope._
+
+The map reveals that vast majority of the surface in our study area is straight having value of 0. However, few places can be spotted at the central and western parts of the region that show surfaces curwing upwards (red color) and downwards (blue color). These places tend to be located close to the areas with highest elevation values in this specific region. 
 
 
 

@@ -52,6 +52,9 @@ Coordinate Reference System
 Coordinate transformation
   See {term}`Map reprojection`.
 
+Curvature
+  Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell.
+
 DataFrame
   In pandas library, a DataFrame is a two-dimensional, tabular data structure with labeled rows and columns, similar to an Excel spreadsheet or SQL table. Each column can store data of different types (e.g., integers, floats, strings), and the DataFrame provides methods for data manipulation, including filtering, aggregation, and merging. It is one of the core data structures in pandas, widely used for data analysis and manipulation in Python.
   
