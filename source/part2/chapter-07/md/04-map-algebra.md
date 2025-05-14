@@ -120,7 +120,7 @@ In the code above, we filtered out values that were below 0 as those indicate fl
 
 ### Curvature
 
-*{term}`Curvature`* describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell. A curvature of 0 means the surface is straight and constant in whatever angle it is sloped towards. Similarly as with the slope and aspect, we can calculate the curvature based on the elevation values using the `.curvature()` function:
+*{term}`Curvature`* describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means that the surface is curving up (upwardly convex) at a given cell while negative curvature means that the surface is curving down (downwardly convex). A curvature of 0 means that the surface is straight (constant) in whatever angle it is sloped towards. Similarly as with the slope and aspect, we can calculate the curvature based on the elevation values using the `.curvature()` function:
 
 ```python
 data["curvature"] = xrspatial.curvature(data["elevation"])
@@ -137,15 +137,26 @@ The map reveals that vast majority of the surface in our study area is straight 
 ### Hot and cold spots
 
 
-Hot and cold spots identify statistically significant hot spots and cold spots in an input raster. To be a statistically significant hot spot, a feature will have a high value and be surrounded by other features with high values as well. Thus, it is a similar measure to local spatial autocorrelation (LISA) although hot/cold spot analysis focuses on identifying only high-high and low-low areas, where as LISA also identify outliers (high values surrounded by low values). 
+Hot and cold spots identify statistically significant hot spots and cold spots in an input raster. A statistically significant hot spot means that a given pixel has a high value and is surrounded by other high values. Thus, it is a similar measure to local spatial autocorrelation (LISA) although hot/cold spot analysis focuses on identifying only high-high and low-low areas, where as LISA also identify outliers (high values surrounded by low values). To identify hot and cold spots, we can use the `.hotspots()` function of the `xarray-spatial` that identifies hot and cold spots with varying degrees of confidence (90 %, 95 % and 99 %). To identify the hot spots, we also need to define the neighborhood (i.e. similar to moving window), that is used to compare values between the given pixel and its surrounding. We can do this by defining a `kernel` that can take different shapes, such as circle, annulus (ring-shaped) or a custom kernel. Here, we use a circle kernel with a size of five pixels (radius) and initialize it by using the `.convolution.circle_kernel()` function: 
 
 ```python
+# Kernel size
+k = 5
+
+# Generate a kernel 
+# The first two parameters with value 1 define the cell size 
+# of output kernel in x and y direction
+kernel = xrspatial.convolution.circle_kernel(1, 1, k)
+
+
 data["hot_cold"] = xrspatial.focal.hotspots(data["elevation"], kernel)
 data["hot_cold"].plot(cmap="RdYlBu_r", figsize=(6, 4))
-plt.title("Identified hot and cold spots based the elevation");
+plt.title("Identified hot and cold spots based on the elevation");
 ```
 
 _**Figure 7.X.** Hot spots are clusters with high values surrounded by other high values._
+
+The output map reveals that the statistically significant hot spots are located dominantly on the West and North-West areas of the study region having areas with high elevation values while statistically significant cold spot areas are located on the South-West. 
 
 
 ### Hillshade
