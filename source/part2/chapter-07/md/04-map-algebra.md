@@ -253,23 +253,25 @@ Local functions operate between multiple raster layers and apply functions on a 
 ![_**Figure 7.XX.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer._In this case, the output value is a sum of input pixels._](../img/local_sum.png)
 _**Figure 7.XX.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer. In this case, the output value is a sum of input pixels._
 
-Chapter 7.6 includes many more examples of using local operations related to working with multiband satellite data and geospatial timeseries data spanning multiple years.
 
+### Data classification
 
-### Reclassification
+One special type of local operation often used in map algebra is data classification, also commonly called as reclassification. When reclassifying data you do not conduct calculations between multiple raster layers per se, but you apply a specific classification criteria or a set of rules for each pixel one-by-one that is used to generate the output raster layer. In the following, we will take advantage specific classification schemes, such as natural breaks, to classify our data to distinct classes. You can read more about various data classification methods in Chapter 6.10.
 
-The goal in the following section is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. so think of a scenario where all of these can be utilized. The criteria for finding a suitable place for a summer cottage will be based on following preferences:
+The goal in the following is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. Because the data values of these variables can vary significantly - e.g. elevation between pixels can vary hundreds of meters, while slope varies between 0-90 - it is important to reclassify these values (or normalize) in some way to make them comparable. When the variables are comparable, we can conduct calculations with them and e.g. assign different weights according the importance of specific landscape features. In our case, the criteria for finding a suitable place for a summer cottage will be based on following preferences:
 
 - The higher the elevation, the better
 - Some slope is good but not too steep
-- The ridge should be pointing South (who wouldn't like more sun on their patio..)
+- The ridge should be pointing South (more sun)
+
+In the following, we will classify our data into five categories using `natural breaks` classification scheme. The natural breaks classification scheme (also known as Jenks optimization) is a method used to group values into classes based on natural groupings inherent in the data. It minimizes the variance within classes and maximizes the variance between classes. In our case, we will categorize the elevation data into five classes where the highest elevation values are classified into class 5 (best) and the lowest elevation values are in class 1 (worst). To classify the data, we can use the `.classify.natural_breaks()` function of the `xarray-spatial` library as follows:
 
 ```python
 # Take 20 % sample to reduce the time it takes to classify
 percentage = 0.2
 
 # The sample size
-n = int(round(int(data["elevation"].count()) * percentage, 0))
+n = int(round(data["elevation"].count().item() * percentage, 0))
 
 # Reclassify elevation into 5 classes and add number 1 to the result to make the scale from 1-5
 data["elevation_points"] = (
@@ -280,18 +282,33 @@ data["elevation_points"] = (
 fig, ax = plt.subplots(figsize=(8, 5))
 data["elevation"].plot(ax=ax)
 data["elevation_points"].plot(ax=ax)
-plt.title("Elevation categories");
+plt.title("Elevation weights");
 ```
 
 _**Figure 7.X.** Elevation categories (k=5) based on natural breaks classification scheme._
 
-```python
-bins = [1, 2, 3, 4, 5]
-new_values = [4, 5, 3, 2, 1]
+As a result, the elevation values of each category (1-5) are now clearly visible in the map showing that the best areas according our criteria are located on the West. 
 
+Next, we will reclassify the slope values in our data again into five classes using natural breaks, but we will weight the values in a way that the lower slope gets higher weight because we cannot build our summer house into a very steep terrain. Thus, the highest slope class gets least weight (1), while two of the lowest slope categories gets highest points (4 and 5), i.e. highest weight according our preferences. In the following, we first use the natural breaks classification to classify the slope values into five categories:
+
+```python
+# Classify the slope into five categories
 data["slope_nb"] = (
     xrspatial.classify.natural_breaks(data["slope"], k=5, num_sample=n) + 1
 )
+data["slope_nb"].values
+```
+
+Next, we want to reclassify the slope categories according to our preference, where the classes with lowest values get the highest points. We can reclassify data according our custom rule by using `.classify.reclassify()` function of the `xarray-spatial` library which takes the natural break classes as input data, the `bins` representing the natural breaks classes (1-5) and the `new_values` as a list of values determining how the input data is reclassified (mapped) into the output variable:
+
+```python
+# Original values
+bins = [1, 2, 3, 4, 5]
+
+# New values
+new_values = [4, 5, 3, 2, 1]
+
+# Reclassify the data where lower slope gets more points
 data["slope_points"] = xrspatial.classify.reclassify(
     data["slope_nb"], bins=bins, new_values=new_values
 )
@@ -299,13 +316,20 @@ data["slope_points"] = xrspatial.classify.reclassify(
 # Plot
 fig, ax = plt.subplots(figsize=(6, 4))
 data["slope_points"].plot(ax=ax, cmap="Greens")
-plt.title("Slope categories");
+plt.title("Slope weights");
 ```
 
-_**Figure 7.X.** Slope categories (k=5) based on natural breaks classification scheme._
+_**Figure 7.X.** Slope categories (k=5) based on our custom classification scheme._
+
+As a result, the map shows the best areas with dark green color according our preferences regarding the slope. 
+
+Lastly, we want to reclassify the aspect in a way that the direction of the slope facing South (lot's of sun) gets the highest points, while the direction facing North (little sun) gets the lowest points. In the following, we apply the `.reclassify()` directly using the `aspect` variable as input data. By determining the `bins` and `new_values`, we reclassify the data according our preferences:
 
 ```python
+# Original values (aspect)
 bins = [90, 150, 210, 270, 360]
+
+# Weights given for given aspect category
 new_values = [1, 3, 5, 3, 1]
 
 # Classify
@@ -321,6 +345,10 @@ plt.title("Aspect categories based on custom classifier");
 
 _**Figure 7.X.** Aspect categories based on a custom a custom classification scheme._
 
+Now the South-facing areas are highlighted with red colors which are according our preferences. 
+
+Now as we have given weights to our three variables (elevation, slope, aspect), we can calculate a suitability index that informs us about the best possible places to build a new summer house. At this stage, we can still determine that we want to give more weight to the aspect, as we really would like to find a place where the sun is nicely visible most of the day. To do this, we can specify that the aspect is the most important feature in our decision making getting 60 % of the total weight of these input features, while elevation and slope both receive 20 % of the weight. To calculate the suitability index, we can conduct a simple mathematical calculation (a local operation) where the points for each landscape feature are multiplied according our weighting scheme and then summed together as follows:
+
 ```python
 # Calculate the suitability index by weighting the "points" given for different layers
 data["suitability_index"] = (
@@ -335,6 +363,8 @@ plt.title("Suitability index");
 ```
 
 _**Figure 7.X.** Suitability index calculated based on elevation, aspect and slope._
+
+Nice! Now we have a map that shows the most suitable areas to build or buy a summer house in the region, highlighted with red color. This was a simple example showing how map algebra (focal and local operations) can be used to help in practical decision making. In a similar manner, it is easy to change the weighting scheme how the importance of different factors are considered and how a single landscape feature is weighted in the final model. You can find more examples of using local operations in Chapter 7.6 that shows how map algebra can be used when working with multiband satellite data and geospatial timeseries data spanning multiple years.
 
 
 ## Global operations
