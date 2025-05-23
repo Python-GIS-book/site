@@ -26,24 +26,22 @@ points = gpd.read_file(points_fp)
 points.explore()
 ```
 
-This interactive map allows us to zoom in and out to explore the locations of our point data. Furthermore, we can hover over the point features to view attribute information. Such map is useful for quick data exploration purposes. However, if we want to control further the elements of our interactive map, we need to start using more specified tools. 
+This interactive map allows us to zoom in and out to explore the locations of our point data. Furthermore, we can hover over the point features to view attribute information. `Geopandas` uses `folium`/`leaflet.js` to create the map and we can use these tools to create and further customize interactive maps for various purposes. 
 
-## Folium
+## Using folium
 
-We will explore how to create interactive maps using the [`Folium` library](https://python-visualization.github.io/folium/)[^folium]  library in Python. Folium makes it easy to visualize geographic data by integrating with [Leaflet.js](http://leafletjs.com/) [^leaflet], a powerful JavaScript library for interactive mapping. JavaScript (JS) is a programming language commonly used to add dynamic and interactive elements to webpages, and Leaflet is one of the many JavaScript libraries designed specifically for rendering interactive maps. By using Folium, we can leverage the capabilities of Leaflet.js without needing to write JavaScript code, making it accessible for Python users who want to integrate dynamic map content in their data analysis workflows.
+We will explore how to create interactive maps using the [`folium` library](https://python-visualization.github.io/folium/)[^folium]  library in Python. Folium makes it easy to visualize geographic data by integrating with [Leaflet.js](http://leafletjs.com/) [^leaflet], a powerful JavaScript library for interactive mapping. JavaScript (JS) is a programming language commonly used to add dynamic and interactive elements to webpages, and Leaflet is one of the many JavaScript libraries designed specifically for rendering interactive maps. By using Folium, we can leverage the capabilities of Leaflet.js without needing to write JavaScript code, making it accessible for Python users who want to integrate dynamic map content in their data analysis workflows.
 
 
 ### Creating a simple interactive web-map
 
-Import `folium` and other useful packages:
+Let's start by creating a simple interactive map without any data on it. After importing `folium` and other useful packages, we will create [a `folium` map instance](https://python-visualization.github.io/folium/modules.html#folium.folium.Map) and define the initial location for the interactive map. Furthermore, we can adjusts the initial zoom-level for the map (the higher the number the closer the zoom is) using the `zoom_start` parameter, and display the scalebar using the `control_scale` parameter.
 
 ```python
 import folium
 from pyproj import crs
 import matplotlib.pyplot as plt
 ```
-
-Let's start by creating a simple interactive web-map without any data on it. We will create [a Folium map instance](https://python-visualization.github.io/folium/modules.html#folium.folium.Map) and define the initial location for the interactive map. Furthermore, we can adjusts the initial zoom-level for the map (the higher the number the closer the zoom is) using the `zoom_start` parameter, and display the scalebar using the `control_scale` parameter.
 
 ```python deletable=true editable=true
 # Create a Map instance
@@ -59,30 +57,43 @@ m
 ```
 
 <!-- #region deletable=true editable=true -->
-We can also save the map as a html file:
+To fully understand what happens, we can save the map as a HTML (Hypertext Markup Language) file and inspect how the interactive map is defined in text format. 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
-outfp = "base_map.html"
+outfp = "./../data/base_map.html"
 m.save(outfp)
 ```
 
 <!-- #region deletable=true editable=true -->
+You should now see a html file in the data directory. You can open the file in a web-browser in order to see the map, or in a text editor in order to see the source definition HTML.
 
-You should now see a html file in your working directory. You can open the file in a web-browser in order to see the map, or in a text editor in order to see the source definition.
+### Changing the basemap
 
-
-Let's create another map with different settings (location, bacground map, zoom levels etc). See documentation of the [Map() object](https://python-visualization.github.io/folium/modules.html#folium.folium.Map) for all avaiable options.
-    
-``tiles`` -parameter is used for changing the background map provider and map style (see the [documentation](https://python-visualization.github.io/folium/modules.html#folium.folium.Map) for all in-built options).
-
+Let's create another map with different settings (location, bacground map, zoom levels etc). Please refer to the [Folium API reference](https://python-visualization.github.io/folium/latest/reference.html) [^folium_api] for all available parameters. The bacground map can be controlled  via the `tiles` argument in`folium.Map()`. Folium includes several built-in background map tiles (such as `"OpenStreetmap"` and `"CartoDB Positron"`) and allows the use of custom URLs to define the bacground map. All tilesets available in the [`xyzservices` library](https://xyzservices.readthedocs.io/en/stable/) [^xyzservices] can be used via `folium`. You can preview available basemaps in the [Leaflet providers preview](https://leaflet-extras.github.io/leaflet-providers/preview/) [^leaflet_providers]. 
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Let's change the basemap style to 'Stamen Toner'
 m = folium.Map(
     location=[40.730610, -73.935242],
-    tiles="Stamen Toner",
+    tiles="CartoDB Positron",
+    zoom_start=12,
+    control_scale=True,
+    prefer_canvas=True,
+)
+
+m
+```
+
+Note that `folium` automatically adds attribution to the default map-tiles in the bottom-right corner of the map. We can also pass a custom tileset using an URL in the format `https://{s}.yourtiles.com/{z}/{x}/{y}.png`. When using an URL, we also need to add the map tile attribution separately.
+
+```python
+# Let's change the basemap style to 'Stamen Toner'
+m = folium.Map(
+    location=[40.730610, -73.935242],
+    tiles='https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
+    attr='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     zoom_start=12,
     control_scale=True,
     prefer_canvas=True,
@@ -94,7 +105,8 @@ m
 <!-- #region deletable=true editable=true -->
 ### Adding layers to the map
 
-Let's first have a look how we can add a simple [marker](https://python-visualization.github.io/folium/modules.html?highlight=marker#folium.map.Marker) on the webmap:
+So far, we have only displayed online webmaps on the interactive map. Let's start integrating further objects on the map and plot some of our own data on top of the basemap. 
+Let's first add a simple [marker](https://python-visualization.github.io/folium/modules.html?highlight=marker#folium.map.Marker) on the webmap and add some attribute information about this location:
 <!-- #endregion -->
 
 ```python jupyter={"outputs_hidden": false}
@@ -113,15 +125,9 @@ folium.Marker(
 m
 ```
 
-<!-- #region deletable=true editable=true -->
-As mentioned, Folium combines the strenghts of data manipulation in Python with the mapping capabilities of Leaflet.js. Eventually, we would like to include the plotting of interactive maps as the last part of our data analysis workflow. 
+Folium supports adding geographic objects on the map in GeoJSON format. GeoJSON (Geographic JavaScript Object Notation) is a format for encoding geographic data structures using JSON (JavaScript Object Notation).
 
-Let's see how we can plot data from a geodataframe using folium.
-
-
-<!-- #endregion -->
-
-- conver the points to GeoJSON features using folium:
+So, in order to add our address points on the map, we need to first convert the data from to GeoJSON objects.
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
 # Convert points to GeoJSON
@@ -130,16 +136,15 @@ points_gjson = folium.features.GeoJson(points, name="Public transport stations")
 
 ```python
 # Check the GeoJSON features
-# points_gjson.data.get('features')
+#points_gjson.data.get('features')
+```
+
+```python deletable=true editable=true
+type(points_gjson)
 ```
 
 <!-- #region deletable=true editable=true -->
-Now we have our population data stored as GeoJSON format which basically contains the
-data as text in a similar way that it would be written in the ``.geojson`` -file.
-<!-- #endregion -->
-
-<!-- #region deletable=true editable=true -->
-Add the points onto the Helsinki basemap:
+Now that we have the data in a compatible format, we can add them on the map using `folium`:
 <!-- #endregion -->
 
 ```python deletable=true editable=true jupyter={"outputs_hidden": false}
@@ -404,3 +409,6 @@ Extra: check out plotly express for an alternative way of plotting an interactiv
 
 [^folium]: <https://python-visualization.github.io/folium/>
 [^leaflet]: <http://leafletjs.com/>
+[^folium_api]: <https://python-visualization.github.io/folium/latest/reference.html>
+[^xyzservices]: <https://xyzservices.readthedocs.io/en/stable/>
+[^leaflet_providers]: <https://leaflet-extras.github.io/leaflet-providers/preview/>
