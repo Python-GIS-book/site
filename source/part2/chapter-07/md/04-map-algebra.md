@@ -248,7 +248,12 @@ As a result we got a smoothed surface where the value for each pixel is based on
 
 ## Local operations
 
-A local function operates .. Chapter 7.6 includes many more examples of using local operations related to working with multiband satellite data and geospatial timeseries data spanning multiple years.
+Local functions operate between multiple raster layers and apply functions on a cell-by-cell basis between them. The figure **7.XX** illustrates a local sum based on two raster layers. When calculating a local sum, the pixel values in matching positions are summed together which generates the output raster layer. In our example, e.g. the pixel values `3` and `6` become `9` in the output layer after they are summed. In a similar manner as with focal functions that we demonstrated earlier, you can apply any mathematical function to the data (multiply, divide, etc.). Notice that in case there are NoData values (None) present in either of the input rasters, the pixel value in the output layer will also be None by default. 
+
+![_**Figure 7.XX.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer._In this case, the output value is a sum of input pixels._](../img/local_sum.png)
+_**Figure 7.XX.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer. In this case, the output value is a sum of input pixels._
+
+Chapter 7.6 includes many more examples of using local operations related to working with multiband satellite data and geospatial timeseries data spanning multiple years.
 
 
 ### Reclassification
