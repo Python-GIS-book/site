@@ -149,6 +149,9 @@ Git remote
 GitHub
   An online platform for collaborative development of {term}`software` based around the {term}`Git` {term}`version control` system. GitHub provides tools for collaboration, version control, issue tracking, and code review.
 
+Hillshade
+  A hillshade is a grayscale 3D-like representation of the terrain surface, created by simulating the effect of sunlight shining across the landscape. In GIS, hillshading is derived from a Digital Elevation Model (DEM) and is used to visualize topographic relief. The shading is based on specified azimuth (direction) and altitude (angle) of the light source, typically representing the sun.
+
 Hypsometric curve
   The distribution of area above a given elevation in an region analyzed using hypsometric analysis. This is effectively a cumulative distribution of area as a function of elevation. The areas and elevations in hypsometric curves are frequently normalized to allow comparison between regions and for calculating a {term}`hypsometric integral`.
 
