@@ -369,32 +369,50 @@ Nice! Now we have a map that shows the most suitable areas to build or buy a sum
 
 ## Global operations
 
-In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. They are essential for modeling cumulative effects, spatial dependencies, and large-scale patterns in fields like hydrology, transportation, and environmental science.
+In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. Global functions are often used to calculate statistical summaries of the data, e.g. maximum or average elevation in the whole region, or to conduct a viewshed analysis that shows how different areas in the region are visible from a given location. 
 
 
 ### Statistical summaries
 
+Calculating statistical summaries based on all the values in a given raster is one of the most typical global operations in map algebra and typically one of the first explorative steps that you want to do when working with new data. We can easily calculate statistical summaries, such as minimum, maximum, mean, median or standard deviation based on the input data as follows:
+
 ```python
-data["elevation"].min().item()
+minimum = data["elevation"].min().item()
+print(f"Minimum elevation in the data: {minimum} meters.")
 ```
 
 ```python
-data["elevation"].max().item()
+maximum = data["elevation"].max().item()
+print(f"Maximum elevation in the data: {maximum} meters.")
 ```
 
 ```python
-data["elevation"].mean().item()
+mean = data["elevation"].mean().item()
+print(f"Mean elevation in the data: {mean} meters.")
 ```
 
 ```python
-data["elevation"].median().item()
+median = data["elevation"].median().item()
+print(f"Median elevation in the data: {median} meters.")
 ```
 
 ```python
-data["elevation"].std().item()
+standard_deviation = data["elevation"].std().item()
+print(f"Standard deviation of the elevation: {standard_deviation} meters.")
 ```
 
-### Viewshed
+Calculating these kind of summaries of the data are extremely useful to describe the data and get a basic understanding of it. Statistical summaries (in addition to visualizations) can reveal e.g. if there are something weird happening in the data, such as if there are any extreme outliers. 
+
+
+### Viewshed analysis
+
+Viewshed analysis is another map algebra technique (a global operation) which can be used to identify areas of a landscape that are visible from a specific location considering the surrounding terrain. Viewshed can be calculated based on the elevation data by selecting one or more observer points from where the visibility is analyzed based on the line of sight between the observer and every other cell in the raster (**Figure 7.XX**). If the terrain obstructs the view (e.g. mountains block the view), the cell is marked as not visible from the given observation point, and if not, the cell is visible. Viewshed analysis is relevant technique for various application areas, such as landscape assessment and telecommunications planning related to finding suitable places to place antennas. 
+
+![_**Figure 7.XX.** Viewshed is calculated from the given observer location based on line of sight (dashed lines)._](../img/viewshed-analysis.png)
+
+_**Figure 7.XX.** Viewshed is calculated from the given observer location based on line of sight (dashed lines)._
+
+We can easily calculate a viewshed based on the elevation data using the `xarray-spatial` library. First, we need to define the observer location. Here, we use the center point of our raster as the observer point. To find the centroid of the raster, we can take advantage the `.rio.bounds()` function which returns the extent of the raster and then convert these coordinates into a `shapely` Polygon using the `box()` function. After this, we can easily extract the centroid and its coordinates as well as make a `GeoDataFrame` out of the centroid:
 
 ```python
 from shapely import box, Point
@@ -408,6 +426,8 @@ ycoord = bbox.centroid.y
 # Create a GeoDataFrame of the centroid
 observer_location = gpd.GeoDataFrame(geometry=[Point(xcoord, ycoord)], crs=data.rio.crs)
 ```
+
+Now we have defined the location of the observer for our analysis but we still need to define elevation from where the observer is looking the landscape. To do this, we first need to find out what is the elevation of the terrain at the location where our observer is standing. We can do this by using the `.interp()` function that returns the value of the pixel based on given x and y coordinates:
 
 ```python
 # Elevation at a given point
@@ -427,8 +447,10 @@ data["viewshed"] = xrspatial.viewshed(
 )
 ```
 
+Now we have calculated the viewshed based on the observer location and elevation. Let's finally plot the results, so that we can understand how the visibility from this location looks like:
+
 ```python
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # Plot hillshade that was calculated earlier
 data["hillshade"].plot(ax=ax, cmap="Greys")
@@ -447,6 +469,8 @@ ax.set_title("Visible areas from the observer location");
 ```
 
 _**Figure 7.X.** Visible areas from the observer location based on the viewshed analysis._
+
+The resulting viewshed map shows the areas with red color that are visible from the given observer location. We can see how the visibility seem to be better towards the South from this given location which indicates that there are steep hills facing the observer location directly towards the North at this location which blocks the view in that direction. 
 
 
 ## Zonal operations
