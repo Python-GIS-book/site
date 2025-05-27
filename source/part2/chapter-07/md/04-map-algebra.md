@@ -253,23 +253,25 @@ Local functions operate between multiple raster layers and apply functions on a 
 ![_**Figure 7.XX.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer._In this case, the output value is a sum of input pixels._](../img/local_sum.png)
 _**Figure 7.XX.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer. In this case, the output value is a sum of input pixels._
 
-Chapter 7.6 includes many more examples of using local operations related to working with multiband satellite data and geospatial timeseries data spanning multiple years.
 
+### Data classification
 
-### Reclassification
+One special type of local operation often used in map algebra is data classification, also commonly called as reclassification. When reclassifying data you do not conduct calculations between multiple raster layers per se, but you apply a specific classification criteria or a set of rules for each pixel one-by-one that is used to generate the output raster layer. In the following, we will take advantage specific classification schemes, such as natural breaks, to classify our data to distinct classes. You can read more about various data classification methods in Chapter 6.10.
 
-The goal in the following section is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. so think of a scenario where all of these can be utilized. The criteria for finding a suitable place for a summer cottage will be based on following preferences:
+The goal in the following is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. Because the data values of these variables can vary significantly - e.g. elevation between pixels can vary hundreds of meters, while slope varies between 0-90 - it is important to reclassify these values (or normalize) in some way to make them comparable. When the variables are comparable, we can conduct calculations with them and e.g. assign different weights according the importance of specific landscape features. In our case, the criteria for finding a suitable place for a summer cottage will be based on following preferences:
 
 - The higher the elevation, the better
 - Some slope is good but not too steep
-- The ridge should be pointing South (who wouldn't like more sun on their patio..)
+- The ridge should be pointing South (more sun)
+
+In the following, we will classify our data into five categories using `natural breaks` classification scheme. The natural breaks classification scheme (also known as Jenks optimization) is a method used to group values into classes based on natural groupings inherent in the data. It minimizes the variance within classes and maximizes the variance between classes. In our case, we will categorize the elevation data into five classes where the highest elevation values are classified into class 5 (best) and the lowest elevation values are in class 1 (worst). To classify the data, we can use the `.classify.natural_breaks()` function of the `xarray-spatial` library as follows:
 
 ```python
 # Take 20 % sample to reduce the time it takes to classify
 percentage = 0.2
 
 # The sample size
-n = int(round(int(data["elevation"].count()) * percentage, 0))
+n = int(round(data["elevation"].count().item() * percentage, 0))
 
 # Reclassify elevation into 5 classes and add number 1 to the result to make the scale from 1-5
 data["elevation_points"] = (
@@ -280,18 +282,33 @@ data["elevation_points"] = (
 fig, ax = plt.subplots(figsize=(8, 5))
 data["elevation"].plot(ax=ax)
 data["elevation_points"].plot(ax=ax)
-plt.title("Elevation categories");
+plt.title("Elevation weights");
 ```
 
 _**Figure 7.X.** Elevation categories (k=5) based on natural breaks classification scheme._
 
-```python
-bins = [1, 2, 3, 4, 5]
-new_values = [4, 5, 3, 2, 1]
+As a result, the elevation values of each category (1-5) are now clearly visible in the map showing that the best areas according our criteria are located on the West. 
 
+Next, we will reclassify the slope values in our data again into five classes using natural breaks, but we will weight the values in a way that the lower slope gets higher weight because we cannot build our summer house into a very steep terrain. Thus, the highest slope class gets least weight (1), while two of the lowest slope categories gets highest points (4 and 5), i.e. highest weight according our preferences. In the following, we first use the natural breaks classification to classify the slope values into five categories:
+
+```python
+# Classify the slope into five categories
 data["slope_nb"] = (
     xrspatial.classify.natural_breaks(data["slope"], k=5, num_sample=n) + 1
 )
+data["slope_nb"].values
+```
+
+Next, we want to reclassify the slope categories according to our preference, where the classes with lowest values get the highest points. We can reclassify data according our custom rule by using `.classify.reclassify()` function of the `xarray-spatial` library which takes the natural break classes as input data, the `bins` representing the natural breaks classes (1-5) and the `new_values` as a list of values determining how the input data is reclassified (mapped) into the output variable:
+
+```python
+# Original values
+bins = [1, 2, 3, 4, 5]
+
+# New values
+new_values = [4, 5, 3, 2, 1]
+
+# Reclassify the data where lower slope gets more points
 data["slope_points"] = xrspatial.classify.reclassify(
     data["slope_nb"], bins=bins, new_values=new_values
 )
@@ -299,13 +316,20 @@ data["slope_points"] = xrspatial.classify.reclassify(
 # Plot
 fig, ax = plt.subplots(figsize=(6, 4))
 data["slope_points"].plot(ax=ax, cmap="Greens")
-plt.title("Slope categories");
+plt.title("Slope weights");
 ```
 
-_**Figure 7.X.** Slope categories (k=5) based on natural breaks classification scheme._
+_**Figure 7.X.** Slope categories (k=5) based on our custom classification scheme._
+
+As a result, the map shows the best areas with dark green color according our preferences regarding the slope. 
+
+Lastly, we want to reclassify the aspect in a way that the direction of the slope facing South (lot's of sun) gets the highest points, while the direction facing North (little sun) gets the lowest points. In the following, we apply the `.reclassify()` directly using the `aspect` variable as input data. By determining the `bins` and `new_values`, we reclassify the data according our preferences:
 
 ```python
+# Original values (aspect)
 bins = [90, 150, 210, 270, 360]
+
+# Weights given for given aspect category
 new_values = [1, 3, 5, 3, 1]
 
 # Classify
@@ -320,6 +344,10 @@ plt.title("Aspect categories based on custom classifier");
 ```
 
 _**Figure 7.X.** Aspect categories based on a custom a custom classification scheme._
+
+Now the South-facing areas are highlighted with red colors which are according our preferences. 
+
+Now as we have given weights to our three variables (elevation, slope, aspect), we can calculate a suitability index that informs us about the best possible places to build a new summer house. At this stage, we can still determine that we want to give more weight to the aspect, as we really would like to find a place where the sun is nicely visible most of the day. To do this, we can specify that the aspect is the most important feature in our decision making getting 60 % of the total weight of these input features, while elevation and slope both receive 20 % of the weight. To calculate the suitability index, we can conduct a simple mathematical calculation (a local operation) where the points for each landscape feature are multiplied according our weighting scheme and then summed together as follows:
 
 ```python
 # Calculate the suitability index by weighting the "points" given for different layers
@@ -336,35 +364,55 @@ plt.title("Suitability index");
 
 _**Figure 7.X.** Suitability index calculated based on elevation, aspect and slope._
 
+Nice! Now we have a map that shows the most suitable areas to build or buy a summer house in the region, highlighted with red color. This was a simple example showing how map algebra (focal and local operations) can be used to help in practical decision making. In a similar manner, it is easy to change the weighting scheme how the importance of different factors are considered and how a single landscape feature is weighted in the final model. You can find more examples of using local operations in Chapter 7.6 that shows how map algebra can be used when working with multiband satellite data and geospatial timeseries data spanning multiple years.
+
 
 ## Global operations
 
-In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. They are essential for modeling cumulative effects, spatial dependencies, and large-scale patterns in fields like hydrology, transportation, and environmental science.
+In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. Global functions are often used to calculate statistical summaries of the data, e.g. maximum or average elevation in the whole region, or to conduct a viewshed analysis that shows how different areas in the region are visible from a given location. 
 
 
 ### Statistical summaries
 
+Calculating statistical summaries based on all the values in a given raster is one of the most typical global operations in map algebra and typically one of the first explorative steps that you want to do when working with new data. We can easily calculate statistical summaries, such as minimum, maximum, mean, median or standard deviation based on the input data as follows:
+
 ```python
-data["elevation"].min().item()
+minimum = data["elevation"].min().item()
+print(f"Minimum elevation in the data: {minimum} meters.")
 ```
 
 ```python
-data["elevation"].max().item()
+maximum = data["elevation"].max().item()
+print(f"Maximum elevation in the data: {maximum} meters.")
 ```
 
 ```python
-data["elevation"].mean().item()
+mean = data["elevation"].mean().item()
+print(f"Mean elevation in the data: {mean} meters.")
 ```
 
 ```python
-data["elevation"].median().item()
+median = data["elevation"].median().item()
+print(f"Median elevation in the data: {median} meters.")
 ```
 
 ```python
-data["elevation"].std().item()
+standard_deviation = data["elevation"].std().item()
+print(f"Standard deviation of the elevation: {standard_deviation} meters.")
 ```
 
-### Viewshed
+Calculating these kind of summaries of the data are extremely useful to describe the data and get a basic understanding of it. Statistical summaries (in addition to visualizations) can reveal e.g. if there are something weird happening in the data, such as if there are any extreme outliers. 
+
+
+### Viewshed analysis
+
+Viewshed analysis is another map algebra technique (a global operation) which can be used to identify areas of a landscape that are visible from a specific location considering the surrounding terrain. Viewshed can be calculated based on the elevation data by selecting one or more observer points from where the visibility is analyzed based on the line of sight between the observer and every other cell in the raster (**Figure 7.XX**). If the terrain obstructs the view (e.g. mountains block the view), the cell is marked as not visible from the given observation point, and if not, the cell is visible. Viewshed analysis is relevant technique for various application areas, such as landscape assessment and telecommunications planning related to finding suitable places to place antennas. 
+
+![_**Figure 7.XX.** Viewshed is calculated from the given observer location based on line of sight (dashed lines)._](../img/viewshed-analysis.png)
+
+_**Figure 7.XX.** Viewshed is calculated from the given observer location based on line of sight (dashed lines)._
+
+We can easily calculate a viewshed based on the elevation data using the `xarray-spatial` library. First, we need to define the observer location. Here, we use the center point of our raster as the observer point. To find the centroid of the raster, we can take advantage the `.rio.bounds()` function which returns the extent of the raster and then convert these coordinates into a `shapely` Polygon using the `box()` function. After this, we can easily extract the centroid and its coordinates as well as make a `GeoDataFrame` out of the centroid:
 
 ```python
 from shapely import box, Point
@@ -378,6 +426,8 @@ ycoord = bbox.centroid.y
 # Create a GeoDataFrame of the centroid
 observer_location = gpd.GeoDataFrame(geometry=[Point(xcoord, ycoord)], crs=data.rio.crs)
 ```
+
+Now we have defined the location of the observer for our analysis but we still need to define elevation from where the observer is looking the landscape. To do this, we first need to find out what is the elevation of the terrain at the location where our observer is standing. We can do this by using the `.interp()` function that returns the value of the pixel based on given x and y coordinates:
 
 ```python
 # Elevation at a given point
@@ -397,8 +447,10 @@ data["viewshed"] = xrspatial.viewshed(
 )
 ```
 
+Now we have calculated the viewshed based on the observer location and elevation. Let's finally plot the results, so that we can understand how the visibility from this location looks like:
+
 ```python
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(12, 8))
 
 # Plot hillshade that was calculated earlier
 data["hillshade"].plot(ax=ax, cmap="Greys")
@@ -418,10 +470,16 @@ ax.set_title("Visible areas from the observer location");
 
 _**Figure 7.X.** Visible areas from the observer location based on the viewshed analysis._
 
+The resulting viewshed map shows the areas with red color that are visible from the given observer location. We can see how the visibility seem to be better towards the South from this given location which indicates that there are steep hills facing the observer location directly towards the North at this location which blocks the view in that direction. 
+
 
 ## Zonal operations
 
-To be added. 
+Zonal operation (also commonly called as zonal statistic) is a commonly used technique to summarize the values of a raster within specified zones. The zones represent areas of interest and can be defined by either a raster layer or a vector polygon layer. The fundamental goal of zonal operations is to extract statistical or categorical information about the input value layer. When the zone layer is a raster, each cell value represents a distinct zone ID, and all cells with the same value belong to the same zone (as in **Figure 7.XX**). The zone layer can also be presented in vector format as polygons, in which each polygon defines the area that serves as an individual zone. When using vector data as the zone layer, it is internally converted into a raster format (i.e. rasterized) that aligns with the input value raster in terms of resolution and alignment. Regardless of the format of the zone layer, the analysis aggregates the values of the input raster within the spatial boundaries of each zone. Similarly as with other map algebra operations, you can calculate the mean, sum, minimum, maximum, range, or majority of raster values within each zone. Each cell under a given zone in the output layer will get the statistical summary (e.g. mean) as an output value.
+
+![_**Figure 7.XX.** Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone._](../img/zonal_average.png)
+
+_**Figure 7.XX.** Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone._
 
 ```python
 import osmnx as ox
