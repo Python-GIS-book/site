@@ -475,19 +475,58 @@ The resulting viewshed map shows the areas with red color that are visible from 
 
 ## Zonal operations
 
-Zonal operation (also commonly called as zonal statistic) is a commonly used technique to summarize the values of a raster within specified zones. The zones represent areas of interest and can be defined by either a raster layer or a vector polygon layer. The fundamental goal of zonal operations is to extract statistical or categorical information about the input value layer. When the zone layer is a raster, each cell value represents a distinct zone ID, and all cells with the same value belong to the same zone (as in **Figure 7.XX**). The zone layer can also be presented in vector format as polygons, in which each polygon defines the area that serves as an individual zone. When using vector data as the zone layer, it is internally converted into a raster format (i.e. rasterized) that aligns with the input value raster in terms of resolution and alignment. Regardless of the format of the zone layer, the analysis aggregates the values of the input raster within the spatial boundaries of each zone. Similarly as with other map algebra operations, you can calculate the mean, sum, minimum, maximum, range, or majority of raster values within each zone. Each cell under a given zone in the output layer will get the statistical summary (e.g. mean) as an output value.
+Zonal operation (also commonly called as zonal statistic) is a commonly used technique to summarize the values of a raster within specified zones. The zones represent areas of interest and can be defined by either a raster layer or a vector polygon layer. The fundamental goal of zonal operations is to extract statistical or categorical information about the input value layer. When the zone layer is a raster, each cell value represents a distinct zone ID, and all cells with the same value belong to the same zone (as in **Figure 7.XX**). The zone layer can also be presented in vector format as polygons, in which each polygon defines the area that serves as an individual zone. When using vector data as the zone layer, it is internally converted into a raster format (i.e. rasterized) that aligns with the input value raster in terms of resolution and alignment. Regardless of the format of the zone layer, the analysis aggregates the values of the input raster within the spatial boundaries of each zone. Similarly as with other map algebra operations, you can calculate the mean, sum, minimum, maximum, range, or majority of raster values within each zone. As an output, you typically get the statistics out for each zone as an array or table of aggregated statistics (or a Python dictionary depending on the tool you use). Alternatively, you can also get the output as a raster layer in which each cell under a given zone gets the statistical summary (e.g. mean) as an output value (as in **Figure 7.XX**).
 
 ![_**Figure 7.XX.** Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone._](../img/zonal_average.png)
 
 _**Figure 7.XX.** Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone._
 
+
+### Zonal statistics with raster zones
+
+```python
+zones_fp = "data/temp/raster_zones.nc"
+raster_zones = xr.open_dataset(zones_fp, decode_coords="all")
+raster_zones
+```
+
+```python
+import numpy as np
+
+np.unique(raster_zones["zone_id"])
+```
+
+```python
+fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12,4))
+
+raster_zones["zone_id"].plot(ax=ax1)
+data["elevation"].plot(ax=ax2)
+
+ax1.set_title("Zone layer")
+ax2.set_title("Value layer");
+```
+
+```python
+results = xrspatial.zonal_stats(raster_zones["zone_id"], data["elevation"], stats_funcs=["mean", "max"])
+results
+```
+
+```python
+results_array = xrspatial.zonal_stats(raster_zones["zone_id"], data["elevation"], stats_funcs=["mean"], return_type="xarray.DataArray")
+results_array.plot(cmap="Reds");
+plt.title("Mean elevation per quadrant");
+```
+
+### Zonal statistics with vector zones
+
 ```python
 import osmnx as ox
 from shapely import box
+import pandas as pd
 
 # Fetch lake "Riuttanen" from OSM
 lake = ox.geocode_to_gdf("Riuttanen, Joensuu")
-lake = gdf1.to_crs(crs=data.rio.crs)
+lake = lake.to_crs(crs=data.rio.crs)
 
 # Fetch peak Riuttavaara based on OSM Node ID
 peak = ox.geocode_to_gdf("N11034739930", by_osmid=True)
@@ -513,26 +552,23 @@ zones = pd.concat([peak, lake]).reset_index(drop=True)
 ```
 
 ```python
-import rasterstats
-import pandas as pd
+import xvec
 
-elevation_array = data["elevation"].to_numpy()
-affine = data.rio.transform()
-
-# Run the zonal statistics
-stats = rasterstats.zonal_stats(
-    zones,
-    elevation_array,
-    affine=affine,
-    stats=["mean", "min", "max", "std"],  # Statistics to calculate
-    nodata=data["elevation"].rio.nodata,  # Handle nodata values
-)
-
-stats
+stats_array = data["elevation"].xvec.zonal_stats(zones.geometry, x_coords="x", y_coords="y", stats=["mean", "max", "std"])
+stats_array
 ```
 
 ```python
-stats = pd.DataFrame(stats)
+stat_names = stats_array.zonal_statistics.values
+stat_values = stats_array.values
+
+
+print(stat_names)
+print(stat_values)
+```
+
+```python
+stats = pd.DataFrame(stat_values, columns=stat_names)
 stats
 ```
 
