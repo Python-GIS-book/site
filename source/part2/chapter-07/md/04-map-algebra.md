@@ -24,7 +24,7 @@ The operations of map algebra can be divided into different categories:
 - **Zonal operations** analyze values within defined zones, such as calculating average elevation within a watershed.
 - **Incremental operations** apply iterative calculations or cumulative functions over space or time (e.g. cumulative cost surfaces).
 
-There are various Python libraries that can be used for map algebra. Here, we are focusing on `xarray`, `xarray-spatial` and `rasterstats` libraries that provide numerous useful functionalities to conduct focal, local, global, zonal and incremental operations using raster data. In the following, we will apply map algebra to Digital Elevation Model (DEM) raster data obtained from Eastern Finland to gain knowledge of the topography in this area. In addition, we will learn how it is possible to conduct suitability analysis to find an optimal location to build a new summer house based on specific criteria, and how to conduct path finding on raster data to find least-cost route between two locations across the raster cost surface. 
+There are various Python libraries that can be used for map algebra. Here, we are focusing on `xarray`, `xarray-spatial` and `xvec` libraries that provide numerous useful functionalities to conduct focal, local, global, zonal and incremental operations using raster data. In the following, we will apply map algebra to Digital Elevation Model (DEM) raster data obtained from Eastern Finland to gain knowledge of the topography in this area. In addition, we will learn how it is possible to conduct suitability analysis to find an optimal location to build a new summer house based on specific criteria, and how to conduct path finding on raster data to find least-cost route between two locations across the raster cost surface. 
 
 <!-- #region -->
 ## Focal operations
@@ -345,9 +345,13 @@ plt.title("Aspect categories based on custom classifier");
 
 _**Figure 7.X.** Aspect categories based on a custom a custom classification scheme._
 
-Now the South-facing areas are highlighted with red colors which are according our preferences. 
+Now the South-facing areas are highlighted with red colors which are according our preferences. At this point, we have calculated various variables that are all stored in the same `xarray.Dataset`:
 
-Now as we have given weights to our three variables (elevation, slope, aspect), we can calculate a suitability index that informs us about the best possible places to build a new summer house. At this stage, we can still determine that we want to give more weight to the aspect, as we really would like to find a place where the sun is nicely visible most of the day. To do this, we can specify that the aspect is the most important feature in our decision making getting 60 % of the total weight of these input features, while elevation and slope both receive 20 % of the weight. To calculate the suitability index, we can conduct a simple mathematical calculation (a local operation) where the points for each landscape feature are multiplied according our weighting scheme and then summed together as follows:
+```python
+data
+```
+
+Now we can use some of these variables and do a local operation in which we use the weights of our three variables of preference (elevation, slope and aspect) to calculate a suitability index that informs us about the best possible places to build a new summer house. At this stage, we can still determine that we want to give more weight to one of these variables, the aspect, as we really would like to find a place where the sun is nicely visible most of the day. To do this, we can specify that the aspect is the most important feature in our decision making getting 60 % of the total weight of these input features, while elevation and slope both receive 20 % of the weight. To calculate the suitability index, we can conduct a simple mathematical calculation (a local operation) where the points for each landscape feature are multiplied according our weighting scheme and then summed together as follows:
 
 ```python
 # Calculate the suitability index by weighting the "points" given for different layers
@@ -484,17 +488,40 @@ _**Figure 7.XX.** Zonal operation can be performed on two raster layers in which
 
 ### Zonal statistics with raster zones
 
+Let's start by seeing how we can do a zonal operation using a raster layer as the zones. In the following, we will use the `xarray-spatial` library to conduct the zonal statistics and continue using the same elevation data from Eastern Finland as our value layer. We have prepared a raster layer that corresponds with the elevation data in terms of resolution, extent and alignment which we can use for defining the zones. We can read this zones layer from the NetCDF file as follows:
+
 ```python
 zones_fp = "data/temp/raster_zones.nc"
 raster_zones = xr.open_dataset(zones_fp, decode_coords="all")
 raster_zones
 ```
 
+As we can see, the `raster_zones` layer has identical dimensions to our elevation data (i.e. 400x400) and contains one data variable called `zone_id` which contains the zone-ids for each zone. Let's investigate how many zones we have by extracting the unique values of the `zone_id`. We can easily do this by using the `.unique()` function that comes with the `numpy` library:
+
 ```python
 import numpy as np
 
 np.unique(raster_zones["zone_id"])
 ```
+
+As we can see, there seems to be four zones in our data that have been marked with numbers between 1-4. The values seem to be presented in `float` data type. When doing zonal statistics with `xarray-spatial`, having floating point numbers should work fine for indicating the zone categories. However, as the documentation of `xarray-spatial` suggests to use integer values as the zone-ids, let's convert the zone-ids into integers by using the `.astype()` function:
+
+```python
+raster_zones["zone_id"] = raster_zones["zone_id"].astype(int)
+raster_zones["zone_id"].values
+```
+
+Before conducting a zonal operation between the rasters, it is important to ensure that the coordinate reference system (CRS) is the same for both layers. Let's check the CRS using the `rioxarray` functionalities that we learned in Chapter 7.4:
+
+```python
+raster_zones.rio.crs.to_wkt()
+```
+
+```python
+data["elevation"].rio.crs.to_wkt()
+```
+
+Great, it seems that the two raster layers share the same projection which means that we can continue calculating the zonal statistics. Let's first visualize the zones and value layer so that we understand how the zones are distributed in relation to the elevation data:
 
 ```python
 fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12,4))
@@ -506,8 +533,12 @@ ax1.set_title("Zone layer")
 ax2.set_title("Value layer");
 ```
 
+_**Figure 7.XX.** The zone layer and the elevation data that is used as value layer when calculating zonal statistics._
+
+As we can see, our zone layer contains four values (1, 2, 3, 4) which are distributed in a way that they form simple quadrants. Thus, in our analysis we can analyze which of the zones (quadrant) has e.g. highest mean elevation. To calculate zonal statistics, we can use the `.zonal_stats()`
+
 ```python
-results = xrspatial.zonal_stats(raster_zones["zone_id"], data["elevation"], stats_funcs=["mean", "max"])
+results = xrspatial.zonal_stats(zones=raster_zones["zone_id"], values=data["elevation"], stats_funcs=["mean", "max"])
 results
 ```
 
