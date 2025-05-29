@@ -66,6 +66,7 @@ dependencies:
   - xarray=2025.1.2
   - xarray_leaflet=0.2.3
   - xarray-spatial=0.4.0
+  - xvec=0.4.0
   - zarr=2.18.4
   # PDF building
   - nbconvert=7.16.6
