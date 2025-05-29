@@ -619,7 +619,7 @@ Now we are ready to conduct the actual zonal operation between our elevation dat
 data["elevation"].coords
 ```
 
-The last parameter that we can specify for the `.xvec.zonal_stats()` function is `all_touched`. This is an important parameter to consider because it specifies how the edge-cases are handled when the vector and raster intersect with each other. When conducting a zonal operation between a vector and raster layer, you very likely have situations in which the vector boundary covers only partially the raster pixels at the edges of the zone(s). To control how these cases should be handled, you can use the `all_touched` parameter to specify if only such pixels should be considered in the calculation in which the centroid of the pixel lies within the zone Polygon (`all_touched=False`), or if all the pixels that touch the boundary should be considered in the calculation of the zonal statistics (`all_touched=True`). In the following, we will calculate the zonal statistics considering the latter:
+The last parameter that we specify here for the `.xvec.zonal_stats()` function is `all_touched`. This parameter specifies how the edge-cases are handled when the vector and raster intersect with each other. When conducting a zonal operation between a vector and raster layer, you very likely have situations in which the vector boundary does not perfectly align with the raster cells and the Polygons representing the zones cover only partially the raster pixels. To control how these cases should be handled, you can use the `all_touched` parameter to specify if only such pixels should be considered in the calculation in which the centroid of the pixel lies within the zone Polygon (`all_touched=False`), or if all the pixels that touch the boundary should be considered in the calculation of the zonal statistics (`all_touched=True`). In the following, we will calculate the zonal statistics considering the latter:
 
 ```python
 import xvec
@@ -668,6 +668,8 @@ print(f"Elevation difference between the peak and lake: {difference:.0f} m.")
 ```
 
 We can see that the peak seem to be located more than 300 meters above the lake, meaning that you probably have a good view covering the whole lake if you would be standing on top of this peak. 
+
+In a similar manner as in the examples above, you can conduct zonal statistics between vector and raster layer, or two raster layers, using any kind of data. Zonal operations are commonly used for tasks such as land cover analysis, habitat suitability modeling, or watershed management, where summarizing raster information (e.g. elevation, rainfall, biomass, moisture etc.) over administrative regions or natural boundaries is essential. 
 
 
 ## Incremental operations
