@@ -535,20 +535,48 @@ ax2.set_title("Value layer");
 
 _**Figure 7.XX.** The zone layer and the elevation data that is used as value layer when calculating zonal statistics._
 
-As we can see, our zone layer contains four values (1, 2, 3, 4) which are distributed in a way that they form simple quadrants. Thus, in our analysis we can analyze which of the zones (quadrant) has e.g. highest mean elevation. To calculate zonal statistics, we can use the `.zonal_stats()`
+As we can see, our zone layer contains four values (1, 2, 3, 4) which are distributed in a way that they form simple quadrants. Thus, in our analysis we can analyze which of the zones (quadrant) has e.g. highest mean elevation. To calculate zonal statistics, we can use the `.zonal_stats()` function of the `xarray-spatial` library which can be used to calculate zonal statistics between two raster layers. The function requires the `zones` as a first parameter which will take our `"zone_id"` variable of the `raster_zones` Dataset as input, while for the `values` parameter we pass the `"elevation"` variable from the `data` value layer. With `stats_funcs` parameter, we can specify which statistics we want to calculate. In the following, we will calculate all basic summary statistics for the zones:
 
 ```python
-results = xrspatial.zonal_stats(zones=raster_zones["zone_id"], values=data["elevation"], stats_funcs=["mean", "max"])
+results = xrspatial.zonal_stats(zones=raster_zones["zone_id"], 
+                                values=data["elevation"], 
+                                stats_funcs=["mean", "max", "min", "std"])
 results
 ```
 
+As output, the `.zonal_stats()` returns a `pandas.DataFrame` that contains the statistics for each zone. From here we can see that the zone number `1` seems to have the highest average elevation while the highest peak is located under the zone `3` (2294 meters). Interestingly also the lowest elevation is found from zone 3, meaning that there is a lot of variance in elevations under this zone which is also confirmed by looking at the standard deviation which is highest at this quadrant (176 meters). 
+
+It is also possible to return the zonal statistics as a `DataArray` which we can use to visualize the results of the zonal statistics as a map. We can e.g. calculate the average elevation of each zone and specify with `return_type="xarray.DataArray"` parameter to return the result as a raster which we can visualize:
+
 ```python
-results_array = xrspatial.zonal_stats(raster_zones["zone_id"], data["elevation"], stats_funcs=["mean"], return_type="xarray.DataArray")
-results_array.plot(cmap="Reds");
-plt.title("Mean elevation per quadrant");
+results_array = xrspatial.zonal_stats(zones=raster_zones["zone_id"], 
+                                      values=data["elevation"], 
+                                      stats_funcs=["mean"], 
+                                      return_type="xarray.DataArray")
+
+results_array.values
 ```
 
+As we can see, now the average elevation is returned for each pixel under a specific zone (i.e. similar output as in **Figure 7.XX**). We can now visualize the result easily using the standard plotting functionalities of `xarray`. In the following, we plot the result from the zonal statistics as a map and also add the contour lines of the original elevations on top of the raster:
+
+```python
+fig, ax = plt.subplots()
+
+results_array.plot(ax=ax, cmap="Reds")
+data["elevation"].plot.contour(ax=ax, cmap="RdYlBu_r", linewidths=0.8)
+plt.title("Mean elevation per quadrant with contour lines");
+```
+
+_**Figure 7.XX.** The result of the zonal statistics visualized as a map including also the contour lines representing the elevations._
+
+The result reveals that the top-left quadrant (zone 1) has the highest average elevation whereas the bottom-right corner has the lowest average elevation. This is also confirmed by the contour lines as there exists many high peaks under zone 1 and not many low-elevation areas (which are visualized with blue contour lines). The map also confirms our previous finding that the bottom-left zone (i.e. zone 3) has a lot of variance in the elevations as there are both high peaks as well as areas with low elevations under this zone. 
+
+
 ### Zonal statistics with vector zones
+
+Another commonly used approach to conduct zonal statistics is to use vector data (polygons) for defining the zones. In the following, we will use `xvec` library to conduct the zonal statistics between the vector (zones) and raster layer. As an example, we focus on specific area in our study region and investigate what is the elevation difference between one of the lakes present in this area (lake *Riuttanen*) and one of the peaks next to it (*Riuttavaara*). 
+
+To do the zonal operation, we first download data from OpenStreetMap to represent our areas of interest. In the following, we will fetch OSM data using `osmnx` library that is a handy tool to download all sorts of vector data from OpenStreetMap into a `GeoDataFrame` (more details about `osmnx` is presented in Chapter 9). We can search and download the data for the lake using its name which we pass to the `.geocode_to_gdf()` function of the `osmnx`. For the peak Riuttavaara, we need to specify the exact OSM node-id (which can be found by exploring the openstreetmap.org website) because there are multiple peaks and localities in Finland having this same name. As the peak is returned as a `Point` object, we also need to create a small polygon buffer (200 meters) around the peak to be able to use it as a zone in our analysis:
 
 ```python
 import osmnx as ox
@@ -577,26 +605,49 @@ ax.set_title("Lake and Peak polygons");
 
 _**Figure 7.X.** Two zones that are used for comparison and calculating zonal statistics._
 
+From the map we can see where the lake and peak are located. Now as we have our zones defined, we need to combine them into a single `GeoDataFrame` which we can do easily using `pandas` as follows:
+
 ```python
 # Merge zones into a single GeoDataFrame
 zones = pd.concat([peak, lake]).reset_index(drop=True)
+zones.iloc[:, -3:]
 ```
+
+Now we are ready to conduct the actual zonal operation between our elevation data (raster) and the zones (vector). The `xvec` library is a handy tool to use when you need to interact between vector and raster data. It is designed for representing and working with vector data cubes (more about this in Chapter 7.6) and interact with `xarray` data structures. The `.xvec.zonal_stats()` function can be used to calculate zonal statistics. As input, we define the zones using the `geometry` parameter which accepts our vector polygons from the `.geometry` column (i.e. `GeoSeries`) as input. The `stats` parameter can be used to define the statistics that we want to calculate (mean, max, etc.). We also need to define the names of the coordinate variables of the `xarray.Dataset` that is used as input using the `x_coords` and `y_coords` parameters. The names of the coordinates in your `DataArray` can be easily found via the `.coords` attribute:
+
+```python
+data["elevation"].coords
+```
+
+The last parameter that we can specify for the `.xvec.zonal_stats()` function is `all_touched`. This is an important parameter to consider because it specifies how the edge-cases are handled when the vector and raster intersect with each other. When conducting a zonal operation between a vector and raster layer, you very likely have situations in which the vector boundary covers only partially the raster pixels at the edges of the zone(s). To control how these cases should be handled, you can use the `all_touched` parameter to specify if only such pixels should be considered in the calculation in which the centroid of the pixel lies within the zone Polygon (`all_touched=False`), or if all the pixels that touch the boundary should be considered in the calculation of the zonal statistics (`all_touched=True`). In the following, we will calculate the zonal statistics considering the latter:
 
 ```python
 import xvec
 
-stats_array = data["elevation"].xvec.zonal_stats(zones.geometry, x_coords="x", y_coords="y", stats=["mean", "max", "std"])
+stats_array = data["elevation"].xvec.zonal_stats(geometry=zones.geometry, 
+                                                 x_coords="x", 
+                                                 y_coords="y", 
+                                                 stats=["mean", "max", "std"],
+                                                 all_touched=True
+                                                )
 stats_array
 ```
 
+As a result, we get a `DataArray` that contains a lot of information. However, the key information are the zonal statistics for each zone (i.e. a row in our `GeoDataFrame`) which is presented as the very first thing in the output as a two dimensional `array` in which there are three values (on the first row) that here represent the `mean` (1720.87), `max` (1800.0) and `std` (46.3) of the first feature in our `zones` vector dataset. To make this information a bit easier to read and use, we can also access the calculated statistical values as well as the names of the statistics that we used as follows:
+
 ```python
+# Names of the statistics
 stat_names = stats_array.zonal_statistics.values
+
+# Zonal statistics
 stat_values = stats_array.values
 
 
 print(stat_names)
 print(stat_values)
 ```
+
+By using these attributes, we can now easily create a `DataFrame` out of the results and make a table join with the input `GeoDataFrame` to link the calculated zonal statistics with our `zones` as follows:
 
 ```python
 stats = pd.DataFrame(stat_values, columns=stat_names)
@@ -605,14 +656,19 @@ stats
 
 ```python
 zones = zones.join(stats)
-zones
+zones.iloc[:, -6:]
 ```
+
+Perfect! Now we can easily compare these two areas to each other and e.g. calculate the elevation difference between the lake and the peak as follows:
 
 ```python
 # What is the maximum difference in elevation between peak and lake?
 difference = zones.at[0, "mean"] - zones.at[1, "mean"]
 print(f"Elevation difference between the peak and lake: {difference:.0f} m.")
 ```
+
+We can see that the peak seem to be located more than 300 meters above the lake, meaning that you probably have a good view covering the whole lake if you would be standing on top of this peak. 
+
 
 ## Incremental operations
 
