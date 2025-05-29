@@ -674,90 +674,109 @@ In a similar manner as in the examples above, you can conduct zonal statistics b
 
 ## Incremental operations
 
-Incremental operations .. 
+Lastly, we will introduce incremental operations that are one category of techniques in map algebra. Incremental operations involve multiple stages of calculation based on the input raster in which the calculations are conducted step-by-step. As an example, we will introduce an application in which the goal is to find an optimal path across a given surface based on the cost of moving from one cell to the other. For instance, the elevation data can be considered as a good proxy for difficulty in moving across a landscape (e.g. when walking). Thus, we can treat the elevation data as our *{term}`cost surface`* and when finding the optimal path across the surface, we aim to minimize the cost when moving from A to B. In other words, we aim to travel across the surface in a way that we avoid climbing the hills and prefer moving across as flat surface as possible. 
+
+Similarly, in flow accumulation analysis used for hydrological modelling (see Chapter 12), incremental operations enable updates to the accumulation grid when minor changes occur in the input elevation data. For instance, if a localized area of a digital elevation model is edited to reflect a new drainage channel or a filled depression, an incremental flow accumulation process would update the flow direction and accumulation values only downstream of the altered cells. 
 
 
-### Least-cost path calculation based on raster surface
+### Least-cost path calculation based on a raster cost surface
+
+Least-cost path calculation is one of the most typical incremental operations in map algebra. To be able to calculate least-cost path based on a given raster, we first need to have a cost surface which is a raster representation used in the incremental operations in which each cell value indicates the cost required to traverse that cell. Cost surfaces are widely used in spatial analysis to model and calculate the optimal path or accumulated cost between locations, taking into account various environmental factors influencing the traversal across the surface, such as terrain or land use. Cost surfaces are widely used in applications such as route optimization, habitat connectivity, and emergency response planning. 
+
+Before it is possible to conduct a least-cost path calculation, it is necessary to have a raster that represents the costs. The cost surface can basically represent any meaningful information (e.g. time, energy, money, or difficulty) but in our case we use the elevation data as a simple indicator of difficulty - the higher the elevation, the more effort it takes to travel across that area. When working with cost surfaces, it is also common that specific areas cannot be crossed at all, i.e. they are treated as barriers in the analysis. For instance, you might want to treat water areas as barriers because you most likely do not want to cross water bodies when traveling across the landscape, although in principle you could do that with very high effort/cost (swimming). 
+
+In Python, we can use the `xarray-spatial` library and its function `.a_star_search()` to conduct least-cost path analysis based on raster data. Let's start by creating a couple of points that we use in our analysis as an origin and destination locations and also create a straight line between these points:
 
 ```python
-origin = gpd.GeoDataFrame(geometry=[Point(3691000, 6942000)], crs=data.rio.crs)
-destination = gpd.GeoDataFrame(geometry=[Point(3698500, 6948000)], crs=data.rio.crs)
+from shapely import Point, LineString
+
+orig_point = Point(3691000, 6941500)
+dest_point = Point(3698500, 6947000)
+
+origin = gpd.GeoDataFrame(geometry=[orig_point], crs=data.rio.crs)
+destination = gpd.GeoDataFrame(geometry=[dest_point], crs=data.rio.crs)
+
+line = gpd.GeoDataFrame(geometry=[LineString([orig_point, dest_point])], crs=data.rio.crs)
 ```
 
-```python
-fig, ax = plt.subplots()
+To make our data more understandable, let's create a couple of maps to demonstrate where our points are located in relation to the elevation data that we use as a cost surface:
 
-data["hillshade"].plot(ax=ax, cmap="Greys")
-origin.plot(ax=ax, color="red", markersize=58, label="Origin")
-destination.plot(ax=ax, color="blue", markersize=58, label="Destination")
-ax.legend(loc="upper left")
-plt.title("Origin and destination");
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(12,4))
+
+data["hillshade"].plot(ax=ax1, cmap="Greys")
+data["elevation"].plot(ax=ax2, cmap="terrain")
+
+origin.plot(ax=ax1, color="red", markersize=58, label="Origin")
+origin.plot(ax=ax2, color="red", markersize=58, label="Origin")
+destination.plot(ax=ax1, color="blue", markersize=58, label="Destination")
+destination.plot(ax=ax2, color="blue", markersize=58, label="Destination")
+line.plot(ax=ax2, color="black", linestyle="--", lw=0.5)
+
+ax1.legend(loc="upper left");
 ```
 
 _**Figure 7.X.** Origin and destination points that are used to find the least-cost path across the surface._
 
-```python
-barriers = list(range(1400, 1580))
-barriers += list(range(2000, 2200))
+As we can see from the maps, our origin and destination are located quite far away from each other and the terrain between those places includes various hills with high elevation as well as low-elevation areas which include water areas. Let's start our analysis by defining the barriers that should be considered when finding the optimal path. In our example, we consider the water areas to be all pixels where the elevation is below 1580 meters (thus all pixels with shades of blue color in the map on the right). As we can see, there are wide areas at the center of the map that cannot be crossed according our criteria.  Notice that the criteria we use here for defining the water areas does not reflect the reality in our study region, but we use this rule here as a simple way to demonstrate the effect of barriers. 
 
+
+Let's start our least-cost path analysis by extracting the latitude-longitude coordinates (i.e. y and x) of our origin and destination points which are needed as input in the least-cost path analysis.
+
+```python
 origin_latlon = (origin.geometry.y.item(), origin.geometry.x.item())
 destination_latlon = (destination.geometry.y.item(), destination.geometry.x.item())
+
+print("Origin:", origin_latlon)
+print("Destination:", destination_latlon)
 ```
+
+Next, we define the barriers which should be provided as a list of values in the cost-raster that cannot be used when finding the optimal path. Thus, in our case we can simply create a list of values that represent all the elevations that cannot be crossed. In the following, we create a simple 1D `np.array` that contains all values between 1342-1581 in which the lowest number corresponds to the minimum elevation in our data:
+
+```python
+lowest_elevation = int(data["elevation"].min().item())
+
+barriers = np.array(list(range(lowest_elevation, 1581)))
+barriers
+```
+
+Now we are ready to run the least-cost path analysis using the `xarray-spatial` library. As mentioned previously, the `.a_star_search()` function can be used to find the optimal path from A to B across the given cost-surface raster (here elevation) considering the barriers. As the name implies, this function uses a specific path finding algorithm (also commonly used in network analysis) called A\* which starts from the origin pixel and visits the neighboring cells in an incremental manner step-by-step keeping track of the cost that it takes to move from one cell to another until it reaches the destination cell. The A\* algorithm uses heuristics to direct its traversal across the surface (typically) based on the Euclidean distance between the origin and destination which means that the movement is prioritized towards the directions that shortens the straight-line distance between the origin and destination. This is done to avoid the need to visit every single pixel in the cost-surface which improves the performance (calculation speed) of the algorithm. 
+
+In the following, we will calculate the least-cost path across our elevation data by using the elevation data as the `surface`, while the latitude-longitude coordinate tuples of our origin and destination are passed for the `start` and `goal` parameters. Lastly, the `barriers` parameter is used to pass our list of values that should be avoided while finding the optimal route between the two locations:
+
+
+
 
 ```python
 least_cost_path = xrspatial.a_star_search(
-    data["elevation"], origin_latlon, destination_latlon, barriers
+    surface=data["elevation"], 
+    start=origin_latlon, 
+    goal=destination_latlon,
+    barriers=barriers
 )
+print(type(least_cost_path))
+least_cost_path.values
 ```
 
-```python
-route = xr.where(~np.isnan(least_cost_path), 1, least_cost_path)
-```
+As a result, we get a `DataArray` that represents the optimal path. As we can see, there are many `nan` values in the array which is because only the pixels that are part of the optimal path will contain numerical data. We can confirm this by visualizing the least-cost path as a map:
 
 ```python
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(8,6))
 
+# Elevation, origin and destination
+data["elevation"].plot(ax=ax, cmap="terrain")
 origin.plot(ax=ax, color="red", markersize=58, label="Origin")
 destination.plot(ax=ax, color="blue", markersize=58, label="Destination")
-route.plot(ax=ax, cmap="gist_heat")
+
+# Plot the optimal route
+least_cost_path.plot(ax=ax, cmap="flag", add_colorbar=False)
+
 ax.legend(loc="upper left")
 plt.title("Origin and destination");
 ```
 
 _**Figure 7.X.** The calculated least-cost path from origin to destination based on A\* algorithm._
 
-```python
-from shapely import LineString
+As a result, we have now found an optimal (least-cost) route across the surface that seem to make sense: The water areas which we marked as barriers in the analysis were avoided entirely and the route prioritizes pixels that are "easier" to travel, i.e. the lower elevation areas that are colored with green. 
 
-# Convert (row, col) path to geographic coordinates
-transform = data.rio.transform()
-
-# Extract (row, col) indices where path is not NaN
-path_indices = np.argwhere(~np.isnan(least_cost_path.values))
-
-coords = [transform * (int(col), int(row)) for row, col in path_indices]
-
-# Create a LineString from the path
-line = LineString(coords)
-
-# Convert to a GeoDataFrame
-shortest_path = gpd.GeoDataFrame({"geometry": [line]}, crs=data.rio.crs)
-```
-
-```python
-fig, ax = plt.subplots()
-
-data["elevation"].plot(ax=ax, cmap="terrain")
-shortest_path.plot(ax=ax, color="red", label="Least cost path")
-origin.plot(ax=ax, color="red", markersize=58, label="Origin")
-destination.plot(ax=ax, color="blue", markersize=58, label="Destination")
-ax.legend(loc="upper left")
-plt.title("Least cost path between origin and destination");
-```
-
-_**Figure 7.X.** Vectorized least-cost path (LineString) across the terrain._
-
-
-### Flow accumulation
-
-Flow accumulation for example related to watershed analysis is another example of incremental operation. **ADD MORE INFO**. Chapter 12 will cover examples how incremental operations are used to calculate watersheds based in digital elevation model in New Zealand.
+This simple example of an incremental operation demonstrates how take advantage of map algebra to make relatively sophisticated analysis to help decision making. Naturally, the cost-surface that we use here is very simplistic but with some additional or alternative data, as well as more carefully considered rules, it would be possible to make the analysis more realistic. Similar approaches have been used e.g. to calculate travel times at a global level from every location (pixel) in the world to the closest city at 1 km resolution ({cite}`Weiss_2018`) which can be highly useful information to understand how easily people can access key services that they need (e.g. healthcare), or to understand the impacts of humans to nature ({cite}`laurance_2002`). In addition, the incremental operations and these kind of raster surfaces can be used for various other applications as well, such as conducting watershed analysis which we will cover more in detail in the Chapter 12. 

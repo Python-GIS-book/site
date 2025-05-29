@@ -52,6 +52,9 @@ Coordinate Reference System
 Coordinate transformation
   See {term}`Map reprojection`.
 
+Cost surface
+  A cost surface is a raster representation used in map algebra in which each cell value indicates the cost (e.g., time, energy, money, or difficulty) required to traverse that cell. Cost surfaces are used in spatial analysis to model and calculate the least-cost path or accumulated cost between locations, factoring in terrain, land use, or other impedance variables. Cost surfaces are essential in applications such as route optimization, habitat connectivity, and emergency response planning.
+
 Curvature
   Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell.
 
