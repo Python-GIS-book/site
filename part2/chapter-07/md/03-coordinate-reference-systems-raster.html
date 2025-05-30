@@ -227,7 +227,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -237,17 +237,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/04-map-algebra.html">7.5 Map algebra</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
@@ -586,8 +584,8 @@ document.write(`
 <section id="estimating-the-utm-zone-of-a-raster">
 <h2>Estimating the UTM zone of a raster<a class="headerlink" href="#estimating-the-utm-zone-of-a-raster" title="Link to this heading">#</a></h2>
 <p>As we saw previously, our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> currently has a <code class="docutils literal notranslate"><span class="pre">WGS84</span></code> coordinate reference system (EPSG:4326) in which the coordinates are represented as decimal degrees. For various reasons, you might want to reproject your data into a metric CRS, such as national coordinate reference frames (e.g. EUREF-FIN in Finland) or Universal Transverse Mercator (UTM) coordinate system which divides the Earth into 60 zones and projects each one to a plane (Figure 7.20). Most zones in UTM span 6 degrees of longitude, and each has a designated central meridian. UTM zones are widely used in (geographically) large countries, such as in United States and Canada to represent geographic data in a metric coordinate reference system.</p>
-<p><img alt="Figure 7.26. Universal Transverse Mercator (UTM) zones on an equirectangular world map with irregular zones labeled in red. Image source: cmglee, STyx, Wikialine and Goran tek-en (2019) via Wikimedia Commons, licensed under Creative Commons BY-SA 4.0." src="../../../_images/UTM_zones.png" /></p>
-<p><em><strong>Figure 7.26.</strong> Universal Transverse Mercator (UTM) zones on an equirectangular world map with irregular zones labeled in red. Image source: cmglee, STyx, Wikialine and Goran tek-en (2019) via Wikimedia Commons, licensed under Creative Commons BY-SA 4.0.</em></p>
+<p><img alt="Figure 7.27. Universal Transverse Mercator (UTM) zones on an equirectangular world map with irregular zones labeled in red. Image source: cmglee, STyx, Wikialine and Goran tek-en (2019) via Wikimedia Commons, licensed under Creative Commons BY-SA 4.0." src="../../../_images/UTM_zones.png" /></p>
+<p><em><strong>Figure 7.27.</strong> Universal Transverse Mercator (UTM) zones on an equirectangular world map with irregular zones labeled in red. Image source: cmglee, STyx, Wikialine and Goran tek-en (2019) via Wikimedia Commons, licensed under Creative Commons BY-SA 4.0.</em></p>
 <p>It is relatively common to use UTM coordinate reference system especially when working with raster data that covers large areas on a sub-national level. However, many datasets are typically distributed in WGS84, which means that you need to know the UTM zone for a given area that covers the raster dataset before you can reproject the data into metric system. Luckily, <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> includes a handy method called <code class="docutils literal notranslate"><span class="pre">.rio.estimate_utm_crs()</span></code> that makes it possible to make a sophisticated guess of the UTM-zone that the data falls under. In the following, we will find out the UTM-zone for our raster dataset located in Tanzania:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">utm_crs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">estimate_utm_crs</span><span class="p">()</span>
 <span class="n">utm_crs</span>
@@ -639,7 +637,7 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Reprojected elevation data in UTM Zone 37S&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.27.</strong> Reprojected raster data in which the coordinates are represented in meters.</em></p>
+<p><em><strong>Figure 7.28.</strong> Reprojected raster data in which the coordinates are represented in meters.</em></p>
 </section>
 </section>
 

@@ -227,7 +227,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -237,17 +237,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">8. Geographic data visualization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Introduction to geographic visualization</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="01-static-vector-maps.html">8.2 Static maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03-interactive-maps.html">8.4 Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="05-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
@@ -497,7 +495,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -513,6 +513,20 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to geographic visualization</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-maps">Designing maps</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-good-map-design">Elements of a good map design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-colors">Working with colors</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -524,7 +538,51 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-geographic-visualization">
 <h1>Introduction to geographic visualization<a class="headerlink" href="#introduction-to-geographic-visualization" title="Link to this heading">#</a></h1>
-<p><strong>Under construction</strong></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="designing-maps">
+<h1>Designing maps<a class="headerlink" href="#designing-maps" title="Link to this heading">#</a></h1>
+<section id="elements-of-a-good-map-design">
+<h2>Elements of a good map design<a class="headerlink" href="#elements-of-a-good-map-design" title="Link to this heading">#</a></h2>
+<p><strong>This section is under construction</strong></p>
+<p>Contents:</p>
+<ul class="simple">
+<li><p>Basic elements of a map</p>
+<ul>
+<li><p>Legend</p></li>
+<li><p>Scalebar</p></li>
+<li><p>North arrow</p></li>
+</ul>
+</li>
+<li><p>Principles of a good map design</p>
+<ul>
+<li><p>Tufte’s design principles</p></li>
+<li><p>Tell a story with data</p></li>
+<li><p>Good use of symbols and colors</p></li>
+<li><p>Simple style and easy to understand</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="working-with-colors">
+<h2>Working with colors<a class="headerlink" href="#working-with-colors" title="Link to this heading">#</a></h2>
+<p><strong>This section is under construction</strong></p>
+<p>Contents:</p>
+<ul class="simple">
+<li><p>Considerations when working with colors</p>
+<ul>
+<li><p>When to use sequential color scheme?</p></li>
+<li><p>When to use continuous color scheme?</p></li>
+</ul>
+</li>
+<li><p>Colormaps for static and interactive maps</p>
+<ul>
+<li><p>Where to find colormaps?</p></li>
+<li><p>How to adjust existing colormaps?</p></li>
+<li><p>How to create custom color palette?</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -581,6 +639,27 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to geographic visualization</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-maps">Designing maps</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-good-map-design">Elements of a good map design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-colors">Working with colors</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

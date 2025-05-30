@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A.3 Version control with using Git and GitHub</title>
+    <title>Version control with using Git and GitHub</title>
   
   
   
@@ -51,8 +51,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'back-matter/nb/appendix-2-git-github';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="A.4 Using Python script files" href="appendix-3-script-files.html" />
-    <link rel="prev" title="A.2 Python programming best practices" href="appendix-1-best-practices.html" />
+    <link rel="next" title="Using Python script files" href="appendix-3-script-files.html" />
+    <link rel="prev" title="Python programming best practices" href="appendix-1-best-practices.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -227,7 +227,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -237,17 +237,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
@@ -510,7 +508,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>A.3 Version control with using Git and GitHub</h1>
+    <h1>Version control with using Git and GitHub</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -569,12 +567,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="a-3-version-control-with-using-git-and-github">
-<h1>A.3 Version control with using Git and GitHub<a class="headerlink" href="#a-3-version-control-with-using-git-and-github" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="version-control-with-using-git-and-github">
+<h1>Version control with using Git and GitHub<a class="headerlink" href="#version-control-with-using-git-and-github" title="Link to this heading">#</a></h1>
 <p>This appendix provides an introduction to version control using Git and some step-by-step instructions about how to record changes to our files using Git and GitHub.</p>
 <section id="the-problem">
 <h2>The problem<a class="headerlink" href="#the-problem" title="Link to this heading">#</a></h2>
-<p><img alt="Figure A.X. An example of the challenge of tracking versions of a manuscript. Source: https://phdcomics.com/comics/archive.php?comicid=1531." src="../../_images/phd101212s.gif" /></p>
+<p><img alt="Figure A.X. An example of the challenge of tracking versions of a manuscript. Source: https://phdcomics.com/comics/archive.php?comicid=1531." src="../../_images/phd101212s.png" /></p>
 <p><em><strong>Figure A.X</strong>. An example of the challenge of tracking versions of a manuscript. Source: <a class="reference external" href="https://phdcomics.com/comics/archive.php?comicid=1531">https://phdcomics.com/comics/archive.php?comicid=1531</a>.</em></p>
 <p>We’ve all been in this situation before, and it seems ridiculous to have multiple nearly identical versions of the same document. Some word processors can help us deal with this situation to some extent, by storing past revisions or using Microsoft Word’s “Track Changes” feature. However, this can be quite impractical if you would like to see modifications that are older than your previous round of changes. And just like changes to a text document, the same issue can arise when making changes to software. And even worse, sometimes your changes break the program entirely. Luckily there are tools to help avoid this problem.</p>
 </section>
@@ -589,14 +587,14 @@ document.write(`
 </section>
 <section id="what-is-git">
 <h2>What is Git?<a class="headerlink" href="#what-is-git" title="Link to this heading">#</a></h2>
-<p><img alt="Figure A.X. The Git logo by Jason Long, licensed under the Creative Commons Attribution 3.0 Unported License." src="../../_images/Git-Logo-2Color.png" /></p>
-<p><em><strong>Figure A.X</strong>. The Git logo by Jason Long, licensed under the <a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</em></p>
+<p><img alt="The Git logo by Jason Long, licensed under the Creative Commons Attribution 3.0 Unported License." src="../../_images/Git-Logo-2Color.png" /></p>
+<p><em>The Git logo by Jason Long, licensed under the <a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</em></p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Git_(software)">Git</a> is a version control software (developed in 2005 by a rather famous Finn named Linus Torvalds, who also created Linux!) that is used to track and store changes in your files (often source code for programs) without losing the history of past changes. Files in Git are stored in a repository, which you can simply think of as a directory containing files (or other directories) related to a single “project”. In practice git takes “snapshots” of your files each time you commit changes and follows the idea of <a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">distributed version control</a>. Git is widely used by professionals to keep track of what they’ve done and to collaborate with other people. Git is the version control system that is running behind the scenes and used with GitHub (“Git” + “Hub”!).</p>
 </section>
 <section id="what-is-github">
 <h2>What is GitHub?<a class="headerlink" href="#what-is-github" title="Link to this heading">#</a></h2>
-<p><img alt="Figure A.X. The GitHub Logo." src="../../_images/GitHub_Logo.png" /></p>
-<p><em><strong>Figure A.X</strong>. The GitHub Logo.</em></p>
+<p><img alt="The GitHub Logo." src="../../_images/GitHub_Logo.png" /></p>
+<p><em>The GitHub Logo.</em></p>
 <p>GitHub provides a handful of important features that build upon what is offered by Git alone:</p>
 <ol class="arabic simple">
 <li><p>GitHub relies on Git. The GitHub is a web based Git repository hosting service in principle. Thus, it would not exist without the version control system Git. Git is running all the time in the background when using GitHub.</p></li>
@@ -616,7 +614,7 @@ document.write(`
 <li><p><em><a class="reference internal" href="glossary.html#term-Git-commit"><span class="xref std std-term">Commit</span></a></em>: To commit is to write or merge the changes made in the working copy back to the repository. When you commit, you are basically taking a “snapshot” of your repository at that point in time, giving you a checkpoint to which you can reevaluate or restore your project to any previous state. The terms ‘commit’ or ‘checkin’ can also be used as nouns to describe the new revision that is created as a result of committing.</p></li>
 <li><p><em><a class="reference internal" href="glossary.html#term-Revision"><span class="xref std std-term">Revision</span></a></em> / <em><a class="reference internal" href="glossary.html#term-Version"><span class="xref std std-term">Version</span></a></em>: A revision or a version is any change in made in any form to a document(s).</p></li>
 <li><p><em><a class="reference internal" href="glossary.html#term-Git-clone"><span class="xref std std-term">Clone</span></a></em>: Cloning means creating a repository containing the revisions from another repository. This is equivalent to pushing or pulling into an empty (newly initialized) repository. As a noun, two repositories can be said to be clones if they are kept synchronized, and contain the same revisions.</p></li>
-<li><p>*<a class="reference internal" href="glossary.html#term-Git-pull"><span class="xref std std-term">Pull</span></a> / <em><a class="reference internal" href="glossary.html#term-Git-push"><span class="xref std std-term">Push</span></a></em>: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.</p></li>
+<li><p><em><a class="reference internal" href="glossary.html#term-Git-pull"><span class="xref std std-term">Pull</span></a></em> / <em><a class="reference internal" href="glossary.html#term-Git-push"><span class="xref std std-term">Push</span></a></em>: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.</p></li>
 <li><p><em><a class="reference internal" href="glossary.html#term-Git-merge"><span class="xref std std-term">Merge</span></a></em>: A merge or integration is an operation in which two sets of changes are applied to a file or set of files.</p></li>
 </ul>
 </section>
@@ -634,11 +632,11 @@ document.write(`
 <h3>Key concepts<a class="headerlink" href="#key-concepts" title="Link to this heading">#</a></h3>
 <p>We use Git to (1) record changes to our files over time and (2) to communicate between the local repository on our computer and the remote repository (repo) on GitHub. Each Git repo contains all the files and folders associated with a project, as well as the revision history of each entity. In general, it is recommended that each project, library, or discrete piece of software have it’s own repository. For example, Python libraries such as <a class="reference external" href="https://github.com/pandas-dev/pandas"><code class="docutils literal notranslate"><span class="pre">pandas</span></code></a>, <a class="reference external" href="https://github.com/numpy/numpy"><code class="docutils literal notranslate"><span class="pre">numpy</span></code></a>, and <a class="reference external" href="https://github.com/matplotlib/matplotlib"><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a> all have their own repositories.</p>
 <p>The most common starting point for working with software in Git is creating a copy of the software, or “cloning” it. This can be done using the command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>, for example. For repositories you have already copied, you can download the latest changes using the command using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code>, which will fetch (and merge) new changes from GitHub. Finally, the command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> publishes any local changes to GitHub. You can find more information about interacting with Git projects on the <a class="reference external" href="https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Sharing-and-Updating-Projects">Git Source Control Management site</a>.</p>
-<p><img alt="Figure A.X. Update your Git project using the pull and push commands. Always pull before you push (especially when working in a shared project)!" src="../../_images/pull-push-illustration.png" /></p>
-<p><em><strong>Figure A.X</strong>. Update your Git project using the pull and push commands. Always pull before you push (especially when working in a shared project)!</em></p>
+<p><img alt="Figure A.X. Update your Git project using the pull and push commands. Always pull before you push, especially when working in a shared project." src="../../_images/pull-push-illustration.png" /></p>
+<p><em><strong>Figure A.X</strong>. Update your Git project using the pull and push commands. Always pull before you push, especially when working in a shared project.</em></p>
 <p>The version control history consists of snapshots of all the files in your project. In order to record changes to your files, we first add changes to a so called staging area (using the command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>). The idea is that you can have a (sometimes messy) working directory, and by using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> you tell Git precisely which files to include in the next committed snapshot. After this, the command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> can be used to record a permanent snapshot of the staged changes. You can find more information about snapshotting on the <a class="reference external" href="https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Basic-Snapshotting">Git Source Control Management site</a>.</p>
-<p><img alt="Figure A.X. Version control steps using Git (adapted from https://git-scm.com/about/staging-area)." src="../../_images/Git_illustration.png" /></p>
-<p><em><strong>Figure A.X</strong>. Version control steps using Git (adapted from <a class="reference external" href="https://git-scm.com/about/staging-area">https://git-scm.com/about/staging-area</a>).</em></p>
+<p><img alt="Figure A.X. Version control steps using Git. Adapted from https://git-scm.com/about/staging-area." src="../../_images/Git_illustration.png" /></p>
+<p><em><strong>Figure A.X</strong>. Version control steps using Git. Adapted from <a class="reference external" href="https://git-scm.com/about/staging-area">https://git-scm.com/about/staging-area</a>.</em></p>
 </section>
 </section>
 <section id="preparations">
@@ -866,7 +864,7 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">A.2 Python programming best practices</p>
+        <p class="prev-next-title">Python programming best practices</p>
       </div>
     </a>
     <a class="right-next"
@@ -874,7 +872,7 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">A.4 Using Python script files</p>
+        <p class="prev-next-title">Using Python script files</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

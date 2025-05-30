@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A.2 Python programming best practices</title>
+    <title>Python programming best practices</title>
   
   
   
@@ -227,7 +227,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -237,17 +237,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
@@ -461,7 +459,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>A.2 Python programming best practices</h1>
+    <h1>Python programming best practices</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -471,10 +469,50 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-modules">Using modules</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-1-selecting-variable-names">Best practice 1: Selecting variable names</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-not-so-good-variable-names">Some “not-so-good” variable names</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-good-variable-names">Selecting “good” variable names</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-variable-format-1-pothole-case-naming">Recommended variable format 1: pothole_case naming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-variable-format-2-camelcase-naming">Recommended variable format 2: camelCase naming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-recommendation">General recommendation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-2-describing-your-code">Best practice 2: Describing your code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-i-need-to-describe-my-code">Do I need to describe my code?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#but-the-internet-says-i-should-not-comment-my-code">But the Internet says I should not comment my code…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-comments-single-line-comments">Code comments - single-line comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-comments-block-comments">Code comments - block comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-comments-inline-comments">Code comments - inline comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-comments-multi-line-comments">Code comments - multi-line comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown-text">Markdown text</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-source">Data source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-3-writing-readable-code">Best practice 3: Writing readable code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-code-vs-readable-code">Working code vs readable code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pep-8-style-guide">The PEP 8 Style Guide</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-line-length">Maximum line length</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indentation">Indentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whitespace-and-binary-operators">Whitespace and binary operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avoid-extraneous-whitespace">Avoid extraneous whitespace</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-one-statement-per-line">Write one statement per line</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-readability-versus-code-length">Code readability versus code length?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions">List comprehensions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-4-using-modules">Best practice 4: Using modules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules-at-the-start-of-your-files">Import modules at the start of your files</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avoid-importing-functions-using-wildcards">Avoid importing functions using wildcards</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choose-logical-names-when-renaming-on-import">Choose logical names when renaming on import</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-5-using-assertions">Best practice 5: Using assertions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assertions">Assertions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-assertions-a-bad-example">Multiple assertions - a bad example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-assertions-a-better-example">Multiple assertions - a better example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-final-note-about-assertions">A final note about assertions</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
@@ -489,14 +527,387 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="a-2-python-programming-best-practices">
-<h1>A.2 Python programming best practices<a class="headerlink" href="#a-2-python-programming-best-practices" title="Link to this heading">#</a></h1>
-<p>Content to be added.</p>
-<section id="using-modules">
-<h2>Using modules<a class="headerlink" href="#using-modules" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="python-programming-best-practices">
+<h1>Python programming best practices<a class="headerlink" href="#python-programming-best-practices" title="Link to this heading">#</a></h1>
+<p>This book aims to introduce you to programming in Python, but also to good programming practices. These comprise practical tips based on practices used by professional programmers that help them write better programs that are easier to understand and share with others. To say it differently, there are many ways to learn to program and we want to help you learn how to program the right way!</p>
+<!-- #region -->
+<section id="best-practice-1-selecting-variable-names">
+<h2>Best practice 1: Selecting variable names<a class="headerlink" href="#best-practice-1-selecting-variable-names" title="Link to this heading">#</a></h2>
+<p>The selection of variable names might seem insignificant in some ways, but poorly chosen variable names can be confusing, unclear, or even misleading. Thus, we provide some examples of both poorly and well chosen variable names below along with some tips for formatting of your variables.</p>
+<section id="some-not-so-good-variable-names">
+<h3>Some “not-so-good” variable names<a class="headerlink" href="#some-not-so-good-variable-names" title="Link to this heading">#</a></h3>
+<p>Let’s first consider some examples of problematic variable names.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;101533&quot;</span>
+<span class="n">sid</span> <span class="o">=</span> <span class="s2">&quot;101533&quot;</span>
+</pre></div>
+</div>
+<p>Here we have two variable names that are nice and short, but it is not particularly clear what kind of value they are being used to store. The variables <code class="docutils literal notranslate"><span class="pre">s</span></code> and <code class="docutils literal notranslate"><span class="pre">sid</span></code> are simply too short and cannot communicate what they should be used for in the code. You might think you know what they are for at the moment, but imagine not looking at the code for a few months. Would you know then? What about if you share the code with a friend? Would they know? Probably not.</p>
+<p>Let’s consider another example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">finnishmeteorlogicalinstituteobservationstationidentificationnumber</span> <span class="o">=</span> <span class="s2">&quot;101533&quot;</span>
+</pre></div>
+</div>
+<p>Here we have the opposite problem. The variable name <code class="docutils literal notranslate"><span class="pre">finnishmeteorologicalinstituteobservationstationidentificationnumber</span></code> potentially provides more information about what the variable represents (the identification number of a Finnish Meteorological Institute observation station), but it does so in a format that is not easy to read nor something you’re likely to want to type more than once. The previous examples were too short, but now we have a variable name that is too long (and hard to read as a result).</p>
+<!-- #endregion -->
+</section>
+<section id="selecting-good-variable-names">
+<h3>Selecting “good” variable names<a class="headerlink" href="#selecting-good-variable-names" title="Link to this heading">#</a></h3>
+<p>A good variable name should:</p>
+<ol class="arabic simple">
+<li><p>Be clear and concise.</p></li>
+<li><p>Be written in English. A general coding practice is to write code with variable names in English, as that is the most likely common language between programmers. Thus, variable names such as <code class="docutils literal notranslate"><span class="pre">muuttuja</span></code>, the word for “variable” in Finnish should be avoided. Note that <code class="docutils literal notranslate"><span class="pre">muuttuja</span></code> is not a good name for other reasons as well.</p></li>
+<li><p>Not contain special characters. Python supports use of special characters by way of various encoding options that can be given in a program. That said, it is better to avoid variables such as <code class="docutils literal notranslate"><span class="pre">lämpötila</span></code> (the Finnish word for temperature) because encoding issues can arise in some cases. It is recommended to stick to the <a class="reference external" href="https://en.wikipedia.org/wiki/ASCII#Printable_characters">standard printable ASCII character set</a> <a class="footnote-reference brackets" href="#ascii" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> to be safe.</p></li>
+<li><p>Not conflict with any <a class="reference external" href="https://www.geeksforgeeks.org/python-keywords/">Python keywords</a> <a class="footnote-reference brackets" href="#keywords" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, such as <code class="docutils literal notranslate"><span class="pre">for</span></code>, <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">if</span></code>, or <code class="docutils literal notranslate"><span class="pre">else</span></code>. These are reserved for special operations in Python and cannot be used as variable names.</p></li>
+</ol>
+<p>With this in mind, let’s now consider two formats commonly used for formatting Python variables.</p>
+<!-- #region -->
+</section>
+<section id="recommended-variable-format-1-pothole-case-naming">
+<h3>Recommended variable format 1: pothole_case naming<a class="headerlink" href="#recommended-variable-format-1-pothole-case-naming" title="Link to this heading">#</a></h3>
+<p><em><a class="reference internal" href="../nb/glossary.html#term-Pothole-case"><span class="xref std std-term">pothole_case naming</span></a></em> uses lowercase words separated by underscores <code class="docutils literal notranslate"><span class="pre">_</span></code>. This is our suggested format as the underscores make it easy to read the variable and do not add much to the length of the variable name. As an example, consider the variable <code class="docutils literal notranslate"><span class="pre">temp_celsius</span></code>. Considering our earlier examples of poor variable names, we could instead write the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fmi_station_id</span> <span class="o">=</span> <span class="s2">&quot;101533&quot;</span>
+</pre></div>
+</div>
+<p>Here, our variable name conveys all of the essential information we need, while remaining easy to read.</p>
+</section>
+<section id="recommended-variable-format-2-camelcase-naming">
+<h3>Recommended variable format 2: camelCase naming<a class="headerlink" href="#recommended-variable-format-2-camelcase-naming" title="Link to this heading">#</a></h3>
+<p><em><a class="reference internal" href="../nb/glossary.html#term-Camel-case"><span class="xref std std-term">camelCase or CamelCase naming</span></a></em> uses capitalization of the first letter of words in a variable name to make it easier to read. In some cases the first letter of the variable may be capitalized. The variable <code class="docutils literal notranslate"><span class="pre">tempFahrenheit</span></code> is one example of camelCase. Considering the earlier examples, we could use camelCase to write the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fmiStationID</span> <span class="o">=</span> <span class="s2">&quot;101533&quot;</span>
+<span class="n">stationID</span> <span class="o">=</span> <span class="s2">&quot;101533&quot;</span>
+</pre></div>
+</div>
+<p>Again, this variable name is clear and easy to read.</p>
+</section>
+<section id="general-recommendation">
+<h3>General recommendation<a class="headerlink" href="#general-recommendation" title="Link to this heading">#</a></h3>
+<p>The choice from the formatting options above is yours, but as you may have seen, we tend to utilize pothole_case naming most often in this book. This is because we feel it is the easiest to read and seems to be most common amongst Python programmers. You are welcome to use either option, as long as you are consistent in the use. It might take an extra second of thought, but selecting and formatting your variables can make a big difference in the ease of use of your Python programs!</p>
+<!-- #endregion -->
+</section>
+</section>
+<section id="best-practice-2-describing-your-code">
+<h2>Best practice 2: Describing your code<a class="headerlink" href="#best-practice-2-describing-your-code" title="Link to this heading">#</a></h2>
+<p>You code ultimately decides what will be executed by a program, but providing some descriptive text is important for helping users (including you) understand what the code is used for and how certain sections work. In a Jupyter notebook, this text can take two basic forms:</p>
+<ul class="simple">
+<li><p>Code comments: Text within your Python programs that does not get executed when the software is run. This text is mixed within the code and often used to describe how some or all of the code works. There are several styles of code comments in Python, which are described in more detail later in this appendix.</p></li>
+<li><p>Markdown text: Text written as plain text with a simple syntax that can be rendered with rich formatting (bold, italics, different font sizes, colors, etc.). In Jupyter notebooks this text is written in Markdown cells and displayed as rich text when the cells are executed. In contrast to code comments, this text is generally intended to provide a broader description of the code or other things needed to understand what you code does.</p></li>
+</ul>
+<p>Below you can find some examples of both below code comments and Markdown text, along with some tips.</p>
+<section id="do-i-need-to-describe-my-code">
+<h3>Do I need to describe my code?<a class="headerlink" href="#do-i-need-to-describe-my-code" title="Link to this heading">#</a></h3>
+<p>Absolutely! Providing comments or Markdown text to describe your code is essential for a number of reasons:</p>
+<ol class="arabic simple">
+<li><p>Code descriptions make it easier to understand your code. Although good variable names can help you and other users better understand what you code does, your Jupyter notebooks and/or script files are seldom short enough for you to be able to read over the entire code at once and fully understand what is going on. For this reason, comments and Markdown text are essential parts of making sure your notebooks are easy to use and understand section by section.</p></li>
+<li><p>Code descriptions make it easier for other users to use your code. Even when writing simple software it is worthwhile to take the time to include some extra documentation about how it works. Everyone has their own tendencies in how they write their software and by including a few comments and/or Markdown text you can make it much easier for people to understand and use your work.</p></li>
+<li><p>Writing code descriptions can help you debug your code. Over time you will gain more experience with understanding why some piece of code does not work the way it should. One way to help fix (or debug) your code is to add comments stating what each line does. By taking things step by step, you may find that your code actually does not do what you thought, and this can help you be able to find and fix issues.</p></li>
+<li><p>Code descriptions are a big part of why Jupyter notebooks are so powerful. Code comments are quite helpful in general, but one of the biggest features of a Jupyter notebook is the ability to mix rich text with your code. With this platform you can even write scientific texts with embedded code cells to be able to perform calculations, analyze data, and visualize your results. This powerful platform is an excellent open science tool that provides a clear means to reproduce your results on demand.</p></li>
+</ol>
+<p>Below we review the main forms of code descriptions we recommend using in your Jupyter notebooks and Python script files.</p>
+</section>
+<section id="but-the-internet-says-i-should-not-comment-my-code">
+<h3>But the Internet says I should not comment my code…<a class="headerlink" href="#but-the-internet-says-i-should-not-comment-my-code" title="Link to this heading">#</a></h3>
+<p>Some programmers advocate that people should not need to comment their code if it is easily understood. In essence, the argument is that if you need comments to understand what the code does, it is not good code. The advice is not that you should never comment in your code, but rather that comments are really only needed to describe why something is done a given way (not what is done). While this is true to a degree, this advice does not apply to most of us.</p>
+<p>Most of us are only just getting started with programming, and our comments serve a bit different purpose. For new programmers, comments make sure we understand what each line of our code does and helps others who you share your code with understand as well. In addition, writing comments can make you pause, look at your code, and then come up with a way to describe what you have done. For new programmers, this makes for excellent practice!</p>
+<!-- #region -->
+</section>
+<section id="code-comments-single-line-comments">
+<h3>Code comments - single-line comments<a class="headerlink" href="#code-comments-single-line-comments" title="Link to this heading">#</a></h3>
+<p>Single-line comments begin with the <code class="docutils literal notranslate"><span class="pre">#</span></code> character, typically as the first character on the line, and everything to the right of that character will be ignored by the Python interpreter. These comments are most frequently used to describe individual lines of code or a small group of related lines. Let’s have a look at an example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is a line comment. It will be ignored when this cell is run</span>
+</pre></div>
+</div>
+<p>If you were to run the cell above, nothing would happen. The <code class="docutils literal notranslate"><span class="pre">#</span></code> character indicates the line contains a comment and the Python interpreter simply skips over this line (the only line in that cell).</p>
+<p>Let’s have a look at a few more examples.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This list has the names of FMI observation stations in Helsinki</span>
+<span class="n">station_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Helsinki Harmaja&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Helsinki Kaisaniemi&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Helsinki Kaivopuisto&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Helsinki Kumpula&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print the last station name</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">station_names</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  
+</pre></div>
+</div>
+<p>In the examples above you can see some of the ways in which single-line comments can be used in Python. We encourage you to add line comments within your Python cells to help explain what your code does, especially if there are several lines within a given code cell.</p>
+<!-- #endregion -->
+<!-- #region -->
+</section>
+<section id="code-comments-block-comments">
+<h3>Code comments - block comments<a class="headerlink" href="#code-comments-block-comments" title="Link to this heading">#</a></h3>
+<p>Block comments are somewhat similar to single line comments in format, but comprise several lines of consecutive comments rather than just one. These can be useful in situations where a single line comment is not sufficient to describe the code below it or when commenting out several lines of code during debugging, for example. Let’s have a look at a few examples of block comments below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This doesn&#39;t work, so I&#39;m commenting it out for now</span>
+<span class="c1"># my_life.append(lots_of_money)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Produce a set of subplots showing data from the:</span>
+<span class="c1"># - Helsinki Harmaja station</span>
+<span class="c1"># - Helsinki Kaisaniemi station</span>
+<span class="c1"># - Helsinki Kaivopuisto station</span>
+<span class="c1"># - Helsinki Kumpula station</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>As you can see, the syntax is familiar for block comments and using them can make sense for helping make your code easier to understand. However, it can become quite tedious to write many lines of block comments, so we’ll consider another option below.</p>
+<!-- #endregion -->
+<!-- #region -->
+</section>
+<section id="code-comments-inline-comments">
+<h3>Code comments - inline comments<a class="headerlink" href="#code-comments-inline-comments" title="Link to this heading">#</a></h3>
+<p>Finally, it is also possible to have inline comments in Python that are formatted similarly to single-line comments but located on the same line as some Python code (typically with at least two spaces after the code). We can see some examples below, but note that inline comments should be used sparingly as single-line comments are generally preferable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># NO: Unnecessary inline comment example below</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;station_names[0]&quot;</span>  <span class="c1"># Print the name of the first station</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># OK: This is a case where an inline comment could be OK</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="o">-</span><span class="n">max_depth</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># Plot depth in km rather than meters</span>
+</pre></div>
+</div>
+<!-- #endregion -->
+<!-- #region -->
+</section>
+<section id="code-comments-multi-line-comments">
+<h3>Code comments - multi-line comments<a class="headerlink" href="#code-comments-multi-line-comments" title="Link to this heading">#</a></h3>
+<p>Multi-line comments are similar to both the single line and block comments described earlier; they are embedded within your code and are not executed when a code cell is run. You can begin a multi-line comment with three quotation marks <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code> and end it with the same thing, three quotation marks <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>. Although it is possible to also create multi-line comments using single quotes (<code class="docutils literal notranslate"><span class="pre">'''</span></code>), use of double quotes (<code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>) is recommended <a class="reference external" href="https://peps.python.org/pep-0257/">to be consistent with PEP 257</a> <a class="footnote-reference brackets" href="#pep257" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> about <a class="reference internal" href="../nb/glossary.html#term-Docstring"><span class="xref std std-term">docstrings</span></a>. Everything between the groups of quotation marks will be ignored. Let’s see some examples.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;This text will also be ignored.</span>
+<span class="sd">Even if it is spread across multiple lines.</span>
+<span class="sd">Cool! </span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;The list below contains names of FMI observation stations in Helsinki.</span>
+<span class="sd">More information and a complete list of stations can be found at </span>
+<span class="sd">https://en.ilmatieteenlaitos.fi/observation-stations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">station_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Helsinki Harmaja&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Helsinki Kaisaniemi&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Helsinki Kaivopuisto&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Helsinki Kumpula&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;None of the code below works, commenting this out for now.</span>
+<span class="sd">step_one = learn_to_code()</span>
+<span class="sd">step_two = become_programmer()</span>
+<span class="sd">step_three = ???</span>
+<span class="sd">step_four = profit()</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>As you may recognize, multi-line comments are recommended to be formatted similarly to docstrings and can be a convenient way to have longer code descriptions or comment out larger numbers of lines of code.</p>
+<!-- #endregion -->
+<!-- #region -->
+</section>
+<section id="markdown-text">
+<h3>Markdown text<a class="headerlink" href="#markdown-text" title="Link to this heading">#</a></h3>
+<p>Finally, as noted at the start of this best practice topic, we can also use Markdown text cells to provide information about how our code works. The Markdown text is not a replacement for line or block comments in the code cells, but rather a place to provide a broader description of the code. Let’s see an example of the use of a Markdown cell below under the heading “Data source”. We can first see the Markdown syntax, then the rich-text rendered result. The Markdown syntax is below.</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gu">#### Data source</span>
+
+Data used in this example comprises observation station:
+
+<span class="k">-</span><span class="w"> </span>names
+<span class="k">-</span><span class="w"> </span>locations
+<span class="k">-</span><span class="w"> </span>types
+<span class="k">-</span><span class="w"> </span>identification codes
+
+These data are sourced from the [<span class="nt">Finnish Meterological Institute website</span>](<span class="na">https://en.ilmatieteenlaitos.fi/observation-stations</span>) and are freely available.
+The data be easily merged into Python lists manually for further analysis.
+An example Python cell with select observation station names in Helsinki is below.
+<span class="gs">**NOTE**</span>: These are only some of the observation stations in Helsinki.
+</pre></div>
+</div>
+<!-- #endregion -->
+<p>And when that Markdown code is executed, the resulting rich text is shown below.</p>
+<section id="data-source">
+<h4>Data source<a class="headerlink" href="#data-source" title="Link to this heading">#</a></h4>
+<p>Data used in this example comprises observation station:</p>
+<ul class="simple">
+<li><p>names</p></li>
+<li><p>locations</p></li>
+<li><p>types</p></li>
+<li><p>identification codes</p></li>
+</ul>
+<p>These data are sourced from the <a class="reference external" href="https://en.ilmatieteenlaitos.fi/observation-stations">Finnish Meterological Institute website</a> and are freely available.
+The data be easily merged into Python lists manually for further analysis.
+An example Python cell with select observation station names in Helsinki is below.
+<strong>NOTE</strong>: These are only some of the observation stations in Helsinki.</p>
+<p>In the example above, you clearly see the benefit of the Markdown cells for providing nicely formatted text to support the code block beneath it. We can also embed images and other features that make the Jupyter notebook document a powerful tool for studying and learning. You can find more about the capabilities of Markdown on the <a class="reference external" href="https://www.markdownguide.org/basic-syntax/">Markdown Guide Basic Syntax</a> <a class="footnote-reference brackets" href="#markdown-basic" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> and <a class="reference external" href="https://www.markdownguide.org/extended-syntax/">Extended Syntax</a> <a class="footnote-reference brackets" href="#markdown-extended" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> guides.</p>
+</section>
+</section>
+</section>
+<section id="best-practice-3-writing-readable-code">
+<h2>Best practice 3: Writing readable code<a class="headerlink" href="#best-practice-3-writing-readable-code" title="Link to this heading">#</a></h2>
+<p>This best practice focuses on writing code that is easy to read. The basic idea here is that well formatted Python code is easier to read and understand.</p>
+<section id="working-code-vs-readable-code">
+<h3>Working code vs readable code<a class="headerlink" href="#working-code-vs-readable-code" title="Link to this heading">#</a></h3>
+<p>As you may have noticed, Python forces you to indent your code when writing loops and conditional statements. Without the indentation the code simply will not work and you will likely see an <code class="docutils literal notranslate"><span class="pre">IndentationError</span></code>.</p>
+<p>However, there are many cases in which you are able to write code that runs without errors, but you (or others!) might have a difficult time reading it and understanding what the code actually does.</p>
+<p>Ideally, our Python code would be understandable both for the computer and for humans reading it. <a class="reference external" href="https://en.wikipedia.org/wiki/Coding_conventions">Coding conventions</a> <a class="footnote-reference brackets" href="#coding-conventions" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> are a set of generally agreed guidelines for writing code in a specific programming language. Coding conventions help programmers to write code with formatting that is consistent and easy to read. Consistency and readability are important for sharing your code with others, and also for helping your own brain to follow along!</p>
+<p><img alt="Figure A.X. The dangers of coding without coding conventions. Source: https://xkcd.com/1513/." src="../../_images/code_quality.png" /></p>
+<p><em><strong>Figure A.X</strong>. The dangers of coding without coding conventions. Source: <a class="reference external" href="https://xkcd.com/1513/">https://xkcd.com/1513/</a>.</em></p>
+</section>
+<section id="the-pep-8-style-guide">
+<h3>The PEP 8 Style Guide<a class="headerlink" href="#the-pep-8-style-guide" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://peps.python.org/pep-0008/">The PEP 8 Style Guide for Python Code</a> <a class="footnote-reference brackets" href="#pep8" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> gives coding conventions that help us write code that is readable (by humans!) and consistent with code written by others.</p>
+<p>PEP 8 goes far beyond the scope of what you might learn in this book, so we recommend that you re-visit the guidelines every now and then when learning new things. Here, we will summarize some of the most relevant highlights that you can start applying to your code right away!</p>
+</section>
+<section id="maximum-line-length">
+<h3>Maximum line length<a class="headerlink" href="#maximum-line-length" title="Link to this heading">#</a></h3>
+<p>The PEP 8 guide states all lines should be limited to <a class="reference external" href="https://peps.python.org/pep-0008/#maximum-line-length">79 characters max</a>. Comments (single-line, block, or multi-line) should be limited to 72 characters. Note that we use a line length limit of 88 characters on the online version of this book and 74 characters for the printed book. The character limit according to PEP 8 is 79 characters, but often a slightly longer line (up to 90 characters) helps with readability (and sometimes formats, such as the printed book only allow so many characters to fit on a given line).</p>
+<p>One of the guiding principles of Python is that <a class="reference external" href="https://peps.python.org/pep-0020/#the-zen-of-python">“Simple is better than complex”</a>, but sometimes you might end up having a line of code that exceeds 79 characters, for example, when defining lists.</p>
+<p>Fortunately, Python is able to interpret the code correctly from multiple lines within parentheses, brackets and braces, allowing you to avoid excessively long lines in many cases.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Implicit line continuation inside brackets</span>
+<span class="n">us_cities</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Detroit&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Chicago&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Denver&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Boston&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Portland&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;San Francisco&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Houston&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Orlando&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Note that the backslash character <code class="docutils literal notranslate"><span class="pre">\</span></code> might be required to break a line when using more complicated statements such as the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. You can find more examples of how to handle such situations in the <a class="reference external" href="https://peps.python.org/pep-0008/#maximum-line-length">PEP 8 documentation</a> <a class="footnote-reference brackets" href="#pep8-length" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>.</p>
+</section>
+<section id="indentation">
+<h3>Indentation<a class="headerlink" href="#indentation" title="Link to this heading">#</a></h3>
+<p>Indentation is an essential part of the Python code layout. As you may have seen with <code class="docutils literal notranslate"><span class="pre">for</span></code> loops and conditional statements, some things in Python will not work correctly without consistent indentation. PEP 8 recommends using <a class="reference external" href="https://peps.python.org/pep-0008/#indentation">4 spaces per indentation level</a>.</p>
+<p>Let’s have a look at an example with <code class="docutils literal notranslate"><span class="pre">if</span></code> statements. The indented line tells Python what to do if the condition is <code class="docutils literal notranslate"><span class="pre">True</span></code>. Notice the 4 spaces for the indentation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="s2">&quot;Rain&quot;</span>
+<span class="n">wind</span> <span class="o">=</span> <span class="s2">&quot;Windy&quot;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">weather</span> <span class="o">==</span> <span class="s2">&quot;Rain&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">wind</span> <span class="o">==</span> <span class="s2">&quot;Windy&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Just stay at home&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Following PEP 8, it is also possible to break the conditional expression into multiple lines if needed. Notice the extra parentheses in this case.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">weather</span> <span class="o">==</span> <span class="s2">&quot;Rain&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">wind</span> <span class="o">==</span> <span class="s2">&quot;Windy&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Just stay at home&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To increase readability of this <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, we could add extra indentation to the continuation line of the conditional statement. This is valid Python syntax in line with PEP 8. As you might expect, it is recommended that the additional indendation be 4 spaces.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">weather</span> <span class="o">==</span> <span class="s2">&quot;Rain&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">wind</span> <span class="o">==</span> <span class="s2">&quot;Windy&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Just stay at home&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the cases above, the first option with the conditional expression on a single line is probably best, as it is not that long after all.</p>
+<p>In addition, indentation is needed when breaking one command onto multiple lines, such as in our example with the list <code class="docutils literal notranslate"><span class="pre">us_cities</span></code> in the section about maximum line length. In that case we used the implied line continuation inside the brackets. Following the PEP 8 indentation guidelines, we can define <code class="docutils literal notranslate"><span class="pre">us_cities</span></code> also using a <a class="reference external" href="https://peps.python.org/pep-0008/#fn-hi">hanging indent</a>. Note that there is no value on the first line of a list formatted this way.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hanging indentation:</span>
+<span class="n">us_cities</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Detroit&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Chicago&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Denver&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Boston&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Portland&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;San Francisco&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Houston&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Orlando&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>You can find more examples of indentation in the <a class="reference external" href="https://peps.python.org/pep-0008/#indentation">PEP 8 documentation</a> <a class="footnote-reference brackets" href="#pep8-indentation" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>.</p>
+</section>
+<section id="whitespace-and-binary-operators">
+<h3>Whitespace and binary operators<a class="headerlink" href="#whitespace-and-binary-operators" title="Link to this heading">#</a></h3>
+<p>PEP 8 states that binary operators should be <a class="reference external" href="https://peps.python.org/pep-0008/#other-recommendations">surrounded by a single space on either side</a>.</p>
+<p>We should always do this with:</p>
+<ul class="simple">
+<li><p>assignment (<code class="docutils literal notranslate"><span class="pre">=</span></code>)</p></li>
+<li><p>augmented assignment (<code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, etc.)</p></li>
+<li><p>comparisons (<code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">in</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">in</span></code>, <code class="docutils literal notranslate"><span class="pre">is</span></code>, <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">not</span></code>)</p></li>
+<li><p>Booleans (<code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span></code>)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># yes</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># no</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>If using operators with different priorities you can also do this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># yes</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="avoid-extraneous-whitespace">
+<h3>Avoid extraneous whitespace<a class="headerlink" href="#avoid-extraneous-whitespace" title="Link to this heading">#</a></h3>
+<p>PEP 8 also recommends avoiding <a class="reference external" href="https://peps.python.org/pep-0008/#whitespace-in-expressions-and-statements">having a space between the function name and parentheses when calling a function</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># yes</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># no</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="write-one-statement-per-line">
+<h3>Write one statement per line<a class="headerlink" href="#write-one-statement-per-line" title="Link to this heading">#</a></h3>
+<p>For readability, it is advised in PEP 8 to <a class="reference external" href="https://peps.python.org/pep-0008/#other-recommendations">avoid writing multiple statements on the same line</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># yes</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;world&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># no</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;world&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># yes</span>
+<span class="n">temperature</span> <span class="o">=</span> <span class="mi">17</span>
+<span class="k">if</span> <span class="n">temperature</span> <span class="o">&gt;</span> <span class="mi">25</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">temperature</span><span class="si">}</span><span class="s2"> is greater than 25&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># no</span>
+<span class="n">temperature</span> <span class="o">=</span> <span class="mi">17</span>
+<span class="k">if</span> <span class="n">temperature</span> <span class="o">&gt;</span> <span class="mi">25</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">temperature</span><span class="si">}</span><span class="s2"> is greater than 25&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="code-readability-versus-code-length">
+<h3>Code readability versus code length?<a class="headerlink" href="#code-readability-versus-code-length" title="Link to this heading">#</a></h3>
+<p>You often have to find a balance between code readability and code length when writing efficient and readable code. <a class="reference external" href="https://docs.python.org/3/reference/compound_stmts.html#compound-statements">Compound statements</a> <a class="footnote-reference brackets" href="#compound-statements" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a> are a way of writing multiple statements on the same line to make the code shorter but they can be more difficult to read, especially for less experienced programmers. Thus, <a class="reference external" href="https://peps.python.org/pep-0008/#other-recommendations">PEP 8 recommends avoiding compound statements in general</a>. However, sometimes squeezing multiple statements might your best option. You you just have to judge for yourself which option makes the code most readable and use that.</p>
+</section>
+<section id="list-comprehensions">
+<h3>List comprehensions<a class="headerlink" href="#list-comprehensions" title="Link to this heading">#</a></h3>
+<p>One puzzling example regarding the number of statements per line is the use of list comprehensions when defining lists. <a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions">List comprehensions</a> <a class="footnote-reference brackets" href="#id15" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> are a useful approach for creating lists in a concise way. We do not cover list comprehensions in this book, but below is a short example from the <a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions">Python documentation</a>. In some cases, list comprehensions might make your code more readable and concise. In other cases, you might end up writing an excessively long statement that is difficult to read. Below we can compare two options that both produce the same output.</p>
+<p>The first option iterates over a <code class="docutils literal notranslate"><span class="pre">range</span></code> using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, squares all values, and appends them to a <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">squares</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">squares</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The second option does the same thing using a list comprehension.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Both approaches are fine and you are free to choose the option that you think makes your code more readable.</p>
+<!-- #region -->
+</section>
+</section>
+<section id="best-practice-4-using-modules">
+<h2>Best practice 4: Using modules<a class="headerlink" href="#best-practice-4-using-modules" title="Link to this heading">#</a></h2>
+<p><strong>What should be added here???</strong></p>
+<p>The use of modules is introduced in Chapter 2.8 including some essential</p>
 <section id="import-modules-at-the-start-of-your-files">
 <h3>Import modules at the start of your files<a class="headerlink" href="#import-modules-at-the-start-of-your-files" title="Link to this heading">#</a></h3>
-<p>According to the good coding practices described in <a class="reference external" href="https://peps.python.org/pep-0008/#imports">PEP 8</a> <a class="footnote-reference brackets" href="#pep8" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, we should always import modules at the top of a file. In this section, we have demonstrated how to import different modules along the way, but in general it is better to import required modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files as well by placing <code class="docutils literal notranslate"><span class="pre">import</span></code> statements in the first code cell of the notebook.</p>
+<p>According to the good coding practices described in <a class="reference external" href="https://peps.python.org/pep-0008/#imports">PEP 8</a> <a class="footnote-reference brackets" href="#pep8-imports" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a>, we should always import modules at the top of a file. In this section, we have demonstrated how to import different modules along the way, but in general it is better to import required modules as the very first thing. PEP 8 refers more to traditional script files, but we can apply the guideline to Jupyter Notebook files as well by placing <code class="docutils literal notranslate"><span class="pre">import</span></code> statements in the first code cell of the notebook.</p>
 </section>
 <section id="avoid-importing-functions-using-wildcards">
 <h3>Avoid importing functions using wildcards<a class="headerlink" href="#avoid-importing-functions-using-wildcards" title="Link to this heading">#</a></h3>
@@ -505,6 +916,116 @@ document.write(`
 <section id="choose-logical-names-when-renaming-on-import">
 <h3>Choose logical names when renaming on import<a class="headerlink" href="#choose-logical-names-when-renaming-on-import" title="Link to this heading">#</a></h3>
 <p>Do not use confusing names when renaming on import. Be smart when you import modules, and follow generally used conventions (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code> is a good way to do things!). If you want to make the module name shorter on import, pick a reasonable abbreviation. For instance, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">m</span></code> could be confusing, especially if we used <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span> <span class="pre">as</span> <span class="pre">m</span></code> above and might do so in other Jupyter notebooks or script files. Similarly, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span> <span class="pre">as</span> <span class="pre">math</span></code> is perfectly OK syntax in Python, but bound to cause trouble. Remember, people need to be able to read and understand the code you write. Keep it simple and logical.</p>
+<!-- #endregion -->
+</section>
+</section>
+<section id="best-practice-5-using-assertions">
+<h2>Best practice 5: Using assertions<a class="headerlink" href="#best-practice-5-using-assertions" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Defensive_programming">Defensive programming</a> aims to maximize the reliability and overall quality of a piece of software. For us, this means that we should take steps to handle unexpected input values in our code, and to provide helpful error messages that provide meaningful guidance to the user when a program raises an exception. We can take steps toward writing more reliable software by utilizing a helpful features in Python: Assertions.</p>
+<section id="assertions">
+<h3>Assertions<a class="headerlink" href="#assertions" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="../nb/glossary.html#term-Assertion"><span class="xref std std-term">Assertions</span></a> are a way to assert, or ensure, that the values being used in your scripts are going to be suitable for what the code does. Let’s start by considering the function <code class="docutils literal notranslate"><span class="pre">convert_kph_ms()</span></code> that converts wind speeds from kilometers per hour to meters per second. We can define and use the function in the cell below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">convert_kph_ms</span><span class="p">(</span><span class="n">speed</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts velocity (speed) in km/hr to m/s&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">speed</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">3600</span>
+
+
+<span class="n">wind_speed_km</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">wind_speed_ms</span> <span class="o">=</span> <span class="n">convert_kph_ms</span><span class="p">(</span><span class="n">wind_speed_km</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A wind speed of </span><span class="si">{</span><span class="n">wind_speed_km</span><span class="si">}</span><span class="s2"> km/hr is </span><span class="si">{</span><span class="n">wind_speed_ms</span><span class="si">}</span><span class="s2"> m/s.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This all seems fine but you might want to ensure that the values for the wind speed are not negative numbers, since speed is the magnitude of the wind velocity and should always be positive or zero. An assertion can be used to enforce this condition by adding an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement to the function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">convert_kph_ms</span><span class="p">(</span><span class="n">speed</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts velocity (speed) in km/hr to m/s&quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">speed</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="n">speed</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">3600</span>
+
+
+<span class="n">wind_speed_km</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">wind_speed_ms</span> <span class="o">=</span> <span class="n">convert_kph_ms</span><span class="p">(</span><span class="n">wind_speed_km</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A wind speed of </span><span class="si">{</span><span class="n">wind_speed_km</span><span class="si">}</span><span class="s2"> km/hr is </span><span class="si">{</span><span class="n">wind_speed_ms</span><span class="si">}</span><span class="s2"> m/s.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>OK, so everything still works when using a positive value for <code class="docutils literal notranslate"><span class="pre">speed</span></code> but what happens if a negative value is given for the wind speed?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wind_speed_km</span> <span class="o">=</span> <span class="o">-</span><span class="mi">27</span>
+<span class="n">wind_speed_ms</span> <span class="o">=</span> <span class="n">convert_kph_ms</span><span class="p">(</span><span class="n">wind_speed_km</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A wind speed of </span><span class="si">{</span><span class="n">wind_speed_km</span><span class="si">}</span><span class="s2"> km/hr is </span><span class="si">{</span><span class="n">wind_speed_ms</span><span class="si">}</span><span class="s2"> m/s.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we get an <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> when a negative value is provided. This <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> is produced because of the <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement in the function definition. If the condition listed after <code class="docutils literal notranslate"><span class="pre">assert</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, an <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> will be raised when the code is executed.</p>
+<p>This is a definite improvement compared to the first example using the <code class="docutils literal notranslate"><span class="pre">convert_kph_ms()</span></code> function, however it would be much better to provide the user with some information about why this assertion exists. Fortunately, we can do this simply by adding some text after the condition in the assertion.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">convert_kph_ms</span><span class="p">(</span><span class="n">speed</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts velocity (speed) in km/hr to m/s&quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">speed</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;Wind speed values must be positive or zero&quot;</span>
+    <span class="k">return</span> <span class="n">speed</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">3600</span>
+
+
+<span class="n">wind_speed_km</span> <span class="o">=</span> <span class="o">-</span><span class="mi">27</span>
+<span class="n">wind_speed_ms</span> <span class="o">=</span> <span class="n">convert_kph_ms</span><span class="p">(</span><span class="n">wind_speed_km</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A wind speed of </span><span class="si">{</span><span class="n">wind_speed_km</span><span class="si">}</span><span class="s2"> km/hr is </span><span class="si">{</span><span class="n">wind_speed_ms</span><span class="si">}</span><span class="s2"> m/s.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<!-- #region -->
+<p>Nice! Now we see that when the <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> is raised, the message informs us about why it happened without having to interpret the code. The message also makes it easy to fix our value for <code class="docutils literal notranslate"><span class="pre">wind_speed_km</span></code> to work with the <code class="docutils literal notranslate"><span class="pre">convert_kph_ms()</span></code> function.</p>
+<p>In general, assertions take the following form:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="o">&lt;</span><span class="n">some</span> <span class="n">condition</span><span class="o">&gt;</span><span class="p">,</span> <span class="s2">&quot;Error message to display&quot;</span>
+</pre></div>
+</div>
+<p>So they start with an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement, then list a logical test for some condition, and optionally have a text string that follows the condition, separated by a comma. If the test evaluates as <code class="docutils literal notranslate"><span class="pre">True</span></code> then nothing happens and the code continues. Otherwise, the code stops, an <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> is displayed, and any included text is written to the screen.</p>
+<!-- #endregion -->
+</section>
+<section id="multiple-assertions-a-bad-example">
+<h3>Multiple assertions - a bad example<a class="headerlink" href="#multiple-assertions-a-bad-example" title="Link to this heading">#</a></h3>
+<p>Of course, you may want to have several assertions in a function in order to ensure it works as expected and provides meaningful output. In our case, we might first want to check that the value provided for conversion from km/hr to m/s is a number. If it is not, we would not be able to convert the units properly. Let’s add a second assertion to make sure our function is “safe”.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">convert_kph_ms</span><span class="p">(</span><span class="n">speed</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts velocity (speed) in km/hr to m/s&quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="nb">type</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span>
+    <span class="p">),</span> <span class="s2">&quot;Wind speed values must be numbers&quot;</span>
+    <span class="k">assert</span> <span class="n">speed</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;Wind speed values must be positive or zero&quot;</span>
+    <span class="k">return</span> <span class="n">speed</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">3600</span>
+
+
+<span class="n">wind_speed_km</span> <span class="o">=</span> <span class="s2">&quot;dog&quot;</span>
+<span class="n">wind_speed_ms</span> <span class="o">=</span> <span class="n">convert_kph_ms</span><span class="p">(</span><span class="n">wind_speed_km</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A wind speed of </span><span class="si">{</span><span class="n">wind_speed_km</span><span class="si">}</span><span class="s2"> km/hr is </span><span class="si">{</span><span class="n">wind_speed_ms</span><span class="si">}</span><span class="s2"> m/s.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>OK, so that works. Now, if the user attempts to give a data type that is not <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">float</span></code>, the function will raise an <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> indicating a number is expected for the function to work. This is fine, but there are reasons why you may not want to include assertions of this type in a function.</p>
+<p>You might think that it would be useful to use an assertion to check the type of <code class="docutils literal notranslate"><span class="pre">speed</span></code> in our function in order to avoid getting a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> if an incompatible data type is provided. However, this is not really a good idea. The reason is that a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> is designed to indicate you have incompatible data types. Thus is makes no sense to raise an <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> that does the same thing. Thus, it is better to allow the code to fail with a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> in such cases and reserve the assertions for testing values that should be used or produced by the code.</p>
+</section>
+<section id="multiple-assertions-a-better-example">
+<h3>Multiple assertions - a better example<a class="headerlink" href="#multiple-assertions-a-better-example" title="Link to this heading">#</a></h3>
+<p>So we might not want to check our data type compatibility using assertions, but we can include a second assertion to ensure the input wind speed is a reasonable number. In this case, we can assume that the wind speed being converted was measured on Earth, and thus should be lower than <a class="reference external" href="https://en.wikipedia.org/wiki/Wind_speed#Highest_speed">the fastest wind speed ever measured</a>, 408 km/hr. Let’s add that condition.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">convert_kph_ms</span><span class="p">(</span><span class="n">speed</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts velocity (speed) in km/hr to m/s&quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">speed</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;Wind speed values must be positive or zero&quot;</span>
+    <span class="k">assert</span> <span class="n">speed</span> <span class="o">&lt;=</span> <span class="mf">408.0</span><span class="p">,</span> <span class="s2">&quot;Wind speed exceeds fastest winds ever measured&quot;</span>
+    <span class="k">return</span> <span class="n">speed</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">3600</span>
+
+
+<span class="n">wind_speed_km</span> <span class="o">=</span> <span class="s2">&quot;409&quot;</span>
+<span class="n">wind_speed_ms</span> <span class="o">=</span> <span class="n">convert_kph_ms</span><span class="p">(</span><span class="n">wind_speed_km</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A wind speed of </span><span class="si">{</span><span class="n">wind_speed_km</span><span class="si">}</span><span class="s2"> km/hr is </span><span class="si">{</span><span class="n">wind_speed_ms</span><span class="si">}</span><span class="s2"> m/s.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is a better example for two reasons:</p>
+<ol class="arabic simple">
+<li><p>We now allow a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> when incompatible data types are used in our function, which is a clear and familiar error message.</p></li>
+<li><p>We use assertions to check the values used in the function make sense for its intended use. If we want to help users convert wind speeds on Earth, we provide bounds that make sure they are using reasonable input values. Thus, we help them use our function the correct way.</p></li>
+</ol>
+<p>Combined, these assertions ensure our function handles common mistakes and provide the user with helpful feedback to be able to use the function properly.</p>
+</section>
+<section id="a-final-note-about-assertions">
+<h3>A final note about assertions<a class="headerlink" href="#a-final-note-about-assertions" title="Link to this heading">#</a></h3>
+<p>One thing that is important to note about assertions is that although we use them here to check that our function input values are reasonable, this is not generally the suggested use. Instead, more advanced programmers recommend using assertions only to test that your code is working properly internally. For example, you would use assertions to check for things that should not happen, such as functions that duplicate values in lists when they should not. The reason it is not recommended to use assertions for testing user input values or the existence of files is that assertions can be disabled using flags when running a Python program. Thus, it is possible they could be ignored entirely. This is fine when debugging code, but obviously not desired when users are running your programs. If you’re interested in more details, you can find more in <a class="reference external" href="https://wiki.python.org/moin/UsingAssertionsEffectively">an article on using assertions in the Python wiki</a> <a class="footnote-reference brackets" href="#wiki-assertions" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></a> or on the <a class="reference external" href="https://swcarpentry.github.io/python-novice-inflammation/10-defensive.html">Software Carpentry website</a> <a class="footnote-reference brackets" href="#swc-assertions" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>14<span class="fn-bracket">]</span></a>.</p>
 </section>
 </section>
 <section id="footnotes">
@@ -513,9 +1034,61 @@ document.write(`
 </section>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="pep8" role="doc-footnote">
+<aside class="footnote brackets" id="ascii" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/ASCII#Printable_character_table">https://en.wikipedia.org/wiki/ASCII#Printable_character_table</a></p>
+</aside>
+<aside class="footnote brackets" id="keywords" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.geeksforgeeks.org/python-keywords/">https://www.geeksforgeeks.org/python-keywords/</a></p>
+</aside>
+<aside class="footnote brackets" id="pep257" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://peps.python.org/pep-0257/">https://peps.python.org/pep-0257/</a></p>
+</aside>
+<aside class="footnote brackets" id="markdown-basic" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.markdownguide.org/basic-syntax/">https://www.markdownguide.org/basic-syntax/</a></p>
+</aside>
+<aside class="footnote brackets" id="markdown-extended" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.markdownguide.org/extended-syntax/">https://www.markdownguide.org/extended-syntax/</a></p>
+</aside>
+<aside class="footnote brackets" id="coding-conventions" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Coding_conventions">https://en.wikipedia.org/wiki/Coding_conventions</a></p>
+</aside>
+<aside class="footnote brackets" id="pep8" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://peps.python.org/pep-0008/">https://peps.python.org/pep-0008/</a></p>
+</aside>
+<aside class="footnote brackets" id="pep8-length" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">8</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://peps.python.org/pep-0008/#maximum-line-length">https://peps.python.org/pep-0008/#maximum-line-length</a></p>
+</aside>
+<aside class="footnote brackets" id="pep8-indentation" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">9</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://peps.python.org/pep-0008/#indentation">https://peps.python.org/pep-0008/#indentation</a></p>
+</aside>
+<aside class="footnote brackets" id="compound-statements" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">10</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://docs.python.org/3/reference/compound_stmts.html#compound-statements">https://docs.python.org/3/reference/compound_stmts.html#compound-statements</a></p>
+</aside>
+<aside class="footnote brackets" id="id15" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">11</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions">https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions</a></p>
+</aside>
+<aside class="footnote brackets" id="pep8-imports" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">12</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://peps.python.org/pep-0008/#imports">https://peps.python.org/pep-0008/#imports</a></p>
+</aside>
+<aside class="footnote brackets" id="wiki-assertions" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">13</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://wiki.python.org/moin/UsingAssertionsEffectively">https://wiki.python.org/moin/UsingAssertionsEffectively</a></p>
+</aside>
+<aside class="footnote brackets" id="swc-assertions" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">14</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://swcarpentry.github.io/python-novice-inflammation/10-defensive.html">https://swcarpentry.github.io/python-novice-inflammation/10-defensive.html</a></p>
 </aside>
 </aside>
 
@@ -565,10 +1138,50 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-modules">Using modules</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-1-selecting-variable-names">Best practice 1: Selecting variable names</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-not-so-good-variable-names">Some “not-so-good” variable names</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-good-variable-names">Selecting “good” variable names</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-variable-format-1-pothole-case-naming">Recommended variable format 1: pothole_case naming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-variable-format-2-camelcase-naming">Recommended variable format 2: camelCase naming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-recommendation">General recommendation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-2-describing-your-code">Best practice 2: Describing your code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-i-need-to-describe-my-code">Do I need to describe my code?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#but-the-internet-says-i-should-not-comment-my-code">But the Internet says I should not comment my code…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-comments-single-line-comments">Code comments - single-line comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-comments-block-comments">Code comments - block comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-comments-inline-comments">Code comments - inline comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-comments-multi-line-comments">Code comments - multi-line comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown-text">Markdown text</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-source">Data source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-3-writing-readable-code">Best practice 3: Writing readable code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-code-vs-readable-code">Working code vs readable code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pep-8-style-guide">The PEP 8 Style Guide</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-line-length">Maximum line length</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indentation">Indentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whitespace-and-binary-operators">Whitespace and binary operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avoid-extraneous-whitespace">Avoid extraneous whitespace</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-one-statement-per-line">Write one statement per line</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-readability-versus-code-length">Code readability versus code length?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions">List comprehensions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-4-using-modules">Best practice 4: Using modules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules-at-the-start-of-your-files">Import modules at the start of your files</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avoid-importing-functions-using-wildcards">Avoid importing functions using wildcards</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choose-logical-names-when-renaming-on-import">Choose logical names when renaming on import</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practice-5-using-assertions">Best practice 5: Using assertions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assertions">Assertions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-assertions-a-bad-example">Multiple assertions - a bad example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-assertions-a-better-example">Multiple assertions - a better example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-final-note-about-assertions">A final note about assertions</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>

@@ -227,7 +227,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -237,17 +237,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
@@ -533,15 +531,25 @@ document.write(`
 </dd>
 <dt id="term-Argument">Argument<a class="headerlink" href="#term-Argument" title="Link to this term">#</a></dt><dd><p>The value passed to a function when it is called. Similar to a <a class="reference internal" href="#term-Parameter"><span class="xref std std-term">parameter</span></a>.</p>
 </dd>
+<dt id="term-Aspect">Aspect<a class="headerlink" href="#term-Aspect" title="Link to this term">#</a></dt><dd><p>Aspect shows the (compass) direction that a slope faces, derived from elevation data. It is usually measured in degrees from 0° (north) to 360°.</p>
+</dd>
+<dt id="term-Assertion">Assertion<a class="headerlink" href="#term-Assertion" title="Link to this term">#</a></dt><dd><p>A statement used in a Python program to check whether a given condition evaluates as <code class="docutils literal notranslate"><span class="pre">True</span></code> when the code is executed. When the condition is not <code class="docutils literal notranslate"><span class="pre">True</span></code>, an <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> is raised. Assertions are typically used for debugging and testing code.</p>
+</dd>
 <dt id="term-Binary-predicate">Binary predicate<a class="headerlink" href="#term-Binary-predicate" title="Link to this term">#</a></dt><dd><p>See <a class="reference internal" href="#term-Spatial-predicate"><span class="xref std std-term">Spatial predicate</span></a>.</p>
+</dd>
+<dt id="term-Camel-case">Camel case<a class="headerlink" href="#term-Camel-case" title="Link to this term">#</a></dt><dd><p>A variable naming convention in which words are joined without spaces by capitalizing the first letter of each word that follows the first. For example, <code class="docutils literal notranslate"><span class="pre">gpsStationId</span></code>.</p>
 </dd>
 <dt id="term-Collection">Collection<a class="headerlink" href="#term-Collection" title="Link to this term">#</a></dt><dd><p>A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.</p>
 </dd>
-<dt id="term-Computer">Computer<a class="headerlink" href="#term-Computer" title="Link to this term">#</a></dt><dd><p>We use the definition of a computer given by <span id="id1"><a class="reference internal" href="references.html#id29" title="John Zelle. Python Programming: An Introduction to Computer Science. Franklin, Beedle &amp; Associates, 3rd edition, 2017.">Zelle, 2017</a></span>: “A machine that stores and manipulates information under the control of a changeable program.”</p>
+<dt id="term-Computer">Computer<a class="headerlink" href="#term-Computer" title="Link to this term">#</a></dt><dd><p>We use the definition of a computer given by <span id="id1"><a class="reference internal" href="references.html#id31" title="John Zelle. Python Programming: An Introduction to Computer Science. Franklin, Beedle &amp; Associates, 3rd edition, 2017.">Zelle, 2017</a></span>: “A machine that stores and manipulates information under the control of a changeable program.”</p>
 </dd>
 <dt id="term-Coordinate-Reference-System">Coordinate Reference System<a class="headerlink" href="#term-Coordinate-Reference-System" title="Link to this term">#</a></dt><dd><p>A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth’s surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.</p>
 </dd>
 <dt id="term-Coordinate-transformation">Coordinate transformation<a class="headerlink" href="#term-Coordinate-transformation" title="Link to this term">#</a></dt><dd><p>See <a class="reference internal" href="#term-Map-reprojection"><span class="xref std std-term">Map reprojection</span></a>.</p>
+</dd>
+<dt id="term-Cost-surface">Cost surface<a class="headerlink" href="#term-Cost-surface" title="Link to this term">#</a></dt><dd><p>A cost surface is a raster representation used in map algebra in which each cell value indicates the cost (e.g., time, energy, money, or difficulty) required to traverse that cell. Cost surfaces are used in spatial analysis to model and calculate the least-cost path or accumulated cost between locations, factoring in terrain, land use, or other impedance variables. Cost surfaces are essential in applications such as route optimization, habitat connectivity, and emergency response planning.</p>
+</dd>
+<dt id="term-Curvature">Curvature<a class="headerlink" href="#term-Curvature" title="Link to this term">#</a></dt><dd><p>Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell.</p>
 </dd>
 <dt id="term-DataFrame">DataFrame<a class="headerlink" href="#term-DataFrame" title="Link to this term">#</a></dt><dd><p>In pandas library, a DataFrame is a two-dimensional, tabular data structure with labeled rows and columns, similar to an Excel spreadsheet or SQL table. Each column can store data of different types (e.g., integers, floats, strings), and the DataFrame provides methods for data manipulation, including filtering, aggregation, and merging. It is one of the core data structures in pandas, widely used for data analysis and manipulation in Python.</p>
 </dd>
@@ -567,6 +575,8 @@ For example, type <code class="docutils literal notranslate"><span class="pre">i
 <dt id="term-Dimensionally-Extended-9-Intersection-Model">Dimensionally Extended 9-Intersection Model <a class="headerlink" href="#term-Dimensionally-Extended-9-Intersection-Model" title="Link to this term">#</a></dt><dd><p>Dimensionally Extended 9-Intersection Model (DE-9IM) is a fundamental framework in GIS used for describing and analyzing spatial relationships between geometric objects. DE-9IM provides a matrix-based approach where the rows and columns represent the interior, boundary, and exterior of two geometric shapes being compared. By examining the intersections of these parts, a detailed characterization of their spatial relationship can be achieved, including spatial predicates such as “touches”, “overlaps”, and “contains”.</p>
 </dd>
 <dt id="term-Docstring">Docstring<a class="headerlink" href="#term-Docstring" title="Link to this term">#</a></dt><dd><p>A text string used to document a section of code. Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs. You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.</p>
+</dd>
+<dt id="term-Edge-effect">Edge effect<a class="headerlink" href="#term-Edge-effect" title="Link to this term">#</a></dt><dd><p>Edge effect is spatial distortion (bias) that occurs at the boundaries of a geographic datasets (raster and vector), often due to incomplete data or the influence of neighboring areas not included in the analysis. It can affect the accuracy of calculations like filtering, classification, or spatial modeling near the dataset’s edges.</p>
 </dd>
 <dt id="term-EPSG-code">EPSG code<a class="headerlink" href="#term-EPSG-code" title="Link to this term">#</a></dt><dd><p>An EPSG code is a unique identifier assigned to a specific coordinate reference system (CRS) or a spatial data transformation standard, as defined by the EPSG (European Petroleum Survey Group) registry. These codes, such as 4326 for WGS84 or 3857 for Web Mercator, simplify the process of referencing CRSs in geographic data processing.</p>
 </dd>
@@ -603,6 +613,8 @@ For example, type <code class="docutils literal notranslate"><span class="pre">i
 <dt id="term-Git-remote">Git remote<a class="headerlink" href="#term-Git-remote" title="Link to this term">#</a></dt><dd><p>A reference to a repository stored on a server or hosting service like GitHub. Remotes are often useful for keeping project files in sync when multiple users are working in the same code repository.</p>
 </dd>
 <dt id="term-GitHub">GitHub<a class="headerlink" href="#term-GitHub" title="Link to this term">#</a></dt><dd><p>An online platform for collaborative development of <a class="reference internal" href="#term-Software"><span class="xref std std-term">software</span></a> based around the <a class="reference internal" href="#term-Git"><span class="xref std std-term">Git</span></a> <a class="reference internal" href="#term-Version-control"><span class="xref std std-term">version control</span></a> system. GitHub provides tools for collaboration, version control, issue tracking, and code review.</p>
+</dd>
+<dt id="term-Hillshade">Hillshade<a class="headerlink" href="#term-Hillshade" title="Link to this term">#</a></dt><dd><p>A hillshade is a grayscale 3D-like representation of the terrain surface, created by simulating the effect of sunlight shining across the landscape. In GIS, hillshading is derived from a Digital Elevation Model (DEM) and is used to visualize topographic relief. The shading is based on specified azimuth (direction) and altitude (angle) of the light source, typically representing the sun.</p>
 </dd>
 <dt id="term-Hypsometric-curve">Hypsometric curve<a class="headerlink" href="#term-Hypsometric-curve" title="Link to this term">#</a></dt><dd><p>The distribution of area above a given elevation in an region analyzed using hypsometric analysis. This is effectively a cumulative distribution of area as a function of elevation. The areas and elevations in hypsometric curves are frequently normalized to allow comparison between regions and for calculating a <a class="reference internal" href="#term-Hypsometric-integral"><span class="xref std std-term">hypsometric integral</span></a>.</p>
 </dd>
@@ -664,6 +676,8 @@ More information can be found at <a class="reference external" href="https://en.
 </dd>
 <dt id="term-Parameter">Parameter<a class="headerlink" href="#term-Parameter" title="Link to this term">#</a></dt><dd><p>A variable listed within the parentheses of a function definition. Similar to an <a class="reference internal" href="#term-Argument"><span class="xref std std-term">argument</span></a>.</p>
 </dd>
+<dt id="term-Pothole-case">Pothole case<a class="headerlink" href="#term-Pothole-case" title="Link to this term">#</a></dt><dd><p>A variable naming convention that utilzes underscore characters (<code class="docutils literal notranslate"><span class="pre">_</span></code>) to separate words in the variable name. For example, <code class="docutils literal notranslate"><span class="pre">gps_station_id</span></code>. Also known as snake case.</p>
+</dd>
 <dt id="term-Program">Program<a class="headerlink" href="#term-Program" title="Link to this term">#</a></dt><dd><p>A detailed list of step-by-step instructions that tell the computer exactly what to do.</p>
 </dd>
 <dt id="term-Programming-language">Programming language<a class="headerlink" href="#term-Programming-language" title="Link to this term">#</a></dt><dd><p>A set of exact and unambiguous instructions that can be understood by the computer.</p>
@@ -693,6 +707,8 @@ More information can be found at <a class="reference external" href="https://en.
 <dt id="term-Shifting">Shifting<a class="headerlink" href="#term-Shifting" title="Link to this term">#</a></dt><dd><p>The process of adjusting references in time series data forward or backward in time. For example, values could be shifted backward by one week to compare data from a given week to equivalent data from the following week.</p>
 </dd>
 <dt id="term-Signed-integer">Signed integer<a class="headerlink" href="#term-Signed-integer" title="Link to this term">#</a></dt><dd><p>A (data) type of integer in Python that can represent both positive and negative whole numbers. The “signed” attribute means the number includes a “+” or “-” sign to indicate its value’s polarity. For example, -5 and 42 are signed integers. In Python, integers are stored as signed by default and can handle very large values thanks to their dynamic size.</p>
+</dd>
+<dt id="term-Slope">Slope<a class="headerlink" href="#term-Slope" title="Link to this term">#</a></dt><dd><p>Slope is a measure of the steepness or incline of the terrain. Slope is commonly calculated from elevation values in a raster and it represents the rate of change in elevation over distance and is typically expressed in degrees or percent.</p>
 </dd>
 <dt id="term-Software">Software<a class="headerlink" href="#term-Software" title="Link to this term">#</a></dt><dd><p>Another name for a <a class="reference internal" href="#term-Program"><span class="xref std std-term">program</span></a>.</p>
 </dd>

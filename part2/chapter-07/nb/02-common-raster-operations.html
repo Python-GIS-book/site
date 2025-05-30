@@ -227,7 +227,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">7. Raster data processing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
@@ -237,17 +237,15 @@
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">7.3 Common raster operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="04-map-algebra.html">7.5 Map algebra</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
@@ -2057,7 +2055,7 @@ Data variables:
 &lt;/script&gt;
 &lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
 </div>
-<p><em><strong>Figure 7.11.</strong> Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.</em></p>
+<p><em><strong>Figure 7.12.</strong> Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.</em></p>
 <p>Now after we have created the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> we can use it to clip the <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>. To do this, we use the <code class="docutils literal notranslate"><span class="pre">.rio.clip()</span></code> method which wants as input the <code class="docutils literal notranslate"><span class="pre">geometries</span></code> that will be used for clipping the raster data. We can pass the <code class="docutils literal notranslate"><span class="pre">gpd.GeoSeries</span></code> as an input for this (i.e. the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column of our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>) and we also specify the <code class="docutils literal notranslate"><span class="pre">crs</span></code> to be the same as in out input raster data. It is important that the coordinate reference system of both layers are the same whenever doing GIS operations between multiple layers. Thus, we use a simple <code class="docutils literal notranslate"><span class="pre">assert</span></code> to check the match before doing the clipping:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2082,7 +2080,7 @@ Data variables:
 <img alt="../../../_images/0b57dd16c8674d85fbc2d798222ff4cf44c16173c68fe542208338d7b66bd56c.png" src="../../../_images/0b57dd16c8674d85fbc2d798222ff4cf44c16173c68fe542208338d7b66bd56c.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.12.</strong> Elevations in the area that was clipped based on a polygon.</em></p>
+<p><em><strong>Figure 7.13.</strong> Elevations in the area that was clipped based on a polygon.</em></p>
 <p>After clipping, it is possible to continue working with the clipped <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> and e.g. find the mean elevation for this area around the Mt Kitumbene. Notice that the operations clipped all the variables in our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> simultaneously. We can extract basic statistics from <code class="docutils literal notranslate"><span class="pre">elevation</span></code> and inspect the relative height in this area as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2144,7 +2142,7 @@ Data variables:
 <img alt="../../../_images/bcb9b71529f9ab0c44b11e4a8c3019a8df6ec05582f8ed27185c550a055306b3.png" src="../../../_images/bcb9b71529f9ab0c44b11e4a8c3019a8df6ec05582f8ed27185c550a055306b3.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.13.</strong> Existing lakes that are present in our study area.</em></p>
+<p><em><strong>Figure 7.14.</strong> Existing lakes that are present in our study area.</em></p>
 <p>As we can see from the Figure 7.10, there is one large lake and multiple smaller ones in our study that we might not want to be taken into account when analyzing the terrain. Luckily, we can easily mask these areas out of our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> by using <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>. To do this, we can use the same <code class="docutils literal notranslate"><span class="pre">.rio.clip()</span></code> method which we used in the previous example. However, in this case, we do not want to totally remove those cells from our <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> but only mask them out, so that the values on those areas are replaced with NaN values. By using parameters <code class="docutils literal notranslate"><span class="pre">drop=False</span></code> and <code class="docutils literal notranslate"><span class="pre">invert=True</span></code>, the cells that are intersecting with the lake geometries will be masked with NaNs:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2169,7 +2167,7 @@ Data variables:
 <img alt="../../../_images/b457d13d6cd37c851221470f9891168b782c82ef481214f31e4845207fd75e70.png" src="../../../_images/b457d13d6cd37c851221470f9891168b782c82ef481214f31e4845207fd75e70.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.14.</strong> A Dataset where the lakes have been masked out (shown with white color).</em></p>
+<p><em><strong>Figure 7.15.</strong> A Dataset where the lakes have been masked out (shown with white color).</em></p>
 <p>As a result, we now have a new <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> where the elevation values overlapping with the lakes have been converted to NaNs. We can now compare whether e.g. the mean land surface elevation differs from the original one where the lakes were still included:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2664,7 +2662,7 @@ Attributes:
 <img alt="../../../_images/91ce3aa6be70bb89b7d70ba127b46e8b1d7d2267ea4afff5341998eca7f18ec1.png" src="../../../_images/91ce3aa6be70bb89b7d70ba127b46e8b1d7d2267ea4afff5341998eca7f18ec1.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.15.</strong> Four elevation raster layers plotted next to each other.</em></p>
+<p><em><strong>Figure 7.16.</strong> Four elevation raster layers plotted next to each other.</em></p>
 <p>From the figure we can see that these four raster tiles seem to belong together naturally as the elevation values as well as the coordinates along the x- and y-axis continue smoothly. Hence, we can stitch them together into a single larger raster <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.
 To merge multiple <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>s together, we can use the <code class="docutils literal notranslate"><span class="pre">.merge_datasets()</span></code> function from <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>:</p>
 <div class="cell docutils container">
@@ -3100,7 +3098,7 @@ Attributes:
 <img alt="../../../_images/a3a181c4934134ef0e3c839396c35c5423b4687b9bfac12c9af4d944e5213e29.png" src="../../../_images/a3a181c4934134ef0e3c839396c35c5423b4687b9bfac12c9af4d944e5213e29.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.16.</strong> A raster mosaic where four raster tiles were merged together.</em></p>
+<p><em><strong>Figure 7.17.</strong> A raster mosaic where four raster tiles were merged together.</em></p>
 <p>The end result looks good and we can see clearly the Mount Kilimanjaro which is the highest mountain in Africa 5895 meters above sea level and the highest volcano in the Eastern Hemisphere.</p>
 </section>
 <section id="raster-to-vector-conversion-vectorize">
@@ -3619,7 +3617,7 @@ Attributes:
 <img alt="../../../_images/fbd105180dafd9fa93cd99f6f23b55d042009e8056f1e67c4f7b0474d036b829.png" src="../../../_images/fbd105180dafd9fa93cd99f6f23b55d042009e8056f1e67c4f7b0474d036b829.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.17.</strong> The elevation map made from the vectorized data.</em></p>
+<p><em><strong>Figure 7.18.</strong> The elevation map made from the vectorized data.</em></p>
 <p>As we can see from the figure, the map looks identical to our original <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> (Figure 7.9) which means that the conversion works as it should.</p>
 <p>It is good to keep in mind that the raster data structure (i.e. arrays) is much more efficient way to process continuous surfaces. When every cell in the 2D array is converted into polygon geometries, the processing and visualization of the data typically becomes more resource intensive for the computer (making things slower). There are approaches to deal with this issue e.g. by categorizing the data values of the surface into specific elevation classes (e.g. with 5 meter intervals) and then dissolving the geometries into larger Polygon shapes (as we did earlier without categorization). Another technique to consider is downscaling your data into lower resolution, meaning that the size of an individual cell will be larger. Naturally, both of these techniques has an impact on the quality of the data as the data is generalized and aggregated. It is a good idea to do the preprocessing steps for the raster data before vectorizing it, especially if you have large raster arrays because the array operations in <code class="docutils literal notranslate"><span class="pre">xarray</span></code> are very efficient.</p>
 </section>
@@ -3642,7 +3640,7 @@ Attributes:
 <img alt="../../../_images/1e61ff4dec4b15639152b5c46fa9f3bfe9a8517ba0d87ba148dee5fbfff544f4.png" src="../../../_images/1e61ff4dec4b15639152b5c46fa9f3bfe9a8517ba0d87ba148dee5fbfff544f4.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.18.</strong> Lakes represented in vector format.</em></p>
+<p><em><strong>Figure 7.19.</strong> Lakes represented in vector format.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lakes</span><span class="o">.</span><span class="n">shape</span>
@@ -4345,7 +4343,7 @@ Data variables:
 <img alt="../../../_images/f9d9285a16c6c3982e02451a9314b64dcf7f2db217d91f6cf366ca8b99bfb2ee.png" src="../../../_images/f9d9285a16c6c3982e02451a9314b64dcf7f2db217d91f6cf366ca8b99bfb2ee.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.19.</strong> Lakes that have been rasterized into <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> at approximately 1 km resolution.</em></p>
+<p><em><strong>Figure 7.20.</strong> Lakes that have been rasterized into <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> at approximately 1 km resolution.</em></p>
 <p>Quite often when rasterizing vector data, you actually want to fit the output to have identical resolution to an already existing <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> and align it with the other raster layer. For example in our case, we can use the <code class="docutils literal notranslate"><span class="pre">data</span></code> raster (with elevation values) as a target so that the resolution, dimensions and alignment would fit with the existing <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>. We can achieve this by using the <code class="docutils literal notranslate"><span class="pre">like</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">make_geocube()</span></code> function. This will ensure that the output aligns with the existing raster having same resolution and dimensions:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4769,7 +4767,7 @@ Data variables:
 <img alt="../../../_images/27cf065ed13edd53e8eca7aa415027d962a2098fe74125b0ddf612899350478c.png" src="../../../_images/27cf065ed13edd53e8eca7aa415027d962a2098fe74125b0ddf612899350478c.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.20.</strong> Lakes that have been rasterized and aligned with an existing <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.</em></p>
+<p><em><strong>Figure 7.21.</strong> Lakes that have been rasterized and aligned with an existing <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.</em></p>
 <p>As a result, we have now rasterized the lakes in a way that the <code class="docutils literal notranslate"><span class="pre">aligned_ds</span></code> aligns with the existing <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> containing the elevation values. This technique can be very useful especially when you want to do calculations (map algebra) between multiple raster layers (more about map algebra in Chapter 7.5).</p>
 </section>
 <section id="resampling-raster-data">
@@ -5312,7 +5310,7 @@ Downscaled resolution: (0.013892746913580308, -0.013892746913580263)
 <img alt="../../../_images/ddbb70885118375715143cbefafc2d49194484402a1b006ebd59fa24fa987b66.png" src="../../../_images/ddbb70885118375715143cbefafc2d49194484402a1b006ebd59fa24fa987b66.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.21.</strong> Downscaled data using a downscale factor of 50.</em></p>
+<p><em><strong>Figure 7.22.</strong> Downscaled data using a downscale factor of 50.</em></p>
 <p>The downscaling operation seem to have worked well as the patterns are still clearly similar compared to the input data (Figure 7.7), although the spatial resolution is much lower. The data is downscaled so much that it is actually possible to identify individual pixels of the grid.</p>
 </section>
 <section id="upscaling">
@@ -5394,7 +5392,7 @@ Shape - Upscaled: (7202, 7202)
 <img alt="../../../_images/7beb8f817f974320d27e88cd4d15945b97054ea53c8a572f43169103c7fd7f90.png" src="../../../_images/7beb8f817f974320d27e88cd4d15945b97054ea53c8a572f43169103c7fd7f90.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.22.</strong> Upscaled data using a upscale factor of 2.</em></p>
+<p><em><strong>Figure 7.23.</strong> Upscaled data using a upscale factor of 2.</em></p>
 </section>
 </section>
 <section id="filling-missing-data">
@@ -5413,7 +5411,7 @@ Shape - Upscaled: (7202, 7202)
 <img alt="../../../_images/3c3f82ecfcce60d7b1614e13a0bd7da5c40b7941162ef36c65d8a02ef820d70a.png" src="../../../_images/3c3f82ecfcce60d7b1614e13a0bd7da5c40b7941162ef36c65d8a02ef820d70a.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.23.</strong> Pixels with NoData are shown with white colour.</em></p>
+<p><em><strong>Figure 7.24.</strong> Pixels with NoData are shown with white colour.</em></p>
 <p>As we can see, there is a small region missing that does not contain any pixel values. To fill these pixels, we can use <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> and take advantage of the <code class="docutils literal notranslate"><span class="pre">.rio.interpolate_na()</span></code> method that can be used to predict values to locations that do not have data. By default, it predicts the values based on data observations that are nearest to the given NoData-pixel:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -5433,7 +5431,7 @@ Shape - Upscaled: (7202, 7202)
 <img alt="../../../_images/928a026a0a5f2adbb9d30966d43a2149ec411f933ed17106304d4098bda1eb56.png" src="../../../_images/928a026a0a5f2adbb9d30966d43a2149ec411f933ed17106304d4098bda1eb56.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.24.</strong> Filled NoData values predicted based on nearest observations.</em></p>
+<p><em><strong>Figure 7.25.</strong> Filled NoData values predicted based on nearest observations.</em></p>
 <p>As a result, the missing pixels were interpolated based on the nearest observation and we have a quite nicely looking map as a result. However, it is good to remember that whenever filling data like this, you are ultimately predicting values to unknown locations and this process includes some level of uncertainty. Thus, it is important to evaluate carefully the correctness of the output and possibly cross check the prediction against other information if possible.</p>
 <p>The interpolation can be done with three different approaches, <code class="docutils literal notranslate"><span class="pre">&quot;nearest&quot;</span></code> (default), <code class="docutils literal notranslate"><span class="pre">&quot;linear&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;cubic&quot;</span></code>, which are the methods supported by <code class="docutils literal notranslate"><span class="pre">scipy</span></code> library which is used under the hood to conduct the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.griddata.html">interpolation</a><a class="footnote-reference brackets" href="#scipy-interpolation" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Out of these, the <code class="docutils literal notranslate"><span class="pre">nearest</span></code> is the fastest option which is used by default. However, the <code class="docutils literal notranslate"><span class="pre">&quot;linear&quot;</span></code> method can produce more accurate results, although it is much slower to compute because the <code class="docutils literal notranslate"><span class="pre">linear</span></code> method uses a more sophisticated method (<em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Delanay-Triangulation"><span class="xref std std-term">Delanay triangulation</span></a></em>) to predict the value to a given cell based on the input data. To interpolate with <code class="docutils literal notranslate"><span class="pre">linear</span></code> method, you should use the <code class="docutils literal notranslate"><span class="pre">method</span></code> parameter to specify the interpolation approach:</p>
 <div class="cell docutils container">
@@ -5454,7 +5452,7 @@ Shape - Upscaled: (7202, 7202)
 <img alt="../../../_images/c817586b3a132da85312d149ef3b9b87b58a47169d4e2b5224b297e19819788a.png" src="../../../_images/c817586b3a132da85312d149ef3b9b87b58a47169d4e2b5224b297e19819788a.png" />
 </div>
 </div>
-<p><em><strong>Figure 7.25.</strong> Filled NoData values predicted based on linear interpolation.</em></p>
+<p><em><strong>Figure 7.26.</strong> Filled NoData values predicted based on linear interpolation.</em></p>
 <p>As we can see, the result based on linear interpolation looks quite different (smoother) compared to the nearest method. In addition, to these there are other approaches to conduct spatial interpolation which we will cover more in Chapter 11.</p>
 </section>
 <section id="footnotes">

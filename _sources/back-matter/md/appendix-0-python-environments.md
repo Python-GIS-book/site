@@ -5,14 +5,14 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.16.7
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
-# A.1 Tips for maintaining Python environments 
+# Tips for maintaining Python environments 
 
 
 Here we present some useful tips for maintaining and/or updating Python environments. Note that we introduced how to install Python and to create the Python environment for this book in {doc}`Chapter 1.7 </part1/chapter-01/nb/06-installation>`.

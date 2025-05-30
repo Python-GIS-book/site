@@ -227,7 +227,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -237,17 +237,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nb/04-map-algebra.html">7.5 Map algebra</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
@@ -478,19 +476,24 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hot-and-cold-spots">Hot and cold spots</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hillshade">Hillshade</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing-and-focal-statistics">Smoothing and focal statistics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reclassification">Reclassification</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-operations">Local operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-operations">Local operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-classification">Data classification</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-operations">Global operations</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-summaries">Statistical summaries</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewshed">Viewshed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewshed-analysis">Viewshed analysis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-operations">Zonal operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-operations">Zonal operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-with-raster-zones">Zonal statistics with raster zones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-with-vector-zones">Zonal statistics with vector zones</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-operations">Incremental operations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-cost-path-calculation-based-on-raster-surface">Least-cost path calculation based on raster surface</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-accumulation">Flow accumulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-cost-path-calculation-based-on-a-raster-cost-surface">Least-cost path calculation based on a raster cost surface</a></li>
 </ul>
 </li>
 </ul>
@@ -506,7 +509,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="map-algebra">
 <h1>Map algebra<a class="headerlink" href="#map-algebra" title="Link to this heading">#</a></h1>
-<p>Map algebra is often used as an umbrella term for conducting various mathematical and logical operations, as well as spatial analysis operations, based on raster data. These techniques were first developed by Dana Tomlin in the 1970’s (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id24" title="C. Dana Tomlin. Geographic information systems and cartographic modeling. Prentice Hall, 1990. ISBN 978-0-13-350927-4.">Tomlin, 1990</a></span>) and they have since then been a fundamental part of raster data analysis in GIS. Map algebra provides a set of operators that can be applied to a single or multiple raster layers to produce a new raster layer. For instance, you can do basic mathematical calculations (multiply, sum, divide, etc.) between multiple raster layers that are central operations for map overlay analysis, or conduct mathematical operations on a single raster to compute values based on a given neighborhood. The latter can be used e.g. to detect hot spots based on the pixel values, in which high values are surrounded by other high values. Map algebra is widely used in terrain analysis, land suitability modeling, hydrological modeling, and environmental assessments. By integrating spatial data with mathematical functions, it enables powerful spatial decision-making.</p>
+<p>Map algebra is often used as an umbrella term for conducting various mathematical and logical operations, as well as spatial analysis operations, based on raster data. These techniques were first developed by Dana Tomlin in the 1970’s (<span id="id1"><a class="reference internal" href="../../../back-matter/nb/references.html#id25" title="C. Dana Tomlin. Geographic information systems and cartographic modeling. Prentice Hall, 1990. ISBN 978-0-13-350927-4.">Tomlin, 1990</a></span>) and they have since then been a fundamental part of raster data analysis in GIS. Map algebra provides a set of operators that can be applied to a single or multiple raster layers to produce a new raster layer. For instance, you can do basic mathematical calculations (multiply, sum, divide, etc.) between multiple raster layers that are central operations for map overlay analysis, or conduct mathematical operations on a single raster to compute values based on a given neighborhood. The latter can be used e.g. to detect hot spots based on the pixel values, in which high values are surrounded by other high values. Map algebra is widely used in terrain analysis, land suitability modeling, hydrological modeling, and environmental assessments. By integrating spatial data with mathematical functions, it enables powerful spatial decision-making.</p>
 <p>The operations of map algebra can be divided into different categories:</p>
 <ul class="simple">
 <li><p><strong>Focal operations</strong> compute values based on a specified neighborhood (e.g. 3x3 window) on a given raster layer.</p></li>
@@ -515,10 +518,16 @@ document.write(`
 <li><p><strong>Zonal operations</strong> analyze values within defined zones, such as calculating average elevation within a watershed.</p></li>
 <li><p><strong>Incremental operations</strong> apply iterative calculations or cumulative functions over space or time (e.g. cumulative cost surfaces).</p></li>
 </ul>
-<p>There are various Python libraries that can be used for map algebra. Here, we are focusing on <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> and <code class="docutils literal notranslate"><span class="pre">rasterstats</span></code> libraries that provide numerous useful functionalities to conduct focal, local, global, zonal and incremental operations using raster data. In the following, we will apply map algebra to Digital Elevation Model (DEM) raster data obtained from Eastern Finland to gain knowledge of the topography in this area. In addition, we will learn how it is possible to conduct suitability analysis to find an optimal location to build a new summer house based on specific criteria, and how to conduct path finding on raster data to find least-cost route between two locations across the raster cost surface.</p>
+<p>There are various Python libraries that can be used for map algebra. Here, we are focusing on <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> and <code class="docutils literal notranslate"><span class="pre">xvec</span></code> libraries that provide numerous useful functionalities to conduct focal, local, global, zonal and incremental operations using raster data. In the following, we will apply map algebra to Digital Elevation Model (DEM) raster data obtained from Eastern Finland to gain knowledge of the topography in this area. In addition, we will learn how it is possible to conduct suitability analysis to find an optimal location to build a new summer house based on specific criteria, and how to conduct path finding on raster data to find least-cost route between two locations across the raster cost surface.</p>
+<!-- #region -->
 <section id="focal-operations">
 <h2>Focal operations<a class="headerlink" href="#focal-operations" title="Link to this heading">#</a></h2>
-<p>A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood.</p>
+<p>A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood. Figure 7.29 shows an example of a <em>focal sum</em> that is summing the input layer values to produce the pixel value in the output layer based on 3x3 window. For instance at the highlighted position (circled) on the right, the pixel will get a value 50 after summing the center pixel and the surrounding pixels in the input layer (left). In a similar manner, the 3x3 moving window is applied to all pixels in the images which creates the output raster seen on the right. Do you notice how the values at the edges of the output layer tend to be smaller? This happens because at the edges of the raster the 3x3 moving window moves “outside” of the raster area and thus has fewer input pixels that can be taken into account when doing the calculation. This kind of <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Edge-effect"><span class="xref std std-term">edge effect</span></a></em> is very typical when working with geographic data and you can deal with the issue by ensuring that the input data covers a bit of extra buffer (i.e. additional pixels) around the area of interest where you conduct the analysis.</p>
+<p>In addition to sum operation, you can apply any mathematical operator to calculate the pixel values, such as <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">std</span></code>. Focal operations can be used also to conduct more complex calculations, such as doing edge detection or determining the slope of a terrain which we will learn next.</p>
+<p><img alt="_Figure 7.29. Focal operation based on 3x3 window that considers the neighboring cells to all directions to define the cell value in the output raster._In this case, the output value is a sum of all input pixels" src="../../../_images/focal-sum.png" />
+<em><strong>Figure 7.29.</strong> Focal operation based on 3x3 window that considers the neighboring cells to all directions to define the cell value in the output raster. In this case, the output value is a sum of all input pixels.</em></p>
+<!-- #endregion -->
+<p>Now as we have learned the basic idea of focal operation, we can move forward to see how we can take advantage of different kind of focal operations to extract relevant information about the landscape (terrain) that can help us to find a suitable place to build a new summer house. Let’s start by reading the Digital Elevation Model from a NetCDF file using <code class="docutils literal notranslate"><span class="pre">xarray</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">xrspatial</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -528,6 +537,7 @@ document.write(`
 <span class="n">data</span>
 </pre></div>
 </div>
+<p>The dimensions of our data is 400x400 pixels and there is one data variable (<code class="docutils literal notranslate"><span class="pre">elevation</span></code>) that we can use to calculate various topography related indicators. Let’s first plot our data with contour lines to get a sense of how the landscape looks like in Eastern Finland close to Tuupovaara:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the elevation values and contours</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
@@ -538,58 +548,91 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation in Tuupovaara, Finland&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Elevation surface with contour lines.</em></p>
+<p><em><strong>Figure 7.30.</strong> Elevation surface with contour lines.</em></p>
 <section id="slope">
 <h3>Slope<a class="headerlink" href="#slope" title="Link to this heading">#</a></h3>
+<p>One of the most useful ways to characterize and get a sense of a given landscape or terrain is to calculate <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Slope"><span class="xref std std-term">slope</span></a></em>. Slope is a measure of the steepness or incline of the terrain which represents the rate of change in elevation over distance and is typically expressed in degrees or percent. Calculating slope can be done easily using the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library’s <code class="docutils literal notranslate"><span class="pre">.slope()</span></code> function that takes the <code class="docutils literal notranslate"><span class="pre">elevation</span></code> values as input:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate slope</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">slope</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">])</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 </pre></div>
 </div>
+<p>As output, we have an array where the slope for given pixel is represented in degrees. Slope is a focal operation that is calculated based on a moving window which is the reason that there are some <code class="docutils literal notranslate"><span class="pre">None</span></code> values as well at the edges of the array (i.e. the edge effect is present here). Let’s finally visualize the slope to see how the steepness of the terrain varies in our study region:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Slope (degrees)&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Slope in degrees calculated from the elevation data.</em></p>
+<p><em><strong>Figure 7.31.</strong> Slope in degrees calculated from the elevation data.</em></p>
+<p>As we can see the western areas of the terrain include steep slopes highlighted with dark green color, while the central and eastern areas are more flat which are indicated with lighter tones.</p>
 </section>
 <section id="aspect">
 <h3>Aspect<a class="headerlink" href="#aspect" title="Link to this heading">#</a></h3>
+<p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Aspect"><span class="xref std std-term">Aspect</span></a></em> shows the direction that a slope faces. It is measured in degrees from 0° (North) to 360°, and it helps to determine e.g. sunlight exposure, vegetation patterns, and microclimate conditions. Aspect can only be determined for areas that have some level of slope, i.e. flat areas that do not have any degree of change in elevation cannot have aspect either. To calculate aspect, we can use the <code class="docutils literal notranslate"><span class="pre">.aspect()</span></code> function of <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> that takes the elevation data as input:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate aspect</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">aspect</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">])</span>
+
 <span class="c1"># Filter values that are below 0 (areas without aspect defined)</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspect&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;jet&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Aspect (degree between 0-360)</span><span class="se">\n</span><span class="s2">0 faces North&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Aspect surface shows the direction of the slope in degrees.</em></p>
+<p><em><strong>Figure 7.32.</strong> Aspect surface shows the direction of the slope in degrees.</em></p>
+<p>In the code above, we filtered out values that were below 0 as those indicate flat areas in the terrain (having value -1). The rather wild and colorful map that was produced based on the aspect values shows the direction of the slope for every pixel in the raster where the dark blue and red tones face North. To be more specific, the values can be decoded into different directions approximately as follows (following clockwise direction starting from the North):</p>
+<ul class="simple">
+<li><p>Values from 0 to 22.5 = North</p></li>
+<li><p>Values from 22.5 to 67.5 = Northeast</p></li>
+<li><p>Values from 67.5 to 112.5 = East</p></li>
+<li><p>Values from 112.5 to 157.5 = Southeast</p></li>
+<li><p>Values from 157.5 to 202.5 = South</p></li>
+<li><p>Values from 202.5 to 247.5 = West</p></li>
+<li><p>Values from 247.5 to 292.5 = Northwest</p></li>
+<li><p>Values from 337.5 to 360 = North</p></li>
+</ul>
 </section>
 <section id="curvature">
 <h3>Curvature<a class="headerlink" href="#curvature" title="Link to this heading">#</a></h3>
+<p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Curvature"><span class="xref std std-term">Curvature</span></a></em> describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means that the surface is curving up (upwardly convex) at a given cell while negative curvature means that the surface is curving down (downwardly convex). A curvature of 0 means that the surface is straight (constant) in whatever angle it is sloped towards. Similarly as with the slope and aspect, we can calculate the curvature based on the elevation values using the <code class="docutils literal notranslate"><span class="pre">.curvature()</span></code> function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;curvature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">curvature</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">])</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;curvature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Curvature&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Curvature describes the rate of change in the slope.</em></p>
-<p>Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell. A curvature of 0 means the surface is straight and constant in whatever angle it is sloped towards.</p>
+<p><em><strong>Figure 7.33.</strong> Curvature describes the rate of change in the slope.</em></p>
+<p>The map reveals that vast majority of the surface in our study area is straight having value of 0. However, few places can be spotted at the central and western parts of the region that show surfaces curwing upwards (red color) and downwards (blue color). These places tend to be located close to the areas with highest elevation values in this specific region.</p>
 </section>
 <section id="hot-and-cold-spots">
 <h3>Hot and cold spots<a class="headerlink" href="#hot-and-cold-spots" title="Link to this heading">#</a></h3>
-<p>Hot and cold spots identify statistically significant hot spots and cold spots in an input raster. To be a statistically significant hot spot, a feature will have a high value and be surrounded by other features with high values as well. Thus, it is a similar measure to local spatial autocorrelation (LISA) although hot/cold spot analysis focuses on identifying only high-high and low-low areas, where as LISA also identify outliers (high values surrounded by low values).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;hot_cold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">focal</span><span class="o">.</span><span class="n">hotspots</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">kernel</span><span class="p">)</span>
+<p>Hot and cold spots identify statistically significant hot spots and cold spots in an input raster. A statistically significant hot spot means that a given pixel has a high value and is surrounded by other high values. Thus, it is a similar measure to local spatial autocorrelation (LISA) although hot/cold spot analysis focuses on identifying only high-high and low-low areas, where as LISA also identify outliers (high values surrounded by low values). To identify hot and cold spots, we can use the <code class="docutils literal notranslate"><span class="pre">.hotspots()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> that identifies hot and cold spots with varying degrees of confidence (90 %, 95 % and 99 %). To identify the hot spots, we also need to define the neighborhood (i.e. similar to moving window), that is used to compare values between the given pixel and its surrounding. We can do this by defining a <code class="docutils literal notranslate"><span class="pre">kernel</span></code> that can take different shapes, such as circle, annulus (ring-shaped) or a custom kernel. Here, we use a circle kernel with a size of five pixels (radius) and initialize it by using the <code class="docutils literal notranslate"><span class="pre">.convolution.circle_kernel()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kernel size</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Generate a kernel</span>
+<span class="c1"># The first two parameters with value 1 define the cell size</span>
+<span class="c1"># of output kernel in x and y direction</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">circle_kernel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+
+
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;hot_cold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">focal</span><span class="o">.</span><span class="n">hotspots</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">kernel</span><span class="p">)</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;hot_cold&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu_r&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Identified hot and cold spots based the elevation&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Identified hot and cold spots based on the elevation&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Hot spots are clusters with high values surrounded by other high values.</em></p>
+<p><em><strong>Figure 7.34.</strong> Hot spots are clusters with high values surrounded by other high values.</em></p>
+<p>The output map reveals that the statistically significant hot spots are located dominantly on the West and Northwest areas of the study region having areas with high elevation values while statistically significant cold spot areas are located on the Southwest.</p>
 </section>
 <section id="hillshade">
 <h3>Hillshade<a class="headerlink" href="#hillshade" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">hillshade</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">])</span>
-<span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">)</span>
+<p><em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Hillshade"><span class="xref std std-term">Hillshade</span></a></em> is a visualization technique to create a 3D like (2.5D) map based on elevation data. This kind of shaded relief image simulates how the shadows are thrown upon a relief map and creates an image that resembles of how the terrain would look like from an airplane at specific time of day. The shadow is generated by blending colors related to the elevation considering the position of the sun, such as 225 degrees of azimuth (direction) and using 25 degrees altitude (angle) over the horizon. We can create and visualize a hillshade easiliy using the <code class="docutils literal notranslate"><span class="pre">.hillshade()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library that calculates an illumination value for each cell based on illumination from a specific azimuth and altitude as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">hillshade</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">azimuth</span><span class="o">=</span><span class="mi">225</span><span class="p">,</span> <span class="n">angle_altitude</span><span class="o">=</span><span class="mi">25</span>
+<span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Grays&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Hillshade is a shaded relief based on the surface raster considering the illumination source angle and shadows.</em></p>
+<p><em><strong>Figure 7.35.</strong> Hillshade is a shaded relief based on the surface raster considering the illumination source angle and shadows.</em></p>
+<p>From the result we can clearly see how the peaks and valleys are located in our study area. Hillshade enhances the perception of elevation and landform features in maps, helping users to better understand the terrain structure and geography.</p>
+<p>It is also possible to create a more realistic looking hillshade by blending a different color scheme on top of the hillshade. In the following, we show how to use <code class="docutils literal notranslate"><span class="pre">terrain</span></code> colormap for producing the hillshade using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> functionalities. Here, we use <code class="docutils literal notranslate"><span class="pre">LightSource</span></code> that enables to create the hillshade using the <code class="docutils literal notranslate"><span class="pre">.shade()</span></code> function which enables to blend the colors in different ways:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate relative height</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;relative_height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 </pre></div>
@@ -601,10 +644,10 @@ document.write(`
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
-<span class="c1"># Specify the colormap to use</span>
+<span class="c1"># The colormap to use</span>
 <span class="n">colormap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">terrain</span>
 
-<span class="c1"># Specify the light source</span>
+<span class="c1"># Specifying the light source (azimuth and altitude)</span>
 <span class="n">ls</span> <span class="o">=</span> <span class="n">LightSource</span><span class="p">(</span><span class="n">azdeg</span><span class="o">=</span><span class="mi">225</span><span class="p">,</span> <span class="n">altdeg</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
 
 <span class="c1"># Convert DataArray into numpy array</span>
@@ -613,23 +656,25 @@ document.write(`
 <span class="c1"># Normalize elevation for color mapping</span>
 <span class="n">norm</span> <span class="o">=</span> <span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">array</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
 
-<span class="c1"># Create hillshade based on elevation</span>
+<span class="c1"># Create hillshade</span>
 <span class="n">hillshade</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">shade</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span> <span class="n">vert_exag</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">blend_mode</span><span class="o">=</span><span class="s2">&quot;overlay&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hillshade</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Hillshade with color blending&quot;</span><span class="p">)</span>
 
 <span class="c1"># Create a ScalarMappable for colorbar</span>
 <span class="n">sm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>
-<span class="n">sm</span><span class="o">.</span><span class="n">set_array</span><span class="p">([])</span>  <span class="c1"># Needed for colorbar creation</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">set_array</span><span class="p">([])</span>
 
 <span class="c1"># Add colorbar</span>
 <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Relative Height (m)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Hillshade with color blending can give a more realistic appearance of the landscape</em></p>
+<p><em><strong>Figure 7.36.</strong> Hillshade with color blending can give a more realistic appearance of the landscape.</em></p>
+<p>The result now resembles more how the terrain might look like in real life. However, to get the most realistic appearance you might need to adjust how the colors are mapped to different heights. For instance, in the current map the areas with lighter blue shades are not exactly aligned with where the water bodies in our study area are truly located but this gives an approximation of the likelyhood of having water present in a given area (i.e. lowest altitudes).</p>
 </section>
 <section id="smoothing-and-focal-statistics">
 <h3>Smoothing and focal statistics<a class="headerlink" href="#smoothing-and-focal-statistics" title="Link to this heading">#</a></h3>
+<p>As a last focal function, we introduce focal statistics that can be used e.g. to smooth the surface. This approach allows you to calculate any kind of statistics over a kernel (moving window) as illustrated earlier in the <strong>Figure 7.XX</strong>. In the following, we will smooth the surface by calculating the <code class="docutils literal notranslate"><span class="pre">mean</span></code> elevation over a kernel (circle) that have a size of <code class="docutils literal notranslate"><span class="pre">15</span></code> pixels. To be able to calculate focal statistics, we first need to define the <code class="docutils literal notranslate"><span class="pre">kernel</span></code> (i.e. neighborhood) which we can do by using the <code class="docutils literal notranslate"><span class="pre">.convolution.circle_kernel()</span></code> function as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kernel size</span>
 <span class="n">k</span> <span class="o">=</span> <span class="mi">15</span>
 
@@ -637,6 +682,7 @@ document.write(`
 <span class="n">kernel</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">circle_kernel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Now as we have the kernel defined, we can calculate the focal statistics by using the function <code class="docutils literal notranslate"><span class="pre">.focal.focal_stats()</span></code> of the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library. As input, the function takes the elevation values, the pre-defined <code class="docutils literal notranslate"><span class="pre">kernel</span></code> as well as the statistics function (here <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>) that we want to apply:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Smoothen the surface</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;smoothed_elevation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">focal</span><span class="o">.</span><span class="n">focal_stats</span><span class="p">(</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stats_funcs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span>
@@ -646,21 +692,30 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Kernel smoothing with kernel size 15&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Smoothed surface based on the average elevation of 15 neighboring cells at each pixel.</em></p>
+<p><em><strong>Figure 7.37.</strong> Smoothed surface based on the average elevation of 15 neighboring cells at each pixel.</em></p>
+<p>As a result we got a smoothed surface where the value for each pixel is based on the average of the neighborhood surrounding the given pixel. This evens out the local variance in the elevation data and highlights the high and low elevation areas. The result looks a bit blurred because we are averaging values across relatively large neighborhood. You can adjust the appearance by using a different kernel size. The larger the kernel, the more the data is smoothed (i.e. generates more blurriness).</p>
 </section>
-<section id="reclassification">
-<h3>Reclassification<a class="headerlink" href="#reclassification" title="Link to this heading">#</a></h3>
-<p>The goal in the following section is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. so think of a scenario where all of these can be utilized. The criteria for finding a suitable place for a summer cottage will be based on following preferences:</p>
+</section>
+<section id="local-operations">
+<h2>Local operations<a class="headerlink" href="#local-operations" title="Link to this heading">#</a></h2>
+<p>Local functions operate between multiple raster layers and apply functions on a cell-by-cell basis between them. Figure 7.38 illustrates a local sum based on two raster layers. When calculating a local sum, the pixel values in matching positions are summed together which generates the output raster layer. In our example, e.g. the pixel values <code class="docutils literal notranslate"><span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">6</span></code> become <code class="docutils literal notranslate"><span class="pre">9</span></code> in the output layer after they are summed. In a similar manner as with focal functions that we demonstrated earlier, you can apply any mathematical function to the data (multiply, divide, etc.). Notice that in case there are NoData values (None) present in either of the input rasters, the pixel value in the output layer will also be None by default.</p>
+<p><img alt="_Figure 7.38. Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer.In this case, the output value is a sum of input pixels." src="../../../_images/local_sum.png" />
+<em><strong>Figure 7.38.</strong> Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer. In this case, the output value is a sum of input pixels.</em></p>
+<section id="data-classification">
+<h3>Data classification<a class="headerlink" href="#data-classification" title="Link to this heading">#</a></h3>
+<p>One special type of local operation often used in map algebra is data classification, also commonly called as reclassification. When reclassifying data you do not conduct calculations between multiple raster layers per se, but you apply a specific classification criteria or a set of rules for each pixel one-by-one that is used to generate the output raster layer. In the following, we will take advantage specific classification schemes, such as natural breaks, to classify our data to distinct classes. You can read more about various data classification methods in Chapter 6.10.</p>
+<p>The goal in the following is to calculate and use different surface features to find a suitable place for building a new summer house. To do this, we will use information for example about elevation, slope and aspect of the terrain. Because the data values of these variables can vary significantly - e.g. elevation between pixels can vary hundreds of meters, while slope varies between 0-90 - it is important to reclassify these values (or normalize) in some way to make them comparable. When the variables are comparable, we can conduct calculations with them and e.g. assign different weights according the importance of specific landscape features. In our case, the criteria for finding a suitable place for a summer cottage will be based on following preferences:</p>
 <ul class="simple">
 <li><p>The higher the elevation, the better</p></li>
 <li><p>Some slope is good but not too steep</p></li>
-<li><p>The ridge should be pointing South (who wouldn’t like more sun on their patio..)</p></li>
+<li><p>The ridge should be pointing South (more sun)</p></li>
 </ul>
+<p>In the following, we will classify our data into five categories using <code class="docutils literal notranslate"><span class="pre">natural</span> <span class="pre">breaks</span></code> classification scheme. The natural breaks classification scheme (also known as Jenks optimization) is a method used to group values into classes based on natural groupings inherent in the data. It minimizes the variance within classes and maximizes the variance between classes. In our case, we will categorize the elevation data into five classes where the highest elevation values are classified into class 5 (best) and the lowest elevation values are in class 1 (worst). To classify the data, we can use the <code class="docutils literal notranslate"><span class="pre">.classify.natural_breaks()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Take 20 % sample to reduce the time it takes to classify</span>
 <span class="n">percentage</span> <span class="o">=</span> <span class="mf">0.2</span>
 
 <span class="c1"># The sample size</span>
-<span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">())</span> <span class="o">*</span> <span class="n">percentage</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="n">percentage</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
 <span class="c1"># Reclassify elevation into 5 classes and add number 1 to the result to make the scale from 1-5</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation_points&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -671,16 +726,27 @@ document.write(`
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation_points&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation categories&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elevation weights&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Elevation categories (k=5) based on natural breaks classification scheme.</em></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="n">new_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-
+<p><em><strong>Figure 7.39.</strong> Elevation categories (k=5) based on natural breaks classification scheme.</em></p>
+<p>As a result, the elevation values of each category (1-5) are now clearly visible in the map showing that the best areas according our criteria are located on the West.</p>
+<p>Next, we will reclassify the slope values in our data again into five classes using natural breaks, but we will weight the values in a way that the lower slope gets higher weight because we cannot build our summer house into a very steep terrain. Thus, the highest slope class gets least weight (1), while two of the lowest slope categories gets highest points (4 and 5), i.e. highest weight according our preferences. In the following, we first use the natural breaks classification to classify the slope values into five categories:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Classify the slope into five categories</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_nb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">xrspatial</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">natural_breaks</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_sample</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_nb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+<p>Next, we want to reclassify the slope categories according to our preference, where the classes with lowest values get the highest points. We can reclassify data according our custom rule by using <code class="docutils literal notranslate"><span class="pre">.classify.reclassify()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library which takes the natural break classes as input data, the <code class="docutils literal notranslate"><span class="pre">bins</span></code> representing the natural breaks classes (1-5) and the <code class="docutils literal notranslate"><span class="pre">new_values</span></code> as a list of values determining how the input data is reclassified (mapped) into the output variable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original values</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+
+<span class="c1"># New values</span>
+<span class="n">new_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Reclassify the data where lower slope gets more points</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_points&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">reclassify</span><span class="p">(</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_nb&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">new_values</span><span class="o">=</span><span class="n">new_values</span>
 <span class="p">)</span>
@@ -688,11 +754,16 @@ document.write(`
 <span class="c1"># Plot</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;slope_points&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Slope categories&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Slope weights&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Slope categories (k=5) based on natural breaks classification scheme.</em></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">360</span><span class="p">]</span>
+<p><em><strong>Figure 7.40.</strong> Slope categories (k=5) based on our custom classification scheme.</em></p>
+<p>As a result, the map shows the best areas with dark green color according our preferences regarding the slope.</p>
+<p>Lastly, we want to reclassify the aspect in a way that the direction of the slope facing South (lot’s of sun) gets the highest points, while the direction facing North (little sun) gets the lowest points. In the following, we apply the <code class="docutils literal notranslate"><span class="pre">.reclassify()</span></code> directly using the <code class="docutils literal notranslate"><span class="pre">aspect</span></code> variable as input data. By determining the <code class="docutils literal notranslate"><span class="pre">bins</span></code> and <code class="docutils literal notranslate"><span class="pre">new_values</span></code>, we reclassify the data according our preferences:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original values (aspect)</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">360</span><span class="p">]</span>
+
+<span class="c1"># Weights given for given aspect category</span>
 <span class="n">new_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># Classify</span>
@@ -706,12 +777,12 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Aspect categories based on custom classifier&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Aspect categories based on a custom a custom classification scheme.</em></p>
-</section>
-</section>
-<section id="local-operations">
-<h2>Local operations<a class="headerlink" href="#local-operations" title="Link to this heading">#</a></h2>
-<p>A local function operates .. Chapter 7.6 includes many more examples of using local operations related to working with multiband satellite data and geospatial timeseries data spanning multiple years.</p>
+<p><em><strong>Figure 7.41.</strong> Aspect categories based on a custom a custom classification scheme.</em></p>
+<p>Now the South-facing areas are highlighted with red colors which are according our preferences. At this point, we have calculated various variables that are all stored in the same <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+<p>Now we can use some of these variables and do a local operation in which we use the weights of our three variables of preference (elevation, slope and aspect) to calculate a suitability index that informs us about the best possible places to build a new summer house. At this stage, we can still determine that we want to give more weight to one of these variables, the aspect, as we really would like to find a place where the sun is nicely visible most of the day. To do this, we can specify that the aspect is the most important feature in our decision making getting 60 % of the total weight of these input features, while elevation and slope both receive 20 % of the weight. To calculate the suitability index, we can conduct a simple mathematical calculation (a local operation) where the points for each landscape feature are multiplied according our weighting scheme and then summed together as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the suitability index by weighting the &quot;points&quot; given for different layers</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;suitability_index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation_points&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span>
@@ -724,31 +795,44 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Suitability index&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Suitability index calculated based on elevation, aspect and slope.</em></p>
+<p><em><strong>Figure 7.42.</strong> Suitability index calculated based on elevation, aspect and slope.</em></p>
+<p>Nice! Now we have a map that shows the most suitable areas to build or buy a summer house in the region, highlighted with red color. This was a simple example showing how map algebra (focal and local operations) can be used to help in practical decision making. In a similar manner, it is easy to change the weighting scheme how the importance of different factors are considered and how a single landscape feature is weighted in the final model.</p>
+</section>
 </section>
 <section id="global-operations">
 <h2>Global operations<a class="headerlink" href="#global-operations" title="Link to this heading">#</a></h2>
-<p>In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. They are essential for modeling cumulative effects, spatial dependencies, and large-scale patterns in fields like hydrology, transportation, and environmental science.</p>
+<p>In map algebra, global functions are operations where the output value of each cell depends on the entire dataset or a large spatial extent, not just local neighbors. These functions are used to analyze patterns, relationships, and spatial influences across the whole raster. Global functions are often used to calculate statistical summaries of the data, e.g. maximum or average elevation in the whole region, or to conduct a viewshed analysis that shows how different areas in the region are visible from a given location.</p>
 <section id="statistical-summaries">
 <h3>Statistical summaries<a class="headerlink" href="#statistical-summaries" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<p>Calculating statistical summaries based on all the values in a given raster is one of the most typical global operations in map algebra and typically one of the first explorative steps that you want to do when working with new data. We can easily calculate statistical summaries, such as minimum, maximum, mean, median or standard deviation based on the input data as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">minimum</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum elevation in the data: </span><span class="si">{</span><span class="n">minimum</span><span class="si">}</span><span class="s2"> meters.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">maximum</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum elevation in the data: </span><span class="si">{</span><span class="n">maximum</span><span class="si">}</span><span class="s2"> meters.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mean</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean elevation in the data: </span><span class="si">{</span><span class="n">mean</span><span class="si">}</span><span class="s2"> meters.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">median</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Median elevation in the data: </span><span class="si">{</span><span class="n">median</span><span class="si">}</span><span class="s2"> meters.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">standard_deviation</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Standard deviation of the elevation: </span><span class="si">{</span><span class="n">standard_deviation</span><span class="si">}</span><span class="s2"> meters.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Calculating these kind of summaries of the data are extremely useful to describe the data and get a basic understanding of it. Statistical summaries (in addition to visualizations) can reveal e.g. if there are something weird happening in the data, such as if there are any extreme outliers.</p>
 </section>
-<section id="viewshed">
-<h3>Viewshed<a class="headerlink" href="#viewshed" title="Link to this heading">#</a></h3>
+<section id="viewshed-analysis">
+<h3>Viewshed analysis<a class="headerlink" href="#viewshed-analysis" title="Link to this heading">#</a></h3>
+<p>Viewshed analysis is another map algebra technique (a global operation) which can be used to identify areas of a landscape that are visible from a specific location considering the surrounding terrain. Viewshed can be calculated based on the elevation data by selecting one or more observer points from where the visibility is analyzed based on the line of sight between the observer and every other cell in the raster (Figure 7.43). If the terrain obstructs the view (e.g. mountains block the view), the cell is marked as not visible from the given observation point, and if not, the cell is visible. Viewshed analysis is relevant technique for various application areas, such as landscape assessment and telecommunications planning related to finding suitable places to place antennas.</p>
+<p><img alt="Figure 7.43. Viewshed is calculated from the given observer location based on line of sight (dashed lines)." src="../../../_images/viewshed-analysis.png" /></p>
+<p><em><strong>Figure 7.43.</strong> Viewshed is calculated from the given observer location based on line of sight (dashed lines).</em></p>
+<p>We can easily calculate a viewshed based on the elevation data using the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library. First, we need to define the observer location. Here, we use the center point of our raster as the observer point. To find the centroid of the raster, we can take advantage the <code class="docutils literal notranslate"><span class="pre">.rio.bounds()</span></code> function which returns the extent of the raster and then convert these coordinates into a <code class="docutils literal notranslate"><span class="pre">shapely</span></code> Polygon using the <code class="docutils literal notranslate"><span class="pre">box()</span></code> function. After this, we can easily extract the centroid and its coordinates as well as make a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> out of the centroid:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span><span class="p">,</span> <span class="n">Point</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 
@@ -761,6 +845,7 @@ document.write(`
 <span class="n">observer_location</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">xcoord</span><span class="p">,</span> <span class="n">ycoord</span><span class="p">)],</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Now we have defined the location of the observer for our analysis but we still need to define elevation from where the observer is looking the landscape. To do this, we first need to find out what is the elevation of the terrain at the location where our observer is standing. We can do this by using the <code class="docutils literal notranslate"><span class="pre">.interp()</span></code> function that returns the value of the pixel based on given x and y coordinates:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Elevation at a given point</span>
 <span class="n">elevation</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xcoord</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ycoord</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elevation in the location of observer:&quot;</span><span class="p">,</span> <span class="n">elevation</span><span class="p">,</span> <span class="s2">&quot;meters.&quot;</span><span class="p">)</span>
@@ -776,7 +861,8 @@ document.write(`
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<p>Now we have calculated the viewshed based on the observer location and elevation. Let’s finally plot the results, so that we can understand how the visibility from this location looks like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
 <span class="c1"># Plot hillshade that was calculated earlier</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">)</span>
@@ -794,18 +880,95 @@ document.write(`
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Visible areas from the observer location&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Visible areas from the observer location based on the viewshed analysis.</em></p>
+<p><em><strong>Figure 7.44.</strong> Visible areas from the observer location based on the viewshed analysis.</em></p>
+<p>The resulting viewshed map shows the areas with red color that are visible from the given observer location. We can see how the visibility seem to be better towards the South from this given location which indicates that there are steep hills facing the observer location directly towards the North at this location which blocks the view in that direction.</p>
 </section>
 </section>
 <section id="zonal-operations">
 <h2>Zonal operations<a class="headerlink" href="#zonal-operations" title="Link to this heading">#</a></h2>
-<p>To be added.</p>
+<p>Zonal operation (also commonly called as zonal statistic) is a commonly used technique to summarize the values of a raster within specified zones. The zones represent areas of interest and can be defined by either a raster layer or a vector polygon layer. The fundamental goal of zonal operations is to extract statistical or categorical information about the input value layer. When the zone layer is a raster, each cell value represents a distinct zone ID, and all cells with the same value belong to the same zone (as in Figure 7.45). The zone layer can also be presented in vector format as polygons, in which each polygon defines the area that serves as an individual zone. When using vector data as the zone layer, it is internally converted into a raster format (i.e. rasterized) that aligns with the input value raster in terms of resolution and alignment. Regardless of the format of the zone layer, the analysis aggregates the values of the input raster within the spatial boundaries of each zone. Similarly as with other map algebra operations, you can calculate the mean, sum, minimum, maximum, range, or majority of raster values within each zone. As an output, you typically get the statistics out for each zone as an array or table of aggregated statistics (or a Python dictionary depending on the tool you use). Alternatively, you can also get the output as a raster layer in which each cell under a given zone gets the statistical summary (e.g. mean) as an output value (as in Figure 7.45).</p>
+<p><img alt="Figure 7.45. Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone." src="../../../_images/zonal_average.png" /></p>
+<p><em><strong>Figure 7.45.</strong> Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone.</em></p>
+<section id="zonal-statistics-with-raster-zones">
+<h3>Zonal statistics with raster zones<a class="headerlink" href="#zonal-statistics-with-raster-zones" title="Link to this heading">#</a></h3>
+<p>Let’s start by seeing how we can do a zonal operation using a raster layer as the zones. In the following, we will use the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library to conduct the zonal statistics and continue using the same elevation data from Eastern Finland as our value layer. We have prepared a raster layer that corresponds with the elevation data in terms of resolution, extent and alignment which we can use for defining the zones. We can read this zones layer from the NetCDF file as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zones_fp</span> <span class="o">=</span> <span class="s2">&quot;data/temp/raster_zones.nc&quot;</span>
+<span class="n">raster_zones</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">zones_fp</span><span class="p">,</span> <span class="n">decode_coords</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">raster_zones</span>
+</pre></div>
+</div>
+<p>As we can see, the <code class="docutils literal notranslate"><span class="pre">raster_zones</span></code> layer has identical dimensions to our elevation data (i.e. 400x400) and contains one data variable called <code class="docutils literal notranslate"><span class="pre">zone_id</span></code> which contains the zone-ids for each zone. Let’s investigate how many zones we have by extracting the unique values of the <code class="docutils literal notranslate"><span class="pre">zone_id</span></code>. We can easily do this by using the <code class="docutils literal notranslate"><span class="pre">.unique()</span></code> function that comes with the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">raster_zones</span><span class="p">[</span><span class="s2">&quot;zone_id&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>As we can see, there seems to be four zones in our data that have been marked with numbers between 1-4. The values seem to be presented in <code class="docutils literal notranslate"><span class="pre">float</span></code> data type. When doing zonal statistics with <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code>, having floating point numbers should work fine for indicating the zone categories. However, as the documentation of <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> suggests to use integer values as the zone-ids, let’s convert the zone-ids into integers by using the <code class="docutils literal notranslate"><span class="pre">.astype()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raster_zones</span><span class="p">[</span><span class="s2">&quot;zone_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">raster_zones</span><span class="p">[</span><span class="s2">&quot;zone_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">raster_zones</span><span class="p">[</span><span class="s2">&quot;zone_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+<p>Before conducting a zonal operation between the rasters, it is important to ensure that the coordinate reference system (CRS) is the same for both layers. Let’s check the CRS using the <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> functionalities that we learned in Chapter 7.4:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raster_zones</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_wkt</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_wkt</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Great, it seems that the two raster layers share the same projection which means that we can continue calculating the zonal statistics. Let’s first visualize the zones and value layer so that we understand how the zones are distributed in relation to the elevation data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">raster_zones</span><span class="p">[</span><span class="s2">&quot;zone_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Zone layer&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Value layer&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 7.46.</strong> The zone layer and the elevation data that is used as value layer when calculating zonal statistics.</em></p>
+<p>As we can see, our zone layer contains four values (1, 2, 3, 4) which are distributed in a way that they form simple quadrants. Thus, in our analysis we can analyze which of the zones (quadrant) has e.g. highest mean elevation. To calculate zonal statistics, we can use the <code class="docutils literal notranslate"><span class="pre">.zonal_stats()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library which can be used to calculate zonal statistics between two raster layers. The function requires the <code class="docutils literal notranslate"><span class="pre">zones</span></code> as a first parameter which will take our <code class="docutils literal notranslate"><span class="pre">&quot;zone_id&quot;</span></code> variable of the <code class="docutils literal notranslate"><span class="pre">raster_zones</span></code> Dataset as input, while for the <code class="docutils literal notranslate"><span class="pre">values</span></code> parameter we pass the <code class="docutils literal notranslate"><span class="pre">&quot;elevation&quot;</span></code> variable from the <code class="docutils literal notranslate"><span class="pre">data</span></code> value layer. With <code class="docutils literal notranslate"><span class="pre">stats_funcs</span></code> parameter, we can specify which statistics we want to calculate. In the following, we will calculate all basic summary statistics for the zones:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">zonal_stats</span><span class="p">(</span>
+    <span class="n">zones</span><span class="o">=</span><span class="n">raster_zones</span><span class="p">[</span><span class="s2">&quot;zone_id&quot;</span><span class="p">],</span>
+    <span class="n">values</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span>
+    <span class="n">stats_funcs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;std&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">results</span>
+</pre></div>
+</div>
+<p>As output, the <code class="docutils literal notranslate"><span class="pre">.zonal_stats()</span></code> returns a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> that contains the statistics for each zone. From here we can see that the zone number <code class="docutils literal notranslate"><span class="pre">1</span></code> seems to have the highest average elevation while the highest peak is located under the zone <code class="docutils literal notranslate"><span class="pre">3</span></code> (2294 meters). Interestingly also the lowest elevation is found from zone 3, meaning that there is a lot of variance in elevations under this zone which is also confirmed by looking at the standard deviation which is highest at this quadrant (176 meters).</p>
+<p>It is also possible to return the zonal statistics as a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> which we can use to visualize the results of the zonal statistics as a map. We can e.g. calculate the average elevation of each zone and specify with <code class="docutils literal notranslate"><span class="pre">return_type=&quot;xarray.DataArray&quot;</span></code> parameter to return the result as a raster which we can visualize:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results_array</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">zonal_stats</span><span class="p">(</span>
+    <span class="n">zones</span><span class="o">=</span><span class="n">raster_zones</span><span class="p">[</span><span class="s2">&quot;zone_id&quot;</span><span class="p">],</span>
+    <span class="n">values</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span>
+    <span class="n">stats_funcs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">],</span>
+    <span class="n">return_type</span><span class="o">=</span><span class="s2">&quot;xarray.DataArray&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">results_array</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+<p>As we can see, now the average elevation is returned for each pixel under a specific zone (i.e. similar output as in <strong>Figure 7.XX</strong>). We can now visualize the result easily using the standard plotting functionalities of <code class="docutils literal notranslate"><span class="pre">xarray</span></code>. In the following, we plot the result from the zonal statistics as a map and also add the contour lines of the original elevations on top of the raster:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">results_array</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Reds&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu_r&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Mean elevation per quadrant with contour lines&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em><strong>Figure 7.47.</strong> The result of the zonal statistics visualized as a map including also the contour lines representing the elevations.</em></p>
+<p>The result reveals that the top-left quadrant (zone 1) has the highest average elevation whereas the bottom-right corner has the lowest average elevation. This is also confirmed by the contour lines as there exists many high peaks under zone 1 and not many low-elevation areas (which are visualized with blue contour lines). The map also confirms our previous finding that the bottom-left zone (i.e. zone 3) has a lot of variance in the elevations as there are both high peaks as well as areas with low elevations under this zone.</p>
+</section>
+<section id="zonal-statistics-with-vector-zones">
+<h3>Zonal statistics with vector zones<a class="headerlink" href="#zonal-statistics-with-vector-zones" title="Link to this heading">#</a></h3>
+<p>Another commonly used approach to conduct zonal statistics is to use vector data (polygons) for defining the zones. In the following, we will use <code class="docutils literal notranslate"><span class="pre">xvec</span></code> library to conduct the zonal statistics between the vector (zones) and raster layer. As an example, we focus on specific area in our study region and investigate what is the elevation difference between one of the lakes present in this area (lake <em>Riuttanen</em>) and one of the peaks next to it (<em>Riuttavaara</em>).</p>
+<p>To do the zonal operation, we first download data from OpenStreetMap to represent our areas of interest. In the following, we will fetch OSM data using <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> library that is a handy tool to download all sorts of vector data from OpenStreetMap into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> (more details about <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> is presented in Chapter 9). We can search and download the data for the lake using its name which we pass to the <code class="docutils literal notranslate"><span class="pre">.geocode_to_gdf()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">osmnx</span></code>. For the peak Riuttavaara, we need to specify the exact OSM node-id (which can be found by exploring the openstreetmap.org website) because there are multiple peaks and localities in Finland having this same name. As the peak is returned as a <code class="docutils literal notranslate"><span class="pre">Point</span></code> object, we also need to create a small polygon buffer (200 meters) around the peak to be able to use it as a zone in our analysis:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Fetch lake &quot;Riuttanen&quot; from OSM</span>
 <span class="n">lake</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocode_to_gdf</span><span class="p">(</span><span class="s2">&quot;Riuttanen, Joensuu&quot;</span><span class="p">)</span>
-<span class="n">lake</span> <span class="o">=</span> <span class="n">gdf1</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="n">lake</span> <span class="o">=</span> <span class="n">lake</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
 
 <span class="c1"># Fetch peak Riuttavaara based on OSM Node ID</span>
 <span class="n">peak</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocode_to_gdf</span><span class="p">(</span><span class="s2">&quot;N11034739930&quot;</span><span class="p">,</span> <span class="n">by_osmid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -823,119 +986,145 @@ document.write(`
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Lake and Peak polygons&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> Two zones that are used for comparison and calculating zonal statistics.</em></p>
+<p><em><strong>Figure 7.48.</strong> Two zones that are used for comparison and calculating zonal statistics.</em></p>
+<p>From the map we can see where the lake and peak are located. Now as we have our zones defined, we need to combine them into a single <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which we can do easily using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge zones into a single GeoDataFrame</span>
 <span class="n">zones</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">peak</span><span class="p">,</span> <span class="n">lake</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">zones</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rasterstats</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<p>Now we are ready to conduct the actual zonal operation between our elevation data (raster) and the zones (vector). The <code class="docutils literal notranslate"><span class="pre">xvec</span></code> library is a handy tool to use when you need to interact between vector and raster data. It is designed for representing and working with vector data cubes and interact with <code class="docutils literal notranslate"><span class="pre">xarray</span></code> data structures. The <code class="docutils literal notranslate"><span class="pre">.xvec.zonal_stats()</span></code> function can be used to calculate zonal statistics. As input, we define the zones using the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> parameter which accepts our vector polygons from the <code class="docutils literal notranslate"><span class="pre">.geometry</span></code> column (i.e. <code class="docutils literal notranslate"><span class="pre">GeoSeries</span></code>) as input. The <code class="docutils literal notranslate"><span class="pre">stats</span></code> parameter can be used to define the statistics that we want to calculate (mean, max, etc.). We also need to define the names of the coordinate variables of the <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> that is used as input using the <code class="docutils literal notranslate"><span class="pre">x_coords</span></code> and <code class="docutils literal notranslate"><span class="pre">y_coords</span></code> parameters. The names of the coordinates in your <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> can be easily found via the <code class="docutils literal notranslate"><span class="pre">.coords</span></code> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">coords</span>
+</pre></div>
+</div>
+<p>The last parameter that we specify here for the <code class="docutils literal notranslate"><span class="pre">.xvec.zonal_stats()</span></code> function is <code class="docutils literal notranslate"><span class="pre">all_touched</span></code>. This parameter specifies how the edge-cases are handled when the vector and raster intersect with each other. When conducting a zonal operation between a vector and raster layer, you very likely have situations in which the vector boundary does not perfectly align with the raster cells and the Polygons representing the zones cover only partially the raster pixels. To control how these cases should be handled, you can use the <code class="docutils literal notranslate"><span class="pre">all_touched</span></code> parameter to specify if only such pixels should be considered in the calculation in which the centroid of the pixel lies within the zone Polygon (<code class="docutils literal notranslate"><span class="pre">all_touched=False</span></code>), or if all the pixels that touch the boundary should be considered in the calculation of the zonal statistics (<code class="docutils literal notranslate"><span class="pre">all_touched=True</span></code>). In the following, we will calculate the zonal statistics considering the latter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xvec</span>
 
-<span class="n">elevation_array</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-<span class="n">affine</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
-
-<span class="c1"># Run the zonal statistics</span>
-<span class="n">stats</span> <span class="o">=</span> <span class="n">rasterstats</span><span class="o">.</span><span class="n">zonal_stats</span><span class="p">(</span>
-    <span class="n">zones</span><span class="p">,</span>
-    <span class="n">elevation_array</span><span class="p">,</span>
-    <span class="n">affine</span><span class="o">=</span><span class="n">affine</span><span class="p">,</span>
-    <span class="n">stats</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;std&quot;</span><span class="p">],</span>  <span class="c1"># Statistics to calculate</span>
-    <span class="n">nodata</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">,</span>  <span class="c1"># Handle nodata values</span>
+<span class="n">stats_array</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">xvec</span><span class="o">.</span><span class="n">zonal_stats</span><span class="p">(</span>
+    <span class="n">geometry</span><span class="o">=</span><span class="n">zones</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span>
+    <span class="n">x_coords</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="n">y_coords</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span>
+    <span class="n">stats</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;std&quot;</span><span class="p">],</span>
+    <span class="n">all_touched</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
-
-<span class="n">stats</span>
+<span class="n">stats_array</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+<p>As a result, we get a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> that contains a lot of information. However, the key information are the zonal statistics for each zone (i.e. a row in our <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>) which is presented as the very first thing in the output as a two dimensional <code class="docutils literal notranslate"><span class="pre">array</span></code> in which there are three values (on the first row) that here represent the <code class="docutils literal notranslate"><span class="pre">mean</span></code> (1720.87), <code class="docutils literal notranslate"><span class="pre">max</span></code> (1800.0) and <code class="docutils literal notranslate"><span class="pre">std</span></code> (46.3) of the first feature in our <code class="docutils literal notranslate"><span class="pre">zones</span></code> vector dataset. To make this information a bit easier to read and use, we can also access the calculated statistical values as well as the names of the statistics that we used as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Names of the statistics</span>
+<span class="n">stat_names</span> <span class="o">=</span> <span class="n">stats_array</span><span class="o">.</span><span class="n">zonal_statistics</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Zonal statistics</span>
+<span class="n">stat_values</span> <span class="o">=</span> <span class="n">stats_array</span><span class="o">.</span><span class="n">values</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">stat_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stat_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By using these attributes, we can now easily create a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> out of the results and make a table join with the input <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> to link the calculated zonal statistics with our <code class="docutils literal notranslate"><span class="pre">zones</span></code> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stat_values</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">stat_names</span><span class="p">)</span>
 <span class="n">stats</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zones</span> <span class="o">=</span> <span class="n">zones</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
-<span class="n">zones</span>
+<span class="n">zones</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">6</span><span class="p">:]</span>
 </pre></div>
 </div>
+<p>Perfect! Now we can easily compare these two areas to each other and e.g. calculate the elevation difference between the lake and the peak as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># What is the maximum difference in elevation between peak and lake?</span>
 <span class="n">difference</span> <span class="o">=</span> <span class="n">zones</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">zones</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elevation difference between the peak and lake: </span><span class="si">{</span><span class="n">difference</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> m.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>We can see that the peak seem to be located more than 300 meters above the lake, meaning that you probably have a good view covering the whole lake if you would be standing on top of this peak.</p>
+<p>In a similar manner as in the examples above, you can conduct zonal statistics between vector and raster layer, or two raster layers, using any kind of data. Zonal operations are commonly used for tasks such as land cover analysis, habitat suitability modeling, or watershed management, where summarizing raster information (e.g. elevation, rainfall, biomass, moisture etc.) over administrative regions or natural boundaries is essential.</p>
+</section>
 </section>
 <section id="incremental-operations">
 <h2>Incremental operations<a class="headerlink" href="#incremental-operations" title="Link to this heading">#</a></h2>
-<p>Incremental operations ..</p>
-<section id="least-cost-path-calculation-based-on-raster-surface">
-<h3>Least-cost path calculation based on raster surface<a class="headerlink" href="#least-cost-path-calculation-based-on-raster-surface" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">origin</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">3691000</span><span class="p">,</span> <span class="mi">6942000</span><span class="p">)],</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-<span class="n">destination</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">3698500</span><span class="p">,</span> <span class="mi">6948000</span><span class="p">)],</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<p>Lastly, we will introduce incremental operations that are one category of techniques in map algebra. Incremental operations involve multiple stages of calculation based on the input raster in which the calculations are conducted step-by-step. As an example, we will introduce an application in which the goal is to find an optimal path across a given surface based on the cost of moving from one cell to the other. For instance, the elevation data can be considered as a good proxy for difficulty in moving across a landscape (e.g. when walking). Thus, we can treat the elevation data as our <em><a class="reference internal" href="../../../back-matter/nb/glossary.html#term-Cost-surface"><span class="xref std std-term">cost surface</span></a></em> and when finding the optimal path across the surface, we aim to minimize the cost when moving from A to B. In other words, we aim to travel across the surface in a way that we avoid climbing the hills and prefer moving across as flat surface as possible.</p>
+<p>Similarly, in flow accumulation analysis used for hydrological modelling (see Chapter 12), incremental operations enable updates to the accumulation grid when minor changes occur in the input elevation data. For instance, if a localized area of a digital elevation model is edited to reflect a new drainage channel or a filled depression, an incremental flow accumulation process would update the flow direction and accumulation values only downstream of the altered cells.</p>
+<section id="least-cost-path-calculation-based-on-a-raster-cost-surface">
+<h3>Least-cost path calculation based on a raster cost surface<a class="headerlink" href="#least-cost-path-calculation-based-on-a-raster-cost-surface" title="Link to this heading">#</a></h3>
+<p>Least-cost path calculation is one of the most typical incremental operations in map algebra. To be able to calculate least-cost path based on a given raster, we first need to have a cost surface which is a raster representation used in the incremental operations in which each cell value indicates the cost required to traverse that cell. Cost surfaces are widely used in spatial analysis to model and calculate the optimal path or accumulated cost between locations, taking into account various environmental factors influencing the traversal across the surface, such as terrain or land use. Cost surfaces are widely used in applications such as route optimization, habitat connectivity, and emergency response planning.</p>
+<p>Before it is possible to conduct a least-cost path calculation, it is necessary to have a raster that represents the costs. The cost surface can basically represent any meaningful information (e.g. time, energy, money, or difficulty) but in our case we use the elevation data as a simple indicator of difficulty - the higher the elevation, the more effort it takes to travel across that area. When working with cost surfaces, it is also common that specific areas cannot be crossed at all, i.e. they are treated as barriers in the analysis. For instance, you might want to treat water areas as barriers because you most likely do not want to cross water bodies when traveling across the landscape, although in principle you could do that with very high effort/cost (swimming).</p>
+<p>In Python, we can use the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library and its function <code class="docutils literal notranslate"><span class="pre">.a_star_search()</span></code> to conduct least-cost path analysis based on raster data. Let’s start by creating a couple of points that we use in our analysis as an origin and destination locations and also create a straight line between these points:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span>
 
-<span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">)</span>
-<span class="n">origin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Origin&quot;</span><span class="p">)</span>
-<span class="n">destination</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Destination&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Origin and destination&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-<p><em><strong>Figure 7.X.</strong> Origin and destination points that are used to find the least-cost path across the surface.</em></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">barriers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1400</span><span class="p">,</span> <span class="mi">1580</span><span class="p">))</span>
-<span class="n">barriers</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">2200</span><span class="p">))</span>
+<span class="n">orig_point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3691000</span><span class="p">,</span> <span class="mi">6941500</span><span class="p">)</span>
+<span class="n">dest_point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3698500</span><span class="p">,</span> <span class="mi">6947000</span><span class="p">)</span>
 
-<span class="n">origin_latlon</span> <span class="o">=</span> <span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">origin</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-<span class="n">destination_latlon</span> <span class="o">=</span> <span class="p">(</span><span class="n">destination</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">destination</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">least_cost_path</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">a_star_search</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span> <span class="n">origin_latlon</span><span class="p">,</span> <span class="n">destination_latlon</span><span class="p">,</span> <span class="n">barriers</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">orig_point</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="n">destination</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">dest_point</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+<span class="n">line</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">LineString</span><span class="p">([</span><span class="n">orig_point</span><span class="p">,</span> <span class="n">dest_point</span><span class="p">])],</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">route</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">least_cost_path</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">least_cost_path</span><span class="p">)</span>
+<p>To make our data more understandable, let’s create a couple of maps to demonstrate where our points are located in relation to the elevation data that we use as a cost surface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;hillshade&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+
+<span class="n">origin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Origin&quot;</span><span class="p">)</span>
+<span class="n">origin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Origin&quot;</span><span class="p">)</span>
+<span class="n">destination</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Destination&quot;</span><span class="p">)</span>
+<span class="n">destination</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Destination&quot;</span><span class="p">)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<p><em><strong>Figure 7.49.</strong> Origin and destination points that are used to find the least-cost path across the surface.</em></p>
+<p>As we can see from the maps, our origin and destination are located quite far away from each other and the terrain between those places includes various hills with high elevation as well as low-elevation areas which include water areas. Let’s start our analysis by defining the barriers that should be considered when finding the optimal path. In our example, we consider the water areas to be all pixels where the elevation is below 1580 meters (thus all pixels with shades of blue color in the map on the right). As we can see, there are wide areas at the center of the map that cannot be crossed according our criteria.  Notice that the criteria we use here for defining the water areas does not reflect the reality in our study region, but we use this rule here as a simple way to demonstrate the effect of barriers.</p>
+<p>Let’s start our least-cost path analysis by extracting the latitude-longitude coordinates (i.e. y and x) of our origin and destination points which are needed as input in the least-cost path analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">origin_latlon</span> <span class="o">=</span> <span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">origin</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+<span class="n">destination_latlon</span> <span class="o">=</span> <span class="p">(</span><span class="n">destination</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">destination</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Origin:&quot;</span><span class="p">,</span> <span class="n">origin_latlon</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Destination:&quot;</span><span class="p">,</span> <span class="n">destination_latlon</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, we define the barriers which should be provided as a list of values in the cost-raster that cannot be used when finding the optimal path. Thus, in our case we can simply create a list of values that represent all the elevations that cannot be crossed. In the following, we create a simple 1D <code class="docutils literal notranslate"><span class="pre">np.array</span></code> that contains all values between 1342-1581 in which the lowest number corresponds to the minimum elevation in our data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lowest_elevation</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+<span class="n">barriers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">lowest_elevation</span><span class="p">,</span> <span class="mi">1581</span><span class="p">)))</span>
+<span class="n">barriers</span>
+</pre></div>
+</div>
+<p>Now we are ready to run the least-cost path analysis using the <code class="docutils literal notranslate"><span class="pre">xarray-spatial</span></code> library. As mentioned previously, the <code class="docutils literal notranslate"><span class="pre">.a_star_search()</span></code> function can be used to find the optimal path from A to B across the given cost-surface raster (here elevation) considering the barriers. As the name implies, this function uses a specific path finding algorithm (also commonly used in network analysis) called A* which starts from the origin pixel and visits the neighboring cells in an incremental manner step-by-step keeping track of the cost that it takes to move from one cell to another until it reaches the destination cell. The A* algorithm uses heuristics to direct its traversal across the surface (typically) based on the Euclidean distance between the origin and destination which means that the movement is prioritized towards the directions that shortens the straight-line distance between the origin and destination. This is done to avoid the need to visit every single pixel in the cost-surface which improves the performance (calculation speed) of the algorithm.</p>
+<p>In the following, we will calculate the least-cost path across our elevation data by using the elevation data as the <code class="docutils literal notranslate"><span class="pre">surface</span></code>, while the latitude-longitude coordinate tuples of our origin and destination are passed for the <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">goal</span></code> parameters. Lastly, the <code class="docutils literal notranslate"><span class="pre">barriers</span></code> parameter is used to pass our list of values that should be avoided while finding the optimal route between the two locations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">least_cost_path</span> <span class="o">=</span> <span class="n">xrspatial</span><span class="o">.</span><span class="n">a_star_search</span><span class="p">(</span>
+    <span class="n">surface</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">],</span>
+    <span class="n">start</span><span class="o">=</span><span class="n">origin_latlon</span><span class="p">,</span>
+    <span class="n">goal</span><span class="o">=</span><span class="n">destination_latlon</span><span class="p">,</span>
+    <span class="n">barriers</span><span class="o">=</span><span class="n">barriers</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">least_cost_path</span><span class="p">))</span>
+<span class="n">least_cost_path</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+<p>As a result, we get a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> that represents the optimal path. As we can see, there are many <code class="docutils literal notranslate"><span class="pre">nan</span></code> values in the array which is because only the pixels that are part of the optimal path will contain numerical data. We can confirm this by visualizing the least-cost path as a map:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Elevation, origin and destination</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
 <span class="n">origin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Origin&quot;</span><span class="p">)</span>
 <span class="n">destination</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Destination&quot;</span><span class="p">)</span>
-<span class="n">route</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gist_heat&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the optimal route</span>
+<span class="n">least_cost_path</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;flag&quot;</span><span class="p">,</span> <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Origin and destination&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><em><strong>Figure 7.X.</strong> The calculated least-cost path from origin to destination based on A* algorithm.</em></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineString</span>
-
-<span class="c1"># Convert (row, col) path to geographic coordinates</span>
-<span class="n">transform</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
-
-<span class="c1"># Extract (row, col) indices where path is not NaN</span>
-<span class="n">path_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">least_cost_path</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
-
-<span class="n">coords</span> <span class="o">=</span> <span class="p">[</span><span class="n">transform</span> <span class="o">*</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">col</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">))</span> <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">path_indices</span><span class="p">]</span>
-
-<span class="c1"># Create a LineString from the path</span>
-<span class="n">line</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
-
-<span class="c1"># Convert to a GeoDataFrame</span>
-<span class="n">shortest_path</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">line</span><span class="p">]},</span> <span class="n">crs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-<span class="n">data</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
-<span class="n">shortest_path</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Least cost path&quot;</span><span class="p">)</span>
-<span class="n">origin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Origin&quot;</span><span class="p">)</span>
-<span class="n">destination</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Destination&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Least cost path between origin and destination&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-<p><em><strong>Figure 7.X.</strong> Vectorized least-cost path (LineString) across the terrain.</em></p>
-</section>
-<section id="flow-accumulation">
-<h3>Flow accumulation<a class="headerlink" href="#flow-accumulation" title="Link to this heading">#</a></h3>
-<p>Flow accumulation for example related to watershed analysis is another example of incremental operation. <strong>ADD MORE INFO</strong>. Chapter 12 will cover examples how incremental operations are used to calculate watersheds based in digital elevation model in New Zealand.</p>
+<p><em><strong>Figure 7.50.</strong> The calculated least-cost path from origin to destination based on A* algorithm.</em></p>
+<p>As a result, we have now found an optimal (least-cost) route across the surface that seem to make sense: The water areas which we marked as barriers in the analysis were avoided entirely and the route prioritizes pixels that are “easier” to travel, i.e. the lower elevation areas that are colored with green.</p>
+<p>This simple example of an incremental operation demonstrates how take advantage of map algebra to make relatively sophisticated analysis to help decision making. Naturally, the cost-surface that we use here is very simplistic but with some additional or alternative data, as well as more carefully considered rules, it would be possible to make the analysis more realistic. Similar approaches have been used e.g. to calculate travel times at a global level from every location (pixel) in the world to the closest city at 1 km resolution (<span id="id2"><a class="reference internal" href="../../../back-matter/nb/references.html#id29" title="D. J. Weiss, A. Nelson, H. S. Gibson, W. Temperley, S. Peedell, A. Lieber, M. Hancher, E. Poyart, S. Belchior, N. Fullman, B. Mappin, U. Dalrymple, J. Rozier, T. C. D. Lucas, R. E. Howes, L. S. Tusting, S. Y. Kang, E. Cameron, D. Bisanzio, K. E. Battle, S. Bhatt, and P. W. Gething. A global map of travel time to cities to assess inequalities in accessibility in 2015. Nature, 553(7688):333–336, 2018. doi:10.1038/nature25181.">Weiss <em>et al.</em>, 2018</a></span>) which can be highly useful information to understand how easily people can access key services that they need (e.g. healthcare), or to understand the impacts of humans to nature (<span id="id3"><a class="reference internal" href="../../../back-matter/nb/references.html#id13" title="W F Laurance, a K M Albemaz, G Schroth, P M Fearnside, S Bergen, E M Venticinque, and C Da Costa. Predictors of deforestation in the Brazilian Amazon. Journal of Biogeography, 29:737–748, 2002.">Laurance <em>et al.</em>, 2002</a></span>). In addition, the incremental operations and these kind of raster surfaces can be used for various other applications as well, such as conducting watershed analysis which we will cover more in detail in the Chapter 12.</p>
 </section>
 </section>
 </section>
@@ -993,19 +1182,24 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hot-and-cold-spots">Hot and cold spots</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hillshade">Hillshade</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing-and-focal-statistics">Smoothing and focal statistics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reclassification">Reclassification</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-operations">Local operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-operations">Local operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-classification">Data classification</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-operations">Global operations</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-summaries">Statistical summaries</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewshed">Viewshed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewshed-analysis">Viewshed analysis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-operations">Zonal operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-operations">Zonal operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-with-raster-zones">Zonal statistics with raster zones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-with-vector-zones">Zonal statistics with vector zones</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-operations">Incremental operations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-cost-path-calculation-based-on-raster-surface">Least-cost path calculation based on raster surface</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-accumulation">Flow accumulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-cost-path-calculation-based-on-a-raster-cost-surface">Least-cost path calculation based on a raster cost surface</a></li>
 </ul>
 </li>
 </ul>

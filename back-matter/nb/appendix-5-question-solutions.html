@@ -227,7 +227,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/09-exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -237,17 +237,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/05-data-cubes.html">7.6 Working with data cubes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-07/nb/06-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../part2/chapter-08/index.html">8. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">8.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/00-introduction-to-geographic-visualization.html">Introduction to geographic visualization</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/01-static-vector-maps.html">8.2 Static maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/02-static-raster-maps.html">8.3 Visualizing raster layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/03-interactive-maps.html">8.4 Interactive maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/04-map-design-principles-and-colors.html">8.5 Designing maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../part2/chapter-08/nb/05-exercises.html">Exercises</a></li>
 </ul>
 </details></li>
@@ -917,16 +915,22 @@ document.write(`
 </div>
 <p>How does the result differ from the version where we joined information from the grids to the points?</p>
 <ul class="simple">
-<li><p>this result has polygon geometry in stead of points</p></li>
-<li><p>order of the columns is different</p></li>
+<li><p>This result has polygon geometry in stead of points.</p></li>
+<li><p>Order of the columns is different.</p></li>
 </ul>
 <p>What would be the benefit of doing the join this way around?</p>
 <ul class="simple">
 <li><p>If your research question is related to the population grid, then it might make more sense to join additional information to those statistical units.</p></li>
-<li><p>If the point data would be somehow sensitive, joining the information to a coarser spatial unit might be meaningful</p></li>
+<li><p>If the point data would be somehow sensitive, joining the information to a coarser spatial unit might be meaningful.</p></li>
 </ul>
 <p>6.11</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#insert solution here</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Find the nearest road</span>
+<span class="n">nearest_park_roads</span> <span class="o">=</span> <span class="n">parks</span><span class="o">.</span><span class="n">sjoin_nearest</span><span class="p">(</span><span class="n">roads</span><span class="p">,</span> <span class="n">distance_col</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
+
+<span class="c1"># What is the maximum distance?</span>
+<span class="n">max_dist</span> <span class="o">=</span> <span class="n">nearest_park_roads</span><span class="p">[</span><span class="s2">&quot;distance&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum distance is </span><span class="si">{</span><span class="n">max_dist</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> meters.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>6.12</p>
@@ -951,6 +955,51 @@ document.write(`
 <span class="n">stop_buffer</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>6.13</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">union</span><span class="o">.</span><span class="n">explore</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When hovering over the buffer geometry border, the attribute values in the table change.
+Inside the ring, the attributes of the Helsinki railway station are kept in the results, whereas outside of the ring
+the table does not include any data for the columns associated with the railway station.</p>
+<p>6.14</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">break_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+
+<span class="c1"># Create one subplot. Control figure size in here.</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Visualize the travel times using a classification scheme and add a legend</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;car_r_t&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;UserDefined&quot;</span><span class="p">,</span>
+    <span class="n">classification_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;bins&quot;</span><span class="p">:</span> <span class="n">break_values</span><span class="p">},</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Travel times (min)&quot;</span><span class="p">,</span> <span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)},</span>
+<span class="p">)</span>
+
+<span class="c1"># Set the x and y axis off and adjust padding around the subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>6.15</p>
+<p>The results differ based on the selected thresholds. Here is one potential solution:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Threhsold values</span>
+<span class="n">pt_maximum</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">walk_minimum</span> <span class="o">=</span> <span class="mi">5000</span>
+
+<span class="c1"># Applying the rule and storing the classification into a new column</span>
+<span class="n">grid</span><span class="p">[</span><span class="s2">&quot;rule2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="s2">&quot;pt_r_tt&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pt_maximum</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="s2">&quot;walk_d&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">walk_minimum</span><span class="p">)</span>
+
+<span class="n">grid</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">grid</span><span class="p">[</span><span class="s2">&quot;rule2&quot;</span><span class="p">]</span><span class="o">==</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">explore</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This map would show areas further away from the Central railway station.</p>
 </section>
 <section id="chapter-8">
 <h2>Chapter 8<a class="headerlink" href="#chapter-8" title="Link to this heading">#</a></h2>
