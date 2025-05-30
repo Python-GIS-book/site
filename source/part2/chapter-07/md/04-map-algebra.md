@@ -29,13 +29,13 @@ There are various Python libraries that can be used for map algebra. Here, we ar
 <!-- #region -->
 ## Focal operations
 
-A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood. **Figure 7.xx** shows an example of a *focal sum* that is summing the input layer values to produce the pixel value in the output layer based on 3x3 window. For instance at the highlighted position (circled) on the right, the pixel will get a value 50 after summing the center pixel and the surrounding pixels in the input layer (left). In a similar manner, the 3x3 moving window is applied to all pixels in the images which creates the output raster seen on the right. Do you notice how the values at the edges of the output layer tend to be smaller? This happens because at the edges of the raster the 3x3 moving window moves "outside" of the raster area and thus has fewer input pixels that can be taken into account when doing the calculation. This kind of *{term}`edge effect`* is very typical when working with geographic data and you can deal with the issue by ensuring that the input data covers a bit of extra buffer (i.e. additional pixels) around the area of interest where you conduct the analysis. 
+A focal function operates on a cell and its neighboring cells within a defined window (e.g., 3x3 or 5x5). The output value for each cell is derived by applying a mathematical or statistical operation to the values within that neighborhood. Figure 7.29 shows an example of a *focal sum* that is summing the input layer values to produce the pixel value in the output layer based on 3x3 window. For instance at the highlighted position (circled) on the right, the pixel will get a value 50 after summing the center pixel and the surrounding pixels in the input layer (left). In a similar manner, the 3x3 moving window is applied to all pixels in the images which creates the output raster seen on the right. Do you notice how the values at the edges of the output layer tend to be smaller? This happens because at the edges of the raster the 3x3 moving window moves "outside" of the raster area and thus has fewer input pixels that can be taken into account when doing the calculation. This kind of *{term}`edge effect`* is very typical when working with geographic data and you can deal with the issue by ensuring that the input data covers a bit of extra buffer (i.e. additional pixels) around the area of interest where you conduct the analysis. 
 
 In addition to sum operation, you can apply any mathematical operator to calculate the pixel values, such as `mean`, `median`, `max`, `min`, `std`. Focal operations can be used also to conduct more complex calculations, such as doing edge detection or determining the slope of a terrain which we will learn next.
 
 
-![_**Figure 7.XX.** Focal operation based on 3x3 window that considers the neighboring cells to all directions to define the cell value in the output raster._In this case, the output value is a sum of all input pixels](../img/focal-sum.png)
-_**Figure 7.XX.** Focal operation based on 3x3 window that considers the neighboring cells to all directions to define the cell value in the output raster. In this case, the output value is a sum of all input pixels._
+![_**Figure 7.29.** Focal operation based on 3x3 window that considers the neighboring cells to all directions to define the cell value in the output raster._In this case, the output value is a sum of all input pixels](../img/focal-sum.png)
+_**Figure 7.29.** Focal operation based on 3x3 window that considers the neighboring cells to all directions to define the cell value in the output raster. In this case, the output value is a sum of all input pixels._
 <!-- #endregion -->
 
 Now as we have learned the basic idea of focal operation, we can move forward to see how we can take advantage of different kind of focal operations to extract relevant information about the landscape (terrain) that can help us to find a suitable place to build a new summer house. Let's start by reading the Digital Elevation Model from a NetCDF file using `xarray`: 
@@ -63,7 +63,7 @@ ax.clabel(cs, cs.levels, inline=True, fontsize=6)
 plt.title("Elevation in Tuupovaara, Finland");
 ```
 
-_**Figure 7.X.** Elevation surface with contour lines._
+_**Figure 7.30.** Elevation surface with contour lines._
 
 
 ### Slope
@@ -83,7 +83,7 @@ data["slope"].plot(cmap="Greens")
 plt.title("Slope (degrees)");
 ```
 
-_**Figure 7.X.** Slope in degrees calculated from the elevation data._
+_**Figure 7.31.** Slope in degrees calculated from the elevation data._
 
 As we can see the western areas of the terrain include steep slopes highlighted with dark green color, while the central and eastern areas are more flat which are indicated with lighter tones. 
 
@@ -102,7 +102,7 @@ data["aspect"].plot(cmap="jet")
 plt.title("Aspect (degree between 0-360)\n0 faces North");
 ```
 
-_**Figure 7.X.** Aspect surface shows the direction of the slope in degrees._
+_**Figure 7.32.** Aspect surface shows the direction of the slope in degrees._
 
 In the code above, we filtered out values that were below 0 as those indicate flat areas in the terrain (having value -1). The rather wild and colorful map that was produced based on the aspect values shows the direction of the slope for every pixel in the raster where the dark blue and red tones face North. To be more specific, the values can be decoded into different directions approximately as follows (following clockwise direction starting from the North):
 
@@ -128,7 +128,7 @@ data["curvature"].plot()
 plt.title("Curvature");
 ```
 
-_**Figure 7.X.** Curvature describes the rate of change in the slope._
+_**Figure 7.33.** Curvature describes the rate of change in the slope._
 
 The map reveals that vast majority of the surface in our study area is straight having value of 0. However, few places can be spotted at the central and western parts of the region that show surfaces curwing upwards (red color) and downwards (blue color). These places tend to be located close to the areas with highest elevation values in this specific region. 
 
@@ -154,7 +154,7 @@ data["hot_cold"].plot(cmap="RdYlBu_r", figsize=(6, 4))
 plt.title("Identified hot and cold spots based on the elevation");
 ```
 
-_**Figure 7.X.** Hot spots are clusters with high values surrounded by other high values._
+_**Figure 7.34.** Hot spots are clusters with high values surrounded by other high values._
 
 The output map reveals that the statistically significant hot spots are located dominantly on the West and Northwest areas of the study region having areas with high elevation values while statistically significant cold spot areas are located on the Southwest. 
 
@@ -168,7 +168,7 @@ data["hillshade"] = xrspatial.hillshade(data["elevation"], azimuth=225, angle_al
 data["hillshade"].plot(cmap="Grays");
 ```
 
-_**Figure 7.X.** Hillshade is a shaded relief based on the surface raster considering the illumination source angle and shadows._
+_**Figure 7.35.** Hillshade is a shaded relief based on the surface raster considering the illumination source angle and shadows._
 
 From the result we can clearly see how the peaks and valleys are located in our study area. Hillshade enhances the perception of elevation and landform features in maps, helping users to better understand the terrain structure and geography. 
 
@@ -212,7 +212,7 @@ sm.set_array([])
 cbar = fig.colorbar(sm, ax=ax, orientation="vertical", label="Relative Height (m)")
 ```
 
-_**Figure 7.X.** Hillshade with color blending can give a more realistic appearance of the landscape._
+_**Figure 7.36.** Hillshade with color blending can give a more realistic appearance of the landscape._
 
 The result now resembles more how the terrain might look like in real life. However, to get the most realistic appearance you might need to adjust how the colors are mapped to different heights. For instance, in the current map the areas with lighter blue shades are not exactly aligned with where the water bodies in our study area are truly located but this gives an approximation of the likelyhood of having water present in a given area (i.e. lowest altitudes).  
 
@@ -241,17 +241,17 @@ data["smoothed_elevation"].plot(cmap="RdYlBu_r", figsize=(6, 4))
 plt.title("Kernel smoothing with kernel size 15");
 ```
 
-_**Figure 7.X.** Smoothed surface based on the average elevation of 15 neighboring cells at each pixel._
+_**Figure 7.37.** Smoothed surface based on the average elevation of 15 neighboring cells at each pixel._
 
 As a result we got a smoothed surface where the value for each pixel is based on the average of the neighborhood surrounding the given pixel. This evens out the local variance in the elevation data and highlights the high and low elevation areas. The result looks a bit blurred because we are averaging values across relatively large neighborhood. You can adjust the appearance by using a different kernel size. The larger the kernel, the more the data is smoothed (i.e. generates more blurriness). 
 
 
 ## Local operations
 
-Local functions operate between multiple raster layers and apply functions on a cell-by-cell basis between them. The figure **7.XX** illustrates a local sum based on two raster layers. When calculating a local sum, the pixel values in matching positions are summed together which generates the output raster layer. In our example, e.g. the pixel values `3` and `6` become `9` in the output layer after they are summed. In a similar manner as with focal functions that we demonstrated earlier, you can apply any mathematical function to the data (multiply, divide, etc.). Notice that in case there are NoData values (None) present in either of the input rasters, the pixel value in the output layer will also be None by default. 
+Local functions operate between multiple raster layers and apply functions on a cell-by-cell basis between them. Figure 7.38 illustrates a local sum based on two raster layers. When calculating a local sum, the pixel values in matching positions are summed together which generates the output raster layer. In our example, e.g. the pixel values `3` and `6` become `9` in the output layer after they are summed. In a similar manner as with focal functions that we demonstrated earlier, you can apply any mathematical function to the data (multiply, divide, etc.). Notice that in case there are NoData values (None) present in either of the input rasters, the pixel value in the output layer will also be None by default. 
 
-![_**Figure 7.XX.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer._In this case, the output value is a sum of input pixels._](../img/local_sum.png)
-_**Figure 7.XX.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer. In this case, the output value is a sum of input pixels._
+![_**Figure 7.38.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer._In this case, the output value is a sum of input pixels._](../img/local_sum.png)
+_**Figure 7.38.** Local functions operate on a cell-by-cell basis between two or more raster layers to produce the output layer. In this case, the output value is a sum of input pixels._
 
 
 ### Data classification
@@ -285,7 +285,7 @@ data["elevation_points"].plot(ax=ax)
 plt.title("Elevation weights");
 ```
 
-_**Figure 7.X.** Elevation categories (k=5) based on natural breaks classification scheme._
+_**Figure 7.39.** Elevation categories (k=5) based on natural breaks classification scheme._
 
 As a result, the elevation values of each category (1-5) are now clearly visible in the map showing that the best areas according our criteria are located on the West. 
 
@@ -319,7 +319,7 @@ data["slope_points"].plot(ax=ax, cmap="Greens")
 plt.title("Slope weights");
 ```
 
-_**Figure 7.X.** Slope categories (k=5) based on our custom classification scheme._
+_**Figure 7.40.** Slope categories (k=5) based on our custom classification scheme._
 
 As a result, the map shows the best areas with dark green color according our preferences regarding the slope. 
 
@@ -343,7 +343,7 @@ data["aspect_points"].plot(ax=ax, cmap="RdYlBu_r", alpha=0.7)
 plt.title("Aspect categories based on custom classifier");
 ```
 
-_**Figure 7.X.** Aspect categories based on a custom a custom classification scheme._
+_**Figure 7.41.** Aspect categories based on a custom a custom classification scheme._
 
 Now the South-facing areas are highlighted with red colors which are according our preferences. At this point, we have calculated various variables that are all stored in the same `xarray.Dataset`:
 
@@ -366,7 +366,7 @@ data["suitability_index"].plot(cmap="RdYlBu_r", figsize=(6, 4))
 plt.title("Suitability index");
 ```
 
-_**Figure 7.X.** Suitability index calculated based on elevation, aspect and slope._
+_**Figure 7.42.** Suitability index calculated based on elevation, aspect and slope._
 
 Nice! Now we have a map that shows the most suitable areas to build or buy a summer house in the region, highlighted with red color. This was a simple example showing how map algebra (focal and local operations) can be used to help in practical decision making. In a similar manner, it is easy to change the weighting scheme how the importance of different factors are considered and how a single landscape feature is weighted in the final model. 
 
@@ -410,11 +410,11 @@ Calculating these kind of summaries of the data are extremely useful to describe
 
 ### Viewshed analysis
 
-Viewshed analysis is another map algebra technique (a global operation) which can be used to identify areas of a landscape that are visible from a specific location considering the surrounding terrain. Viewshed can be calculated based on the elevation data by selecting one or more observer points from where the visibility is analyzed based on the line of sight between the observer and every other cell in the raster (**Figure 7.XX**). If the terrain obstructs the view (e.g. mountains block the view), the cell is marked as not visible from the given observation point, and if not, the cell is visible. Viewshed analysis is relevant technique for various application areas, such as landscape assessment and telecommunications planning related to finding suitable places to place antennas. 
+Viewshed analysis is another map algebra technique (a global operation) which can be used to identify areas of a landscape that are visible from a specific location considering the surrounding terrain. Viewshed can be calculated based on the elevation data by selecting one or more observer points from where the visibility is analyzed based on the line of sight between the observer and every other cell in the raster (Figure 7.43). If the terrain obstructs the view (e.g. mountains block the view), the cell is marked as not visible from the given observation point, and if not, the cell is visible. Viewshed analysis is relevant technique for various application areas, such as landscape assessment and telecommunications planning related to finding suitable places to place antennas. 
 
-![_**Figure 7.XX.** Viewshed is calculated from the given observer location based on line of sight (dashed lines)._](../img/viewshed-analysis.png)
+![_**Figure 7.43.** Viewshed is calculated from the given observer location based on line of sight (dashed lines)._](../img/viewshed-analysis.png)
 
-_**Figure 7.XX.** Viewshed is calculated from the given observer location based on line of sight (dashed lines)._
+_**Figure 7.43.** Viewshed is calculated from the given observer location based on line of sight (dashed lines)._
 
 We can easily calculate a viewshed based on the elevation data using the `xarray-spatial` library. First, we need to define the observer location. Here, we use the center point of our raster as the observer point. To find the centroid of the raster, we can take advantage the `.rio.bounds()` function which returns the extent of the raster and then convert these coordinates into a `shapely` Polygon using the `box()` function. After this, we can easily extract the centroid and its coordinates as well as make a `GeoDataFrame` out of the centroid:
 
@@ -472,18 +472,18 @@ ax.legend(loc="upper left")
 ax.set_title("Visible areas from the observer location");
 ```
 
-_**Figure 7.X.** Visible areas from the observer location based on the viewshed analysis._
+_**Figure 7.44.** Visible areas from the observer location based on the viewshed analysis._
 
 The resulting viewshed map shows the areas with red color that are visible from the given observer location. We can see how the visibility seem to be better towards the South from this given location which indicates that there are steep hills facing the observer location directly towards the North at this location which blocks the view in that direction. 
 
 
 ## Zonal operations
 
-Zonal operation (also commonly called as zonal statistic) is a commonly used technique to summarize the values of a raster within specified zones. The zones represent areas of interest and can be defined by either a raster layer or a vector polygon layer. The fundamental goal of zonal operations is to extract statistical or categorical information about the input value layer. When the zone layer is a raster, each cell value represents a distinct zone ID, and all cells with the same value belong to the same zone (as in **Figure 7.XX**). The zone layer can also be presented in vector format as polygons, in which each polygon defines the area that serves as an individual zone. When using vector data as the zone layer, it is internally converted into a raster format (i.e. rasterized) that aligns with the input value raster in terms of resolution and alignment. Regardless of the format of the zone layer, the analysis aggregates the values of the input raster within the spatial boundaries of each zone. Similarly as with other map algebra operations, you can calculate the mean, sum, minimum, maximum, range, or majority of raster values within each zone. As an output, you typically get the statistics out for each zone as an array or table of aggregated statistics (or a Python dictionary depending on the tool you use). Alternatively, you can also get the output as a raster layer in which each cell under a given zone gets the statistical summary (e.g. mean) as an output value (as in **Figure 7.XX**).
+Zonal operation (also commonly called as zonal statistic) is a commonly used technique to summarize the values of a raster within specified zones. The zones represent areas of interest and can be defined by either a raster layer or a vector polygon layer. The fundamental goal of zonal operations is to extract statistical or categorical information about the input value layer. When the zone layer is a raster, each cell value represents a distinct zone ID, and all cells with the same value belong to the same zone (as in Figure 7.45). The zone layer can also be presented in vector format as polygons, in which each polygon defines the area that serves as an individual zone. When using vector data as the zone layer, it is internally converted into a raster format (i.e. rasterized) that aligns with the input value raster in terms of resolution and alignment. Regardless of the format of the zone layer, the analysis aggregates the values of the input raster within the spatial boundaries of each zone. Similarly as with other map algebra operations, you can calculate the mean, sum, minimum, maximum, range, or majority of raster values within each zone. As an output, you typically get the statistics out for each zone as an array or table of aggregated statistics (or a Python dictionary depending on the tool you use). Alternatively, you can also get the output as a raster layer in which each cell under a given zone gets the statistical summary (e.g. mean) as an output value (as in Figure 7.45).
 
-![_**Figure 7.XX.** Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone._](../img/zonal_average.png)
+![_**Figure 7.45.** Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone._](../img/zonal_average.png)
 
-_**Figure 7.XX.** Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone._
+_**Figure 7.45.** Zonal operation can be performed on two raster layers in which the first one defines the zones and the second one represents the values. As an output, specific statistic (e.g. mean) is calculated for each zone._
 
 
 ### Zonal statistics with raster zones
@@ -533,7 +533,7 @@ ax1.set_title("Zone layer")
 ax2.set_title("Value layer");
 ```
 
-_**Figure 7.XX.** The zone layer and the elevation data that is used as value layer when calculating zonal statistics._
+_**Figure 7.46.** The zone layer and the elevation data that is used as value layer when calculating zonal statistics._
 
 As we can see, our zone layer contains four values (1, 2, 3, 4) which are distributed in a way that they form simple quadrants. Thus, in our analysis we can analyze which of the zones (quadrant) has e.g. highest mean elevation. To calculate zonal statistics, we can use the `.zonal_stats()` function of the `xarray-spatial` library which can be used to calculate zonal statistics between two raster layers. The function requires the `zones` as a first parameter which will take our `"zone_id"` variable of the `raster_zones` Dataset as input, while for the `values` parameter we pass the `"elevation"` variable from the `data` value layer. With `stats_funcs` parameter, we can specify which statistics we want to calculate. In the following, we will calculate all basic summary statistics for the zones:
 
@@ -567,7 +567,7 @@ data["elevation"].plot.contour(ax=ax, cmap="RdYlBu_r", linewidths=0.8)
 plt.title("Mean elevation per quadrant with contour lines");
 ```
 
-_**Figure 7.XX.** The result of the zonal statistics visualized as a map including also the contour lines representing the elevations._
+_**Figure 7.47.** The result of the zonal statistics visualized as a map including also the contour lines representing the elevations._
 
 The result reveals that the top-left quadrant (zone 1) has the highest average elevation whereas the bottom-right corner has the lowest average elevation. This is also confirmed by the contour lines as there exists many high peaks under zone 1 and not many low-elevation areas (which are visualized with blue contour lines). The map also confirms our previous finding that the bottom-left zone (i.e. zone 3) has a lot of variance in the elevations as there are both high peaks as well as areas with low elevations under this zone. 
 
@@ -603,7 +603,7 @@ peak.plot(ax=ax, edgecolor="red", facecolor="None")
 ax.set_title("Lake and Peak polygons");
 ```
 
-_**Figure 7.X.** Two zones that are used for comparison and calculating zonal statistics._
+_**Figure 7.48.** Two zones that are used for comparison and calculating zonal statistics._
 
 From the map we can see where the lake and peak are located. Now as we have our zones defined, we need to combine them into a single `GeoDataFrame` which we can do easily using `pandas` as follows:
 
@@ -716,7 +716,7 @@ line.plot(ax=ax2, color="black", linestyle="--", lw=0.5)
 ax1.legend(loc="upper left");
 ```
 
-_**Figure 7.X.** Origin and destination points that are used to find the least-cost path across the surface._
+_**Figure 7.49.** Origin and destination points that are used to find the least-cost path across the surface._
 
 As we can see from the maps, our origin and destination are located quite far away from each other and the terrain between those places includes various hills with high elevation as well as low-elevation areas which include water areas. Let's start our analysis by defining the barriers that should be considered when finding the optimal path. In our example, we consider the water areas to be all pixels where the elevation is below 1580 meters (thus all pixels with shades of blue color in the map on the right). As we can see, there are wide areas at the center of the map that cannot be crossed according our criteria.  Notice that the criteria we use here for defining the water areas does not reflect the reality in our study region, but we use this rule here as a simple way to demonstrate the effect of barriers. 
 
@@ -775,7 +775,7 @@ ax.legend(loc="upper left")
 plt.title("Origin and destination");
 ```
 
-_**Figure 7.X.** The calculated least-cost path from origin to destination based on A\* algorithm._
+_**Figure 7.50.** The calculated least-cost path from origin to destination based on A\* algorithm._
 
 As a result, we have now found an optimal (least-cost) route across the surface that seem to make sense: The water areas which we marked as barriers in the analysis were avoided entirely and the route prioritizes pixels that are "easier" to travel, i.e. the lower elevation areas that are colored with green. 
 
