@@ -295,8 +295,16 @@ Fortunately, Python is able to interpret the code correctly from multiple lines 
 
 ```python
 # Implicit line continuation inside brackets
-us_cities = ["Detroit", "Chicago", "Denver", "Boston", 
-            "Portland", "San Francisco", "Houston", "Orlando"]
+us_cities = [
+    "Detroit",
+    "Chicago",
+    "Denver",
+    "Boston",
+    "Portland",
+    "San Francisco",
+    "Houston",
+    "Orlando",
+]
 ```
 
 Note that the backslash character `\` might be required to break a line when using more complicated statements such as the `with` statement. You can find more examples of how to handle such situations in the [PEP 8 documentation](https://peps.python.org/pep-0008/#maximum-line-length) [^pep8_length].
@@ -313,22 +321,20 @@ weather = "Rain"
 wind = "Windy"
 
 if (weather == "Rain") and (wind == "Windy"):
-    print('Just stay at home')
+    print("Just stay at home")
 ```
 
 Following PEP 8, it is also possible to break the conditional expression into multiple lines if needed. Notice the extra parentheses in this case.
 
 ```python
-if ((weather == "Rain") 
-    and (wind == "Windy")):
+if (weather == "Rain") and (wind == "Windy"):
     print("Just stay at home")
 ```
 
 To increase readability of this `if` statement, we could add extra indentation to the continuation line of the conditional statement. This is valid Python syntax in line with PEP 8. As you might expect, it is recommended that the additional indendation be 4 spaces.
 
 ```python
-if ((weather == "Rain") 
-        and (wind == "Windy")):
+if (weather == "Rain") and (wind == "Windy"):
     print("Just stay at home")
 ```
 
@@ -339,8 +345,15 @@ In addition, indentation is needed when breaking one command onto multiple lines
 ```python
 # Hanging indentation:
 us_cities = [
-    "Detroit", "Chicago", "Denver", "Boston", 
-    "Portland", "San Francisco", "Houston", "Orlando"]
+    "Detroit",
+    "Chicago",
+    "Denver",
+    "Boston",
+    "Portland",
+    "San Francisco",
+    "Houston",
+    "Orlando",
+]
 ```
 
 You can find more examples of indentation in the [PEP 8 documentation](https://peps.python.org/pep-0008/#indentation) [^pep8_indentation].
@@ -366,9 +379,9 @@ i += 1
 
 ```python
 # no
-i=1
-i=i+1
-i +=1
+i = 1
+i = i + 1
+i += 1
 ```
 
 If using operators with different priorities you can also do this.
@@ -377,7 +390,7 @@ If using operators with different priorities you can also do this.
 # yes
 a = 1
 b = 2
-c = (a+b) * (a-b)
+c = (a + b) * (a - b)
 ```
 
 ### Avoid extraneous whitespace
@@ -391,7 +404,7 @@ print("Hello")
 
 ```python
 # no
-print ("Hello")
+print("Hello")
 ```
 
 ### Write one statement per line    
@@ -406,20 +419,22 @@ print("world")
 
 ```python
 # no
-print("Hello"); print("world")
+print("Hello")
+print("world")
 ```
 
 ```python
 # yes
 temperature = 17
-if temperature > 25: 
+if temperature > 25:
     print(f"{temperature} is greater than 25")
 ```
 
 ```python
 # no
 temperature = 17
-if temperature > 25: print(f"{temperature} is greater than 25")
+if temperature > 25:
+    print(f"{temperature} is greater than 25")
 ```
 
 ### Code readability versus code length?

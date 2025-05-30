@@ -207,7 +207,7 @@ plt.tight_layout()
 _**Figure 6.64**. Static map of travel times visualized using the quantiles classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 ```python
-# Store the class index numbers 
+# Store the class index numbers
 grid["pt_r_t_q10"] = grid[["pt_r_t"]].apply(classifier)
 grid["pt_r_t_q10"].head()
 ```
@@ -215,10 +215,10 @@ grid["pt_r_t_q10"].head()
 The quantile classification allows us to extract, for example the best 10 % of all grid squares in terms of travel times to the central railway station. Now that we divided the data into quintiles, we can get the top 10 % of the data through extracting the first category of our classified values. 
 
 ```python
-grid[grid["pt_r_t_q10"]==0].explore()
+grid[grid["pt_r_t_q10"] == 0].explore()
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.65}. Top 10 % out of all statistical grid squares in the Helsinki Region in terms of public transport travel times to the Helsinki.}}, center, nofloat}{../img/figure_6-65.png}
 { \hspace*{\fill} \\}
@@ -387,10 +387,10 @@ grid["rule1"] = (grid["pt_r_tt"] < pt_maximum) & (grid["walk_d"] > walk_minimum)
 Finally, now that we have our rule-based classification stored in one of our `GeoDataFrame`columns, we can use this information to visualize the areas that meet our criteria:
 
 ```python editable=true slideshow={"slide_type": ""}
-grid.loc[grid["rule1"]==True].explore()
+grid.loc[grid["rule1"] == True].explore()
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.70}. Grid squares that meet the selection criteria.}}, center, nofloat}{../img/figure_6-70.png}
 { \hspace*{\fill} \\}

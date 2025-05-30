@@ -34,7 +34,7 @@ import geopandas as gpd
 points_fp = "./../data/hrtopendata_citybikes_helsinki_espoo_2025.gpkg"
 points = gpd.read_file(points_fp, columns=["ID", "Name", "Osoite", "Kapasiteet"])
 
-points = points.rename(columns={"Osoite": "Address", "Kapasiteet" : "Capacity"})
+points = points.rename(columns={"Osoite": "Address", "Kapasiteet": "Capacity"})
 points.explore(marker_type="marker")
 ```
 
@@ -67,9 +67,10 @@ Note that `folium` automatically adds attribution to the default map-tiles in th
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-points.explore(marker_type="marker", 
-               tiles='https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
-                attr='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+points.explore(
+    marker_type="marker",
+    tiles="https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png",
+    attr='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 )
 ```
 
@@ -93,7 +94,9 @@ It is also possible to plot interactive choropleth maps using `GeoDataFrame.expl
 polygons_fp = "./../data/PKS_postinumeroalueet_2023_manner_shp.zip"
 polygons = gpd.read_file(polygons_fp, columns=["Posno", "Nimi", "Kunta"])
 
-polygons = polygons.rename(columns={"Posno" : "Postal code", "Nimi" : "Name", "Kunta" : "Municipality"})
+polygons = polygons.rename(
+    columns={"Posno": "Postal code", "Nimi": "Name", "Kunta": "Municipality"}
+)
 
 polygons.explore()
 ```
@@ -121,11 +124,17 @@ bike_count = join.groupby(["Postal code"]).ID.count()
 capacity = join.groupby(["Postal code"]).Capacity.sum()
 
 # Join statistics to polygons
-polygons = polygons.merge(bike_count, left_on="Postal code", right_index=True, how="left")
+polygons = polygons.merge(
+    bike_count, left_on="Postal code", right_index=True, how="left"
+)
 polygons = polygons.merge(capacity, left_on="Postal code", right_index=True, how="left")
 
-polygons = polygons.rename(columns={"ID" : "Number of stations", "Capacity" : "Total capacity"})
-polygons["Average city bike station capacity"] = polygons["Total capacity"] / polygons["Number of stations"] 
+polygons = polygons.rename(
+    columns={"ID": "Number of stations", "Capacity": "Total capacity"}
+)
+polygons["Average city bike station capacity"] = (
+    polygons["Total capacity"] / polygons["Number of stations"]
+)
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -212,8 +221,8 @@ points["y"] = points["geometry"].y
 # Create a list of coordinate pairs
 locations = list(zip(points["y"], points["x"]))
 
-# Comment out the following line to check the result 
-#print(locations)
+# Comment out the following line to check the result
+# print(locations)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->

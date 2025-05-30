@@ -63,9 +63,7 @@ Now we can use `geopandas` for visualizing a simple map representing the rush ho
 Let's also add a map legend to add information about what is displayed. Additional keywords for controlling the legend can be added through the `legend_kwds` parameter. When plotting the `GeoDataFrame` using basic settings, the legend will be a [colorbar object](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html) [^matplotlib_colorbar] and the legend keyword arguments will control how the colorbar looks. For example, we can add a `label` for our colorbar legend. For additional legend options, have a look at [`geopandas` mapping tools](https://geopandas.org/en/stable/docs/user_guide/mapping.html) [^geopandas_mappingtools] and [`matplotlib` legend guide](https://matplotlib.org/tutorials/intermediate/legend_guide.html) [^matplotlib_legend].
 
 ```python
-grid.plot(column="pt_r_t", 
-          legend=True, 
-          legend_kwds={"label": "Travel times (min)"})
+grid.plot(column="pt_r_t", legend=True, legend_kwds={"label": "Travel times (min)"})
 ```
 
 _**Figure 8.1**. Simple static map plotted using `geopandas`. The color gradient represents travel times by public transport to the central railway station in Helsinki. Data source: Tenkanen & Toivonen 2020._
@@ -131,9 +129,9 @@ The desired extent of our map would cover the travel time data extent. We could 
 
 ```python
 # Plot the data layers
-ax = grid.plot(column="pt_r_t",
-               legend=True, 
-               legend_kwds={"label": "Travel times (min)"})
+ax = grid.plot(
+    column="pt_r_t", legend=True, legend_kwds={"label": "Travel times (min)"}
+)
 train.plot(ax=ax)
 metro.plot(ax=ax)
 
@@ -158,12 +156,13 @@ Now that we are using `mapclassify` to render the values, the map legend will lo
 ```python
 break_values = [10, 20, 30, 40, 50, 60, 70, 80, 90]
 
-ax = grid.plot(column="pt_r_t", 
-          scheme="UserDefined",
-          classification_kwds={"bins": break_values}, 
-          legend=True,
-          legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)}
-         )
+ax = grid.plot(
+    column="pt_r_t",
+    scheme="UserDefined",
+    classification_kwds={"bins": break_values},
+    legend=True,
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
+)
 
 train.plot(ax=ax)
 metro.plot(ax=ax)
@@ -214,14 +213,15 @@ from matplotlib_scalebar.scalebar import ScaleBar
 fig, ax = plt.subplots(figsize=(6, 4))
 
 # Visualize the travel times
-grid.plot(ax=ax, 
-          column="pt_r_t", 
-          cmap="magma_r",
-          scheme="UserDefined",
-          classification_kwds={"bins": break_values}, 
-          legend=True,
-          legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)}
-         )
+grid.plot(
+    ax=ax,
+    column="pt_r_t",
+    cmap="magma_r",
+    scheme="UserDefined",
+    classification_kwds={"bins": break_values},
+    legend=True,
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
+)
 
 # Add roads and change the color, linewidth and and transparency
 train.plot(ax=ax, color="grey", linewidth=1, alpha=0.2)
@@ -369,11 +369,9 @@ plt.axis("off")
 plt.tight_layout()
 
 # Add basemap with basic OpenStreetMap visualization
-ctx.add_basemap(ax, 
-                attribution=credits, 
-                source=ctx.providers.OpenStreetMap.Mapnik, 
-                crs=grid.crs
-               )
+ctx.add_basemap(
+    ax, attribution=credits, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs
+)
 ```
 
 _**Figure 8.9**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
@@ -457,7 +455,7 @@ grid.plot(
     legend_kwds={
         "title": "Travel times (min)",
         "bbox_to_anchor": (1.27, 1),
-        "interval":True,
+        "interval": True,
         "frameon": False,
     },
 )
