@@ -368,7 +368,7 @@ plt.title("Suitability index");
 
 _**Figure 7.X.** Suitability index calculated based on elevation, aspect and slope._
 
-Nice! Now we have a map that shows the most suitable areas to build or buy a summer house in the region, highlighted with red color. This was a simple example showing how map algebra (focal and local operations) can be used to help in practical decision making. In a similar manner, it is easy to change the weighting scheme how the importance of different factors are considered and how a single landscape feature is weighted in the final model. You can find more examples of using local operations in Chapter 7.6 that shows how map algebra can be used when working with multiband satellite data and geospatial timeseries data spanning multiple years.
+Nice! Now we have a map that shows the most suitable areas to build or buy a summer house in the region, highlighted with red color. This was a simple example showing how map algebra (focal and local operations) can be used to help in practical decision making. In a similar manner, it is easy to change the weighting scheme how the importance of different factors are considered and how a single landscape feature is weighted in the final model. 
 
 
 ## Global operations
@@ -613,7 +613,7 @@ zones = pd.concat([peak, lake]).reset_index(drop=True)
 zones.iloc[:, -3:]
 ```
 
-Now we are ready to conduct the actual zonal operation between our elevation data (raster) and the zones (vector). The `xvec` library is a handy tool to use when you need to interact between vector and raster data. It is designed for representing and working with vector data cubes (more about this in Chapter 7.6) and interact with `xarray` data structures. The `.xvec.zonal_stats()` function can be used to calculate zonal statistics. As input, we define the zones using the `geometry` parameter which accepts our vector polygons from the `.geometry` column (i.e. `GeoSeries`) as input. The `stats` parameter can be used to define the statistics that we want to calculate (mean, max, etc.). We also need to define the names of the coordinate variables of the `xarray.Dataset` that is used as input using the `x_coords` and `y_coords` parameters. The names of the coordinates in your `DataArray` can be easily found via the `.coords` attribute:
+Now we are ready to conduct the actual zonal operation between our elevation data (raster) and the zones (vector). The `xvec` library is a handy tool to use when you need to interact between vector and raster data. It is designed for representing and working with vector data cubes and interact with `xarray` data structures. The `.xvec.zonal_stats()` function can be used to calculate zonal statistics. As input, we define the zones using the `geometry` parameter which accepts our vector polygons from the `.geometry` column (i.e. `GeoSeries`) as input. The `stats` parameter can be used to define the statistics that we want to calculate (mean, max, etc.). We also need to define the names of the coordinate variables of the `xarray.Dataset` that is used as input using the `x_coords` and `y_coords` parameters. The names of the coordinates in your `DataArray` can be easily found via the `.coords` attribute:
 
 ```python
 data["elevation"].coords
