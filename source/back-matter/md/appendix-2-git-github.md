@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-# A.3 Version control with using Git and GitHub
+# Version control with using Git and GitHub
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -23,7 +23,7 @@ This appendix provides an introduction to version control using Git and some ste
 <!-- #region editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
 ## The problem
 
-![_**Figure A.X**. An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>._](../img/phd101212s.gif)
+![_**Figure A.X**. An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>._](../img/phd101212s.png)
 
 _**Figure A.X**. An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>._
 
@@ -48,21 +48,29 @@ There are multiple different Version Control Systems (VCS; software for doing ve
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## What is Git?
+<!-- #endregion -->
 
-![_**Figure A.X**. The Git logo by Jason Long, licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/)._](../img/Git-Logo-2Color.png)
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+![_The Git logo by Jason Long, licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/)._](../img/Git-Logo-2Color.png)
 
-_**Figure A.X**. The Git logo by Jason Long, licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/)._
+_The Git logo by Jason Long, licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/)._
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 [Git](https://en.wikipedia.org/wiki/Git_(software)) is a version control software (developed in 2005 by a rather famous Finn named Linus Torvalds, who also created Linux!) that is used to track and store changes in your files (often source code for programs) without losing the history of past changes. Files in Git are stored in a repository, which you can simply think of as a directory containing files (or other directories) related to a single "project". In practice git takes "snapshots" of your files each time you commit changes and follows the idea of [distributed version control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control). Git is widely used by professionals to keep track of what they've done and to collaborate with other people. Git is the version control system that is running behind the scenes and used with GitHub ("Git" + "Hub"!).
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## What is GitHub?
+<!-- #endregion -->
 
-![_**Figure A.X**. The GitHub Logo._](../img/GitHub_Logo.png)
+<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
+![_The GitHub Logo._](../img/GitHub_Logo.png)
 
-_**Figure A.X**. The GitHub Logo._
+_The GitHub Logo._
+<!-- #endregion -->
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 GitHub provides a handful of important features that build upon what is offered by Git alone:
 
 1. GitHub relies on Git. The GitHub is a web based Git repository hosting service in principle. Thus, it would not exist without the version control system Git. Git is running all the time in the background when using GitHub.
@@ -84,7 +92,7 @@ Here are a few basic terms that are used often when using git and GitHub (not ex
 - *{term}`Commit <Git commit>`*: To commit is to write or merge the changes made in the working copy back to the repository. When you commit, you are basically taking a "snapshot" of your repository at that point in time, giving you a checkpoint to which you can reevaluate or restore your project to any previous state. The terms 'commit' or 'checkin' can also be used as nouns to describe the new revision that is created as a result of committing.
 - *{term}`Revision`* / *{term}`Version`*: A revision or a version is any change in made in any form to a document(s).
 - *{term}`Clone <Git clone>`*: Cloning means creating a repository containing the revisions from another repository. This is equivalent to pushing or pulling into an empty (newly initialized) repository. As a noun, two repositories can be said to be clones if they are kept synchronized, and contain the same revisions.
-- *{term}`Pull <Git pull>` / *{term}`Push <Git push>`*: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.
+- *{term}`Pull <Git pull>`* / *{term}`Push <Git push>`*: Copy revisions from one repository to another. Pull is initiated by the receiving repository, while push is initiated by the source. Fetch is sometimes used as a synonym for pull, or to mean a pull followed by an update.
 - *{term}`Merge <Git merge>`*: A merge or integration is an operation in which two sets of changes are applied to a file or set of files.
 <!-- #endregion -->
 
@@ -108,15 +116,15 @@ We use Git to (1) record changes to our files over time and (2) to communicate b
 
 The most common starting point for working with software in Git is creating a copy of the software, or "cloning" it. This can be done using the command `git clone`, for example. For repositories you have already copied, you can download the latest changes using the command using `git pull`, which will fetch (and merge) new changes from GitHub. Finally, the command `git push` publishes any local changes to GitHub. You can find more information about interacting with Git projects on the [Git Source Control Management site](https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Sharing-and-Updating-Projects).
 
-![_**Figure A.X**. Update your Git project using the pull and push commands. Always pull before you push (especially when working in a shared project)!_](../img/pull-push-illustration.png)
+![_**Figure A.X**. Update your Git project using the pull and push commands. Always pull before you push, especially when working in a shared project._](../img/pull-push-illustration.png)
 
-_**Figure A.X**. Update your Git project using the pull and push commands. Always pull before you push (especially when working in a shared project)!_
+_**Figure A.X**. Update your Git project using the pull and push commands. Always pull before you push, especially when working in a shared project._
 
 The version control history consists of snapshots of all the files in your project. In order to record changes to your files, we first add changes to a so called staging area (using the command `git add`). The idea is that you can have a (sometimes messy) working directory, and by using `git add` you tell Git precisely which files to include in the next committed snapshot. After this, the command `git commit` can be used to record a permanent snapshot of the staged changes. You can find more information about snapshotting on the [Git Source Control Management site](https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Basic-Snapshotting).
 
-![_**Figure A.X**. Version control steps using Git (adapted from <https://git-scm.com/about/staging-area>)._](../img/Git_illustration.png)
+![_**Figure A.X**. Version control steps using Git. Adapted from <https://git-scm.com/about/staging-area>._](../img/Git_illustration.png)
 
-_**Figure A.X**. Version control steps using Git (adapted from <https://git-scm.com/about/staging-area>)._
+_**Figure A.X**. Version control steps using Git. Adapted from <https://git-scm.com/about/staging-area>._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->

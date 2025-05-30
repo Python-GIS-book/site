@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.16.7
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -162,12 +162,12 @@ clipping_gdf.explore()
 
 <!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 7.11}. Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.}}, center, nofloat}{../img/figure_7-11.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 7.12}. Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset.}}, center, nofloat}{../img/figure_7-12.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.11.** Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset._
+_**Figure 7.12.** Our area of interest around the Mt Kitumbene in Tanzania which will be used to clip the raster dataset._
 
 Now after we have created the `GeoDataFrame` we can use it to clip the `xarray.Dataset`. To do this, we use the `.rio.clip()` method which wants as input the `geometries` that will be used for clipping the raster data. We can pass the `gpd.GeoSeries` as an input for this (i.e. the `geometry` column of our `GeoDataFrame`) and we also specify the `crs` to be the same as in out input raster data. It is important that the coordinate reference system of both layers are the same whenever doing GIS operations between multiple layers. Thus, we use a simple `assert` to check the match before doing the clipping:
 <!-- #endregion -->
@@ -188,7 +188,7 @@ plt.title("Elevations around Mt Kitumbene");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.12.** Elevations in the area that was clipped based on a polygon._
+_**Figure 7.13.** Elevations in the area that was clipped based on a polygon._
 
 After clipping, it is possible to continue working with the clipped `Dataset` and e.g. find the mean elevation for this area around the Mt Kitumbene. Notice that the operations clipped all the variables in our `Dataset` simultaneously. We can extract basic statistics from `elevation` and inspect the relative height in this area as follows:
 <!-- #endregion -->
@@ -232,7 +232,7 @@ lakes.plot(ax=ax, facecolor="lightblue", edgecolor="red", alpha=0.4);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.13.** Existing lakes that are present in our study area._
+_**Figure 7.14.** Existing lakes that are present in our study area._
 
 As we can see from the Figure 7.10, there is one large lake and multiple smaller ones in our study that we might not want to be taken into account when analyzing the terrain. Luckily, we can easily mask these areas out of our `Dataset` by using `rioxarray`. To do this, we can use the same `.rio.clip()` method which we used in the previous example. However, in this case, we do not want to totally remove those cells from our `Dataset` but only mask them out, so that the values on those areas are replaced with NaN values. By using parameters `drop=False` and `invert=True`, the cells that are intersecting with the lake geometries will be masked with NaNs: 
 <!-- #endregion -->
@@ -252,7 +252,7 @@ plt.title("Elevation data with a mask");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.14.** A Dataset where the lakes have been masked out (shown with white color)._
+_**Figure 7.15.** A Dataset where the lakes have been masked out (shown with white color)._
 
 As a result, we now have a new `Dataset` where the elevation values overlapping with the lakes have been converted to NaNs. We can now compare whether e.g. the mean land surface elevation differs from the original one where the lakes were still included:
 <!-- #endregion -->
@@ -324,7 +324,7 @@ datasets[2]["band_1"].plot(ax=axes[1][0], vmax=5900, add_colorbar=False)
 datasets[3]["band_1"].plot(ax=axes[1][1], vmax=5900, add_colorbar=False);
 ```
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.15.** Four elevation raster layers plotted next to each other._
+_**Figure 7.16.** Four elevation raster layers plotted next to each other._
 
 From the figure we can see that these four raster tiles seem to belong together naturally as the elevation values as well as the coordinates along the x- and y-axis continue smoothly. Hence, we can stitch them together into a single larger raster `Dataset`.
 To merge multiple `xarray.Dataset`s together, we can use the `.merge_datasets()` function from `rioxarray`:
@@ -349,7 +349,7 @@ plt.title("Elevation values covering larger area in the region close to Kilimanj
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.16.** A raster mosaic where four raster tiles were merged together._
+_**Figure 7.17.** A raster mosaic where four raster tiles were merged together._
 
 The end result looks good and we can see clearly the Mount Kilimanjaro which is the highest mountain in Africa 5895 meters above sea level and the highest volcano in the Eastern Hemisphere. 
 <!-- #endregion -->
@@ -394,7 +394,7 @@ gdf.plot(column="elevation");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.17.** The elevation map made from the vectorized data._
+_**Figure 7.18.** The elevation map made from the vectorized data._
 
 As we can see from the figure, the map looks identical to our original `DataArray` (Figure 7.9) which means that the conversion works as it should. 
 
@@ -414,7 +414,7 @@ lakes.plot();
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.18.** Lakes represented in vector format._
+_**Figure 7.19.** Lakes represented in vector format._
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -480,7 +480,7 @@ plt.title("Rasterized lakes");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.19.** Lakes that have been rasterized into `DataArray` at approximately 1 km resolution._
+_**Figure 7.20.** Lakes that have been rasterized into `DataArray` at approximately 1 km resolution._
 
 Quite often when rasterizing vector data, you actually want to fit the output to have identical resolution to an already existing `xarray.Dataset` and align it with the other raster layer. For example in our case, we can use the `data` raster (with elevation values) as a target so that the resolution, dimensions and alignment would fit with the existing `Dataset`. We can achieve this by using the `like` parameter in `make_geocube()` function. This will ensure that the output aligns with the existing raster having same resolution and dimensions:
 <!-- #endregion -->
@@ -495,7 +495,7 @@ aligned_ds["area_km2"].plot();
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.20.** Lakes that have been rasterized and aligned with an existing `Dataset`._
+_**Figure 7.21.** Lakes that have been rasterized and aligned with an existing `Dataset`._
 
 As a result, we have now rasterized the lakes in a way that the `aligned_ds` aligns with the existing `Dataset` containing the elevation values. This technique can be very useful especially when you want to do calculations (map algebra) between multiple raster layers (more about map algebra in Chapter 7.5). 
 <!-- #endregion -->
@@ -551,7 +551,7 @@ plt.title("Downscaled elevation data");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.21.** Downscaled data using a downscale factor of 50._
+_**Figure 7.22.** Downscaled data using a downscale factor of 50._
 
 The downscaling operation seem to have worked well as the patterns are still clearly similar compared to the input data (Figure 7.7), although the spatial resolution is much lower. The data is downscaled so much that it is actually possible to identify individual pixels of the grid. 
 <!-- #endregion -->
@@ -645,7 +645,7 @@ plt.title("Upscaled elevation data");
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 7.22.** Upscaled data using a upscale factor of 2._
+_**Figure 7.23.** Upscaled data using a upscale factor of 2._
 <!-- #endregion -->
 
 ## Filling missing data
@@ -660,7 +660,7 @@ data_missing["elevation"].plot()
 plt.title("Missing elevation values");
 ```
 
-_**Figure 7.23.** Pixels with NoData are shown with white colour._
+_**Figure 7.24.** Pixels with NoData are shown with white colour._
 
 As we can see, there is a small region missing that does not contain any pixel values. To fill these pixels, we can use `rioxarray` and take advantage of the `.rio.interpolate_na()` method that can be used to predict values to locations that do not have data. By default, it predicts the values based on data observations that are nearest to the given NoData-pixel:
 
@@ -673,7 +673,7 @@ filled["elevation"].plot()
 plt.title("Filled NoData values based on 'nearest' method");
 ```
 
-_**Figure 7.24.** Filled NoData values predicted based on nearest observations._
+_**Figure 7.25.** Filled NoData values predicted based on nearest observations._
 
 As a result, the missing pixels were interpolated based on the nearest observation and we have a quite nicely looking map as a result. However, it is good to remember that whenever filling data like this, you are ultimately predicting values to unknown locations and this process includes some level of uncertainty. Thus, it is important to evaluate carefully the correctness of the output and possibly cross check the prediction against other information if possible. 
 
@@ -688,7 +688,7 @@ filled_linear["elevation"].plot()
 plt.title("Filled NoData values based on 'linear' method");
 ```
 
-_**Figure 7.25.** Filled NoData values predicted based on linear interpolation._
+_**Figure 7.26.** Filled NoData values predicted based on linear interpolation._
 
 As we can see, the result based on linear interpolation looks quite different (smoother) compared to the nearest method. In addition, to these there are other approaches to conduct spatial interpolation which we will cover more in Chapter 11. 
 

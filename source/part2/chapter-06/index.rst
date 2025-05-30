@@ -15,4 +15,5 @@
     6.7 Spatial join <nb/06-spatial-join.ipynb>
     6.8 Nearest neighbour analysis <nb/07-nearest-neighbour.ipynb>
     6.9 Vector overlay operations <nb/08-overlay-analysis-with-vector-data.ipynb>
+    6.10 Data classification <nb/09-data-classification.ipynb>
     Exercises <nb/09-exercises.ipynb>

@@ -28,8 +28,17 @@ API
 Argument
   The value passed to a function when it is called. Similar to a {term}`parameter`.
 
+Aspect
+  Aspect shows the (compass) direction that a slope faces, derived from elevation data. It is usually measured in degrees from 0° (north) to 360°.
+
+Assertion
+  A statement used in a Python program to check whether a given condition evaluates as `True` when the code is executed. When the condition is not `True`, an `AssertionError` is raised. Assertions are typically used for debugging and testing code.
+
 Binary predicate
   See {term}`Spatial predicate`.
+
+Camel case
+  A variable naming convention in which words are joined without spaces by capitalizing the first letter of each word that follows the first. For example, `gpsStationId`.
 
 Collection
   A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.
@@ -42,6 +51,12 @@ Coordinate Reference System
   
 Coordinate transformation
   See {term}`Map reprojection`.
+
+Cost surface
+  A cost surface is a raster representation used in map algebra in which each cell value indicates the cost (e.g., time, energy, money, or difficulty) required to traverse that cell. Cost surfaces are used in spatial analysis to model and calculate the least-cost path or accumulated cost between locations, factoring in terrain, land use, or other impedance variables. Cost surfaces are essential in applications such as route optimization, habitat connectivity, and emergency response planning.
+
+Curvature
+  Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell.
 
 DataFrame
   In pandas library, a DataFrame is a two-dimensional, tabular data structure with labeled rows and columns, similar to an Excel spreadsheet or SQL table. Each column can store data of different types (e.g., integers, floats, strings), and the DataFrame provides methods for data manipulation, including filtering, aggregation, and merging. It is one of the core data structures in pandas, widely used for data analysis and manipulation in Python.
@@ -79,6 +94,9 @@ Dimensionally Extended 9-Intersection Model
 
 Docstring
   A text string used to document a section of code. Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs. You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.
+
+Edge effect
+  Edge effect is spatial distortion (bias) that occurs at the boundaries of a geographic datasets (raster and vector), often due to incomplete data or the influence of neighboring areas not included in the analysis. It can affect the accuracy of calculations like filtering, classification, or spatial modeling near the dataset's edges.
 
 EPSG code
   An EPSG code is a unique identifier assigned to a specific coordinate reference system (CRS) or a spatial data transformation standard, as defined by the EPSG (European Petroleum Survey Group) registry. These codes, such as 4326 for WGS84 or 3857 for Web Mercator, simplify the process of referencing CRSs in geographic data processing.
@@ -133,6 +151,9 @@ Git remote
 
 GitHub
   An online platform for collaborative development of {term}`software` based around the {term}`Git` {term}`version control` system. GitHub provides tools for collaboration, version control, issue tracking, and code review.
+
+Hillshade
+  A hillshade is a grayscale 3D-like representation of the terrain surface, created by simulating the effect of sunlight shining across the landscape. In GIS, hillshading is derived from a Digital Elevation Model (DEM) and is used to visualize topographic relief. The shading is based on specified azimuth (direction) and altitude (angle) of the light source, typically representing the sun.
 
 Hypsometric curve
   The distribution of area above a given elevation in an region analyzed using hypsometric analysis. This is effectively a cumulative distribution of area as a function of elevation. The areas and elevations in hypsometric curves are frequently normalized to allow comparison between regions and for calculating a {term}`hypsometric integral`.
@@ -223,6 +244,9 @@ Optional parameter
 Parameter
   A variable listed within the parentheses of a function definition. Similar to an {term}`argument`.
 
+Pothole case
+  A variable naming convention that utilzes underscore characters (`_`) to separate words in the variable name. For example, `gps_station_id`. Also known as snake case.
+
 Program
   A detailed list of step-by-step instructions that tell the computer exactly what to do.
   
@@ -267,6 +291,9 @@ Shifting
 
 Signed integer
   A (data) type of integer in Python that can represent both positive and negative whole numbers. The "signed" attribute means the number includes a "+" or "-" sign to indicate its value's polarity. For example, -5 and 42 are signed integers. In Python, integers are stored as signed by default and can handle very large values thanks to their dynamic size.
+
+Slope
+  Slope is a measure of the steepness or incline of the terrain. Slope is commonly calculated from elevation values in a raster and it represents the rate of change in elevation over distance and is typically expressed in degrees or percent.
 
 Software
   Another name for a {term}`program`.
