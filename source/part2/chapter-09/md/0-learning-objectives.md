@@ -17,8 +17,9 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter 9 provides details on using various online sources of geographic information in Python, including OpenStreetMap data, Web Feature Services, Web Coverage Services and remote databases. These skills will allow you to fetch most up-to-date data from online sources directly into Python without having to read or write data on your local machine.
+Chapter 9 provides an introduction to visualizing geographic information using Python. Previous sections of the book have already featured simple exploratory visualizations of geographic data. This chapter will dive deeper into basic techniques of creating static and interactive visualizations and to making justified cartographic choices when creating maps in Python. 
 
+Before diving in to this chapter, you should be familiar with basics of data visualization using `matplotlib` introduced in Part I and basics of `geopandas`, coordinate reference systems, and data classification techniques introduced in Part II.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
@@ -27,10 +28,10 @@ Chapter 9 provides details on using various online sources of geographic informa
 
 At the end of this chapter, you should be able to:
 
-- Fetch geographic data from various online sources using Python
-- Access and manipulate OpenStreetMap data using the osmnx library
-- Retrieve  data from Web Freature Services (WFS) and Web Coverage Services (WCS)
-- Connect to and read data from spatial databases
+- Understand basic cartographic principles related to visualizing geographic information
+- Create static maps with relevant cartographic features
+- Create simple interactive maps 
+
 
 ```
 <!-- #endregion -->

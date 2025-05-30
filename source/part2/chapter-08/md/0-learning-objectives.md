@@ -17,9 +17,8 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Chapter eight provides an introduction to visualizing geographic information using Python. Previous sections of the book have already featured simple exploratory visualizations of geographic data. This chapter will dive deeper into basic techniques of creating static and interactive visualizations and to making justified cartographic choices when creating maps in Python. 
+Chapter 8 focuses on spatial network analysis and introduces how to create routable networks that can be used to find shortest path from one location to another along a given street network. 
 
-Before diving in to this chapter, you should be familiar with basics of data visualization using `matplotlib` introduced in Part I and basics of `geopandas`, coordinate reference systems, and data classification techniques introduced in Part II.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["lo_box"] -->
@@ -28,10 +27,9 @@ Before diving in to this chapter, you should be familiar with basics of data vis
 
 At the end of this chapter, you should be able to:
 
-- Understand basic cartographic principles related to visualizing geographic information
-- Create static maps with relevant cartographic features
-- Create simple interactive maps 
-
+- Generate a routable network for a given transport mode
+- Understand the basics of how commonly used route optimization algorithms work
+- Calculate and visualize a shortest path along a network
 
 ```
 <!-- #endregion -->
