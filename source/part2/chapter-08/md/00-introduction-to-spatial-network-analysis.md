@@ -61,14 +61,6 @@ G.graph
 ```
 
 ```python
-G.nodes
-```
-
-```python
-G.edges
-```
-
-```python
 a_coords = (0,5)
 b_coords = (5,5)
 c_coords = (0,0)
@@ -80,12 +72,6 @@ G.add_node("b", coords=b_coords)
 G.add_node("c", coords=c_coords)
 G.add_node("d", coords=d_coords)
 G.add_node("e", coords=e_coords)
-
-G.add_edge("a", "b", weight=1)
-G.add_edge("a","c", weight=2)
-G.add_edge("b","d", weight=1)
-G.add_edge("c","d", weight=1)
-G.add_edge("d","e", weight=3)
 ```
 
 ```python
@@ -97,17 +83,29 @@ G.nodes.data()
 ```
 
 ```python
-print(G.edges)
-print(G.edges.data())
+nx.draw(G, with_labels=True, font_color="white")
 ```
 
 ```python
 positions = {node: attrs["coords"] for node, attrs in G.nodes.data()}
-positions    
+positions
 ```
 
 ```python
-edge_labels = {(u, v): attrs["weight"] for u, v, attrs in G.edges.data()}
+nx.draw(G, with_labels=True, pos=positions, font_color="white")
+```
+
+```python
+G.add_edge("a", "b", weight=1)
+G.add_edge("a","c", weight=2)
+G.add_edge("b","d", weight=1)
+G.add_edge("c","d", weight=1)
+G.add_edge("d","e", weight=3)
+```
+
+```python
+print(G.edges)
+print(G.edges.data())
 ```
 
 ```python
@@ -118,9 +116,74 @@ nx.draw(G,
         font_color="white", 
         node_color="grey"
 )
+```
 
+```python
+edge_labels = {(u, v): attrs["weight"] for u, v, attrs in G.edges.data()}
+```
+
+```python
+# Draw the graph
+nx.draw(G, 
+        pos=positions, 
+        with_labels=True, 
+        font_weight="bold", 
+        font_color="white", 
+        node_color="grey"
+)
+
+# Add edge labels
 nx.draw_networkx_edge_labels(
     G, 
+    positions,
+    edge_labels=edge_labels,
+    font_color='red', 
+    font_weight="bold",
+);
+```
+
+_**Figure 8.X.** A simple undirected graph consisting of five nodes and edges._
+
+Although, you can easily add nodes and edges one at a time as shown previously, it is not typically very efficient way of construcing a graph. Luckily, `networkx` also allows you to pass the information for the graphs from a collection of items. Thus, we can create an identical graph as shown previously by passing a collection of nodes and edges to the graph as follows:
+
+```python
+G2 = nx.Graph()
+
+node_collection = [("a", {"coords": (0,5)}),
+                   ("b", {"coords": (5,5)}),
+                   ("c", {"coords": (0,0)}),
+                   ("d", {"coords": (5,0)}),
+                   ("e", {"coords": (10,0)}),
+                  ]
+
+edge_collection = [("a", "b", {"weight": 1}),
+                   ("a", "c", {"weight": 2}),
+                   ("b", "d", {"weight": 1}),
+                   ("c", "d", {"weight": 1}),
+                   ("d", "e", {"weight": 3}),
+                  
+                  ]
+
+# Add nodes and edges from the collections
+G2.add_nodes_from(node_collection)
+G2.add_edges_from(edge_collection)
+
+# Extract exact node locations
+positions = {node: attrs["coords"] for node, attrs in G2.nodes.data()}
+
+# Parse edge labels
+edge_labels = {(u, v): attrs["weight"] for u, v, attrs in G2.edges.data()}
+```
+
+```python
+nx.draw(G2, 
+        with_labels=True, 
+        pos=positions, 
+        font_color="white", 
+        node_color="grey")
+
+nx.draw_networkx_edge_labels(
+    G2, 
     positions,
     edge_labels=edge_labels,
     font_color='red', 
