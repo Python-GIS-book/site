@@ -288,7 +288,7 @@ Computing detailed itineraries is significantly more time-consuming than calcula
 from r5py import DetailedItineraries
 
 # Take a small sample of destinations for demo purposes
-points_sample = points.sample(10)
+points_sample = points.sample(20)
 
 travel_details = DetailedItineraries(
     transport_network,
