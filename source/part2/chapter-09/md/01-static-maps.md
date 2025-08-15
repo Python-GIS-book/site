@@ -67,7 +67,7 @@ Let's also add a map legend to add information about what is displayed. Addition
 grid.plot(column="pt_r_t", legend=True, legend_kwds={"label": "Travel times (min)"})
 ```
 
-_**Figure 8.1**. Simple static map plotted using `geopandas`. The color gradient represents travel times by public transport to the central railway station in Helsinki. Data source: Tenkanen & Toivonen 2020._
+_**Figure 9.1**. Simple static map plotted using `geopandas`. The color gradient represents travel times by public transport to the central railway station in Helsinki. Data source: Tenkanen & Toivonen 2020._
 
 What we have here is a `choropleth map` where the colors of each grid square polygon are based on values from the column `pt_r_t`. Such a simple map is helpful for getting a quick overview of the underlying data. However, we can further enhance the visualization to better communicate the patterns and to create an effective visualization. 
 
@@ -93,7 +93,7 @@ train.plot(ax=ax)
 metro.plot(ax=ax)
 ```
 
-_**Figure 8.2**. Failed attempt to plot a static map with multiple layers._
+_**Figure 9.2**. Failed attempt to plot a static map with multiple layers._
 
 We need to re-project the data in order to get the layers in the same coordinate space. In this case, we can re-project the linear features (train and metro) from WGS 84 to ETRS89 / TM35FIN (EPSG:3067) to get all data into a planar coordiante reference system. To ensure identical crs definitions, we can get the crs definition based on the grid layer when transforming the geometries.
 
@@ -120,7 +120,7 @@ train.plot(ax=ax)
 metro.plot(ax=ax)
 ```
 
-_**Figure 8.3**. Static map with multiple layers displaying the original data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
+_**Figure 9.3**. Static map with multiple layers displaying the original data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
 Now our layers are nicely aligned, but the map stills needs some further improvement, as the transport network data extends beyond the grid data.
 
@@ -142,7 +142,7 @@ ax.set_xlim(grid.total_bounds[0], grid.total_bounds[2])
 ax.set_ylim(grid.total_bounds[1], grid.total_bounds[3])
 ```
 
-_**Figure 8.4**. Static map with multiple layers displaying the grid data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
+_**Figure 9.4**. Static map with multiple layers displaying the grid data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
 
 ### Adding a classification scheme
@@ -175,7 +175,7 @@ ax.set_xlim(grid.total_bounds[0], grid.total_bounds[2])
 ax.set_ylim(grid.total_bounds[1], grid.total_bounds[3])
 ```
 
-_**Figure 8.5**. Static map with multiple layers displaying the grid data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
+_**Figure 9.5**. Static map with multiple layers displaying the grid data extent. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
 
 In comparison to the previous maps, the differences in travel times are now more pronounced highlighting lower travel times near the central railway station. Notice also that we now have a different type of map legend that shows the associated class bins, now that we used a classification scheme. 
@@ -251,7 +251,7 @@ outfp = "static_map.png"
 plt.savefig(outfp, dpi=300)
 ```
 
-_**Figure 8.6**.  Static map with multiple layers and a scale bar. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
+_**Figure 9.6**.  Static map with multiple layers and a scale bar. Data source: Tenkanen & Toivonen 2020; Helsinki Region Transport 2024._
 
 
 ## Multi-panel map
@@ -301,7 +301,7 @@ axs[1].axis("off")
 plt.tight_layout()
 ```
 
-_**Figure 8.7**. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen & Toivonen 2020._
+_**Figure 9.7**. Static map of travel times by car and public transport using a custom classification scheme. Data source: Tenkanen & Toivonen 2020._
 
 
 ## Adding a basemap
@@ -344,7 +344,7 @@ plt.tight_layout()
 ctx.add_basemap(ax, crs=grid.crs)
 ```
 
-_**Figure 8.8**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 9.8**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 We can change the background map easily using the `source` parameter when adding the basemap. We can also customize the map's credits. `Contextily` automatically adds attribution for the background map, and we can modify this text to include credits for the travel time data alongside OpenStreetMap contributors.
 
@@ -378,7 +378,7 @@ ctx.add_basemap(
 )
 ```
 
-_**Figure 8.9**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 9.9**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 
  Let's take a subset of our data to see a bit better the background map characteristics. We can, for example, visualize grid squares from where the central railway station can be reached in less than 15 minutes to get a zoomed-in view of the map:
@@ -400,7 +400,7 @@ plt.tight_layout()
 ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs)
 ```
 
-_**Figure 8.10**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 9.10**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 
 Now our map has much more details as the zoom level of the background map is larger. This type of map might be useful for quick data exploration purposes. For example, we can observe that most of the short travel times are located in the city center, while the central railway station is also accessible within 15 minutes by public transport from individual locations a bit further away along the train and metro lines (Pasila, Kulosaari and Herttoniemi).
@@ -425,12 +425,12 @@ plt.tight_layout()
 ctx.add_basemap(ax, zoom=12, source=ctx.providers.OpenStreetMap.Mapnik, crs=grid.crs)
 ```
 
-_**Figure 8.11**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
+_**Figure 9.11**. Static map of travel times visualized on top of a basemap. Data source: Tenkanen & Toivonen 2020; OpenStreetMap contributors 2025._
 
 With this zoom setting, place names in the bacground map become larger and more readable. 
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
-#### Question 8.2
+#### Question 9.1
 
 Explore different background map options and make a final visualization of our travel time data with a basemap, legend and scalebar. 
 <!-- #endregion -->
@@ -477,6 +477,7 @@ ctx.add_basemap(
 )
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ## Footnotes
 [^geopandas_mappingtools]: <https://geopandas.org/en/stable/docs/user_guide/mapping.html> 
 [^matplotlib_pyplot]: <https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html> 
@@ -490,3 +491,4 @@ ctx.add_basemap(
 [^pysal]: <https://pysal.org/> 
 [^mapclassify]: <https://pysal.org/mapclassify/>
 [^geopandas_choro_legends]: <https://geopandas.org/en/stable/gallery/choro_legends.html>
+<!-- #endregion -->
