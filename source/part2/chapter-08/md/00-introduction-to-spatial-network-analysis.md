@@ -12,6 +12,7 @@ jupyter:
     name: python3
 ---
 
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 # Representing geographic data as networks
 
 Contents:
@@ -21,8 +22,10 @@ Contents:
 - How to create a graph from a file representing streets
 - How to create a routable graph from OpenStreetMap
 - Other uses of graphs - morphology, spatial weights, etc.
+- Saving graphs to disk
+<!-- #endregion -->
 
-
+<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Basic concepts
 
 As we briefly introduced in Chapter 5.2, networks are data structures that consists of nodes that are connected to other nodes via edges which ultimately construct a network (or a graph as it is referred in graph theory). As networks are widely used in various domains, the names used for these basic elements of a network can sometime vary. To clarify some of the ambiguity related to these terms, we list commonly used terms related to spatial networks below:
@@ -35,7 +38,7 @@ In Python, most of the network analysis related libraries (e.g. `networkx`, `igr
 
 
 
-
+<!-- #endregion -->
 
 ## Creating a simple graph from scratch
 
@@ -175,7 +178,7 @@ positions = {node: attrs["coords"] for node, attrs in G2.nodes.data()}
 edge_labels = {(u, v): attrs["weight"] for u, v, attrs in G2.edges.data()}
 ```
 
-```python
+```python editable=true slideshow={"slide_type": ""}
 nx.draw(G2, 
         with_labels=True, 
         pos=positions, 
@@ -191,12 +194,169 @@ nx.draw_networkx_edge_labels(
 );
 ```
 
-### Directed graph
-
-```python
-G2 = nx.MultiDiGraph()
+```python editable=true slideshow={"slide_type": ""}
+distance, path = nx.single_source_dijkstra(G=G2, 
+                                          source="a",
+                                          target="e", 
+                                          weight="weight", 
+                                          )
 ```
 
 ```python
+print("Distance:", distance)
+print("Path / visited nodes:", path)
+```
+
+```python
+distance, path = nx.single_source_dijkstra(G=G2, 
+                                          source="e",
+                                          target="a", 
+                                          weight="weight", 
+                                          )
+```
+
+```python
+print("Distance:", distance)
+print("Path / visited nodes:", path)
+```
+
+```python
+path_edges = list(zip(path,path[1:]))
+path_edges
+```
+
+```python
+nx.draw(G2, 
+        with_labels=True, 
+        pos=positions, 
+        font_color="white", 
+        node_color="grey")
+
+nx.draw_networkx_nodes(G2, positions, nodelist=path, node_color='r')
+nx.draw_networkx_edges(G2, positions, edgelist=path_edges, edge_color='r', width=3);
+```
+
+### Directed graph
+
+```python
+G_directed = nx.MultiDiGraph()
+```
+
+```python
+node_collection = [("a", {"coords": (0,5)}),
+                   ("b", {"coords": (5,5)}),
+                   ("c", {"coords": (0,0)}),
+                   ("d", {"coords": (5,0)}),
+                   ("e", {"coords": (10,0)}),
+                  ]
+```
+
+```python
+edge_collection = [("a", "b", {"weight": 1, "color": "red"}),
+                   # bidirectional a<->c
+                   ("a", "c", {"weight": 2, "color": "green"}),
+                   ("c", "a", {"weight": 2, "color": "green"}),
+                   # bidirectional b<->d
+                   ("b", "d", {"weight": 1, "color": "green"}),
+                   ("d", "b", {"weight": 1, "color": "green"}),
+                   
+                   ("c", "d", {"weight": 1, "color": "red"}),
+                   ("d", "e", {"weight": 3, "color": "red"}),
+                  ]
+```
+
+```python
+# Add nodes and edges from the collections
+G_directed.add_nodes_from(node_collection)
+G_directed.add_edges_from(edge_collection)
+
+# Extract exact node locations
+positions = {node: attrs["coords"] for node, attrs in G_directed.nodes.data()}
+
+# Parse edge labels
+edge_labels = {(u, v): attrs["weight"] for u, v, attrs in G_directed.edges.data()}
+
+# Parse edge colors
+edge_colors = [attrs["color"] for u, v, attrs in G_directed.edges.data()]
+```
+
+```python
+nx.draw(G_directed, 
+        with_labels=True, 
+        pos=positions, 
+        font_color="white", 
+        node_color="grey",
+        edge_color=edge_colors
+       )
+
+nx.draw_networkx_edge_labels(
+    G_directed, 
+    positions,
+    edge_labels=edge_labels,
+    font_color='red', 
+    font_weight="bold",
+);
+```
+
+```python editable=true slideshow={"slide_type": ""}
+distance, path = nx.single_source_dijkstra(G=G_directed, 
+                                          source="a",
+                                          target="e", 
+                                          weight="weight", 
+                                          )
+```
+
+```python
+path_edges = list(zip(path,path[1:]))
+path_edges
+```
+
+```python
+nx.draw(G_directed, 
+        with_labels=True, 
+        pos=positions, 
+        font_color="white", 
+        node_color="grey")
+
+nx.draw_networkx_nodes(G_directed, positions, nodelist=path, node_color='r')
+nx.draw_networkx_edges(G_directed, positions, edgelist=path_edges, edge_color='r', width=3);
+```
+
+#### Question 8.1
+
+What is the path length and route from `e` to `a` using the directed graph? 
+
+```python editable=true slideshow={"slide_type": ""}
+# You can use this cell to enter your solution.
+```
+
+```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell", "hide-cell"]
+# Solution
+
+# This is a trick question: Because our graph is directed
+# and there is no way out from node 'e', there is no path nor length
+# from e to a
+
+# When searching for such a path, networkx raises an error
+
+# Uncomment to test yourself
+# distance, path = nx.single_source_dijkstra(G=G_directed, source="e", target="a", weight="weight")
+```
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Creating a graph from LineStrings
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+Data was obtained from 
+<!-- #endregion -->
+
+```python editable=true slideshow={"slide_type": ""}
+import geopandas as gpd
+import momepy
+from contextily import add_basemap
+```
+
+```python editable=true slideshow={"slide_type": ""}
 
 ```
