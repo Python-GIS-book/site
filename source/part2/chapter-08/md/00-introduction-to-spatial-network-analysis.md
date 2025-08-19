@@ -49,6 +49,7 @@ In this first example, we will construct a simple graph using the `networkx` lib
 
 ```python
 import networkx as nx
+import matplotlib.pyplot as plt
 
 G = nx.Graph()
 G
@@ -348,7 +349,7 @@ What is the path length and route from `e` to `a` using the directed graph?
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Data was obtained from 
+Data was obtained from Digiroad
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -358,5 +359,147 @@ from contextily import add_basemap
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
+fp = "data/digiroad_helsinki.gpkg"
+streets = gpd.read_file(fp)
+streets.head()
+```
+
+```python
+streets.plot();
+```
+
+The `direction` column includes information about the allowed direction of the traffic flow, i.e. whether the traffic is permitted in both directions or whether it is a oneway street. In this street network dataset the values are coded as shown in Table 8.1.
+
+
+
+: _**Table 8.1**. The rules for directed graph in terms of permitted direction of traffic._
+
+| Value | Direction of traffic flow                                                             |
+|-------|---------------------------------------------------------------------------------------|
+| 2     | Traffic is permitted in both directions                                               |
+| 3     | Traffic is permitted against the direction of digitalisation (end-node to start-node) |
+| 4     | Traffic is permitted in the direction of digitalisation (start-node to end-node)      |
+
+```python
+def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, along=4):
+    """Creates a NetworkX MultiDiGraph from road network GeoDataFrame.
+
+    Parameters
+    ----------
+
+    gdf : GeoDataFrame
+        GeoDataFrame containing the road network data.
+
+    direction : str
+        Name for column that contains information about the allowed driving directions
+
+    both_ways : int
+        Value specifying that the road is drivable to both directions.
+
+    against : int
+        Value specifying that the road is drivable against the digitizing direction.
+
+    along : int
+        Value specifying that the road is drivable along the digitizing direction.
+
+    """
+    import networkx as nx
+
+    # Create the NetworkX graph
+    graph = nx.MultiDiGraph()
+
+    columns = list(gdf.columns)
+        
+    # Generate edge dictionary
+    for edge in gdf.itertuples():
+        coords = edge.geometry.coords
+
+        # Get first and last coordinates (drop possible Z information)
+        first, last = coords[0][:2], coords[-1][:2]
+
+        # Edge attributes
+        edge_attr = dict(edge._asdict())
+
+        # Create edges according the direction rules
+        if edge_attr[direction] == both_ways:
+
+            # If road is bi-directional add it in both ways
+            graph.add_edge(first, last, **edge_attr)
+            graph.add_edge(last, first, **edge_attr)
+
+        elif edge_attr[direction] == along:
+
+            # Add the edge along digitization direction
+            graph.add_edge(first, last, **edge_attr)
+
+        elif edge_attr[direction] == against:
+            
+            # Add the edge against digitization direction
+            graph.add_edge(last, first, **edge_attr)
+
+    # Generate node attributes
+    node_attrs = {node: {"coords": node, "x": node[0], "y": node[1]} for node in graph.nodes}
+    nx.set_node_attributes(graph, node_attrs)  
+    
+    # Relabel the indices
+    graph = nx.convert_node_labels_to_integers(graph)
+
+    # Add some useful attributes    
+    graph.graph['crs'] = gdf.crs
+
+    return graph
+```
+
+```python
+G = gdf_to_directed_graph(streets)
+```
+
+```python
+positions = {node: attrs["coords"] for node, attrs in G.nodes.data()}
+```
+
+```python
+edge_colors = ["blue" if attrs["direction"] == 2 else "red" for u, v, attrs in G.edges.data()]
+```
+
+```python
+fig, ax = plt.subplots(figsize=(10,10))
+
+nx.draw(G, 
+        ax=ax,
+        pos=positions, 
+        node_color="black",
+        node_size=0.5,
+        edge_color=edge_colors,
+        arrows=False,
+       )
+```
+
+```python
+import osmnx as ox
+```
+
+```python
+nodes, edges = ox.graph_to_gdfs(G)
+```
+
+```python
+nodes.head()
+```
+
+```python
+edges.head()
+```
+
+As many Python libraries related to working with have been 
+
+```python
+import neatnet
+
+streets_cleaned = neatnet.remove_interstitial_nodes(streets)
+streets_cleaned.shape
+```
+
+```python
 
 ```
