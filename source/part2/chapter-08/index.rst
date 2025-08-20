@@ -7,4 +7,4 @@
 
     nb/0-learning-objectives.ipynb
     8.1 Representing geographic data as networks <nb/00-introduction-to-spatial-network-analysis.ipynb>
-    8.2 Introduction to spatial network analysis <nb/01-spatial-network-analysis.ipynb>
+    8.2 Spatial network analysis <nb/01-spatial-network-analysis.ipynb>
