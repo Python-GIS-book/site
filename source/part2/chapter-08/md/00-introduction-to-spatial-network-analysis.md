@@ -50,6 +50,7 @@ In this first example, we will construct a simple graph using the `networkx` lib
 ```python
 import networkx as nx
 import matplotlib.pyplot as plt
+from shapely import Point
 
 G = nx.Graph()
 G
@@ -345,8 +346,10 @@ What is the path length and route from `e` to `a` using the directed graph?
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Creating a graph from LineStrings
+## Creating a graph from geometries
 <!-- #endregion -->
+
+### Undirected graph using a GeoDataFrame
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 Data was obtained from Digiroad
@@ -367,6 +370,168 @@ streets.head()
 ```python
 streets.plot();
 ```
+
+```python
+def gdf_to_graph(gdf):
+    """Creates a NetworkX Graph from GeoDataFrame consisting of LineString objects.
+
+    Parameters
+    ----------
+
+    gdf : GeoDataFrame
+        GeoDataFrame containing the LineString data.
+
+    """
+
+    # Create the NetworkX graph
+    graph = nx.Graph()
+        
+    # Generate edge dictionary
+    for edge in gdf.itertuples():
+        coords = edge.geometry.coords
+
+        # Get first and last node of the edge (excluding vertices)
+        first, last = coords[0], coords[-1]
+
+        # Edge attributes
+        edge_attr = edge._asdict()
+
+        graph.add_edge(first, last, **edge_attr)
+
+    # Generate node attributes
+    node_attrs = {node: {"coords": node, "x": node[0], "y": node[1]} for node in graph.nodes}
+    nx.set_node_attributes(graph, node_attrs)  
+    
+    # Relabel the indices
+    graph = nx.convert_node_labels_to_integers(graph)
+
+    # Add some useful attributes    
+    graph.graph['crs'] = gdf.crs
+
+    return graph
+```
+
+Next we will break it down few steps at a time to understand what happens here. Let's start by investigating what happens inside the loop:
+
+```python
+graph = nx.Graph()
+
+for edge in streets.itertuples():
+    # Get the coordinates
+    coords = edge.geometry.coords
+
+    # Get first and last node of the edge (excluding vertices)
+    first, last = coords[0], coords[-1]
+
+    # Get the edge attributes
+    edge_attributes = edge._asdict()
+
+    # Add to the graph
+    graph.add_edge(first, last, **edge_attributes)
+    break
+```
+
+Now we iterated over one edge in our street network and stopped the loop to be able to investigate what our variables contain. The `coords` variable contain the coordinates of all the vertices in the first edge of our street network:
+
+```python
+list(coords)
+```
+
+As we can see, there are 3 vertices in this `LineString` object representing a given street. When constructing the graph topology, we only care about the `nodes` of the street segment geometry (i.e. the first and last coordinates of the geometry). This means that in case there are vertices between the nodes, those will not be taken into consideration in the topology of the graph (unless specifically needed for some special use case). Thus, the network topology itself does not need to have the full geometry of the street segments for it to work. 
+
+```python
+# Create a GeoDataFrame out of the vertices
+vertices = gpd.GeoDataFrame(geometry=[Point(coordpair) for coordpair in coords])
+
+fig, ax = plt.subplots()
+streets.iloc[0:1].plot(ax=ax)
+vertices.plot(ax=ax, color=["r", "b", "r"])
+```
+
+_**Figure 8.X.** Only the nodes (in red) will be used to construct the edge for a given network topology._
+
+Considering only the nodes and ignoring the vertices has also benefits as doing this reduces the size of the graph and makes it faster to run any analyses on it. Thus, we only take the first and last coordinate-pair of the edge geometry which we will use as nodes:
+
+```python
+print("First node:", first)
+print("Last node:", last)
+```
+
+Although the network topology only considers the nodes, this does not mean that you would loose the actual geometries of the street network, as we can still store the full geometry as an edge attribute of our graph. The `edge_attributes` variable contains all the associated information from the given row in our `GeoDataFrame` as a dictionary:
+
+```python
+edge_attributes
+```
+
+When we call the `graph.add_edge(first, last, **edge_attributes)`, we add this edge to the given `graph` in which the `**edge_attributes` command unpacks the values of the dictionary and inserts them as attributes for the given edge. Thus, when we investigate the contents of the edges at this point in time, we will see that the actual `geometry` is also stored for the edge:
+
+```python
+graph.edges.data()
+```
+
+At this point, you might wonder what happened with the `nodes` as we did not specifically add them to the graph in a similar manner as in our earlier examples? We can investigate how the `nodes` look like at this stage:
+
+```python
+graph.nodes.data()
+```
+
+As we can see, `networkx` actually adds the nodes automatically to the graph when we call the `.add_edge()` method based on the nodes provided to construct a given edge. However, as we can see from the nodes' data above, these nodes do not contain any information about the nodes in the nodes attributes as it is only an empty dictionary at this stage. This is something that we can handle afterwards as it is possible to set the node attributes also after the topology has been constructed based on the edges alone. To do this, we can e.g. parse the coordinates of the nodes and store that information as node attributes using the `nx.set_node_attributes()` as follows:
+
+```python
+# Create a dictionary that contain the node attributes
+node_attrs = {node: {"coords": node, "x": node[0], "y": node[1]} for node in graph.nodes}
+nx.set_node_attributes(graph, node_attrs)  
+```
+
+```python
+graph.nodes.data()
+```
+
+As we can see, now the `nodes` of our graph includes three attributes that provide information about the location of the nodes: `coords`, `x` and `y`. 
+
+Finally, you might have noticed that the `ids` for the nodes in our graph are quite cumbersome as they basically represent the exact coordinates of the nodes. Luckily, it is easy to relabel the node ids into a format that is easier to use and understand, using simple integer values as the ids. We can do this by using the `nx.convert_node_labels_to_integers()` function as follows:
+
+```python
+graph = nx.convert_node_labels_to_integers(graph)
+```
+
+```python
+graph.edges.data()
+```
+
+```python
+graph.nodes.data()
+```
+
+As we can see, now the ids for the nodes were altered from long coordinate tuples into simple integers, such as `0` and `1`, which are much easier to understand and use if you e.g. want to select specific node from the graph. 
+
+As a very last thing in our `gdf_to_graph()` function, we add a custom attribute to our graph where we store the coordinate reference system information of the input `GeoDataFrame` which can be useful information when using the given graph for analysis with other datasets:
+
+```python
+graph.graph["crs"] = streets.crs
+graph.graph["crs"]
+```
+
+That's it! This is how you can create an undirected graph based on a given `GeoDataFrame` that consists of `LineString` objects. The input data we used here represents streets, but the input data can basically be about anything as long as the geometries of the input data are represented as `LineString` objects and the data itself does have a network-like structure. In a similar manner, you could represent e.g. rivers, pipelines, power lines, social networks etc. 
+
+Let's finally use our `gdf_to_graph()` function and create a full network topology based on our `streets` `GeoDataFrame`:
+
+```python
+G = gdf_to_graph(streets)
+
+positions = {node: (attrs["x"], attrs["y"]) for node, attrs in G.nodes.data()}
+
+nx.draw(G, 
+        pos=positions, 
+        node_color="red",
+        node_size=0.5,
+       )
+```
+
+### Directed graph using a GeoDataFrame
+
+
+Now as we have learned how to create a simple undirected graph based on `LineString` geometries, we will continue and expand the previous example to construct a directed graph topology that considers the permitted direction of movement along the streets. When working with street network data and analyzing e.g. the travel times or distances by car, it is necessary to take into consideration one-way streets as those are extremely common especially in larger cities. On these streets, a person can only drive to one direction, and if you would need to travel to opposite direction, making an U-turn is not possible but you would need to find another path using other streets of the network. Thus, understandingly one-way streets can have significant influence on the optimal routes between given locations that need to be considered when doing network analysis. Otherwise, our analyses and results will likely provide incorrect and unrealistic results that could even cause dangerous situations if e.g. a car navigator would guide you to a one-way street where the traffic flows against your travel direction. 
 
 The `direction` column includes information about the allowed direction of the traffic flow, i.e. whether the traffic is permitted in both directions or whether it is a oneway street. In this street network dataset the values are coded as shown in Table 8.1.
 
@@ -403,18 +568,15 @@ def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, al
         Value specifying that the road is drivable along the digitizing direction.
 
     """
-    import networkx as nx
 
     # Create the NetworkX graph
     graph = nx.MultiDiGraph()
-
-    columns = list(gdf.columns)
         
     # Generate edge dictionary
     for edge in gdf.itertuples():
         coords = edge.geometry.coords
 
-        # Get first and last coordinates (drop possible Z information)
+        # Get first and last node of the edge (excluding vertices and possible Z coordinate)
         first, last = coords[0][:2], coords[-1][:2]
 
         # Edge attributes
@@ -498,6 +660,18 @@ import neatnet
 
 streets_cleaned = neatnet.remove_interstitial_nodes(streets)
 streets_cleaned.shape
+```
+
+```python
+net = ox.graph_from_place(query=["Helsinki", "Espoo"])
+```
+
+```python
+edges = ox.graph_to_gdfs(net, nodes=False)
+```
+
+```python
+edges.plot(figsize=(30,30), linewidth=0.5)
 ```
 
 ```python
