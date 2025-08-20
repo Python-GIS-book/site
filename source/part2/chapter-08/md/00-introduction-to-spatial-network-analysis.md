@@ -357,11 +357,7 @@ Data was obtained from Digiroad
 
 ```python editable=true slideshow={"slide_type": ""}
 import geopandas as gpd
-import momepy
-from contextily import add_basemap
-```
 
-```python editable=true slideshow={"slide_type": ""}
 fp = "data/digiroad_helsinki.gpkg"
 streets = gpd.read_file(fp)
 streets.head()
@@ -533,8 +529,17 @@ nx.draw(G,
 
 Now as we have learned how to create a simple undirected graph based on `LineString` geometries, we will continue and expand the previous example to construct a directed graph topology that considers the permitted direction of movement along the streets. When working with street network data and analyzing e.g. the travel times or distances by car, it is necessary to take into consideration one-way streets as those are extremely common especially in larger cities. On these streets, a person can only drive to one direction, and if you would need to travel to opposite direction, making an U-turn is not possible but you would need to find another path using other streets of the network. Thus, understandingly one-way streets can have significant influence on the optimal routes between given locations that need to be considered when doing network analysis. Otherwise, our analyses and results will likely provide incorrect and unrealistic results that could even cause dangerous situations if e.g. a car navigator would guide you to a one-way street where the traffic flows against your travel direction. 
 
-The `direction` column includes information about the allowed direction of the traffic flow, i.e. whether the traffic is permitted in both directions or whether it is a oneway street. In this street network dataset the values are coded as shown in Table 8.1.
+In the following, we will continue working with the same street network but now we will create a directed graph where the permitted direction of travel is taken into consideration. We will also modify the network slightly, and calculate the travel time it takes to cross a given street segment assuming that the person would be driving according the speed limits. Let's start by reading the data and investigate it a bit further:
 
+```python
+import geopandas as gpd
+
+fp = "data/digiroad_helsinki.gpkg"
+streets = gpd.read_file(fp)
+streets.head()
+```
+
+Here, the `direction` column includes information about the allowed direction of the traffic flow, i.e. whether the traffic is permitted in both directions or whether it is a oneway street. In this street network dataset the values are coded as shown in Table 8.1. As we can see based on these first five rows, there seem to be a couple of street segments that can be travelled to both directions indicated with value `2` (i.e. the edge should be bidirectional). In addition, there are couple of segments where the travel is permitted against the digitization direction (value `3`) and one where the travel is permitted in the direction of digitization. The direction of digitization basically means the order how the vertices (points) of a given `LineString` have been digitized when the data was created. 
 
 
 : _**Table 8.1**. The rules for directed graph in terms of permitted direction of traffic._
@@ -542,8 +547,50 @@ The `direction` column includes information about the allowed direction of the t
 | Value | Direction of traffic flow                                                             |
 |-------|---------------------------------------------------------------------------------------|
 | 2     | Traffic is permitted in both directions                                               |
-| 3     | Traffic is permitted against the direction of digitalisation (end-node to start-node) |
-| 4     | Traffic is permitted in the direction of digitalisation (start-node to end-node)      |
+| 3     | Traffic is permitted against the direction of digitization (end-node to start-node) |
+| 4     | Traffic is permitted in the direction of digitization (start-node to end-node)      |
+
+
+The `maxspeed` column in our data provides information about the speed limit (km per hour) on a given street element. This is very useful information as we can use this to calculate the "free-flow" travel time which indicates the time it takes to cross a specific street segment assuming that a given person would be able to travel as fast as the speed limit allows. Notice that in cities, it is common that the actual driving speed can be lower than the speed limit due to congestion but we will ignore this for now to keep things simple. 
+
+Let's start by creating an attribute for travel time which we can calculate based on the length of the `LineString` and the `maxspeed` column. As we do not yet have information about the length stored in our data, we will also calculate and store it in a dedicated column called `length_m` (in meters). Notice that when calculating length, it is important that your input data is in projected coordinate system. In case your data has e.g. `WGS84` as the CRS, you should first reproject your data into an appropriate metric system (see Chapter 6.4). In our case, the input data is already in projected EUREF-FIN coordinate reference system having meters as units:
+
+```python
+streets.crs.axis_info
+```
+
+To calculate the length of each street segments, we can use the `.length` which returns the length of the lines in meters:
+
+```python
+streets["length_m"] = streets.length
+streets.head(2)
+```
+
+Now we have all the information needed to calculate the free-flow travel time. To calculate this, we can use a following formula that considers the speed limit information in km/h and the distance as meters, and provides the travel time as seconds:
+
+$$
+t = \frac{3.6 \, d}{v}
+$$
+
+Where:  
+
+- \(t\) = travel time in **seconds (s)**  
+- \(d\) = distance in **meters (m)**  
+- \(v\) = speed limit in **kilometers per hour (km/h)**
+
+This works because  
+
+$$
+1 \ \text{km/h} = \frac{1000}{3600} \ \text{m/s} \approx 0.27778 \ \text{m/s},
+$$  
+
+and multiplying by \(3.6\) handles the conversion cleanly between km/h and m/s, as 1 meter per second is 3.6 kilometers per hour:
+
+$$
+1 \ \text{m/s} = \frac{3600}{1000} \ \text{km/h} = 3.6 \ \text{km/h}
+$$
+
+
 
 ```python
 def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, along=4):
@@ -660,18 +707,6 @@ import neatnet
 
 streets_cleaned = neatnet.remove_interstitial_nodes(streets)
 streets_cleaned.shape
-```
-
-```python
-net = ox.graph_from_place(query=["Helsinki", "Espoo"])
-```
-
-```python
-edges = ox.graph_to_gdfs(net, nodes=False)
-```
-
-```python
-edges.plot(figsize=(30,30), linewidth=0.5)
 ```
 
 ```python
