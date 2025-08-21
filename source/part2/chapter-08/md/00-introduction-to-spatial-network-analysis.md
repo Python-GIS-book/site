@@ -15,6 +15,8 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Representing geographic data as networks
 
+As we briefly introduced in Chapter 5.2, networks are data structures that consists of nodes that are connected to other nodes via edges which ultimately construct a network topology (or a graph as it is referred in graph theory). In this section, we will show how you can construct spatial networks using Python based on geographic data. We will show how you can create a simple graph from scratch, as well as how to create a network from a given dataset with `LineString` objects or from OpenStreetMap data that makes it possible to create networks from all over the world that can be used for various network analysis purposes.
+
 Contents:
 
 - Basic concepts: nodes, edges, node/edge attributes, topology, connectivity, directionality, what Python tools are out there that can be used?
@@ -28,19 +30,39 @@ Contents:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Basic concepts
 
-As we briefly introduced in Chapter 5.2, networks are data structures that consists of nodes that are connected to other nodes via edges which ultimately construct a network (or a graph as it is referred in graph theory). As networks are widely used in various domains, the names used for these basic elements of a network can sometime vary. To clarify some of the ambiguity related to these terms, we list commonly used terms related to spatial networks below:
+As networks are widely used in various domains, the terminology related to networks can at times be a bit confusing. To clarify some of the ambiguity related to the terminology, we will start by going through some common network-related terms to make it clear how we refer to these terms in this book emphasizing the linkage to GIS.
 
-- `Network` equals to `graph` (term used in graph theory)
-- `Node` sometimes equals to `vertex` (term used in graph theory)
-- `Edge` (used in graph theory) equals to `line` or `link`, and a `directed edge` can be called as an `arc` in graph theory.
+`Node` is a point that together with `edges` construct a `graph` (Figure 8.1). In GIS, `node` typically refers to a specific point location, such as intersection in the street network, but in other contexts, it can represent various other things, such as persons or computers (a node can represent about anything really). In graph theory, `node` is typically called as `vertex`. However, in GIS, there is a distiction between the two: `node` is specific to a point at which a line ends or connects to another line, whereas `vertices` can be in between the `nodes` as intermediate points constructing the shape of a given line geometry (e.g. a curved road). Thus, every `node` of a `graph` can be considered as a `vertex` but not all `vertices` are `nodes`. 
 
-In Python, most of the network analysis related libraries (e.g. `networkx`, `igraph`, `graphtool`) use the terminology derived from the graph theory, i.e. most of the libraries use constructs like `Graph`, `Edge` and `Vertex`. However, `networkx` library which we will mostly cover in this book differs partially as they use a construct `Node` instead of `Vertex`. This makes sense as in GIS there is a difference between these two: A `node` is specific to a point at which a line ends or connects to another line, whereas `vertices` can be in between the `nodes` as intermediate points along the geometry which is typical e.g. when representing road networks. Thus, every `node` of a `graph` can be considered as a `vertex` but not all `vertices` are `nodes`. 
+`Edge` is a connection between two `nodes`. Sometimes `edge` is also called as `line` or `link`, and a `directed edge` can be called as an `arc` (in graph theory). Edges can have attributes associated with them (e.g. distance, volume, capacity) which make them very useful data structure for various analytical purposes, such as conducting way-finding where the target is to find an optimal path between two locations on a network. When working with real-world networks (e.g. street networks), it is typical that the actual geometry of the street segment is simplified when constructing the graph and only the nodes are kept (i.e. the first and last point of a `LineString`). 
 
+`Graph` is a collection of `nodes` and `edges` that constitutes a graph structure (term used in graph theory). `Graph` is an abstract concept commonly used e.g. in mathematics and computer science which emphasizes the connections and relationships between entities (nodes) rather than exact geographic positions or distances. `Network topology` is a commonly used term in GIS, which is ultimately a same thing as a `graph`.
+
+`Spatial network` or `geometric network` is a **graph with attributes** that is used to represent real-world systems on a geographic space. For example, street network is typically not only represented as a collection of `nodes` (intersections) and `edges` (streets) but there are various additional attributes associated with the network, such as speed limit, number of lanes, the location of crossroads etc. In practice, the terms `graph`, `network` and `spatial network` are often used in synonymous manner, although there are subtle differences in terms of their definitions. In this book, we use the term and variable `network` (or `net` in short) when we talk about a real-world spatial networks with various attributes and a `graph` (variable `G`) if we talk about a graph structure without linkage to geographical space.
+
+Graphs and networks can be `directed` or `undirected` (Figure 8.1), which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, this directionality determines how the interaction happens (or is allowed to happen) between the nodes. For example in terms of street networks, the roads can be travelled to any direction on an undirected network but with the directed network the travel direction is restricted to a certain direction (e.g. due to one-way-streets). Undirected graphs are commonly used e.g. with  walking and cycling related network analysis, as with those travel modes it is typically possible to travel the same street in any direction you like. Directed graphs are commonly used when considering driving, as there are stricter rules in terms of how the roads of the city can be traversed by cars.
+
+`Connectivity` refers to the ability of a given network to maintain a connection between cope with failure
+
+![_**Figure 8.1.** A directed graph._](../img/directed_graph.png)
+
+_**Figure 8.1.** A directed graph._
 
 
 <!-- #endregion -->
 
-## Creating a simple graph from scratch
+: _**Table 5.1.** Edges for each direction._
+
+| edge_id | from_node | to_node| description |
+|---------|-----------|--------|-------------|
+|1| A| C |  *edge for direction 1* |
+|2| C| A |  *edge for direction 2* |
+
+
+In the following, we will dive deeper to all of these aspects and construct various types of networks which aim to make it easier to understand how all of this works using Python.
+
+
+## Creating a simple network from scratch
 
 
 ### Undirected graph
@@ -57,26 +79,19 @@ G
 ```
 
 ```python
-G.graph["name"] = "my first graph"
-G
-```
+# Add nodes
+G.add_node("a")
+G.add_node("b")
+G.add_node("c")
+G.add_node("d")
+G.add_node("e")
 
-```python
-G.graph
-```
-
-```python
-a_coords = (0,5)
-b_coords = (5,5)
-c_coords = (0,0)
-d_coords = (5,0)
-e_coords = (10,0)
-
-G.add_node("a", coords=a_coords)
-G.add_node("b", coords=b_coords)
-G.add_node("c", coords=c_coords)
-G.add_node("d", coords=d_coords)
-G.add_node("e", coords=e_coords)
+# Add edges            
+G.add_edge("a", "b")
+G.add_edge("a", "c")
+G.add_edge("b", "d")
+G.add_edge("c", "d")
+G.add_edge("d", "e")
 ```
 
 ```python
@@ -84,7 +99,7 @@ G.nodes
 ```
 
 ```python
-G.nodes.data()
+G.edges
 ```
 
 ```python
@@ -92,44 +107,55 @@ nx.draw(G, with_labels=True, font_color="white")
 ```
 
 ```python
-positions = {node: attrs["coords"] for node, attrs in G.nodes.data()}
+net = nx.Graph()
+
+node_collection = [("a", {"coords": (0,5)}),
+                   ("b", {"coords": (5,5)}),
+                   ("c", {"coords": (0,0)}),
+                   ("d", {"coords": (5,0)}),
+                   ("e", {"coords": (10,0)}),
+                  ]
+
+edge_collection = [("a", "b", {"weight": 1}),
+                   ("a", "c", {"weight": 2}),
+                   ("b", "d", {"weight": 1}),
+                   ("c", "d", {"weight": 1}),
+                   ("d", "e", {"weight": 3}),
+                  
+                  ]
+
+# Add nodes and edges from the collections
+net.add_nodes_from(node_collection)
+net.add_edges_from(edge_collection)
+```
+
+```python
+net.nodes.data()
+```
+
+```python
+net.edges.data()
+```
+
+```python
+# Extract node locations
+positions = {node: attrs["coords"] for node, attrs in net.nodes.data()}
 positions
 ```
 
 ```python
-nx.draw(G, with_labels=True, pos=positions, font_color="white")
+# Parse edge labels
+edge_labels = {(u, v): attrs["weight"] for u, v, attrs in net.edges.data()}
+edge_labels
 ```
 
 ```python
-G.add_edge("a", "b", weight=1)
-G.add_edge("a","c", weight=2)
-G.add_edge("b","d", weight=1)
-G.add_edge("c","d", weight=1)
-G.add_edge("d","e", weight=3)
-```
-
-```python
-print(G.edges)
-print(G.edges.data())
-```
-
-```python
-nx.draw(G, 
-        pos=positions, 
-        with_labels=True, 
-        font_weight="bold", 
-        font_color="white", 
-        node_color="grey"
-)
-```
-
-```python
-edge_labels = {(u, v): attrs["weight"] for u, v, attrs in G.edges.data()}
+nx.draw(net, with_labels=True, pos=positions, font_color="white")
 ```
 
 ```python
 # Draw the graph
-nx.draw(G, 
+nx.draw(net, 
         pos=positions, 
         with_labels=True, 
         font_weight="bold", 
@@ -139,7 +165,7 @@ nx.draw(G,
 
 # Add edge labels
 nx.draw_networkx_edge_labels(
-    G, 
+    net, 
     positions,
     edge_labels=edge_labels,
     font_color='red', 
@@ -147,7 +173,7 @@ nx.draw_networkx_edge_labels(
 );
 ```
 
-_**Figure 8.X.** A simple undirected graph consisting of five nodes and edges._
+_**Figure 8.X.** A simple undirected spatial network consisting of five nodes and edges._
 
 Although, you can easily add nodes and edges one at a time as shown previously, it is not typically very efficient way of construcing a graph. Luckily, `networkx` also allows you to pass the information for the graphs from a collection of items. Thus, we can create an identical graph as shown previously by passing a collection of nodes and edges to the graph as follows:
 
@@ -527,9 +553,9 @@ nx.draw(G,
 ### Directed graph using a GeoDataFrame
 
 
-Now as we have learned how to create a simple undirected graph based on `LineString` geometries, we will continue and expand the previous example to construct a directed graph topology that considers the permitted direction of movement along the streets. When working with street network data and analyzing e.g. the travel times or distances by car, it is necessary to take into consideration one-way streets as those are extremely common especially in larger cities. On these streets, a person can only drive to one direction, and if you would need to travel to opposite direction, making an U-turn is not possible but you would need to find another path using other streets of the network. Thus, understandingly one-way streets can have significant influence on the optimal routes between given locations that need to be considered when doing network analysis. Otherwise, our analyses and results will likely provide incorrect and unrealistic results that could even cause dangerous situations if e.g. a car navigator would guide you to a one-way street where the traffic flows against your travel direction. 
+Now as we have learned how to create a simple undirected graph based on `LineString` geometries, we will continue and expand the previous example to construct a directed graph topology that considers the permitted direction of movement along the streets. When working with street network data and analyzing e.g. the travel times or distances by car, it is necessary to take into consideration one-way streets as those are extremely common especially in larger cities. On these streets, a person can only drive to a specific direction, and if you would need to travel to opposite direction, making an U-turn would not be possible but you would need to travel further to find another path where the driving is permitted to the direction you are heading. Thus, one-way streets can have significant influence on the paths between given locations which need to be taken into account when doing network analysis. If directionality would not be taken into account (like in our previous example), our analyses and results will likely provide incorrect path suggestions and unrealistic results. 
 
-In the following, we will continue working with the same street network but now we will create a directed graph where the permitted direction of travel is taken into consideration. We will also modify the network slightly, and calculate the travel time it takes to cross a given street segment assuming that the person would be driving according the speed limits. Let's start by reading the data and investigate it a bit further:
+In the following, we will continue working with the same street network as in our previous example but now we will create a directed graph where the permitted direction of travel is taken into consideration. Let's start again by reading the data:
 
 ```python
 import geopandas as gpd
@@ -550,45 +576,6 @@ Here, the `direction` column includes information about the allowed direction of
 | 3     | Traffic is permitted against the direction of digitization (end-node to start-node) |
 | 4     | Traffic is permitted in the direction of digitization (start-node to end-node)      |
 
-
-The `maxspeed` column in our data provides information about the speed limit (km per hour) on a given street element. This is very useful information as we can use this to calculate the "free-flow" travel time which indicates the time it takes to cross a specific street segment assuming that a given person would be able to travel as fast as the speed limit allows. Notice that in cities, it is common that the actual driving speed can be lower than the speed limit due to congestion but we will ignore this for now to keep things simple. 
-
-Let's start by creating an attribute for travel time which we can calculate based on the length of the `LineString` and the `maxspeed` column. As we do not yet have information about the length stored in our data, we will also calculate and store it in a dedicated column called `length_m` (in meters). Notice that when calculating length, it is important that your input data is in projected coordinate system. In case your data has e.g. `WGS84` as the CRS, you should first reproject your data into an appropriate metric system (see Chapter 6.4). In our case, the input data is already in projected EUREF-FIN coordinate reference system having meters as units:
-
-```python
-streets.crs.axis_info
-```
-
-To calculate the length of each street segments, we can use the `.length` which returns the length of the lines in meters:
-
-```python
-streets["length_m"] = streets.length
-streets.head(2)
-```
-
-Now we have all the information needed to calculate the free-flow travel time. To calculate this, we can use a following formula that considers the speed limit information in km/h and the distance as meters, and provides the travel time as seconds:
-
-$$
-t = \frac{3.6 \, d}{v}
-$$
-
-Where:  
-
-- \(t\) = travel time in **seconds (s)**  
-- \(d\) = distance in **meters (m)**  
-- \(v\) = speed limit in **kilometers per hour (km/h)**
-
-This works because  
-
-$$
-1 \ \text{km/h} = \frac{1000}{3600} \ \text{m/s} \approx 0.27778 \ \text{m/s},
-$$  
-
-and multiplying by \(3.6\) handles the conversion cleanly between km/h and m/s, as 1 meter per second is 3.6 kilometers per hour:
-
-$$
-1 \ \text{m/s} = \frac{3600}{1000} \ \text{km/h} = 3.6 \ \text{km/h}
-$$
 
 
 
@@ -663,11 +650,11 @@ def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, al
 G = gdf_to_directed_graph(streets)
 ```
 
-```python
+```python jupyter={"source_hidden": true}
 positions = {node: attrs["coords"] for node, attrs in G.nodes.data()}
 ```
 
-```python
+```python jupyter={"source_hidden": true}
 edge_colors = ["blue" if attrs["direction"] == 2 else "red" for u, v, attrs in G.edges.data()]
 ```
 
@@ -682,6 +669,53 @@ nx.draw(G,
         edge_color=edge_colors,
         arrows=False,
        )
+```
+
+## Preparations for routing: Adding edge attributes
+
+Next we will show how you can modify the network so that it is more useful for routing purposes. We will calculate the travel time it takes to cross a given street segment assuming that the person would be driving according the speed limits. The `maxspeed` column in our data provides information about the speed limit (km per hour) on a given street element. This is very useful information as we can use this to calculate the "free-flow" travel time which indicates the time it takes to cross a specific street segment assuming that a given person would be able to travel as fast as the speed limit allows. Notice that in cities, it is common that the actual driving speed can be lower than the speed limit due to congestion but we will ignore this for now to keep things simple. 
+
+```python
+streets.head(2)
+```
+
+Let's start by creating an attribute for travel time which we can calculate based on the length of the `LineString` and the `maxspeed` column. As we do not yet have information about the length stored in our data, we will also calculate and store it in a dedicated column called `length_m` (in meters). Notice that when calculating length, it is important that your input data is in projected coordinate system. In case your data has e.g. `WGS84` as the CRS, you should first reproject your data into an appropriate metric system (see Chapter 6.4). In our case, the input data is already in projected EUREF-FIN coordinate reference system having meters as units:
+
+```python
+streets.crs.axis_info
+```
+
+To calculate the length of each street segments, we can use the `.length` which returns the length of the lines in meters:
+
+```python
+streets["length_m"] = streets.length
+streets.head(2)
+```
+
+Now we have all the information needed to calculate the free-flow travel time. To calculate the travel time in seconds, we can use a following formula that considers the speed limit information in km/h and the distance as meters (which is how our data is constructed in our `streets` dataset):
+
+$$
+t = \frac{3.6 \, d}{v}
+$$
+
+Where:  
+
+- \(t\) = travel time in **seconds (s)**  
+- \(d\) = distance in **meters (m)**  
+- \(v\) = speed limit in **kilometers per hour (km/h)**
+
+The multiplication of distance by 3.6 is a conversion factor between meters per second and kilometers per hour:
+
+$$
+1 \ \text{m/s} = \frac{3600}{1000} \ \text{km/h} = 3.6 \ \text{km/h}
+$$
+
+Let's now use the formula to calculate the travel time which we store in `time_s` column, rounding the value to a full second:
+
+```python
+streets["time_s"] = 3.6 * streets["length_m"] / streets["maxspeed"]
+streets["time_s"] = streets["time_s"].round(0).astype(int)
+streets.head()
 ```
 
 ```python

@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.16.7
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -138,7 +138,7 @@ Graphs are, in principle, very simple data structures. In Figure 5.2, we saw a s
  1. **nodes** (e.g. intersections on a street, or a person in social network), and
  2. **edges** (a link that connects the nodes to each other)
  
-A simple graph could look like the one shown in Figure 5.6 in which the letters `A, B, C, D, and E` are nodes and the lines that go between them are the network edges (also called links or arcs). 
+A simple graph could look like the one shown in Figure 5.6 in which the letters `A, B, C, D, and E` are nodes and the lines that go between them are the network edges (also called links). 
 
 
 ![_**Figure 5.6.** A simple graph._](../img/graph_elements.png)
@@ -150,26 +150,9 @@ _**Figure 5.6.** A simple graph._
 
 In networks, most of the information is stored in `node` and `edge attributes`. In terms of street networks, `nodes` typically contain the geographical information associated with the graph, such as the coordinates of the intersections. Edges typically contain much more information. They can for instance contain information about which nodes are connected to each other, and what is the `cost` to travel between the nodes measured e.g. as time or distance (Figure 5.7). It is also possible to associate geographical information to edges if you want to show how the roads are curved between intersections, but for basic network analysis (such as finding the shortest route from a to b) this is not needed. 
 
-![_**Figure 5.7.** Weighted graph._](../img/graph_weights.png)
+![_**Figure 5.7.** A weighted network._](../img/graph_weights.png)
 
-_**Figure 5.7.** Weighted graph._
-
-
-### Directionality
-
-Graphs can be `directed` or `undirected` (Figure 5.8), which basically determines whether the roads can be travelled to any direction or whether the travel direction is restricted to certain direction (e.g. a one-way-street). In `undirected` graph, it is possible to travel in both directions between nodes (e.g. from `A --> C` and from `C --> A` in Figure 5.8). Undirected graphs are typically used e.g. when you want to model walking and cycling paths, as with those travel modes it is typically possible to travel the same street in any direction you like. If the graph is `directed`, it means that you should have a separate edge for each direction. If you for example have a graph with only an edge that goes from `D` to `E`, you can travel to node `E` from `D` but you cannot travel back. In directed graphs, you typically need to have a separate edge for each travel direction. Fundamentally this means that for a bi-directional road, you should have two edges in your data (i.e. two separate rows), such as shown in Table 5.1.
-
-![_**Figure 5.8.** Directed graph._](../img/directed_graph.png)
-
-_**Figure 5.8.** Directed graph._
-
-
-: _**Table 5.1.** Edges for each direction._
-
-| edge_id | from_node | to_node| description |
-|---------|-----------|--------|-------------|
-|1| A| C |  *edge for direction 1* |
-|2| C| A |  *edge for direction 2* |
+_**Figure 5.7.** A weighted network._
 
 
 ### Commonly used network data formats
