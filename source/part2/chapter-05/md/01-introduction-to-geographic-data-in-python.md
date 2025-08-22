@@ -155,6 +155,23 @@ In networks, most of the information is stored in `node` and `edge attributes`. 
 _**Figure 5.7.** A weighted network._
 
 
+### Directionality
+
+Graphs can be `directed` or `undirected` (Figure 5.8), which basically determines whether the roads can be travelled to any direction or whether the travel direction is restricted to certain direction (e.g. a one-way-street). In `undirected` graph, it is possible to travel in both directions between nodes (e.g. from `A --> C` and from `C --> A` in Figure 5.8). Undirected graphs are typically used e.g. when you want to model walking and cycling paths, as with those travel modes it is typically possible to travel the same street in any direction you like. If the graph is `directed`, it means that you should have a separate edge for each direction. If you for example have a graph with only an edge that goes from `D` to `E`, you can travel to node `E` from `D` but you cannot travel back. In directed graphs, you typically need to have a separate edge for each travel direction. Fundamentally this means that for a bi-directional road, you should have two edges in your data (i.e. two separate rows), such as shown in Table 5.1.
+
+![_**Figure 5.8.** Directed graph._](../img/directed_graph.png)
+
+_**Figure 5.8.** Directed graph._
+
+
+: _**Table 5.1.** Edges for each direction._
+
+| edge_id | from_node | to_node| description |
+|---------|-----------|--------|-------------|
+|1| A| C |  *edge for direction 1* |
+|2| C| A |  *edge for direction 2* |
+
+
 ### Commonly used network data formats
 
 As with everything in life, there are also many flavors when it comes to storing network data in a file. Below we list a couple of commonly used data formats for storing network data. 

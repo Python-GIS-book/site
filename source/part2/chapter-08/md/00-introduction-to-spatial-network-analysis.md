@@ -28,74 +28,69 @@ Contents:
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-## Basic concepts
+## What is a graph or a network?
 
-As networks are widely used in various domains, the terminology related to networks can at times be a bit confusing. To clarify some of the ambiguity related to the terminology, we will start by going through some common network-related terms to make it clear how we refer to these terms in this book emphasizing the linkage to GIS.
+As networks are widely used in various domains, the terminology related to networks can sometimes be a bit confusing. To clarify some of the ambiguity related to the terminology, we will explain some common network-related terminology along the way to make it clear how we refer to specific concepts in this book emphasizing the linkage to GIS. Most of the terminology derives from graph theory and network theory.
 
-`Node` is a point that together with `edges` construct a `graph` (Figure 8.1). In GIS, `node` typically refers to a specific point location, such as intersection in the street network, but in other contexts, it can represent various other things, such as persons or computers (a node can represent about anything really). In graph theory, `node` is typically called as `vertex`. However, in GIS, there is a distiction between the two: `node` is specific to a point at which a line ends or connects to another line, whereas `vertices` can be in between the `nodes` as intermediate points constructing the shape of a given line geometry (e.g. a curved road). Thus, every `node` of a `graph` can be considered as a `vertex` but not all `vertices` are `nodes`. 
-
-`Edge` is a connection between two `nodes`. Sometimes `edge` is also called as `line` or `link`, and a `directed edge` can be called as an `arc` (in graph theory). Edges can have attributes associated with them (e.g. distance, volume, capacity) which make them very useful data structure for various analytical purposes, such as conducting way-finding where the target is to find an optimal path between two locations on a network. When working with real-world networks (e.g. street networks), it is typical that the actual geometry of the street segment is simplified when constructing the graph and only the nodes are kept (i.e. the first and last point of a `LineString`). 
-
-`Graph` is a collection of `nodes` and `edges` that constitutes a graph structure (term used in graph theory). `Graph` is an abstract concept commonly used e.g. in mathematics and computer science which emphasizes the connections and relationships between entities (nodes) rather than exact geographic positions or distances. `Network topology` is a commonly used term in GIS, which is ultimately a same thing as a `graph`.
-
-`Spatial network` or `geometric network` is a **graph with attributes** that is used to represent real-world systems on a geographic space. For example, street network is typically not only represented as a collection of `nodes` (intersections) and `edges` (streets) but there are various additional attributes associated with the network, such as speed limit, number of lanes, the location of crossroads etc. In practice, the terms `graph`, `network` and `spatial network` are often used in synonymous manner, although there are subtle differences in terms of their definitions. In this book, we use the term and variable `network` (or `net` in short) when we talk about a real-world spatial networks with various attributes and a `graph` (variable `G`) if we talk about a graph structure without linkage to geographical space.
-
-Graphs and networks can be `directed` or `undirected` (Figure 8.1), which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, this directionality determines how the interaction happens (or is allowed to happen) between the nodes. For example in terms of street networks, the roads can be travelled to any direction on an undirected network but with the directed network the travel direction is restricted to a certain direction (e.g. due to one-way-streets). Undirected graphs are commonly used e.g. with  walking and cycling related network analysis, as with those travel modes it is typically possible to travel the same street in any direction you like. Directed graphs are commonly used when considering driving, as there are stricter rules in terms of how the roads of the city can be traversed by cars.
-
-`Connectivity` refers to the ability of a given network to maintain a connection between cope with failure
-
-![_**Figure 8.1.** A directed graph._](../img/directed_graph.png)
-
-_**Figure 8.1.** A directed graph._
-
-
-<!-- #endregion -->
-
-: _**Table 5.1.** Edges for each direction._
-
-| edge_id | from_node | to_node| description |
-|---------|-----------|--------|-------------|
-|1| A| C |  *edge for direction 1* |
-|2| C| A |  *edge for direction 2* |
-
+`Graph` is a collection of `nodes` and `edges` that constitute a graph structure. A `graph` is an abstract concept commonly used e.g. in mathematics and computer science which emphasizes the connections and relationships between entities (nodes) rather than exact geographic positions or distances. This graph structure is also called as `network topology`. A `network` then again is sometimes defined as **a  graph with attributes**, whereas `spatial network` is a `network` that is used to represent real-world systems on a geographic space. For example, street network is typically not only represented as a collection of `nodes` (intersections) and `edges` (streets) but there are various additional attributes associated with the network, such as speed limit, number of lanes, the location of crossroads etc. In practice, the terms `graph`, `network` and `spatial network` are often used in synonymous manner, although there can be subtle differences in terms of how they are defined in different contexts. In this book, we will broadly use the term `graph` when talking about any of these concepts. After all, all of these concepts are graph structures, regardless of whether they have attribute information or not.
 
 In the following, we will dive deeper to all of these aspects and construct various types of networks which aim to make it easier to understand how all of this works using Python.
+<!-- #endregion -->
 
+## Creating a graph from scratch
 
-## Creating a simple network from scratch
+In the following sections, we will show how you can create a simple 1) undirected and 2) directed graph from scratch without any specific data source and explain the basic concepts, data structures and methods related to `networkx` library. 
 
 
 ### Undirected graph
 
-In this first example, we will construct a simple graph using the `networkx` library and its `nx.Graph()` construct that allows you to create an undirected graph with nodes and edges. 
+We will start our exploration with networks by constructing a simple `graph` with `nodes` and `edges` using the `networkx` library. But what is a `node` exactly? A `node` is a point entity that can represent more or less anything in the world, such as person, computer, building, or location. In GIS context, `node` of a `spatial network` typically refers to a specific point location, such as intersection in the street network. In graph theory, `node` is typically called as `vertex`. However, in GIS, there is typically a distiction between the two: `node` is specific to a point at which a line ends or connects to another line, whereas `vertices` can be in between the `nodes` as intermediate points (Figure 8.1) constructing the shape of a given line geometry (e.g. a curved road). Thus, every `node` of a `graph` can be considered as a `vertex` but not all `vertices` are `nodes`. When working with real-world networks (e.g. street networks), it is typical that the actual geometry of the street segment is simplified when constructing the graph and only the nodes are kept (i.e. the first and last point of LineStrings).
+
+![_**Figure 8.1.** Nodes (in red) and a vertex (blue) extracted from a simple LineString geometry._](../img/node_vs_vertex.png)
+
+_**Figure 8.1.** Nodes (in red) and a vertex (blue) extracted from a simple LineString geometry._
+
+
+In Python, we can use the `networkx` library and its `nx.Graph()` construct to create an undirected graph. Let's initialize an "empty" graph and store it into a variable `G` that we can later use to populate it with `nodes` and `edges`:
 
 ```python
 import networkx as nx
 import matplotlib.pyplot as plt
-from shapely import Point
 
 G = nx.Graph()
 G
 ```
 
 ```python
-# Add nodes
+G.nodes
+```
+
+By calling the `.nodes` attribute, it is possible to return all the nodes of a given graph. As we can see, our graph is still empty without any nodes. We can easily add nodes to our graph by using the `.add_node()` method which can be used to add nodes to a given graph one at a time. In the following, we will add five nodes to our graph and give them simple letter ids from `a` to `e`:
+
+```python
 G.add_node("a")
 G.add_node("b")
 G.add_node("c")
 G.add_node("d")
 G.add_node("e")
+```
 
+```python
+G.nodes.data()
+```
+
+As we see, the graph contains five nodes. By calling the `.nodes.data()` method, we can return not only the nodes of the graph, but also the attributes associated with the nodes. Here, we do not yet have any node attributes associated with our data, which is the reason why we only see empty dictionaries (`{}`) associated with each node. 
+
+
+`Edges` are the other core element of a graph. A single `edge` is basically a connection between two `nodes`. `Edge` can also be called as `line` or `link` (depending on the context) and sometimes a term `arc` is used to call an `edge` which is `directed`. Edges can have attributes associated with them (e.g. distance, volume, capacity) which make them very useful data structure for various analytical purposes, such as conducting way-finding where the target is to find an optimal path between two locations on a network. 
+
+```python
 # Add edges            
 G.add_edge("a", "b")
 G.add_edge("a", "c")
 G.add_edge("b", "d")
 G.add_edge("c", "d")
 G.add_edge("d", "e")
-```
-
-```python
-G.nodes
 ```
 
 ```python
@@ -265,6 +260,8 @@ nx.draw_networkx_edges(G2, positions, edgelist=path_edges, edge_color='r', width
 ```
 
 ### Directed graph
+
+Graphs and networks can be `directed` or `undirected` (Figure 8.1), which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, this directionality determines how the interaction happens (or is allowed to happen) between the nodes. For example in terms of street networks, the roads can be travelled to any direction on an undirected network but with the directed network the travel direction is restricted to a certain direction (e.g. due to one-way-streets). Undirected graphs are commonly used e.g. with  walking and cycling related network analysis, as with those travel modes it is typically possible to travel the same street in any direction you like. Directed graphs are commonly used when considering driving, as there are stricter rules in terms of how the roads of the city can be traversed by cars.
 
 ```python
 G_directed = nx.MultiDiGraph()
