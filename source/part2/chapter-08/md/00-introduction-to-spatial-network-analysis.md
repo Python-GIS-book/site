@@ -44,7 +44,7 @@ In the following sections, we will show how you can create a simple 1) undirecte
 
 ### Undirected graph
 
-We will start our exploration with networks by constructing a simple `graph` with `nodes` and `edges` using the `networkx` library. But what is a `node` exactly? A `node` is a point entity that can represent more or less anything in the world, such as person, computer, building, or location. In GIS context, `node` of a `spatial network` typically refers to a specific point location, such as intersection in the street network. In graph theory, `node` is typically called as `vertex`. However, in GIS, there is typically a distiction between the two: `node` is specific to a point at which a line ends or connects to another line, whereas `vertices` can be in between the `nodes` as intermediate points (Figure 8.1) constructing the shape of a given line geometry (e.g. a curved road). Thus, every `node` of a `graph` can be considered as a `vertex` but not all `vertices` are `nodes`. When working with real-world networks (e.g. street networks), it is typical that the actual geometry of the street segment is simplified when constructing the graph and only the nodes are kept (i.e. the first and last point of LineStrings).
+We will start our exploration with networks by constructing a simple `graph` with `nodes` and `edges` using the `networkx` library. But what is a `node` exactly? A `node` is a point entity that can represent more or less anything in the world, such as a person, computer or location. In GIS context, `node` of a `spatial network` typically refers to a specific point location, such as intersection in the street network. In graph theory, `node` is typically called as `vertex`. However, in GIS, there is typically a distiction between the two: `node` is specific to a point at which a line ends or connects to another line, whereas `vertices` can be in between the `nodes` as intermediate points (Figure 8.1) constructing the shape of a given line geometry (e.g. a curved road). Thus, every `node` of a `graph` can be considered as a `vertex` but not all `vertices` are `nodes`. When working with real-world networks (e.g. street networks), it is typical that the actual geometry of the street segment is simplified when constructing the graph and only the nodes are kept (i.e. the first and last point of LineStrings).
 
 ![_**Figure 8.1.** Nodes (in red) and a vertex (blue) extracted from a simple LineString geometry._](../img/node_vs_vertex.png)
 
@@ -79,10 +79,17 @@ G.add_node("e")
 G.nodes.data()
 ```
 
-As we see, the graph contains five nodes. By calling the `.nodes.data()` method, we can return not only the nodes of the graph, but also the attributes associated with the nodes. Here, we do not yet have any node attributes associated with our data, which is the reason why we only see empty dictionaries (`{}`) associated with each node. 
+As we see, the graph contains five nodes. By calling the `.nodes.data()` method, we can return not only the nodes of the graph, but also the attributes associated with the nodes. Here, we do not yet have any node attributes associated with our data, which is the reason why we only see empty dictionaries (`{}`) associated with each node. Already at this stage, we can plot our graph even without any edges by using the `nx.draw()` function that is a handy tool to plot `networkx` graph objects (uses `matplotlib` library in the background for plotting):
 
+```python
+nx.draw(G=G, with_labels=True, font_color="white")
+```
 
-`Edges` are the other core element of a graph. A single `edge` is basically a connection between two `nodes`. `Edge` can also be called as `line` or `link` (depending on the context) and sometimes a term `arc` is used to call an `edge` which is `directed`. Edges can have attributes associated with them (e.g. distance, volume, capacity) which make them very useful data structure for various analytical purposes, such as conducting way-finding where the target is to find an optimal path between two locations on a network. 
+_**Figure 8.1.** Nodes visualized in arbitrary space._
+
+As we can see, at the moment the nodes are located arbitrarily in space because we do not have any specific locations defined for our `nodes`. As mentioned earlier, graphs do not necessarily need any information about the exact locations of the nodes to be able to draw a graph structure. However, the plot above is not yet a graph, because we do not have any edges associated with the nodes that would show how they relate or connect to each other. 
+
+Thus, let's continue by creating `edges` which are the other core element of a graph. A single `edge` is basically a connection between two `nodes`. `Edge` can also be called as `line` or `link` (depending on the context) and sometimes a term `arc` is used to call an `edge` which is `directed`. To create edges, we can use the `.add_edge()` method where we define how the nodes are connected to each other. In `networkx`, the nodes that are connected to each other are often referred as `u` (first node) and `v` (last node). In the following, we will define the topology of our graph by defining one edge at a time how the nodes are connected to each other:
 
 ```python
 # Add edges            
@@ -97,12 +104,20 @@ G.add_edge("d", "e")
 G.edges
 ```
 
+As we can see, by accessing the `.edges` we can get a list of node-pairs that construct the connections (i.e. edges) between the nodes. Now we can again plot the graph to see how our network topology looks like:
+
 ```python
 nx.draw(G, with_labels=True, font_color="white")
 ```
 
+_**Figure 8.X.** A simple graph with five nodes and edges._
+
+Now we have a very simple graph structure where the nodes are connected to each other as we defined them in the previous step. This kind of graph structure can already be useful for various purposes. If we for example consider that these nodes would represent persons, we could see how those persons are interacting with each other. However, as we are mostly interested to study and understand `spatial networks`, let's continue and see how we can present this simple graph in such a way that the locations of the nodes are not in arbitrary space but they have exact locations.
+
+As mentioned earlier, edges and nodes can have attributes associated with them (e.g. coordinates, distance, volume, capacity) which make them very useful data structure for various analytical purposes, such as conducting way-finding where the target is to find an optimal path between two locations on a network. In the following, we will add the same nodes with ids (`a, b, c, d, e`) but at this time we add coordinates for these nodes as `node attributes`. To do this, we 
+
 ```python
-net = nx.Graph()
+G = nx.Graph()
 
 node_collection = [("a", {"coords": (0,5)}),
                    ("b", {"coords": (5,5)}),
@@ -111,6 +126,12 @@ node_collection = [("a", {"coords": (0,5)}),
                    ("e", {"coords": (10,0)}),
                   ]
 
+# Add nodes
+G.add_nodes_from(node_collection)
+
+```
+
+```python
 edge_collection = [("a", "b", {"weight": 1}),
                    ("a", "c", {"weight": 2}),
                    ("b", "d", {"weight": 1}),
@@ -119,17 +140,16 @@ edge_collection = [("a", "b", {"weight": 1}),
                   
                   ]
 
-# Add nodes and edges from the collections
-net.add_nodes_from(node_collection)
-net.add_edges_from(edge_collection)
+# Add edges
+G.add_edges_from(edge_collection)
 ```
 
 ```python
-net.nodes.data()
+G.nodes.data()
 ```
 
 ```python
-net.edges.data()
+G.edges.data()
 ```
 
 ```python
