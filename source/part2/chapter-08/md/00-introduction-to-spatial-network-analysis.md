@@ -232,13 +232,14 @@ nx.draw_networkx_edge_labels(
 _**Figure 8.X.** A graph with edge labels and colors that are determined by the edge attribute._
 
 
+### Shortest path between a pair of nodes on undirected graph
 
-### Shortest path between a pair of nodes
+We will cover spatial network analysis and different algorithms in more detail in Chapter 8.3, but to give you an idea how you can use networks for something useful, we demonstrate here how you can find a least cost shortest path between a given source and target nodes. One of most widely used real-world use-cases for spatial networks relates to navigation, i.e. how to find a route from a given origin location to a given destination that would be as short (or quick) as possible. There are various approaches and algorithms that allows to find such routes, but the one we introduce here is one of the most famous ones, called Dijkstra's algorithm, that is widely used to find an optimal least-cost path between given nodes. 
 
-We will cover spatial network analysis and different algorithms in more detail in Chapter 8.3, but to give you an idea how you can use networks for something useful, we demonstrate here how you can find a least cost shortest path between a given source and target nodes. 
+We can employ Dijkstra's algorithm easily with `networkx` by using the `nx.single_source_dijkstra()` function that takes our graph `G` as input which will be the network used for finding the shortest path. In addition, we need to define the nodes that are used as the origin (i.e. `source`) and destination points (`target`) for the analysis. Lastly, we need to define the `weight` (also called as `cost` or `impedance`) which is needed to find the optimal least-cost path between the given `source` and `target` nodes. As a result, the function returns us the distance and a list of visited nodes of the shortest path. In the following,, we calculate the shortest path between nodes `a` and `e` and use the edge attribute `"weight"` as the cost for the analysis:
 
 ```python editable=true slideshow={"slide_type": ""}
-distance, path = nx.single_source_dijkstra(G=G2, 
+distance, path = nx.single_source_dijkstra(G=G, 
                                           source="a",
                                           target="e", 
                                           weight="weight", 
@@ -250,38 +251,43 @@ print("Distance:", distance)
 print("Path / visited nodes:", path)
 ```
 
-```python
-distance, path = nx.single_source_dijkstra(G=G2, 
-                                          source="e",
-                                          target="a", 
-                                          weight="weight", 
-                                          )
-```
+As a result, we see that the shortest path distance between `a` and `e` is `5` which starts from node `a` and traverses via nodes `b` and `d` to finally reach the destination node `e`. It is also possible to visualize this shortest path on top of our network. To do this, we first need to construct the path edges that we can use for visualizing the result by using the `nx.utils.pairwise()` function. This function converts the list of visited nodes into a collection of node-tuples that represent the edges of the shortest path:
 
 ```python
-print("Distance:", distance)
-print("Path / visited nodes:", path)
-```
-
-```python
-path_edges = list(zip(path,path[1:]))
+path_edges = list(nx.utils.pairwise(path))
 path_edges
 ```
 
 ```python
-nx.draw(G2, 
-        with_labels=True, 
-        pos=positions, 
-        font_color="white", 
-        node_color="grey")
-
-nx.draw_networkx_nodes(G2, positions, nodelist=path, node_color='r')
-nx.draw_networkx_edges(G2, positions, edgelist=path_edges, edge_color='r', width=3);
+# Identical to
+list(zip(path, path[1:]))
 ```
+
+Now we can visualize our graph and draw the shortest path on top of it by providing the edges of our shortest path using the `edgelist` parameter as follows. We also highlight the route with red color and make the width of the shortest path slightly larger:
+
+```python
+# Draw the network
+nx.draw(G, 
+        pos=positions, 
+        font_color="white",
+        with_labels=True)
+
+# Draw shortest path
+nx.draw(G, 
+        positions, 
+        edgelist=path_edges, 
+        edge_color='r', 
+        width=3);
+```
+
+_**Figure 8.X.** Shortest path from node `a` to node `e`._
+
+This simplified example is based on a really small network but the basic principle for finding the shortest path between given locations stays the same even with larger graphs. 
+
 
 ### Directed graph
 
-Graphs and networks can be `directed` or `undirected` (Figure 8.1), which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, this directionality determines how the interaction happens (or is allowed to happen) between the nodes. In directed graphs, `edges` are always directed, meaning that we need to define for each edge the direction of how the nodes are connected to each other. For instance, the node A is connected to node B *and* node B is connected to node A (i.e. both ways). In specific contexts, these kind of directed edges are called as `arcs`. For instance, street network is one typical example where considering directionality and constructing a directed graph is important as the travel direction can be restricted to a certain direction in specific parts of the network due to one-way-streets (e.g. when travelling by car). However, networks do not always need to be directed in the context of transport. Undirected graphs are commonly used e.g. with  walking and cycling related network analysis, as with those travel modes it is typically possible to travel the same street in any direction you like. 
+Graphs and networks can be `directed` or `undirected`, which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, this directionality determines how the interaction happens (or is allowed to happen) between the nodes. In directed graphs, `edges` are always directed, meaning that we need to define for each edge the direction of how the nodes are connected to each other. For instance, the node A is connected to node B *and* node B is connected to node A (i.e. both ways). In specific contexts, these kind of directed edges are called as `arcs`. For instance, street network is one typical example where considering directionality and constructing a directed graph is important as the travel direction can be restricted to a certain direction in specific parts of the network due to one-way-streets (e.g. when travelling by car). However, networks do not always need to be directed in the context of transport. Undirected graphs are commonly used e.g. with  walking and cycling related network analysis, as with those travel modes it is typically possible to travel the same street in any direction you like. 
 
 ```python
 G_directed = nx.MultiDiGraph()
