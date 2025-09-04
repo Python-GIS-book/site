@@ -44,7 +44,7 @@ In the following sections, we will show how you can create a simple 1) undirecte
 
 ### Undirected graph
 
-We will start our exploration with networks by constructing a simple `graph` with `nodes` and `edges` using the `networkx` library. But what is a `node` exactly? A `node` is a point entity that can represent more or less anything in the world, such as a person, computer or location. In GIS context, `node` of a `spatial network` typically refers to a specific point location, such as intersection in the street network. In graph theory, `node` is typically called as `vertex`. However, in GIS, there is typically a distiction between the two: `node` is specific to a point at which a line ends or connects to another line, whereas `vertices` can be in between the `nodes` as intermediate points (Figure 8.1) constructing the shape of a given line geometry (e.g. a curved road). Thus, every `node` of a `graph` can be considered as a `vertex` but not all `vertices` are `nodes`. When working with real-world networks (e.g. street networks), it is typical that the actual geometry of the street segment is simplified when constructing the graph and only the nodes are kept (i.e. the first and last point of LineStrings).
+We will start our exploration with networks by constructing a simple `graph` with `nodes` and `edges` using the `networkx` library. But what is a `node` exactly? A `node` is a point entity that can represent more or less anything in the world, such as a person, computer or location. In GIS context, `node` of a `spatial network` typically refers to a specific location, such as intersection in the street network or a building. In graph theory, `node` is typically called as `vertex`. However, in GIS, we typically differentiate the two: `node` is specific to a point at which a line ends or connects to another line, whereas `vertices` can be in between the `nodes` as intermediate points (Figure 8.1) constructing the shape of a given line geometry (e.g. a curved road). Thus, every `node` of a `graph` can be considered as a `vertex` but not all `vertices` are `nodes`. When working with real-world networks (e.g. street networks), it is typical that the actual geometry of the street segment is simplified when constructing the graph and only the nodes are kept (i.e. the first and last point of LineStrings).
 
 ![_**Figure 8.1.** Nodes (in red) and a vertex (blue) extracted from a simple LineString geometry._](../img/node_vs_vertex.png)
 
@@ -89,7 +89,7 @@ _**Figure 8.1.** Nodes visualized in arbitrary space._
 
 As we can see, at the moment the nodes are located arbitrarily in space because we do not have any specific locations defined for our `nodes`. As mentioned earlier, graphs do not necessarily need any information about the exact locations of the nodes to be able to draw a graph structure. However, the plot above is not yet a graph, because we do not have any edges associated with the nodes that would show how they relate or connect to each other. 
 
-Thus, let's continue by creating `edges` which are the other core element of a graph. A single `edge` is basically a connection between two `nodes`. `Edge` can also be called as `line` or `link` (depending on the context) and sometimes a term `arc` is used to call an `edge` which is `directed`. To create edges, we can use the `.add_edge()` method where we define how the nodes are connected to each other. In `networkx`, the nodes that are connected to each other are often referred as `u` (first node) and `v` (last node). In the following, we will define the topology of our graph by defining one edge at a time how the nodes are connected to each other:
+Thus, let's continue by creating `edges` which are the other core element of a graph. A single `edge` is basically a connection between two `nodes`. `Edge` can also be called as `line` or `link` (depending on the context). To create edges, we can use the `.add_edge()` method where we define how the nodes are connected to each other. In `networkx`, the nodes that are connected to each other are often referred as `u` (first node) and `v` (last node). In the following, we will define the topology of our graph by defining one edge at a time how the nodes are connected to each other:
 
 ```python
 # Add edges            
@@ -112,130 +112,130 @@ nx.draw(G, with_labels=True, font_color="white")
 
 _**Figure 8.X.** A simple graph with five nodes and edges._
 
-Now we have a very simple graph structure where the nodes are connected to each other as we defined them in the previous step. This kind of graph structure can already be useful for various purposes. If we for example consider that these nodes would represent persons, we could see how those persons are interacting with each other. However, as we are mostly interested to study and understand `spatial networks`, let's continue and see how we can present this simple graph in such a way that the locations of the nodes are not in arbitrary space but they have exact locations.
+Now we have a very simple graph structure where the nodes are connected to each other as we defined them in the previous step. This kind of graph structure can already be useful for various purposes. If we for example consider that these nodes would represent persons, we could see how those persons are interacting with each other (who knows who). However, as we are mostly interested to study and understand `spatial networks`, let's continue and see how we can present this simple graph in such a way that the locations of the nodes are not in arbitrary space but they have exact locations.
 
-As mentioned earlier, edges and nodes can have attributes associated with them (e.g. coordinates, distance, volume, capacity) which make them very useful data structure for various analytical purposes, such as conducting way-finding where the target is to find an optimal path between two locations on a network. In the following, we will add the same nodes with ids (`a, b, c, d, e`) but at this time we add coordinates for these nodes as `node attributes`. To do this, we 
+
+### Adding node attributes
+
+As mentioned earlier, edges and nodes can have attributes associated with them (e.g. coordinates, distance, volume, capacity) which make them very useful data structure for various analytical purposes, such as conducting way-finding where the target is to find an optimal path between two locations on a network. In the following, we will add the same nodes with ids (`a, b, c, d, e`) but at this time we add coordinates for these nodes as `node attributes`. To do this, we construct a simple data collection that is a `list` of `tuples` where each `tuple` contains the information for a given node. As the first item, we provide the id for a given node (e.g. `"a"`) and as the second item we provide all the node attributes as a Python `dictionary`. In practice, you can add as many node attributes as you like in this `dictionary`, but in our case, we now only add one attribute which we call `"coords"` that will contain the x and y coordinates for a given node: 
 
 ```python
-G = nx.Graph()
-
 node_collection = [("a", {"coords": (0,5)}),
                    ("b", {"coords": (5,5)}),
                    ("c", {"coords": (0,0)}),
                    ("d", {"coords": (5,0)}),
                    ("e", {"coords": (10,0)}),
                   ]
-
-# Add nodes
-G.add_nodes_from(node_collection)
-
 ```
 
 ```python
-edge_collection = [("a", "b", {"weight": 1}),
-                   ("a", "c", {"weight": 2}),
-                   ("b", "d", {"weight": 1}),
-                   ("c", "d", {"weight": 1}),
-                   ("d", "e", {"weight": 3}),
-                  
-                  ]
-
-# Add edges
-G.add_edges_from(edge_collection)
+G = nx.Graph()
+G.add_nodes_from(node_collection)
 ```
+
+We can add this collection of nodes into our `graph` by using the `.add_nodes_from()` method which allows you to add multiple nodes at once without the need to call multiple times `.add_node()` as we did in our previous example. Now, our graph includes not only the nodes, but also the associated attributes as we can see here:
 
 ```python
 G.nodes.data()
 ```
 
-```python
-G.edges.data()
-```
+### Adding edge attributes
+
+Adding edges to a given graph with `edge attributes` works in a very similar manner as adding nodes and node attributes as shown previously. When we want to add a collection of edges to a `graph` we create a `list` that contains tuples with information about the connections, i.e. which nodes are linked to each other (e.g. `"a"` and `"b"`), and the edge attributes as a `dictionary`. Here, each `tuple` represents a single edge, where the first and second item corresponds to the connected node-ids and the third item corresponds to the edge attributes. In our case, we add a single edge attribute called `"weight"` which could represent the cost (e.g. distance or time) to move from one node to another, or the importance of a given edge (e.g. the number of people interacting between these nodes in one way or another):
 
 ```python
-# Extract node locations
-positions = {node: attrs["coords"] for node, attrs in net.nodes.data()}
-positions
-```
-
-```python
-# Parse edge labels
-edge_labels = {(u, v): attrs["weight"] for u, v, attrs in net.edges.data()}
-edge_labels
-```
-
-```python
-nx.draw(net, with_labels=True, pos=positions, font_color="white")
-```
-
-```python
-# Draw the graph
-nx.draw(net, 
-        pos=positions, 
-        with_labels=True, 
-        font_weight="bold", 
-        font_color="white", 
-        node_color="grey"
-)
-
-# Add edge labels
-nx.draw_networkx_edge_labels(
-    net, 
-    positions,
-    edge_labels=edge_labels,
-    font_color='red', 
-    font_weight="bold",
-);
-```
-
-_**Figure 8.X.** A simple undirected spatial network consisting of five nodes and edges._
-
-Although, you can easily add nodes and edges one at a time as shown previously, it is not typically very efficient way of construcing a graph. Luckily, `networkx` also allows you to pass the information for the graphs from a collection of items. Thus, we can create an identical graph as shown previously by passing a collection of nodes and edges to the graph as follows:
-
-```python
-G2 = nx.Graph()
-
-node_collection = [("a", {"coords": (0,5)}),
-                   ("b", {"coords": (5,5)}),
-                   ("c", {"coords": (0,0)}),
-                   ("d", {"coords": (5,0)}),
-                   ("e", {"coords": (10,0)}),
-                  ]
-
 edge_collection = [("a", "b", {"weight": 1}),
                    ("a", "c", {"weight": 2}),
                    ("b", "d", {"weight": 1}),
                    ("c", "d", {"weight": 1}),
                    ("d", "e", {"weight": 3}),
-                  
                   ]
-
-# Add nodes and edges from the collections
-G2.add_nodes_from(node_collection)
-G2.add_edges_from(edge_collection)
-
-# Extract exact node locations
-positions = {node: attrs["coords"] for node, attrs in G2.nodes.data()}
-
-# Parse edge labels
-edge_labels = {(u, v): attrs["weight"] for u, v, attrs in G2.edges.data()}
 ```
 
-```python editable=true slideshow={"slide_type": ""}
-nx.draw(G2, 
-        with_labels=True, 
-        pos=positions, 
-        font_color="white", 
-        node_color="grey")
+Now we can add this collection of edges into our graph `G` by using the `.add_edges_from()` method which can be used to add multiple items at once to the given graph (similar to how we added multiple nodes). As a result, our graph now contains not only the information about the connections (edges), but also the associated `edge attributes`:
 
+```python
+G.add_edges_from(edge_collection)
+G.edges.data()
+```
+
+### Visualizing a spatial network
+
+In the previous steps, we prepared a network (a.k.a a graph) that has the necessary information to construct and visualize a (planar) spatial network, where the nodes and edges are not located in arbitrary space but they are tied to our physical world with coordinates. To be able to visualize this spatial network with `networkx`, we first need to extract the coordinates of each node in our graph. We can do this easily by using the `nx.get_node_attributes()` function which will iterate over the nodes and associated node attributes to construct a `dictionary` that contains the node-id as `key` and the coordinate-tuple as `value`:
+
+```python
+# Extract node locations
+positions = nx.get_node_attributes(G, "coords")
+positions
+```
+
+With this information, we can now draw the network using the `nx.draw()` function similarly as in our previous example. However, now we determine the exact location for every node by using the `pos` parameter that is used to map the nodes to given locations:
+
+```python
+nx.draw(G, pos=positions, with_labels=True, font_color="white")
+```
+
+_**Figure 8.X.** A simple spatial network with five nodes and edges._
+
+Now we have visualized a simple spatial network where the locations of the nodes are pre-determined by us according the coordinates that we used when constructing the graph. Thus, we can be sure that the network always looks exactly the same when we visualize it (which is important for physical real-world networks), which is not the case if visualizing the network without the node coordinates. In fact, if you run the previous code without using the `pos` parameter multiple times, it is likely that you get a different looking graph each time:
+
+```python
+fix, (ax1, ax2, ax3, ax4) = plt.subplots(ncols=4, figsize=(14,4))
+
+nx.draw(G, with_labels=True, font_color="white", ax=ax1)
+nx.draw(G, with_labels=True, font_color="white", ax=ax2)
+nx.draw(G, with_labels=True, font_color="white", ax=ax3)
+nx.draw(G, pos=positions, with_labels=True, font_color="white", ax=ax4)
+```
+
+_**Figure 8.X.** Defining the node locations ensures that the graph always looks the same (as in the rightmost subplot)._
+
+
+When we constructed our graph, we also included `edge attributes`. It is also possible to assign colors to edges and/or annotate them according a given edge attribute when visualizing which make it easier to understand the characteristics of our network. To annotate the edges, i.e. show a given edge attribute on top of the edges, we first need to parse the labels that we associate with the edges. We can do this in a very similar manner as how we extracted the node coordinates previously, but in this case we use the `nx.get_edge_attributes()` which returns a `dictionary` containing a tuple of the node-ids of a given edge as a `key` and the edge attribute (here `"weight"`) as the `value`:
+
+```python
+# Parse edge labels
+weights = nx.get_edge_attributes(G, "weight")
+weights
+```
+
+```python
+edge_values = list(weights.values())
+edge_values
+```
+
+Now we can draw the network in such a way that we determine the color of each edge according the `"weight"` attribute and also label the edges so that we can see the actual edge attribute values as well. To determine the color of the edges, we can use the `edge_color` parameter that can be used to determine a single color for all edges or, as in our case, provide a list of values that are mapped to a given color map that we define with the parameter `edge_cmap`. To label the edges, we use the `nx.draw_networkx_edge_labels()` function that draws and positions the labels on top of the graph as follows:
+
+```python
+# Draw network with colored edges
+nx.draw(G, 
+        pos=positions, 
+        with_labels=True, 
+        font_weight="bold", 
+        font_color="white", 
+        node_color="grey",
+        edge_color=edge_values,
+        edge_cmap=plt.cm.copper,
+        
+)
+
+# Draw edge labels
 nx.draw_networkx_edge_labels(
-    G2, 
+    G, 
     positions,
-    edge_labels=edge_labels,
+    edge_labels=weights,
     font_color='red', 
     font_weight="bold",
 );
 ```
+
+_**Figure 8.X.** A graph with edge labels and colors that are determined by the edge attribute._
+
+
+
+### Shortest path between a pair of nodes
+
+We will cover spatial network analysis and different algorithms in more detail in Chapter 8.3, but to give you an idea how you can use networks for something useful, we demonstrate here how you can find a least cost shortest path between a given source and target nodes. 
 
 ```python editable=true slideshow={"slide_type": ""}
 distance, path = nx.single_source_dijkstra(G=G2, 
@@ -281,7 +281,7 @@ nx.draw_networkx_edges(G2, positions, edgelist=path_edges, edge_color='r', width
 
 ### Directed graph
 
-Graphs and networks can be `directed` or `undirected` (Figure 8.1), which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, this directionality determines how the interaction happens (or is allowed to happen) between the nodes. For example in terms of street networks, the roads can be travelled to any direction on an undirected network but with the directed network the travel direction is restricted to a certain direction (e.g. due to one-way-streets). Undirected graphs are commonly used e.g. with  walking and cycling related network analysis, as with those travel modes it is typically possible to travel the same street in any direction you like. Directed graphs are commonly used when considering driving, as there are stricter rules in terms of how the roads of the city can be traversed by cars.
+Graphs and networks can be `directed` or `undirected` (Figure 8.1), which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, this directionality determines how the interaction happens (or is allowed to happen) between the nodes. In directed graphs, `edges` are always directed, meaning that we need to define for each edge the direction of how the nodes are connected to each other. For instance, the node A is connected to node B *and* node B is connected to node A (i.e. both ways). In specific contexts, these kind of directed edges are called as `arcs`. For instance, street network is one typical example where considering directionality and constructing a directed graph is important as the travel direction can be restricted to a certain direction in specific parts of the network due to one-way-streets (e.g. when travelling by car). However, networks do not always need to be directed in the context of transport. Undirected graphs are commonly used e.g. with  walking and cycling related network analysis, as with those travel modes it is typically possible to travel the same street in any direction you like. 
 
 ```python
 G_directed = nx.MultiDiGraph()
