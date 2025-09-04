@@ -145,8 +145,8 @@ Adding edges to a given graph with `edge attributes` works in a very similar man
 
 ```python
 edge_collection = [("a", "b", {"weight": 1}),
-                   ("a", "c", {"weight": 2}),
-                   ("b", "d", {"weight": 1}),
+                   ("a", "c", {"weight": 1}),
+                   ("b", "d", {"weight": 2}),
                    ("c", "d", {"weight": 1}),
                    ("d", "e", {"weight": 3}),
                   ]
@@ -236,7 +236,7 @@ _**Figure 8.X.** A graph with edge labels and colors that are determined by the 
 
 We will cover spatial network analysis and different algorithms in more detail in Chapter 8.3, but to give you an idea how you can use networks for something useful, we demonstrate here how you can find a least cost shortest path between a given source and target nodes. One of most widely used real-world use-cases for spatial networks relates to navigation, i.e. how to find a route from a given origin location to a given destination that would be as short (or quick) as possible. There are various approaches and algorithms that allows to find such routes, but the one we introduce here is one of the most famous ones, called Dijkstra's algorithm, that is widely used to find an optimal least-cost path between given nodes. 
 
-We can employ Dijkstra's algorithm easily with `networkx` by using the `nx.single_source_dijkstra()` function that takes our graph `G` as input which will be the network used for finding the shortest path. In addition, we need to define the nodes that are used as the origin (i.e. `source`) and destination points (`target`) for the analysis. Lastly, we need to define the `weight` (also called as `cost` or `impedance`) which is needed to find the optimal least-cost path between the given `source` and `target` nodes. As a result, the function returns us the distance and a list of visited nodes of the shortest path. In the following,, we calculate the shortest path between nodes `a` and `e` and use the edge attribute `"weight"` as the cost for the analysis:
+We can employ Dijkstra's algorithm easily with `networkx` by using the `nx.single_source_dijkstra()` function that takes our graph `G` as input which will be the network used for finding the shortest path. In addition, we need to define the nodes that are used as the origin (i.e. `source`) and destination points (`target`) for the analysis. Lastly, we need to define the `weight` (also called as `cost` or `impedance`) which is needed to find the optimal least-cost path between the given `source` and `target` nodes. As a result, the function returns us the distance and a list of visited nodes of the shortest path. In the following, we calculate the shortest path between nodes `a` and `e` and use the edge attribute `"weight"` as the cost for the analysis:
 
 ```python editable=true slideshow={"slide_type": ""}
 distance, path = nx.single_source_dijkstra(G=G, 
@@ -251,7 +251,22 @@ print("Distance:", distance)
 print("Path / visited nodes:", path)
 ```
 
-As a result, we see that the shortest path distance between `a` and `e` is `5` which starts from node `a` and traverses via nodes `b` and `d` to finally reach the destination node `e`. It is also possible to visualize this shortest path on top of our network. To do this, we first need to construct the path edges that we can use for visualizing the result by using the `nx.utils.pairwise()` function. This function converts the list of visited nodes into a collection of node-tuples that represent the edges of the shortest path:
+As a result, we see that the shortest path distance between `a` and `e` is `5` which starts from node `a` and traverses via nodes `c` and `d` to finally reach the destination node `e`. In a similar fashion, we can also calculate the shortest path in reverse order, i.e. from node `e`to `a`:
+
+```python
+distance_r, path_r = nx.single_source_dijkstra(G=G, 
+                                          source="e",
+                                          target="a", 
+                                          weight="weight", 
+                                          )
+print("Distance:", distance_r)
+print("Path / visited nodes:", path_r)
+```
+
+As a result the distance for the shortest path will be exactly the same, but in this case the order of visited nodes changes to reversed order as we started the trip from node `e` and ended the trip at node `a`. A real-life example of these kind of two-way trips is when commuting between home and work locations, in which you typically take the same route to both directions (with identical or similar cost of travel). In the examples thus far, we have worked with an undirected graph which means that you can travel in a similar way to both directions. However, in the next section we learn that with `directed graphs` traveling to both directions like this using identical paths is not necessarily possible due to how the network is constructed. 
+
+
+It is also possible to visualize this shortest path on top of our network. To do this, we first need to construct the path edges that we can use for visualizing the result by using the `nx.utils.pairwise()` function. This function converts the list of visited nodes into a collection of node-tuples that represent the edges of the shortest path:
 
 ```python
 path_edges = list(nx.utils.pairwise(path))
@@ -303,16 +318,18 @@ node_collection = [("a", {"coords": (0,5)}),
 ```
 
 ```python
-edge_collection = [("a", "b", {"weight": 1, "color": "red"}),
-                   # bidirectional a<->c
-                   ("a", "c", {"weight": 2, "color": "green"}),
-                   ("c", "a", {"weight": 2, "color": "green"}),
-                   # bidirectional b<->d
-                   ("b", "d", {"weight": 1, "color": "green"}),
-                   ("d", "b", {"weight": 1, "color": "green"}),
+edge_collection = [("a", "b", {"weight": 1, "color": "green"}),
+                   ("b", "a", {"weight": 1, "color": "green"}),
+                  
+                   ("a", "c", {"weight": 1, "color": "green"}),
+                   ("c", "a", {"weight": 1, "color": "green"}),
+                  
+                   ("b", "d", {"weight": 2, "color": "green"}),
+                   ("d", "b", {"weight": 2, "color": "green"}),
                    
                    ("c", "d", {"weight": 1, "color": "red"}),
-                   ("d", "e", {"weight": 3, "color": "red"}),
+                   ("d", "e", {"weight": 3, "color": "green"}),
+                   ("e", "d", {"weight": 3, "color": "green"}),
                   ]
 ```
 
@@ -322,13 +339,13 @@ G_directed.add_nodes_from(node_collection)
 G_directed.add_edges_from(edge_collection)
 
 # Extract exact node locations
-positions = {node: attrs["coords"] for node, attrs in G_directed.nodes.data()}
+positions = nx.get_node_attributes(G_directed, "coords")
 
 # Parse edge labels
-edge_labels = {(u, v): attrs["weight"] for u, v, attrs in G_directed.edges.data()}
+edge_labels = nx.get_edge_attributes(G_directed, "weight") 
 
 # Parse edge colors
-edge_colors = [attrs["color"] for u, v, attrs in G_directed.edges.data()]
+edge_colors = list(nx.get_edge_attributes(G_directed, "color").values())
 ```
 
 ```python
@@ -350,27 +367,68 @@ nx.draw_networkx_edge_labels(
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
-distance, path = nx.single_source_dijkstra(G=G_directed, 
-                                          source="a",
+distance_1, path_1 = nx.single_source_dijkstra(G=G_directed, 
+                                          source="c",
                                           target="e", 
                                           weight="weight", 
                                           )
+print("Distance:", distance_1)
+print("Path / visited nodes:", path_1)
+```
+
+```python editable=true slideshow={"slide_type": ""}
+distance_2, path_2 = nx.single_source_dijkstra(G=G_directed, 
+                                          source="e",
+                                          target="c", 
+                                          weight="weight", 
+                                          )
+print("Distance:", distance_2)
+print("Path / visited nodes:", path_2)
 ```
 
 ```python
-path_edges = list(zip(path,path[1:]))
-path_edges
+path_edges_1 = list(nx.utils.pairwise(path_1))
+path_edges_2 = list(nx.utils.pairwise(path_2))
 ```
 
 ```python
-nx.draw(G_directed, 
+path_edges_1
+```
+
+```python
+path_edges_2
+```
+
+```python
+def draw_route(G, positions, edgelist, edge_color, ax=None):
+    """A simple helper function to plot a route"""
+
+    # Draw base network
+    nx.draw(G_directed, 
         with_labels=True, 
+        arrows=False,
         pos=positions, 
         font_color="white", 
-        node_color="grey")
+        node_color="grey",
+        ax=ax)
 
-nx.draw_networkx_nodes(G_directed, positions, nodelist=path, node_color='r')
-nx.draw_networkx_edges(G_directed, positions, edgelist=path_edges, edge_color='r', width=3);
+    # Draw the route
+    nx.draw_networkx_edges(G_directed, 
+                           positions, 
+                           edgelist=edgelist, 
+                           edge_color=edge_color, 
+                           width=3, 
+                           ax=ax)
+    
+```
+
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(12,5))
+
+draw_route(G_directed, positions, path_edges_1, "r", ax1)
+draw_route(G_directed, positions, path_edges_2, "b", ax2)
+
+
 ```
 
 #### Question 8.1
