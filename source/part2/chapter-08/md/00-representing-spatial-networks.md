@@ -30,7 +30,7 @@ Contents:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## What is a network?
 
-As networks are widely used in various domains, the terminology related to networks can sometimes be a bit confusing. To clarify some of the ambiguity related to the terminology, we will explain some common network-related terminology along the way to make it clear how we refer to specific concepts in this book emphasizing the linkage to GIS. Most of the terminology derives from graph theory and network theory.
+As networks are widely used in various domains, the terminology related to networks can sometimes be a bit confusing. To clarify some of the ambiguity related to the terminology, we will explain some common network-related terminology along the way to make it clear how we refer to specific concepts in this book emphasizing the linkage to GIS. Most of the terminology is derived from graph theory and network theory.
 
 `Graph` is a collection of `nodes` and `edges` that constitute a graph structure. A `graph` is an abstract concept commonly used e.g. in mathematics and computer science which emphasizes the connections and relationships between entities (nodes) rather than exact geographic positions or distances. This graph structure is also called as `network topology`. A `network` then again is sometimes defined as **a  graph with attributes**, whereas `spatial network` is a `network` that is used to represent real-world systems on a geographic space. For example, street network is typically not only represented as a collection of `nodes` (intersections) and `edges` (streets) but there are various additional attributes associated with the network, such as length, speed limit, number of lanes, the location of crossroads etc. In practice, the terms `graph`, `network` and `spatial network` are often used in synonymous manner, although there can be subtle differences in terms of how they are defined in different contexts. In this book, we will broadly use the term `graph` when talking about any of these concepts. After all, all of these concepts are graph structures, regardless of whether they have attribute information or not.
 
@@ -234,7 +234,7 @@ _**Figure 8.X.** A graph with edge labels and colors that are determined by the 
 
 ### Directed graph
 
-Networks can be `directed` or `undirected`, which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, the directionality determines how the interaction happens (or is allowed to happen) between the nodes. In directed graphs, `edges` are always directed, meaning that we need to define the direction how the nodes are connected to each other for each edge. For instance, if we want to have an edge between nodes `A` and `B` that can be traversed to both direction we actually need to construct two edges (also called as a `multi-edge`), i.e. one per direction: 1) the node A is connected to node B, and, 2) the node B is connected to node A. We briefly described this logic already in Chapter 5 (see Figure 5.8 and Table 5.1). These kind of directed edges are sometimes called as `arcs`. A good example of such directed network is a street network where considering directionality is important as the travel direction can be restricted to a certain direction in specific parts of the network due to one-way-streets (e.g. when travelling by car). However, networks do not always need to be directed in the context of transport. Undirected graphs can be used e.g. for walking or cycling related network analysis, as with those travel modes it is typically possible to travel the same street in any direction you like. 
+Networks can be `directed` or `undirected`, which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, the directionality determines how the interaction happens (or is allowed to happen) between the nodes. In directed graphs, `edges` are always directed, meaning that we need to define the direction how the nodes are connected to each other for each edge. For instance, if we want to have an edge between nodes `A` and `B` that can be traversed to both direction we actually need to construct two edges (also called as a `multi-edge`), i.e. one per direction: 1) the node A is connected to node B, and, 2) the node B is connected to node A. We briefly described this logic already in Chapter 5 (see Figure 5.8 and Table 5.1). These kind of directed edges are sometimes called as `arcs`. Some real-world networks where considering the directionality is important include e.g. rivers that flow to specific direction (from upstream to downstream) or a city street network where the travel direction can be restricted to a certain direction in specific parts of the network due to one-way-streets when travelling by car. However, in the context of transport networks do not always need to be directed. Undirected graphs can be used typically for walking or cycling related network analysis, as with those travel modes it is possible to travel the same street in any direction you like (although exceptions exist, such as in Denmark or Netherlands). 
 
 
 We can create a directed graph with `networkx` in a very similar manner as we did in the previous section when we created an undirected graph. To initialize a directed graph, we can use the `nx.MultiDiGraph()` that allows the creation of multiple edges between the same pair of nodes:
@@ -320,16 +320,21 @@ Now our visualized network shows not only the structure of the graph, but also t
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Creating a graph from geometries
+
+In the previous section, we learned how to create simple "toy graphs" from scratch based on few nodes and edges. However, in real life, you most typically need to create a graph from existing data that can be represented as networks. Some real-life examples include both natural and human-made networks, such as rivers, roads, energy grid, sewers, and so on. In the following, we will learn how to create directed and undirected graphs from existing geographic data. We will use street network here as an example, because streets are one of the most versatile types of networks with various rules and attributes associated with them. However, the same basic principles can be used to various different types of networks, such as the ones mentioned previously. 
 <!-- #endregion -->
 
 ### Undirected graph using a GeoDataFrame
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Data was obtained from Digiroad
+Next, we will learn how to create an undirected `networkx` graph from a geographic dataset representing a small sample of streets located in the Helsinki City Centre area that we prepared based on open data fetched from the National Road and Street Database (Digiroad) by Finnish Transport Infrastructure Agency. Let's start by reading the data with `geopandas` into a `GeoDataFrame` called `streets` and explore a bit how it looks like:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 import geopandas as gpd
+import networkx as nx
+from shapely import Point
+import matplotlib.pyplot as plt
 
 fp = "data/digiroad_helsinki.gpkg"
 streets = gpd.read_file(fp)
@@ -339,6 +344,14 @@ streets.head()
 ```python
 streets.plot();
 ```
+
+_**Figure 8.X.** Geographic dataset representing the streets in the Helsinki City Centre area._
+
+
+As we can see from the table, we have a few columns that provide useful information related to constructing the graph. The most important one of these is the `geometry` column which represents the `LineString` objects of the roads that can be used to create the network topology. In addition, we have useful information related to transport, such as speed limit (`maxspeed`) and the permitted direction of movement (`direction`) map. The map reveals that we have a quite dense network where the streets zigzag across the area connecting different parts of the city to each other. In the South-East corner of the area, we seem have a small part of the network that is not connected to the rest. This part of the network is on an island which lacks a public road connection to the mainland having only a ferry connection that one can take to reach the island (also by car). 
+
+
+In the following, we will see how to create an undirected graph from this geographic data using the same techniques that we learned previously when constructing a graph from scratch. We will start by introducing a function `gdf_to_graph()` that can be used to turn a `GeoDataFrame` consisting of `LineString` objects into a `nx.Graph` object:
 
 ```python
 def gdf_to_graph(gdf):
@@ -356,14 +369,14 @@ def gdf_to_graph(gdf):
     graph = nx.Graph()
         
     # Generate edge dictionary
-    for edge in gdf.itertuples():
-        coords = edge.geometry.coords
+    for row in gdf.itertuples():
+        coords = row.geometry.coords
 
         # Get first and last node of the edge (excluding vertices)
         first, last = coords[0], coords[-1]
 
         # Edge attributes
-        edge_attr = edge._asdict()
+        edge_attr = row._asdict()
 
         graph.add_edge(first, last, **edge_attr)
 
@@ -380,27 +393,27 @@ def gdf_to_graph(gdf):
     return graph
 ```
 
-Next we will break it down few steps at a time to understand what happens here. Let's start by investigating what happens inside the loop:
+Next, we will go through this function few steps at a time to understand what is happening. Let's start by investigating what happens at the beginning of the function and inside the loop:
 
 ```python
 graph = nx.Graph()
 
-for edge in streets.itertuples():
+for row in streets.itertuples():
     # Get the coordinates
-    coords = edge.geometry.coords
+    coords = row.geometry.coords
 
     # Get first and last node of the edge (excluding vertices)
     first, last = coords[0], coords[-1]
 
     # Get the edge attributes
-    edge_attributes = edge._asdict()
+    edge_attributes = row._asdict()
 
     # Add to the graph
     graph.add_edge(first, last, **edge_attributes)
     break
 ```
 
-Now we iterated over one edge in our street network and stopped the loop to be able to investigate what our variables contain. The `coords` variable contain the coordinates of all the vertices in the first edge of our street network:
+Here, we first initialize the `graph` object that is used to store the data and construct the network structure. With `.itertuples()` method (see Chapter 3.3), we can iterate over the rows one by one where each row includes the `geometry` (i.e. a `LineString` object) of a single segment in our street network. The `coords` variable here is used to store the coordinates of the `LineString` vertices. The coordinates of the first `LineString` in our street network look like following:
 
 ```python
 list(coords)
@@ -419,20 +432,20 @@ vertices.plot(ax=ax, color=["r", "b", "r"])
 
 _**Figure 8.X.** Only the nodes (in red) will be used to construct the edge for a given network topology._
 
-Considering only the nodes and ignoring the vertices has also benefits as doing this reduces the size of the graph and makes it faster to run any analyses on it. Thus, we only take the first and last coordinate-pair of the edge geometry which we will use as nodes:
+Considering only the nodes (ignoring the vertices) has also computational benefits as we ultimately reduce the size of the graph which makes it faster to run any analyses on it. Thus, we only take the first and last coordinate-pair of the edge geometry which we will use as nodes:
 
 ```python
 print("First node:", first)
 print("Last node:", last)
 ```
 
-Although the network topology only considers the nodes, this does not mean that you would loose the actual geometries of the street network, as we can still store the full geometry as an edge attribute of our graph. The `edge_attributes` variable contains all the associated information from the given row in our `GeoDataFrame` as a dictionary:
+Although the network topology only considers the nodes, this does not mean that you would loose the actual geometries of the street network, as we can still store the full geometry as an edge attribute to our graph. The `edge_attributes` variable contains all the associated information from the given row as a dictionary:
 
 ```python
 edge_attributes
 ```
 
-When we call the `graph.add_edge(first, last, **edge_attributes)`, we add this edge to the given `graph` in which the `**edge_attributes` command unpacks the values of the dictionary and inserts them as attributes for the given edge. Thus, when we investigate the contents of the edges at this point in time, we will see that the actual `geometry` is also stored for the edge:
+When we call the `graph.add_edge(first, last, **edge_attributes)`, we add this edge to the given `graph`. The `**edge_attributes` command unpacks the values of the dictionary and inserts them as attributes for the given edge. Thus, when we investigate the contents of the edges at this point in time, we will see that the actual `geometry` is also stored for the edge:
 
 ```python
 graph.edges.data()
@@ -444,7 +457,7 @@ At this point, you might wonder what happened with the `nodes` as we did not spe
 graph.nodes.data()
 ```
 
-As we can see, `networkx` actually adds the nodes automatically to the graph when we call the `.add_edge()` method based on the nodes provided to construct a given edge. However, as we can see from the nodes' data above, these nodes do not contain any information about the nodes in the nodes attributes as it is only an empty dictionary at this stage. This is something that we can handle afterwards as it is possible to set the node attributes also after the topology has been constructed based on the edges alone. To do this, we can e.g. parse the coordinates of the nodes and store that information as node attributes using the `nx.set_node_attributes()` as follows:
+As we can see, `networkx` has actually added the nodes automatically to the graph when we called the `.add_edge()` method based on the information we used to construct a given edge. Because we are using the `LineString` coordinates to construct our graph, the node ids look a bit strange at this point. For instance, the id of the first node in our graph looks like `(385359.22199999995, 6671266.759999999, 8.729)` which is a tuple consisting of three coordinates (x, y and z) represented with many decimal places. This kind of id for a node is very cumbersome to use, but we will learn in the following how to deal with this issue. Another observation that we can make here is the fact that these nodes do not contain any attribute information yet at this stage but we only have empty dictionaries associated with all the nodes. This is also something that we can handle afterwards as it is possible to set the node attributes after the topology has been constructed. To do this, we can e.g. parse the coordinates of the nodes and store that information as node attributes using the `nx.set_node_attributes()` as follows:
 
 ```python
 # Create a dictionary that contain the node attributes
@@ -458,7 +471,7 @@ graph.nodes.data()
 
 As we can see, now the `nodes` of our graph includes three attributes that provide information about the location of the nodes: `coords`, `x` and `y`. 
 
-Finally, you might have noticed that the `ids` for the nodes in our graph are quite cumbersome as they basically represent the exact coordinates of the nodes. Luckily, it is easy to relabel the node ids into a format that is easier to use and understand, using simple integer values as the ids. We can do this by using the `nx.convert_node_labels_to_integers()` function as follows:
+Now as we have extracted useful coordinate information from the nodes, we can convert the node ids to be something more intuitive than these complicated coordinate tuples. Luckily, it is easy to relabel the node ids into simple integer values by using the `nx.convert_node_labels_to_integers()` function as follows:
 
 ```python
 graph = nx.convert_node_labels_to_integers(graph)
@@ -472,7 +485,7 @@ graph.edges.data()
 graph.nodes.data()
 ```
 
-As we can see, now the ids for the nodes were altered from long coordinate tuples into simple integers, such as `0` and `1`, which are much easier to understand and use if you e.g. want to select specific node from the graph. 
+As we can see, now the ids for the nodes were altered from long coordinate tuples into simple integers (such as `0` and `1`) both for the `edges` and `nodes` which are much easier to understand and use if you e.g. want to select specific node from the graph. 
 
 As a very last thing in our `gdf_to_graph()` function, we add a custom attribute to our graph where we store the coordinate reference system information of the input `GeoDataFrame` which can be useful information when using the given graph for analysis with other datasets:
 
@@ -488,6 +501,7 @@ Let's finally use our `gdf_to_graph()` function and create a full network topolo
 ```python
 G = gdf_to_graph(streets)
 
+# Parse 2D positions of the nodes based on x and y coordinates
 positions = {node: (attrs["x"], attrs["y"]) for node, attrs in G.nodes.data()}
 
 nx.draw(G, 
@@ -496,6 +510,9 @@ nx.draw(G,
         node_size=0.5,
        )
 ```
+
+_**Figure 8.X.** An undirected graph with nodes and edges representing the streets in the Helsinki City Centre area._
+
 
 ### Directed graph using a GeoDataFrame
 
