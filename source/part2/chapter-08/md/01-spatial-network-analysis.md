@@ -192,6 +192,78 @@ What is the path length and route from `e` to `a` using the directed graph?
 # distance, path = nx.single_source_dijkstra(G=G_directed, source="e", target="a", weight="weight")
 ```
 
+## Preparations for routing: Adding edge attributes
+
+Next we will show how you can modify the network so that it is more useful for routing purposes. We will calculate the travel time it takes to cross a given street segment assuming that the person would be driving according the speed limits. The `maxspeed` column in our data provides information about the speed limit (km per hour) on a given street element. This is very useful information as we can use this to calculate the "free-flow" travel time which indicates the time it takes to cross a specific street segment assuming that a given person would be able to travel as fast as the speed limit allows. Notice that in cities, it is common that the actual driving speed can be lower than the speed limit due to congestion but we will ignore this for now to keep things simple. 
+
+```python
+streets.head(2)
+```
+
+Let's start by creating an attribute for travel time which we can calculate based on the length of the `LineString` and the `maxspeed` column. As we do not yet have information about the length stored in our data, we will also calculate and store it in a dedicated column called `length_m` (in meters). Notice that when calculating length, it is important that your input data is in projected coordinate system. In case your data has e.g. `WGS84` as the CRS, you should first reproject your data into an appropriate metric system (see Chapter 6.4). In our case, the input data is already in projected EUREF-FIN coordinate reference system having meters as units:
+
+```python
+streets.crs.axis_info
+```
+
+To calculate the length of each street segments, we can use the `.length` which returns the length of the lines in meters:
+
+```python
+streets["length_m"] = streets.length
+streets.head(2)
+```
+
+Now we have all the information needed to calculate the free-flow travel time. To calculate the travel time in seconds, we can use a following formula that considers the speed limit information in km/h and the distance as meters (which is how our data is constructed in our `streets` dataset):
+
+$$
+t = \frac{3.6 \, d}{v}
+$$
+
+Where:  
+
+- \(t\) = travel time in **seconds (s)**  
+- \(d\) = distance in **meters (m)**  
+- \(v\) = speed limit in **kilometers per hour (km/h)**
+
+The multiplication of distance by 3.6 is a conversion factor between meters per second and kilometers per hour:
+
+$$
+1 \ \text{m/s} = \frac{3600}{1000} \ \text{km/h} = 3.6 \ \text{km/h}
+$$
+
+Let's now use the formula to calculate the travel time which we store in `time_s` column, rounding the value to a full second:
+
+```python
+streets["time_s"] = 3.6 * streets["length_m"] / streets["maxspeed"]
+streets["time_s"] = streets["time_s"].round(0).astype(int)
+streets.head()
+```
+
+```python
+import osmnx as ox
+```
+
+```python
+nodes, edges = ox.graph_to_gdfs(G)
+```
+
+```python
+nodes.head()
+```
+
+```python
+edges.head()
+```
+
+As many Python libraries related to working with have been 
+
+```python
+import neatnet
+
+streets_cleaned = neatnet.remove_interstitial_nodes(streets)
+streets_cleaned.shape
+```
+
 <!-- #region pycharm={"name": "#%% md\n"} -->
 ## Typical workflow for routing
 

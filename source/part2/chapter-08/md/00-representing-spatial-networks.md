@@ -381,7 +381,7 @@ def gdf_to_graph(gdf):
         graph.add_edge(first, last, **edge_attr)
 
     # Generate node attributes
-    node_attrs = {node: {"coords": node, "x": node[0], "y": node[1]} for node in graph.nodes}
+    node_attrs = {node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]} for node in graph.nodes}
     nx.set_node_attributes(graph, node_attrs)  
     
     # Relabel the indices
@@ -457,11 +457,11 @@ At this point, you might wonder what happened with the `nodes` as we did not spe
 graph.nodes.data()
 ```
 
-As we can see, `networkx` has actually added the nodes automatically to the graph when we called the `.add_edge()` method based on the information we used to construct a given edge. Because we are using the `LineString` coordinates to construct our graph, the node ids look a bit strange at this point. For instance, the id of the first node in our graph looks like `(385359.22199999995, 6671266.759999999, 8.729)` which is a tuple consisting of three coordinates (x, y and z) represented with many decimal places. This kind of id for a node is very cumbersome to use, but we will learn in the following how to deal with this issue. Another observation that we can make here is the fact that these nodes do not contain any attribute information yet at this stage but we only have empty dictionaries associated with all the nodes. This is also something that we can handle afterwards as it is possible to set the node attributes after the topology has been constructed. To do this, we can e.g. parse the coordinates of the nodes and store that information as node attributes using the `nx.set_node_attributes()` as follows:
+As we can see, `networkx` has actually added the nodes automatically to the graph when we called the `.add_edge()` method based on the information we used to construct a given edge. Because we are using the `LineString` coordinates to construct our graph, the node ids look a bit strange at this point. For instance, the id of the first node in our graph looks like `(385359.22199999995, 6671266.759999999, 8.729)` which is a tuple consisting of three coordinates (x, y and z) represented with many decimal places. This kind of id for a node is very cumbersome to use, but we will soon see how to deal with this issue. Another observation that we can make here is the fact that these nodes do not yet contain any attribute information as we only have empty dictionaries associated with all the nodes. Luckily, it is possible to set the node attributes also after the topology has been constructed. To do this, we can for instance parse the coordinates of the nodes and store this information as node attributes using the `nx.set_node_attributes()`:
 
 ```python
 # Create a dictionary that contain the node attributes
-node_attrs = {node: {"coords": node, "x": node[0], "y": node[1]} for node in graph.nodes}
+node_attrs = {node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]} for node in graph.nodes}
 nx.set_node_attributes(graph, node_attrs)  
 ```
 
@@ -469,9 +469,9 @@ nx.set_node_attributes(graph, node_attrs)
 graph.nodes.data()
 ```
 
-As we can see, now the `nodes` of our graph includes three attributes that provide information about the location of the nodes: `coords`, `x` and `y`. 
+As we can see, now the `nodes` of our graph includes three attributes that provide information about the location of the nodes: `coords`, `x` and `y`. Here, we dropped out the `z` coordinate from the `coords` attribute as `networkx` (nor `geopandas`) cannot handle 3D geometries properly e.g. when visualizing the data.
 
-Now as we have extracted useful coordinate information from the nodes, we can convert the node ids to be something more intuitive than these complicated coordinate tuples. Luckily, it is easy to relabel the node ids into simple integer values by using the `nx.convert_node_labels_to_integers()` function as follows:
+Now after extracting useful coordinate information from the nodes, we can convert the node ids to be something more intuitive than these complicated coordinate tuples. Luckily, it is easy to relabel the node ids into simple integer values by using the `nx.convert_node_labels_to_integers()` function as follows:
 
 ```python
 graph = nx.convert_node_labels_to_integers(graph)
@@ -494,15 +494,14 @@ graph.graph["crs"] = streets.crs
 graph.graph["crs"]
 ```
 
-That's it! This is how you can create an undirected graph based on a given `GeoDataFrame` that consists of `LineString` objects. The input data we used here represents streets, but the input data can basically be about anything as long as the geometries of the input data are represented as `LineString` objects and the data itself does have a network-like structure. In a similar manner, you could represent e.g. rivers, pipelines, power lines, social networks etc. 
+That's it! This is how you can create an undirected graph based on a given `GeoDataFrame` that consists of `LineString` objects. The input data we used here represents streets, but the input data can basically be about anything as long as the geometries of the input data are represented as `LineString` objects. In a similar manner, you could represent e.g. rivers, pipelines, power lines, etc. 
 
 Let's finally use our `gdf_to_graph()` function and create a full network topology based on our `streets` `GeoDataFrame`:
 
 ```python
 G = gdf_to_graph(streets)
 
-# Parse 2D positions of the nodes based on x and y coordinates
-positions = {node: (attrs["x"], attrs["y"]) for node, attrs in G.nodes.data()}
+positions = nx.get_node_attributes(G, "coords")
 
 nx.draw(G, 
         pos=positions, 
@@ -542,6 +541,9 @@ Here, the `direction` column includes information about the allowed direction of
 
 
 
+
+
+Let's start by creating a function called `gdf_to_directed_graph()` which works mostly in a similar manner as our previous function `gdf_to_graph()` but with a few important tweaks that allows us to take into consideration the directionality:
 
 ```python
 def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, along=4):
@@ -598,7 +600,7 @@ def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, al
             graph.add_edge(last, first, **edge_attr)
 
     # Generate node attributes
-    node_attrs = {node: {"coords": node, "x": node[0], "y": node[1]} for node in graph.nodes}
+    node_attrs = {node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]} for node in graph.nodes}
     nx.set_node_attributes(graph, node_attrs)  
     
     # Relabel the indices
@@ -610,11 +612,13 @@ def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, al
     return graph
 ```
 
+Here, we added a few parameters to our function, namely `direction` that is used to provide the name of the column in our input `GeoDataFrame` that contains information about which direction a specific edge can be traversed. In addition, we added parameters `both_ways`, `against` and `along` that are used to inform the function about the logic of how the edges should be added to the `graph` following the rules in Table 8.1. Inside the loop, we added a few conditional statements that control the logic how edges are added to the graph. If a specific street segment can be traversed to both directions (i.e. `direction=2` | `direction=both_ways`), we add a multi-edge in which there is a separate edge to both directions between given nodes: 1) from first node to last node, and 2) from last node to first node. 
+
 ```python
 G = gdf_to_directed_graph(streets)
 ```
 
-```python jupyter={"source_hidden": true}
+```python
 positions = {node: attrs["coords"] for node, attrs in G.nodes.data()}
 ```
 
@@ -633,78 +637,6 @@ nx.draw(G,
         edge_color=edge_colors,
         arrows=False,
        )
-```
-
-## Preparations for routing: Adding edge attributes
-
-Next we will show how you can modify the network so that it is more useful for routing purposes. We will calculate the travel time it takes to cross a given street segment assuming that the person would be driving according the speed limits. The `maxspeed` column in our data provides information about the speed limit (km per hour) on a given street element. This is very useful information as we can use this to calculate the "free-flow" travel time which indicates the time it takes to cross a specific street segment assuming that a given person would be able to travel as fast as the speed limit allows. Notice that in cities, it is common that the actual driving speed can be lower than the speed limit due to congestion but we will ignore this for now to keep things simple. 
-
-```python
-streets.head(2)
-```
-
-Let's start by creating an attribute for travel time which we can calculate based on the length of the `LineString` and the `maxspeed` column. As we do not yet have information about the length stored in our data, we will also calculate and store it in a dedicated column called `length_m` (in meters). Notice that when calculating length, it is important that your input data is in projected coordinate system. In case your data has e.g. `WGS84` as the CRS, you should first reproject your data into an appropriate metric system (see Chapter 6.4). In our case, the input data is already in projected EUREF-FIN coordinate reference system having meters as units:
-
-```python
-streets.crs.axis_info
-```
-
-To calculate the length of each street segments, we can use the `.length` which returns the length of the lines in meters:
-
-```python
-streets["length_m"] = streets.length
-streets.head(2)
-```
-
-Now we have all the information needed to calculate the free-flow travel time. To calculate the travel time in seconds, we can use a following formula that considers the speed limit information in km/h and the distance as meters (which is how our data is constructed in our `streets` dataset):
-
-$$
-t = \frac{3.6 \, d}{v}
-$$
-
-Where:  
-
-- \(t\) = travel time in **seconds (s)**  
-- \(d\) = distance in **meters (m)**  
-- \(v\) = speed limit in **kilometers per hour (km/h)**
-
-The multiplication of distance by 3.6 is a conversion factor between meters per second and kilometers per hour:
-
-$$
-1 \ \text{m/s} = \frac{3600}{1000} \ \text{km/h} = 3.6 \ \text{km/h}
-$$
-
-Let's now use the formula to calculate the travel time which we store in `time_s` column, rounding the value to a full second:
-
-```python
-streets["time_s"] = 3.6 * streets["length_m"] / streets["maxspeed"]
-streets["time_s"] = streets["time_s"].round(0).astype(int)
-streets.head()
-```
-
-```python
-import osmnx as ox
-```
-
-```python
-nodes, edges = ox.graph_to_gdfs(G)
-```
-
-```python
-nodes.head()
-```
-
-```python
-edges.head()
-```
-
-As many Python libraries related to working with have been 
-
-```python
-import neatnet
-
-streets_cleaned = neatnet.remove_interstitial_nodes(streets)
-streets_cleaned.shape
 ```
 
 ```python
