@@ -1,30 +1,65 @@
 """Data preprocessing steps"""
 
 import geopandas as gpd
+import numpy as np
 from pathlib import Path
-import rioxarray as rxr
-from rioxarray.merge import merge_arrays
+from rioxarray.merge import merge_datasets
+import xarray as xr
 
 
 def make_dem_mosiac(
-    data_dir=Path("data"), lat_min=-44.8, lat_max=-41.8, lon_min=167.5, lon_max=172.5
+    data_dir="data",
+    lat_min=-44.8,
+    lat_max=-41.8,
+    lon_min=167.5,
+    lon_max=172.5,
+    mask_nodata=False,
 ):
     """Creates a mosiac of DEM tiles."""
     # Initialize the Path
+    data_dir = Path(data_dir)
     input_folder = data_dir / "dem"
 
     # Create the DEM list
     dem_list = list(input_folder.glob(r"ALPSMLC30_S0*DSM.tif"))
 
+    if mask_nodata:
+        # Create the MSK list
+        msk_list = list(input_folder.glob(r"ALPSMLC30_S0*MSK.tif"))
+
     # Echo something to the screen
     print(f"Creating mosiac from {len(dem_list)} DEM tiles...")
 
     # Read the files
-    dems = [rxr.open_rasterio(dem).drop_vars("band")[0] for dem in dem_list]
+    dems = [
+        xr.open_dataset(dem, engine="rasterio", band_as_variable=True)
+        for dem in dem_list
+    ]
+    if mask_nodata:
+        msks = [
+            xr.open_dataset(msk, engine="rasterio", band_as_variable=True)
+            for msk in msk_list
+        ]
 
-    # Merge dems into one
-    south_island = merge_arrays(dems)
+    # Merge raster tiles into one
+    if mask_nodata:
+        south_island_dem = merge_datasets(dems, nodata=np.nan)
+        south_island_msk = merge_datasets(msks, nodata=np.nan)
+    else:
+        south_island = merge_datasets(dems)
 
+    # Mask out cloud/snow, land water/low correlation, and sea areas from dem (if requested)
+    if mask_nodata:
+        south_island = south_island_dem.where(
+            (south_island_msk["band_1"].data != 1)
+            & (south_island_msk["band_1"].data != 2)
+            & (south_island_msk["band_1"].data != 3)
+        )
+
+    # Rename band_1 as elevation
+    south_island = south_island.rename({"band_1": "elevation"})
+
+    # Define clipping box bounds
     geometries = [
         {
             "type": "Polygon",
@@ -42,7 +77,11 @@ def make_dem_mosiac(
     clipped = south_island.rio.clip(geometries)
 
     # Write output to tif file
-    clipped.rio.to_raster(data_dir / "south_island_nz.tif")
+    outfile = "south_island_nz"
+    if mask_nodata:
+        outfile += "_masked_nodata"
+    outfile += ".tif"
+    clipped.rio.to_raster(data_dir / outfile)
 
     return None
 
