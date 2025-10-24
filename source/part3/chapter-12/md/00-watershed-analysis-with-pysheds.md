@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.16.7
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -15,25 +15,23 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 # Watershed analysis with pysheds
 
-In this case study we will cover how to extract watersheds and perform some example analyses using the elevation data in each watershed.
+In this case study we will cover how to extract watersheds and perform some example analyses of the elevation data in each watershed.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Introduction
 
-The goal of this case study is to analyze digital elevation from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various values we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to Figure 12.1.
+The goal of this case study is to analyze digital elevation data from a set of watersheds along the western side of the Southern Alps of New Zealand. In particular, we will focus on watersheds that are in the immediate hanging wall of the Alpine Fault, where the fault motion is rapidly uplifting the landscape at the same time rivers and glaciers are carving their way into it. The goal is to see how various metrics we can calculate for each watershed vary and what they can tell us about how rivers and glaciers may have shaped the land surface within each watershed. We will start by going through the steps to prepare the digital elevation data, then show you how to extract data for a single watershed, and finally we will automate the process and produce an interactive map including values we have calculated for each watershed similar to the example in Figure 12.1.
 
 ![_**Figure 12.1**. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)._](../img/cook-river-watershed.png)
 
 _**Figure 12.1**. The Cook River watershed (purple) in New Zealand upstream of the Alpine Fault (black line)._
-
-To get started, we'll present a quick overview of some of the key background topics, as this could be a new topic for some readers. If you're already familiar with delineating watersheds and things like basin hypsometry, feel free to skip ahead to Section 10.1.2 Getting started.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-### A brief introduction to watershed analysis
+### A few words about watershed analysis
 
-Watershed analysis is the process of analyzing the landscape and hydrology of *{term}`watersheds <watershed>`* – land areas where surface water drains to a common outlet, such as a river, lake, or ocean. In our case we are interested in understanding how various factors, such as the area and/or topographic relief, vary within a set of river watersheds in the Southern Alps to be able to explore relationships related to landscape uplift and erosion. Thus, we will calculate a series of values for each watershed and then investigate how they vary within the study area.
+Watershed analysis is the process of analyzing the landscape and hydrology of *{term}`watersheds <watershed>`* – land areas where surface water drains to a common outlet, such as a river, lake, or ocean. In our case we are interested in understanding how various factors, such as the area and/or topographic relief, vary within a set of river watersheds in the Southern Alps to be able to explore relationships related to landscape uplift and erosion. Thus, we will calculate a series of values for each watershed and then investigate how they vary across the study area.
 
 In order to perform our analysis, we will need to complete a series of steps including loading the digital elevation data for the study region, defining the areas of the watersheds of interest, analyzing the landscapes in each watershed, and visualizing the results. In the following sections we will explore each of these topics in more detail and demonstrate how to perform watershed analysis using Python.
 <!-- #endregion -->
@@ -41,14 +39,14 @@ In order to perform our analysis, we will need to complete a series of steps inc
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Getting started
 
-We can start by importing the libraries we need for this analysis. In this case, we will be using `xarray`, `rioxarray`, `pysheds`, `geopandas`, and `geocube` in addition to more familiar packages such as `matplotlib` and `numpy`. We will also use some custom functions from the `basin_functions.py` file, which you are welcome to check out if you want to know more about how the functions work.
+We can start by importing the libraries we need for this analysis. In this case, we will be using `geocube`, `geopandas`, `pysheds`, and `xarray` in addition to more familiar packages such as `matplotlib` and `numpy`. We will also use some custom functions from the [`basin_functions.py`](basin_functions.py) file, which you are welcome to check out if you want to know more about how the functions work.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_cell"]
 # Note that we import everything here but have a "fake import" Markdown cell below.
 # This is because a warning is raised by importing from pysheds.grid
 # and suppressing the warning message did not work.
-from basin_functions import *
+import basin_functions as bf
 from geocube.vector import vectorize
 import geopandas as gpd
 import matplotlib.colors as colors
@@ -58,13 +56,12 @@ import pandas as pd
 from pathlib import Path
 from pysheds.grid import Grid
 from pysheds.view import Raster, ViewFinder
-import rioxarray as rxr
 import xarray as xr
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ```python
-from basin_functions import *
+import basin_functions as bf
 from geocube.vector import vectorize
 import geopandas as gpd
 import matplotlib.colors as colors
@@ -74,11 +71,10 @@ import pandas as pd
 from pathlib import Path
 from pysheds.grid import Grid
 from pysheds.view import Raster, ViewFinder
-import rioxarray as rxr
 import xarray as xr
 ```
 <!-- #endregion -->
-We can also set the plotting style for the visualizations using [`matplotlib` style sheets](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html).
+We can also define the plotting style for the visualizations using [`matplotlib` style sheets](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html).
 
 ```python editable=true slideshow={"slide_type": ""}
 # Set plotting style
@@ -88,9 +84,9 @@ plt.style.use("bmh")
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Loading the digital elevation data
 
-A mosaic of the data used for this case study has already been created and is provided as a geotiff image online at the address listed with the variable `bucket_dem_fp` below. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. The DEM data is from the [ALOS World 3D-30m digital surface model](https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm) [^alos] with approximately 30 m spatial resolution (e.g., {cite}`Tadono2014`). Information about how the data have been processed to produce the mosaic we will use can be found in the {doc}`data for New Zealand section </data/New-Zealand-data>` online. We will be using this elevation data to extract and analyze river drainage basins on the western side of the New Zealand Alps.
+A mosaic of the data used for this case study has already been created and is provided as a geotiff image online at the address listed with the variable `bucket_dem_fp` below. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. The DEM data is from [version 4.1 of the ALOS World 3D-30m digital surface model](https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm) [^alos] with approximately 30 m spatial resolution (e.g., {cite}`Tadono2014`). Information about how the data have been processed to produce the mosaic we will use can be found in the {doc}`data for New Zealand section </data/New-Zealand-data>` online. We will be using this elevation data to extract and analyze river drainage basins on the western side of the New Zealand Alps.
 
-To start, we can read in the data using `rioxarray`.
+To start, we can read in the data using `xarray`.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -100,18 +96,34 @@ bucket_dem_file = "elevation/new_zealand/south_island_nz.tif"
 bucket_dem_fp = bucket_home + bucket_dem_file
 
 # Read the input data file
-south_island = rxr.open_rasterio(bucket_dem_fp).drop_vars("band")[0]
+south_island = xr.open_dataset(bucket_dem_fp, engine="rasterio", band_as_variable=True)
 ```
 
 Now we can have a look at the data in a bit more detail by printing out the `xarray` `DataArray` called `south_island`.
 
-```python editable=true slideshow={"slide_type": ""}
+```python
 south_island
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see above we have a dataset with around 194 million elevations (18000 longitude points and 10800 latitude points). The values at each point are the elevation of the surface or `NaN` if the points are below sea level or missing from the DEM.
+As we can see above we have a dataset with around 194 million elevations (18000 longitude points and 10800 latitude points). The values at each point are the elevation of the surface stored as the data variable `band_1`. As we did in Section 7.2, we can rename the `band_1` variable to `elevation` so things are more intuitive.
 <!-- #endregion -->
+
+```python
+south_island = south_island.rename({"band_1": "elevation"})
+```
+
+Finally, before proceeding we can also have a quick look at the values and extent of the elevation data by plotting the elevations using the built-in plotting from `xarray` (Figure 12.2), similar to what we did in Section 7.2.
+
+```python
+fig, ax = plt.subplots(1, 1, figsize=(8, 6))
+south_island["elevation"].plot(ax=ax, cmap="viridis", cbar_kwargs={"label": "Elevation (m)"}, vmin=np.nanmin(south_island["elevation"].data), vmax=np.nanmax(south_island["elevation"].data))
+ax.set_xlabel("Longitude (°E)")
+ax.set_ylabel("Latitude (°N)")
+plt.title("New Zealand elevation model");
+```
+
+_**Figure 12.2**. Digital elevation model of the study area in New Zealand._
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Extracting watersheds using pysheds
@@ -124,7 +136,7 @@ The next step in our workflow is to load the DEM into `pysheds` [^pysheds] to st
 
 The process of watershed delineation is essentially defining the points that lie upstream (or up slope) of a specified outlet point on a digital elevation model. Outlet points can be found various ways, and in this case study they were simply selected visually from [Google Maps](https://www.google.com/maps) by finding the locations where rivers along the western side of the New Zealand Alps between roughly 42.4 °S and 44.0 °S exit their valleys. This latitude range corresponds roughly to a long, linear segment of the [Alpine Fault](https://en.wikipedia.org/wiki/Alpine_Fault), the boundary between the Australian and Pacific tectonic plates.
 
-However, once outlet points have been selected, there are still several important steps for processing a DEM such that watersheds can be defined. For instance, the DEM must be updated such that a route to the outlet points can be found using the assumption that water will flow to neighboring cells at lower elevations. The first set of steps are collectively referred to as "hydrological conditioning" of the DEM. Conditioning steps include:
+However, once outlet points have been selected, there are still several important steps for processing a DEM to enable watersheds to be defined. For instance, the DEM must be updated such that a route to the outlet points can be found using the assumption that water will flow to neighboring cells at lower elevations. These first set of steps are collectively referred to as "hydrological conditioning" of the DEM. Conditioning steps include:
 
 - Filling pits in the DEM. Pits are individual cells in the DEM that have no neighbor cell with a lower elevation (outlet). The elevations of pits must be increased to the point that their height is equal to or greater than at least one neighbor cell.
 - Filling depressions in the DEM. Similar to filling pits, groups of cells that have no outlet (depressions) must be filled (have their elevation increased) such that the elevation is equal to or greater than at least one neighbor cell.
@@ -143,15 +155,15 @@ Once these steps have been completed, it is possible to delineate a watershed up
 
 At this stage we can begin the DEM processing steps using `pysheds`. The first step is to read in the DEM. To do this, we need to define the elevation data that will be used (`data`), the affine transformation matrix (`affine`), the coordinate reference system (`crs`), and the value used to indicate missing data (`nodata`). As a reminder, the affine transformation matrix and coordinate reference system values were introduced in Sections 7.2 and 7.4. The values used in the case are defined below.
 
-And it is worthwhile to note that it is also possible to read geotiff DEMs into `pysheds` directly. In this case study, the data are read in using `rioxarray` because we have seen this before and {doc}`pre-processing of the data was done to create a mosaic </data/New-Zealand-data>` using `rioxarray`. As a reminder, creating mosaics of raster data was covered in Section 7.3.
+At this point it is worthwhile to note that it is also possible to read geotiff DEMs into `pysheds` directly. However, in this case study the data are read in using `xarray` because we have already seen this in Chapter 7 and {doc}`pre-processing of the data was done to create a mosaic </data/New-Zealand-data>` using `xarray` and `rioxarray`. As a reminder, creating mosaics of raster data was covered in Section 7.3.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-data = south_island.data
+data = south_island["elevation"].data
 affine = south_island.rio.transform()
 crs = south_island.rio.crs
 # Keep same data type as DEM values for nodata
-nodata = data.dtype.type(-9999)
+nodata = data.dtype.type(np.nan)
 ```
 
 The values above can then be used to define the `pysheds` `ViewFinder`, which defines the spatial reference system for the DEM. After defining the `ViewFinder`, the elevation data can be read in using the `pysheds` `Raster()` function.
@@ -179,7 +191,7 @@ The processing of the data with `pysheds` generally goes smoothly, but it is pos
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
-checkpoint = True
+checkpoint = False
 if checkpoint:
     # Create checkpoint_data directory if it does not exist
     wd = Path.cwd()
@@ -199,7 +211,7 @@ print(f"Number of pits found: {npits}")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
-After detecting the pits it is possible to visualize their locations by plotting the `pits` values, as shown below. Unfortunately in this case, the number of elevations is so large that the 626,348 pits are not visible in the resulting plot. For smaller DEMs these points could be visible.
+After detecting the pits it is possible to visualize their locations by plotting the `pits` values, as shown below. Unfortunately in this case, the number of elevation points in the dataset is so large that the 621,219 pits are not visible in the resulting plot. For smaller DEMs these points could be visible.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
@@ -209,8 +221,10 @@ if npits > 0:
     fig, ax = plt.subplots(figsize=(8, 6))
     fig.patch.set_alpha(0)
 
-    plt.imshow(pits, cmap="Greys_r", zorder=1)
+    plt.imshow(pits, extent=grid.extent, cmap="Greys_r", zorder=1)
     plt.title("Pits", size=14)
+    ax.set_xlabel("Longitude (°E)")
+    ax.set_ylabel("Latitude (°N)")
     plt.tight_layout()
 ```
 
@@ -219,7 +233,7 @@ _Visualization of the pits detected in the raw DEM._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As there are clearly many pits in the DEM (626,348), it is necessary to next fill in the pits using the `.fill_pits()` method. After doing this, we can check that the pits have been filled using an `assert` statement.
+As there are clearly many pits in the DEM (621,219), it is necessary to next fill in the pits using the `.fill_pits()` method. After doing this, we can check that the pits have been filled using an `assert` statement.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -239,11 +253,11 @@ depressions = grid.detect_depressions(pit_filled_dem)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-If we were to check the number of depressions like was done for the pits above, we would find there are zero depressions. However this is incorrect, and may be related to the large number of nodata values in the sea areas of the DEM we are working with. There are indeed some depressions that need to be filled, and we can do that below.
+If we were to check the number of depressions like was done for the pits above, we would find there are zero depressions. However this is incorrect, and likely related to the large number of filled in values in the sea areas of the DEM mosiac we are working with. There are indeed some depressions that need to be filled, and we can do that below.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
-As was the case for the pits, it is possible to visualize the locations of depressions in the DEM. Again, however, no depressions are visible in the plot.
+As was the case for the pits, it is possible to visualize the locations of depressions in the DEM. Again, however, no depressions are visible in the resulting plot.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
@@ -251,8 +265,10 @@ As was the case for the pits, it is possible to visualize the locations of depre
 fig, ax = plt.subplots(figsize=(8, 6))
 fig.patch.set_alpha(0)
 
-plt.imshow(depressions, cmap="Greys_r", zorder=1)
+plt.imshow(depressions, extent=grid.extent, cmap="Greys_r", zorder=1)
 plt.title("Depressions", size=14)
+ax.set_xlabel("Longitude (°E)")
+ax.set_ylabel("Latitude (°N)")
 plt.tight_layout()
 ```
 
@@ -345,7 +361,7 @@ print(f"Number of flats found: {nflats}")
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Looks like we have plenty of flat regions in the DEM! 
+Looks like we have plenty of flat regions in the DEM! This is likely because we have large areas at sea level.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
@@ -357,8 +373,10 @@ As was the case earlier, it is possible to visualize the locations of flat regio
 fig, ax = plt.subplots(figsize=(8, 6))
 fig.patch.set_alpha(0)
 
-plt.imshow(flats, cmap="Greys_r", zorder=1)
+plt.imshow(flats, extent=grid.extent, cmap="Greys_r", zorder=1)
 plt.title("Flats", size=14)
+ax.set_xlabel("Longitude (°E)")
+ax.set_ylabel("Latitude (°N)")
 plt.tight_layout()
 ```
 
@@ -367,12 +385,12 @@ _Visualization of the flats detected in the flooded DEM._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Flat regions in the DEM can be handled by processing the flooded DEM to determine how water would be routed across the flat regions. In `pysheds`, this can be done using the `.resolve_flats()` method.
+Flat regions in the DEM can be handled by processing the flooded DEM to determine how water would be routed across the flat regions. In `pysheds`, this can be done using the `.resolve_flats()` method. Note here that we define the `max_iter` parameter to ensure plenty of iterations are used for resolving the flats, as well as defining `eps`, the elevation step size used when filling flats. For smaller DEMs the default values would likely be fine, but we have numerous large glacial lakes that require flats to be resolved.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 # Resolve flats
-inflated_dem = grid.resolve_flats(flooded_dem)
+inflated_dem = grid.resolve_flats(flooded_dem, max_iter=1e9, eps=1e-12)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -399,22 +417,24 @@ As was the case earlier, we can again check the values for the flow directions a
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 # Plot flow accumulation, if requested
-fig, ax = plt.subplots(figsize=(8, 6))
+fig, ax = plt.subplots(figsize=(8, 7))
 fig.patch.set_alpha(0)
 im = ax.imshow(
     acc,
-    zorder=2,
-    cmap="cubehelix",
+    extent=grid.extent,
+    zorder=1,
+    cmap="inferno_r",
     norm=colors.LogNorm(1, acc.max()),
-    interpolation="bilinear",
 )
-plt.colorbar(im, ax=ax, label="Upstream Cells")
+plt.colorbar(im, ax=ax, label="Upstream Cells", orientation="horizontal")
 plt.title("Flow Accumulation", size=14)
+ax.set_xlabel("Longitude (°E)")
+ax.set_ylabel("Latitude (°N)")
 plt.tight_layout()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
-_Visualization of the flow accumulation calculated using the inflated DEM._
+_Visualization of the flow accumulation calculated using the inflated DEM. Note that the image resolution is too low to resolve the channels well at this scale._
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
@@ -460,18 +480,18 @@ x_snap, y_snap = grid.snap_to_mask(acc > 1000, outlet)
 catch = grid.catchment(x=x_snap, y=y_snap, fdir=fdir, xytype="coordinate")
 ```
 
-Now that we have extracted the watershed we can visualize and inspect the results. For the sake of demonstration we will look at four subplots of watershed data (Figure 12.2) produced from the cell below: (1) the watershed extent, (2) the watershed elevations, (3) the watershed flow directions, and (4) the watershed flow accumulation. These are plotted using the `matplotlib.pyplot` function `.imshow()`, and otherwise use plotting syntax that should be familiar from Chapter 4.
+Now that we have extracted the watershed we can visualize and inspect the results. For the sake of demonstration we will look at four subplots of watershed data (Figure 12.3) produced from the cell below: (1) the watershed extent, (2) the watershed elevations, (3) the watershed flow directions, and (4) the watershed flow accumulation. These are plotted using the `matplotlib.pyplot` function `.imshow()`, and otherwise use plotting syntax that should be familiar from Chapter 4.
 
 ```python editable=true slideshow={"slide_type": ""}
 # Clip and set view extents
 grid.clip_to(catch)
 catch_view = grid.view(catch, nodata=np.nan)
+dem_view = grid.view(dem, nodata=np.nan)
 fdir_view = grid.view(fdir, nodata=np.nan)
 acc_view = grid.view(acc, nodata=np.nan)
-dem_view = grid.view(dem, nodata=np.nan)
 
 # Create figure and plot axes
-fig, axes = plt.subplots(2, 2, figsize=(9, 7))
+fig, axes = plt.subplots(2, 2, figsize=(12, 9))
 fig.patch.set_alpha(0)
 
 # Plot watershed extent
@@ -493,10 +513,9 @@ axes[1, 0].set_ylabel("Latitude (°N)")
 im = axes[1, 1].imshow(
     acc_view,
     extent=grid.extent,
-    zorder=2,
-    cmap="cubehelix",
+    zorder=1,
+    cmap="inferno_r",
     norm=colors.LogNorm(1, acc.max()),
-    interpolation="bilinear",
 )
 axes[1, 1].set_title("Flow accumulation")
 axes[1, 1].set_xlabel("Longitude (°E)")
@@ -507,7 +526,7 @@ plt.tight_layout()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 12.2**. Waiho River watershed extent, elevations, flow directions, and flow accumulation._
+_**Figure 12.3**. Waiho River watershed extent, elevations, flow directions, and flow accumulation._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -526,7 +545,7 @@ dist = grid.distance_to_outlet(
 )
 ```
 
-Similar to the plot above of the catchment data, we can plot the distance to the outlet using `.imshow()`.
+Similar to the plot above of the catchment data, we can plot the distance to the outlet using `.imshow()` (Figure 12.4).
 
 ```python
 # Create figure and axis
@@ -544,7 +563,7 @@ plt.title("Distance to outlet", size=14)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 12.3**. Cell distances to defined outlet for the Waiho River watershed._
+_**Figure 12.4**. Cell distances to defined outlet for the Waiho River watershed._
 
 It is also possible to extract the network of channels in the watershed using the `pysheds` function `.extract_river_network()`. This will identify all regions of the flow accumulation grid where the accumulation exceeds a given threshold (parameter `acc`). In our case, all regions with an accumulation of over 100 cells will be identified. In addition, the channel segments are plotted using different colors to indicate when there are channel segments than join (channel junctions).
 <!-- #endregion -->
@@ -554,7 +573,7 @@ It is also possible to extract the network of channels in the watershed using th
 branches = grid.extract_river_network(fdir, acc > 100)
 ```
 
-After calculating the branches, they can be plotted using the `matplotlib` plotting function `plt.plot()`.
+After calculating the branches, they can be plotted using the `matplotlib` plotting function `plt.plot()` (Figure 12.5).
 
 ```python editable=true slideshow={"slide_type": ""}
 # Create figure and axis
@@ -572,7 +591,7 @@ plt.title("Channel network (>100 accumulation)", size=14);
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 12.4**. Channel segments for the Waiho River watershed._
+_**Figure 12.5**. Channel segments for the Waiho River watershed._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -605,7 +624,7 @@ We can confirm that the conversion has gone as expected by plotting the watershe
 ```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
 fig, ax = plt.subplots(1, 1, figsize=(8, 6))
 
-catch_xr.plot(ax=ax, cmap="plasma", cbar_kwargs={"label": "Elevation (m)"})
+catch_xr.plot(ax=ax, cmap="viridis", cbar_kwargs={"label": "Elevation (m)"})
 ax.set_xlabel("Longitude (°E)")
 ax.set_ylabel("Latitude (°N)")
 ax.set_title("Waiho River data in xarray");
@@ -618,11 +637,11 @@ _Visualization of the Waiho River watershed elevations in `xarray`._
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Calculating basin hypsometry
 
-Our next major step is to calculate a hypsometric integral for the basin, which can provide an estimate of the volume of material in the watershed that has been eroded by rivers and glaciers. *{term}`Hypsometry <hypsometry>`* (or hypsometric analysis) refers to the measurement of the distribution of elevations of Earth's (or other planet's) surface elevations within a given area. In essence, it is a means to explore how much land area is within different elevation ranges, similar to calculating a histogram of elevations. On Earth, for instance, we can observe that [the majority of land area is at elevations within 800 meters of sea level, while little land area is at elevations greater than three kilometers](https://en.wikipedia.org/wiki/Hypsometry) [^elevations]. Hypsometric analysis of watersheds refers to the measurement of the distribution of elevations within a watershed (or drainage basin). A common product of hypsometric analysis of a watershed is a *{term}`hypsometric curve`*, which shows the distribution of watershed area above a given elevation in the watershed (i.e., a cumulative distribution). The elevation range and areas of hypsometric curves are often normalized to allow comparison between various watersheds (e.g., Figure 12.5).
+Our next major step is to calculate a hypsometric integral for the basin, which can provide an estimate of the volume of material in the watershed that has been eroded by rivers and glaciers. *{term}`Hypsometry <hypsometry>`* (or hypsometric analysis) refers to the measurement of the distribution of elevations of Earth's (or other planet's) surface elevations within a given area. In essence, it is a means to explore how much land area is within different elevation ranges, similar to calculating a histogram of elevations. On Earth, for instance, we can observe that [the majority of land area is at elevations within 800 meters of sea level, while little land area is at elevations greater than three kilometers](https://en.wikipedia.org/wiki/Hypsometry) [^elevations]. Hypsometric analysis of watersheds refers to the measurement of the distribution of elevations within a watershed (or drainage basin). A common product of hypsometric analysis of a watershed is a *{term}`hypsometric curve`*, which shows the distribution of watershed area above a given elevation in the watershed (i.e., a cumulative distribution). The elevation range and areas of hypsometric curves are often normalized to allow comparison between various watersheds (e.g., Figure 12.6).
 
-![_**Figure 12.5**. Example normalized hypsometric curve for a watershed._](../img/hypsometric-curve.png)
+![_**Figure 12.6**. Example normalized hypsometric curve for a watershed._](../img/hypsometric-curve.png)
 
-_**Figure 12.5**. Example normalized hypsometric curve for a watershed._
+_**Figure 12.6**. Example normalized hypsometric curve for a watershed._
 
 So, why do we care about the hypsometry of a watershed? There are a few reasons. One is the fact that the distribution of elevations in a drainage basin can tell us something about the geological processes that have shaped the land surface in the drainage basin. Rivers and glaciers carve their valleys into the underlying soil/rock at the surface in watersheds, eroding the landscape and altering the distribution of elevations within the basin. However, valley glaciers tend to form broad, deep valleys and remove more mass from a watershed than rivers would, which is something that would often be reflected in the hypsometry of the watershed. In a classic article, {cite}`Strahler1952` presented the concept of the *{term}`hypsometric integral`*, which is a single value that can be calculated by integrating the normalized hypsometric curve. Glaciated watersheds often experience more erosion of the rock within the watershed than fluvial watersheds, and the decreased volume of rock in the catchment is reflected in watershed areas concentrated at lower elevations and a lower hypsometric integral. We will explore hypsometry and hypsometric integrals in greater detail below. 
 
@@ -674,7 +693,7 @@ counts, bins = np.histogram(catchment_elevations, bins=nbins)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-The resulting histogram can be plotted using the `matplotlib` `pyplot.hist()` function. Looking at the resulting plot, it appears the 50-meter elevation binning worked as expected.
+The resulting histogram can be plotted using the `matplotlib` `pyplot.hist()` function. Looking at the resulting plot, it appears the 50-meter elevation binning worked as expected (Figure 12.7).
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -691,7 +710,7 @@ plt.tight_layout()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-_**Figure 12.6**. Elevation histogram for the Waiho River watershed with a 50-meter bin size._
+_**Figure 12.7**. Elevation histogram for the Waiho River watershed with a 50-meter bin size._
 
 The hypsometry of the watershed relies on finding the proportion of elevations above a given point from the lowest elevation to the highest in the basin. We can use the histogram data for this but we need to do a few things. First, a cumulative sum of the histogram elevation distribution should be calculated. In addition, the cumulative distribution should be reversed such that the elevation fraction is 1.0 (or 100%) above the minimum elevation and 0.0 (or 0%) above the maximum. Finally, the elevation distribution and ranges should be normalized to one, as this will make it easier to compare distributions for different watersheds.
 <!-- #endregion -->
@@ -715,7 +734,7 @@ hyps_integral = sum(norm_counts * bin_width)
 print(f"Hypsometric integral: {abs(hyps_integral):.3f}")
 ```
 
-What we can see here is that because the hypsometric integral value is lower than 0.5, a bit more than half of the volume of rock in the watershed is missing (due to erosion, for example). To help visualize this result we can plot the hypsometric curve along with a linear reference line for a hypsometric integral of 0.5, as shown below.
+What we can see here is that because the hypsometric integral value is lower than 0.5, a bit more than half of the volume of rock in the watershed is missing (due to erosion, for example). To help visualize this result we can plot the hypsometric curve along with a linear reference line for a hypsometric integral of 0.5, as shown below (Figure 12.8).
 
 ```python
 fig, ax = plt.subplots(1, 1)
@@ -740,7 +759,7 @@ ax.text(
 );
 ```
 
-_**Figure 12.7**. Hypsometric curve for the Waiho River watershed with a 50-meter bin size. HI = hypsometric integral._
+_**Figure 12.8**. Hypsometric curve for the Waiho River watershed with a 50-meter bin size. HI = hypsometric integral._
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Automating the process
@@ -827,7 +846,7 @@ pour_points = [
 \end{verbatim}
 <!-- #endraw -->
 
-```python editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"]
+```python
 pour_points = [
     (168.723432, -44.060960),
     (168.838838, -44.023259),
@@ -902,7 +921,7 @@ Next, we can create a large `for` loop that will be used to iterate over each wa
 7. Extract a vector boundary of the watershed for plotting
 8. Store the watershed data in the lists created above
 
-    - Note: There are some functions from the `basin_functions.py` function that are used when appending values to the lists.
+    - Note: There are some functions from the `basin_functions.py` file that are used when appending values to the lists.
   
 Now that we know the process, we can have a look at the code that is used for batch processing the watershed data.
 <!-- #endregion -->
@@ -941,8 +960,8 @@ for i in range(len(pour_points)):
     # Store elevations minus NaN values, calculate elevation histogram
     # and hypsometric integral
     catch_elev = catch_xr.values[~np.isnan(catch_xr.values)]
-    counts, bins = calculate_hypsometry(catch_elev)
-    hyps_integral = calculate_hypsometric_integral(counts, bins)
+    counts, bins = bf.calculate_hypsometry(catch_elev)
+    hyps_integral = bf.calculate_hypsometric_integral(counts, bins)
 
     # Extract vector boundary of watershed
     catch_xr.name = f"Watershed {catchment_number}"
@@ -956,10 +975,10 @@ for i in range(len(pour_points)):
     catchment_numbers.append(catchment_number)
     catchment_lons.append(pour_points[i][0])
     catchment_lats.append(pour_points[i][1])
-    catchment_areas.append(round(calculate_area(catch_elev), 1))
+    catchment_areas.append(round(bf.calculate_area(catch_elev), 1))
     catchment_min_elevs.append(catch_elev.min())
     catchment_max_elevs.append(catch_elev.max())
-    catchment_reliefs.append(calculate_relief(catch_elev))
+    catchment_reliefs.append(bf.calculate_relief(catch_elev))
     catchment_his.append(round(hyps_integral, 3))
     catchment_boundaries.append(dissolved["basin_boundary"].values[0])
 
@@ -1019,7 +1038,7 @@ fault_df = gpd.read_file(bucket_fault_fp)
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now we are ready to plot the data and create an interactive map using `geopandas`. As we have several different things to plot, we will plot the data in three separate layers: (1) the Alpine Fault data, (2) the watersheds, and (3) the basin outlet points. For each layer we can use the `geopandas` `.explore()` function to create a map of the layer. Note that because we want to plot both the watershed boundaries and outlet points in separate layers, we need to specify the active geometry layer for `geopandas` before plotting each one.
+Now we are ready to plot the data and create an interactive map using `geopandas` (Figure 12.9). As we have several different things to plot, we will plot the data in three separate layers: (1) the Alpine Fault data, (2) the watersheds, and (3) the basin outlet points. For each layer we can use the `geopandas` `.explore()` function to create a map of the layer. Note that because we want to plot both the watershed boundaries and outlet points in separate layers, we need to specify the active geometry layer for `geopandas` before plotting each one.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -1046,11 +1065,11 @@ m
 
 <!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 12.8}. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.}}, center, nofloat}{../img/south-island-watersheds.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 12.9}. An interactive map of watersheds along the western side of the Southern Alps, New Zealand.}}, center, nofloat}{../img/south-island-watersheds.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
-_**Figure 12.8**. An interactive map of watersheds along the western side of the Southern Alps, New Zealand._
+_**Figure 12.9**. An interactive map of watersheds along the western side of the Southern Alps, New Zealand._
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Concluding remarks
