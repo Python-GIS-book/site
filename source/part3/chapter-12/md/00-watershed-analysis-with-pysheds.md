@@ -117,7 +117,13 @@ Finally, before proceeding we can also have a quick look at the values and exten
 
 ```python
 fig, ax = plt.subplots(1, 1, figsize=(8, 6))
-south_island["elevation"].plot(ax=ax, cmap="viridis", cbar_kwargs={"label": "Elevation (m)"}, vmin=np.nanmin(south_island["elevation"].data), vmax=np.nanmax(south_island["elevation"].data))
+south_island["elevation"].plot(
+    ax=ax,
+    cmap="viridis",
+    cbar_kwargs={"label": "Elevation (m)"},
+    vmin=np.nanmin(south_island["elevation"].data),
+    vmax=np.nanmax(south_island["elevation"].data),
+)
 ax.set_xlabel("Longitude (°E)")
 ax.set_ylabel("Latitude (°N)")
 plt.title("New Zealand elevation model");
