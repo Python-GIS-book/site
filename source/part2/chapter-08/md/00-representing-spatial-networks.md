@@ -327,7 +327,7 @@ In the previous section, we learned how to create simple "toy graphs" from scrat
 ### Undirected graph using a GeoDataFrame
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Next, we will learn how to create an undirected `networkx` graph from a geographic dataset representing a small sample of streets located in the Helsinki City Centre area that we prepared based on open data fetched from the National Road and Street Database (Digiroad) by Finnish Transport Infrastructure Agency. Let's start by reading the data with `geopandas` into a `GeoDataFrame` called `streets` and explore a bit how it looks like:
+Next, we will learn how to create an undirected `networkx` graph from a geographic dataset representing a small sample of streets located in the Helsinki City Centre area that we prepared based on open data fetched from the National Road and Street Database (Digiroad) by Finnish Transport Infrastructure Agency [^digiroad]. The data have been simplified for the purposes of this book, e.g. so that each street segment has a single speed limit value. Let's start by reading the data with `geopandas` into a `GeoDataFrame` called `streets` and explore a bit how it looks like:
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -639,6 +639,4 @@ nx.draw(G,
        )
 ```
 
-```python
-
-```
+[^digiroad]: <https://vayla.fi/en/transport-network/data/digiroad>
