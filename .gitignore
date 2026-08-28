@@ -8,3 +8,6 @@ docs
 .DS_Store
 CLAUDE.md
 plans/
+
+# Notebook caches (r5py/osmnx etc.)
+**/nb/cache/
