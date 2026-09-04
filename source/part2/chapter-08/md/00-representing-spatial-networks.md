@@ -16,15 +16,6 @@ jupyter:
 # Representing geographic data as networks
 
 As we briefly introduced in Chapter 5.2, networks are data structures that consists of nodes that are connected to other nodes via edges which ultimately construct a network topology (or a graph as it is referred in graph theory). In this section, we will show how you can construct spatial networks using Python based on geographic data. We will show how you can create a simple graph from scratch, as well as how to create a network from a given dataset with `LineString` objects or from OpenStreetMap data that makes it possible to create networks from all over the world that can be used for various network analysis purposes.
-
-Contents:
-
-- Basic concepts: nodes, edges, node/edge attributes, topology, connectivity, directionality, what Python tools are out there that can be used?
-- How to create a simple graph from scratch
-- How to create a graph from a file representing streets
-- How to create a routable graph from OpenStreetMap
-- Other uses of graphs - morphology, spatial weights, etc.
-- Saving graphs to disk
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->

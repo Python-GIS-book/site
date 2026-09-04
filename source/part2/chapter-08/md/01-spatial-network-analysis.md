@@ -16,6 +16,7 @@ jupyter:
 # Spatial network analysis
 
 Contents:
+- How to create a routable graph from OpenStreetMap
 - What kind of things can be analyzed when doing network analysis?
   - Routing: commonly used algorithms
   - Checking topology
@@ -30,7 +31,7 @@ Contents:
   - Shortest path from A to all destinations
   - Identifying Connected components
   - Analysing centrality (betweenness, etc.)
-
+- Other uses of graphs - morphology, spatial weights, etc.
 
 This section focuses on spatial networks and learning how to construct a routable directed graph for `networkx` library that can be used to find a shortest paths along the given street network based on travel times or distance by given transport mode (e.g. car or cycling). Finding a shortest path from A to B using a specific street network is a very common problem in GIS that has many practical applications.
 
