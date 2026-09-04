@@ -237,10 +237,10 @@ _**Figure 8.X.** A graph with edge labels and colors that are determined by the 
 Networks can be `directed` or `undirected`, which determines the `directionality`, i.e. in which direction the nodes are connected to each other. In broad terms, the directionality determines how the interaction happens (or is allowed to happen) between the nodes. In directed graphs, `edges` are always directed, meaning that we need to define the direction how the nodes are connected to each other for each edge. For instance, if we want to have an edge between nodes `A` and `B` that can be traversed in both directions we actually need to construct two edges (called *reciprocal edges*, or sometimes *antiparallel edges*), i.e. one per direction: 1) the node A is connected to node B, and, 2) the node B is connected to node A. We briefly described this logic already in Chapter 5 (see Figure 5.8 and Table 5.1). These kind of directed edges are sometimes called as `arcs`. Some real-world networks where considering the directionality is important include e.g. rivers that flow to specific direction (from upstream to downstream) or a city street network where the travel direction can be restricted to a certain direction in specific parts of the network due to one-way-streets when travelling by car. However, in the context of transport networks do not always need to be directed. Undirected graphs can be used typically for walking or cycling related network analysis, as with those travel modes it is possible to travel the same street in any direction you like (although exceptions exist, such as in Denmark or Netherlands). 
 
 
-We can create a directed graph with `networkx` in a very similar manner as we did in the previous section when we created an undirected graph. To initialize a directed graph, we can use the `nx.MultiDiGraph()` that allows the creation of multiple edges between the same pair of nodes:
+We can create a directed graph with `networkx` in a very similar manner as we did in the previous section when we created an undirected graph. To initialize a directed graph, we can use `networkx`'s `nx.DiGraph()`. In a directed graph, the edge from node `a` to node `b` is stored separately from the edge from `b` to `a`. This means we can represent a two-way street by adding both of these reciprocal edges, and a one-way street by adding only one of them:
 
 ```python
-G_directed = nx.MultiDiGraph()
+G_directed = nx.DiGraph()
 G_directed
 ```
 
@@ -543,6 +543,9 @@ Here, the `direction` column includes information about the allowed direction of
 
 
 
+So far a `DiGraph` has been enough, because in our small example each pair of nodes was connected by at most one edge per direction. Real street data is messier: occasionally two separate road segments connect the same pair of intersections in the same direction — for instance a short direct link and a longer parallel stretch of the same street. A `DiGraph` keeps only one edge per direction between a given pair of nodes, so the second segment would silently overwrite the first and disappear from the network. To keep every segment, we use `nx.MultiDiGraph()`, which allows several edges between the same pair of nodes in the same direction.
+
+
 Let's start by creating a function called `gdf_to_directed_graph()` which works mostly in a similar manner as our previous function `gdf_to_graph()` but with a few important tweaks that allows us to take into consideration the directionality:
 
 ```python
@@ -622,7 +625,7 @@ G = gdf_to_directed_graph(streets)
 positions = {node: attrs["coords"] for node, attrs in G.nodes.data()}
 ```
 
-```python jupyter={"source_hidden": true}
+```python
 edge_colors = ["blue" if attrs["direction"] == 2 else "red" for u, v, attrs in G.edges.data()]
 ```
 
@@ -639,4 +642,10 @@ nx.draw(G,
        )
 ```
 
+_**Figure 8.X.** A directed graph representing the streets in the Helsinki City Centre area, where the edge colors indicate the permitted direction of travel (blue for two-way streets and red for one-way streets)._
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Footnotes
+
 [^digiroad]: <https://vayla.fi/en/transport-network/data/digiroad>
+<!-- #endregion -->
