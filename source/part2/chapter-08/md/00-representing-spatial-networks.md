@@ -671,7 +671,7 @@ with open(output_fp, "wb") as f:
     pickle.dump(G, f)
 ```
 
-Here, we opened a file in write-binary mode (`"wb"`) and used `pickle.dump()` to store our graph `G` into it. Reading the graph back is just as straightforward — we open the file in read-binary mode (`"rb"`) and use `pickle.load()`:
+Here, we opened a file in write-binary mode (`"wb"`) and used `pickle.dump()` to store our graph `G` into it. Reading the graph back is just as straightforward, we open the file in read-binary mode (`"rb"`) and use `pickle.load()`:
 
 ```python
 # Read the graph back from disk
@@ -688,6 +688,46 @@ print("Same number of edges:", G.number_of_edges() == G_from_disk.number_of_edge
 ```
 
 As we can see, the network we read from disk matches the original graph `G`: it contains the same number of nodes and edges. Because we saved the graph in Pickle format, all of the edge attributes — including the street geometries — are preserved as well, which means we can continue working with `G_from_disk` just as we would with the original graph.
+
+
+Finally, let's look at how the other formats listed in Table 8.2 can be used. Because these formats can only store simple values, we first create a simplified copy of our graph where the geometries and other complex attributes have been removed. We can then write this simplified network to disk in `GraphML`, `GML`, and `JSON` formats:
+
+```python
+import json
+
+# The GraphML, GML, and JSON formats can only store simple values (text and
+# numbers), so we first create a copy of the graph without the geometries and
+# other attributes that they cannot handle
+G_simple = G.copy()
+del G_simple.graph["crs"]
+
+for node, data in G_simple.nodes(data=True):
+    del data["coords"]
+
+for u, v, data in G_simple.edges(data=True):
+    del data["geometry"]
+    del data["name"]
+
+# Write the simplified graph to disk in different formats
+nx.write_graphml(G_simple, output_dir / "street_network.graphml")
+nx.write_gml(G_simple, output_dir / "street_network.gml")
+
+with open(output_dir / "street_network.json", "w") as f:
+    json.dump(nx.node_link_data(G_simple), f)
+```
+
+Reading these files back into `networkx` works with the matching read functions:
+
+```python
+# Read the graph back from each of the formats
+graph_from_graphml = nx.read_graphml(output_dir / "street_network.graphml")
+graph_from_gml = nx.read_gml(output_dir / "street_network.gml")
+
+with open(output_dir / "street_network.json") as f:
+    graph_from_json = nx.node_link_graph(json.load(f))
+```
+
+Note that, unlike Pickle, these formats do not store the street geometries — which is exactly why we simplified the graph before writing it, and why Pickle remains our recommended choice for saving spatial networks.
 
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
