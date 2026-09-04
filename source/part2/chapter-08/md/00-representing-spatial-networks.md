@@ -644,6 +644,61 @@ nx.draw(G,
 
 _**Figure 8.X.** A directed graph representing the streets in the Helsinki City Centre area, where the edge colors indicate the permitted direction of travel (blue for two-way streets and red for one-way streets)._
 
+
+## Saving a graph to disk
+
+Once we have constructed a graph, it is often useful to store it on disk so that we do not need to build it again every time we want to use it. This is handy when creating the graph takes a while, or when we want to share the network with others. Saving a graph works in a similar way as saving a `GeoDataFrame` to a file, which we did in Chapter 6.
+
+A `networkx` graph can be written to disk in several different file formats, and the best choice depends on what you want to do with the network afterwards. Table 8.2 summarizes the most common options.
+
+
+: _**Table 8.2**. Common file formats for saving a `networkx` graph to disk._
+
+| Format | Description |
+|:-------|:------------|
+| Pickle | Python's own storage format. Saves the graph exactly as it is, including all node and edge attributes (such as the street geometries) and the coordinate reference system. Simple to use, but the files can only be read back in Python. |
+| GraphML | A widely used format that can also be opened in other network analysis software, such as Gephi. Supports only simple attribute values (text and numbers), so richer attributes like geometries have to be converted or removed first. |
+| GML | A plain-text format that, like GraphML, is understood by many other tools but stores only simple attribute values. |
+| JSON | A text-based format that is convenient for web applications, but is likewise limited to values that can be stored as text or numbers. |
+
+
+For our purposes, we recommend using the `Pickle` format. Our street network stores rich information on its edges — most importantly the `geometry` of each street segment — together with the coordinate reference system of the data. Pickle is the only one of these formats that can store all of this as-is, without us first having to convert or drop any attributes. When we read the graph back, we get an identical copy of the network we saved. The other formats are useful mainly if you want to open the network in a different program, in which case you would first need to reduce the attributes to plain text and numbers.
+
+
+Let's save our directed street network `G` to disk. We use Python's built-in `pickle` module and write the graph into a file with a `.pickle` ending:
+
+```python
+import pickle
+from pathlib import Path
+
+output_dir = Path("data")
+
+# Write the graph to disk
+output_fp = output_dir / "street_network.pickle"
+
+with open(output_fp, "wb") as f:
+    pickle.dump(G, f)
+```
+
+Here, we opened a file in write-binary mode (`"wb"`) and used `pickle.dump()` to store our graph `G` into it. Reading the graph back is just as straightforward — we open the file in read-binary mode (`"rb"`) and use `pickle.load()`:
+
+```python
+# Read the graph back from disk
+with open(output_fp, "rb") as f:
+    G_from_disk = pickle.load(f)
+```
+
+Let's check that the network we read from disk really is the same as the one we saved:
+
+```python
+# Compare the reloaded graph with the original one
+print("Same number of nodes:", G.number_of_nodes() == G_from_disk.number_of_nodes())
+print("Same number of edges:", G.number_of_edges() == G_from_disk.number_of_edges())
+```
+
+As we can see, the network we read from disk matches the original graph `G`: it contains the same number of nodes and edges. Because we saved the graph in Pickle format, all of the edge attributes — including the street geometries — are preserved as well, which means we can continue working with `G_from_disk` just as we would with the original graph.
+
+
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Footnotes
 
