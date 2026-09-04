@@ -695,9 +695,6 @@ Finally, let's look at how the other formats listed in Table 8.2 can be used. Be
 ```python
 import json
 
-# The GraphML, GML, and JSON formats can only store simple values (text and
-# numbers), so we first create a copy of the graph without the geometries and
-# other attributes that they cannot handle
 G_simple = G.copy()
 del G_simple.graph["crs"]
 
