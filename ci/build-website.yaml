@@ -10,7 +10,7 @@ dependencies:
   - jupyter-sphinx
   - nbsphinx
   - myst-nb
-  - sphinx-book-theme
+  - sphinx-book-theme=1.1.4
   - sphinxcontrib-bibtex
   - sphinx-design
   - sphinx-thebe
