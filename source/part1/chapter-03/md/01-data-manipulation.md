@@ -530,7 +530,7 @@ As a result the data are now ordered first by weekday (i.e., the same weekday va
 
 Joining data between two or more `DataFrame` objects is a common task when doing data analysis. The minimum requirement for being able to combine data between two (or more) `DataFrame` objects (or tables) is to have at least one common attribute (called a key) that is identical in both `DataFrame` objects. Figure 3.4 illustrates the logic of a table join. In this case, we want to merge the precipitation data from Kumpula weather station to the temperature data that we worked earlier in this chapter. The common key in this case is the time information in the `YEARMODA` column in the left `DataFrame` and the `Date` column in the right `DataFrame`. The column names of the keys can be different (as in our case), but the values stored in these columns should correspond to each other so that it is possible to match the records between tables. The attribute values of the key can contain data in any format (dates, text, numbers, etc.). Hence, the data is not limited to dates or integers as demonstrated in this example. 
 
-![_**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._](../img/Table-join.png)
+![_**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._](../img/table-join.png)
 
 _**Figure 3.4**. Joining precipitation data from the right DataFrame to the left based on common key._
 
