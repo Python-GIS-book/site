@@ -302,7 +302,9 @@ warm_temps
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-As can be seen, now the index values goes from 0 to 26. Resetting the index has now also unlinked the `warm_temps` `DataFrame` from `data`, meaning that it is not a view anymore but an independent `pandas` object. When making selections, it is quite typical that `pandas` might give you warnings if you modify the selected data without first resetting the index or making a copy of the selected data. To demonstrate this, we will make the selection again and create a new column indicating days in which the temperature was "hot" (maximum temperature greater than 25 degrees Celsius).
+As can be seen, now the index values goes from 0 to 26.
+
+Once making a selection and assigning it to a variable (for example, `warm_temps`), we can work with the selected data like any other `pandas` `DataFrame`. We can, for instance, make another selection to create a new column indicating days in which the temperature was "hot" (maximum temperature greater than 25 degrees Celsius).
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
@@ -311,19 +313,7 @@ warm_temps["HOT_TEMP"] = warm_temps["MAX"] > 25
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-In this case we have created a new column using the selection, which is a slice from the original data. As a result, `pandas` raises a warning about a possible invalid value assignment. In most cases this warning can be ignored, but it is a good practice to always make a copy when doing selections, especially if you continue working with the selected data and intend modify it further.
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-# Make the selection and make a copy
-warm_temps = data.loc[(data["TEMP"] > 20) & (data["YEARMODA"] >= 20240715)].copy()
-
-# Now update the first value of the last column
-warm_temps["HOT_TEMP"] = warm_temps["MAX"] > 25
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, now we did not receive any warnings this time and it would be safe to continue working with this selection without needing to worry that there are some "hidden linkages" between the selection and another `DataFrame` that could cause issues (we discuss this more in the next section).
+In this case we have created a new column using the selection, which is a slice from the original data. Combining selections in this way provides a powerful pathway to data processing and analysis. However, note that you may observe a warning message when doing this kind of selection from a selection for versions of `pandas` older than version 3. This is discussed further in the following section.
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["question"] -->
@@ -342,41 +332,23 @@ data["TEMP"].loc[data["YEARMODA"] >= 20240825].mean()
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-### View versus a copy
+### View versus a copy (for older `pandas` versions)
 
-As we have seen above, making a selection can sometimes result to something called a view. In such cases, the selection and the original data may still linked to each other. This happens, for example, if you make a selection like above but return only a single column from the original source data. In a situation where you have a view, a change in the original data for that specific column can also change the value in the selection. This behavior can be confusing and yield unexpected consequences, so a good practice to follow is to always make a copy whenever doing selections to unlink the source `DataFrame` from the selection. You can make a copy easily while doing the selection by adding `.copy()` at the end of the selection command.
+Prior to version 3 of `pandas`, the default behavior when making a selection from a `DataFrame` was to create something called a view. In such cases, the selection and the original data may still linked to each other. This could happen, for example, if you make a selection like above but return only a single column from the original source data. In a situation where you have a view, a change in the original data for that specific column would also change the value in the selection. This behavior could be confusing and yield unexpected consequences, so this is part of the reason it is no longer the default. Instead, the default in `pandas` 3 is to automatically create a separate copy of the selected `DataFrame` data.
+
+If you are using older versions of `pandas`, however, it is possible to handle `DataFrame` views by making an explicit copy of the data when performing the selection. You can make a copy easily while doing the selection by adding `.copy()` at the end of the selection command. For older versions of `pandas`, a good practice to follow is to always make a copy whenever doing selections to unlink the source `DataFrame` from the selection. In the example for selecting "hot" temperatures, this can be done as shown below.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
-selection = data.loc[0:5, ["TEMP", "TEMP_KELVIN"]].copy()
-selection
+# Make the selection and make a copy
+warm_temps = data.loc[(data["TEMP"] > 20) & (data["YEARMODA"] >= 20240715)].copy()
+
+# Now update the first value of the last column
+warm_temps["HOT_TEMP"] = warm_temps["MAX"] > 25
 ```
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-Now we have the exact same data in our end result, but we have ensured that the selection is not linked to the original data anymore. To demonstrate what can happen with the view, let's make a selection of a single column from the selection data (which will be a view), and modify the data a bit to demonstrate the consequences if we are not careful.
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-temp = selection["TEMP"]
-temp
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-Now if we make a change to our original data `selection` it will also influence our values in `temp`.
-<!-- #endregion -->
-
-```python editable=true slideshow={"slide_type": ""}
-selection.iloc[0, 0] = 30.0
-selection.head()
-```
-
-```python editable=true slideshow={"slide_type": ""}
-# Check the values in temp (which we did not modify)
-temp
-```
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-As we can see, the value in our `temp` `Series` has changed from `23.70` to `30.00` although we did not make any change to it directly. The change happened because the data objects were still linked to each other.
+If you are using an older version of `pandas` you should notice that there was no warning this time and it would be safe to continue working with this selection without needing to worry that there are some "hidden linkages" between the selection and another `DataFrame` that could cause issues. Most commonly, these issues would arise when a selection is made that creates a view and the source data for the selection is subsequently modified. In older versions of `pandas` this would result in the selection data also being modified!
 <!-- #endregion -->
 
 <!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
