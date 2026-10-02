@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -105,7 +105,7 @@ Your task here is to create a new function called `celsius_to_newton()` that (1)
 # Use this cell to enter your solution.
 ```
 
-```python tags=["hide-cell", "remove_book_cell"] editable=true slideshow={"slide_type": ""} black=false
+```python black=false editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Solution
 
 
@@ -303,7 +303,7 @@ As you will see below, the variables defined in the function exist only in its *
 Let's confirm that by printing each out.
 <!-- #endregion -->
 
-```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 temp_kelvins
 ```
 

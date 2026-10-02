@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -97,7 +97,7 @@ The common terms in Table 4.1 may vary a bit depending on the plotting library t
 | Padding    | The distance between a (axis/tick) label and the axis.                                                                    |
 <!-- #endregion -->
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 \begin{longtable}[]{@{}ll@{}}
 \caption{\emph{\textbf{Table 4.1}. Common terminology for plot features in Matplotlib.}}\tabularnewline
 \toprule\noalign{}
