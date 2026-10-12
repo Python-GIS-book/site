@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -70,7 +70,7 @@ m = station_buffer.explore(m=m, color="red")
 m
 ```
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
 \adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 6.54}. A sample of postal code areas in the Helsinki city centre and a 3km buffer around Helsinki railway station.}}, center, nofloat}{../img/figure_6-54.png}
 { \hspace*{\fill} \\}
@@ -181,13 +181,11 @@ Did you fully understand why the number of rows increase after doing the union o
 
 ```python editable=true slideshow={"slide_type": ""} tags=["hide-cell", "remove_book_cell"]
 # Answer
-print(
-    """
+print("""
 When hovering over the buffer geometry border, the attribute values in the table change. 
 Inside the ring, the attributes of the Helsinki railway station are kept in the results, whereas outside of the ring 
 the table does not include any data for the columns associated with the railway station.
-"""
-)
+""")
 
 # Solution
 union.explore()

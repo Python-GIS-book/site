@@ -39,7 +39,7 @@ A good way to start working with OSM data is to view the map from an area you ar
 
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-#### Question 9.1
+#### Question 10.1
 
 Go to [www.openstreetmap.org](https://www.openstreetmap.org/) and zoom the map to an area that you are familiar with. 
 - Does the map look complete?
@@ -76,11 +76,11 @@ aoi.explore()
 
 <!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 % This cell is only needed to produce a figure for display in the hard copy of the book.
-\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 9.1}. Interactive map displaying the area of interest with a background map.}}, center, nofloat}{../img/osmnx-aoi-example.png}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight}, caption={\emph{\textbf{Figure 10.1}. Interactive map displaying the area of interest with a background map.}}, center, nofloat}{../img/osmnx-aoi-example.png}
 { \hspace*{\fill} \\}
 <!-- #endraw -->
 
-_**Figure 9.1**. Interactive map displaying the area of interest with a background map. Source: OpenStreetMap contributors._
+_**Figure 10.1**. Interactive map displaying the area of interest with a background map. Source: OpenStreetMap contributors._
 
 
 ### Street network
@@ -101,7 +101,7 @@ Let's have a closer look a the street nework using an `osmnx` function that plot
 fig, ax = ox.plot.plot_graph(graph, figsize=(6, 6))
 ```
 
-_**Figure 9.2**. Graph edges and nodes._
+_**Figure 10.2**. Graph edges and nodes._
 
 
 From here we can see that our graph contains nodes (the points) and edges (the lines) of the network graph. There are various tools available in `osmnx` and `networkx` to continue modifying and analyzing this network graph. It would also be possible to limit the search to contain only specific street segments, such as all public streets or all streets and paths that cyclists or pedestrians can use. You can read more about working with street network graphs in the `osmnx` online documentation.
@@ -144,7 +144,7 @@ Let's plot the building footprints to get an overview of the data. While plottin
 buildings.plot(column="building", figsize=(8.2, 8), cmap="tab20c", legend=True)
 ```
 
-_**Figure 9.3**. OSM buildings visualized by building tag values._
+_**Figure 10.3**. OSM buildings visualized by building tag values._
 
 
 Let's also fetch points of interests from our area of interest using the amenity tag:
@@ -166,7 +166,7 @@ Here, we received all amenities in the area of interest ranging from restaurants
 len(amenities)
 ```
 
-#### Question 9.2
+#### Question 10.2
 
 How many different amenity categories are there?
 
@@ -217,7 +217,7 @@ The first five rows of data contain different parks, which all have a name. Let'
 parks.plot(color="green", alpha=0.5)
 ```
 
-_**Figure 9.4**. Polygons tagged with "leisure=park" or "landuse=grass"._
+_**Figure 10.4**. Polygons tagged with "leisure=park" or "landuse=grass"._
 
 
 ### Plotting the data
@@ -246,7 +246,7 @@ amenities.plot(ax=ax, color="yellow", alpha=0.7, markersize=10)
 plt.tight_layout()
 ```
 
-_**Figure 9.5**. Visualization of OSM map features from the Kamppi area in Helsinki, Finland._
+_**Figure 10.5**. Visualization of OSM map features from the Kamppi area in Helsinki, Finland._
 
 
 ### Alternative spatial queries
@@ -269,7 +269,7 @@ buildings = ox.features.features_from_bbox(bounds, {"building": True})
 buildings.plot()
 ```
 
-_**Figure 9.6**. Downloaded buildings within a bounding box._
+_**Figure 10.6**. Downloaded buildings within a bounding box._
 
 
 Here is another example of querying data within a distance treshold from a geocodable address. The distance parameter is given in meters. 
@@ -282,10 +282,10 @@ buildings = ox.features.features_from_address(address, tags, distance)
 buildings.plot()
 ```
 
-_**Figure 9.7**. Downloaded buildings within a distance treshold from a geocoded address._
+_**Figure 10.7**. Downloaded buildings within a distance treshold from a geocoded address._
 
 
-#### Question 9.3
+#### Question 10.3
 
 Check your understanding and retrieve OpenStreetMap data from some other area in the world. Use `osmnx` and download:
 

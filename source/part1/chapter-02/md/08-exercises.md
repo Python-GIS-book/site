@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -121,7 +121,7 @@ Data classification is another useful data analysis concept, where data values a
 |Warm        |Greater than or equal to +2 deg. C                          | `warm`        |
 <!-- #endregion -->
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 \begin{longtable}[]{@{}llc@{}}
 \caption{\emph{\textbf{Table 2.7}. Temperature categories and ranges for
 Exercise 2.5 and 2.7.}}\tabularnewline

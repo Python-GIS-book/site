@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -151,7 +151,7 @@ Let's now import our `celsius_to_fahr()` function from the `temp_converter.py` s
 %cd ../../../_static/part1/chapter-02/
 ```
 
-```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 from temp_converter import celsius_to_fahr
 ```
 
@@ -185,7 +185,7 @@ from my_script import func1, func2, func3
 Additionally, it is sometimes useful to import the whole script and all of its functions at once. This can be done using a different `import` statement, which we can use and then test that all of the imported functions work. This time we can type `import temp_converter as tc`.
 <!-- #endregion -->
 
-```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 import temp_converter as tc
 ```
 
@@ -193,15 +193,15 @@ import temp_converter as tc
 Just like the examples we have seen earlier with the `math` library, such as using `math.sin()`, we can now use our functions such as `tc.celsius_to_fahr()`. In the cells below, test our functions as they were used above by printing the freezing point of water in Fahrenheit, absolute zero in Celsius, and absolute zero in Fahrenheit.
 <!-- #endregion -->
 
-```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 print(f"The freezing point of water in Fahrenheit is: {tc.celsius_to_fahr(0)}")
 ```
 
-```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 print(f"Absolute zero in Celsius is: {tc.kelvins_to_celsius(temp_kelvins=0)}")
 ```
 
-```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 print(f"Absolute zero in Fahrenheit is: {tc.kelvins_to_fahr(temp_kelvins=0)}")
 ```
 
@@ -318,7 +318,7 @@ import temp_converter as tc
 We can check that this step worked as expected by using the `help()` function in Python to see how our function should be used (since we added a short docstring at the beginning of the function). Try running `help(temp_calculator)` in the cell below to see the docstring.
 <!-- #endregion -->
 
-```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 help(tc.temp_calculator)
 ```
 
@@ -332,10 +332,10 @@ Finally, let's see how our function works!
 temp_kelvin = 30
 ```
 
-```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 temperature_c = tc.temp_calculator(temp_k=temp_kelvin, convert_to="C")
 ```
 
-```python tags=["raises-exception"] editable=true slideshow={"slide_type": ""}
+```python editable=true slideshow={"slide_type": ""} tags=["raises-exception"]
 print(f"{temp_kelvin} Kelvins is {temperature_c:.2f} degrees Celsius.")
 ```

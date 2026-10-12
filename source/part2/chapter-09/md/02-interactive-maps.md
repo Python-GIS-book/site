@@ -12,21 +12,17 @@ jupyter:
     name: python3
 ---
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-# Interactive maps
-<!-- #endregion -->
-
 <!-- #region deletable=true editable=true slideshow={"slide_type": ""} -->
+# Interactive maps
 
 Interactive maps allow users to engage with the map content through, for example, zooming, panning, clicking, and searching. There are various tools available for creating interactive maps in Python. In this chapter, we will first see how we can create interactive maps directly from `geopandas`, and proceed to learning more about customizing the interactive maps in Python using the [`folium` library](https://python-visualization.github.io/folium/) [^folium]. Folium makes it easy to visualize geographic data by integrating with [`Leaflet.js`](http://leafletjs.com/) [^leaflet], a powerful JavaScript library for interactive mapping. JavaScript (JS) is a programming language commonly used to add dynamic and interactive elements to webpages, and Leaflet is one of the many JavaScript libraries designed specifically for rendering interactive maps. `Folium` makes these tools accessible for Python users who want to integrate dynamic map content in their data analysis workflows. By using `folium`, we can leverage the capabilities of `Leaflet.js` without needing to write JavaScript code. 
+<!-- #endregion -->
 
 ## Interactive data exploration using `geopandas`
 
 In previous chapters, we have already created simple examples of interactive maps via `geopandas` to explore our data interactively on top of a basemap. `Geopandas.GeoDataFrame.explore()` uses `folium`/`leaflet.js` to create the map and we can adjust the map object parameters directly from `geopandas`. 
 
 Let's create an interactive map via `geopandas` using point data. Our sample dataset represent city bike stations in Espoo and Helsinki, Finland based on open data from [Helsinki Region Transport’s (HSL)](https://www.avoindata.fi/data/en_GB/dataset/hsl-n-kaupunkipyoraasemat) [^hsl_citybikedata].
-
-<!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 import geopandas as gpd

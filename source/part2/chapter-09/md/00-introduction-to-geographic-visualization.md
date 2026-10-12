@@ -14,9 +14,6 @@ jupyter:
 
 # Introduction to geographic visualization
 
-<!-- #region -->
-
-# Designing maps
 
 ## Elements of a good map design
 
@@ -34,7 +31,8 @@ Contents:
   - Tell a story with data
   - Good use of symbols and colors
   - Simple style and easy to understand
-  
+
+
 
 ## Working with colors
 
@@ -49,4 +47,3 @@ Contents:
   - Where to find colormaps?
   - How to adjust existing colormaps?
   - How to create custom color palette?
-<!-- #endregion -->

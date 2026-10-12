@@ -90,6 +90,7 @@ The book consists of 4 parts:
    part2/chapter-07/index
    part2/chapter-08/index
    part2/chapter-09/index
+   part2/chapter-10/index
 
 .. toctree::
    :maxdepth: 2
@@ -97,7 +98,6 @@ The book consists of 4 parts:
    :titlesonly:
    :hidden:
 
-   part3/chapter-10/index
    part3/chapter-11/index
    part3/chapter-12/index
    part3/chapter-13/index
