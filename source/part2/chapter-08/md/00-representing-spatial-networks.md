@@ -83,7 +83,7 @@ As we can see, at the moment the nodes are located arbitrarily in space because 
 Thus, let's continue by creating `edges` which are the other core element of a graph. A single `edge` is basically a connection between two `nodes`. `Edge` can also be called as `line` or `link` (depending on the context). To create edges, we can use the `.add_edge()` method where we define how the nodes are connected to each other. In `networkx`, the nodes that are connected to each other are often referred as `u` (first node) and `v` (last node). In the following, we will define the topology of our graph by defining one edge at a time how the nodes are connected to each other:
 
 ```python
-# Add edges            
+# Add edges
 G.add_edge("a", "b")
 G.add_edge("a", "c")
 G.add_edge("b", "d")
@@ -111,12 +111,13 @@ Now we have a very simple graph structure where the nodes are connected to each 
 As mentioned earlier, edges and nodes can have attributes associated with them (e.g. coordinates, distance, volume, capacity) which make them very useful data structure for various analytical purposes, such as conducting way-finding where the target is to find an optimal path between two locations on a network. In the following, we will add the same nodes with ids (`a, b, c, d, e`) but at this time we add coordinates for these nodes as `node attributes`. To do this, we construct a simple data collection that is a `list` of `tuples` where each `tuple` contains the information for a given node. As the first item, we provide the id for a given node (e.g. `"a"`) and as the second item we provide all the node attributes as a Python `dictionary`. In practice, you can add as many node attributes as you like in this `dictionary`, but in our case, we now only add one attribute which we call `"coords"` that will contain the x and y coordinates for a given node: 
 
 ```python
-node_collection = [("a", {"coords": (0,5)}),
-                   ("b", {"coords": (5,5)}),
-                   ("c", {"coords": (0,0)}),
-                   ("d", {"coords": (5,0)}),
-                   ("e", {"coords": (10,0)}),
-                  ]
+node_collection = [
+    ("a", {"coords": (0, 5)}),
+    ("b", {"coords": (5, 5)}),
+    ("c", {"coords": (0, 0)}),
+    ("d", {"coords": (5, 0)}),
+    ("e", {"coords": (10, 0)}),
+]
 ```
 
 ```python
@@ -135,12 +136,13 @@ G.nodes.data()
 Adding edges to a given graph with `edge attributes` works in a very similar manner as adding nodes and node attributes as shown previously. When we want to add a collection of edges to a `graph` we create a `list` that contains tuples with information about the connections, i.e. which nodes are linked to each other (e.g. `"a"` and `"b"`), and the edge attributes as a `dictionary`. Here, each `tuple` represents a single edge, where the first and second item corresponds to the connected node-ids and the third item corresponds to the edge attributes. In our case, we add a single edge attribute called `"weight"` which could represent the cost (e.g. distance or time) to move from one node to another, or the importance of a given edge (e.g. the number of people interacting between these nodes in one way or another):
 
 ```python
-edge_collection = [("a", "b", {"weight": 1}),
-                   ("a", "c", {"weight": 1}),
-                   ("b", "d", {"weight": 2}),
-                   ("c", "d", {"weight": 1}),
-                   ("d", "e", {"weight": 3}),
-                  ]
+edge_collection = [
+    ("a", "b", {"weight": 1}),
+    ("a", "c", {"weight": 1}),
+    ("b", "d", {"weight": 2}),
+    ("c", "d", {"weight": 1}),
+    ("d", "e", {"weight": 3}),
+]
 ```
 
 Now we can add this collection of edges into our graph `G` by using the `.add_edges_from()` method which can be used to add multiple items at once to the given graph (similar to how we added multiple nodes). As a result, our graph now contains not only the information about the connections (edges), but also the associated `edge attributes`:
@@ -171,7 +173,7 @@ _**Figure 8.X.** A simple spatial network with five nodes and edges._
 Now we have visualized a simple spatial network where the locations of the nodes are pre-determined by us according the coordinates that we used when constructing the graph. Thus, we can be sure that the network always looks exactly the same when we visualize it (which is important for physical real-world networks), which is not the case if visualizing the network without the node coordinates. In fact, if you run the previous code without using the `pos` parameter multiple times, it is likely that you get a different looking graph each time:
 
 ```python
-fix, (ax1, ax2, ax3, ax4) = plt.subplots(ncols=4, figsize=(14,4))
+fix, (ax1, ax2, ax3, ax4) = plt.subplots(ncols=4, figsize=(14, 4))
 
 nx.draw(G, with_labels=True, font_color="white", ax=ax1)
 nx.draw(G, with_labels=True, font_color="white", ax=ax2)
@@ -199,23 +201,23 @@ Now we can draw the network in such a way that we determine the color of each ed
 
 ```python
 # Draw network with colored edges
-nx.draw(G, 
-        pos=positions, 
-        with_labels=True, 
-        font_weight="bold", 
-        font_color="white", 
-        node_color="grey",
-        edge_color=edge_values,
-        edge_cmap=plt.cm.copper,
-        
+nx.draw(
+    G,
+    pos=positions,
+    with_labels=True,
+    font_weight="bold",
+    font_color="white",
+    node_color="grey",
+    edge_color=edge_values,
+    edge_cmap=plt.cm.copper,
 )
 
 # Draw edge labels
 nx.draw_networkx_edge_labels(
-    G, 
+    G,
     positions,
     edge_labels=weights,
-    font_color='red', 
+    font_color="red",
     font_weight="bold",
 );
 ```
@@ -238,12 +240,13 @@ G_directed
 We can now populate our directed graph with nodes and node attributes in a similar fashion as we did with the undirected graph:
 
 ```python
-node_collection = [("a", {"coords": (0,5)}),
-                   ("b", {"coords": (5,5)}),
-                   ("c", {"coords": (0,0)}),
-                   ("d", {"coords": (5,0)}),
-                   ("e", {"coords": (10,0)}),
-                  ]
+node_collection = [
+    ("a", {"coords": (0, 5)}),
+    ("b", {"coords": (5, 5)}),
+    ("c", {"coords": (0, 0)}),
+    ("d", {"coords": (5, 0)}),
+    ("e", {"coords": (10, 0)}),
+]
 # Add nodes
 G_directed.add_nodes_from(node_collection)
 G_directed.nodes.data()
@@ -252,21 +255,18 @@ G_directed.nodes.data()
 However, when constructing the edges, we now need to define a separate edge for each direction. In our case, we create reciprocal edges (i.e. bidirectional connections) everywhere except between the nodes `c` and `d` which we determine to be one-way as shown below. We also add a couple of edge attributes, i.e. `weight` and `color` where the green color indicates a bidirectional edge, and blue represents oneway, respectively. We can again use the `.add_edges_from()` method to add these edges to our graph:
 
 ```python
-edge_collection = [("a", "b", {"weight": 1, "color": "green"}),
-                   ("b", "a", {"weight": 1, "color": "green"}),
-                  
-                   ("a", "c", {"weight": 1, "color": "green"}),
-                   ("c", "a", {"weight": 1, "color": "green"}),
-                  
-                   ("b", "d", {"weight": 2, "color": "green"}),
-                   ("d", "b", {"weight": 2, "color": "green"}),
-
-                   # One-way
-                   ("c", "d", {"weight": 1, "color": "blue"}),
-                   
-                   ("d", "e", {"weight": 3, "color": "green"}),
-                   ("e", "d", {"weight": 3, "color": "green"}),
-                  ]
+edge_collection = [
+    ("a", "b", {"weight": 1, "color": "green"}),
+    ("b", "a", {"weight": 1, "color": "green"}),
+    ("a", "c", {"weight": 1, "color": "green"}),
+    ("c", "a", {"weight": 1, "color": "green"}),
+    ("b", "d", {"weight": 2, "color": "green"}),
+    ("d", "b", {"weight": 2, "color": "green"}),
+    # One-way
+    ("c", "d", {"weight": 1, "color": "blue"}),
+    ("d", "e", {"weight": 3, "color": "green"}),
+    ("e", "d", {"weight": 3, "color": "green"}),
+]
 # Add edges
 G_directed.add_edges_from(edge_collection)
 G_directed.edges.data()
@@ -279,7 +279,7 @@ Great! Now our graph is constructed and we can plot it using the same approaches
 positions = nx.get_node_attributes(G_directed, "coords")
 
 # Parse edge labels
-edge_labels = nx.get_edge_attributes(G_directed, "weight") 
+edge_labels = nx.get_edge_attributes(G_directed, "weight")
 
 # Parse edge colors
 edge_colors = list(nx.get_edge_attributes(G_directed, "color").values())
@@ -287,19 +287,20 @@ edge_colors = list(nx.get_edge_attributes(G_directed, "color").values())
 
 ```python
 # Draw the graph with edge labels
-nx.draw(G_directed, 
-        with_labels=True, 
-        pos=positions, 
-        font_color="white", 
-        node_color="grey",
-        edge_color=edge_colors
-       )
+nx.draw(
+    G_directed,
+    with_labels=True,
+    pos=positions,
+    font_color="white",
+    node_color="grey",
+    edge_color=edge_colors,
+)
 
 nx.draw_networkx_edge_labels(
-    G_directed, 
+    G_directed,
     positions,
     edge_labels=edge_labels,
-    font_color='red', 
+    font_color="red",
     font_weight="bold",
 );
 ```
@@ -358,7 +359,7 @@ def gdf_to_graph(gdf):
 
     # Create the NetworkX graph
     graph = nx.Graph()
-        
+
     # Generate edge dictionary
     for row in gdf.itertuples():
         coords = row.geometry.coords
@@ -372,14 +373,17 @@ def gdf_to_graph(gdf):
         graph.add_edge(first, last, **edge_attr)
 
     # Generate node attributes
-    node_attrs = {node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]} for node in graph.nodes}
-    nx.set_node_attributes(graph, node_attrs)  
-    
+    node_attrs = {
+        node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]}
+        for node in graph.nodes
+    }
+    nx.set_node_attributes(graph, node_attrs)
+
     # Relabel the indices
     graph = nx.convert_node_labels_to_integers(graph)
 
-    # Add some useful attributes    
-    graph.graph['crs'] = gdf.crs
+    # Add some useful attributes
+    graph.graph["crs"] = gdf.crs
 
     return graph
 ```
@@ -452,8 +456,11 @@ As we can see, `networkx` has actually added the nodes automatically to the grap
 
 ```python
 # Create a dictionary that contain the node attributes
-node_attrs = {node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]} for node in graph.nodes}
-nx.set_node_attributes(graph, node_attrs)  
+node_attrs = {
+    node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]}
+    for node in graph.nodes
+}
+nx.set_node_attributes(graph, node_attrs)
 ```
 
 ```python
@@ -494,11 +501,12 @@ G = gdf_to_graph(streets)
 
 positions = nx.get_node_attributes(G, "coords")
 
-nx.draw(G, 
-        pos=positions, 
-        node_color="red",
-        node_size=0.5,
-       )
+nx.draw(
+    G,
+    pos=positions,
+    node_color="red",
+    node_size=0.5,
+)
 ```
 
 _**Figure 8.X.** An undirected graph with nodes and edges representing the streets in the Helsinki City Centre area._
@@ -540,7 +548,7 @@ So far a `DiGraph` has been enough, because in our small example each pair of no
 Let's start by creating a function called `gdf_to_directed_graph()` which works mostly in a similar manner as our previous function `gdf_to_graph()` but with a few important tweaks that allows us to take into consideration the directionality:
 
 ```python
-def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, along=4):
+def gdf_to_directed_graph(gdf, direction="direction", both_ways=2, against=3, along=4):
     """Creates a NetworkX MultiDiGraph from road network GeoDataFrame.
 
     Parameters
@@ -565,7 +573,7 @@ def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, al
 
     # Create the NetworkX graph
     graph = nx.MultiDiGraph()
-        
+
     # Generate edge dictionary
     for edge in gdf.itertuples():
         coords = edge.geometry.coords
@@ -589,19 +597,22 @@ def gdf_to_directed_graph(gdf, direction='direction', both_ways=2, against=3, al
             graph.add_edge(first, last, **edge_attr)
 
         elif edge_attr[direction] == against:
-            
+
             # Add the edge against digitization direction
             graph.add_edge(last, first, **edge_attr)
 
     # Generate node attributes
-    node_attrs = {node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]} for node in graph.nodes}
-    nx.set_node_attributes(graph, node_attrs)  
-    
+    node_attrs = {
+        node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]}
+        for node in graph.nodes
+    }
+    nx.set_node_attributes(graph, node_attrs)
+
     # Relabel the indices
     graph = nx.convert_node_labels_to_integers(graph)
 
-    # Add some useful attributes    
-    graph.graph['crs'] = gdf.crs
+    # Add some useful attributes
+    graph.graph["crs"] = gdf.crs
 
     return graph
 ```
@@ -617,20 +628,23 @@ positions = {node: attrs["coords"] for node, attrs in G.nodes.data()}
 ```
 
 ```python
-edge_colors = ["blue" if attrs["direction"] == 2 else "red" for u, v, attrs in G.edges.data()]
+edge_colors = [
+    "blue" if attrs["direction"] == 2 else "red" for u, v, attrs in G.edges.data()
+]
 ```
 
 ```python
-fig, ax = plt.subplots(figsize=(10,10))
+fig, ax = plt.subplots(figsize=(10, 10))
 
-nx.draw(G, 
-        ax=ax,
-        pos=positions, 
-        node_color="black",
-        node_size=0.5,
-        edge_color=edge_colors,
-        arrows=False,
-       )
+nx.draw(
+    G,
+    ax=ax,
+    pos=positions,
+    node_color="black",
+    node_size=0.5,
+    edge_color=edge_colors,
+    arrows=False,
+)
 ```
 
 _**Figure 8.X.** A directed graph representing the streets in the Helsinki City Centre area, where the edge colors indicate the permitted direction of travel (blue for two-way streets and red for one-way streets)._

@@ -161,7 +161,7 @@ As we can see, now the maxspeed values are stored in integer format inside an `I
 ```python
 def road_class_to_kmph(road_class):
     """
-    Returns a speed limit value based on road class, 
+    Returns a speed limit value based on road class,
     using typical Finnish speed limit values within urban regions.
     """
     if road_class == "motorway":
@@ -189,13 +189,15 @@ mask
 ```
 
 ```python
-# Separate rows with / without speed limit information 
+# Separate rows with / without speed limit information
 mask = edges["maxspeed"].isnull()
 edges_without_maxspeed = edges.loc[mask].copy()
 edges_with_maxspeed = edges.loc[~mask].copy()
 
 # Apply the function and update the maxspeed
-edges_without_maxspeed["maxspeed"] = edges_without_maxspeed["highway"].apply(road_class_to_kmph)
+edges_without_maxspeed["maxspeed"] = edges_without_maxspeed["highway"].apply(
+    road_class_to_kmph
+)
 edges_without_maxspeed.head(5).loc[:, ["maxspeed", "highway"]]
 ```
 
@@ -209,9 +211,9 @@ edges["maxspeed"].unique()
 Great, now all of our edges have information about the speed limit. We can also visualize them:
 
 ```python
-# Convert the value into regular integer Series (the plotting requires having Series instead of IntegerArray) 
+# Convert the value into regular integer Series (the plotting requires having Series instead of IntegerArray)
 edges["maxspeed"] = edges["maxspeed"].astype(int)
-ax = edges.plot(column="maxspeed", figsize=(16,10), legend=True)
+ax = edges.plot(column="maxspeed", figsize=(16, 10), legend=True)
 ```
 
 _**Figure 8.X.** Speed limits (km/h) of the streets after filling in the missing values._
@@ -242,7 +244,7 @@ $$
 Finally, we can calculate the travel time in seconds using the formula above and add that as a new cost attribute for our network:
 
 ```python
-edges["travel_time_seconds"] = edges["length"] / (edges["maxspeed"]/3.6)
+edges["travel_time_seconds"] = edges["length"] / (edges["maxspeed"] / 3.6)
 edges.iloc[0:10, -4:]
 ```
 
@@ -261,7 +263,8 @@ G
 Now we have a similar routable graph as in the beginning, but now the network edges contain information about the speed limit and the travel time (`travel_time_seconds`) for all edges, which we can use as the cost when finding routes. We can easily visualize the graph with `osmnx` as follows: 
 
 ```python
-import osmnx as ox 
+import osmnx as ox
+
 ox.plot_graph(G)
 ```
 
@@ -297,7 +300,7 @@ orig_y, orig_x = ox.geocode(orig_address)  # notice the coordinate order (y, x)!
 
 # Destination
 dest_address = "Annankatu 18, Helsinki"
-dest_y, dest_x = ox.geocode(dest_address) 
+dest_y, dest_x = ox.geocode(dest_address)
 
 print("Origin coords:", orig_x, orig_y)
 print("Destination coords:", dest_x, dest_y)
@@ -312,8 +315,12 @@ Next, we need to find the closest nodes from the graph for both of our locations
 
 ```python
 # Find the closest nodes for origin and destination
-orig_node_id, dist_to_orig = ox.distance.nearest_nodes(G, X=orig_x, Y=orig_y, return_dist=True)
-dest_node_id, dist_to_dest = ox.distance.nearest_nodes(G, X=dest_x, Y=dest_y, return_dist=True)
+orig_node_id, dist_to_orig = ox.distance.nearest_nodes(
+    G, X=orig_x, Y=orig_y, return_dist=True
+)
+dest_node_id, dist_to_dest = ox.distance.nearest_nodes(
+    G, X=dest_x, Y=dest_y, return_dist=True
+)
 
 print("Origin node-id:", orig_node_id, "and distance:", dist_to_orig, "meters.")
 print("Destination node-id:", dest_node_id, "and distance:", dist_to_dest, "meters.")
@@ -334,13 +341,21 @@ With `weight` -parameter we can specify the attribute that we want to use as cos
 - Let's first calculate the routes between locations by driving, and also retrieve the travel times
 
 ```python
-# Calculate the paths 
-metric_path = nx.dijkstra_path(G, source=orig_node_id, target=dest_node_id, weight='length')
-time_path = nx.dijkstra_path(G, source=orig_node_id, target=dest_node_id, weight='travel_time_seconds')
+# Calculate the paths
+metric_path = nx.dijkstra_path(
+    G, source=orig_node_id, target=dest_node_id, weight="length"
+)
+time_path = nx.dijkstra_path(
+    G, source=orig_node_id, target=dest_node_id, weight="travel_time_seconds"
+)
 
 # Get also the actual travel times (summarize)
-travel_length = nx.dijkstra_path_length(G, source=orig_node_id, target=dest_node_id, weight='length')
-travel_time = nx.dijkstra_path_length(G, source=orig_node_id, target=dest_node_id, weight='travel_time_seconds')
+travel_length = nx.dijkstra_path_length(
+    G, source=orig_node_id, target=dest_node_id, weight="length"
+)
+travel_time = nx.dijkstra_path_length(
+    G, source=orig_node_id, target=dest_node_id, weight="travel_time_seconds"
+)
 ```
 
 ```python
@@ -361,8 +376,15 @@ For visualization purposes, we can use a handy function again from OSMnx called 
 
 ```python
 # Shortest path based on distance
-fig, ax = ox.plot_graph_route(G, metric_path, 
-                              edge_linewidth=0.2, node_size=0, bgcolor="white", edge_color="black", figsize=(14,10))
+fig, ax = ox.plot_graph_route(
+    G,
+    metric_path,
+    edge_linewidth=0.2,
+    node_size=0,
+    bgcolor="white",
+    edge_color="black",
+    figsize=(14, 10),
+)
 
 # Print some useful information as well
 print(f"Shortest path distance {travel_length: .1f} meters.")
@@ -372,12 +394,18 @@ _**Figure 8.X.** The shortest route between the origin and the destination based
 
 
 ```python
-fig, ax = ox.plot_graph_route(G, time_path,
-                             edge_linewidth=0.2, node_size=0, bgcolor="white", edge_color="black", figsize=(14,10))
+fig, ax = ox.plot_graph_route(
+    G,
+    time_path,
+    edge_linewidth=0.2,
+    node_size=0,
+    bgcolor="white",
+    edge_color="black",
+    figsize=(14, 10),
+)
 
 # Print some useful information as well
 print(f"Shortest path time {travel_time/60: .1f} minutes.")
-
 ```
 
 _**Figure 8.X.** The fastest route between the origin and the destination based on travel time._

@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.5
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -154,9 +154,7 @@ with sqlite3.connect(dbfp) as conn:
     # Add geometry column with specified CRS with defined geometry typehaving two dimensions
     conn.execute(
         "SELECT AddGeometryColumn({table}, 'wkb_geometry',\
-        {srid}, {geom_type}, 2);".format(
-            table=tbl_name, srid=srid, geom_type=geom_type
-        )
+        {srid}, {geom_type}, 2);".format(table=tbl_name, srid=srid, geom_type=geom_type)
     )
 
 # Convert Shapely geometries into well-known-binary format

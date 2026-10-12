@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -69,9 +69,9 @@ raster_layer
 Here we first updated the cells between the fourth and seventh rows and columns (`[4:7, 4:7]`) to have a value `5`, and then we updated the center of the matrix to represent the peak of the hill having a value `10`. As a result, we have a simple raster layer that simulates a simple terrain. We can also plot this raster layer, using `matplotlib` library and its `.imshow()` function that can be used to visualize arrays:
 
 ```python
-plt.imshow(raster_layer, cmap='terrain'))
-plt.colorbar(label='Elevation')
-plt.title('Simple Raster Layer representing a Hill')
+plt.imshow(raster_layer, cmap="terrain")
+plt.colorbar(label="Elevation")
+plt.title("Simple Raster Layer representing a Hill")
 plt.show()
 ```
 <!-- #region editable=true slideshow={"slide_type": ""} -->

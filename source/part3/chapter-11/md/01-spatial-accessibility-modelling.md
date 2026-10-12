@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.7
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -108,13 +108,17 @@ points.explore(max_zoom=13, color="red")
 Let's geocode an address for Helsinki Railway Station into a GeoDataFrame using `osmnx` and use that as our **origin** location:
 
 ```python
-from shapely.geometry import Point 
+from shapely.geometry import Point
 
 address = "Central Railway station, Helsinki, Finland"
 lat, lon = ox.geocode(address)
 
 # Create a GeoDataFrame out of the coordinates
-origin = gpd.GeoDataFrame({"geometry": [Point(lon, lat)], "name": "Helsinki Railway station", "id": [0]}, index=[0], crs="epsg:4326")
+origin = gpd.GeoDataFrame(
+    {"geometry": [Point(lon, lat)], "name": "Helsinki Railway station", "id": [0]},
+    index=[0],
+    crs="epsg:4326",
+)
 origin.explore(max_zoom=13, color="red", marker_kwds={"radius": 12})
 ```
 
@@ -144,11 +148,10 @@ helsinki_gtfs = r5py.sampledata.helsinki.gtfs
 transport_network = TransportNetwork(
     # OSM data
     helsinki_osm,
-    
     # A list of GTFS file(s)
     [
         helsinki_gtfs,
-    ]
+    ],
 )
 ```
 
@@ -189,8 +192,8 @@ travel_time_matrix = TravelTimeMatrix(
     transport_network,
     origins=origin,
     destinations=points,
-    departure=datetime.datetime(2022,2,22,8,30),
-    transport_modes=[TransportMode.TRANSIT, TransportMode.WALK]
+    departure=datetime.datetime(2022, 2, 22, 8, 30),
+    transport_modes=[TransportMode.TRANSIT, TransportMode.WALK],
 )
 ```
 
@@ -230,8 +233,8 @@ Since, calculating these kind of all-to-all travel time matrices is quite typica
 travel_time_matrix_all = TravelTimeMatrix(
     transport_network,
     origins=points,
-    departure=datetime.datetime(2022,2,22,8,30),
-    transport_modes=[TransportMode.TRANSIT, TransportMode.WALK]
+    departure=datetime.datetime(2022, 2, 22, 8, 30),
+    transport_modes=[TransportMode.TRANSIT, TransportMode.WALK],
 )
 travel_time_matrix_all.head()
 ```
@@ -260,7 +263,9 @@ median_times.mean()
 Naturally, we can also visualize these values on a map:
 
 ```python
-overall_access = pop_grid.merge(median_times.reset_index(), left_on="id", right_on="from_id")
+overall_access = pop_grid.merge(
+    median_times.reset_index(), left_on="id", right_on="from_id"
+)
 overall_access.head()
 ```
 
@@ -294,9 +299,8 @@ travel_details = DetailedItineraries(
     transport_network,
     origins=origin,
     destinations=points_sample,
-    departure=datetime.datetime(2022,2,22,8,30),
+    departure=datetime.datetime(2022, 2, 22, 8, 30),
     transport_modes=[TransportMode.TRANSIT, TransportMode.WALK],
-    
     # With following attempts to snap all origin and destination points to the transport network before routing
     snap_to_network=True,
 )
@@ -330,33 +334,67 @@ As you can see, the result contains much more information than earlier, see the 
 In the following, we will make a nice interactive visualization out of the results, that shows the fastest routes and the mode of transport between the given origin-destination pairs (with multiple alternative trips/routes):
 
 ```python
-import folium 
+import folium
 import folium.plugins
 
 # Convert travel mode to string (from r5py.TransportMode object)
 travel_details["mode"] = travel_details["transport_mode"].astype(str)
 
 # Calculate travel time in minutes (from timedelta)
-travel_details["travel time (min)"] = (travel_details["travel_time"].dt.total_seconds() / 60).round(2)
+travel_details["travel time (min)"] = (
+    travel_details["travel_time"].dt.total_seconds() / 60
+).round(2)
 
 # Generate text for given trip ("origin" to "destination")
-travel_details["trip"] = travel_details["from_id"].astype(str) + " to " + travel_details["to_id"].astype(str)
+travel_details["trip"] = (
+    travel_details["from_id"].astype(str) + " to " + travel_details["to_id"].astype(str)
+)
 
 # Choose columns for visualization
-selected_cols = ["geometry", "distance", "mode", "route_id", "travel time (min)", "trip", "from_id", "to_id", "option", "segment"  ]
+selected_cols = [
+    "geometry",
+    "distance",
+    "mode",
+    "route_id",
+    "travel time (min)",
+    "trip",
+    "from_id",
+    "to_id",
+    "option",
+    "segment",
+]
 
 # Generate the map
 m = travel_details[selected_cols].explore(
-    tooltip=["trip", "option", "segment", "mode", "route_id", "travel time (min)", "distance"],
+    tooltip=[
+        "trip",
+        "option",
+        "segment",
+        "mode",
+        "route_id",
+        "travel time (min)",
+        "distance",
+    ],
     column="mode",
     tiles="CartoDB.Positron",
-    )
+)
 
 # Add marker for the origin
-m = origin.explore(m=m, marker_type="marker", marker_kwds=dict(icon=folium.Icon(color="green", icon="train", prefix="fa", )))
+m = origin.explore(
+    m=m,
+    marker_type="marker",
+    marker_kwds=dict(
+        icon=folium.Icon(
+            color="green",
+            icon="train",
+            prefix="fa",
+        )
+    ),
+)
 
 # Add customized markers for destinations
-points_sample.apply(lambda row: (
+points_sample.apply(
+    lambda row: (
         # Marker with destination ID number attached to the icon
         folium.Marker(
             (row["geometry"].y, row["geometry"].x),
@@ -365,13 +403,14 @@ points_sample.apply(lambda row: (
                 number=row["id"],
                 border_color="#728224",
                 text_color="#728224",
-            )
-        # Add the marker to existing map    
-        ).add_to(m)), axis=1,
+            ),
+            # Add the marker to existing map
+        ).add_to(m)
+    ),
+    axis=1,
 )
 
 m
-
 ```
 
 As a result, now we have a nice map that shows alternative routes between Railway station and the given destinations in the study area. 
@@ -433,7 +472,14 @@ points["geometry"] = points.centroid
 
 # Reproject
 points = points.to_crs(epsg=4326)
-points.plot("asukkaita", scheme="natural_breaks", cmap="Reds", figsize=(12,12), legend=True, markersize=3.5)
+points.plot(
+    "asukkaita",
+    scheme="natural_breaks",
+    cmap="Reds",
+    figsize=(12, 12),
+    legend=True,
+    markersize=3.5,
+)
 ```
 
 Next, we will geocode the address for Helsinki Railway station. For doing this, we can use `oxmnx` library and its handy `.geocode()` -function:
@@ -446,7 +492,11 @@ from shapely.geometry import Point
 lat, lon = ox.geocode("Rautatieasema, Helsinki")
 
 # Create a GeoDataFrame out of the coordinates
-station = gpd.GeoDataFrame({"geometry": [Point(lon, lat)], "name": "Helsinki Railway station", "id": [0]}, index=[0], crs="epsg:4326")
+station = gpd.GeoDataFrame(
+    {"geometry": [Point(lon, lat)], "name": "Helsinki Railway station", "id": [0]},
+    index=[0],
+    crs="epsg:4326",
+)
 station.explore(max_zoom=13, color="red", marker_kwds={"radius": 12})
 ```
 
@@ -460,7 +510,7 @@ station.explore(max_zoom=13, color="red", marker_kwds={"radius": 12})
 
 # Note: This cell is hidden from the website.
 # This cell does not have an effect on local computer.
-# It’s used to set a stricter memory limit if the Notebook is running on CSC Noppe or Binder, 
+# It’s used to set a stricter memory limit if the Notebook is running on CSC Noppe or Binder,
 # otherwise, the examples would fail
 
 import sys
@@ -478,13 +528,7 @@ from r5py import TransportNetwork, TravelTimeMatrix, TransportMode
 # Filepath to OSM data
 osm_fp = "shared/data/Helsinki/Helsinki.osm.pbf"
 
-transport_network = TransportNetwork(
-    osm_fp,
-    [
-        "shared/data/Helsinki/GTFS_Helsinki.zip"
-    ]
-)
-
+transport_network = TransportNetwork(osm_fp, ["shared/data/Helsinki/GTFS_Helsinki.zip"])
 ```
 
 - After this step, we can do the routing
@@ -494,7 +538,7 @@ travel_time_matrix = TravelTimeMatrix(
     transport_network,
     origins=station,
     destinations=points,
-    departure=datetime.datetime(2022,8,15,8,30),
+    departure=datetime.datetime(2022, 8, 15, 8, 30),
     transport_modes=[TransportMode.TRANSIT, TransportMode.WALK],
 )
 ```
@@ -513,7 +557,14 @@ geo.head()
 - Finally, we can visualize the travel time map and investigate how the railway station in Helsinki can be accessed from different parts of the region, by public transport.
 
 ```python
-ax = geo.plot(column="travel_time", cmap="RdYlBu", scheme="equal_interval", k=13, legend=True, figsize=(18,18))
+ax = geo.plot(
+    column="travel_time",
+    cmap="RdYlBu",
+    scheme="equal_interval",
+    k=13,
+    legend=True,
+    figsize=(18, 18),
+)
 ax = station.to_crs(crs=geo.crs).plot(ax=ax, color="green", markersize=40)
 ```
 
@@ -535,7 +586,14 @@ ttm_bike = TravelTimeMatrix(
 
 ```python
 geo = pop_grid.merge(ttm_bike, left_on="id", right_on="to_id")
-ax = geo.plot(column="travel_time", cmap="RdYlBu", scheme="equal_interval", k=13, legend=True, figsize=(18,18))
+ax = geo.plot(
+    column="travel_time",
+    cmap="RdYlBu",
+    scheme="equal_interval",
+    k=13,
+    legend=True,
+    figsize=(18, 18),
+)
 ax = station.to_crs(crs=geo.crs).plot(ax=ax, color="green", markersize=40)
 ```
 
@@ -549,7 +607,12 @@ One quite typical accessibility analysis is to find out catchment areas for mult
 import osmnx as ox
 
 # Fetch libraries from multiple cities simultaneously
-query = ["Helsinki, Finland", "Espoo, Finland", "Vantaa, Finland", "Kauniainen, Finland"]
+query = [
+    "Helsinki, Finland",
+    "Espoo, Finland",
+    "Vantaa, Finland",
+    "Kauniainen, Finland",
+]
 libraries = ox.features_from_place(query, tags={"amenity": ["library"]})
 
 # Show first rows
@@ -583,7 +646,7 @@ travel_time_matrix = TravelTimeMatrix(
     transport_network,
     origins=libraries,
     destinations=points,
-    departure=datetime.datetime(2022,8,15,8,30),
+    departure=datetime.datetime(2022, 8, 15, 8, 30),
     transport_modes=[TransportMode.TRANSIT, TransportMode.WALK],
 )
 ```
@@ -607,9 +670,15 @@ Then we can make a table join with the grid in a similar manner as previously an
 geo = pop_grid.merge(closest_library, left_on="id", right_on="to_id")
 
 # Visualize the data
-ax = geo.plot(column="travel_time", cmap="RdYlBu", scheme="natural_breaks", k=10, legend=True, figsize=(18,18))
+ax = geo.plot(
+    column="travel_time",
+    cmap="RdYlBu",
+    scheme="natural_breaks",
+    k=10,
+    legend=True,
+    figsize=(18, 18),
+)
 ax = station.to_crs(crs=geo.crs).plot(ax=ax, color="green", markersize=40)
-
 ```
 
 That's it! As you can, see now we have a nice map showing the catchment areas for each library.
@@ -622,12 +691,14 @@ After we have calculated the travel times to the closest services, we can start 
 ```python
 # Extract the grid cells within given travel time threshold
 threshold = 15
-access = geo.loc[geo["travel_time"]<=threshold].copy()
+access = geo.loc[geo["travel_time"] <= threshold].copy()
 ```
 
 ```python
-ax = access.plot(column="asukkaita", figsize=(10,5), legend=True)
-ax.set_title(f"The number of people living within {threshold} minutes travel time threshold.");
+ax = access.plot(column="asukkaita", figsize=(10, 5), legend=True)
+ax.set_title(
+    f"The number of people living within {threshold} minutes travel time threshold."
+);
 ```
 
 Now we can easily calculate how many people or what is the proportion of people that can access the given service within the given travel time threshold:  
@@ -635,7 +706,9 @@ Now we can easily calculate how many people or what is the proportion of people 
 ```python
 pop_within_threshold = access["asukkaita"].sum()
 pop_share = pop_within_threshold / geo["asukkaita"].sum()
-print(f"Population within accessibility thresholds: {pop_within_threshold} ({pop_share*100:.0f} %)")
+print(
+    f"Population within accessibility thresholds: {pop_within_threshold} ({pop_share*100:.0f} %)"
+)
 ```
 
 We can see that approximately 55 % of the population in the region can access a library within given time threshold.
@@ -656,7 +729,12 @@ travel_time_matrix.head()
 ```python
 threshold = 15
 # Count the number of opportunities from each grid cell
-opportunities = travel_time_matrix.loc[travel_time_matrix["travel_time"]<=threshold].groupby("to_id")["from_id"].count().reset_index()
+opportunities = (
+    travel_time_matrix.loc[travel_time_matrix["travel_time"] <= threshold]
+    .groupby("to_id")["from_id"]
+    .count()
+    .reset_index()
+)
 
 # Rename the column for more intuitive one
 opportunities = opportunities.rename(columns={"from_id": "num_opportunities"})
@@ -670,8 +748,8 @@ opportunities = pop_grid.merge(opportunities, left_on="id", right_on="to_id")
 
 ```python
 # Plot the results
-ax = opportunities.plot(column="num_opportunities", figsize=(10,5), legend=True)
-ax.set_title(f"Number of opportunities within {threshold} minutes."); 
+ax = opportunities.plot(column="num_opportunities", figsize=(10, 5), legend=True)
+ax.set_title(f"Number of opportunities within {threshold} minutes.");
 ```
 
 Now we can clearly see the areas with highest level of accessibility to given service. This is called cumulative opportunities measure or "Hansen's Accessibility" measure after its developer.  
