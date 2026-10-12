@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-# B.2 Exercise solutions
+# A.2 Exercise solutions
 
 
 ## Chapter 2
