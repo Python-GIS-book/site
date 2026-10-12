@@ -7,5 +7,5 @@ This section is under construction.
    :maxdepth: 2
    :caption: Contents:
 
-   online-extras/data/index
-   online-extras/python-tips/index
+   data/index
+   python-tips/index
