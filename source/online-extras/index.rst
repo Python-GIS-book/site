@@ -1,5 +1,5 @@
-Front matter
-============
+Online extras
+=============
 
 This section is under construction.
 
@@ -8,8 +8,5 @@ This section is under construction.
         :maxdepth: 2
         :caption: Contents:
 
-        preface
-        introduction
-        getting-started
-        using-this-book
-
+        online-extras/data/index
+        online-extras/python-tips/index
